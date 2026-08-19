@@ -1,0 +1,92 @@
+slug: unitree-b2
+navn: B2
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+noter: >-
+  EKSEMPELPOST. Tallene er transskriberet fra repoets egen DATAMODEL.md
+  (maalt 19. aug 2026), ikke hentet paa ny af kodeagenten og ikke efterproevet
+  felt for felt mod kilden. Dataagentens rigtige post erstatter denne.
+felter:
+  egenvaegt:
+    vaerdi: 60
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+  nyttelast_gaaende:
+    vaerdi: 40
+    enhed: kg
+    operator: ">"
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+  nyttelast_staaende:
+    vaerdi: 120
+    enhed: kg
+    operator: ">="
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+  hastighed:
+    vaerdi: 6
+    enhed: m/s
+    operator: ">"
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+  haeldning:
+    vaerdi: 45
+    enhed: "°"
+    operator: ">"
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi: 40
+    enhed: cm
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+    note: producentens eget maksimumtal for en enkelt forhindring
+  trappetrin_kontinuerlig:
+    min: 20
+    maks: 25
+    enhed: cm
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+    note: kun det kontinuerlige tal maa bruges i sammenligninger (regel 7)
+  batteri_wh:
+    vaerdi: 2250
+    enhed: Wh
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+  driftstid:
+    vaerdi: 4
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 20, enhed: kg }
+    kilde: https://www.unitree.com/b2
+    hentet: 2026-08-19
+    advarsel: >-
+      samme produktside oplyser ogsaa "> 5 t uden last" og "Battery Life 4-6h".
+      Tre tal for driftstid paa én side; her staar det med lastbetingelse.
+  frihedsgrader: ikke_oplyst
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

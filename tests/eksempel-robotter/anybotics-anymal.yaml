@@ -1,0 +1,59 @@
+slug: anybotics-anymal
+navn: ANYmal
+producent: ANYbotics
+producentland: Schweiz
+status: i_produktion
+noter: >-
+  EKSEMPELPOST. Tallene er transskriberet fra repoets egen DATAMODEL.md
+  (maalt 19. aug 2026), ikke hentet paa ny og ikke efterproevet felt for felt.
+  Producentlandet er skrevet af os som identitetsfelt, ikke hentet fra siden.
+felter:
+  nyttelast_gaaende:
+    vaerdi: 10
+    enhed: kg
+    kilde: https://www.anybotics.com/robotics/anymal/
+    hentet: 2026-08-19
+    note: producenten skriver "ekstra nyttelast" uden at oplyse, om den er gaaende eller staaende
+  driftstid:
+    vaerdi: 90
+    enhed: min
+    ved_last: ikke_oplyst
+    kilde: https://www.anybotics.com/robotics/anymal/
+    hentet: 2026-08-19
+  ce_oplyst:
+    vaerdi: true
+    kilde: https://www.anybotics.com/robotics/anymal/
+    hentet: 2026-08-19
+    note: >-
+      produktsiden skriver "FCC, CE and Anatel compliant". Den europaeiske
+      producent siger det af sig selv; de to andre i proeven goer ikke (F6).
+  egenvaegt: ikke_oplyst
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
