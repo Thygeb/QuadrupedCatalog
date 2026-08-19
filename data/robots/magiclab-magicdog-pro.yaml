@@ -1,0 +1,122 @@
+slug: magiclab-magicdog-pro
+navn: MagicDog PRO
+producent: MagicLab
+producentland: Kina
+producentby: Wujiang/Suzhou
+status: i_produktion
+noter:
+  - "TO PRODUCENTSITES, DER MODSIGER HINANDEN. magiclab.top og det nye magiclabglobal.com er begge i luften, begge producentens egne, og de er ikke enige om vaegt, forhindringshoejde, frihedsgrader, driftstid og hastighed. Kilden her er magiclab.top; det globale sites afvigende tal staar i advarslerne. Hvilket site der er primaerkilde, er ikke indsamlerens beslutning."
+  - "PRO og EDU deler 41 af 43 tabelraekker. Den eneste specifikationsforskel er SDK-adgang - og fortegnet er kontraintuitivt: EDU har SDK'et, PRO har det ikke."
+felter:
+  egenvaegt:
+    vaerdi: 15.8
+    enhed: kg
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "UDEN BATTERI (Net Weight, Excluding Battery) - unikt i indsamlingen; alle andre modeller, ogsaa MagicLabs egne MagicDog-W og Y1, oplyser vaegt MED batteri. Uden den markering bliver nyttelast delt med egenvaegt systematisk forkert, og forkert i den flatterende retning. Det globale site oplyser 17 kg med batteri for samme robot; de to tal er forenelige, hvis batteriet vejer ca. 1,2 kg, men det er en udledning og skrives ikke ind som data."
+  laengde:
+    vaerdi: 670
+    enhed: mm
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 350
+    enhed: mm
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 560
+    enhed: mm
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Liggende (Lying Down) 720 x 440 x 290 mm. Skemaet har ingen felter til foldemaal."
+  frihedsgrader:
+    vaerdi: 13
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Degrees of Freedom (DOF) 13 og separat Aluminum Alloy Precision Joint Motor 12. Det globale site skriver samme tal som 12 + 1 (head DOF) - altsaa 12 i benene plus hovedet."
+  nyttelast_gaaende:
+    vaerdi: 5
+    enhed: kg
+    operator: "~"
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver ca. 5 kg (maks. ca. 10 kg) med tegnet U+2248 og fuldbredde-parenteser. Der skelnes ikke mellem gaaende og staaende last."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 3.0
+    enhed: m/s
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Etiket Maximum Speed. Det globale site skriver samme tal som Movement Speed 0-3.0m/s, altsaa et interval frem for et maksimum."
+  haeldning:
+    vaerdi: 40
+    enhed: grader
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi: 15
+    enhed: cm
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Etiket Maximum Obstacle Height. Det globale site skriver Max Obstacle Step Height Approx. 18cm (lab data) for samme robot - 20 % hoejere, og med en laboratoriemarkering det aeldre site ikke har."
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh:
+    vaerdi: ikke_oplyst
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Producenten trykker 29.6V 8200mAh 240.7W Fast Release. W er EFFEKT, ikke energi. Fejlen findes paa begge sprog - den er ikke et oversaettelsesuheld, men producentens egen. Selv laest velvilligt som 240,7 Wh passer det ikke: 29,6 V x 8,2 Ah = 242,7 Wh. Vi retter ikke, og vi regner ikke Wh ud af mAh og volt."
+  driftstid:
+    vaerdi_min: 1.5
+    vaerdi_maks: 3.0
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Det globale site skriver i stedet Approx. 2.5 hours of continuous movement."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Battery Charging Dock markeret med udfyldt cirkel. Tabellen bruger udfyldt cirkel = ja og aaben cirkel = nej, og har INGEN tredje tilstand for ikke oplyst. En scraper, der kun leder efter den udfyldte cirkel, registrerer et nej som en manglende oplysning."
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "2D LiDAR - type uden model, taeller ikke under D4."
+  kameraer:
+    vaerdi: "dobbeltkamera + dybdekamera + 4K HD-kamera + fiskeoejekamera + ultralydssensor"
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+  compute:
+    vaerdi: "8-kernet CPU"
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+  ros2:
+    vaerdi: ikke_oplyst
+    kilde: https://support.magiclab.top/docs/dog/about
+    hentet: 2026-08-19
+    advarsel: "Producentens egen udviklerdokumentation for MagicDog HAR ROS2 (ROS2 API, ROS2 SDK-vejledning, ros2_reference). Men denne variant har SDK-adgang markeret som NEJ paa produktsiden, og D1 - om producentens udviklerdokumentation maa taelle som kilde - er aaben. Feltet er derfor ikke udfyldt. Dokumentationen er desuden kun paa kinesisk."
+  sdk_sprog:
+    vaerdi: nej
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "SDK Support er markeret med aaben cirkel = NEJ paa PRO. EDU-varianten har udfyldt cirkel = ja. Det er den eneste specifikationsforskel mellem de to modeller, og fortegnet er kontraintuitivt."
+  autonominiveau:
+    vaerdi: "Smart Obstacle Avoidance; Patrol Mode; Smart Following"
+    kilde: https://www.magiclab.top/en/dog
+    hentet: 2026-08-19
+    advarsel: "Alle tre markeret ja. Kvalitativt, ikke et niveau paa en skala."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

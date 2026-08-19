@@ -1,0 +1,104 @@
+slug: deep-robotics-x30
+navn: Jueying X30
+producent: DEEP Robotics
+producentland: Kina
+producentby: Hangzhou
+status: i_produktion
+noter:
+  - "Kinesisk og engelsk side er enige om samtlige tal. Eneste forskel: EN tilfoejer (battery included) til vaegten."
+  - "X30 oplyser INGEN nyttelast - hverken gaaende eller staaende, paa noget sprog. Den aeldre X20 oplyser 20 kg. Producentens flagskib er blevet mindre oplysende end sin forgaenger."
+felter:
+  egenvaegt:
+    vaerdi: 56
+    enhed: kg
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Med batteri (battery included)."
+  laengde:
+    vaerdi: 1000
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 695
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "USIKKER TILDELING. Producenten trykker 1000*695*470(mm) uden at maerke akserne. Samme producents X20-side trykker 950mm*470mm*700mm, hvor 700 mm efter alt at doemme er hoejden - altsaa en anden raekkefoelge. Her er den trykte raekkefoelge fulgt bogstaveligt (2. tal = bredde, 3. tal = hoejde). Bredde og hoejde kan vaere byttet om. Ikke afgjort ud fra kilden."
+  hoejde:
+    vaerdi: 470
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "USIKKER TILDELING - se bredde. Den trykte raekkefoelge er fulgt bogstaveligt."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 4
+    enhed: m/s
+    operator: ">="
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: "<="
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Tegn U+2264 - et LOFT. X20 fra samme producent skriver >= 30 grader, altsaa et GULV. Samme producent, samme felt, modsat ulighedstegn. En normaliserende importoer retter det stiltiende; det skal han ikke."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 20
+    enhed: cm
+    operator: ">="
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Kombineret etiket Step/Obstacle H. Lagt i det strengeste af de to felter; forhindring_enkelt staar tom. Den kinesiske etiket skriver eksplicit trin, hvilket berettiger den strenge placering."
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi_min: 2.5
+    vaerdi_maks: 4
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Raekkevidde >= 10 km. Ingen lastbetingelse."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: "72 V BAT"
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Output power supply (72V BAT). Spaending oplyst, watt ikke."
+  dataporte:
+    vaerdi: Ethernet
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
