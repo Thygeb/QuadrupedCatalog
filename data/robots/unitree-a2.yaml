@@ -1,0 +1,153 @@
+slug: unitree-a2
+navn: A2
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+varianter: [A2, A2-PRO]
+noter:
+  - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene staar paa de paagaeldende felter."
+felter:
+  egenvaegt:
+    vaerdi: 42
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Med batteri. Producenten oplyser ogsaa ca. 35 kg uden batteri - batteriet vejer altsaa ca. 7 kg. A2 er en af faa modeller, der oplyser begge."
+  laengde:
+    vaerdi: 820
+    enhed: mm
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 440
+    enhed: mm
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 570
+    enhed: mm
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Foldet 720 x 550 x 220 mm. Skemaet har ingen felter til foldemaal."
+  frihedsgrader:
+    vaerdi: 12
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  nyttelast_gaaende:
+    vaerdi: 25
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Producenten tilfoejer ideelt ca. 35 kg."
+  nyttelast_staaende:
+    vaerdi: 100
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  hastighed:
+    vaerdi_min: 0
+    vaerdi_maks: 3.7
+    enhed: m/s
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Driftsomraade 0-3,7 m/s; producenten angiver desuden op til ca. 5 m/s som spidsbelastning."
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: "~"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi_min: 0.5
+    vaerdi_maks: 1
+    enhed: m
+    operator: "~"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er Max Climb Height, opgivet som interval ca. 0,5~1 m."
+  trappetrin_kontinuerlig:
+    vaerdi: 30
+    enhed: cm
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Etiket: Stair Climbing Capability, Max Step Height."
+  ip_klasse:
+    vaerdi: IP56
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    varianter:
+      A2: IP56
+      A2-PRO: "IP56-IP67 (kernekomponenter IP67)"
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: 453.6
+    enhed: Wh
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbeltbatteri 907,2 Wh (18000 mAh). Begge producentens egne regnestykker gaar praecist op."
+  driftstid:
+    vaerdi: 3
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 25, enhed: kg }
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Producenten oplyser ogsaa > 5 t uden last (ca. 20 km). Her bruges tallet med lastbetingelse (ca. 12,5 km)."
+  hot_swap:
+    vaerdi: ja
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Dual slots, dual batteries - markedsfoeres som hot-swap."
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "A2: LiDAR x1. A2-PRO: LiDAR x2. Type uden model - taeller ikke under D4's foreloebige regel."
+  kameraer:
+    vaerdi: "HD-kamera x1"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  compute:
+    vaerdi: "8-kernet CPU + Intel Core i7; tilvalg udvidelsesdok"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  ros2: ikke_oplyst
+  sdk_sprog:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Siden skriver Secondary Development: Supported, men naevner ingen sprog."
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: "12 V / 24 V / BAT"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Spaending oplyst, watt ikke."
+  dataporte:
+    vaerdi: "RS485 x2; CAN x2; Gigabit Ethernet x2; USB 3.0 Type-C x4"
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+  pris:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/A2
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Contact Sales. Shopsiden viser pladsholderen 100.000 USD med teksten Contact us for the real price - samme beloeb som B2."
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

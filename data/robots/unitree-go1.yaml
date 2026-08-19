@@ -1,0 +1,117 @@
+slug: unitree-go1
+navn: Go1
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+varianter: [Air, Pro, Edu]
+felter:
+  egenvaegt:
+    vaerdi: 12
+    enhed: kg
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    advarsel: "Staaende maal er ikke oplyst. Kun foldemaalet 0,588 x 0,22 x 0,29 m er trykt, og skemaet har ingen felter til foldemaal."
+  frihedsgrader:
+    vaerdi: 12
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme graensetilfaelde som Go2."
+  nyttelast_gaaende:
+    vaerdi: 4
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    varianter:
+      Air: "ca. 4 kg (graense ca. 10 kg)"
+      Pro: "ca. 4 kg (graense ca. 10 kg)"
+      Edu: "ca. 6 kg (graense ca. 10 kg)"
+    advarsel: "Producenten skriver kun Load uden at skelne gaaende/staaende. Placeringen er en slutning. Vaerdien er Air/Pro."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi_min: 0
+    vaerdi_maks: 2.5
+    enhed: m/s
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    varianter:
+      Air: "0~2,5 m/s"
+      Pro: "0~3,5 m/s"
+      Edu: "0~3,7 m/s (graense ca. 5 m/s)"
+    advarsel: "Vaerdien er Air-variantens."
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    advarsel: "Siden skriver kun Battery: 1 piece - hverken mAh, V eller Wh."
+  driftstid:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    advarsel: "Intet tal paa siden. Long Endurance staar som overskrift uden vaerdi."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    advarsel: "Radar: 2D eller 3D, tilvalg - type uden model."
+  kameraer:
+    vaerdi: "1 par fiskeoeje-binokulaert dybdekamera"
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    varianter:
+      Air: "1 par"
+      Pro: "5 par"
+      Edu: "5 par"
+    advarsel: "Vaerdien er Air-variantens."
+  compute:
+    vaerdi: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    varianter:
+      Air: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
+      Pro: "3x samme"
+      Edu: "2 Jetson Nano + (1 Nano eller 1 NX)"
+    advarsel: "Vaerdien er Air-variantens."
+  ros2: ikke_oplyst
+  sdk_sprog:
+    vaerdi: Python
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    varianter:
+      Air: ikke_oplyst
+      Pro: ikke_oplyst
+      Edu: Python
+    advarsel: "Kun Edu: Python Programming Interface. Vaerdien gaelder Edu."
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris:
+    vaerdi: 2700
+    enhed: USD
+    kilde: https://www.unitree.com/go1
+    hentet: 2026-08-19
+    varianter:
+      Air: 2700
+      Pro: 3500
+      Edu: "Contact Sales"
+    advarsel: "Vaerdien er Air-variantens. Priser paa producentens egen produktside, ikke shopsidens pladsholder."
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
