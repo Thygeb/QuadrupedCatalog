@@ -25,9 +25,11 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:\\Praktik\\guide-wt-kina",
-      "C:\\Praktik\\guide-wt-vest",
-      "C:\\Praktik\\guide-wt-felt"
+      "C:\\Praktik\\websites\\udstilling-wt-kode",
+      "C:\\Praktik\\websites\\udstilling-wt-eu-belaeg",
+      "C:\\Praktik\\websites\\udstilling-wt-producenter-resten",
+      "C:\\Praktik\\websites\\udstilling-wt-vest-2",
+      "C:\\Praktik\\websites\\udstilling-wt-retning"
     ]
   },
   "hooks": {
