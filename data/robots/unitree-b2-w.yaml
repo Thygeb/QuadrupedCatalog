@@ -1,0 +1,116 @@
+slug: unitree-b2-w
+navn: B2-W
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+noter:
+  - "Hjulbenet udgave af B2."
+felter:
+  egenvaegt:
+    vaerdi: 85
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+    advarsel: "Inkl. batteri."
+  laengde:
+    vaerdi: 1098
+    enhed: mm
+    operator: "~"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 550
+    enhed: mm
+    operator: "~"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 758
+    enhed: mm
+    operator: "~"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+    advarsel: "Foldet ca. 950 x 550 x 450 mm. Skemaet har ingen felter til foldemaal."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 40
+    enhed: kg
+    operator: ">"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  nyttelast_staaende:
+    vaerdi: 120
+    enhed: kg
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+    advarsel: "UDEN operator. B2 skriver >= 120 kg for samme tal. Forskellen er bevaret med vilje - ensretning ville enten opfinde eller fjerne et forbehold."
+  hastighed:
+    vaerdi: 15
+    enhed: km/t
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+    advarsel: "Eneste Unitree-model opgivet i km/t i stedet for m/s. Producentens fodnote [1] gaelder ogsaa her."
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: ">"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi: 40
+    enhed: cm
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  trappetrin_kontinuerlig:
+    vaerdi_min: 20
+    vaerdi_maks: 25
+    enhed: cm
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: 2000
+    enhed: Wh
+    operator: ">"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver > 2 kWh ved 58 V - operatoren sidder paa selve kapaciteten. Omregnet til Wh uden aendring af tallet."
+  driftstid:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+    advarsel: "Ingen timer paa siden. Kun raekkevidde: 25 km ved 40 kg last og ca. 30 km uden last. Negativkontrolleret: hours/Nh findes ikke i talsammenhaeng. Ordet endurance baerer her en afstand, ikke en tid."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute:
+    vaerdi: "Intel Core i5 / i7; tilvalg i7 eller NVIDIA Orin NX"
+    kilde: https://www.unitree.com/b2-w
+    hentet: 2026-08-19
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

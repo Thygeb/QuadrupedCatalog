@@ -1,0 +1,142 @@
+slug: unitree-a2-w
+navn: A2-W
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+varianter: [A2-W, A2-W PRO]
+noter:
+  - "Hjulbenet udgave af A2. Alt der ikke afviger, er ordret identisk med A2's side."
+felter:
+  egenvaegt:
+    vaerdi: 52
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Med batteri. Uden batteri ca. 45 kg."
+  laengde:
+    vaerdi: 900
+    enhed: mm
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 440
+    enhed: mm
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 625
+    enhed: mm
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Foldet 930 x 685 x 210 mm - laengere end staaende. Skemaet har ingen felter til foldemaal."
+  frihedsgrader:
+    vaerdi: 16
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  nyttelast_gaaende:
+    vaerdi: 25
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  nyttelast_staaende:
+    vaerdi: 100
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  hastighed:
+    vaerdi_min: 0
+    vaerdi_maks: 3
+    enhed: m/s
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Driftsomraade 0-3 m/s; spidsbelastning op til ca. 6 m/s. A2-W er hurtigere paa spids end A2 (ca. 6 mod ca. 5), men langsommere i drift (0-3 mod 0-3,7)."
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: "~"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi_min: 0.5
+    vaerdi_maks: 1
+    enhed: m
+    operator: "~"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Etiket Max Climb Height."
+  trappetrin_kontinuerlig:
+    vaerdi: 30
+    enhed: cm
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  ip_klasse:
+    vaerdi: IP56
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    varianter:
+      A2-W: IP56
+      A2-W PRO: "IP56-IP67"
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: 453.6
+    enhed: Wh
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbelt 907,2 Wh. Samme batteri som A2."
+  driftstid:
+    vaerdi: 1.5
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 25, enhed: kg }
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Ogsaa > 3,5 t uden last (ca. 35 km). Ved samme last og samme batteri har A2-W under det halve af A2's driftstid (> 1,5 t mod > 3 t), men stoerre raekkevidde (ca. 15 km mod ca. 12,5 km)."
+  hot_swap:
+    vaerdi: ja
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "Dual slots, dual batteries."
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+    advarsel: "LiDAR x1 (x2 paa PRO) - type uden model, taeller ikke under D4."
+  kameraer:
+    vaerdi: "HD-kamera x1"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  compute:
+    vaerdi: "8-kernet CPU + Intel Core i7; tilvalg udvidelsesdok"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: "12 V / 24 V / BAT"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  dataporte:
+    vaerdi: "RS485 x2; CAN x2; Gigabit Ethernet x2; USB 3.0 Type-C x4"
+    kilde: https://www.unitree.com/A2-W
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

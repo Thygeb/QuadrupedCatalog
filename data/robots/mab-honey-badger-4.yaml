@@ -1,0 +1,92 @@
+slug: mab-honey-badger-4
+navn: Honey Badger 4.0
+producent: MAB Robotics
+producentland: Polen
+producentby: Poznan
+status: udgaaet
+efterfoelger: mab-honey-badger-5
+noter:
+  - "PRODUCENTEN ERKLAERER SELV MODELLEN UDGAAET, ordret (inklusive producentens egen stavefejl): With the launch of the new version, sales of the Honey Badger 4.0 have officialy come to an end. Og: Don't worry, we'll support your existing HB4.0 robot during the warranty period."
+  - "Generationsskiftet gaar den forkerte vej paa to felter: 5.0 er tungere (17 mod 12 kg) og har lavere taethedsklasse (IP66 mod up to IP67), mens nyttelasten stiger (5 mod 4 kg) og driftstemperaturen udvides (0-45 mod 0-40 C)."
+felter:
+  egenvaegt:
+    vaerdi: 12
+    enhed: kg
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+  laengde:
+    vaerdi: 60
+    enhed: cm
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 40
+    enhed: cm
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi_min: 15
+    vaerdi_maks: 50
+    enhed: cm
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+    advarsel: "Hoejden er et interval, liggende til fuldt strakt. Bevaret som interval."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 4
+    enhed: kg
+    operator: "<="
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver up to 4 kg. Der skelnes ikke mellem gaaende og staaende last."
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP67
+    operator: "<="
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver up to IP67 i specifikationstabellen. Operatoren er producentens og skal bevares - up to IP67 er ikke det samme som IP67. MEN SIDEN MODSIGER SIG SELV: broedteksten skriver to gange det staerkere IP67-rated construction, uden forbehold. IP67 optraeder 6 gange i filen, hvoraf kun 1 er up to IP67. Den forsigtige tabelvaerdi er brugt."
+  temp_min:
+    vaerdi: 0
+    enhed: C
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 40
+    enhed: C
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 2
+    enhed: t
+    operator: "<="
+    ved_last: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+    advarsel: "up to 2 hours. Ingen lastbetingelse."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst:
+    vaerdi: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger
+    hentet: 2026-08-19
+    advarsel: "Negativkontrolleret med ordgraense: 0 traef paa CE i 1,55 MB HTML, og 0 paa conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA og FCC."
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

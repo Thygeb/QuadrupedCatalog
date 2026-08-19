@@ -1,0 +1,68 @@
+slug: yobotics-y10
+navn: Y10
+producent: Shandong Youbaote Intelligent Robot
+producentland: Kina
+producentby: Shandong
+status: i_produktion
+noter:
+  - "AABENT PUNKT: producentens overskrift siger Y10, men beskrivelsen lige under handler om Y5. Overskriften er brugt som modelnavn. Posten kan ikke laases, foer producenten er spurgt."
+  - "Yobotics er domaenenavnet; producentens eget engelske navn er Shandong Youbaote Intelligent Robot Co., Ltd."
+felter:
+  egenvaegt:
+    vaerdi: 5.6
+    enhed: kg
+    operator: "±"
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver ca. 5,6 kg +/- 0,5 kg, hele maskinen inkl. batteri. Baade et cirka OG en tolerance paa samme tal."
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader:
+    vaerdi: 12
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+  nyttelast_gaaende:
+    vaerdi: 3
+    enhed: kg
+    operator: ">"
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er eksplicit KONTINUERLIG GAAENDE last, > 3 kg. Placeringen er en aflaesning, ikke en slutning."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 1.4
+    enhed: m/s
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "HASTIGHED MED LASTBETINGELSE: producenten skriver loebehastighed 1,4 m/s UDEN LAST. Skemaet har ingen plads til en lastbetingelse paa hastighed - kun paa driftstid. Feltet ser derfor sammenligneligt ud med andre posters hastigheder og er det ikke helt."
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 110
+    enhed: min
+    ved_last: ikke_oplyst
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

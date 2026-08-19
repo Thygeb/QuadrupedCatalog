@@ -1,0 +1,140 @@
+slug: magiclab-magicdog-y1
+navn: MagicDog Y1
+producent: MagicLab
+producentland: Kina
+producentby: Wujiang/Suzhou
+status: i_produktion
+noter:
+  - "Eneste MagicLab-model, hvor alle tre producentkilder (magiclab.top EN, magiclab.top CN og magiclabglobal.com) er indbyrdes konsistente. EN og CN er enige om hvert eneste tal."
+  - "DOKUMENTERET SAMMENFALD MED UNITREE B2, uden forklaring. Sensorstrengen er samme konstruktion med samme antal og samme forbehold; batteriet oplyses i samme form med samme 45 Ah; driftstidsintervallet 4-6 t er identisk; og lastbetingelsen >4 t ved 20 kg er identisk ned til operatoren. Men Y1's hastighed er LAVERE (6 m/s mod B2's > 6 m/s), maalene er blandede, og paa det eneste sammenlignelige trinfelt oplyser B2 et tal og Y1 intet. Vi paastaar ingenting om aarsagen."
+felter:
+  egenvaegt:
+    vaerdi: 70
+    enhed: kg
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Med batteri."
+  laengde:
+    vaerdi: 1050
+    enhed: mm
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 458
+    enhed: mm
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 810
+    enhed: mm
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 45
+    enhed: kg
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket: Dynamic Payload (CN: bevaegelseslast)."
+  nyttelast_staaende:
+    vaerdi: 150
+    enhed: kg
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket: Maximum Payload (CN: maks. last). Siden siger ikke eksplicit staaende; placeringen foelger samme tolkning som Unitrees to lastfelter."
+  hastighed:
+    vaerdi: 6
+    enhed: m/s
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Uden operator. Unitree B2 skriver > 6 m/s for samme tal - Y1 er altsaa IKKE over B2 paa dette felt."
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: ">="
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi: 60
+    enhed: cm
+    operator: ">="
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er Maximum Climbing Height (CN: maks. klatrehoejde). HVERKEN EN ELLER CN siger, om det er et enkelt trin eller en kontinuerlig trappe - her hjaelper den kinesiske side ikke, i modsaetning til Lite3. Placeringen i forhindring_enkelt er en tolkning, valgt saa tallet IKKE kan forurene den sammenligning, der skal bruge det kontinuerlige felt."
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Staar i broedtekst, ikke i tabellen."
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Staar i broedtekst, ikke i tabellen."
+  batteri_wh:
+    vaerdi: 2400
+    enhed: Wh
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Producenten trykker 45Ah (2400Wh), Voltage 54V. 45 x 54 = 2430 Wh, ikke 2400 - en afvigelse paa 30 Wh (1,2 %). Vi gengiver det trykte tal og noterer uoverensstemmelsen. Bemaerk: hverken Y1's eller Unitree B2's Wh-tal passer til deres eget Ah x V. Validatoren boer krydstjekke Wh mod Ah x V, naar begge er trykt - og et brud maa markeres, ikke rettes."
+  driftstid:
+    vaerdi: 4
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 20, enhed: kg }
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver 4-6h ( >4 h continuous walking with 20 kg load ). Her bruges tallet med lastbetingelse. Ordret identisk med Unitree B2's formulering, ned til operatoren."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "3D LiDAR x1 - type uden model, taeller ikke under D4."
+  kameraer:
+    vaerdi: "dybdekameraer x2 + optiske kameraer x2"
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Producenten tilfoejer configurations may vary. Hele strengen (3D LiDAR x1 + Depth Cameras x2 + Optical Cameras x2 + forbehold) er samme konstruktion som Unitree B2's."
+  compute:
+    vaerdi: "8-kernet CPU + hoejtydende beregningsmodul (157 TOPS)"
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  ros2:
+    vaerdi: ikke_oplyst
+    kilde: https://support.magiclab.top/docs/y1/about
+    hentet: 2026-08-19
+    advarsel: "NEGATIVT RESULTAT, maalt og ikke fornemmet: Y1-guidens navigation har 25 ruter (C++ API 7 tjenester, Python API 7 tjenester, 5 eksempler, SLAM-navigation, FAQ m.m.) og INGEN af dem er ROS2 - modsat MagicDog og MagicDog-W, som begge har det. Statuskoden er ikke bevis: /docs/y1/ros2_sdk svarer 200, men det goer enhver sti under /docs/<produkt>/ ogsaa. Feltet staar som ikke_oplyst frem for nej, fordi fravaeret er vores optaelling, ikke producentens udsagn."
+  sdk_sprog:
+    vaerdi: ikke_oplyst
+    kilde: https://support.magiclab.top/docs/y1/about
+    hentet: 2026-08-19
+    advarsel: "Udviklerdokumentationen oplyser C++ og Python. Ikke udfyldt, fordi D1 er aaben. Dokumentationen er kun paa kinesisk."
+  autonominiveau: ikke_oplyst
+  monteringsinterface:
+    vaerdi: "udvidelsesplader, glideskinner, skruemonteringer, nyttelastplatform"
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  stroem_ud:
+    vaerdi: "(24 V + RS485) x4; (12 V + Ethernet) x3"
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+    advarsel: "Spaending oplyst, watt ikke."
+  dataporte:
+    vaerdi: "USB 3.0 x4; Ethernet; EtherCAT x1"
+    kilde: https://www.magiclab.top/en/dog-y
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

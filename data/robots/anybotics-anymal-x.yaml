@@ -1,0 +1,64 @@
+slug: anybotics-anymal-x
+navn: ANYmal X
+producent: ANYbotics
+producentland: Schweiz
+producentby: Zuerich
+status: annonceret
+noter:
+  - "PRODUCENTEN OPLYSER INGEN TAL. Specifikationsafsnittet paa produktsiden bestaar af EN saetning: 2026 ANYmal X specifications coming soon."
+  - "PROJEKTETS BEDSTE ARGUMENT, OG DET LIGNER ET NEDERLAG. Den robot i feltet, der har den staerkeste europaeiske certificering - ATEX og IECEx op til Zone 1 IIB, det papir der afgoer, om en maskine overhovedet maa ind paa et raffinaderi - har den naestlaveste specifikationstaethed i hele indsamlingen. Taethed maaler AABENHED, ikke EGNETHED. Sorterer kataloget paa taethed som standard, lander den robot, en dansk procesindustri faktisk maa koebe, i bunden."
+  - "SKEMAET MANGLER ET FELT: ex_certificering. ATEX/IECEx-zoneklassifikation kan ikke skrives ind i nogen af de 33 felter uden at blive kvalt i ce_oplyst. Producentens ordrette tekst: ATEX & IECEx certified up to Zone 1 IIB; Certified for up to Zone 1 where inflammable gases are likely to occur; intrinsically safe. Forslag: ex_certificering med standard (ATEX|IECEx), zone (0|1|2) og gasgruppe (IIA|IIB|IIC), og ikke_oplyst som foerstegangsvaerdi for alle andre poster."
+felter:
+  egenvaegt: ikke_oplyst
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://www.anybotics.com/robotics/anymal-x/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver IP67 : Water and dust ingress protection."
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid: ikke_oplyst
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.anybotics.com/robotics/anymal-x/
+    hentet: 2026-08-19
+    advarsel: "Lidar Scanner med 360-graders environment scanning - type uden model. Taeller ikke under D4."
+  kameraer:
+    vaerdi: "zoomkamera 20x optisk; termokamera -10 til +400 grader C; mikrofon; pan-tilt +/- 90 grader vertikalt, +/- 165 grader horisontalt"
+    kilde: https://www.anybotics.com/robotics/anymal-x/
+    hentet: 2026-08-19
+    advarsel: "Fortegnene er producentens. Termokameraets -10 til +400 C er MAALEOMRAADE, ikke robottens driftstemperatur."
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "fully autonomous data gathering; fjernstyring i zone"
+    kilde: https://www.anybotics.com/robotics/anymal-x/
+    hentet: 2026-08-19
+    advarsel: "Kvalitativt."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst:
+    vaerdi: ja
+    kilde: https://www.anybotics.com/robotics/anymal-x/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver FCC and CE compliant og Complies with CE directives for industrial deployment. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklaering. Se noten om ATEX/IECEx, som skemaet ikke har plads til."
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

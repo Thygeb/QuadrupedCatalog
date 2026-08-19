@@ -1,0 +1,212 @@
+slug: unitree-as2
+navn: As2
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+varianter: [AIR, PRO, X, EDU]
+noter:
+  - "Varianttabel med fire kolonner. Kolonnerne er forskellige maskiner - se varianter-blokkene paa de enkelte felter."
+felter:
+  egenvaegt:
+    vaerdi: 20
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  laengde:
+    vaerdi: 720
+    enhed: mm
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 378
+    enhed: mm
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 457
+    enhed: mm
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    advarsel: "Foldet 776 x 378 x 233 mm. Skemaet har ingen felter til foldemaal."
+  frihedsgrader:
+    vaerdi: 12
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  nyttelast_gaaende:
+    vaerdi: 10
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: 10
+      PRO: 13
+      X: 15
+      EDU: 15
+    advarsel: "Vaerdien er AIR-variantens. Spaendet over de fire varianter er 10-15 kg."
+  nyttelast_staaende:
+    vaerdi: 45
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: 45
+      PRO: 55
+      X: 65
+      EDU: 65
+    advarsel: "Vaerdien er AIR-variantens. Spaendet er 45-65 kg."
+  hastighed:
+    vaerdi_min: 0
+    vaerdi_maks: 3.0
+    enhed: m/s
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: "0~3,0 m/s"
+      PRO: "0~3,7 m/s"
+      X: "0~3,7 m/s (op til ca. 5 m/s)"
+      EDU: "0~3,7 m/s (op til ca. 5 m/s)"
+    advarsel: "Vaerdien er AIR-variantens."
+  haeldning:
+    vaerdi: 30
+    enhed: grader
+    operator: "~"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: 30
+      PRO: 40
+      X: 40
+      EDU: 40
+    advarsel: "Vaerdien er AIR-variantens."
+  forhindring_enkelt:
+    vaerdi: 50
+    enhed: cm
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    advarsel: "Staar KUN i broedteksten (with the ability to climb 50cm vertical platforms and 40 slopes), ikke i parametertabellen - i modsaetning til A2, A2-W og As2-W, der alle har en Max Climb Height-raekke. Besluttes det, at kun tabelvaerdier taeller, falder feltet ud."
+  trappetrin_kontinuerlig:
+    vaerdi: 20
+    enhed: cm
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: 20
+      PRO: 25
+      X: 25
+      EDU: 25
+    advarsel: "Vaerdien er AIR-variantens."
+  ip_klasse:
+    vaerdi: nej
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: nej
+      PRO: IP54
+      X: IP54
+      EDU: IP54
+    advarsel: "AIR-kolonnen har en eksplicit / hvor de andre kolonner har en vaerdi. Det laeses som NEJ, ikke som ikke oplyst (regel 10). Vaerdien her er AIR-variantens."
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 50
+    enhed: C
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: 50
+      PRO: 50
+      X: 55
+      EDU: 55
+    advarsel: "Vaerdien er AIR/PRO-varianternes."
+  batteri_wh:
+    vaerdi: 648
+    enhed: Wh
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: "8000 mAh - Wh ikke oplyst"
+      PRO: "648 Wh (15000 mAh)"
+      X: "648 Wh (15000 mAh)"
+      EDU: "648 Wh (15000 mAh)"
+    advarsel: "Vaerdien gaelder PRO/X/EDU. AIR oplyser kun 8000 mAh uden spaending - Wh kan ikke udledes og udledes ikke."
+  driftstid:
+    vaerdi: 1.5
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 10, enhed: kg }
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: "> 1,5 t ved 10 kg (ca. 7 km); ca. 2 t ubelastet (ca. 10 km)"
+      PRO: "> 2,5 t ved 13 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
+      X: "> 2,5 t ved 15 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
+      EDU: "> 2,5 t ved 15 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
+    advarsel: "Vaerdien er AIR-variantens belastede tal."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    advarsel: "Kun opladeren er oplyst (50,4 V 4 A / 7,4 A), ikke en ladetid."
+  dockingstation:
+    vaerdi: nej
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: nej
+      PRO: nej
+      X: nej
+      EDU: ja
+    advarsel: "Kun EDU har ladestation. Vaerdien her er AIR/PRO/X."
+  lidar:
+    vaerdi: "Unitree L2"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      AIR: "Unitree L2 (model oplyst)"
+      PRO: "64~128-linje industri-LiDAR (type uden model)"
+      X: "64~128-linje industri-LiDAR (type uden model)"
+      EDU: "64~128-linje industri-LiDAR (type uden model)"
+    advarsel: "Kun AIR-kolonnen navngiver en model. De tre andre oplyser en klasse, ikke en model, og taeller ikke under D4."
+  kameraer:
+    vaerdi: "HD-kamera"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  compute:
+    vaerdi: "8-kernet CPU"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    varianter:
+      EDU: "8-kernet CPU + udvidelsesdok (Orin NX m.fl.)"
+  ros2: ikke_oplyst
+  sdk_sprog:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    advarsel: "Secondary Development: Not Supported for AIR/PRO, Supported for X/EDU - men uden sprogangivelse."
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    advarsel: "Kun BAT er naevnt, uden spaending."
+  dataporte:
+    vaerdi: "Gigabit Ethernet x1; SBUS x1"
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+  pris:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/As2
+    hentet: 2026-08-19
+    advarsel: "Contact Sales paa alle fire varianter."
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

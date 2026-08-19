@@ -1,0 +1,140 @@
+slug: deep-robotics-lynx-m20
+navn: Lynx M20
+producent: DEEP Robotics
+producentland: Kina
+producentby: Hangzhou
+status: i_produktion
+noter:
+  - "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlaegningen er laest i sidens egen JavaScript, ikke gaettet."
+  - "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhoejder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekraeftelse paa, at de to felter skal vaere adskilt."
+felter:
+  egenvaegt:
+    vaerdi: 35
+    enhed: kg
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  laengde:
+    vaerdi: 820
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 430
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 570
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 15
+    enhed: kg
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er Payload Capacity."
+  nyttelast_staaende:
+    vaerdi: 50
+    enhed: kg
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er Max. Load Capacity. Siden siger IKKE, at det er staaende last. Placeringen her er en tolkning, valgt fordi feltet strukturelt spiller samme rolle som Unitrees staaende last."
+  hastighed:
+    vaerdi: 2
+    enhed: m/s
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "TRE tal for samme egenskab paa samme side: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, og fodnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Her bruges driftshastigheden - den eneste, brugeren faktisk faar."
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Producentens fodnote [2]: Lab-tested slope angle; actual performance varies by surface material."
+  forhindring_enkelt:
+    vaerdi: 80
+    enhed: cm
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Producentens egen etiket: Max. Single-Step Height."
+  trappetrin_kontinuerlig:
+    vaerdi: 25
+    enhed: cm
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Producentens egen etiket: Max. Continuous Stair Height. Sammenligninger skal bruge dette tal, ikke de 80 cm."
+  ip_klasse:
+    vaerdi: IP66
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 2.5
+    enhed: t
+    ved_last: { vaerdi: 15, enhed: kg }
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Producenten oplyser ogsaa 3 t / 15 km uden last. Her bruges tallet med lastbetingelse (12 km)."
+  hot_swap:
+    vaerdi: ja
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Staar kun i broedteksten, ikke i specifikationstabellen."
+  ladetid:
+    vaerdi: 1.5
+    enhed: t
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.deeprobotics.cn/robot/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Raekken autonom opladning (tilvalg) findes KUN i den kinesiske tabel. Den engelske tabel har den ikke - den naevnes kun i broedteksten ovenfor. Fem poster paa engelsk, seks paa kinesisk."
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Type uden model - taeller ikke under D4."
+  kameraer:
+    vaerdi: "vidvinkelkameraer x2"
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  compute:
+    vaerdi: "2x otte-kernet 64-bit (16 GB + 128 GB)"
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Eneste specifikationsforskel til M20 Pro, som har tre af samme enhed."
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: ikke_oplyst
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Siden lister Omnidirectional obstacle avoidance og Point cloud surround view som de eneste to autonomiposter, men BEGGE baerer fodnote [3][4]: Feature enabled via future OTA update. De findes ikke i dag. En post, der laeser funktionslisten uden fodnoten, tilskriver M20 en autonomi, producenten selv siger den ikke har endnu. M20S har de samme poster UDEN fodnote."
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: ikke_oplyst
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+    advarsel: "Sidens 72V power input er stroem IND, ikke ud."
+  dataporte:
+    vaerdi: "Gigabit Ethernet"
+    kilde: https://deeprobotics.cn/en/index/lynx.html
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

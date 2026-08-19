@@ -1,0 +1,105 @@
+slug: yobotics-e-dog
+navn: e-Dog
+producent: Shandong Youbaote Intelligent Robot
+producentland: Kina
+producentby: Shandong
+status: i_produktion
+noter:
+  - "AABENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
+  - "E-DOG OPLYSER TRE NYTTELASTTAL, IKKE TO - og skemaet har kun to felter: maks. STATISK last 8 kg, maks. DYNAMISK last 5 kg, og dynamisk last I DRIFT 3 kg. Det tredje tal (arbejdslast) har ingen plads i skemaet og staar kun i advarslen paa nyttelast_gaaende. Det er en skemamangel, ikke en indsamlingsmangel."
+felter:
+  egenvaegt:
+    vaerdi: 15
+    enhed: kg
+    operator: "±"
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "15 kg +/- 0,5 kg."
+  laengde:
+    vaerdi: 680
+    enhed: mm
+    operator: "±"
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver 680x330x380mm (+/-10mm). Tolerancen gaelder alle tre maal."
+  bredde:
+    vaerdi: 330
+    enhed: mm
+    operator: "±"
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Tolerance +/- 10 mm."
+  hoejde:
+    vaerdi: 380
+    enhed: mm
+    operator: "±"
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Tolerance +/- 10 mm."
+  frihedsgrader:
+    vaerdi: 12
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Spidsmoment pr. led oplyses til 48 Nm."
+  nyttelast_gaaende:
+    vaerdi: 3
+    enhed: kg
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "PRODUCENTEN OPLYSER TRE LASTTAL: maks. statisk 8 kg, maks. dynamisk 5 kg og dynamisk I DRIFT 3 kg. Her er drifts-tallet brugt, fordi det svarer til det, de oevrige poster kalder gaaende last. De to andre tal har ingen felt i skemaet."
+  nyttelast_staaende:
+    vaerdi: 8
+    enhed: kg
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er maks. STATISK lastevne. Statisk og staaende er ikke det samme ord; placeringen er en tolkning, ikke en aflaesning."
+  hastighed:
+    vaerdi: 12
+    enhed: km/t
+    operator: ">="
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver maks. hastighed >= 12 km/t. Bemaerk enheden: km/t, ikke m/s som soesterposten Y20."
+  haeldning:
+    vaerdi: 35
+    enhed: grader
+    operator: ">="
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 16
+    enhed: cm
+    operator: ">="
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket bruger tegnene for TRAPPEKLATRINGSHOEJDE, >= 16 cm. Lagt i det kontinuerlige felt paa samme grundlag som Y20 og X30."
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 1.5
+    enhed: t
+    operator: ">="
+    ved_last: ikke_oplyst
+    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver driftstid ikke under 1,5 time. Ingen lastbetingelse."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

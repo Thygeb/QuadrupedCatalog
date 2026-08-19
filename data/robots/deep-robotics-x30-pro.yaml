@@ -1,0 +1,103 @@
+slug: deep-robotics-x30-pro
+navn: Jueying X30 Pro
+producent: DEEP Robotics
+producentland: Kina
+producentby: Hangzhou
+status: i_produktion
+noter:
+  - "Staar som egen kolonne paa X30's produktside. Afviger fra X30 paa tre felter: vaegt, det midterste maal og portlisten. Alt andet er tegn for tegn ens."
+felter:
+  egenvaegt:
+    vaerdi: 59
+    enhed: kg
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Med batteri (battery included)."
+  laengde:
+    vaerdi: 1000
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 715
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at maerke akserne, og X20-siden bruger en anden raekkefoelge. Den trykte raekkefoelge er fulgt bogstaveligt. Bredde og hoejde kan vaere byttet om."
+  hoejde:
+    vaerdi: 470
+    enhed: mm
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "USIKKER TILDELING - se bredde."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 4
+    enhed: m/s
+    operator: ">="
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: "<="
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Tegn U+2264 - et loft, ikke en praestation."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 20
+    enhed: cm
+    operator: ">="
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Kombineret etiket Step/Obstacle H, lagt i det strengeste felt."
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi_min: 2.5
+    vaerdi_maks: 4
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Raekkevidde >= 10 km. Ingen lastbetingelse."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: "5 V; 12 V; 24 V"
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Output power supply (5V 12V 24V). Watt ikke oplyst. X30 uden Pro oplyser i stedet 72 V BAT - de to varianter har forskellig udgangsspaending."
+  dataporte:
+    vaerdi: "USB 2.0; USB 3.0; Ethernet; WiFi"
+    kilde: https://deeprobotics.cn/en/index/product3.html
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

@@ -1,0 +1,179 @@
+slug: ghost-robotics-vision-60
+navn: Vision 60
+producent: Ghost Robotics
+producentland: USA
+producentby: ikke_oplyst
+status: i_produktion
+noter:
+  - "HJEMBY ER IKKE OPLYST. FUND-vest skrev Philadelphia; strengen findes 0 gange i producentens forside, produktside og datablad. Sidefoden har kun Get In Touch, og databladet har e-mail og domaene, ingen adresse. Rettet efter KILDEKORT-B F6."
+  - "Databladet (SPECSHEET V3.3, 2024) downloades direkte fra produktsiden, men ligger paa producentens Webflow-CDN, ikke paa deres eget domaene. URL'en kan doe."
+felter:
+  egenvaegt:
+    vaerdi: 51
+    enhed: kg
+    vaerdi_imperial: 112
+    enhed_imperial: lbs
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket er Tare - altsaa TOM vaegt. Krydstjek: 51 kg = 112,4 lb, gaar op."
+  laengde:
+    vaerdi: 950
+    enhed: mm
+    vaerdi_imperial: 37.5
+    enhed_imperial: in
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 570
+    enhed: mm
+    vaerdi_imperial: 22.5
+    enhed_imperial: in
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Kropsbredden alene oplyses separat til 250 mm (10 in)."
+  hoejde:
+    vaerdi: 685
+    enhed: mm
+    vaerdi_imperial: 27
+    enhed_imperial: in
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Staaende hoejde. Ride height oplyses separat til 419 mm (16,5 in)."
+  frihedsgrader:
+    vaerdi: 12
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver det ordret: 3 Degrees of Freedom per leg, 12-Motor back-drivable drive-train. Robotten er desuden capable of inverted operation."
+  nyttelast_gaaende:
+    vaerdi: 10
+    enhed: kg
+    vaerdi_imperial: 22
+    enhed_imperial: lbs
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver payload weight uden at skelne gaaende/staaende. Placeringen er en slutning. Der findes en User-selectable payload compensation mode."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 2.4
+    enhed: m/s
+    vaerdi_imperial: 4.9
+    enhed_imperial: mph
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "TO FEJL I ET FELT, begge paa producentens egen side. (1) Punktlisten oeverst paa produktsiden skriver up to 2.5 meters/second (5.6 miles/hour); specifikationstabellen laengere nede paa SAMME side skriver 2.4 m/s som sprint. (2) Parret 2.4m/s (4.9 mph) gaar ikke op: 2,4 m/s = 5,37 mph, og 4,9 mph = 2,19 m/s. Alle andre par paa linjen er rigtige (0,9 = 2,01; 1,2 = 2,68; 3,0 = 6,71). Kun sprintparret er forkert, og fejlen staar i baade produktside og datablad. Standardgang er 0,9 m/s (2 mph), hurtiggang 1,2 m/s. Fejlen kraever en procenttolerance i validatoren, ikke kun en stoerrelsesordenstest."
+  haeldning:
+    vaerdi: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "climbs steep hills - uden tal."
+  forhindring_enkelt:
+    vaerdi: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Footstep planning over curbs and grated surfaces - uden tal."
+  trappetrin_kontinuerlig:
+    vaerdi: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Perception aided stair climbing - uden tal."
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Databladet uddyber: submerged in up to 1 meter of water for up to 30 minutes."
+  temp_min:
+    vaerdi: -40
+    enhed: C
+    vaerdi_imperial: -40
+    enhed_imperial: F
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Producentens forbehold staar ved siden af tallet: Cold start not possible below -20 C. Charging rate decreases above 40 C, no charging below 0 C. Det NEDRE driftstal er altsaa ikke et koldstartstal."
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    vaerdi_imperial: 131
+    enhed_imperial: F
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Ingen Wh nogen steder - hverken paa produktsiden eller i databladet. Det beregnede felt Wh pr. driftstime kan ikke regnes for denne robot."
+  driftstid:
+    vaerdi: 3.15
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "3.15 hours of continuous walking at 0.9 m/s. Ingen lastbetingelse, men en HASTIGHEDSBETINGELSE - den eneste i indsamlingen. Skemaet har ikke plads til den. Producenten oplyser ogsaa 21 timers standby og 10 km raekkevidde (terrain and payload dependent); produktsidens punktliste skriver samme tal som 3+ hours."
+  hot_swap:
+    vaerdi: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Quick-swap sub-assemblies within minutes (legs, battery, front & rear sensor heads). Within minutes er ikke hot-swap i drift. Foert som DELVIST, ikke som ja."
+  ladetid:
+    vaerdi: 3
+    enhed: t
+    operator: "~"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Standard battery charge time approx. 3 hours."
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Wireless Charge Kit - wireless charging station for persistent 24x7 operation. FUND-vest skrev, at feltet kun stod i databladet; strengen staar ogsaa ordret paa produktsiden (KILDEKORT-B F1). Kilden er derfor produktsiden."
+  lidar:
+    vaerdi: nej
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Afsnittet Integrated Sensors indeholder ingen LiDAR. LiDAR findes som NYTTELAST (Security Payload), og Mission Control beskriver 3D lidar-based SLAM. Basisrobotten har den ikke - det er et nej paa basisspecifikationen, ikke et hul."
+  kameraer:
+    vaerdi: "5x RGB (1080p); 4x Intel RealSense D435 dybdesensor; dual antenna RTK GPS"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "En af faa poster i hele indsamlingen med en kameramodel (D435)."
+  compute:
+    vaerdi: "NVIDIA Xavier, 32 GB RAM, 16-kanals GMSL2, 2 TB NVMe SSD"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+  ros2:
+    vaerdi: ja
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "C/C++, ROS, ROS2, MAVLink Compatible, Zeno, ATAK, JSON Mission. FUND-vest kildeangav feltet kun til databladet; strengen staar ogsaa i produktsidens DOM (KILDEKORT-B F2)."
+  sdk_sprog:
+    vaerdi: "C/C++, ROS, ROS2"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "API-niveauer: Low-level, High-Level, Mission Control. Simulator: Bullet Physics-based, Windows, Linux, Mac. Ogsaa denne staar paa produktsiden, ikke kun i databladet."
+  autonominiveau:
+    vaerdi: "Perception Aided Mobility; Record-Playback; Mission Control; kollisionsundgaaelse for og bag"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Tre navngivne niveauer - den mest brugbare autonomibeskrivelse i hele indsamlingen."
+  monteringsinterface:
+    vaerdi: "T-slots, M5 gevindhuller eller 1913 MIL-STD-skinner, med valgfrie kropspaneler"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+  stroem_ud:
+    vaerdi: "power:12V regulated & unregulated 32-42V"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Gengivet ordret UDEN mellemrum efter kolon, som producenten skriver det (KILDEKORT-B F4 - FUND-vest havde indsat et mellemrum i et ordret citat). Volt oplyst, WATT IKKE. Spot oplyser 35-58,8 V og 150 W pr. port. De to felter ser ens ud i en tabel og er det ikke."
+  dataporte:
+    vaerdi: "3x Ethernet; 1x USB 3.1; 6x GMSL2"
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Radio: 2,4 og 5,8 GHz WiFi samt 4G/LTE; GigE-switch."
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst:
+    vaerdi: ikke_oplyst
+    kilde: https://www.ghostrobotics.io/vision-60
+    hentet: 2026-08-19
+    advarsel: "Feltet paa databladet hedder Export Control | HC og svarer US ECCN: EAR-99 | 8479.50.00.00 Industrial Robots (No ITAR restrictions). Producenten svarer paa et AMERIKANSK eksportspoergsmaal, ikke paa et europaeisk markedsadgangsspoergsmaal. Ingen CE naevnt."
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

@@ -1,0 +1,119 @@
+slug: unitree-b1
+navn: B1
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+felter:
+  egenvaegt:
+    vaerdi: 50
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Inkl. batteri; batteriet oplyses separat til ca. 5 kg."
+  laengde:
+    vaerdi: 1126
+    enhed: mm
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 467
+    enhed: mm
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 636
+    enhed: mm
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Foldet 1202 x 467 x 297 mm - LAENGERE end staaende. Plausibelt for udstrakte ben, men bemaerkelsesvaerdigt. Skemaet har ingen felter til foldemaal."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 20
+    enhed: kg
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Uden operator. Siden tilfoejer i prosa: anbefales at holde vaegten inden for 20 kg."
+  nyttelast_staaende:
+    vaerdi: 80
+    enhed: kg
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Uden operator."
+  hastighed:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Eneste Unitree-industrimodel helt uden hastighedstal."
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 20
+    enhed: cm
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+  ip_klasse:
+    vaerdi: IP68
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "IP68 staar KUN i overskriftsteksten (IP68 Waterproof, Industrial Level Heavy Loader), ikke i parametertabellen, som slet ingen IP-raekke har. B1 er dermed den eneste Unitree-model med IP68 - paa det svageste kildegrundlag."
+  temp_min:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Tabellens Working Temperature har underraekken Battery: -5 C - 45 C. Det er BATTERIETS omraade, ikke robottens; der er ingen raekke for robotten. Stillet ved siden af B2's -20~55 C ville B1 se daarligere ud i kulde, og det foelger ikke af kilden."
+  temp_maks:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Se temp_min - kun batteriets omraade er oplyst."
+  batteri_wh:
+    vaerdi: 932.4
+    enhed: Wh
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "18000 mAh, 51,8 V, ladegraense 58,8 V. Producentens regnestykke gaar praecist op: 18 x 51,8 = 932,4."
+  driftstid:
+    vaerdi: 2
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Producenten oplyser to tilstande: 5 t staaende og 2 t gaaende uden last. Her bruges den gaaende. Ingen lastbetingelse."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi_min: 1
+    vaerdi_maks: 2
+    enhed: t
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Eneste af de tolv Unitree-modeller med en ladetid."
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer:
+    vaerdi: "Intel RealSense D430 x5"
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Model oplyst - sjaeldent i materialet."
+  compute:
+    vaerdi: "Intel i5-1135G7 + NVIDIA Xavier NX x3"
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: "12 V / 24 V"
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+    advarsel: "Spaending oplyst, watt ikke."
+  dataporte:
+    vaerdi: "Gigabit x7; RS485 x4; USB x5; CAN x4"
+    kilde: https://www.unitree.com/b1
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

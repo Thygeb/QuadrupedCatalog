@@ -1,0 +1,68 @@
+slug: rivr-one
+navn: RIVR ONE
+producent: RIVR
+producentland: Schweiz
+status: i_produktion
+noter:
+  - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
+  - "Robotten saelges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkoebere, ikke til ingenioerer. Kun 3 af 31 felter er oplyst: ingen vaegt, ingen maal, ingen IP-klasse, ingen batteristoerrelse, ingen frihedsgrader. Negativsoegt paa tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste traef er de 30 kg nedenfor."
+  - "SKEMAPROBLEM: RIVR oplyser RAEKKEVIDDE i km (over 30 km pr. opladning), ikke driftstid i timer. Skemaet har driftstid som felt og raekkevidde som beregnet felt; her er det omvendt. Med over 30 km og op til 14 km/t kunne man regne baglaens til ca. 2,1 timer - DET GOER VI IKKE. Det ville vaere et fabrikeret tal med to usikre operatorer ganget sammen."
+  - "RIVR TWO er navngivet i navigationen uden nogen specifikationer. Ingen post oprettet."
+felter:
+  egenvaegt: ikke_oplyst
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 30
+    enhed: kg
+    operator: ">"
+    kilde: https://www.rivr.ai/product
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver over 30 kg of parcels, groceries, and food. Operatoren bevaret. Der skelnes ikke mellem gaaende og staaende last."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 14
+    enhed: km/t
+    operator: "<="
+    vaerdi_imperial: 8.7
+    enhed_imperial: mph
+    kilde: https://www.rivr.ai/product
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/t = 8,699 mph, gaar op. FUND-vest kildeangav ogsaa forsiden; forsiden indeholder NUL forekomster af baade 14 km/h og 8.7 mph (KILDEKORT-D FEJL 1). Kilden er produktsiden alene."
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: ikke_oplyst
+    kilde: https://www.rivr.ai/product
+    hentet: 2026-08-19
+    advarsel: "Producenten oplyser raekkevidde (over 30 km), ikke tid. Vi regner ikke baglaens - se noten."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi_min: 2
+    vaerdi_maks: 3
+    enhed: t
+    kilde: https://www.rivr.ai/product
+    hentet: 2026-08-19
+    advarsel: "recharges in just 2-3 hours. Interval bevaret. Tankestregen i kilden er en en dash (U+2013)."
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

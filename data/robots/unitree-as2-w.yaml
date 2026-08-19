@@ -1,0 +1,147 @@
+slug: unitree-as2-w
+navn: As2-W
+producent: Unitree Robotics
+producentland: Kina
+status: i_produktion
+varianter: [X, EDU]
+noter:
+  - "Hjulbenet udgave af As2. De to varianter adskiller sig kun paa ladestation og udvidelsesdok."
+  - "Siden modsiger sig selv fire steder om raekkevidde og forhindringshoejde. Parametertabellen er brugt som vaerdi; noegletalskortets tal er foert som advarsel."
+felter:
+  egenvaegt:
+    vaerdi: 25
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Med batteri."
+  laengde:
+    vaerdi: 721
+    enhed: mm
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 493
+    enhed: mm
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 521
+    enhed: mm
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Foldet 768 x 602 x 211 mm. Skemaet har ingen felter til foldemaal."
+  frihedsgrader:
+    vaerdi: 16
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  nyttelast_gaaende:
+    vaerdi: 16
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  nyttelast_staaende:
+    vaerdi: 150
+    enhed: kg
+    operator: "~"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Hoejeste staaende last i hele Unitree-programmet - paa den naestletteste robot (ca. 25 kg egenvaegt)."
+  hastighed:
+    vaerdi_min: 0
+    vaerdi_maks: 3.7
+    enhed: m/s
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Spidsbelastning op til ca. 6 m/s."
+  haeldning:
+    vaerdi: 45
+    enhed: grader
+    operator: "~"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  forhindring_enkelt:
+    vaerdi_min: 0.4
+    vaerdi_maks: 0.8
+    enhed: m
+    operator: "~"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Parametertabellens Max Climb Height er et interval 0,4~0,8 m. Sidens noegletalskort praesenterer den oevre ende alene som 80 cm steps, og broedteksten skriver obstacles up to 80 cm high. Intervallet er bevaret."
+  trappetrin_kontinuerlig:
+    vaerdi: 30
+    enhed: cm
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  ip_klasse:
+    vaerdi: IP54
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: 648
+    enhed: Wh
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "15000 mAh. Wh staar kun i broedteksten, ikke i tabellen."
+  driftstid:
+    vaerdi: 2
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 16, enhed: kg }
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Tabellen: > 2 t ved 16 kg, ca. 25 km; ca. 3 t uden last, ca. 30 km. Noegletalskortet paa samme side siger > 16 km belastet mod tabellens ca. 25 km - 56 % forskel, samme side, samme dag. Tabellen er brugt."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation:
+    vaerdi: nej
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    varianter:
+      X: nej
+      EDU: ja
+    advarsel: "Vaerdien er X-variantens."
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "64~128-linje industri-LiDAR - type uden model, taeller ikke under D4."
+  kameraer:
+    vaerdi: "HD-kamera"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  compute:
+    vaerdi: "8-kernet CPU"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    varianter:
+      EDU: "8-kernet CPU + udvidelsesdok (Orin NX, op til 150 TOPS)"
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud:
+    vaerdi: ikke_oplyst
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+    advarsel: "Kun BAT, uden spaending."
+  dataporte:
+    vaerdi: "Gigabit Ethernet x1; SBUS x1"
+    kilde: https://www.unitree.com/As2-W
+    hentet: 2026-08-19
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

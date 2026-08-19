@@ -1,0 +1,156 @@
+slug: boston-dynamics-spot
+navn: Spot
+producent: Boston Dynamics
+producentland: USA
+producentby: Waltham, Massachusetts
+status: i_produktion
+noter:
+  - "Majoritetsejet af Hyundai Motor Group (Sydkorea). Noteret fordi producentland bliver tvetydigt."
+  - "To producentkilder: produktside (K1) og producentens eget datablad (K2, maerket Updated: 05/22/2024). De er uenige om laengde og vaegt."
+felter:
+  egenvaegt:
+    vaerdi: 33.8
+    enhed: kg
+    vaerdi_imperial: 74.5
+    enhed_imperial: lb
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Producentens eget datablad oplyser 32,7 kg (72,1 lbs) - https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf. Begge tal er internt konsistente metrisk/imperialt; ingen af dem kan afvises. Forskellen er 1,1 kg."
+  laengde:
+    vaerdi: 1100
+    enhed: mm
+    vaerdi_imperial: 43.3
+    enhed_imperial: in
+    kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
+    hentet: 2026-08-19
+    advarsel: "Produktsiden skriver 110mm (43.3 in) - faktor 10 fra sit eget imperiale tal. Databladet skriver 1100 mm (43.3 in). Vi retter ikke produktsiden; vi bruger databladet og noterer modstriden."
+  bredde:
+    vaerdi: 500
+    enhed: mm
+    vaerdi_imperial: 19.7
+    enhed_imperial: in
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 610
+    enhed: mm
+    vaerdi_imperial: 24.0
+    enhed_imperial: in
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Fire hoejder oplyses: siddende 191 mm, standard gaaende 610 mm, maks. 700 mm, min. 520 mm. Her bruges standard gaaende."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 14
+    enhed: kg
+    vaerdi_imperial: 30.9
+    enhed_imperial: lbs
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gaaende og staaende last. Placeringen i nyttelast_gaaende er vores tolkning, ikke en aflaesning. Databladets broedtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 1.6
+    enhed: m/s
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  haeldning:
+    vaerdi: 30
+    enhed: grader
+    operator: "±"
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Fortegnet plus/minus er producentens egen skrivemaade."
+  forhindring_enkelt:
+    vaerdi: 300
+    enhed: mm
+    vaerdi_imperial: 11.8
+    enhed_imperial: in
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Max Step Height uden at sige om det er en enkelt forhindring eller kontinuerlig trappegang. Placeringen her er konservativ. DATAMODEL.md F2 sammenlignede tallet med Unitrees kontinuerlige 20-25 cm; den sammenligning hviler paa en tolkning, kilden ikke stoetter."
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP54
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Databladet tilfoejer: Robot must be powered on at a minimum temperature of 0 C."
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: 564
+    enhed: Wh
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Batteriet vejer selv 5,2 kg (11,5 lbs)."
+  driftstid:
+    vaerdi: 90
+    enhed: min
+    ved_last: ikke_oplyst
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Producentens fodnote: Runtime may vary depending on payloads and environmental factors. Standby oplyses til 180 min."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi: 60
+    enhed: min
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Databladets egen ladertabel siger noget andet: ved 25 C 50 min til 80 % og 2 t til 100 %; ved 35 C 2,5 t / 3,5 t. De 60 min er ikke betinget paa produktsiden."
+  dockingstation:
+    vaerdi: ja
+    kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
+    hentet: 2026-08-19
+    advarsel: "Spot Dock, fuldt specificeret: 1140 x 414 x 403 mm, 22,9 kg, ind 90-277 VAC, ud 58 V ved 12 A, 0-35 C, cTUVus Certified to UL 1564 og CSA C22.2 No. 107.2. Dockens Gigabit Ethernet passthrough hoerer her, ikke i robottens dataporte."
+  lidar: ikke_oplyst
+  kameraer:
+    vaerdi: "stereokameraer (antal og model ikke oplyst); vandret synsfelt 360 grader"
+    kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
+    hentet: 2026-08-19
+    advarsel: "Strengen built-in stereo cameras staar KUN i databladet (marketingprosa, ikke specifikationstabel); Horizontal Field of View 360 staar paa produktsiden. FUND-vest tilskrev begge produktsiden - rettet her (KILDEKORT-A FEJL 2). Terrain sensing: 360 grader, raekkevidde 4 m, lys > 2 lux."
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog:
+    vaerdi: Python
+    kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Flexible API and Python SDK."
+  autonominiveau:
+    vaerdi: "Manual & Autonomous Operation; Object Avoidance; Stair & Complex Terrain Navigation; autonome missioner startet fra dock"
+    kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
+    hentet: 2026-08-19
+    advarsel: "Kvalitativt, ikke et niveau paa en skala. De tre citerede strenge findes KUN i databladet - produktsiden stoetter substansen i andre ord (KILDEKORT-A FEJL 3)."
+  monteringsinterface:
+    vaerdi: "M5 T-slot rails"
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "Monteringsfelt 850 mm (L) x 240 mm (B) x 270 mm (H)."
+  stroem_ud:
+    vaerdi: "ureguleret DC 35-58,8 V, 150 W pr. port"
+    vaerdi_min: 35
+    vaerdi_maks: 58.8
+    enhed: V
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  dataporte:
+    vaerdi: "DB25 x2; Ethernet; WiFi 2,4/5 GHz b/g/n"
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: "FUND-vest skrev Gigabit Ethernet her. Rettet: strengen Gigabit findes ikke paa produktsiden, og i databladet staar den i Spot Dockens afsnit som passthrough to robot (KILDEKORT-A FEJL 1). Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed."
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst:
+    vaerdi: ikke_oplyst
+    kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
+    hentet: 2026-08-19
+    advarsel: "Databladets afsnit hedder ordret Safety and Compliance, United States og naevner ISO 12100, IEC 60204-1, ISO 13850, FCC Part 15B, FCC Part 68, IEC 60825-1. Ingen CE, ingen EU-erklaering. Feltet er ikke_oplyst - IKKE nej: databladet henviser til et Information for Use-dokument, vi ikke har aabnet."
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
