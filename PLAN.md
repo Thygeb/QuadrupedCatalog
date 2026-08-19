@@ -222,10 +222,25 @@ efter et år, og ingen kan se det.
 | **Å1** | **Navn og domæne.** Hele brandet hænger på det | CEO'en |
 | **Å2** | **Visuel retning.** Ikke påbegyndt. Næste designrunde | Byggestart |
 | **Å3** | **Billedvejen.** Anbefaling: silhuetter (afsnit 9) | CEO'en |
-| **Å4** | **Skal `c:\Praktik\website` omdøbes til `salg`?** Se note nedenfor | JPK |
+| **Å4** | **Besluttet 19. aug, ikke udført endnu.** Se note nedenfor | Agenterne |
 | **Å5** | Hvem vedligeholder kataloget efter lancering | KeyResearch |
 
-**Note til Å4:** at omdøbe mappen er i sig selv ufarligt — git-repo og remote følger med
-uden videre. Prisen er, at Claude Code nøgler sessionshistorik og hukommelse på stien
-(`c--Praktik-website`), så det projekt starter med tom historik bagefter, og at
-salgsprojektets egen CLAUDE.md nævner den gamle sti flere steder og skal rettes.
+**Note til Å4 — mappestrukturen er besluttet:**
+
+```
+c:\Praktik\websites\salg\          nuværende c:\Praktik\website
+c:\Praktik\websites\udstilling\    nuværende c:\Praktik\guide (dette projekt)
+```
+
+`websites\` er oprettet. Flytningen er ikke udført, og rækkefølgen er ikke valgfri:
+
+1. **Vent på de tre agenter.** Deres worktrees indeholder absolutte stier til
+   `C:\Praktik\guide\.git\worktrees\`. En flytning under kørsel river git-bindingen over,
+   og agenterne fejler, når de skal committe.
+2. Flet `data/kina`, `data/vest` og `data/felt` til `main`, og fjern de tre worktrees.
+3. Flyt `guide` → `websites\udstilling`.
+4. Flyt `website` → `websites\salg` **til sidst**. Den flytning fjerner den kørende
+   sessions arbejdsmappe under den, så Claude Code skal genstartes i
+   `c:\Praktik\websites\` bagefter.
+5. Ret stierne i salgsprojektets egen CLAUDE.md, som nævner `c:\Praktik\website` flere
+   steder, og kopiér hukommelsen fra projektnøglen `c--Praktik-website` til den nye.

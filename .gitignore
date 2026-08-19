@@ -3,3 +3,7 @@ dist/
 .DS_Store
 Thumbs.db
 *.log
+
+# Fabrikantmateriale: beholdes lokalt som bevis, distribueres aldrig
+media/_kilder/**
+!media/_kilder/*.md

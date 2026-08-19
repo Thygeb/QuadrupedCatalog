@@ -1,0 +1,46 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npx --yes:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(cat:*)",
+      "Bash(printf:*)",
+      "Bash(jq:*)",
+      "Bash(git init)",
+      "Bash(git worktree:*)",
+      "Bash(git switch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(python -m http.server:*)"
+    ],
+    "deny": [
+      "Edit(//c/Praktik/website/**)",
+      "Write(//c/Praktik/website/**)",
+      "Edit(//c/Praktik/websites/salg/**)",
+      "Write(//c/Praktik/websites/salg/**)",
+      "Bash(rm -rf:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Praktik\\guide-wt-kina",
+      "C:\\Praktik\\guide-wt-vest",
+      "C:\\Praktik\\guide-wt-felt"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"PROJEKTREGEL (quadruped-guide): Start opgaven med en skill-vurdering. Skriv hvilken skill du valgte og hvilke du gik forbi, med begrundelse. Ingen skill passer her er et gyldigt svar, men det skal skrives. Kan opgaven deles: koer agenter parallelt, hver med egen git-worktree, egen skill-vurdering, egen selv-test med taelling af efterproevede felter, og eget review. Projektskills: .claude/skills/robotdata (robotposter) og .claude/skills/parallelt (parallelle agenter). Roer aldrig salgssiden.\"}}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
