@@ -84,11 +84,32 @@ leveringstid, servicepunkt i EU.
 |---|---|
 | **D1** | Må sekundære kilder (udviklerdok, PDF-datablade) bruges? Uden dem har seks felter nul dækning |
 
-### Besluttet, afventer udførelse
+### Å4 — mappestrukturen, halvt udført
 
-| # | Punkt |
-|---|---|
-| **Å4** | **Mappestruktur besluttet 19. aug:** `c:\Praktik\websites\salg` (nuværende `website`) og `c:\Praktik\websites\udstilling` (dette projekt). `websites\` er oprettet. **Flytningen af dette repo kan først ske, når de tre agenter er færdige** — deres worktrees indeholder absolutte stier til `C:\Praktik\guide\.git\worktrees\`, som brydes af en flytning. Rækkefølge: flet grene → `git worktree remove` × 3 → flyt → `git worktree repair` er da unødvendig. Flytningen af `salg` bryder desuden den kørende sessions arbejdsmappe og bør ske sidst, efterfulgt af genstart af Claude Code i `c:\Praktik\websites\`. Hukommelsen ligger under projektnøglen `c--Praktik-website` og skal kopieres til den nye nøgle |
+**Dette projekt er flyttet.** `c:\Praktik\guide` → **`c:\Praktik\websites\udstilling`**,
+19. aug 2026. Verificeret: `git fsck` ren, 7 commits, 22 sporede filer alle til stede,
+0 manglende, worktree-listen peger på den nye sti.
+
+**Salgssiden er ikke flyttet endnu.** `c:\Praktik\website` skal blive til
+`c:\Praktik\websites\salg`, men flytningen fejler med *"Device or resource busy"*, så
+længe Claude Code kører med den som arbejdsmappe. **Den skal ske med Claude Code lukket** —
+kør `c:\Praktik\flyt-salg.ps1`, og start derefter i `c:\Praktik\websites\`.
+
+Forberedt på forhånd, så det kun mangler selve flytningen:
+
+- Stierne i salgsprojektets `CLAUDE.md` og `STATUS.md` peger allerede på
+  `websites\salg`. **Ændringerne er ikke committet** — de ligger sammen med en
+  ældre, ikke-relateret ændring i `index.html`, som ikke er vores.
+  Arkivdokumenterne (`ARGUMENTATION.md`, `DESIGNKRITIK-3/5`) er med vilje **ikke**
+  rettet: projektets egen regel siger, at arkiver ikke opdateres bagud.
+- Hukommelsen er kopieret til begge nye projektnøgler,
+  `c--Praktik-websites-udstilling` og `c--Praktik-websites-salg`.
+
+**Tre ting kostede tid og bør huskes:** MSYS-stier (`/c/Praktik/...`) virker i bash, men
+git.exe og `cmd //c` forstår dem ikke. `mv` gav *Permission denied* på hele mappen, mens
+PowerShells `Move-Item` flyttede **12 af 80 filer** og derefter fejlede — en delvis
+flytning, der så ud som en fejlet flytning. Kopiér-verificér-slet frem for flyt, når det
+gælder en hel projektmappe.
 
 ### Venter på arbejde
 
