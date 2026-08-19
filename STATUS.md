@@ -18,15 +18,35 @@ Projektet er i **planlægning**. Ingen kode skrevet. Rækkefølgen står i [PLAN
 | Visuel retning (`impeccable` → `new-work`) | **Ikke påbegyndt** |
 | Generator, katalog, sider | Ikke påbegyndt |
 
-## Parallelt arbejde i gang
+## D5 — to ubekræftede udkast ligger i repoet
 
-Tre worktrees, tre grene. Flettes til `main`, når arbejdet er efterprøvet.
+**Læs dette, før nogen bruger `FUND-kina.md` eller `FUND-vest.md`.**
 
-| Gren | Worktree | Opgave | Output |
-|---|---|---|---|
-| `data/kina` | `../guide-wt-kina` | Kinesiske producenter: Unitree, DeepRobotics, Weilan, Xiaomi, LimX, MagicLab | `FUND-kina.md` |
-| `data/vest` | `../guide-wt-vest` | Vestlige: Boston Dynamics, ANYbotics, Ghost Robotics, RIVR, Petoi, MangDang | `FUND-vest.md` |
-| `data/felt` | `../guide-wt-felt` | Feltets størrelse (efterprøv "42 producenter") + EU/CE-sporet | `FUND-felt.md` |
+Tre agenter kørte 19. aug 09:13–09:45 i hver sin worktree. **Alle tre blev standset
+undervejs**, fordi projektmapperne skulle omstruktureres. Alle tre havde afsluttet deres
+research; ingen af dem nåede efterprøvningen.
+
+| Fil | Størrelse | Status |
+|---|---|---|
+| `FUND-kina.md` | 48,8 KB | **Ubekræftet udkast.** Kinesiske producenter |
+| `FUND-vest.md` | 51,4 KB | **Ubekræftet udkast.** Vestlige producenter |
+| `FUND-felt.md` | — | Blev aldrig skrevet. Feltkortlægning + EU-sporet skal køres forfra |
+
+**Hvad der mangler på begge**, og derfor må de ikke bruges som data:
+
+1. Efterprøvning felt for felt mod kilden, **med tælling** af efterprøvede felter og
+   fundne fejl
+2. Agentens eget review og dens usikkerheder
+3. Kontrol af specifikationstætheden — den er beregnet, men ikke efterprøvet
+
+De 58 hentede fabrikantsider fra vest-sporet ligger i
+`media/_kilder/raa-vest-2026-08-19/` — **uden for repoet**, gitignoreret. De var ved at
+blive committet ved et uheld; det er præcis den fejl, `media/_kilder/`-reglen findes for
+at forhindre, og den blev fanget af reglen samme dag den blev skrevet.
+
+**Næste skridt:** genstart de tre spor med `.claude/skills/robotdata` og
+`.claude/skills/parallelt` i stedet for håndskrevne prompter, og lad efterprøvningen køre
+færdig denne gang.
 
 ---
 
