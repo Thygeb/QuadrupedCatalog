@@ -1,0 +1,71 @@
+slug: boston-dynamics-spot
+navn: Spot
+producent: Boston Dynamics
+producentland: USA
+status: i_produktion
+noter: >-
+  EKSEMPELPOST. Tallene er transskriberet fra repoets egen DATAMODEL.md
+  (maalt 19. aug 2026), ikke hentet paa ny og ikke efterproevet felt for felt.
+  Laengden er projektets aabne punkt D2.
+felter:
+  laengde:
+    vaerdi: 110
+    enhed: mm
+    vaerdi_imperial: 43.3
+    enhed_imperial: in
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    advarsel: >-
+      metrisk og imperial afviger med en faktor 10 - 43,3 in er 1100 mm.
+      Enten mangler produktsiden et nul, eller ogsaa gjorde vores udtraek.
+      Aabent punkt D2. Der rettes ikke stiltiende i producentens tal.
+  nyttelast_gaaende:
+    vaerdi: 14
+    enhed: kg
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  trappetrin_kontinuerlig:
+    vaerdi: 300
+    enhed: mm
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  batteri_wh:
+    vaerdi: 564
+    enhed: Wh
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+  driftstid:
+    vaerdi: 90
+    enhed: min
+    ved_last: ikke_oplyst
+    kilde: https://bostondynamics.com/products/spot/
+    hentet: 2026-08-19
+    note: producenten oplyser ingen lastbetingelse - tallet er ikke sammenligneligt med B2's
+  egenvaegt: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
