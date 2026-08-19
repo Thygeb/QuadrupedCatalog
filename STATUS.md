@@ -115,6 +115,14 @@ ANYmal målte 28 % med den gamle regel og 38 % med den nye, samme side, samme da
 | **L10** | **D8 — er FUND-vest til at stole på?** | **Efterprøvet: 152 påstande, 17 fejl.** Ingen producenttal læst forkert; fejlene er tilskrivning, tælling og to opfundne hjembyer. Se `KILDEKORT-*.md` |
 | **L11** | **Scope** | **Legetøj, hobbyrobotter og undervisningskit hører ikke i kataloget.** Ude: Sony aibo, Tombot, Petoi, MangDang, Hiwonder, Yahboom, Elephant Robotics |
 | **L12** | **Kode** | **Tilladt.** `data/robots/*.yaml` og `tools/validate.mjs` må skrives |
+| **L13** | **Billeder (Å3)** | **Fabrikantbilleder tilladt, så længe siden er lokal.** Egne fotos og silhuetter også. AI-genererede robotbilleder er stadig ude |
+| **L14** | **Produktretning** | **Billeddrevet browsing, ikke opslagsværk.** Specifikationer nedtones; detaljer hentes ved at gå videre til producentens egen side |
+| **L15** | **Informationsarkitektur** | **Forsiden organiseres efter vægtklasse** (under 20 kg · 20-60 kg · over 60 kg), ikke efter producent. Producentsider findes som andet niveau og bærer EU-kolonnen. Hver robot beholder sin egen URL. Begrundelse: 43 robotter ligner hinanden; størrelse er den eneste forskel, en køber både kan se og bruge — og tre producenter har 26 af de 43, så producentopdeling giver en skæv forside |
+
+> **SPÆRRING S1 — må ikke glemmes.** Siden må **ikke publiceres**, mens den viser
+> fabrikantbilleder uden skriftlig tilladelse. Enten indhentes tilladelserne, eller
+> billederne udskiftes med egne fotos og silhuetter før lancering. En pladsholder, der
+> ligner et rigtigt billede, overlever til lancering — det er sket på nabosiden.
 
 ---
 

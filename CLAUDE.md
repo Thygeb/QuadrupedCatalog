@@ -60,8 +60,13 @@ Arvet fra KeyResearch, og de gælder her med fuld kraft:
    Ingen købsknap, ingen affiliate-links, ingen prisforespørgselsformular i en katalogpost.
 2. **Opfind aldrig tal, cases, certificeringer eller kapaciteter.** Håndhæves mekanisk:
    bygget skal fejle, hvis et talfelt mangler enhed eller kilde.
-3. **Fabrikanternes marketingbilleder må ikke genudgives.** Hverken juridisk eller fordi det
-   er det stærkeste mulige signal om et forhandlerforhold, der ikke findes.
+3. **Fabrikanternes billeder må bruges — men kun så længe siden er lokal.** Ophævet af JPK
+   19. aug 2026. Den oprindelige regel forbød dem helt, både juridisk og fordi et pressefoto
+   er det stærkeste signal om et forhandlerforhold, der ikke findes.
+   **Spærring, der ikke må glemmes:** siden må ikke publiceres, mens den viser fabrikantbilleder
+   uden skriftlig tilladelse. Enten indhentes tilladelserne, eller billederne udskiftes med
+   egne fotos og silhuetter før lancering. Nabosiden har allerede oplevet, at en pladsholder
+   overlevede til lancering — se `media/_kilder/LÆSMIG.md`.
 4. **Ingen AI-genererede billeder af robotter eller mennesker.**
 5. **"Ikke oplyst", "nej" og "0" er tre forskellige tilstande** og skal se forskellige ud.
    Det er der, katalogsider lyver.
