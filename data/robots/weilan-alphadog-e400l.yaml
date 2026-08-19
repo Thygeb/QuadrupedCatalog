@@ -1,0 +1,46 @@
+slug: weilan-alphadog-e400l
+navn: AlphaDog E400L
+producent: WEILAN
+producentland: Kina
+producentby: Nanjing
+status: i_produktion
+noter:
+  - "NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden bestaar udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige paa siden overhovedet; de staar paa producentens katalogside sammen med underteksten Enterprise Version Available."
+  - "SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Maalt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altsaa 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller."
+  - "INTET AF DET ER FOERT IND SOM DATA, OG DET BOER INGEN GOERE. Kontrolleret: siden indeholder ingen innerHTML, ingen COMMENT_NODE og ingen kode, der genindsaetter blokken. En browser viser intet af det. At hente tal ud af en tilbagetrukket blok ville vaere at udgive noget, producenten har taget ned, med producentens navn paa."
+  - "Forskellen betyder noget for en indkoeber: det er ikke en producent, der aldrig har oplyst noget. Det er en producent, der HAR oplyst det og derefter skjult det."
+  - "DESIGNSPOERGSMAALET, DENNE POST STILLER: hvordan ser en post ud, hvor samtlige felter er ikke_oplyst? Ser den oedelagt ud, har vi bygget forkert. Weilans INDUSTRImodeller - dem en driftschef ville overveje - har 0 % taethed, mens deres legetoejsmodel har 35 %."
+felter:
+  egenvaegt: ikke_oplyst
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid: ikke_oplyst
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

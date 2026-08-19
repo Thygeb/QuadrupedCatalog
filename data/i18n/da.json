@@ -1,0 +1,103 @@
+{
+  "sprog": "da",
+  "sprognavn": "Dansk",
+  "hreflang": "da",
+
+  "grupper": {
+    "fysik": "Fysik og mobilitet",
+    "energi": "Energi",
+    "sensorik": "Sensorik og software",
+    "nyttelast": "Nyttelastgrænseflade",
+    "kommercielt": "Kommercielt og EU"
+  },
+
+  "felter": {
+    "egenvaegt":               { "navn": "Egenvægt",                  "gruppe": "fysik",        "hjaelp": "Producentens egen vægtangivelse. Bemærk, at nogle oplyser med batteri og andre uden." },
+    "laengde":                 { "navn": "Længde",                    "gruppe": "fysik",        "hjaelp": "Stående mål." },
+    "bredde":                  { "navn": "Bredde",                    "gruppe": "fysik",        "hjaelp": "Stående mål." },
+    "hoejde":                  { "navn": "Højde",                     "gruppe": "fysik",        "hjaelp": "Stående mål. Flere producenter oplyser flere højder for samme robot." },
+    "frihedsgrader":           { "navn": "Frihedsgrader",             "gruppe": "fysik",        "hjaelp": "Antal aktivt drevne led." },
+    "nyttelast_gaaende":       { "navn": "Nyttelast, gående",         "gruppe": "fysik",        "hjaelp": "Den last robotten kan bære, mens den går. Det er den, kataloget rangerer på." },
+    "nyttelast_staaende":      { "navn": "Nyttelast, stående",        "gruppe": "fysik",        "hjaelp": "Den last robotten kan bære stående. Kan være flere gange højere end den gående og må aldrig sammenlignes med den." },
+    "hastighed":               { "navn": "Maks. hastighed",           "gruppe": "fysik",        "hjaelp": "Læs operatoren med: nogle producenter oplyser et laboratorietal, andre en driftshastighed." },
+    "haeldning":               { "navn": "Maks. hældning",            "gruppe": "fysik",        "hjaelp": "Nogle producenter oplyser i procent i stedet for grader. De to omregnes ikke stiltiende." },
+    "forhindring_enkelt":      { "navn": "Enkelt forhindring",        "gruppe": "fysik",        "hjaelp": "Højeste enkeltstående forhindring. Ikke sammenlignelig med kontinuerlig trappegang." },
+    "trappetrin_kontinuerlig": { "navn": "Kontinuerlig trappe",       "gruppe": "fysik",        "hjaelp": "Trinhøjde robotten kan gå op ad i træk. Det er det eneste af de to trinfelter, sammenligninger må bruge." },
+    "ip_klasse":               { "navn": "IP-klasse",                 "gruppe": "fysik",        "hjaelp": "Tæthed mod støv og vand." },
+    "temp_min":                { "navn": "Driftstemperatur, min.",    "gruppe": "fysik",        "hjaelp": "Nederste driftstemperatur. Afgørende for udendørs brug i Danmark." },
+    "temp_maks":               { "navn": "Driftstemperatur, maks.",   "gruppe": "fysik",        "hjaelp": "Øverste driftstemperatur." },
+
+    "batteri_wh":              { "navn": "Batterikapacitet",          "gruppe": "energi",       "hjaelp": "Kun når producenten selv trykker Wh. Vi regner aldrig Wh ud af mAh og volt." },
+    "driftstid":               { "navn": "Driftstid",                 "gruppe": "energi",       "hjaelp": "Uden en lastbetingelse er en driftstid ikke sammenlignelig med en anden." },
+    "hot_swap":                { "navn": "Hot-swap af batteri",       "gruppe": "energi",       "hjaelp": "Batteriskift uden at slukke." },
+    "ladetid":                 { "navn": "Ladetid",                   "gruppe": "energi",       "hjaelp": "Læs betingelsen med: nogle oplyser til 80 %, andre til fuld." },
+    "dockingstation":          { "navn": "Dockingstation",            "gruppe": "energi",       "hjaelp": "Automatisk opladning. Ofte et tilvalg." },
+
+    "lidar":                   { "navn": "LiDAR",                     "gruppe": "sensorik",     "hjaelp": "Type og model. En type uden model tæller ikke som en oplysning." },
+    "kameraer":                { "navn": "Kameraer",                  "gruppe": "sensorik",     "hjaelp": "Antal, type og om muligt model." },
+    "compute":                 { "navn": "Onboard compute",           "gruppe": "sensorik",     "hjaelp": "Beregningsenhed om bord." },
+    "ros2":                    { "navn": "ROS 2",                     "gruppe": "sensorik",     "hjaelp": "ROS uden versionsnummer tæller ikke som ROS 2." },
+    "sdk_sprog":               { "navn": "SDK-sprog",                 "gruppe": "sensorik",     "hjaelp": "Programmeringssprog producenten understøtter." },
+    "autonominiveau":          { "navn": "Autonomi",                  "gruppe": "sensorik",     "hjaelp": "Beskrivende, ikke en skala. Ingen producent oplyser et niveau." },
+
+    "monteringsinterface":     { "navn": "Monteringsinterface",       "gruppe": "nyttelast",    "hjaelp": "Hvordan udstyr fastgøres." },
+    "stroem_ud":               { "navn": "Strøm ud",                  "gruppe": "nyttelast",    "hjaelp": "Spænding og effekt pr. port. De fleste oplyser kun spændingen." },
+    "dataporte":               { "navn": "Dataporte",                 "gruppe": "nyttelast",    "hjaelp": "Fysiske porte til nyttelast." },
+
+    "pris":                    { "navn": "Vejledende pris",           "gruppe": "kommercielt",  "hjaelp": "Kontakt sælger er ikke en pris. Vi gengiver aldrig et beløb, producenten selv kalder en pladsholder." },
+    "eu_tilgaengelig":         { "navn": "Tilgængelig i EU",          "gruppe": "kommercielt",  "hjaelp": "Om producenten selv oplyser, at modellen kan købes i EU." },
+    "ce_oplyst":               { "navn": "CE oplyst",                 "gruppe": "kommercielt",  "hjaelp": "Om producenten OPLYSER CE — ikke om robotten har CE. Et manglende CE-udsagn betyder ikke det samme hos en EU-producent som hos en amerikansk." },
+    "eu_service":              { "navn": "Servicepunkt i EU",         "gruppe": "kommercielt",  "hjaelp": "Om producenten oplyser et servicepunkt i EU." },
+    "leveringstid":            { "navn": "Leveringstid",              "gruppe": "kommercielt",  "hjaelp": "Om producenten oplyser en leveringstid." }
+  },
+
+  "tilstande": {
+    "ikke_oplyst": { "navn": "Ikke oplyst", "hjaelp": "Producenten oplyser det ikke. Det er ikke det samme som nul, og ikke det samme som nej." },
+    "nej":         { "navn": "Nej",          "hjaelp": "Producenten svarer udtrykkeligt nej. Det er en oplysning, ikke et hul." },
+    "0":           { "navn": "0",            "hjaelp": "En målt nulværdi." },
+    "kun_billede": { "navn": "Kun som billede", "hjaelp": "Producenten oplyser det, men kun i et billede, der ikke kan citeres som tekst." }
+  },
+
+  "operatorer": {
+    ">":  "over",
+    ">=": "mindst",
+    "<":  "under",
+    "<=": "højst",
+    "~":  "cirka",
+    "±":  "plus/minus"
+  },
+
+  "status": {
+    "i_produktion": "I produktion",
+    "annonceret":   "Annonceret",
+    "udgaaet":      "Udgået",
+    "demonstrator": "Demonstrator"
+  },
+
+  "ui": {
+    "katalog":            "Katalog",
+    "sammenlign":         "Sammenlign",
+    "metode":             "Metode",
+    "producent":          "Producent",
+    "producentland":      "Producentland",
+    "producentby":        "Hjemby",
+    "status":             "Status",
+    "kilde":              "Kilde",
+    "hentet":             "Hentet",
+    "advarsel":           "Forbehold",
+    "noter":              "Noter til posten",
+    "varianter":          "Varianter",
+    "variantforskel":     "Værdien gælder én variant — se forbeholdet",
+    "specifikationstaethed": "Specifikationstæthed",
+    "taethed_forklaring": "Andel af felterne, producenten selv oplyser. Måler åbenhed, ikke egnethed.",
+    "udfyldte_felter":    "udfyldte felter",
+    "af":                 "af",
+    "metrisk":            "metrisk",
+    "imperialt":          "imperialt",
+    "ved_last":           "ved last",
+    "ingen_lastbetingelse": "uden lastbetingelse",
+    "kildetype_primaer":  "producentens egen side",
+    "kildetype_sekundaer": "sekundær kilde",
+    "ingen_forhandleraftale": "KeyResearch har ingen forhandleraftale med nogen af producenterne på denne side."
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "sprog": "en",
+  "sprognavn": "English",
+  "hreflang": "en",
+
+  "grupper": {
+    "fysik": "Physical and mobility",
+    "energi": "Power",
+    "sensorik": "Sensing and software",
+    "nyttelast": "Payload interface",
+    "kommercielt": "Commercial and EU"
+  },
+
+  "felter": {
+    "egenvaegt":               { "navn": "Net weight",                "gruppe": "fysik",        "hjaelp": "The manufacturer's own weight figure. Note that some state it with the battery and some without." },
+    "laengde":                 { "navn": "Length",                    "gruppe": "fysik",        "hjaelp": "Standing dimension." },
+    "bredde":                  { "navn": "Width",                     "gruppe": "fysik",        "hjaelp": "Standing dimension." },
+    "hoejde":                  { "navn": "Height",                    "gruppe": "fysik",        "hjaelp": "Standing dimension. Several manufacturers publish more than one height for the same robot." },
+    "frihedsgrader":           { "navn": "Degrees of freedom",        "gruppe": "fysik",        "hjaelp": "Number of actively driven joints." },
+    "nyttelast_gaaende":       { "navn": "Payload, walking",          "gruppe": "fysik",        "hjaelp": "The load the robot carries while walking. This is the figure the catalogue ranks on." },
+    "nyttelast_staaende":      { "navn": "Payload, standing",         "gruppe": "fysik",        "hjaelp": "The load the robot carries standing still. It can be several times the walking figure and must never be compared with it." },
+    "hastighed":               { "navn": "Max. speed",                "gruppe": "fysik",        "hjaelp": "Read the operator: some manufacturers publish a lab figure, others an operating speed." },
+    "haeldning":               { "navn": "Max. slope",                "gruppe": "fysik",        "hjaelp": "Some manufacturers state a percentage rather than degrees. We do not convert silently." },
+    "forhindring_enkelt":      { "navn": "Single obstacle",           "gruppe": "fysik",        "hjaelp": "Highest single obstacle. Not comparable with continuous stair climbing." },
+    "trappetrin_kontinuerlig": { "navn": "Continuous stairs",         "gruppe": "fysik",        "hjaelp": "Step height the robot climbs in sequence. It is the only one of the two step fields comparisons may use." },
+    "ip_klasse":               { "navn": "IP rating",                 "gruppe": "fysik",        "hjaelp": "Ingress protection against dust and water." },
+    "temp_min":                { "navn": "Operating temp., min.",     "gruppe": "fysik",        "hjaelp": "Lower operating temperature. Decisive for outdoor use in Denmark." },
+    "temp_maks":               { "navn": "Operating temp., max.",     "gruppe": "fysik",        "hjaelp": "Upper operating temperature." },
+
+    "batteri_wh":              { "navn": "Battery capacity",          "gruppe": "energi",       "hjaelp": "Only where the manufacturer prints Wh. We never derive Wh from mAh and volts." },
+    "driftstid":               { "navn": "Runtime",                   "gruppe": "energi",       "hjaelp": "Without a load condition one runtime is not comparable with another." },
+    "hot_swap":                { "navn": "Battery hot-swap",          "gruppe": "energi",       "hjaelp": "Battery change without powering down." },
+    "ladetid":                 { "navn": "Charge time",               "gruppe": "energi",       "hjaelp": "Read the condition: some state time to 80 %, others to full." },
+    "dockingstation":          { "navn": "Docking station",           "gruppe": "energi",       "hjaelp": "Automatic charging. Often an option." },
+
+    "lidar":                   { "navn": "LiDAR",                     "gruppe": "sensorik",     "hjaelp": "Type and model. A type without a model does not count as a disclosure." },
+    "kameraer":                { "navn": "Cameras",                   "gruppe": "sensorik",     "hjaelp": "Count, type and where possible model." },
+    "compute":                 { "navn": "Onboard compute",           "gruppe": "sensorik",     "hjaelp": "Compute unit carried on the robot." },
+    "ros2":                    { "navn": "ROS 2",                     "gruppe": "sensorik",     "hjaelp": "ROS without a version number does not count as ROS 2." },
+    "sdk_sprog":               { "navn": "SDK languages",             "gruppe": "sensorik",     "hjaelp": "Programming languages the manufacturer supports." },
+    "autonominiveau":          { "navn": "Autonomy",                  "gruppe": "sensorik",     "hjaelp": "Descriptive, not a scale. No manufacturer publishes a level." },
+
+    "monteringsinterface":     { "navn": "Mounting interface",        "gruppe": "nyttelast",    "hjaelp": "How equipment is attached." },
+    "stroem_ud":               { "navn": "Power out",                 "gruppe": "nyttelast",    "hjaelp": "Voltage and power per port. Most manufacturers state only the voltage." },
+    "dataporte":               { "navn": "Data ports",                "gruppe": "nyttelast",    "hjaelp": "Physical ports for payloads." },
+
+    "pris":                    { "navn": "Indicative price",          "gruppe": "kommercielt",  "hjaelp": "Contact sales is not a price. We never reproduce a figure the manufacturer itself calls a placeholder." },
+    "eu_tilgaengelig":         { "navn": "Available in the EU",       "gruppe": "kommercielt",  "hjaelp": "Whether the manufacturer states that the model can be bought in the EU." },
+    "ce_oplyst":               { "navn": "CE stated",                 "gruppe": "kommercielt",  "hjaelp": "Whether the manufacturer STATES CE — not whether the robot has CE. A missing CE statement does not mean the same thing for an EU manufacturer as for a US one." },
+    "eu_service":              { "navn": "Service point in the EU",   "gruppe": "kommercielt",  "hjaelp": "Whether the manufacturer states a service point in the EU." },
+    "leveringstid":            { "navn": "Lead time",                 "gruppe": "kommercielt",  "hjaelp": "Whether the manufacturer states a lead time." }
+  },
+
+  "tilstande": {
+    "ikke_oplyst": { "navn": "Not stated", "hjaelp": "The manufacturer does not publish it. That is not the same as zero, and not the same as no." },
+    "nej":         { "navn": "No",         "hjaelp": "The manufacturer explicitly answers no. That is a disclosure, not a gap." },
+    "0":           { "navn": "0",          "hjaelp": "A measured zero." },
+    "kun_billede": { "navn": "Image only", "hjaelp": "The manufacturer publishes it, but only inside an image that cannot be quoted as text." }
+  },
+
+  "operatorer": {
+    ">":  "more than",
+    ">=": "at least",
+    "<":  "less than",
+    "<=": "at most",
+    "~":  "approx.",
+    "±":  "plus/minus"
+  },
+
+  "status": {
+    "i_produktion": "In production",
+    "annonceret":   "Announced",
+    "udgaaet":      "Discontinued",
+    "demonstrator": "Demonstrator"
+  },
+
+  "ui": {
+    "katalog":            "Catalogue",
+    "sammenlign":         "Compare",
+    "metode":             "Method",
+    "producent":          "Manufacturer",
+    "producentland":      "Country",
+    "producentby":        "Home city",
+    "status":             "Status",
+    "kilde":              "Source",
+    "hentet":             "Retrieved",
+    "advarsel":           "Caveat",
+    "noter":              "Notes on this entry",
+    "varianter":          "Variants",
+    "variantforskel":     "The value applies to one variant — see the caveat",
+    "specifikationstaethed": "Specification density",
+    "taethed_forklaring": "The share of fields the manufacturer publishes itself. It measures openness, not suitability.",
+    "udfyldte_felter":    "fields stated",
+    "af":                 "of",
+    "metrisk":            "metric",
+    "imperialt":          "imperial",
+    "ved_last":           "at load",
+    "ingen_lastbetingelse": "no load condition stated",
+    "kildetype_primaer":  "manufacturer's own page",
+    "kildetype_sekundaer": "secondary source",
+    "ingen_forhandleraftale": "KeyResearch has no reseller agreement with any manufacturer on this site."
+  }
+}

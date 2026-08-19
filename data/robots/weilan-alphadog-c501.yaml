@@ -1,0 +1,139 @@
+slug: weilan-alphadog-c501
+navn: AlphaDog C501
+producent: WEILAN
+producentland: Kina
+producentby: Nanjing
+status: i_produktion
+noter:
+  - "WEILAN Co., Ltd., ICP-nummer Su-ICP-Bei-19029747-1 (registreret i Jiangsu). Producentens etiket for varianten er C501 Ultimate developer version."
+  - "SPROGSKIFTEREN PAA WEILANS ENGELSKE SIDER ER BRUDT: menupunktet for kinesisk peger paa en URL, der svarer 404. Det gaelder alle tre proevede sider. Der findes ingen kinesisk primaerkilde at krydstjekke imod paa weilan.com."
+  - "Alle tal her er laest direkte i den gemte raafil, ikke afskrevet fra et referat."
+  - "PRISERNE 16.900 CNY og 86.900 CNY, som cirkulerer om Weilan-modeller, er IKKE overfoert til nogen model og maa ikke blive det. Weilans egen ordreside oplyser ingen priser overhovedet."
+  - "Producentens eget forbehold nederst paa siden: Some specifications or performance parameters can only be realized under specific conditions, og Due to standards and regulations, some features may not be available in all countries or regions."
+felter:
+  egenvaegt:
+    vaerdi: 24.3
+    enhed: kg
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver 24.3Kg (C500 vejer 24Kg). Det siges ikke, om batteriet er med."
+  laengde:
+    vaerdi: 76
+    enhed: cm
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producentens etiket: Size (Standing Pose) 76 cm x 40 cm x 45 cm."
+  bredde:
+    vaerdi: 40
+    enhed: cm
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi: 45
+    enhed: cm
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+  frihedsgrader:
+    vaerdi: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Siden oplyser leddenes bevaegelsesomraader (Abduction/Adduction +/-30 grader, Thigh Rotation -185 til +115 grader, Calf Rotation 0 til +150 grader), hvoraf man KAN slutte tre led pr. ben og dermed 12. Det er en udregning, ikke en oplysning. Feltet forbliver ikke_oplyst."
+  nyttelast_gaaende:
+    vaerdi: 3
+    enhed: kg
+    operator: "<="
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Payload Capacity: Up to 3 kg som ET UDELT TAL og skelner ikke mellem gaaende og staaende last. Placeringen er en slutning, ikke en aflaesning."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 1.5
+    enhed: m/s
+    operator: "<="
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "TO HASTIGHEDSTAL I SAMME TABEL: Speed: Up to 1.5 m/s og Max. Safe Speed: 3.0m/s. Her bruges driftshastigheden. Operatoren up to betyder <=, ikke =."
+  haeldning:
+    vaerdi: 20
+    enhed: grader
+    operator: "<="
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Gradeability Max.20 grader - et LOFT. Laveste haeldningstal i hele indsamlingen."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min:
+    vaerdi: 0
+    enhed: C
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "INDSAMLINGENS SMALLESTE DRIFTSTEMPERATUR og den eneste, der ikke gaar under frysepunktet: Operating Ambient Temperature 0 til 35 grader C. For en dansk koeber er den en diskvalifikator udendoers hele vinteren. Producenten oplyser desuden Nonoperating Temperature 0 til 45 grader C - maskinen maa altsaa heller ikke OPBEVARES under frysepunktet. En uopvarmet garage eller et skur i Danmark ligger under 0 grader store dele af aaret. Skemaet har intet felt til ikke-driftstemperatur."
+  temp_maks:
+    vaerdi: 35
+    enhed: C
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to temperaturer. Skal normaliseres i indlaesningen, ellers matcher intervalparseren ikke."
+  batteri_wh:
+    vaerdi: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "23Ah Lithium Battery - uden spaending. Wh kan ikke udledes og udledes ikke."
+  driftstid:
+    vaerdi: 3.3
+    enhed: t
+    operator: "<="
+    ved_last: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "FIRE UDHOLDENHEDSTAL, ALLE UDEN LASTBETINGELSE: Average Up to 5.7h, Continuous Walking Up to 3.3h, Standing Up to 8h, Standby Mode Up to 18h. Her bruges den kontinuerlige gang - den eneste, der svarer til de oevrige posters driftstid."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Siden skriver Supports Lidar and Machine Vision i marketingprosa. Ingen type, ingen model, ingen raekke i specifikationstabellen."
+  kameraer:
+    vaerdi: "fiskeoejekamera: ja; dybdekamera: ja"
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten svarer eksplicit Yes/No pr. variant: Fisheye Vision Camera Yes, Depth Vision Camera Yes. C500 har IKKE dybdekameraet. Et udtrykkeligt NEJ er en oplysning, ikke et hul."
+  compute:
+    vaerdi: "ARM 64-bit CPU; 32 GB lager"
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver CPU: ARM 64 bit og Hard Drive: 32 GB. Arkitektur uden model - der staar ingen chipbetegnelse."
+  ros2:
+    vaerdi: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Operating System: Linux + ROS. Feltet hedder ROS 2, og versionen staar ikke. At taelle det med ville vaere at opfinde et versionsnummer."
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: ja
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver Autonomous Navigation: Yes for C501 (og No for C500). Ogsaa Deep Visual Positioning and Map Construction og Visually Assisted Walking staar som Yes. Det er den eneste forskel paa de to varianter ud over dybdekameraet, vaegten og betjeningsmaaden."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte:
+    vaerdi: "HDMI; USB; WiFi"
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producentens egen linje: Ports: HDMI, USB, WIFI. WiFi er en forbindelse, ikke en fysisk port, men producenten foerer den i portlisten."
+  pris:
+    vaerdi: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Weilans egen ordreside oplyser ingen priser overhovedet - kun at man skal skrive en e-mail."
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst:
+    vaerdi: ikke_oplyst
+    kilde: https://www.weilan.com/en/en/alphadogc.html
+    hentet: 2026-08-19
+    advarsel: "Producentens eneste bemaerkning om markeder er: Due to standards and regulations, some features may not be available in all countries or regions. Ingen CE, ingen anden overensstemmelsesmaerkning."
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
