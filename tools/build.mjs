@@ -22,7 +22,7 @@ import process from 'node:process';
 import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, KATALOG_FELTER, FILTER_FELTER, SPROG, STATUS_VAERDIER,
-  tilstandAf,
+  tilstandAf, normaliserRobot,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 
@@ -132,12 +132,15 @@ function visKilde(post, T) {
 /** Selve tallet med operator, enhed, interval og imperial. */
 function visTal(post, sprogkode, T) {
   const enhed = post.enhed ? ` <span class="enhed">${esc(post.enhed)}</span>` : '';
+  // Regel 4: operatoren skal SES — ogsaa foran et interval. Unitree skriver
+  // "ca. 1-2 t" om Go2's driftstid, og uden "≈" bliver forbeholdet til vores
+  // praecision.
+  const op = post.operator ? `<span class="operator">${esc(OP_TEGN[post.operator] ?? post.operator)}</span> ` : '';
   let kerne;
   if (post.min !== undefined) {
     // Regel 5: et interval er ikke sit gennemsnit.
-    kerne = `${tal(post.min, sprogkode)}–${tal(post.maks, sprogkode)}${enhed}`;
+    kerne = `${op}${tal(post.min, sprogkode)}–${tal(post.maks, sprogkode)}${enhed}`;
   } else {
-    const op = post.operator ? `<span class="operator">${esc(OP_TEGN[post.operator] ?? post.operator)}</span> ` : '';
     const cifre = post.vaerdi === 0 ? `<span class="nul">0</span>` : tal(post.vaerdi, sprogkode);
     kerne = `${op}${cifre}${enhed}`;
   }
@@ -151,12 +154,38 @@ function visTal(post, sprogkode, T) {
   return ud;
 }
 
+/**
+ * Varianterne ved navn. Lite3's fire varianter baerer 5, 4,5, 4 og 2,5 kg — de er
+ * fire maskiner, ikke pynt, og blokken maa derfor ikke falde ud af visningen.
+ * Vaerdien ovenfor er én af dem; her staar de alle sammen, saa laeseren kan se,
+ * hvilken kolonne tallet kommer fra.
+ */
+function visVarianter(v, sprogkode, T) {
+  if (!v.varianter) return '';
+  const somTekst = (x) => {
+    if (typeof x === 'number') return tal(x, sprogkode);
+    if (typeof x === 'boolean') return x ? T.ja : T.nej;
+    return String(x);
+  };
+  const raekker = Object.entries(v.varianter)
+    .map(([n, x]) => `<div class="variant"><dt>${esc(n)}</dt><dd>${esc(somTekst(x))}</dd></div>`)
+    .join('');
+  return `<div class="varianter"><p class="varianter__titel">${esc(T.varianter)}</p>` +
+    `<dl class="varianter__liste">${raekker}</dl></div>`;
+}
+
 function visPost(navn, v, sprogkode, T) {
   if (typeof v === 'string') return visTilstand(v, T);
   const spec = FELTER[navn];
   let ud = '';
 
-  if (spec.art === 'jaNej') {
+  const tilstand = tilstandAf(v.vaerdi);
+  if (tilstand) {
+    // Skemaudvidelse 1: tilstanden med herkomst. Den skal SE ud som den bare
+    // tilstand — ellers ville "ikke oplyst" pludselig have to udseender — men
+    // den baerer kilde, hentedato og forbehold nedenfor.
+    ud = visTilstand(tilstand, T);
+  } else if (spec.art === 'jaNej') {
     ud = `<span class="vaerdi vaerdi--${v.vaerdi ? 'ja' : 'nej'}">` +
       `<span class="tilstand__tegn" aria-hidden="true">${v.vaerdi ? '✓' : '✗'}</span>` +
       `${esc(v.vaerdi ? T.ja : T.nej)}</span>`;
@@ -164,12 +193,20 @@ function visPost(navn, v, sprogkode, T) {
     ud = `<span class="vaerdi">${v.vaerdi.map((x) => `<code>${esc(x)}</code>`).join(' ')}</span>`;
   } else if (typeof v.vaerdi === 'string') {
     ud = `<span class="vaerdi">${esc(v.vaerdi)}</span>`;
+    // Et tekstfelt kan baere et maalbart interval ved siden af producentens
+    // ordlyd (Spots "ureguleret DC 35-58,8 V"). Det skal med, ellers er det data,
+    // ingen kan se.
+    if (v.min !== undefined) {
+      ud += ` <span class="vaerdi vaerdi--afledt">${tal(v.min, sprogkode)}–${tal(v.maks, sprogkode)}` +
+        (v.enhed ? ` <span class="enhed">${esc(v.enhed)}</span>` : '') + `</span>`;
+    }
   } else {
     ud = visTal(v, sprogkode, T);
   }
 
   if (v.ved_last !== undefined) {
-    ud += typeof v.ved_last === 'string'
+    const ukendt = typeof v.ved_last === 'string' || tilstandAf(v.ved_last.vaerdi);
+    ud += ukendt
       ? ` <span class="betingelse">(${esc(T.ved_last_ukendt)})</span>`
       : ` <span class="betingelse">(${esc(T.ved_last)} ${tal(v.ved_last.vaerdi, sprogkode)} ${esc(v.ved_last.enhed ?? '')})</span>`;
   }
@@ -179,6 +216,7 @@ function visPost(navn, v, sprogkode, T) {
       `<strong>${esc(T.advarsel)}:</strong> ${esc(v.advarsel)}</span>`;
   }
   if (v.note) ud += `<span class="note">${esc(v.note)}</span>`;
+  ud += visVarianter(v, sprogkode, T);
   ud += visKilde(v, T);
   return ud;
 }
@@ -188,6 +226,9 @@ function visKort(navn, v, sprogkode, T) {
   if (v === undefined) return visTilstand('ikke_oplyst', T);
   if (typeof v === 'string') return visTilstand(v, T);
   const spec = FELTER[navn];
+  const tilstand = tilstandAf(v.vaerdi);
+  // En dokumenteret tilstand ser ud som tilstanden - kilden staar paa detaljesiden.
+  if (tilstand) return visTilstand(tilstand, T);
   if (spec.art === 'jaNej') {
     return `<span class="vaerdi vaerdi--${v.vaerdi ? 'ja' : 'nej'}">` +
       `<span class="tilstand__tegn" aria-hidden="true">${v.vaerdi ? '✓' : '✗'}</span>` +
@@ -195,7 +236,9 @@ function visKort(navn, v, sprogkode, T) {
   }
   if (spec.art === 'liste') return `<span class="vaerdi">${esc(v.vaerdi.join(', '))}</span>`;
   if (typeof v.vaerdi === 'string') return `<span class="vaerdi">${esc(v.vaerdi)}</span>`;
-  return visTal(v, sprogkode, T) + (v.advarsel ? ` <span class="maerke maerke--advarsel" title="${attr(v.advarsel)}">⚠</span>` : '');
+  return visTal(v, sprogkode, T)
+    + (v.varianter ? ` <span class="maerke maerke--varianter" title="${attr(Object.entries(v.varianter).map(([n, x]) => `${n}: ${x}`).join(' · '))}">${esc(T.varianter_kort)}</span>` : '')
+    + (v.advarsel ? ` <span class="maerke maerke--advarsel" title="${attr(v.advarsel)}">⚠</span>` : '');
 }
 
 /* ----------------------------------------------------------------- sider */
@@ -292,7 +335,14 @@ ${taethedBlok(robot, naevnere, d4, T, sprogkode)}
 `;
   }
 
-  if (robot.noter) ud += `<section class="gruppe"><h2>${esc(T.noter)}</h2><p>${esc(robot.noter)}</p></section>\n`;
+  // noter er enten én tekst eller en liste af dem. En liste, der renderes med
+  // esc() alene, bliver til "a,b" - en tavs sammenkoedning af to observationer.
+  if (robot.noter) {
+    const krop = Array.isArray(robot.noter)
+      ? `<ul class="noter">${robot.noter.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`
+      : `<p>${esc(robot.noter)}</p>`;
+    ud += `<section class="gruppe"><h2>${esc(T.noter)}</h2>${krop}</section>\n`;
+  }
 
   ud += `</article>
 </main>
@@ -442,8 +492,10 @@ function main(argv) {
     }
   }
 
+  // Samme normalisering som validatoren koerer. Delt funktion, ikke en kopi:
+  // to laesninger af den samme fil er praecis den fejl, der kostede 358 felter.
   const robotter = filer.map((f) => {
-    try { return parseYaml(fs.readFileSync(f, 'utf8'), f); }
+    try { return normaliserRobot(parseYaml(fs.readFileSync(f, 'utf8'), f)); }
     catch (e) { if (e instanceof YamlFejl) { console.error(String(e.message)); return null; } throw e; }
   }).filter(Boolean);
   robotter.sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'));
@@ -478,6 +530,10 @@ function main(argv) {
         const v = r.felter[n];
         if (v === undefined) f[n] = 'ikke_oplyst';
         else if (typeof v === 'string') f[n] = v;
+        // Tilstanden med herkomst filtrerer som tilstanden. Uden det her ville en
+        // dokumenteret "nej" lande i indekset som {vaerdi: "nej"} og blive
+        // sorteret som en tekst - og de tre tilstande ville kollapse i filteret.
+        else if (tilstandAf(v.vaerdi)) f[n] = tilstandAf(v.vaerdi);
         else if (typeof v.vaerdi === 'boolean') f[n] = v.vaerdi;
         else if (v.min !== undefined) f[n] = { min: v.min, maks: v.maks, enhed: v.enhed };
         else f[n] = { vaerdi: v.vaerdi, enhed: v.enhed, operator: v.operator ?? null };

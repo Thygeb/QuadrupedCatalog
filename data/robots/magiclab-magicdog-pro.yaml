@@ -32,6 +32,7 @@ felter:
     advarsel: "Liggende (Lying Down) 720 x 440 x 290 mm. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 13
+    enhed: DoF
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Producenten skriver Degrees of Freedom (DOF) 13 og separat Aluminum Alloy Precision Joint Motor 12. Det globale site skriver samme tal som 12 + 1 (head DOF) - altsaa 12 i benene plus hovedet."

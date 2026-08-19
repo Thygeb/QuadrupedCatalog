@@ -94,7 +94,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Producenten skriver Output power supply (72V BAT). Spaending oplyst, watt ikke."
   dataporte:
-    vaerdi: Ethernet
+    vaerdi: ["Ethernet"]
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
   pris: ikke_oplyst

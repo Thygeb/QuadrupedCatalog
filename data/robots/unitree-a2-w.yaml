@@ -32,6 +32,7 @@ felter:
     advarsel: "Foldet 930 x 685 x 210 mm - laengere end staaende. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 16
+    enhed: DoF
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
   nyttelast_gaaende:
@@ -132,7 +133,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
   dataporte:
-    vaerdi: "RS485 x2; CAN x2; Gigabit Ethernet x2; USB 3.0 Type-C x4"
+    vaerdi: ["RS485 x2", "CAN x2", "Gigabit Ethernet x2", "USB 3.0 Type-C x4"]
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
   pris: ikke_oplyst

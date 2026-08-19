@@ -28,7 +28,7 @@ import {
 } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER,
-  TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf,
+  TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
 } from './skema.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
@@ -89,22 +89,29 @@ function tjekOperator(sti, post) {
   return op;
 }
 
-/** R5 — enhed paakraevet, kendt, og af feltets dimension. */
-function tjekEnhed(sti, raaEnhed, forventetType) {
+/**
+ * R5 — enhed paakraevet, kendt, og af feltets dimension.
+ * Et felt kan have to tilladte dimensioner (haeldning: grader ELLER procent).
+ * De to omregnes aldrig til hinanden; tjekket accepterer blot begge.
+ */
+function tjekEnhed(sti, raaEnhed, forventetType, ogsaaType) {
+  const tilladte = [forventetType, ogsaaType].filter(Boolean);
+  const navne = tilladte.flatMap((t) => TYPE_ENHEDER[t] ?? []);
+  const somTekst = tilladte.join(' eller ');
   if (raaEnhed === undefined || raaEnhed === null || raaEnhed === '') {
     FEJL('R5', sti, `talfeltet mangler "enhed"` +
-      (forventetType ? ` — forventet en ${forventetType}-enhed (${TYPE_ENHEDER[forventetType].join(', ')})` : ''));
+      (tilladte.length ? ` — forventet en ${somTekst}-enhed (${navne.join(', ')})` : ''));
     return null;
   }
-  const e = kanoniskEnhed(String(raaEnhed));
+  const e = kanoniskEnhed(String(raaEnhed), forventetType);
   if (!ENHEDER[e]) {
     FEJL('R5', sti, `enheden ${JSON.stringify(raaEnhed)} kender skemaet ikke` +
-      (forventetType ? `. Gyldige ${forventetType}-enheder: ${TYPE_ENHEDER[forventetType].join(', ')}` : ''));
+      (tilladte.length ? `. Gyldige ${somTekst}-enheder: ${navne.join(', ')}` : ''));
     return null;
   }
-  if (forventetType && ENHEDER[e][0] !== forventetType) {
-    FEJL('R5', sti, `"${raaEnhed}" er en ${ENHEDER[e][0]}-enhed, men feltet er en ${forventetType} ` +
-      `(gyldige: ${TYPE_ENHEDER[forventetType].join(', ')})`);
+  if (tilladte.length && !tilladte.includes(ENHEDER[e][0])) {
+    FEJL('R5', sti, `"${raaEnhed}" er en ${ENHEDER[e][0]}-enhed, men feltet er en ${somTekst} ` +
+      `(gyldige: ${navne.join(', ')})`);
     return null;
   }
   return e;
@@ -118,7 +125,7 @@ function tjekImperial(sti, post, tal, enhed) {
   }
   const impV = post.vaerdi_imperial;
   if (typeof impV !== 'number') { FEJL('R9', sti, `"vaerdi_imperial" er ikke et tal`); return; }
-  const impE = kanoniskEnhed(String(post.enhed_imperial ?? ''));
+  const impE = kanoniskEnhed(String(post.enhed_imperial ?? ''), ENHEDER[enhed]?.[0]);
   if (!ENHEDER[impE]) { FEJL('R9', sti, `"enhed_imperial: ${post.enhed_imperial}" kender skemaet ikke`); return; }
   if (!enhed) return;
   if (ENHEDER[impE][0] !== ENHEDER[enhed][0]) {
@@ -175,7 +182,7 @@ function tjekRaa(sti, post, tal, enhed, operator) {
     return;
   }
   const raaEnhed = traef.enhed || traef.enhedArvet;
-  if (enhed && raaEnhed && kanoniskEnhed(raaEnhed) !== enhed) {
+  if (enhed && raaEnhed && kanoniskEnhed(raaEnhed, ENHEDER[enhed]?.[0]) !== enhed) {
     FEJL('R12', sti, `"enhed: ${enhed}" passer ikke til raastrengen, hvor ${tal} staar med "${raaEnhed}"`);
   }
   const faelder = faelderI(raa);
@@ -213,6 +220,39 @@ function tjekNoegler(sti, post) {
   }
 }
 
+/**
+ * R15 — "varianter:" paa et felt (skemaudvidelse 2).
+ * Go2's fire varianter er fire maskiner, ikke pynt: nyttelasten falder fra 5 til
+ * 2,5 kg hen over Lite3's fire kolonner. Blokken skal derfor kunne staa — men
+ * variantnavnene skal vaere DE SAMME i hele filen, ellers kan to felter tale om
+ * hver sin "Pro" uden at nogen opdager det.
+ */
+function tjekVarianter(sti, post, kendteNavne) {
+  const v = post.varianter;
+  if (v === undefined) return;
+  if (!erPost(v)) {
+    FEJL('R15', sti, `"varianter" skal vaere et kort af variantnavn: vaerdi, fik ${JSON.stringify(v)}`);
+    return;
+  }
+  const navne = Object.keys(v);
+  if (!navne.length) { FEJL('R15', sti, `"varianter" er tom`); return; }
+  for (const n of navne) {
+    const x = v[n];
+    if (x === null || (typeof x === 'object')) {
+      FEJL('R15', `${sti}.varianter.${n}`, `varianten skal baere en skalar vaerdi, fik ${JSON.stringify(x)}`);
+    }
+    if (kendteNavne && !kendteNavne.has(n)) {
+      FEJL('R15', `${sti}.varianter.${n}`, `varianten "${n}" staar ikke i robottens ` +
+        `topnoegle "varianter" (${[...kendteNavne].join(', ') || 'tom'}) — enten er navnet stavet ` +
+        `forskelligt to steder, eller ogsaa mangler varianten paa listen`);
+    }
+  }
+  if (!kendteNavne) {
+    FEJL('R15', sti, `feltet har en "varianter"-blok, men robotten har ingen topnoegle ` +
+      `"varianter" med variantnavnene. Uden den kan to felter tale om hver sin variant`);
+  }
+}
+
 /* --------------------------------------------------------------- felttjek */
 
 function tjekTalfelt(sti, post, spec) {
@@ -236,7 +276,7 @@ function tjekTalfelt(sti, post, spec) {
       return;
     }
   }
-  const enhed = tjekEnhed(sti, post.enhed, spec.type);
+  const enhed = tjekEnhed(sti, post.enhed, spec.type, spec.ogsaaType);
   tjekKilde(sti, post);
   tjekHentet(sti, post);
   const op = tjekOperator(sti, post);
@@ -244,19 +284,38 @@ function tjekTalfelt(sti, post, spec) {
     for (const t of tal) tjekRaa(sti, post, t, enhed, harInterval ? null : op);
     if (!harInterval) tjekImperial(sti, post, post.vaerdi, enhed);
   }
-  // R10 — driftstid uden lastbetingelse er ikke et tal (regel 8).
+  tjekVedLast(sti, post, spec);
+}
+
+/**
+ * R10 — driftstid uden lastbetingelse er ikke et tal (regel 8).
+ * `ved_last` maa vaere et masse-kort ELLER en tilstand — og et masse-kort, hvis
+ * `vaerdi` selv er en tilstand, taeller som tilstanden. Yobotics Y20 er stedet:
+ * producenten oplyser selv, AT tallet gaelder med last, men ikke hvor meget.
+ * "Med last, kg ikke oplyst" er en anden oplysning end "ingen lastbetingelse",
+ * og de to maa ikke kollapse.
+ */
+function tjekVedLast(sti, post, spec) {
   if (spec.kraeverVedLast) {
     const vl = post.ved_last;
     if (vl === undefined) {
       FEJL('R10', sti, `"driftstid" mangler "ved_last". Uden lastbetingelse er tallet ikke ` +
         `sammenligneligt — skriv ved_last: ikke_oplyst, hvis producenten ikke oplyser den`);
     } else if (erPost(vl)) {
-      if (typeof vl.vaerdi !== 'number') FEJL('R10', `${sti}.ved_last`, `"vaerdi" mangler eller er ikke et tal`);
-      else tjekEnhed(`${sti}.ved_last`, vl.enhed, 'masse');
+      if (tilstandAf(vl.vaerdi)) {
+        if (vl.enhed !== undefined) tjekEnhed(`${sti}.ved_last`, vl.enhed, 'masse');
+      } else if (typeof vl.vaerdi !== 'number') {
+        FEJL('R10', `${sti}.ved_last`, `"vaerdi" er hverken et tal eller en af tilstandene ` +
+          `${TILSTANDE.join(' | ')} (fik ${JSON.stringify(vl.vaerdi ?? null)})`);
+      } else {
+        tjekEnhed(`${sti}.ved_last`, vl.enhed, 'masse');
+      }
     } else if (!tilstandAf(vl)) {
       FEJL('R10', `${sti}.ved_last`, `${JSON.stringify(vl)} er hverken et masse-kort eller ` +
         `en af tilstandene ${TILSTANDE.join(' | ')}`);
     }
+  } else if (post.ved_last !== undefined) {
+    FEJL('R10', sti, `"ved_last" hoerer kun til paa et felt, der kraever en lastbetingelse`);
   }
 }
 
@@ -281,9 +340,11 @@ function tjekTekstfelt(sti, post, spec) {
 }
 
 function tjekJaNejfelt(sti, post) {
+  // Normaliseringen har allerede oversat "ja"/"nej" til true/false; naar der
+  // stadig staar noget andet, er det hverken et ja eller et nej.
   const v = post.vaerdi;
   if (typeof v !== 'boolean') {
-    FEJL('R4', sti, `et ja/nej-felt skal have "vaerdi: true" eller "vaerdi: false", fik ` +
+    FEJL('R4', sti, `et ja/nej-felt skal have "vaerdi: true"/"ja" eller "vaerdi: false"/"nej", fik ` +
       `${JSON.stringify(v ?? null)}. Er det uoplyst, saa skriv feltet som "ikke_oplyst"`);
     return;
   }
@@ -303,7 +364,7 @@ function tjekListefelt(sti, post) {
   tjekHentet(sti, post);
 }
 
-function tjekFelt(navn, vaerdi, spec) {
+function tjekFelt(navn, vaerdi, spec, kendteVarianter) {
   const sti = navn;
   // De tre tilstands-strenge. Den fjerde tilstand, 0, er en almindelig post med kilde.
   if (typeof vaerdi === 'string') {
@@ -329,10 +390,56 @@ function tjekFelt(navn, vaerdi, spec) {
   if (Array.isArray(vaerdi)) { FEJL('R4', sti, `feltet er en bar liste uden kilde og hentet`); return; }
 
   tjekNoegler(sti, vaerdi);
-  if (spec.art === 'tal') tjekTalfelt(sti, vaerdi, spec);
-  else if (spec.art === 'jaNej') tjekJaNejfelt(sti, vaerdi);
+  tjekVarianter(sti, vaerdi, kendteVarianter);
+
+  // Skemaudvidelse 1: tilstanden med herkomst. "Producenten svarer nej, her er
+  // hvor det staar" er en anden oplysning end en bar "nej" — og en langt bedre.
+  if (tilstandAf(vaerdi.vaerdi)) { tjekTilstandspost(sti, vaerdi, spec); return; }
+
+  if (spec.art === 'tal') { tjekTalfelt(sti, vaerdi, spec); return; }
+
+  // Et ikke-talfelt maa baere et maalbart interval ved siden af producentens
+  // ordlyd — Spot skriver "ureguleret DC 35-58,8 V". Gaar det med, skal det vaere
+  // et helt interval med enhed; ellers er det et halvt tal uden herkomst.
+  if (vaerdi.min !== undefined || vaerdi.maks !== undefined) {
+    if (typeof vaerdi.min !== 'number' || typeof vaerdi.maks !== 'number') {
+      FEJL('R4', sti, `et interval kraever baade "min" og "maks" som tal (regel 5: bevar intervaller)`);
+    } else {
+      tjekEnhed(sti, vaerdi.enhed, null);
+    }
+  }
+  if (spec.art === 'jaNej') tjekJaNejfelt(sti, vaerdi);
   else if (spec.art === 'liste') tjekListefelt(sti, vaerdi);
   else tjekTekstfelt(sti, vaerdi, spec);
+}
+
+/**
+ * Skemaudvidelse 1 — et felt maa vaere en tilstand MED kilde, hentedato og
+ * forbehold: `{ vaerdi: ikke_oplyst, kilde: ..., hentet: ..., advarsel: ... }`.
+ *
+ * Det er ikke en opblodning af R4. Kravet gaar den anden vej: en bar tilstand
+ * slipper for kilde, men skriver man den som en post, SKAL herkomsten med — og
+ * alt det, der kun giver mening om et tal (enhed, operator, interval, imperial,
+ * raastreng), er forbudt, saa "ikke oplyst 40 kg" ikke kan opstaa.
+ */
+const KUN_MED_TAL = ['enhed', 'operator', 'min', 'maks', 'vaerdi_imperial', 'enhed_imperial', 'raa', 'valuta'];
+function tjekTilstandspost(sti, post, spec) {
+  const kanonisk = tilstandAf(post.vaerdi);
+  if (kanonisk !== post.vaerdi) {
+    ADVARSEL('R3', sti, `skriv tilstanden med understreg: "${kanonisk}", ikke "${post.vaerdi}"`);
+  }
+  tjekKilde(sti, post);
+  tjekHentet(sti, post);
+  for (const n of KUN_MED_TAL) {
+    if (post[n] !== undefined) {
+      FEJL('R4', sti, `"${n}" staar sammen med tilstanden "${kanonisk}". En tilstand er ikke et ` +
+        `tal og maa ikke baere ${n} — enten er tallet der, eller ogsaa er det ikke`);
+    }
+  }
+  if (spec.kraeverVedLast && post.ved_last !== undefined) {
+    FEJL('R10', sti, `"ved_last" staar paa en post uden tal. En lastbetingelse uden driftstid ` +
+      `betinger ingenting`);
+  }
 }
 
 /* --------------------------------------------------------------- taethed */
@@ -346,6 +453,10 @@ export function erUdfyldt(navn, vaerdi, typeUdenModel) {
   if (vaerdi === undefined || vaerdi === null) return false;
   if (typeof vaerdi === 'string') return tilstandAf(vaerdi) === 'nej';
   if (!erPost(vaerdi)) return false;
+  // Tilstanden med herkomst taeller praecis som den bare tilstand: et dokumenteret
+  // "nej" er en oplysning, et dokumenteret "ikke oplyst" er stadig ingen oplysning.
+  const t = tilstandAf(vaerdi.vaerdi);
+  if (t) return t === 'nej';
   if (vaerdi.vaerdi === undefined && vaerdi.min === undefined) return false;
   if (FELTER[navn]?.d4 && !typeUdenModel) {
     // "3D LiDAR x1" er en type uden model. Uden et fabrikat eller en opremsning er
@@ -390,6 +501,29 @@ export function tjekRobot(doc, fil) {
     if (!kendte.has(n)) FEJL('R1', n, `ukendt topnoegle. Tilladte: ${[...kendte].join(', ')}`);
   }
 
+  // R15 — variantlisten. Naar den staar, er den facitlisten for felternes
+  // "varianter:"-blokke, og den skal derfor selv vaere en liste af navne.
+  let kendteVarianter = null;
+  if (doc.varianter !== undefined) {
+    if (!Array.isArray(doc.varianter) || !doc.varianter.length
+        || doc.varianter.some((v) => typeof v !== 'string' || v.trim() === '')) {
+      FEJL('R15', 'varianter', `topnoeglen "varianter" skal vaere en ikke-tom liste af ` +
+        `variantnavne, fx [AIR, PRO, X, EDU] — fik ${JSON.stringify(doc.varianter)}`);
+    } else {
+      kendteVarianter = new Set(doc.varianter);
+      if (kendteVarianter.size !== doc.varianter.length) {
+        FEJL('R15', 'varianter', `samme variantnavn staar to gange i listen`);
+      }
+    }
+  }
+  if (doc.noter !== undefined) {
+    const n = doc.noter;
+    const ok = typeof n === 'string'
+      ? n.trim() !== ''
+      : Array.isArray(n) && n.length > 0 && n.every((x) => typeof x === 'string' && x.trim() !== '');
+    if (!ok) FEJL('R1', 'noter', `"noter" skal vaere en tekst eller en liste af tekster`);
+  }
+
   const felter = doc.felter;
   if (felter === undefined || felter === null) { FEJL('R1', 'felter', `"felter" mangler`); return null; }
   if (!erPost(felter)) { FEJL('R1', 'felter', `"felter" er ikke et kort`); return null; }
@@ -400,7 +534,7 @@ export function tjekRobot(doc, fil) {
       FEJL('R2', navn, `ukendt felt. Skemaet har ${FELTNAVNE.length} felter: ${FELTNAVNE.join(', ')}`);
       continue;
     }
-    tjekFelt(navn, vaerdi, spec);
+    tjekFelt(navn, vaerdi, spec, kendteVarianter);
   }
   return doc;
 }
@@ -431,6 +565,43 @@ const SELVTEST = [
   ['Ghost: 2.4 m/s mod 4.9 mph afviger over 2 %', () => {
     const a = tilBasis(2.4, 'm/s'), b = tilBasis(4.9, 'mph');
     return Math.abs(a - b) / b * 100 > 2;
+  }],
+
+  // Normaliseringen. Den er det sted, hvor validatoren og generatoren enes om,
+  // hvad filen betyder - saa den skal bevises, ikke bare bruges.
+  ['"vaerdi: ja" bliver til true og "vaerdi: nej" til false paa et ja/nej-felt', () => {
+    const d = normaliserRobot(parseYaml('slug: x\nfelter:\n  ros2:\n    vaerdi: ja\n  hot_swap:\n    vaerdi: nej\n'));
+    return d.felter.ros2.vaerdi === true && d.felter.hot_swap.vaerdi === false;
+  }],
+  ['"nej" paa et listefelt er stadig tilstanden nej, ikke en false', () => {
+    const d = normaliserRobot(parseYaml('slug: x\nfelter:\n  dataporte:\n    vaerdi: nej\n'));
+    return d.felter.dataporte.vaerdi === 'nej';
+  }],
+  ['"C" er Celsius i et temperaturfelt og stadig ukendt i et massefelt', () => {
+    const d = normaliserRobot(parseYaml(
+      'slug: x\nfelter:\n  temp_min:\n    vaerdi: -20\n    enhed: C\n  egenvaegt:\n    vaerdi: 60\n    enhed: C\n'));
+    return d.felter.temp_min.enhed === '°C' && d.felter.egenvaegt.enhed === 'C';
+  }],
+  ['vaerdi_min/vaerdi_maks normaliseres til min/maks', () => {
+    const d = normaliserRobot(parseYaml(
+      'slug: x\nfelter:\n  hoejde:\n    vaerdi_min: 13\n    vaerdi_maks: 50\n    enhed: cm\n'));
+    const f = d.felter.hoejde;
+    return f.min === 13 && f.maks === 50 && f.vaerdi_min === undefined && f.vaerdi_maks === undefined;
+  }],
+  ['staar begge stavemaader, roeres ingen af dem — R11 skal kunne se fejlen', () => {
+    const d = normaliserRobot(parseYaml(
+      'slug: x\nfelter:\n  hoejde:\n    vaerdi_min: 13\n    min: 20\n    vaerdi_maks: 50\n    enhed: cm\n'));
+    return d.felter.hoejde.vaerdi_min === 13 && d.felter.hoejde.min === 20;
+  }],
+  ['"A2-W PRO" er en gyldig noegle i en varianter-blok', () => {
+    const d = parseYaml('varianter: [A2-W, A2-W PRO]\nfelter:\n  ip_klasse:\n    varianter:\n      A2-W PRO: "IP56-IP67"\n');
+    return d.felter.ip_klasse.varianter['A2-W PRO'] === 'IP56-IP67' && d.varianter[1] === 'A2-W PRO';
+  }],
+  ['haeldning i % og haeldning i grader er to dimensioner, ikke to enheder', () => {
+    // 45 % ER 24,2 grader. Ligger de i samme dimension, kan tilBasis stille dem
+    // op mod hinanden — og saa er producentens forbehold vekslet til vores tal.
+    return ENHEDER['%'][0] === 'stigning' && ENHEDER['°'][0] === 'vinkel'
+      && ENHEDER['%'][0] !== ENHEDER['°'][0];
   }],
 ];
 
@@ -491,7 +662,7 @@ export function main(argv) {
     robotINavn = path.basename(fil);
     let doc;
     try {
-      doc = parseYaml(fs.readFileSync(fil, 'utf8'), fil);
+      doc = normaliserRobot(parseYaml(fs.readFileSync(fil, 'utf8'), fil));
     } catch (e) {
       if (e instanceof YamlFejl) { FEJL('R0', '(syntaks)', e.message); continue; }
       throw e;

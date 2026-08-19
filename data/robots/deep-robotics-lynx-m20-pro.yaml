@@ -130,7 +130,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Sidens 72V power input er stroem IND, ikke ud."
   dataporte:
-    vaerdi: "Gigabit Ethernet"
+    vaerdi: ["Gigabit Ethernet"]
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
   pris: ikke_oplyst

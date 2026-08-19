@@ -120,7 +120,7 @@ felter:
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte:
-    vaerdi: "HDMI; USB; WiFi"
+    vaerdi: ["HDMI", "USB", "WiFi"]
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producentens egen linje: Ports: HDMI, USB, WIFI. WiFi er en forbindelse, ikke en fysisk port, men producenten foerer den i portlisten."

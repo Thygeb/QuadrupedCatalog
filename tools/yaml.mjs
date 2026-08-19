@@ -34,7 +34,15 @@ function fjernKommentar(linje) {
   return ud.replace(/\s+$/, '');
 }
 
-const NOEGLE_RE = /^([A-Za-z_][A-Za-z0-9_.-]*)\s*:(?:\s+([\s\S]*))?$/;
+/**
+ * Noeglenavne. Feltnavne er understreg-ord, men "varianter:"-blokkene har
+ * PRODUCENTENS egne variantnavne som noegler, og Unitree kalder den ene "A2-W PRO"
+ * — med mellemrum. Derfor tillades enkelte indre mellemrum, men kun mellem to
+ * navnetegn: "A2-W PRO" er en noegle, mens "Producenten skriver: noget" ikke er,
+ * fordi ":" saa staar efter et mellemrum, og fordi bare skalarer i den her
+ * datamaengde altid er citerede.
+ */
+const NOEGLE_RE = /^([A-Za-z_][A-Za-z0-9_.-]*(?: [A-Za-z0-9_.-]+)*)\s*:(?:\s+([\s\S]*))?$/;
 const YAML11_BOOL = /^(y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$/;
 
 export function parseYaml(src, fil = '<streng>') {
@@ -299,17 +307,31 @@ const ENHED_ALIAS = {
   lbs: 'lb', pounds: 'lb', pound: 'lb', kgs: 'kg',
   inches: 'in', inch: 'in', feet: 'ft', foot: 'ft', miles: 'mi', mile: 'mi',
   'n.m': 'Nm', nm: 'Nm',
-  kmh: 'km/h', kph: 'km/h',
-  degrees: '°', deg: '°',
+  kmh: 'km/h', kph: 'km/h', 'km/t': 'km/h',
+  degrees: '°', deg: '°', grader: '°', grad: '°',
+  procent: '%', percent: '%', pct: '%',
   watt: 'W', watts: 'W', volt: 'V', volts: 'V', lumens: 'lm', lumen: 'lm',
+};
+
+/**
+ * Aliasser, der KUN gaelder inden for én dimension.
+ * "C" er Celsius i et temperaturfelt — men "C" er coulomb i SI, og "F" er farad.
+ * Et globalt alias ville derfor lade en coulomb passere som en temperatur. Tabellen
+ * slaas op paa feltets dimension, saa "C" uden for et temperaturfelt stadig er en
+ * ukendt enhed og stadig fejler paa R5.
+ */
+const ENHED_ALIAS_TYPE = {
+  temperatur: { c: '°C', celsius: '°C', degc: '°C', f: '°F', fahrenheit: '°F', degf: '°F' },
 };
 
 /** Fyldes naar ENHEDER er defineret nedenfor. Producenter skriver "Kg", "WH", "Mins". */
 const KASSE_UAFHAENGIG = new Map();
 
-export function kanoniskEnhed(e) {
+export function kanoniskEnhed(e, type) {
   if (!e) return e;
   const lav = String(e).toLowerCase();
+  const iType = type && ENHED_ALIAS_TYPE[type];
+  if (iType && Object.prototype.hasOwnProperty.call(iType, lav)) return iType[lav];
   if (Object.prototype.hasOwnProperty.call(ENHED_ALIAS, lav)) return ENHED_ALIAS[lav];
   if (KASSE_UAFHAENGIG.has(lav)) return KASSE_UAFHAENGIG.get(lav);
   return e;
@@ -373,6 +395,12 @@ export const ENHEDER = {
   'ft/s': ['hastighed', 0.3048],
 
   '°': ['vinkel', 1],
+
+  // Haeldning oplyses af nogle producenter i PROCENT (stigningsforhold), ikke i
+  // grader. 45 % er 24,2°, saa de to tal maa aldrig ligge i samme kolonne. De er
+  // derfor to forskellige dimensioner, og enhederne kan ikke omregnes til hinanden
+  // af tilBasis. Feltet accepterer begge, og siden viser producentens egen enhed.
+  '%': ['stigning', 1],
 
   s: ['tid', 1], min: ['tid', 60], h: ['tid', 3600], t: ['tid', 3600], ms: ['tid', 0.001],
 

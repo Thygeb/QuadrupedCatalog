@@ -32,6 +32,7 @@ felter:
     advarsel: "Liggende (Lying Down) 720 x 440 x 290 mm. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 13
+    enhed: DoF
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Producenten skriver Degrees of Freedom (DOF) 13 og separat Aluminum Alloy Precision Joint Motor 12. Det globale site skriver samme tal som 12 + 1 (head DOF) - altsaa 12 i benene plus hovedet."
@@ -103,10 +104,10 @@ felter:
     hentet: 2026-08-19
     advarsel: "Producentens egen udviklerdokumentation for MagicDog HAR ROS2 (ROS2 API, ROS2 SDK-vejledning, ros2_reference), og EDU er den variant, der har SDK-adgang. Feltet er alligevel IKKE udfyldt, fordi D1 - om producentens udviklerdokumentation maa taelle som kilde - er aaben. Vender D1, er feltet udfyldt. Dokumentationen er desuden kun paa kinesisk, saa kilden kan ikke laeses af en dansk laeser."
   sdk_sprog:
-    vaerdi: ja
+    vaerdi: ikke_oplyst
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
-    advarsel: "SDK Support er markeret med udfyldt cirkel = JA paa EDU og aaben cirkel = nej paa PRO. Det er den eneste specifikationsforskel mellem de to modeller, og fortegnet er kontraintuitivt: det er EDU, der har SDK'et. Produktsiden naevner ingen sprog; udviklerdokumentationen (D1 aaben) oplyser C++ og Python."
+    advarsel: "SDK Support er markeret med udfyldt cirkel = JA paa EDU og aaben cirkel = nej paa PRO. Det er den eneste specifikationsforskel mellem de to modeller, og fortegnet er kontraintuitivt: det er EDU, der har SDK'et. Feltet spoerger om SPROGENE, og dem naevner produktsiden ikke - derfor ikke_oplyst her, mod PRO's dokumenterede nej. Udviklerdokumentationen (D1 aaben) oplyser C++ og Python."
   autonominiveau:
     vaerdi: "Smart Obstacle Avoidance; Patrol Mode; Smart Following"
     kilde: https://www.magiclab.top/en/dog

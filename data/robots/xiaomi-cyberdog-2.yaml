@@ -35,6 +35,7 @@ felter:
     advarsel: "Producenten oplyser ogsaa maal i LIGGENDE stilling: 603 x 339 x 300 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemaal. Skemaet har alligevel ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Producenten skriver 12 frihedsgrader i alt, 3 pr. ben."
@@ -115,7 +116,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Producenten oplyser adapteren MDY-13-EU: ind 100-240 V 50/60 Hz 3,0 A, ud 20 V 10,5 A maks. Det er stroem IND til robotten, ikke stroem ud til nyttelast."
   dataporte:
-    vaerdi: "USB Type-C x1"
+    vaerdi: ["USB Type-C x1"]
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Traadloest: WiFi IEEE 802.11 a/b/g/n/ac og Bluetooth 5.0."

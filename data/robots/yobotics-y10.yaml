@@ -20,6 +20,7 @@ felter:
   hoejde: ikke_oplyst
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
   nyttelast_gaaende:

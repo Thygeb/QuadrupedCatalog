@@ -41,6 +41,7 @@ felter:
     advarsel: "Staaende hoejde. Ride height oplyses separat til 419 mm (16,5 in)."
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
     advarsel: "Producenten skriver det ordret: 3 Degrees of Freedom per leg, 12-Motor back-drivable drive-train. Robotten er desuden capable of inverted operation."
@@ -145,7 +146,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "C/C++, ROS, ROS2, MAVLink Compatible, Zeno, ATAK, JSON Mission. FUND-vest kildeangav feltet kun til databladet; strengen staar ogsaa i produktsidens DOM (KILDEKORT-B F2)."
   sdk_sprog:
-    vaerdi: "C/C++, ROS, ROS2"
+    vaerdi: ["C/C++", "ROS", "ROS2"]
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
     advarsel: "API-niveauer: Low-level, High-Level, Mission Control. Simulator: Bullet Physics-based, Windows, Linux, Mac. Ogsaa denne staar paa produktsiden, ikke kun i databladet."
@@ -164,7 +165,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Gengivet ordret UDEN mellemrum efter kolon, som producenten skriver det (KILDEKORT-B F4 - FUND-vest havde indsat et mellemrum i et ordret citat). Volt oplyst, WATT IKKE. Spot oplyser 35-58,8 V og 150 W pr. port. De to felter ser ens ud i en tabel og er det ikke."
   dataporte:
-    vaerdi: "3x Ethernet; 1x USB 3.1; 6x GMSL2"
+    vaerdi: ["3x Ethernet", "1x USB 3.1", "6x GMSL2"]
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
     advarsel: "Radio: 2,4 og 5,8 GHz WiFi samt 4G/LTE; GigE-switch."

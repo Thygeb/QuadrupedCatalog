@@ -130,7 +130,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Spaending oplyst, watt ikke."
   dataporte:
-    vaerdi: "USB 3.0 x4; Ethernet; EtherCAT x1"
+    vaerdi: ["USB 3.0 x4", "Ethernet", "EtherCAT x1"]
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
   pris: ikke_oplyst

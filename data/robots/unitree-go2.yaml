@@ -30,6 +30,7 @@ felter:
     advarsel: "Foldet 76 x 31 x 20 cm. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.unitree.com/go2
     hentet: 2026-08-19
     advarsel: "Siden skriver ikke Degrees of Freedom, men Aluminum knee joint motor 12 set. Talt med, fordi AlienGos egen side bruger overskriften Degrees of Freedom (number of motors) og dermed saetter lighedstegn. Regner man strengere, er feltet ikke oplyst."

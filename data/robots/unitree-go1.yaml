@@ -19,6 +19,7 @@ felter:
     advarsel: "Staaende maal er ikke oplyst. Kun foldemaalet 0,588 x 0,22 x 0,29 m er trykt, og skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
     advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme graensetilfaelde som Go2."
@@ -89,7 +90,7 @@ felter:
     advarsel: "Vaerdien er Air-variantens."
   ros2: ikke_oplyst
   sdk_sprog:
-    vaerdi: Python
+    vaerdi: ["Python"]
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
     varianter:

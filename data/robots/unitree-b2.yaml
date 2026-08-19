@@ -133,7 +133,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Spaending oplyst, watt ikke. Feltet er reelt halvt oplyst og kan ikke sammenlignes med Spots 35-58,8 V / 150 W pr. port."
   dataporte:
-    vaerdi: "1000M-Base-Ethernet x4; USB 3.0 x4"
+    vaerdi: ["1000M-Base-Ethernet x4", "USB 3.0 x4"]
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
   pris:

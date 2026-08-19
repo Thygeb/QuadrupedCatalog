@@ -57,8 +57,47 @@ const ITUSLAAEDE = [
     `  egenvaegt: 60\n`],
   ['interval med kun min', 'R4',
     `  trappetrin_kontinuerlig:\n    min: 20\n    enhed: cm\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
-  ['ja/nej-felt med tekst i stedet for true/false', 'R4',
-    `  ros2:\n    vaerdi: ja\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  // "vaerdi: ja" ER gyldigt: dataskriveren skriver producentens svar paa dansk, og
+  // normaliseringen oversaetter det til true ét sted. Kravet er ikke blevet
+  // mildere, det er blevet praecist - et ord, der hverken er ja eller nej, fejler
+  // stadig. Se ogsaa GYLDIGE nedenfor, som beviser den anden halvdel.
+  ['ja/nej-felt med et ord, der hverken er ja eller nej', 'R4',
+    `  ros2:\n    vaerdi: maaske\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['ja/nej-felt med et tal', 'R4',
+    `  ros2:\n    vaerdi: 1\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+
+  // Skemaudvidelse 1 - tilstanden med herkomst. Den giver LOV til at skrive
+  // "ikke_oplyst" som en post, men den fritager ikke for kilde og hentedato.
+  ['tilstand som post uden kilde', 'R6',
+    `  batteri_wh:\n    vaerdi: ikke_oplyst\n    hentet: 2026-08-19\n`],
+  ['tilstand som post uden hentedato', 'R7',
+    `  batteri_wh:\n    vaerdi: ikke_oplyst\n    kilde: https://example.com/a\n`],
+  ['tilstand som post med enhed - "ikke oplyst kg" findes ikke', 'R4',
+    `  batteri_wh:\n    vaerdi: ikke_oplyst\n    enhed: Wh\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['tilstand som post med lastbetingelse - den betinger ingenting', 'R10',
+    `  driftstid:\n    vaerdi: ikke_oplyst\n    ved_last: ikke_oplyst\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['lastbetingelse paa et felt, der ikke kraever en', 'R10',
+    `  ladetid:\n    vaerdi: 3\n    enhed: t\n    ved_last: ikke_oplyst\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+
+  // Skemaudvidelse 2 - varianter. Fire varianter er fire maskiner, men de skal
+  // hedde det samme i hele filen, ellers taler to felter om hver sin "Pro".
+  ['varianter paa et felt, men ingen variantliste paa robotten', 'R15',
+    `  egenvaegt:\n    vaerdi: 12\n    enhed: kg\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n    varianter:\n      Basic: 12\n`],
+
+  // Enheder. Aliasserne er dimensionsbundne: "C" er Celsius i et temperaturfelt
+  // og ingenting alle andre steder.
+  ['"C" som masseenhed er stadig ukendt', 'R5',
+    `  egenvaegt:\n    vaerdi: 60\n    enhed: C\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['procent som masseenhed er stadig forkert dimension', 'R5',
+    `  egenvaegt:\n    vaerdi: 60\n    enhed: procent\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['tekstfelt med et halvt interval ved siden af ordlyden', 'R4',
+    `  stroem_ud:\n    vaerdi: "ureguleret DC 35-58,8 V"\n    vaerdi_min: 35\n    enhed: V\n` +
+    `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['tekstfelt med interval uden enhed', 'R5',
+    `  stroem_ud:\n    vaerdi: "ureguleret DC 35-58,8 V"\n    vaerdi_min: 35\n    vaerdi_maks: 58.8\n` +
+    `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['begge stavemaader af min i samme post', 'R11',
+    `  hoejde:\n    vaerdi_min: 13\n    min: 20\n    vaerdi_maks: 50\n    enhed: cm\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
   ['ukendt noegle i feltposten', 'R11',
     `  egenvaegt:\n    vaardi: 60\n    enhed: kg\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
   ['enhed af forkert dimension', 'R5',
@@ -83,6 +122,61 @@ const ITUSLAAEDE_HOVED = [
     `slug: en-anden-slug\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['producent mangler', 'R1',
     `slug: NAVN\nnavn: Proeve\nproducentland: Kina\nstatus: i_produktion\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['variantnavn paa et felt, som ikke staar paa robottens variantliste', 'R15',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `varianter: [Basic, Pro]\nfelter:\n  egenvaegt:\n    vaerdi: 12\n    enhed: kg\n` +
+    `    kilde: https://example.com/a\n    hentet: 2026-08-19\n    varianter:\n      Basic: 12\n      Prox: 13\n`],
+  ['variantlisten er ikke en liste', 'R15',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `varianter: Basic\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['noter er hverken tekst eller liste af tekst', 'R1',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `noter: 42\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+];
+
+/**
+ * Tilfaelde, der SKAL passere. Uden dem beviser testen kun, at validatoren siger
+ * nej — og en validator, der altid siger nej, bestaar den halvdel med glans.
+ * Hvert tilfaelde er en af de to skemaudvidelser eller et af aliasserne.
+ */
+const GYLDIGE = [
+  ['ja/nej-felt skrevet som "ja"',
+    `  ros2:\n    vaerdi: ja\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['ja/nej-felt skrevet som "nej"',
+    `  ros2:\n    vaerdi: nej\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['dokumenteret nul-svar: listefelt med tilstanden nej, kilde og forbehold',
+    `  dataporte:\n    vaerdi: nej\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n` +
+    `    advarsel: "CN skriver eksternt interface: INGEN. EN skriver /."\n`],
+  ['dokumenteret ikke_oplyst med kilde',
+    `  batteri_wh:\n    vaerdi: ikke_oplyst\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['IP-feltet som dokumenteret tilstand (R13 gaelder kun en rigtig IP-klasse)',
+    `  ip_klasse:\n    vaerdi: ikke_oplyst\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['temperatur i "C"',
+    `  temp_min:\n    vaerdi: -20\n    enhed: C\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['haeldning i procent - producentens egen enhed, uden omregning',
+    `  haeldning:\n    vaerdi: 45\n    enhed: procent\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n` +
+    `    advarsel: "OPLYST I PROCENT, IKKE I GRADER. 45 % = 24,2 grader."\n`],
+  ['haeldning i grader - den anden dimension paa samme felt',
+    `  haeldning:\n    vaerdi: 30\n    enhed: grader\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['interval skrevet som vaerdi_min/vaerdi_maks',
+    `  hoejde:\n    vaerdi_min: 13\n    vaerdi_maks: 50\n    enhed: cm\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['tekstfelt med producentens ordlyd OG et maalbart interval med enhed',
+    `  stroem_ud:\n    vaerdi: "ureguleret DC 35-58,8 V, 150 W pr. port"\n    vaerdi_min: 35\n` +
+    `    vaerdi_maks: 58.8\n    enhed: V\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['frihedsgrader med DoF som enhed',
+    `  frihedsgrader:\n    vaerdi: 12\n    enhed: DoF\n    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+  ['lastbetingelse, hvor producenten siger MED last, men ikke hvor meget',
+    `  driftstid:\n    vaerdi: 2.5\n    enhed: t\n    operator: ">"\n    ved_last: { vaerdi: ikke_oplyst, enhed: kg }\n` +
+    `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`],
+];
+
+/** Gyldige tilfaelde med eget hoved - varianter kraever topnoeglen. */
+const GYLDIGE_HOVED = [
+  ['varianter paa et felt, med variantnavnene paa robotten',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `producentby: Poznan\nvarianter: [Basic, Venture, "A2-W PRO"]\nnoter:\n  - "en note"\n  - "og en til"\n` +
+    `felter:\n  nyttelast_gaaende:\n    vaerdi: 5\n    enhed: kg\n    kilde: https://example.com/a\n` +
+    `    hentet: 2026-08-19\n    varianter:\n      Basic: 5\n      Venture: 4.5\n      A2-W PRO: "IP56-IP67"\n`],
 ];
 
 /* ------------------------------------------------------------------ koersel */
@@ -107,7 +201,7 @@ fs.mkdirSync(tmp, { recursive: true });
 console.log('1. Selvtest af parser og normalisering');
 {
   const r = koerValidator(['--selvtest']);
-  ok('validatorens 10 selvtest bestaar', r.kode === 0, r.ud.trim().split('\n').pop());
+  ok('validatorens selvtest bestaar', r.kode === 0, r.ud.trim().split('\n').pop());
 }
 
 console.log('\n2. Bevidst oedelagte filer — fejler den, og fejler den paa den rigtige regel?');
@@ -125,6 +219,20 @@ for (const [navn, regel, indhold, filnavn] of alle) {
   if (fejledeSomVentet) fangede++;
   ok(`${navn}  ->  ${regel}`, fejledeSomVentet,
     r.kode !== 1 ? `exit ${r.kode}, forventede 1` : `ingen ${regel} i udskriften`);
+}
+
+console.log('\n2b. De to skemaudvidelser og aliasserne — skal PASSERE');
+{
+  const gyldige = [
+    ...GYLDIGE.map(([n, felter], i) => [n, GYLDIG_HOVED.replace('NAVN', `gyldig-${i}`) + felter, `gyldig-${i}`]),
+    ...GYLDIGE_HOVED.map(([n, hele], i) => [n, hele.replace('NAVN', `gyldigh-${i}`), `gyldigh-${i}`]),
+  ];
+  for (const [navn, indhold, filnavn] of gyldige) {
+    const fil = path.join(tmp, `${filnavn}.yaml`);
+    fs.writeFileSync(fil, indhold, 'utf8');
+    const r = koerValidator([fil]);
+    ok(navn, r.kode === 0, r.ud.trim().split('\n').filter((l) => l.startsWith('FEJL')).join(' / '));
+  }
 }
 
 console.log('\n3. Gyldige filer maa IKKE fejle');
@@ -212,6 +320,122 @@ const dist = path.join(tmp, 'dist');
   ok('kataloget staar fuldt renderet i HTML uden JS (3 raekker)', raekker === 3, `fandt ${raekker}`);
   ok('filterformularen er skjult, indtil JS taender den',
     /<form class="filter" id="filter" hidden>/.test(katalogDa));
+}
+
+/* ------------------------------------------------------------------------
+   5. Det, der ikke maa gaa tabt paa vejen fra YAML til side.
+   De tre eksempelposter roerer ingen af de nye former, saa uden en post, der
+   goer det, ville hele skemaudvidelsen vaere ubevist paa visningssiden.
+   ------------------------------------------------------------------------ */
+console.log('\n5. Visningen af de nye former');
+{
+  const dataMappe = path.join(tmp, 'form-data');
+  fs.mkdirSync(dataMappe, { recursive: true });
+  fs.writeFileSync(path.join(dataMappe, 'proeve-alle-former.yaml'), [
+    'slug: proeve-alle-former',
+    'navn: Proeve Alle Former',
+    'producent: Proeveproducent',
+    'producentland: Kina',
+    'producentby: Shenzhen',
+    'status: i_produktion',
+    'varianter: [AIR, PRO]',
+    'noter:',
+    '  - "foerste note"',
+    '  - "anden note"',
+    'felter:',
+    // ja/nej skrevet som ord - "nej" maa ALDRIG lande som et ja
+    '  ros2:',
+    '    vaerdi: nej',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    '  hot_swap:',
+    '    vaerdi: ja',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    // de fire tilstande ved siden af hinanden
+    '  batteri_wh:',
+    '    vaerdi: ikke_oplyst',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    '    advarsel: "producenten oplyser ingen kapacitet"',
+    '  dataporte:',
+    '    vaerdi: nej',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    '  nyttelast_staaende:',
+    '    vaerdi: 0',
+    '    enhed: kg',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    '  lidar: ikke_oplyst',
+    // interval MED operator - "ca. 1-2 t" maa ikke blive til "1-2 t"
+    '  driftstid:',
+    '    vaerdi_min: 1',
+    '    vaerdi_maks: 2',
+    '    enhed: t',
+    '    operator: "~"',
+    '    ved_last: ikke_oplyst',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    // producentens egen enhed: procent, ikke grader
+    '  haeldning:',
+    '    vaerdi: 45',
+    '    enhed: procent',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    // varianter: fire varianter er fire maskiner
+    '  nyttelast_gaaende:',
+    '    vaerdi: 5',
+    '    enhed: kg',
+    '    kilde: https://example.com/a',
+    '    hentet: 2026-08-19',
+    '    varianter:',
+    '      AIR: 5',
+    '      PRO: 2.5',
+    '',
+  ].join('\n'), 'utf8');
+
+  const ud = path.join(tmp, 'dist-former');
+  const r = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
+    `--data=${dataMappe}`, `--ud=${ud}`], { cwd: rod, encoding: 'utf8' });
+  ok('bygget gaar igennem med alle de nye former', r.status === 0,
+    ((r.stdout || '') + (r.stderr || '')).trim().split('\n').slice(-4).join(' / '));
+
+  const side = fs.readFileSync(path.join(ud, 'da', 'robotter', 'proeve-alle-former', 'index.html'), 'utf8');
+  const katalog = fs.readFileSync(path.join(ud, 'da', 'robotter', 'index.html'), 'utf8');
+
+  // Fortegnet er det, der gaar galt, hvis "nej" bliver laest som en sand streng.
+  // Derfor laeses de to felters egne <dd>-blokke, ikke bare siden som helhed.
+  const feltBlok = (etiket) => (side.match(
+    new RegExp(`<dt>${etiket.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}</dt>\\s*<dd>([\\s\\S]*?)</dd>`)) || [])[1] ?? '';
+  const ros2Blok = feltBlok('ROS 2');
+  const hotBlok = feltBlok('Hot-swap af batteri');
+  ok('"vaerdi: nej" paa et ja/nej-felt vises som nej, ikke som ja',
+    ros2Blok.includes('vaerdi--nej') && ros2Blok.includes('✗') && !ros2Blok.includes('vaerdi--ja'),
+    ros2Blok.slice(0, 90));
+  ok('"vaerdi: ja" paa et ja/nej-felt vises som ja',
+    hotBlok.includes('vaerdi--ja') && hotBlok.includes('✓') && !hotBlok.includes('vaerdi--nej'),
+    hotBlok.slice(0, 90));
+  ok('ikke_oplyst, nej og 0 ser stadig forskellige ud paa samme side',
+    side.includes('tilstand--ikke-oplyst') && side.includes('tilstand--nej') && side.includes('maerke--nul'));
+  ok('den dokumenterede tilstand baerer sin kilde',
+    side.includes('tilstand--ikke-oplyst') && (side.match(/class="herkomst"/g) || []).length >= 6);
+  ok('operatoren staar ogsaa foran et interval: "≈ 1–2 t"',
+    /<span class="operator">≈<\/span> 1–2 <span class="enhed">t<\/span>/.test(side));
+  ok('haeldningen vises i producentens procent, ikke omregnet til grader',
+    /45 <span class="enhed">%<\/span>/.test(side) && !side.includes('24,2'));
+  ok('varianterne staar paa siden med navn og vaerdi',
+    /class="varianter"/.test(side) && side.includes('>AIR<') && side.includes('>PRO<') && side.includes('>2,5<'));
+  ok('katalogtabellen markerer, at feltet har varianter',
+    /maerke--varianter/.test(katalog));
+  ok('advarslen staar stadig ved siden af vaerdien',
+    side.indexOf('class="advarsel"') > side.indexOf('tilstand--ikke-oplyst'));
+  ok('de to noter staar som to punkter, ikke som én sammenkoedet linje',
+    /<ul class="noter"><li>foerste note<\/li><li>anden note<\/li><\/ul>/.test(side));
+
+  const json = JSON.parse(fs.readFileSync(path.join(ud, 'robots.json'), 'utf8'));
+  ok('robots.json holder ja/nej som boolean, ikke som teksten "nej"',
+    json.robotter[0].felter.ros2 === false);
 }
 
 console.log(`\nValidator: ${alle.length} oedelagte tilfaelde, fangede ${fangede}.`);

@@ -109,7 +109,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Spaending oplyst, watt ikke."
   dataporte:
-    vaerdi: "Gigabit x7; RS485 x4; USB x5; CAN x4"
+    vaerdi: ["Gigabit x7", "RS485 x4", "USB x5", "CAN x4"]
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
   pris: ikke_oplyst

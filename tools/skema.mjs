@@ -7,9 +7,12 @@
  * oversaettelse skal fejle synligt, ikke lande som dansk paa /en/.
  */
 
+import { kanoniskEnhed, ENHEDER } from './yaml.mjs';
+
 /**
  * art:  tal | jaNej | tekst | liste | ip
  * type: dimensionen, som enheden skal tilhoere (kun for art: 'tal')
+ * ogsaaType: en anden dimension, feltet ogsaa maa oplyses i, uden omregning
  * d4:   feltet er beroert af det aabne spoergsmaal D4 (type uden model)
  */
 export const FELTER = {
@@ -21,7 +24,10 @@ export const FELTER = {
   nyttelast_gaaende:       { gruppe: 'fysik',       art: 'tal',   type: 'masse' },
   nyttelast_staaende:      { gruppe: 'fysik',       art: 'tal',   type: 'masse' },
   hastighed:               { gruppe: 'fysik',       art: 'tal',   type: 'hastighed' },
-  haeldning:               { gruppe: 'fysik',       art: 'tal',   type: 'vinkel' },
+  // To dimensioner med vilje: Rainbow oplyser 45 %, Boston Dynamics +/- 30°.
+  // 45 % ER 24,2°, saa en stiltiende omregning ville flytte en robot fem pladser
+  // i en rangering. Begge enheder accepteres, ingen af dem omregnes.
+  haeldning:               { gruppe: 'fysik',       art: 'tal',   type: 'vinkel', ogsaaType: 'stigning' },
   forhindring_enkelt:      { gruppe: 'fysik',       art: 'tal',   type: 'laengde' },
   trappetrin_kontinuerlig: { gruppe: 'fysik',       art: 'tal',   type: 'laengde' },
   ip_klasse:               { gruppe: 'fysik',       art: 'ip' },
@@ -57,7 +63,16 @@ export const GRUPPER = ['fysik', 'energi', 'sensorik', 'nyttelast', 'kommercielt
 
 /** Identitet. Skrives af os og taeller ikke i taetheden. */
 export const IDENTITET_PAAKRAEVET = ['slug', 'navn', 'producent', 'producentland', 'status'];
-export const IDENTITET_VALGFRI = ['foerste_udgivelse', 'forgaenger', 'noter', 'silhuet'];
+export const IDENTITET_VALGFRI = [
+  'foerste_udgivelse', 'forgaenger', 'noter', 'silhuet',
+  // Producentens by. Sammen med producentland er den svaret paa "hvor staar de
+  // henne" — ANYbotics ligger i Zuerich, og Schweiz er ikke EU.
+  'producentby',
+  // Varianterne ved navn. Naar den staar, er den listen over de kolonner, et felts
+  // "varianter:"-blok maa bruge — se R15. Uden den kan en variant hedde noget
+  // forskelligt paa to felter i samme fil, og de to kan ikke stilles op mod hinanden.
+  'varianter',
+];
 export const STATUS_VAERDIER = ['i_produktion', 'annonceret', 'udgaaet', 'demonstrator'];
 
 /**
@@ -80,13 +95,44 @@ export function tilstandAf(v) {
   return TILSTANDE.includes(k) ? k : null;
 }
 
+/**
+ * Ja/nej som tekst. Dataskriveren skriver producentens svar paa dansk, og
+ * "vaerdi: ja" er ikke et gaet — det er den samme oplysning som "vaerdi: true"
+ * skrevet i det sprog, resten af filen er skrevet i. Formen normaliseres til en
+ * boolean ét sted (normaliserRobot), saa validatoren og generatoren ikke kan naa
+ * til hver sin konklusion om, hvad "nej" betyder.
+ *
+ * Returnerer true, false eller null. null betyder "ikke et ja/nej" — og det er
+ * stadig en fejl paa et ja/nej-felt, saa R4 er ikke blevet mildere.
+ */
+const JA_ORD = new Set(['ja', 'yes', 'true']);
+const NEJ_ORD = new Set(['nej', 'no', 'false']);
+export function jaNejAf(v) {
+  if (typeof v === 'boolean') return v;
+  if (typeof v !== 'string') return null;
+  const k = v.trim().toLowerCase();
+  if (JA_ORD.has(k)) return true;
+  if (NEJ_ORD.has(k)) return false;
+  return null;
+}
+
 /** Noegler, en feltpost maa indeholde. Alt andet fejler — en tastefejl i en
- *  noegle ville ellers forsvinde tavst ud af bygget. */
+ *  noegle ville ellers forsvinde tavst ud af bygget.
+ *  `varianter` er skemaudvidelse 2: Go2's fire varianter er fire maskiner. */
 export const POST_NOEGLER = new Set([
   'vaerdi', 'min', 'maks', 'enhed', 'operator', 'kilde', 'hentet', 'kildetype',
   'vaerdi_imperial', 'enhed_imperial', 'advarsel', 'note', 'raa',
-  'ved_last', 'valuta',
+  'ved_last', 'valuta', 'varianter',
 ]);
+
+/**
+ * Noegler med to stavemaader. `vaerdi_min`/`vaerdi_maks` staar i 24 filer og
+ * laeser bedre ved siden af `vaerdi` og `vaerdi_imperial` end de bare `min`/`maks`
+ * — men to stavemaader for én ting divergerer ved den fjerde aendring. Derfor
+ * accepteres begge ved indlaesningen, og ALT efter normaliseringen (validator,
+ * generator, taethed, robots.json) ser kun den kanoniske form.
+ */
+export const POST_NOEGLE_ALIAS = { vaerdi_min: 'min', vaerdi_maks: 'maks' };
 
 /**
  * D7 — naevneren i specifikationstaetheden er IKKE afgjort.
@@ -108,3 +154,72 @@ export const FILTER_FELTER = [
 ];
 
 export const SPROG = ['da', 'en'];
+
+/* ======================================================================
+   Normalisering — ét sted, delt af validate.mjs og build.mjs
+
+   Validatoren og generatoren maa ikke kunne naa til hver sin konklusion om,
+   hvad en datafil betyder. Da to dataagenter skrev efter hver sin laesning af
+   skemaet, blev det til 358 afviste felter. Rettelsen er ikke at laere hver af
+   de to programmer at gaette; det er at give dem én laesning at dele.
+
+   Normaliseringen omskriver kun FORM. Den fylder aldrig noget ud, gaetter aldrig
+   en enhed og kollapser aldrig ikke_oplyst, nej og 0 til hinanden.
+   ====================================================================== */
+
+/** Feltets enhed i kanonisk form. Slaar op inden for feltets egen dimension
+ *  foerst, saa "C" er Celsius i et temperaturfelt og ukendt alle andre steder. */
+export function feltEnhed(raa, spec) {
+  if (raa === undefined || raa === null || raa === '') return raa;
+  for (const t of [spec?.type, spec?.ogsaaType]) {
+    if (!t) continue;
+    const k = kanoniskEnhed(String(raa), t);
+    if (ENHEDER[k] && ENHEDER[k][0] === t) return k;
+  }
+  return kanoniskEnhed(String(raa));
+}
+
+const erKort = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+
+/**
+ * Normaliserer ét dokument PAA STEDET og returnerer det.
+ * Kaldes af begge programmer lige efter parseYaml.
+ */
+export function normaliserRobot(doc) {
+  if (!erKort(doc) || !erKort(doc.felter)) return doc;
+  for (const [navn, post] of Object.entries(doc.felter)) {
+    const spec = FELTER[navn];
+    if (!erKort(post)) continue;
+
+    // 1. Noeglealias. Staar begge stavemaader, roeres ingen af dem — saa fejler
+    //    R11 paa den ukendte noegle i stedet for at én af dem tavst vinder.
+    for (const [fra, til] of Object.entries(POST_NOEGLE_ALIAS)) {
+      if (post[fra] !== undefined && post[til] === undefined) {
+        post[til] = post[fra];
+        delete post[fra];
+      }
+    }
+
+    // 2. Enheder til kanonisk form: "C" -> "°C", "grader" -> "°", "km/t" -> "km/h".
+    //    Gaettes ikke: kender skemaet ikke enheden, staar den uroert og fejler paa R5.
+    if (spec) {
+      post.enhed = feltEnhed(post.enhed, spec);
+      post.enhed_imperial = feltEnhed(post.enhed_imperial, spec);
+      if (post.enhed_imperial === undefined) delete post.enhed_imperial;
+      if (post.enhed === undefined) delete post.enhed;
+    }
+    if (erKort(post.ved_last)) {
+      const e = feltEnhed(post.ved_last.enhed, { type: 'masse' });
+      if (e !== undefined) post.ved_last.enhed = e;
+    }
+
+    // 3. Ja/nej-felter: producentens svar som ord bliver til en boolean.
+    //    Kun paa ja/nej-felter — "nej" paa et listefelt er stadig tilstanden
+    //    "producenten svarer nej", og de to maa ikke bytte plads.
+    if (spec?.art === 'jaNej') {
+      const b = jaNejAf(post.vaerdi);
+      if (b !== null) post.vaerdi = b;
+    }
+  }
+  return doc;
+}

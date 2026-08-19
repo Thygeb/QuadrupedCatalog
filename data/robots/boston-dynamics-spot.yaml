@@ -119,7 +119,7 @@ felter:
   compute: ikke_oplyst
   ros2: ikke_oplyst
   sdk_sprog:
-    vaerdi: Python
+    vaerdi: ["Python"]
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
     advarsel: "Producenten skriver Flexible API and Python SDK."
@@ -141,7 +141,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
   dataporte:
-    vaerdi: "DB25 x2; Ethernet; WiFi 2,4/5 GHz b/g/n"
+    vaerdi: ["DB25 x2", "Ethernet", "WiFi 2,4/5 GHz b/g/n"]
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "FUND-vest skrev Gigabit Ethernet her. Rettet: strengen Gigabit findes ikke paa produktsiden, og i databladet staar den i Spot Dockens afsnit som passthrough to robot (KILDEKORT-A FEJL 1). Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed."

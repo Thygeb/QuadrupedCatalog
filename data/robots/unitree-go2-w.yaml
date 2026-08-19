@@ -27,6 +27,7 @@ felter:
     hentet: 2026-08-19
   frihedsgrader:
     vaerdi: 16
+    enhed: DoF
     kilde: https://www.unitree.com/go2-w
     hentet: 2026-08-19
     advarsel: "Siden skriver 16 ledmotorer, ikke Degrees of Freedom. Samme graensetilfaelde som Go2."

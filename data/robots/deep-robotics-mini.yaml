@@ -82,7 +82,7 @@ felter:
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte:
-    vaerdi: "WiFi; USB; Bluetooth"
+    vaerdi: ["WiFi", "USB", "Bluetooth"]
     kilde: https://deeprobotics.cn/en/index/product2.html
     hentet: 2026-08-19
     advarsel: "WiFi og Bluetooth er forbindelser, ikke fysiske porte. Feltet er talt som udfyldt, fordi producenten selv fører dem som interfaceliste."

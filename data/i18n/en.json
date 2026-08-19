@@ -117,5 +117,7 @@
   "land_Australien": "Australia",
   "land_Rusland": "Russia",
   "land_Tyrkiet": "Turkey",
-  "land_Brasilien": "Brazil"
+  "land_Brasilien": "Brazil",
+  "varianter": "Variants",
+  "varianter_kort": "var."
 }

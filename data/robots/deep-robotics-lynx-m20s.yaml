@@ -126,7 +126,7 @@ felter:
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte:
-    vaerdi: "Gigabit Ethernet; USB 3.0; GMSL"
+    vaerdi: ["Gigabit Ethernet", "USB 3.0", "GMSL"]
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
   pris: ikke_oplyst

@@ -33,6 +33,7 @@ felter:
     advarsel: "Foldet 768 x 602 x 211 mm. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 16
+    enhed: DoF
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
   nyttelast_gaaende:
@@ -137,7 +138,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Kun BAT, uden spaending."
   dataporte:
-    vaerdi: "Gigabit Ethernet x1; SBUS x1"
+    vaerdi: ["Gigabit Ethernet x1", "SBUS x1"]
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
   pris: ikke_oplyst

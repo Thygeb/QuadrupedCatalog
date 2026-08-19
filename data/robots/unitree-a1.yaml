@@ -78,7 +78,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Spaending oplyst, watt ikke. 24 V er stroem IND og hoerer ikke i dette felt."
   dataporte:
-    vaerdi: "HDMI x2; Ethernet x2; USB x4"
+    vaerdi: ["HDMI x2", "Ethernet x2", "USB x4"]
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
   pris: ikke_oplyst

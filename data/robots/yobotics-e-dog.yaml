@@ -38,6 +38,7 @@ felter:
     advarsel: "Tolerance +/- 10 mm."
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Spidsmoment pr. led oplyses til 48 Nm."

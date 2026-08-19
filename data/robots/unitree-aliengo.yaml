@@ -29,6 +29,7 @@ felter:
     advarsel: "Foldet 0,60 x 0,31 x 0,15 m. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 12
+    enhed: DoF
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
     advarsel: "Eksplicit overskrift: Degrees of Freedom (number of motors)."
@@ -101,7 +102,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Siden skriver supports C/C++, ROS og Environment Sensing: Ubuntu-ROS. Feltet hedder ROS 2, og versionen staar ikke. At taelle det med ville vaere at opfinde et versionsnummer."
   sdk_sprog:
-    vaerdi: "C/C++, ROS"
+    vaerdi: ["C/C++", "ROS"]
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
   autonominiveau: ikke_oplyst
@@ -112,7 +113,7 @@ felter:
     hentet: 2026-08-19
     advarsel: "Spaending oplyst, watt ikke."
   dataporte:
-    vaerdi: "Ethernet x2; USB 3.0 x2; USB 2.0 x1; RS485 x1"
+    vaerdi: ["Ethernet x2", "USB 3.0 x2", "USB 2.0 x1", "RS485 x1"]
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
   pris: ikke_oplyst

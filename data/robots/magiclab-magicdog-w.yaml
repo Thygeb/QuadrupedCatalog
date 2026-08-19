@@ -31,6 +31,7 @@ felter:
     advarsel: "Liggende (Prone) 720 x 500 x 290 mm. Skemaet har ingen felter til foldemaal."
   frihedsgrader:
     vaerdi: 17
+    enhed: DoF
     kilde: https://www.magiclab.top/en/dog-w
     hentet: 2026-08-19
     advarsel: "Producenten skriver 16+1 (Head Motor) - altsaa MOTORANTAL, ikke ordet frihedsgrader. 17 er summen af producentens eget udtryk. Hovedets rotation oplyses til >= 100 grader (EN skriver tegnet U+2265, CN skriver ASCII >=)."
