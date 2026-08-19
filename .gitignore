@@ -4,6 +4,11 @@ dist/
 Thumbs.db
 *.log
 
+# Inspirationsmateriale: skaermbilleder af ANDRES sider. Samme grund som nedenfor -
+# det er deres ophavsret, og det skal ikke distribueres med repoet.
+media/inspiration/**
+!media/inspiration/*.md
+
 # Fabrikantmateriale: beholdes lokalt som bevis, distribueres aldrig
 media/_kilder/**
 !media/_kilder/*.md
