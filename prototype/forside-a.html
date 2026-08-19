@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forside — retning A: Måleblad</title>
+<meta name="robots" content="noindex">
+<style>
+/* ============================================================================
+   RETNING A — "MÅLEBLAD"
+   Idé: kataloget er et måleblad, ikke en produktside. Hårfine linjer, tabulære
+   tal, fodnotenøgler som i en videnskabelig tabel. Ingen runde hjørner, ingen
+   skygger, ingen forløb. Tomme felter er skraverede — de ser bearbejdede ud,
+   ikke ødelagte.
+
+   Farver målt med prototype/kontrast.mjs. 0 af 44 kravbelagte par under AA.
+   Ingen tredjepartskald: fonte er lokale hvis installeret, ellers systemstak.
+   ========================================================================= */
+
+:root{
+  --ground:#F7F5F0;
+  --panel:#FFFFFF;
+  --advarselsflade:#FBF3DE;
+  --ink:#15181C;
+  --ink2:#41474F;
+  --ink3:#5C646E;
+  --rule-s:#847F73;          /* strukturlinje — måler 3,66:1 mod ground */
+  --rule-d:#D8D3C8;          /* dekorativ hårlinje — uden krav */
+  --link:#0E3FA8;
+  --advarsel:#7A3D00;
+  --konflikt:#8C1414;
+  --billede:#0B4F57;
+
+  --sans:"Manrope",ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular","Cascadia Mono",Consolas,"Liberation Mono",monospace;
+
+  --sp:8px;
+  --maks:1240px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.5;
+  font-variant-numeric:tabular-nums;
+}
+h1,h2,h3{margin:0;font-weight:650;letter-spacing:-0.02em;line-height:1.12}
+p{margin:0}
+a{color:var(--link);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+
+/* --- skip-link ------------------------------------------------------------ */
+.spring{position:absolute;left:-9999px;top:0;z-index:99;
+  background:var(--panel);color:var(--ink);border:2px solid var(--ink);
+  padding:12px 16px;font-family:var(--mono);font-size:13px}
+.spring:focus{left:8px;top:8px}
+
+/* --- prototypebånd -------------------------------------------------------- */
+.proto{background:var(--ink);color:var(--ground);font-family:var(--mono);font-size:12px;
+  letter-spacing:.06em}
+.proto .rum{display:flex;flex-wrap:wrap;gap:0 20px;align-items:center;
+  padding:0 clamp(16px,4vw,40px);min-height:44px}
+.proto b{font-weight:600;text-transform:uppercase}
+.proto a{color:var(--ground);display:inline-flex;align-items:center;min-height:44px}
+.proto [aria-current]{text-decoration:none;opacity:.55}
+
+.rum{max-width:var(--maks);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* --- sidehoved ------------------------------------------------------------ */
+.hoved{border-bottom:1px solid var(--rule-s);padding:28px 0 0}
+.navnslot{display:inline-block;border:1px dashed var(--rule-s);padding:7px 11px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:26px}
+.udsagn{font-size:clamp(26px,4.2vw,44px);max-width:20ch}
+.udsagn em{font-style:normal;
+  background:linear-gradient(180deg,transparent 62%,var(--rule-d) 62%)}
+.underudsagn{margin-top:16px;max-width:62ch;color:var(--ink2);font-size:clamp(15px,1.5vw,18px)}
+
+/* --- målestrip ------------------------------------------------------------ */
+.maalestrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+  border-top:1px solid var(--rule-s);margin-top:30px}
+.maalestrip>div{padding:16px 18px 18px;border-right:1px solid var(--rule-d)}
+.maalestrip>div:last-child{border-right:0}
+.mtal{font-family:var(--mono);font-size:30px;font-weight:600;line-height:1;letter-spacing:-.03em}
+.mtal small{font-size:15px;font-weight:400;color:var(--ink3)}
+.metiket{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink3);margin-top:9px;display:block}
+
+/* --- sektioner ------------------------------------------------------------ */
+section{border-top:1px solid var(--rule-s)}
+.shoved{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding:22px 0 14px}
+.snr{font-family:var(--mono);font-size:12px;color:var(--ink3);letter-spacing:.1em}
+.shoved h2{font-size:clamp(19px,2.1vw,24px)}
+.shoved .note{font-family:var(--mono);font-size:12px;color:var(--ink3);margin-left:auto}
+
+/* --- måler (dækningsstrip) ------------------------------------------------ */
+.maaler{position:relative;display:inline-block;vertical-align:-2px;
+  width:calc(var(--n)*5px);height:14px;border:1px solid var(--rule-s);
+  background:repeating-linear-gradient(45deg,transparent 0 2px,var(--rule-s) 2px 3px)}
+.maaler i{position:absolute;inset:0;right:auto;display:block;
+  width:calc(var(--k)/var(--n)*100%);background:var(--ink)}
+.maaler::after{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0 4px,var(--panel) 4px 5px)}
+
+/* --- tilstande: de fire, plus to flag ------------------------------------- */
+.v{font-family:var(--mono);font-size:14px;white-space:nowrap}
+.v .op{color:var(--ink3);padding-right:1px}
+.v .e{color:var(--ink3);font-size:12px}
+.t{font-family:var(--mono);font-size:12px;white-space:nowrap;display:inline-flex;
+  align-items:center;gap:5px}
+.t-nul{font-size:14px;color:var(--ink)}                       /* 0 = et tal som alle andre */
+.t-nej{color:var(--ink2);border:1px solid var(--ink2);padding:1px 6px}
+.t-nej::before{content:"\2715";font-size:10px}
+.t-ukendt{color:var(--ink3);padding:1px 6px 1px 5px;
+  background:repeating-linear-gradient(45deg,transparent 0 3px,var(--rule-d) 3px 4px)}
+.t-ukendt::before{content:"\2013";color:var(--rule-s)}
+.t-billede{color:var(--billede);border-bottom:2px dotted var(--billede);padding-bottom:1px}
+.t-billede::before{content:"\25A8";font-size:12px}
+.flag{font-family:var(--mono);font-size:11px;display:inline-flex;align-items:center;gap:4px;
+  border:1px solid currentColor;padding:0 5px;margin-left:6px;vertical-align:1px}
+.flag-adv{color:var(--advarsel)}
+.flag-adv::before{content:"\26A0"}
+.flag-kon{color:var(--konflikt)}
+.flag-kon::before{content:"\21C5"}
+/* Kildenoeglen er en markoer, ikke et link: et 10px-link er et beroeringsmaal under
+   24x24 px (WCAG 2.5.8). Kilden aabnes i raekkens <details>, som er 44 px hoej. */
+.kn{font-family:var(--mono);font-size:10px;color:var(--ink3);vertical-align:super;margin-left:2px}
+
+/* --- filterbjælke --------------------------------------------------------- */
+.filtre{padding:0 0 20px}
+.fgrid{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+  border:1px solid var(--rule-s);background:var(--panel);cursor:pointer;
+  font-family:var(--mono);font-size:12.5px;color:var(--ink2);letter-spacing:.01em}
+.chip:hover{border-color:var(--ink)}
+a.chip{text-decoration:none}
+.chip .n{color:var(--ink3);font-size:11px;font-variant-numeric:tabular-nums}
+.chip:hover .n{color:var(--ink2)}
+.fhjaelp{font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-top:12px;max-width:78ch}
+
+/* --- katalogtabel --------------------------------------------------------- */
+.tabelramme{overflow-x:auto;border:1px solid var(--rule-s);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:940px}
+caption{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);padding:10px 12px;border-bottom:1px solid var(--rule-d)}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule-d);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);font-weight:500;border-bottom:1px solid var(--rule-s);
+  position:sticky;top:0;background:var(--panel);white-space:nowrap}
+tbody tr:hover td{background:#FAF9F6}
+.model{font-weight:650;font-size:15px;letter-spacing:-.01em}
+.model a{color:var(--ink);text-decoration-color:var(--rule-s)}
+.model a:hover{color:var(--link)}
+.prod{font-family:var(--mono);font-size:11.5px;color:var(--ink3);display:block;margin-top:3px}
+.taethed{white-space:nowrap;font-family:var(--mono);font-size:13px}
+.taethed b{font-weight:600}
+.taethed span{color:var(--ink3);font-size:11px}
+td.num{text-align:right}
+tbody tr.kilderaekke td{border-bottom:1px solid var(--rule-s);padding:0 12px 0}
+details.kilder summary{font-family:var(--mono);font-size:11px;color:var(--ink3);
+  cursor:pointer;min-height:44px;display:flex;align-items:center;letter-spacing:.05em}
+details.kilder summary:hover{color:var(--link)}
+details.kilder[open] summary{color:var(--ink)}
+.kildeliste{margin:0 0 14px;padding:0;list-style:none;font-family:var(--mono);font-size:11.5px;
+  color:var(--ink2);display:grid;gap:5px}
+.kildeliste b{color:var(--ink);font-weight:600;margin-right:8px}
+.kildeliste time{color:var(--ink3)}
+
+/* --- tilstandsforklaring -------------------------------------------------- */
+.forklaring{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));
+  border-top:1px solid var(--rule-d);margin-bottom:26px}
+.forklaring>div{padding:16px 20px 20px;border-right:1px solid var(--rule-d)}
+.forklaring>div:last-child{border-right:0}
+.forklaring p{font-size:13.5px;color:var(--ink2);margin-top:10px}
+.forklaring .ex{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--ink3)}
+
+/* --- tomtilstand ---------------------------------------------------------- */
+.tom{border:1px solid var(--rule-s);background:var(--panel);padding:26px 24px;margin-bottom:26px;
+  background-image:repeating-linear-gradient(45deg,transparent 0 6px,var(--rule-d) 6px 7px);
+  background-clip:padding-box}
+.tom .indre{background:var(--panel);border:1px solid var(--rule-d);padding:20px;max-width:64ch}
+.tom h3{font-size:17px}
+.tom p{margin-top:9px;color:var(--ink2);font-size:14px}
+
+/* --- fod ------------------------------------------------------------------ */
+footer{border-top:1px solid var(--rule-s);margin-top:8px;padding:26px 0 60px;
+  font-size:13.5px;color:var(--ink2)}
+footer .kolonner{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+footer h3{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink3);font-weight:500;margin-bottom:9px}
+footer ul{margin:0;padding:0;list-style:none}
+footer li{margin-bottom:5px}
+footer a{display:inline-flex;align-items:center;min-height:30px}
+.ingenaftale{border-left:3px solid var(--ink);padding-left:14px;max-width:52ch}
+
+@media (max-width:640px){
+  .maalestrip>div{border-right:0;border-bottom:1px solid var(--rule-d)}
+  .forklaring>div{border-right:0;border-bottom:1px solid var(--rule-d)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{.proto,.filtre{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<a class="spring" href="#katalog">Spring til kataloget</a>
+
+<div class="proto">
+  <div class="rum">
+    <b>Prototype 19.08.2026</b>
+    <a href="forside-a.html" aria-current="page">Forside A · Måleblad</a>
+    <a href="forside-b.html">Forside B · Instrument</a>
+    <a href="katalog.html">Katalog</a>
+    <a href="detaljeside.html">Detaljeside</a>
+  </div>
+</div>
+
+<header class="hoved">
+  <div class="rum">
+    <span class="navnslot">Navn og domæne ikke valgt — Å1</span>
+    <h1 class="udsagn">Firbenede robotter, felt for felt, med <em>kilde og dato</em> på hvert tal.</h1>
+    <p class="underudsagn">
+      31 felter pr. model. Vi tester ikke, måler ikke og rangerer ikke kvalitet. Vi skriver af
+      fra producentens egen side, noterer hvornår, og viser hvad der mangler.
+    </p>
+
+    <div class="maalestrip">
+      <div>
+        <span class="mtal">40&nbsp;<small>%</small></span>
+        <span class="metiket">Felter udfyldt i snit</span>
+      </div>
+      <div>
+        <span class="mtal">125<small>/310</small></span>
+        <span class="metiket">Målt 19.08.2026</span>
+      </div>
+      <div>
+        <span class="mtal">3</span>
+        <span class="metiket">Felter ingen af de 10 oplyser<br>— alle tre handler om EU</span>
+      </div>
+      <div>
+        <span class="mtal">0&nbsp;<small>%</small></span>
+        <span class="metiket">Laveste post — og den er med</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="hoved">
+
+<section id="katalog">
+  <div class="rum">
+    <div class="shoved">
+      <span class="snr">01</span>
+      <h2>Kataloget</h2>
+      <span class="note">10 af 10 poster · sorteret efter dækning</span>
+    </div>
+
+    <nav class="filtre" aria-label="Genveje til filtrerede lister">
+      <div class="fgrid">
+        <a class="chip" href="katalog.html">IP67 eller bedre <span class="n">4</span></a>
+        <a class="chip" href="katalog.html">Nyttelast gående ≥ 20 kg <span class="n">2</span></a>
+        <a class="chip" href="katalog.html">Drift under 0 °C <span class="n">3</span></a>
+        <a class="chip" href="katalog.html">CE oplyst <span class="n">1</span></a>
+        <a class="chip" href="katalog.html">Pris offentliggjort <span class="n">2</span></a>
+      </div>
+      <p class="fhjaelp">
+        Hvert filter har sin egen adresse, så en filtreret liste kan sendes videre.
+        Tallet er antal poster, der opfylder kravet. I kataloget filtrerer boksene direkte,
+        uden JavaScript. <a href="katalog.html">Alle filtre og sortering →</a>
+      </p>
+    </nav>
+
+    <div class="tabelramme">
+      <table>
+        <caption>Alle tal som producenten skriver dem. Operatorer bevaret. K-nøgler henviser til kilden i rækken nedenunder.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Model</th>
+            <th scope="col">Dækning</th>
+            <th scope="col">Egenvægt</th>
+            <th scope="col">Nyttelast&nbsp;gående</th>
+            <th scope="col">Maks.&nbsp;hastighed</th>
+            <th scope="col">IP</th>
+            <th scope="col">Driftstemp.&nbsp;fra</th>
+            <th scope="col">Dockingstation</th>
+            <th scope="col">CE&nbsp;oplyst</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">RBQ-10</a><span class="prod">Rainbow Robotics · Sydkorea</span></th>
+            <td class="taethed"><span class="maaler" style="--k:21;--n:31" role="img" aria-label="21 af 31 felter oplyst"><i></i></span><br><b>68 %</b> <span>21/31</span></td>
+            <td class="num"><span class="v">42 <span class="e">kg</span></span><span class="kn">K12</span></td>
+            <td class="num"><span class="v">15 <span class="e">kg</span></span><span class="kn">K12</span></td>
+            <td class="num"><span class="v">9 <span class="e">km/t</span></span><span class="flag flag-kon" title="Samme side skriver også 6 km/t">Konflikt</span></td>
+            <td><span class="v">IP54</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="v">ja</span> <span class="e" style="font-family:var(--mono);font-size:11px;color:var(--ink3)">tilvalg</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-rbq"><summary>Kilder for RBQ-10 · 2 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K12</b> <a href="https://www.rainbow-robotics.com/">rainbow-robotics.com</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+                <li><b>K13</b> producentens egen brugermanual, offentligt tilgængelig uden formular · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">B2</a><span class="prod">Unitree · Kina</span></th>
+            <td class="taethed"><span class="maaler" style="--k:19;--n:31" role="img" aria-label="19 af 31 felter oplyst"><i></i></span><br><b>61 %</b> <span>19/31</span></td>
+            <td class="num"><span class="v"><span class="op">≈</span>60 <span class="e">kg</span></span><span class="kn">K30</span></td>
+            <td class="num"><span class="v"><span class="op">&gt;</span>40 <span class="e">kg</span></span><span class="kn">K30</span></td>
+            <td class="num"><span class="v"><span class="op">&gt;</span>6 <span class="e">m/s</span></span><span class="flag flag-adv" title="Fodnote: kun i særlige konfigurationer">Fodnote</span></td>
+            <td><span class="v">IP67</span></td>
+            <td class="num"><span class="v"><span class="op">−</span>20 <span class="e">°C</span></span></td>
+            <td><span class="v">ja</span> <span class="e" style="font-family:var(--mono);font-size:11px;color:var(--ink3)">tilvalg</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-b2"><summary>Kilder for B2 · 1 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K30</b> <a href="https://www.unitree.com/b2">unitree.com/b2</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">Vision 60</a><span class="prod">Ghost Robotics · USA</span></th>
+            <td class="taethed"><span class="maaler" style="--k:19;--n:31" role="img" aria-label="19 af 31 felter oplyst"><i></i></span><br><b>61 %</b> <span>19/31</span></td>
+            <td class="num"><span class="v">51 <span class="e">kg</span></span><span class="kn">K6</span> <span class="e" style="font-family:var(--mono);font-size:11px;color:var(--ink3)">tom</span></td>
+            <td class="num"><span class="v">10 <span class="e">kg</span></span><span class="kn">K6</span></td>
+            <td class="num"><span class="v">2,4 <span class="e">m/s</span></span><span class="flag flag-kon" title="Punktlisten på samme side skriver 2,5 m/s">Konflikt</span></td>
+            <td><span class="v">IP67</span></td>
+            <td class="num"><span class="v"><span class="op">−</span>40 <span class="e">°C</span></span><span class="kn">K7</span></td>
+            <td><span class="v">ja</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-v60"><summary>Kilder for Vision 60 · 2 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K6</b> <a href="https://www.ghostrobotics.io/vision-60">ghostrobotics.io/vision-60</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+                <li><b>K7</b> datablad <span style="color:var(--ink3)">SPECSHEET V3.3, ©2024</span>, hentet fra K6 · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">Spot</a><span class="prod">Boston Dynamics · USA</span></th>
+            <td class="taethed"><span class="maaler" style="--k:18;--n:31" role="img" aria-label="18 af 31 felter oplyst"><i></i></span><br><b>58 %</b> <span>18/31</span></td>
+            <td class="num"><span class="v">33,8 <span class="e">kg</span></span><span class="kn">K1</span><span class="flag flag-kon" title="Databladet skriver 32,7 kg">Konflikt</span></td>
+            <td class="num"><span class="v">14 <span class="e">kg</span></span><span class="kn">K1</span></td>
+            <td class="num"><span class="v">1,6 <span class="e">m/s</span></span><span class="kn">K1</span></td>
+            <td><span class="v">IP54</span></td>
+            <td class="num"><span class="v"><span class="op">−</span>20 <span class="e">°C</span></span><span class="kn">K1</span></td>
+            <td><span class="v">ja</span> <span class="e" style="font-family:var(--mono);font-size:11px;color:var(--ink3)">Spot&nbsp;Dock</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-spot"><summary>Kilder for Spot · 2 stk. — og de er uenige om vægten</summary>
+              <ul class="kildeliste">
+                <li><b>K1</b> <a href="https://bostondynamics.com/products/spot/">bostondynamics.com/products/spot</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+                <li><b>K2</b> <a href="https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf">spot-specifications.pdf</a> — producentens datablad, mærket <span style="color:var(--ink3)">Updated 05/22/2024</span> · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">Go2</a><span class="prod">Unitree · Kina</span></th>
+            <td class="taethed"><span class="maaler" style="--k:14;--n:31" role="img" aria-label="14 af 31 felter oplyst"><i></i></span><br><b>45 %</b> <span>14/31</span></td>
+            <td class="num"><span class="v"><span class="op">≈</span>15 <span class="e">kg</span></span><span class="kn">K36</span></td>
+            <td class="num"><span class="v"><span class="op">≈</span>7 <span class="e">kg</span></span><span class="kn">K36</span></td>
+            <td class="num"><span class="v">0–2,5 <span class="e">m/s</span></span><span class="kn">K36</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-nej">nej</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-go2"><summary>Kilder for Go2 · 1 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K36</b> <a href="https://www.unitree.com/go2">unitree.com/go2</a>, produktside, variant AIR · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">B1</a><span class="prod">Unitree · Kina</span></th>
+            <td class="taethed"><span class="maaler" style="--k:14;--n:31" role="img" aria-label="14 af 31 felter oplyst"><i></i></span><br><b>45 %</b> <span>14/31</span></td>
+            <td class="num"><span class="v"><span class="op">≈</span>50 <span class="e">kg</span></span><span class="kn">K39</span></td>
+            <td class="num"><span class="v">20 <span class="e">kg</span></span><span class="kn">K39</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="v">IP68</span><span class="flag flag-adv" title="Står kun i overskriftsteksten, ikke i parametertabellen">Kun i prosa</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-b1"><summary>Kilder for B1 · 1 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K39</b> <a href="https://www.unitree.com/b1">unitree.com/b1</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">ANYmal D</a><span class="prod">ANYbotics · Schweiz</span></th>
+            <td class="taethed"><span class="maaler" style="--k:11;--n:31" role="img" aria-label="11 af 31 felter oplyst"><i></i></span><br><b>35 %</b> <span>11/31</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td class="num"><span class="v">10 <span class="e">kg</span></span><span class="kn">K4</span></td>
+            <td class="num"><span class="v">0,75 <span class="e">m/s</span></span><span class="flag flag-adv" title="Etiketten er »normal walking speed«, ikke maksimum">Ikke maks.</span></td>
+            <td><span class="v">IP67</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="v">ja</span></td>
+            <td><span class="v">ja</span> <span class="e" style="font-family:var(--mono);font-size:11px;color:var(--ink3)">FCC, CE, Anatel</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-any"><summary>Kilder for ANYmal D · 1 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K4</b> <a href="https://www.anybotics.com/robotics/anymal/">anybotics.com/robotics/anymal</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">Honey Badger 5.0</a><span class="prod">MAB Robotics · Polen</span></th>
+            <td class="taethed"><span class="maaler" style="--k:6;--n:31" role="img" aria-label="6 af 31 felter oplyst"><i></i></span><br><b>19 %</b> <span>6/31</span></td>
+            <td class="num"><span class="v">17 <span class="e">kg</span></span><span class="kn">K10</span></td>
+            <td class="num"><span class="v"><span class="op">≤</span>5 <span class="e">kg</span></span><span class="kn">K10</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="v">IP66</span></td>
+            <td class="num"><span class="t t-nul">0 <span class="e">°C</span></span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-hb"><summary>Kilder for Honey Badger 5.0 · 1 stk.</summary>
+              <ul class="kildeliste">
+                <li><b>K10</b> <a href="https://www.mabrobotics.pl/">mabrobotics.pl</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">Mini Pupper 2</a><span class="prod">MangDang · Kina</span></th>
+            <td class="taethed"><span class="maaler" style="--k:3;--n:31" role="img" aria-label="3 af 31 felter oplyst"><i></i></span><br><b>10 %</b> <span>3/31</span></td>
+            <td class="num"><span class="t t-billede">kun som billede</span></td>
+            <td class="num"><span class="t t-billede">kun som billede</span></td>
+            <td class="num"><span class="t t-billede">kun som billede</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-mp"><summary>Kilder for Mini Pupper 2 · 2 stk. — specifikationerne er en PNG</summary>
+              <ul class="kildeliste">
+                <li><b>K20</b> <a href="https://mangdang.store/">mangdang.store</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+                <li><b>K21</b> produktside, generation 2 · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+                <li style="color:var(--billede)">Specifikationstabellen findes på siden, men som billede. Efterprøvet både i rå HTML og i en rendering. Værdierne kan ikke citeres og er derfor ikke ført ind.</li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+
+        <tbody>
+          <tr>
+            <th scope="row" class="model"><a href="detaljeside.html">AlphaDog E300</a><span class="prod">Weilan · Kina</span></th>
+            <td class="taethed"><span class="maaler" style="--k:0;--n:31" role="img" aria-label="0 af 31 felter oplyst"><i></i></span><br><b>0 %</b> <span>0/31</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td class="num"><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+            <td><span class="t t-ukendt">ikke oplyst</span></td>
+          </tr>
+          <tr class="kilderaekke"><td colspan="9">
+            <details class="kilder" id="k-e300"><summary>Kilder for AlphaDog E300 · 1 stk. — nul publicerede felter</summary>
+              <ul class="kildeliste">
+                <li><b>K44</b> <a href="https://www.weilan.com/en/en/alphadoge.html">weilan.com/en/en/alphadoge.html</a>, produktside · hentet <time datetime="2026-08-19">19.08.2026</time></li>
+                <li style="color:var(--advarsel)">48 % af sidens krop er kommenteret ud i kildekoden. Specifikationerne har været publiceret og er taget ned. Vi henter ikke tal ud af en HTML-kommentar — de er trukket tilbage af producenten.</li>
+              </ul>
+            </details>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="rum">
+    <div class="shoved">
+      <span class="snr">02</span>
+      <h2>Fire tilstande, der ikke er den samme tilstand</h2>
+      <span class="note">Det er her katalogsider lyver</span>
+    </div>
+
+    <div class="forklaring">
+      <div>
+        <span class="t t-nul">0 <span class="e">°C</span></span>
+        <p><b>Nul.</b> Et målt tal, der tilfældigvis er nul. Sættes som ethvert andet tal, i samme skrifttype og samme vægt.</p>
+        <span class="ex">Honey Badger 5.0 · driftstemperatur fra</span>
+      </div>
+      <div>
+        <span class="t t-nej">nej</span>
+        <p><b>Nej.</b> Producenten oplyser, at egenskaben ikke findes. Det er en oplysning, ikke et hul — derfor en indrammet, fuldt læsbar værdi.</p>
+        <span class="ex">Go2 AIR · dockingstation</span>
+      </div>
+      <div>
+        <span class="t t-ukendt">ikke oplyst</span>
+        <p><b>Ikke oplyst.</b> Producenten skriver intet. Skraveringen er den samme, som fylder den tomme del af dækningsmåleren — så et blik på måleren og et blik på feltet betyder det samme.</p>
+        <span class="ex">ANYmal D · egenvægt</span>
+      </div>
+      <div>
+        <span class="t t-billede">kun som billede</span>
+        <p><b>Kun som billede.</b> Tallet er publiceret, men i en PNG. Det kan ikke søges, ikke oversættes og ikke citeres. Vi skriver ikke af fra et billede.</p>
+        <span class="ex">Mini Pupper 2 · hele specifikationsarket</span>
+      </div>
+    </div>
+
+    <div class="tom">
+      <div class="indre">
+        <h3>Og når intet matcher</h3>
+        <p>
+          Skraveringen fortsætter ud i fladen. Et filter, der ikke giver noget, ser ud som
+          et felt, der ikke er oplyst — samme sprog, ingen ny grammatik at lære.
+        </p>
+        <p style="margin-top:14px"><a href="katalog.html">Løsn et filter</a> · <a href="katalog.html">nulstil alle</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="rum">
+    <div class="shoved">
+      <span class="snr">03</span>
+      <h2>Hvorfor dækningsprocenten ikke er en karakter</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;padding-bottom:30px">
+      <p style="color:var(--ink2);font-size:14.5px;max-width:56ch">
+        Tallet måler, hvor mange af vores 31 felter producenten selv oplyser. Det måler
+        producentens åbenhed, ikke robottens kvalitet. Vi har ikke haft en eneste af dem i
+        hånden. En robot med 68 % er ikke bedre end en med 19 % — den er lettere at vurdere
+        før købet.
+      </p>
+      <p style="color:var(--ink2);font-size:14.5px;max-width:56ch">
+        Tallet kan ikke spilles uden at udgive flere data. Til gengæld flytter det sig med
+        tællereglen: samme robot, samme kilde, samme dag gav 28 % og 38 % med to forskellige
+        regler. <span style="color:var(--advarsel)">Reglen er ikke låst endnu (D4/D7),
+        og indtil den er, må procenten ikke bruges som rangering.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="rum">
+    <div class="kolonner">
+      <div>
+        <h3>Metode</h3>
+        <ul>
+          <li><a href="#">Sådan indsamler vi</a></li>
+          <li><a href="#">Hvad vi ikke gør</a></li>
+          <li><a href="#">Ordbog: DoF, IP-klasse, hot-swap</a></li>
+          <li><a href="#">Meld en fejl · tilføj en robot</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sprog</h3>
+        <ul>
+          <li><a href="#" hreflang="da" aria-current="true">Dansk</a></li>
+          <li><a href="#" hreflang="en">English</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Udgiver</h3>
+        <p class="ingenaftale">
+          Udgives af KeyResearch, Aarhus. <b>Der findes ingen forhandleraftale mellem
+          KeyResearch og nogen fabrikant.</b> Ingen købsknapper, ingen henvisningslinks,
+          ingen betaling fra producenter.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
