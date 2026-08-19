@@ -1,0 +1,103 @@
+slug: mab-honey-badger-5
+navn: Honey Badger 5.0
+producent: MAB Robotics
+producentland: Polen
+producentby: Poznan
+status: i_produktion
+noter:
+  - "EU-PRODUCENT - den eneste i hele indsamlingen. MAB Robotics Sp. z o.o., ul. Za Cytadela 108, Poznan. VAT PL7822870297."
+  - "EU-KOLONNENS MODEKSEMPEL. Den eneste EU-producent i indsamlingen oplyser INTET om CE - og bredere: nul traef paa CE, conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA og FCC i 1,48 MB HTML, negativt OG positivt kontrolleret. Ikke fordi maskinen ikke har CE (en polsk maskine solgt i EU skal have det), men fordi CE er saa selvfoelgeligt for en EU-producent, at ingen skriver det. CE oplyst = nej betyder derfor ikke det samme for en polsk og en amerikansk producent. Kolonnen maa vise oplyst / ikke oplyst, aldrig har CE / har ikke CE."
+  - "Afloeser Honey Badger 4.0. Generationsskiftet gaar den forkerte vej paa to felter: 5.0 er tungere (17 mod 12 kg) og har lavere taethedsklasse (IP66 mod up to IP67) end 4.0."
+felter:
+  egenvaegt:
+    vaerdi: 17
+    enhed: kg
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+  laengde:
+    vaerdi: 50
+    enhed: cm
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+  bredde:
+    vaerdi: 30
+    enhed: cm
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+  hoejde:
+    vaerdi_min: 13
+    vaerdi_maks: 50
+    enhed: cm
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "HOEJDEN ER ET INTERVAL - 13-50 cm, altsaa liggende til fuldt strakt. Bevaret som interval; et enkelt tal ville vaere opfundet."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 5
+    enhed: kg
+    operator: "<="
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver up to 5 kg. Operatoren er bevaret. Der skelnes ikke mellem gaaende og staaende last."
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP66
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+  temp_min:
+    vaerdi: 0
+    enhed: C
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "0 grader er en OPLYST NEDRE GRAENSE, ikke et manglende tal. Sammen med Weilan AlphaDog C500 (0-35 C) er det den snaevreste driftstemperatur i indsamlingen; for udendoers dansk drift om vinteren er den en diskvalifikator."
+  temp_maks:
+    vaerdi: 45
+    enhed: C
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 2
+    enhed: t
+    operator: "<="
+    ved_last: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "Producenten skriver up to 2 hours. Operatoren bevaret. Ingen lastbetingelse."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute:
+    vaerdi: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "Siden skriver two onboard computers uden model."
+  ros2:
+    vaerdi: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "Siden skriver open architecture uden ROS-version."
+  sdk_sprog: ikke_oplyst
+  autonominiveau: ikke_oplyst
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte:
+    vaerdi: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "Siden oplyser Communication: 5G Wi-Fi or Optic Fibre og Control device: PC/Remote controller. Det er forbindelse og betjening, ikke en portliste."
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst:
+    vaerdi: ikke_oplyst
+    kilde: https://www.mabrobotics.pl/honey-badger-5
+    hentet: 2026-08-19
+    advarsel: "Negativkontrolleret med ordgraense: 0 traef paa CE i 1,48 MB HTML. Positiv kontrol paa ANYbotics-siden med samme udtryk gav 1 traef (FCC, CE and Anatel compliant), saa soegemetoden virker. Se noten om, hvorfor et nej her ikke betyder det samme som et nej hos en amerikansk producent."
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
