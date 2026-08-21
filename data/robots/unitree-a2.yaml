@@ -3,6 +3,14 @@ navn: A2
 producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
+anvendelse:
+  vaerdi: industri
+  citat:
+    - "Robot - Industry"
+    - "机器狗 - 行业级"
+  kilde: https://www.unitree.com/
+  hentet: 2026-08-19
+  note: "Producentens egen produktnavigation, gruppen A2 staar i."
 varianter: [A2, A2-PRO]
 noter:
   - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene staar paa de paagaeldende felter."

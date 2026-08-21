@@ -4,6 +4,12 @@ producent: WEILAN
 producentland: Kina
 producentby: Nanjing
 status: i_produktion
+anvendelse:
+  vaerdi: forbruger_uddannelse
+  citat: "AI-powered Family Companion"
+  kilde: https://www.weilan.com/en/en/babyAlpha.html
+  hentet: 2026-08-19
+  note: "Samme side, synlig tekst: \"a source of family entertainment that doubles as a home security guard\". Producenten placerer den selv i hjemmet."
 noter:
   - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsfoering: ingen vaegt, ingen maal, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
   - "Sensorerne naevnes i prosa uden modeller og uden antal: wide-angle vision, active infrared vision, 360-degree lidar, multi-time-of-flight (TOF) radar, microphone array, multipoint touch sensor, temperature and humidity sensor, 6DF inertial measurement unit (IMU) sensor, joint torque sensor, displacement sensor og 6D pose estimation. 360-degree lidar er type uden model og taeller ikke under D4."

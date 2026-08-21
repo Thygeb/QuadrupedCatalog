@@ -4,6 +4,12 @@ producent: DEEP Robotics
 producentland: Kina
 producentby: Hangzhou
 status: i_produktion
+anvendelse:
+  vaerdi: [industri, inspektion]
+  citat: "The X20 quadruped robot solution is for industrial patrol inspection under extreme working conditions."
+  kilde: https://deeprobotics.cn/en/index/product.html
+  hentet: 2026-08-19
+  note: "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 \"行业应用\"."
 noter:
   - "Producentens fulde navn: Hangzhou Yunshenchu Technology. Serier: Jueying og Lynx."
   - "STATUS KAN IKKE UDFYLDES FRA KILDEN. Produktsiden lever paa begge sprog, men er afkoblet fra navigationen: linket er udkommenteret i baade header og footer paa EN og CN. Kun det kinesiske forsidegitter linker den stadig. Producenten har ikke erklaeret modellen udgaaet. i_produktion er derfor et valg, ikke en aflaesning."

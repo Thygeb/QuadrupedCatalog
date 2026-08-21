@@ -72,6 +72,8 @@ export const IDENTITET_VALGFRI = [
   // "varianter:"-blok maa bruge — se R15. Uden den kan en variant hedde noget
   // forskelligt paa to felter i samme fil, og de to kan ikke stilles op mod hinanden.
   'varianter',
+  // Producentens egen anvendelsesinddeling. Se ANVENDELSE_VAERDIER nedenfor og R16.
+  'anvendelse',
 ];
 export const STATUS_VAERDIER = ['i_produktion', 'annonceret', 'udgaaet', 'demonstrator'];
 
@@ -94,6 +96,52 @@ export function tilstandAf(v) {
   const k = v.trim().replace(/\s+/g, '_');
   return TILSTANDE.includes(k) ? k : null;
 }
+
+/* ======================================================================
+   anvendelse — producentens EGEN inddeling, ikke vores
+
+   CLAUDE.md begraensning 6 forbyder en redaktionel score uden offentliggjort
+   metode. En redaktionel ANVENDELSESinddeling ville falde for samme regel:
+   "en konklusion skrevet om til en kategori". Derfor er feltet konstrueret,
+   saa det ikke KAN baere vores mening: uden et ordret citat fra producenten
+   er den eneste tilladte vaerdi ikke_oplyst, og det haandhaeves af R16.
+
+   Feltet er en TOPNOEGLE, ikke et felt i "felter". To grunde:
+   1. Det er ikke en specifikation, producenten oplyser eller lader vaere med at
+      oplyse — det er den hylde, producenten selv stiller robotten paa.
+   2. Ville det taelle i specifikationstaetheden, ville naevneren skifte fra 29/31
+      til 30/32, og alle historiske taethedstal i STATUS.md og DATAMODEL.md ville
+      blive uforlignelige uden at nogen havde besluttet det (D7 er stadig aaben).
+
+   Form:
+     anvendelse:
+       vaerdi: industri              # eller en liste, eller ikke_oplyst
+       citat: "Robot - Industry"     # streng ELLER liste af strenge, ordret
+       kilde: https://www.unitree.com/
+       hentet: 2026-08-19
+       kildetype: primaer            # valgfri
+       note: "..."                   # valgfri: hvad citatet IKKE daekker
+   ====================================================================== */
+
+/**
+ * Det tilladte saet. Raekkefoelgen er ikke tilfaeldig: staar der flere vaerdier,
+ * er den FOERSTE producentens hovedpositionering — den, en forsideinddeling
+ * skal gruppere efter. De oevrige er kategorier, producenten selv naevner i
+ * samme aandedrag, og de maa ikke tabes, fordi en gruppering kun kan vise én.
+ */
+export const ANVENDELSE_VAERDIER = [
+  'industri',
+  'inspektion',
+  'forskning_udvikling',
+  'forbruger_uddannelse',
+  'forsvar_beredskab',
+  'logistik',
+];
+
+/** Noegler, en anvendelsespost maa indeholde. Alt andet fejler paa R16. */
+export const ANVENDELSE_NOEGLER = new Set([
+  'vaerdi', 'citat', 'kilde', 'hentet', 'kildetype', 'note',
+]);
 
 /**
  * Ja/nej som tekst. Dataskriveren skriver producentens svar paa dansk, og

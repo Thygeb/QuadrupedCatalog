@@ -45,6 +45,8 @@ Opdateret 19. august 2026.
 | **D7** | **Nævneren: 29 eller 31?** Se nedenfor. Blokerer sidens eneste rangering |
 | **Å8** | Er Xiaomis JS-bundle en primærkilde? Ja → CyberDog 2 er 48 %. Nej → 0 % |
 | **Å9** | Hvilket MagicLab-site er primærkilde? De to modsiger hinanden og blokerer fem felter |
+| **Å10** | **Mangler der en syvende anvendelseskategori: `sikkerhed_overvaagning`?** Fem producenter sælger på *security / patrol / surveillance*, og de seks tilladte værdier har ingen plads til det. Ordet er derfor ikke omsat på Unitree As2-W, DEEP Lynx S10, DEEP X30 + X30 Pro, Rainbow RBQ-10 og Raion RAIBO2 — det står kun i noten. **Alternativet er værre:** presses "security patrol" ind under `forsvar_beredskab`, kommer en parkpatruljerobot til at stå ved siden af Ghost Robotics' militærplatform på forsiden |
+| **Å11** | **Skal `anvendelse` kunne arves fra grundmodel til variant?** Unitree B2-W og Go2-W står `ikke_oplyst`, fordi hjulvarianterne ikke er i producentens navigation og deres egne sider ikke nævner nogen anvendelse — mens B2 er `industri` og Go2 er `forbruger_uddannelse`. Arv ville være vores slutning; ikke-arv lægger to varianter af samme maskine i hver sin bunke |
 
 ### Venter på arbejde
 
@@ -57,7 +59,7 @@ Opdateret 19. august 2026.
 | **D3** | Hvordan vises intervaller (`20~25cm`, `4-6h`)? |
 | **D9** | Syv skemamangler — se nedenfor |
 | **R1** | 17 fejl i `FUND-vest.md` skal rettes i et nyt dokument (arkiv rettes ikke bagud) |
-| **R2** | `raa-vest-2026-08-19/` mangler manifest — det eneste råkildesæt uden |
+| **R2** | `raa-vest-2026-08-19/` mangler manifest — det eneste råkildesæt uden. **Værre end antaget:** `ghost_s40.html` i samme mappe er en 404-side (`<title>Not Found</title>`, teksten "Page Not Found") gemt under et navn, der lover Ghost Robotics Spirit 40. Fundet 21. aug 2026. Uden manifest var der intet, der kunne fange det. Hele mappen bør gennemgås for flere |
 
 ---
 

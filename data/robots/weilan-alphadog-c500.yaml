@@ -4,6 +4,12 @@ producent: WEILAN
 producentland: Kina
 producentby: Nanjing
 status: i_produktion
+anvendelse:
+  vaerdi: forbruger_uddannelse
+  citat: "Children’s education, family companionship, elderly care, express delivery, STEAM education"
+  kilde: https://www.weilan.com/en/en/alphadogc.html
+  hentet: 2026-08-19
+  note: "Listen staar under overskriften \"Innovative Applications in Discovery\" - producentens egne ord for at det er noget, der undersoeges. Derfor er \"express delivery\" IKKE foert som logistik: en anvendelse under udforskning er ikke en anvendelse, robotten saelges til."
 noter:
   - "WEILAN Co., Ltd., ICP-nummer Su-ICP-Bei-19029747-1 (registreret i Jiangsu). Producentens etiket for varianten er C500 Standard developer version."
   - "SPROGSKIFTEREN PAA WEILANS ENGELSKE SIDER ER BRUDT: menupunktet for kinesisk peger paa en URL, der svarer 404. Det gaelder alle tre proevede sider. Der findes ingen kinesisk primaerkilde at krydstjekke imod paa weilan.com."

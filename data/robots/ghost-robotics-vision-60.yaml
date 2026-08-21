@@ -4,6 +4,14 @@ producent: Ghost Robotics
 producentland: USA
 producentby: ikke_oplyst
 status: i_produktion
+anvendelse:
+  vaerdi: forsvar_beredskab
+  citat:
+    - "Designed to meet your real-world commercial and defense needs, Q-UGV is the most adaptable unmanned ground vehicle in the world."
+    - "Redefining government, homeland, and military operations."
+  kilde: https://www.ghostrobotics.io/vision-60
+  hentet: 2026-08-19
+  note: "Producentens hovednavigation har to punkter: \"Defense\" og \"Commercial\". \"Commercial\" er ikke en anvendelse i det tilladte saet, og forsiden praeciserer den som \"From the battlefield to the oil field\"."
 noter:
   - "HJEMBY ER IKKE OPLYST. FUND-vest skrev Philadelphia; strengen findes 0 gange i producentens forside, produktside og datablad. Sidefoden har kun Get In Touch, og databladet har e-mail og domaene, ingen adresse. Rettet efter KILDEKORT-B F6."
   - "Databladet (SPECSHEET V3.3, 2024) downloades direkte fra produktsiden, men ligger paa producentens Webflow-CDN, ikke paa deres eget domaene. URL'en kan doe."

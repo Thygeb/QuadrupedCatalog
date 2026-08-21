@@ -4,6 +4,12 @@ producent: Boston Dynamics
 producentland: USA
 producentby: Waltham, Massachusetts
 status: i_produktion
+anvendelse:
+  vaerdi: [industri, inspektion]
+  citat: "Our agile mobile robot for dynamic sensing and industrial inspection"
+  kilde: https://bostondynamics.com/products/spot/
+  hentet: 2026-08-19
+  note: "Producentens egen produktnavigation, teksten under punktet \"Spot\". Sidens loesningsmenu deler i \"Inspection\" og \"Safety & Response\"."
 noter:
   - "Majoritetsejet af Hyundai Motor Group (Sydkorea). Noteret fordi producentland bliver tvetydigt."
   - "To producentkilder: produktside (K1) og producentens eget datablad (K2, maerket Updated: 05/22/2024). De er uenige om laengde og vaegt."

@@ -185,6 +185,46 @@ producentens forbehold til vores præcision. Feltet skal kunne vise `> 40 kg`, i
 
 ---
 
+## `anvendelse` — producentens egen inddeling, håndhævet af R16
+
+Tilføjet 21. aug 2026. **Topnøgle, ikke et felt i `felter`.**
+
+CEO'en vil have forsiden inddelt efter anvendelse i stedet for vægt. En redaktionel
+inddeling ville falde for samme regel, der forbød 1-5-scoren (CLAUDE.md begrænsning 6):
+*en konklusion skrevet om til en kategori.* Løsningen er ikke at inddele bedre. Det er
+at lade producenterne inddele — og gemme deres ord ved siden af kategorien, så en læser
+kan se, hvem der har sagt det.
+
+```yaml
+anvendelse:
+  vaerdi: industri              # eller [industri, inspektion], eller ikke_oplyst
+  citat: "Robot - Industry"     # ordret. Streng eller liste af strenge
+  kilde: https://www.unitree.com/
+  hentet: 2026-08-19
+  note: "Producentens egen produktnavigation, gruppen B2 står i."
+```
+
+**Tilladt sæt** (seks): `industri` · `inspektion` · `forskning_udvikling` ·
+`forbruger_uddannelse` · `forsvar_beredskab` · `logistik` — plus tilstanden `ikke_oplyst`.
+Står der flere, er **den første** producentens hovedpositionering; det er den, en
+forsidegruppering skal bruge, og de øvrige er kategorier, producenten selv nævner i
+samme åndedrag.
+
+**R16 vender beviskravet om.** På et almindeligt felt koster et tal en kilde. Her koster
+en *kategori* et ordret citat: uden `citat` er `vaerdi` nødt til at være `ikke_oplyst`,
+og et `ikke_oplyst` må omvendt **ikke** bære et citat. Så kan feltet ikke bruges til at
+smugle en vurdering ind, hverken forfra eller bagfra.
+
+**Hvorfor uden for `felter`:** anvendelse er ikke en specifikation, producenten kunne have
+oplyst og lod være. Det er den hylde, producenten selv stiller robotten på. Talte den med
+i specifikationstætheden, ville nævneren skifte fra 29/31 til 30/32, og alle historiske
+tæthedstal blive uforlignelige — uden at nogen havde besluttet det (D7 er stadig åben).
+
+**Efterprøvning:** `node tools/efterproev-anvendelse.mjs` slår hvert citat op i den gemte
+råfil og fejler, hvis det ikke står der ordret. Målt 21. aug 2026: 53 citater, 0 fejl.
+
+---
+
 ## Hvad der stadig er åbent efter trin 1
 
 | # | Punkt | Type |

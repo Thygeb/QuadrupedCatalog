@@ -3,6 +3,11 @@ navn: B2-W
 producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
+anvendelse:
+  vaerdi: ikke_oplyst
+  kilde: https://www.unitree.com/b2-w
+  hentet: 2026-08-19
+  note: "GENNEMLAEST, INTET FUNDET. B2-W staar ikke i produktnavigationen, og produktsidens egen tekst er ren praestation: \"Go Further with Higher Efficiency\", \"Brand New Intelligent Species\". Ingen anvendelse naevnes. At arve B2s \"Robot - Industry\" ville vaere vores slutning, ikke producentens."
 noter:
   - "Hjulbenet udgave af B2."
 felter:
