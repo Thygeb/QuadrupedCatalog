@@ -4,6 +4,12 @@ producent: DEEP Robotics
 producentland: Kina
 producentby: Hangzhou
 status: i_produktion
+anvendelse:
+  vaerdi: [industri, inspektion, forsvar_beredskab, logistik, forskning_udvikling]
+  citat: "The LYNX M20 series represents the world’s first wheeled-legged robot built specifically for challenging terrains and hazardous environments during industrial operation. Featuring lightweight design with extreme-environment endurance, it conquers rugged mountain trails, muddy wetlands and debris-strewn ruins—pioneering embodied intelligence in power inspection, emergency response, logistics, and scientific exploration."
+  kilde: https://deeprobotics.cn/en/index/lynx.html
+  hentet: 2026-08-19
+  note: "Producenten skriver om \"The LYNX M20 series\", og Pro er en variant i den serie."
 noter:
   - "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlaegningen er laest i sidens egen JavaScript, ikke gaettet."
   - "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhoejder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekraeftelse paa, at de to felter skal vaere adskilt."

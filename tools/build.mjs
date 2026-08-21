@@ -273,6 +273,68 @@ function fod(T, sprogkode, dybde, andetSprogHref) {
 `;
 }
 
+/**
+ * Producentens egen anvendelsesinddeling.
+ *
+ * Citatet vises SAMMEN MED kategorien, altid, aldrig som et tooltip. Uden det
+ * synlige citat ville en laeser ikke kunne se forskel paa producentens hylde og
+ * vores vurdering — og saa var feltet blevet det, CLAUDE.md begraensning 6 forbyder.
+ * Derfor er der ingen kompakt visning: kan citatet ikke vises, vises kategorien ikke.
+ */
+/** Anvendelsen i robots.json. Formen er den samme uanset hvad YAML'en skrev. */
+function anvendelseTilIndeks(a) {
+  if (a === undefined) return { vaerdi: ['ikke_oplyst'], citat: [] };
+  const raa = typeof a === 'string' ? { vaerdi: a } : a;
+  const vaerdier = Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi];
+  const citater = raa.citat === undefined ? []
+    : (Array.isArray(raa.citat) ? raa.citat : [raa.citat]);
+  return {
+    vaerdi: vaerdier.map((v) => tilstandAf(v) ?? v),
+    citat: citater,
+    kilde: raa.kilde ?? null,
+    hentet: raa.hentet ?? null,
+  };
+}
+
+function anvendelseBlok(robot, T) {
+  const a = robot.anvendelse;
+  if (a === undefined) return '';
+  const raa = typeof a === 'string' ? { vaerdi: a } : a;
+  const vaerdier = Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi];
+  const erIkkeOplyst = vaerdier.length === 1 && tilstandAf(vaerdier[0]) === 'ikke_oplyst';
+
+  const maerker = erIkkeOplyst
+    ? `<span class="tilstand tilstand--ikke_oplyst" title="${attr(T.tilstand_ikke_oplyst_forklaring)}">`
+      + `${esc(T.tilstand_ikke_oplyst)}</span>`
+    : vaerdier.map((v) => `<span class="anvendelse__maerke anvendelse__maerke--${attr(v)}">`
+      + `${esc(T['anvendelse_' + v])}</span>`).join(' ');
+
+  const citater = raa.citat === undefined ? []
+    : (Array.isArray(raa.citat) ? raa.citat : [raa.citat]);
+  const citatDel = citater.length
+    ? `<blockquote class="anvendelse__citat"><p class="anvendelse__citat-etikette">`
+      + `${esc(T.anvendelse_citat)}</p>`
+      + citater.map((c) => `<p>${esc(c)}</p>`).join('') + `</blockquote>`
+    : '';
+
+  const kildeDel = raa.kilde
+    ? `<p class="anvendelse__kilde"><a href="${attr(raa.kilde)}" rel="nofollow noopener">`
+      + `${esc(T.kilde)}</a>${raa.hentet ? ` · ${esc(T.hentet)} ${esc(raa.hentet)}` : ''}</p>`
+    : '';
+
+  const noteDel = raa.note ? `<p class="anvendelse__note">${esc(raa.note)}</p>` : '';
+
+  return `<section class="gruppe anvendelse">
+<h2>${esc(T.anvendelse_titel)}</h2>
+<p class="anvendelse__vaerdi">${maerker}</p>
+${citatDel}
+${kildeDel}
+${noteDel}
+<p class="anvendelse__forklaring">${esc(T.anvendelse_forklaring)}</p>
+</section>
+`;
+}
+
 function taethedBlok(robot, naevnere, d4, T, sprogkode) {
   const dele = naevnere.map((n) => {
     const x = taethed(robot, n, d4);
@@ -313,7 +375,7 @@ function detaljeside(robot, sprogkode, T, naevnere, d4) {
 ${robot.foerste_udgivelse ? `<span>${esc(String(robot.foerste_udgivelse))}</span>` : ''}
 </p>
 ${taethedBlok(robot, naevnere, d4, T, sprogkode)}
-`;
+${anvendelseBlok(robot, T)}`;
 
   for (const gruppe of GRUPPER) {
     const navne = FELTNAVNE.filter((n) => FELTER[n].gruppe === gruppe);
@@ -541,6 +603,11 @@ function main(argv) {
       return {
         slug: r.slug, navn: r.navn, producent: r.producent,
         producentland: r.producentland, status: r.status,
+        // Producentens egen inddeling. ALTID en liste, ogsaa naar der kun er én
+        // vaerdi, og ogsaa naar den er ["ikke_oplyst"] — en forside, der grupperer
+        // efter feltet, skal have en bunke at lægge de ukendte i, ikke et hul.
+        // Citatet foelger med: en gruppering uden producentens ord er en paastand.
+        anvendelse: anvendelseTilIndeks(r.anvendelse),
         taethed: Object.fromEntries(naevnere.map((n) => [n, taethed(r, n, d4).pct])),
         felter: f,
       };

@@ -4,6 +4,12 @@ producent: MagicLab
 producentland: Kina
 producentby: Wujiang/Suzhou
 status: i_produktion
+anvendelse:
+  vaerdi: [forskning_udvikling, inspektion]
+  citat: "MagicDog-W is suitable for research, demonstrations, patrol, surveying and expandable mobile applications."
+  kilde: https://www.magiclabglobal.com/products/magicdog-w/
+  hentet: 2026-08-19
+  note: "Producentens kinesiske og engelske produktsider paa magiclab.top kalder den kun \"MagicLab Quadruped Wheeled Robot\" - en form, ikke en anvendelse."
 noter:
   - "TO PRODUCENTSITES, DER MODSIGER HINANDEN - og her vender operatorerne. magiclab.top skriver hastighed 0-3 m/s og haeldning <= 40 grader; magiclabglobal.com skriver >= 3.0 m/s og >= 40 grader for samme robot, samme sprog, samme dag. Det ene er et loft, det andet et gulv. Kilden her er magiclab.top; det globale sites tal staar i advarslerne."
 felter:

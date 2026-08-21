@@ -29,6 +29,7 @@ import {
 import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
+  ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER,
 } from './skema.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
@@ -442,6 +443,98 @@ function tjekTilstandspost(sti, post, spec) {
   }
 }
 
+/* ----------------------------------------------------------- R16 anvendelse */
+
+/**
+ * R16 — producentens egen anvendelsesinddeling.
+ *
+ * Hele pointen med feltet er, at det ikke kan baere vores mening. Derfor er
+ * kravet omvendt af de andre felters: en VAERDI koster et ordret citat plus en
+ * kilde. Kan producenten ikke citeres, er "ikke_oplyst" ikke en mangel — det er
+ * det rigtige svar, og saa maa der til gengaeld ikke staa et citat, der giver
+ * indtryk af, at kategorien var producentens.
+ *
+ * Uden det her krav ville feltet vaere praecis den redaktionelle inddeling,
+ * CLAUDE.md begraensning 6 forbyder: en konklusion skrevet om til en kategori.
+ */
+function tjekAnvendelse(a) {
+  const sti = 'anvendelse';
+  if (a === undefined) return;                       // valgfri topnoegle
+
+  // Bar tilstand: "anvendelse: ikke_oplyst" uden kort. Tilladt og entydig.
+  if (typeof a === 'string') {
+    const k = tilstandAf(a);
+    if (k === 'ikke_oplyst') {
+      if (a !== 'ikke_oplyst') ADVARSEL('R16', sti, `skriv tilstanden med understreg: "ikke_oplyst"`);
+      return;
+    }
+    FEJL('R16', sti, `${JSON.stringify(a)} er hverken "ikke_oplyst" eller et kort med ` +
+      `"vaerdi", "citat" og "kilde"`);
+    return;
+  }
+  if (!erPost(a)) {
+    FEJL('R16', sti, `"anvendelse" skal vaere et kort eller tilstanden "ikke_oplyst", fik ` +
+      `${JSON.stringify(a)}`);
+    return;
+  }
+
+  for (const n of Object.keys(a)) {
+    if (!ANVENDELSE_NOEGLER.has(n)) {
+      FEJL('R16', sti, `ukendt noegle "${n}" i anvendelsesposten. Tilladte: ` +
+        `${[...ANVENDELSE_NOEGLER].join(', ')}`);
+    }
+  }
+
+  // 1. Vaerdien: én kategori, en liste af dem, eller tilstanden ikke_oplyst.
+  const raa = a.vaerdi;
+  if (raa === undefined) { FEJL('R16', sti, `posten mangler "vaerdi"`); return; }
+  const liste = Array.isArray(raa) ? raa : [raa];
+  if (!liste.length) { FEJL('R16', sti, `"vaerdi" er en tom liste`); return; }
+  if (liste.some((v) => typeof v !== 'string' || v.trim() === '')) {
+    FEJL('R16', sti, `"vaerdi" skal vaere kategorinavne som tekst, fik ${JSON.stringify(raa)}`);
+    return;
+  }
+  const erIkkeOplyst = liste.length === 1 && tilstandAf(liste[0]) === 'ikke_oplyst';
+  if (!erIkkeOplyst) {
+    for (const v of liste) {
+      if (!ANVENDELSE_VAERDIER.includes(v)) {
+        FEJL('R16', sti, `${JSON.stringify(v)} er ikke en gyldig anvendelse. ` +
+          `Gyldige: ${ANVENDELSE_VAERDIER.join(' | ')} | ikke_oplyst` +
+          (v.includes(' ') ? ' (skriv den med understreg, ikke mellemrum)' : ''));
+      }
+    }
+    if (new Set(liste).size !== liste.length) {
+      FEJL('R16', sti, `samme anvendelse staar to gange i listen`);
+    }
+  }
+
+  // 2. ikke_oplyst maa ikke baere et citat. Ellers ville en post kunne se
+  //    kildebelagt ud og alligevel ikke have en kategori — eller omvendt.
+  if (erIkkeOplyst) {
+    if (a.citat !== undefined) {
+      FEJL('R16', sti, `"citat" staar sammen med "ikke_oplyst". Kan producenten citeres, ` +
+        `hoerer citatet til en kategori; kan den ikke, hoerer citatet ingen steder`);
+    }
+    // kilde/hentet/note MAA staa: "vi kiggede her, og producenten sagde intet"
+    // er en anden og mere brugbar oplysning end tavshed.
+    if (a.kilde !== undefined) tjekKilde(sti, a);
+    if (a.hentet !== undefined) tjekHentet(sti, a);
+    return;
+  }
+
+  // 3. En kategori koster et ordret citat. Det er hele feltets eksistensberettigelse.
+  const citater = Array.isArray(a.citat) ? a.citat : [a.citat];
+  if (a.citat === undefined) {
+    FEJL('R16', sti, `"citat" mangler. Uden producentens eget ord er kategorien vores ` +
+      `mening, og saa skal vaerdien vaere "ikke_oplyst" (CLAUDE.md begraensning 6)`);
+  } else if (!citater.length || citater.some((c) => typeof c !== 'string' || c.trim() === '')) {
+    FEJL('R16', sti, `"citat" skal vaere producentens ord ordret - én tekst eller en liste ` +
+      `af tekster, fik ${JSON.stringify(a.citat)}`);
+  }
+  tjekKilde(sti, a);
+  tjekHentet(sti, a);
+}
+
 /* --------------------------------------------------------------- taethed */
 
 /**
@@ -523,6 +616,11 @@ export function tjekRobot(doc, fil) {
       : Array.isArray(n) && n.length > 0 && n.every((x) => typeof x === 'string' && x.trim() !== '');
     if (!ok) FEJL('R1', 'noter', `"noter" skal vaere en tekst eller en liste af tekster`);
   }
+
+  // R16 — producentens egen anvendelsesinddeling. Ligger uden for "felter" med
+  // vilje: den taeller ikke i specifikationstaetheden, fordi den ikke er en
+  // specifikation, producenten kunne have oplyst og lod vaere.
+  tjekAnvendelse(doc.anvendelse);
 
   const felter = doc.felter;
   if (felter === undefined || felter === null) { FEJL('R1', 'felter', `"felter" mangler`); return null; }

@@ -3,6 +3,11 @@ navn: Go2-W
 producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
+anvendelse:
+  vaerdi: ikke_oplyst
+  kilde: https://www.unitree.com/go2-w
+  hentet: 2026-08-19
+  note: "GENNEMLAEST, INTET FUNDET. Go2-W staar ikke i produktnavigationen, og siden siger kun \"Driving All Terrain\" og \"Go2 New Model Transformative Newborn\"."
 felter:
   egenvaegt:
     vaerdi: 18

@@ -4,6 +4,12 @@ producent: Shandong Youbaote Intelligent Robot
 producentland: Kina
 producentby: Shandong
 status: i_produktion
+anvendelse:
+  vaerdi: [forskning_udvikling, forbruger_uddannelse]
+  citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+  kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+  hentet: 2026-08-19
+  note: "Serieindledning, ikke en modelspecifik saetning. Se noten paa Y10."
 noter:
   - "AABENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
   - "E-DOG OPLYSER TRE NYTTELASTTAL, IKKE TO - og skemaet har kun to felter: maks. STATISK last 8 kg, maks. DYNAMISK last 5 kg, og dynamisk last I DRIFT 3 kg. Det tredje tal (arbejdslast) har ingen plads i skemaet og staar kun i advarslen paa nyttelast_gaaende. Det er en skemamangel, ikke en indsamlingsmangel."

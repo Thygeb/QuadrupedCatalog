@@ -4,6 +4,14 @@ producent: MAB Robotics
 producentland: Polen
 producentby: Poznan
 status: udgaaet
+anvendelse:
+  vaerdi: [inspektion, forskning_udvikling]
+  citat:
+    - "Industrial inspection"
+    - "Academia & Research"
+  kilde: https://www.mabrobotics.pl/honey-badger
+  hentet: 2026-08-19
+  note: "FIRMANIVEAU, IKKE MODELNIVEAU. Citaterne er to punkter i producentens \"Industries\"-menu, som staar paa hele sitet: Industrial inspection, Mining, Public safety, Utilities, Civil engineering, Academia & Research. Honey Badger er producentens eneste robot, men producenten har ikke selv sat etiketten paa modellen. Mining, Public safety, Utilities og Civil engineering har det tilladte saet ingen kategorier for."
 noter:
   - "PRODUCENTEN ERKLAERER SELV MODELLEN UDGAAET, ordret (inklusive producentens egen stavefejl): With the launch of the new version, sales of the Honey Badger 4.0 have officialy come to an end. Og: Don't worry, we'll support your existing HB4.0 robot during the warranty period."
   - "Generationsskiftet gaar den forkerte vej paa to felter: 5.0 er tungere (17 mod 12 kg) og har lavere taethedsklasse (IP66 mod up to IP67), mens nyttelasten stiger (5 mod 4 kg) og driftstemperaturen udvides (0-45 mod 0-40 C)."

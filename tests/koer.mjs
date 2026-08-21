@@ -132,6 +132,44 @@ const ITUSLAAEDE_HOVED = [
   ['noter er hverken tekst eller liste af tekst', 'R1',
     `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
     `noter: 42\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+
+  // R16 - anvendelse. Feltet er bygget for IKKE at kunne baere vores mening.
+  // Hvert tilfaelde nedenfor er en maade at snige en redaktionel kategori ind paa.
+  ['anvendelse med kategori, men uden citat', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse med kategori og citat, men uden kilde', 'R6',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  hentet: 2026-08-19\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse med kategori og citat, men uden hentedato', 'R7',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse med en kategori uden for det tilladte saet', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: landbrug\n  citat: "Agriculture"\n  kilde: https://example.com/a\n` +
+    `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse ikke_oplyst, men med et citat alligevel', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: ikke_oplyst\n  citat: "ser industriel ud"\n  kilde: https://example.com/a\n` +
+    `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse med tomt citat', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citat: ""\n  kilde: https://example.com/a\n` +
+    `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse med samme kategori to gange', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: [industri, industri]\n  citat: "Robot - Industry"\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['ukendt noegle i anvendelsesposten', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citaat: "Robot - Industry"\n  citat: "Robot - Industry"\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse som bar tekst, der ikke er en tilstand', 'R16',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse: industri\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 ];
 
 /**
@@ -177,6 +215,29 @@ const GYLDIGE_HOVED = [
     `producentby: Poznan\nvarianter: [Basic, Venture, "A2-W PRO"]\nnoter:\n  - "en note"\n  - "og en til"\n` +
     `felter:\n  nyttelast_gaaende:\n    vaerdi: 5\n    enhed: kg\n    kilde: https://example.com/a\n` +
     `    hentet: 2026-08-19\n    varianter:\n      Basic: 5\n      Venture: 4.5\n      A2-W PRO: "IP56-IP67"\n`],
+
+  // R16 - de former, anvendelsesfeltet SKAL kunne baere. Uden dem beviser
+  // R16-tilfaeldene kun, at validatoren siger nej til alt, hvad der hedder
+  // "anvendelse".
+  ['anvendelse med én kategori og ét citat',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
+    `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse med flere kategorier og flere citater',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: [industri, inspektion]\n  citat:\n    - "Robot - Industry"\n` +
+    `    - "for industrial patrol inspection"\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
+    `  kildetype: primaer\n  note: "Producentens egen navigation."\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse ikke_oplyst MED kilde - vi kiggede, producenten sagde intet',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: ikke_oplyst\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
+    `  note: "GENNEMLAEST, INTET FUNDET."\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['anvendelse som bar tilstand uden kort',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse: ikke_oplyst\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['robot helt uden anvendelse - feltet er valgfrit, ikke paakraevet',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
 ];
 
 /* ------------------------------------------------------------------ koersel */

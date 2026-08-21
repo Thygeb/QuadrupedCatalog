@@ -4,6 +4,14 @@ producent: ANYbotics
 producentland: Schweiz
 producentby: Zuerich
 status: i_produktion
+anvendelse:
+  vaerdi: [inspektion, industri]
+  citat:
+    - "ANYmal - Autonomous Robotic Inspection Solution - ANYbotic"
+    - "Purpose-built for intricate industrial plants."
+  kilde: https://www.anybotics.com/robotics/anymal/
+  hentet: 2026-08-19
+  note: "Foerste citat er sidens egen titel."
 noter:
   - "ANYbotics AG, Hagenholzstrasse 83a, 8050 Zuerich. Kontor ogsaa i San Francisco. Schweiz er ikke EU."
   - "Et komplet datablad findes, men kun bag en formular (https://www.anybotics.com/anymal-specifications-sheet/). Ikke hentet."

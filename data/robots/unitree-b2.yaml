@@ -3,6 +3,14 @@ navn: B2
 producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
+anvendelse:
+  vaerdi: industri
+  citat:
+    - "Robot - Industry"
+    - "机器狗 - 行业级"
+  kilde: https://www.unitree.com/
+  hentet: 2026-08-19
+  note: "Producentens egen produktnavigation, gruppen B2 staar i."
 felter:
   egenvaegt:
     vaerdi: 60

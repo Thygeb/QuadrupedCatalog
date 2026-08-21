@@ -4,6 +4,14 @@ producent: ANYbotics
 producentland: Schweiz
 producentby: Zuerich
 status: annonceret
+anvendelse:
+  vaerdi: [inspektion, industri]
+  citat:
+    - "ANYmal X - Ex-proof inspection robot - ANYbotics"
+    - "Complies with CE directives for industrial deployment"
+  kilde: https://www.anybotics.com/robotics/anymal-x/
+  hentet: 2026-08-19
+  note: "Foerste citat er sidens egen titel. Siden praeciserer branchen: \"Automate inspections in Oil & Gas and Chemical operations to increase safety,\"."
 noter:
   - "PRODUCENTEN OPLYSER INGEN TAL. Specifikationsafsnittet paa produktsiden bestaar af EN saetning: 2026 ANYmal X specifications coming soon."
   - "PROJEKTETS BEDSTE ARGUMENT, OG DET LIGNER ET NEDERLAG. Den robot i feltet, der har den staerkeste europaeiske certificering - ATEX og IECEx op til Zone 1 IIB, det papir der afgoer, om en maskine overhovedet maa ind paa et raffinaderi - har den naestlaveste specifikationstaethed i hele indsamlingen. Taethed maaler AABENHED, ikke EGNETHED. Sorterer kataloget paa taethed som standard, lander den robot, en dansk procesindustri faktisk maa koebe, i bunden."

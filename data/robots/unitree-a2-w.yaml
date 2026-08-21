@@ -3,6 +3,12 @@ navn: A2-W
 producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
+anvendelse:
+  vaerdi: [inspektion, logistik, forsvar_beredskab]
+  citat: "Suited for industrial inspection, park logistics, and emergency rescue and more."
+  kilde: https://www.unitree.com/A2-W
+  hentet: 2026-08-19
+  note: "A2-W staar ikke i producentens produktnavigation, hvor A2 staar under \"Robot - Industry\". Kategorien her er derfor produktsidens egen saetning, ikke navigationens gruppe. Samme side kalder robotten \"Industrial-grade mobile platform\" - det er en byggekvalitet, ikke en anvendelse, og taeller ikke med."
 varianter: [A2-W, A2-W PRO]
 noter:
   - "Hjulbenet udgave af A2. Alt der ikke afviger, er ordret identisk med A2's side."

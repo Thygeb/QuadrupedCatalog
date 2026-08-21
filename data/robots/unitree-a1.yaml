@@ -3,6 +3,14 @@ navn: A1
 producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
+anvendelse:
+  vaerdi: [forbruger_uddannelse, forskning_udvikling]
+  citat:
+    - "Robot - Consumer/Education"
+    - "机器狗 - 消费级 / 科研"
+  kilde: https://www.unitree.com/
+  hentet: 2026-08-19
+  note: "Producentens egen produktnavigation, gruppen A1 staar i. Den engelske og den kinesiske navigation navngiver gruppen forskelligt: EN \"Consumer/Education\", CN \"forbrugerniveau / videnskabelig forskning\". Begge er producentens."
 noter:
   - "A1-siden er en ren marketingside uden parametertabel. Det er ikke en fejl i indsamlingen - siden har ingen tabel. Konsekvensen er den laveste taethed i hele Unitree-materialet."
 felter:

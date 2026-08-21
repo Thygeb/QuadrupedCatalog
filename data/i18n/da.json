@@ -119,5 +119,14 @@
   "land_Tyrkiet": "Tyrkiet",
   "land_Brasilien": "Brasilien",
   "varianter": "Varianter",
-  "varianter_kort": "var."
+  "varianter_kort": "var.",
+  "anvendelse_titel": "Anvendelse ifoelge producenten",
+  "anvendelse_forklaring": "Kategorien er ikke vores vurdering. Den er producentens egen inddeling, gengivet ordret. Kan producenten ikke citeres, staar der ikke oplyst.",
+  "anvendelse_citat": "Producentens ord",
+  "anvendelse_industri": "Industri",
+  "anvendelse_inspektion": "Inspektion",
+  "anvendelse_forskning_udvikling": "Forskning og udvikling",
+  "anvendelse_forbruger_uddannelse": "Forbruger og uddannelse",
+  "anvendelse_forsvar_beredskab": "Forsvar og beredskab",
+  "anvendelse_logistik": "Logistik"
 }

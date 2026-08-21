@@ -4,6 +4,12 @@ producent: DEEP Robotics
 producentland: Kina
 producentby: Hangzhou
 status: annonceret
+anvendelse:
+  vaerdi: [inspektion, forsvar_beredskab, forbruger_uddannelse, forskning_udvikling]
+  citat: "It provides a highly efficient and reliable professional platform for intelligent lightweight tasks in industries such as power inspection, security patrol, emergency firefighting, and education & scientific research."
+  kilde: https://deeprobotics.cn/en/index/lynxs10.html
+  hentet: 2026-08-19
+  note: "Saetningen naevner ogsaa \"security patrol\", som det tilladte saet ikke daekker."
 noter:
   - "Lanceringsside, ikke et datablad. Ingen specifikationstabel paa noget af sprogene. Alle fem tal staar i loebende broedtekst - de er svaerere at datere og lettere at aendre uden spor end tal i en tabel."
 felter:

@@ -119,5 +119,14 @@
   "land_Tyrkiet": "Turkey",
   "land_Brasilien": "Brazil",
   "varianter": "Variants",
-  "varianter_kort": "var."
+  "varianter_kort": "var.",
+  "anvendelse_titel": "Intended use, per the manufacturer",
+  "anvendelse_forklaring": "This category is not our assessment. It is the manufacturer’s own classification, quoted verbatim. Where the manufacturer cannot be quoted, it reads not stated.",
+  "anvendelse_citat": "The manufacturer’s words",
+  "anvendelse_industri": "Industry",
+  "anvendelse_inspektion": "Inspection",
+  "anvendelse_forskning_udvikling": "Research and development",
+  "anvendelse_forbruger_uddannelse": "Consumer and education",
+  "anvendelse_forsvar_beredskab": "Defence and emergency response",
+  "anvendelse_logistik": "Logistics"
 }

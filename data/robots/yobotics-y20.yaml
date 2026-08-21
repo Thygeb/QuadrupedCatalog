@@ -4,6 +4,12 @@ producent: Shandong Youbaote Intelligent Robot
 producentland: Kina
 producentby: Shandong
 status: i_produktion
+anvendelse:
+  vaerdi: [forskning_udvikling, forbruger_uddannelse]
+  citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+  kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+  hentet: 2026-08-19
+  note: "Serieindledning, ikke en modelspecifik saetning. Se noten paa Y10."
 noter:
   - "NAVNET. Producentens egen om-side skriver det kinesiske firmanavn med tegnet for fremragende (2 traef), ikke med tegnet for ven (0 traef) - samme udtale, forskelligt tegn, forskelligt firmanavn. Deres egen engelske gengivelse er Shandong Youbaote Intelligent Robot Co., Ltd. YOBOTICS ER DOMAENENAVNET, ikke firmaets eget engelske navn. Kataloget boer skrive begge og ikke lade et domaene blive til et firmanavn."
   - "AABENT PUNKT, IKKE LOEST: overskrifterne og beskrivelserne paa producentens egen side er uenige om modelnavnene. Overskriften Y20 staar over en beskrivelse, der handler om Y30 (og Y10 over en Y5-beskrivelse, e-Dog over en Y15-beskrivelse). Tre ud af tre stemmer ikke. Overskriften er brugt som modelnavn. Posten kan ikke laases, foer nogen har spurgt producenten, hvilket navn der gaelder."

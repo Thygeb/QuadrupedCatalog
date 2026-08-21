@@ -228,3 +228,27 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .
   .varianter__liste { gap: .3rem; }
   .variant { min-width: 4.25rem; padding: .2rem .45rem .25rem; }
 }
+/* Anvendelse - producentens egen inddeling.
+   Citatet er ikke pynt: uden det synlige citat kan en laeser ikke se forskel paa
+   producentens hylde og vores vurdering. Maerket maa derfor aldrig kunne staa alene. */
+.anvendelse__vaerdi { margin: 0 0 .8rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+.anvendelse__maerke {
+  display: inline-block; padding: .15rem .5rem; font-size: .85rem; font-weight: 600;
+  border: 1px solid var(--linje); border-radius: 999px; background: var(--flade);
+}
+/* Den foerste vaerdi er producentens hovedpositionering - se ANVENDELSE_VAERDIER. */
+.anvendelse__maerke:first-child { border-color: var(--blaek); }
+.anvendelse__citat {
+  margin: 0 0 .8rem; padding: .6rem 0 .6rem 1rem;
+  border-left: 3px solid var(--linje); color: var(--blaek);
+}
+.anvendelse__citat p { margin: 0 0 .4rem; }
+.anvendelse__citat p:last-child { margin-bottom: 0; }
+.anvendelse__citat-etikette {
+  font-size: .75rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--daempet); font-weight: 600;
+}
+.anvendelse__kilde, .anvendelse__note, .anvendelse__forklaring {
+  font-size: .85rem; color: var(--daempet); margin: 0 0 .4rem;
+}
+.anvendelse__forklaring { border-top: 1px solid var(--linje); padding-top: .5rem; margin-top: .8rem; }
