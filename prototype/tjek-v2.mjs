@@ -45,12 +45,12 @@ console.log('\n=== 2. BILLEDER: STI, EKSISTENS OG PLACERING ===');
   for (const f of FILER) for (const m of kilde[f].matchAll(/<img[^>]+src="([^"]+)"/g)) alle.add(m[1]);
   let mangler = 0, forkertMappe = 0;
   for (const src of alle) {
-    if (!src.startsWith('../media/_kilder/')) { forkertMappe++; console.log(`        billede uden for media/_kilder: ${src}`); }
+    if (!src.startsWith('../media/robotbilleder/')) { forkertMappe++; console.log(`        billede uden for media/robotbilleder: ${src}`); }
     if (!fs.existsSync(path.resolve(src))) { mangler++; console.log(`        findes ikke paa disken: ${src}`); }
   }
   sig(alle.size > 0, `${alle.size} unikke billed-URL'er i de ${FILER.length} filer`);
   sig(mangler === 0, `${mangler} af ${alle.size} peger paa en fil, der ikke findes`);
-  sig(forkertMappe === 0, `${forkertMappe} af ${alle.size} ligger uden for media/_kilder/`);
+  sig(forkertMappe === 0, `${forkertMappe} af ${alle.size} ligger uden for media/robotbilleder/`);
   const iAssets = fs.existsSync('../assets') ? [] : [];
   const scanAssets = (d) => { if (!fs.existsSync(d)) return; for (const e of fs.readdirSync(d, { withFileTypes: true })) {
     const p = path.join(d, e.name); if (e.isDirectory()) scanAssets(p); else if (/\.(png|jpe?g|webp|avif)$/i.test(e.name)) iAssets.push(p); } };
@@ -58,6 +58,34 @@ console.log('\n=== 2. BILLEDER: STI, EKSISTENS OG PLACERING ===');
   sig(iAssets.length === 0, `${iAssets.length} rasterbilleder i assets/ (skal vaere 0: fabrikantmateriale maa ikke derhen)`);
   const alt = [...kilde['v2-katalog.html'].matchAll(/<img[^>]+alt="([^"]*)"/g)].map((m) => m[1]);
   sig(alt.length > 0 && alt.every((a) => a.trim().length > 10), `${alt.length} img-elementer, alle med en alt-tekst paa over 10 tegn`);
+  // En alt-tekst skal BESKRIVE maskinen. "Billede af robot" og "produktfoto af X"
+  // siger intet, som en skaermlaeser ikke allerede kender fra sammenhaengen.
+  const tomme = alt.filter((a) => /^(billede|foto|fotografi|produktfoto|producentens eget produktfoto)\b/i.test(a.trim()));
+  sig(tomme.length === 0, `${alt.length - tomme.length} af ${alt.length} alt-tekster beskriver maskinen frem for at hedde "billede af ..."`);
+  const korteste = alt.reduce((a, b) => (a.length <= b.length ? a : b), alt[0] || '');
+  sig(korteste.length >= 40, `korteste alt-tekst er ${korteste.length} tegn: "${korteste}"`);
+
+  // Billedet skal hoere til det kort, det staar i: mappen i stien = kortets slug.
+  // Et src-attribut beviser ikke, at det er den rigtige robot.
+  let forkertSlug = 0, medFoto = 0, medTomPlade = 0;
+  for (const f of FILER) {
+    for (const m of kilde[f].matchAll(/<article class="kort" id="robot-([a-z0-9-]+)"([\s\S]*?)<\/article>/g)) {
+      const slug = m[1], krop = m[2];
+      const img = krop.match(/<img[^>]+src="\.\.\/media\/robotbilleder\/([a-z0-9-]+)\//);
+      if (img) { medFoto++; if (img[1] !== slug) { forkertSlug++; console.log(`        ${f}: kort ${slug} viser ${img[1]}`); } }
+      else if (/class="intetfoto"/.test(krop)) medTomPlade++;
+      else { forkertSlug++; console.log(`        ${f}: kort ${slug} har hverken billede eller tom plade`); }
+    }
+  }
+  sig(forkertSlug === 0, `${medFoto} kort med fotografi, ${medTomPlade} med tom plade -- ${forkertSlug} viser en anden robots billede`);
+
+  // Den tomme plade skal vaere en BESLUTNING, ikke et hul: overskrift plus grund.
+  const plader = [...kilde['v2-katalog.html'].matchAll(/<div class="intetfoto">([\s\S]*?)<\/div>/g)].map((m) => m[1]);
+  sig(plader.length > 0 && plader.every((p) => /intetfoto__hoved/.test(p) && /intetfoto__grund/.test(p)),
+    `${plader.length} tomme plader, alle med baade overskrift og en skrevet grund`);
+  const pladeCss = kilde['v2-katalog.html'].match(/<style>([\s\S]*?)<\/style>/)[1];
+  sig(/\.billedled--plade img\{object-fit:contain/.test(pladeCss),
+    'de fritlagte studiefotos faar object-fit:contain, saa 4:3-beskaeringen ikke klipper poterne af');
 }
 
 // ------------------------------------- 3. virker uden JavaScript? Optaelling
@@ -152,8 +180,13 @@ console.log('\n=== 6. HAARDE BEGRAENSNINGER ===');
     }
   }
   const forside = kilde['v2-forside.html'];
-  sig(/uden tilladelse/.test(forside) && /media\/_kilder/.test(forside) && /gitignoreret/.test(forside),
-    'billednoten staar i teksten: uden tilladelse, media/_kilder, gitignoreret');
+  sig(/uden tilladelse/.test(forside) && /media\/robotbilleder/.test(forside) && /gitignoreret/.test(forside),
+    'billednoten staar i teksten: uden tilladelse, media/robotbilleder, gitignoreret');
+  sig(/maa ikke udgives/.test(forside) && /uden kreditering/.test(forside),
+    'billednoten siger ligeud, at siden ikke maa udgives i denne form, og at billederne er ukrediterede');
+  for (const f of FILER) {
+    sig(/maa ikke udgives/.test(kilde[f]), `${f.padEnd(20)} baerer spaerringen om udgivelse`);
+  }
   sig(/ikke forhandler af nogen robot/.test(forside), 'linjen om ingen forhandleraftale staar i sidefoden');
 }
 

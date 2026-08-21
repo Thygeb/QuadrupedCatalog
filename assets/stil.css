@@ -160,3 +160,71 @@ dd .note { display: block; margin-top: .2rem; }
 }
 
 code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+
+/* --------------------------------------------- varianter, noter og afledte tal
+
+   Fire ting, generatoren allerede udsender, men som ingen havde givet et udtryk.
+   De siger alle fire den samme slags sandhed: "tallet ovenfor er ikke hele
+   historien". Derfor deler de ét sprog — hairline, dæmpet etiket, ingen farve —
+   og adskiller sig kun i, hvor meget de afbryder læsningen.
+
+   Målt med samme metode som resten af arket (WCAG 2.1, fladefarve mod fladefarve):
+   dæmpet/bund 6,25:1 lys og 7,46:1 mørk; blæk/bund 17,61:1 og 15,03:1;
+   blæk/flade 16,42:1 og 13,71:1. Ingen af dem under 4,5:1.
+   `--linje` måler 1,39:1 og bruges derfor kun, hvor stregen er dekoration.
+   Den ENE streg, der bærer betydning — mærket foran et afledt tal — er sat i
+   `--daempet`, ikke i `--linje`. */
+
+/* Varianttabellen. Producenten sælger fire maskiner under ét navn, og de er ikke
+   ens: As2 PRO oplyser IP54, mens AIR ingen IP-klasse har. Tabellen står derfor
+   UNDER selve værdien og ikke i en fodnote — den, der læser tallet, skal se
+   spændet i samme blik. */
+.varianter { margin: .5rem 0 .1rem; border-top: 1px solid var(--linje); padding-top: .45rem; }
+.varianter__titel {
+  margin: 0 0 .4rem; font-weight: 600; font-size: .68rem;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--daempet);
+}
+.varianter__liste { margin: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+.variant {
+  display: flex; flex-direction: column; gap: .05rem; min-width: 4.75rem;
+  border: 1px solid var(--linje); border-radius: 2px; padding: .25rem .55rem .3rem;
+}
+.variant dt {
+  font-size: .68rem; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--daempet);
+}
+.variant dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* I katalogtabellen er der ikke plads til varianttabellen. Mærket siger, at tallet
+   kun gælder én variant, og bærer resten i sin title. Den prikkede understregning
+   er den samme aftale som en forkortelse: "der står mere her".
+   ÅBEN: en title er ikke tastaturnåbar. Den rigtige rettelse hører til i
+   tools/build.mjs — mærket skal udsende sin egen tekst, ikke kun et attribut. */
+.maerke--varianter {
+  border-color: var(--daempet); color: var(--blaek); background: var(--bund);
+  cursor: help; text-decoration: underline dotted; text-underline-offset: .18em;
+}
+
+/* Noter er forbehold om HELE posten, ikke om ét felt — derfor en liste med
+   hairline imellem og ikke advarslens farvede felt. Et forbehold om alt er
+   ikke en alarm. */
+.noter { list-style: none; margin: 0; padding: 0; }
+.noter li { padding: .5rem 0; border-top: 1px solid var(--linje); }
+.noter li:first-child { border-top: 0; padding-top: 0; }
+
+/* Et tal, VI har regnet ud af producentens sætning ("ureguleret DC 35-58,8 V"),
+   er ikke et tal, producenten har oplyst. Ser de to ens ud, låner vores udregning
+   producentens autoritet — og det er præcis den løgn, resten af arket er bygget
+   for at undgå. Derfor: uden tallenes vægt, dæmpet, og bag en lodret streg, så
+   den læses som "heraf" og ikke som "ifølge". */
+.vaerdi--afledt {
+  font-weight: 400; color: var(--daempet);
+  border-left: 1px solid var(--daempet);
+  margin-left: .4em; padding-left: .5em;
+}
+.vaerdi--afledt .enhed { color: inherit; }
+
+@media (max-width: 40rem) {
+  .varianter__liste { gap: .3rem; }
+  .variant { min-width: 4.25rem; padding: .2rem .45rem .25rem; }
+}

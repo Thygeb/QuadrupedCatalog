@@ -135,12 +135,24 @@ html.js .sog{display:flex;flex-direction:column;gap:5px}
 .paalagt .navn a::after{content:"";position:absolute;inset:0}
 .paalagt .ophav{font-size:13.5px;color:var(--paafod2);font-family:var(--figur);letter-spacing:.02em}
 .paalagt .status{color:var(--paafod);border:1px solid var(--paafod2);padding:0 6px;margin-left:6px;font-size:12px}
-.intetfoto{padding:20px;text-align:center;color:var(--blaek3);max-width:30ch;
-  background:var(--daemp);width:100%;height:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px}
-.intetfoto p{font-size:14px;line-height:1.4}
+/* En maskine, der er fotograferet fri paa hvid, overlever ikke en 4:3-beskaering:
+   enten ryger poterne, eller hovedet. Den faar hele billedet paa kortets egen hvide
+   flade. Det er ogsaa den klasse, de maaltro silhuetter skal baere, naar de kommer. */
+.billedled--plade{background:var(--kort)}
+.billedled--plade img{object-fit:contain;padding:5% 6% 26%}
+
+/* --- den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et brudt
+   billede: derfor samme sprog som "ikke oplyst" -- daempet felt og stiplet hegn --
+   og en grund skrevet ud. Bunden holdes fri, saa navnebaandet ikke daekker teksten. */
+.intetfoto{position:relative;width:100%;height:100%;max-width:none;
+  padding:24px 20px 78px;background:var(--daemp);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:12px}
+.intetfoto::before{content:"";position:absolute;inset:11px;border:1px dashed var(--hegn)}
 .intetfoto .ikon{width:52px;height:52px;border:2px dashed var(--hegn);display:block;
   background:repeating-linear-gradient(135deg,transparent 0 7px,var(--hegn) 7px 8px)}
+.intetfoto__hoved{font-family:var(--titel);font-weight:600;text-transform:uppercase;
+  letter-spacing:.07em;font-size:14.5px;line-height:1.1;color:var(--blaek)}
+.intetfoto__grund{font-size:13.5px;line-height:1.4;color:var(--blaek2);max-width:30ch}
 
 /* --- kortets tal ----------------------------------------------------------- */
 .tal{padding:4px 14px 0}
@@ -304,11 +316,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 </div>
 <div class="note">
   <div class="rum">
-    <b>Ukrediteret</b>
-    <p>Fotografierne er hentet fra producenternes egne hjemmesider og vises her <strong>uden tilladelse
-    og uden kreditering</strong>. De er pladsholdere i en lokal prototype: filerne ligger i
-    <code>media/_kilder/</code>, som er gitignoreret, og de er hverken kopieret til <code>assets/</code>
-    eller committet. Siden maa ikke udgives i denne form. Ingen af billederne er AI-genereret.</p>
+    <b>Spaerret</b>
+    <p><strong>Siden maa ikke udgives, saa laenge den viser disse fotografier.</strong> De er hentet fra
+    producenternes egne hjemmesider og vises her uden tilladelse og uden kreditering. De er pladsholdere
+    i en lokal prototype: filerne ligger i <code>media/robotbilleder/</code>, som er gitignoreret, og de
+    er hverken kopieret til <code>assets/</code> eller committet. Foer lancering skal der enten foreligge
+    skriftlig tilladelse fra hver producent, eller billederne skal skiftes ud med vores egne fotos og
+    maaltro silhuetter. Ingen af billederne er AI-genereret, og ingen af dem er redigeret.</p>
   </div>
 </div>
 <main id="hoved">
@@ -365,7 +379,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-go1.jpg" alt="Producentens eget produktfoto af Go1 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-go1/unitree-go1-1.jpg" alt="Hvid firbenet robot med blaa lysstriber, fotograferet mod sort baggrund." loading="lazy" decoding="async">
     <p class="chip"><b>12</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-go1">Go1</a></h3>
@@ -392,7 +406,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-go2.jpg" alt="Producentens eget produktfoto af Go2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-go2/unitree-go2-4.jpg" alt="Hvid firbenet robot set forfra mod sort baggrund, under producentens egen engelske overskrift." loading="lazy" decoding="async">
     <p class="chip"><b>15</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-go2">Go2</a></h3>
@@ -419,7 +433,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-go2-w.png" alt="Producentens eget produktfoto af Go2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-go2-w/unitree-go2-w-5.jpg" alt="Tre soelvfarvede firbenede robotter paa hjul koerer paa en asfalteret bane bag et traadhegn." loading="lazy" decoding="async">
     <p class="chip"><b>18</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-go2-w">Go2-W</a></h3>
@@ -446,7 +460,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-as2.png" alt="Producentens eget produktfoto af As2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-as2/unitree-as2-4.jpg" alt="Soelvfarvet firbenet robot staar paa mosgroede klipper i graat vejr." loading="lazy" decoding="async">
     <p class="chip"><b>20</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-as2">As2</a></h3>
@@ -473,7 +487,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-aliengo.jpg" alt="Producentens eget produktfoto af AlienGo fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-aliengo/unitree-aliengo-4.jpg" alt="Soelvfarvet firbenet robot staar i taet kunstig taage mod moerk baggrund." loading="lazy" decoding="async">
     <p class="chip"><b>21,5</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-aliengo">AlienGo</a></h3>
@@ -500,7 +514,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-as2-w.png" alt="Producentens eget produktfoto af As2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-as2-w/unitree-as2-w-2.jpg" alt="Soelvfarvet firbenet robot paa fire hjul staar paa skovbund ved en lejrplads; en person sidder i baggrunden." style="object-position:34% 60%" loading="lazy" decoding="async">
     <p class="chip"><b>25</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-as2-w">As2-W</a></h3>
@@ -527,7 +541,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-a2.jpg" alt="Producentens eget produktfoto af A2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-a2/unitree-a2-4.jpg" alt="Hvid og soelvfarvet firbenet robot staar paa en stenet bjergryg mod blaa himmel." loading="lazy" decoding="async">
     <p class="chip"><b>42</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-a2">A2</a></h3>
@@ -554,7 +568,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-b1.jpg" alt="Producentens eget produktfoto af B1 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-b1/unitree-b1-4.jpg" alt="Soelvfarvet firbenet robot staar paa en klippe med bjerge og skyer bag sig." loading="lazy" decoding="async">
     <p class="chip"><b>50</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-b1">B1</a></h3>
@@ -581,7 +595,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-a2-w.png" alt="Producentens eget produktfoto af A2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-a2-w/unitree-a2-w-1.jpg" alt="Soelvfarvet firbenet robot paa hjul koerer op ad en stenet skraaning." loading="lazy" decoding="async">
     <p class="chip"><b>52</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-a2-w">A2-W</a></h3>
@@ -607,8 +621,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="ja"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-b2.png" alt="Producentens eget produktfoto af B2 fra Unitree Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/unitree-b2/unitree-b2-4.webp" alt="Soelvfarvet og sort firbenet robot set direkte fra siden mod lys bund." loading="lazy" decoding="async">
     <p class="chip"><b>60</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-b2">B2</a></h3>
@@ -635,7 +649,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-b2-w.jpg" alt="Producentens eget produktfoto af B2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-b2-w/unitree-b2-w-2.jpg" alt="Soelvfarvet firbenet robot paa hjul staar mellem store sten i stroemmende hvidt vand." style="object-position:42% center" loading="lazy" decoding="async">
     <p class="chip"><b>85</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-b2-w">B2-W</a></h3>
@@ -661,8 +675,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-a1.jpg" alt="Producentens eget produktfoto af A1 fra Unitree Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/unitree-a1/unitree-a1-1.png" alt="Soelvfarvet firbenet robot med kamerahoved, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-a1">A1</a></h3>

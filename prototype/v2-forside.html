@@ -135,12 +135,24 @@ html.js .sog{display:flex;flex-direction:column;gap:5px}
 .paalagt .navn a::after{content:"";position:absolute;inset:0}
 .paalagt .ophav{font-size:13.5px;color:var(--paafod2);font-family:var(--figur);letter-spacing:.02em}
 .paalagt .status{color:var(--paafod);border:1px solid var(--paafod2);padding:0 6px;margin-left:6px;font-size:12px}
-.intetfoto{padding:20px;text-align:center;color:var(--blaek3);max-width:30ch;
-  background:var(--daemp);width:100%;height:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px}
-.intetfoto p{font-size:14px;line-height:1.4}
+/* En maskine, der er fotograferet fri paa hvid, overlever ikke en 4:3-beskaering:
+   enten ryger poterne, eller hovedet. Den faar hele billedet paa kortets egen hvide
+   flade. Det er ogsaa den klasse, de maaltro silhuetter skal baere, naar de kommer. */
+.billedled--plade{background:var(--kort)}
+.billedled--plade img{object-fit:contain;padding:5% 6% 26%}
+
+/* --- den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et brudt
+   billede: derfor samme sprog som "ikke oplyst" -- daempet felt og stiplet hegn --
+   og en grund skrevet ud. Bunden holdes fri, saa navnebaandet ikke daekker teksten. */
+.intetfoto{position:relative;width:100%;height:100%;max-width:none;
+  padding:24px 20px 78px;background:var(--daemp);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:12px}
+.intetfoto::before{content:"";position:absolute;inset:11px;border:1px dashed var(--hegn)}
 .intetfoto .ikon{width:52px;height:52px;border:2px dashed var(--hegn);display:block;
   background:repeating-linear-gradient(135deg,transparent 0 7px,var(--hegn) 7px 8px)}
+.intetfoto__hoved{font-family:var(--titel);font-weight:600;text-transform:uppercase;
+  letter-spacing:.07em;font-size:14.5px;line-height:1.1;color:var(--blaek)}
+.intetfoto__grund{font-size:13.5px;line-height:1.4;color:var(--blaek2);max-width:30ch}
 
 /* --- kortets tal ----------------------------------------------------------- */
 .tal{padding:4px 14px 0}
@@ -304,11 +316,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 </div>
 <div class="note">
   <div class="rum">
-    <b>Ukrediteret</b>
-    <p>Fotografierne er hentet fra producenternes egne hjemmesider og vises her <strong>uden tilladelse
-    og uden kreditering</strong>. De er pladsholdere i en lokal prototype: filerne ligger i
-    <code>media/_kilder/</code>, som er gitignoreret, og de er hverken kopieret til <code>assets/</code>
-    eller committet. Siden maa ikke udgives i denne form. Ingen af billederne er AI-genereret.</p>
+    <b>Spaerret</b>
+    <p><strong>Siden maa ikke udgives, saa laenge den viser disse fotografier.</strong> De er hentet fra
+    producenternes egne hjemmesider og vises her uden tilladelse og uden kreditering. De er pladsholdere
+    i en lokal prototype: filerne ligger i <code>media/robotbilleder/</code>, som er gitignoreret, og de
+    er hverken kopieret til <code>assets/</code> eller committet. Foer lancering skal der enten foreligge
+    skriftlig tilladelse fra hver producent, eller billederne skal skiftes ud med vores egne fotos og
+    maaltro silhuetter. Ingen af billederne er AI-genereret, og ingen af dem er redigeret.</p>
   </div>
 </div>
 <main id="hoved">
@@ -340,7 +354,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     <input type="radio" name="vis" id="f-ip"><label for="f-ip">IP-klasse oplyst <span class="antal">22</span></label>
     <input type="radio" name="vis" id="f-drift"><label for="f-drift">Koerer 4 timer eller mere <span class="antal">12</span></label>
     <input type="radio" name="vis" id="f-europa"><label for="f-europa">Europaeisk producent <span class="antal">5</span></label>
-    <input type="radio" name="vis" id="f-udenfoto"><label for="f-udenfoto">Uden foto <span class="antal">6</span></label>
+    <input type="radio" name="vis" id="f-udenfoto"><label for="f-udenfoto">Uden foto <span class="antal">2</span></label>
   </fieldset>
   </div>
 </div>
@@ -375,8 +389,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="ja"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/yobotics-y10.png" alt="Producentens eget produktfoto af Y10 fra Shandong Youbaote Intelligent Robot." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/yobotics-y10/yobotics-y10-3.png" alt="Hvid og roed firbenet robot set fra siden mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>5,6</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-yobotics-y10">Y10</a></h3>
@@ -401,9 +415,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="ja"
   data-europa="nej"
-  data-foto="nej">
+  data-foto="ja">
   <div class="billedled">
-    <div class="intetfoto"><span class="ikon" aria-hidden="true"></span><p>Intet foto hentet hos producenten</p></div>
+    <img src="../media/robotbilleder/xiaomi-cyberdog-2/xiaomi-cyberdog-2-2.png" alt="Sort og soelvfarvet firbenet robot med hundeagtigt hoved, set skraat forfra mod lysegraa bund." loading="lazy" decoding="async">
     <p class="chip"><b>8,9</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-xiaomi-cyberdog-2">CyberDog 2</a></h3>
@@ -430,7 +444,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-go1.jpg" alt="Producentens eget produktfoto af Go1 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-go1/unitree-go1-1.jpg" alt="Hvid firbenet robot med blaa lysstriber, fotograferet mod sort baggrund." loading="lazy" decoding="async">
     <p class="chip"><b>12</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-go1">Go1</a></h3>
@@ -455,9 +469,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="nej"
   data-europa="ja"
-  data-foto="ja">
+  data-foto="nej">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/mab-honey-badger-4.png" alt="Producentens eget produktfoto af Honey Badger 4.0 fra MAB Robotics." loading="lazy" decoding="async">
+    <div class="intetfoto">
+      <span class="ikon" aria-hidden="true"></span>
+      <p class="intetfoto__hoved">Ingen brugbar optagelse</p>
+      <p class="intetfoto__grund">De filer, vi hentede hos producenten, viser logoer og partnermaerker &mdash; ikke maskinen.</p>
+    </div>
     <p class="chip"><b>12</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-mab-honey-badger-4">Honey Badger 4.0</a></h3>
@@ -483,8 +501,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-lite3.jpg" alt="Producentens eget produktfoto af Jueying Lite3 fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-lite3/deep-robotics-lite3-2.png" alt="Lille hvid og soelvfarvet firbenet robot med sensortaarn paa ryggen, set skraat fra siden mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>12</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-lite3">Jueying Lite3</a></h3>
@@ -511,7 +529,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/yobotics-e-dog.jpg" alt="Producentens eget produktfoto af e-Dog fra Shandong Youbaote Intelligent Robot." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/yobotics-e-dog/yobotics-e-dog-1.jpg" alt="Sort og hvid firbenet robot staar paa et hvidt podie i et udstillingsrum med roedt og blaat lys." style="object-position:56% center" loading="lazy" decoding="async">
     <p class="chip"><b>15</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-yobotics-e-dog">e-Dog</a></h3>
@@ -538,7 +556,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-go2.jpg" alt="Producentens eget produktfoto af Go2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-go2/unitree-go2-4.jpg" alt="Hvid firbenet robot set forfra mod sort baggrund, under producentens egen engelske overskrift." loading="lazy" decoding="async">
     <p class="chip"><b>15</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-go2">Go2</a></h3>
@@ -563,9 +581,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="nej"
   data-europa="nej"
-  data-foto="nej">
-  <div class="billedled">
-    <div class="intetfoto"><span class="ikon" aria-hidden="true"></span><p>Intet foto hentet hos producenten</p></div>
+  data-foto="ja">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/magiclab-magicdog-edu/magiclab-magicdog-edu-3.png" alt="Soelvfarvet og sort firbenet robot med kamerahoved, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>15,8</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-magiclab-magicdog-edu">MagicDog EDU</a></h3>
@@ -590,9 +608,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="nej"
   data-europa="nej"
-  data-foto="nej">
+  data-foto="ja">
   <div class="billedled">
-    <div class="intetfoto"><span class="ikon" aria-hidden="true"></span><p>Intet foto hentet hos producenten</p></div>
+    <img src="../media/robotbilleder/magiclab-magicdog-pro/magiclab-magicdog-pro-1.jpg" alt="Soelvfarvet firbenet robot paa vej ned ad en bred betontrappe, set skraat bagfra." loading="lazy" decoding="async">
     <p class="chip"><b>15,8</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-magiclab-magicdog-pro">MagicDog PRO</a></h3>
@@ -617,9 +635,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="nej"
   data-europa="ja"
-  data-foto="ja">
+  data-foto="nej">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/mab-honey-badger-5.jpg" alt="Producentens eget produktfoto af Honey Badger 5.0 fra MAB Robotics." loading="lazy" decoding="async">
+    <div class="intetfoto">
+      <span class="ikon" aria-hidden="true"></span>
+      <p class="intetfoto__hoved">Ingen brugbar optagelse</p>
+      <p class="intetfoto__grund">De filer, vi hentede hos producenten, viser logoer og partnermaerker &mdash; ikke maskinen.</p>
+    </div>
     <p class="chip"><b>17</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-mab-honey-badger-5">Honey Badger 5.0</a></h3>
@@ -646,7 +668,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-go2-w.png" alt="Producentens eget produktfoto af Go2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-go2-w/unitree-go2-w-5.jpg" alt="Tre soelvfarvede firbenede robotter paa hjul koerer paa en asfalteret bane bag et traadhegn." loading="lazy" decoding="async">
     <p class="chip"><b>18</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-go2-w">Go2-W</a></h3>
@@ -690,7 +712,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-as2.png" alt="Producentens eget produktfoto af As2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-as2/unitree-as2-4.jpg" alt="Soelvfarvet firbenet robot staar paa mosgroede klipper i graat vejr." loading="lazy" decoding="async">
     <p class="chip"><b>20</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-as2">As2</a></h3>
@@ -717,7 +739,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-lynx-s10.jpg" alt="Producentens eget produktfoto af Lynx S10 fra DEEP Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/deep-robotics-lynx-s10/deep-robotics-lynx-s10-3.jpg" alt="Hvid firbenet robot paa hjul med groent sensorhus paa ryggen, koerende gennem lav taet bevoksning." loading="lazy" decoding="async">
     <p class="chip"><b>20</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-lynx-s10">Lynx S10</a></h3>
@@ -744,7 +766,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-aliengo.jpg" alt="Producentens eget produktfoto af AlienGo fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-aliengo/unitree-aliengo-4.jpg" alt="Soelvfarvet firbenet robot staar i taet kunstig taage mod moerk baggrund." loading="lazy" decoding="async">
     <p class="chip"><b>21,5</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-aliengo">AlienGo</a></h3>
@@ -769,9 +791,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="ja"
   data-europa="nej"
-  data-foto="nej">
-  <div class="billedled">
-    <div class="intetfoto"><span class="ikon" aria-hidden="true"></span><p>Intet foto hentet hos producenten</p></div>
+  data-foto="ja">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/magiclab-magicdog-w/magiclab-magicdog-w-3.png" alt="Soelvfarvet firbenet robot paa fire sorte hjul, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>22,5</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-magiclab-magicdog-w">MagicDog-W</a></h3>
@@ -798,7 +820,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-mini.png" alt="Producentens eget produktfoto af Jueying Mini fra DEEP Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/deep-robotics-mini/deep-robotics-mini-5.png" alt="Lille hvid firbenet robot staar paa betongulv i et industrianlaeg mellem store staaltanke og roer." style="object-position:55% center" loading="lazy" decoding="async">
     <p class="chip"><b>23</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-mini">Jueying Mini</a></h3>
@@ -824,8 +846,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/weilan-alphadog-c500.jpg" alt="Producentens eget produktfoto af AlphaDog C500 fra WEILAN." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/weilan-alphadog-c500/weilan-alphadog-c500-1.png" alt="Hvid firbenet robot med sort visir staar paa en rund drejeskive mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>24</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-weilan-alphadog-c500">AlphaDog C500</a></h3>
@@ -852,7 +874,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/weilan-alphadog-c501.jpg" alt="Producentens eget produktfoto af AlphaDog C501 fra WEILAN." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/weilan-alphadog-c501/weilan-alphadog-c501-3.jpg" alt="Hvid firbenet robot staar alene paa gulvet i en moerk hal under en stor ringformet lampe." loading="lazy" decoding="async">
     <p class="chip"><b>24,3</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-weilan-alphadog-c501">AlphaDog C501</a></h3>
@@ -879,7 +901,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-as2-w.png" alt="Producentens eget produktfoto af As2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-as2-w/unitree-as2-w-2.jpg" alt="Soelvfarvet firbenet robot paa fire hjul staar paa skovbund ved en lejrplads; en person sidder i baggrunden." style="object-position:34% 60%" loading="lazy" decoding="async">
     <p class="chip"><b>25</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-as2-w">As2-W</a></h3>
@@ -906,7 +928,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/boston-dynamics-spot.jpg" alt="Producentens eget produktfoto af Spot fra Boston Dynamics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/boston-dynamics-spot/boston-dynamics-spot-1.jpg" alt="Gul og sort firbenet robot staar paa grus i en udendoers transformerstation under hoeje gittermaster." style="object-position:left center" loading="lazy" decoding="async">
     <p class="chip"><b>33,8</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-boston-dynamics-spot">Spot</a></h3>
@@ -932,8 +954,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-lynx-m20.jpg" alt="Producentens eget produktfoto af Lynx M20 fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-lynx-m20/deep-robotics-lynx-m20-1.jpg" alt="Hvid og graa firbenet robot paa fire hjul, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>35</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-lynx-m20">Lynx M20</a></h3>
@@ -959,8 +981,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-lynx-m20-pro.jpg" alt="Producentens eget produktfoto af Lynx M20 Pro fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-lynx-m20-pro/deep-robotics-lynx-m20-pro-1.jpg" alt="Hvid og graa firbenet robot paa fire hjul, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>35</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-lynx-m20-pro">Lynx M20 Pro</a></h3>
@@ -986,8 +1008,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-lynx-m20s.jpg" alt="Producentens eget produktfoto af Lynx M20S fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-lynx-m20s/deep-robotics-lynx-m20s-1.jpg" alt="Hvid og graa firbenet robot paa fire hjul, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>35</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-lynx-m20s">Lynx M20S</a></h3>
@@ -1014,7 +1036,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-a2.jpg" alt="Producentens eget produktfoto af A2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-a2/unitree-a2-4.jpg" alt="Hvid og soelvfarvet firbenet robot staar paa en stenet bjergryg mod blaa himmel." loading="lazy" decoding="async">
     <p class="chip"><b>42</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-a2">A2</a></h3>
@@ -1040,8 +1062,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/rainbow-robotics-rbq-10.png" alt="Producentens eget produktfoto af RBQ-10 fra Rainbow Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/rainbow-robotics-rbq-10/rainbow-robotics-rbq-10-1.png" alt="Soelvfarvet firbenet robot med roed knap paa ryggen, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>42</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-rainbow-robotics-rbq-10">RBQ-10</a></h3>
@@ -1068,7 +1090,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-b1.jpg" alt="Producentens eget produktfoto af B1 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-b1/unitree-b1-4.jpg" alt="Soelvfarvet firbenet robot staar paa en klippe med bjerge og skyer bag sig." loading="lazy" decoding="async">
     <p class="chip"><b>50</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-b1">B1</a></h3>
@@ -1094,8 +1116,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/ghost-robotics-vision-60.avif" alt="Producentens eget produktfoto af Vision 60 fra Ghost Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/ghost-robotics-vision-60/ghost-robotics-vision-60-1.avif" alt="Sandfarvet og sort firbenet robot med to antenner, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>51</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-ghost-robotics-vision-60">Vision 60</a></h3>
@@ -1122,7 +1144,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-a2-w.png" alt="Producentens eget produktfoto af A2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-a2-w/unitree-a2-w-1.jpg" alt="Soelvfarvet firbenet robot paa hjul koerer op ad en stenet skraaning." loading="lazy" decoding="async">
     <p class="chip"><b>52</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-a2-w">A2-W</a></h3>
@@ -1148,8 +1170,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="ja"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-x20.jpg" alt="Producentens eget produktfoto af Jueying X20 fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-x20/deep-robotics-x20-4.png" alt="Blaa og hvid firbenet robot med sensorer paa ryggen, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>53</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-x20">Jueying X20</a></h3>
@@ -1175,8 +1197,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="ja"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-x30.jpg" alt="Producentens eget produktfoto af Jueying X30 fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-x30/deep-robotics-x30-1.jpg" alt="Hvid og moerkegraa firbenet robot med kamerahoved og bagagebaerer, set fra siden mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>56</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-x30">Jueying X30</a></h3>
@@ -1202,8 +1224,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="ja"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/deep-robotics-x30-pro.jpg" alt="Producentens eget produktfoto af Jueying X30 Pro fra DEEP Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/deep-robotics-x30-pro/deep-robotics-x30-pro-1.jpg" alt="Hvid og moerkegraa firbenet robot med kamerahoved og bagagebaerer, set fra siden mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>59</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-deep-robotics-x30-pro">Jueying X30 Pro</a></h3>
@@ -1229,8 +1251,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="ja"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-b2.png" alt="Producentens eget produktfoto af B2 fra Unitree Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/unitree-b2/unitree-b2-4.webp" alt="Soelvfarvet og sort firbenet robot set direkte fra siden mod lys bund." loading="lazy" decoding="async">
     <p class="chip"><b>60</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-b2">B2</a></h3>
@@ -1256,8 +1278,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/yobotics-y20.png" alt="Producentens eget produktfoto af Y20 fra Shandong Youbaote Intelligent Robot." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/yobotics-y20/yobotics-y20-4.png" alt="Hvid og roed firbenet robot set fra siden mod hvid bund." loading="lazy" decoding="async">
     <p class="chip"><b>60</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-yobotics-y20">Y20</a></h3>
@@ -1299,9 +1321,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="ja"
   data-udholdende="ja"
   data-europa="nej"
-  data-foto="nej">
+  data-foto="ja">
   <div class="billedled">
-    <div class="intetfoto"><span class="ikon" aria-hidden="true"></span><p>Intet foto hentet hos producenten</p></div>
+    <img src="../media/robotbilleder/magiclab-magicdog-y1/magiclab-magicdog-y1-1.jpg" alt="Soelvfarvet firbenet robot staar paa en skraanende skovbund i en bambuslund." style="object-position:42% center" loading="lazy" decoding="async">
     <p class="chip"><b>70</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-magiclab-magicdog-y1">MagicDog Y1</a></h3>
@@ -1328,7 +1350,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-b2-w.jpg" alt="Producentens eget produktfoto af B2-W fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-b2-w/unitree-b2-w-2.jpg" alt="Soelvfarvet firbenet robot paa hjul staar mellem store sten i stroemmende hvidt vand." style="object-position:42% center" loading="lazy" decoding="async">
     <p class="chip"><b>85</b> <span>kg</span></p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-b2-w">B2-W</a></h3>
@@ -1366,8 +1388,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-a1.jpg" alt="Producentens eget produktfoto af A1 fra Unitree Robotics." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/unitree-a1/unitree-a1-1.png" alt="Soelvfarvet firbenet robot med kamerahoved, set skraat forfra mod hvid bund." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-unitree-a1">A1</a></h3>
@@ -1394,7 +1416,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/weilan-alphadog-e300.png" alt="Producentens eget produktfoto af AlphaDog E300 fra WEILAN." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/weilan-alphadog-e300/weilan-alphadog-e300-1.jpg" alt="Roed og sort firbenet robot staar paa betongulv i en moerk hal under en raekke lysarmaturer." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-weilan-alphadog-e300">AlphaDog E300</a></h3>
@@ -1419,9 +1441,9 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-tung="nej"
   data-udholdende="nej"
   data-europa="nej"
-  data-foto="nej">
-  <div class="billedled">
-    <div class="intetfoto"><span class="ikon" aria-hidden="true"></span><p>Intet foto hentet hos producenten</p></div>
+  data-foto="ja">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/weilan-alphadog-e400l/weilan-alphadog-e400l-2.png" alt="Roed og sort firbenet robot staar paa en sort plade mod hvid bund." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-weilan-alphadog-e400l">AlphaDog E400L</a></h3>
@@ -1448,7 +1470,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="ja"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/anybotics-anymal.jpg" alt="Producentens eget produktfoto af ANYmal (Generation D) fra ANYbotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/anybotics-anymal/anybotics-anymal-1.jpg" alt="Roed og hvid firbenet inspektionsrobot staar paa en staalrist i et industrianlaeg med roer og ventiler bagved." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-anybotics-anymal">ANYmal (Generation D)</a></h3>
@@ -1475,7 +1497,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="ja"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/anybotics-anymal-x.jpg" alt="Producentens eget produktfoto af ANYmal X fra ANYbotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/anybotics-anymal-x/anybotics-anymal-x-1.jpg" alt="Moerk firbenet robot gaar hen over asfalt foran et raffinaderi med taarne og roerbroer i baggrunden." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-anybotics-anymal-x">ANYmal X</a></h3>
@@ -1501,8 +1523,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="nej"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/weilan-babyalpha.png" alt="Producentens eget produktfoto af BabyAlpha fra WEILAN." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/weilan-babyalpha/weilan-babyalpha-1.jpg" alt="Lille hvid og orange firbenet robot med hundehoved og roedt halsbaand, mod hvid bund." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-weilan-babyalpha">BabyAlpha</a></h3>
@@ -1528,8 +1550,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-udholdende="nej"
   data-europa="ja"
   data-foto="ja">
-  <div class="billedled">
-    <img src="../media/_kilder/billeder/rivr-one.avif" alt="Producentens eget produktfoto af RIVR ONE fra RIVR." loading="lazy" decoding="async">
+  <div class="billedled billedled--plade">
+    <img src="../media/robotbilleder/rivr-one/rivr-one-2.avif" alt="Hvid firbenet robot med to store gulgroenne hjul og en gulgroen lastkasse paa ryggen, mod hvid bund." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-rivr-one">RIVR ONE</a></h3>
@@ -1556,7 +1578,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/ghost-robotics-spirit-40.avif" alt="Producentens eget produktfoto af Spirit 40 fra Ghost Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/ghost-robotics-spirit-40/ghost-robotics-spirit-40-1.jpg" alt="Sort firbenet robot med to opretstaaende antenner staar i hoejt groent graes." loading="lazy" decoding="async">
     <p class="chip chip-tom">vaegt ikke oplyst</p>
     <div class="paalagt">
       <h3 class="navn"><a href="v2-robot.html#robot-ghost-robotics-spirit-40">Spirit 40</a></h3>

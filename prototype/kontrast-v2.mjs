@@ -59,10 +59,16 @@ const par = [
   ['TEKST',  'paafod / fod',        P.paafod,  P.fod,    'tekst i sidefoden og i det paalagte baand'],
   ['TEKST',  'paafod2 / fod',       P.paafod2, P.fod,    'sekundaer tekst i sidefoden'],
   ['TEKST',  'kort / fod',          P.kort,    P.fod,    'robotnavn paa det paalagte baand'],
+  // Den tomme plade (kortet uden brugbart fotografi). Teksten staar paa det daempede
+  // felt -- samme flade som "ikke oplyst" -- og maales derfor her, ikke skoennes.
+  ['TEKST',  'blaek / daemp (plade)', P.blaek,  P.daemp,  'overskriften "Ingen brugbar optagelse"'],
+  ['TEKST',  'blaek2 / daemp',      P.blaek2,  P.daemp,  'grunden under overskriften paa den tomme plade'],
+  ['TEKST',  'blaek / kort (plade)', P.blaek,  P.kort,   'vaegtchip og navn over et contain-billede paa hvid'],
 
   ['GRAFIK', 'hegn / papir',        P.hegn,    P.papir,  'vaegtlinjalen og dens ticks'],
   ['GRAFIK', 'hegn / kort',         P.hegn,    P.kort,   'maalestokkens ramme'],
   ['GRAFIK', 'hegn / daemp',        P.hegn,    P.daemp,  'stiplet kant om "ikke oplyst"'],
+  ['GRAFIK', 'hegn / daemp (plade)', P.hegn,   P.daemp,  'det stiplede hegn og skraveringen paa den tomme plade'],
   ['GRAFIK', 'blaek / kort',        P.blaek,   P.kort,   'maalestokkens fyldte del'],
   ['GRAFIK', 'blaek / papir',       P.blaek,   P.papir,  'kortkant og afsnitslinje'],
   ['GRAFIK', 'accent / papir',      P.accent,  P.papir,  'fokusring paa papir'],

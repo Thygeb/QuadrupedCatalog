@@ -135,12 +135,24 @@ html.js .sog{display:flex;flex-direction:column;gap:5px}
 .paalagt .navn a::after{content:"";position:absolute;inset:0}
 .paalagt .ophav{font-size:13.5px;color:var(--paafod2);font-family:var(--figur);letter-spacing:.02em}
 .paalagt .status{color:var(--paafod);border:1px solid var(--paafod2);padding:0 6px;margin-left:6px;font-size:12px}
-.intetfoto{padding:20px;text-align:center;color:var(--blaek3);max-width:30ch;
-  background:var(--daemp);width:100%;height:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px}
-.intetfoto p{font-size:14px;line-height:1.4}
+/* En maskine, der er fotograferet fri paa hvid, overlever ikke en 4:3-beskaering:
+   enten ryger poterne, eller hovedet. Den faar hele billedet paa kortets egen hvide
+   flade. Det er ogsaa den klasse, de maaltro silhuetter skal baere, naar de kommer. */
+.billedled--plade{background:var(--kort)}
+.billedled--plade img{object-fit:contain;padding:5% 6% 26%}
+
+/* --- den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et brudt
+   billede: derfor samme sprog som "ikke oplyst" -- daempet felt og stiplet hegn --
+   og en grund skrevet ud. Bunden holdes fri, saa navnebaandet ikke daekker teksten. */
+.intetfoto{position:relative;width:100%;height:100%;max-width:none;
+  padding:24px 20px 78px;background:var(--daemp);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:12px}
+.intetfoto::before{content:"";position:absolute;inset:11px;border:1px dashed var(--hegn)}
 .intetfoto .ikon{width:52px;height:52px;border:2px dashed var(--hegn);display:block;
   background:repeating-linear-gradient(135deg,transparent 0 7px,var(--hegn) 7px 8px)}
+.intetfoto__hoved{font-family:var(--titel);font-weight:600;text-transform:uppercase;
+  letter-spacing:.07em;font-size:14.5px;line-height:1.1;color:var(--blaek)}
+.intetfoto__grund{font-size:13.5px;line-height:1.4;color:var(--blaek2);max-width:30ch}
 
 /* --- kortets tal ----------------------------------------------------------- */
 .tal{padding:4px 14px 0}
@@ -304,11 +316,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 </div>
 <div class="note">
   <div class="rum">
-    <b>Ukrediteret</b>
-    <p>Fotografierne er hentet fra producenternes egne hjemmesider og vises her <strong>uden tilladelse
-    og uden kreditering</strong>. De er pladsholdere i en lokal prototype: filerne ligger i
-    <code>media/_kilder/</code>, som er gitignoreret, og de er hverken kopieret til <code>assets/</code>
-    eller committet. Siden maa ikke udgives i denne form. Ingen af billederne er AI-genereret.</p>
+    <b>Spaerret</b>
+    <p><strong>Siden maa ikke udgives, saa laenge den viser disse fotografier.</strong> De er hentet fra
+    producenternes egne hjemmesider og vises her uden tilladelse og uden kreditering. De er pladsholdere
+    i en lokal prototype: filerne ligger i <code>media/robotbilleder/</code>, som er gitignoreret, og de
+    er hverken kopieret til <code>assets/</code> eller committet. Foer lancering skal der enten foreligge
+    skriftlig tilladelse fra hver producent, eller billederne skal skiftes ud med vores egne fotos og
+    maaltro silhuetter. Ingen af billederne er AI-genereret, og ingen af dem er redigeret.</p>
   </div>
 </div>
 <main id="hoved">
@@ -329,7 +343,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   data-europa="nej"
   data-foto="ja">
   <div class="billedled">
-    <img src="../media/_kilder/billeder/unitree-as2.png" alt="Producentens eget produktfoto af As2 fra Unitree Robotics." loading="lazy" decoding="async">
+    <img src="../media/robotbilleder/unitree-as2/unitree-as2-4.jpg" alt="Soelvfarvet firbenet robot staar paa mosgroede klipper i graat vejr." loading="lazy" decoding="async">
     <p class="chip"><b>20</b> <span>kg</span></p>
     <div class="paalagt">
       <p class="navn navn-flad">As2</p>
