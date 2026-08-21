@@ -126,10 +126,16 @@ a:hover{text-decoration-thickness:2.5px}
 .rum{max-width:1440px;margin:0 auto;padding-inline:var(--kant)}
 .maal{max-width:var(--maal)}
 
-/* --- 4. Typografi --------------------------------------------------------- */
-.t-hero{font-size:clamp(31px,4.6vw,56px);line-height:1.02;letter-spacing:-.032em;font-weight:800}
-.t-h1{font-size:clamp(27px,3.4vw,42px);letter-spacing:-.028em}
-.t-h2{font-size:clamp(22px,2.4vw,30px);letter-spacing:-.024em}
+/* --- 4. Typografi ---------------------------------------------------------
+   Skalaen blev haevet 21.08.2026. Den gamle gik 56 / 42 / 30 / 19 / 17 og lod
+   forsiden flyde sammen: mellem hero og sektionshoved var der 26 px, og mellem
+   sektionshoved og kortnavn 8. Trinnene er nu store nok til at ses uden at
+   sammenligne to overskrifter ved siden af hinanden.
+   Ved 1440 px: 76 / 46 / 34 / 19 / 17 / 15 / 13 / 11,5 — forhold 1,65, 1,35,
+   1,79, 1,12, 1,13, 1,15, 1,13. Gulvet paa 10,5 px er uroert. */
+.t-hero{font-size:clamp(33px,6.2vw,76px);line-height:.98;letter-spacing:-.035em;font-weight:800}
+.t-h1{font-size:clamp(27px,3.6vw,46px);letter-spacing:-.03em}
+.t-h2{font-size:clamp(23px,2.8vw,34px);letter-spacing:-.026em}
 .t-h3{font-size:19px;letter-spacing:-.014em}
 .t-broed{font-size:17px;line-height:1.6;color:var(--blaek2)}
 .t-lille{font-size:15px;line-height:1.55;color:var(--blaek2)}
@@ -412,10 +418,64 @@ a:hover{text-decoration-thickness:2.5px}
 .billedmaerke .mrk{width:8px;height:8px;flex:none;border:1px solid var(--blaek3);
   background:linear-gradient(135deg,var(--blaek3) 0 45%,transparent 45%)}
 
+/* --- MAALEPLADEN ----------------------------------------------------------
+   Maalt 21.08.2026 i dist/da/index.html: 46 kort, 46 tomme plader, 0 <img>.
+   Et gitter af 46 ens graa plader er ikke et hul — det er en fejlmeddelelse
+   gentaget 46 gange. Og saetningen "Vi har ikke selv fotograferet modellen"
+   stod 92 gange paa siden: én gang i pladen og én gang i kortets fodnote.
+
+   Naar vi ikke har et fotografi, har vi stadig MAAL. 31 af de 46 robotter
+   oplyser baade laengde og hoejde. De faar deres omrids tegnet i FAELLES
+   MAALESTOK: billedfeltets bredde svarer til 1900 mm paa hvert eneste kort,
+   saa to plader kan sammenlignes med oejet. Det er silhuetmappens egen pointe
+   (assets/silhuetter/LÆSMIG.md): seks pressefotos fortaeller intet om, hvilken
+   robot der er stoerst — seks figurer i faelles maalestok goer.
+
+   Omridset er en KASSE og ikke en tegning af maskinen. Vi har kilde paa
+   laengden og hoejden; vi kender ikke formen, og vi gaetter den ikke.
+
+   Fladen er stadig hullets (--tom), for fotografiet MANGLER stadig. Det, der
+   er skiftet, er, at hullet nu har noget at vise frem. Pladen loefter sig
+   ikke, skalerer ikke og reagerer ikke paa hover — reglen om det ubevaegelige
+   hul gaelder ogsaa her. */
+.billedled--maal{background:var(--tom)}
+.maalplade{position:relative;width:100%;height:100%;background:var(--tom);overflow:hidden}
+.maalplade::before{content:"";position:absolute;inset:10px;z-index:2;
+  border:1px dashed var(--hegn);border-radius:var(--rund-ind)}
+
+/* Nettet: én linje pr. 250 mm. Elementet er praecis 76 % af pladens hoejde,
+   altsaa 902,5 mm, saa 250 mm er 27,70 % af gradientens laengde. --linje er
+   rent dekorativ og ligger med vilje under kontrastkravet: den baerer ingen
+   betydning alene — maalet ligger i kassen. */
+.maalplade .net{position:absolute;left:10px;right:10px;top:0;bottom:24%;
+  background:repeating-linear-gradient(to top,var(--linje) 0 1px,transparent 1px 27.7%)}
+
+/* Gulvet i montren. --hegn maaler 3,20 : --tom, over WCAG 1.4.11's 3,0 for en
+   linje, der baerer betydning. */
+.maalplade .jord{position:absolute;left:10%;right:10%;bottom:calc(24% - 1.5px);
+  height:1.5px;background:var(--hegn)}
+
+/* Omridset. --bw og --bh saettes af generatoren ud af producentens egne maal,
+   i procent af billedfeltet. Fyldet er panelets hvide, saa maskinens plads i
+   rummet kan ses mod hullets graa. */
+.maalplade .kasse{position:absolute;left:50%;bottom:24%;transform:translateX(-50%);
+  width:var(--bw);height:var(--bh);background:var(--panel);
+  border:1.5px solid var(--hegn);border-radius:2px}
+
+/* Etiketten NAVNGIVER de to maal, kassen er tegnet efter — "LÆNGDE × HØJDE".
+   Den staar i titelfeltet under gulvet, som paa et tegningsark, og er derfor
+   ikke en indholdstom optakt over en overskrift. */
+.maalplade .etiket{position:absolute;left:22px;bottom:14px;z-index:3;
+  font-size:10.5px;letter-spacing:.1em}
+
 /* Den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et
-   brudt billede: samme sprog som "ikke oplyst", og en grund skrevet ud.
-   Formen er v2's og beholdes uaendret — den er fredet. Med L28 bruges den
-   paa flere kort end foer, saa den er gjort roligere, ikke mere paafaldende. */
+   brudt billede: samme sprog som "ikke oplyst".
+   Formen er v2's. Den staar nu paa de 15 robotter, der hverken oplyser
+   laengde eller hoejde — ikke laengere paa alle 46. Grunden er flyttet ud:
+   den stod ordret i kortets fodnote i forvejen, og to gange den samme
+   saetning pr. kort er ikke omhu, det er stoej. Robotsidens egen
+   billedled() i robot.mjs skriver stadig <p class="grund">, og reglen
+   nedenfor bliver derfor staaende. */
 .intetfoto{
   position:relative;width:100%;height:100%;background:var(--tom);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -471,9 +531,13 @@ a:hover{text-decoration-thickness:2.5px}
   .kort:hover .billedled--plade img,.kort:focus-within .billedled--plade img{transform:scale(1.04)}
 }
 
-/* --- 12. Gitteret --------------------------------------------------------- */
-.gitter{display:grid;gap:26px 22px;grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
-@media (max-width:679px){.gitter{grid-template-columns:1fr;gap:22px}}
+/* --- 12. Gitteret ---------------------------------------------------------
+   26 og 22 px stod uden for ottetalsskalaen — de var opfundet ved siden af
+   den. Nu 32 / 24, som er skalaens egne trin. Ved 1440 px giver det stadig
+   fire spalter: 4 x 310 + 3 x 24 = 1312 <= 1352 px indhold. */
+.gitter{display:grid;gap:var(--r6) var(--r5);
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
+@media (max-width:679px){.gitter{grid-template-columns:1fr;gap:var(--r5)}}
 
 /* --- 13. Betjening: soegefelt og filtre ----------------------------------- */
 /* L17: begge skal staa i foerste viewport. Uden JavaScript virker feltet
@@ -532,11 +596,18 @@ thead th{border-top:0;border-bottom:2px solid var(--blaek);white-space:nowrap;
 tbody th{font-weight:600;font-size:15.5px;color:var(--blaek)}
 td .v{font-size:15px}
 
-.sektion{padding-top:var(--r7)}
-.sektion-hoved{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;
-  padding-bottom:14px;border-bottom:1px solid var(--linje)}
+/* Sektionshovedet. Versaletiketten faar sin egen linje OVER overskriften i
+   stedet for at staa paa dens grundlinje — den navngiver datagruppen, og en
+   etiket, der deler linje med det, den navngiver, laeses som en del af den.
+   Skabeloner uden etiket (robot.mjs, producent.mjs) er uberoerte: reglen
+   rammer kun et .etiket-barn, hvis der er ét. */
+.sektion{padding-top:var(--r8)}
+.sektion-hoved{display:flex;flex-wrap:wrap;gap:var(--r2) var(--r5);align-items:baseline;
+  padding-bottom:var(--r4);border-bottom:1px solid var(--linje)}
+.sektion-hoved > .etiket{flex:1 0 100%;margin-bottom:2px}
 .sektion-hoved h2{flex:1 1 auto}
-.sektion-hoved .tal{font-family:var(--mono);font-size:13px;color:var(--blaek3);white-space:nowrap}
+.sektion-hoved .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:13px;color:var(--blaek3);white-space:nowrap}
 
 /* --- 15. Sidefod ---------------------------------------------------------- */
 .fod{background:var(--fod);color:var(--paafod);margin-top:var(--r9)}

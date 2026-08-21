@@ -10,20 +10,118 @@
    ========================================================================== */
 
 /* --- 1. Hero (L17) --------------------------------------------------------
-   Typografisk. Ingen robot fremhaevet, intet billede, ingen baggrundsfigur.
+   Typografisk. Ingen robot fremhaevet, intet fotografi, ingen baggrundsfigur.
    Soegefelt og filtre skal kunne staa i foerste viewport paa en telefon,
-   derfor er luften over og under maalt i clamp og ikke i faste px. */
-.hero{background:var(--panel);border-bottom:1px solid var(--linje)}
-.hero .rum{padding-block:clamp(var(--r6),6vw,var(--r8)) clamp(var(--r5),4vw,var(--r7));
-  display:flex;flex-direction:column;gap:var(--r4)}
+   derfor er luften over og under maalt i clamp og ikke i faste px.
+
+   Fladen (21.08.2026). Hero'en var et hvidt panel lige under det hvide baand,
+   adskilt af én haarfin linje: to hvide flader oven paa hinanden laeses som
+   ét tyndt baand, ikke som en aabning. Hero'en ligger nu paa sidens graa
+   grund, og det hvide panel i den er vaegtstigen. Det er systemets egen regel
+   — graa bund, hvide paneler — anvendt paa den ene flade, der ikke fulgte
+   den. */
+.hero{border-bottom:1px solid var(--linje)}
+.hero .rum{padding-block:clamp(var(--r6),6vw,var(--r8)) clamp(var(--r6),4.4vw,var(--r8));
+  display:flex;flex-direction:column;gap:var(--r6)}
+.hero-ord{display:flex;flex-direction:column;gap:var(--r4)}
 .hero-lede{margin-top:2px}
 .hero .styring{margin-top:var(--r2);align-items:flex-end}
 .hero-videre{display:flex}
+/* Ledeteksten er hero'ens eneste broedtekst og maa staa ét trin over resten.
+   Under 680 px bliver den 17 px igen, fordi hver linje dér koster plads i den
+   foerste viewport. */
+@media (min-width:680px){.hero-lede{font-size:19px}}
+
+/* Hero'ens to spalter. Graensen er systemets egen 1180 px, set fra den anden
+   side: over den staar ordene til venstre og den maalte akse til hoejre;
+   under den stables de. Der er ikke indfoert et nyt brudpunkt. */
+@media (min-width:1181px){
+  .hero .rum{display:grid;align-items:start;
+    grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);
+    grid-template-areas:"ord stige" "chips chips";
+    column-gap:var(--r9);row-gap:var(--r7)}
+  .hero-ord{grid-area:ord}
+  .stige{grid-area:stige}
+  .chips{grid-area:chips}
+}
+
+/* --- 1b. VAEGTSTIGEN ------------------------------------------------------
+   Hero'ens figur. Ingen robot er navngivet: ét maerke pr. robot med oplyst
+   egenvaegt, sat paa den akse siden i forvejen er ordnet efter, og de fire
+   vaegtklasser under den som links ned i sektionerne. Den er dermed ogsaa
+   sidens indholdsfortegnelse, og den virker uden en linje JavaScript.
+
+   Aksen viser en FORDELING, ikke en rangering. Maerkerne er anonyme og fører
+   ingen steder hen — et maerke, der kunne klikkes hen til én maskine, ville
+   vaere en fremhaevelse, og den har siden ingen metode til.
+
+   Det fjerde trin ligger UDEN FOR aksen, i hullets sprog: de robotter,
+   producenten ikke oplyser en vaegt for, kan ikke placeres, og de bliver
+   hverken gemt eller lagt i en klasse, de ikke hoerer til. Det er sidens
+   hele pointe, sat i den foerste viewport. */
+.stige{display:flex;flex-direction:column;gap:var(--r4);padding:var(--r5)}
+.stige-akse{position:relative;height:74px}
+
+/* Maerkerne haenger ned til aksen fra oven. --x er vaegten i procent af aksens
+   top og saettes af generatoren. */
+.stige-maerker{position:absolute;left:0;right:0;top:0;height:36px}
+.stige-maerker span{position:absolute;left:var(--x);top:0;width:1.5px;height:100%;
+  margin-left:-.75px;background:var(--blaek)}
+
+/* Aksen selv, med de to klassegraenser som korte skridt paa tvaers. De er
+   --hegn og ikke --blaek, saa en graense aldrig kan taelles som en robot. */
+.stige-linje{position:absolute;left:0;right:0;top:36px;height:1px;background:var(--hegn)}
+.stige-linje .graense{position:absolute;left:var(--x);top:-8px;width:1px;height:17px;
+  margin-left:-.5px;background:var(--hegn)}
+
+.stige-tal{position:absolute;left:0;right:0;top:45px;height:14px}
+.stige-tal span{position:absolute;left:var(--x);top:0;transform:translateX(-50%);
+  font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10.5px;
+  letter-spacing:.04em;color:var(--blaek3);white-space:nowrap}
+.stige-tal span:first-child{transform:none}
+.stige-tal span:last-child{transform:translateX(-100%)}
+
+/* De fire trin. Tallet er en optaelling af kort, ikke en maaling af en maskine,
+   og staar derfor uden enhed — men i mono med tabulaere cifre, saa de fire tal
+   flugter lodret. */
+.stige-baand{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--r2)}
+.stige-trin{display:flex;flex-direction:column;justify-content:space-between;
+  gap:var(--r2);min-height:84px;padding:10px 12px 9px;text-decoration:none;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
+.stige-trin .navn{font-size:12.5px;font-weight:600;line-height:1.25;color:var(--blaek2)}
+.stige-trin .figur{font-size:26px;font-weight:700;line-height:1;
+  letter-spacing:-.02em;color:var(--blaek)}
+.stige-trin:hover{border-color:var(--hegn);background:var(--accent-ro)}
+.stige-trin:hover .navn{color:var(--blaek)}
+
+/* Hullet. Samme sprog som "ikke oplyst": stiplet hegn, --tom flade, daempet
+   tal. Det staar med lidt mere luft til de tre andre, fordi det ikke ligger
+   paa aksen. Hullet loeftes ikke og fyldes ikke ved hover — det er et link,
+   saa navnet understreges, og det er alt. */
+.stige-trin--hul{margin-left:var(--r2);background:var(--tom);
+  border-style:dashed;border-color:var(--hegn)}
+.stige-trin--hul .navn,.stige-trin--hul .figur{color:var(--blaek3)}
+.stige-trin--hul:hover{background:var(--tom);border-color:var(--hegn)}
+.stige-trin--hul:hover .navn{color:var(--blaek3);text-decoration:underline}
+
+/* Under 680 px falder aksestrimlen og etiketten bort. De fire trin baerer den
+   samme oplysning, og strimlen er aria-hidden i forvejen — den kan undvaeres,
+   uden at der forsvinder indhold. Grunden er maalt plads: hero'ens hoejde paa
+   en 375 x 667-skaerm skal stadig efterlade anvendelsesfiltrene i den foerste
+   viewport (L17). */
+@media (max-width:679px){
+  .stige{padding:var(--r4);gap:var(--r3)}
+  .stige > .etiket,.stige-akse{display:none}
+}
+@media (max-width:420px){
+  .stige-baand{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stige-trin--hul{margin-left:0}
+}
 
 /* Filterlinks i hero'en. Samme form som .filtre label, men de er links:
    de fører til katalogsiden med filteret sat (:target), saa de virker uden
    en linje JavaScript. */
-.chips{display:flex;flex-direction:column;gap:var(--r2);margin-top:var(--r3)}
+.chips{display:flex;flex-direction:column;gap:var(--r2)}
 .chips-raekke{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;
   font-size:15px;font-weight:600;color:var(--blaek2);text-decoration:none;
@@ -61,6 +159,13 @@
 .katalog-hoved{padding-block:var(--r7) 0;display:flex;flex-direction:column;gap:var(--r3)}
 .sektion-note{margin-top:var(--r3);max-width:86ch}
 .sektion .gitter{margin-top:var(--r5)}
+
+/* Forsidens vejrtraekning. Fire gitre paa 12, 12, 13 og 9 kort i traek er en
+   lang, ensartet strimmel, hvis skiftet mellem dem er 64 px. 96 px goer
+   vaegtklasseskiftet til en paegribelig graense. Det foerste hoved staar
+   taettere paa hero'en, som selv har bundluft. */
+.hero + .rum .sektion{padding-top:var(--r9)}
+.hero + .rum > .sektion:first-child{padding-top:var(--r7)}
 .styr .gitter{margin-top:var(--r6)}
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
