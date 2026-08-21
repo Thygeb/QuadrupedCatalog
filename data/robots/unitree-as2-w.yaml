@@ -4,11 +4,11 @@ producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
 anvendelse:
-  vaerdi: inspektion
+  vaerdi: [inspektion, sikkerhed_overvaagning]
   citat: "ideal for security, inspection, and advanced applications."
   kilde: https://www.unitree.com/As2-W
   hentet: 2026-08-19
-  note: "Samme saetning naevner \"security\". Det tilladte saet har ingen kategori for sikkerhed og overvaagning, saa det ord er ikke omsat - det er hverken forsvar/beredskab eller teknisk inspektion. Se forslaget i rapporten."
+  note: "L22: producentens eget ord \"security\" i samme saetning er nu omsat til sikkerhed_overvaagning. Citatet er As2-W's egen produktside; As2-W staar ikke i produktnavigationen, saa der er intet arvet her."
 varianter: [X, EDU]
 noter:
   - "Hjulbenet udgave af As2. De to varianter adskiller sig kun paa ladestation og udvidelsesdok."

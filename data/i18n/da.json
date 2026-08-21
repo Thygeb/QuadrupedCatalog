@@ -128,5 +128,17 @@
   "anvendelse_forskning_udvikling": "Forskning og udvikling",
   "anvendelse_forbruger_uddannelse": "Forbruger og uddannelse",
   "anvendelse_forsvar_beredskab": "Forsvar og beredskab",
-  "anvendelse_logistik": "Logistik"
+  "anvendelse_logistik": "Logistik",
+  "anvendelse_sikkerhed_overvaagning": "Sikkerhed og overvaagning",
+  "anvendelse_arvet_fra": "Kategorien er arvet fra grundmodellen",
+  "anvendelse_arvet_forklaring": "Producenten skriver intet om denne udgave. Citatet nedenfor er grundmodellens, og koblingen mellem de to er vores.",
+  "anvendelse_forklaring_arvet": "Ordene er producentens, men de er skrevet om grundmodellen. At de ogsaa daekker denne udgave, er vores slutning - derfor staar den maerket.",
+  "vaegtklasse_titel": "Vaegtklasse",
+  "vaegtklasse_under_20": "Under 20 kg",
+  "vaegtklasse_20_40": "20-40 kg",
+  "vaegtklasse_over_40": "Over 40 kg",
+  "vaegtklasse_ikke_oplyst": "Vaegt ikke oplyst",
+  "vaegtklasse_afledt": "Regnet ud af egenvaegten. Producenten oplyser ikke en klasse.",
+  "vaegtklasse_cirka": "producentens tal er omtrentligt",
+  "vaegtklasse_graense": "tallet ligger paa klassegraensen, og producentens forbehold kan flytte det"
 }

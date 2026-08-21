@@ -4,10 +4,14 @@ producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
 anvendelse:
-  vaerdi: ikke_oplyst
-  kilde: https://www.unitree.com/go2-w
+  vaerdi: [forbruger_uddannelse, forskning_udvikling]
+  citat:
+    - "Robot - Consumer/Education"
+    - "机器狗 - 消费级 / 科研"
+  kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "GENNEMLAEST, INTET FUNDET. Go2-W staar ikke i produktnavigationen, og siden siger kun \"Driving All Terrain\" og \"Go2 New Model Transformative Newborn\"."
+  arvet_fra: unitree-go2
+  note: "ARVET (L23). Go2-W staar ikke i produktnavigationen, og dens egen side https://www.unitree.com/go2-w er gennemlaest 2026-08-19 og siger kun \"Driving All Terrain\" og \"Go2 New Model Transformative Newborn\". Citatet er Go2's, og koblingen Go2-W = Go2 i hjulet udgave er vores slutning, ikke producentens."
 felter:
   egenvaegt:
     vaerdi: 18

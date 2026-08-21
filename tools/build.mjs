@@ -22,7 +22,7 @@ import process from 'node:process';
 import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, KATALOG_FELTER, FILTER_FELTER, SPROG, STATUS_VAERDIER,
-  tilstandAf, normaliserRobot,
+  tilstandAf, normaliserRobot, sorterAnvendelse,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 
@@ -86,6 +86,10 @@ function laesI18n(sprogkode) {
  * vises den raa vaerdi, og bygget siger hoejt hvilken noegle der mangler — et ikke
  * oversat land skal vaere synligt, men ikke standse hele kataloget.
  */
+/** slug -> navn. Fyldes i main, saa en arvet kategori kan naevne moderen ved navn
+ *  og ikke ved slug. Uden den ville "arvet fra unitree-b2" staa paa siden. */
+const navnEfterSlug = new Map();
+
 const manglendeLande = new Set();
 function land(T, vaerdi, sprogkode) {
   const n = 'land_' + vaerdi;
@@ -281,18 +285,102 @@ function fod(T, sprogkode, dybde, andetSprogHref) {
  * vores vurdering — og saa var feltet blevet det, CLAUDE.md begraensning 6 forbyder.
  * Derfor er der ingen kompakt visning: kan citatet ikke vises, vises kategorien ikke.
  */
-/** Anvendelsen i robots.json. Formen er den samme uanset hvad YAML'en skrev. */
+/* ==================================================================
+   Vaegtklasse — AFLEDT, aldrig i data (L27, 21. aug 2026)
+
+   Klassen staar ikke i nogen YAML-fil og maa ikke komme til det. Den er en
+   funktion af `egenvaegt`, og det er hele pointen: skulle graenserne flytte
+   sig, flytter de sig ét sted. Stod klassen i data, ville 46 filer skulle
+   rettes i haanden, og den 47. ville blive glemt.
+
+     under_20      egenvaegt < 20 kg
+     20_40         20 <= egenvaegt < 40 kg
+     over_40       egenvaegt >= 40 kg
+     ikke_oplyst   ingen vaegt oplyst
+
+   `ikke_oplyst` er en klasse paa lige fod med de tre andre, ikke et hul.
+   Robotter uden oplyst vaegt maa ikke forsvinde fra en forside, der grupperer
+   efter vaegt — det ville vaere den fjerde maade at lade "ikke oplyst"
+   kollapse (CLAUDE.md begraensning 5).
+
+   Operatoren respekteres: "~60 kg" er 60, men det foelger med som `cirka`,
+   saa visningen kan skrive "≈". Ligger tallet praecis paa en klassegraense OG
+   baerer en operator, er klassen ikke sikker — DEEP Lynx S10 oplyser "<= 20 kg",
+   som kan vaere baade under_20 og 20_40. Det staar som `graensetilfaelde`
+   frem for at blive gemt bag et valg, ingen kan se.
+   ================================================================== */
+
+export const VAEGTKLASSER = ['under_20', '20_40', 'over_40', 'ikke_oplyst'];
+const VAEGTGRAENSER = [20, 40];
+
+const klasseAfKg = (kg) => (kg < 20 ? 'under_20' : (kg < 40 ? '20_40' : 'over_40'));
+
+/** Kg som tal, eller null. Kun kg — en vaegt i pund ville ellers lande som et tal. */
+function kgAf(post) {
+  if (post === undefined || post === null) return null;
+  if (typeof post === 'string') return null;              // bar tilstand
+  if (typeof post !== 'object' || Array.isArray(post)) return null;
+  if (post.enhed !== 'kg') return null;
+  for (const n of [post.vaerdi, post.min, post.maks]) {
+    if (typeof n === 'number' && Number.isFinite(n)) return { vaerdi: post.vaerdi, min: post.min, maks: post.maks };
+  }
+  return null;
+}
+
+/**
+ * Robottens vaegtklasse. Afledt ved bygget, aldrig laest fra data.
+ * Returnerer { klasse, kg, operator, cirka, graensetilfaelde, forklaring }.
+ */
+export function vaegtklasseAf(robot) {
+  const post = (robot.felter || {}).egenvaegt;
+  const tal = kgAf(post);
+  if (!tal) return { klasse: 'ikke_oplyst', kg: null, operator: null, cirka: false, graensetilfaelde: false };
+
+  const operator = post.operator ?? null;
+  const cirka = operator === '~' || operator === '±';
+
+  // Interval: to endepunkter kan ligge i hver sin klasse. Da faar klassen fra
+  // det laveste endepunkt, og uenigheden foeres med som graensetilfaelde —
+  // et interval maa ikke kollapse til sit midtpunkt (regel 5).
+  if (typeof tal.vaerdi !== 'number' && typeof tal.min === 'number') {
+    const a = klasseAfKg(tal.min);
+    const b = typeof tal.maks === 'number' ? klasseAfKg(tal.maks) : a;
+    return {
+      klasse: a, kg: tal.min, kg_maks: tal.maks ?? null, operator, cirka,
+      graensetilfaelde: a !== b,
+    };
+  }
+
+  const kg = tal.vaerdi;
+  const klasse = klasseAfKg(kg);
+  // Praecis paa en graense OG med forbehold: producentens tal kan ligge paa
+  // begge sider. "<= 20 kg" er baade under_20 og 20_40, og det skal kunne ses.
+  const graensetilfaelde = Boolean(operator) && VAEGTGRAENSER.includes(kg);
+  return { klasse, kg, operator, cirka, graensetilfaelde };
+}
+
+/**
+ * Anvendelsen i robots.json. Formen er den samme uanset hvad YAML'en skrev.
+ *
+ * L27: vaerdierne laegges i KANONISK orden, ikke i YAML'ens. Der findes ikke
+ * laengere en hovedpositionering, og en fast orden er det, der goer raekkefoelgen
+ * ulaeselig som mening: to filer med de samme kategorier ser ens ud, uanset
+ * hvilken raekkefoelge producentens saetning naevnte dem i.
+ */
 function anvendelseTilIndeks(a) {
-  if (a === undefined) return { vaerdi: ['ikke_oplyst'], citat: [] };
+  if (a === undefined) return { vaerdi: ['ikke_oplyst'], citat: [], arvet_fra: null };
   const raa = typeof a === 'string' ? { vaerdi: a } : a;
   const vaerdier = Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi];
   const citater = raa.citat === undefined ? []
     : (Array.isArray(raa.citat) ? raa.citat : [raa.citat]);
   return {
-    vaerdi: vaerdier.map((v) => tilstandAf(v) ?? v),
+    vaerdi: sorterAnvendelse(vaerdier.map((v) => tilstandAf(v) ?? v)),
     citat: citater,
     kilde: raa.kilde ?? null,
     hentet: raa.hentet ?? null,
+    // Arven er vores slutning, ikke producentens ord. Den skal kunne ses i
+    // indekset ogsaa — ellers ser en arvet kategori ud som en indsamlet.
+    arvet_fra: raa.arvet_fra ?? null,
   };
 }
 
@@ -300,7 +388,7 @@ function anvendelseBlok(robot, T) {
   const a = robot.anvendelse;
   if (a === undefined) return '';
   const raa = typeof a === 'string' ? { vaerdi: a } : a;
-  const vaerdier = Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi];
+  const vaerdier = sorterAnvendelse(Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi]);
   const erIkkeOplyst = vaerdier.length === 1 && tilstandAf(vaerdier[0]) === 'ikke_oplyst';
 
   const maerker = erIkkeOplyst
@@ -324,15 +412,39 @@ function anvendelseBlok(robot, T) {
 
   const noteDel = raa.note ? `<p class="anvendelse__note">${esc(raa.note)}</p>` : '';
 
+  // L23 — arven er vores slutning og skal SES. Den staar foer citatet, saa en
+  // laeser ved, hvis ord der kommer, foer ordene kommer.
+  const arvDel = raa.arvet_fra
+    ? `<p class="anvendelse__arv">${esc(T.anvendelse_arvet_fra)} `
+      + `<a href="../${attr(raa.arvet_fra)}/">${esc(navnEfterSlug.get(raa.arvet_fra) ?? raa.arvet_fra)}</a>`
+      + `. ${esc(T.anvendelse_arvet_forklaring)}</p>`
+    : '';
+
   return `<section class="gruppe anvendelse">
 <h2>${esc(T.anvendelse_titel)}</h2>
 <p class="anvendelse__vaerdi">${maerker}</p>
+${arvDel}
 ${citatDel}
 ${kildeDel}
 ${noteDel}
-<p class="anvendelse__forklaring">${esc(T.anvendelse_forklaring)}</p>
+<p class="anvendelse__forklaring">${esc(raa.arvet_fra ? T.anvendelse_forklaring_arvet : T.anvendelse_forklaring)}</p>
 </section>
 `;
+}
+
+/**
+ * Vaegtklassen som maerke. Den er afledt, og det staar der: teksten siger, at
+ * klassen er regnet ud af egenvaegten, saa den ikke kan forveksles med noget,
+ * producenten har oplyst.
+ */
+function vaegtklasseMaerke(robot, T) {
+  const v = vaegtklasseAf(robot);
+  const forbehold = [];
+  if (v.cirka) forbehold.push(T.vaegtklasse_cirka);
+  if (v.graensetilfaelde) forbehold.push(T.vaegtklasse_graense);
+  return `<span class="vaegtklasse vaegtklasse--${attr(v.klasse)}"`
+    + ` title="${attr(T.vaegtklasse_afledt)}">${esc(T['vaegtklasse_' + v.klasse])}</span>`
+    + (forbehold.length ? `<span class="vaegtklasse__forbehold">${esc(forbehold.join(' · '))}</span>` : '');
 }
 
 function taethedBlok(robot, naevnere, d4, T, sprogkode) {
@@ -372,6 +484,7 @@ function detaljeside(robot, sprogkode, T, naevnere, d4) {
 <span>${esc(robot.producent)}</span>
 <span>${esc(land(T, robot.producentland, sprogkode))}</span>
 <span class="status status--${attr(robot.status)}">${esc(T['status_' + robot.status])}</span>
+${vaegtklasseMaerke(robot, T)}
 ${robot.foerste_udgivelse ? `<span>${esc(String(robot.foerste_udgivelse))}</span>` : ''}
 </p>
 ${taethedBlok(robot, naevnere, d4, T, sprogkode)}
@@ -476,7 +589,13 @@ ${KATALOG_FELTER.map((n) => `<th scope="col">${esc(T['felt_' + n])}</th>`).join(
       const x = taethed(r, n, d4);
       return `${x.pct} % <span class="taethed__brok">(${x.udfyldt}/${x.naevner})</span>`;
     }).join('<br>');
-    ud += `<tr data-slug="${attr(r.slug)}" data-producentland="${attr(r.producentland)}" data-status="${attr(r.status)}">
+    // Vaegtklassen og anvendelserne staar som data-attributter, ikke som
+    // kolonner: en gruppering eller et filter skal kunne finde dem uden JS-data,
+    // og anvendelse er en MAENGDE (L27) — mellemrumsadskilt, ikke rangeret.
+    const vk = vaegtklasseAf(r);
+    const anv = anvendelseTilIndeks(r.anvendelse).vaerdi.join(' ');
+    ud += `<tr data-slug="${attr(r.slug)}" data-producentland="${attr(r.producentland)}" data-status="${attr(r.status)}"`
+      + ` data-vaegtklasse="${attr(vk.klasse)}" data-anvendelse="${attr(anv)}">
 <th scope="row"><a href="${attr(r.slug)}/">${esc(r.navn)}</a></th>
 <td>${esc(r.producent)}</td>
 <td>${esc(land(T, r.producentland, sprogkode))}</td>
@@ -562,6 +681,9 @@ function main(argv) {
   }).filter(Boolean);
   robotter.sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'));
 
+  navnEfterSlug.clear();
+  for (const r of robotter) navnEfterSlug.set(r.slug, r.navn);
+
   const ud = path.resolve(String(flag['ud'] ?? 'dist'));
   ryd(ud);
 
@@ -581,11 +703,19 @@ function main(argv) {
   }
 
   // Lille indeks til klientside-filtrering. Kun de felter, der filtreres paa.
+  const vaegtfordeling = Object.fromEntries(VAEGTKLASSER.map((k) => [k, 0]));
+  for (const r of robotter) vaegtfordeling[vaegtklasseAf(r).klasse]++;
+
   const indeks = {
     genereret: iDag,
     naevnere,
     type_uden_model_taeller: d4,
     filterfelter: FILTER_FELTER,
+    // Klasserne staar med i indekset, saa en forside kan bygge sine sektioner
+    // uden foerst at gaette, hvilke der findes — ogsaa den tomme, hvis en
+    // klasse skulle blive tom.
+    vaegtklasser: VAEGTKLASSER,
+    vaegtfordeling,
     robotter: robotter.map((r) => {
       const f = {};
       for (const n of FILTER_FELTER) {
@@ -608,6 +738,10 @@ function main(argv) {
         // efter feltet, skal have en bunke at lægge de ukendte i, ikke et hul.
         // Citatet foelger med: en gruppering uden producentens ord er en paastand.
         anvendelse: anvendelseTilIndeks(r.anvendelse),
+        // Afledt ved bygget, aldrig laest fra YAML. Robotter uden oplyst vaegt
+        // faar klassen "ikke_oplyst" og bliver dermed staaende i indekset — de
+        // maa ikke forsvinde fra en forside, der grupperer efter vaegt.
+        vaegtklasse: vaegtklasseAf(r),
         taethed: Object.fromEntries(naevnere.map((n) => [n, taethed(r, n, d4).pct])),
         felter: f,
       };
@@ -650,6 +784,8 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
 
   console.log(`\nByggede ${sider} sider fra ${robotter.length} robotter · ${SPROG.length} sprog · ${ud}`);
   console.log(`Taethedsnaevnere brugt: ${naevnere.join(', ')} (D7 er ikke afgjort - alle vises paa siden)`);
+  console.log(`Vaegtklasser (afledt af egenvaegt, ikke af data): `
+    + VAEGTKLASSER.map((k) => `${k} ${vaegtfordeling[k]}`).join(' · '));
   return 0;
 }
 

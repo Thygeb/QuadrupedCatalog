@@ -120,27 +120,58 @@ export function tilstandAf(v) {
        kilde: https://www.unitree.com/
        hentet: 2026-08-19
        kildetype: primaer            # valgfri
+       arvet_fra: unitree-b2         # valgfri: se L23 og R17
        note: "..."                   # valgfri: hvad citatet IKKE daekker
    ====================================================================== */
 
 /**
- * Det tilladte saet. Raekkefoelgen er ikke tilfaeldig: staar der flere vaerdier,
- * er den FOERSTE producentens hovedpositionering — den, en forsideinddeling
- * skal gruppere efter. De oevrige er kategorier, producenten selv naevner i
- * samme aandedrag, og de maa ikke tabes, fordi en gruppering kun kan vise én.
+ * Det tilladte saet.
+ *
+ * L27 (21. aug 2026): vaerdierne er en USORTERET MAENGDE. Der findes ikke laengere
+ * en "hovedpositionering", og raekkefoelgen i YAML'en betyder ingenting.
+ * Den gamle regel — "staar der flere, er den foerste producentens
+ * hovedpositionering" — er fjernet, fordi KRITIK-1-plan.md K4 maalte, hvad den
+ * gjorde: ti robotter med de SAMME to kategorier blev delt i to bunker af
+ * raekkefoelgen i en producents navigationsmenu. R16 kraever citat paa AT en
+ * kategori er naevnt, og kraevede intet om raekkefoelgen — saa beviskravet laa paa
+ * det led, der ikke betyder noget, og manglede paa det led, der afgjorde forsiden.
+ * Det er praecis den redaktionelle dom, feltet blev bygget for at undgaa.
+ *
+ * Raekkefoelgen her i listen er derfor kun én ting: den kanoniske visningsorden,
+ * som `sorterAnvendelse` laegger vaerdierne i, saa to filer med de samme
+ * kategorier ser ens ud uanset hvad YAML'en skrev.
+ *
+ * `sikkerhed_overvaagning` er den syvende, tilfoejet med L22. Uden den blev
+ * producentens eget ord (*security / patrol / surveillance*) paa seks robotter
+ * ikke omsat — og alternativet, at presse det ind under `forsvar_beredskab`,
+ * ville stille en parkpatruljerobot ved siden af en militaerplatform.
  */
 export const ANVENDELSE_VAERDIER = [
   'industri',
   'inspektion',
+  'sikkerhed_overvaagning',
   'forskning_udvikling',
   'forbruger_uddannelse',
   'forsvar_beredskab',
   'logistik',
 ];
 
+/**
+ * Kanonisk orden. Ikke en rangering: en fast orden er netop det, der goer
+ * raekkefoelgen ulaeselig som mening. Ukendte vaerdier bagerst, saa en fejl i
+ * data ikke forsvinder i sorteringen — den skal stadig fanges af R16.
+ */
+export function sorterAnvendelse(vaerdier) {
+  const plads = (v) => {
+    const i = ANVENDELSE_VAERDIER.indexOf(v);
+    return i === -1 ? ANVENDELSE_VAERDIER.length : i;
+  };
+  return [...vaerdier].sort((a, b) => plads(a) - plads(b) || String(a).localeCompare(String(b)));
+}
+
 /** Noegler, en anvendelsespost maa indeholde. Alt andet fejler paa R16. */
 export const ANVENDELSE_NOEGLER = new Set([
-  'vaerdi', 'citat', 'kilde', 'hentet', 'kildetype', 'note',
+  'vaerdi', 'citat', 'kilde', 'hentet', 'kildetype', 'arvet_fra', 'note',
 ]);
 
 /**
