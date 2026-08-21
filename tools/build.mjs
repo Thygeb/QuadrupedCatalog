@@ -35,7 +35,7 @@ import {
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 import {
   lavSprog, lavHjaelp, lavKilder, skal, esc, vaegtklasse, VAEGTKLASSER,
-  brugteReserver, manglendeNoegler,
+  manglendeNoegler,
 } from './skabelon/side.mjs';
 import * as forsideSkabelon from './skabelon/forside.mjs';
 import * as katalogSkabelon from './skabelon/katalog.mjs';
@@ -426,13 +426,12 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
     console.error(`  advarsel: ${manglendeLande.size} landenoegle(r) mangler i sprogfilerne:\n    `
       + [...manglendeLande].join('\n    '));
   }
-  if (brugteReserver.size) {
-    console.error(`\n  ${brugteReserver.size} UI-noegler blev hentet fra tools/skabelon/reserve-*.json,`
-      + ` fordi de mangler i data/i18n/. De skal flyttes derind:\n    `
-      + [...brugteReserver].sort().join(' '));
-  }
+  // data/i18n/<sprog>.json er det eneste sted, UI-tekst staar. Reservesaettet i
+  // tools/skabelon/reserve-*.json er nedlagt 21. aug 2026, og de 71 noegler er
+  // flyttet ind i sprogfilerne. Mangler en noegle nu, er der ingen at falde
+  // tilbage paa - den staar som «noegle» paa siden og skal skrives i sprogfilen.
   if (manglendeNoegler.size) {
-    console.error(`\n  ${manglendeNoegler.size} noegle(r) fandtes hverken i sprogfilen eller i reserven `
+    console.error(`\n  ${manglendeNoegler.size} noegle(r) mangler i data/i18n/ `
       + `og staar som «noegle» paa siden:\n    ` + [...manglendeNoegler].join('\n    '));
   }
 

@@ -15,7 +15,8 @@
  * taethed, tegnforklaring), som skabelonerne maa bruge, men ikke skal.
  *
  *   ctx.i18n  T         opslag der FEJLER paa en manglende noegle (streng)
- *             t(n)      opslag med reserve (tools/skabelon/reserve-<sprog>.json)
+ *             t(n)      bloedt opslag: en manglende noegle bliver til «noegle»
+ *                       paa siden og taelles op til sidst af bygget
  *             tf(n,o)   som t(), men saetter {n}-pladsholdere ind
  *   ctx.sprog 'da' | 'en'
  *   ctx.url   { dybde, sti, op }   sti er uden sprogpraefiks, fx 'robotter/'
@@ -53,18 +54,21 @@ function saetInd(tekst, vaerdier) {
 
 /* -------------------------------------------------------------- sprogfilen */
 
-/** Noegler, der blev hentet fra reservefilen. Bygget skriver dem ud til sidst. */
-export const brugteReserver = new Set();
-/** Noegler, der hverken fandtes i sprogfilen eller i reserven. */
+/**
+ * Noegler, der ikke fandtes i sprogfilen. Bygget skriver dem ud til sidst.
+ *
+ * Der er ikke laengere nogen anden kilde til UI-tekst end data/i18n/<sprog>.json.
+ * Generatoren havde indtil 21. aug 2026 et reservesaet i
+ * tools/skabelon/reserve-<sprog>.json; det er nedlagt, og noeglerne er flyttet.
+ * Genindfoer det ikke: to steder at skrive den samme streng betyder, at det ene
+ * bliver glemt, og at /da/ kan ende med at vise translittereret dansk igen.
+ */
 export const manglendeNoegler = new Set();
 
 export function lavSprog(sprogkode) {
   const fil = path.join(ROD, 'data/i18n', `${sprogkode}.json`);
   if (!fs.existsSync(fil)) throw new Error(`Sprogfilen mangler: ${fil}`);
   const raa = JSON.parse(fs.readFileSync(fil, 'utf8'));
-
-  const reserveFil = path.join(her, `reserve-${sprogkode}.json`);
-  const reserve = fs.existsSync(reserveFil) ? JSON.parse(fs.readFileSync(reserveFil, 'utf8')) : {};
 
   // T fejler paa en manglende noegle. En manglende oversaettelse skal vaere
   // synlig, ikke lande som dansk paa /en/.
@@ -77,11 +81,10 @@ export function lavSprog(sprogkode) {
     },
   });
 
-  /** Opslag med reserve. Bruges KUN til noegler, der endnu ikke er flyttet
-   *  til data/i18n/. Hver brug taelles og rapporteres af bygget. */
+  /** Bloedt opslag. En manglende noegle stopper ikke bygget, men bliver til
+   *  «noegle» paa siden og staar i bygrapporten til sidst. */
   function t(n) {
     if (n in raa) return raa[n];
-    if (n in reserve) { brugteReserver.add(n); return reserve[n]; }
     manglendeNoegler.add(`${sprogkode}: ${n}`);
     return `«${n}»`;
   }
@@ -101,13 +104,9 @@ export function lavSprog(sprogkode) {
       if (typeof n !== 'string') return undefined;
       if (n in ekstra) return ekstra[n];
       if (n in m) return m[n];
-      // Samme reserve som t(): et opslag, der gaar uden om t(), skal ikke
-      // kunne faa et andet svar end t() ville give. Brugen taelles og
-      // rapporteres, saa reserven ikke kan blive et stille andet sprogsted.
-      if (n in reserve) { brugteReserver.add(n); return reserve[n]; }
       return undefined;
     },
-    has(m, n) { return (typeof n === 'string' && (n in ekstra || n in reserve)) || n in m; },
+    has(m, n) { return (typeof n === 'string' && n in ekstra) || n in m; },
   });
 }
 
