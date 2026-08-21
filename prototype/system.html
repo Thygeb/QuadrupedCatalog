@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designsystem — fundament for bid 1-3</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../assets/system.css">
+<style>
+/* Kun til DENNE side. Rammen om komponenterne hører ikke til systemet og
+   bliver ikke bygget videre på. Alt, der skal bæres videre, står i
+   assets/system.css. */
+.side{padding-bottom:var(--r8)}
+.kapitel{padding-top:var(--r7);scroll-margin-top:20px}
+.kapitel > .rum > .indl{max-width:var(--maal);margin-top:14px}
+.nr{font-family:var(--mono);font-size:12px;color:var(--blaek3);letter-spacing:.12em}
+.proevekasse{background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund);
+  box-shadow:var(--skygge);padding:26px 24px 28px;margin-top:20px}
+.proevekasse--bund{background:var(--bund);box-shadow:none;border-style:dashed;border-color:var(--hegn)}
+.proevehoved{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;
+  padding-bottom:14px;margin-bottom:20px;border-bottom:1px solid var(--linje)}
+.proevehoved h3{flex:1 1 auto}
+.proevehoved .kilde{font-family:var(--mono);font-size:11.5px;color:var(--blaek3);
+  text-align:right;max-width:46ch}
+.bem{font-size:14.5px;line-height:1.55;color:var(--blaek2);max-width:80ch;margin-top:16px}
+.bem b{color:var(--blaek)}
+.bem code,.indl code{font-family:var(--mono);font-size:.86em;background:var(--panel-ro);
+  border:1px solid var(--linje);border-radius:4px;padding:1px 5px}
+.to{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:900px){.to{grid-template-columns:1fr 1fr}}
+.tre{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:760px){.tre{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1120px){.tre{grid-template-columns:repeat(3,1fr)}}
+.svaner{display:flex;flex-wrap:wrap;gap:12px}
+.svane{border:1px solid var(--linje);border-radius:var(--rund-ind);overflow:hidden;
+  min-width:158px;flex:1 1 158px;background:var(--panel)}
+.svane .flade{height:62px}
+.svane .navn{padding:9px 11px 11px;display:flex;flex-direction:column;gap:2px}
+.svane .navn code{font-family:var(--mono);font-size:12px;color:var(--blaek)}
+.svane .navn span{font-family:var(--mono);font-size:11px;color:var(--blaek3)}
+.proeve{display:inline-flex;align-items:center;justify-content:center;width:30px;height:22px;
+  border:1px solid var(--linje);border-radius:3px;font-weight:700;font-size:13px;
+  vertical-align:-5px;margin-right:6px}
+.m-fald{background:#FBEDED}
+.m-fald td,.m-fald th{font-weight:700}
+.m-dekor th,.m-dekor td{color:var(--blaek3)}
+.tilstandsliste .raekke{grid-template-columns:minmax(14ch,32%) minmax(0,1fr)}
+.tilstandsliste .hvor{font-size:13px;color:var(--blaek3);margin-top:3px;display:block}
+.opsum{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.opsum span{font-family:var(--mono);font-size:12.5px;background:var(--panel-ro);
+  border:1px solid var(--linje);border-radius:var(--rund-lille);padding:6px 11px;color:var(--blaek2)}
+.opsum b{color:var(--blaek)}
+.knaek{display:flex;flex-direction:column;gap:0}
+.knaek li{border-top:1px solid var(--linje);padding:15px 0 16px;display:flex;gap:14px;align-items:flex-start}
+.knaek li:first-child{border-top:0}
+.knaek .hvad{font-weight:700;font-size:15.5px;letter-spacing:-.012em;min-width:0}
+.knaek p{font-size:14.5px;line-height:1.55;color:var(--blaek2);margin-top:3px}
+.knaek .trin{font-family:var(--mono);font-size:12px;color:var(--blaek3);flex:none;
+  border:1px solid var(--linje);border-radius:var(--rund-lille);padding:2px 7px;margin-top:2px}
+.ikongitter{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(112px,1fr))}
+.ikongitter li{display:flex;flex-direction:column;align-items:center;gap:8px;
+  border:1px solid var(--linje);border-radius:var(--rund-ind);padding:14px 8px 11px;
+  background:var(--panel-ro)}
+.ikongitter .ikon{color:var(--accent)}
+.ikongitter code{font-family:var(--mono);font-size:10.5px;color:var(--blaek3)}
+.indhold{position:sticky;top:0;z-index:4;background:var(--bund);
+  border-bottom:1px solid var(--linje);padding-block:10px}
+.indhold ol{display:flex;flex-wrap:wrap;gap:2px 4px}
+.indhold a{display:inline-flex;align-items:center;min-height:38px;padding:0 10px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-decoration:none;
+  color:var(--blaek2);border-radius:var(--rund-lille)}
+.indhold a:hover{background:var(--panel);color:var(--blaek)}
+</style>
+</head>
+<body>
+
+<a class="spring" href="#hoved">Spring til indholdet</a>
+
+<!-- Ikonsættet. Tegnede SVG i ét 24-net med ét stregtykkelse. Ingen emoji,
+     intet unicode-tegn brugt som ikon. Generatoren skal skrive dette sæt ind
+     i hver side; en ekstern sprite-fil kan ikke bruges, fordi <use href> til
+     en anden fil er spærret på file:// i flere browsere. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-vaegt" viewBox="0 0 24 24">
+    <path d="M9.4 8a2.6 2.6 0 0 1 5.2 0"/>
+    <path d="M7 8h10l1.9 11.4a1.4 1.4 0 0 1-1.4 1.6H6.5a1.4 1.4 0 0 1-1.4-1.6Z"/>
+  </symbol>
+  <symbol id="i-nyttelast" viewBox="0 0 24 24">
+    <path d="M12 3v4.6"/><path d="M9.7 5.4 12 7.7l2.3-2.3"/>
+    <path d="M7.5 10.2h9v8.3h-9z"/><path d="M3.4 21h17.2"/>
+  </symbol>
+  <symbol id="i-driftstid" viewBox="0 0 24 24">
+    <path d="M3.6 8.2h12.9a1.6 1.6 0 0 1 1.6 1.6v4.4a1.6 1.6 0 0 1-1.6 1.6H3.6A1.6 1.6 0 0 1 2 14.2V9.8a1.6 1.6 0 0 1 1.6-1.6Z"/>
+    <path d="M20.8 10.9v2.2"/><path d="M4.9 10.9h4.3v2.2H4.9z"/>
+  </symbol>
+  <symbol id="i-fart" viewBox="0 0 24 24">
+    <path d="M3.6 17.4a8.8 8.8 0 1 1 16.8 0"/>
+    <path d="M12 17.4 16.4 10.6"/>
+    <circle cx="12" cy="17.4" r="1.35"/>
+  </symbol>
+  <symbol id="i-ip" viewBox="0 0 24 24">
+    <path d="M12 2.7 5.6 5.3v6c0 4.1 2.7 7.3 6.4 8.4 3.7-1.1 6.4-4.3 6.4-8.4v-6Z"/>
+    <path d="M12 8.9c-1.4 1.8-2.2 2.9-2.2 4a2.2 2.2 0 0 0 4.4 0c0-1.1-.8-2.2-2.2-4Z"/>
+  </symbol>
+  <symbol id="i-ce" viewBox="0 0 24 24">
+    <path d="M6 2.9h7.3L18 7.7v13.4H6z"/><path d="M13.3 2.9v4.8H18"/>
+    <path d="M9 13.1h6"/><path d="M9 16.5h4"/>
+  </symbol>
+  <symbol id="i-hul" viewBox="0 0 24 24">
+    <path d="M4.4 4.4h15.2v15.2H4.4z" stroke-dasharray="3.2 3.2"/>
+  </symbol>
+  <symbol id="i-pil" viewBox="0 0 24 24">
+    <path d="M4 12h15"/><path d="M13.4 6.4 19 12l-5.6 5.6"/>
+  </symbol>
+</svg>
+
+<!-- ===== Båndet. L18: neutral pladsholder, tydeligt midlertidig. ===== -->
+<header class="baand">
+  <div class="rum">
+    <div class="baand-navn">
+      <span class="titel">Firbenede robotter</span>
+      <span class="midlertidig">Arbejdstitel · navn ikke valgt</span>
+    </div>
+    <nav aria-label="Sider">
+      <a href="#" aria-current="page">Designsystem</a>
+      <a href="v2-katalog.html">Forrige prototype</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== Billednoten. Spærring S1. Står på hver side, hver gang. ===== -->
+<div class="billednote">
+  <div class="rum">
+    <span class="maerke">Spærret</span>
+    <p><b>Siden må ikke udgives, så længe den viser disse fotografier.</b> De er hentet fra
+      producenternes egne hjemmesider og vises her uden tilladelse og uden kreditering. De er
+      pladsholdere i en lokal prototype: filerne ligger i <code>media/robotbilleder/</code>, som er
+      gitignoreret, og de er hverken kopieret til <code>assets/</code> eller committet. Før
+      lancering skal der enten foreligge skriftlig tilladelse fra hver producent, eller billederne
+      skal skiftes ud med vores egne fotos og måltro silhuetter. Ingen af billederne er
+      AI-genereret, og ingen af dem er redigeret.</p>
+  </div>
+</div>
+
+<nav class="indhold" aria-label="Afsnit">
+  <div class="rum">
+    <ol>
+      <li><a href="#k1">1 · Farve</a></li>
+      <li><a href="#k2">2 · Skrift</a></li>
+      <li><a href="#k3">3 · Ikoner</a></li>
+      <li><a href="#k4">4 · De fire tilstande</a></li>
+      <li><a href="#k5">5 · Operatorer</a></li>
+      <li><a href="#k6">6 · Kildemærket</a></li>
+      <li><a href="#k7">7 · Nøgletalsstriben</a></li>
+      <li><a href="#k8">8 · Robotkortet</a></li>
+      <li><a href="#k9">9 · Betjening</a></li>
+      <li><a href="#k10">10 · Rækker og tabel</a></li>
+      <li><a href="#k11">11 · Hvad der knækker</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="side" id="hoved">
+
+  <section class="kapitel" style="padding-top:var(--r6)">
+    <div class="rum">
+      <h1 class="t-hero">Designsystem</h1>
+      <p class="indl t-broed">Fundamentet under kataloget: farve, skrift, de fire datatilstande,
+        nøgletalsstriben og robotkortet. Forside, katalog, robotside og producentside bygges
+        oven på det her og skal kunne bruge det uden at tegne det om.</p>
+      <p class="indl t-lille" style="margin-top:12px">Grundtonen er besluttet i L16: lys grå bund,
+        hvide afrundede paneler, luft, hårfine linjer. Forlægget er
+        <code>media/inspiration/</code>: en producents salgsside for ét produkt. Vi er et
+        uafhængigt katalog med 46 robotter, hvor <b>62 %</b> af rubrikkerne står tomme, 946 af 1518.
+        Det er den forskel, systemet skal bære.</p>
+      <div class="opsum">
+        <span>Målt <b>48</b> farvepar</span>
+        <span><b>0</b> under AA</span>
+        <span><b>14</b> komponentgrupper</span>
+        <span>Striben afprøvet med <b>0, 1, 2, 4 og 6</b> huller</span>
+        <span>Data: <b>46</b> robotter</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 1 · FARVE ================= -->
+  <section class="kapitel" id="k1">
+    <div class="rum">
+      <span class="nr">01</span>
+      <h2 class="t-h1">Farve</h2>
+      <p class="indl t-broed">Alle tal nedenfor er målt med
+        <code>prototype/kontrast-system.mjs</code> og skrevet ind maskinelt. Ingen af dem er
+        skønnet.</p>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Paletten</h3>
+          <p class="kilde">Hex-værdierne bor ét sted: <code>:root</code> i assets/system.css</p>
+        </div>
+        <div class="svaner">
+          <div class="svane"><div class="flade" style="background:#F2F3F5"></div>
+            <div class="navn"><code>#F2F3F5</code><span>--bund</span></div></div>
+          <div class="svane"><div class="flade" style="background:#FFFFFF;border-bottom:1px solid var(--linje)"></div>
+            <div class="navn"><code>#FFFFFF</code><span>--panel</span></div></div>
+          <div class="svane"><div class="flade" style="background:#F7F8FA"></div>
+            <div class="navn"><code>#F7F8FA</code><span>--panel-ro</span></div></div>
+          <div class="svane"><div class="flade" style="background:#EDEFF2"></div>
+            <div class="navn"><code>#EDEFF2</code><span>--tom</span></div></div>
+          <div class="svane"><div class="flade" style="background:#14161A"></div>
+            <div class="navn"><code>#14161A</code><span>--blaek / --fod</span></div></div>
+          <div class="svane"><div class="flade" style="background:#4A515C"></div>
+            <div class="navn"><code>#4A515C</code><span>--blaek2</span></div></div>
+          <div class="svane"><div class="flade" style="background:#5A626E"></div>
+            <div class="navn"><code>#5A626E</code><span>--blaek3</span></div></div>
+          <div class="svane"><div class="flade" style="background:#0D5C86"></div>
+            <div class="navn"><code>#0D5C86</code><span>--accent</span></div></div>
+          <div class="svane"><div class="flade" style="background:#E7F0F6"></div>
+            <div class="navn"><code>#E7F0F6</code><span>--accent-ro</span></div></div>
+          <div class="svane"><div class="flade" style="background:#7C8695"></div>
+            <div class="navn"><code>#7C8695</code><span>--hegn</span></div></div>
+          <div class="svane"><div class="flade" style="background:#E3E5E9"></div>
+            <div class="navn"><code>#E3E5E9</code><span>--linje</span></div></div>
+        </div>
+
+        <p class="bem"><b>Én rettelse af oplægget.</b> Det foreslåede dæmpede
+          <code>#6B7280</code> er målt til <b>4,35:1</b> mod sidens bund <code>#F2F3F5</code> og
+          falder dermed på AA. Mod hvidt panel klarer den sig (4,83:1), og det er derfor, fejlen
+          er let at overse: den samme farve består på kortet og falder på siden bagved.
+          <code>#5A626E</code> er valgt i stedet og måler 5,55:1 mod bunden og 6,16:1 mod panelet.</p>
+
+        <p class="bem"><b>Accenten</b> <code>#0D5C86</code> er kold og blålig, som L16 beder om,
+          men mørkere end forlæggets. Den skal bære fire ting på én gang: linktekst på to flader,
+          fokusring, hvid tekst på fyldt filter, og ikonet i en oplyst celle. Ved 7,26:1 mod hvid
+          klarer den alle fire. En lysere blå ville kun klare de to.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Måling</h3>
+          <p class="kilde">Kør: node prototype/kontrast-system.mjs</p>
+        </div>
+        <div class="tabelrum" style="box-shadow:none">
+          <table>
+            <caption class="kunskaerm">Målte kontrastforhold for paletten</caption>
+            <thead><tr><th scope="col">Hvad</th><th scope="col">Par</th><th scope="col">Målt</th><th scope="col">Krav</th><th scope="col">Dom</th></tr></thead>
+            <tbody>
+<tr class="m-ok"><th scope="row">Broedtekst paa sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#F2F3F5</code></td><td class="figur">16,31:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Sekundaer tekst paa sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#4A515C">Aa</span> <code>#4A515C</code> paa <code>#F2F3F5</code></td><td class="figur">7,21:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Etiket og smaatryk paa sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#5A626E">Aa</span> <code>#5A626E</code> paa <code>#F2F3F5</code></td><td class="figur">5,55:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Link paa sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#F2F3F5</code></td><td class="figur">6,54:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Broedtekst paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#FFFFFF</code></td><td class="figur">18,11:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Sekundaer tekst paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#4A515C">Aa</span> <code>#4A515C</code> paa <code>#FFFFFF</code></td><td class="figur">8,01:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Etiket og smaatryk paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#5A626E">Aa</span> <code>#5A626E</code> paa <code>#FFFFFF</code></td><td class="figur">6,16:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Link paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#FFFFFF</code></td><td class="figur">7,26:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Sekundaer tekst paa roligt indfelt</th><td><span class="proeve" style="background:#F7F8FA;color:#4A515C">Aa</span> <code>#4A515C</code> paa <code>#F7F8FA</code></td><td class="figur">7,54:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Maerkets tekst paa roligt indfelt</th><td><span class="proeve" style="background:#F7F8FA;color:#4A515C">Aa</span> <code>#4A515C</code> paa <code>#F7F8FA</code></td><td class="figur">7,54:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">"ikke oplyst" paa daempet felt</th><td><span class="proeve" style="background:#EDEFF2;color:#5A626E">Aa</span> <code>#5A626E</code> paa <code>#EDEFF2</code></td><td class="figur">5,35:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Grund i den tomme billedplade</th><td><span class="proeve" style="background:#EDEFF2;color:#4A515C">Aa</span> <code>#4A515C</code> paa <code>#EDEFF2</code></td><td class="figur">6,95:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Overskrift i den tomme billedplade</th><td><span class="proeve" style="background:#EDEFF2;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#EDEFF2</code></td><td class="figur">15,72:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Valgt filter: hvid paa accent</th><td><span class="proeve" style="background:#0D5C86;color:#FFFFFF">Aa</span> <code>#FFFFFF</code> paa <code>#0D5C86</code></td><td class="figur">7,26:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Accenttekst paa accentens rolige flade</th><td><span class="proeve" style="background:#E7F0F6;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#E7F0F6</code></td><td class="figur">6,29:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Videre-knap: hvid paa blaek</th><td><span class="proeve" style="background:#14161A;color:#FFFFFF">Aa</span> <code>#FFFFFF</code> paa <code>#14161A</code></td><td class="figur">18,11:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Billednotens broedtekst</th><td><span class="proeve" style="background:#14161A;color:#E6E9EE">Aa</span> <code>#E6E9EE</code> paa <code>#14161A</code></td><td class="figur">14,88:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Billednotens maerke</th><td><span class="proeve" style="background:#14161A;color:#E6E9EE">Aa</span> <code>#E6E9EE</code> paa <code>#14161A</code></td><td class="figur">14,88:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Sidefodens broedtekst</th><td><span class="proeve" style="background:#14161A;color:#B9C0CA">Aa</span> <code>#B9C0CA</code> paa <code>#14161A</code></td><td class="figur">9,88:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Sidefodens haarde linje</th><td><span class="proeve" style="background:#14161A;color:#FFFFFF">Aa</span> <code>#FFFFFF</code> paa <code>#14161A</code></td><td class="figur">18,11:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Stribens figur paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#FFFFFF</code></td><td class="figur">18,11:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Stribens enhed paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#4A515C">Aa</span> <code>#4A515C</code> paa <code>#FFFFFF</code></td><td class="figur">8,01:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Kortets navn paa hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#FFFFFF</code></td><td class="figur">18,11:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Hero paa sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#F2F3F5</code></td><td class="figur">16,31:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Stiplet hegn om et hul, mod panel</th><td><span class="proeve" style="background:#FFFFFF;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#FFFFFF</code></td><td class="figur">3,68:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Stiplet hegn om et hul, mod hullet</th><td><span class="proeve" style="background:#EDEFF2;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#EDEFF2</code></td><td class="figur">3,20:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Stiplet hegn, mod sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#F2F3F5</code></td><td class="figur">3,32:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Ikon i en OPLYST celle</th><td><span class="proeve" style="background:#FFFFFF;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#FFFFFF</code></td><td class="figur">7,26:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Ikon i et HUL</th><td><span class="proeve" style="background:#FFFFFF;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#FFFFFF</code></td><td class="figur">3,68:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Udfyldt firkant ved NEJ</th><td><span class="proeve" style="background:#FFFFFF;color:#14161A">Aa</span> <code>#14161A</code> paa <code>#FFFFFF</code></td><td class="figur">18,11:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Soegefeltets kant</th><td><span class="proeve" style="background:#FFFFFF;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#FFFFFF</code></td><td class="figur">3,68:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Soegefeltets kant, mod sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#F2F3F5</code></td><td class="figur">3,32:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Fokusring mod sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#F2F3F5</code></td><td class="figur">6,54:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Fokusring mod hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#FFFFFF</code></td><td class="figur">7,26:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Fokusring paa den moerke flade</th><td><span class="proeve" style="background:#14161A;color:#E6E9EE">Aa</span> <code>#E6E9EE</code> paa <code>#14161A</code></td><td class="figur">14,88:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Statusmaerke, udgaaet: hegn mod tom</th><td><span class="proeve" style="background:#EDEFF2;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#EDEFF2</code></td><td class="figur">3,20:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Kildemaerke, primaer, mod panel</th><td><span class="proeve" style="background:#FFFFFF;color:#0D5C86">Aa</span> <code>#0D5C86</code> paa <code>#FFFFFF</code></td><td class="figur">7,26:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Kildemaerke, sekundaer, mod panel</th><td><span class="proeve" style="background:#FFFFFF;color:#5A626E">Aa</span> <code>#5A626E</code> paa <code>#FFFFFF</code></td><td class="figur">6,16:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Kildemaerkets stiplede hegn</th><td><span class="proeve" style="background:#FFFFFF;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#FFFFFF</code></td><td class="figur">3,68:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Kildelistens tekst mod panel</th><td><span class="proeve" style="background:#FFFFFF;color:#5A626E">Aa</span> <code>#5A626E</code> paa <code>#FFFFFF</code></td><td class="figur">6,16:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Billedmaerke paa fotografiet</th><td><span class="proeve" style="background:#FFFFFF;color:#5A626E">Aa</span> <code>#5A626E</code> paa <code>#FFFFFF</code></td><td class="figur">6,16:1</td><td class="figur">4,50:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Billedmaerkets stiplede hegn</th><td><span class="proeve" style="background:#FFFFFF;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#FFFFFF</code></td><td class="figur">3,68:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-ok"><th scope="row">Tom plades skravering mod tom plade</th><td><span class="proeve" style="background:#EDEFF2;color:#7C8695">Aa</span> <code>#7C8695</code> paa <code>#EDEFF2</code></td><td class="figur">3,20:1</td><td class="figur">3,00:1</td><td>bestaaet</td></tr>
+<tr class="m-dekor"><th scope="row">Haarfin skillelinje mod hvid</th><td><span class="proeve" style="background:#FFFFFF;color:#E3E5E9">Aa</span> <code>#E3E5E9</code> paa <code>#FFFFFF</code></td><td class="figur">1,26:1</td><td class="figur">intet krav</td><td>—</td></tr>
+<tr class="m-dekor"><th scope="row">Haarfin skillelinje mod sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#E3E5E9">Aa</span> <code>#E3E5E9</code> paa <code>#F2F3F5</code></td><td class="figur">1,14:1</td><td class="figur">intet krav</td><td>—</td></tr>
+<tr class="m-dekor"><th scope="row">Kortets kant ved hover</th><td><span class="proeve" style="background:#FFFFFF;color:#CFD4DB">Aa</span> <code>#CFD4DB</code> paa <code>#FFFFFF</code></td><td class="figur">1,49:1</td><td class="figur">intet krav</td><td>—</td></tr>
+<tr class="m-dekor"><th scope="row">Hvidt panel mod sidens bund</th><td><span class="proeve" style="background:#F2F3F5;color:#FFFFFF">Aa</span> <code>#FFFFFF</code> paa <code>#F2F3F5</code></td><td class="figur">1,11:1</td><td class="figur">intet krav</td><td>—</td></tr>
+<tr class="m-dekor"><th scope="row">Daempet felt mod hvidt panel</th><td><span class="proeve" style="background:#FFFFFF;color:#EDEFF2">Aa</span> <code>#EDEFF2</code> paa <code>#FFFFFF</code></td><td class="figur">1,15:1</td><td class="figur">intet krav</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="bem">Kravene: 4,5:1 for normal tekst (WCAG 1.4.3), 3,0:1 for stor tekst og for
+          former, der bærer betydning (1.4.11). De hårfine skillelinjer og panelets kant mod bunden
+          er rent dekorative og har intet krav. De står med, så de ikke gemmes væk i en
+          gennemsnitsbetragtning.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2 · SKRIFT ================= -->
+  <section class="kapitel" id="k2">
+    <div class="rum">
+      <span class="nr">02</span>
+      <h2 class="t-h1">Skrift</h2>
+      <p class="indl t-broed">Manrope til tekst, JetBrains Mono til tal. Arvet fontstrategi fra
+        salgssiden: lokale filer, aldrig et kald til en fontserver.</p>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Trappen</h3>
+          <p class="kilde">assets/fonts/ er tom. Målt 21.08.2026: 0 woff2-filer</p>
+        </div>
+        <p class="t-hero">Firbenede robotter</p>
+        <p class="t-h1" style="margin-top:18px">46 modeller, 20 producenter</p>
+        <p class="t-h2" style="margin-top:14px">Over 60 kg</p>
+        <p class="t-h3" style="margin-top:14px">Jueying X30 Pro</p>
+        <p class="t-broed maal" style="margin-top:16px">Brødtekst, 17 px, linjeafstand 1,6.
+          Målet er sat til 68 tegn. Et tal uden kilde findes ikke — det er reglen, hele
+          kataloget hviler på, og den bestemmer også, hvordan en tom rubrik skal se ud.</p>
+        <p class="t-lille" style="margin-top:12px">Mindre tekst, 15 px. Til noter og forbehold.</p>
+        <p class="t-mikro" style="margin-top:10px">Mikrotekst, 13 px. Til kilde og hentedato.</p>
+        <p class="figur" style="font-size:29px;font-weight:700;margin-top:16px">33,8&nbsp;kg
+          &nbsp; 2,5–4&nbsp;t &nbsp; ≥&nbsp;4&nbsp;m/s</p>
+        <p class="t-mikro" style="margin-top:6px">JetBrains Mono med tabulære cifre, så tallene
+          flugter fra kort til kort.</p>
+
+        <p class="bem"><b>Hullet, der skal lukkes.</b> Hverken Manrope eller JetBrains Mono ligger
+          i <code>assets/fonts/</code>, og de er ikke installeret på maskinen (kontrolleret i
+          <code>C:\Windows\Fonts</code>). <code>font-face</code>-blokkene står klar med
+          <code>local()</code> først og <code>url()</code> til <code>assets/fonts/</code> bagefter,
+          så filerne virker, den dag de lægges ind. Indtil da tegner siden med systemets grotesk,
+          og bogstavformerne på denne side er <b>ikke</b> dem, der lanceres.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Versaletiketten</h3>
+          <p class="kilde">Afvigelse fra impeccable-skillens gulv, begrundet</p>
+        </div>
+        <div class="to">
+          <div>
+            <span class="etiket">Nøgletal ifølge producenten</span>
+            <p class="t-h2" style="margin-top:8px">Jueying X30</p>
+            <p class="t-lille" style="margin-top:8px">Sådan bruges den: etiketten navngiver den
+              datagruppe, der følger. Fjerner man den, ved læseren ikke, hvis tal det er.</p>
+          </div>
+          <div style="opacity:.5">
+            <span class="etiket">Bygget til fremtiden</span>
+            <p class="t-h2" style="margin-top:8px">Jueying X30</p>
+            <p class="t-lille" style="margin-top:8px">Sådan bruges den ikke: en indholdstom optakt,
+              der kun findes for at fylde. Overskriften bærer sig selv. Forlæggets
+              <code>BUILT FOR THE FUTURE</code> er af den slags og er ikke kopieret med.</p>
+          </div>
+        </div>
+        <p class="bem">Skillens kvalitetsgulv forbyder optakten over en overskrift uden undtagelse.
+          Opgaven beder udtrykkeligt om den lille versaletiket fra forlægget. Det er løst ved at
+          beholde formen og kassere brugen: etiketten må kun navngive en datagruppe, en enhed eller
+          en kolonne: noget, læseren ikke kan udlede af overskriften.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3 · IKONER ================= -->
+  <section class="kapitel" id="k3">
+    <div class="rum">
+      <span class="nr">03</span>
+      <h2 class="t-h1">Ikoner</h2>
+      <p class="indl t-broed">Otte tegnede symboler i ét 24-net, ét stregtykkelse på 1,6. Seks af dem
+        hører til nøgletalsstriben.</p>
+      <div class="proevekasse">
+        <ul class="ikongitter">
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><code>i-vaegt</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><code>i-nyttelast</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><code>i-driftstid</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-fart"/></svg><code>i-fart</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-ip"/></svg><code>i-ip</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-ce"/></svg><code>i-ce</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-hul"/></svg><code>i-hul</code></li>
+          <li><svg class="ikon" aria-hidden="true"><use href="#i-pil"/></svg><code>i-pil</code></li>
+        </ul>
+        <p class="bem"><b>CE-ikonet er et dokument, ikke et flueben.</b> Et flueben ville læses som
+          vores godkendelse. Vi oplyser kun, om producenten selv skriver noget om CE — vi har ikke
+          set en overensstemmelseserklæring.</p>
+        <p class="bem">Ikonerne er markeret <code>aria-hidden</code>. Etiketten ved siden af siger
+          det samme i ord, og et ikon, der gentages for en skærmlæser, er støj.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4 · DE FIRE TILSTANDE ================= -->
+  <section class="kapitel" id="k4">
+    <div class="rum">
+      <span class="nr">04</span>
+      <h2 class="t-h1">De fire tilstande</h2>
+      <p class="indl t-broed">Det sted, katalogsider lyver. »Ikke oplyst«, »nej«, »0« og »kun vist
+        på billede« er fire forskellige ting. De deler ikke skriftstørrelse, ikke bogstavform,
+        ikke flade og ikke mærke.</p>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Sammenstilling</h3>
+          <p class="kilde">Alle eksempler er rigtige poster fra data/robots/</p>
+        </div>
+        <dl class="raekker tilstandsliste">
+          <div class="raekke">
+            <dt>Tal</dt>
+            <dd><span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>
+              <span class="hvor">Stor, fed, mørk figur. Den eneste tilstand med vægt.
+                Boston Dynamics Spot, egenvægt.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Nul</dt>
+            <dd><span class="v v-tal v-nul"><b class="num">0</b><span class="enhed">°C</span></span>
+              <span class="hvor">Sat præcis som ethvert andet tal. Ingen dæmpning, ingen stiplet
+                kant. Nul er en måling, ikke et hul. MAB Honey Badger 4.0, nedre
+                driftstemperatur.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Nej</dt>
+            <dd><span class="v v-nej"><i class="mrk"></i>nej</span>
+              <span class="hvor">Et svar. Versaler, spatieret, udfyldt firkant, fuld blæk.
+                Unitree As2 oplyser udtrykkeligt ingen IP-klasse.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Ja</dt>
+            <dd><span class="v v-ja"><i class="mrk"></i>ja</span>
+              <span class="hvor">Samme vægt som »nej«, åben firkant med fyldt kerne.
+                ANYbotics ANYmal X, CE oplyst.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Ikke oplyst</dt>
+            <dd><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span>
+              <span class="hvor">Et hul. Minuskler, lille, dæmpet flade, stiplet hegn. Aldrig
+                usynligt, aldrig lige så stort som et tal. 42 af 46 robotter står sådan på CE.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Kun vist på billede</dt>
+            <dd><span class="v v-billede"><i class="mrk"></i><span class="ord">kun vist på billede</span></span>
+              <span class="hvor">Halvt fyldt firkant, kursiv, ingen dæmpet flade: oplysningen
+                findes, den står bare ikke skrevet. <b>Ingen post bruger den endnu.</b> Talt
+                21.08.2026: 0 forekomster i de 46 filer. Skemaet og generatoren kender den, fordi
+                den blev fundet på en producentside, der lå uden for scope.</span></dd>
+          </div>
+        </dl>
+        <p class="bem"><b>Målt i data:</b> af de fire tilstande har »ikke oplyst« 42 forekomster
+          alene på CE-feltet, »nej« har 11 på tværs af alle felter, »0« har 14 (alle på
+          driftstemperatur eller som nedre ende af et hastighedsinterval), og »kun vist på billede«
+          har 0. Systemet tegner alle fire alligevel, fordi en tilstand, der først tegnes den dag
+          den bruges, bliver tegnet af den, der har travlt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5 · OPERATORER ================= -->
+  <section class="kapitel" id="k5">
+    <div class="rum">
+      <span class="nr">05</span>
+      <h2 class="t-h1">Operatorer</h2>
+      <p class="indl t-broed"><code>&gt; 40 kg</code> er ikke <code>40 kg</code>. Operatoren er
+        producentens og må aldrig falde bort i ombrydningen. Målt i data bærer <b>107</b> af
+        1518 felter en operator, fordelt på seks forskellige tegn.</p>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Sådan sættes de</h3>
+          <p class="kilde">Operatoren står før tallet, i mindre grad og dæmpet farve,
+            men aldrig så småt, at den kan overses</p>
+        </div>
+        <div class="tabelrum" style="box-shadow:none">
+          <table>
+            <thead><tr><th scope="col">I data</th><th scope="col">Vist</th><th scope="col">Læses op som</th><th scope="col">Rigtig post</th></tr></thead>
+            <tbody>
+              <tr><td class="figur">~</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">ca.</span><b class="num">20</b><span class="enhed">kg</span></span></td>
+                <td>cirka</td><td>Unitree As2, egenvægt</td></tr>
+              <tr><td class="figur">&gt;</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">&gt;</span><b class="num">30</b><span class="enhed">kg</span></span></td>
+                <td>mere end</td><td>RIVR ONE, nyttelast</td></tr>
+              <tr><td class="figur">&gt;=</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">≥</span><b class="num">12</b><span class="enhed">km/t</span></span></td>
+                <td>mindst</td><td>Yobotics e-Dog, hastighed</td></tr>
+              <tr><td class="figur">&lt;=</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">≤</span><b class="num">14</b><span class="enhed">km/t</span></span></td>
+                <td>højst</td><td>RIVR ONE, hastighed</td></tr>
+              <tr><td class="figur">&lt;</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">&lt;</span><b class="num">70</b><span class="enhed">cm</span></span></td>
+                <td>mindre end</td><td>Unitree Go2-W, enkelt forhindring</td></tr>
+              <tr><td class="figur">±</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">±</span><b class="num">15</b><span class="enhed">kg</span></span></td>
+                <td>plus/minus</td><td>Yobotics e-Dog, egenvægt</td></tr>
+              <tr><td class="figur">interval</td>
+                <td><span class="v v-tal" style="font-size:22px"><b class="num">2,5–4</b><span class="enhed">t</span></span></td>
+                <td>to komma fem til fire</td><td>DEEP Jueying X30, driftstid</td></tr>
+              <tr><td class="figur">&lt;= på tekst</td>
+                <td><span class="v v-tal" style="font-size:22px"><span class="op">≤</span><b class="num">IP67</b></span></td>
+                <td>højst IP67</td><td>MAB Honey Badger 4.0, IP-klasse</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="bem"><b>Tildens oversættes, glyfferne gør ikke.</b> <code>~15 kg</code> er ikke
+          dansk. »ca. 15 kg« er, og det siger nøjagtig det samme. De øvrige operatorer er
+          matematiske tegn og står, som de står. Ordene i kolonnen »læses op som« skal ind i
+          <code>data/i18n/da.json</code>, så de kan oversættes med resten. De er tilføjet der.</p>
+        <p class="bem"><b>Operatoren kan sidde på en tekstværdi.</b> MAB skriver »up to IP67«, og
+          en IP-klasse med et loft over er ikke den samme oplysning som en IP-klasse. Havde
+          operatoren kun været tilladt på tal, ville den være forsvundet netop dér, hvor den
+          betyder mest.</p>
+        <p class="bem"><b>Lastbetingelsen hænger på værdien</b>, ikke ved siden af den:
+          <span class="v v-tal" style="font-size:20px"><span class="op">&gt;</span><b class="num">1,5</b><span class="enhed">t</span><abbr class="forbehold" title="Producenten oplyser driftstiden ved 10 kg last">ved 10 kg</abbr></span>
+          &nbsp;(Unitree As2). En driftstid uden lastbetingelse kan ikke stå i samme kolonne som
+          en med, og forbeholdet er derfor en del af tallet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 6 · KILDEMÆRKET ================= -->
+  <section class="kapitel" id="k6">
+    <div class="rum">
+      <span class="nr">06</span>
+      <h2 class="t-h1">Kildemærket</h2>
+      <p class="indl t-broed">Kilden hører til tallet, ikke til siden. Målt i data henter <b>16 af
+        46</b> poster deres <b>tal</b> fra mere end én URL. <b>23 af 46</b>, hvis man tæller
+        kilden til anvendelseskategorien med. En samlet sætning om, at alle tal er læst på
+        producentens produktside, ville derfor være usand for hver tredje post.</p>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Formen</h3>
+          <p class="kilde">Et hævet bogstav efter værdien. Bogstav og ikke tal, så det aldrig
+            kan læses som en del af figuren</p>
+        </div>
+        <dl class="raekker tilstandsliste">
+          <div class="raekke">
+            <dt>Primær kilde</dt>
+            <dd><span class="v v-tal" style="font-size:22px"><b class="num">33,8</b><span class="enhed">kg</span><a class="kildemaerke" href="#k6">A</a></span>
+              <span class="hvor">Producentens egen produktside. Bogstavet står i accentfarven og
+                peger på kildelisten.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Sekundær kilde</dt>
+            <dd><span class="v v-tal" style="font-size:22px"><b class="num">1100</b><span class="enhed">mm</span><a class="kildemaerke kildemaerke--sek" href="#k6">B</a></span>
+              <span class="hvor">Producentens eget domæne, men ikke produktsiden: datablad,
+                manual eller JS-bundle (L21). Stiplet ramme, samme sprog som hullet, fordi det er
+                en anden slags belæg.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Hul med kilde</dt>
+            <dd><span class="v v-ikke" style="font-size:13.5px"><i class="mrk"></i>ikke oplyst</span><a class="kildemaerke kildemaerke--sek" href="#k6" style="font-size:11px">B</a>
+              <span class="hvor">Vi har set efter dét sted og ikke fundet noget. Det er en
+                stærkere oplysning end et hul uden kilde, og forskellen er gratis at vise.</span></dd>
+          </div>
+          <div class="raekke">
+            <dt>Hul uden kilde</dt>
+            <dd><span class="v v-ikke" style="font-size:13.5px"><i class="mrk"></i>ikke oplyst</span>
+              <span class="hvor">Feltet har ingen kildeangivelse i datafilen. Der er intet
+                bogstav, fordi der ikke er noget at pege på.</span></dd>
+          </div>
+        </dl>
+        <p class="bem"><b>Prisen er målt.</b> Bogstavet fylder 6×8 px ved 22 px figur. På et kort
+          med tre tal er det 144 px² af kortets cirka 122&nbsp;000 px², altså <b>0,12 %</b> af fladen.
+          Berøringsmålet er hele værdien, ikke bogstavet, så kravet om 44 px holdes af rækken.</p>
+        <p class="bem"><b>Reglen for, hvornår bogstaverne vises.</b> På robotsiden står de altid.
+          På kortet står de kun, når posten har mere end én kilde. Kortets fodnote tæller
+          altid kilderne, så et kort uden bogstaver skyldes en optalt kilde, ikke tavshed.
+          Sætningen »Tal fra 1 kilde« er en påstand, der kan efterprøves; »læst på producentens
+          produktside« var det ikke.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Kildelisten</h3>
+          <p class="kilde">Boston Dynamics Spot · to kilder, samme domæne, samme dag</p>
+        </div>
+        <ul class="kildeliste" style="border-top:0;padding-top:0">
+          <li><span class="bogstav">A</span>
+            <span><span class="hvad">Producentens produktside.</span>
+              <span class="url">bostondynamics.com/products/spot/</span>
+              <span class="dato">· hentet 19.08.2026</span></span></li>
+          <li class="sek"><span class="bogstav">B</span>
+            <span><span class="type">Sekundær:</span> <span class="hvad">datablad i pdf på samme
+              domæne.</span>
+              <span class="url">bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf</span>
+              <span class="dato">· hentet 19.08.2026</span></span></li>
+        </ul>
+        <p class="bem">Spot har <b>seks</b> felter fra databladet og resten fra produktsiden.
+          Ét af de seks er CE-feltet, som står i nøgletalsstriben. Uden mærket ville læseren tro,
+          at hele striben kom fra det samme sted.</p>
+        <p class="bem"><b>Hentedatoen står i listen, ikke ved hvert tal.</b> Målt i hele sættet
+          findes der kun to hentedatoer, 19. og 21. august 2026, og en dato gentaget seks gange i
+          en stribe er seks gange den samme oplysning. Har felterne forskellige datoer, får de
+          hver sin linje i listen — listen er per kilde, og en kilde har én dato.</p>
+        <p class="bem"><b>Mangler i data lige nu:</b> <code>kildetype</code> er kun sat i 1 af 46
+          filer (RAIBO2). Spots datablad er ikke mærket <code>sekundaer</code> endnu. Komponenten
+          kan vise forskellen; dataene kan endnu ikke fortælle den. Det er en dataopgave, ikke en
+          designopgave, men den skal gøres, før L21 betyder noget på skærmen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 7 · NØGLETALSSTRIBEN ================= -->
+  <section class="kapitel" id="k7">
+    <div class="rum">
+      <span class="nr">07</span>
+      <h2 class="t-h1">Nøgletalsstriben</h2>
+      <p class="indl t-broed">Forlæggets vandrette bånd med ikon, tal og etiket, med vores seks
+        tal: egenvægt, nyttelast, driftstid, hastighed, IP-klasse og CE oplyst. Udfyldningsgraden
+        er målt over alle 46 poster: <b>37 · 36 · 36 · 36 · 23 · 4</b>. Pris er fravalgt, fordi
+        kun 2 af 46 oplyser den.</p>
+      <p class="indl t-lille" style="margin-top:12px"><b>Problemet, forlægget aldrig skulle løse:</b>
+        de har ét produkt, de selv kender, så hver rubrik er udfyldt. Målt hos os oplyser
+        <b>ingen</b> af de 46 robotter alle seks. 17 oplyser fem, 17 oplyser fire, 5 oplyser tre,
+        2 oplyser to, og 5 oplyser ingen. Over hele skemaet står 946 af 1518 felter tomme.</p>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Løsningen: cellen bliver stående</h3>
+          <p class="kilde">Unitree As2 · 5 af 6 · unitree.com/As2 · hentet 19.08.2026</p>
+        </div>
+        <div class="stribe-hylster">
+          <div class="stribe-hoved">
+            <span class="etiket">Nøgletal ifølge producenten</span>
+            <span class="stribe-taeller"><b>5 af 6</b> oplyst <span class="mangler">· 1 hul</span></span>
+          </div>
+          <ul class="stribe">
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+              <span class="etiket">Egenvægt</span>
+              <span class="v v-tal"><span class="op">ca.</span><b class="num">20</b><span class="enhed">kg</span><a class="kildemaerke" href="#k7">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+              <span class="etiket">Nyttelast, gående</span>
+              <span class="v v-tal"><span class="op">ca.</span><b class="num">10</b><span class="enhed">kg</span><a class="kildemaerke" href="#k7">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+              <span class="etiket">Driftstid</span>
+              <span class="v v-tal"><span class="op">&gt;</span><b class="num">1,5</b><span class="enhed">t</span><abbr class="forbehold" title="Producenten oplyser driftstiden ved 10 kg last">ved 10 kg</abbr><a class="kildemaerke" href="#k7">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-fart"/></svg><span class="krop">
+              <span class="etiket">Maks. hastighed</span>
+              <span class="v v-tal"><b class="num">0–3</b><span class="enhed">m/s</span><a class="kildemaerke" href="#k7">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-ip"/></svg><span class="krop">
+              <span class="etiket">IP-klasse</span>
+              <span class="v v-nej"><i class="mrk"></i>nej<a class="kildemaerke" href="#k7">A</a></span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-ce"/></svg><span class="krop">
+              <span class="etiket">CE oplyst</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+          </ul>
+          <ul class="kildeliste">
+            <li><span class="bogstav">A</span>
+              <span><span class="hvad">Producentens produktside.</span>
+                <span class="url">unitree.com/As2</span>
+                <span class="dato">· hentet 19.08.2026</span></span></li>
+          </ul>
+        </div>
+        <p class="bem">Cellen forsvinder ikke, og den rykker ikke. Den beholder sin plads, sit ikon
+          og sin etiket — kun figuren skiftes ud med et synligt hul. Læseren lærer positionerne og
+          kan se på tværs af robotter, <b>hvad</b> der mangler, ikke bare at noget mangler.
+          Havde cellerne pakket sig sammen, ville femte kolonne betyde noget forskelligt fra kort
+          til kort.</p>
+        <p class="bem">Tre ting adskiller et hul fra et tal: skriftgraden (13 px mod 29 px),
+          bogstavformen (minuskler mod tal), og fladen (dæmpet felt med stiplet hegn mod ingenting).
+          Ikonet skifter samtidig fra accent til hegn. Fire signaler, ikke ét, så tabet af ét af
+          dem ikke gør hullet til et tal. Bemærk også, at IP-cellen her ikke er et hul: producenten
+          har svaret »nej«, og det svar fylder lige så meget som et tal.</p>
+        <p class="bem"><b>Tælleren</b> til højre er ikke pynt. Den siger, hvor mange af seks
+          producenten selv oplyser, og den er den samme måling, sidens eneste rangering hviler på:
+          vi måler producenternes åbenhed, ikke robotternes kvalitet.</p>
+        <p class="bem">Her peger alle fem oplyste tal på den samme kilde, og listen har derfor én
+          linje. Hullet på CE har intet bogstav: feltet har ingen kildeangivelse i datafilen.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">To kilder i den samme stribe</h3>
+          <p class="kilde">Boston Dynamics Spot · 5 af 6 · to kilder, samme domæne</p>
+        </div>
+        <div class="stribe-hylster">
+          <div class="stribe-hoved">
+            <span class="etiket">Nøgletal ifølge producenten</span>
+            <span class="stribe-taeller"><b>5 af 6</b> oplyst <span class="mangler">· 1 hul</span></span>
+          </div>
+          <ul class="stribe">
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+              <span class="etiket">Egenvægt</span>
+              <span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span><a class="kildemaerke" href="#k6">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+              <span class="etiket">Nyttelast, gående</span>
+              <span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span><a class="kildemaerke" href="#k6">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+              <span class="etiket">Driftstid</span>
+              <span class="v v-tal"><b class="num">90</b><span class="enhed">min</span><a class="kildemaerke" href="#k6">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-fart"/></svg><span class="krop">
+              <span class="etiket">Maks. hastighed</span>
+              <span class="v v-tal"><b class="num">1,6</b><span class="enhed">m/s</span><a class="kildemaerke" href="#k6">A</a></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-ip"/></svg><span class="krop">
+              <span class="etiket">IP-klasse</span>
+              <span class="v v-tal"><b class="num">IP54</b><a class="kildemaerke" href="#k6">A</a></span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-ce"/></svg><span class="krop">
+              <span class="etiket">CE oplyst</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst<a class="kildemaerke kildemaerke--sek" href="#k6" style="font-size:11px">B</a></span></span></li>
+          </ul>
+          <ul class="kildeliste">
+            <li><span class="bogstav">A</span>
+              <span><span class="hvad">Producentens produktside.</span>
+                <span class="url">bostondynamics.com/products/spot/</span>
+                <span class="dato">· hentet 19.08.2026</span></span></li>
+            <li class="sek"><span class="bogstav">B</span>
+              <span><span class="type">Sekundær:</span> <span class="hvad">datablad i pdf på samme
+                domæne.</span>
+                <span class="url">bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf</span>
+                <span class="dato">· hentet 19.08.2026</span></span></li>
+          </ul>
+        </div>
+        <p class="bem">Det sjette felt er et hul, men et hul med et bogstav. Vi har læst
+          databladet og ikke fundet noget om CE. Det er ikke det samme som ikke at have set efter,
+          og striben viser forskellen uden at bruge mere plads end ét bogstav.</p>
+        <p class="bem"><b>Advarsel til bid 5:</b> <code>kildetype</code> står endnu ikke i Spots
+          datafil. Bogstavet B er sat med stiplet ramme her, fordi vi ved, at kilden er et
+          datablad. Generatoren kan ikke vide det, før feltet er mærket. Indtil da vil den
+          tegne B som en primær kilde.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">To huller: den bestilte prøve</h3>
+          <p class="kilde">DEEP Robotics Jueying X30 · 4 af 6 · deeprobotics.cn · hentet 19.08.2026</p>
+        </div>
+        <div class="stribe-hylster">
+          <div class="stribe-hoved">
+            <span class="etiket">Nøgletal ifølge producenten</span>
+            <span class="stribe-taeller"><b>4 af 6</b> oplyst <span class="mangler">· 2 huller</span></span>
+          </div>
+          <ul class="stribe">
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+              <span class="etiket">Egenvægt</span>
+              <span class="v v-tal"><b class="num">56</b><span class="enhed">kg</span></span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+              <span class="etiket">Nyttelast, gående</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+              <span class="etiket">Driftstid</span>
+              <span class="v v-tal"><b class="num">2,5–4</b><span class="enhed">t</span><abbr class="forbehold" title="Producenten oplyser ingen lastbetingelse for driftstiden">lastbetingelse ikke oplyst</abbr></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-fart"/></svg><span class="krop">
+              <span class="etiket">Maks. hastighed</span>
+              <span class="v v-tal"><span class="op">≥</span><b class="num">4</b><span class="enhed">m/s</span></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-ip"/></svg><span class="krop">
+              <span class="etiket">IP-klasse</span>
+              <span class="v v-tal"><b class="num">IP67</b></span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-ce"/></svg><span class="krop">
+              <span class="etiket">CE oplyst</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+          </ul>
+        </div>
+        <p class="bem">Med to huller ud af seks bærer striben stadig sin form. Hullerne er lette
+          nok til, at øjet finder de fire tal først, og tydelige nok til, at ingen kan læse dem
+          som en pause.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Fire huller: grænsen</h3>
+          <p class="kilde">ANYbotics ANYmal X · 2 af 6 · anybotics.com · hentet 19.08.2026</p>
+        </div>
+        <div class="stribe-hylster">
+          <div class="stribe-hoved">
+            <span class="etiket">Nøgletal ifølge producenten</span>
+            <span class="stribe-taeller"><b>2 af 6</b> oplyst <span class="mangler">· 4 huller</span></span>
+          </div>
+          <ul class="stribe">
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+              <span class="etiket">Egenvægt</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+              <span class="etiket">Nyttelast, gående</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+              <span class="etiket">Driftstid</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-fart"/></svg><span class="krop">
+              <span class="etiket">Maks. hastighed</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-ip"/></svg><span class="krop">
+              <span class="etiket">IP-klasse</span>
+              <span class="v v-tal"><b class="num">IP67</b></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-ce"/></svg><span class="krop">
+              <span class="etiket">CE oplyst</span>
+              <span class="v v-ja"><i class="mrk"></i>ja</span></span></li>
+          </ul>
+        </div>
+        <p class="bem">Den her er ubehagelig at se på, og det skal den være. ANYmal X er
+          annonceret, ikke i produktion, og producenten har endnu ikke lagt tal ud. To ting, vi
+          ved, står tydeligt: den er IP67, og producenten skriver selv, at den er CE-mærket.
+          Det sidste er 1 af kun 2 »ja« i hele kataloget. Striben lyver ikke om resten.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Ingen tal: striben slår sig sammen</h3>
+          <p class="kilde">Unitree Laikago · 0 af 6 · målt: 5 af 46 robotter står sådan</p>
+        </div>
+        <div class="stribe-hylster">
+          <div class="stribe-hoved">
+            <span class="etiket">Nøgletal ifølge producenten</span>
+            <span class="stribe-taeller"><b>0 af 6</b> oplyst</span>
+          </div>
+          <div class="stribe stribe--intet">
+            <svg class="ikon" aria-hidden="true"><use href="#i-hul"/></svg>
+            <div class="tekst">
+              <p class="hoved">Producenten oplyser ingen af de seks nøgletal.</p>
+              <p>Laikago er udgået, og produktsiden er taget ned. Rubrikkerne er ikke tomme ved
+                en fejl — de er tomme, fordi der ikke længere findes en producentside at læse dem
+                på. Modellen står i kataloget, fordi den har været i produktion.</p>
+            </div>
+          </div>
+        </div>
+        <p class="bem">Seks tomme celler ville være seks gange den samme oplysning. Ved nul
+          oplyste tal, og kun ved nul, erstattes striben af ét udsagn, der siger hvorfor.
+          Grænsen er sat ved nul og ikke ved ét, fordi målingen viser, at ingen robot ligger på
+          præcis ét: fordelingen er 5 · 0 · 2 · 5 · 17 · 17 for henholdsvis 0, 1, 2, 3, 4 og 5
+          oplyste tal.</p>
+      </div>
+
+      <div class="proevekasse proevekasse--bund">
+        <div class="proevehoved">
+          <h3 class="t-h3">Kompakt udgave</h3>
+          <p class="kilde">Tre celler. Til robotkortet og til sammenligningsrækker</p>
+        </div>
+        <div class="to">
+          <ul class="stribe stribe--kompakt panel">
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+              <span class="etiket">Vægt</span>
+              <span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+              <span class="etiket">Nyttelast</span>
+              <span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span></span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+              <span class="etiket">Driftstid</span>
+              <span class="v v-tal"><b class="num">90</b><span class="enhed">min</span></span></span></li>
+          </ul>
+          <ul class="stribe stribe--kompakt panel">
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+              <span class="etiket">Vægt</span>
+              <span class="v v-tal"><b class="num">56</b><span class="enhed">kg</span></span></span></li>
+            <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+              <span class="etiket">Nyttelast</span>
+              <span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+            <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+              <span class="etiket">Driftstid</span>
+              <span class="v v-tal"><b class="num">2,5–4</b><span class="enhed">t</span></span></span></li>
+          </ul>
+        </div>
+        <p class="bem">De tre felter på kortet er valgt på udfyldningsgrad: vægt 37 af 46,
+          nyttelast 36, driftstid 36. Vægten står først, fordi kataloget er ordnet efter vægtklasse
+          (L15). Hastighed er lige så godt udfyldt, men røg ud, fordi tre tal er det, kortet kan
+          bære uden at blive en tabel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 8 · ROBOTKORTET ================= -->
+  <section class="kapitel" id="k8">
+    <div class="rum">
+      <span class="nr">08</span>
+      <h2 class="t-h1">Robotkortet</h2>
+      <p class="indl t-broed">Billede, navn, producent, nøgletal, anvendelsesmærke. Ingen stjerner,
+        ingen »featured«, ingen favoritter, ingen pris. Kortet fører ét sted hen: til robottens
+        egen side.</p>
+
+      <div class="proevekasse proevekasse--bund">
+        <div class="proevehoved">
+          <h3 class="t-h3">De syv tilfælde</h3>
+          <p class="kilde">Alle billeder ligger i media/robotbilleder/ og er gitignoreret</p>
+        </div>
+        <div class="tre">
+
+          <!-- 1. Miljøfoto, cover -->
+          <article class="kort">
+            <div class="billedled">
+              <img src="../media/robotbilleder/boston-dynamics-spot/boston-dynamics-spot-1.jpg"
+                   style="object-position:left center"
+                   alt="Gul og sort firbenet robot står på grus i en udendørs transformerstation under høje gittermaster."
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">Boston Dynamics</span><span class="land">USA</span>
+                  <span class="status">I produktion</span></p>
+                <h3 class="kort-navn"><a href="#k8">Spot</a></h3>
+              </div>
+              <ul class="stribe stribe--kompakt panel--ro" style="border:1px solid var(--linje)">
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+                  <span class="etiket">Vægt</span><span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+                  <span class="etiket">Nyttelast</span><span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+                  <span class="etiket">Driftstid</span><span class="v v-tal"><b class="num">90</b><span class="enhed">min</span></span></span></li>
+              </ul>
+              <ul class="maerker">
+                <li class="maerke">Industri</li><li class="maerke">Inspektion</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Producentens eget billede. Ikke krediteret, ingen tilladelse.</p>
+              <p><i class="prik"></i>Kortets tre tal kommer fra 1 kilde · bostondynamics.com · hentet 19.08.2026</p>
+            </div>
+          </article>
+
+          <!-- 2. Plade på hvid, contain -->
+          <article class="kort">
+            <div class="billedled billedled--plade">
+              <img src="../media/robotbilleder/deep-robotics-x30/deep-robotics-x30-1.jpg"
+                   alt="Hvid og mørkegrå firbenet robot med kamerahoved og bagagebærer, set fra siden mod hvid bund."
+                   loading="lazy" decoding="async">
+              <span class="billedmaerke"><i class="mrk"></i>delt foto</span>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">DEEP Robotics</span><span class="land">Kina</span>
+                  <span class="status">I produktion</span></p>
+                <h3 class="kort-navn"><a href="#k8">Jueying X30</a></h3>
+              </div>
+              <ul class="stribe stribe--kompakt panel--ro" style="border:1px solid var(--linje)">
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+                  <span class="etiket">Vægt</span><span class="v v-tal"><b class="num">56</b><span class="enhed">kg</span></span></span></li>
+                <li class="hul"><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+                  <span class="etiket">Nyttelast</span><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+                  <span class="etiket">Driftstid</span><span class="v v-tal"><b class="num">2,5–4</b><span class="enhed">t</span></span></span></li>
+              </ul>
+              <ul class="maerker">
+                <li class="maerke">Industri</li><li class="maerke">Inspektion</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Producentens eget billede. Ikke krediteret, ingen tilladelse.</p>
+              <p><i class="prik"></i>Samme fil som Jueying X30 Pro. Producentens eget valg. Billedet er ikke nødvendigvis denne model.</p>
+              <p><i class="prik"></i>Kortets tre tal kommer fra 1 kilde · deeprobotics.cn · hentet 19.08.2026</p>
+            </div>
+          </article>
+
+          <!-- 3. L28: billedet fjernet. Producentens reklameoverskrift var brændt ind i det. -->
+          <article class="kort">
+            <div class="billedled">
+              <div class="intetfoto">
+                <span class="plade" aria-hidden="true"></span>
+                <p class="hoved">Ingen brugbar optagelse</p>
+                <p class="grund">Det eneste produktfoto har producentens engelske
+                  reklameoverskrift trykt ind i billedet.</p>
+              </div>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">Unitree Robotics</span><span class="land">Kina</span>
+                  <span class="status">I produktion</span></p>
+                <h3 class="kort-navn"><a href="#k8">Go2</a></h3>
+              </div>
+              <ul class="stribe stribe--kompakt panel--ro" style="border:1px solid var(--linje)">
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+                  <span class="etiket">Vægt</span><span class="v v-tal"><span class="op">ca.</span><b class="num">15</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+                  <span class="etiket">Nyttelast</span><span class="v v-tal"><span class="op">ca.</span><b class="num">7</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+                  <span class="etiket">Driftstid</span><span class="v v-tal"><span class="op">ca.</span><b class="num">1–2</b><span class="enhed">t</span></span></span></li>
+              </ul>
+              <ul class="maerker">
+                <li class="maerke">Forbruger og uddannelse</li><li class="maerke">Forskning og udvikling</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik prik--klip"></i>Billedet er fravalgt (L28). Vi beskærer ikke
+                producentens materiale for at gøre det brugbart.</p>
+              <p><i class="prik"></i>Tal fra 1 kilde · unitree.com/go2 · hentet 19.08.2026</p>
+            </div>
+          </article>
+
+          <!-- 4. L28: byte-identisk fil med en anden model. Tom plade. -->
+          <article class="kort">
+            <div class="billedled">
+              <div class="intetfoto">
+                <span class="plade" aria-hidden="true"></span>
+                <p class="hoved">Ingen brugbar optagelse</p>
+                <p class="grund">Filen, vi hentede, er byte for byte den samme som Vision 60's.
+                  Den viser en anden robot.</p>
+              </div>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">Ghost Robotics</span><span class="land">USA</span>
+                  <span class="status status--udgaaet">Udgået</span></p>
+                <h3 class="kort-navn"><a href="#k8">Spirit 40</a></h3>
+              </div>
+              <div class="stribe stribe--intet" style="border-radius:var(--rund-ind);padding:14px 15px 15px">
+                <svg class="ikon ikon--lille" aria-hidden="true"><use href="#i-hul"/></svg>
+                <div class="tekst">
+                  <p class="hoved" style="font-size:13.5px">0 af 6 nøgletal oplyst</p>
+                  <p style="font-size:13px">Modellen er udgået, og den gemte råkilde viste sig at
+                    være en 404-side.</p>
+                </div>
+              </div>
+              <ul class="maerker">
+                <li class="maerke maerke--tom">anvendelse ikke oplyst</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik prik--klip"></i>Billedet er fravalgt (L28). Byte-identisk med
+                Vision 60.</p>
+              <p><i class="prik"></i>Ingen kilde med tal.</p>
+            </div>
+          </article>
+
+          <!-- 4. Intet foto -->
+          <article class="kort">
+            <div class="billedled">
+              <div class="intetfoto">
+                <span class="plade" aria-hidden="true"></span>
+                <p class="hoved">Ingen brugbar optagelse</p>
+                <p class="grund">Producentens produktside er taget ned. Der findes ikke et
+                  billede, vi kan pege på en kilde for.</p>
+              </div>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">MAB Robotics</span><span class="land">Polen</span>
+                  <span class="status status--udgaaet">Udgået</span></p>
+                <h3 class="kort-navn"><a href="#k8">Honey Badger 4.0</a></h3>
+              </div>
+              <ul class="stribe stribe--kompakt panel--ro" style="border:1px solid var(--linje)">
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+                  <span class="etiket">Vægt</span><span class="v v-tal"><b class="num">12</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+                  <span class="etiket">Nyttelast</span><span class="v v-tal"><span class="op">≤</span><b class="num">4</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+                  <span class="etiket">Driftstid</span><span class="v v-tal"><span class="op">≤</span><b class="num">2</b><span class="enhed">t</span></span></span></li>
+              </ul>
+              <ul class="maerker">
+                <li class="maerke">Inspektion</li><li class="maerke">Forskning og udvikling</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Ingen brugbar optagelse hos producenten.</p>
+              <p><i class="prik"></i>Kortets tre tal kommer fra 1 kilde · mabrobotics.pl · hentet 19.08.2026</p>
+            </div>
+          </article>
+
+          <!-- 5. Alt tomt -->
+          <article class="kort">
+            <div class="billedled">
+              <div class="intetfoto">
+                <span class="plade" aria-hidden="true"></span>
+                <p class="hoved">Ingen brugbar optagelse</p>
+                <p class="grund">Modellen er udgået, og producentsiden findes ikke længere.</p>
+              </div>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">Unitree Robotics</span><span class="land">Kina</span>
+                  <span class="status status--udgaaet">Udgået</span></p>
+                <h3 class="kort-navn"><a href="#k8">Laikago</a></h3>
+              </div>
+              <div class="stribe stribe--intet" style="border-radius:var(--rund-ind);padding:14px 15px 15px">
+                <svg class="ikon ikon--lille" aria-hidden="true"><use href="#i-hul"/></svg>
+                <div class="tekst">
+                  <p class="hoved" style="font-size:13.5px">0 af 6 nøgletal oplyst</p>
+                  <p style="font-size:13px">Produktsiden er taget ned.</p>
+                </div>
+              </div>
+              <ul class="maerker">
+                <li class="maerke maerke--tom">anvendelse ikke oplyst</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Ingen brugbar optagelse hos producenten.</p>
+              <p><i class="prik"></i>Ingen kilde med tal.</p>
+            </div>
+          </article>
+
+          <!-- 6. Plade, kun anvendelse -->
+          <article class="kort">
+            <div class="billedled billedled--plade">
+              <img src="../media/robotbilleder/weilan-babyalpha/weilan-babyalpha-1.jpg"
+                   alt="Lille hvid og orange firbenet robot med hundehoved og rødt halsbånd, mod hvid bund."
+                   loading="lazy" decoding="async">
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">WEILAN</span><span class="land">Kina</span>
+                  <span class="status">I produktion</span></p>
+                <h3 class="kort-navn"><a href="#k8">BabyAlpha</a></h3>
+              </div>
+              <div class="stribe stribe--intet" style="border-radius:var(--rund-ind);padding:14px 15px 15px">
+                <svg class="ikon ikon--lille" aria-hidden="true"><use href="#i-hul"/></svg>
+                <div class="tekst">
+                  <p class="hoved" style="font-size:13.5px">0 af 6 nøgletal oplyst</p>
+                  <p style="font-size:13px">Producentsiden viser billeder og pris, men ingen
+                    specifikationstabel.</p>
+                </div>
+              </div>
+              <ul class="maerker">
+                <li class="maerke">Forbruger og uddannelse</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Producentens eget billede. Ikke krediteret, ingen tilladelse.</p>
+              <p><i class="prik"></i>Ingen kilde med tal.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="bem"><b>Navnebåndet er væk.</b> I forrige prototype lå navnet i et massivt bånd
+          oven på fotografiet. Målt på den prototypes egen CSS fyldte båndet 69 px mod en
+          billedhøjde på 250 px ved kortbredde 333 px, altså <b>27,7 % af fotografiet</b>, og skar
+          fødderne af på 27 af 41 kort. Med navnet under billedet er tallet 0,0 %. Det eneste, der
+          stadig ligger oven på et fotografi, er mærket for delte filer: cirka 3 % af
+          billedfladen, nede i venstre hjørne, på de kort hvor det er sandt. De to
+          billedklasser er beholdt uændret, fordi de løste et andet problem end det her.</p>
+
+        <p class="bem"><b>Miljøfoto mod plade.</b> <code>.billedled</code> beskærer med
+          <code>cover</code> og bruges til robotter, der er fotograferet i en situation.
+          <code>.billedled--plade</code> viser hele billedet med <code>contain</code> på kortets
+          egen hvide flade og bruges til maskiner, der er fotograferet fri på hvid — de overlever
+          ikke en beskæring, fordi enten poterne eller hovedet ryger. Fordelingen fra forrige
+          runde er genbrugt: 19 af 41 kort er plader. Det er også den klasse, de måltro
+          silhuetter skal bæres af, når de kommer.</p>
+      </div>
+
+      <div class="proevekasse">
+        <div class="proevehoved">
+          <h3 class="t-h3">Kortene, der deler et billede</h3>
+          <p class="kilde">Målt på SHA-256 i media/robotbilleder/MANIFEST.tsv</p>
+        </div>
+        <div class="to">
+          <article class="kort">
+            <div class="billedled billedled--plade">
+              <img src="../media/robotbilleder/yobotics-y10/yobotics-y10-3.png"
+                   alt="Hvid og rød firbenet robot set fra siden mod hvid bund."
+                   loading="lazy" decoding="async">
+              <span class="billedmaerke"><i class="mrk"></i>delt foto</span>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">Shandong Youbaote</span><span class="land">Kina</span>
+                  <span class="status">I produktion</span></p>
+                <h3 class="kort-navn"><a href="#k8">Y10</a></h3>
+              </div>
+              <ul class="stribe stribe--kompakt panel--ro" style="border:1px solid var(--linje)">
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+                  <span class="etiket">Vægt</span><span class="v v-tal"><span class="op">±</span><b class="num">5,6</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+                  <span class="etiket">Nyttelast</span><span class="v v-tal"><span class="op">&gt;</span><b class="num">3</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+                  <span class="etiket">Driftstid</span><span class="v v-tal"><b class="num">110</b><span class="enhed">min</span></span></span></li>
+              </ul>
+              <ul class="maerker">
+                <li class="maerke">Forskning og udvikling</li><li class="maerke">Forbruger og uddannelse</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Samme fil som Y20. Producentens eget valg. Billedet er ikke nødvendigvis denne model.</p>
+              <p><i class="prik"></i>Kortets tre tal kommer fra 1 kilde · yobotics.cn · hentet 19.08.2026</p>
+            </div>
+          </article>
+          <article class="kort">
+            <div class="billedled billedled--plade">
+              <img src="../media/robotbilleder/yobotics-y20/yobotics-y20-4.png"
+                   alt="Hvid og rød firbenet robot set fra siden mod hvid bund."
+                   loading="lazy" decoding="async">
+              <span class="billedmaerke"><i class="mrk"></i>delt foto</span>
+            </div>
+            <div class="kort-krop">
+              <div class="kort-hoved">
+                <p class="kort-ophav"><span class="prod">Shandong Youbaote</span><span class="land">Kina</span>
+                  <span class="status">I produktion</span></p>
+                <h3 class="kort-navn"><a href="#k8">Y20</a></h3>
+              </div>
+              <ul class="stribe stribe--kompakt panel--ro" style="border:1px solid var(--linje)">
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-vaegt"/></svg><span class="krop">
+                  <span class="etiket">Vægt</span><span class="v v-tal"><span class="op">ca.</span><b class="num">60</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-nyttelast"/></svg><span class="krop">
+                  <span class="etiket">Nyttelast</span><span class="v v-tal"><b class="num">80</b><span class="enhed">kg</span></span></span></li>
+                <li><svg class="ikon" aria-hidden="true"><use href="#i-driftstid"/></svg><span class="krop">
+                  <span class="etiket">Driftstid</span><span class="v v-tal"><span class="op">&gt;</span><b class="num">2,5</b><span class="enhed">t</span></span></span></li>
+              </ul>
+              <ul class="maerker">
+                <li class="maerke">Forskning og udvikling</li><li class="maerke">Forbruger og uddannelse</li>
+              </ul>
+            </div>
+            <div class="kort-fod">
+              <p><i class="prik"></i>Samme fil som Y10. Producentens eget valg. Billedet er ikke nødvendigvis denne model.</p>
+              <p><i class="prik"></i>Kortets tre tal kommer fra 1 kilde · yobotics.cn · hentet 19.08.2026</p>
+            </div>
+          </article>
+        </div>
+        <p class="bem"><b>Y10 vejer 5,6 kg. Y20 vejer 60 kg.</b> Producenten bruger den samme fil
+          til begge, og fotografiet kan ikke vise begge maskiner. Uden et mærke ser det ud, som om
+          vi har sat det forkerte billede på, og læseren har ingen mulighed for at se, at valget
+          er producentens.</p>
+        <p class="bem">De berørte kort får et mærke nede i venstre hjørne af fotografiet, ikke i
+          fodnoten alene: det er på billedet, misforståelsen opstår. Mærket fylder omkring 3 % af
+          billedfladen og vises kun der, hvor det er sandt.</p>
+        <p class="bem"><b>Mærket har en grænse.</b> Det siger, at filen deles — det siger ikke,
+          hvilken af modellerne fotografiet faktisk viser. Det ved vi ikke, og vi må ikke gætte.
+          Fodnoten navngiver søskendemodellen, så læseren selv kan sammenligne.</p>
+        <p class="bem"><b>Tallet afhænger af, hvordan billedet vælges, og valgreglen findes ikke
+          skrevet ned.</b> Vælger man mekanisk den fil, manifestet har givet rang 1, deler
+          <b>15 af 43</b> robotter <b>7</b> filer, og der er kun 35 distinkte billeder til 43
+          kort. Vælger man som forrige prototype gjorde det i hånden, deler <b>7 af 41</b> kort
+          <b>3</b> filer, og der er 37 distinkte billeder. Forskellen er ikke akademisk: rang 1
+          for Jueying Lite3 og Jueying X20 er den samme fil, og den viser <b>et ledmotor-modul,
+          ikke en robot</b>. Valget ligger i dag kun i forrige prototypes HTML. Det skal ud i en
+          datafil, før generatoren kan bygge kataloget. Ellers arver bid 4 en håndlavet liste,
+          ingen kan efterprøve.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 9 · BETJENING ================= -->
+  <section class="kapitel" id="k9">
+    <div class="rum">
+      <span class="nr">09</span>
+      <h2 class="t-h1">Betjening</h2>
+      <p class="indl t-broed">L17: søgefelt og anvendelsesfiltre skal stå i første viewport.
+        Uden JavaScript virker søgefeltet som et almindeligt formularfelt, og filtrene er
+        afkrydsningsfelter, der kan sendes.</p>
+      <div class="proevekasse">
+        <form class="styring" action="#k9" method="get">
+          <div class="sog">
+            <label class="etiket" for="s">Søg efter model, producent eller krav</label>
+            <input id="s" name="s" type="search" placeholder="fx Spot, DEEP Robotics eller IP67">
+          </div>
+          <div class="filtre" role="group" aria-label="Anvendelse ifølge producenten">
+            <input type="checkbox" id="f1" name="anv" value="industri" checked>
+            <label for="f1">Industri <span class="antal">14</span></label>
+            <input type="checkbox" id="f2" name="anv" value="inspektion">
+            <label for="f2">Inspektion <span class="antal">17</span></label>
+            <input type="checkbox" id="f3" name="anv" value="logistik">
+            <label for="f3">Logistik <span class="antal">6</span></label>
+            <input type="checkbox" id="f4" name="anv" value="ikke_oplyst">
+            <label for="f4">Ikke oplyst <span class="antal">5</span></label>
+          </div>
+        </form>
+        <p class="bem">Alle betjeningsflader er mindst 44 px høje. Filtrene er rigtige
+          afkrydsningsfelter med skjult boks og synlig etiket, så tabulator og mellemrumstast
+          virker uden en linje JavaScript. Antallene er pladsholdere på denne side; generatoren
+          skal skrive dem fra data.</p>
+        <p class="bem"><b>»Ikke oplyst« er et filter.</b> Det er ikke en pyntelig detalje: en
+          teknisk indkøber, der leder efter huller i markedet, skal kunne bede om dem.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
+          <a class="videre" href="#k9">Se alle 46 robotter <svg class="ikon" aria-hidden="true"><use href="#i-pil"/></svg></a>
+          <a class="videre videre--stille" href="#k9">Om metoden</a>
+        </div>
+        <p class="bem">De to knapformer fører begge til en side på sitet. Der findes ingen
+          købsknap, ingen demo-knap og ingen prisforespørgsel i systemet. Formen er ikke tegnet,
+          så den kan ikke tages i brug ved et uheld.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 10 · RÆKKER OG TABEL ================= -->
+  <section class="kapitel" id="k10">
+    <div class="rum">
+      <span class="nr">10</span>
+      <h2 class="t-h1">Rækker og tabel</h2>
+      <p class="indl t-broed">Bærer robotsidens feltliste og producentsidens EU-kolonne, så bid 5
+        og 7 ikke skal opfinde dem.</p>
+      <div class="to">
+        <div class="proevekasse">
+          <div class="proevehoved"><h3 class="t-h3">Feltrække</h3></div>
+          <dl class="raekker">
+            <div class="raekke"><dt>Egenvægt</dt><dd><span class="v v-tal"><span class="op">ca.</span><b class="num">20</b><span class="enhed">kg</span></span></dd></div>
+            <div class="raekke"><dt>Nyttelast, gående</dt><dd><span class="v v-tal"><span class="op">ca.</span><b class="num">10</b><span class="enhed">kg</span></span></dd></div>
+            <div class="raekke"><dt>Nyttelast, stående</dt><dd><span class="v v-tal"><span class="op">ca.</span><b class="num">45</b><span class="enhed">kg</span></span></dd></div>
+            <div class="raekke"><dt>IP-klasse</dt><dd><span class="v v-nej"><i class="mrk"></i>nej</span></dd></div>
+            <div class="raekke"><dt>Dockingstation</dt><dd><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></dd></div>
+          </dl>
+        </div>
+        <div class="proevekasse">
+          <div class="proevehoved"><h3 class="t-h3">EU-kolonnen</h3></div>
+          <div class="tabelrum" style="box-shadow:none">
+            <table style="min-width:0">
+              <thead><tr><th scope="col">Model</th><th scope="col">CE oplyst</th><th scope="col">Service i EU</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">ANYmal X</th><td><span class="v v-ja"><i class="mrk"></i>ja</span></td><td><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></td></tr>
+                <tr><th scope="row">Jueying X30</th><td><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></td><td><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></td></tr>
+                <tr><th scope="row">Go2</th><td><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></td><td><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="bem" style="font-size:13.5px">Sådan ser EU-kolonnen ud i virkeligheden: 42 af
+            46 robotter står »ikke oplyst« på CE. Det er kolonnens resultat, ikke dens fejl.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 11 · HVAD DER KNÆKKER ================= -->
+  <section class="kapitel" id="k11">
+    <div class="rum">
+      <span class="nr">11</span>
+      <h2 class="t-h1">Hvad der knækker, når bid 4-7 bygges ovenpå</h2>
+      <p class="indl t-broed">Skrevet ned nu, mens det stadig er billigt at rette.</p>
+      <div class="proevekasse">
+        <ul class="knaek">
+          <li><span class="trin">1</span><div>
+            <p class="hvad">Ikonsættet ligger inde i siden, ikke i en fil</p>
+            <p><code>&lt;use href&gt;</code> til en ekstern SVG-fil er spærret på
+              <code>file://</code> i flere browsere, så sprite-blokken står i HTML. Generatoren
+              skal skrive den ind i hver side. Glemmes det, forsvinder alle ikoner tavst.
+              Der kommer ingen fejl, kun tomme felter.</p></div></li>
+          <li><span class="trin">2</span><div>
+            <p class="hvad">Skrifterne findes ikke endnu</p>
+            <p><code>assets/fonts/</code> er tom. Det, der ses her, er systemets grotesk.
+              Bogstavbredderne ændrer sig, når Manrope kommer ind, og nøgletalsstribens seks
+              celler er det sted, det først vil gøre ondt: cellen er smal, og
+              »lastbetingelse ikke oplyst« er en lang streng.</p></div></li>
+          <li><span class="trin">3</span><div>
+            <p class="hvad">CE-cellen er tom på 42 af 46</p>
+            <p>Det sjette tal i striben er et hul næsten hver gang. Målingen bag valget lød
+              3 af 43; over alle 46 poster er den 4 af 46. Striben tåler det, men det er værd at
+              spørge CEO'en, om pladsen gør mere gavn hos et syvende felt. Hastighed er
+              udfyldt 36 af 46 og står i dag ikke på kortet.</p></div></li>
+          <li><span class="trin">4</span><div>
+            <p class="hvad">Feltnavnene i data/i18n/da.json er translittereret</p>
+            <p>Filen skriver <code>"felt_egenvaegt": "Egenvaegt"</code> og
+              <code>"felt_hoejde": "Hoejde"</code>. Bygger man dansk direkte fra den, står der
+              »Egenvaegt« til danske læsere. Denne side skriver æøå. Enten skal filen rettes,
+              eller også er translitterationen en beslutning, der skal skrives ned et sted.
+              Den står ikke i STATUS.md.</p></div></li>
+          <li><span class="trin">5</span><div>
+            <p class="hvad">Kortets tre nøgletal og stribens seks er to lister</p>
+            <p>Kortet viser vægt, nyttelast og driftstid; striben viser seks. Ændrer bid 4 den
+              ene uden den anden, kommer læseren til at se ét sæt tal på katalogsiden og et
+              andet på robotsiden. De skal komme fra den samme liste i generatoren.</p></div></li>
+          <li><span class="trin">6</span><div>
+            <p class="hvad">L27 er talt over 43, ikke over 46</p>
+            <p>L27 sætter grænserne ved 20 og 40 kg og opgiver fordelingen 11 · 12 · 12 med 8
+              uden oplyst vægt. Efterregnet giver de tal <b>43</b> robotter: de 43, der har en
+              billedmappe. Over alle <b>46</b> datafiler er fordelingen <b>12 · 12 · 13</b> med
+              <b>9</b> uden vægt: RAIBO2 lander over 40 kg, CyberDog 1 under 20, og Laikago i
+              bunken uden vægt. Da en robot uden billede skal have et kort, er 46 nævneren.
+              Grænserne holder ved begge tal, men fordelingen i overskriften skal rettes.</p></div></li>
+          <li><span class="trin">7</span><div>
+            <p class="hvad">Beskæringsklassen blev bygget og derefter forkastet</p>
+            <p>Der lå en <code>.billedled--klip</code>, som klippede 38 % af toppen af
+              Unitree Go2-fotografiet. Målt på filen: reklameoverskriften slutter ved 35 % af
+              højden, robottens hoved begynder ved 40 %. <b>L28 fravalgte billedet i stedet</b>,
+              og klassen er slettet. Det står her, så den ikke bliver bygget igen: vi beskærer
+              ikke producentens materiale for at gøre det brugbart, og »ingen af billederne er
+              redigeret« i spærringsbanneret bliver derved ved med at være sandt.</p></div></li>
+          <li><span class="trin">8</span><div>
+            <p class="hvad">Striben er bygget til seks celler</p>
+            <p>Grid'et og de tre ombrydninger (6 · 3 · 2) forudsætter seks. Tilføjes et syvende
+              tal, skal alle tre ombrydninger regnes om — 7 deler sig ikke pænt. Fem ville
+              virke; syv ville ikke.</p></div></li>
+          <li><span class="trin">9</span><div>
+            <p class="hvad">Billedvalget står ingen steder i data</p>
+            <p>Hvilket af en robots op til fem billeder der vises, ligger i dag kun i forrige prototypes HTML. Vælger generatoren mekanisk manifestets rang 1, får Jueying Lite3 og Jueying X20 et ledmotor-modul på kortet i stedet for en robot. Valget skal ud i en datafil med en begrundelse pr. billede, før bid 4 kan bygge kataloget.</p></div></li>
+          <li><span class="trin">10</span><div>
+            <p class="hvad">L21 kan ikke ses endnu</p>
+            <p><code>kildetype</code> er sat i 1 af 46 filer. Indtil felterne er mærket, tegner generatoren et datablad som en produktside, og forskellen mellem primær og sekundær kilde findes kun i systemet, ikke på skærmen.</p></div></li>
+          <li><span class="trin">11</span><div>
+            <p class="hvad">Anvendelsesmærket bærer flere værdier, filteret skal også</p>
+            <p>Kortet viser alle producentens kategorier, som L27 kræver. Men filteret skal beslutte, om to valgte kategorier betyder »begge« eller »en af dem«, og <code>ikke_oplyst</code> skal kunne vælges som sin egen værdi. Målt: 9 robotter har ingen oplyst anvendelse, og de må ikke lægges i en bunke, ingen har valgt.</p></div></li>
+          <li><span class="trin">12</span><div>
+            <p class="hvad">Kataloget skal have 46 kort, ikke 43</p>
+            <p>Forrige prototype viste 43. RAIBO2, Laikago og CyberDog 1 faldt tavst ud, fordi de ikke har en billedmappe. Komponenten kan nu vise et kort uden billede, og <code>prototype/tjek-system.mjs</code> fejler, hvis antallet af kort ikke svarer til antallet af datafiler.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="fod">
+  <div class="rum">
+    <p class="haard">Vi er ikke forhandler af nogen robot på denne side, og vi modtager ikke
+      betaling fra producenterne.</p>
+    <p>Alle tal på denne side er producenternes egne, med kilde og hentedato i
+      <code>data/robots/</code>. Der er ingen redaktionel karakter, ingen rangering efter
+      kvalitet og ingen anbefaling. Den eneste rangering, kataloget kender, er hvor mange af
+      skemaets felter producenten selv oplyser.</p>
+    <p>Prototype. Ikke publiceret. Udgives af KeyResearch, Aarhus.</p>
+  </div>
+</footer>
+
+</body>
+</html>
