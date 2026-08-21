@@ -1,0 +1,136 @@
+/* =============================================================================
+   generator.css — det, generatoren har brug for, og system.css ikke daekker.
+
+   Reglen for denne fil: den maa kun indeholde komponenter, designsystemet ikke
+   allerede har, og den maa kun bruge system.css' egne poletter. Ingen nye
+   farver, ingen nye skriftgrader ud af den blaa luft. Alt, der kan skrives med
+   .panel, .etiket, .v, .maerke, .raekker eller .sektion, staar IKKE her.
+
+   Skrevet 21. aug 2026 sammen med tools/skabelon/.
+   ========================================================================== */
+
+/* --- 1. Hero (L17) --------------------------------------------------------
+   Typografisk. Ingen robot fremhaevet, intet billede, ingen baggrundsfigur.
+   Soegefelt og filtre skal kunne staa i foerste viewport paa en telefon,
+   derfor er luften over og under maalt i clamp og ikke i faste px. */
+.hero{background:var(--panel);border-bottom:1px solid var(--linje)}
+.hero .rum{padding-block:clamp(var(--r6),6vw,var(--r8)) clamp(var(--r5),4vw,var(--r7));
+  display:flex;flex-direction:column;gap:var(--r4)}
+.hero-lede{margin-top:2px}
+.hero .styring{margin-top:var(--r2);align-items:flex-end}
+.hero-videre{display:flex}
+
+/* Filterlinks i hero'en. Samme form som .filtre label, men de er links:
+   de fører til katalogsiden med filteret sat (:target), saa de virker uden
+   en linje JavaScript. */
+.chips{display:flex;flex-direction:column;gap:var(--r2);margin-top:var(--r3)}
+.chips-raekke{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;
+  font-size:15px;font-weight:600;color:var(--blaek2);text-decoration:none;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
+.chip:hover{border-color:var(--hegn);color:var(--blaek);background:var(--accent-ro)}
+.chip .antal{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3)}
+
+/* --- 2. Filterlagene ------------------------------------------------------
+   Ét lag pr. facet. display:contents, saa laget ikke selv bliver en
+   gittercelle - et skjult kort maa ikke efterlade et tomt felt i gitteret.
+   Selve reglerne genereres pr. side af tools/skabelon/katalog.mjs. */
+.lag{display:contents}
+.lag[hidden]{display:none}
+
+.facetter{display:flex;flex-wrap:wrap;gap:var(--r4) var(--r6);margin-top:var(--r5)}
+.facet{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:9px}
+.facet legend{padding:0;margin-bottom:2px}
+.facet-hjaelp{margin-top:var(--r3);max-width:86ch}
+.facet-ryd{margin-top:var(--r3)}
+
+/* :target giver de samme to tilstande som :checked, saa et filterlink fra
+   forsiden ogsaa SES som valgt. */
+.filtre input:target + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.filtre input:target + label .antal{color:var(--accent-ro)}
+
+/* Soegefeltet er skjult, indtil JavaScript taender det: et felt, der intet
+   goer, er en betjeningsflade uden funktion. Filtrene er der uanset.
+   .sog saetter display:flex i system.css og slaar derfor [hidden]. */
+.sog[hidden],.styr[hidden],.tomt[hidden]{display:none}
+.tomt{margin-top:var(--r5);padding:18px 20px;background:var(--tom);
+  border:1px dashed var(--hegn);border-radius:var(--rund);
+  font-size:15px;color:var(--blaek2)}
+
+/* --- 3. Katalogets og sektionernes tekstled ------------------------------- */
+.katalog-hoved{padding-block:var(--r7) 0;display:flex;flex-direction:column;gap:var(--r3)}
+.sektion-note{margin-top:var(--r3);max-width:86ch}
+.sektion .gitter{margin-top:var(--r5)}
+.styr .gitter{margin-top:var(--r6)}
+.tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
+.tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
+
+/* --- 4. Vaerdier, system.css ikke har en form til ------------------------- */
+/* Tekstvaerdier (compute, monteringsinterface) saettes i broedskrift. Mono og
+   fed hoerer til TAL; en saetning sat som et tal laeses som et tal. */
+.v-tekst{font-family:var(--sans);font-weight:500;color:var(--blaek);
+  display:inline;line-height:1.5}
+
+/* Advarslen staar VED SIDEN AF vaerdien, aldrig i en fodnote (regel 9). */
+.advarsel{display:flex;flex-direction:column;gap:3px;margin-top:8px;
+  padding:9px 12px 10px;background:var(--panel-ro);
+  border-left:2px solid var(--hegn);border-radius:0 var(--rund-lille) var(--rund-lille) 0;
+  font-size:13.5px;line-height:1.5;color:var(--blaek2);max-width:80ch}
+.feltnote{margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--blaek3);max-width:80ch}
+.varianter{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.varianter dt{width:100%}
+.varianter dd{font-family:var(--mono);font-size:12.5px;color:var(--blaek2);margin:0}
+.varianter dd b{color:var(--blaek);font-weight:700}
+
+/* --- 5. EU-markeringen ----------------------------------------------------
+   CE ud af noegletalsstriben (maalt: tom paa 42 af 46 kort - en celle, der
+   altid er tom, laerer laeseren at springe striben over). Her er tavsheden
+   et udsagn i stedet for et hul. */
+.eu{display:flex;flex-wrap:wrap;align-items:center;gap:4px 9px;
+  padding:9px 12px 10px;border-radius:var(--rund-ind);
+  background:var(--panel-ro);border:1px solid var(--linje)}
+.eu .ikon{color:var(--blaek3)}
+.eu .etiket{display:inline-block;flex:none}
+.eu-svar{font-size:13.5px;line-height:1.4;color:var(--blaek2);flex:1 1 auto;min-width:0}
+.eu--ja{background:var(--accent-ro);border-color:var(--accent-ro)}
+.eu--ja .ikon{color:var(--accent)}
+.eu--ja .eu-svar{color:var(--blaek);font-weight:600}
+.eu--nej .eu-svar{color:var(--blaek);font-weight:600}
+.eu--ikke{background:var(--tom);border-style:dashed;border-color:var(--hegn)}
+
+/* --- 6. Kortet: rettelser til den nye stribe ------------------------------
+   Striben paa kortet har fem celler (vaegt, nyttelast, driftstid, fart, IP)
+   og bryder derfor til 3 + 2. system.css slaar toplinjen fra i den kompakte
+   udgave, fordi den var tre celler paa én raekke. Anden raekke skal have den. */
+.stribe--kompakt > li:nth-child(n+4){border-top:1px solid var(--linje)}
+@media (max-width:420px){
+  .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stribe--kompakt > li:nth-child(n+3){border-top:1px solid var(--linje)}
+  .stribe--kompakt > li:nth-child(3n+1){border-left:1px solid var(--linje)}
+  .stribe--kompakt > li:nth-child(2n+1){border-left:0}
+}
+
+/* Navnets ::after daekker hele kortet, saa kortet er ét klikmaal. Kildemaerket
+   er et andet maal og skal ligge OVEN PAA det - ellers er bogstavet et link,
+   ingen kan ramme. */
+.kort .kildemaerke{position:relative;z-index:2}
+.kort .stribe{margin-top:2px}
+.kort .eu{margin-top:2px}
+.kort-krop{padding-bottom:var(--r3)}
+
+/* --- 7. Specifikationstaetheden ------------------------------------------- */
+.taethed{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
+  padding:14px 16px;background:var(--panel-ro);border:1px solid var(--linje);
+  border-radius:var(--rund-ind)}
+.taethed .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:19px;font-weight:700;color:var(--blaek)}
+.taethed .brok{font-family:var(--mono);font-size:12px;color:var(--blaek3)}
+
+/* --- 8. Robotsidens midlertidige skabelon --------------------------------- */
+.post{display:flex;flex-direction:column;gap:var(--r5);padding-block:var(--r7)}
+.post-meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.post-meta .land{font-family:var(--mono);font-size:12.5px;color:var(--blaek3)}
+.gruppe{display:flex;flex-direction:column;gap:var(--r3)}
+.midlertidig-note{padding:12px 14px;background:var(--tom);
+  border:1px dashed var(--hegn);border-radius:var(--rund-ind);
+  font-size:13.5px;color:var(--blaek2)}

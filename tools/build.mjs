@@ -3,17 +3,26 @@
  * tools/build.mjs — data/robots/*.yaml  ->  dist/
  *
  * Nul afhaengigheder. Statisk HTML pr. sprog. Siden virker uden JavaScript:
- * hele kataloget renderes i en tabel, og JS tilfoejer kun filtrering.
+ * hvert kort er renderet i HTML, og filtrene er afkrydsningsfelter med CSS.
+ * JavaScript tilfoejer kun fritekstsoegning.
  *
  *   node tools/build.mjs
  *   node tools/build.mjs --data=<mappe> --ud=<mappe>
- *   node tools/build.mjs --naevner=29,31        D7 er ikke afgjort - begge vises
- *   node tools/build.mjs --type-uden-model=tael D4 er ikke afgjort
+ *   node tools/build.mjs --naevner=29,31        D7 er afgjort til 31 (L19), men
+ *                                              flaget staar, indtil tallene er talt om
+ *   node tools/build.mjs --type-uden-model=tael D4 (L20)
  *   node tools/build.mjs --spring-validering-over   (kun til fejlsoegning)
  *
  * Bygget koerer validate.mjs foerst og stopper, hvis den fejler. Det er den
  * mekaniske haandhaevelse af "opfind aldrig tal": et talfelt uden enhed eller
  * kilde kan ikke naa dist/.
+ *
+ * UDSEENDET kommer fra assets/system.css og skabelonerne i tools/skabelon/,
+ * ikke fra haandskrevet HTML. Kontrakten for en skabelon staar i
+ * tools/skabelon/side.mjs.
+ *
+ * BILLEDER: dist/billeder/ fyldes KUN fra assets/. media/ indgaar aldrig -
+ * hverken som sti i HTML eller som kopi. Se side.mjs, afsnit 8.
  */
 
 import fs from 'node:fs';
@@ -21,21 +30,20 @@ import path from 'node:path';
 import process from 'node:process';
 import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
-  FELTER, FELTNAVNE, GRUPPER, KATALOG_FELTER, FILTER_FELTER, SPROG, STATUS_VAERDIER,
-  tilstandAf, normaliserRobot, sorterAnvendelse,
+  FELTER, FELTNAVNE, GRUPPER, FILTER_FELTER, SPROG, tilstandAf, normaliserRobot,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
+import {
+  lavSprog, lavHjaelp, lavKilder, skal, esc, vaegtklasse, VAEGTKLASSER,
+  brugteReserver, manglendeNoegler,
+} from './skabelon/side.mjs';
+import * as forsideSkabelon from './skabelon/forside.mjs';
+import * as katalogSkabelon from './skabelon/katalog.mjs';
 
 const rod = process.cwd();
 const iDag = new Date().toISOString().slice(0, 10);
 
 /* ------------------------------------------------------------------ hjaelp */
-
-const esc = (s) => String(s)
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-
-const attr = (s) => esc(s);
 
 function skrivFil(fil, indhold) {
   fs.mkdirSync(path.dirname(fil), { recursive: true });
@@ -46,607 +54,105 @@ function ryd(mappe) {
   if (fs.existsSync(mappe)) fs.rmSync(mappe, { recursive: true, force: true });
 }
 
-/** Operatoren skal SES. "> 40 kg", ikke "40 kg" (regel 4). */
-const OP_TEGN = { '>': '>', '>=': '≥', '<': '<', '<=': '≤', '~': '≈', '±': '±' };
-
-function tal(n, sprogkode) {
-  const locale = sprogkode === 'da' ? 'da-DK' : 'en-GB';
-  return new Intl.NumberFormat(locale, { maximumFractionDigits: 3 }).format(n);
+/** En paastand, bygget ikke maa overleve. Kastes, saa dist/ ikke bliver skaevt. */
+function paastaa(betingelse, besked) {
+  if (!betingelse) throw new Error(`BYGFEJL: ${besked}`);
 }
 
-function erForaeldet(hentet) {
-  if (typeof hentet !== 'string') return false;
-  const d = new Date(hentet);
-  if (Number.isNaN(d.getTime())) return false;
-  const graense = new Date();
-  graense.setFullYear(graense.getFullYear() - 1);
-  return d < graense;
+const taelKort = (html) => (html.match(/<article class="kort">/g) || []).length;
+
+/** Skabeloner, en anden agent ejer. Findes de ikke endnu, siger bygget det. */
+async function hentSkabelon(navn) {
+  const fil = path.join(rod, 'tools', 'skabelon', `${navn}.mjs`);
+  if (!fs.existsSync(fil)) return null;
+  const mod = await import(`file://${fil.replace(/\\/g, '/')}`);
+  if (typeof mod.render !== 'function') {
+    console.error(`  advarsel: tools/skabelon/${navn}.mjs har ingen render(ctx) og springes over`);
+    return null;
+  }
+  return mod;
 }
 
-/* --------------------------------------------------------------- i18n */
-
-function laesI18n(sprogkode) {
-  const fil = path.join(rod, 'data/i18n', `${sprogkode}.json`);
-  if (!fs.existsSync(fil)) throw new Error(`Sprogfilen mangler: ${fil}`);
-  const o = JSON.parse(fs.readFileSync(fil, 'utf8'));
-  // En manglende oversaettelse skal fejle synligt, ikke lande som dansk paa /en/.
-  return new Proxy(o, {
-    get(m, n) {
-      if (typeof n !== 'string') return undefined;
-      if (n === '__raa') return m;
-      if (!(n in m)) throw new Error(`data/i18n/${sprogkode}.json mangler noeglen "${n}"`);
-      return m[n];
-    },
-  });
-}
+/* -------------------------------- midlertidig robotside (indtil robot.mjs) */
 
 /**
- * Landenavne er tekst og hoerer derfor til i sprogfilerne, ikke i robottens YAML.
- * Skemaet skriver dem som "Kina"; her slaas de op som "land_Kina". Mangler noeglen,
- * vises den raa vaerdi, og bygget siger hoejt hvilken noegle der mangler — et ikke
- * oversat land skal vaere synligt, men ikke standse hele kataloget.
+ * Robotsiden ejes af en anden agent (tools/skabelon/robot.mjs). Indtil den
+ * fil findes, bygges detaljesiden her - med designsystemets komponenter, saa
+ * kataloget ikke peger ind i en side fra det gamle udseende. Den er MIDLERTIDIG
+ * og siger det selv paa siden.
  */
-/** slug -> navn. Fyldes i main, saa en arvet kategori kan naevne moderen ved navn
- *  og ikke ved slug. Uden den ville "arvet fra unitree-b2" staa paa siden. */
-const navnEfterSlug = new Map();
+function midlertidigRobotside(ctx) {
+  const { robot, i18n, hjaelp } = ctx;
+  const { T, t } = i18n;
+  const kilder = hjaelp.kilder(robot);
+  const a = hjaelp.anvendelse(robot);
+  const naevnere = ctx.naevnere;
+  const d4 = ctx.d4;
 
-const manglendeLande = new Set();
-function land(T, vaerdi, sprogkode) {
-  const n = 'land_' + vaerdi;
-  if (n in T.__raa) return T.__raa[n];
-  manglendeLande.add(`${sprogkode}: ${n}`);
-  return vaerdi;
-}
-
-/* ------------------------------------------------- visning af én vaerdi */
-
-/**
- * De fire tilstande skal SE forskellige ud - ikke kun have forskellig farve.
- * Hver af dem faar sit eget tegn, sin egen tekst og sin egen ramme, saa de ogsaa
- * kan skelnes i sort/hvid og af en skaermlaeser.
- */
-function visTilstand(t, T) {
-  const kort = {
-    ikke_oplyst: ['—', T.tilstand_ikke_oplyst, T.tilstand_ikke_oplyst_forklaring, 'ikke-oplyst'],
-    nej: ['✗', T.tilstand_nej, T.tilstand_nej_forklaring, 'nej'],
-    kun_billede: ['◎', T.tilstand_kun_billede, T.tilstand_kun_billede_forklaring, 'kun-billede'],
-  }[tilstandAf(t) ?? t];
-  if (!kort) return `<span class="tilstand">${esc(String(t))}</span>`;
-  const [tegn, tekst, forklaring, klasse] = kort;
-  return `<span class="tilstand tilstand--${klasse}" title="${attr(forklaring)}">` +
-    `<span class="tilstand__tegn" aria-hidden="true">${tegn}</span>${esc(tekst)}</span>`;
-}
-
-function visKilde(post, T) {
-  if (!post.kilde) return '';
-  let vaert = post.kilde;
-  try { vaert = new URL(post.kilde).hostname.replace(/^www\./, ''); } catch { /* vises raa */ }
-  const gammel = erForaeldet(post.hentet);
-  return `<span class="herkomst">` +
-    `<a class="herkomst__kilde" href="${attr(post.kilde)}" rel="nofollow noopener external">` +
-    `${esc(T.kilde)}: ${esc(vaert)}</a>` +
-    `<span class="herkomst__dato${gammel ? ' herkomst__dato--gammel' : ''}"` +
-    (gammel ? ` title="${attr(T.foraeldet)}"` : '') +
-    `> · ${esc(T.hentet)} <time datetime="${attr(post.hentet)}">${esc(post.hentet)}</time>` +
-    (gammel ? ' ⚠' : '') + `</span>` +
-    (post.kildetype === 'sekundaer' ? `<span class="herkomst__type">sekundaer</span>` : '') +
-    `</span>`;
-}
-
-/** Selve tallet med operator, enhed, interval og imperial. */
-function visTal(post, sprogkode, T) {
-  const enhed = post.enhed ? ` <span class="enhed">${esc(post.enhed)}</span>` : '';
-  // Regel 4: operatoren skal SES — ogsaa foran et interval. Unitree skriver
-  // "ca. 1-2 t" om Go2's driftstid, og uden "≈" bliver forbeholdet til vores
-  // praecision.
-  const op = post.operator ? `<span class="operator">${esc(OP_TEGN[post.operator] ?? post.operator)}</span> ` : '';
-  let kerne;
-  if (post.min !== undefined) {
-    // Regel 5: et interval er ikke sit gennemsnit.
-    kerne = `${op}${tal(post.min, sprogkode)}–${tal(post.maks, sprogkode)}${enhed}`;
-  } else {
-    const cifre = post.vaerdi === 0 ? `<span class="nul">0</span>` : tal(post.vaerdi, sprogkode);
-    kerne = `${op}${cifre}${enhed}`;
-  }
-  let ud = `<span class="vaerdi">${kerne}</span>`;
-  if (post.vaerdi === 0) {
-    ud += ` <span class="maerke maerke--nul" title="${attr(T.tilstand_nul_forklaring)}">${esc(T.tilstand_nul)}</span>`;
-  }
-  if (post.vaerdi_imperial !== undefined) {
-    ud += ` <span class="imperial">(${tal(post.vaerdi_imperial, sprogkode)} ${esc(post.enhed_imperial ?? '')})</span>`;
-  }
-  return ud;
-}
-
-/**
- * Varianterne ved navn. Lite3's fire varianter baerer 5, 4,5, 4 og 2,5 kg — de er
- * fire maskiner, ikke pynt, og blokken maa derfor ikke falde ud af visningen.
- * Vaerdien ovenfor er én af dem; her staar de alle sammen, saa laeseren kan se,
- * hvilken kolonne tallet kommer fra.
- */
-function visVarianter(v, sprogkode, T) {
-  if (!v.varianter) return '';
-  const somTekst = (x) => {
-    if (typeof x === 'number') return tal(x, sprogkode);
-    if (typeof x === 'boolean') return x ? T.ja : T.nej;
-    return String(x);
-  };
-  const raekker = Object.entries(v.varianter)
-    .map(([n, x]) => `<div class="variant"><dt>${esc(n)}</dt><dd>${esc(somTekst(x))}</dd></div>`)
-    .join('');
-  return `<div class="varianter"><p class="varianter__titel">${esc(T.varianter)}</p>` +
-    `<dl class="varianter__liste">${raekker}</dl></div>`;
-}
-
-function visPost(navn, v, sprogkode, T) {
-  if (typeof v === 'string') return visTilstand(v, T);
-  const spec = FELTER[navn];
-  let ud = '';
-
-  const tilstand = tilstandAf(v.vaerdi);
-  if (tilstand) {
-    // Skemaudvidelse 1: tilstanden med herkomst. Den skal SE ud som den bare
-    // tilstand — ellers ville "ikke oplyst" pludselig have to udseender — men
-    // den baerer kilde, hentedato og forbehold nedenfor.
-    ud = visTilstand(tilstand, T);
-  } else if (spec.art === 'jaNej') {
-    ud = `<span class="vaerdi vaerdi--${v.vaerdi ? 'ja' : 'nej'}">` +
-      `<span class="tilstand__tegn" aria-hidden="true">${v.vaerdi ? '✓' : '✗'}</span>` +
-      `${esc(v.vaerdi ? T.ja : T.nej)}</span>`;
-  } else if (spec.art === 'liste') {
-    ud = `<span class="vaerdi">${v.vaerdi.map((x) => `<code>${esc(x)}</code>`).join(' ')}</span>`;
-  } else if (typeof v.vaerdi === 'string') {
-    ud = `<span class="vaerdi">${esc(v.vaerdi)}</span>`;
-    // Et tekstfelt kan baere et maalbart interval ved siden af producentens
-    // ordlyd (Spots "ureguleret DC 35-58,8 V"). Det skal med, ellers er det data,
-    // ingen kan se.
-    if (v.min !== undefined) {
-      ud += ` <span class="vaerdi vaerdi--afledt">${tal(v.min, sprogkode)}–${tal(v.maks, sprogkode)}` +
-        (v.enhed ? ` <span class="enhed">${esc(v.enhed)}</span>` : '') + `</span>`;
-    }
-  } else {
-    ud = visTal(v, sprogkode, T);
-  }
-
-  if (v.ved_last !== undefined) {
-    const ukendt = typeof v.ved_last === 'string' || tilstandAf(v.ved_last.vaerdi);
-    ud += ukendt
-      ? ` <span class="betingelse">(${esc(T.ved_last_ukendt)})</span>`
-      : ` <span class="betingelse">(${esc(T.ved_last)} ${tal(v.ved_last.vaerdi, sprogkode)} ${esc(v.ved_last.enhed ?? '')})</span>`;
-  }
-  // Advarslen staar VED SIDEN AF vaerdien, ikke i en fodnote (regel 9).
-  if (v.advarsel) {
-    ud += `<span class="advarsel"><span aria-hidden="true">⚠</span> ` +
-      `<strong>${esc(T.advarsel)}:</strong> ${esc(v.advarsel)}</span>`;
-  }
-  if (v.note) ud += `<span class="note">${esc(v.note)}</span>`;
-  ud += visVarianter(v, sprogkode, T);
-  ud += visKilde(v, T);
-  return ud;
-}
-
-/** Kort, ensrettet visning til katalogtabellen - uden kilde og advarsel. */
-function visKort(navn, v, sprogkode, T) {
-  if (v === undefined) return visTilstand('ikke_oplyst', T);
-  if (typeof v === 'string') return visTilstand(v, T);
-  const spec = FELTER[navn];
-  const tilstand = tilstandAf(v.vaerdi);
-  // En dokumenteret tilstand ser ud som tilstanden - kilden staar paa detaljesiden.
-  if (tilstand) return visTilstand(tilstand, T);
-  if (spec.art === 'jaNej') {
-    return `<span class="vaerdi vaerdi--${v.vaerdi ? 'ja' : 'nej'}">` +
-      `<span class="tilstand__tegn" aria-hidden="true">${v.vaerdi ? '✓' : '✗'}</span>` +
-      `${esc(v.vaerdi ? T.ja : T.nej)}</span>`;
-  }
-  if (spec.art === 'liste') return `<span class="vaerdi">${esc(v.vaerdi.join(', '))}</span>`;
-  if (typeof v.vaerdi === 'string') return `<span class="vaerdi">${esc(v.vaerdi)}</span>`;
-  return visTal(v, sprogkode, T)
-    + (v.varianter ? ` <span class="maerke maerke--varianter" title="${attr(Object.entries(v.varianter).map(([n, x]) => `${n}: ${x}`).join(' · '))}">${esc(T.varianter_kort)}</span>` : '')
-    + (v.advarsel ? ` <span class="maerke maerke--advarsel" title="${attr(v.advarsel)}">⚠</span>` : '');
-}
-
-/* ----------------------------------------------------------------- sider */
-
-function hoved({ titel, sprogkode, dybde, alternativer, beskrivelse }) {
-  const op = '../'.repeat(dybde);
-  const alt = alternativer
-    .map((a) => `  <link rel="alternate" hreflang="${attr(a.sprog)}" href="${attr(a.href)}">`)
-    .join('\n');
-  return `<!doctype html>
-<html lang="${attr(sprogkode)}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(titel)}</title>
-<meta name="description" content="${attr(beskrivelse)}">
-${alt}
-  <link rel="alternate" hreflang="x-default" href="${attr(alternativer[0].href)}">
-<link rel="stylesheet" href="${op}stil.css">
-</head>
-<body>
-`;
-}
-
-function fod(T, sprogkode, dybde, andetSprogHref) {
-  return `<footer class="fod">
-<p>${esc(T.ingen_forhandler)}</p>
-<p>${esc(T.udgiver)} · <a href="${attr(andetSprogHref)}" hreflang="${sprogkode === 'da' ? 'en' : 'da'}">${esc(T.andet_sprog)}</a></p>
-</footer>
-</body>
-</html>
-`;
-}
-
-/**
- * Producentens egen anvendelsesinddeling.
- *
- * Citatet vises SAMMEN MED kategorien, altid, aldrig som et tooltip. Uden det
- * synlige citat ville en laeser ikke kunne se forskel paa producentens hylde og
- * vores vurdering — og saa var feltet blevet det, CLAUDE.md begraensning 6 forbyder.
- * Derfor er der ingen kompakt visning: kan citatet ikke vises, vises kategorien ikke.
- */
-/* ==================================================================
-   Vaegtklasse — AFLEDT, aldrig i data (L27, 21. aug 2026)
-
-   Klassen staar ikke i nogen YAML-fil og maa ikke komme til det. Den er en
-   funktion af `egenvaegt`, og det er hele pointen: skulle graenserne flytte
-   sig, flytter de sig ét sted. Stod klassen i data, ville 46 filer skulle
-   rettes i haanden, og den 47. ville blive glemt.
-
-     under_20      egenvaegt < 20 kg
-     20_40         20 <= egenvaegt < 40 kg
-     over_40       egenvaegt >= 40 kg
-     ikke_oplyst   ingen vaegt oplyst
-
-   `ikke_oplyst` er en klasse paa lige fod med de tre andre, ikke et hul.
-   Robotter uden oplyst vaegt maa ikke forsvinde fra en forside, der grupperer
-   efter vaegt — det ville vaere den fjerde maade at lade "ikke oplyst"
-   kollapse (CLAUDE.md begraensning 5).
-
-   Operatoren respekteres: "~60 kg" er 60, men det foelger med som `cirka`,
-   saa visningen kan skrive "≈". Ligger tallet praecis paa en klassegraense OG
-   baerer en operator, er klassen ikke sikker — DEEP Lynx S10 oplyser "<= 20 kg",
-   som kan vaere baade under_20 og 20_40. Det staar som `graensetilfaelde`
-   frem for at blive gemt bag et valg, ingen kan se.
-   ================================================================== */
-
-export const VAEGTKLASSER = ['under_20', '20_40', 'over_40', 'ikke_oplyst'];
-const VAEGTGRAENSER = [20, 40];
-
-const klasseAfKg = (kg) => (kg < 20 ? 'under_20' : (kg < 40 ? '20_40' : 'over_40'));
-
-/** Kg som tal, eller null. Kun kg — en vaegt i pund ville ellers lande som et tal. */
-function kgAf(post) {
-  if (post === undefined || post === null) return null;
-  if (typeof post === 'string') return null;              // bar tilstand
-  if (typeof post !== 'object' || Array.isArray(post)) return null;
-  if (post.enhed !== 'kg') return null;
-  for (const n of [post.vaerdi, post.min, post.maks]) {
-    if (typeof n === 'number' && Number.isFinite(n)) return { vaerdi: post.vaerdi, min: post.min, maks: post.maks };
-  }
-  return null;
-}
-
-/**
- * Robottens vaegtklasse. Afledt ved bygget, aldrig laest fra data.
- * Returnerer { klasse, kg, operator, cirka, graensetilfaelde, forklaring }.
- */
-export function vaegtklasseAf(robot) {
-  const post = (robot.felter || {}).egenvaegt;
-  const tal = kgAf(post);
-  if (!tal) return { klasse: 'ikke_oplyst', kg: null, operator: null, cirka: false, graensetilfaelde: false };
-
-  const operator = post.operator ?? null;
-  const cirka = operator === '~' || operator === '±';
-
-  // Interval: to endepunkter kan ligge i hver sin klasse. Da faar klassen fra
-  // det laveste endepunkt, og uenigheden foeres med som graensetilfaelde —
-  // et interval maa ikke kollapse til sit midtpunkt (regel 5).
-  if (typeof tal.vaerdi !== 'number' && typeof tal.min === 'number') {
-    const a = klasseAfKg(tal.min);
-    const b = typeof tal.maks === 'number' ? klasseAfKg(tal.maks) : a;
-    return {
-      klasse: a, kg: tal.min, kg_maks: tal.maks ?? null, operator, cirka,
-      graensetilfaelde: a !== b,
-    };
-  }
-
-  const kg = tal.vaerdi;
-  const klasse = klasseAfKg(kg);
-  // Praecis paa en graense OG med forbehold: producentens tal kan ligge paa
-  // begge sider. "<= 20 kg" er baade under_20 og 20_40, og det skal kunne ses.
-  const graensetilfaelde = Boolean(operator) && VAEGTGRAENSER.includes(kg);
-  return { klasse, kg, operator, cirka, graensetilfaelde };
-}
-
-/**
- * Anvendelsen i robots.json. Formen er den samme uanset hvad YAML'en skrev.
- *
- * L27: vaerdierne laegges i KANONISK orden, ikke i YAML'ens. Der findes ikke
- * laengere en hovedpositionering, og en fast orden er det, der goer raekkefoelgen
- * ulaeselig som mening: to filer med de samme kategorier ser ens ud, uanset
- * hvilken raekkefoelge producentens saetning naevnte dem i.
- */
-function anvendelseTilIndeks(a) {
-  if (a === undefined) return { vaerdi: ['ikke_oplyst'], citat: [], arvet_fra: null };
-  const raa = typeof a === 'string' ? { vaerdi: a } : a;
-  const vaerdier = Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi];
-  const citater = raa.citat === undefined ? []
-    : (Array.isArray(raa.citat) ? raa.citat : [raa.citat]);
-  return {
-    vaerdi: sorterAnvendelse(vaerdier.map((v) => tilstandAf(v) ?? v)),
-    citat: citater,
-    kilde: raa.kilde ?? null,
-    hentet: raa.hentet ?? null,
-    // Arven er vores slutning, ikke producentens ord. Den skal kunne ses i
-    // indekset ogsaa — ellers ser en arvet kategori ud som en indsamlet.
-    arvet_fra: raa.arvet_fra ?? null,
-  };
-}
-
-function anvendelseBlok(robot, T) {
-  const a = robot.anvendelse;
-  if (a === undefined) return '';
-  const raa = typeof a === 'string' ? { vaerdi: a } : a;
-  const vaerdier = sorterAnvendelse(Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi]);
-  const erIkkeOplyst = vaerdier.length === 1 && tilstandAf(vaerdier[0]) === 'ikke_oplyst';
-
-  const maerker = erIkkeOplyst
-    ? `<span class="tilstand tilstand--ikke_oplyst" title="${attr(T.tilstand_ikke_oplyst_forklaring)}">`
-      + `${esc(T.tilstand_ikke_oplyst)}</span>`
-    : vaerdier.map((v) => `<span class="anvendelse__maerke anvendelse__maerke--${attr(v)}">`
-      + `${esc(T['anvendelse_' + v])}</span>`).join(' ');
-
-  const citater = raa.citat === undefined ? []
-    : (Array.isArray(raa.citat) ? raa.citat : [raa.citat]);
-  const citatDel = citater.length
-    ? `<blockquote class="anvendelse__citat"><p class="anvendelse__citat-etikette">`
-      + `${esc(T.anvendelse_citat)}</p>`
-      + citater.map((c) => `<p>${esc(c)}</p>`).join('') + `</blockquote>`
-    : '';
-
-  const kildeDel = raa.kilde
-    ? `<p class="anvendelse__kilde"><a href="${attr(raa.kilde)}" rel="nofollow noopener">`
-      + `${esc(T.kilde)}</a>${raa.hentet ? ` · ${esc(T.hentet)} ${esc(raa.hentet)}` : ''}</p>`
-    : '';
-
-  const noteDel = raa.note ? `<p class="anvendelse__note">${esc(raa.note)}</p>` : '';
-
-  // L23 — arven er vores slutning og skal SES. Den staar foer citatet, saa en
-  // laeser ved, hvis ord der kommer, foer ordene kommer.
-  const arvDel = raa.arvet_fra
-    ? `<p class="anvendelse__arv">${esc(T.anvendelse_arvet_fra)} `
-      + `<a href="../${attr(raa.arvet_fra)}/">${esc(navnEfterSlug.get(raa.arvet_fra) ?? raa.arvet_fra)}</a>`
-      + `. ${esc(T.anvendelse_arvet_forklaring)}</p>`
-    : '';
-
-  return `<section class="gruppe anvendelse">
-<h2>${esc(T.anvendelse_titel)}</h2>
-<p class="anvendelse__vaerdi">${maerker}</p>
-${arvDel}
-${citatDel}
-${kildeDel}
-${noteDel}
-<p class="anvendelse__forklaring">${esc(raa.arvet_fra ? T.anvendelse_forklaring_arvet : T.anvendelse_forklaring)}</p>
-</section>
-`;
-}
-
-/**
- * Vaegtklassen som maerke. Den er afledt, og det staar der: teksten siger, at
- * klassen er regnet ud af egenvaegten, saa den ikke kan forveksles med noget,
- * producenten har oplyst.
- */
-function vaegtklasseMaerke(robot, T) {
-  const v = vaegtklasseAf(robot);
-  const forbehold = [];
-  if (v.cirka) forbehold.push(T.vaegtklasse_cirka);
-  if (v.graensetilfaelde) forbehold.push(T.vaegtklasse_graense);
-  return `<span class="vaegtklasse vaegtklasse--${attr(v.klasse)}"`
-    + ` title="${attr(T.vaegtklasse_afledt)}">${esc(T['vaegtklasse_' + v.klasse])}</span>`
-    + (forbehold.length ? `<span class="vaegtklasse__forbehold">${esc(forbehold.join(' · '))}</span>` : '');
-}
-
-function taethedBlok(robot, naevnere, d4, T, sprogkode) {
-  const dele = naevnere.map((n) => {
+  const taethedsblok = `<div class="taethed">
+<span class="etiket">${esc(T.taethed_titel)}</span>
+${naevnere.map((n) => {
     const x = taethed(robot, n, d4);
-    return `<span class="taethed__tal"><strong>${x.pct} %</strong> ` +
-      `<span class="taethed__brok">${x.udfyldt}/${x.naevner}</span></span>`;
-  });
-  return `<div class="taethed">
-<h3>${esc(T.taethed_titel)}</h3>
-<p class="taethed__tal-raekke">${dele.join(' ')}</p>
-<p class="taethed__note">${esc(T.taethed_forklaring)}</p>
-<p class="taethed__note taethed__note--aaben">${esc(T.taethed_naevner_aaben)}</p>
+    return `<span class="tal">${esc(String(x.pct))} %</span>`
+      + `<span class="brok">${esc(String(x.udfyldt))}/${esc(String(x.naevner))}</span>`;
+  }).join('\n')}
 </div>`;
-}
 
-function detaljeside(robot, sprogkode, T, naevnere, d4) {
-  const dybde = 3; // /<sprog>/robotter/<slug>/
-  const op = '../'.repeat(dybde);
-  const andet = sprogkode === 'da' ? 'en' : 'da';
-  const alternativer = SPROG.map((s) => ({ sprog: s, href: `${op}${s}/robotter/${robot.slug}/` }));
-  const titel = `${robot.navn} — ${robot.producent}`;
+  const anvendelsesblok = `<section class="gruppe">
+<h2 class="t-h2">${esc(T.anvendelse_titel)}</h2>
+${a.maerker()}
+${a.citater.length ? `<blockquote class="advarsel"><span class="etiket">${esc(T.anvendelse_citat)}</span>`
+    + a.citater.map((c) => `<p>${esc(c)}</p>`).join('') + `</blockquote>` : ''}
+${a.note ? `<p class="feltnote">${esc(a.note)}</p>` : ''}
+<p class="t-lille">${esc(T.anvendelse_forklaring)}</p>
+</section>`;
 
-  let ud = hoved({
-    titel: `${titel} · ${T.sted_navn}`,
-    sprogkode, dybde, alternativer,
-    beskrivelse: `${titel}. ${T.sted_undertitel}`,
-  });
-
-  ud += `<header class="top">
-<a class="top__hjem" href="${op}${sprogkode}/robotter/">${esc(T.til_katalog)}</a>
-</header>
-<main>
-<article class="post">
-<h1>${esc(robot.navn)}</h1>
-<p class="post__meta">
-<span>${esc(robot.producent)}</span>
-<span>${esc(land(T, robot.producentland, sprogkode))}</span>
-<span class="status status--${attr(robot.status)}">${esc(T['status_' + robot.status])}</span>
-${vaegtklasseMaerke(robot, T)}
-${robot.foerste_udgivelse ? `<span>${esc(String(robot.foerste_udgivelse))}</span>` : ''}
-</p>
-${taethedBlok(robot, naevnere, d4, T, sprogkode)}
-${anvendelseBlok(robot, T)}`;
-
-  for (const gruppe of GRUPPER) {
+  const grupper = GRUPPER.map((gruppe) => {
     const navne = FELTNAVNE.filter((n) => FELTER[n].gruppe === gruppe);
-    if (!navne.length) continue;
-    ud += `<section class="gruppe">
-<h2>${esc(T['gruppe_' + gruppe])}</h2>
-<dl class="felter">
-`;
-    for (const navn of navne) {
-      const v = robot.felter[navn];
-      ud += `<div class="felt">
-<dt>${esc(T['felt_' + navn])}</dt>
-<dd>${v === undefined ? visTilstand('ikke_oplyst', T) : visPost(navn, v, sprogkode, T)}</dd>
+    if (!navne.length) return '';
+    return `<section class="gruppe">
+<h2 class="t-h2">${esc(T['gruppe_' + gruppe])}</h2>
+<dl class="raekker">
+${navne.map((n) => `<div class="raekke"><dt>${esc(T['felt_' + n])}</dt>`
+      + `<dd>${hjaelp.felt(n, robot.felter[n], { kilder })}</dd></div>`).join('\n')}
+</dl>
+</section>`;
+  }).join('\n');
+
+  const noter = robot.noter
+    ? `<section class="gruppe"><h2 class="t-h2">${esc(T.noter)}</h2>`
+      + (Array.isArray(robot.noter)
+        ? `<ul class="raekker">${robot.noter.map((n) => `<li class="raekke"><dd>${esc(n)}</dd></li>`).join('')}</ul>`
+        : `<p class="t-broed">${esc(robot.noter)}</p>`)
+      + `</section>`
+    : '';
+
+  return `<div class="rum">
+<article class="post">
+<div class="gruppe">
+<p class="post-meta"><span class="prod">${esc(robot.producent)}</span>`
+    + `<span class="land">${esc(hjaelp.land(robot.producentland))}</span>`
+    + `<span class="status status--${esc(robot.status)}">${esc(T['status_' + robot.status])}</span>`
+    + `${robot.foerste_udgivelse ? `<span class="land">${esc(String(robot.foerste_udgivelse))}</span>` : ''}</p>
+<h1 class="t-h1">${esc(robot.navn)}</h1>
 </div>
-`;
-    }
-    ud += `</dl>
+${hjaelp.stribe(robot, { kilder })}
+${taethedsblok}
+${anvendelsesblok}
+${grupper}
+${noter}
+<section class="gruppe">
+<h2 class="t-h2">${esc(T.kilde)}</h2>
+${hjaelp.kildeliste(kilder)}
 </section>
-`;
-  }
-
-  // noter er enten én tekst eller en liste af dem. En liste, der renderes med
-  // esc() alene, bliver til "a,b" - en tavs sammenkoedning af to observationer.
-  if (robot.noter) {
-    const krop = Array.isArray(robot.noter)
-      ? `<ul class="noter">${robot.noter.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`
-      : `<p>${esc(robot.noter)}</p>`;
-    ud += `<section class="gruppe"><h2>${esc(T.noter)}</h2>${krop}</section>\n`;
-  }
-
-  ud += `</article>
-</main>
-`;
-  ud += fod(T, sprogkode, dybde, `${op}${andet}/robotter/${robot.slug}/`);
-  return ud;
-}
-
-function katalogside(robotter, sprogkode, T, naevnere, d4) {
-  const dybde = 2; // /<sprog>/robotter/
-  const op = '../'.repeat(dybde);
-  const andet = sprogkode === 'da' ? 'en' : 'da';
-  const alternativer = SPROG.map((s) => ({ sprog: s, href: `${op}${s}/robotter/` }));
-
-  let ud = hoved({
-    titel: `${T.katalog_titel} · ${T.sted_navn}`,
-    sprogkode, dybde, alternativer,
-    beskrivelse: T.sted_undertitel,
-  });
-
-  const lande = [...new Set(robotter.map((r) => r.producentland))]
-    .map((l) => ({ vaerdi: l, tekst: land(T, l, sprogkode) }))
-    .sort((a, b) => a.tekst.localeCompare(b.tekst, sprogkode));
-  const statusser = STATUS_VAERDIER.filter((s) => robotter.some((r) => r.status === s));
-
-  ud += `<header class="top">
-<h1>${esc(T.sted_navn)}</h1>
-<p class="top__under">${esc(T.sted_undertitel)}</p>
-</header>
-<main>
-<h2>${esc(T.katalog_titel)} <span class="antal">${robotter.length} ${esc(T.katalog_antal)}</span></h2>
-
-<form class="filter" id="filter" hidden>
-<fieldset>
-<legend>${esc(T.filter_titel)}</legend>
-<label>${esc(T.filter_producentland)}
-<select name="land" data-filter="producentland">
-<option value="">${esc(T.filter_alle)}</option>
-${lande.map((l) => `<option value="${attr(l.vaerdi)}">${esc(l.tekst)}</option>`).join('\n')}
-</select></label>
-<label>${esc(T.filter_status)}
-<select name="status" data-filter="status">
-<option value="">${esc(T.filter_alle)}</option>
-${statusser.map((s) => `<option value="${attr(s)}">${esc(T['status_' + s])}</option>`).join('\n')}
-</select></label>
-<button type="button" id="ryd">${esc(T.filter_ryd)}</button>
-</fieldset>
-<p class="filter__tom" id="filter-tom" hidden>${esc(T.filter_ingen_traef)}</p>
-</form>
-<noscript><p class="note">${esc(T.katalog_uden_js)}</p></noscript>
-
-<div class="tabel-rulle">
-<table class="katalog">
-<thead>
-<tr>
-<th scope="col">${esc(T.tabel_robot)}</th>
-<th scope="col">${esc(T.tabel_producent)}</th>
-<th scope="col">${esc(T.tabel_land)}</th>
-<th scope="col">${esc(T.tabel_status)}</th>
-${KATALOG_FELTER.map((n) => `<th scope="col">${esc(T['felt_' + n])}</th>`).join('\n')}
-<th scope="col">${esc(T.tabel_taethed)}</th>
-</tr>
-</thead>
-<tbody>
-`;
-
-  for (const r of robotter) {
-    const t = naevnere.map((n) => {
-      const x = taethed(r, n, d4);
-      return `${x.pct} % <span class="taethed__brok">(${x.udfyldt}/${x.naevner})</span>`;
-    }).join('<br>');
-    // Vaegtklassen og anvendelserne staar som data-attributter, ikke som
-    // kolonner: en gruppering eller et filter skal kunne finde dem uden JS-data,
-    // og anvendelse er en MAENGDE (L27) — mellemrumsadskilt, ikke rangeret.
-    const vk = vaegtklasseAf(r);
-    const anv = anvendelseTilIndeks(r.anvendelse).vaerdi.join(' ');
-    ud += `<tr data-slug="${attr(r.slug)}" data-producentland="${attr(r.producentland)}" data-status="${attr(r.status)}"`
-      + ` data-vaegtklasse="${attr(vk.klasse)}" data-anvendelse="${attr(anv)}">
-<th scope="row"><a href="${attr(r.slug)}/">${esc(r.navn)}</a></th>
-<td>${esc(r.producent)}</td>
-<td>${esc(land(T, r.producentland, sprogkode))}</td>
-<td><span class="status status--${attr(r.status)}">${esc(T['status_' + r.status])}</span></td>
-${KATALOG_FELTER.map((n) => `<td>${visKort(n, r.felter[n], sprogkode, T)}</td>`).join('\n')}
-<td class="taethed__celle">${t}</td>
-</tr>
-`;
-  }
-
-  ud += `</tbody>
-</table>
-</div>
-<p class="note">${esc(T.sammenlign_advarsel)}</p>
-<ul class="forklaring">
-<li>${visTilstand('ikke_oplyst', T)} ${esc(T.tilstand_ikke_oplyst_forklaring)}</li>
-<li>${visTilstand('nej', T)} ${esc(T.tilstand_nej_forklaring)}</li>
-<li><span class="vaerdi"><span class="nul">0</span></span> <span class="maerke maerke--nul">${esc(T.tilstand_nul)}</span> ${esc(T.tilstand_nul_forklaring)}</li>
-<li>${visTilstand('kun_billede', T)} ${esc(T.tilstand_kun_billede_forklaring)}</li>
-</ul>
-</main>
-<script src="${op}filter.js" defer></script>
-`;
-  ud += fod(T, sprogkode, dybde, `${op}${andet}/robotter/`);
-  return ud;
-}
-
-function forside(sprogkode, T, antal) {
-  const dybde = 1;
-  const op = '../';
-  const andet = sprogkode === 'da' ? 'en' : 'da';
-  const alternativer = SPROG.map((s) => ({ sprog: s, href: `${op}${s}/` }));
-  let ud = hoved({
-    titel: T.sted_navn, sprogkode, dybde, alternativer, beskrivelse: T.sted_undertitel,
-  });
-  ud += `<header class="top">
-<h1>${esc(T.sted_navn)}</h1>
-<p class="top__under">${esc(T.sted_undertitel)}</p>
-</header>
-<main>
-<p><a class="knap" href="robotter/">${esc(T.nav_katalog)} — ${antal} ${esc(T.katalog_antal)}</a></p>
-<p>${esc(T.taethed_forklaring)}</p>
-</main>
-`;
-  ud += fod(T, sprogkode, dybde, `${op}${andet}/`);
-  return ud;
+<p class="midlertidig-note">${esc(t('robotside_midlertidig'))}</p>
+</article>
+</div>`;
 }
 
 /* ------------------------------------------------------------------ main */
 
-function main(argv) {
+async function main(argv) {
   const { flag } = laesFlag(argv);
   const naevnere = naevnereFra(flag);
   const d4 = String(flag['type-uden-model'] ?? 'tael-ikke') === 'tael';
@@ -658,7 +164,6 @@ function main(argv) {
     const r = findFiler(reserve);
     if (r.length) {
       console.log(`  ${dataMappe} er tom - bygger fra ${reserve} i stedet.`);
-      console.log('  De filer er EKSEMPLER. Dataagentens rigtige poster overtager, saa snart de ligger i data/robots/.');
       dataMappe = reserve;
       filer = r;
     }
@@ -681,67 +186,159 @@ function main(argv) {
   }).filter(Boolean);
   robotter.sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'));
 
-  navnEfterSlug.clear();
-  for (const r of robotter) navnEfterSlug.set(r.slug, r.navn);
+  paastaa(robotter.length === filer.length,
+    `${filer.length} datafiler, men kun ${robotter.length} kunne laeses.`);
+
+  // Producenterne udledes af robotterne. data/manufacturers/ er tom i dag.
+  const producenter = [...new Map(robotter.map((r) => [r.producent, {
+    navn: r.producent,
+    slug: String(r.producent).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+    land: r.producentland,
+    robotter: robotter.filter((x) => x.producent === r.producent),
+  }])).values()];
+
+  const robotSkabelon = await hentSkabelon('robot');
+  const producentSkabelon = await hentSkabelon('producent');
+  if (!robotSkabelon) {
+    console.log('  tools/skabelon/robot.mjs findes ikke endnu - detaljesiden bygges');
+    console.log('  med generatorens MIDLERTIDIGE skabelon. Den erstattes automatisk.');
+  }
+  if (!producentSkabelon) {
+    console.log('  tools/skabelon/producent.mjs findes ikke endnu - producentsider bygges ikke.');
+  }
 
   const ud = path.resolve(String(flag['ud'] ?? 'dist'));
   ryd(ud);
 
+  const manglendeLande = new Set();
   let sider = 0;
+  let kortPaaForside = 0;
+  let kortIKatalog = 0;
+
   for (const sprogkode of SPROG) {
-    const T = laesI18n(sprogkode);
-    skrivFil(path.join(ud, sprogkode, 'index.html'), forside(sprogkode, T, robotter.length));
-    sider++;
-    skrivFil(path.join(ud, sprogkode, 'robotter', 'index.html'),
-      katalogside(robotter, sprogkode, T, naevnere, d4));
-    sider++;
-    for (const r of robotter) {
-      skrivFil(path.join(ud, sprogkode, 'robotter', r.slug, 'index.html'),
-        detaljeside(r, sprogkode, T, naevnere, d4));
+    const i18n = lavSprog(sprogkode);
+    const { T, t } = i18n;
+    const hjaelp = lavHjaelp({ sprogkode, T, t, tf: i18n.tf });
+
+    // ctx.url baerer BAADE stien og opslag pr. sidetype. Skabelonerne slaar op
+    // med url.robot(slug) / url.katalog og skal ikke selv taelle mapper -
+    // en haandregnet '../../' er den slags fejl, der ikke ses foer i browseren.
+    const grund = (sti) => {
+      const dybde = 1 + sti.split('/').filter(Boolean).length;
+      const op = '../'.repeat(dybde);
+      const her = `${op}${sprogkode}/`;
+      return {
+        robotter, producenter, i18n, sprog: sprogkode, hjaelp, naevnere, d4,
+        url: {
+          sti, dybde, op,
+          forside: her,
+          katalog: `${her}robotter/`,
+          producenter: `${her}producenter/`,
+          robot: (slug) => `${her}robotter/${slug}/`,
+          producent: (slug) => `${her}producenter/${slug}/`,
+        },
+      };
+    };
+
+    /* --- forsiden --- */
+    {
+      const ctx = grund('');
+      const main0 = forsideSkabelon.render(ctx);
+      kortPaaForside = taelKort(main0);
+      paastaa(kortPaaForside === robotter.length,
+        `forsiden (${sprogkode}) har ${kortPaaForside} kort, men der er ${robotter.length} datafiler. `
+        + 'Prototypen tabte tre robotter praecis her.');
+      skrivFil(path.join(ud, sprogkode, 'index.html'), skal({
+        sprogkode, T, t, sti: '', aktiv: '', script: true,
+        titel: `${T.sted_navn} · ${T.sted_undertitel}`,
+        beskrivelse: T.sted_undertitel,
+        main: main0,
+      }));
       sider++;
     }
+
+    /* --- kataloget --- */
+    {
+      const ctx = grund('robotter/');
+      const main0 = katalogSkabelon.render(ctx);
+      kortIKatalog = taelKort(main0);
+      paastaa(kortIKatalog === robotter.length,
+        `kataloget (${sprogkode}) har ${kortIKatalog} kort, men der er ${robotter.length} datafiler.`);
+      skrivFil(path.join(ud, sprogkode, 'robotter', 'index.html'), skal({
+        sprogkode, T, t, sti: 'robotter/', aktiv: 'robotter/', script: true,
+        titel: `${T.katalog_titel} · ${T.sted_navn}`,
+        beskrivelse: T.sted_undertitel,
+        stil: katalogSkabelon.hovedStil(ctx),
+        main: main0,
+      }));
+      sider++;
+    }
+
+    /* --- robotsiderne --- */
+    for (const robot of robotter) {
+      const sti = `robotter/${robot.slug}/`;
+      const ctx = { ...grund(sti), robot };
+      const main0 = robotSkabelon ? robotSkabelon.render(ctx) : midlertidigRobotside(ctx);
+      skrivFil(path.join(ud, sprogkode, 'robotter', robot.slug, 'index.html'), skal({
+        sprogkode, T, t, sti, aktiv: 'robotter/',
+        titel: `${robot.navn} — ${robot.producent} · ${T.sted_navn}`,
+        beskrivelse: `${robot.navn}, ${robot.producent}. ${T.sted_undertitel}`,
+        stil: robotSkabelon?.hovedStil ? robotSkabelon.hovedStil(ctx) : '',
+        main: main0,
+      }));
+      sider++;
+    }
+
+    /* --- producentsiderne, hvis skabelonen findes --- */
+    if (producentSkabelon) {
+      for (const producent of producenter) {
+        const sti = `producenter/${producent.slug}/`;
+        const ctx = { ...grund(sti), producent };
+        skrivFil(path.join(ud, sprogkode, 'producenter', producent.slug, 'index.html'), skal({
+          sprogkode, T, t, sti, aktiv: 'producenter/',
+          titel: `${producent.navn} · ${T.sted_navn}`,
+          beskrivelse: `${producent.navn}. ${T.sted_undertitel}`,
+          stil: producentSkabelon.hovedStil ? producentSkabelon.hovedStil(ctx) : '',
+          main: producentSkabelon.render(ctx),
+        }));
+        sider++;
+      }
+    }
+
+    for (const l of hjaelp.manglendeLande) manglendeLande.add(l);
   }
 
-  // Lille indeks til klientside-filtrering. Kun de felter, der filtreres paa.
-  const vaegtfordeling = Object.fromEntries(VAEGTKLASSER.map((k) => [k, 0]));
-  for (const r of robotter) vaegtfordeling[vaegtklasseAf(r).klasse]++;
-
+  /* --- lille indeks til klientsiden --- */
   const indeks = {
     genereret: iDag,
     naevnere,
     type_uden_model_taeller: d4,
     filterfelter: FILTER_FELTER,
-    // Klasserne staar med i indekset, saa en forside kan bygge sine sektioner
-    // uden foerst at gaette, hvilke der findes — ogsaa den tomme, hvis en
-    // klasse skulle blive tom.
-    vaegtklasser: VAEGTKLASSER,
-    vaegtfordeling,
     robotter: robotter.map((r) => {
       const f = {};
       for (const n of FILTER_FELTER) {
         const v = r.felter[n];
         if (v === undefined) f[n] = 'ikke_oplyst';
         else if (typeof v === 'string') f[n] = v;
-        // Tilstanden med herkomst filtrerer som tilstanden. Uden det her ville en
-        // dokumenteret "nej" lande i indekset som {vaerdi: "nej"} og blive
-        // sorteret som en tekst - og de tre tilstande ville kollapse i filteret.
         else if (tilstandAf(v.vaerdi)) f[n] = tilstandAf(v.vaerdi);
         else if (typeof v.vaerdi === 'boolean') f[n] = v.vaerdi;
         else if (v.min !== undefined) f[n] = { min: v.min, maks: v.maks, enhed: v.enhed };
         else f[n] = { vaerdi: v.vaerdi, enhed: v.enhed, operator: v.operator ?? null };
       }
+      const a = r.anvendelse === undefined ? { vaerdi: 'ikke_oplyst' }
+        : (typeof r.anvendelse === 'string' ? { vaerdi: r.anvendelse } : r.anvendelse);
       return {
         slug: r.slug, navn: r.navn, producent: r.producent,
         producentland: r.producentland, status: r.status,
-        // Producentens egen inddeling. ALTID en liste, ogsaa naar der kun er én
-        // vaerdi, og ogsaa naar den er ["ikke_oplyst"] — en forside, der grupperer
-        // efter feltet, skal have en bunke at lægge de ukendte i, ikke et hul.
-        // Citatet foelger med: en gruppering uden producentens ord er en paastand.
-        anvendelse: anvendelseTilIndeks(r.anvendelse),
-        // Afledt ved bygget, aldrig laest fra YAML. Robotter uden oplyst vaegt
-        // faar klassen "ikke_oplyst" og bliver dermed staaende i indekset — de
-        // maa ikke forsvinde fra en forside, der grupperer efter vaegt.
-        vaegtklasse: vaegtklasseAf(r),
+        // Afledt i bygget, ikke i data (L27). Staar i indekset, saa en
+        // klientside-visning ikke kan naa til en anden inddeling end siden.
+        vaegtklasse: vaegtklasse(r),
+        anvendelse: {
+          vaerdi: (Array.isArray(a.vaerdi) ? a.vaerdi : [a.vaerdi]).map((v) => tilstandAf(v) ?? v),
+          citat: a.citat === undefined ? [] : (Array.isArray(a.citat) ? a.citat : [a.citat]),
+          kilde: a.kilde ?? null, hentet: a.hentet ?? null,
+        },
+        kilder: lavKilder(r).liste.map((k) => ({ bogstav: k.bogstav, url: k.url, hentet: k.hentet, sekundaer: k.sekundaer })),
         taethed: Object.fromEntries(naevnere.map((n) => [n, taethed(r, n, d4).pct])),
         felter: f,
       };
@@ -749,47 +346,112 @@ function main(argv) {
   };
   skrivFil(path.join(ud, 'robots.json'), JSON.stringify(indeks, null, 1));
 
-  // Statiske aktiver. dist/ bygges KUN fra assets/ - media/ kan ikke slippe ud.
-  for (const [fra, til] of [['assets/stil.css', 'stil.css'], ['assets/filter.js', 'filter.js']]) {
+  /* --- statiske aktiver. dist/ bygges KUN fra assets/. --- */
+  for (const [fra, til] of [
+    ['assets/system.css', 'system.css'],
+    ['assets/generator.css', 'generator.css'],
+    ['assets/katalog.js', 'katalog.js'],
+  ]) {
     const kilde = path.join(rod, fra);
     if (fs.existsSync(kilde)) skrivFil(path.join(ud, til), fs.readFileSync(kilde, 'utf8'));
     else console.error(`  advarsel: ${fra} findes ikke`);
   }
+  // Skrifterne kopieres med, saa @font-face's url() virker, naar filerne lander.
+  const fontMappe = path.join(rod, 'assets/fonts');
+  if (fs.existsSync(fontMappe)) {
+    for (const f of fs.readdirSync(fontMappe)) {
+      if (!f.endsWith('.woff2')) continue;
+      fs.mkdirSync(path.join(ud, 'fonts'), { recursive: true });
+      fs.copyFileSync(path.join(fontMappe, f), path.join(ud, 'fonts', f));
+    }
+  }
+  // Billeder: KUN fra assets/. media/ kopieres aldrig - se side.mjs, afsnit 8.
+  let billeder = 0;
+  for (const mappe of ['fotos', 'silhuetter']) {
+    const fuld = path.join(rod, 'assets', mappe);
+    if (!fs.existsSync(fuld)) continue;
+    for (const f of fs.readdirSync(fuld)) {
+      if (f.startsWith('.') || f.toUpperCase().startsWith('LÆSMIG')) continue;
+      if (!/\.(jpg|jpeg|png|webp|avif|svg)$/i.test(f)) continue;
+      fs.mkdirSync(path.join(ud, 'billeder', mappe), { recursive: true });
+      fs.copyFileSync(path.join(fuld, f), path.join(ud, 'billeder', mappe, f));
+      billeder++;
+    }
+  }
 
-  // Sprogvaelger paa roden, saa dist/index.html kan aabnes direkte.
+  /* --- sprogvaelger paa roden --- */
   skrivFil(path.join(ud, 'index.html'), `<!doctype html>
 <html lang="da">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Firbenede robotter · Quadruped robots</title>
+<meta name="robots" content="noindex">
 ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('\n')}
 <link rel="alternate" hreflang="x-default" href="da/">
-<link rel="stylesheet" href="stil.css">
+<link rel="stylesheet" href="system.css">
+<link rel="stylesheet" href="generator.css">
 </head>
 <body>
-<main class="top">
-<h1>Firbenede robotter</h1>
-<p><a class="knap" href="da/robotter/">Dansk — katalog</a> <a class="knap" href="en/robotter/">English — catalogue</a></p>
+<main class="rum hero" id="hoved">
+<h1 class="t-hero">Firbenede robotter</h1>
+<p class="t-broed maal">Quadruped robots — et opslagsvaerk med kilde og dato paa hvert tal.</p>
+<p class="hero-videre"><a class="videre" href="da/">Dansk</a> <a class="videre videre--stille" href="en/">English</a></p>
 </main>
 </body>
 </html>
 `);
   sider++;
 
-  if (manglendeLande.size) {
-    console.error(`  advarsel: ${manglendeLande.size} landenoegle(r) mangler i sprogfilerne og ` +
-      `vises paa dansk i alle sprog:\n    ${[...manglendeLande].join('\n    ')}`);
+  /* ------------------------------------------------------------ selv-tjek */
+
+  const klasser = Object.fromEntries(VAEGTKLASSER.map((k) => [k, 0]));
+  for (const r of robotter) klasser[vaegtklasse(r)]++;
+  paastaa(Object.values(klasser).reduce((a, b) => a + b, 0) === robotter.length,
+    'vaegtklasserne summer ikke til antallet af robotter.');
+
+  let medKilde = 0; let udenKilde = 0; let sekundaere = 0;
+  for (const r of robotter) {
+    for (const n of FELTNAVNE) {
+      const p = r.felter[n];
+      if (p === undefined) continue;
+      const erTilstand = typeof p === 'string' || tilstandAf(p.vaerdi);
+      if (erTilstand) continue;            // et hul er ikke et tal
+      if (typeof p === 'object' && p.kilde) { medKilde++; if (p.kildetype === 'sekundaer') sekundaere++; }
+      else udenKilde++;
+    }
   }
 
-  console.log(`\nByggede ${sider} sider fra ${robotter.length} robotter · ${SPROG.length} sprog · ${ud}`);
-  console.log(`Taethedsnaevnere brugt: ${naevnere.join(', ')} (D7 er ikke afgjort - alle vises paa siden)`);
-  console.log(`Vaegtklasser (afledt af egenvaegt, ikke af data): `
-    + VAEGTKLASSER.map((k) => `${k} ${vaegtfordeling[k]}`).join(' · '));
+  if (manglendeLande.size) {
+    console.error(`  advarsel: ${manglendeLande.size} landenoegle(r) mangler i sprogfilerne:\n    `
+      + [...manglendeLande].join('\n    '));
+  }
+  if (brugteReserver.size) {
+    console.error(`\n  ${brugteReserver.size} UI-noegler blev hentet fra tools/skabelon/reserve-*.json,`
+      + ` fordi de mangler i data/i18n/. De skal flyttes derind:\n    `
+      + [...brugteReserver].sort().join(' '));
+  }
+  if (manglendeNoegler.size) {
+    console.error(`\n  ${manglendeNoegler.size} noegle(r) fandtes hverken i sprogfilen eller i reserven `
+      + `og staar som «noegle» paa siden:\n    ` + [...manglendeNoegler].join('\n    '));
+  }
+
+  console.log(`\nByggede ${sider} sider. `
+    + `Vaegtklasser: ${klasser.under_20}/${klasser['20_40']}/${klasser.over_40}/${klasser.ikke_oplyst} `
+    + `over ${robotter.length} datafiler. Kort paa forsiden: ${kortPaaForside} `
+    + `(skal vaere lig ${robotter.length}). Kildemaerker: ${medKilde} tal med kilde, ${udenKilde} uden.`);
+  console.log(`Kort i kataloget: ${kortIKatalog} · sekundaere kilder: ${sekundaere} felter · `
+    + `billeder kopieret fra assets/: ${billeder} (media/ indgaar aldrig)`);
+  console.log(`Taethedsnaevnere brugt: ${naevnere.join(', ')}`);
   return 0;
 }
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('build.mjs');
-if (erHoved) process.exit(main(process.argv.slice(2)));
+if (erHoved) {
+  main(process.argv.slice(2)).then((k) => process.exit(k)).catch((e) => {
+    console.error(String(e && e.message ? e.message : e));
+    process.exit(1);
+  });
+}
 
 export { main };
