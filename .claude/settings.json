@@ -25,12 +25,9 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:\\Praktik\\websites\\udstilling-wt-kode",
-      "C:\\Praktik\\websites\\udstilling-wt-eu-belaeg",
-      "C:\\Praktik\\websites\\udstilling-wt-producenter-resten",
-      "C:\\Praktik\\websites\\udstilling-wt-vest-2",
-      "C:\\Praktik\\websites\\udstilling-wt-retning",
-      "C:\\Praktik\\websites\\udstilling-wt-yaml"
+      "C:\\Praktik\\websites\\udstilling-wt-data2",
+      "C:\\Praktik\\websites\\udstilling-wt-vest2b",
+      "C:\\Praktik\\websites\\udstilling-wt-indhold"
     ]
   },
   "hooks": {

@@ -93,6 +93,18 @@ Fast regel, sat af JPK 19. aug 2026. Gælder alt arbejde i dette projekt.
 
 1. **Kør agenter parallelt**, når opgaven kan deles. Én agent ad gangen er undtagelsen,
    ikke normen.
+
+   **Fast regel, sat af JPK 21. aug 2026 — gælder hver eneste opgave:**
+   **Undersøg ALTID, om flere agenter kan sættes i gang parallelt.** Ikke kun når opgaven
+   åbenlyst kan deles — hver gang. Find de spor, der er reelt uafhængige, og skriv dem frem.
+
+   **Spørg derefter i en pop-up** (`AskUserQuestion`), om de skal startes. Ikke i brødtekst,
+   hvor svaret drukner — i en pop-up med ét spor pr. valgmulighed, så JPK kan vælge til og fra.
+
+   Findes der ingen uafhængige spor, så skriv **hvorfor** — fx at to spor ville skrive i
+   samme fil, eller at det ene venter på det andets resultat. *"Kan ikke deles"* er et
+   gyldigt svar, men det skal begrundes, ellers kan næste læser ikke se forskel på et
+   fravalg og en forglemmelse.
 2. **Egen git-worktree til hver agent.** `git worktree add ../guide-wt-<navn> -b <gren>`
    fra `c:\Praktik\guide`. **Ikke** Agent-værktøjets `isolation: "worktree"` — den
    forgrener fra sessionens arbejdsmappe, som kan være et andet repo.

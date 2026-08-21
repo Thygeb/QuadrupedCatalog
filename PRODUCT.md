@@ -77,7 +77,9 @@ udgiver i footer og på Om-siden, ikke som afsender i katalogposterne.
   "forespørg pris"-formular i en katalogpost.
 - **Opfind aldrig tal.** Håndhæves mekanisk: bygget fejler, hvis et talfelt mangler
   enhed eller kilde.
-- Fabrikanternes marketingbilleder må ikke genudgives — hverken juridisk eller fordi
+- **Ændret 19. aug 2026 (L13):** fabrikanternes billeder må bruges, **så længe siden er
+  lokal**. Siden må ikke publiceres med dem uden skriftlig tilladelse — se spærring S1 i
+  STATUS.md. Den oprindelige regel lød: fabrikanternes marketingbilleder må ikke genudgives — hverken juridisk eller fordi
   det er det stærkeste mulige signal om et forhandlerforhold, der ikke findes.
 
 ## Brand Commitments
