@@ -4,7 +4,7 @@
 arkiv og opdateres ikke bagud. Holdes kort med vilje: bliver den en essaysamling, holder
 folk op med at læse den.
 
-Opdateret 19. august 2026.
+Opdateret 21. august 2026.
 
 ---
 
@@ -41,8 +41,8 @@ Opdateret 19. august 2026.
 | # | Punkt |
 |---|---|
 | **D1** | Må sekundære kilder bruges (udviklerdok, PDF-datablade)? Uden dem har seks felter nul dækning. **Bemærk:** argumentet for dem er svagere end først antaget — se D8 |
-| **D4** | Tæller et felt som udfyldt ved type uden model (`3D LiDAR ×1`)? |
-| **D7** | **Nævneren: 29 eller 31?** Se nedenfor. Blokerer sidens eneste rangering |
+| **D4** | Tæller et felt som udfyldt ved type uden model (`3D LiDAR ×1`)? **L20 svarede ja — men koden gør det ikke.** `tools/build.mjs` defaulter til `tael-ikke`. Målt 21. aug 2026: forskellen flytter **16 af 46 pladser**, og det er dermed den eneste af de to tælleparametre, der overhovedet kan ændre en rangering. Enten rettes defaulten til L20, eller L20 vendes om — men de to må ikke stå og modsige hinanden |
+| ~~**D7**~~ | ~~Nævneren: 29 eller 31?~~ **Lukket 21. aug 2026 — se L30.** Svaret var ingen af dem: 33 |
 | **Å8** | Er Xiaomis JS-bundle en primærkilde? Ja → CyberDog 2 er 48 %. Nej → 0 % |
 | **Å9** | Hvilket MagicLab-site er primærkilde? De to modsiger hinanden og blokerer fem felter |
 | **D10** | **R17 kan ikke opdage en `arvet_fra`, der bliver slettet.** Fjernes markeringen fra Unitree B2-W, ser posten ud som B2's egen — samme citat, samme kilde — og validatoren siger god for den. Målt: 14 bevidst ødelagte kopier af de rigtige datafiler, 13 fanget, netop denne slap igennem. Hullet kan ikke lukkes med en heuristik: identisk citat betyder *ikke* arv (Unitrees navigation og DEEP's *"LYNX M20 series"* dækker hver robot direkte). Det kræver et maskinlæsbart `variant_af` på identitetsfelterne — en skemabeslutning, der ikke er truffet |
@@ -64,15 +64,19 @@ Opdateret 19. august 2026.
 
 ---
 
-## D7 — nævneren, kort
+## D7 — nævneren. Lukket 21. aug 2026, se L30
 
-L6 splittede nyttelast og trinhøjde i to felter hver. Feltlisten fulgte med; **totalen
-gjorde ikke.** Fysik-gruppen står som "(10)" og opremser 12. 29 + 2 = **31**.
+Her stod tidligere, at valget stod mellem 29 og 31, og at det **ændrede rækkefølgen**.
+Begge dele er målt forkert:
 
-Konsekvens: hovedtallet er ~6,5 % for højt, og **valget ændrer rækkefølgen, ikke bare
-niveauet** — Unitree Go2 *stiger* fra 45 % til 48 %, når nævneren falder, fordi den kun
-oplyser ét nyttelasttal. Sammen med D4 gør det tætheden ubrugelig som rangering:
-ANYmal målte 28 % med den gamle regel og 38 % med den nye, samme side, samme dag.
+- **Svaret er 33, ikke 29 og ikke 31.** Skemaet har 33 feltnøgler, og alle 46 datafiler
+  skriver præcis dem — 46 × 33 = 1518 feltposter, nul ukendte nøgler, nul ubrugte felter.
+- **Nævneren ændrer ikke rækkefølgen.** Målt på alle 46 poster ved 29, 31 og 33: **0 af 46
+  skifter plads**, listerne er byte-identiske. En nævner, der er den samme for alle,
+  kan matematisk ikke omrokere. Den omrokering, notatet huskede, kom fra **L6's
+  feltopsplitning** — altså fra *tælleren*.
+- **Det er D4, der flytter rangeringen: 16 af 46 pladser.** D7 stod som spærring for
+  rangeringen, D4 stod som et almindeligt spørgsmål. De var byttet om.
 
 ---
 
@@ -127,7 +131,8 @@ ANYmal målte 28 % med den gamle regel og 38 % med den nye, samme side, samme da
 | **L24** | **Sprog i denne fase** | **Dansk først.** Engelsk slås til, når designet står. Arkitekturen er allerede på plads — én fil pr. sprog, URL pr. sprog, `hreflang` |
 | **L25** | **Å6 — importørpåstanden** | **Droppet.** EU-kolonnen viser kun `CE oplyst` og `tilgængelig i EU`. Påstanden om at køberen selv bliver importør fjernes fra PLAN.md og PRODUCT.md. **Konsekvens:** en af de tre kanter i PRODUCT.md's positionering falder væk — EU-kolonnen bliver et faktafelt frem for et argument |
 | **L26** | **S1 — billeder ved lancering** | **Udsat.** Vi bygger videre på fabrikantbillederne som lokale pladsholdere og beslutter vejen inden lancering. **Noteret risiko:** projektets egen `media/_kilder/LÆSMIG.md` dokumenterer, at en pladsholder, der lignede et rigtigt billede, overlevede til lancering på nabosiden. Spærringen står ved magt indtil beslutningen tages |
-| **L19** | **D7 — nævneren** | **31.** Feltlisten er sandheden; 29 var et levn fra før L6's splits. Alle tidligere tal (Spot 55 %, B2 48 %, ANYmal 28 %) skal tælles om og er indtil da ikke sammenlignelige |
+| **L30** | **D7 — nævneren. Reviderer L19** | **33 — og den skrives aldrig som et tal igen.** L19 valgte 31 ud fra feltlisten i DATAMODEL.md, dengang der ikke fandtes kode. Det, der har ændret sig siden: `tools/skema.mjs` findes nu, den er maskinlæsbar, og **alle 46 datafiler retter sig efter den** (46 × 33 = 1518 feltposter, nul ukendte nøgler, nul ubrugte felter). L19's princip — *"feltlisten er sandheden"* — står ved magt; det er feltlisten, der har fået krop. **31 var to modsatrettede fejl, der næsten gik lige op:** den talte `mål stående L×B×H` som ét felt, hvor skemaet har tre nøgler med hver sin kilde, og den talte et felt med, `mål sammenfoldet`, som skemaet aldrig har haft — tre datafiler siger det selv i deres noter: *"Skemaet har ingen felter til foldemål."* Et felt, ingen producent kan udfylde, trækker alle ned med et fast beløb og måler ikke længere åbenhed. **`NAEVNER` er nu udledt af `FELTNAVNE.length`**, så tæller og nævner ikke kan skride fra hinanden igen — det var netop dét, der skete: tælleren har hele tiden løbet over 33 nøgler, mens nævneren stod håndskrevet. `tests/koer.mjs` afsnit 3b fælder bygget, hvis nævneren hardkodes, hvis den bliver til flere end én, eller hvis `indhold/metode.md` siger et andet tal end koden. **Rækkefølgen er uændret: 0 af 46 skifter plads.** Niveauet flytter sig: et tal målt på 29 er ca. 14 % højere end det samme tal på 33 — Spot 69 % → 61 %, Vision 60 76 % → 67 % |
+| ~~**L19**~~ | ~~**D7 — nævneren**~~ | ~~**31.**~~ **Revideret af L30 (21. aug 2026): 33.** Står her, fordi tal målt mellem L19 og L30 er opgjort på 31 og ikke er sammenlignelige med de nuværende |
 | **L20** | **D4 — tællereglen** | **Type uden model tæller som udfyldt, men markeres synligt** (`~`), så tallet kan genberegnes uden dem. Under den strenge regel mistede hver kinesisk robot LiDAR-feltet, og feltet blev konstant og dermed værdiløst som skelnen |
 | **L21** | **D1 — sekundære kilder** | **Tilladt, når kilden ligger på producentens eget domæne og kan dateres** — datablade, brugermanualer, udviklerdok, JS-bundles. Mærkes `kildetype: sekundaer`, så de kan filtreres fra. **Lukker samtidig Å8:** Xiaomis JS-bundle er en gyldig kilde, og CyberDog 2 står på ~48 %, ikke 0 %. Forhandlere, databaser, anmeldelser og pressomtale er stadig ude |
 | **L22** | **Å10 — syvende kategori** | **`sikkerhed_overvaagning` tilføjes.** Fem producenter bruger selv ordet, så det er stadig et citat. Alternativet ville stille en parkpatruljerobot ved siden af Ghost Robotics' militærplatform |
@@ -158,6 +163,14 @@ ANYmal målte 28 % med den gamle regel og 38 % med den nye, samme side, samme da
   ikke forhindringshøjde — på engelsk var tallet landet i et mobilitetsfelt.
 - **Kan noget ikke belægges, så skriv det.** ATEX-gasgrupperne står som `ikke oplyst`,
   fordi de frie gengivelser modsiger hinanden.
+- **En brøk, hvis to halvdele kommer fra hver sin liste, skrider — tavst.** Tælleren i
+  specifikationstætheden løb over skemaets feltliste; nævneren stod som et håndskrevet
+  tal. Hver skemaændring flyttede den ene og ikke den anden, og intet fejlede, fordi
+  ingen af de to vidste, at den anden fandtes. Udled det afledte tal, eller lav en
+  prøve, der sammenligner de to. Helst begge dele.
+- **En prosaliste, der opremser flere ting, end dens egen overskrift siger, er en
+  fejl under opsejling.** *"Fysik (10)"* opremsede 12. Den uoverensstemmelse rejste
+  gennem tre dokumenter og to beslutninger, før nogen talte efter.
 
 ---
 
