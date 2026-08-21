@@ -1,6 +1,6 @@
 ---
 name: robotdata
-description: Indsaml, udfyld eller efterprøv en robotpost i quadruped-oversigten. Brug den hver gang en firbenet robot skal tilføjes, opdateres eller kontrolleres — den bærer 29-feltsskemaet, de ti hårde regler om kilder og operatorer, og det obligatoriske selv-tjek med tælling. Bruges også af agenter, der indsamler data i en worktree.
+description: Indsaml, udfyld eller efterprøv en robotpost i quadruped-oversigten. Brug den hver gang en firbenet robot skal tilføjes, opdateres eller kontrolleres — den bærer 33-feltsskemaet, de ti hårde regler om kilder og operatorer, og det obligatoriske selv-tjek med tælling. Bruges også af agenter, der indsamler data i en worktree.
 user-invokable: true
 argument-hint: "[producent model] eller [efterprøv <fil>]"
 ---
@@ -77,11 +77,15 @@ laengde:
   advarsel: metrisk og imperial afviger med faktor 10 - efterproeves
 ```
 
-## De 29 felter
+## De 33 felter
 
-**Fysik (10)** egenvægt · mål stående L×B×H · mål sammenfoldet · frihedsgrader ·
+**Sandheden er `tools/skema.mjs`.** Listen her er en læsbar gengivelse af den, ikke en
+konkurrerende liste. Er de to uenige, har skemaet ret — og så skal listen her rettes,
+ikke omvendt. Tæl efter med `node -e "import('./tools/skema.mjs').then(m=>console.log(m.FELTNAVNE.length))"`.
+
+**Fysik (14)** egenvægt · længde · bredde · højde · frihedsgrader ·
 nyttelast gående · nyttelast stående · maks. hastighed · maks. hældning ·
-forhindring enkelt · trappetrin kontinuerlig · IP-klasse · driftstemperatur fra/til
+forhindring enkelt · trappetrin kontinuerlig · IP-klasse · temp\_min · temp\_maks
 
 **Energi (5)** batteri Wh · driftstid + ved_last · hot-swap · ladetid · dockingstation
 
@@ -90,25 +94,45 @@ autonominiveau
 
 **Nyttelast (3)** monteringsinterface · strøm ud V/W pr. port · dataporte
 
-**Kommercielt og EU (5)** vejledende pris · tilgængelig i EU · CE oplyst ·
-servicepunkt i EU · leveringstid
+**Kommercielt (1)** vejledende pris
+
+**EU (4)** tilgængelig i EU · CE oplyst · servicepunkt i EU · leveringstid
+
+**Længde, bredde og højde er tre felter, ikke ét**, og det samme gælder de to
+temperaturgrænser. Hver af dem har sin egen `kilde` og `hentet`. Her stod tidligere
+*"mål stående L×B×H"* som ét punkt og desuden *"mål sammenfoldet"*, som skemaet
+aldrig har haft — det var de to fejl, der gjorde nævneren til 31 i stedet for 33
+(L30). **Skemaet har ingen felter til foldemål;** oplyser en producent dem, hører de i
+en `advarsel:` på målfeltet, som Xiaomi- og Yobotics-posterne allerede gør det.
 
 Identitetsfelter (slug, navn, producent, land, udgivelse, status, forgænger) skrives af
-os og **tæller ikke** i specifikationstætheden.
+os og **tæller ikke** i specifikationstætheden. Det samme gælder `anvendelse`, som med
+vilje ligger som topnøgle og ikke i `felter` — netop for ikke at flytte nævneren.
 
 ---
 
 ## Specifikationstæthed
 
-`udfyldte felter ÷ 29`, afrundet til hele procent. Sidens eneste rangering, fordi den
-måler producentens åbenhed og ikke vores mening.
+`udfyldte felter ÷ 33`, afrundet til hele procent. Sidens eneste rangering, fordi den
+måler producentens åbenhed og ikke vores mening. Nævneren er **skemaets feltantal** og
+udledes i koden (`NAEVNER = FELTNAVNE.length`) — skriv den aldrig som et tal.
 
-Målt 19. aug 2026 som reference: **Spot 55 % · Unitree B2 48 % · ANYmal 28 %.**
-Ligger en ny post markant over 55 %, er det sandsynligvis en fejl — kontrollér, om
+Målt 21. aug 2026 på alle 46 poster, med D4 = tæl-ikke, som bygget kører i dag:
+**Ghost Vision 60 67 % (højeste) · Spot 61 % · Unitree B2 61 % · ANYmal 30 % ·
+ANYmal X 12 % · median 13 af 33.** Fem poster står på 0 %.
+Ligger en ny post markant over **67 %**, er det sandsynligvis en fejl — kontrollér, om
 sekundære kilder er sneget med ind uden mærkning.
 
-**Åbent spørgsmål (D4):** tæller et felt som udfyldt, når producenten oplyser type men
-ikke model (`3D LiDAR ×1`)? Indtil det er afgjort: tæl det **ikke** med, og notér det.
+> **De gamle referencetal er ikke forkerte, de er en anden skala.** Her stod
+> *"Spot 55 % · Unitree B2 48 % · ANYmal 28 %"*, målt 19. aug 2026 på nævneren 29 og på
+> et tyndere datasæt. Et tal målt på 29 er ca. 14 % højere end det samme tal på 33.
+> Sammenlign aldrig et tal fra før 21. aug 2026 med et nyt uden at regne om.
+
+**Åbent (D4):** tæller et felt som udfyldt, når producenten oplyser type men ikke model
+(`3D LiDAR ×1`)? **L20 besluttede ja, men generatoren gør det ikke** — `build.mjs`
+defaulter til `tael-ikke`. Målt: forskellen flytter **16 af 46 pladser** i rangeringen.
+Skriv derfor altid, hvilken indstilling et tæthedstal er målt med. Nævneren er den
+samme i begge tilfælde; det er tælleren, der flytter sig.
 
 ---
 

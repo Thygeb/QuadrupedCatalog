@@ -39,8 +39,8 @@ To eksempler på, hvorfor den regel er nødvendig:
 
 - **Xiaomi CyberDog 2.** Specifikationerne står ikke i produktsidens HTML. De ligger i en
   JavaScript-fil, siden selv henter, og som browseren viser læseren. Læser man kun HTML'en,
-  ser posten tom ud. Læser man det, siden faktisk viser, står den med 18 af 31 felter.
-  Katalogets midterste post har 12.
+  ser posten tom ud. Læser man det, siden faktisk viser, står den med 17 af 33 felter.
+  Katalogets midterste post har 13.
 - **Boston Dynamics Spot.** Databladet ligger som PDF på producentens eget domæne. Det er
   der, længdemålet er konsistent — se afsnittet om modstridende tal nedenfor.
 
@@ -145,22 +145,48 @@ flere gange under indsamlingen, så kontrollen er ikke teoretisk.
 
 Kataloget har ét tal, der stilles op på tværs af robotter:
 
-> **specifikationstæthed = udfyldte felter ÷ 31**
+> **specifikationstæthed = udfyldte felter ÷ 33**
 
-De 31 felter er:
+Nævneren er 33, fordi skemaet har 33 felter. Ikke 33 fordi vi synes, men fordi det er
+antallet af felter, generatoren faktisk tæller op, og antallet hver eneste af de 46
+datafiler skriver. Tælleren og nævneren kommer fra den samme liste; det er hele pointen.
 
-- **Fysik (12):** egenvægt · mål stående (L×B×H) · mål sammenfoldet (L×B×H) · frihedsgrader ·
+De 33 felter er:
+
+- **Fysik (14):** egenvægt · længde · bredde · højde · frihedsgrader ·
   nyttelast gående · nyttelast stående · maks. hastighed · maks. hældning · enkelt forhindring ·
-  trappetrin kontinuerligt · IP-klasse · driftstemperatur (fra/til)
+  trappetrin kontinuerligt · IP-klasse · driftstemperatur fra · driftstemperatur til
 - **Energi (5):** batteri i Wh · driftstid med lastbetingelse · hot-swap · ladetid · dockingstation
 - **Sensorik og autonomi (6):** LiDAR · kameraer · onboard compute · ROS 2 · SDK-sprog ·
   autonominiveau
 - **Nyttelast og udvidelser (3):** monteringsinterface · strøm ud · dataporte
-- **Kommercielt og EU (5):** vejledende pris · tilgængelig i EU · CE oplyst · servicepunkt i EU ·
-  leveringstid
+- **Kommercielt (1):** vejledende pris
+- **EU (4):** tilgængelig i EU · CE oplyst · servicepunkt i EU · leveringstid
 
 Identitetsfelterne — navn, producent, land, status, årstal — skriver vi selv. De tæller ikke
-med, hverken i tælleren eller i nævneren.
+med, hverken i tælleren eller i nævneren. Det samme gælder **anvendelse**: den er
+producentens egen hylde, ikke en specifikation, producenten kan vælge at oplyse.
+
+**Længde, bredde og højde er tre felter, ikke ét.** Hver af dem har sin egen kilde og sin
+egen hentedato, og en producent, der oplyser længden men ikke bredden, har oplyst ét felt.
+Det samme gælder de to temperaturgrænser. Slår man dem sammen til "mål (L×B×H)" og
+"driftstemperatur (fra/til)", får man 31 — og det er præcis den fejl, nævneren har
+båret rundt på. Se rettelsesnoten nedenfor.
+
+> **Rettet 21. august 2026.** Her stod tidligere `÷ 31`, og feltlisten opremsede
+> *"mål sammenfoldet (L×B×H)"* — et felt, skemaet aldrig har haft, og som ingen robot
+> derfor kunne udfylde. Tre datafiler siger det selv i deres egne noter: *"Skemaet har
+> ingen felter til foldemål."* En nævner med et felt, der aldrig kan udfyldes, trækker
+> hver eneste robot ned med et fast beløb og måler ikke længere producentens åbenhed.
+> Sammen med sammenlægningen af L×B×H og af de to temperaturgrænser gik de to fejl
+> næsten lige op: 31 i stedet for 33.
+>
+> **Rækkefølgen er uændret.** Vi har regnet alle 46 poster igennem på både 29, 31 og 33
+> og sammenlignet listerne element for element: **0 af 46 robotter skifter plads.** En
+> nævner, der er den samme for alle, kan matematisk ikke ændre en rangering — den flytter
+> kun niveauet. Til gengæld er de gamle procenttal ikke sammenlignelige med de nye:
+> et tal målt på 29 er ca. 14 % højere end det samme tal på 33. **Alle tætheder oplyst
+> før 21. august 2026 skal regnes om, ikke omskrives.**
 
 ### Sådan tælles et felt som udfyldt
 
@@ -170,6 +196,13 @@ med, hverken i tælleren eller i nævneren.
 3. **Et udtrykkeligt nej er et udfyldt felt.** Producenten har svaret.
 4. **Type uden model tæller med, men markeres.** Skriver producenten `3D LiDAR ×1` uden at
    sige hvilken, kan du se på markeringen, at feltet er besvaret uden at være specificeret.
+
+   > **Åbent 21. august 2026 — reglen er besluttet, men generatoren gør det ikke endnu.**
+   > Bygget kører som standard med den modsatte regel: type uden model tæller *ikke* med.
+   > Forskellen er ikke kosmetisk. Vi har målt den på alle 46 poster: den flytter
+   > **16 af 46 pladser** i rangeringen. Tallene på siden er indtil videre opgjort uden
+   > type-uden-model. Nævneren er den samme i begge tilfælde, så det er tælleren, der
+   > flytter sig.
 5. Værdier, der kun står i en HTML-kommentar, tæller ikke. De vises ikke for en læser og er
    derfor ikke offentliggjort.
 
@@ -187,7 +220,7 @@ hvem der laver de bedste robotter.
 certificering i kataloget: `ATEX & IECEx certified up to Zone 1 IIB` — det papir, der afgør,
 om en maskine overhovedet må ind i et område med eksplosionsfare. Producentens
 specifikationsafsnit består til gengæld af én sætning: *"2026 ANYmal X specifications coming
-soon."* Tætheden er derfor **4 af 31 felter, 13 %**, og posten ligger i bunden af kataloget.
+soon."* Tætheden er derfor **4 af 33 felter, 12 %**, og posten ligger i bunden af kataloget.
 
 Sorterer du på tæthed, lander den robot, en dansk procesindustri kan bruge i et
 eksplosionsfarligt område, nederst. Tallet er ikke forkert. Det svarer bare på et andet

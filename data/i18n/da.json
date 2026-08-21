@@ -46,7 +46,7 @@
   "foraeldet": "Hentet for over 12 måneder siden - kan være forkert nu.",
   "taethed_titel": "Specifikationstæthed",
   "taethed_forklaring": "Hvor mange af skemaets felter producenten selv oplyser. Det måler producentens åbenhed, ikke robottens kvalitet.",
-  "taethed_naevner_aaben": "Nævneren er ikke besluttet (D7). Begge tal vises.",
+  "taethed_naevner": "Ud af skemaets 33 felter. Samme nævner for alle robotter.",
   "taethed_udfyldte": "udfyldte felter",
   "gruppe_fysik": "Fysik",
   "gruppe_energi": "Energi",

@@ -23,14 +23,25 @@ De tre er valgt som poler: billig/kinesisk, etableret/amerikansk, industriel/eur
 
 ## Målingen: specifikationstæthed
 
-29 felter talt. Et felt tæller som udfyldt, når producenten oplyser en værdi med enhed på
-sin egen produktside.
+Et felt tæller som udfyldt, når producenten oplyser en værdi med enhed på sin egen
+produktside.
+
+**Forsøgsmålingen, 19. aug 2026: nævneren 29, tre håndtalte poster.** Den står, som den
+blev målt. Den var beviset for, at målingen overhovedet virkede, og et bevis, man skriver
+om bagefter, beviser ikke længere noget:
 
 | Robot | Udfyldte felter | Tæthed |
 |---|---|---|
 | Boston Dynamics Spot | 16 / 29 | **55 %** |
 | Unitree B2 | 14 / 29 | **48 %** |
 | ANYbotics ANYmal | 8 / 29 | **28 %** |
+
+> **Tallene ovenfor kan ikke sammenlignes med dagens.** Nævneren er 33 siden L30
+> (21. aug 2026), og tællingen er nu maskinel og kørt på alle 46 poster. Målt med
+> `node tools/validate.mjs --taethed`: **Spot 20/33 = 61 % · Unitree B2 20/33 = 61 % ·
+> ANYbotics ANYmal 10/33 = 30 %.** Tælleren er højere end i forsøget, fordi datafilerne
+> siden er fyldt ud; procenten er lavere, fordi nævneren er større. To bevægelser i hver
+> sin retning — derfor må de to sæt tal ikke stilles op mod hinanden.
 
 **Det er sidens hovedtal, og det virker på første forsøg.** Ingen af de tre kommer over
 55 %. Konsekvensen for designet er ikke lille: *"ikke oplyst" er ikke en undtagelse, det
@@ -125,16 +136,28 @@ For en dansk køber er det forskellen mellem at købe en maskine og at blive imp
 
 ## Det reviderede skema
 
-29 felter i seks grupper. Ændringer fra PLAN.md markeret **fed**.
+**33 felter** i seks grupper. Ændringer fra PLAN.md markeret **fed**.
+
+> **Rettet 21. aug 2026 (L30).** Overskriften sagde tidligere *"29 felter"*, og
+> Fysik-gruppen stod som *"(10)"* og opremste 12. Uoverensstemmelsen er hele D7:
+> gruppeoverskrifterne blev aldrig talt om efter L6's opsplitninger, og listen
+> indeholdt oven i købet et felt — `mål sammenfoldet` — som skemaet aldrig fik.
+> **Tallene her er nu talt af `tools/skema.mjs`, ikke af hånden.** Bliver de to
+> uenige igen, har koden ret; `tests/koer.mjs` afsnit 3b fælder bygget.
 
 **Identitet** (skrives af os, tæller ikke i tætheden)
 slug · navn · producent · producentland · første udgivelse · status
 (i produktion / annonceret / udgået) · forgænger
 
-**Fysik** (10)
-egenvægt · mål stående L×B×H · mål sammenfoldet L×B×H · frihedsgrader ·
+**Fysik** (14)
+egenvægt · **længde** · **bredde** · **højde** · frihedsgrader ·
 **nyttelast gående** · **nyttelast stående** · maks. hastighed · maks. hældning ·
-**forhindring enkelt** · **trappetrin kontinuerlig** · IP-klasse · driftstemperatur fra/til
+**forhindring enkelt** · **trappetrin kontinuerlig** · IP-klasse ·
+**temp_min** · **temp_maks**
+
+*Mål er tre felter, ikke ét: hver akse har sin egen kilde og hentedato. Det samme
+gælder de to temperaturgrænser. **`mål sammenfoldet` findes ikke i skemaet** — oplyser
+en producent foldemål, hører de i en `advarsel:` på målfeltet.*
 
 **Energi** (5)
 batteri Wh · **driftstid + ved_last** · hot-swap · ladetid · dockingstation
@@ -146,8 +169,14 @@ onboard compute · ROS 2 · SDK-sprog · autonominiveau
 **Nyttelast og udvidelser** (3)
 monteringsinterface · strøm ud V/W pr. port · dataporte
 
-**Kommercielt og EU** (5)
-vejledende pris · tilgængelig i EU · CE oplyst · servicepunkt i EU · leveringstid
+**Kommercielt** (1)
+vejledende pris
+
+**EU** (4)
+tilgængelig i EU · CE oplyst · servicepunkt i EU · leveringstid
+
+*Skemaet har seks grupper, ikke fem: `kommercielt` og `eu` er adskilt i
+`tools/skema.mjs`, fordi EU-kolonnen tegnes for sig. 14 + 5 + 6 + 3 + 1 + 4 = **33**.*
 
 ### Feltets form
 

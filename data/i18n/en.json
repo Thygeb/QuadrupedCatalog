@@ -46,7 +46,7 @@
   "foraeldet": "Retrieved more than 12 months ago - may be wrong now.",
   "taethed_titel": "Specification density",
   "taethed_forklaring": "How many of the schema's fields the manufacturer states itself. It measures the manufacturer's openness, not the robot's quality.",
-  "taethed_naevner_aaben": "The denominator is not settled (D7). Both numbers are shown.",
+  "taethed_naevner": "Out of the schema's 33 fields. The same denominator for every robot.",
   "taethed_udfyldte": "fields filled",
   "gruppe_fysik": "Physical",
   "gruppe_energi": "Power",
