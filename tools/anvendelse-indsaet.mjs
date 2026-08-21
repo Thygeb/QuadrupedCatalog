@@ -24,7 +24,8 @@ import process from 'node:process';
 export const KILDEROD = 'C:/Praktik/websites/udstilling/media/_kilder';
 
 /**
- * vaerdi:  streng eller liste. FOERSTE element er producentens hovedpositionering.
+ * vaerdi:  streng eller liste. USORTERET MAENGDE (L27) - raekkefoelgen betyder intet.
+ * arvet_fra: moderens slug, naar citatet er moderens og ikke variantens (L23, R17).
  * citat:   streng eller liste. Ordret, uden vores omskrivning.
  * fil:     den gemte raafil, citatet er laest i (relativ til KILDEROD).
  * note:    hvad citatet IKKE daekker. Med vilje kort.
@@ -131,32 +132,47 @@ export const TABEL = {
       + '- det er en byggekvalitet, ikke en anvendelse, og taeller ikke med.',
   },
   'unitree-as2-w': {
-    vaerdi: 'inspektion',
+    vaerdi: ['inspektion', 'sikkerhed_overvaagning'],
     citat: 'ideal for security, inspection, and advanced applications.',
     kilde: 'https://www.unitree.com/As2-W',
     hentet: '2026-08-19',
     fil: 'raa-kina-unitree-2026-08-19/unitree-as2-w-produktside-2026-08-19.html',
-    note: 'Samme saetning naevner "security". Det tilladte saet har ingen kategori for '
-      + 'sikkerhed og overvaagning, saa det ord er ikke omsat - det er hverken '
-      + 'forsvar/beredskab eller teknisk inspektion. Se forslaget i rapporten.',
+    note: 'L22: producentens eget ord "security" i samme saetning er nu omsat til '
+      + 'sikkerhed_overvaagning. Citatet er As2-W\'s egen produktside; As2-W staar ikke i '
+      + 'produktnavigationen, saa der er intet arvet her.',
   },
+
+  /* B2-W og Go2-W: ARVET (L23). Citatet kommer fra MODERENS raafil - navigationen -
+     og ikke fra variantens egen side, som er gennemlaest uden fund. Derfor peger
+     `fil` her paa navigationsfilerne: efterproev-anvendelse.mjs skal kunne finde
+     citatet ORDRET der, hvor det staar.                                          */
+
   'unitree-b2-w': {
-    vaerdi: 'ikke_oplyst',
-    kilde: 'https://www.unitree.com/b2-w',
+    vaerdi: 'industri',
+    citat: ['Robot - Industry', '机器狗 - 行业级'],
+    kilde: 'https://www.unitree.com/',
     hentet: '2026-08-19',
-    fil: 'raa-kina-unitree-2026-08-19/unitree-b2-w-produktside-2026-08-19.html',
-    note: 'GENNEMLAEST, INTET FUNDET. B2-W staar ikke i produktnavigationen, og '
-      + 'produktsidens egen tekst er ren praestation: "Go Further with Higher Efficiency", '
-      + '"Brand New Intelligent Species". Ingen anvendelse naevnes. At arve B2s '
-      + '"Robot - Industry" ville vaere vores slutning, ikke producentens.',
+    arvet_fra: 'unitree-b2',
+    fil: ['raa-kina-unitree-2026-08-19/unitree-forside-nav-2026-08-19.html',
+      'raa-felt-eu-2026-08-19/unitree-forside-cn-2026-08-19.html'],
+    note: 'ARVET (L23). B2-W staar ikke i produktnavigationen, og dens egen side '
+      + 'https://www.unitree.com/b2-w er gennemlaest 2026-08-19 uden at naevne nogen '
+      + 'anvendelse - kun "Go Further with Higher Efficiency" og "Brand New Intelligent '
+      + 'Species". Citatet er B2s, og koblingen B2-W = B2 i hjulet udgave er vores '
+      + 'slutning, ikke producentens.',
   },
   'unitree-go2-w': {
-    vaerdi: 'ikke_oplyst',
-    kilde: 'https://www.unitree.com/go2-w',
+    vaerdi: ['forbruger_uddannelse', 'forskning_udvikling'],
+    citat: ['Robot - Consumer/Education', '机器狗 - 消费级 / 科研'],
+    kilde: 'https://www.unitree.com/',
     hentet: '2026-08-19',
-    fil: 'raa-kina-unitree-2026-08-19/unitree-go2-w-produktside-2026-08-19.html',
-    note: 'GENNEMLAEST, INTET FUNDET. Go2-W staar ikke i produktnavigationen, og siden '
-      + 'siger kun "Driving All Terrain" og "Go2 New Model Transformative Newborn".',
+    arvet_fra: 'unitree-go2',
+    fil: ['raa-kina-unitree-2026-08-19/unitree-forside-nav-2026-08-19.html',
+      'raa-felt-eu-2026-08-19/unitree-forside-cn-2026-08-19.html'],
+    note: 'ARVET (L23). Go2-W staar ikke i produktnavigationen, og dens egen side '
+      + 'https://www.unitree.com/go2-w er gennemlaest 2026-08-19 og siger kun '
+      + '"Driving All Terrain" og "Go2 New Model Transformative Newborn". Citatet er '
+      + 'Go2s, og koblingen Go2-W = Go2 i hjulet udgave er vores slutning, ikke producentens.',
   },
 
   /* ---------------- DEEP Robotics ---------------------------------------- */
@@ -182,22 +198,25 @@ export const TABEL = {
       + 'Industrial Use". Producentens kinesiske produktpanel etiketterer X20 "行业应用".',
   },
   'deep-robotics-x30': {
-    vaerdi: ['industri', 'inspektion'],
+    vaerdi: ['industri', 'inspektion', 'sikkerhed_overvaagning'],
     citat: 'X30 quadruped robot, a flagship product designed to meet core industry needs in multiple fields including inspection, investigation, security, surveying and mapping.',
     kilde: 'https://deeprobotics.cn/en/index/product3.html',
     hentet: '2026-08-19',
     fil: 'raa-kina-deep-magic-2026-08-19/deeprobotics-x30-specside-en-2026-08-19.html',
-    note: 'Samme saetning naevner ogsaa "security" og "surveying and mapping", som det '
-      + 'tilladte saet ikke har kategorier for.',
+    note: 'L22: "security" er omsat til sikkerhed_overvaagning. "surveying and mapping" '
+      + 'har det tilladte saet stadig ingen kategori for og er ikke omsat.',
   },
   'deep-robotics-x30-pro': {
-    vaerdi: ['industri', 'inspektion'],
+    vaerdi: ['industri', 'inspektion', 'sikkerhed_overvaagning'],
+    arvet_fra: 'deep-robotics-x30',
     citat: 'X30 quadruped robot, a flagship product designed to meet core industry needs in multiple fields including inspection, investigation, security, surveying and mapping.',
     kilde: 'https://deeprobotics.cn/en/index/product3.html',
     hentet: '2026-08-19',
     fil: 'raa-kina-deep-magic-2026-08-19/deeprobotics-x30-specside-en-2026-08-19.html',
-    note: 'X30 Pro har ingen egen produktside; den er en variant paa X30-siden, og '
-      + 'saetningen er skrevet om "X30 quadruped robot".',
+    note: 'ARVET (L23). X30 Pro har ingen egen produktside; den staar som en variant paa '
+      + 'X30-siden, og saetningen er skrevet om "X30 quadruped robot" - ikke om serien. '
+      + 'At Proen er daekket, er derfor vores kobling, ikke producentens ord. '
+      + 'L22: "security" er omsat til sikkerhed_overvaagning.',
   },
   'deep-robotics-lynx-m20': {
     vaerdi: ['industri', 'inspektion', 'forsvar_beredskab', 'logistik', 'forskning_udvikling'],
@@ -205,9 +224,9 @@ export const TABEL = {
     kilde: 'https://deeprobotics.cn/en/index/lynx.html',
     hentet: '2026-08-19',
     fil: 'raa-kina-deep-magic-2026-08-19/deeprobotics-lynx-m20-specside-en-2026-08-19.html',
-    note: 'FEM kategorier i én saetning. Det er producentens egen opremsning, ikke vores '
-      + 'braedt: skal en forside gruppere efter én, er "industri" den foerste og '
-      + 'baerende ("built specifically for ... industrial operation").',
+    note: 'FEM kategorier i én saetning. Det er producentens egen opremsning, og de fem '
+      + 'staar uden indbyrdes rangering (L27): robotten hoerer til i alle fem, ikke i '
+      + 'den foerste.',
   },
   'deep-robotics-lynx-m20-pro': {
     vaerdi: ['industri', 'inspektion', 'forsvar_beredskab', 'logistik', 'forskning_udvikling'],
@@ -226,12 +245,14 @@ export const TABEL = {
     note: 'Producenten skriver om "The LYNX M20 series", og M20S er en variant i den serie.',
   },
   'deep-robotics-lynx-s10': {
-    vaerdi: ['inspektion', 'forsvar_beredskab', 'forbruger_uddannelse', 'forskning_udvikling'],
+    vaerdi: ['inspektion', 'sikkerhed_overvaagning', 'forsvar_beredskab', 'forbruger_uddannelse', 'forskning_udvikling'],
     citat: 'It provides a highly efficient and reliable professional platform for intelligent lightweight tasks in industries such as power inspection, security patrol, emergency firefighting, and education & scientific research.',
     kilde: 'https://deeprobotics.cn/en/index/lynxs10.html',
     hentet: '2026-08-19',
     fil: 'raa-kina-deep-magic-2026-08-19/deeprobotics-lynx-s10-specside-en-2026-08-19.html',
-    note: 'Saetningen naevner ogsaa "security patrol", som det tilladte saet ikke daekker.',
+    note: 'L22: "security patrol" er omsat til sikkerhed_overvaagning. "emergency '
+      + 'firefighting" er forsvar_beredskab. De fem kategorier er producentens egen '
+      + 'opremsning i én saetning og staar uden indbyrdes rangering (L27).',
   },
   'deep-robotics-mini': {
     vaerdi: 'ikke_oplyst',
@@ -466,15 +487,18 @@ export const TABEL = {
   /* ---------------- Rainbow Robotics -------------------------------------- */
 
   'rainbow-robotics-rbq-10': {
-    vaerdi: ['forskning_udvikling', 'inspektion'],
+    vaerdi: ['forskning_udvikling', 'inspektion', 'sikkerhed_overvaagning'],
     citat: ['Research Platform',
-      'Based on dynamics-based gait control and AI gait technology, it provides walking stability and mobility outdoors, while supporting sensor and system expansion for field applications such as patrol, inspection, and observation.'],
+      'Based on dynamics-based gait control and AI gait technology, it provides walking stability and mobility outdoors, while supporting sensor and system expansion for field applications such as patrol, inspection, and observation.',
+      'PTZ cameras, thermal imaging, lighting, speakers, and other modules can be combined according to mission purpose and environment, supporting scenarios such as surveillance, inspection, and observation.'],
     kilde: 'https://rainbow-robotics.com/en/products/rbq-10/',
     hentet: '2026-08-19',
     fil: 'raa-vest-2026-08-19/rbq10.txt',
     note: '"Research Platform" er en etikette paa selve produktet, ved siden af "Outdoor '
-      + 'Walking" og "AI Gait". Producentens brancheliste for hele firmaet naevner ogsaa '
-      + 'Defense & Security og Logistics, men den er ikke skrevet om RBQ-10.',
+      + 'Walking" og "AI Gait". L22: "patrol" og "surveillance" er omsat til '
+      + 'sikkerhed_overvaagning; tredje citat er produktsidens egen modulbeskrivelse. '
+      + 'Producentens brancheliste for hele firmaet naevner ogsaa Defense & Security og '
+      + 'Logistics, men den er ikke skrevet om RBQ-10 og er ikke brugt.',
   },
 
   /* ---------------- RIVR --------------------------------------------------- */
@@ -509,13 +533,15 @@ export const TABEL = {
     note: 'Gennemlaest, ingen anvendelse naevnt - hverken i HTML eller i JS-bundlen.',
   },
   'raion-robotics-raibo2': {
-    vaerdi: ['inspektion', 'forskning_udvikling'],
+    vaerdi: ['inspektion', 'forskning_udvikling', 'sikkerhed_overvaagning'],
     citat: ['Modular payload space supports perception, communication, and mission equipment for patrol, inspection, and research workflows.',
       'RAIBO2 integrates high-output actuators, reinforced mechanical structure, and learning-based control into a field-ready quadruped platform.'],
     kilde: 'https://raionrobotics.com/en/product/Raibo2',
     hentet: '2026-08-21',
     fil: 'raa-anvendelse-2026-08-19/raionrobotics-raibo2-produktside-en-2026-08-21.html',
-    note: 'Se noten i datafilen.',
+    note: 'L22: "patrol" er omsat til sikkerhed_overvaagning, og det er den svageste af '
+      + 'de seks: producenten skriver hverken "security" eller "surveillance" om RAIBO2 '
+      + '- kun "patrol", og kun én gang. Se i oevrigt noten i datafilen.',
   },
 };
 
@@ -539,6 +565,9 @@ export function blok(a) {
   if (a.kilde) l.push(`  kilde: ${a.kilde}`);
   if (a.hentet) l.push(`  hentet: ${a.hentet}`);
   if (a.kildetype) l.push(`  kildetype: ${a.kildetype}`);
+  // Arven staar EFTER kilden og foer noten: den er ikke en kilde, men den
+  // aendrer, hvis ord kilden baerer. Se R17.
+  if (a.arvet_fra) l.push(`  arvet_fra: ${a.arvet_fra}`);
   if (a.note) l.push(`  note: ${cit(a.note)}`);
   return l.join('\n') + '\n';
 }

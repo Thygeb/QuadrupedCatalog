@@ -170,6 +170,21 @@ const ITUSLAAEDE_HOVED = [
   ['anvendelse som bar tekst, der ikke er en tilstand', 'R16',
     `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
     `anvendelse: industri\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+
+  // R17 - arv (L23). De tre tilfaelde her kan afgoeres i filen selv; resten
+  // kraever moderen og staar i afsnit 2c.
+  ['arvet_fra peger paa robotten selv', 'R17',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
+    `  hentet: 2026-08-19\n  arvet_fra: NAVN\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['arvet_fra staar sammen med ikke_oplyst - der er ingen kategori at arve', 'R17',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: ikke_oplyst\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
+    `  arvet_fra: en-anden\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['arvet_fra er ikke moderens slug som tekst', 'R17',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
+    `  hentet: 2026-08-19\n  arvet_fra: 42\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 ];
 
 /**
@@ -238,6 +253,14 @@ const GYLDIGE_HOVED = [
   ['robot helt uden anvendelse - feltet er valgfrit, ikke paakraevet',
     `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
     `felter:\n  egenvaegt: ikke_oplyst\n`],
+
+  // L22 - den syvende kategori. Uden det her tilfaelde ville "landbrug"-tilfaeldet
+  // ovenfor lige saa godt kunne bevise, at listen slet ikke var udvidet.
+  ['sikkerhed_overvaagning er en gyldig anvendelse (L22)',
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `anvendelse:\n  vaerdi: [inspektion, sikkerhed_overvaagning]\n` +
+    `  citat: "ideal for security, inspection, and advanced applications."\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 ];
 
 /* ------------------------------------------------------------------ koersel */
@@ -272,6 +295,7 @@ const alle = [
 ];
 
 let fangede = 0;
+let arvsagerFangede = 0;
 for (const [navn, regel, indhold, filnavn] of alle) {
   const fil = path.join(tmp, `${filnavn}.yaml`);
   fs.writeFileSync(fil, indhold, 'utf8');
@@ -294,6 +318,105 @@ console.log('\n2b. De to skemaudvidelser og aliasserne — skal PASSERE');
     const r = koerValidator([fil]);
     ok(navn, r.kode === 0, r.ud.trim().split('\n').filter((l) => l.startsWith('FEJL')).join(' / '));
   }
+}
+
+/* ------------------------------------------------------------------------
+   2c. R17 — arv af anvendelse fra grundmodel til variant (L23).
+
+   Arven kan ikke afgoeres i én fil: den skal kunne foelges tilbage til et ord,
+   producenten har skrevet, og det ord staar hos MODEREN. Hvert tilfaelde her
+   skriver derfor et helt lille datasaet og validerer mappen.
+
+   Reglerne skal vaere STRENGERE end R16, ikke mildere. Uden det ville
+   "arvet_fra" vaere en bagdoer: en variant kunne faa en kategori, ingen
+   producent har sagt, og se kildebelagt ud imens.
+   ------------------------------------------------------------------------ */
+console.log('\n2c. R17 — arv af anvendelse paa tvaers af filer (L23)');
+{
+  const hoved = (slug, navn) =>
+    `slug: ${slug}\nnavn: ${navn}\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n`;
+  const MOR = hoved('mor', 'Mor')
+    + `anvendelse:\n  vaerdi: [industri, inspektion]\n  citat:\n    - "Robot - Industry"\n`
+    + `    - "for industrial inspection"\n  kilde: https://example.com/mor\n  hentet: 2026-08-19\n`
+    + `felter:\n  egenvaegt: ikke_oplyst\n`;
+  const barn = (anv) => hoved('barn', 'Barn') + anv + `felter:\n  egenvaegt: ikke_oplyst\n`;
+
+  /** [navn, forventet regel eller null for "skal passere", filer] */
+  const ARVSAGER = [
+    ['moderen findes ikke', 'R17', {
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: findes-ikke\n`),
+    }],
+    ['moderen har selv ingen kategori - tavshed kan ikke arves', 'R17', {
+      'mor.yaml': hoved('mor', 'Mor') + `anvendelse:\n  vaerdi: ikke_oplyst\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: mor\n`),
+    }],
+    ['arven giver varianten en kategori, moderen ikke har', 'R17', {
+      'mor.yaml': MOR,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: [industri, logistik]\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: mor\n`),
+    }],
+    ['arven baerer et citat, der ikke staar ordret hos moderen', 'R17', {
+      'mor.yaml': MOR,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: industri\n  citat: "Built for industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: mor\n`),
+    }],
+    ['arven skifter kilde - citatet blev laest hos moderen', 'R17', {
+      'mor.yaml': MOR,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/barn\n  hentet: 2026-08-19\n  arvet_fra: mor\n`),
+    }],
+    ['arv i kaede: moderen har selv arvet', 'R17', {
+      'bedstemor.yaml': hoved('bedstemor', 'Bedstemor')
+        + `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`,
+      'mor.yaml': hoved('mor', 'Mor') + `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: bedstemor\n`
+        + `felter:\n  egenvaegt: ikke_oplyst\n`,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: mor\n`),
+    }],
+    // Og formen, arven SKAL kunne baere - ellers beviser de seks ovenfor kun,
+    // at validatoren siger nej til alt, der hedder "arvet_fra".
+    ['arv med moderens kategori, moderens citat, moderens kilde og maerket', null, {
+      'mor.yaml': MOR,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: mor\n`
+        + `  note: "Variantens egen side er gennemlaest uden fund."\n`),
+    }],
+    ['arv af BEGGE moderens kategorier og begge citater', null, {
+      'mor.yaml': MOR,
+      'barn.yaml': barn(`anvendelse:\n  vaerdi: [industri, inspektion]\n  citat:\n`
+        + `    - "Robot - Industry"\n    - "for industrial inspection"\n`
+        + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: mor\n`),
+    }],
+  ];
+
+  ARVSAGER.forEach(([navn, regel, filer], i) => {
+    const mappe = path.join(tmp, `arv-${i}`);
+    fs.mkdirSync(mappe, { recursive: true });
+    for (const [f, indhold] of Object.entries(filer)) fs.writeFileSync(path.join(mappe, f), indhold, 'utf8');
+    const r = koerValidator([`--data=${mappe}`]);
+    if (regel === null) {
+      ok(`${navn}  ->  skal passere`, r.kode === 0,
+        r.ud.trim().split('\n').filter((l) => l.startsWith('FEJL')).join(' / '));
+    } else {
+      const somVentet = r.kode === 1 && new RegExp(`\\b${regel}:`).test(r.ud);
+      if (somVentet) fangede++;
+      arvsagerFangede++;
+      ok(`${navn}  ->  ${regel}`, somVentet,
+        r.kode !== 1 ? `exit ${r.kode}, forventede 1` : `ingen ${regel} i udskriften`);
+    }
+  });
+
+  // Moderen skal kunne slaas op, ogsaa naar kun varianten staar paa
+  // kommandolinjen. Ellers ville "validate.mjs <én fil>" tavst springe R17 over.
+  const mappe = path.join(tmp, 'arv-2');   // barn har logistik, moderen har det ikke
+  const enkelt = koerValidator([path.join(mappe, 'barn.yaml')]);
+  ok('R17 fanger arven ogsaa naar KUN varianten valideres', enkelt.kode === 1 && /\bR17:/.test(enkelt.ud),
+    `exit ${enkelt.kode}`);
 }
 
 console.log('\n3. Gyldige filer maa IKKE fejle');
@@ -497,9 +620,160 @@ console.log('\n5. Visningen af de nye former');
   const json = JSON.parse(fs.readFileSync(path.join(ud, 'robots.json'), 'utf8'));
   ok('robots.json holder ja/nej som boolean, ikke som teksten "nej"',
     json.robotter[0].felter.ros2 === false);
+
+  // Robotten har ingen egenvaegt. Den skal stadig have en vaegtklasse - sin egen,
+  // ikke ingen. Ellers falder den ud af en forside, der grupperer efter vaegt.
+  ok('en robot uden oplyst vaegt faar klassen ikke_oplyst, ikke ingen klasse',
+    json.robotter[0].vaegtklasse.klasse === 'ikke_oplyst'
+    && json.robotter[0].vaegtklasse.kg === null,
+    JSON.stringify(json.robotter[0].vaegtklasse));
+  ok('vaegtklassen staar ogsaa paa siden, saa den ikke kun findes i indekset',
+    side.includes('vaegtklasse--ikke_oplyst'));
 }
 
-console.log(`\nValidator: ${alle.length} oedelagte tilfaelde, fangede ${fangede}.`);
+/* ------------------------------------------------------------------------
+   6. Vaegtklasse (afledt, L27) og anvendelse som usorteret maengde (L27).
+
+   Vaegtklassen staar ikke i nogen YAML-fil og maa aldrig komme til det. Testen
+   her er derfor et bevis paa, at bygget REGNER den ud - og at graenserne er
+   dem, der blev besluttet, og ikke dem, nogen huskede.
+   ------------------------------------------------------------------------ */
+console.log('\n6. Vaegtklasser og flervaerdi-anvendelse');
+{
+  const dataMappe = path.join(tmp, 'klasse-data');
+  fs.mkdirSync(dataMappe, { recursive: true });
+  const hoved = (slug, navn) =>
+    `slug: ${slug}\nnavn: ${navn}\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n`;
+  const vaegt = (slug, navn, felt) => [slug,
+    hoved(slug, navn) + `felter:\n${felt}`];
+
+  const filer = [
+    // Graenserne: 19,9 under, 20 paa, 39,9 under, 40 paa. Fire tal, fire klasser.
+    vaegt('a-under', 'A Under', `  egenvaegt:\n    vaerdi: 19.9\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    vaegt('b-nedre-graense', 'B Nedre', `  egenvaegt:\n    vaerdi: 20\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    vaegt('c-midt-top', 'C Midt', `  egenvaegt:\n    vaerdi: 39.9\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    vaegt('d-oevre-graense', 'D Oevre', `  egenvaegt:\n    vaerdi: 40\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // Operatoren skal respekteres: "~60 kg" ER 60, men forbeholdet foelger med.
+    vaegt('e-cirka', 'E Cirka', `  egenvaegt:\n    vaerdi: 60\n    enhed: kg\n    operator: "~"\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // "<= 20 kg" ligger PAA graensen og kan vaere begge klasser (DEEP Lynx S10).
+    vaegt('f-paa-graensen', 'F Graense', `  egenvaegt:\n    vaerdi: 20\n    enhed: kg\n    operator: "<="\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // Interval hen over en graense: maa ikke kollapse til sit midtpunkt (regel 5).
+    vaegt('g-interval', 'G Interval', `  egenvaegt:\n    vaerdi_min: 18\n    vaerdi_maks: 25\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    vaegt('h-ingen-vaegt', 'H Ingen', `  egenvaegt: ikke_oplyst\n`),
+    // Vaegt i pund er ikke kg og maa ikke laeses som et tal i kg.
+    vaegt('i-kun-imperial', 'I Imperial', `  egenvaegt:\n    vaerdi: 74\n    enhed: lb\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // L27: samme to kategorier, modsat raekkefoelge i YAML'en. De to skal
+    // komme ud ens - ellers afgoer en producents saetningsorden, hvor de lander.
+    ['j-orden-en', hoved('j-orden-en', 'J En')
+      + `anvendelse:\n  vaerdi: [logistik, industri, sikkerhed_overvaagning]\n`
+      + `  citat: "Robot - Industry"\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n`
+      + `felter:\n  egenvaegt: ikke_oplyst\n`],
+    ['k-orden-to', hoved('k-orden-to', 'K To')
+      + `anvendelse:\n  vaerdi: [sikkerhed_overvaagning, industri, logistik]\n`
+      + `  citat: "Robot - Industry"\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n`
+      + `felter:\n  egenvaegt: ikke_oplyst\n`],
+    // Arven skal SES paa siden, ikke kun staa i data.
+    ['l-mor', hoved('l-mor', 'L Mor')
+      + `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+      + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+    ['m-barn', hoved('m-barn', 'M Barn')
+      + `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n`
+      + `  kilde: https://example.com/mor\n  hentet: 2026-08-19\n  arvet_fra: l-mor\n`
+      + `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ];
+  for (const [slug, indhold] of filer) fs.writeFileSync(path.join(dataMappe, `${slug}.yaml`), indhold, 'utf8');
+
+  const ud = path.join(tmp, 'dist-klasse');
+  const r = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
+    `--data=${dataMappe}`, `--ud=${ud}`], { cwd: rod, encoding: 'utf8' });
+  ok('bygget gaar igennem med de nye former', r.status === 0,
+    ((r.stdout || '') + (r.stderr || '')).trim().split('\n').slice(-4).join(' / '));
+
+  const json = JSON.parse(fs.readFileSync(path.join(ud, 'robots.json'), 'utf8'));
+  const vk = Object.fromEntries(json.robotter.map((x) => [x.slug, x.vaegtklasse]));
+  const anv = Object.fromEntries(json.robotter.map((x) => [x.slug, x.anvendelse]));
+
+  ok('19,9 kg -> under_20', vk['a-under'].klasse === 'under_20', vk['a-under'].klasse);
+  ok('20 kg -> 20_40 (graensen er inklusiv nedadtil)', vk['b-nedre-graense'].klasse === '20_40',
+    vk['b-nedre-graense'].klasse);
+  ok('39,9 kg -> 20_40', vk['c-midt-top'].klasse === '20_40', vk['c-midt-top'].klasse);
+  ok('40 kg -> over_40', vk['d-oevre-graense'].klasse === 'over_40', vk['d-oevre-graense'].klasse);
+  ok('"~ 60 kg" er 60 - men forbeholdet foelger med som cirka',
+    vk['e-cirka'].klasse === 'over_40' && vk['e-cirka'].kg === 60
+    && vk['e-cirka'].operator === '~' && vk['e-cirka'].cirka === true,
+    JSON.stringify(vk['e-cirka']));
+  ok('"<= 20 kg" ligger paa graensen og maerkes som graensetilfaelde',
+    vk['f-paa-graensen'].graensetilfaelde === true, JSON.stringify(vk['f-paa-graensen']));
+  ok('interval 18-25 kg kollapser ikke til sit midtpunkt og maerkes som graensetilfaelde',
+    vk['g-interval'].kg === 18 && vk['g-interval'].kg_maks === 25
+    && vk['g-interval'].graensetilfaelde === true, JSON.stringify(vk['g-interval']));
+  ok('ingen vaegt -> klassen ikke_oplyst, og robotten bliver staaende',
+    vk['h-ingen-vaegt'].klasse === 'ikke_oplyst', JSON.stringify(vk['h-ingen-vaegt']));
+  ok('74 lb laeses ikke som 74 kg', vk['i-kun-imperial'].klasse === 'ikke_oplyst',
+    JSON.stringify(vk['i-kun-imperial']));
+  // Taellingen er efterregnet i haanden fil for fil:
+  //   under_20 2   a-under 19,9 · g-interval (min 18)
+  //   20_40    3   b-nedre 20 · c-midt 39,9 · f-graense <=20
+  //   over_40  2   d-oevre 40 · e-cirka ~60
+  //   ikke_oplyst 6  h-ingen · i-imperial(lb) · j · k · l-mor · m-barn
+  ok('bygget taeller klasserne op, saa fordelingen kan maales uden at gaette',
+    json.vaegtfordeling.under_20 === 2 && json.vaegtfordeling['20_40'] === 3
+    && json.vaegtfordeling.over_40 === 2 && json.vaegtfordeling.ikke_oplyst === 6,
+    JSON.stringify(json.vaegtfordeling));
+  ok('og summen af de fire klasser er alle robotterne - ingen falder ud imellem dem',
+    Object.values(json.vaegtfordeling).reduce((a, b) => a + b, 0) === json.robotter.length,
+    `${JSON.stringify(json.vaegtfordeling)} mod ${json.robotter.length} robotter`);
+
+  // L27 — maengden, ikke raekkefoelgen.
+  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27)',
+    JSON.stringify(anv['j-orden-en'].vaerdi) === JSON.stringify(anv['k-orden-to'].vaerdi),
+    `${JSON.stringify(anv['j-orden-en'].vaerdi)} mod ${JSON.stringify(anv['k-orden-to'].vaerdi)}`);
+
+  const sideJ = fs.readFileSync(path.join(ud, 'da', 'robotter', 'j-orden-en', 'index.html'), 'utf8');
+  const sideK = fs.readFileSync(path.join(ud, 'da', 'robotter', 'k-orden-to', 'index.html'), 'utf8');
+  const maerkerne = (s) => (s.match(/anvendelse__maerke--([a-z_]+)/g) || []).join(',');
+  ok('og samme raekkefoelge paa de to sider - ingen af dem er "hovedkategori"',
+    maerkerne(sideJ) === maerkerne(sideK) && maerkerne(sideJ) !== '', maerkerne(sideJ));
+  ok('alle tre kategorier vises, ingen tabes af grupperingen',
+    ['industri', 'sikkerhed_overvaagning', 'logistik'].every((v) => sideJ.includes(`anvendelse__maerke--${v}`)));
+
+  const sideM = fs.readFileSync(path.join(ud, 'da', 'robotter', 'm-barn', 'index.html'), 'utf8');
+  ok('arven staar synligt paa varianten, med moderens navn og et link',
+    /class="anvendelse__arv"/.test(sideM) && sideM.includes('>L Mor</a>')
+    && sideM.includes('href="../l-mor/"'), sideM.includes('anvendelse__arv') ? 'link/navn mangler' : 'blok mangler');
+  ok('og moderens citat vises paa varianten', sideM.includes('Robot - Industry'));
+  const sideL = fs.readFileSync(path.join(ud, 'da', 'robotter', 'l-mor', 'index.html'), 'utf8');
+  ok('moderen selv baerer INGEN arvemarkering', !/class="anvendelse__arv"/.test(sideL));
+  // Paa en arvet post ER koblingen vores, saa den generelle forklaring
+  // ("kategorien er ikke vores vurdering") ville staa og lyve nederst paa siden.
+  ok('den arvede side siger, at koblingen er vores - ikke det modsatte',
+    sideM.includes('vores slutning') && !sideM.includes('Kategorien er ikke vores vurdering'));
+  ok('og moderens side siger stadig det oprindelige',
+    sideL.includes('Kategorien er ikke vores vurdering'));
+
+  const katalog = fs.readFileSync(path.join(ud, 'da', 'robotter', 'index.html'), 'utf8');
+  ok('katalograekken baerer vaegtklassen som data-attribut, saa en gruppering kan bruge den',
+    /data-vaegtklasse="under_20"/.test(katalog) && /data-vaegtklasse="ikke_oplyst"/.test(katalog));
+  ok('og anvendelserne som en maengde, mellemrumsadskilt',
+    /data-anvendelse="industri sikkerhed_overvaagning logistik"/.test(katalog));
+
+  // Klassen er afledt. Staar den i en YAML-fil, er beslutningen brudt.
+  const iData = fs.readdirSync(path.join(rod, 'data', 'robots'))
+    .filter((f) => /vaegtklasse/.test(fs.readFileSync(path.join(rod, 'data', 'robots', f), 'utf8')));
+  ok('ingen datafil indeholder ordet "vaegtklasse" - klassen er afledt, ikke skrevet',
+    iData.length === 0, iData.join(', '));
+}
+
+console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
+  + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
 if (fejlet) console.log(`Fejlede: ${fejlliste.join(' · ')}`);
 process.exit(fejlet ? 1 : 0);

@@ -4,10 +4,14 @@ producent: Unitree Robotics
 producentland: Kina
 status: i_produktion
 anvendelse:
-  vaerdi: ikke_oplyst
-  kilde: https://www.unitree.com/b2-w
+  vaerdi: industri
+  citat:
+    - "Robot - Industry"
+    - "机器狗 - 行业级"
+  kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "GENNEMLAEST, INTET FUNDET. B2-W staar ikke i produktnavigationen, og produktsidens egen tekst er ren praestation: \"Go Further with Higher Efficiency\", \"Brand New Intelligent Species\". Ingen anvendelse naevnes. At arve B2s \"Robot - Industry\" ville vaere vores slutning, ikke producentens."
+  arvet_fra: unitree-b2
+  note: "ARVET (L23). B2-W staar ikke i produktnavigationen, og dens egen side https://www.unitree.com/b2-w er gennemlaest 2026-08-19 uden at naevne nogen anvendelse - kun \"Go Further with Higher Efficiency\" og \"Brand New Intelligent Species\". Citatet er B2's, og koblingen B2-W = B2 i hjulet udgave er vores slutning, ikke producentens."
 noter:
   - "Hjulbenet udgave af B2."
 felter:

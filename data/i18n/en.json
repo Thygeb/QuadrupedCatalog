@@ -155,5 +155,17 @@
   "billede_delt": "shared photo",
   "billede_delt_forklaring": "Same file as {model}. The manufacturer’s own choice - the photo is not necessarily this model.",
   "billede_fravalgt": "Photo not used.",
-  "billede_uden_tilladelse": "Manufacturer photo. Uncredited, no permission."
+  "billede_uden_tilladelse": "Manufacturer photo. Uncredited, no permission.",
+  "anvendelse_sikkerhed_overvaagning": "Security and surveillance",
+  "anvendelse_arvet_fra": "Category inherited from the base model",
+  "anvendelse_arvet_forklaring": "The manufacturer says nothing about this edition. The quote below is the base model’s, and the link between the two is ours.",
+  "anvendelse_forklaring_arvet": "The words are the manufacturer’s, but they were written about the base model. That they also cover this edition is our inference — which is why it is marked.",
+  "vaegtklasse_titel": "Weight class",
+  "vaegtklasse_under_20": "Under 20 kg",
+  "vaegtklasse_20_40": "20-40 kg",
+  "vaegtklasse_over_40": "Over 40 kg",
+  "vaegtklasse_ikke_oplyst": "Weight not stated",
+  "vaegtklasse_afledt": "Derived from the stated unladen weight. The manufacturer does not state a class.",
+  "vaegtklasse_cirka": "the manufacturer’s figure is approximate",
+  "vaegtklasse_graense": "the figure sits on the class boundary, and the manufacturer’s qualifier could move it"
 }

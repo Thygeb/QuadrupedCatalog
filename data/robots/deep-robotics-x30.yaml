@@ -5,11 +5,11 @@ producentland: Kina
 producentby: Hangzhou
 status: i_produktion
 anvendelse:
-  vaerdi: [industri, inspektion]
+  vaerdi: [industri, inspektion, sikkerhed_overvaagning]
   citat: "X30 quadruped robot, a flagship product designed to meet core industry needs in multiple fields including inspection, investigation, security, surveying and mapping."
   kilde: https://deeprobotics.cn/en/index/product3.html
   hentet: 2026-08-19
-  note: "Samme saetning naevner ogsaa \"security\" og \"surveying and mapping\", som det tilladte saet ikke har kategorier for."
+  note: "L22: \"security\" er omsat til sikkerhed_overvaagning. \"surveying and mapping\" har det tilladte saet stadig ingen kategori for og er ikke omsat."
 noter:
   - "Kinesisk og engelsk side er enige om samtlige tal. Eneste forskel: EN tilfoejer (battery included) til vaegten."
   - "X30 oplyser INGEN nyttelast - hverken gaaende eller staaende, paa noget sprog. Den aeldre X20 oplyser 20 kg. Producentens flagskib er blevet mindre oplysende end sin forgaenger."

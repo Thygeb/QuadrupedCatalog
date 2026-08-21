@@ -29,7 +29,7 @@ import {
 import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
-  ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER,
+  ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER, sorterAnvendelse,
 } from './skema.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
@@ -457,7 +457,7 @@ function tjekTilstandspost(sti, post, spec) {
  * Uden det her krav ville feltet vaere praecis den redaktionelle inddeling,
  * CLAUDE.md begraensning 6 forbyder: en konklusion skrevet om til en kategori.
  */
-function tjekAnvendelse(a) {
+function tjekAnvendelse(a, egenSlug) {
   const sti = 'anvendelse';
   if (a === undefined) return;                       // valgfri topnoegle
 
@@ -515,11 +515,28 @@ function tjekAnvendelse(a) {
       FEJL('R16', sti, `"citat" staar sammen med "ikke_oplyst". Kan producenten citeres, ` +
         `hoerer citatet til en kategori; kan den ikke, hoerer citatet ingen steder`);
     }
+    if (a.arvet_fra !== undefined) {
+      FEJL('R17', sti, `"arvet_fra" staar sammen med "ikke_oplyst". Der er ikke arvet ` +
+        `nogen kategori, saa der er heller ingen arv at maerke`);
+    }
     // kilde/hentet/note MAA staa: "vi kiggede her, og producenten sagde intet"
     // er en anden og mere brugbar oplysning end tavshed.
     if (a.kilde !== undefined) tjekKilde(sti, a);
     if (a.hentet !== undefined) tjekHentet(sti, a);
     return;
+  }
+
+  // 2b. R17 — arv, den del der kan afgoeres i filen selv. Resten (findes moderen?
+  //     har moderen selv et citat? er kategorien en delmaengde af moderens?)
+  //     kan kun afgoeres paa tvaers af filer og staar i tjekArv.
+  if (a.arvet_fra !== undefined) {
+    if (typeof a.arvet_fra !== 'string' || a.arvet_fra.trim() === '') {
+      FEJL('R17', sti, `"arvet_fra" skal vaere moderens slug som tekst, fik ` +
+        `${JSON.stringify(a.arvet_fra)}`);
+    } else if (a.arvet_fra === egenSlug) {
+      FEJL('R17', sti, `"arvet_fra: ${a.arvet_fra}" peger paa robotten selv. En post kan ` +
+        `ikke arve sin egen kategori`);
+    }
   }
 
   // 3. En kategori koster et ordret citat. Det er hele feltets eksistensberettigelse.
@@ -533,6 +550,109 @@ function tjekAnvendelse(a) {
   }
   tjekKilde(sti, a);
   tjekHentet(sti, a);
+}
+
+/* ------------------------------------------------------------- R17 arv */
+
+/** Anvendelsesposten som kort, uanset om YAML'en skrev kort eller bar tilstand. */
+function anvKort(a) {
+  if (a === undefined) return null;
+  if (typeof a === 'string') return { vaerdi: a };
+  return erPost(a) ? a : null;
+}
+const somListe = (v) => (v === undefined ? [] : (Array.isArray(v) ? v : [v]));
+const erKunIkkeOplyst = (l) => l.length === 1 && tilstandAf(l[0]) === 'ikke_oplyst';
+
+/**
+ * R17 — arv af anvendelse fra grundmodel til variant (L23, 21. aug 2026).
+ *
+ * En variant MAA arve moderens kategori, men saa skal posten baere `arvet_fra`
+ * og vise moderens citat. Arven er vores slutning om, at de to er samme maskine
+ * i to udgaver — og en slutning, der ikke er maerket, er ikke til at skelne fra
+ * en oplysning. Det er den samme grund, R16 findes af.
+ *
+ * Reglerne er strengere end R16, ikke mildere. En arv skal kunne foelges hele
+ * vejen tilbage til et ord, producenten har skrevet:
+ *   1. moderens slug skal findes
+ *   2. moderen skal selv have en kategori med citat — man kan ikke arve tavshed
+ *   3. moderen maa ikke selv have arvet: en kaede vasker citatet et led laengere
+ *      vaek fra producenten for hvert trin
+ *   4. variantens kategorier skal vaere en DELMAENGDE af moderens. Ellers kunne
+ *      "arv" smugle en kategori ind, moderen aldrig fik
+ *   5. variantens citater skal staa ordret hos moderen. Det er moderens citat,
+ *      der vises — ikke et nyt, der ligner
+ *   6. kilden skal vaere moderens. Citatet blev laest der, ikke paa variantens side
+ */
+export function tjekArv(robotter, dataMappe) {
+  const efterSlug = new Map();
+  for (const r of robotter) if (typeof r.slug === 'string') efterSlug.set(r.slug, r);
+
+  /** Moderen kan ligge uden for de filer, der lige nu valideres. Slugget skal
+   *  findes i datasaettet — ikke i argumentlisten. Derfor kigges der ogsaa paa disk. */
+  const fraDisk = (slug) => {
+    if (!dataMappe) return null;
+    for (const e of ['.yaml', '.yml']) {
+      const p = path.join(dataMappe, slug + e);
+      if (!fs.existsSync(p)) continue;
+      try { return normaliserRobot(parseYaml(fs.readFileSync(p, 'utf8'), p)); } catch { return null; }
+    }
+    return null;
+  };
+
+  for (const barn of robotter) {
+    const a = anvKort(barn.anvendelse);
+    if (!a || typeof a.arvet_fra !== 'string' || a.arvet_fra.trim() === '') continue;
+    robotINavn = barn.slug || '(ukendt robot)';
+    const sti = 'anvendelse';
+    const moderSlug = a.arvet_fra;
+    if (moderSlug === barn.slug) continue;             // allerede fanget i tjekAnvendelse
+
+    const mor = efterSlug.get(moderSlug) ?? fraDisk(moderSlug);
+    if (!mor) {
+      FEJL('R17', sti, `"arvet_fra: ${moderSlug}" peger paa en robot, der ikke findes. ` +
+        `En arv fra en post, ingen kan slaa op, er ikke en arv`);
+      continue;
+    }
+
+    const ma = anvKort(mor.anvendelse);
+    const morVaerdier = ma ? somListe(ma.vaerdi) : [];
+    if (!ma || !morVaerdier.length || erKunIkkeOplyst(morVaerdier)) {
+      FEJL('R17', sti, `"${moderSlug}" har selv ingen kategori (${ma ? 'ikke_oplyst' : 'ingen anvendelse'}). ` +
+        `Tavshed kan ikke arves`);
+      continue;
+    }
+    if (ma.citat === undefined) {
+      FEJL('R17', sti, `"${moderSlug}" har ingen "citat". Arven ville give varianten en ` +
+        `kategori, ingen producent har sagt`);
+      continue;
+    }
+    if (ma.arvet_fra !== undefined) {
+      FEJL('R17', sti, `"${moderSlug}" har selv arvet sin kategori. Arv i kaede flytter ` +
+        `citatet et led laengere vaek fra producenten for hvert trin — arv fra kilden i stedet`);
+      continue;
+    }
+
+    const barnVaerdier = somListe(a.vaerdi);
+    const morSaet = new Set(morVaerdier);
+    const ekstra = barnVaerdier.filter((v) => !morSaet.has(v));
+    if (ekstra.length) {
+      FEJL('R17', sti, `${JSON.stringify(ekstra)} staar ikke paa "${moderSlug}". En arv kan ` +
+        `kun give varianten det, moderen selv har — ellers er den nye kategori vores`);
+    }
+
+    const morCitater = new Set(somListe(ma.citat));
+    const fremmede = somListe(a.citat).filter((c) => !morCitater.has(c));
+    if (fremmede.length) {
+      FEJL('R17', sti, `citatet staar ikke ordret paa "${moderSlug}": ` +
+        `${JSON.stringify(fremmede[0].slice(0, 60))}. En arv viser MODERENS citat`);
+    }
+
+    if (a.kilde !== ma.kilde) {
+      FEJL('R17', sti, `"kilde" er ${JSON.stringify(a.kilde ?? null)}, men citatet blev laest ` +
+        `paa ${JSON.stringify(ma.kilde ?? null)} (${moderSlug}). Kilden skal foelge citatet; ` +
+        `variantens egen side hoerer til i "note"`);
+    }
+  }
 }
 
 /* --------------------------------------------------------------- taethed */
@@ -620,7 +740,7 @@ export function tjekRobot(doc, fil) {
   // R16 — producentens egen anvendelsesinddeling. Ligger uden for "felter" med
   // vilje: den taeller ikke i specifikationstaetheden, fordi den ikke er en
   // specifikation, producenten kunne have oplyst og lod vaere.
-  tjekAnvendelse(doc.anvendelse);
+  tjekAnvendelse(doc.anvendelse, doc.slug);
 
   const felter = doc.felter;
   if (felter === undefined || felter === null) { FEJL('R1', 'felter', `"felter" mangler`); return null; }
@@ -695,6 +815,20 @@ const SELVTEST = [
     const d = parseYaml('varianter: [A2-W, A2-W PRO]\nfelter:\n  ip_klasse:\n    varianter:\n      A2-W PRO: "IP56-IP67"\n');
     return d.felter.ip_klasse.varianter['A2-W PRO'] === 'IP56-IP67' && d.varianter[1] === 'A2-W PRO';
   }],
+  // L22 og L27. Den syvende kategori og maengde-egenskaben er begge beslutninger,
+  // ikke smagssager - de skal kunne fejle synligt, hvis nogen ruller dem tilbage.
+  ['sikkerhed_overvaagning er den syvende tilladte anvendelse (L22)',
+    () => ANVENDELSE_VAERDIER.includes('sikkerhed_overvaagning') && ANVENDELSE_VAERDIER.length === 7],
+  ['anvendelse er en usorteret maengde: to raekkefoelger giver samme kanoniske orden (L27)', () => {
+    const a = sorterAnvendelse(['logistik', 'industri', 'sikkerhed_overvaagning']).join(',');
+    const b = sorterAnvendelse(['sikkerhed_overvaagning', 'logistik', 'industri']).join(',');
+    return a === b && a === 'industri,sikkerhed_overvaagning,logistik';
+  }],
+  ['sorteringen taber ikke en ukendt vaerdi - R16 skal stadig kunne fange den', () => {
+    const s = sorterAnvendelse(['landbrug', 'industri']);
+    return s.length === 2 && s[0] === 'industri' && s[1] === 'landbrug';
+  }],
+
   ['haeldning i % og haeldning i grader er to dimensioner, ikke to enheder', () => {
     // 45 % ER 24,2 grader. Ligger de i samme dimension, kan tilBasis stille dem
     // op mod hinanden — og saa er producentens forbehold vekslet til vores tal.
@@ -749,11 +883,14 @@ export function main(argv) {
   cfg.streng = Boolean(flag['streng']);
 
   let maal = filer;
+  const dataMappe = path.resolve(String(flag['data'] ?? 'data/robots'));
   if (!maal.length) {
-    const mappe = path.resolve(String(flag['data'] ?? 'data/robots'));
-    maal = findFiler(mappe);
-    if (!maal.length) { console.error(`Ingen YAML-filer i ${mappe}.`); return 1; }
+    maal = findFiler(dataMappe);
+    if (!maal.length) { console.error(`Ingen YAML-filer i ${dataMappe}.`); return 1; }
   }
+  // R17 skal kunne slaa en moder op, ogsaa naar kun varianten er naevnt paa
+  // kommandolinjen. Moderen soeges der, hvor de navngivne filer ligger.
+  const arvMappe = filer.length ? path.dirname(path.resolve(filer[0])) : dataMappe;
 
   const robotter = [];
   for (const fil of maal) {
@@ -768,6 +905,9 @@ export function main(argv) {
     const r = tjekRobot(doc, fil);
     if (r) robotter.push(r);
   }
+
+  // R17 — arven kan foerst afgoeres, naar moderen kan slaas op.
+  tjekArv(robotter, arvMappe);
 
   for (const f of fejl) console.error(`FEJL      ${f.robot} · ${f.felt} · ${f.regel}: ${f.besked}`);
   for (const a of advarsler) console.error(`advarsel  ${a.robot} · ${a.felt} · ${a.regel}: ${a.besked}`);

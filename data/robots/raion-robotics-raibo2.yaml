@@ -5,13 +5,13 @@ producentland: Sydkorea
 producentby: Daejeon
 status: i_produktion
 anvendelse:
-  vaerdi: [inspektion, forskning_udvikling]
+  vaerdi: [inspektion, forskning_udvikling, sikkerhed_overvaagning]
   citat:
     - "Modular payload space supports perception, communication, and mission equipment for patrol, inspection, and research workflows."
     - "RAIBO2 integrates high-output actuators, reinforced mechanical structure, and learning-based control into a field-ready quadruped platform."
   kilde: https://raionrobotics.com/en/product/Raibo2
   hentet: 2026-08-21
-  note: "Foerste citat naevner ogsaa patrol, som det tilladte saet ikke har en kategori for. Universitetslaboratoriet bag robotten, KAIST RaiLab, skriver noget andet: a practical and cost-effective solution for industrial applications - men RaiLab er ikke producenten, og deres ord er ikke foert her."
+  note: "L22: \"patrol\" er omsat til sikkerhed_overvaagning. SVAGESTE af de seks: producenten skriver hverken \"security\" eller \"surveillance\" om RAIBO2 - kun \"patrol\", og kun én gang. Universitetslaboratoriet bag robotten, KAIST RaiLab, skriver noget andet: a practical and cost-effective solution for industrial applications - men RaiLab er ikke producenten, og deres ord er ikke foert her."
 noter:
   - "SPOERGSMAALET VAR, OM DEN OVERHOVEDET ER ET PRODUKT. SVARET ER JA. RAIBO2 er udviklet i KAIST RaiLab (prof. Jemin Hwangbo) og kommercialiseret af udspringervirksomheden Raion Robotics Inc. (라이온로보틱스), Daejeon, med kontor i Seoul. Produktsiden https://raionrobotics.com/en/product/Raibo2 svarede HTTP 200 den 2026-08-21 og har en salgssektion: For product purchases, demo requests, quotations, PoC projects, and business partnerships, contact our sales team. Posten er derfor oprettet - men under Raion Robotics, ikke under KAIST."
   - "PRODUCENTEN OFFENTLIGGOER INGEN SPECIFIKATIONSTABEL FOR ROBOTTEN. Produktsiden har praecis én tabel, og den hoerer til AKTUATOREN: Peak Torque 100 Nm, Rated Voltage 48 V, Max Speed 195.8 rpm, Rated Current 14.1 A, Weight 1.8 kg. FAELDEN ER Weight 1.8 kg - det er én motormodul, ikke robotten. Ingen af de fem tal er foert ind som robotdata."

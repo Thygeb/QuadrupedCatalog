@@ -155,5 +155,17 @@
   "billede_delt": "delt foto",
   "billede_delt_forklaring": "Samme fil som {model}. Producentens eget valg - billedet er ikke nødvendigvis denne model.",
   "billede_fravalgt": "Billedet er fravalgt.",
-  "billede_uden_tilladelse": "Producentens eget billede. Ikke krediteret, ingen tilladelse."
+  "billede_uden_tilladelse": "Producentens eget billede. Ikke krediteret, ingen tilladelse.",
+  "anvendelse_sikkerhed_overvaagning": "Sikkerhed og overvågning",
+  "anvendelse_arvet_fra": "Kategorien er arvet fra grundmodellen",
+  "anvendelse_arvet_forklaring": "Producenten skriver intet om denne udgave. Citatet nedenfor er grundmodellens, og koblingen mellem de to er vores.",
+  "anvendelse_forklaring_arvet": "Ordene er producentens, men de er skrevet om grundmodellen. At de også dækker denne udgave, er vores slutning - derfor står den mærket.",
+  "vaegtklasse_titel": "Vægtklasse",
+  "vaegtklasse_under_20": "Under 20 kg",
+  "vaegtklasse_20_40": "20-40 kg",
+  "vaegtklasse_over_40": "Over 40 kg",
+  "vaegtklasse_ikke_oplyst": "Vægt ikke oplyst",
+  "vaegtklasse_afledt": "Regnet ud af egenvægten. Producenten oplyser ikke en klasse.",
+  "vaegtklasse_cirka": "producentens tal er omtrentligt",
+  "vaegtklasse_graense": "tallet ligger på klassegrænsen, og producentens forbehold kan flytte det"
 }

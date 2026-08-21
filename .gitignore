@@ -16,6 +16,7 @@ media/_kilder/**
 # Agenternes arbejdsfiler og testkoerslens midlertidige output
 .tmp/
 tests/.tmp-koersel/
+tests/.tmp-mutering/
 
 # Billedagentens arbejdsmappe: fabrikantmateriale, aldrig distribution
 media/_arbejde/**

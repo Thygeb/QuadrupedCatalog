@@ -185,15 +185,22 @@ producentens forbehold til vores præcision. Feltet skal kunne vise `> 40 kg`, i
 
 ---
 
-## `anvendelse` — producentens egen inddeling, håndhævet af R16
+## `anvendelse` — producentens egen inddeling, håndhævet af R16 og R17
 
 Tilføjet 21. aug 2026. **Topnøgle, ikke et felt i `felter`.**
 
-CEO'en vil have forsiden inddelt efter anvendelse i stedet for vægt. En redaktionel
-inddeling ville falde for samme regel, der forbød 1-5-scoren (CLAUDE.md begrænsning 6):
-*en konklusion skrevet om til en kategori.* Løsningen er ikke at inddele bedre. Det er
-at lade producenterne inddele — og gemme deres ord ved siden af kategorien, så en læser
-kan se, hvem der har sagt det.
+En redaktionel inddeling ville falde for samme regel, der forbød 1-5-scoren (CLAUDE.md
+begrænsning 6): *en konklusion skrevet om til en kategori.* Løsningen er ikke at inddele
+bedre. Det er at lade producenterne inddele — og gemme deres ord ved siden af kategorien,
+så en læser kan se, hvem der har sagt det.
+
+> **Rettet 21. aug 2026.** Her stod tidligere: *"CEO'en vil have forsiden inddelt efter
+> anvendelse i stedet for vægt."* Den sætning var den eneste optegnelse af en
+> forsidebeslutning, der modsagde **L15**, og den stod uden L-nummer og uden dato —
+> præcis det, `KRITIK-1-plan.md` K2 kalder en beslutning, ingen kan efterprøve om blev
+> truffet. K3 målte desuden, at anvendelse ikke duer som forsideakse: to grupper ville
+> have ét kort, og *ikke oplyst*-bunken var næststørst. **Anvendelse er et filter og et
+> mærke på kortet — ikke forsidens akse.** Vægtklasse bliver på forsiden.
 
 ```yaml
 anvendelse:
@@ -201,19 +208,48 @@ anvendelse:
   citat: "Robot - Industry"     # ordret. Streng eller liste af strenge
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
+  arvet_fra: unitree-b2         # valgfri. Se R17 nedenfor
   note: "Producentens egen produktnavigation, gruppen B2 står i."
 ```
 
-**Tilladt sæt** (seks): `industri` · `inspektion` · `forskning_udvikling` ·
-`forbruger_uddannelse` · `forsvar_beredskab` · `logistik` — plus tilstanden `ikke_oplyst`.
-Står der flere, er **den første** producentens hovedpositionering; det er den, en
-forsidegruppering skal bruge, og de øvrige er kategorier, producenten selv nævner i
-samme åndedrag.
+**Tilladt sæt** (syv): `industri` · `inspektion` · `sikkerhed_overvaagning` ·
+`forskning_udvikling` · `forbruger_uddannelse` · `forsvar_beredskab` · `logistik` —
+plus tilstanden `ikke_oplyst`.
+
+`sikkerhed_overvaagning` kom til med **L22** (21. aug 2026). Uden den blev producentens
+eget ord — *security*, *patrol*, *surveillance* — ikke omsat på seks robotter, og det
+stod kun i noten. Alternativet var værre: presses *security patrol* ind under
+`forsvar_beredskab`, kommer en parkpatruljerobot til at stå ved siden af Ghost Robotics'
+militærplatform.
+
+**Værdierne er en usorteret mængde (L27).** Der findes ikke en hovedkategori. Reglen om,
+at den første værdi var producentens hovedpositionering, er **fjernet**, fordi
+`KRITIK-1-plan.md` K4 målte, hvad den gjorde: ti robotter med de samme to kategorier
+blev delt i to bunker af rækkefølgen i en producents navigationsmenu. R16 krævede citat
+på *at* en kategori var nævnt og krævede intet om rækkefølgen — så beviskravet lå på det
+led, der ikke betød noget, og manglede på det led, der afgjorde forsiden. Generatoren
+lægger værdierne i en fast, kanonisk orden, netop for at rækkefølgen ikke kan læses som
+mening.
 
 **R16 vender beviskravet om.** På et almindeligt felt koster et tal en kilde. Her koster
 en *kategori* et ordret citat: uden `citat` er `vaerdi` nødt til at være `ikke_oplyst`,
 og et `ikke_oplyst` må omvendt **ikke** bære et citat. Så kan feltet ikke bruges til at
 smugle en vurdering ind, hverken forfra eller bagfra.
+
+**R17 — arv til varianter, synligt mærket (L23).** En variant må arve grundmodellens
+kategori, men posten skal bære `arvet_fra: <slug>` og vise moderens citat. Arven er
+*vores* slutning om, at de to er samme maskine i to udgaver, og en umærket slutning kan
+ikke skelnes fra en oplysning. Kravene er strengere end R16, ikke mildere:
+
+1. moderens slug skal findes
+2. moderen skal selv have en kategori **med citat** — tavshed kan ikke arves
+3. moderen må ikke selv have arvet: en kæde vasker citatet et led længere væk pr. trin
+4. variantens kategorier skal være en **delmængde** af moderens
+5. variantens citater skal stå **ordret** hos moderen
+6. `kilde` skal være moderens — citatet blev læst dér, ikke på variantens side.
+   Variantens egen side hører i `note`
+
+Arven vises på siden, over citatet, med link til grundmodellen.
 
 **Hvorfor uden for `felter`:** anvendelse er ikke en specifikation, producenten kunne have
 oplyst og lod være. Det er den hylde, producenten selv stiller robotten på. Talte den med
@@ -221,7 +257,39 @@ i specifikationstætheden, ville nævneren skifte fra 29/31 til 30/32, og alle h
 tæthedstal blive uforlignelige — uden at nogen havde besluttet det (D7 er stadig åben).
 
 **Efterprøvning:** `node tools/efterproev-anvendelse.mjs` slår hvert citat op i den gemte
-råfil og fejler, hvis det ikke står der ordret. Målt 21. aug 2026: 53 citater, 0 fejl.
+råfil og fejler, hvis det ikke står der ordret. Målt 21. aug 2026: **58 citater, 0 fejl**
+(39 robotter med citat, 7 `ikke_oplyst`).
+
+---
+
+## Vægtklasse — afledt i generatoren, aldrig i data
+
+Tilføjet med **L27** (21. aug 2026). Klassen står **ikke** i nogen YAML-fil og må ikke
+komme til det. `tools/build.mjs` regner den ud af `egenvaegt`:
+
+| Klasse | Regel |
+|---|---|
+| `under_20` | egenvægt < 20 kg |
+| `20_40` | 20 ≤ egenvægt < 40 kg |
+| `over_40` | egenvægt ≥ 40 kg |
+| `ikke_oplyst` | ingen vægt oplyst |
+
+Stod klassen i data, skulle 46 filer rettes i hånden, hvis en grænse flyttede sig — og
+den 47. ville blive glemt. Afledt flytter den sig ét sted.
+
+**`ikke_oplyst` er en klasse på lige fod med de tre andre, ikke et hul.** Robotter uden
+oplyst vægt må ikke forsvinde fra en forside, der grupperer efter vægt; det ville være
+den fjerde måde at lade *ikke oplyst* kollapse (CLAUDE.md begrænsning 5).
+
+**Operatoren respekteres.** `≈ 60 kg` er 60, men forbeholdet følger med som `cirka`, så
+visningen kan skrive `≈`. Ligger tallet præcis på en klassegrænse **og** bærer en
+operator, er klassen ikke sikker — DEEP Lynx S10 oplyser `≤ 20 kg`, som kan være både
+`under_20` og `20_40`. Det står som `graensetilfaelde` frem for at blive gemt bag et
+valg, ingen kan se. Et interval får sin klasse fra det laveste endepunkt og markeres som
+grænsetilfælde, hvis de to endepunkter ikke lander i samme klasse.
+
+**Målt 21. aug 2026** over alle 46 poster: `under_20` **12** · `20_40` **12** ·
+`over_40` **13** · `ikke_oplyst` **9**. Bygget skriver tallene ved hver kørsel.
 
 ---
 
