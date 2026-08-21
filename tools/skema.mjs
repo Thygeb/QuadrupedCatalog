@@ -109,9 +109,11 @@ export function tilstandAf(v) {
    Feltet er en TOPNOEGLE, ikke et felt i "felter". To grunde:
    1. Det er ikke en specifikation, producenten oplyser eller lader vaere med at
       oplyse — det er den hylde, producenten selv stiller robotten paa.
-   2. Ville det taelle i specifikationstaetheden, ville naevneren skifte fra 29/31
-      til 30/32, og alle historiske taethedstal i STATUS.md og DATAMODEL.md ville
-      blive uforlignelige uden at nogen havde besluttet det (D7 er stadig aaben).
+   2. Ville det taelle i specifikationstaetheden, ville naevneren skifte fra 33 til
+      34, og alle historiske taethedstal i STATUS.md og DATAMODEL.md ville blive
+      uforlignelige. Naevneren er udledt siden L30, saa skiftet ville ske TAVST i
+      koden — men metodeproeven i tests/koer.mjs fanger det, fordi metode.md saa
+      ville sige 33, hvor koden siger 34.
 
    Form:
      anvendelse:
@@ -214,12 +216,30 @@ export const POST_NOEGLER = new Set([
 export const POST_NOEGLE_ALIAS = { vaerdi_min: 'min', vaerdi_maks: 'maks' };
 
 /**
- * D7 — naevneren i specifikationstaetheden er IKKE afgjort.
- * Skemaet har 33 felter; de historiske optaellinger brugte 29 (maal L x B x H som
- * ét felt, driftstemperatur som ét) og 31. Derfor er naevneren en parameter, og
- * bygget viser alle tre, indtil nogen lukker punktet.
+ * D7 — naevneren i specifikationstaetheden. LUKKET med L30 (21. aug 2026): den er
+ * FELTNAVNE.length, i dag 33.
+ *
+ * Den bliver UDLEDT og maa aldrig skrives som et tal igen. Det var praecis det, der
+ * gik galt: `taethed()` har hele tiden talt taelleren op over FELTNAVNE (33 noegler),
+ * mens naevneren stod som en haandskrevet konstant. To lister, ét broekstreg — og de
+ * skred fra hinanden ved hver skemaaendring uden at noget fejlede.
+ *
+ * Lineage, maalt 21. aug 2026:
+ *   29  praeliste fra foer L6 (nyttelast som ét felt, trinhoejde som ét). Levn.
+ *   31  L19's tal. Talte "maal staaende L x B x H" som ÉN post, hvor skemaet har tre
+ *       noegler med hver sin kilde, og talte et felt med, "maal sammenfoldet", som
+ *       skemaet aldrig har haft. To modsatrettede fejl, der naesten gik lige op.
+ *   33  det skemaet har, og det de 46 datafiler skriver: 46 x 33 = 1518 feltposter,
+ *       nul ukendte noegler, nul ubrugte skemafelter.
+ *
+ * Aendrer nogen FELTER, flytter naevneren med — og det ER det rigtige, fordi
+ * taelleren allerede flytter med. Metodesiden maa saa rettes: tests/koer.mjs har en
+ * proeve, der fejler, hvis `indhold/metode.md` siger et andet tal end det her.
  */
-export const NAEVNERE_STANDARD = [29, 31];
+export const NAEVNER = FELTNAVNE.length;
+
+/** Liste, fordi --naevner= stadig kan give flere, naar en aendring skal MAALES. */
+export const NAEVNERE_STANDARD = [NAEVNER];
 
 /** Felter, katalogtabellen viser. Resten staar paa detaljesiden. */
 export const KATALOG_FELTER = [

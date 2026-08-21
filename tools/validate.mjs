@@ -11,7 +11,9 @@
  *   node tools/validate.mjs --selvtest         koerer parserens egne testtilfaelde
  *
  * Parametre, der IKKE er laast:
- *   --naevner=29,31,33            D7: naevneren i taetheden. Standard: alle tre
+ *   --naevner=33                  D7 er lukket (L30): naevneren er skemaets feltantal.
+ *                                 Flaget bliver staaende, saa en aendring kan MAALES
+ *                                 mod den gamle skala — ikke saa siden kan vise to tal
  *   --type-uden-model=tael|tael-ikke|begge   D4. Standard: begge
  *   --imperial-tolerance=<pct>    Standard: 2. Graensen er max(denne, afrundingsslaek)
  *   --streng                      advarsler taeller som fejl
@@ -928,9 +930,10 @@ function skrivTaethed(robotter, flag) {
   const d4 = d4Flag === 'begge' ? [false, true] : [d4Flag === 'tael'];
 
   console.log('\nSpecifikationstaethed');
-  console.log(`  Skemaet har ${FELTNAVNE.length} felter. D7 (naevneren: 29 eller 31) er IKKE afgjort,`);
-  console.log('  og D4 (taeller type uden model?) heller ikke. Begge staar som parametre, og');
-  console.log('  tabellen viser hver kombination. Vaelg ikke en kolonne uden at lukke punktet.\n');
+  console.log(`  Naevneren er ${FELTNAVNE.length} = skemaets feltantal (D7, lukket med L30). Den er UDLEDT,`);
+  console.log('  saa taeller og naevner ikke kan skride fra hinanden igen.');
+  console.log('  D4 (taeller type uden model?) staar stadig som parameter: L20 siger tael,');
+  console.log('  koden defaulter til tael-ikke, og forskellen flytter 16 af 46 pladser.\n');
   const kolonner = [];
   for (const n of naevnere) for (const t of d4) kolonner.push({ n, t });
   console.log('  ' + 'robot'.padEnd(26) +

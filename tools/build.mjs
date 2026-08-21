@@ -8,8 +8,9 @@
  *
  *   node tools/build.mjs
  *   node tools/build.mjs --data=<mappe> --ud=<mappe>
- *   node tools/build.mjs --naevner=29,31        D7 er afgjort til 31 (L19), men
- *                                              flaget staar, indtil tallene er talt om
+ *   node tools/build.mjs --naevner=31           D7 er lukket til skemaets feltantal
+ *                                              (L30, vender L19's 31). Flaget staar,
+ *                                              saa en gammel skala kan MAALES imod
  *   node tools/build.mjs --type-uden-model=tael D4 (L20)
  *   node tools/build.mjs --spring-validering-over   (kun til fejlsoegning)
  *
