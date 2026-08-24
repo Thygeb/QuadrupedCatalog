@@ -11,6 +11,13 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens kinesiske produktpanel saetter en etikette paa hver model. Lite3 faar \"教育科研\" (uddannelse og videnskabelig forskning), X20 og X30 faar \"行业应用\" (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun paa den kinesiske."
 varianter: [Basic, Venture, Pro, LIDAR]
+billede:
+  fil: fotos/fabrikant/deep-robotics-lite3.jpg
+  ophav: fabrikant
+  kilde: https://www.deeprobotics.cn/en/wap/product1.html
+  hentet: 2026-08-24
+  alt: "DEEP Robotics Lite3, hvidt studiofoto/render fra siden af"
+  note: "IKKE det tidligere afviste delte 'andre produkter'-miniaturebillede (pro1.png/pro4.png, sha256 4eb65513a6... - byte-identisk paa tvaers af Lite3-, X20-, X30- og begge Lynx-sider) og heller ikke ledmodul-fotografierne (j60.png/j100.png). Dette billede er hentet fra Lite3's EGEN mobil-side (en/wap/product1.html), som IKKE var i det tidligere indsamlede materiale (kun de fem filer fra desktop-siderne index/product1.html var hentet foer nu). Billed-URL'en /public/static/robot/demo/lite_01.jpg er unik for denne side og sha256-efterproevet mod alle 43 eksisterende filer i assets/fotos/fabrikant/ - ingen dubletter. Samme mobil-side indeholder ogsaa filen p8_.jpg, som ved visuel kontrol viser teksten 'X30' paa robottens krop - den er derfor IKKE brugt, selvom den ligger paa Lite3-siden."
 noter:
   - "Fire varianter i faneblade paa samme produktside. Nyttelasten falder, naar udstyret stiger: 5 - 4,5 - 4 - 2,5 kg. Producenten traekker sensorvaegten fra nyttelasten. Paa det felt, der filtreres mest paa, er de fire varianter fire forskellige robotter med en spredning paa faktor 2."
   - "Ingen hastighed, ingen IP-klasse, ingen driftstemperatur, ingen batterikapacitet og ingen frihedsgrader paa nogen variant, paa noget sprog."
