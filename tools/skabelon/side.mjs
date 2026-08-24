@@ -744,15 +744,85 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     return navn;
   }
 
-  function billede(robot, op = '') {
+  function billede(robot, op = '', { stor = false } = {}) {
     const b = laesBillede(robot);
-    return billedledHTML({ b, op, tekst: billedTekst(robot, b) });
+    if (!b) return tomPlade(robot, op, stor);
+    return billedledHTML({ b, op, stor, tekst: billedTekst(robot, b) });
   }
 
   /** Billedets sandhed under billedet. Tom liste, naar pladen er tom. */
   function billedsandhed(robot) {
     const b = laesBillede(robot);
     return billedLinjer(b, billedTekst(robot, b));
+  }
+
+  /* --- 8b. MAALEPLADEN ----------------------------------------------------
+   * Den tomme plade var 46 gange den samme graa flade med den samme saetning
+   * paa. Maalt 21.08.2026 i dist/da/index.html: 46 tomme plader, 0 <img>, og
+   * saetningen "Vi har ikke selv fotograferet modellen ..." stod 92 gange -
+   * én gang i pladen og én gang i kortets fodnote, paa hvert eneste kort.
+   *
+   * Naar vi ikke har et fotografi, har vi stadig MAAL. 31 af 46 robotter
+   * oplyser baade laengde og hoejde. De faar deres maalte omrids tegnet i
+   * FAELLES MAALESTOK: hele billedfeltets bredde svarer til 1900 mm paa alle
+   * kort, saa to plader kan sammenlignes med oejet uden en tabel. Det er
+   * silhuetmappens egen pointe (assets/silhuetter/LÆSMIG.md): seks
+   * pressefotos fortaeller intet om, hvilken robot der er stoerst.
+   *
+   * Omridset er en KASSE, ikke en tegning af maskinen. Vi kender laengden og
+   * hoejden; vi kender ikke formen. En kasse paastaar praecis det, vi har
+   * kilde paa - og den kan ikke forveksles med en afbildning af produktet.
+   * Det her er derfor IKKE beslutningen Aa3 (maaltro silhuetter pr. robot);
+   * det er den aerlige mellemtilstand, indtil billederne findes.
+   *
+   * De 15 robotter uden baade laengde og hoejde beholder hullet — via samme
+   * billedledHTML(null)-vej som et robotpost uden `billede:`-felt overhovedet,
+   * saa der er ét sted, ikke to, der skriver den tomme plades markup og grund.
+   */
+  const PLADE_MM_BRED = 1900;                      /* billedfeltets bredde i mm */
+  const PLADE_MM_HOEJ = PLADE_MM_BRED * 10 / 16;   /* feltet er 16:10 = 1187,5 */
+
+  /** Feltets vaerdi i millimeter, eller null hvis den ikke kan tegnes. */
+  function iMillimeter(post) {
+    if (!post || typeof post === 'string') return null;
+    if (typeof post.vaerdi === 'string') return null;
+    const v = post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+    if (typeof v !== 'number' || !(v > 0)) return null;
+    if (post.enhed === 'mm') return v;
+    if (post.enhed === 'cm') return v * 10;
+    if (post.enhed === 'm') return v * 1000;
+    return null;
+  }
+
+  /** Vaerdien som den staar i datafilen, til skaermlaeseren. Enheden foelger med. */
+  const somSkrevet = (post) => (post.min !== undefined
+    ? `${nformat(post.min)}–${nformat(post.maks)} ${post.enhed}`
+    : `${nformat(post.vaerdi)} ${post.enhed}`);
+
+  /** Tegner den maalte plade, eller falder tilbage til den almindelige tomme plade. */
+  function tomPlade(robot, op = '', stor = false) {
+    const lp = robot.felter?.laengde;
+    const hp = robot.felter?.hoejde;
+    const L = iMillimeter(lp);
+    const H = iMillimeter(hp);
+
+    if (L === null || H === null) {
+      return billedledHTML({ b: null, op, stor, tekst: billedTekst(robot, null) });
+    }
+
+    const bw = (L / PLADE_MM_BRED * 100).toFixed(2);
+    const bh = (H / PLADE_MM_HOEJ * 100).toFixed(2);
+    // Etiketten NAVNGIVER datagruppen. Den er ikke en indholdstom optakt.
+    const navne = `${T.felt_laengde} × ${T.felt_hoejde}`;
+    const laest = `${T.felt_laengde} ${somSkrevet(lp)}, ${T.felt_hoejde} ${somSkrevet(hp)}`;
+    const klasser = stor ? 'billedled billedled--maal billedled--stor' : 'billedled billedled--maal';
+    return `<div class="${klasser}"><div class="maalplade">`
+      + `<span class="net" aria-hidden="true"></span>`
+      + `<span class="jord" aria-hidden="true"></span>`
+      + `<span class="kasse" style="--bw:${bw}%;--bh:${bh}%" aria-hidden="true"></span>`
+      + `<span class="etiket" aria-hidden="true">${esc(navne)}</span>`
+      + `<span class="kunskaerm">${esc(T.billede_intet)}. ${esc(laest)}.</span>`
+      + `</div></div>`;
   }
 
   /* --- 9. robotkortet ---------------------------------------------------- */

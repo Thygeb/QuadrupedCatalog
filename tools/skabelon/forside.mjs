@@ -9,10 +9,25 @@
  * entydig; anvendelse er filter. Alle robotter staar paa forsiden - ogsaa dem
  * uden oplyst vaegt, som faar deres egen sektion i stedet for at forsvinde.
  *
+ * VAEGTSTIGEN (21.08.2026). Hero'en var ren tekst: en overskrift, en lede og
+ * to betjeningsflader paa et hvidt baand. Den viste ikke, hvad siden HAR.
+ * Stigen tegner den samme akse, som siden i forvejen er ordnet efter: ét
+ * maerke pr. robot med oplyst egenvaegt, sat paa en maalt skala, og de fire
+ * vaegtklasser under den som links ned i sektionerne.
+ *
+ * To ting goer den til andet end pynt. Den er sidens indholdsfortegnelse, og
+ * den virker uden en linje JavaScript. Og den viser hullet i foerste viewport:
+ * de robotter, ingen kan placere paa aksen, fordi producenten ikke oplyser en
+ * vaegt, staar UDEN FOR aksen i hullets eget sprog - ikke gemt, ikke talt med
+ * i en klasse, de ikke hoerer til.
+ *
+ * INGEN robot er navngivet paa stigen. Et maerke, der kunne klikkes hen til én
+ * maskine, ville vaere en fremhaevelse, og den har vi ingen metode til.
+ *
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc } from './side.mjs';
+import { esc, VAEGTGRAENSER } from './side.mjs';
 
 const attr = esc;
 
@@ -47,8 +62,59 @@ export function render(ctx) {
     + `${esc(v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst : t('anvendelse_' + v))}`
     + `<span class="antal">${esc(String(n))}</span></a>`).join('\n');
 
+  /* --- vaegtklassesektionerne (L27). Klasserne er afledt i bygget. --- */
+  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
+  for (const r of robotter) efterKlasse.get(hjaelp.vaegtklasse(r)).push(r);
+  for (const liste of efterKlasse.values()) {
+    liste.sort((a, b) => sorteringsvaegt(a) - sorteringsvaegt(b)
+      || String(a.navn).localeCompare(String(b.navn), sprog));
+  }
+
+  /* --- vaegtstigen ------------------------------------------------------
+     Aksen gaar fra 0 til det naeste hele klassetrin over den tungeste robot,
+     saa aksens top er et rundt tal og ikke en enkelt maskines vaegt. Trinnet
+     er klassegraensen selv (20 kg), saa begge graenser rammer en maerkestreg
+     og aksen ikke kan komme til at sige noget andet end sektionerne. --- */
+  const vaegte = robotter.map(sorteringsvaegt).filter((v) => Number.isFinite(v));
+  const trin = VAEGTGRAENSER.under;
+  const aksetop = Math.max(trin, Math.ceil(Math.max(0, ...vaegte) / trin) * trin);
+  const pct = (kg) => `${(kg / aksetop * 100).toFixed(2)}%`;
+
+  const maerker = vaegte.sort((a, b) => a - b)
+    .map((kg) => `<span style="--x:${pct(kg)}"></span>`).join('');
+  const graenser = [VAEGTGRAENSER.under, VAEGTGRAENSER.over]
+    .map((kg) => `<span class="graense" style="--x:${pct(kg)}"></span>`).join('');
+  const aksetal = [];
+  for (let kg = 0; kg <= aksetop; kg += trin) {
+    aksetal.push(`<span style="--x:${pct(kg)}">${esc(hjaelp.nformat(kg))}`
+      + (kg === aksetop ? ' kg' : '') + '</span>');   /* SI-symbol, ikke tekst */
+  }
+
+  const baand = hjaelp.VAEGTKLASSER.map((klasse) => {
+    const n = efterKlasse.get(klasse).length;
+    if (!n) return '';
+    const hul = klasse === 'ikke_oplyst' ? ' stige-trin--hul' : '';
+    return `<a class="stige-trin${hul}" href="#vaegt-${attr(klasse)}">`
+      + `<span class="navn">${esc(t('vaegtklasse_' + klasse))}</span>`
+      + `<b class="figur" aria-hidden="true">${esc(hjaelp.nformat(n))}</b>`
+      + `<span class="kunskaerm">${esc(tf('antal_kort', { n }))}</span></a>`;
+  }).join('\n');
+
+  const stige = `<div class="stige panel">
+<span class="etiket">${esc(t('vaegtklasse_titel'))}</span>
+<div class="stige-akse" aria-hidden="true">
+<div class="stige-maerker">${maerker}</div>
+<div class="stige-linje">${graenser}</div>
+<div class="stige-tal">${aksetal.join('')}</div>
+</div>
+<nav class="stige-baand" aria-label="${attr(t('vaegtklasse_titel'))}">
+${baand}
+</nav>
+</div>`;
+
   const hero = `<section class="hero">
 <div class="rum">
+<div class="hero-ord">
 <h1 class="t-hero">${esc(t('forside_overskrift'))}</h1>
 <p class="t-broed maal hero-lede">${esc(tf('forside_lede', { n: robotter.length, p: producenter.size }))}</p>
 <div class="styring">
@@ -60,6 +126,8 @@ export function render(ctx) {
 <p class="hero-videre"><a class="videre" href="robotter/">${esc(tf('se_alle', { n: robotter.length }))}`
     + `${hjaelp.ikon('i-pil')}</a></p>
 </div>
+</div>
+${stige}
 <nav class="chips" aria-label="${attr(t('forside_filtre_etiket'))}">
 <span class="etiket">${esc(t('forside_filtre_etiket'))}</span>
 <div class="chips-raekke">
@@ -68,14 +136,6 @@ ${chips}
 </nav>
 </div>
 </section>`;
-
-  /* --- vaegtklassesektionerne (L27). Klasserne er afledt i bygget. --- */
-  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
-  for (const r of robotter) efterKlasse.get(hjaelp.vaegtklasse(r)).push(r);
-  for (const liste of efterKlasse.values()) {
-    liste.sort((a, b) => sorteringsvaegt(a) - sorteringsvaegt(b)
-      || String(a.navn).localeCompare(String(b.navn), sprog));
-  }
 
   const sektioner = hjaelp.VAEGTKLASSER.map((klasse) => {
     const liste = efterKlasse.get(klasse);

@@ -19,22 +19,22 @@ colors:
 typography:
   display:
     fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
-    fontSize: "clamp(31px, 4.6vw, 56px)"
+    fontSize: "clamp(33px, 6.2vw, 76px)"
     fontWeight: 800
-    lineHeight: 1.02
-    letterSpacing: "-0.032em"
+    lineHeight: 0.98
+    letterSpacing: "-0.035em"
   headline:
     fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
-    fontSize: "clamp(27px, 3.4vw, 42px)"
+    fontSize: "clamp(27px, 3.6vw, 46px)"
     fontWeight: 700
     lineHeight: 1.08
-    letterSpacing: "-0.028em"
+    letterSpacing: "-0.03em"
   title:
     fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
-    fontSize: "clamp(22px, 2.4vw, 30px)"
+    fontSize: "clamp(23px, 2.8vw, 34px)"
     fontWeight: 700
     lineHeight: 1.08
-    letterSpacing: "-0.024em"
+    letterSpacing: "-0.026em"
   body:
     fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
     fontSize: "17px"
@@ -150,11 +150,18 @@ læseren lærer positionerne og kan se på tværs af robotter **hvad** der mangl
 at noget mangler. Når en tom montre er lige så synlig som en fyldt, kan udstillingen
 citeres.
 
+Det gælder billedet lige så vel som tallet. Vi har ingen fotografier endnu — men vi har
+mål, på 33 af de 46 robotter, og fra dem tegnes en **måleplade**: en kasse i fælles
+målestok, der viser hvad vi ved om formen (længde og højde), uden at foregive at vide
+resten. En tom, ensfarvet plade gentaget 46 gange var ikke et bevidst hul; det var en
+fejlmeddelelse, der lignede en fejl. Se afsnittet *Måleplade* under Komponenter.
+
 **Nøglekarakteristika:**
 
 - Fire flader, ingen mørk tilstand: bund, panel, roligt indfelt, hul
 - Én accentfarve, brugt til links, valgte filtre, kildemærker og oplyste ikoner
-- Fotografiet fylder toppen af kortet; navnet står under det
+- Fotografiet fylder toppen af kortet; navnet står under det. Mangler fotografiet, men
+  findes både længde og højde, tegnes en måleplade i stedet for en tom flade
 - Fire datatilstande, der ikke deler skriftgrad, bogstavform, flade eller mærke
 - Tal sættes i mono med tabulære cifre; sætninger sættes aldrig som tal
 - 10,5 px er skriftgulvet i hele systemet, også i den smalleste ombrydning
@@ -230,18 +237,31 @@ seks robotters vægte flugter lodret uden en tabel.
 
 ### Hierarki
 
-- **Hero** (800, `clamp(31px, 4.6vw, 56px)`, 1,02, −0,032em): forsidens ene overskrift.
+Skalaen blev hævet 21. aug 2026 (designløftet). Den gamle gik 56 / 42 / 30 / 19 / 17 px og
+lod forsiden flyde sammen: afstanden mellem hero og sektionshoved var kun 26 px, mellem
+sektionshoved og kortnavn kun 8. Ved 1440 px er trinene nu 76 / 46 / 34 / 19 / 17 / 15 /
+13 / 11,5 px — forhold 1,65, 1,35, 1,79, 1,12, 1,13, 1,15, 1,13 mellem naboled. Skriftgulvet
+på 10,5 px er urørt af hævningen.
+
+- **Hero** (800, `clamp(33px, 6.2vw, 76px)`, 0,98, −0,035em): forsidens ene overskrift.
   Optræder én gang pr. side.
-- **H1** (700, `clamp(27px, 3.4vw, 42px)`, 1,08, −0,028em): sidens titel, robottens navn
+- **H1** (700, `clamp(27px, 3.6vw, 46px)`, 1,08, −0,03em): sidens titel, robottens navn
   på detaljesiden.
-- **H2** (700, `clamp(22px, 2.4vw, 30px)`, 1,08, −0,024em): sektionshoveder.
+- **H2** (700, `clamp(23px, 2.8vw, 34px)`, 1,08, −0,026em): sektionshoveder.
 - **H3** (700, 19px, −0,014em): gruppeoverskrift inde i et panel.
 - **Brød** (400, 17px, 1,6, `blaek2`): løbende tekst. Sættes i højst 68ch.
 - **Lille** (400, 15px, 1,55, `blaek2`): sekundær forklaring, feltnoter.
 - **Mikro** (400, 13px, 1,5, `blaek3`): kortets fodnote, kildelisten.
 - **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`): navngiver en datagruppe
   eller en enhed.
-- **Figur** (mono, 700, 29px i striben / 20px kompakt, tabulære cifre): selve tallet.
+- **Figur** (mono, 700, 29px i striben / 25px ved 680px / 20px kompakt, tabulære cifre):
+  selve tallet.
+
+**Sektionshovedets etiket** (21. aug 2026) fik sin egen linje over overskriften i stedet
+for at dele dens grundlinje: `.sektion-hoved > .etiket{flex:1 0 100%}`. En etiket, der
+deler linje med det, den navngiver, læses som en del af overskriften i stedet for som en
+selvstændig etiket over den — samme fejl, reglen om versaletiketten i forvejen advarer
+imod, bare i layoutet i stedet for i indholdet.
 
 ### Navngivne regler
 
@@ -267,16 +287,24 @@ kortets fodnote til 96ch.
 Rummet måles i en ottetalsskala med ni trin: 4, 8, 12, 16, 24, 32, 48, 64 og 96 px.
 Skalaen er komplet — nye afstande hentes fra den, ikke opfundet ved siden af.
 
-Katalogets gitter er `repeat(auto-fill, minmax(310px, 1fr))` med 26 px lodret og 22 px
-vandret mellemrum. Under 679 px falder det til én spalte.
+Katalogets gitter er `repeat(auto-fill, minmax(310px, 1fr))` med 32 px lodret og 24 px
+vandret mellemrum (`--r6`/`--r5` — hævet fra 26/22 px 21. aug 2026, som stod uden for
+ottetalsskalaen). Under 679 px falder det til én spalte.
 
 **Brudpunkter** (systemet har fire, alle max-width): 1180 px, hvor nøgletalsstriben går
-fra seks til tre spalter · 680 px, hvor den går til to · 679 px, hvor gitteret bliver
-enkeltspaltet · 420 px, hvor det kompakte kort går til to spalter og ikonerne krymper.
+fra seks til tre spalter, og hvor hero'ens to spalter (ord/vægtstige) falder til én under
+1181 px · 680 px, hvor striben går til to, og hvor hero-ledens skrift falder fra 19 til
+17 px · 679 px, hvor gitteret bliver enkeltspaltet · 420 px, hvor det kompakte kort går
+til to spalter, ikonerne krymper, og vægtstigens fire trin går til to.
 
 Striben er systemets vanskeligste layout, fordi omkring halvdelen af dens celler er tomme
 på en typisk robot. Cellerne beholder deres rækkefølge gennem alle brudpunkter, så
-positionen bliver noget, læseren kan lære.
+positionen bliver noget, læseren kan lære. Forsidens vægtstige arver samme disciplin: dens
+fjerde trin (vægt ikke oplyst) skifter aldrig plads med de tre andre.
+
+Mellem sektionerne på forsiden er luften hævet til 96 px (`--r9`), med 48 px (`--r7`) til
+den første sektion, som ligger tættere på hero'en, der selv har bundluft. 32 px mellem fire
+ensartede afsnit i træk var for lidt til at læses som adskilte grupper.
 
 ## Dybde
 
@@ -326,6 +354,30 @@ kan skelnes uden farve: **udfyldt** (nej), **åben med fyldt kerne** (ja), **sti
 
 ## Komponenter
 
+### Hero'en og vægtstigen
+
+Tilføjet 21. aug 2026. Hero'en var ren tekst på en hvid flade lige under det hvide bånd —
+to hvide flader adskilt af én hårfin linje læses som ét bånd, ikke som en åbning. Den
+ligger nu på sidens grå bund, og det hvide panel i den er vægtstigen: den eneste figur,
+forsiden har.
+
+- **Fladen:** `.hero` har ingen egen baggrund og arver `--bund`. Overskrift og lede
+  (`.hero-ord`) ligger direkte på bunden; kun vægtstigen er et hvidt panel.
+- **Vægtstigen** er ét maerke pr. robot med oplyst egenvægt, sat på en akse fra 0 til
+  næste hele 20-kg-trin over den tungeste robot, med de to klassegrænser (20/40 kg) som
+  korte tværstreger. Under aksen står de fire vægtklasser som **links** ned i deres egen
+  sektion — stigen er dermed også sidens indholdsfortegnelse, og den virker uden
+  JavaScript.
+- **Ingen robot er navngivet.** Hverken maerket på aksen eller et trin fører til én
+  bestemt maskine — det ville være en fremhævelse, og siden har ingen metode at
+  anbefale efter (samme regel som forbyder én robot i selve hero'en).
+- **Det fjerde trin** (vægt ikke oplyst) ligger uden for aksen, i hullets eget sprog:
+  stiplet `hegn`-kant, `tom`-flade, dæmpet tekst. De robotter, der ikke kan placeres, bliver
+  hverken gemt eller lagt i en klasse, de ikke hører til.
+- **Layout:** to spalter (ord / stige) over 1180 px, stablet derunder. Aksestrimlen og
+  dens tal er `aria-hidden` og forsvinder under 679 px — de fire trin bærer den samme
+  oplysning i tal, aksen er kun en visualisering af den.
+
 ### Knapper
 
 Systemet har **én** knapform, og den er navigation inde på sitet.
@@ -362,6 +414,39 @@ Kortets orden er fast: **fotografi · ophav · navn · mærker · stribe · fodn
 - **Hover:** kanten lysner til `#CFD4DB`, skyggen løfter, fotografiet skalerer 1,024
 - **Fodnote:** monospor 11 px øverst adskilt af en linje. Her står billedets sandhed — og
   kun den. Ingen pris, ingen knap. **Kortet har ingen dør ud af sitet**
+
+### Måleplade
+
+Tilføjet 21. aug 2026. Målt i `dist/da/index.html` før ændringen: 46 kort, 46 tomme
+plader, ingen billedelementer — og sætningen "Vi har ikke selv fotograferet modellen" stod
+92 gange, dobbelt op på hvert kort. Et gitter af 46 identiske grå kasser med stiplet kant
+er ikke et gennemtænkt hul; det er den samme fejlmeddelelse gentaget 46 gange.
+
+Løsningen er ikke et foto og ikke `assets/silhuetter/`s måltro tegninger (Å3, stadig ikke
+besluttet) — det er en **kasse**, tegnet af de mål, vi allerede har kilde på.
+
+- **Hvornår:** kun når robotten oplyser **både** længde og højde (31 af 46, plus 2 hvor
+  højden er et interval). Mangler en af de to, vises den gamle `.intetfoto` uændret — 13
+  robotter, ned fra 46.
+- **Fælles målestok:** billedfeltets bredde svarer til 1900 mm på **alle** kort, uanset
+  hvilken robot. To plader kan derfor sammenlignes med øjet. Det er samme princip, som
+  `assets/silhuetter/LÆSMIG.md` selv beskriver: seks pressefotos, hver i sin egen vinkel og
+  brændvidde, fortæller intet om størrelse; seks figurer i fælles målestok gør.
+- **Kassen, ikke maskinen.** Omridset er et rektangel med et skarpt hjørne (ingen radius —
+  formskalaen 12/8/6 px hører til komponenter, og en målt kasse er en tegning, ikke en
+  komponent). Vi kender længden og højden; vi kender ikke formen, og vi gætter den ikke.
+  Fyldet er `panel` (hvid), kanten `hegn` 1,5 px.
+- **Nettet og gulvet:** et lodret gitter i `linje` (dekorativt, ét stip pr. 250 mm) og en
+  vandret gulvlinje i `hegn` (betydningsbærende — den definerer "stående på gulvet"), så
+  kassen læses som en genstand i et rum og ikke som et flydende rektangel.
+- **Etiketten** navngiver de to mål ("LÆNGDE × HØJDE") i titelfeltet under gulvet, som på
+  et tegningsark — samme regel som versaletiketten andre steder: den navngiver en
+  datagruppe, den er ikke en indholdstom optakt.
+- **Skærmlæseren** får den fulde sætning med tal og enhed, præcis som skrevet i kilden
+  (`<span class="kunskaerm">`); den visuelle kasse er selv `aria-hidden`.
+- **Fladen er stadig hullets** (`--tom`). Fotografiet mangler stadig — det, der er
+  skiftet, er, at hullet nu har noget at vise frem. Pladen løfter sig ikke, skalerer ikke
+  og reagerer ikke på hover, som reglen om det ubevægelige hul kræver.
 
 ### Felter
 
@@ -472,3 +557,18 @@ skifter farverne uden en fejlmeddelelse.
 `assets/generator.css` (136 linjer). 16 kontrastpar genmålt: 0 under kravet, og alle 16
 matcher de værdier, kommentarerne i kilden allerede påstod. 45 tokenfelter i denne fils
 frontmatter krydstjekket mod `system.css`: 0 afvigelser.*
+
+**Opdateret 21. aug 2026 (designløftet).** `assets/system.css` er nu 621 linjer,
+`assets/generator.css` 243. Ændringen: forsidens hero fik en vægtstige (ny komponent), den
+tomme plade fik en måleplade for de 33 robotter, der oplyser både længde og højde,
+typografiskalaen for hero/H1/H2 blev hævet, gitterets mellemrum og sektionsluften flyttet
+ind på ottetalsskalaen. 13 kontrastpar målt for de nye eller genanvendte flader — heraf 9
+en efterprøvning af tal, DESIGN.md eller kildens kommentarer allerede påstod (alle 9
+stemte: `blaek3`:`panel` 6,16 · `blaek3`:`bund` 5,55 · `hegn`:`tom` 3,20 · `hegn`:`panel`
+3,68 · `hegn`:`bund` 3,32 · `blaek`:`panel` 18,11 · `blaek`:`bund` 16,31 · `blaek2`:`panel`
+8,01 · `blaek2`:`bund` 7,21), og 4 reelt nye par uden noget tidligere tal at holde op imod
+(`blaek3`:`tom` 5,35 · `hegn`:`accent-ro` 3,19 · `blaek`:`accent-ro` 15,69 · `linje`:`tom`
+1,09, sidstnævnte dekorativ og uden krav). 0 af de 13 faldt under deres krav. Fire brudpunkter
+efterprøvet ved CSS-sporing (ingen browser i værktøjskæden — samme metode, projektets
+egne målescripts allerede bruger): 1180, 680, 679 og 420 px, alle uden overlap eller
+mellemrum mellem forsidens nye regler og systemets eksisterende.
