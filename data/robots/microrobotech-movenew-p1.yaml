@@ -16,6 +16,11 @@ noter:
   - "Load Dimensions 595 x 419 x 129 mm (lastrummets maal) og Foldet maal 1150 x 800 x 200 mm er begge oplyst, men har intet skemafelt."
   - "REGELAENDRING (CEO'en, under dette spor): se microrobotech-movenew-t1.yaml for den fulde undersoegelse af producentens support-side under den nye regel om PDF/manual-kilder. Kort: P1 har ogsaa en rigtig PDF (\"MOVENEW P1 Product Datasheet\", https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf, 7,2 MB, hentet 2026-08-24), men den kunne af samme grund (intet poppler/pdftoppm, WebFetch 403, ingen laesbar tekst i de dekomprimerede indholdsstroemme) ikke laeses - ingen data herfra i posten. \"P1 SDK Development Guide\" og \"P1 Operation Guide\" har tomme download-links paa hentetidspunktet."
   - "Tabellens raekkefoelge er forvirrende: \"Max Climbing Ability: 800 mm\" staar lige foer \"Step Negotiation: 45°\" og \"Slope Capability: >45°\" - dvs. to raekker med samme talvaerdi (45°) under to forskellige etiketter, og en meget stor 800 mm-vaerdi under en etikette (\"Climbing Ability\"), man normalt ville forvente var en vinkel. Ikke rettet stiltiende - se advarsler paa forhindring_enkelt og haeldning."
+billede:
+  fil: fotos/fabrikant/microrobotech-movenew-p1.jpg
+  ophav: fabrikant
+  kilde: https://www.micbotics.com/list_12/98.html
+  hentet: 2026-08-24
 felter:
   egenvaegt:
     vaerdi: 77

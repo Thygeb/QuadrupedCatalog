@@ -12,6 +12,11 @@ noter:
   - "\"Total Battery Weight: 40~50kg\" / kinesisk \"整机电机重量\" er en tvetydig etikette (blander \"整机重量\", helmaskinevaegt, med \"电池\", batteri). Placeret som egenvaegt ud fra sammenhaengen (staar under \"Mechanical Parameters\" sammen med maalene, ikke under \"Electrical Parameters\"), men ordlyden er ikke entydig - se advarsel paa feltet."
   - "Ingen pris fundet paa nogen af de to sprogversioner - kun \"Buy Now\"/\"Get Solutions\"-kontaktknapper, intet trykt tal."
   - "REGELAENDRING (CEO'en, under dette spor): producentens PDF-datablade/manualer taeller nu ogsaa som kilde. Producentens support-side (https://www.micbotics.com/support/, hentet 2026-08-24) har en rigtig, downloadbar PDF: \"MOVNEWT1 Product Datasheet\" (https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf, 13,2 MB). Den blev hentet, men KUNNE IKKE LAESES med de vaerktoejer, der var til raadighed i denne session: Read-vaerktoejets PDF-understoettelse kraever pdftoppm/poppler-utils (ikke installeret paa maskinen), WebFetch gav HTTP 403 paa filen, og et forsoeg paa at trakke tekst direkte ud af PDF'ens komprimerede indholdsstrømme (Python + zlib) fandt ingen laesbare tekstoperatorer - filen er formentlig bygget som billeder/vektorgrafik uden en tekstlagbar tekst. INGEN data herfra er brugt i posten. \"T1 SDK Development Guide\", \"T1 Operation Guide\" og \"Micbot Reinforcement Learning/Perception SDK Developer Guide\" staar ogsaa paa support-siden, men alle fire har TOMME download-links (href=\"\") paa hentetidspunktet - ikke publicerede endnu, intet at hente."
+billede:
+  fil: fotos/fabrikant/microrobotech-movenew-t1.jpg
+  ophav: fabrikant
+  kilde: https://www.micbotics.com/list_13/96.html
+  hentet: 2026-08-24
 felter:
   egenvaegt:
     vaerdi_min: 40

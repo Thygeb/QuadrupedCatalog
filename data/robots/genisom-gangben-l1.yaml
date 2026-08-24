@@ -18,6 +18,11 @@ noter:
   - "REGELAENDRING (CEO'en, under dette spor): producentens eget materiale ud over produktsiden - PDF-datablade, manualer, udviklerdokumentation - taeller nu ogsaa som gyldig kilde, mod at det maerkes kildetype: sekundaer. Brugt til sdk_sprog nedenfor: github.com/zsibot er GENISOM AI's egen officielle GitHub-organisation (linket direkte fra genisomai.com/download.html: \"官方 GitHub: https://github.com/zsibot/\"). Repoet \"genisom_L1_sdk\" er eksplicit navngivet \"Official SDK for Genisom L1 Series robots\" og README'en skriver \"基于 C++20 开发\" (udviklet med C++20) - ingen ROS/ROS2-omtale i den README. https://github.com/zsibot/genisom_L1_sdk, hentet 2026-08-24."
   - "ROS2 IKKE SAT FOR L1, BEVIDST. Et andet repo i samme organisation, genisom_roamerx_open (\"Open-source navigation stack for GENISOM-AI robots\"), kraever eksplicit \"ROS2 Humble Hawksbill\" og er \"Based on ROS2 Nav2\". Men L1's EGEN produktside naevner ikke navigationssystemet \"RoamerX\" - det er en \"新一代\"/naeste-generations-funktion, som kun staar paa L2's produktside (se genisom-gangben-l2.yaml). Uden den kobling er der ikke grundlag for at saette ros2: ja paa L1 specifikt - feltet staar derfor ikke_oplyst, med denne begrundelse, i stedet for at antage at hele produktfamilien deler samme navigationsstak."
   - "Tredjeparts-WebSearch-sammendrag (ikke direkte efterproevet mod raa HTML) naevner et valgfrit, konfigurerbart sensorsaet for L1 - Intel RealSense dybdekamera, Livox Mid360 LiDAR og NVIDIA Orin NX (op til 100 TOPS) - som IKKE staar i den officielle specifikations-JSON paa produktsiden (den viser kun \"8-kernet CPU\" og bredvinkelkameraet). Ikke medtaget som data, fordi den ikke kunne bekraeftes i raa HTML."
+billede:
+  fil: fotos/fabrikant/genisom-gangben-l1.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/L1
+  hentet: 2026-08-24
 felter:
   egenvaegt:
     vaerdi: 15
