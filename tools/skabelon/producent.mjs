@@ -259,6 +259,10 @@ ${html}</span></li>`,
   return `<ul class="stribe stribe--kompakt panel--ro">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
 }
 
+/* Samme BEM-modifikator som robot.mjs' egen anvendelseMaerker() og side.mjs'
+   anvendelse().maerker() (fund/FUND-detalje.md, opgave 4c): tre parallelle
+   implementeringer af samme maerke, saa alle tre skal baere det samme
+   "anvendelse__maerke--<vaerdi>"-hook, ikke kun to af dem. */
 function anvendelseMaerker(ctx, m) {
   const { i18n } = ctx;
   const a = ctx.__H.anvendelse(m) ?? {};
@@ -267,8 +271,8 @@ function anvendelseMaerker(ctx, m) {
   return `<ul class="maerker">` + vaerdier.map((v) => {
     const t = tilstandAf(v);
     return t
-      ? `<li class="maerke maerke--tom">${esc(TD(i18n, 'tilstand_' + t, v))}</li>`
-      : `<li class="maerke">${esc(TD(i18n, 'anvendelse_' + v, v))}</li>`;
+      ? `<li class="maerke maerke--tom anvendelse__maerke--${esc(t)}">${esc(TD(i18n, 'tilstand_' + t, v))}</li>`
+      : `<li class="maerke anvendelse__maerke--${esc(v)}">${esc(TD(i18n, 'anvendelse_' + v, v))}</li>`;
   }).join('') + `</ul>`;
 }
 
