@@ -1,0 +1,110 @@
+slug: keybotic-keyper
+navn: Keyper
+producent: Keybotic
+producentland: Spanien
+producentby: Barcelona
+status: i_produktion
+anvendelse:
+  vaerdi: [industri, inspektion, sikkerhed_overvaagning, forskning_udvikling]
+  citat:
+    - "Autonomous Robot Dogs for Industrial Inspections"
+    - "Meet Keyper, your autonomous industrial inspector"
+    - "INDUSTRIES: Chemicals, Oil & Gas, Energy & Utilities, Mining & Minerals, Surveillance, Research"
+  kilde: https://keybotic.com/technology/
+  hentet: 2026-08-24
+  note: "\"Autonomous Robot Dogs for Industrial Inspections\" og \"autonomous industrial inspector\" -> industri + inspektion (hele produktets formaal er industriel inspektion). \"Surveillance\" (eget punkt paa producentens industriliste, samme ordlyd paa forside og /technology/) -> sikkerhed_overvaagning. \"Research\" (samme liste) -> forskning_udvikling. De fire foerste brancher (Chemicals, Oil & Gas, Energy & Utilities, Mining & Minerals) daekkes allerede af industri/inspektion og har ikke egne kategorier i skemaet."
+noter:
+  - "STOPPROEVE (firbenet): BESTAAET, entydigt og med to uafhaengige citater fra producentens egen /technology/-side: \"Keyper is an autonomous 4-legged robot designed to conduct industrial inspections\" og, i FAQ-afsnittet samme side, \"Its four legs, agile structure, and robust design allow Keyper to access the same areas a human could get to, including stairs, steps, slopes, and unstable terrains such as gravel -all of them environments in which a wheeled robot could not operate.\" Begge https://keybotic.com/technology/, hentet 2026-08-24."
+  - "STOPPROEVE (reelt produkt, ikke legetoej/hobbykit): BESTAAET. Keybotic har vundet 1. praemie i DARPA Robotics Challenge (\"1st Prize DARPA Robotics Challenge\", https://keybotic.com/, hentet 2026-08-24), har en offentliggjort case-story om reel drift hos en international kemivirksomhed (\"Keybotic Automates Inspection Rounds for International Chemical Manufacturer\", maj 2024, samme side) og saelger/udlejer robotten kommercielt via en Robot-as-a-Service-model (\"With our Robot as a Service (RaaS) employment model, you can hire your own Keyper and start automating your inspections now\", https://keybotic.com/technology/). Ingen tegn paa legetoejs- eller undervisningskit-karakter noget sted paa siden."
+  - "VIGTIGT FUND, DER OPDATERER fund/FUND-kandglobal.md: den globale scanning konkluderede at Keybotics specside var \"formularlaast\" og at kun presseformidlede tal (Uncrewed Systems, EU-Startups) var tilgaengelige. Det er korrekt for de to sider, der hedder \"Product Brochure\" (https://keybotic.com/product-brochure/) og \"Technical Specifications\" (https://keybotic.com/technical-specifications/) - begge bekraeftet formularlaaste i dette spor, se raa-kilderne. MEN producentens \"Technology\"-side (https://keybotic.com/technology/, IKKE fundet/besoegt i kandglobal-sporet) har et fuldt \"Specifications\"-afsnit direkte paa siden, uden formular. ALLE talfelter i denne post er hentet derfra, IKKE fra pressen - kildetype: primaer, ikke sekundaer."
+  - "PRESSETAL BEVIDST IKKE BRUGT: fund/FUND-kandglobal.md citerede en hastighed paa 2 m/s samt 90 min drift og 40 min hurtiglader fra Uncrewed Systems' artikel, der interviewer virksomheden. L21/L33 tillader kun materiale fra producentens EGET domaene (produktside, PDF, manual, udviklerdok) som sekundaer kilde - forhandlere, databaser, anmeldelser og PRESSEOMTALE er eksplicit stadig ude. Uncrewed Systems og EU-Startups er presseartikler, ikke producentmateriale, og er derfor IKKE brugt som kilde til noget felt i denne post, selvom tallene isoleret set kunne have udfyldt hastighed-feltet. hastighed staar derfor ikke_oplyst, ikke 2 m/s."
+  - "LAENGDE < BREDDE: producentens egen specifikationsliste skriver \"Length: 60cm\" og \"Width: 95cm\" - bredden er stoerre end laengden. Det er usaedvanligt for en firbenet robot (laengde naese-til-hale er normalt den stoerste af de to vandrette maal), men staar saadan ordret paa siden og er IKKE rettet stiltiende (regel 9). Mulig forklaring, IKKE bekraeftet af producenten: \"Width\" kan daekke benenes spredning i staaende positur snarere end kroppens egen bredde - men det er en gaetning fra os, ikke et citat, og indgaar derfor kun som advarsel, ikke som rettelse."
+  - "DRIFTSTID UDEN ENTYDIG LASTBETINGELSE: siden skriver kun \"90/120 min battery run time\" uden at maerke, hvilket af de to tal der gaelder med/uden last (i modsaetning til fx Genisom L2's eksplicitte \"5.5H（空载） 3.5H（满载）\"). Sat som interval min 90/maks 120 med ved_last: ikke_oplyst, jf. regel 8 - vi gaetter ikke, hvilket tal der hoerer til hvilken last."
+  - "PRIS: ROBOT-AS-A-SERVICE, INGEN FAST PRIS. FAQ: \"How much does it cost to hire a Keyper? With our Robot as a Service (RaaS) employment model, you can hire your own Keyper and start automating your inspections with no initial investment - the final costs will be adjusted based on each customer's specific needs with different software applications. Of course, purchase options are also available.\" Der findes intet listetal at indsaette - feltet staar ikke_oplyst, ikke 0 eller nej, fordi producenten aktivt saelger/udlejer robotten, blot uden offentliggjort prisliste."
+  - "FORBINDELSE (WiFi/Ethernet/4G LTE) HAR INTET SKEMAFELT: \"Both WiFi and Ethernet connections are available. Latest bands of 2.4GHz, 5Ghz (160Mhz) and WiFi 6 802.11ax standards supported as well as 1000Base-T for Ethernet connections. Mobile 4G LTE optional.\" Dette er traadloes netvaerksforbindelse mellem robot og operatoer/sky, ikke fysiske dataporte til tilbehoer (som Genisom L2's USB3.0/M12-stik) - derfor IKKE brugt til at udfylde dataporte-feltet, kun noteret her. Samme afgraensning som forbindelsesfeltet i skema-D9's aabne punkter."
+  - "INSPECTION HEAD ER ET UNDERMODUL, IKKE HELE ROBOTTENS FRIHEDSGRADER: \"Pan range: -150º/150º\" og \"Tilt range: -55º/45º\" staar under overskriften \"Inspection Head\" (et separat 4kg hoved-modul med zoom-/termisk kamera, ultralydsmikrofon, projektoer og hoejttalere) og beskriver KUN dette moduls pan/tilt-bevaegelse - ikke robottens samlede antal frihedsgrader/led. frihedsgrader staar derfor ikke_oplyst, ikke 2."
+  - "BILLEDE: ingen billede:-blok i denne post - billedrunden er et separat spor (jf. opgavebriefen). Kandidat-URL'er fundet paa producentens egen /technology/-side, fuld-maskine studiofotos: https://keybotic.com/wp-content/uploads/2023/12/keyper-robot-03opt.png og https://keybotic.com/wp-content/uploads/2023/12/keyper-robot-04opt.png - ikke bedoemt med oejne i dette spor."
+felter:
+  egenvaegt:
+    vaerdi: 43
+    enhed: kg
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"Weight: 43kgs\" i sidens Specifications-afsnit. Ingen angivelse af med/uden batteri."
+  laengde:
+    vaerdi: 60
+    enhed: cm
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"Length: 60cm\". Se topnoten om at bredden (95cm) er stoerre end laengden - usaedvanligt, ikke rettet."
+  bredde:
+    vaerdi: 95
+    enhed: cm
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"Width: 95cm\" - stoerre end det oplyste laengdemaal (60cm). Staar saadan hos producenten, gengivet ordret uden rettelse. Se topnoten."
+  hoejde:
+    min: 35
+    maks: 75
+    enhed: cm
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"Height: 60cm (min 35 max 75)\" - producenten oplyser en standardhoejde paa 60cm OG et interval 35-75cm (hoejden er justerbar, formentlig via benenes staaehoejde). Skemaet tillader kun ÉN af \"vaerdi\" og \"min\"/\"maks\" (R4) - intervallet er valgt, fordi det baerer mest information; 60cm-standardtallet er bevaret her i citatet i stedet for at gaa tabt."
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid:
+    min: 90
+    maks: 120
+    enhed: min
+    ved_last: ikke_oplyst
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"90/120 min battery run time\" - de to tal er ikke maerket med hvilken last de gaelder for (se topnote). ved_last er derfor ikke_oplyst, ikke et gaettet kg-tal."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi: 60
+    enhed: min
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"60 min for full charge\"."
+  dockingstation: ikke_oplyst
+  lidar:
+    vaerdi: "3D LiDAR, 32 kanaler, 360° horisontalt / 90° vertikalt synsfelt, raekkevidde 35 m, praecision op til 1 cm, Class 1 oejensikker laser (IEC/EN 60825-1:2014), boelgelaengde 865 nm"
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"Lidar model: 32 channels\" - producenten navngiver selv modellen som kanalantallet, intet separat maerke/modelnummer oplyst. Oevrige tal (\"Horizontal field of view: 360º\", \"Vertical field of view: 90º\", \"Range: 35m\", \"Precision: Up to 1cm\", \"Laser Product Class: Class 1 eye-safe per IEC/EN 60825-1: 2014\", \"Laser Wavelength: 865 nm\") staar alle i samme Specifications-afsnit."
+  kameraer:
+    vaerdi: "5 kameraer (front top+bund, venstre, hoejre, bagud), dybderaekkevidde 10 m, RGB-billede 640×320@15FPS, dybdebillede 640×320@15FPS, 86° horisontalt dybdesynsfelt. Separat \"Inspection Head\"-modul (4 kg): zoomkamera, termisk kamera, ultralydsmikrofon, projektoer, hoejttalere"
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"With 5 cameras -on the front (top and bottom), on the left, right, and back- Keyper has a depth range of 10m... RGB Image: 640×320 @ 15FPS, Depth Image: 640×320 @ 15FPS, Depth field of view: 86º horizontal\" plus separat afsnit \"Inspection Head - Weighting only 4kg... Zoom Camera, Thermal Camera, Ultrasonic Microphone, Spotlight, Speakers\"."
+  compute:
+    vaerdi: "Intel Core 1260P CPU (4P+8E kerner, 16 traade), 16 GB RAM (op til 64 GB), 1 TB M.2-drev"
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"CPU Model: Intel 1260P, CPU Cores: 4P + 8E, CPU Threads: 16, Memory: 16GB RAM (up to 64GB), Storage: 1TB M2 drive\" under overskriften \"Computing\"."
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "Fuldt autonom navigation og 3D-kortlaegning uden GPS eller internet (\"can operate without a GPS even in unknown territories, as it maps constantly the environment in 3D to geolocalize itself\"); fortsaetter opgaven uden internetforbindelse, men kan ikke sende realtidsalarmer offline; reagerer paa aendringer i omgivelserne og traeffer selv beslutninger om rute og handling; kan koordinere opgaver med andre Keyper-robotter; kan ogsaa teleopereres via realtidsbilleder"
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "Sammensat af flere afsnit paa samme side: \"Decision Making and Task Planning\" (\"Reacts to environmental changes and decides on actions and best routes... Coordinates and distributes missions with other Keypers\") og FAQ (\"Yes, Keyper can operate without a GPS...\", \"Keyper will still operate without an internet connection, continuing its mission normally...\"). Ingen eksplicit navngivet autonominiveau-skala."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris:
+    vaerdi: ikke_oplyst
+    kilde: https://keybotic.com/technology/
+    hentet: 2026-08-24
+    advarsel: "\"How much does it cost to hire a Keyper? With our Robot as a Service (RaaS) employment model, you can hire your own Keyper and start automating your inspections with no initial investment - the final costs will be adjusted based on each customer's specific needs... Of course, purchase options are also available.\" Ingen listepris oplyst - se topnote."
+  ce_oplyst: ikke_oplyst
