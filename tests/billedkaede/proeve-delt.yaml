@@ -1,0 +1,21 @@
+# PROEVEPOST — ikke katalogindhold. Se tests/billedkaede/LAESMIG.md.
+#
+# Samme fil som proeve-silhuet. Beviser, at .billedmaerke staar PAA billedet,
+# naar to poster deler én fil (L28), og at R18 kan slaa den anden robot op.
+slug: proeve-delt
+navn: Proeve Delt
+producent: Proeveproducent
+producentland: Kina
+status: i_produktion
+billede:
+  fil: silhuetter/_proeve-kaede.svg
+  ophav: silhuet
+  kilde: https://example.com/proeve
+  hentet: 2026-08-21
+  delt_med: proeve-silhuet
+felter:
+  egenvaegt:
+    vaerdi: 31
+    enhed: kg
+    kilde: https://example.com/proeve
+    hentet: 2026-08-21

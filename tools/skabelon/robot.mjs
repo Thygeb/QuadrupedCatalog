@@ -45,11 +45,21 @@
  *        eller et objekt med .noegle. Bruges kun til en kontekstlinje.
  *   hjaelp.anvendelse(robot)     -> { vaerdi:[…], citat:[…], kilde?, hentet?, note?, arvet_fra? }
  *
- * BILLEDET er ikke i kontrakten. Filen laeser `ctx.billede` eller `ctx.robot.billede`
- * med formen fra media/_arbejde/v2-billedvalg.json:
- *   { fil, alt, plade:bool, intet:bool, pos:string|null, delt_med:string|null, grund:string|null }
- * Mangler den, tegnes den tomme plade — 3 robotter (RAIBO2, Laikago, CyberDog 1)
- * har intet billede, og de skal se bevidste ud, ikke oedelagte (K5).
+ * BILLEDET er ikke i kontrakten, men maskineriet er faelles. Denne fil skriver
+ * IKKE sit eget billedled: den kalder `billedledHTML` i side.mjs med teksterne
+ * fra sit eget sprog. To haandskrevne billedled — ét paa kortet og ét her —
+ * ville divergere ved den fjerde aendring, og saa kunne den samme fil staa uden
+ * maerke det ene sted og med maerke det andet.
+ *
+ * Feltet er `robot.billede` fra YAML'en (skema.mjs, R18):
+ *   { fil, ophav, kilde, hentet, alt, note, delt_med, plade, pos }
+ * `fil` er RELATIV TIL assets/. Bygget kopierer assets/ til dist/billeder/, og
+ * media/ indgaar aldrig. Mangler feltet, tegnes den tomme plade — maalt
+ * 21.08.2026: 46 af 46 robotter, fordi assets/ er tom. De skal se bevidste ud,
+ * ikke oedelagte (K5).
+ *
+ * `ctx.billede` accepteres stadig som en OVERSKRIVNING, saa producentsiden kan
+ * give kortene et billede, den selv har slaaet op.
  *
  * IKONER: <use href="#i-…"> kraever, at spriten staar i dokumentet. Den hoerer til
  * skallen, ikke til <main>. Glemmes den, forsvinder ikonerne TAVST (system.html,
@@ -58,13 +68,14 @@
  * NYE i18n-NOEGLER, denne fil kraever (én fil pr. sprog, PLAN.md afsnit 7):
  *   eu_titel · eu_forklaring · produktside_titel · produktside_forklaring ·
  *   produktside_link · produktside_ingen · skema_titel · skema_taeller ·
- *   kilder_titel · kilder_forklaring · varianter_forklaring · billede_ingen_grund ·
+ *   kilder_titel · kilder_forklaring · varianter_forklaring · billede_ingen_egen ·
+ *   billede_ophav_eget_foto · billede_ophav_silhuet · billede_alt_silhuet ·
  *   til_producent · vaegtklasse_under_20 · vaegtklasse_20_40 · vaegtklasse_over_40
  * OG én rettelse: `noegletal_intet` siger "ingen af de seks noegletal". Striben har
  * fem her — CE er taget ud. Strengen skal skrives om, saa den ikke naevner et antal.
  */
 
-import { skal, hjaelp } from './side.mjs';
+import { skal, hjaelp, laesBillede, billedledHTML, billedLinjer } from './side.mjs';
 // Skrivebeskyttet import af skemaet. Feltlisten maa kun findes ét sted; en
 // haandskrevet kopi her ville divergere ved den fjerde aendring.
 import { FELTER, FELTNAVNE, GRUPPER, tilstandAf } from '../skema.mjs';
@@ -294,68 +305,56 @@ export function feltKrop(navn, post, ctx, kilder) {
 /* -------------------------------------------------------------- billedet */
 
 /**
- * Billedstien. Bygget bestemmer, HVOR billederne ligger — men en projektrelativ
- * sti fra billedvalgsfilen ("assets/billeder/x.jpg") peger forkert fra
- * /<sprog>/robotter/<slug>/, som ligger tre mapper nede. Absolutte stier,
- * skemaer og allerede relative stier roeres ikke.
+ * Billedposten. `ctx.billede` er en OVERSKRIVNING, som producentsiden bruger,
+ * naar den selv har slaaet et billede op; ellers laeses robottens eget felt.
+ * Formen normaliseres af side.mjs, saa kortet og robotsiden ikke kan naa til
+ * hver sin laesning af den samme YAML.
  */
-function billedsti(fil) {
-  const s = String(fil);
-  if (/^([a-z]+:)?\/\//i.test(s) || s.startsWith('/') || s.startsWith('.')) return s;
-  return '../../../' + s;
+function billedeAf(ctx) {
+  if (ctx?.billede) return laesBillede({ billede: ctx.billede, navn: ctx?.robot?.navn });
+  return laesBillede(ctx?.robot);
 }
 
-function billedeAf(ctx) {
-  const b = ctx?.billede ?? ctx?.robot?.billede ?? null;
-  if (!b || b.intet || !(b.fil || b.src)) return null;
+/**
+ * Stien tilbage til dist/-roden. Bygget giver den i `ctx.url.op`; reserven er
+ * '../../../', fordi en robotside ligger i /<sprog>/robotter/<slug>/. En
+ * haandregnet '../../' er den slags fejl, der foerst ses i browseren.
+ */
+function opAf(ctx) {
+  const op = ctx?.url?.op;
+  return typeof op === 'string' && op ? op : '../../../';
+}
+
+/** Teksterne, billedmaskineriet i side.mjs skal bruge. Sproget hoerer hjemme her. */
+function billedTekst(ctx, b) {
+  const { i18n, robot } = ctx;
+  const navn = robot?.navn ?? '';
+  const alt = b?.alt
+    ? b.alt
+    : (b?.ophav === 'silhuet' ? flet(T(i18n, 'billede_alt_silhuet'), { model: navn }) : navn);
   return {
-    fil: billedsti(b.fil ?? b.src),
-    alt: b.alt ?? '',
-    plade: !!b.plade,
-    pos: b.pos ?? null,
-    delt_med: b.delt_med ?? b.delt ?? null,
+    intet: T(i18n, 'billede_intet'),
+    grund: T(i18n, 'billede_ingen_egen'),
+    delt: T(i18n, 'billede_delt'),
+    delt_forklaring: T(i18n, 'billede_delt_forklaring'),
+    alt,
+    ophav: {
+      eget_foto: T(i18n, 'billede_ophav_eget_foto'),
+      silhuet: T(i18n, 'billede_ophav_silhuet'),
+      fabrikant: T(i18n, 'billede_uden_tilladelse'),
+    },
   };
 }
 
 export function billedled(ctx, { stor = false } = {}) {
-  const { i18n } = ctx;
   const b = billedeAf(ctx);
-  const klasse = stor ? ' billedled--stor' : '';
-  if (!b) {
-    const grund = ctx?.billede?.grund ?? ctx?.robot?.billede?.grund ?? T(i18n, 'billede_ingen_grund');
-    return `<div class="billedled${klasse}">
-<div class="intetfoto">
-<span class="plade" aria-hidden="true"></span>
-<p class="hoved">${esc(T(i18n, 'billede_intet'))}</p>
-<p class="grund">${esc(grund)}</p>
-</div>
-</div>`;
-  }
-  // 15 robotter deler 7 filer. Maerket staar PAA fotografiet, fordi det er paa
-  // fotografiet, misforstaaelsen sker. Det siger, at filen deles — ikke hvilken
-  // af modellerne den viser. Det ved vi ikke, og vi maa ikke gaette.
-  const maerke = b.delt_med
-    ? `<span class="billedmaerke"><i class="mrk"></i>${esc(T(i18n, 'billede_delt'))}</span>`
-    : '';
-  const stil = b.pos ? ` style="object-position:${esc(b.pos)}"` : '';
-  return `<div class="billedled${klasse}${b.plade ? ' billedled--plade' : ''}">
-<img src="${esc(b.fil)}" alt="${esc(b.alt)}"${stil} decoding="async">
-${maerke}
-</div>`;
+  return billedledHTML({ b, op: opAf(ctx), stor, tekst: billedTekst(ctx, b) });
 }
 
 /** Billedets sandhed under billedet. Ingen pris, ingen knap. */
 export function billedfod(ctx) {
-  const { i18n } = ctx;
   const b = billedeAf(ctx);
-  const linjer = [];
-  if (b) {
-    linjer.push(['prik', T(i18n, 'billede_uden_tilladelse')]);
-    if (b.delt_med) {
-      linjer.push(['prik prik--klip',
-        flet(T(i18n, 'billede_delt_forklaring'), { model: b.delt_med })]);
-    }
-  }
+  const linjer = billedLinjer(b, billedTekst(ctx, b));
   if (!linjer.length) return '';
   return `<figcaption class="billedfod">` +
     linjer.map(([k, s]) => `<p><i class="${k}"></i>${esc(s)}</p>`).join('\n') +

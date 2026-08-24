@@ -13,10 +13,11 @@ media/inspiration/**
 media/_kilder/**
 !media/_kilder/*.md
 
-# Agenternes arbejdsfiler og testkoerslens midlertidige output
+# Agenternes arbejdsfiler og testkoerslens midlertidige output.
+# Moensteret daekker ogsaa tests/.tmp-billedkaede/ og de byg, testen laver
+# undervejs - en ny linje pr. midlertidig mappe blev glemt to gange.
 .tmp/
-tests/.tmp-koersel/
-tests/.tmp-mutering/
+tests/.tmp-*/
 
 # Billedagentens arbejdsmappe: fabrikantmateriale, aldrig distribution
 media/_arbejde/**

@@ -34,7 +34,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { FELTER, SPROG, tilstandAf } from '../skema.mjs';
+import {
+  FELTER, SPROG, tilstandAf,
+  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade,
+} from '../skema.mjs';
 
 const her = path.dirname(fileURLToPath(import.meta.url));
 export const ROD = path.resolve(her, '..', '..');
@@ -50,6 +53,162 @@ const attr = esc;
 /** Pladsholdere: "{n} af {m}" -> tal indsat. Ingen locale-magi her. */
 function saetInd(tekst, vaerdier) {
   return String(tekst).replace(/\{(\w+)\}/g, (hel, n) => (n in vaerdier ? String(vaerdier[n]) : hel));
+}
+
+/* ================================================================ billedet
+   BILLEDMASKINERIET. Ét sted, brugt af baade kortet (side.mjs), robotsiden
+   (robot.mjs) og producentsiden (producent.mjs).
+
+   Grunden til at det ligger her og ikke i tre skabeloner: de tre ville
+   divergere ved den fjerde aendring, og saa ville et kort og en robotside
+   kunne vise den samme fil paa hver sin maade — eller det ene sted mangle
+   maerket om, at filen deles. LÆSNINGEN af feltet og MARKUP'en er derfor
+   faelles; kun teksterne kommer udefra, fordi sproget hoerer til i sprogfilen.
+
+   `media/` maa ALDRIG indgaa i et byg (CLAUDE.md, mappestruktur). Kritikken
+   fandt, at prototypen laeste 42 billeder direkte derfra. Vi kopierer dem ikke
+   til dist/ heller: en kopi ville flytte spaerringen fra en strukturel regel
+   til en huskeregel, og media/_kilder/LÆSMIG.md dokumenterer, at en
+   pladsholder overlevede til lancering paa nabosiden. Derfor: billeder kommer
+   KUN fra assets/, og KUN naar en robotpost peger paa dem med `billede:`.
+
+   Den gamle vej — "ligger der en fil, der HEDDER det samme som robottens
+   slug, saa vis den" — er fjernet 21. aug 2026. Den kunne saette et billede
+   paa siden uden ophav og uden kilde, alene fordi nogen lagde en fil i en
+   mappe. Et billede er en paastand om, hvordan en maskine ser ud, og skal
+   kunne foelges hjem som ethvert tal. Maalt foer fjernelsen: 0 filer i
+   assets/fotos/ og 0 i assets/silhuetter/, saa vejen fandtes uden at blive
+   gaaet.
+   ======================================================================== */
+
+/** Alle billedfiler i assets/, som stier relative til assets/. Cachet pr. rod. */
+const _billedFiler = new Map();
+export function billedFiler(rod = ROD) {
+  const noegle = path.resolve(rod);
+  if (_billedFiler.has(noegle)) return _billedFiler.get(noegle);
+  const fundet = new Set();
+  for (const mappe of BILLEDMAPPER) {
+    const start = path.join(noegle, 'assets', mappe);
+    if (!fs.existsSync(start)) continue;
+    (function gaa(m, praefiks) {
+      for (const p of fs.readdirSync(m, { withFileTypes: true })) {
+        if (p.name.startsWith('.')) continue;
+        const rel = praefiks ? `${praefiks}/${p.name}` : p.name;
+        if (p.isDirectory()) { gaa(path.join(m, p.name), rel); continue; }
+        if (!BILLEDE_ENDELSER.includes(path.extname(p.name).toLowerCase())) continue;
+        fundet.add(`${mappe}/${rel}`);
+      }
+    })(start, '');
+  }
+  _billedFiler.set(noegle, fundet);
+  return fundet;
+}
+
+/** Ryd cachen. Kun til test: et byg laeser assets/ én gang. */
+export function glemBilledFiler() { _billedFiler.clear(); }
+
+/**
+ * Robottens billedpost i den form, skabelonerne bruger — eller null.
+ * Null betyder den tomme plade, og den er en aerlig tilstand, ikke en fejl.
+ */
+export function laesBillede(robot) {
+  const b = robot?.billede;
+  if (!b || typeof b !== 'object' || Array.isArray(b)) return null;
+  if (typeof b.fil !== 'string' || b.fil.trim() === '') return null;
+  const tekst = (v) => (typeof v === 'string' && v.trim() !== '' ? v : null);
+  return {
+    fil: b.fil,
+    ophav: tekst(b.ophav),
+    kilde: tekst(b.kilde),
+    hentet: tekst(b.hentet),
+    alt: tekst(b.alt),
+    note: tekst(b.note),
+    delt_med: tekst(b.delt_med),
+    plade: billedPlade(b),
+    pos: tekst(b.pos),
+  };
+}
+
+/**
+ * <source>-linjerne til et <picture>. Kun formater, der FINDES som fil i
+ * assets/, bliver til en kilde. En srcset til en fil, ingen har lavet, er en
+ * tom paastand — browseren falder ganske vist tilbage til <img>, men saa staar
+ * der en linje i HTML, der lyver om, hvad projektet har.
+ */
+export function billedAlternativer(fil, rod = ROD) {
+  const filer = billedFiler(rod);
+  const uden = String(fil).replace(/\.[^./]+$/, '');
+  const ud = [];
+  for (const [endelse, type] of BILLEDE_ALTERNATIVER) {
+    const kandidat = `${uden}${endelse}`;
+    if (kandidat !== fil && filer.has(kandidat)) ud.push([kandidat, type]);
+  }
+  return ud;
+}
+
+/**
+ * Billedleddet. `tekst` baerer sproget: { intet, grund, alt, delt }.
+ *
+ *   b     laesBillede(robot) eller null
+ *   op    stien tilbage til dist/-roden, fx '../../'
+ *   stor  robotsidens store led (billedled--stor). Det er sidens foerste
+ *         element og indlaeses derfor IKKE dovent
+ */
+export function billedledHTML({ b, op = '', stor = false, tekst, rod = ROD }) {
+  const klasser = ['billedled'];
+  if (stor) klasser.push('billedled--stor');
+
+  // Den tomme plade. Den skal laeses som en TOM PLADS i vaerket, ikke som et
+  // brudt billede - derfor staar der en grund, ikke bare et ikon.
+  if (!b) {
+    if (b !== null && b !== undefined) throw new Error('billedledHTML: b skal vaere en post eller null');
+    return `<div class="${klasser.join(' ')}">
+<div class="intetfoto">
+<span class="plade" aria-hidden="true"></span>
+<p class="hoved">${esc(tekst.intet)}</p>
+<p class="grund">${esc(tekst.grund)}</p>
+</div>
+</div>`;
+  }
+
+  if (b.plade) klasser.push('billedled--plade');
+  const sti = (f) => `${op}billeder/${f}`;
+  const kilder = billedAlternativer(b.fil, rod)
+    .map(([f, type]) => `<source srcset="${attr(sti(f))}" type="${attr(type)}">`);
+  const stil = b.pos ? ` style="object-position:${attr(b.pos)}"` : '';
+
+  // 15 robotter deler 7 filer (SHA-256 i MANIFEST.tsv). Maerket staar PAA
+  // fotografiet, fordi det er paa fotografiet, misforstaaelsen sker. Det siger,
+  // at filen deles - ikke hvilken af modellerne den viser. Det ved vi ikke.
+  const maerke = b.delt_med
+    ? `\n<span class="billedmaerke"><i class="mrk"></i>${esc(tekst.delt)}</span>`
+    : '';
+
+  return `<div class="${klasser.join(' ')}">
+<picture>
+${kilder.length ? kilder.join('\n') + '\n' : ''}<img src="${attr(sti(b.fil))}" alt="${attr(tekst.alt)}"${stil}`
+    + `${stor ? '' : ' loading="lazy"'} decoding="async">
+</picture>${maerke}
+</div>`;
+}
+
+/**
+ * Billedets sandhed, som linjer. Her staar hvor billedet kommer fra - og kun
+ * det. Ingen pris, ingen knap, ingen doer ud af sitet.
+ *
+ * `tekst.ophav` er et opslag pr. ophavstilstand. Mangler tilstanden en tekst,
+ * springes linjen over frem for at skrive "undefined" paa siden.
+ */
+export function billedLinjer(b, tekst) {
+  if (!b) return [];
+  const linjer = [];
+  const ophavstekst = b.ophav ? tekst.ophav?.[b.ophav] : null;
+  if (ophavstekst) linjer.push(['prik', ophavstekst]);
+  if (b.delt_med && tekst.delt_forklaring) {
+    linjer.push(['prik prik--klip', saetInd(tekst.delt_forklaring, { model: b.delt_med })]);
+  }
+  if (b.note) linjer.push(['prik', b.note]);
+  return linjer;
 }
 
 /* -------------------------------------------------------------- sprogfilen */
@@ -552,49 +711,49 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   /* --- 8. billedet ------------------------------------------------------- */
 
   /**
-   * BILLEDVALGET, truffet 21.08.2026.
-   *
-   * `media/` maa aldrig indgaa i et byg (CLAUDE.md, mappestruktur). Kritikken
-   * fandt, at prototypen laeste 42 billeder direkte derfra. Vi kopierer dem
-   * ikke til dist/ heller: en kopi ville flytte spaerringen fra en strukturel
-   * regel til en huskeregel, og LÆSMIG.md i media/_kilder dokumenterer, at en
-   * pladsholder overlevede til lancering paa nabosiden.
-   *
-   * Derfor: billeder kommer KUN fra assets/. Findes der intet, staar den tomme
-   * plade fra designsystemet med en grund skrevet ud. Maalt 21.08.2026:
-   * 0 filer i assets/fotos/ og 0 i assets/silhuetter/ - alle 46 kort viser
-   * den tomme plade, og det er den aerlige tilstand.
+   * Maskineriet staar i modulets billedafsnit ovenfor. Her bindes kun sproget
+   * paa. Én robot uden `billede:` faar den tomme plade med en grund skrevet
+   * ud — maalt 21.08.2026: 46 af 46, fordi assets/ er tom, og det er den
+   * aerlige tilstand.
    */
-  const BILLEDMAPPER = [
-    ['assets/fotos', ['.jpg', '.jpeg', '.png', '.webp', '.avif'], 'fotos'],
-    ['assets/silhuetter', ['.svg'], 'silhuetter'],
-  ];
-  const billedIndeks = new Map();
-  for (const [mappe, endelser, slags] of BILLEDMAPPER) {
-    const fuld = path.join(ROD, mappe);
-    if (!fs.existsSync(fuld)) continue;
-    for (const f of fs.readdirSync(fuld)) {
-      const e = path.extname(f).toLowerCase();
-      if (!endelser.includes(e)) continue;
-      const slug = path.basename(f, path.extname(f));
-      if (!billedIndeks.has(slug)) billedIndeks.set(slug, { fil: `${slags}/${f}`, slags });
-    }
+  function billedTekst(robot, b) {
+    return {
+      intet: T.billede_intet,
+      grund: t('billede_ingen_egen'),
+      delt: T.billede_delt,
+      delt_forklaring: T.billede_delt_forklaring,
+      alt: billedAlt(robot, b),
+      ophav: {
+        eget_foto: t('billede_ophav_eget_foto'),
+        silhuet: t('billede_ophav_silhuet'),
+        fabrikant: T.billede_uden_tilladelse,
+      },
+    };
+  }
+
+  /**
+   * Alternativ tekst. Dataskriverens egen `alt:` vinder altid. Uden den siger
+   * en silhuet, at den ER en silhuet: en teknisk tegning efter maal er ikke det
+   * samme syn som et fotografi, og en skaermlaeserbruger skal have samme
+   * oplysning som en seende.
+   */
+  function billedAlt(robot, b) {
+    if (b?.alt) return b.alt;
+    const navn = robot?.navn ?? '';
+    if (b?.ophav === 'silhuet') return tf('billede_alt_silhuet', { model: navn });
+    return navn;
   }
 
   function billede(robot, op = '') {
-    const b = billedIndeks.get(robot.slug);
-    if (!b) {
-      return `<div class="billedled"><div class="intetfoto">`
-        + `<span class="plade" aria-hidden="true"></span>`
-        + `<p class="hoved">${esc(T.billede_intet)}</p>`
-        + `<p class="grund">${esc(t('billede_ingen_egen'))}</p></div></div>`;
-    }
-    const plade = b.slags === 'silhuetter' ? ' billedled--plade' : '';
-    return `<div class="billedled${plade}"><img src="${attr(op)}billeder/${attr(b.fil)}"`
-      + ` alt="${attr(robot.navn)}" loading="lazy" decoding="async"></div>`;
+    const b = laesBillede(robot);
+    return billedledHTML({ b, op, tekst: billedTekst(robot, b) });
   }
-  /** Filerne, bygget skal kopiere til dist/billeder/. Kun fra assets/. */
-  billede.indeks = billedIndeks;
+
+  /** Billedets sandhed under billedet. Tom liste, naar pladen er tom. */
+  function billedsandhed(robot) {
+    const b = laesBillede(robot);
+    return billedLinjer(b, billedTekst(robot, b));
+  }
 
   /* --- 9. robotkortet ---------------------------------------------------- */
 
@@ -620,6 +779,15 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // uden bogstaver skyldes en optalt kilde, ikke tavshed.
     const stribeKilder = antalKilder > 1 ? k : null;
 
+    // Fodnoten baerer BILLEDETS sandhed - og den skifter, naar der kommer et
+    // billede. Stod linjen "Ingen brugbar optagelse" fast, ville kortet
+    // modsige sit eget fotografi den dag, den foerste fil lander. Det er
+    // praecis den slags pladsholder, der overlever til lancering.
+    const bp = laesBillede(robot);
+    const billedlinjer = bp
+      ? billedLinjer(bp, billedTekst(robot, bp))
+      : [['prik prik--klip', `${T.billede_intet}. ${t('billede_ingen_egen')}`]];
+
     return `<article class="kort">
 ${billede(robot, op)}
 <div class="kort-krop">
@@ -634,7 +802,7 @@ ${a.maerker()}
 ${eu(robot)}
 </div>
 <div class="kort-fod">
-<p><i class="prik prik--klip"></i>${esc(T.billede_intet)}. ${esc(t('billede_ingen_egen'))}</p>
+${billedlinjer.map(([klasse, linje]) => `<p><i class="${attr(klasse)}"></i>${esc(linje)}</p>`).join('\n')}
 <p><i class="prik"></i>${esc(kildelinje)}</p>
 </div>
 </article>`;
@@ -668,7 +836,7 @@ ${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</s
     tal, tilstand, kildemaerke, kilder: lavKilder, vaegtklasse, anvendelse,
     // --- bekvemmeligheder ---
     esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe, eu,
-    ceTilstand, billede, kort, tegnforklaring, nformat, dformat, operator,
+    ceTilstand, billede, billedsandhed, billedTekst, kort, tegnforklaring, nformat, dformat, operator,
     saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER,
   };
 }

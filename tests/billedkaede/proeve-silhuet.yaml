@@ -1,0 +1,32 @@
+# PROEVEPOST — ikke katalogindhold. Se tests/billedkaede/LAESMIG.md.
+#
+# Beviser den fulde kaede: billede: i YAML -> R18 i validatoren -> kopi fra
+# assets/ til dist/billeder/ -> <picture> i HTML.
+slug: proeve-silhuet
+navn: Proeve Silhuet
+producent: Proeveproducent
+producentland: Kina
+status: i_produktion
+billede:
+  fil: silhuetter/_proeve-kaede.svg
+  ophav: silhuet
+  kilde: https://example.com/proeve
+  hentet: 2026-08-21
+  alt: "Proevefigur i profil, tegnet 1 mm = 0,1 px"
+  note: "Figuren er paafundet til proeven og viser ingen rigtig maskine."
+felter:
+  egenvaegt:
+    vaerdi: 30
+    enhed: kg
+    kilde: https://example.com/proeve
+    hentet: 2026-08-21
+  laengde:
+    vaerdi: 1000
+    enhed: mm
+    kilde: https://example.com/proeve
+    hentet: 2026-08-21
+  hoejde:
+    vaerdi: 700
+    enhed: mm
+    kilde: https://example.com/proeve
+    hentet: 2026-08-21

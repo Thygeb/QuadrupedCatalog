@@ -41,3 +41,28 @@ Eksempel: `unitree-b2-staaende.svg`
 Ikke valgt endnu. Kandidat: 1 mm = 0,1 px, hvilket giver Unitree B2 (1098 mm lang) en
 bredde på 110 px og Boston Dynamics Spot (1100 mm, se D2) stort set samme — hvilket i
 sig selv er et fund, læseren bør kunne se.
+
+## Sådan kommer en fil herfra ud på siden
+
+**At lægge en fil i mappen er ikke nok, og det er med vilje.** Indtil 21. august 2026
+gjorde generatoren det modsatte: lå der en fil, der hed det samme som robottens slug,
+blev den vist. Så kunne et billede havne på siden uden ophav og uden kilde, alene fordi
+nogen lagde en fil i en mappe. Den vej er lukket.
+
+En robotpost skal pege på filen selv (`tools/skema.mjs`, regel R18 i validatoren):
+
+```yaml
+billede:
+  fil: silhuetter/unitree-b2-staaende.svg   # relativ til assets/
+  ophav: silhuet                            # eget_foto | silhuet | fabrikant
+  kilde: https://www.unitree.com/b2         # kilden på de MÅL, den er tegnet efter
+  hentet: 2026-08-19
+  note: "Tegnet efter L 1098 × B 450 × H 645 mm."
+```
+
+`kilde` er påkrævet for `silhuet` — det er regel 5 ovenfor, håndhævet mekanisk.
+Bygget fejler, hvis filen ikke findes, hvis `ophav` mangler, eller hvis stien peger
+uden for `assets/`.
+
+`_proeve-kaede.svg` er **ikke** en katalogsilhuet. Den er en prøvefigur, der beviser
+at kæden virker; se `tests/billedkaede/LAESMIG.md`.
