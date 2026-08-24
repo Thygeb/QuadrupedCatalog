@@ -127,6 +127,33 @@ Grene flettes til `main`, når arbejdet er efterprøvet — ikke før.
 
 ---
 
+## Modelfordeling — hvem tænker, og hvem bygger
+
+Fast regel, sat af JPK 24. aug 2026. Gælder alt arbejde i dette projekt.
+
+**Orkestratoren kører Opus eller Fable og implementerer aldrig selv.** Den analyserer,
+planlægger, griller og fletter. Selve bygningen sendes ud som subagenter med
+`model: "sonnet"` **skrevet eksplicit i `Agent`-kaldet**.
+
+Glemmes `model`-parameteren, arver subagenten sessionens aktuelle model. Det er ikke en
+teoretisk risiko: 24. aug 2026 blev to spor (kortdesign og fotos) startet fra en
+Fable-session uden parameteren, kørte rugbrødsarbejde på den dyre model og døde begge af
+et session-limit midt i arbejdet. Begge måtte genstartes fra bunden.
+
+**Grænsen, så reglen ikke lammer sessionen.** Orkestratoren må:
+
+- **læse** kode og data — man kan ikke planlægge det, man ikke har set
+- **måle og efterprøve** en agents resultat: `validate.mjs`, `build.mjs`, `tests/koer.mjs`,
+  `tools/linktjek.mjs`, Playwright-målinger
+- **flette** grene, rydde worktrees, køre den lokale server
+- skrive **proces**dokumenter: STATUS.md, CLAUDE.md, hukommelse
+
+Den må **ikke** producere selve leverancen: kildekode, skabeloner, CSS eller robotdata.
+Er en rettelse så lille, at et subagent-kald føles overdrevet, er den stadig
+implementering — send den, eller saml den med næste spor.
+
+---
+
 ## Mappestruktur
 
 ```
