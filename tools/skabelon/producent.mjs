@@ -1,10 +1,19 @@
 /**
  * tools/skabelon/producent.mjs — producentsiden. 12 af dem.
  *
- * Siden har ét job, som robotsiden ikke kan goere: at vise EU-kolonnen SAMLET.
- * Det er her en indkoeber ser, at Unitree har 12 modeller i kataloget, og at
- * ingen af dem naevner CE. Ét "ikke oplyst" er en tom rubrik; tolv under
- * hinanden er en oplysning om producenten.
+ * Siden har ét job, som robotsiden ikke kan goere: at vise CE-oplysningen
+ * SAMLET for hele producentens modelrække. Det er her en indkoeber ser, at
+ * Unitree har 12 modeller i kataloget, og at ingen af dem naevner CE. Ét
+ * "ikke oplyst" er en tom rubrik; tolv under hinanden er en oplysning om
+ * producenten.
+ *
+ * L32 (24. aug 2026): EU-KOLONNEN VAR EN TABEL MED FIRE FELTER (ce_oplyst,
+ * eu_tilgaengelig, eu_service, leveringstid), ét pr. model. De tre sidste er
+ * fjernet fra skemaet — stod ikke_oplyst paa alle 55 robotter — og med kun
+ * ét felt tilbage er en matrix ikke laengere den rigtige form. euSaetning()
+ * nedenfor erstatter tabellen med ÉN linje, beregnet paa samme maade som
+ * forsidens EU-fund (forside.mjs), bare talt over denne producents modeller
+ * i stedet for hele kataloget.
  *
  * ---------------------------------------------------------------------------
  * KONTRAKTEN (laast — side.mjs skrives af en anden agent)
@@ -41,9 +50,11 @@
  *
  * NYE i18n-NOEGLER, denne fil kraever:
  *   producent_modeller · producent_modeller_titel · producent_hjemsted ·
- *   eu_kolonne_titel · eu_kolonne_forklaring · eu_kolonne_tom · eu_ce_ingen ·
- *   eu_ce_nogle · eu_ce_nej · producent_ingen_modeller · producent_alle ·
- *   tabel_model · producent_model_en (ental — "1 modeller" er ikke dansk)
+ *   producent_ingen_modeller · producent_alle · tabel_model ·
+ *   producent_model_en (ental — "1 modeller" er ikke dansk)
+ *
+ * EU-saetningen (L32) genbruger forsidens noegler i stedet for at opfinde nye:
+ * eu_titel · forside_eu_tal · forside_eu_paastand. Se euSaetning() nedenfor.
  */
 
 import { skal, hjaelp } from './side.mjs';
@@ -52,9 +63,11 @@ import {
   esc, T, TD, flet, sti, kraevHjaelp, vaerdi, billedled,
 } from './robot.mjs';
 
-/** EU-kolonnens fire felter. Raekkefoelgen er fast paa tvaers af alle 12 sider,
- *  saa en indkoeber kan sammenligne to producenter uden at laese overskrifter. */
-const EU_FELTER = ['ce_oplyst', 'eu_tilgaengelig', 'eu_service', 'leveringstid'];
+/** EU-feltet/felterne, skemaet baerer. L32 (24. aug 2026) fjernede tre af de
+ *  fire — eu_tilgaengelig, eu_service, leveringstid — og efterlod ét. Ikke
+ *  slettet: robot.mjs' egen EU_FELTER holder samme form, og euSaetning()
+ *  nedenfor slaar op i den frem for at haardkode 'ce_oplyst' to steder. */
+const EU_FELTER = ['ce_oplyst'];
 
 /** Kortets tre tal. Samme tre som designsystemets kompakte stribe, valgt paa
  *  udfyldningsgrad (vaegt 37 af 46, nyttelast 36, driftstid 36).
@@ -134,7 +147,7 @@ function sorterModeller(modeller) {
 function ceOpgoerelse(modeller) {
   let ja = 0; let nej = 0; let ukendt = 0;
   for (const m of modeller) {
-    const p = m?.felter?.ce_oplyst;
+    const p = m?.felter?.[EU_FELTER[0]];
     if (p === undefined || typeof p === 'string') { ukendt++; continue; }
     if (tilstandAf(p.vaerdi) === 'nej') { nej++; continue; }
     if (tilstandAf(p.vaerdi)) { ukendt++; continue; }
@@ -173,63 +186,33 @@ ${landVaerdi ? `<div><dt class="etiket">${esc(T(i18n, 'tabel_land'))}</dt><dd>${
 </header>`;
 }
 
-/* ------------------------------------------------------------- EU-kolonnen */
+/* ------------------------------------------------------------- EU-saetningen */
 
 /**
- * EU-kolonnen som tabel. Tabellen er den rigtige form her og kun her: fire
- * felter gange N modeller er en matrix, og en matrix laeses paa tvaers.
- * Uden JavaScript ruller den vandret i sit eget felt (.tabelrum), saa siden
- * aldrig faar en vandret rullebjaelke paa kroppen.
+ * EU-saetningen. FOER L32 (24. aug 2026) var det her en tabel: fire EU-felter
+ * gange N modeller, en matrix der laeses paa tvaers. Med kun ét felt tilbage
+ * (ce_oplyst — se EU_FELTER) er en matrix ikke laengere den rigtige form; én
+ * raekke i en tabel er en saetning, der har taget en tabels plads.
+ *
+ * Formen genbruger forsidens EU-fund (forside.mjs' euFund, samme i18n-noegler
+ * forside_eu_tal og forside_eu_paastand, samme CSS-klasser eu-fund-linje/
+ * eu-fund-tal) fremfor at opfinde en producent-specifik variant — kun tallene
+ * bag "{n} af {m}" skifter, fra hele kataloget til denne producents modeller.
  */
-function euKolonne(ctx, modeller) {
+function euSaetning(ctx, modeller) {
   const { i18n } = ctx;
-  const t = ceOpgoerelse(modeller);
-
-  const opgoerelse = t.ja === 0
-    ? flet(T(i18n, 'eu_ce_ingen'), { n: t.i_alt })
-    : flet(T(i18n, 'eu_ce_nogle'), { a: t.ja, n: t.i_alt });
-  const nejDel = t.nej > 0 ? ` ${flet(T(i18n, 'eu_ce_nej'), { n: t.nej })}` : '';
 
   if (!modeller.length) {
     return `<section class="sektion" aria-labelledby="eu-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_kolonne_titel'))}</h2></div>
+<div class="sektion-hoved"><h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2></div>
 <p class="t-lille">${esc(T(i18n, 'producent_ingen_modeller'))}</p>
 </section>`;
   }
 
-  const raekker = modeller.map((m) => {
-    const celler = EU_FELTER.map((navn) => {
-      const post = m.felter?.[navn];
-      const { html, maerke } = vaerdi(navn, post, ctx, ctx.__kilder?.get(m.slug) ?? []);
-      return `<td>${html}${maerke}</td>`;
-    }).join('');
-    return `<tr>
-<th scope="row"><a href="${esc(sti(ctx, 'robot', m.slug))}">${esc(m.navn ?? m.slug)}</a></th>
-${celler}
-</tr>`;
-  }).join('\n');
-
+  const t = ceOpgoerelse(modeller);
   return `<section class="sektion" aria-labelledby="eu-h">
-<div class="sektion-hoved">
-<h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_kolonne_titel'))}</h2>
-<p class="tal figur">${esc(opgoerelse + nejDel)}</p>
-</div>
-<div class="tabelrum">
-<table class="eu-tabel">
-<caption class="kunskaerm">${esc(T(i18n, 'eu_kolonne_titel'))} — ${esc(flet(T(i18n, 'producent_modeller'), { n: modeller.length }))}</caption>
-<thead>
-<tr>
-<th scope="col">${esc(T(i18n, 'tabel_model'))}</th>
-${EU_FELTER.map((n) => `<th scope="col">${esc(T(i18n, 'felt_' + n))}</th>`).join('\n')}
-</tr>
-</thead>
-<tbody>
-${raekker}
-</tbody>
-</table>
-</div>
-<p class="t-lille maal eu-tom">${esc(T(i18n, 'eu_kolonne_tom'))}</p>
-<p class="t-lille maal">${esc(T(i18n, 'eu_kolonne_forklaring'))}</p>
+<div class="sektion-hoved"><h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2></div>
+<p class="eu-fund-linje">${ctx.__H.ikon('i-ce', 'ikon ikon--lille')}<b class="eu-fund-tal">${esc(flet(T(i18n, 'forside_eu_tal'), { n: t.ja, m: t.i_alt }))}</b><span>${esc(T(i18n, 'forside_eu_paastand'))}</span></p>
 </section>`;
 }
 
@@ -363,7 +346,7 @@ export function render(ctx) {
 
 <article class="producentside">
 ${top(arbejde, modeller)}
-${euKolonne(arbejde, modeller)}
+${euSaetning(arbejde, modeller)}
 ${modelafsnit(arbejde, modeller)}
 ${alleProducenter(arbejde)}
 </article>
