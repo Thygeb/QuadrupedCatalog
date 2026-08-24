@@ -1,7 +1,7 @@
 # KILDEKORT A — Boston Dynamics og ANYbotics
 
 Kortlægning og efterprøvning af 11 råfiler i
-`media/_kilder/raa-vest-2026-08-19/` mod FUND-vest.md afsnit 1, 1b, 1c, 2 og 3.
+`media/_kilder/raa-vest-2026-08-19/` mod fund/FUND-vest.md afsnit 1, 1b, 1c, 2 og 3.
 
 Udført 19. aug 2026. **100 % læsning.** Ingen fil i repoet er ændret, flyttet eller
 slettet. Ingen commit. Denne rapport ligger i scratchpad, ikke i repoet.
@@ -29,7 +29,7 @@ Gik forbi, med begrundelse:
 | `new-project` | Scaffolding. Intet scaffoldes |
 
 Læst før arbejdet, i den anviste rækkefølge: `CLAUDE.md`, `DATAMODEL.md`,
-`media/_kilder/LÆSMIG.md`, og FUND-vest.md linje 1-60, 73-160, 156-252, 252-348.
+`media/_kilder/LÆSMIG.md`, og fund/FUND-vest.md linje 1-60, 73-160, 156-252, 252-348.
 
 ---
 

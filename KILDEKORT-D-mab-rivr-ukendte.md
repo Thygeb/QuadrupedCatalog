@@ -385,7 +385,7 @@ som en `note`.
 
 **B. Tre kilder er hentet, men står ikke i Kilder-tabellen.** `https://www.rivr.ai/technology`
 (`rivr_tech.html`), `https://docs.petoi.com` (`p_1cb5f2.html`) og
-`https://www.anybotics.com/robotics/` (`b9c7fcb9.html`). Grep i FUND-vest.md bekræfter:
+`https://www.anybotics.com/robotics/` (`b9c7fcb9.html`). Grep i fund/FUND-vest.md bekræfter:
 `docs.petoi` giver nul træf, tabellen har kun `/robotics/anymal/` og `/robotics/anymal-x/`.
 Petois dokumentationssite er producentens eget og dermed primærkilde — det er præcis den
 type kilde, DATAMODEL.md's **D1** stiller spørgsmålet om. At den er hentet uden at være

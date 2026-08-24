@@ -77,6 +77,8 @@ Arvet fra KeyResearch, og de gælder her med fuld kraft:
 
 - **Genbrug aldrig et dokumentnavn. Nummerér videre.**
 - Nye fund føres ind i STATUS.md, når den findes. Kritikdokumenter er arkiv.
+- **Agentrapporter (`FUND-*.md`) hører hjemme i `fund/`**, ikke i projektroden. Peg på dem
+  med stien `fund/FUND-x.md`, ikke det bare filnavn — flere ligger der nu.
 
 ## Arbejde med filen
 
@@ -139,6 +141,8 @@ media/_kilder/        fabrikantmateriale. KUN reference. Gitignoreret. ALDRIG pu
 media/raa/            eget råmateriale før beskæring
 tools/                build.mjs, validate.mjs, målescripts
 dist/                 byggeoutput. Gitignoreret
+fund/                 agentrapporter: hvad blev undersøgt, efterprøvet, bygget. Arkiv —
+                      besluttet politik står i STATUS.md, ikke her
 ```
 
 **`dist/` bygges kun fra `assets/`.** `media/` indgår aldrig i bygget — det er den

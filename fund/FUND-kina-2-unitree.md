@@ -1,6 +1,6 @@
 # FUND-kina-2 — Unitree Robotics, indsamlet om med gemte råkilder
 
-Indsamlet 19. august 2026. Erstatter Unitree-delen af `FUND-kina.md`, som er
+Indsamlet 19. august 2026. Erstatter Unitree-delen af `fund/FUND-kina.md`, som er
 **ubekræftbar** (STATUS.md D6: råsiderne blev aldrig gemt).
 
 **Denne indsamling er efterprøvelig.** 16 råsider ligger i hovedrepoet under
@@ -77,7 +77,7 @@ Forsidens navigation blev læst i stedet for at antage listen. Firbenede robotte
 
 `B2 · B2-W · A2 · A2-W · As2 · As2-W · Go2 · Go2-W · Go1 · B1 · AlienGo · A1`
 
-**A1 og As2-W er nu indsamlet.** De manglede helt i `FUND-kina.md`.
+**A1 og As2-W er nu indsamlet.** De manglede helt i `fund/FUND-kina.md`.
 
 **En kandidat blev udelukket.** Forsiden linker til `/b1-16`, og navnet ligner en
 B1-variant. Siden blev hentet og læst: **B1-16 er en vandtæt ledmotor (IP68), en
@@ -523,7 +523,7 @@ nominelle spænding; 58 V er formentlig ladegrænsen.)
 **Afvigelsens størrelse afhænger af, hvad man dividerer med, og begge tal er rigtige:**
 
 - (2610 − 2250) / **2250** = **16,0 %** — "det beregnede ligger 16 % over det trykte".
-  Det er det tal, `FUND-kina.md` angav.
+  Det er det tal, `fund/FUND-kina.md` angav.
 - (2610 − 2250) / **2610** = **13,8 %** — "det trykte ligger 13,8 % under det beregnede".
 
 Jeg troede først, det gamle udkasts 16 % var en fejl. **Det er det ikke** — det er en
@@ -807,7 +807,7 @@ den aldrig kunne udfylde.
 ### 7.4 Hvorfor mine tal ikke er de gamle tal
 
 DATAMODEL.md og STATUS.md har **B2 = 14/29 = 48 %**. Jeg måler **17/29 = 59 %** på
-samme side samme dag. `FUND-kina.md` havde et tredje tal, **62 %**.
+samme side samme dag. `fund/FUND-kina.md` havde et tredje tal, **62 %**.
 
 **Forskellen er ikke observation. Den er tælleregel**, og det er præcis den diagnose,
 STATUS.md D7 allerede stiller. Mine 17 tæller bl.a. `hot-swap`, `dockingstation`,
@@ -938,7 +938,7 @@ English"). Unitrees kinesiske sider kan indeholde andre eller flere tal. **Jeg h
 hentet dem**, og det er en reel begrænsning: fodnote [4] på As2-siden lyder "Only
 supported for mainland China version", hvilket beviser, at versionerne adskiller sig.
 
-**10. Jeg har ikke krydstjekket mod det gamle udkast.** Det var bevidst — `FUND-kina.md`
+**10. Jeg har ikke krydstjekket mod det gamle udkast.** Det var bevidst — `fund/FUND-kina.md`
 er ubekræftbar (D6), og at bruge den som facitliste ville føre dens ukendte fejl videre.
 Konsekvensen er, at hvis det gamle udkast fangede noget, jeg har overset, er det tabt.
 

@@ -59,7 +59,7 @@ Opdateret 21. august 2026.
 | **Å7** | **"42 producenter" kan ikke citeres.** Kilden svarer 403, tallet er fra "early 2024" uden definition. Reelt tal er ≥57. PLAN.md afsnit 1 skal rettes |
 | **D3** | Hvordan vises intervaller (`20~25cm`, `4-6h`)? |
 | **D9** | Syv skemamangler — se nedenfor |
-| **R1** | 17 fejl i `FUND-vest.md` skal rettes i et nyt dokument (arkiv rettes ikke bagud) |
+| **R1** | 17 fejl i `fund/FUND-vest.md` skal rettes i et nyt dokument (arkiv rettes ikke bagud) |
 | **R2** | `raa-vest-2026-08-19/` mangler manifest — det eneste råkildesæt uden. **Værre end antaget:** `ghost_s40.html` i samme mappe er en 404-side (`<title>Not Found</title>`, teksten "Page Not Found") gemt under et navn, der lover Ghost Robotics Spirit 40. Fundet 21. aug 2026. Uden manifest var der intet, der kunne fange det. Hele mappen bør gennemgås for flere |
 
 ---
@@ -124,7 +124,7 @@ Begge dele er målt forkert:
 | **L12** | **Kode** | **Tilladt.** `data/robots/*.yaml` og `tools/validate.mjs` må skrives |
 | **L13** | **Billeder (Å3)** | **Fabrikantbilleder tilladt, så længe siden er lokal.** Egne fotos og silhuetter også. AI-genererede robotbilleder er stadig ude |
 | **L14** | **Produktretning** | **Billeddrevet browsing, ikke opslagsværk.** Specifikationer nedtones; detaljer hentes ved at gå videre til producentens egen side |
-| **L29** | **R1 + R2 — vest-sporet** | **Lukket.** `FUND-vest-2.md` bærer 19 rettelser, hver efterprøvet mod råfilen. `raa-vest-2026-08-19/MANIFEST.tsv` dækker alle 58 filer: 47 med verificeret URL, 11 med `ukendt`. Seks fejlsider fundet (fire var kendt); gennemgangen var udtømmende — alle 35 HTML-filer strimlet og målt |
+| **L29** | **R1 + R2 — vest-sporet** | **Lukket.** `fund/FUND-vest-2.md` bærer 19 rettelser, hver efterprøvet mod råfilen. `raa-vest-2026-08-19/MANIFEST.tsv` dækker alle 58 filer: 47 med verificeret URL, 11 med `ukendt`. Seks fejlsider fundet (fire var kendt); gennemgangen var udtømmende — alle 35 HTML-filer strimlet og målt |
 | **L27** | **Forsideakse — vender L15** | **Vægtklasse er aksen, anvendelse er filter.** L15 lagde anvendelse som akse; `KRITIK-1-plan.md` målte, at det ikke duer: forsvar og logistik ville have ét kort hver, `ikke_oplyst` er næststørst med 9, og reglen om at *første værdi* er hovedkategori lader en producents menurækkefølge afgøre, hvor ti robotter havner — altså netop den redaktionelle dom, reglen skulle undgå. Vægt er målt og entydigt. **Grænserne sættes til 20/40 kg** (11/12/12); 20/60 gav 11/22/2. Robotter uden oplyst vægt får egen sektion. Anvendelse bliver **flerværdi**-filter, så en robot må være både industri og inspektion |
 | **L28** | **Billeder indtil videre** | **Behold fotos, mærk de dårlige.** Byte-identiske dubletter fjernes (Spirit 40 viste Vision 60's fil), Go2-billedet med indbrændt reklametekst fjernes, delte billeder mærkes synligt. S1 er stadig uafklaret og er nu et større problem end før |
 | **L23** | **Å11 — arv til varianter** | **Ja, men synligt mærket.** Varianten arver moderens kategori og viser det: *"arvet fra Unitree B2"* med moderens citat. Slutningen er dermed læserens at bedømme, ikke skjult |

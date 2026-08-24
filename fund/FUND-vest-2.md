@@ -1,6 +1,6 @@
 # FUND-vest-2 — de 17 fejl skrevet frem, plus to fund mere
 
-Retter **R1** i STATUS.md. `FUND-vest.md` er arkiv og er **ikke** rettet bagud — den staar,
+Retter **R1** i STATUS.md. `fund/FUND-vest.md` er arkiv og er **ikke** rettet bagud — den staar,
 som den blev skrevet 19. aug 2026. Det her dokument er stedet, en laeser skal gaa hen, naar
 en paastand i FUND-vest skal bruges.
 

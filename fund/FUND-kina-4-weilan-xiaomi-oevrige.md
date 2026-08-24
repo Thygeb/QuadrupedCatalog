@@ -1,7 +1,7 @@
 # FUND-kina-4 — Weilan, Xiaomi og de syv uåbnede producenter
 
 Indsamlet 19. august 2026 i worktree `data/kina-weilan-xiaomi`.
-Efterfølger til det ubekræftede udkast `FUND-kina.md` afsnit 2.4–2.7 (se D6 i STATUS.md).
+Efterfølger til det ubekræftede udkast `fund/FUND-kina.md` afsnit 2.4–2.7 (se D6 i STATUS.md).
 
 **Status: efterprøvet mod gemte råkilder.** Alle tal i dette dokument er kontrolleret mod en
 rå HTML-fil, der ligger i

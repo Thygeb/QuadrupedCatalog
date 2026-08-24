@@ -1,6 +1,6 @@
 {
   "skill_name": "grillmig",
-  "note": "Proevetilfaelde for selv-testen. Koert 21. aug 2026, iteration-1. Resultatet staar i FUND-grillmig.md.",
+  "note": "Proevetilfaelde for selv-testen. Koert 21. aug 2026, iteration-1. Resultatet staar i fund/FUND-grillmig.md.",
   "evals": [
     {
       "id": 0,
@@ -35,7 +35,7 @@
     {
       "id": 2,
       "name": "brief-i-orden",
-      "prompt": "Gril det her brief, foer jeg sender det:\n\nArbejdsmappe: c:\\Praktik\\websites\\udstilling-wt-d4, gren data/d4-taelling.\nLeverance: FUND-d4.md med en tabel med en raekke pr. af de 46 robotter og kolonnerne slug, taethed_med_type_uden_model, taethed_uden, forskel - plus et afsnit, der navngiver de poster, der skifter plads.\nAftager: JPK, som skal lukke D4 i STATUS.md. KRITIK-1-plan.md K9 maalte, at D4 flytter 16 af 46 pladser, mens D7 flytter 0 - saa D4 er den beslutning, der faktisk aendrer rangeringen.\nRoerer kun FUND-d4.md og tools/taelle-d4.mjs. Ingen andre spor roerer de to filer.\nSpildt hvis: D7's naevner laases foerst og aendrer taelleren - men K9 maalte, at en konstant naevner flytter 0 pladser, saa raekkefoelgen holder uanset.\nFaerdig naar agenten kan skrive \"genberegnet 46 poster, N pladser flytter sig\" og tallet kan reproduceres med kommandoen, der staar i dokumentet.",
+      "prompt": "Gril det her brief, foer jeg sender det:\n\nArbejdsmappe: c:\\Praktik\\websites\\udstilling-wt-d4, gren data/d4-taelling.\nLeverance: fund/FUND-d4.md med en tabel med en raekke pr. af de 46 robotter og kolonnerne slug, taethed_med_type_uden_model, taethed_uden, forskel - plus et afsnit, der navngiver de poster, der skifter plads.\nAftager: JPK, som skal lukke D4 i STATUS.md. KRITIK-1-plan.md K9 maalte, at D4 flytter 16 af 46 pladser, mens D7 flytter 0 - saa D4 er den beslutning, der faktisk aendrer rangeringen.\nRoerer kun fund/FUND-d4.md og tools/taelle-d4.mjs. Ingen andre spor roerer de to filer.\nSpildt hvis: D7's naevner laases foerst og aendrer taelleren - men K9 maalte, at en konstant naevner flytter 0 pladser, saa raekkefoelgen holder uanset.\nFaerdig naar agenten kan skrive \"genberegnet 46 poster, N pladser flytter sig\" og tallet kan reproduceres med kommandoen, der staar i dokumentet.",
       "expected_output": "Briefet slipper igennem. Dom: send. De fem spoergsmaal besvares og markeres som besvarede. Ingen opfundet blokerende indvending, ingen omskrivning af briefet. Tael til sidst.",
       "assertions": [
         {"id": "c1", "text": "Dommen er 'Send' (eventuelt med mindre forbehold) - ikke 'Send ikke'"},

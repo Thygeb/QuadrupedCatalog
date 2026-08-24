@@ -1,6 +1,6 @@
 # FUND-kina-3 — DEEP Robotics og MagicLab, med gemte råkilder
 
-Indsamlet 19. august 2026. Erstatter afsnit 2.2 og 2.3 i `FUND-kina.md`, som er
+Indsamlet 19. august 2026. Erstatter afsnit 2.2 og 2.3 i `fund/FUND-kina.md`, som er
 **ubekræftbar** (D6): dens råsider blev aldrig gemt.
 
 **Denne gang er beviset gemt.** 31 råfiler ligger i hovedrepoet under

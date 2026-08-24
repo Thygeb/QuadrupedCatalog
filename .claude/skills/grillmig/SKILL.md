@@ -51,7 +51,7 @@ sorteringstjek lukkede et spørgsmål, der havde ventet på en person i to dage.
 udledes af skemaets egne nøgler. Det viste sig at være den vigtigste halvdel af historien:
 31 var ikke det forsigtige mellemtal, det var **talt forkert** — se fejl 6.
 
-**6. Tælleren og nævneren kom fra hver sin liste, og ingen af dem vidste det.** `FUND-naevner.md`
+**6. Tælleren og nævneren kom fra hver sin liste, og ingen af dem vidste det.** `fund/FUND-naevner.md`
 (skrevet, da L30 skulle lukkes) fandt, at koden hele tiden havde talt **tælleren** op over
 skemaets 33 nøgler (`FELTNAVNE`), mens **nævneren** var en håndskrevet konstant, `[29, 31]`.
 Brøkens to halvdele kom fra to forskellige lister. 31-tallet i den offentliggjorte prosaliste
@@ -90,7 +90,7 @@ egen sidefod siger Sejong-si), Ghost Robotics som *"Philadelphia"*, Boston Dynam
 *"Waltham, Massachusetts"*. Målt: `grep -o -i -c philadelphia` på `ghost_home.html`,
 `ghost_v60.html` og `v60.txt` → **0**. `waltham`, `massachusetts` og `hyundai` på alle fire
 Boston Dynamics-råfiler → **0, 0, 0**. Den tredje kom først frem, da nogen efterprøvede
-**alle syv hjembyer under ét**; `FUND-vest-2.md` skriver det selv: *"Derfor er det tredje
+**alle syv hjembyer under ét**; `fund/FUND-vest-2.md` skriver det selv: *"Derfor er det tredje
 tilfælde ikke fundet før: ingen søgte på det."*
 → **A1 fanger den:** fire kildekort i træk havde **tal** i leverancen, ikke producenthoveder.
 Det, der ikke står i leverancen, bliver ikke set på — af nogen.
@@ -103,7 +103,7 @@ ikke vidste fandtes. `STATUS.md` L27 bærer stadig det gamle tal.
 agenten fejlen tavst og afleverer den som sin egen måling.
 
 **5. De 47 påstande, ingen skulle bruge.** `KILDEKORT-C` gennemgik Petoi og MangDang:
-**47 påstande i 18 råfiler, 3 fejl fundet.** Alle tre står i `FUND-vest-2.md`s rettelsestabel
+**47 påstande i 18 råfiler, 3 fejl fundet.** Alle tre står i `fund/FUND-vest-2.md`s rettelsestabel
 som post 13, 14 og 15, mærket **"uden for scope"** — L11 holder legetøj, hobbyrobotter og
 undervisningskit ude af kataloget, og Petoi og MangDang står navngivet på listen. **3 af de 17
 rettelser** gælder maskiner, der aldrig får en side.
@@ -155,7 +155,7 @@ Skriv spørgsmålet, briefets faktiske svar, og din dom over svaret.
 
 **A1 — Hvad er leverancen konkret?**
 Et filnavn, et format, et antal. *"Undersøg X"* er ikke en leverance; *"en tabel i
-`FUND-x.md` med én række pr. producent og en kildekolonne"* er. Kan du ikke skrive, hvad der
+`fund/FUND-x.md` med én række pr. producent og en kildekolonne"* er. Kan du ikke skrive, hvad der
 ligger på disken bagefter, kan agenten heller ikke.
 
 **A2 — Hvem bruger resultatet, og til hvad?**

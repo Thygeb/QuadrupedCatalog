@@ -67,7 +67,7 @@ den anden ikke stod nogen steder.
 
 PLAN.md afsnit 1 og PRODUCT.md kalder det planens vigtigste enkelttal. **Tallet har ingen
 kilde i noget dokument i repoet** (kontrolleret: PLAN.md, PRODUCT.md, DATAMODEL.md,
-STATUS.md, FUND-kina.md, FUND-vest.md).
+STATUS.md, fund/FUND-kina.md, fund/FUND-vest.md).
 
 Jeg har fundet den formulering, tallet stammer fra. Den lyder:
 
@@ -187,7 +187,7 @@ begge status 200, begge i manifestet.
 ## 2.4 Producentliste med kilde pr. felt
 
 `ja*` under *Produktside med spec.* betyder, at et af de to **ubekræftede** udkast
-(`FUND-kina.md`, `FUND-vest.md`) rapporterer en specifikationsside; det er ikke efterprøvet
+(`fund/FUND-kina.md`, `fund/FUND-vest.md`) rapporterer en specifikationsside; det er ikke efterprøvet
 af mig. `ja` uden stjerne er efterprøvet i dette spor.
 
 **Land og hjemby er kun udfyldt, hvor det står på producentens eget domæne.**
@@ -641,7 +641,7 @@ Harnisken fanger altså både falske positiver og falske negativer.
   CMRA har givet. **De 4 forkastede** (Roboneers, Aeroarc, DOBOT, Hyundai) er **ikke** talt med.
 - **17 med produktside med specifikationer** = de 17 rækker i 2.4 med `ja*`. **Alle 17 er
   `ja*`, altså rapporteret af de to ubekræftede udkast og ikke efterprøvet af mig.** Det tal
-  må ikke citeres som en måling; det er et lån fra `FUND-kina.md` og `FUND-vest.md`, som
+  må ikke citeres som en måling; det er et lån fra `fund/FUND-kina.md` og `fund/FUND-vest.md`, som
   STATUS.md D5 selv kalder ubekræftede. Efterprøvet af mig: **1** — Keybotic, hvor svaret er
   **nej** (specifikationerne ligger bag en kontaktformular).
 - Fandt jeg 0 fejl blandt mine egne påstande, fandt jeg **3 fejl i det eksisterende materiale**:

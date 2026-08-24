@@ -17,7 +17,7 @@ skal have kilde), **regel 3** (producentens egen side er primærkilden), **regel
 operatoren) og det **obligatoriske selv-tjek med tælling** — som er præcis det, denne opgave er.
 
 Læst forinden, i den rækkefølge opgaven bad om: `CLAUDE.md`, `DATAMODEL.md`,
-`media/_kilder/LÆSMIG.md`, `FUND-vest.md` afsnit 4, 5, 6, 11 samt `## Kilder`.
+`media/_kilder/LÆSMIG.md`, `fund/FUND-vest.md` afsnit 4, 5, 6, 11 samt `## Kilder`.
 
 **Gik forbi, med begrundelse:**
 

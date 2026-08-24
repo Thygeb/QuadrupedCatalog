@@ -14,7 +14,7 @@ andet sted i repoet; kilden står ved hver.
 **Hvor:** `PLAN.md` afsnit 1 (linje 17-19) og `PRODUCT.md` under *Product Purpose*
 (linje 31-34).
 
-**Hvorfor:** `FUND-felt.md` afsnit 2.1 fandt kilden. Sætningen stammer fra en kommerciel
+**Hvorfor:** `fund/FUND-felt.md` afsnit 2.1 fandt kilden. Sætningen stammer fra en kommerciel
 markedsrapportside, som **svarer 403** både på curl og på WebFetch (19. aug 2026). Tallet er
 dateret *"early 2024"*, og der står ingen definition af, hvad der tælles som producent. Efter
 projektets egen regel — *et tal uden kilde findes ikke* — må 42 ikke stå på siden. Vores egen
@@ -43,7 +43,7 @@ lister humanoid.guide ~235 humanoider.
 Det er planens vigtigste enkelttal, og det er derfor talt frem for citeret. Tallet 42,
 som stod her før, kom fra en markedsrapportside, der svarer 403, er dateret "early 2024"
 og ikke definerer, hvad den tæller. Vores tal kan genkøres: producentlisten med domæner
-står i `FUND-felt.md` afsnit 2.4.
+står i `fund/FUND-felt.md` afsnit 2.4.
 
 **Feltet kan gøres færdigt.** Et katalog på 50-70 komplette poster er et opslagsværk;
 235 halve poster er en liste. Hele strategien nedenfor følger af, at vi kan nå bunden af
@@ -62,7 +62,7 @@ feltet, og at de ikke kan.
 ```markdown
 Et komplet, kildeangivet opslagsværk over verdens firbenede robotter. Feltet er
 afgrænset — 57 producenter, talt af os selv 19. august 2026 og opgjort med domæne i
-FUND-felt.md. Det betyder, at kataloget kan gøres **færdigt**, i modsætning til
+fund/FUND-felt.md. Det betyder, at kataloget kan gøres **færdigt**, i modsætning til
 humanoid.guide, hvis ~235 poster nødvendigvis er tynde.
 ```
 
@@ -73,7 +73,7 @@ humanoid.guide, hvis ~235 poster nødvendigvis er tynde.
    samme konstruktion som den, der står på afvist-listen. Jeg har fjernet sætningen i
    erstatningsteksten ovenfor frem for at rette tallet. Vil vi have en sammenligning med
    feltets bedste eksisterende oversigt, skal den skrives om, ikke justeres.
-2. **Definitionen mangler stadig.** `FUND-felt.md` afsnit 2.6 foreslår: en producent hører i
+2. **Definitionen mangler stadig.** `fund/FUND-felt.md` afsnit 2.6 foreslår: en producent hører i
    kataloget, når den (a) selv fremstiller en firbenet robot, (b) har en offentlig produktside
    med mindst ét talfelt med enhed, og (c) tilbyder modellen til køb eller leje. **Det er et
    forslag, ikke en beslutning.** Under den definition bliver feltet mindre end 57, ikke
@@ -90,7 +90,7 @@ humanoid.guide, hvis ~235 poster nødvendigvis er tynde.
 § 3, stk. 1: brugsanvisninger og sikkerhedsoplysninger **skal være på dansk**. § 4:
 informationer og advarsler **skal være på dansk**. § 6: EU-overensstemmelseserklæringer
 **skal være på dansk**. Kilde: Retsinformation, `eli/lta/2024/727`, efterprøvet i
-`FUND-felt.md` (F10). Står der "et EU-sprog", lover katalogfeltet noget svagere, end reglen
+`fund/FUND-felt.md` (F10). Står der "et EU-sprog", lover katalogfeltet noget svagere, end reglen
 kræver — og en køber, der læser feltet som et ja, får en manual på engelsk og en regel imod
 sig.
 
@@ -109,7 +109,7 @@ dansk`**, med tilstandene `oplyst / ikke oplyst` som resten af EU-kolonnen.
 
 **Hvor:** `PLAN.md` linje 37-38 og linje 73, `PRODUCT.md` linje 47-48.
 
-**Hvorfor:** `STATUS.md` Å6 og `FUND-felt.md` afsnit 5, punkt 1. Påstanden er, at køberen
+**Hvorfor:** `STATUS.md` Å6 og `fund/FUND-felt.md` afsnit 5, punkt 1. Påstanden er, at køberen
 bliver importør med fuldt ansvar ved direkte køb fra Asien. **Der findes ingen primærkilde
 for import til eget brug uden videresalg.** Kæden gennem forordning 2019/1020 art. 4 taler om
 produkter, der *bringes i omsætning* — den forudsætter altså svaret på det spørgsmål, den
@@ -196,7 +196,7 @@ tilstand på andre poster.
 
 ### F3 — "næstlaveste tæthed" holder ikke længere
 
-`FUND-vest.md` skriver, at ANYmal X har *"den næstlaveste specifikationstæthed i hele
+`fund/FUND-vest.md` skriver, at ANYmal X har *"den næstlaveste specifikationstæthed i hele
 indsamlingen"*. Det var sandt for vest-indsamlingens 19 poster. **Målt på de 46 poster, der
 ligger i kataloget nu** (nævner 31, felttype uden model talt med): fem poster står på 0 %
 (Spirit 40, Laikago, AlphaDog E300, AlphaDog E400L, BabyAlpha), RIVR ONE på 6 % og RAIBO2 på
@@ -206,7 +206,7 @@ metodesiden skriver derfor "i bunden af kataloget" og et målt tal med dato.
 
 ### F4 — tæller et dokumenteret nej med i tætheden? Metodesiden siger ja, og det er ikke besluttet
 
-`FUND-kina-4-weilan-xiaomi-oevrige.md` (N4) stiller spørgsmålet og lader det stå åbent: et
+`fund/FUND-kina-4-weilan-xiaomi-oevrige.md` (N4) stiller spørgsmålet og lader det stå åbent: et
 udtrykkeligt *nej* er et svar, men om det **tæller som udfyldt**, er ikke afgjort. Det flytter
 CyberDog 2 mellem 48 % og 55 % i den opgørelse.
 
