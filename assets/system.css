@@ -491,11 +491,33 @@ a:hover{text-decoration-thickness:2.5px}
   width:var(--bw);height:var(--bh);background:var(--panel);
   border:1.5px solid var(--hegn)}
 
-/* Etiketten NAVNGIVER de to maal, kassen er tegnet efter — "LÆNGDE × HØJDE".
-   Den staar i titelfeltet under gulvet, som paa et tegningsark, og er derfor
-   ikke en indholdstom optakt over en overskrift. */
-.maalplade .etiket{position:absolute;left:22px;bottom:14px;z-index:3;
-  font-size:10.5px;letter-spacing:.1em}
+/* Maalestregerne: to smaa lodrette streger, der haenger ned fra kassens egne
+   bund-hjoerner (24.08.2026) - byggetegningens tegn for "denne bredde er
+   opmaalt", laant fra samme sprog som gulvlinjen. De sidder PAA .kasse og
+   arver dermed dens bredde (--bw) uden separat koordinatregning - to streger
+   der altid rammer kassens hjoerner, uanset kortstoerrelse. */
+.maalplade .kasse::before,.maalplade .kasse::after{content:"";position:absolute;
+  bottom:-9px;width:1px;height:9px;background:var(--hegn)}
+.maalplade .kasse::before{left:0}
+.maalplade .kasse::after{right:0}
+
+/* Tegningsarkets titelfelt (24.08.2026). Den bare kasse i en stiplet ramme
+   uden et eneste tal blev laest som en renderingsfejl, ikke som et bevidst
+   hul (JPK, screenshots 24. aug): intet paa pladen sagde "dette er en
+   maaling". Et tegningsark har altid et titelfelt med baade feltnavne OG de
+   opmaalte tal, saa nu har pladen det ogsaa - tallene er producentens egne,
+   som skrevet i kilden. --panel-ro (samme flade som et indfelt felt i et
+   panel) adskiller titelfeltet fra tegningsfeltet ovenfor som et eget LAG,
+   ikke som en skygge: hullet loeftes stadig aldrig, jf. reglen om det
+   ubevaegelige hul. */
+.maalplade .titelfelt{position:absolute;left:10px;right:10px;bottom:10px;z-index:3;
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:2px 12px;padding:7px 11px 8px;background:var(--panel-ro);
+  border-top:1px solid var(--linje)}
+.maalplade .titelfelt .etiket{font-size:10.5px;letter-spacing:.1em}
+.maalplade .titelfelt .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:11px;font-weight:700;letter-spacing:-.01em;color:var(--blaek2);
+  white-space:nowrap}
 
 /* Den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et
    brudt billede: samme sprog som "ikke oplyst".

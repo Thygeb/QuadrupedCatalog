@@ -845,15 +845,23 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
     const bw = (L / PLADE_MM_BRED * 100).toFixed(2);
     const bh = (H / PLADE_MM_HOEJ * 100).toFixed(2);
-    // Etiketten NAVNGIVER datagruppen. Den er ikke en indholdstom optakt.
+    // Titelfeltet NAVNGIVER de to maal ("LÆNGDE × HØJDE") OG viser
+    // producentens egne tal, som skrevet i kilden — som paa et tegningsark.
+    // En bar kasse uden ét eneste tal blev laest som en renderingsfejl (JPK,
+    // 24. aug 2026); tallene er det, der goer pladen laesbar som en bevidst,
+    // opmaalt tegning i stedet for et brudt billede.
     const navne = `${T.felt_laengde} × ${T.felt_hoejde}`;
+    const maaltal = `${somSkrevet(lp)} × ${somSkrevet(hp)}`;
     const laest = `${T.felt_laengde} ${somSkrevet(lp)}, ${T.felt_hoejde} ${somSkrevet(hp)}`;
     const klasser = stor ? 'billedled billedled--maal billedled--stor' : 'billedled billedled--maal';
     return `<div class="${klasser}"><div class="maalplade">`
       + `<span class="net" aria-hidden="true"></span>`
       + `<span class="jord" aria-hidden="true"></span>`
       + `<span class="kasse" style="--bw:${bw}%;--bh:${bh}%" aria-hidden="true"></span>`
-      + `<span class="etiket" aria-hidden="true">${esc(navne)}</span>`
+      + `<span class="titelfelt" aria-hidden="true">`
+      + `<span class="etiket">${esc(navne)}</span>`
+      + `<span class="tal">${esc(maaltal)}</span>`
+      + `</span>`
       + `<span class="kunskaerm">${esc(T.billede_intet)}. ${esc(laest)}.</span>`
       + `</div></div>`;
   }
