@@ -1,0 +1,98 @@
+slug: cvte-maxhub-x7
+navn: MAXHUB X7
+producent: CVTE
+producentland: Kina
+producentby: Guangzhou
+foerste_udgivelse: 2025
+status: i_produktion
+anvendelse:
+  vaerdi: [industri, forsvar_beredskab]
+  citat: "适用于工业、电力、救援等场景"
+  kilde: https://www.cvte.com/product/quadrupedrobot
+  hentet: 2026-08-24
+  note: "\"工业\" (industri) og \"电力\" (elkraft) er begge omsat til industri, da saetningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). \"救援\" (redning) er omsat til forsvar_beredskab."
+noter:
+  - "STOPPROEVE (firbenet): Producentens EGEN produktside hedder ordret \"四足机器人 X7\" (\"Quadruped Robot X7\") og staar i CVTE's produktnavigation under 机器人 > 四足机器人 (/product/quadrupedrobot). Nyhedsartiklen fra samme domaene skriver: \"视源股份自主研发的高性能工业级四足机器人MAXHUB X7首次亮相\" (CVTE's selvudviklede hoejtydende industrielle FIRBENEDE robot MAXHUB X7 debuterer). Kilder: https://www.cvte.com/product/quadrupedrobot og https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db, begge hentet 2026-08-24."
+  - "OPGAVEBREVET BAD OM AT STARTE VED CVTE'S EGNE KANALER, DA MESSERAPPORTEN (fund/FUND-messe.md) ALDRIG FIK FAT I DEM - det lykkedes her: cvte.com har baade en dedikeret produktside (/product/quadrupedrobot) og flere nyhedsartikler om X7, ingen af dem set af messesporet."
+  - "ARTIKLENS DATO MODSIGER MESSERAPPORTENS ANTAGELSE OM WRC 2026: CVTE's egen nyhedsartikel om X7's debut er dateret 2025-08-08, og handler eksplicit om \"2025世界机器人大会\" (World Robot Conference 2025), IKKE 2026. X7 debuterede altsaa for et aar siden, ikke ved den aktuelle WRC. Produktet har siden vaeret i felten: samme domaene har en separat artikel (\"21000公里！小C家'机器狗'年度总结曝光\", cvte.com/news/detail/b215d840-e9d4-11f0-9573-c1812bef4fc9) om en 21.000 km kumuleret driftsdistance og en vundet \"最佳越障突破奖\" (bedste forhindringsgennembrudspris) ved et Guangzhou Tower-arrangement - lagt til grund for status i_produktion, men disse to tal (21.000 km, prisnavn) er begivenheds-/PR-tal, ikke specifikationer, og indgaar derfor IKKE i felter."
+  - "SVAG SPECIFIKATIONSTAETHED ER MAALT, IKKE ANTAGET: CVTE's produktside er en marketing-highlights-side (\"产品亮点\") med retoriske overskrifter og fodnote-forbehold, IKKE en teknisk specifikationstabel som Astrall Dynamics' eller Unitrees produktsider. Der findes intet fundet CVTE-datablad med maal, vaegt, nyttelast, hastighed eller DoF. maxhub.com selv (det globale MAXHUB-displaymaerke) har INGEN robotprodukter overhovedet - X7 ligger udelukkende under moderselskabet CVTE/视源股份's egen produktnavigation, ikke under maxhub.com."
+  - "Producentens egne fodnoter paa \"产品亮点\"-siden svaekker flere af tallene med vilje: \"*续航时间: 在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal, reel brug varierer); \"*稳定穿越35°陡坡等地形...基于自适应步态算法与电驱动关节的实验室测试结果\"; \"*-20℃至55℃作业：指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\". Disse forbehold er gengivet paa de enkelte felters advarsel."
+  - "MAXHUB X7's SOESTERPRODUKT \"商用清洁机器人\" (kommerciel rengoeringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifoelge nyhedsartiklen er solgt til Europa/Sydoestasien/Japan (\"进入欧洲、东南亚及日本市场\"). Det gaelder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 paa dette grundlag."
+  - "INGEN billede:-blok. Billedkandidater fundet men ikke bedoemt med oejne i dette spor - se fund/FUND-kand2.md."
+felter:
+  egenvaegt: ikke_oplyst
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende: ikke_oplyst
+  nyttelast_staaende: ikke_oplyst
+  hastighed: ikke_oplyst
+  haeldning:
+    vaerdi: 35
+    enhed: grader
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+    advarsel: "\"稳定穿越35°陡坡\" med fodnote: \"基于自适应步态算法与电驱动关节的实验室测试结果，实际地形性能受环境复杂度影响\" (laboratorietestresultat; reel terraenydelse paavirkes af omgivelsernes kompleksitet)."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP66
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+    advarsel: "\"IP66级防水防尘\"."
+  temp_min:
+    vaerdi: -20
+    enhed: C
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+    advarsel: "\"-20°C至55°C宽温作业\" med fodnote: \"指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (gaelder batteri og koernekomponenters normale arbejdsomraade)."
+  temp_maks:
+    vaerdi: 55
+    enhed: C
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 8
+    enhed: t
+    operator: ">"
+    ved_last: { vaerdi: 20, enhed: kg }
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+    advarsel: "Producenten oplyser TRE punkter i én saetning: \"40kg负载＞5H，20kg负载＞8H，空载＞11H\". Skemaet har kun ét driftstidsfelt, saa mellempunktet (20kg > 8H) er valgt som primaer vaerdi; de to andre (40kg > 5H, 0kg/space > 11H) staar her. Fodnote: \"在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal ved 25°C paa fladt hardt underlag)."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+    advarsel: "\"高度自主 定时启停、自主导航与回充\" (hoej autonomi: tidsstyret start/stop, selvnavigation og selvopladning). Nyhedsartiklen (samme domaene) uddyber: \"能够自主规划路径、定时启动任务、完成后自动返航充电\" (kan selv planlaegge rute, tidsstyre opgavestart og koere hjem for selv at oplade efter fuldfoert opgave). Ordet \"docking station\"/\"充电桩\" staar ikke ordret nogen af stederne - \"自主...回充\"/\"自动返航充电\" er tolket som en automatisk opladningsfacilitet."
+  lidar:
+    vaerdi: ikke_oplyst
+    kilde: https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db
+    hentet: 2026-08-24
+    advarsel: "Nyhedsartiklen: \"深度融合激光雷达、里程计、IMU、UWB、GNSS、视觉相机等多种传感器\" (dyb fusion af LiDAR, odometri, IMU, UWB, GNSS, visuelt kamera m.fl.). LiDAR naevnes kun som sensor-TYPE i en opremsning - intet antal, ingen model. Taeller ikke som udfyldt under D4's foreloebige regel."
+  kameraer:
+    vaerdi: "可见光+红外双光云台 (dobbeltspektret synligt lys + infraroedt drejetaarn-kamera), model ikke oplyst"
+    kilde: https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db
+    hentet: 2026-08-24
+    advarsel: "\"X7搭载可见光+红外双光云台、气体传感器、机械臂甚至灭火装置\"."
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "\"精准定位 百米长廊、空旷场地不迷路\" (praecis positionering: farer ikke vild i 100-meter-korridorer eller aabne omraader). Nyhedsartiklen uddyber: \"全栈自研的智能导航系统，通过多模态融合建图定位算法、感知算法和规划算法等技术，确保其在空旷场景、无特征长走廊、暗光/无光环境下仍能保持高定位精度\" (fuldt selvudviklet navigationssystem, hoej positioneringspraecision i aabne omraader, traeklose lange korridorer og moerke/lysloese omgivelser). Fodnote paa produktsiden: \"基于多维感知算法在特定场景（如超100米长廊、空旷区域）的实现效果，实际避障能力受环境动态变化影响\" (specifikt scenarie-testet resultat; reel undvigeevne paavirkes af dynamiske aendringer). Ingen SAE/ISO-autonomiklasse oplyst."
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+  monteringsinterface:
+    vaerdi: "\"百变形态随心扩展 支持双光云台、气体传感器、机械臂等\" (modulaer/udskiftelig montering af dobbeltspektret kamera, gassensor, robotarm m.fl.). Standardiseret monteringsflade/-maal eller hurtigskift-mekanisme ikke oplyst."
+    kilde: https://www.cvte.com/product/quadrupedrobot
+    hentet: 2026-08-24
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
