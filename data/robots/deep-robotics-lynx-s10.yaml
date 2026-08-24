@@ -17,7 +17,8 @@ billede:
   ophav: fabrikant
   kilde: https://www.deeprobotics.cn/robot/index/lynxs10.html
   hentet: 2026-08-19
-  alt: "DEEP Robotics Lynx S10 paa en plankestabel i en nedrevet bygning"
+  alt: "DEEP Robotics Lynx S10 kravler over vandfyldte klippetrin"
+  note: "Billedport 24. aug 2026: erstattet. Det oprindelige billede var et LiDAR-punktskysbillede fra app'en, ikke et foto af robotten. Nyt billede (s10_3.jpg) er fra samme producentside, efterproevet mod media/robotbilleder/deep-robotics-lynx-s10/MANIFEST.tsv."
 felter:
   egenvaegt:
     vaerdi: 20
