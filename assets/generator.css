@@ -88,8 +88,10 @@
 .stige-trin{display:flex;flex-direction:column;justify-content:space-between;
   gap:var(--r2);min-height:84px;padding:10px 12px 9px;text-decoration:none;
   background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
-.stige-trin .navn{font-size:12.5px;font-weight:600;line-height:1.25;color:var(--blaek2)}
-.stige-trin .figur{font-size:26px;font-weight:700;line-height:1;
+/* 13 px = t-mikro; 25 px = .stribe .v ved 680 px. Begge laant fra en
+   eksisterende sats i stedet for opfundet ved siden af skalaen. */
+.stige-trin .navn{font-size:13px;font-weight:600;line-height:1.25;color:var(--blaek2)}
+.stige-trin .figur{font-size:25px;font-weight:700;line-height:1;
   letter-spacing:-.02em;color:var(--blaek)}
 .stige-trin:hover{border-color:var(--hegn);background:var(--accent-ro)}
 .stige-trin:hover .navn{color:var(--blaek)}

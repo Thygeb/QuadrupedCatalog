@@ -419,10 +419,11 @@ a:hover{text-decoration-thickness:2.5px}
   background:linear-gradient(135deg,var(--blaek3) 0 45%,transparent 45%)}
 
 /* --- MAALEPLADEN ----------------------------------------------------------
-   Maalt 21.08.2026 i dist/da/index.html: 46 kort, 46 tomme plader, 0 <img>.
-   Et gitter af 46 ens graa plader er ikke et hul — det er en fejlmeddelelse
-   gentaget 46 gange. Og saetningen "Vi har ikke selv fotograferet modellen"
-   stod 92 gange paa siden: én gang i pladen og én gang i kortets fodnote.
+   Maalt 21.08.2026 i dist/da/index.html: 46 kort, 46 tomme plader, ingen
+   billedelementer overhovedet. Et gitter af 46 ens graa plader er ikke et
+   hul — det er en fejlmeddelelse gentaget 46 gange. Og saetningen "Vi har
+   ikke selv fotograferet modellen" stod 92 gange paa siden: én gang i
+   pladen og én gang i kortets fodnote.
 
    Naar vi ikke har et fotografi, har vi stadig MAAL. 31 af de 46 robotter
    oplyser baade laengde og hoejde. De faar deres omrids tegnet i FAELLES
@@ -457,10 +458,12 @@ a:hover{text-decoration-thickness:2.5px}
 
 /* Omridset. --bw og --bh saettes af generatoren ud af producentens egne maal,
    i procent af billedfeltet. Fyldet er panelets hvide, saa maskinens plads i
-   rummet kan ses mod hullets graa. */
+   rummet kan ses mod hullets graa. Skarpt hjoerne med vilje: formskalaen
+   (12/8/6 px) hoerer til KOMPONENTER, og en maalt kasse er ikke en komponent
+   — den er en tegning. Et rundet hjoerne her ville laese som en chip. */
 .maalplade .kasse{position:absolute;left:50%;bottom:24%;transform:translateX(-50%);
   width:var(--bw);height:var(--bh);background:var(--panel);
-  border:1.5px solid var(--hegn);border-radius:2px}
+  border:1.5px solid var(--hegn)}
 
 /* Etiketten NAVNGIVER de to maal, kassen er tegnet efter — "LÆNGDE × HØJDE".
    Den staar i titelfeltet under gulvet, som paa et tegningsark, og er derfor
