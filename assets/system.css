@@ -242,6 +242,18 @@ a:hover{text-decoration-thickness:2.5px}
   letter-spacing:.02em;cursor:help;text-decoration:none;align-self:center}
 .forbehold:hover{border-color:var(--hegn);color:var(--blaek2)}
 
+/* Forbeholdet som HAEVET TEGN (24.08.2026) - typografi, ikke et ikon, i
+   samme familie som kildemaerkets haevede bogstav (afsnit 8b): bogstavet
+   peger paa en kilde, tegnet peger paa et forbehold. Ordet "Advarsel" var
+   maalt paa 174 af 181 forbehold, 41 af 46 kort paa /da/-forsiden - naar
+   alt advarer, advarer intet. Teksten er IKKE rullet tilbage til den lange
+   saetning (rettelsen fra 21. aug staar ved magt): den korte tekst ligger
+   stadig fuldt ud i title (museklik) og i .kunskaerm (skaermlaeser), kun den
+   ALTID SYNLIGE ordchip er skiftet til et lille tegn. */
+.forbehold--tegn{border:0;padding:0;background:none;font-size:14px;font-weight:700;
+  line-height:1;letter-spacing:0;color:var(--blaek3);align-self:flex-start}
+.forbehold--tegn:hover{color:var(--blaek);border:0}
+
 /* --- 8b. KILDEMAERKET ------------------------------------------------------
    Maalt: 23 af 46 poster henter tal fra mere end én URL. Boston Dynamics Spot
    har seks felter fra et datablad i pdf og resten fra produktsiden — deriblandt

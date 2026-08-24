@@ -423,10 +423,32 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   /* --- 1. tal ------------------------------------------------------------ */
 
   /**
+   * Forbeholdet som HAEVET TEGN. Samme sprog som kildemaerkets haevede
+   * bogstav (afsnit 3 nedenfor): bogstavet peger paa en kilde, tegnet peger
+   * paa et forbehold. Hele teksten staar i `title` (museklik) OG i
+   * `.kunskaerm` (skaermlaeser) - ordet "Advarsel" forsvinder ikke, det
+   * flytter fra en altid-synlig chip til skaermlaeserens tekst.
+   *
+   * Maalt 24. aug 2026 paa /da/-forsiden: 174 af 181 forbeholdschips viste
+   * ordet "Advarsel", paa 41 af 46 kort. Naar alt advarer, advarer intet.
+   * Rettelsen fra 21. aug (den lange saetning -> "Advarsel") er IKKE rullet
+   * tilbage - den korte tekst staar stadig, nu i title og .kunskaerm.
+   */
+  function fnote(tekst) {
+    return `<abbr class="forbehold forbehold--tegn" title="${attr(tekst)}">`
+      + `<span aria-hidden="true">*</span>`
+      + `<span class="kunskaerm">${esc(T.advarsel)}: ${esc(tekst)}</span></abbr>`;
+  }
+
+  /**
    * Selve tallet: operator, figur, enhed, interval, imperial og lastbetingelse.
    * Regel 5: et interval er ikke sit gennemsnit og saettes som et interval.
+   *
+   * `forbehold` (valgfri tekstliste) flettes sammen med en eventuel
+   * lastbetingelse til ÉT haevet tegn - to tegn ved siden af hinanden ville
+   * laeses som to forskellige fejl, og de hoerer alligevel til samme vaerdi.
    */
-  function tal(post, { kilder = null, maerke = true, hvorhen = '' } = {}) {
+  function tal(post, { kilder = null, maerke = true, hvorhen = '', forbehold = [] } = {}) {
     const nul = post.vaerdi === 0;
     const figur = post.min !== undefined
       ? `${nformat(post.min)}–${nformat(post.maks)}`
@@ -443,13 +465,15 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       const imp = `${nformat(post.vaerdi_imperial)} ${post.enhed_imperial ?? ''}`.trim();
       ud += `<abbr class="forbehold" title="${attr(t('imperial_forklaring'))}">${esc(imp)}</abbr>`;
     }
+    const noter = [];
     if (post.ved_last !== undefined) {
       const ukendt = typeof post.ved_last === 'string' || tilstandAf(post.ved_last.vaerdi);
-      ud += ukendt
-        ? `<abbr class="forbehold" title="${attr(T.ved_last_ukendt)}">${esc(T.advarsel)}</abbr>`
-        : `<abbr class="forbehold" title="${attr(T.ved_last)} ${attr(nformat(post.ved_last.vaerdi))} `
-          + `${attr(post.ved_last.enhed ?? '')}">${esc(T.advarsel)}</abbr>`;
+      noter.push(ukendt
+        ? T.ved_last_ukendt
+        : `${T.ved_last} ${nformat(post.ved_last.vaerdi)} ${post.ved_last.enhed ?? ''}`.trim());
     }
+    noter.push(...forbehold);
+    if (noter.length) ud += fnote(noter.join(' · '));
     if (maerke && kilder) ud += kildemaerke(post, kilder, hvorhen);
     ud += `</span>`;
     return ud;
@@ -550,16 +574,26 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
     const spec = FELTER[navn];
     const t0 = tilstandAf(post.vaerdi);
+    // Et tal-felt faer sit forbehold flettet IND i tal()'s eget haevede tegn
+    // (lastbetingelse + advarsel bliver ét tegn, ikke to). De andre grene
+    // faar deres forbehold sat ind i vaerdispannet lige nedenfor.
+    const erTal = !t0 && spec?.art !== 'jaNej' && spec?.art !== 'liste'
+      && typeof post.vaerdi !== 'string';
     let ud;
     if (t0) ud = tilstand(t0, { kilder, post, hvorhen });
     else if (spec?.art === 'jaNej') ud = jaNej(post.vaerdi, { kilder, post, hvorhen });
     else if (spec?.art === 'liste') ud = tekstvaerdi(post.vaerdi.join(', '), { kilder, post, hvorhen });
     else if (typeof post.vaerdi === 'string') ud = tekstvaerdi(post.vaerdi, { kilder, post, hvorhen });
-    else ud = tal(post, { kilder, hvorhen });
+    else ud = tal(post, { kilder, hvorhen, forbehold: kunVaerdi && post.advarsel ? [post.advarsel] : [] });
 
     if (kunVaerdi) {
-      if (post.advarsel) {
-        ud += `<abbr class="forbehold" title="${attr(post.advarsel)}">${esc(T.advarsel)}</abbr>`;
+      // Maerket saettes IND i vaerdiens .v-spann, ikke efter det: striben er
+      // column-reverse, og et maerke placeret som en EGEN sideordnet node
+      // blev loeftet op OVER vaerdien som cellens foerste, mest synlige led
+      // (maalt i browseren 24. aug 2026). Alle grene ovenfor slutter paa
+      // </span>, saa indsaetningen lige foer det er stabil.
+      if (post.advarsel && !erTal) {
+        ud = ud.replace(/<\/span>$/, `${fnote(post.advarsel)}</span>`);
       }
       return ud;
     }
