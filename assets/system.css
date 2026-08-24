@@ -242,6 +242,18 @@ a:hover{text-decoration-thickness:2.5px}
   letter-spacing:.02em;cursor:help;text-decoration:none;align-self:center}
 .forbehold:hover{border-color:var(--hegn);color:var(--blaek2)}
 
+/* Forbeholdet som HAEVET TEGN (24.08.2026) - typografi, ikke et ikon, i
+   samme familie som kildemaerkets haevede bogstav (afsnit 8b): bogstavet
+   peger paa en kilde, tegnet peger paa et forbehold. Ordet "Advarsel" var
+   maalt paa 174 af 181 forbehold, 41 af 46 kort paa /da/-forsiden - naar
+   alt advarer, advarer intet. Teksten er IKKE rullet tilbage til den lange
+   saetning (rettelsen fra 21. aug staar ved magt): den korte tekst ligger
+   stadig fuldt ud i title (museklik) og i .kunskaerm (skaermlaeser), kun den
+   ALTID SYNLIGE ordchip er skiftet til et lille tegn. */
+.forbehold--tegn{border:0;padding:0;background:none;font-size:14px;font-weight:700;
+  line-height:1;letter-spacing:0;color:var(--blaek3);align-self:flex-start}
+.forbehold--tegn:hover{color:var(--blaek);border:0}
+
 /* --- 8b. KILDEMAERKET ------------------------------------------------------
    Maalt: 23 af 46 poster henter tal fra mere end én URL. Boston Dynamics Spot
    har seks felter fra et datablad i pdf og resten fra produktsiden — deriblandt
@@ -357,11 +369,21 @@ a:hover{text-decoration-thickness:2.5px}
 .stribe--intet p{font-size:14px;line-height:1.5;color:var(--blaek2);max-width:76ch}
 
 /* Kompakt udgave: samme celler, mindre sats. Til robotkortet og til
-   sammenligningsraekker, hvor striben ikke er sidens hovedsag. */
-.stribe--kompakt{grid-template-columns:repeat(3,minmax(0,1fr));box-shadow:none;
+   sammenligningsraekker, hvor striben ikke er sidens hovedsag.
+   TO spalter ved ALLE bredder (24.08.2026), ikke tre. Maalt med Playwright
+   over alle 46 kort paa /da/ ved 1440 px: tre spalter gav en krop paa
+   ca. 95-115 px, og etiketterne NYTTELAST og DRIFTSTID (66-77 px i 10,5 px
+   mono med spatiering) klippede paa hvert kort - 284 synlige fund. Ved
+   360 px, hvor reglen under 420 px allerede brugte to spalter, var der 0.
+   Det smalle layout var det rigtige; nu gaelder det hele vejen op. Femte
+   celle (IP) faar hele sidste raekke, saa fem celler i to spalter ikke
+   efterlader et tomt felt. */
+.stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr));box-shadow:none;
   border-radius:var(--rund-ind)}
 .stribe--kompakt > li{padding:12px 12px 11px;gap:9px;border-top:0}
-.stribe--kompakt > li:nth-child(3n+1){border-left:0}
+.stribe--kompakt > li:nth-child(2n+1){border-left:0}
+.stribe--kompakt > li:nth-child(n+3){border-top:1px solid var(--linje)}
+.stribe--kompakt > li:last-child:nth-child(odd){grid-column:1/-1}
 .stribe--kompakt .v{font-size:20px}
 .stribe--kompakt .krop > .v{min-height:23px}
 .stribe--kompakt .ikon{width:19px;height:19px;stroke-width:1.8}
@@ -469,11 +491,33 @@ a:hover{text-decoration-thickness:2.5px}
   width:var(--bw);height:var(--bh);background:var(--panel);
   border:1.5px solid var(--hegn)}
 
-/* Etiketten NAVNGIVER de to maal, kassen er tegnet efter — "LÆNGDE × HØJDE".
-   Den staar i titelfeltet under gulvet, som paa et tegningsark, og er derfor
-   ikke en indholdstom optakt over en overskrift. */
-.maalplade .etiket{position:absolute;left:22px;bottom:14px;z-index:3;
-  font-size:10.5px;letter-spacing:.1em}
+/* Maalestregerne: to smaa lodrette streger, der haenger ned fra kassens egne
+   bund-hjoerner (24.08.2026) - byggetegningens tegn for "denne bredde er
+   opmaalt", laant fra samme sprog som gulvlinjen. De sidder PAA .kasse og
+   arver dermed dens bredde (--bw) uden separat koordinatregning - to streger
+   der altid rammer kassens hjoerner, uanset kortstoerrelse. */
+.maalplade .kasse::before,.maalplade .kasse::after{content:"";position:absolute;
+  bottom:-9px;width:1px;height:9px;background:var(--hegn)}
+.maalplade .kasse::before{left:0}
+.maalplade .kasse::after{right:0}
+
+/* Tegningsarkets titelfelt (24.08.2026). Den bare kasse i en stiplet ramme
+   uden et eneste tal blev laest som en renderingsfejl, ikke som et bevidst
+   hul (JPK, screenshots 24. aug): intet paa pladen sagde "dette er en
+   maaling". Et tegningsark har altid et titelfelt med baade feltnavne OG de
+   opmaalte tal, saa nu har pladen det ogsaa - tallene er producentens egne,
+   som skrevet i kilden. --panel-ro (samme flade som et indfelt felt i et
+   panel) adskiller titelfeltet fra tegningsfeltet ovenfor som et eget LAG,
+   ikke som en skygge: hullet loeftes stadig aldrig, jf. reglen om det
+   ubevaegelige hul. */
+.maalplade .titelfelt{position:absolute;left:10px;right:10px;bottom:10px;z-index:3;
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:2px 12px;padding:7px 11px 8px;background:var(--panel-ro);
+  border-top:1px solid var(--linje)}
+.maalplade .titelfelt .etiket{font-size:10.5px;letter-spacing:.1em}
+.maalplade .titelfelt .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:11px;font-weight:700;letter-spacing:-.01em;color:var(--blaek2);
+  white-space:nowrap}
 
 /* Den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et
    brudt billede: samme sprog som "ikke oplyst".
@@ -520,14 +564,19 @@ a:hover{text-decoration-thickness:2.5px}
   border-color:var(--hegn);font-weight:500;font-family:var(--mono);font-size:11.5px}
 
 /* Kortets fodnote. Her staar billedets sandhed — og kun den. Ingen pris,
-   ingen knap, ingen opfordring. Kortet har ingen doer ud af sitet. */
-.kort-fod{margin-top:auto;padding:13px 16px 14px;border-top:1px solid var(--linje);
-  display:flex;flex-direction:column;gap:5px}
-.kort-fod p{font-family:var(--mono);font-size:11px;line-height:1.45;color:var(--blaek3);
-  display:flex;gap:7px;align-items:flex-start}
-.kort-fod .prik{flex:none;width:5px;height:5px;border-radius:99px;background:var(--hegn);margin-top:6px}
-.kort-fod .prik--klip{border-radius:0;background:none;
-  border:1px dashed var(--hegn);width:7px;height:7px;margin-top:5px}
+   ingen knap, ingen opfordring. Kortet har ingen doer ud af sitet.
+   ÉT loebende afsnit, ikke en stak (24.08.2026): to-tre ens monospor-
+   raekker paa alle 46 kort i traek var mere visuel vaegt end kortets egne
+   tal. Hvert led beholder sit eget tegn og HELE sin tekst - intet ord,
+   intet kildetal og intet forbehold er fjernet, kun stablingen er vaek. */
+.kort-fod{margin-top:auto;padding:11px 16px 13px;border-top:1px solid var(--linje)}
+.kort-fod p{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--blaek3)}
+.kort-fod .led{display:inline}
+.kort-fod .led + .led{margin-left:11px}
+.kort-fod .prik{display:inline-block;width:5px;height:5px;border-radius:99px;
+  background:var(--hegn);margin-right:6px;vertical-align:1px}
+.kort-fod .prik--klip{display:inline-block;border-radius:0;background:none;
+  border:1px dashed var(--hegn);width:6px;height:6px;margin-right:6px;vertical-align:0}
 
 /* Den ene tilladte bevaegelse. Fotografiet traeder frem; hullerne roerer
    sig ikke — de er ikke en tilstand, der kan forbedres ved at pege paa den. */
@@ -602,6 +651,29 @@ thead th{border-top:0;border-bottom:2px solid var(--blaek);white-space:nowrap;
   text-transform:uppercase;color:var(--blaek3)}
 tbody th{font-weight:600;font-size:15.5px;color:var(--blaek)}
 td .v{font-size:15px}
+
+/* --- 14b. Tilstandenes sats, i hver kontekst -------------------------------
+   Maalt 24.08.2026: hver kontekst ovenfor (.stribe .v, .stribe--kompakt .v,
+   .raekke .v, td .v) saetter figurens sats direkte paa .v-elementet. Den
+   regel har to klasser (specificitet 0,0,2,0) og slaar dermed ALTID
+   tilstandenes egen .v-ikke/.v-billede (.46em) og .v-nej/.v-ja (.62em), som
+   kun har én (0,0,1,0) - uanset raekkefoelge i filen. Computed style i
+   Chromium bekraeftede det: "ikke oplyst" i et kort stod ikke i .46em af
+   20px (9,2px), men fladt i 20px - samme sats som tallet selv, hvilket er
+   praecis den fejl, DESIGN.md's regel om de fire tilstande forbyder, og en
+   medvirkende aarsag til klipningen (11 tegn ved 20px passer ikke i en
+   ~95 px celle). Reglerne herunder vinder ved samme kaskadeteknik (to
+   klasser) og holder desuden gulvet paa 10,5 px i alle fire kontekster. */
+.stribe .v-ikke,.stribe .v-billede{font-size:13px}
+.stribe .v-nej,.stribe .v-ja{font-size:18px}
+.stribe--kompakt .v-ikke,.stribe--kompakt .v-billede{font-size:11px;padding:2px 6px 3px}
+.stribe--kompakt .v-nej,.stribe--kompakt .v-ja{font-size:12.5px}
+.raekke .v-ikke,.raekke .v-billede,td .v-ikke,td .v-billede{font-size:11px}
+.raekke .v-nej,.raekke .v-ja,td .v-nej,td .v-ja{font-size:10.5px}
+/* Hullet og "kun vist paa billede" maa ikke fylde mere end deres egen tekst:
+   .krop's stretch (afsnit 10) stroek ellers chippen ud til hele cellens
+   bredde, saa et hul saa bredere ud end det tal, det staar i stedet for. */
+.stribe .krop > .v-ikke,.stribe .krop > .v-billede{align-self:flex-start}
 
 /* Sektionshovedet. Versaletiketten faar sin egen linje OVER overskriften i
    stedet for at staa paa dens grundlinje — den navngiver datagruppen, og en

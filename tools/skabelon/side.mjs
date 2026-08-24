@@ -423,10 +423,32 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   /* --- 1. tal ------------------------------------------------------------ */
 
   /**
+   * Forbeholdet som HAEVET TEGN. Samme sprog som kildemaerkets haevede
+   * bogstav (afsnit 3 nedenfor): bogstavet peger paa en kilde, tegnet peger
+   * paa et forbehold. Hele teksten staar i `title` (museklik) OG i
+   * `.kunskaerm` (skaermlaeser) - ordet "Advarsel" forsvinder ikke, det
+   * flytter fra en altid-synlig chip til skaermlaeserens tekst.
+   *
+   * Maalt 24. aug 2026 paa /da/-forsiden: 174 af 181 forbeholdschips viste
+   * ordet "Advarsel", paa 41 af 46 kort. Naar alt advarer, advarer intet.
+   * Rettelsen fra 21. aug (den lange saetning -> "Advarsel") er IKKE rullet
+   * tilbage - den korte tekst staar stadig, nu i title og .kunskaerm.
+   */
+  function fnote(tekst) {
+    return `<abbr class="forbehold forbehold--tegn" title="${attr(tekst)}">`
+      + `<span aria-hidden="true">*</span>`
+      + `<span class="kunskaerm">${esc(T.advarsel)}: ${esc(tekst)}</span></abbr>`;
+  }
+
+  /**
    * Selve tallet: operator, figur, enhed, interval, imperial og lastbetingelse.
    * Regel 5: et interval er ikke sit gennemsnit og saettes som et interval.
+   *
+   * `forbehold` (valgfri tekstliste) flettes sammen med en eventuel
+   * lastbetingelse til ÉT haevet tegn - to tegn ved siden af hinanden ville
+   * laeses som to forskellige fejl, og de hoerer alligevel til samme vaerdi.
    */
-  function tal(post, { kilder = null, maerke = true, hvorhen = '' } = {}) {
+  function tal(post, { kilder = null, maerke = true, hvorhen = '', forbehold = [] } = {}) {
     const nul = post.vaerdi === 0;
     const figur = post.min !== undefined
       ? `${nformat(post.min)}–${nformat(post.maks)}`
@@ -443,13 +465,15 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       const imp = `${nformat(post.vaerdi_imperial)} ${post.enhed_imperial ?? ''}`.trim();
       ud += `<abbr class="forbehold" title="${attr(t('imperial_forklaring'))}">${esc(imp)}</abbr>`;
     }
+    const noter = [];
     if (post.ved_last !== undefined) {
       const ukendt = typeof post.ved_last === 'string' || tilstandAf(post.ved_last.vaerdi);
-      ud += ukendt
-        ? `<abbr class="forbehold" title="${attr(T.ved_last_ukendt)}">${esc(T.advarsel)}</abbr>`
-        : `<abbr class="forbehold" title="${attr(T.ved_last)} ${attr(nformat(post.ved_last.vaerdi))} `
-          + `${attr(post.ved_last.enhed ?? '')}">${esc(T.advarsel)}</abbr>`;
+      noter.push(ukendt
+        ? T.ved_last_ukendt
+        : `${T.ved_last} ${nformat(post.ved_last.vaerdi)} ${post.ved_last.enhed ?? ''}`.trim());
     }
+    noter.push(...forbehold);
+    if (noter.length) ud += fnote(noter.join(' · '));
     if (maerke && kilder) ud += kildemaerke(post, kilder, hvorhen);
     ud += `</span>`;
     return ud;
@@ -550,16 +574,26 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
     const spec = FELTER[navn];
     const t0 = tilstandAf(post.vaerdi);
+    // Et tal-felt faer sit forbehold flettet IND i tal()'s eget haevede tegn
+    // (lastbetingelse + advarsel bliver ét tegn, ikke to). De andre grene
+    // faar deres forbehold sat ind i vaerdispannet lige nedenfor.
+    const erTal = !t0 && spec?.art !== 'jaNej' && spec?.art !== 'liste'
+      && typeof post.vaerdi !== 'string';
     let ud;
     if (t0) ud = tilstand(t0, { kilder, post, hvorhen });
     else if (spec?.art === 'jaNej') ud = jaNej(post.vaerdi, { kilder, post, hvorhen });
     else if (spec?.art === 'liste') ud = tekstvaerdi(post.vaerdi.join(', '), { kilder, post, hvorhen });
     else if (typeof post.vaerdi === 'string') ud = tekstvaerdi(post.vaerdi, { kilder, post, hvorhen });
-    else ud = tal(post, { kilder, hvorhen });
+    else ud = tal(post, { kilder, hvorhen, forbehold: kunVaerdi && post.advarsel ? [post.advarsel] : [] });
 
     if (kunVaerdi) {
-      if (post.advarsel) {
-        ud += `<abbr class="forbehold" title="${attr(post.advarsel)}">${esc(T.advarsel)}</abbr>`;
+      // Maerket saettes IND i vaerdiens .v-spann, ikke efter det: striben er
+      // column-reverse, og et maerke placeret som en EGEN sideordnet node
+      // blev loeftet op OVER vaerdien som cellens foerste, mest synlige led
+      // (maalt i browseren 24. aug 2026). Alle grene ovenfor slutter paa
+      // </span>, saa indsaetningen lige foer det er stabil.
+      if (post.advarsel && !erTal) {
+        ud = ud.replace(/<\/span>$/, `${fnote(post.advarsel)}</span>`);
       }
       return ud;
     }
@@ -811,15 +845,23 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
     const bw = (L / PLADE_MM_BRED * 100).toFixed(2);
     const bh = (H / PLADE_MM_HOEJ * 100).toFixed(2);
-    // Etiketten NAVNGIVER datagruppen. Den er ikke en indholdstom optakt.
+    // Titelfeltet NAVNGIVER de to maal ("LÆNGDE × HØJDE") OG viser
+    // producentens egne tal, som skrevet i kilden — som paa et tegningsark.
+    // En bar kasse uden ét eneste tal blev laest som en renderingsfejl (JPK,
+    // 24. aug 2026); tallene er det, der goer pladen laesbar som en bevidst,
+    // opmaalt tegning i stedet for et brudt billede.
     const navne = `${T.felt_laengde} × ${T.felt_hoejde}`;
+    const maaltal = `${somSkrevet(lp)} × ${somSkrevet(hp)}`;
     const laest = `${T.felt_laengde} ${somSkrevet(lp)}, ${T.felt_hoejde} ${somSkrevet(hp)}`;
     const klasser = stor ? 'billedled billedled--maal billedled--stor' : 'billedled billedled--maal';
     return `<div class="${klasser}"><div class="maalplade">`
       + `<span class="net" aria-hidden="true"></span>`
       + `<span class="jord" aria-hidden="true"></span>`
       + `<span class="kasse" style="--bw:${bw}%;--bh:${bh}%" aria-hidden="true"></span>`
-      + `<span class="etiket" aria-hidden="true">${esc(navne)}</span>`
+      + `<span class="titelfelt" aria-hidden="true">`
+      + `<span class="etiket">${esc(navne)}</span>`
+      + `<span class="tal">${esc(maaltal)}</span>`
+      + `</span>`
       + `<span class="kunskaerm">${esc(T.billede_intet)}. ${esc(laest)}.</span>`
       + `</div></div>`;
   }
@@ -857,6 +899,16 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       ? billedLinjer(bp, billedTekst(robot, bp))
       : [['prik prik--klip', `${T.billede_intet}. ${t('billede_ingen_egen')}`]];
 
+    // Fodnoten som ÉT loebende afsnit, ikke en stak af linjer (24.08.2026).
+    // Maalt: to-tre ens monospor-raekker paa alle 46 kort var mere visuel
+    // vaegt end kortets egne tal. Hvert led beholder sit eget tegn (prik =
+    // oplysning, stiplet firkant = billedforbehold) og HELE sin tekst -
+    // ingen ord er fjernet, kun stablingen. Kildetal og forbehold er
+    // produktkrav og staar uafkortet, som foer.
+    const fodled = [...billedlinjer, ['prik', kildelinje]]
+      .map(([klasse, linje]) => `<span class="led"><i class="${attr(klasse)}"></i>${esc(linje)}</span>`)
+      .join(' ');
+
     return `<article class="kort">
 ${billede(robot, op)}
 <div class="kort-krop">
@@ -871,8 +923,7 @@ ${a.maerker()}
 ${eu(robot)}
 </div>
 <div class="kort-fod">
-${billedlinjer.map(([klasse, linje]) => `<p><i class="${attr(klasse)}"></i>${esc(linje)}</p>`).join('\n')}
-<p><i class="prik"></i>${esc(kildelinje)}</p>
+<p>${fodled}</p>
 </div>
 </article>`;
   }
