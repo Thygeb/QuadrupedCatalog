@@ -17,6 +17,11 @@ noter:
   - "REGELAENDRING (CEO'en, under dette spor): producentens GitHub-organisation (github.com/zsibot, linket fra genisomai.com/download.html) taeller nu som gyldig kilde - mod sekundaer-maerkning. UNDERSOEGT FOR ros2/sdk_sprog, MEN IKKE BRUGT: se advarslen paa ros2-feltet nedenfor for den fulde begrundelse. Kort fortalt: L2's egen produktside naevner \"新一代 RoamerX 智能导航系统\", og repoet github.com/zsibot/genisom_roamerx_open kraever ROS2 Humble - men repoets eget README skriver \"Hardware Deployment: TODO\", altsaa at koblingen til et faktisk saelgende produkt IKKE er dokumenteret af producenten selv. Sat til ikke_oplyst i stedet for et gaet, der ikke kan skelnes fra en maaling (regel 1). Se genisom-gangben-l1.yaml for et modeksempel, hvor samme regelaendring GAV et brugbart resultat (sdk_sprog: C++, fordi det repo eksplicit er navngivet den officielle L1-SDK, uden et 'TODO' paa produktkoblingen)."
   - "SENSOR-UOVERENSSTEMMELSE, IKKE LOEST STILTIENDE: L2's markedsfoeringstekst (samme side) skriver \"支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位\" (understoetter automatisk kortlaegning og ruteplanlaegning, kombineret med LiDAR og GNSS for centimeterpraecis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og \"双目相机\" (stereokamera) under \"传感器\" for basismodellen L2 - INGEN lidar-raekke. En lidar-raekke (\"3D激光雷达: 工业级96线激光雷达*2\") findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke_oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder paa samme side modsiger hinanden, og det rettes ikke stiltiende."
   - "BATTERI-Wh: to tal paa samme side, ikke indbyrdes modstridende, men heller ikke krydsbekraeftet af os. Et fremhaevet \"kapacitetskort\" paa siden skriver \"756Wh 大容量电池\" (756Wh stor-kapacitetsbatteri) - brugt som feltets vaerdi. Tilbehoerslisten i den strukturerede specifikationstabel skriver separat \"电池: 15000mAh\" uden spaending. Vi udregner IKKE Wh af mAh (regel 9) - de to tal er blot noteret som fundet paa samme side uden modsigelse."
+billede:
+  fil: fotos/fabrikant/genisom-gangben-l2.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/L2
+  hentet: 2026-08-24
 felter:
   egenvaegt:
     vaerdi: 21

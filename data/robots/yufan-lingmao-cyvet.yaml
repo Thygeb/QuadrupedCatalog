@@ -17,6 +17,11 @@ noter:
   - "Feltet 关节峰值扭旋/额定扭矩 (led-drejningsmoment) har intet felt i skemaet. Noteret her: peak 60 N·m, nominel ca. 18 N·m pr. led (kilde som frihedsgrader nedenfor)."
   - "工作最大功率 (maks. arbejdseffekt) 3500 W har intet felt i skemaet - noteret her, ikke i felter."
   - "INGEN billede:-blok. Billedkandidater fundet men ikke bedoemt med oejne i dette spor - se fund/FUND-kand2.md."
+billede:
+  fil: fotos/fabrikant/yufan-lingmao-cyvet.jpg
+  ophav: fabrikant
+  kilde: https://www.uniubi.com/embodied-ai/robot
+  hentet: 2026-08-24
 felter:
   egenvaegt:
     vaerdi: 15

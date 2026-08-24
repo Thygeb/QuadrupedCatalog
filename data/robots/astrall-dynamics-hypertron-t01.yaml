@@ -19,6 +19,11 @@ noter:
   - "储存温度 (opbevaringstemperatur, adskilt fra arbejdstemperatur): -20℃~60℃. Skemaets temp_min/temp_maks er arbejdstemperatur (工作温度); opbevaringstemperaturen har intet eget felt."
   - "En engelsk pressemeddelelse (GlobeNewswire, 2026-06-07, \"Astrall Dynamics Unveils Integrated Quadruped Firefighting Robot Hypertron-T01 at INTERSCHUTZ 2026\") naevner i WebSearch-uddrag IP67 (mod IP66 paa den kinesiske produktside) samt en integreret 20L/s brandkanon med 60 m raekkevidde. Denne kilde kunne IKKE hentes direkte (WebFetch og curl gav begge timeout mod globenewswire.com efter flere forsoeg) og er derfor IKKE brugt til noget feltvaerdi - kun noteret her som en ueftereproevet selvmodsigelse (IP66 vs. IP67), der boer afklares naeste gang siden er tilgaengelig."
   - "INGEN billede:-blok. Billedkandidater fundet men ikke bedoemt med oejne i dette spor - se fund/FUND-kand2.md."
+billede:
+  fil: fotos/fabrikant/astrall-dynamics-hypertron-t01.png
+  ophav: fabrikant
+  kilde: https://www.astralldynamics.com/
+  hentet: 2026-08-24
 felter:
   egenvaegt:
     vaerdi: 82
