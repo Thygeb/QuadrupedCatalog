@@ -571,7 +571,7 @@ console.log('\n3. Gyldige filer maa IKKE fejle');
    ------------------------------------------------------------------------ */
 console.log('\n3b. Naevneren (D7 / L30)');
 {
-  ok('skemaet har 33 feltnoegler', skema.FELTNAVNE.length === 33,
+  ok('skemaet har 30 feltnoegler', skema.FELTNAVNE.length === 30,
     `fandt ${skema.FELTNAVNE.length}`);
 
   // 2. Naevneren er UDLEDT. Hardkodes den igen, sprinter den her.
@@ -606,7 +606,7 @@ console.log('\n3b. Naevneren (D7 / L30)');
   ok('metode.md har ingen efterladte 29- eller 31-taellinger i broedteksten',
     gamle.length === 0, gamle.join(' · '));
 
-  // 6. Taelleren kan ikke overstige naevneren. Med 33/33 er 100 % loftet.
+  // 6. Taelleren kan ikke overstige naevneren. Med 30/30 er 100 % loftet.
   const val = await import(`file://${path.join(rod, 'tools', 'validate.mjs').replace(/\\/g, '/')}`);
   const dataMappe = path.join(rod, 'data', 'robots');
   const filer = fs.existsSync(dataMappe)

@@ -1,6 +1,6 @@
 ---
 name: robotdata
-description: Indsaml, udfyld eller efterprøv en robotpost i quadruped-oversigten. Brug den hver gang en firbenet robot skal tilføjes, opdateres eller kontrolleres — den bærer 33-feltsskemaet, de ti hårde regler om kilder og operatorer, og det obligatoriske selv-tjek med tælling. Bruges også af agenter, der indsamler data i en worktree.
+description: Indsaml, udfyld eller efterprøv en robotpost i quadruped-oversigten. Brug den hver gang en firbenet robot skal tilføjes, opdateres eller kontrolleres — den bærer 30-feltsskemaet, de ti hårde regler om kilder og operatorer, og det obligatoriske selv-tjek med tælling. Bruges også af agenter, der indsamler data i en worktree.
 user-invokable: true
 argument-hint: "[producent model] eller [efterprøv <fil>]"
 ---
@@ -98,7 +98,7 @@ fx fordi en billedlæsekvote er opbrugt midt i arbejdet), slet hele `billede:`-b
 frem for at gætte. Et forkert eller uefterprøvet billede er værre end intet: robotten
 falder tilbage til målepladen, ikke til en gætning.
 
-## De 33 felter
+## De 30 felter
 
 **Sandheden er `tools/skema.mjs`.** Listen her er en læsbar gengivelse af den, ikke en
 konkurrerende liste. Er de to uenige, har skemaet ret — og så skal listen her rettes,
@@ -117,7 +117,8 @@ autonominiveau
 
 **Kommercielt (1)** vejledende pris
 
-**EU (4)** tilgængelig i EU · CE oplyst · servicepunkt i EU · leveringstid
+**EU (1)** CE oplyst. (L32, 24. aug 2026: tilgængelig i EU, servicepunkt i EU og
+leveringstid er fjernet fra skemaet — stod `ikke_oplyst` på samtlige poster.)
 
 **Længde, bredde og højde er tre felter, ikke ét**, og det samme gælder de to
 temperaturgrænser. Hver af dem har sin egen `kilde` og `hentet`. Her stod tidligere
@@ -125,6 +126,9 @@ temperaturgrænser. Hver af dem har sin egen `kilde` og `hentet`. Her stod tidli
 aldrig har haft — det var de to fejl, der gjorde nævneren til 31 i stedet for 33
 (L30). **Skemaet har ingen felter til foldemål;** oplyser en producent dem, hører de i
 en `advarsel:` på målfeltet, som Xiaomi- og Yobotics-posterne allerede gør det.
+
+Nævneren er 30, ikke 33, siden L32 (24. aug 2026): tre af de fire EU-felter er fjernet
+fra skemaet, se listen ovenfor.
 
 Identitetsfelter (slug, navn, producent, land, udgivelse, status, forgænger) skrives af
 os og **tæller ikke** i specifikationstætheden. Det samme gælder `anvendelse`, som med
@@ -134,20 +138,29 @@ vilje ligger som topnøgle og ikke i `felter` — netop for ikke at flytte nævn
 
 ## Specifikationstæthed
 
-`udfyldte felter ÷ 33`, afrundet til hele procent. Sidens eneste rangering, fordi den
+`udfyldte felter ÷ 30`, afrundet til hele procent. Sidens eneste rangering, fordi den
 måler producentens åbenhed og ikke vores mening. Nævneren er **skemaets feltantal** og
 udledes i koden (`NAEVNER = FELTNAVNE.length`) — skriv den aldrig som et tal.
 
-Målt 21. aug 2026 på alle 46 poster, med D4 = tæl-ikke, som bygget kører i dag:
-**Ghost Vision 60 67 % (højeste) · Spot 61 % · Unitree B2 61 % · ANYmal 30 % ·
-ANYmal X 12 % · median 13 af 33.** Fem poster står på 0 %.
-Ligger en ny post markant over **67 %**, er det sandsynligvis en fejl — kontrollér, om
+Målt 24. aug 2026 (efter L32) på alle 55 poster, med D4 = tæl-ikke, som bygget kører i dag:
+**Gangben L2 77 % (højeste) · Vision 60 73 % · Spot 67 % · Unitree B2 67 % · ANYmal 33 % ·
+ANYmal X 13 % · median 13 af 30.** Fem poster står på 0 %.
+Ligger en ny post markant over **77 %**, er det sandsynligvis en fejl — kontrollér, om
 sekundære kilder er sneget med ind uden mærkning.
 
-> **De gamle referencetal er ikke forkerte, de er en anden skala.** Her stod
-> *"Spot 55 % · Unitree B2 48 % · ANYmal 28 %"*, målt 19. aug 2026 på nævneren 29 og på
-> et tyndere datasæt. Et tal målt på 29 er ca. 14 % højere end det samme tal på 33.
-> Sammenlign aldrig et tal fra før 21. aug 2026 med et nyt uden at regne om.
+> **De gamle referencetal er ikke forkerte, de er en anden skala — og et tyndere
+> datasæt.** Her stod tidligere *"Ghost Vision 60 67 % (højeste) · Spot 61 % ·
+> Unitree B2 61 % · ANYmal 30 % · ANYmal X 12 % · median 13 af 33"*, målt 21. aug 2026
+> på nævneren 33 og på 46 poster. To ting ændrede sig siden: L32 (24. aug 2026) fjernede
+> tre EU-felter (nævner 33 → 30 — se listen ovenfor), og kataloget voksede fra 46 til 55
+> poster med bl.a. Genisom Gangben L1/L2 og MOVENEW P1/T1, som nu ligger over det gamle
+> "højeste"-mærke. Begge dele flytter tallene; ingen af dem er en fejl i de gamle tal.
+> Sammenlign aldrig et tal fra før 24. aug 2026 med et nyt uden at regne om.
+
+> **De endnu gamle referencetal er heller ikke forkerte, de er en tredje skala.** Her
+> stod *"Spot 55 % · Unitree B2 48 % · ANYmal 28 %"*, målt 19. aug 2026 på nævneren 29 og
+> på et endnu tyndere datasæt. Et tal målt på 29 er ca. 14 % højere end det samme tal på
+> 33 — og begge er nu en anden skala end nævneren 30.
 
 **Åbent (D4):** tæller et felt som udfyldt, når producenten oplyser type men ikke model
 (`3D LiDAR ×1`)? **L20 besluttede ja, men generatoren gør det ikke** — `build.mjs`
