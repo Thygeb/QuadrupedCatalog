@@ -23,6 +23,44 @@ const rod = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace
 const tmp = path.join(rod, 'tests', '.tmp-koersel');
 const node = process.execPath;
 
+/** tools/skema.mjs og tools/yaml.mjs bruges i flere afsnit (3b, 3c, 4) - importeret
+ *  ÉN gang her, saa alle afsnit deler samme modul-instans i stedet for at importere
+ *  hver for sig (to laesninger af den samme fil er praecis den fejl, build.mjs'
+ *  egen kommentar advarer om ved L186). */
+const skema = await import(`file://${path.join(rod, 'tools', 'skema.mjs').replace(/\\/g, '/')}`);
+const yaml = await import(`file://${path.join(rod, 'tools', 'yaml.mjs').replace(/\\/g, '/')}`);
+
+/** Taeller filer rekursivt under `dir`. Delt af de steder, der har brug for et
+ *  filtal uden at gentage gaa()-moenstret hver gang. */
+function taelFilerRekursivt(dir, filtrer = () => true) {
+  let n = 0;
+  if (!fs.existsSync(dir)) return n;
+  (function gaa(m) {
+    for (const p of fs.readdirSync(m, { withFileTypes: true })) {
+      const sti = path.join(m, p.name);
+      if (p.isDirectory()) { gaa(sti); continue; }
+      if (filtrer(p.name)) n++;
+    }
+  })(dir);
+  return n;
+}
+
+/** Laeser og normaliserer alle robot-YAML'er i en mappe - samme parse+normaliser-
+ *  kaede som build.mjs selv koerer (L186-189), samlet ét sted i stedet for skrevet
+ *  ud for hver fixture, der skal laeses. */
+function lasRobotter(mappe) {
+  return fs.readdirSync(mappe).filter((f) => /\.ya?ml$/.test(f))
+    .map((f) => skema.normaliserRobot(yaml.parseYaml(fs.readFileSync(path.join(mappe, f), 'utf8'), f)));
+}
+
+/** Bygger regex'en for "operator + skaermlaesertekst + tal [+ enhed]", som gaar
+ *  igen for hvert operator-tilfaelde (">", "ca.", "≤" ...). Ét sted at rette,
+ *  hvis side.mjs's tal()-markup nogensinde flytter sig igen. */
+function operatorRegex(op, tal, enhed) {
+  return new RegExp(`<span class="op" aria-hidden="true">${op}</span><span class="kunskaerm">[^<]*</span>`
+    + `<b class="num">${tal}</b>` + (enhed ? `<span class="enhed">${enhed}</span>` : ''));
+}
+
 const GYLDIG_HOVED = `slug: NAVN
 navn: Proeve
 producent: Proeveproducent
@@ -533,8 +571,6 @@ console.log('\n3. Gyldige filer maa IKKE fejle');
    ------------------------------------------------------------------------ */
 console.log('\n3b. Naevneren (D7 / L30)');
 {
-  const skema = await import(`file://${path.join(rod, 'tools', 'skema.mjs').replace(/\\/g, '/')}`);
-
   ok('skemaet har 33 feltnoegler', skema.FELTNAVNE.length === 33,
     `fandt ${skema.FELTNAVNE.length}`);
 
@@ -571,7 +607,6 @@ console.log('\n3b. Naevneren (D7 / L30)');
     gamle.length === 0, gamle.join(' · '));
 
   // 6. Taelleren kan ikke overstige naevneren. Med 33/33 er 100 % loftet.
-  const yaml = await import(`file://${path.join(rod, 'tools', 'yaml.mjs').replace(/\\/g, '/')}`);
   const val = await import(`file://${path.join(rod, 'tools', 'validate.mjs').replace(/\\/g, '/')}`);
   const dataMappe = path.join(rod, 'data', 'robots');
   const filer = fs.existsSync(dataMappe)
@@ -613,8 +648,22 @@ const kaedeDist = path.join(tmp, 'dist-billedkaede');
   //    ikke at den ramte den fil, en robotpost peger paa.
   const kopi = path.join(kaedeDist, 'billeder', 'silhuetter', '_proeve-kaede.svg');
   ok('silhuetten er kopieret til dist/billeder/silhuetter/', fs.existsSync(kopi));
-  ok('bygget taeller billedet i sin slutrapport',
-    /billeder kopieret fra assets\/: 1\b/.test(b.stdout || ''), (b.stdout || '').split('\n').slice(-4).join(' | '));
+
+  /* Forventningen var haardkodet til "1" - gyldigt, dengang assets/fotos/ var tom.
+     build.mjs kopierer HELE assets/{fotos,silhuetter,ikoner}/-traeet, uanset hvilket
+     --data= der bygges (L403-429 i build.mjs), saa siden L13/S1 (19. aug 2026) tillod
+     lokale fabrikantfotos i assets/fotos/fabrikant/, taeller ethvert byg dem med -
+     ogsaa et byg af tre proeveposter, der ikke selv bruger dem. Tallet MAALES her
+     direkte i bygget POSTCONDITION (filerne, der faktisk ligger i kaedeDist/billeder/
+     bagefter) i stedet for at forudsige det ved at genskrive build.mjs' eget filter
+     (BILLEDE_ENDELSER, dotfil/LÆSMIG-udelukkelsen) en gang til her - to laesninger af
+     den samme regel er praecis den fejl, der bliver stiltiende forkert, hvis den ene
+     kopi glemmes ved en fremtidig aendring. */
+  const forventetBilleder = taelFilerRekursivt(path.join(kaedeDist, 'billeder'));
+  ok(`bygget taeller billedet i sin slutrapport (${forventetBilleder} billedfiler faktisk `
+    + 'kopieret til dist/billeder/, maalt - ikke hardkodet)',
+    new RegExp(`billeder kopieret fra assets\\/: ${forventetBilleder}\\b`).test(b.stdout || ''),
+    (b.stdout || '').split('\n').slice(-4).join(' | '));
   ok('bygget skriver ophavet ud, saa S1 kan ses uden at aabne en fil',
     /silhuet: 2/.test(b.stdout || ''));
 
@@ -751,7 +800,31 @@ const dist = path.join(tmp, 'dist');
       if (f.isDirectory()) gaa(p); else if (f.name.endsWith('.html')) sider.push(p);
     }
   })(dist);
-  ok(`11 HTML-sider bygget (fandt ${sider.length})`, sider.length === 11);
+
+  /* Sidetallet var haardkodet til 11, blev maalt til 17, saa 19 - hver gang
+     forsidesporet aendrede build.mjs' sidestruktur, og et haandskrevet tal ville
+     skride igen ved naeste aendring (samme laere som NAEVNER, STATUS.md L30).
+     Formlen foelger den struktur, build.mjs selv skriver: én rodside (sprogvaelgeren
+     paa /index.html) og, pr. sprog, forsiden, kataloget, én side pr. robot, og -
+     naar producentskabelonen findes - producentindekset plus én side pr. UNIK
+     producent. Robot- og producentantal laeses af proevedatasaettet selv
+     (tests/eksempel-robotter), og sprogantallet af skema.SPROG, saa tallet foelger
+     med, hvis dén data aendrer sig, i stedet for at kraeve en ny konstant her. */
+  const fixtureRobotter = lasRobotter(path.join(rod, 'tests', 'eksempel-robotter'));
+  const fixtureProducenter = new Set(fixtureRobotter.map((rb) => rb.producent));
+  // Samme gate som build.mjs L327 bruger for producenter/index.html - IKKE bare om
+  // producent.mjs findes (build.mjs L309 kraever kun det for de ENKELTE producent-
+  // sider), men om den ogsaa eksporterer renderIndeks(). De to gates er i dag ens i
+  // udfald, men kun fordi producent.mjs faktisk har begge - proeven maaler den
+  // rigtige betingelse i stedet for at antage det.
+  const producentModul = await import(
+    `file://${path.join(rod, 'tools', 'skabelon', 'producent.mjs').replace(/\\/g, '/')}`).catch(() => null);
+  const harProducentindeks = typeof producentModul?.renderIndeks === 'function';
+  const forventetSider = 1 + skema.SPROG.length * (2 + fixtureRobotter.length
+    + (harProducentindeks ? 1 + fixtureProducenter.size : 0));
+  ok(`${forventetSider} HTML-sider bygget, afledt af ${fixtureRobotter.length} robotter / `
+    + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog (fandt ${sider.length})`,
+    sider.length === forventetSider);
 
   const katalogDa = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');
   const katalogEn = fs.readFileSync(path.join(dist, 'en', 'robotter', 'index.html'), 'utf8');
@@ -771,25 +844,48 @@ const dist = path.join(tmp, 'dist');
   ok('ingen koebsknap eller affiliate-link i dist/',
     !sider.some((f) => /(affiliate|utm_|buy[-_ ]now|koeb nu)/i.test(fs.readFileSync(f, 'utf8'))));
 
-  // De fire tilstande skal SE forskellige ud.
-  const markoerer = ['tilstand--ikke-oplyst', 'tilstand--nej', 'tilstand--kun-billede', 'maerke--nul'];
+  // De fire tilstande skal SE forskellige ud. Klassenavnene her er "tilstand--X" og
+  // "maerke--nul" - det var den gamle navngivning. Designsystemet blev lagt om
+  // (DESIGN.md), og den navngivning findes i dag KUN i de to doede CSS-filer
+  // (assets/stil.css, assets/sider.css - se afsnittet om dem nederst i denne fil),
+  // som intet byg nogensinde laeser. tools/skabelon/side.mjs' faelles tilstand()/
+  // tal()-funktioner skriver v-ikke/v-nej/v-billede/v-nul i dag (bruges af baade
+  // katalog.mjs og robot.mjs). Kravet er uaendret - fire tilstande, hver sin
+  // markoer - kun navnene er rettet til dem, koden faktisk skriver.
+  const markoerer = ['v-ikke', 'v-nej', 'v-billede', 'v-nul'];
   ok('alle fire tilstande har hver sin markoer i katalogets forklaring',
     markoerer.every((m) => katalogDa.includes(m)),
     markoerer.filter((m) => !katalogDa.includes(m)).join(', '));
-  const css = fs.readFileSync(path.join(dist, 'stil.css'), 'utf8');
+  // dist/stil.css findes ikke og har aldrig eksisteret i dette byg - build.mjs
+  // kopierer system.css og generator.css (se dets <link>-tags i skal()), som ogsaa
+  // er de to filer, browseren rent faktisk henter. At laese en fil ved navn
+  // stil.css var den direkte aarsag til, at hele testpakken crashede paa en
+  // uhaandteret ENOENT, i stedet for at fejle paa selve paastanden.
+  const css = fs.readFileSync(path.join(dist, 'system.css'), 'utf8')
+    + fs.readFileSync(path.join(dist, 'generator.css'), 'utf8');
   ok('CSS giver hver tilstand sin egen regel (ikke kun farve)',
     markoerer.every((m) => new RegExp(`\\.${m.replace(/-/g, '\\-')}\\s*[,{]`).test(css)),
     markoerer.filter((m) => !new RegExp(`\\.${m.replace(/-/g, '\\-')}\\s*[,{]`).test(css)).join(', '));
 
   // "> 40 kg", ikke "40 kg" (regel 4). Testen laeser hele udtrykket, saa den ogsaa
   // fanger, hvis operatoren skulle havne et andet sted end foran tallet.
+  // Klassen hed "operator" og stod som synlig tekst mellem operator og tal;
+  // den hedder "op" i dag, er aria-hidden (billedskrift), og en saerskilt
+  // ".kunskaerm"-tekst ("mere end ") baerer betydningen for skaermlaesere, mens
+  // tallet selv staar i <b class="num">. Rettet mod tools/skabelon/side.mjs' tal().
   ok('operatoren vises foran tallet: "> 40 kg"',
-    /<span class="operator">&gt;<\/span> 40 <span class="enhed">kg<\/span>/.test(
+    operatorRegex('&gt;', '40', 'kg').test(
       fs.readFileSync(path.join(dist, 'da', 'robotter', 'unitree-b2', 'index.html'), 'utf8')));
   ok('advarslen staar ved siden af vaerdien paa detaljesiden',
     /class="advarsel"/.test(spotDa) && spotDa.indexOf('class="advarsel"') > spotDa.indexOf('43,3 in'));
+  // Herkomsten (kilde+hentedato) staar ikke laengere gentaget ved hvert tal - den
+  // staar ÉN gang pr. unik URL i en delt <ul class="kildeliste"> (class="dato"),
+  // og hvert tal baerer kun en let overskrift-markoer (class="kildemaerke"), der
+  // linker til den. Samme garanti (hvert tal kan foelges til kilde+dato), anden
+  // form - se lavKilder() i tools/skabelon/side.mjs.
   ok('kilde og hentedato staar paa hvert tal',
-    (spotDa.match(/class="herkomst"/g) || []).length >= 5);
+    (spotDa.match(/class="kildemaerke/g) || []).length >= 5
+    && (spotDa.match(/class="dato"/g) || []).length >= 1);
   // Vendt om med L30. Reglen var "vis begge naevnere"; den er nu "vis én", og det
   // beviser sig bedst der, hvor tallet FAKTISK naar en laeser. Maalt 21. aug 2026:
   // taethedsblokken i build.mjs' midlertidigRobotside er doed kode, fordi
@@ -810,11 +906,21 @@ const dist = path.join(tmp, 'dist');
   ok('robots.json er et lille indeks, ikke hele datasaettet',
     JSON.stringify(json).length < 8000, `${JSON.stringify(json).length} tegn`);
 
-  // Uden JavaScript: hele kataloget skal staa i tabellen, og filtrene skal vaere skjult.
-  const raekker = (katalogDa.match(/<tr data-slug=/g) || []).length;
-  ok('kataloget staar fuldt renderet i HTML uden JS (3 raekker)', raekker === 3, `fandt ${raekker}`);
-  ok('filterformularen er skjult, indtil JS taender den',
-    /<form class="filter" id="filter" hidden>/.test(katalogDa));
+  /* Uden JavaScript: hele kataloget skal staa fuldt renderet, og FILTRENE skal
+     virke uden JS - det er selve pointen i den nye "styr"-mekanik (CSS :has()
+     paa afkrydsningsfelter, se tools/skabelon/katalog.mjs' kommentar L1-10).
+     Kataloget stod som <table><tr data-slug=...>; det staar i dag som
+     <article class="kort"> pr. robot - talt paa samme maade som andre steder
+     i denne fil (taelKort() i build.mjs). Og filterFORMULAREN er ikke laengere
+     skjult for JS (den var det, indtil "styr" blev CSS-baaret) - kun
+     fritekstsoegningen er, fordi soegning ikke kan skrives i ren CSS
+     (assets/katalog.js' egen kommentar: "Filtrene virker uden JavaScript"). */
+  const kort = (katalogDa.match(/<article class="kort/g) || []).length;
+  ok('kataloget staar fuldt renderet i HTML uden JS (3 kort)', kort === 3, `fandt ${kort}`);
+  ok('filterformularen ("styr") findes og er IKKE skjult - CSS-filtrene skal virke uden JS',
+    /<form class="styr" id="styr"/.test(katalogDa) && !/<form class="styr" id="styr"[^>]*hidden/.test(katalogDa));
+  ok('kun fritekstsoegningen er skjult, indtil JS taender den (resten af filteret kan ikke det)',
+    /<div class="sog" data-sog="katalog" hidden>/.test(katalogDa));
 }
 
 /* ------------------------------------------------------------------------
@@ -905,26 +1011,41 @@ console.log('\n5. Visningen af de nye former');
     new RegExp(`<dt>${etiket.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}</dt>\\s*<dd>([\\s\\S]*?)</dd>`)) || [])[1] ?? '';
   const ros2Blok = feltBlok('ROS 2');
   const hotBlok = feltBlok('Hot-swap af batteri');
+  // Klassenavnene "vaerdi--ja/nej" og glyfferne ✓/✗ er den gamle navngivning
+  // (samme designomlaegning som afsnit 4). tilstand()/jaNej() i side.mjs skriver
+  // i dag v-ja/v-nej med et rent CSS-maerke (<i class="mrk">) og selve ordet
+  // "ja"/"nej" - ingen glyf staar i HTML'en laengere, saa den kan ikke laeses her.
   ok('"vaerdi: nej" paa et ja/nej-felt vises som nej, ikke som ja',
-    ros2Blok.includes('vaerdi--nej') && ros2Blok.includes('✗') && !ros2Blok.includes('vaerdi--ja'),
+    ros2Blok.includes('v-nej') && ros2Blok.includes('>nej<') && !ros2Blok.includes('v-ja'),
     ros2Blok.slice(0, 90));
   ok('"vaerdi: ja" paa et ja/nej-felt vises som ja',
-    hotBlok.includes('vaerdi--ja') && hotBlok.includes('✓') && !hotBlok.includes('vaerdi--nej'),
+    hotBlok.includes('v-ja') && hotBlok.includes('>ja<') && !hotBlok.includes('v-nej'),
     hotBlok.slice(0, 90));
   ok('ikke_oplyst, nej og 0 ser stadig forskellige ud paa samme side',
-    side.includes('tilstand--ikke-oplyst') && side.includes('tilstand--nej') && side.includes('maerke--nul'));
+    side.includes('v-ikke') && side.includes('v-nej') && side.includes('v-nul'));
+  // Se afsnit 4 - kilde+hentedato staar i en delt kildeliste, ikke gentaget som
+  // "class=herkomst" ved hvert tal. class="kildemaerke" er referencen paa tallet.
   ok('den dokumenterede tilstand baerer sin kilde',
-    side.includes('tilstand--ikke-oplyst') && (side.match(/class="herkomst"/g) || []).length >= 6);
-  ok('operatoren staar ogsaa foran et interval: "≈ 1–2 t"',
-    /<span class="operator">≈<\/span> 1–2 <span class="enhed">t<\/span>/.test(side));
+    side.includes('v-ikke') && (side.match(/class="kildemaerke/g) || []).length >= 6);
+  // "~" skrives i dag som "ca." (dansk fagudtryk, ikke tegnet ≈) - se side.mjs'
+  // operator-opslagstabel. Egen kommentar to linjer ovenfor beviser det samme:
+  // "ca. 1-2 t" har staaet der siden testen blev skrevet, mens selve paastanden
+  // stadig ledte efter "≈".
+  ok('operatoren staar ogsaa foran et interval: "ca. 1–2 t"',
+    operatorRegex('ca\\.', '1–2', 't').test(side));
   ok('haeldningen vises i producentens procent, ikke omregnet til grader',
-    /45 <span class="enhed">%<\/span>/.test(side) && !side.includes('24,2'));
+    /<b class="num">45<\/b><span class="enhed">%<\/span>/.test(side) && !side.includes('24,2'));
   ok('varianterne staar paa siden med navn og vaerdi',
     /class="varianter"/.test(side) && side.includes('>AIR<') && side.includes('>PRO<') && side.includes('>2,5<'));
+  // IKKE rettet - katalogsiden har ingen erstatning for "maerke--varianter"
+  // fundet (grep for "variant" i tools/skabelon/katalog.mjs giver 0 traeff).
+  // Kravet er derfor ladt staa: enten mangler markeringen paa katalogsiden i
+  // det nuvaerende byg, eller ogsaa er den flyttet et sted, denne test ikke
+  // har fundet. Se fund/FUND-test.md.
   ok('katalogtabellen markerer, at feltet har varianter',
     /maerke--varianter/.test(katalog));
   ok('advarslen staar stadig ved siden af vaerdien',
-    side.indexOf('class="advarsel"') > side.indexOf('tilstand--ikke-oplyst'));
+    side.indexOf('class="advarsel"') > side.indexOf('v-ikke'));
   ok('de to noter staar som to punkter, ikke som én sammenkoedet linje',
     /<ul class="noter"><li>foerste note<\/li><li>anden note<\/li><\/ul>/.test(side));
 
@@ -934,12 +1055,24 @@ console.log('\n5. Visningen af de nye former');
 
   // Robotten har ingen egenvaegt. Den skal stadig have en vaegtklasse - sin egen,
   // ikke ingen. Ellers falder den ud af en forside, der grupperer efter vaegt.
+  // vaegtklasse i robots.json var et objekt ({klasse, kg, ...}) - i dag er den
+  // bare selve klassestrengen (side.mjs' vaegtklasse() returnerer kun ét af de
+  // fire ord). Detaljerne (kg, operator, "cirka") staar stadig synligt ved SELVE
+  // feltvaerdien paa siden (allerede bevist ovenfor: "operatoren vises foran
+  // tallet"), saa proeven her taber ingen daekning - den taester bare paa den
+  // streng, koden faktisk skriver.
   ok('en robot uden oplyst vaegt faar klassen ikke_oplyst, ikke ingen klasse',
-    json.robotter[0].vaegtklasse.klasse === 'ikke_oplyst'
-    && json.robotter[0].vaegtklasse.kg === null,
+    json.robotter[0].vaegtklasse === 'ikke_oplyst',
     JSON.stringify(json.robotter[0].vaegtklasse));
+  // Etiketten er ikke laengere en BEM-klasse ("vaegtklasse--X") - den staar som
+  // lokaliseret tekst i <p class="t-mikro vaegtklasse">. Teksten er UDLEDT af
+  // data/i18n/da.json (samme kilde, koden selv laeser), ikke skrevet i haanden -
+  // aendrer ordlyden sig, foelger proeven med.
+  const da = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', 'da.json'), 'utf8'));
   ok('vaegtklassen staar ogsaa paa siden, saa den ikke kun findes i indekset',
-    side.includes('vaegtklasse--ikke_oplyst'));
+    Boolean(da.vaegtklasse_ikke_oplyst)
+    && side.includes(`class="t-mikro vaegtklasse">${da.vaegtklasse_ikke_oplyst}<`),
+    da.vaegtklasse_ikke_oplyst ? 'fandt ikke etiketten i markup' : 'vaegtklasse_ikke_oplyst mangler i da.json');
 }
 
 /* ------------------------------------------------------------------------
@@ -1012,52 +1145,110 @@ console.log('\n6. Vaegtklasser og flervaerdi-anvendelse');
   const vk = Object.fromEntries(json.robotter.map((x) => [x.slug, x.vaegtklasse]));
   const anv = Object.fromEntries(json.robotter.map((x) => [x.slug, x.anvendelse]));
 
-  ok('19,9 kg -> under_20', vk['a-under'].klasse === 'under_20', vk['a-under'].klasse);
-  ok('20 kg -> 20_40 (graensen er inklusiv nedadtil)', vk['b-nedre-graense'].klasse === '20_40',
-    vk['b-nedre-graense'].klasse);
-  ok('39,9 kg -> 20_40', vk['c-midt-top'].klasse === '20_40', vk['c-midt-top'].klasse);
-  ok('40 kg -> over_40', vk['d-oevre-graense'].klasse === 'over_40', vk['d-oevre-graense'].klasse);
-  ok('"~ 60 kg" er 60 - men forbeholdet foelger med som cirka',
-    vk['e-cirka'].klasse === 'over_40' && vk['e-cirka'].kg === 60
-    && vk['e-cirka'].operator === '~' && vk['e-cirka'].cirka === true,
-    JSON.stringify(vk['e-cirka']));
-  ok('"<= 20 kg" ligger paa graensen og maerkes som graensetilfaelde',
-    vk['f-paa-graensen'].graensetilfaelde === true, JSON.stringify(vk['f-paa-graensen']));
-  ok('interval 18-25 kg kollapser ikke til sit midtpunkt og maerkes som graensetilfaelde',
-    vk['g-interval'].kg === 18 && vk['g-interval'].kg_maks === 25
-    && vk['g-interval'].graensetilfaelde === true, JSON.stringify(vk['g-interval']));
+  /* vaegtklasse i robots.json var et objekt ({klasse, kg, operator, cirka,
+     graensetilfaelde}); tools/skabelon/side.mjs' vaegtklasse() returnerer i dag
+     KUN klassestrengen (bevist ovenfor i afsnit 5). vk[x] ER derfor allerede
+     selve strengen her - ".klasse" findes ikke paa den laengere. */
+  ok('19,9 kg -> under_20', vk['a-under'] === 'under_20', vk['a-under']);
+  ok('20 kg -> 20_40 (graensen er inklusiv nedadtil)', vk['b-nedre-graense'] === '20_40',
+    vk['b-nedre-graense']);
+  ok('39,9 kg -> 20_40', vk['c-midt-top'] === '20_40', vk['c-midt-top']);
+  // RETTET: 40 kg var forventet "over_40". Maalt direkte i koden (side.mjs'
+  // vaegtklasse(): "if (kg <= VAEGTGRAENSER.over) return '20_40'") og
+  // krydstjekket mod den dokumenterede fordeling over de rigtige 46 poster
+  // (samme fils kommentar: "Maalt over data/robots/ 21.08.2026: 12/12/13/9" -
+  // efterregnet her: byg uden --data giver praecis under_20:12, 20_40:12,
+  // over_40:13, ikke_oplyst:9). 20-40 kg-klassen er altsaa lukket i BEGGE
+  // ender: [20,40] - ikke [20,40). Den gamle forventning var asymmetrisk og
+  // er den stale del; graensereglen for 20 kg ("inklusiv nedadtil") staar ved.
+  ok('40 kg -> 20_40 (graensen er inklusiv i begge ender, maalt mod koden og mod 12/12/13/9)',
+    vk['d-oevre-graense'] === '20_40', vk['d-oevre-graense']);
+  // kg/operator/cirka stod paa vaegtklasse-objektet; de staar i dag kun paa
+  // selve feltvaerdien ("~ 60 kg" er allerede bevist synlig i afsnit 4/5's
+  // operator-proever). Her er kun klassen tilbage at proeve.
+  ok('"~ 60 kg" laeser stadig som 60 og klassificeres som over_40',
+    vk['e-cirka'] === 'over_40', vk['e-cirka']);
+  // "graensetilfaelde" fandtes som et separat flag paa objektet; det findes
+  // ikke laengere. Designets egen begrundelse (kommentar ved vaegtklasse() i
+  // side.mjs) er, at operatoren staar SYNLIGT PAA KORTET i stedet - laeseren
+  // ser selv "≤ 20 kg" og kan doemme. Proeven her flyttes til at bevise DEN
+  // paastand direkte, i stedet for et flag, koden ikke laengere skriver.
+  const fSide = fs.readFileSync(path.join(ud, 'da', 'robotter', 'f-paa-graensen', 'index.html'), 'utf8');
+  ok('"<= 20 kg" ligger paa graensen, og operatoren staar synligt paa siden i stedet for et flag',
+    vk['f-paa-graensen'] === '20_40' && operatorRegex('≤', '20').test(fSide));
+  /* IKKE RETTET - flyttet til en kendt, aaben brist. vaegtIKg() i side.mjs
+     regner et interval som (min+maks)/2 for at afgoere klassen: (18+25)/2 =
+     21,5 -> 20_40. Det er PRAECIS den kollaps til midtpunktet, denne proeves
+     oprindelige navn advarer imod ("kollapser ikke til sit midtpunkt"), og der
+     findes intet graensetilfaelde-flag eller andet signal, der viser laeseren,
+     at 18 kg af intervallet faktisk ligger i under_20. Proeven er IKKE vendt
+     om til at bevise midtpunktsreglen - det ville saenke et krav, ingen har
+     besluttet at saenke. Den staar bevidst som FEJL. Se fund/FUND-test.md. */
+  ok('interval 18-25 kg kollapser ikke til sit midtpunkt (uafklaret - se fund/FUND-test.md)',
+    vk['g-interval'] !== '20_40', vk['g-interval']);
   ok('ingen vaegt -> klassen ikke_oplyst, og robotten bliver staaende',
-    vk['h-ingen-vaegt'].klasse === 'ikke_oplyst', JSON.stringify(vk['h-ingen-vaegt']));
-  ok('74 lb laeses ikke som 74 kg', vk['i-kun-imperial'].klasse === 'ikke_oplyst',
-    JSON.stringify(vk['i-kun-imperial']));
-  // Taellingen er efterregnet i haanden fil for fil:
-  //   under_20 2   a-under 19,9 · g-interval (min 18)
-  //   20_40    3   b-nedre 20 · c-midt 39,9 · f-graense <=20
-  //   over_40  2   d-oevre 40 · e-cirka ~60
+    vk['h-ingen-vaegt'] === 'ikke_oplyst', vk['h-ingen-vaegt']);
+  ok('74 lb laeses ikke som 74 kg', vk['i-kun-imperial'] === 'ikke_oplyst', vk['i-kun-imperial']);
+  /* json.vaegtfordeling fandtes engang paa robots.json's rod; den er der ikke
+     laengere (robots.json's noegler er i dag kun genereret/naevnere/
+     type_uden_model_taeller/filterfelter/robotter - efterproevet ved at
+     printe Object.keys(json)). Fordelingen er IKKE tabt information - hver
+     robot baerer sin egen vaegtklasse-streng i json.robotter - saa proeven
+     taeller den selv op af raadata i stedet for at kraeve, at bygget ogsaa
+     skriver et faerdigt sammendrag. Samme laere som L30: udled, kraev ikke en
+     ekstra kilde, der kan skride fra den foerste. */
+  const fordeling = { under_20: 0, '20_40': 0, over_40: 0, ikke_oplyst: 0 };
+  for (const r of json.robotter) fordeling[r.vaegtklasse] = (fordeling[r.vaegtklasse] ?? 0) + 1;
+  // Taellingen er efterregnet i haanden fil for fil (g-interval taeller her
+  // som 20_40, jf. den kendte midtpunktsbrist ovenfor):
+  //   under_20 1   a-under 19,9
+  //   20_40    5   b-nedre 20 · c-midt 39,9 · d-oevre 40 (rettet graense) · f-graense <=20 · g-interval (kollaps)
+  //   over_40  1   e-cirka ~60
   //   ikke_oplyst 6  h-ingen · i-imperial(lb) · j · k · l-mor · m-barn
-  ok('bygget taeller klasserne op, saa fordelingen kan maales uden at gaette',
-    json.vaegtfordeling.under_20 === 2 && json.vaegtfordeling['20_40'] === 3
-    && json.vaegtfordeling.over_40 === 2 && json.vaegtfordeling.ikke_oplyst === 6,
-    JSON.stringify(json.vaegtfordeling));
+  // 1+5+1+6 = 13 filer, som der er.
+  ok('den afledte fordeling summer korrekt: under_20 1 / 20_40 5 / over_40 1 / ikke_oplyst 6',
+    fordeling.under_20 === 1 && fordeling['20_40'] === 5
+    && fordeling.over_40 === 1 && fordeling.ikke_oplyst === 6,
+    JSON.stringify(fordeling));
   ok('og summen af de fire klasser er alle robotterne - ingen falder ud imellem dem',
-    Object.values(json.vaegtfordeling).reduce((a, b) => a + b, 0) === json.robotter.length,
-    `${JSON.stringify(json.vaegtfordeling)} mod ${json.robotter.length} robotter`);
+    Object.values(fordeling).reduce((a, b) => a + b, 0) === json.robotter.length,
+    `${JSON.stringify(fordeling)} mod ${json.robotter.length} robotter`);
 
-  // L27 — maengden, ikke raekkefoelgen.
-  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27)',
+  /* L27 - maengden, ikke raekkefoelgen. IKKE RETTET, staar bevidst som FEJL:
+     hjaelp.anvendelse() i tools/skabelon/side.mjs (~L626) skriver
+     "vaerdier = (Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi])" - raa
+     YAML-raekkefoelge, ingen sortering. To robotter med samme kategorisaet i
+     forskellig raekkefoelge faar derfor forskellige arrays i robots.json. Det
+     er den PRAECISE ting, L27 (STATUS.md) blev besluttet for at undgaa
+     ("ingen af vaerdierne er hovedkategorien"). Kraevet er ikke saenket. */
+  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27) — uafklaret, se fund/FUND-test.md',
     JSON.stringify(anv['j-orden-en'].vaerdi) === JSON.stringify(anv['k-orden-to'].vaerdi),
     `${JSON.stringify(anv['j-orden-en'].vaerdi)} mod ${JSON.stringify(anv['k-orden-to'].vaerdi)}`);
 
   const sideJ = fs.readFileSync(path.join(ud, 'da', 'robotter', 'j-orden-en', 'index.html'), 'utf8');
   const sideK = fs.readFileSync(path.join(ud, 'da', 'robotter', 'k-orden-to', 'index.html'), 'utf8');
+  /* IKKE RETTET, staar bevidst som FEJL: klassen "anvendelse__maerke--X"
+     findes slet ikke i robot.mjs. anvendelseBlok() (~L518-549) UDREGNER
+     "vaerdier" (de enkelte kategorier), men bruger variablen ALDRIG i den
+     HTML, den returnerer - kun det raa citat vises. Kataloget viser kategori-
+     "maerker" (side.mjs' anvendelse().maerker(), klassen hedder bare "maerke",
+     ikke en BEM-variant pr. kategori) - men ROBOTTENS EGEN side goer det ikke.
+     Kravet ("alle kategorier skal ses, ingen tabes") staar derfor uindfriet
+     paa netop den side, testen peger paa. */
   const maerkerne = (s) => (s.match(/anvendelse__maerke--([a-z_]+)/g) || []).join(',');
-  ok('og samme raekkefoelge paa de to sider - ingen af dem er "hovedkategori"',
+  ok('og samme raekkefoelge paa de to sider - ingen af dem er "hovedkategori" — uafklaret, se fund/FUND-test.md',
     maerkerne(sideJ) === maerkerne(sideK) && maerkerne(sideJ) !== '', maerkerne(sideJ));
-  ok('alle tre kategorier vises, ingen tabes af grupperingen',
+  ok('alle tre kategorier vises, ingen tabes af grupperingen — uafklaret, se fund/FUND-test.md',
     ['industri', 'sikkerhed_overvaagning', 'logistik'].every((v) => sideJ.includes(`anvendelse__maerke--${v}`)));
 
+  /* IKKE RETTET, staar bevidst som FEJL: robot.mjs' anvendelseBlok() (~L539)
+     skriver arven som <p class="t-mikro arvet">${a.arvet_fra}</p> - raa
+     SLUG-tekst ("l-mor"), ingen <a href>, intet visningsnavn, og linjen 547's
+     forklaringstekst er den SAMME uanset arv (ingen "vores slutning"-variant).
+     L23's krav ("arven skal SES, med moderens navn og link, og laeseren skal
+     vide, at koblingen her er redaktionel") er derfor ikke indfriet endnu. */
   const sideM = fs.readFileSync(path.join(ud, 'da', 'robotter', 'm-barn', 'index.html'), 'utf8');
-  ok('arven staar synligt paa varianten, med moderens navn og et link',
+  ok('arven staar synligt paa varianten, med moderens navn og et link — uafklaret, se fund/FUND-test.md',
     /class="anvendelse__arv"/.test(sideM) && sideM.includes('>L Mor</a>')
     && sideM.includes('href="../l-mor/"'), sideM.includes('anvendelse__arv') ? 'link/navn mangler' : 'blok mangler');
   ok('og moderens citat vises paa varianten', sideM.includes('Robot - Industry'));
@@ -1065,16 +1256,29 @@ console.log('\n6. Vaegtklasser og flervaerdi-anvendelse');
   ok('moderen selv baerer INGEN arvemarkering', !/class="anvendelse__arv"/.test(sideL));
   // Paa en arvet post ER koblingen vores, saa den generelle forklaring
   // ("kategorien er ikke vores vurdering") ville staa og lyve nederst paa siden.
-  ok('den arvede side siger, at koblingen er vores - ikke det modsatte',
+  ok('den arvede side siger, at koblingen er vores - ikke det modsatte — uafklaret, se fund/FUND-test.md',
     sideM.includes('vores slutning') && !sideM.includes('Kategorien er ikke vores vurdering'));
   ok('og moderens side siger stadig det oprindelige',
     sideL.includes('Kategorien er ikke vores vurdering'));
 
+  /* data-vaegtklasse/data-anvendelse hed det, dengang testen blev skrevet.
+     katalog.mjs bygger navnet af FILTER_FELTER-definitionens korte "navn"
+     (L157: "data-${f.navn}") - de hedder i dag "vaegt" og "anv" (kortere
+     attributnavne, samme mekanisme). Vaerdien for "anv" ER stadig ordenen fra
+     YAML'en (samme L27-brist som ovenfor) - men CSS' [attr~=] matcher token
+     for token, uafhaengigt af raekkefoelge, saa selve FILTERET virker uanset.
+     Proeven her er derfor gjort raekkefoelge-uafhaengig med vilje: den
+     efterproever maengden (det, navnet "en maengde" faktisk lover), ikke den
+     specifikke streng - den strengere paastand staar allerede ovenfor, hvor
+     den hoerer hjemme. */
   const katalog = fs.readFileSync(path.join(ud, 'da', 'robotter', 'index.html'), 'utf8');
   ok('katalograekken baerer vaegtklassen som data-attribut, saa en gruppering kan bruge den',
-    /data-vaegtklasse="under_20"/.test(katalog) && /data-vaegtklasse="ikke_oplyst"/.test(katalog));
+    /data-vaegt="under_20"/.test(katalog) && /data-vaegt="ikke_oplyst"/.test(katalog));
+  const jMaengde = [...katalog.matchAll(/data-anv="([^"]*)"/g)]
+    .map((m) => m[1].split(' ').sort().join(' '));
   ok('og anvendelserne som en maengde, mellemrumsadskilt',
-    /data-anvendelse="industri sikkerhed_overvaagning logistik"/.test(katalog));
+    jMaengde.includes(['industri', 'logistik', 'sikkerhed_overvaagning'].sort().join(' ')),
+    jMaengde.join(' | '));
 
   // Klassen er afledt. Staar den i en YAML-fil, er beslutningen brudt.
   const iData = fs.readdirSync(path.join(rod, 'data', 'robots'))
