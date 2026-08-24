@@ -233,3 +233,243 @@
   border-radius:var(--rund);box-shadow:var(--skygge);background:var(--panel)}
 .billedled--stor .intetfoto{border-radius:var(--rund)}
 .billedled--stor img{transition:none}
+
+/* =============================================================================
+   9. SIDENS RAMME, ROBOTSIDEN OG PRODUCENTSIDEN
+   Flyttet fra den forladte assets/sider.css, 24. aug 2026 (fund/FUND-detalje.md,
+   opgave 1 + 4b). sider.css blev aldrig linket i bygget — kun system.css og
+   generator.css sendes til dist/ — men robot.mjs og producent.mjs har hele
+   tiden skrevet netop disse klassenavne. Uden CSS'en ramte HTML'en ingen
+   regel: .robot-top var derfor et umuligt layout (billedet fortrængte navnet
+   under første skærmhøjde), ikke et bevidst valgt ét. Reglerne herunder er
+   FLYTTET, ikke genopfundet — samme metode som .billedled--stor ovenfor.
+   Ingen nye farver: hver værdi er en polet fra system.css' :root, som
+   sider.css' egen header allerede lovede.
+
+   To rettelser fra originalen: .advarsel og .v-tekst er UDELADT her, fordi
+   generator.css §4 allerede definerer dem (med andre, LEVENDE værdier) —
+   at kopiere sider.css' udgaver ved siden af ville genskabe præcis den
+   dobbelt-definitions-fælde, DESIGN.md advarer imod. Det gamle .arvet er
+   erstattet af .anvendelse__arv (BEM), fordi arve-markeringen nu bærer et
+   rigtigt navn og link i stedet for den rå slug (se robot.mjs, opgave 4c).
+   ========================================================================== */
+
+.side{padding-bottom:var(--r7)}
+.side > .rum{padding-top:var(--r4)}
+
+.retur{margin-bottom:var(--r3)}
+.retur a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px 0 0;
+  font-size:15px;font-weight:600;text-decoration:none;color:var(--blaek2)}
+.retur a::before{content:"←";margin-right:9px;font-family:var(--mono);color:var(--blaek3)}
+.retur a:hover{color:var(--accent);text-decoration:underline;text-decoration-thickness:2px}
+
+.robotside,.producentside{display:flex;flex-direction:column}
+
+/* --- 9a. Robotsidens top: fotografiet ledsager navnet, ikke fortrænger det.
+   Fra 900 px op staar billede og navn side om side (7fr/5fr) — under det,
+   ogsaa ved 360 px, stakkes de, men navnet er dermed det FØRSTE tekstindhold
+   under et billede, der ikke laengere spaender hele bredden alene (maalt
+   fund/FUND-detalje.md, opgave 1). */
+.robot-top{display:grid;gap:var(--r5);align-items:start;padding-top:var(--r2)}
+@media (min-width:900px){
+  .robot-top{grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:var(--r6)}
+}
+/* Under 900 px stakkes billede og navn (§9a). Maalt fund/FUND-detalje.md:
+   et rigtigt fotografi i 16:10 fylder stadig ~205 px hoejde ved 360 px bredde
+   alene, og lagt oven paa navigation + billednote + "Tilbage til kataloget"
+   skubbede navnet for taet paa en almindelig telefons foerste skaermhoejde.
+   Loftet gaelder KUN et rigtigt fotografi — :not(.billedled--maal) holder
+   maaltro-pladen udenfor, fordi dens kasse regner sin egen procentbredde ud
+   fra 16:10 og ville forvrides af en haandregnet hoejde. Fotografiet selv
+   beskaeres proportionalt af det eksisterende object-fit:cover i system.css. */
+@media (max-width:899px){
+  .robot-top{gap:var(--r4)}
+  .robot-foto .billedled--stor:not(.billedled--maal){max-height:190px}
+}
+
+.robot-foto{margin:0;display:flex;flex-direction:column;gap:10px}
+.billedfod{display:flex;flex-direction:column;gap:5px}
+.billedfod p{font-family:var(--mono);font-size:11.5px;line-height:1.45;color:var(--blaek3);
+  display:flex;gap:8px;align-items:flex-start}
+.billedfod .prik{flex:none;width:5px;height:5px;border-radius:99px;background:var(--hegn);margin-top:6px}
+.billedfod .prik--klip{border-radius:0;background:none;border:1px dashed var(--hegn);
+  width:7px;height:7px;margin-top:5px}
+
+.robot-navn{display:flex;flex-direction:column;gap:var(--r3)}
+.robot-navn .kort-ophav{gap:6px 10px}
+.robot-navn h1{margin:0}
+.robot-navn .aar{font-size:12px;color:var(--blaek3)}
+.vaegtklasse{margin:0}
+.robot-navn .maerker{margin-top:2px}
+
+.robot-varianter{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:0}
+.robot-varianter .etiket{display:inline;flex:none}
+.variantnavn{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek2);
+  border:1px solid var(--linje);border-radius:var(--rund-lille);padding:2px 8px 3px;background:var(--panel-ro)}
+
+/* --- 9b. Advarsler/varianter under nøgletalsstriben, foldet (opgave 1) -----
+   Fem stribefelter kan hver bære en advarsel- eller variantboks. Åbnet som
+   standard stod de som venstrestillede blokke med tom højrespalte ved siden
+   af sig — op til fem korte, brede paneler i træk. Foldet bag <details>:
+   teksten er UÆNDRET, kun standardtilstanden er lukket. Selve
+   nøgletalsstriben og dens fire datatilstande er urørt — kun de
+   SUPPLERENDE afvigelses-/variantnoter foldes (robot.mjs, stribe()). */
+.stribe-under-fold{margin-top:var(--r4)}
+.stribe-under-fold > summary{cursor:pointer;list-style:none;display:flex;align-items:center;
+  gap:8px;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--blaek2);
+  padding:10px 2px;border-top:1px solid var(--linje)}
+.stribe-under-fold > summary::-webkit-details-marker{display:none}
+.stribe-under-fold > summary::before{content:"+";font-family:var(--mono);color:var(--blaek3);
+  width:1em;text-align:center}
+.stribe-under-fold[open] > summary::before{content:"–"}
+.stribe-under-fold > summary:hover{color:var(--blaek)}
+.stribe-under-fold > summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stribe-under-krop{padding-top:var(--r2)}
+.stribe-under{margin-top:var(--r3)}
+.stribe-under:first-child{margin-top:0}
+.stribe-under > .etiket{margin-bottom:2px}
+.stribe-under .advarsel{margin-top:4px}
+
+/* Robotsidens EGEN, fulde stribe (fem felter — ikke kortets kompakte to). */
+.stribe--fem{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1180px){
+  .stribe--fem{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stribe--fem > li:nth-child(3n+1){border-left:0}
+  .stribe--fem > li:nth-child(n+4){border-top:1px solid var(--linje)}
+}
+@media (max-width:680px){
+  .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stribe--fem > li{border-left:1px solid var(--linje);border-top:1px solid var(--linje)}
+  .stribe--fem > li:nth-child(2n+1){border-left:0}
+  .stribe--fem > li:nth-child(-n+2){border-top:0}
+}
+.stribe-hoved h2{margin:0}
+.stribe--intet-kort{border-radius:var(--rund-ind);padding:13px 14px 14px;gap:11px}
+.stribe--intet-kort .hoved{font-size:13.5px}
+.stribe--intet-kort p{font-size:13px}
+
+.advarsel-navn{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--blaek);margin-bottom:3px}
+
+/* .v-tekst har allerede en regel i §4 ovenfor; kun .v-liste manglede. */
+.v-liste{display:inline-flex;flex-wrap:wrap;gap:5px}
+.v-liste code{font-family:var(--mono);font-size:12.5px;color:var(--blaek2);
+  background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--rund-lille);
+  padding:2px 7px 3px}
+
+/* --- 9c. EU-blokken paa robotsiden (adskilt fra kortets lille .eu-badge) --- */
+.eu-blok .eu-krop{display:flex;gap:var(--r4);align-items:flex-start;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund);
+  box-shadow:var(--skygge);padding:var(--r4) var(--r5) var(--r5)}
+.eu-blok .eu-krop > div{flex:1;min-width:0}
+.eu-ikon{color:var(--hegn);margin-top:4px;flex:none}
+.eu-forklaring{margin-top:var(--r3);max-width:76ch}
+@media (max-width:560px){
+  .eu-blok .eu-krop{padding:var(--r4);gap:var(--r3)}
+  .eu-ikon{display:none}
+}
+
+/* --- 9d. Døren ud til producenten ------------------------------------------ */
+.produktside .videre{margin-top:var(--r3)}
+.produktside-url{margin-top:8px;font-family:var(--mono);color:var(--blaek3);
+  overflow-wrap:anywhere;max-width:70ch}
+
+/* --- 9e. Anvendelsen -------------------------------------------------------- */
+.anvendelse-citat{margin:var(--r3) 0 var(--r3);padding:14px 18px 16px;
+  background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--rund-ind);
+  max-width:76ch}
+.anvendelse-citat .etiket{margin-bottom:6px}
+.anvendelse-citat p + p{margin-top:8px}
+.anvendelse-citat p:not(.etiket){font-size:16px;line-height:1.5;color:var(--blaek)}
+/* Arven skal SES, med grundmodellens navn og et rigtigt link (L23, opgave 4c) —
+   ikke den raa slug uden markering, det gamle .arvet skrev. */
+.anvendelse__arv{font-style:normal;color:var(--blaek3)}
+.anvendelse__arv a{color:var(--blaek3);text-decoration-thickness:1.5px}
+.anvendelse__arv a:hover{color:var(--accent)}
+.anvendelse__note{margin-top:4px}
+
+/* --- 9f. Det fulde skema, sammenklappet ------------------------------------ */
+.skema{margin-top:var(--r7);background:var(--panel);border:1px solid var(--linje);
+  border-radius:var(--rund);box-shadow:var(--skygge)}
+.skema > summary{
+  display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
+  min-height:56px;padding:14px var(--r5);cursor:pointer;list-style:none;
+  border-radius:var(--rund);
+}
+.skema > summary::-webkit-details-marker{display:none}
+.skema > summary::after{content:"+";margin-left:auto;font-family:var(--mono);font-size:20px;
+  font-weight:500;color:var(--blaek3);line-height:1}
+.skema[open] > summary::after{content:"–"}
+.skema[open] > summary{border-radius:var(--rund) var(--rund) 0 0;border-bottom:1px solid var(--linje)}
+.skema > summary:hover{background:var(--panel-ro)}
+.skema > summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.skema-titel{font-size:19px;font-weight:700;letter-spacing:-.014em;color:var(--blaek)}
+.skema-taeller{font-size:12.5px;font-weight:500;color:var(--blaek2)}
+.skema-krop{padding:var(--r4) var(--r5) var(--r5)}
+.skema-gruppe + .skema-gruppe{margin-top:var(--r5)}
+.skema-gruppe h3{padding-bottom:8px;border-bottom:1px solid var(--linje);margin-bottom:4px}
+.skema-krop .raekke{align-items:start}
+.skema-krop .raekke dd{min-width:0}
+.skema-krop > .t-mikro{margin-top:var(--r5);padding-top:var(--r3);border-top:1px solid var(--linje)}
+@media (max-width:560px){
+  .skema > summary{padding:14px var(--r4)}
+  .skema-krop{padding:var(--r4)}
+  /* Kun paa disse to sider. .raekke er en delt komponent — en aendring af dens
+     ombrydning ville ogsaa ramme katalogsidens producentindeks. */
+  .robotside .raekke,.producentside .raekke{grid-template-columns:minmax(0,1fr)}
+}
+
+/* --- 9g. Noter og kilder ----------------------------------------------------- */
+.noter{display:flex;flex-direction:column;gap:10px;padding-top:var(--r3);max-width:82ch}
+.noter li{font-size:15px;line-height:1.55;color:var(--blaek2);
+  padding-left:16px;border-left:2px solid var(--linje)}
+.kilder .kildeliste{padding-top:var(--r4)}
+.kilder .kildeliste li{font-size:12.5px}
+.kilder .url{display:inline-block;padding:6px 0;min-height:24px}
+.kilder .kildeliste .hvad{color:var(--blaek2)}
+
+/* --- 9h. Producentsiden ------------------------------------------------------ */
+.producent-top{padding-top:var(--r2);display:flex;flex-direction:column;gap:var(--r4)}
+.producent-fakta{display:flex;flex-wrap:wrap;gap:var(--r3) var(--r6)}
+.producent-fakta > div{display:flex;flex-direction:column;gap:4px}
+.producent-fakta dd{font-size:17px;font-weight:600;color:var(--blaek)}
+.producent-fakta .figur{font-size:21px;font-weight:700}
+.producent-fakta .hjemsted{font-weight:600}
+
+.eu-tabel th[scope="row"] a{display:inline-block;min-height:24px;padding:8px 0;
+  color:var(--blaek);text-decoration-thickness:1.5px}
+.eu-tabel th[scope="row"] a:hover{color:var(--accent)}
+.eu-tabel td{white-space:nowrap}
+.sektion-hoved .tal{color:var(--blaek);font-weight:500}
+.eu-tom{margin-top:var(--r4)}
+
+.prodliste{display:flex;flex-direction:column;padding-top:var(--r2)}
+.prodliste li{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;
+  padding:11px 0;border-top:1px solid var(--linje)}
+.prodliste li:first-child{border-top:0}
+.prodliste .pnavn{font-size:16px;font-weight:600;flex:1 1 14ch;min-height:24px;
+  display:inline-flex;align-items:center;padding:8px 0}
+.prodliste a.pnavn{color:var(--accent)}
+.prodliste [aria-current]{color:var(--blaek3)}
+.prodliste .pland{font-family:var(--mono);font-size:12px;color:var(--blaek3)}
+.prodliste .pantal{font-family:var(--mono);font-size:12.5px;color:var(--blaek2)}
+
+.producentside .gitter{padding-top:var(--r4);list-style:none;margin:0;padding-inline:0}
+.producentside .gitter > li{display:flex}
+.producentside .gitter > li > .kort{flex:1}
+.producentside .kort-krop{padding-bottom:16px}
+
+/* --- 9i. Feltmarkør: værdien varierer mellem modelvarianter (opgave 4c) ----
+   Kun en prikket underkant — ingen ny farve, ingen ny komponentfamilie. */
+.maerke--varianter{border-bottom:1px dotted var(--hegn)}
+
+/* --- 9j. Print --------------------------------------------------------------- */
+@media print{
+  .retur{display:none}
+  .skema[open] > summary::after,.skema > summary::after{content:""}
+  .skema{box-shadow:none}
+  .skema,.skema > *{display:block !important}
+  .stribe-under-fold,.stribe-under-fold > *{display:block !important}
+  .kort,.panel,.stribe,.eu-blok .eu-krop{box-shadow:none}
+  .kilder .url{text-decoration:none;color:var(--blaek)}
+}
