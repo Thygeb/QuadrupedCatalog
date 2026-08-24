@@ -152,12 +152,13 @@ skal ikke distribueres med repoet.
 
 ## Projektskills — brug dem frem for at gentage reglerne
 
-Ud over de globale skills i tabellen ovenfor har projektet to egne i `.claude/skills/`:
+Ud over de globale skills i tabellen ovenfor har projektet tre egne i `.claude/skills/`:
 
 | Skill | Hvornår |
 |---|---|
 | `robotdata` | Hver gang en robotpost tilføjes, opdateres eller efterprøves. Bærer 29-feltsskemaet, de ti hårde regler og selv-tjekket med tælling |
 | `parallelt` | Hver gang arbejde deles på flere agenter. Bærer worktree-opsætningen, prompt-tjeklisten og de to fælder |
+| `grillmig` | **Før** et agentbrief sendes, og før en åben beslutning låses. Bærer de fem briefspørgsmål, de fire beslutningsspørgsmål og retten til at sige stop. Ikke en designkritik — den dømmer hensigten, ikke resultatet |
 
 **Skriv aldrig reglerne af i hånden ind i en agentprompt.** Peg på skillen. Tre håndskrevne
 kopier af samme regel divergerer ved den fjerde, og så arbejder agent fire efter en regel,

@@ -1,0 +1,50 @@
+{
+  "skill_name": "grillmig",
+  "note": "Proevetilfaelde for selv-testen. Koert 21. aug 2026, iteration-1. Resultatet staar i FUND-grillmig.md.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "loest-brief",
+      "prompt": "Jeg vil saette en agent i gang paa det her brief:\n\n\"Kig paa billederne i media/ og goer noget ved kvaliteten. Skriv hvad du finder.\"\n\nGril lige den her, inden jeg sender den af sted.",
+      "expected_output": "Dom: send ikke (eller send efter rettelse). Alle fem A-spoergsmaal stillet og besvaret med briefets faktiske svar; de ubesvarede markeret. Haardeste indvending som foerste nummererede punkt. Acceptkriterium paa hver indvending. Selv-tjek med tael.",
+      "assertions": [
+        {"id": "a1", "text": "Dommen er 'Send ikke' eller 'Send efter rettelse' - ikke 'Send'"},
+        {"id": "a2", "text": "Alle fem briefspoergsmaal (leverance, aftager, spildrisiko, filer/kollision, faerdigkriterium) er stillet eksplicit"},
+        {"id": "a3", "text": "Den foerste nummererede indvending er maerket [Blocker] eller [Major] - ikke en smaating"},
+        {"id": "a4", "text": "Mindst en indvending har et acceptkriterium: hvad der praecist skal staa i briefet, foer indvendingen falder bort"},
+        {"id": "a5", "text": "Der staar en tael til sidst paa formen 'grillet N spoergsmaal, M ubesvarede, K indvendinger, heraf J blokerende'"},
+        {"id": "a6", "text": "Dokumentet slutter IKKE med en ros eller en opmuntring"}
+      ],
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "uprissat-alternativ",
+      "prompt": "Aaben beslutning, jeg gerne vil lukke som L30:\n\nSkal robotbillederne udskiftes med maaltro silhuetter foer lancering, eller bliver vi paa fabrikantfotos og indhenter skriftlige tilladelser?\n\nSilhuetterne koster os cirka en uges tegnearbejde for 46 robotter. Tilladelsesvejen er den nemme. Er beslutningen moden nok til at laases?",
+      "expected_output": "Foerste indvending: tilladelsesvejen er ikke prissat (hvor mange producenter, hvor lang tid, hvad hvis de siger nej). B2: en konkret maaling foreslaas. B3: en tidligere beslutning citeres med nummer (S1, L13, L26 eller L28). B4: omkostningen ved at vende om. Dom: laas ikke / laas efter maaling.",
+      "assertions": [
+        {"id": "b1", "text": "Det uprissatte alternativ (tilladelsesvejen) staar som den foerste indvending"},
+        {"id": "b2", "text": "En konkret maaling eller optaelling foreslaas, som ville afgoere valget"},
+        {"id": "b3", "text": "Mindst en tidligere beslutning citeres med sit nummer (S1, L13, L26 eller L28)"},
+        {"id": "b4", "text": "Omkostningen ved at vende om senere er skrevet frem"},
+        {"id": "b5", "text": "Dommen er 'Laas ikke' eller 'Laas efter maaling' - ikke 'Laas'"},
+        {"id": "b6", "text": "Der staar en tael til sidst"}
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "brief-i-orden",
+      "prompt": "Gril det her brief, foer jeg sender det:\n\nArbejdsmappe: c:\\Praktik\\websites\\udstilling-wt-d4, gren data/d4-taelling.\nLeverance: FUND-d4.md med en tabel med en raekke pr. af de 46 robotter og kolonnerne slug, taethed_med_type_uden_model, taethed_uden, forskel - plus et afsnit, der navngiver de poster, der skifter plads.\nAftager: JPK, som skal lukke D4 i STATUS.md. KRITIK-1-plan.md K9 maalte, at D4 flytter 16 af 46 pladser, mens D7 flytter 0 - saa D4 er den beslutning, der faktisk aendrer rangeringen.\nRoerer kun FUND-d4.md og tools/taelle-d4.mjs. Ingen andre spor roerer de to filer.\nSpildt hvis: D7's naevner laases foerst og aendrer taelleren - men K9 maalte, at en konstant naevner flytter 0 pladser, saa raekkefoelgen holder uanset.\nFaerdig naar agenten kan skrive \"genberegnet 46 poster, N pladser flytter sig\" og tallet kan reproduceres med kommandoen, der staar i dokumentet.",
+      "expected_output": "Briefet slipper igennem. Dom: send. De fem spoergsmaal besvares og markeres som besvarede. Ingen opfundet blokerende indvending, ingen omskrivning af briefet. Tael til sidst.",
+      "assertions": [
+        {"id": "c1", "text": "Dommen er 'Send' (eventuelt med mindre forbehold) - ikke 'Send ikke'"},
+        {"id": "c2", "text": "Alle fem briefspoergsmaal markeres som besvarede med briefets egne svar"},
+        {"id": "c3", "text": "Der rejses ingen [Blocker], og briefet kraeves ikke skrevet om"},
+        {"id": "c4", "text": "Der staar en tael til sidst"},
+        {"id": "c5", "text": "Grilningen paastaar ikke en fejl, der modsiges af briefets egen tekst"}
+      ],
+      "files": []
+    }
+  ]
+}
