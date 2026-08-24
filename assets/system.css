@@ -180,6 +180,14 @@ a:hover{text-decoration-thickness:2.5px}
   border-radius:var(--rund-ind)}
 .baand nav a:hover{background:var(--panel-ro);color:var(--blaek)}
 .baand nav a[aria-current]{color:var(--accent);background:var(--accent-ro)}
+/* Under 420 px (systemets eget kompakt-brudpunkt, jf. §11 nedenfor) er de
+   fire navigationslaenke tilsammen bredere end skaermen og braekker over to
+   raekker i stedet for én — maalt at koste en hel ekstra 44 px-raekke paa
+   robotsidens foerste skaermhoejde (fund/FUND-detalje.md, opgave 1). Mindre
+   vandret luft, ikke en mindre trykflade: min-height holder 44 px. */
+@media (max-width:420px){
+  .baand nav a{padding:0 10px;font-size:14px}
+}
 
 /* --- 7. Billednoten (spaerring S1) ---------------------------------------- */
 /* Moerk, ikke roed. Roed laeses som fejl eller som salg; det her er en
@@ -187,8 +195,16 @@ a:hover{text-decoration-thickness:2.5px}
 .billednote{background:var(--fod);color:var(--paafod)}
 .billednote .rum{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;
   padding-block:14px}
+/* FUND-detalje.md, opgave 3a: denne regel satte aldrig sin egen baggrund, saa
+   den generiske .maerke{background:var(--panel-ro)} (afsnit "Anvendelsesmaerket"
+   nedenfor) vandt paa netop DEN egenskab — mens .billednote .maerke selv vandt
+   paa `color` (2 klasser slaar 1). Resultatet var --paafod-tekst (naesten hvid,
+   lavet til 14,88:1 mod den moerke --fod) oven paa en --panel-ro-flade (naesten
+   hvid) den ALDRIG var maalt mod: 1,1:1, maalt med Playwright paa den faktisk
+   gengivne side, ikke i teorien. Rettelsen er at fjerne den arvede flade — maerket
+   skal sidde direkte paa billednotens egen moerke bund, som resten af baandet. */
 .billednote .maerke{flex:none;font-family:var(--mono);font-size:11px;font-weight:500;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--paafod);
+  letter-spacing:.15em;text-transform:uppercase;color:var(--paafod);background:transparent;
   border:1px solid var(--paafod2);border-radius:var(--rund-lille);
   padding:4px 10px;margin-top:2px;white-space:nowrap}
 .billednote p{font-size:14.5px;line-height:1.5;color:var(--paafod);max-width:96ch}

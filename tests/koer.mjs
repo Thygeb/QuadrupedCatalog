@@ -1037,11 +1037,13 @@ console.log('\n5. Visningen af de nye former');
     /<b class="num">45<\/b><span class="enhed">%<\/span>/.test(side) && !side.includes('24,2'));
   ok('varianterne staar paa siden med navn og vaerdi',
     /class="varianter"/.test(side) && side.includes('>AIR<') && side.includes('>PRO<') && side.includes('>2,5<'));
-  // IKKE rettet - katalogsiden har ingen erstatning for "maerke--varianter"
-  // fundet (grep for "variant" i tools/skabelon/katalog.mjs giver 0 traeff).
-  // Kravet er derfor ladt staa: enten mangler markeringen paa katalogsiden i
-  // det nuvaerende byg, eller ogsaa er den flyttet et sted, denne test ikke
-  // har fundet. Se fund/FUND-test.md.
+  // RETTET (fund/FUND-detalje.md, opgave 4c): markeringen laa aldrig i
+  // katalog.mjs (grep for "variant" gav stadig 0 traef - den fil rammer
+  // ikke feltvaerdien direkte) men i side.mjs' felt(), som katalog.mjs
+  // kalder via hjaelp.kort() -> stribe() -> felt(..., {kunVaerdi:true}).
+  // Naar post.varianter er sat, faar den kompakte stribes .v-spann nu
+  // klassen "maerke--varianter" (og en forklarende title), uden at aendre
+  // selve figuren, katalogkortet viser.
   ok('katalogtabellen markerer, at feltet har varianter',
     /maerke--varianter/.test(katalog));
   ok('advarslen staar stadig ved siden af vaerdien',
@@ -1214,49 +1216,63 @@ console.log('\n6. Vaegtklasser og flervaerdi-anvendelse');
     Object.values(fordeling).reduce((a, b) => a + b, 0) === json.robotter.length,
     `${JSON.stringify(fordeling)} mod ${json.robotter.length} robotter`);
 
-  /* L27 - maengden, ikke raekkefoelgen. IKKE RETTET, staar bevidst som FEJL:
-     hjaelp.anvendelse() i tools/skabelon/side.mjs (~L626) skriver
-     "vaerdier = (Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi])" - raa
-     YAML-raekkefoelge, ingen sortering. To robotter med samme kategorisaet i
-     forskellig raekkefoelge faar derfor forskellige arrays i robots.json. Det
-     er den PRAECISE ting, L27 (STATUS.md) blev besluttet for at undgaa
-     ("ingen af vaerdierne er hovedkategorien"). Kraevet er ikke saenket. */
-  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27) — uafklaret, se fund/FUND-test.md',
+  /* L27 - maengden, ikke raekkefoelgen. STAAR STADIG BEVIDST SOM FEJL, men af
+     en ANDEN og smallere aarsag end foer (fund/FUND-detalje.md, opgave 4c):
+     tools/skabelon/side.mjs' hjaelp.anvendelse() sorterer nu vaerdierne via
+     skema.mjs' sorterAnvendelse() - det retter siden, katalogets maerker og
+     robotsidens BEM-klasser (de to proever lige nedenfor). Men robots.json's
+     "anvendelse.vaerdi" bliver IKKE bygget af hjaelp.anvendelse() - build.mjs
+     (L363-372, forbudt fil i dette spor) har sin EGEN, uafhaengige kopi af
+     samme udregning ("(Array.isArray(a.vaerdi) ? a.vaerdi :
+     [a.vaerdi]).map((v) => tilstandAf(v) ?? v)") direkte i indeks-byggeren,
+     uden at kalde hjaelp.anvendelse() eller sorterAnvendelse() overhovedet.
+     Kravet er ikke saenket - roeret er sporet til en konkret linje, den
+     staar bare i en fil, dette spor ikke maa aendre. */
+  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27) — uafklaret, robots.json bygges af build.mjs (forbudt fil), se fund/FUND-detalje.md',
     JSON.stringify(anv['j-orden-en'].vaerdi) === JSON.stringify(anv['k-orden-to'].vaerdi),
     `${JSON.stringify(anv['j-orden-en'].vaerdi)} mod ${JSON.stringify(anv['k-orden-to'].vaerdi)}`);
 
   const sideJ = fs.readFileSync(path.join(ud, 'da', 'robotter', 'j-orden-en', 'index.html'), 'utf8');
   const sideK = fs.readFileSync(path.join(ud, 'da', 'robotter', 'k-orden-to', 'index.html'), 'utf8');
-  /* IKKE RETTET, staar bevidst som FEJL: klassen "anvendelse__maerke--X"
-     findes slet ikke i robot.mjs. anvendelseBlok() (~L518-549) UDREGNER
-     "vaerdier" (de enkelte kategorier), men bruger variablen ALDRIG i den
-     HTML, den returnerer - kun det raa citat vises. Kataloget viser kategori-
-     "maerker" (side.mjs' anvendelse().maerker(), klassen hedder bare "maerke",
-     ikke en BEM-variant pr. kategori) - men ROBOTTENS EGEN side goer det ikke.
-     Kravet ("alle kategorier skal ses, ingen tabes") staar derfor uindfriet
-     paa netop den side, testen peger paa. */
+  /* RETTET (fund/FUND-detalje.md, opgave 4c): robot.mjs' anvendelseMaerker()
+     saetter nu "anvendelse__maerke--<vaerdi>" pr. kategori (samme BEM-princip
+     som side.mjs' kort-udgave), og vaerdierne kommer i den samme kanoniske
+     orden fra hjaelp.anvendelse() (sorterAnvendelse()) uanset YAML-raekkefoelge.
+     Robotsidens EGEN side viser derfor nu det, testen efterspoerger - i
+     modsaetning til robots.json ovenfor, som er en anden kilde. */
   const maerkerne = (s) => (s.match(/anvendelse__maerke--([a-z_]+)/g) || []).join(',');
-  ok('og samme raekkefoelge paa de to sider - ingen af dem er "hovedkategori" — uafklaret, se fund/FUND-test.md',
+  ok('og samme raekkefoelge paa de to sider - ingen af dem er "hovedkategori"',
     maerkerne(sideJ) === maerkerne(sideK) && maerkerne(sideJ) !== '', maerkerne(sideJ));
-  ok('alle tre kategorier vises, ingen tabes af grupperingen — uafklaret, se fund/FUND-test.md',
+  ok('alle tre kategorier vises, ingen tabes af grupperingen',
     ['industri', 'sikkerhed_overvaagning', 'logistik'].every((v) => sideJ.includes(`anvendelse__maerke--${v}`)));
 
-  /* IKKE RETTET, staar bevidst som FEJL: robot.mjs' anvendelseBlok() (~L539)
-     skriver arven som <p class="t-mikro arvet">${a.arvet_fra}</p> - raa
-     SLUG-tekst ("l-mor"), ingen <a href>, intet visningsnavn, og linjen 547's
-     forklaringstekst er den SAMME uanset arv (ingen "vores slutning"-variant).
-     L23's krav ("arven skal SES, med moderens navn og link, og laeseren skal
-     vide, at koblingen her er redaktionel") er derfor ikke indfriet endnu. */
+  /* RETTET (fund/FUND-detalje.md, opgave 4c): robot.mjs' anvendelseBlok()
+     slaar nu moderen op i ctx.robotter og skriver et rigtigt <a href> med
+     moderens VISNINGSNAVN, ikke den raa slug. hjaelp.anvendelse() manglede
+     tidligere `arvet_fra` i sit returobjekt (kontrakten i robot.mjs' hoved
+     dokumenterede feltet, men side.mjs sendte det aldrig med) - arve-blokken
+     var derfor ALTID tom, uanset data. Begge dele er rettet.
+     Hrefformen er IKKE '../l-mor/' - det var testens egen antagelse om
+     sti(), aldrig efterproevet mod et rigtigt byg. sti() bruger ctx.url.robot(),
+     naar bygget giver den (altid i praksis), og den giver en absolut-fra-
+     sprogroden sti - noejagtig samme form som den allerede groenne
+     "til_producent"-test to afsnit ovenfor bruger for producent-linket paa
+     samme side (dist/da/robotter/<slug>/index.html: '../../../da/producenter/…/').
+     Maalt direkte i tests/.tmp-koersel/dist-klasse/da/robotter/m-barn/index.html. */
   const sideM = fs.readFileSync(path.join(ud, 'da', 'robotter', 'm-barn', 'index.html'), 'utf8');
-  ok('arven staar synligt paa varianten, med moderens navn og et link — uafklaret, se fund/FUND-test.md',
+  ok('arven staar synligt paa varianten, med moderens navn og et link',
     /class="anvendelse__arv"/.test(sideM) && sideM.includes('>L Mor</a>')
-    && sideM.includes('href="../l-mor/"'), sideM.includes('anvendelse__arv') ? 'link/navn mangler' : 'blok mangler');
+    && sideM.includes('href="../../../da/robotter/l-mor/"'),
+    sideM.includes('anvendelse__arv') ? 'link/navn mangler' : 'blok mangler');
   ok('og moderens citat vises paa varianten', sideM.includes('Robot - Industry'));
   const sideL = fs.readFileSync(path.join(ud, 'da', 'robotter', 'l-mor', 'index.html'), 'utf8');
   ok('moderen selv baerer INGEN arvemarkering', !/class="anvendelse__arv"/.test(sideL));
   // Paa en arvet post ER koblingen vores, saa den generelle forklaring
   // ("kategorien er ikke vores vurdering") ville staa og lyve nederst paa siden.
-  ok('den arvede side siger, at koblingen er vores - ikke det modsatte — uafklaret, se fund/FUND-test.md',
+  // RETTET (opgave 4c): anvendelseBlok() vaelger nu i18n-noeglen
+  // anvendelse_forklaring_arvet ("...er vores slutning...") i stedet for den
+  // almindelige anvendelse_forklaring, naar a.arvet_fra er sat.
+  ok('den arvede side siger, at koblingen er vores - ikke det modsatte',
     sideM.includes('vores slutning') && !sideM.includes('Kategorien er ikke vores vurdering'));
   ok('og moderens side siger stadig det oprindelige',
     sideL.includes('Kategorien er ikke vores vurdering'));

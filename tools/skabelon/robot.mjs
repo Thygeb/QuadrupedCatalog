@@ -199,6 +199,15 @@ export function kraevHjaelp(H) {
  * Forbeholdet haenger paa vaerdien, ikke ved siden af den. Driftstid er det
  * eneste felt i praksis, der baerer ved_last — og driftstid er ét af stribens
  * fem tal, saa forbeholdet maa ikke kunne falde ud.
+ *
+ * Haevet TEGN, ikke det fulde ord "Advarsel" (fund/FUND-detalje.md, opgave
+ * 4a): denne funktion fodrer robot.mjs' EGEN feltKrop()/stribe() OG, via
+ * `vaerdi()`, producent.mjs' minikort (`kompaktStribe()` kalder `vaerdi()`
+ * herfra) - de arver derfor rettelsen uden selv at aendres. Samme sprog og
+ * samme klasse (.forbehold--tegn) som side.mjs' fnote(), som 24. aug 2026
+ * allerede loeste noejagtig det samme problem paa kataloget: 174 af 181
+ * altid-synlige "Advarsel"-chips paa 41 af 46 kort. Ordet forsvinder ikke -
+ * det staar stadig fuldt ud i title (museklik) og .kunskaerm (skaermlaeser).
  */
 function forbehold(post, ctx) {
   if (post?.ved_last === undefined) return '';
@@ -207,7 +216,9 @@ function forbehold(post, ctx) {
   const tekst = ukendt
     ? T(i18n, 'ved_last_ukendt')
     : `${T(i18n, 'ved_last')} ${lokaltTal(post.ved_last.vaerdi, sprog)} ${post.ved_last.enhed ?? ''}`.trim();
-  return `<abbr class="forbehold" title="${esc(tekst)}">${esc(T(i18n, 'advarsel'))}</abbr>`;
+  return `<abbr class="forbehold forbehold--tegn" title="${esc(tekst)}">`
+    + `<span aria-hidden="true">*</span>`
+    + `<span class="kunskaerm">${esc(T(i18n, 'advarsel'))}: ${esc(tekst)}</span></abbr>`;
 }
 
 /**
@@ -410,12 +421,26 @@ function stribe(ctx, kilder) {
 
   // Advarsler og varianter paa stribens felter staar UNDER striben: cellen er
   // for smal til dem, og de maa ikke forsvinde, fordi tallet stod i striben.
-  const under = STRIBE_FELTER
+  //
+  // Foldet bag <details> (fund/FUND-detalje.md, opgave 1): op til fem af
+  // disse boxe kunne staa udfoldet paa én gang, hver en venstrestillet blok
+  // med tom hoejrespalte ved siden af sig. Foldningen fjerner INGEN tekst —
+  // hver advarsel og variant staar uafkortet i .stribe-under-krop, kun
+  // standardtilstanden (lukket) er aendret. Selve noegletalsstriben ovenfor
+  // og dens fire datatilstande er UROERT: kun de supplerende afvigelses-/
+  // variantnoter foldes.
+  const underFelter = STRIBE_FELTER
     .map(([navn]) => [navn, robot.felter?.[navn]])
-    .filter(([, p]) => p && typeof p === 'object' && (p.advarsel || p.varianter))
-    .map(([navn, p]) => `<div class="stribe-under"><p class="etiket">${esc(T(i18n, 'felt_' + navn))}</p>` +
-      advarselBlok(p, ctx) + varianter(p, ctx) + `</div>`)
-    .join('\n');
+    .filter(([, p]) => p && typeof p === 'object' && (p.advarsel || p.varianter));
+  const under = underFelter.length
+    ? `<details class="stribe-under-fold">
+<summary>${esc(flet(T(i18n, 'noegletal_afvigelser'), { n: underFelter.length }))}</summary>
+<div class="stribe-under-krop">
+${underFelter.map(([navn, p]) => `<div class="stribe-under"><p class="etiket">${esc(T(i18n, 'felt_' + navn))}</p>` +
+    advarselBlok(p, ctx) + varianter(p, ctx) + `</div>`).join('\n')}
+</div>
+</details>`
+    : '';
 
   return `<section class="sektion" aria-labelledby="noegletal-h">
 <div class="stribe-hylster">
@@ -534,9 +559,30 @@ ${citater.map((c) => `<p>${esc(c)}</p>`).join('\n')}
       `</p>`
     : '';
   const noteDel = a.note ? `<p class="t-lille">${esc(a.note)}</p>` : '';
-  // L23: en variant arver moderens kategori og VISER det. Slutningen er
-  // laeserens at bedoemme, ikke skjult.
-  const arvet = a.arvet_fra ? `<p class="t-mikro arvet">${esc(a.arvet_fra)}</p>` : '';
+
+  // L23: en variant arver moderens kategori og VISER det, med moderens
+  // rigtige NAVN og et rigtigt LINK — ikke den raa slug uden markering, som
+  // den forrige udgave skrev (fund/FUND-detalje.md, opgave 4c: side.mjs'
+  // hjaelp.anvendelse() returnerede tidligere slet ikke `arvet_fra`, saa
+  // denne blok var altid tom, uanset data). Moderen slaas op i ctx.robotter
+  // — bygget giver hele robotlisten med i ctx (samme "udvidelse ud over den
+  // laaste kontrakt" som ctx.billede) — og R17 har allerede sikret paa
+  // valideringstidspunktet, at arvet_fra peger paa en robot, der findes.
+  let arvet = '';
+  if (a.arvet_fra) {
+    const alle = Array.isArray(ctx.robotter) ? ctx.robotter : [];
+    const mor = alle.find((r) => r.slug === a.arvet_fra);
+    const link = mor ? sti(ctx, 'robot', mor.slug) : null;
+    const navn = mor ? mor.navn : a.arvet_fra;
+    arvet = `<p class="anvendelse__arv">${esc(T(i18n, 'anvendelse_arvet_fra'))}` +
+      (link ? `, <a href="${esc(link)}">${esc(navn)}</a>.` : ` ${esc(navn)}.`) +
+      `</p>\n<p class="t-mikro anvendelse__note">${esc(T(i18n, 'anvendelse_arvet_forklaring'))}</p>`;
+  }
+
+  // Naar koblingen ER vores egen slutning (en arvet kategori), ville den
+  // ALMINDELIGE forklaring ("Kategorien er ikke vores vurdering") lyve paa
+  // netop denne side — anvendelse_forklaring_arvet siger det modsatte.
+  const forklaringNoegle = a.arvet_fra ? 'anvendelse_forklaring_arvet' : 'anvendelse_forklaring';
 
   return `<section class="sektion anvendelse" aria-labelledby="anvendelse-h">
 <div class="sektion-hoved"><h2 class="t-h2" id="anvendelse-h">${esc(T(i18n, 'anvendelse_titel'))}</h2></div>
@@ -544,12 +590,17 @@ ${citatDel}
 ${arvet}
 ${kildeDel}
 ${noteDel}
-<p class="t-lille maal">${esc(T(i18n, 'anvendelse_forklaring'))}</p>
+<p class="t-lille maal">${esc(T(i18n, forklaringNoegle))}</p>
 </section>`;
 }
 
 /** Anvendelsesmaerkerne i toppen. FLERVAERDI: en robot maa have flere, og
- *  Lynx M20 har fem. At vaelge den foerste ville vaere vores slutning (K4). */
+ *  Lynx M20 har fem. At vaelge den foerste ville vaere vores slutning (K4).
+ *  `anvendelse__maerke--<vaerdi>` (opgave 4c): en BEM-modifikator pr.
+ *  kategori, samme princip som side.mjs' egen anvendelse().maerker() nu
+ *  bruger paa kortet — bevis paa at raekkefoelgen (hjaelp.anvendelse() sorterer
+ *  nu via skema.mjs' sorterAnvendelse) er den samme paa tvaers af robotter med
+ *  samme kategorisaet, ikke kun visuelt ens ved et tilfaelde. */
 function anvendelseMaerker(ctx) {
   const { i18n } = ctx;
   const a = ctx.__H.anvendelse(ctx.robot) ?? {};
@@ -558,9 +609,9 @@ function anvendelseMaerker(ctx) {
   const punkter = vaerdier.map((v) => {
     const t = tilstandAf(v);
     if (t) {
-      return `<li class="maerke maerke--tom">${esc(TD(i18n, 'tilstand_' + t, v))}</li>`;
+      return `<li class="maerke maerke--tom anvendelse__maerke--${esc(t)}">${esc(TD(i18n, 'tilstand_' + t, v))}</li>`;
     }
-    return `<li class="maerke">${esc(TD(i18n, 'anvendelse_' + v, v))}</li>`;
+    return `<li class="maerke anvendelse__maerke--${esc(v)}">${esc(TD(i18n, 'anvendelse_' + v, v))}</li>`;
   }).join('');
   return `<ul class="maerker">${punkter}</ul>`;
 }

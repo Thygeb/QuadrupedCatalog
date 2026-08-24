@@ -35,7 +35,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  FELTER, SPROG, tilstandAf,
+  FELTER, SPROG, tilstandAf, sorterAnvendelse,
   BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade,
 } from '../skema.mjs';
 import { ENHEDER } from '../yaml.mjs';
@@ -584,6 +584,16 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    *
    * `hvorhen` peger paa kildelisten. Paa robotsiden er den paa samme side
    * (#kilde-A); paa et kort ligger den paa robottens egen side.
+   *
+   * `tabindex="-1"` (fund/FUND-detalje.md, opgave 2): maalt paa katalogsiden,
+   * hvert kildemaerke var sit eget tab-stop - op til 4 pr. kort x 46 kort
+   * betoed, at de foerste ~40 tab-tryk naaede ca. 5 kort, foer laeseren
+   * overhovedet ramte et filter eller et andet kort. Linket forbliver et
+   * RIGTIGT link (href, klikbart, i tilgaengelighedstraeet - en skaermlaeser,
+   * der laeser sekventielt eller via "vis alle links", finder det stadig),
+   * kun VEJEN dertil via Tab-tasten er lukket. Det er den samme afvejning,
+   * WAI-ARIA anbefaler for et sekundaert link, der ikke skal konkurrere med
+   * sidens primaere navigation om taste-fokus.
    */
   function kildemaerke(post, kilder, hvorhen = '') {
     if (!kilder) return '';
@@ -592,7 +602,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     const sek = k.sekundaer ? ' kildemaerke--sek' : '';
     const titel = k.sekundaer ? t('kilde_sek_forklaring') : T.kilde_primaer;
     return `<a class="kildemaerke${sek}" href="${attr(hvorhen)}#kilde-${attr(k.bogstav)}"`
-      + ` title="${attr(titel)}">${esc(k.bogstav)}</a>`;
+      + ` tabindex="-1" title="${attr(titel)}">${esc(k.bogstav)}</a>`;
   }
 
   /** Kildelisten. Per kilde, ikke per tal: en kilde har én hentedato. */
@@ -645,6 +655,16 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     else ud = tal(post, { kilder, hvorhen, forbehold: kunVaerdi && post.advarsel ? [post.advarsel] : [] });
 
     if (kunVaerdi) {
+      // Feltet varierer mellem robottens modelvarianter (fund/FUND-detalje.md,
+      // opgave 4c): kataloget viser kun ÉT tal pr. celle, saa markoeren
+      // fortaeller laeseren, at det tal ikke er hele historien, uden at
+      // fortraenge tallet selv med en fuld variantliste (den staar paa
+      // robottens egen side, se robot.mjs' varianter()). Klassen saettes paa
+      // det aabne <span class="v ...">, saa den er en del af selve vaerdien.
+      if (post.varianter) {
+        ud = ud.replace(/^(<span class="v[^"]*)"/,
+          `$1 maerke--varianter" title="${attr(t('varianter_forklaring'))}"`);
+      }
       // Maerket saettes IND i vaerdiens .v-spann, ikke efter det: striben er
       // column-reverse, og et maerke placeret som en EGEN sideordnet node
       // blev loeftet op OVER vaerdien som cellens foerste, mest synlige led
@@ -677,12 +697,20 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    * industri og inspektion, og ingen af vaerdierne er "hovedkategorien" -
    * den regel blev trukket tilbage, fordi den lod en producents menuraekke-
    * foelge afgoere, hvor ti robotter havnede.
+   *
+   * `sorterAnvendelse()` (fund/FUND-detalje.md, opgave 4c): raa YAML-
+   * raekkefoelge blev tidligere sendt uroert videre, saa to robotter med
+   * de SAMME kategorier i modsat raekkefoelge i deres respektive filer fik
+   * forskellige, uens-udseende maerkeraekker paa deres egne sider - praecis
+   * den tilfaeldige "hovedkategori efter skrivevane", L27 blev besluttet for
+   * at undgaa. skema.mjs' `sorterAnvendelse` er den kanoniske orden, allerede
+   * skrevet til formaalet, men aldrig kaldt herfra foer nu.
    */
   function anvendelse(robot) {
     const a = robot?.anvendelse;
     const raa = a === undefined ? { vaerdi: 'ikke_oplyst' } : (typeof a === 'string' ? { vaerdi: a } : a);
-    const vaerdier = (Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi])
-      .map((v) => tilstandAf(v) ?? v);
+    const vaerdier = sorterAnvendelse((Array.isArray(raa.vaerdi) ? raa.vaerdi : [raa.vaerdi])
+      .map((v) => tilstandAf(v) ?? v));
     const citater = raa.citat === undefined ? []
       : (Array.isArray(raa.citat) ? raa.citat : [raa.citat]);
     return {
@@ -697,13 +725,22 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       kilde: raa.kilde ?? null,
       hentet: raa.hentet ?? null,
       note: raa.note ?? null,
+      // arvet_fra manglede her (kontrakten i robot.mjs' hoved dokumenterer
+      // feltet, men denne funktion returnerede det aldrig) - robot.mjs'
+      // anvendelseBlok() laeste derfor ALTID undefined, og arve-blokken
+      // kunne ikke vises, uanset hvad en YAML-fil faktisk sagde.
+      arvet_fra: (typeof raa.arvet_fra === 'string' && raa.arvet_fra.trim()) ? raa.arvet_fra : null,
       erIkkeOplyst: vaerdier.length === 1 && vaerdier[0] === 'ikke_oplyst',
       navn: (v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst : t('anvendelse_' + v)),
-      /** Maerkerne som de staar paa kortet. */
+      /** Maerkerne som de staar paa kortet. `anvendelse__maerke--<vaerdi>` er
+       *  en BEM-modifikator pr. kategori, oven i den generiske .maerke, som
+       *  bevis paa at raekkefoelgen nu er den samme paa tvaers af robotter
+       *  med samme kategorisaet (opgave 4c) - selve udseendet kommer stadig
+       *  udelukkende fra .maerke/.maerke--tom. */
       maerker() {
         return `<ul class="maerker">` + vaerdier.map((v) => (v === 'ikke_oplyst'
-          ? `<li class="maerke maerke--tom">${esc(T.tilstand_ikke_oplyst)}</li>`
-          : `<li class="maerke">${esc(t('anvendelse_' + v))}</li>`)).join('') + `</ul>`;
+          ? `<li class="maerke maerke--tom anvendelse__maerke--${attr(v)}">${esc(T.tilstand_ikke_oplyst)}</li>`
+          : `<li class="maerke anvendelse__maerke--${attr(v)}">${esc(t('anvendelse_' + v))}</li>`)).join('') + `</ul>`;
       },
     };
   }
@@ -1006,8 +1043,8 @@ ${raekke(`<span class="v v-tal v-nul"><b class="num">0</b></span>`, T.tilstand_n
 ${raekke(tilstand('nej'), T.tilstand_nej_forklaring)}
 ${raekke(tilstand('ikke_oplyst'), T.tilstand_ikke_oplyst_forklaring)}
 ${raekke(tilstand('kun_billede'), T.tilstand_kun_billede_forklaring)}
-${raekke(`<span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span><a class="kildemaerke" href="#tegn">A</a></span>`, t('kilde_maerke_forklaring'))}
-${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</span><a class="kildemaerke kildemaerke--sek" href="#tegn">B</a></span>`, t('kilde_sek_forklaring'))}
+${raekke(`<span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span><a class="kildemaerke" href="#tegn" tabindex="-1">A</a></span>`, t('kilde_maerke_forklaring'))}
+${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</span><a class="kildemaerke kildemaerke--sek" href="#tegn" tabindex="-1">B</a></span>`, t('kilde_sek_forklaring'))}
 </dl>
 <p class="t-lille">${esc(T.sammenlign_advarsel)}</p>
 </section>`;
