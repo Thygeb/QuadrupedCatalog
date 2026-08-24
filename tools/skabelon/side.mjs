@@ -38,6 +38,7 @@ import {
   FELTER, SPROG, tilstandAf,
   BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade,
 } from '../skema.mjs';
+import { ENHEDER } from '../yaml.mjs';
 
 const her = path.dirname(fileURLToPath(import.meta.url));
 export const ROD = path.resolve(her, '..', '..');
@@ -326,6 +327,63 @@ export function vaegtklasse(robot) {
   if (kg < VAEGTGRAENSER.under) return 'under_20';
   if (kg <= VAEGTGRAENSER.over) return '20_40';
   return 'over_40';
+}
+
+/* ------------------------------------------------------------- yderpunkter
+ * JPK, 24. aug 2026: loesningen paa "ingen fremhaevet robot". DESIGN.md
+ * forbyder "featured" eksplicit, fordi en fremhaevelse er en kvalitetsdom, og
+ * PRODUCT.md's princip 4 siger vi rangerer producenternes aabenhed, ikke
+ * deres kvalitet. Et yderpunkt er ikke en dom: den tungeste robot er ikke
+ * "bedre" end den letteste, den er bare tungest. Fire MAALTE kendsgerninger,
+ * udledt her af de samme felter kortene selv viser - aldrig skrevet i haanden.
+ *
+ * Uafgjort loeses DETERMINISTISK: alfabetisk paa slug, samme regel som
+ * vaegtklassernes kortsortering allerede bruger. Efterproevet 24.08.2026 paa
+ * alle 46 datafiler: ingen af de fire har i praksis et uafgjort resultat
+ * (letteste=5,6 kg, tungeste=85 kg, hurtigste=8 m/s, laengste driftstid=8 t,
+ * alle enkeltvise), men reglen staar, saa en fremtidig datarettelse ikke kan
+ * give et tilfaeldigt resultat.
+ */
+
+/** Feltets vaerdi omregnet til dimensionens BASISenhed (kg, m/s, s), eller
+ *  null. Bruges KUN til at SAMMENLIGNE — visningen bruger post's egne tal og
+ *  enhed uroert (regel 5: "20~25 cm" er ikke sit gennemsnit). En ukendt enhed
+ *  taeller ikke med; vi gaetter aldrig en dimension. */
+function feltIBasis(post) {
+  if (!post || typeof post === 'string') return null;
+  if (typeof post.vaerdi === 'string') return null;
+  const v = post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+  if (typeof v !== 'number' || Number.isNaN(v)) return null;
+  const e = ENHEDER[post.enhed];
+  if (!e) return null;
+  return v * e[1];
+}
+
+/** De fire yderpunkter og deres retning. Raekkefoelgen her er raekkefoelgen,
+ *  forsiden viser dem i. */
+const YDERPUNKT_SPEC = [
+  { id: 'letteste', felt: 'egenvaegt', ikon: 'i-vaegt', retning: 'lav' },
+  { id: 'tungeste', felt: 'egenvaegt', ikon: 'i-vaegt', retning: 'hoej' },
+  { id: 'hurtigste', felt: 'hastighed', ikon: 'i-fart', retning: 'hoej' },
+  { id: 'laengste_driftstid', felt: 'driftstid', ikon: 'i-driftstid', retning: 'hoej' },
+];
+
+/**
+ * Returnerer op til fire poster { id, felt, ikon, robot, post }. Et yderpunkt
+ * udelades helt, hvis INTET af de 46 datafiler oplyser feltet som et tal —
+ * det sker ikke i dag, men skal ikke kunne kaste en fejl, hvis det gjorde.
+ */
+export function ekstremer(robotter) {
+  return YDERPUNKT_SPEC.map((spec) => {
+    const kandidater = robotter
+      .map((robot) => ({ robot, basis: feltIBasis(robot.felter?.[spec.felt]) }))
+      .filter((x) => x.basis !== null);
+    if (!kandidater.length) return null;
+    kandidater.sort((a, b) => (spec.retning === 'lav' ? a.basis - b.basis : b.basis - a.basis)
+      || String(a.robot.slug).localeCompare(String(b.robot.slug)));
+    const bedst = kandidater[0];
+    return { ...spec, robot: bedst.robot, post: bedst.robot.felter[spec.felt] };
+  }).filter(Boolean);
 }
 
 /* ------------------------------------------------------------------ kilder */
@@ -654,18 +712,22 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
   /**
    * AENDRET 21.08.2026: hastighed ind, CE ud.
+   * AENDRET 24.08.2026 (JPK): ip_klasse ud. Maalt over alle 46 datafiler:
+   * egenvaegt 37/46, nyttelast_gaaende 36/46, hastighed 36/46, driftstid
+   * 36/46 — mod ip_klasse's 23/46 (JPK's eget tal, 22/46, laa taet paa;
+   * begge viser samme konklusion). En femte celle, der staar tom paa
+   * over halvdelen af kortene, laerer laeseren at springe den over. De fire
+   * tilbageblevne daekker alle over trefjerdedele, og striben paa kortet
+   * bliver dermed FIRE celler (2x2 i den kompakte udgave), ikke fem.
    *
-   * Maalt over alle 46 datafiler: ce_oplyst er oplyst paa 4, hastighed paa 36.
-   * En celle, der er tom paa 42 af 46 kort, laerer laeseren at springe hele
-   * striben over. CE staar i stedet i sin egen EU-markering, hvor "ikke
-   * oplyst" er selve pointen frem for et hul.
+   * CE staar i sin egen EU-markering, hvor "ikke oplyst" er selve pointen
+   * frem for et hul.
    */
   const STRIBE = [
     ['egenvaegt', 'i-vaegt'],
     ['nyttelast_gaaende', 'i-nyttelast'],
-    ['driftstid', 'i-driftstid'],
     ['hastighed', 'i-fart'],
-    ['ip_klasse', 'i-ip'],
+    ['driftstid', 'i-driftstid'],
   ];
 
   /** Er feltet oplyst med et rigtigt svar (tal, tekst, ja eller nej)? */
