@@ -133,7 +133,4 @@ felter:
       LIDAR: "USB 3.0; HDMI; Ethernet"
     advarsel: "Basic-kolonnen har eksplicit INGEN (CN) / (EN). Det er et NEJ, ikke ikke_oplyst. Vaerdien er Basic-variantens."
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst: ikke_oplyst
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

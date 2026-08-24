@@ -96,11 +96,8 @@ felter:
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ja
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
     advarsel: "Producenten skriver FCC, CE and Anatel compliant. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklaering."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

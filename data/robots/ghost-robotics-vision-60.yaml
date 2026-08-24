@@ -183,11 +183,8 @@ felter:
     hentet: 2026-08-19
     advarsel: "Radio: 2,4 og 5,8 GHz WiFi samt 4G/LTE; GigE-switch."
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ikke_oplyst
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
     advarsel: "Feltet paa databladet hedder Export Control | HC og svarer US ECCN: EAR-99 | 8479.50.00.00 Industrial Robots (No ITAR restrictions). Producenten svarer paa et AMERIKANSK eksportspoergsmaal, ikke paa et europaeisk markedsadgangsspoergsmaal. Ingen CE naevnt."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

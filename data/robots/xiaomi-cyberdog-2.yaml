@@ -136,11 +136,8 @@ felter:
     kilde: https://www.mi.com/cyberdog2
     hentet: 2026-08-19
     advarsel: "Sidens egen produkt-JSON siger price 0, market_price 0 og is_enable false. Produktet er ikke koebbart paa mi.com paa indsamlingsdagen. Et price 0 for et produkt med is_enable false betyder INGEN PRIS SAT, ikke koster nul. At skrive 0 ind ville vaere regel 10-fejlen i sin reneste form."
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: nej
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "DOKUMENTERET NEJ, ikke et hul. Producenten oplyser sine standarder, og CE er ikke iblandt dem: GB 17625.1-2012, GB 4943.1-2011, GB/T 9254.1-2021, batteri GB31241-2014 og UN38.3. Kun kinesiske GB-standarder. Om et dokumenteret nej TAELLER MED i specifikationstaetheden er ikke besluttet - det er et spoergsmaal til JPK."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst
