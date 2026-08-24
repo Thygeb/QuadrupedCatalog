@@ -11,11 +11,8 @@ anvendelse:
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen B2 staar i."
-billede:
-  fil: fotos/fabrikant/unitree-b2.jpg
-  ophav: fabrikant
-  kilde: https://www.unitree.com/b2
-  hentet: 2026-08-19
+noter:
+  - "Billedport 24. aug 2026: billede fjernet. `fil:`-feltet pegede paa unitree-b2.jpg, som ikke findes paa disk - den faktiske fil var unitree-b2.png (bekraeftet med gyldige PNG-magicbytes og MANIFEST-match til unitree-b2-2.png, unitree.com/b2). Denne sessions billedlaesekvote blev opbrugt foer billedets indhold naaede at blive set - det er derfor ALDRIG blevet visuelt godkendt, kun sporet som en filstiskaeg. Billedet er slettet frem for gættet godkendt, jf. reglen om at et uefterproevet billede er lige saa risikabelt som et forkert. Skal ses og domsfaeldes paa ny naar kvoten er tilgaengelig."
 felter:
   egenvaegt:
     vaerdi: 60

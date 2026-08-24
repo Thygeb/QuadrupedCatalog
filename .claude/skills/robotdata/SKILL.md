@@ -77,6 +77,27 @@ laengde:
   advarsel: metrisk og imperial afviger med faktor 10 - efterproeves
 ```
 
+## Billedbaren
+
+Tilføjet af billedport-sporet 24. aug 2026, efter en impeccable-critique fandt at
+billedpipelinen ingen kvalitetsport havde (skærmbillede af en app, et forskningsinstituts
+logo, en makrodetalje der beskæres blank, indbrændt reklametekst — ingen af dem var
+nogensinde håndkontrolleret). Døm hvert `billede:`-felt efter denne bar, med øjne, ikke
+kun ved at tjekke at feltet er udfyldt:
+
+**GODKENDT:** hele maskinen er tydeligt hovedmotivet; studio- eller feltfoto; ingen
+indbrændt marketingtekst; ingen UI-elementer; motivet overlever et kvadratisk
+center-crop (kortene bruger object-fit:cover — et motiv klistret i billedets ene ende
+bliver blankt på kortet; vurdér det).
+
+**AFVIST:** logoer, app-skærmbilleder, infografikker med tekst, familiebannere med
+flere modeller, makro-detaljer uden hel maskine, indbrændt reklametekst.
+
+Findes intet egnet billede i arkivet (eller kan et fundet billede ikke efterprøves —
+fx fordi en billedlæsekvote er opbrugt midt i arbejdet), slet hele `billede:`-blokken
+frem for at gætte. Et forkert eller uefterprøvet billede er værre end intet: robotten
+falder tilbage til målepladen, ikke til en gætning.
+
 ## De 33 felter
 
 **Sandheden er `tools/skema.mjs`.** Listen her er en læsbar gengivelse af den, ikke en

@@ -12,11 +12,8 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen Go2 staar i."
 varianter: [AIR, PRO, X, EDU]
-billede:
-  fil: fotos/fabrikant/unitree-go2.png
-  ophav: fabrikant
-  kilde: https://www.unitree.com/go2
-  hentet: 2026-08-19
+noter:
+  - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (unitree-go2-1.png) var et skaermbillede af Unitrees fjernbetjenings-app paa en telefon - et LiDAR-punktskykort med kamerafeed og betjeningsknapper, ikke et foto af robotten. De fire oevrige arkivkandidater (go2-2 til -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
 felter:
   egenvaegt:
     vaerdi: 15
