@@ -213,6 +213,13 @@ async function main(argv) {
   const ud = path.resolve(String(flag['ud'] ?? 'dist'));
   ryd(ud);
 
+  // Producentsiderne kan kun naas, hvis de FINDES. Flaget styrer baade
+  // "Producenter"-leddet i topnavigationen (skal() tegner det kun naar flaget
+  // er sat) og robotsidernes link til deres producent — uden skabelonen ville
+  // begge pege paa mapper, bygget aldrig skrev (F1 omvendt).
+  const harProducenter = !!producentSkabelon;
+  const producentAf = new Map(producenter.map((p) => [p.navn, p]));
+
   const manglendeLande = new Set();
   let sider = 0;
   let kortPaaForside = 0;
@@ -252,7 +259,7 @@ async function main(argv) {
         `forsiden (${sprogkode}) har ${kortPaaForside} kort, men der er ${robotter.length} datafiler. `
         + 'Prototypen tabte tre robotter praecis her.');
       skrivFil(path.join(ud, sprogkode, 'index.html'), skal({
-        sprogkode, T, t, sti: '', aktiv: '', script: true,
+        sprogkode, T, t, sti: '', aktiv: '', script: true, harProducenter,
         titel: `${T.sted_navn} · ${T.sted_undertitel}`,
         beskrivelse: T.sted_undertitel,
         main: main0,
@@ -268,7 +275,7 @@ async function main(argv) {
       paastaa(kortIKatalog === robotter.length,
         `kataloget (${sprogkode}) har ${kortIKatalog} kort, men der er ${robotter.length} datafiler.`);
       skrivFil(path.join(ud, sprogkode, 'robotter', 'index.html'), skal({
-        sprogkode, T, t, sti: 'robotter/', aktiv: 'robotter/', script: true,
+        sprogkode, T, t, sti: 'robotter/', aktiv: 'robotter/', script: true, harProducenter,
         titel: `${T.katalog_titel} · ${T.sted_navn}`,
         beskrivelse: T.sted_undertitel,
         stil: katalogSkabelon.hovedStil(ctx),
@@ -280,10 +287,16 @@ async function main(argv) {
     /* --- robotsiderne --- */
     for (const robot of robotter) {
       const sti = `robotter/${robot.slug}/`;
-      const ctx = { ...grund(sti), robot };
+      // ctx.producent taender robotsidens to links til producentsiden
+      // (skabelonen tegner dem kun, naar den kender et slug). Uden
+      // producentskabelonen findes siderne ikke, og linkene skal ikke tegnes.
+      const ctx = {
+        ...grund(sti), robot,
+        producent: harProducenter ? producentAf.get(robot.producent) : undefined,
+      };
       const main0 = robotSkabelon ? robotSkabelon.render(ctx) : midlertidigRobotside(ctx);
       skrivFil(path.join(ud, sprogkode, 'robotter', robot.slug, 'index.html'), skal({
-        sprogkode, T, t, sti, aktiv: 'robotter/',
+        sprogkode, T, t, sti, aktiv: 'robotter/', harProducenter,
         titel: `${robot.navn} — ${robot.producent} · ${T.sted_navn}`,
         beskrivelse: `${robot.navn}, ${robot.producent}. ${T.sted_undertitel}`,
         stil: robotSkabelon?.hovedStil ? robotSkabelon.hovedStil(ctx) : '',
@@ -298,13 +311,32 @@ async function main(argv) {
         const sti = `producenter/${producent.slug}/`;
         const ctx = { ...grund(sti), producent };
         skrivFil(path.join(ud, sprogkode, 'producenter', producent.slug, 'index.html'), skal({
-          sprogkode, T, t, sti, aktiv: 'producenter/',
+          sprogkode, T, t, sti, aktiv: 'producenter/', harProducenter,
           titel: `${producent.navn} · ${T.sted_navn}`,
           beskrivelse: `${producent.navn}. ${T.sted_undertitel}`,
           stil: producentSkabelon.hovedStil ? producentSkabelon.hovedStil(ctx) : '',
           main: producentSkabelon.render(ctx),
         }));
         sider++;
+      }
+
+      /* --- producentindekset (F1). Foer 24.08.2026 fandtes producentsiderne,
+         men INGEN side linkede til dem, og producenter/index.html fandtes
+         ikke — 26 sider uden en eneste doer ind. Indekssiden ligger praecis
+         paa producenter/, som topnavigationens led peger paa. --- */
+      if (typeof producentSkabelon.renderIndeks === 'function') {
+        const sti = 'producenter/';
+        const ctx = grund(sti);
+        skrivFil(path.join(ud, sprogkode, 'producenter', 'index.html'), skal({
+          sprogkode, T, t, sti, aktiv: 'producenter/', harProducenter,
+          titel: `${t('nav_producenter')} · ${T.sted_navn}`,
+          beskrivelse: T.sted_undertitel,
+          main: producentSkabelon.renderIndeks(ctx),
+        }));
+        sider++;
+      } else {
+        console.error('  advarsel: producent.mjs har ingen renderIndeks(ctx) — '
+          + 'producenter/index.html bygges ikke, og topnavigationens led peger i luften (F1).');
       }
     }
 

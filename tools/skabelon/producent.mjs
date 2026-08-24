@@ -43,7 +43,7 @@
  *   producent_modeller · producent_modeller_titel · producent_hjemsted ·
  *   eu_kolonne_titel · eu_kolonne_forklaring · eu_kolonne_tom · eu_ce_ingen ·
  *   eu_ce_nogle · eu_ce_nej · producent_ingen_modeller · producent_alle ·
- *   tabel_model
+ *   tabel_model · producent_model_en (ental — "1 modeller" er ikke dansk)
  */
 
 import { skal, hjaelp } from './side.mjs';
@@ -86,6 +86,11 @@ function hjemstedAf(modeller) {
     byer.add(String(b));
   }
   return byer.size === 1 ? [...byer][0] : undefined;
+}
+
+/** "{n} modeller", men aldrig "1 modeller": ental har sin egen noegle. */
+function modelTal(i18n, n) {
+  return n === 1 ? T(i18n, 'producent_model_en') : flet(T(i18n, 'producent_modeller'), { n });
 }
 
 /** Modellerne, uanset hvad noeglen hedder. */
@@ -297,7 +302,7 @@ function modelafsnit(ctx, modeller) {
   }
   return `<section class="sektion" aria-labelledby="modeller-h">
 <div class="sektion-hoved">
-<h2 class="t-h2" id="modeller-h">${esc(flet(T(i18n, 'producent_modeller'), { n: modeller.length }))}</h2>
+<h2 class="t-h2" id="modeller-h">${esc(modelTal(i18n, modeller.length))}</h2>
 </div>
 <ul class="gitter">
 ${modeller.map((m) => modelkort(ctx, m)).join('\n')}
@@ -313,13 +318,14 @@ function alleProducenter(ctx) {
   if (alle.length < 2) return '';
   const her = ctx.producent?.slug;
   const punkter = alle.map((p) => {
-    const n = p.antal ?? (Array.isArray(p.modeller) ? p.modeller.length : null);
+    const n = p.antal ?? (Array.isArray(p.modeller) ? p.modeller.length
+      : Array.isArray(p.robotter) ? p.robotter.length : null);
     const navn = p.slug === her
       ? `<span class="pnavn" aria-current="page">${esc(p.navn)}</span>`
       : `<a class="pnavn" href="${esc(sti(ctx, 'producent', p.slug))}">${esc(p.navn)}</a>`;
     return `<li>${navn}` +
       (p.land ? `<span class="pland">${esc(TD(i18n, 'land_' + p.land, p.land))}</span>` : '') +
-      (n === null ? '' : `<span class="pantal figur">${esc(flet(T(i18n, 'producent_modeller'), { n }))}</span>`) +
+      (n === null ? '' : `<span class="pantal figur">${esc(modelTal(i18n, n))}</span>`) +
       `</li>`;
   }).join('\n');
   return `<section class="sektion" aria-labelledby="alle-h">
@@ -362,4 +368,61 @@ ${alleProducenter(arbejde)}
 `;
 }
 
-export default { render };
+/* ----------------------------------------------------------------- indeks */
+
+/**
+ * Producentindekset — siden paa /<sprog>/producenter/, F1's manglende doer ind.
+ * Ét led pr. producent: navn (link), land og antal modeller i kataloget.
+ * Ingen vurdering og ingen raekkefoelge ud over alfabetet: en sortering efter
+ * "stoerst foerst" ville vaere en redaktionel skala, vi ikke har metode til.
+ *
+ * Markup'en bruger KUN klasser, der findes i system.css/generator.css
+ * (katalog-hoved, raekker/raekke, v v-tekst, figur). .prodliste/.pnavn fra
+ * den forladte sider.css genbruges IKKE — den fil indgaar ikke i bygget.
+ *
+ * Linket er `<slug>/` og ikke sti(ctx, 'producent', …): siden ligger selv i
+ * producenter/, saa barnelinket kan ikke pege forkert, heller ikke uden ctx.url.
+ */
+export function renderIndeks(ctx) {
+  const H = ctx?.hjaelp ?? hjaelp;
+  const { i18n } = ctx;
+  const alle = (Array.isArray(ctx?.producenter) ? ctx.producenter : [])
+    .map((p) => ({
+      ...p,
+      antal: p.antal ?? (Array.isArray(p.modeller) ? p.modeller.length
+        : Array.isArray(p.robotter) ? p.robotter.length : null),
+    }))
+    .sort((a, b) => String(a.navn ?? '').localeCompare(String(b.navn ?? ''), ctx?.sprog ?? 'da'));
+
+  const raekker = alle.map((p) => {
+    // Landet er et felt som ethvert andet: mangler det, staar hullet med
+    // tilstandens eget sprog — aldrig som en tom plads (begraensning 5).
+    const landDel = p.land
+      ? `<span class="v v-tekst">${esc(TD(i18n, 'land_' + p.land, p.land))}</span>`
+      : (typeof H?.tilstand === 'function' ? H.tilstand('ikke_oplyst', i18n) : '');
+    const antalDel = p.antal === null ? ''
+      : ` <span class="figur">${esc(modelTal(i18n, p.antal))}</span>`;
+    return `<div class="raekke">
+<dt><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></dt>
+<dd>${landDel}${antalDel}</dd>
+</div>`;
+  }).join('\n');
+
+  return `<main class="side" id="hoved">
+<div class="rum">
+<div class="katalog-hoved">
+<h1 class="t-h1">${esc(T(i18n, 'nav_producenter'))}</h1>
+<p class="t-broed maal">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</p>
+</div>
+<section class="sektion" aria-labelledby="prodliste-h">
+<h2 class="t-h2 kunskaerm" id="prodliste-h">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</h2>
+<dl class="raekker">
+${raekker}
+</dl>
+</section>
+</div>
+</main>
+`;
+}
+
+export default { render, renderIndeks };
