@@ -1,0 +1,109 @@
+slug: genisom-qiuqiu-sp1
+navn: Qiuqiu SP1
+producent: GENISOM AI
+producentland: Kina
+producentby: Beijing / Suzhou
+status: i_produktion
+anvendelse:
+  vaerdi: [industri, inspektion]
+  citat: ["智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人", "自主巡检 数据回传 人员零涉险"]
+  kilde: https://www.genisomai.com/product-robot/sp1
+  hentet: 2026-08-24
+  note: "Egen oversaettelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til hoejrisiko-industrimiljoeer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverfoersel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"naeste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLAEGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlaeg), 化工储罐区 (kemisk lagertankomraade), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte saet, saa de er IKKE brugt som citat/vaerdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (hoejrisiko-industrimiljoe) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion)."
+noter:
+  - "STOPPROEVE (firbenet, hjul-ben-hybrid): bestaaet, entydigt. Meta-keywords paa SP1's egen produktside: \"防爆巡检机器人,四足机器人,机器狗,防爆机器人,防爆机器狗\" (四足机器人 = quadruped robot, 机器狗 = robot dog). Sidens egen produktkort naevner eksplicit tre bevaegelsesformer: \"匍匐通行\" (kravlende gennemgang), \"轮式行进\" (hjuldrevet fremdrift paa fladt terraen) og \"足式越障\" (benbaseret forhindringsovervindelse, \"稳健攀爬楼梯、跨越台阶及复杂障碍路面\" - stabil trappeklatring, trinoverskridelse og komplekst forhindringsterraen). https://www.genisomai.com/product-robot/sp1, hentet 2026-08-24. Hjul-ben-hybrid - taeller efter opgavens egen regel om at hjul-ben-hybrider er firbenede."
+  - "EKSPLOSIONSKLASSE, IKKE ET SKEMAFELT: sidens hero-badge skriver \"Ex d IIC T6 Gb\" (\"全链路隔爆屏障\" - fuld-kaede eksplosionsbarriere, godkendt til zone 1/2 eksplosive gasmiljoeer). Meta-descriptionen skriver en let afvigende streng \"Ex IIC T6 Gb\" (uden \"d\") - hero-badgets mere praecise \"Ex d IIC T6 Gb\" er brugt her som citat i denne note. Skemaet har intet eksplosionssikringsfelt, saa oplysningen kan ikke lande i felter-blokken - noteret her, saa den ikke gaar tabt."
+  - "LIDAR-FELTET SAT TIL IKKE_OPLYST PAA GRUND AF ET TVETYDIGT ORD, IKKE FORDI INTET BLEV FUNDET: SP1's marketingtekst skriver \"感知雷达封装于隔爆视窗之后，保障精准感知\" (opfattelsesradar/-lidar indkapslet bag et eksplosionssikkert vindue, sikrer praecis opfattelse). Ordet \"雷达\" betyder generisk \"radar\" og bruges ikke her sammen med \"激光\" (som ellers klart betyder LiDAR paa L2-W Ultra's side: \"3D激光雷达\"). Uden det praecise ord er det en gaetning at kalde det LiDAR specifikt - regel 1. Feltet staar derfor ikke_oplyst."
+  - "KOMMUNIKATION OG LADEMETODE, IKKE KORTLAGT TIL ET FELT: strukturerede tabel oplyser \"通讯方式: WIFI/4G/5G\" og \"充电方式: 无线/有线\" (lademetode: traadloes/kabelforbundet) - INGEN af de to felter passer praecist til et af de 30 skemafelter (kommunikationsform er ikke et felt; \"lademetode\" er ikke det samme som \"dockingstation\", som specifikt kraever en fysisk ladestation nogen har bekraeftet foelger med). dockingstation staar derfor ikke_oplyst, selvom traadloes ladning antyder en ladepude/-station kan findes - det er ikke eksplicit bekraeftet paa siden."
+  - "TYNDESTE KILDE I DENNE RUNDE: SP1's egen strukturerede specifikationstabel har kun TRE sektioner (基础信息/性能参数/功能列表) mod L1/L2/M1's fem-seks - INGEN sektion for ledparametre (frihedsgrader, moment) og INGEN sensor-sektion (kamera, IMU, LiDAR). Taetheden er derfor markant lavere end de oevrige fire poster i dette spor, og det er en aegte forskel i, hvad producenten oplyser om denne specifikke model - ikke en indsamlingsfejl."
+felter:
+  egenvaegt:
+    vaerdi: 100
+    enhed: kg
+    operator: "<="
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "\"本体重量: ≤100 kg\"."
+  laengde:
+    vaerdi: 1190
+    enhed: mm
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\" - ingen \"约\" (cirka)-tegn, ingen operator sat."
+  bredde:
+    vaerdi: 640
+    enhed: mm
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+  hoejde:
+    vaerdi: 925
+    enhed: mm
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 50
+    enhed: kg
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekraeftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gaaelast)."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 1.2
+    enhed: m/s
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+  haeldning:
+    vaerdi: 35
+    enhed: "°"
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "\"最大爬坡角度: 35°\", bekraeftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\"."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 23
+    enhed: cm
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "\"攀爬能力: 23cm连续台阶\" (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet paa siden - derfor er forhindring_enkelt ikke_oplyst i stedet for at genbruge dette tal."
+  ip_klasse:
+    vaerdi: IP66
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+  temp_min:
+    vaerdi: -20
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+  temp_maks:
+    vaerdi: 55
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 4
+    enhed: t
+    operator: ">="
+    ved_last: ikke_oplyst
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal staar direkte paa denne raekke. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds paa siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor ved_last: ikke_oplyst, jf. regel 8 og samme forsigtighed som L2/M1's driftstidsfelter."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "AI强化学习运控 (支持); 自主导航 (支持); 智能避障 (支持); 二次开发支持; SLAM/IMU/AI-beslutningsfusion (\"融合 SLAM、IMU 与 AI 决策，自主规划、实时避障，现场信息同步回传\" - fusion af SLAM, IMU og AI-beslutning, autonom planlaegning, realtidsundvigelse, on-site dataoverfoersel i realtid)"
+    kilde: https://www.genisomai.com/product-robot/sp1
+    hentet: 2026-08-24
+    advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau paa en skala."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  ce_oplyst: ikke_oplyst
