@@ -25,11 +25,7 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:\\Praktik\\websites\\udstilling-wt-billeder",
-      "C:\\Praktik\\websites\\udstilling-wt-i18n",
-      "C:\\Praktik\\websites\\udstilling-wt-naevner",
-      "C:\\Praktik\\websites\\udstilling-wt-grill",
-      "C:\\Praktik\\websites\\udstilling-wt-design"
+      "C:\\Praktik\\websites\\udstilling-wt-detalje"
     ]
   },
   "hooks": {
