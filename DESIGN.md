@@ -572,3 +572,36 @@ stemte: `blaek3`:`panel` 6,16 · `blaek3`:`bund` 5,55 · `hegn`:`tom` 3,20 · `h
 efterprøvet ved CSS-sporing (ingen browser i værktøjskæden — samme metode, projektets
 egne målescripts allerede bruger): 1180, 680, 679 og 420 px, alle uden overlap eller
 mellemrum mellem forsidens nye regler og systemets eksisterende.
+
+**Opdateret 24. aug 2026 (kataloghærdning, `fund/FUND-kort.md`).** Fire målte problemer på
+kortgitteret rettet, alle efterprøvet med Playwright over alle 46 kort ved 1440 og 360 px:
+
+- **Klippede etiketter (0 → verificeret 0).** Den kompakte nøgletalsstribe gik fra tre til
+  to spalter ved alle bredder (var kun to under 420 px) — ved tre spalter var cellen for
+  smal til "NYTTELAST"/"DRIFTSTID" (284 klip/naboklip målt ved 1440 px). Samtidig lå der en
+  skjult fejl: `.stribe .v`/`.stribe--kompakt .v`/`.raekke .v`/`td .v` satte figurens
+  skriftstørrelse direkte på `.v` med to-klasses specificitet, som *altid* slog
+  `.v-ikke`/`.v-billede` (,46em) og `.v-nej`/`.v-ja` (,62em, kun én klasse) — "ikke oplyst"
+  stod derfor fladt i tallets egen størrelse (20 px i et kort, ikke de tilsigtede ~9 px),
+  hvilket både brød reglen om at tilstande aldrig deler skriftgrad med tal og bidrog til
+  klipningen. Rettet med tilsvarende to-klasses regler pr. kontekst, alle over 10,5 px-gulvet.
+- **Advarsel-støj (174 synlige ord → 0).** 174 af 181 forbeholdschips på forsiden viste
+  ordet "Advarsel" på 41 af 46 kort. Den korte tekst fra 21. aug er *ikke* rullet tilbage —
+  den ligger stadig fuldt ud i `title` og i en skærmlæsertekst — men den altid-synlige
+  ordchip er skiftet til et lille hævet tegn ("*"), i samme typografiske familie som
+  kildemærkets hævede bogstav. Ny komponent: `.forbehold--tegn`.
+- **Måltro-pladen** fik et titelfelt: etiketten ("LÆNGDE × HØJDE") står nu sammen med
+  producentens egne tal (fx "610 mm × 406 mm"), adskilt af en hårfin linje og en
+  `--panel-ro`-flade som eget lag — ikke en skygge, så reglen om det ubevægelige hul står
+  ved magt. To små målestreger hænger ned fra kassens egne bund-hjørner.
+- **Kortets fodnote** samlet fra en stak af 2-3 monospor-linjer til ét løbende afsnit
+  (`<span class="led">` pr. oplysning). Intet ord, kildetal eller forbehold er fjernet.
+
+Sidehøjde på `/da/`-forsiden ved 1440 px: 12625 → 11954 px. Ingen af rettelserne rørte
+`.v-tal`, `.v-nul`, `.v-nej`, `.v-ja`s farve- eller formsprog, og de fire datatilstande
+forbliver adskilt efter reglen ovenfor.
+
+Samtidig rettet (indhold, ikke system): `billednote_tekst` i `data/i18n/da.json` og
+`en.json` påstod "ingen billeder fra producenterne" — usandt siden b22da4f koblede 32
+producentfotos på. Ny tekst følger S1/L26 i STATUS.md uændret; komponentbeskrivelsen
+ovenfor krævede ingen rettelse, den påstod aldrig noget om billedernes antal.
