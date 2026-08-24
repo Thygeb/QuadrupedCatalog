@@ -1,0 +1,146 @@
+slug: genisom-gangben-l2-w-ultra
+navn: Gangben L2-W Ultra
+producent: GENISOM AI
+producentland: Kina
+producentby: Beijing / Suzhou
+status: i_produktion
+anvendelse:
+  vaerdi: [sikkerhed_overvaagning, forsvar_beredskab, forskning_udvikling, logistik]
+  citat: ["安防巡逻", "应急消防", "科研教育", "短途配送"]
+  kilde: https://www.genisomai.com/product-robot/L2
+  hentet: 2026-08-24
+  note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" staar EN gang paa L2-siden for hele Gangben L2-familien, foer variant-fanebladene. Citeret selvstaendigt fra samme URL, ikke via arvet_fra. Egen oversaettelse: 安防巡逻 -> sikkerhed_overvaagning; 应急消防 -> forsvar_beredskab; 科研教育 -> forskning_udvikling; 短途配送 -> logistik."
+noter:
+  - "STOPPROEVE (firbenet, hjul-ben-hybrid): bestaaet. L2-siden markerer denne variant \"轮足环视版\" (hjul-fod rundtomsyn-udgave) i techParamsData - samme hjul-ben-hybridtype som L2-W, med et udvidet 360°-sensorsaet oveni."
+  - "INGEN SELVSTAENDIG URL: samme forbehold som L2-W - findes udelukkende som fane-skift paa L2's egen side (https://www.genisomai.com/product-robot/L2, techParamsData.datas[2], classname \"钢镚 L2-W Ultra\", id 1250)."
+  - "MARKETINGKORTETS TAL (70cm forhindringshoejde, 756Wh batteri) ER BEVIDST IKKE BRUGT HER: samme forbehold som L2-W - hero-marketingkortets tal staar en gang for hele siden og er ikke gentaget i L2-W Ultra's egen datablok, derfor ikke tilskrevet denne variant specifikt."
+  - "L2-W ULTRA HAR EGEN LIDAR-SPECIFIKATION, SOM L2/L2-W IKKE HAR: sensor-sektionen for netop denne variant navngiver \"3D激光雷达: 工业级96线激光雷达*2\" (industriel 96-linjers LiDAR, 2 stk.) - eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal."
+felter:
+  egenvaegt:
+    vaerdi: 27
+    enhed: kg
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"整机重量（含电池）: 27 kg\" i L2-W Ultra's egen datablok - samme tal som L2-W, ingen \"约\" (cirka)-tegn."
+  laengde:
+    vaerdi: 760
+    enhed: mm
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" - identisk med L2-W."
+  bredde:
+    vaerdi: 450
+    enhed: mm
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+  hoejde:
+    vaerdi: 500
+    enhed: mm
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "Krybende maal (\"趴地尺寸\") er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand."
+  frihedsgrader:
+    vaerdi: 12
+    enhed: DoF
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\"."
+  nyttelast_gaaende:
+    vaerdi: 16
+    enhed: kg
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" - samme tal som L2/L2-W."
+  nyttelast_staaende:
+    vaerdi: 150
+    enhed: kg
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"极限静态150kg\" staar inde i \"最大载荷\"-raekken i denne variants egen datablok. Ikke krydsbekraeftet af en separat marketingtekstlinje for netop denne variant."
+  hastighed:
+    vaerdi: 3.7
+    enhed: m/s
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"最大速度: 3.7 m/s\" - samme tal som L2-W, hoejere end basisudgavens 3.2 m/s. En separat \"极限速度\" paa 5 m/s er ogsaa oplyst - ikke brugt som hovedvaerdi."
+  haeldning:
+    vaerdi: 40
+    enhed: "°"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 25
+    enhed: cm
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "Etiket \"连续攀爬楼梯高度\" - samme tal som L2-W, hoejere end basisudgavens 22cm."
+  ip_klasse:
+    vaerdi: IP66
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+  temp_min:
+    vaerdi: -20
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+  temp_maks:
+    vaerdi: 55
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi_min: 3
+    vaerdi_maks: 4.5
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"续航时间: 4.5H（空载） 3H（满载）\" - LAVERE end L2/L2-W's 5.5H/3.5H, som ventet naar det udvidede sensorsaet (dobbelt LiDAR, RTK) traekker mere stroem. Kvalitativ lastbetingelse, intet kg-tal - derfor ved_last: ikke_oplyst. Raekkevidde \"续航里程: 16KM（空载） 10KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi: 1.5
+    enhed: t
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "Tilbehoersliste har TO raekker: \"充电座: 标配\" (standardudstyr) OG separat \"充电桩（包含自主回充功能）: 选配\" (tilvalgt). Samme to-niveau-moenster som L2/L2-W."
+  lidar:
+    vaerdi: "2x industriel 96-linjers 3D LiDAR"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"3D激光雷达: 工业级96线激光雷达*2\" - eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal. RTK-positioneringsmodul (\"RTK定位模块: 支持\") er ogsaa oplyst i samme sensor-sektion; skemaet har intet dedikeret RTK-felt, saa det er gentaget under autonominiveau nedenfor."
+  kameraer:
+    vaerdi: "Front-dobbeltkamera + rundtomsyn-fiskeoejearray, 2 x 2,07 MP"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"相机类型: 前向双目+周视鱼眼阵列\" og \"相机像索: 207万*2\". Pixel-tallet (207万*2) staar kun ved siden af \"前向双目\" (front-dobbeltkameraet) i raastrengen - fiskeoeje-arrayets eget pixeltal er IKKE separat oplyst, saa 2,07 MP boer laeses som daekkende dobbeltkameraet, ikke noedvendigvis hele arrayet."
+  compute:
+    vaerdi: "8-kernet CPU + 6-kernet CPU, 80 TOPS"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"基础算力: 8核高性能CPU+ 6核高性能CPU（80TOPS）\" - to CPU'er, laveste TOPS-tal (80) af de tre GENISOM-modeller, der oplyser TOPS (L2 86, M1 100, denne 80) - formentlig fordi den ekstra sensorbelastning (dobbelt LiDAR, RTK) deler regnekraften."
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "AI强化学习运控 (标配); UWB (支持); 自主跟随 (支持, GLUE 全向自主跟随); 智能避障 (激光+视觉 融合避障); 目标追踪 (支持); 二次开发支持; OTA升级; 自主导航 (支持); 实时图像传输 (支持); RTK定位模块 (支持); 特技动作 (倒立/双腿站立/托马斯/后空翻); 基础动作 (站立/卧倒/匍匐前进/向前跳/向上跳/爬高台/锁定动作)"
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "Kvalitativ liste fra denne variants egen funktionsliste - rigere end L2/L2-W's, tilfoejer autonom navigation som standard (ikke tilvalg), maalsporing, RTK og laser+vision-fusionsundvigelse."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte:
+    vaerdi: ["USB3.0 x2", "M12 17PIN x1", "M12 18PIN x1", "5G-kortplads x1"]
+    kilde: https://www.genisomai.com/product-robot/L2
+    hentet: 2026-08-24
+    advarsel: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽\" - BEMAERK: 5G-kortplads, ikke 4G som paa L2/L2-W. Genlaest og bekraeftet forskellig fra de to andre varianter."
+  pris: ikke_oplyst
+  ce_oplyst: ikke_oplyst
