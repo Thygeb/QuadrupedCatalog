@@ -354,29 +354,102 @@ kan skelnes uden farve: **udfyldt** (nej), **åben med fyldt kerne** (ja), **sti
 
 ## Komponenter
 
-### Hero'en og vægtstigen
+### Hero'en
 
-Tilføjet 21. aug 2026. Hero'en var ren tekst på en hvid flade lige under det hvide bånd —
-to hvide flader adskilt af én hårfin linje læses som ét bånd, ikke som en åbning. Den
-ligger nu på sidens grå bund, og det hvide panel i den er vægtstigen: den eneste figur,
-forsiden har.
+Ombygget 24. aug 2026 (forsideombygningen, JPK). Ren tekst: overskrift, lede, søgning.
+Ingen figur — figuren flyttede til yderpunkterne lige nedenfor, fordi et fotografi
+tjener "Udstillingssalen" bedre end en abstrakt akse.
 
-- **Fladen:** `.hero` har ingen egen baggrund og arver `--bund`. Overskrift og lede
-  (`.hero-ord`) ligger direkte på bunden; kun vægtstigen er et hvidt panel.
-- **Vægtstigen** er ét maerke pr. robot med oplyst egenvægt, sat på en akse fra 0 til
-  næste hele 20-kg-trin over den tungeste robot, med de to klassegrænser (20/40 kg) som
-  korte tværstreger. Under aksen står de fire vægtklasser som **links** ned i deres egen
-  sektion — stigen er dermed også sidens indholdsfortegnelse, og den virker uden
-  JavaScript.
-- **Ingen robot er navngivet.** Hverken maerket på aksen eller et trin fører til én
-  bestemt maskine — det ville være en fremhævelse, og siden har ingen metode at
-  anbefale efter (samme regel som forbyder én robot i selve hero'en).
-- **Det fjerde trin** (vægt ikke oplyst) ligger uden for aksen, i hullets eget sprog:
-  stiplet `hegn`-kant, `tom`-flade, dæmpet tekst. De robotter, der ikke kan placeres, bliver
-  hverken gemt eller lagt i en klasse, de ikke hører til.
-- **Layout:** to spalter (ord / stige) over 1180 px, stablet derunder. Aksestrimlen og
-  dens tal er `aria-hidden` og forsvinder under 679 px — de fire trin bærer den samme
-  oplysning i tal, aksen er kun en visualisering af den.
+- **Fladen:** `.hero` har ingen egen baggrund og arver `--bund`. Grænsen mellem hero og
+  yderpunkter er en hårfin `linje`, ikke et fladeskift — det skiftet er forbeholdt
+  kataloget, se *Kataloget: fladen* nedenfor.
+- Ingen robot er navngivet i hero'en. At vælge én ville være en anbefaling, og siden har
+  ingen metode at anbefale efter.
+
+### Yderpunkterne
+
+Tilføjet 24. aug 2026 (forsideombygningen). Løser samme problem, vægtstigen (21.–24. aug,
+nu superseret) løste anderledes: DESIGN.md forbyder eksplicit "featured", fordi en
+fremhævelse er en kvalitetsdom, og PRODUCT.md's princip 4 rangerer producenternes
+åbenhed, ikke deres kvalitet. Et **yderpunkt** er ingen dom — den tungeste robot er ikke
+"bedre" end den letteste, den er bare tungest. Fire MÅLTE kendsgerninger — letteste,
+tungeste, hurtigste, længste driftstid — beregnet i `side.mjs`s `ekstremer()` af de
+samme data, kortene selv viser. Uafgjort løses deterministisk, alfabetisk på slug (regel
+skrevet i koden, ingen af de fire har i praksis et uafgjort resultat).
+
+- **Ét leder, tre følger.** DESIGN.md's ledestjerne tåler at ét billede fører og tre
+  følger — de fire behøver ikke være lige store. Lead-feltets foto er markant større end
+  et katalogkort (katalogets billedfelt ≈ 310–330 px i et 1440 px-gitter; leaden fylder
+  op mod 55–60 % af rummets bredde). Under 1181 px stables alle fire i én spalte.
+- **Hvilket af de fire, der leder, er redaktionelt — men billedvalget er det, ikke
+  tallet.** Målt 24. aug: "tungeste" (Unitree B2-W) og "letteste" (Yobotics Y10) er de
+  eneste billeder med henholdsvis en marketinginfografik (paaklæbet spec-tekst) og et
+  seks-robotters familiebanner — begge modsiger "maskinen står frit". "Hurtigste" (DEEP
+  Robotics Lynx S10) er et rent, tekstfrit enkeltbillede og er derfor lead. Reglen står i
+  koden (`forside.mjs`), ikke kun i dette dokument.
+- **Kortets ramme genbruges** (`--rund`, `--linje`, `--skygge`, hover til `#CFD4DB` +
+  `--skygge-loeft`) — samme sprog som `.kort`, ikke en ny komponentfamilie.
+- **Tallet** er `hjaelp.tal()`s almindelige `.v-tal`, samme kildemærke-mekanik som alle
+  andre tal på siden — intet særtal, ingen genvej uden om regel 1 (kilde på alt).
+  Lead-figuren får en ny, større kontekststørrelse, `clamp(36px, 3,6vw, 52px)` — ingen af
+  systemets tre eksisterende figurstørrelser (29/25/20 px) var bygget til at bære
+  aabningens visuelle vægt alene.
+- **Forklaringen står under gitteret, ikke over det.** Et forklarende afsnit mellem
+  overskrift og foto kostede plads, foerste skærm ikke havde råd til (se *Aabningens
+  budget* nedenfor).
+
+### EU-fundet
+
+Tilføjet 24. aug 2026. PRODUCT.md kalder EU-kolonnen sidens positionering nr. 2; målt
+24. aug 2026, at kun **2 af 46** robotter i kataloget har `ce_oplyst: true` — næsten
+ingen producent oplyser CE-mærkning, og det er sidens stærkeste egen-iagttagelse.
+Beregnes i bygget (`forside.mjs`, `hjaelp.ceTilstand()`), aldrig skrevet i hånden.
+**Læser udelukkende `ce_oplyst`** — CEO-beslutning 24. aug 2026 (L32, STATUS.md): de tre
+øvrige EU-felter (`eu_tilgaengelig`, `eu_service`, `leveringstid`) fjernes fra skemaet i
+et senere spor og indgår ikke her.
+
+- **Én sætning, ét stort tal — ikke en infografik.** Et stort mono-tal (`clamp(26px,
+  2,6vw, 34px)`) inde i én løbende sætning, læsbar på to sekunder. Intet gitter, ingen
+  celler, intet ikon-batteri.
+- Sidder på `--bund`, samme flade som resten af åbningen — ingen ny farve, ingen ramme.
+
+### Formålsfilteret
+
+Ombygget 24. aug 2026 fra en række på seks-syv små `.chip`-piller til en tydelig,
+indbydende indgang: `.formaal-gitter`, `repeat(auto-fill, minmax(190px,1fr))`, hver
+tile mindst 96 px høj med navn og et rigtigt figurtal.
+
+- **Stadig et FILTER, ikke en gruppering.** Tilesne er **links** ind i kataloget
+  (`robotter/#f-anv-<vaerdi>`), ikke afkrydsningsfelter eller en omgruppering af
+  forsidens kort: 29 af 46 robotter har mere end ét formål (målt), så en gruppering
+  ville vise samme robot i flere bunker.
+- **"Ikke oplyst" er en tile som de andre otte**, men i hullets sprog — `formaal--tom`:
+  stiplet `hegn`-kant, `tom`-flade, dæmpet tekst. Samme regel som alle andre huller:
+  aldrig farvet, aldrig skjult, aldrig sidst af pynt-grunde (den sorteres sidst, fordi
+  den ikke er en kategori, ikke fordi den skjules).
+- Tal og navn deler samme genbrugte figursprog som resten af siden (mono, tabulære
+  cifre) — ingen ny type-stemme for "endnu et tal".
+
+### Kataloget: fladen
+
+Tilføjet 24. aug 2026. `.katalog-flade` (`--panel-ro`, en anelse lysere end `--bund`)
+er sidens TONESPRING: der, hvor kataloget begynder, skifter grunden flade i stedet for
+at trække en streg. Målt: `--bund` `rgb(242,243,245)` mod `--panel-ro`
+`rgb(247,248,250)` — begge eksisterende, målte poletter (ingen ny farve), forskellen er
+bevidst lille, fordi paletten selv er næsten farveløs med vilje. Signalet er derfor
+flerlaget, ikke kun farven: fladeskiftet, en generøs `--r7`-luft til den første
+sektionsoverskrift, og selve overskriften ("Vægtklasse · Under 20 kg") sammen udgør
+tonespringet.
+
+### Åbningens budget
+
+JPK's kompositionstillæg 24. aug 2026: åbningen (titel + lede + yderpunkter) må fylde op
+til 1,5 skærmhøjde ved 1440×900 — over den grænse er den blevet en salgsside. Målt
+efter det sidste kompressionstrin: `hero` + `yderpunkter-sektion` slutter ved **1348 px**
+fra sidens top (budget 1350 px). Hero'ens polstring, springet hero→yderpunkter og
+yderpunkter-gitterets egen top-luft er alle trukket fra systemets skala (r3–r7), ikke
+opfundet ved siden af den — kun VÆRDIERNE inden for skalaen er strammet, ikke skalaen
+selv.
 
 ### Knapper
 
@@ -392,14 +465,18 @@ Systemet har **én** knapform, og den er navigation inde på sitet.
 **Der findes ingen købsknap, ingen demoknap og ingen prisforespørgsel.** Formen er ikke
 fravalgt i skabelonerne; den er ikke defineret i systemet.
 
-### Filtre og chips
+### Filtre (kataloget)
+
+Kataloget (`katalog.mjs`)s egne afkrydsningsfelter — ikke forsidens formålsfilter, se
+*Formålsfilteret* under Komponenter/Åbningen. `.chip`/`.chips` (forsidens tidligere,
+små anvendelseslænker) er nedlagt 24. aug 2026 og erstattet af `.formaal-gitter`.
 
 - **Form:** 8 px radius, mindst 44 px høj, hårfin `linje`-kant på hvid flade
 - **Hvile:** `blaek2`-tekst med et monospor antal i `blaek3`
 - **Hover:** kanten skifter til `hegn`, teksten til fuld blæk
 - **Valgt:** accentfyldt flade, hvid tekst, antallet i `accent-ro`
 - **Tilstanden nås på tre måder** — `:checked`, `:target` og `aria-current` — så et
-  filterlink fra forsiden også *ses* som valgt uden en linje JavaScript
+  filterlink fra forsidens formålsfilter også *ses* som valgt uden en linje JavaScript
 - Selve afkrydsningsfeltet er skjult, men fokuserbart; fokusringen tegnes på etiketten
 
 ### Kort
@@ -500,6 +577,17 @@ skærmlæser skal have dem i.
 Ikonets to tilstande bærer den samme oplysning som figuren: accent når cellen er oplyst,
 `hegn` når den er tom. Når **ingen** af de seks er oplyst, ville seks huller være støj;
 da erstattes hele striben af ét udsagn på hullets egen flade, og udsagnet siger hvorfor.
+
+**Kortets kompakte stribe er FIRE celler, ikke fem** (JPK, 24. aug 2026, `side.mjs`):
+egenvægt, nyttelast_gående, hastighed, driftstid — `ip_klasse` er fjernet. Målt over
+alle 46 datafiler: egenvægt 37/46, nyttelast_gående 36/46, hastighed 36/46, driftstid
+36/46, mod ip_klasse's 23/46 (JPK's eget tal fra briefet, 22/46, lå tæt på — begge peger
+på samme konklusion: en celle, der står tom på over halvdelen af kortene, lærer
+læseren at springe den over). Fire celler fylder `.stribe--kompakt`s to-spalters gitter
+præcist (2×2); den tidligere "femte/ulige celle får hele sidste række"-regel er fjernet
+som død kode. Robotsidens egen, fulde stribe (`robot.mjs`, uden for denne agents
+ejerskab) beholder sine fem felter — de to sider kan begrunde hver sin bredde, fordi
+robotsiden har mere plads end et kort.
 
 ### Billednoten
 
@@ -605,3 +693,73 @@ Samtidig rettet (indhold, ikke system): `billednote_tekst` i `data/i18n/da.json`
 `en.json` påstod "ingen billeder fra producenterne" — usandt siden b22da4f koblede 32
 producentfotos på. Ny tekst følger S1/L26 i STATUS.md uændret; komponentbeskrivelsen
 ovenfor krævede ingen rettelse, den påstod aldrig noget om billedernes antal.
+
+---
+
+**Opdateret 24. aug 2026 (forsideombygningen).** CEO'en (JPK) besluttede retningen efter
+interview, grilning og måling: læseren er den nysgerrige fagperson uden et modelnavn i
+hovedet, ikke (kun) den tekniske indkøber, PRODUCT.md's "Users" endnu beskriver
+(uafklaret modstrid, videreført til et andet spor). Fem ændringer, alle i
+`tools/skabelon/forside.mjs`, `tools/skabelon/side.mjs`, `assets/generator.css`,
+`assets/system.css`, `data/i18n/{da,en}.json`:
+
+1. **Vægtstigen fjernet, yderpunkterne tilføjet.** Se *Yderpunkterne* under Komponenter.
+   Løser "ingen fremhævet robot" ved at vise MÅLTE ekstremer (letteste/tungeste/
+   hurtigste/længste driftstid) i stedet for en anonym akse-graf — et yderpunkt er ingen
+   kvalitetsdom, en fremhævelse ville have været det.
+2. **EU-fundet tilføjet.** Én sætning: "2 af 46 robotter i kataloget oplyser
+   CE-mærkning." Beregnet af `hjaelp.ceTilstand()`, læser udelukkende `ce_oplyst` (CEO,
+   24. aug, L32 STATUS.md — de tre andre EU-felter forlader skemaet i et senere spor).
+3. **Formålsfilteret gjort tydeligt.** `.chip` → `.formaal-gitter`, se *Formålsfilteret*.
+4. **Kortets kompakte stribe: fem felter → fire.** `ip_klasse` fjernet (23/46 dækning
+   mod de fire tilbageblevnes 36-37/46). Rammer også katalogsidens kort (delt
+   komponent, `hjaelp.kort()`), ikke robotsidens egen, fulde stribe.
+5. **Kataloget fik sin egen flade** (`.katalog-flade`, `--panel-ro`) som tonespring fra
+   åbningen — se *Kataloget: fladen*.
+
+**Målt efter ombygningen** (Playwright, samme klip/overlap-metode som 24. aug ovenfor,
+kørt over ALLE 46 kort plus de fire nye yderpunkt-felter og otte formåls-tiles, ved
+1440 og 360 px, /da/ og /en/):
+
+- **Klip/overlap (streng test — `overflow:hidden`-ramt eller søskende, der dækker
+  hinanden >2 px i begge akser): 0 ved begge bredder, begge sprog, både før og efter.**
+  Ingen regression.
+- **Bredere heuristik** (`scrollWidth > clientWidth`, tæller også en værdi, der ombryder
+  til to linjer uden at blive klippet): 10 → 15 fund ved 1440 px, 6 → 6 ved 360 px. Alle
+  15 sidder på `.stribe--kompakt .v-tal` (hastigheds- og vægtværdier med et
+  kildemærke+forbeholdstegn), ALLE allerede til stede før forsideombygningen (samme
+  robotter, samme tal — kun deres indeks i målescriptet flyttede sig, fordi scriptet nu
+  også tæller de nye åbningselementer i samme liste). Efterprøvet med et separat
+  diagnosescript, der fjerner den skjulte skærmlæsertekst og genmåler: `scrollWidth`
+  ændrer sig ikke, og et zoomet skærmbillede af det værste tilfælde (Spot, "1,6 m/s")
+  viser INGEN synlig klipning — værdien ombryder til to linjer inde i `.v`s eget
+  `display:inline-flex;flex-wrap:wrap`, præcis den mekanisme, kommentaren ved
+  `overflow-wrap:break-word` (system.css §10) selv beskriver: "værdien må hellere
+  ombryde end skubbe cellen ud af sit spor." Ikke en regression i betydningen "noget der
+  nu klippes, som ikke gjorde før" — en allerede eksisterende, ikke-synlig
+  ombrydningsreserve, der nu rammes 5 gange mere, fordi hastighed er flyttet fra en
+  ulige femtecelle (som tidligere fik hele rækkens bredde) til en almindelig halvbred
+  celle. Ingen kodeændring lavet for dette, fordi den strenge test — den, der faktisk
+  svarer til "klippet eller overlappende" — er 0.
+- **Kontrast** (faktisk gengivet, Playwright + WCAG-formlen, ikke token-par i teorien):
+  13 nye tekst/flade-par målt, laveste **5,35 : 1** (`formaal--tom`s tekst på `--tom`,
+  identisk med det allerede dokumenterede `blaek3`:`tom`-par ovenfor) — alle 13 over
+  4,5 : 1. Højeste 18,11 (kort/yderpunkt-navn på hvidt panel).
+- **Åbningens budget:** hero + yderpunkter-sektion slutter 1348 px fra sidens top ved
+  1440×900 (budget 1350 px, JPK's tillæg). Yderpunkternes lead-foto: 59 % af dets højde
+  er synlig inden for de første 900 px.
+- **46 kort i statisk HTML uden JavaScript**, begge sprog, verificeret med en
+  Playwright-kontekst med `javaScriptEnabled:false` (ikke kun byggets egen påstand).
+- **Sidehøjde ved 1440 px:** 12116 → 12400 px (+284 px). Ved 360 px: 35984 → 35177 px
+  (−807 px) — mobiludgaven blev KORTERE, fordi yderpunkternes og formålsfeltets
+  enkeltspalte-layout er mere pladseffektivt end den gamle stige+chip-kombination var.
+- `node tools/validate.mjs`: 0 fejl. `node tools/linktjek.mjs`: 0 døde interne links
+  (125 sider). Begge sprog bygger.
+
+**Billedvalget til lead-yderpunktet er en selvstændig, dokumenteret beslutning:** de fire
+kandidaters fabrikantbilleder blev gennemgået enkeltvis. Tungeste (Unitree B2-W) og
+letteste (Yobotics Y10) viste sig at være hhv. en spec-infografik med paaklæbet
+marketingtekst og et seks-robotters familiebanner med kinesisk overskrift — begge
+modsiger "maskinen står frit". Hurtigste (DEEP Robotics Lynx S10) er det eneste
+tekstfrie enkeltbillede af de fire og blev valgt som lead; reglen og begrundelsen står i
+`forside.mjs`s kildekode, ikke kun her.

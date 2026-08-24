@@ -375,15 +375,18 @@ a:hover{text-decoration-thickness:2.5px}
    ca. 95-115 px, og etiketterne NYTTELAST og DRIFTSTID (66-77 px i 10,5 px
    mono med spatiering) klippede paa hvert kort - 284 synlige fund. Ved
    360 px, hvor reglen under 420 px allerede brugte to spalter, var der 0.
-   Det smalle layout var det rigtige; nu gaelder det hele vejen op. Femte
-   celle (IP) faar hele sidste raekke, saa fem celler i to spalter ikke
-   efterlader et tomt felt. */
+   Det smalle layout var det rigtige; nu gaelder det hele vejen op.
+
+   FIRE celler, ikke fem (JPK, 24. aug 2026): ip_klasse er fjernet fra
+   kortets stribe i tools/skabelon/side.mjs — maalt daekning 23/46, mod de
+   fire tilbageblevnes 37/46, 36/46, 36/46, 36/46. Fire celler i to spalter
+   fylder gitteret praecist (2x2), saa den tidligere "femte celle faar hele
+   sidste raekke"-regel er fjernet som doed kode. */
 .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr));box-shadow:none;
   border-radius:var(--rund-ind)}
 .stribe--kompakt > li{padding:12px 12px 11px;gap:9px;border-top:0}
 .stribe--kompakt > li:nth-child(2n+1){border-left:0}
 .stribe--kompakt > li:nth-child(n+3){border-top:1px solid var(--linje)}
-.stribe--kompakt > li:last-child:nth-child(odd){grid-column:1/-1}
 .stribe--kompakt .v{font-size:20px}
 .stribe--kompakt .krop > .v{min-height:23px}
 .stribe--kompakt .ikon{width:19px;height:19px;stroke-width:1.8}

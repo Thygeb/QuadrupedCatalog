@@ -32,6 +32,20 @@
   "soeg_kraever_js": "The search field requires JavaScript and is shown only when it is enabled. The filters work without it.",
   "soeg_ingen_traef": "No robots match the search.",
 
+  "yderpunkter_etiket": "Extremes",
+  "yderpunkter_titel": "The field's extremes",
+  "yderpunkter_forklaring": "Four measured facts from the catalogue - not a selection and not a recommendation. The heaviest robot is not better than the lightest; it is simply heaviest.",
+  "yderpunkt_letteste": "Lightest",
+  "yderpunkt_tungeste": "Heaviest",
+  "yderpunkt_hurtigste": "Fastest",
+  "yderpunkt_laengste_driftstid": "Longest runtime",
+
+  "forside_eu_tal": "{n} of {m}",
+  "forside_eu_paastand": "robots in the catalogue state CE marking from the manufacturer.",
+
+  "forside_formaal_titel": "Find by intended use",
+  "forside_formaal_forklaring": "A robot can belong to more than one intended use - pick one to see what the manufacturer itself put it down for.",
+
   "katalog_titel": "All robots",
   "katalog_antal": "robots in the catalogue",
   "katalog_uden_js": "The filters need JavaScript. The full catalogue is in the table below either way.",

@@ -9,127 +9,113 @@
    Skrevet 21. aug 2026 sammen med tools/skabelon/.
    ========================================================================== */
 
-/* --- 1. Hero (L17) --------------------------------------------------------
-   Typografisk. Ingen robot fremhaevet, intet fotografi, ingen baggrundsfigur.
-   Soegefelt og filtre skal kunne staa i foerste viewport paa en telefon,
-   derfor er luften over og under maalt i clamp og ikke i faste px.
+/* --- 1. AABNINGEN (JPK's tillaeg, 24. aug 2026) ---------------------------
+   Titel + yderpunkter + EU-fundet + formaalsfilteret. Budgettet: op til 1,5
+   skaermhoejde ved 1440x900. Foerste skaerm skal goere praecis tre ting:
+   sige hvad samlingen er, vise mindst én maskine stor nok til at lede
+   blikket, og goere det tydeligt at der er mere nedenunder. Fladen er
+   stadig systemets graa bund (21.08.2026's regel: graa bund, hvide paneler
+   flyder ovenpaa) — kun kataloget faar sin egen flade, se afsnit 6. */
+.aabning{display:flex;flex-direction:column}
+.aabning > section + section{margin-top:var(--r8)}
+/* Overstyrer kun det FOERSTE spring (hero -> yderpunkter): resten af
+   aabningen faar sin luft fra den generelle regel ovenfor (r8, systemets
+   "hoeje ende", JPK's tillaeg), men her kapper et fotografi maatte naa ind i
+   foerste viewport foer springet selv har raad til fuld luft. Yderpunkt-
+   sektionens egen overskrift giver stadig en synlig pause. */
+.hero + .yderpunkter-sektion{margin-top:var(--r4)}
 
-   Fladen (21.08.2026). Hero'en var et hvidt panel lige under det hvide baand,
-   adskilt af én haarfin linje: to hvide flader oven paa hinanden laeses som
-   ét tyndt baand, ikke som en aabning. Hero'en ligger nu paa sidens graa
-   grund, og det hvide panel i den er vaegtstigen. Det er systemets egen regel
-   — graa bund, hvide paneler — anvendt paa den ene flade, der ikke fulgte
-   den. */
+/* --- 1a. Hero. Ren tekst: overskrift + lede + soegning. Ingen figur her —
+   figuren er yderpunkterne nedenfor, saa hero'en kan holdes kort nok til at
+   den ledende yderpunkt-flade naar ind i foerste viewport. */
 .hero{border-bottom:1px solid var(--linje)}
-.hero .rum{padding-block:clamp(var(--r6),6vw,var(--r8)) clamp(var(--r6),4.4vw,var(--r8));
-  display:flex;flex-direction:column;gap:var(--r6)}
-.hero-ord{display:flex;flex-direction:column;gap:var(--r4)}
+.hero .rum{padding-block:var(--r6) var(--r4)}
+.hero-ord{display:flex;flex-direction:column;gap:var(--r4);max-width:74ch}
 .hero-lede{margin-top:2px}
-.hero .styring{margin-top:var(--r2);align-items:flex-end}
+.hero .styring{margin-top:var(--r3)}
 .hero-videre{display:flex}
 /* Ledeteksten er hero'ens eneste broedtekst og maa staa ét trin over resten.
    Under 680 px bliver den 17 px igen, fordi hver linje dér koster plads i den
    foerste viewport. */
 @media (min-width:680px){.hero-lede{font-size:19px}}
 
-/* Hero'ens to spalter. Graensen er systemets egen 1180 px, set fra den anden
-   side: over den staar ordene til venstre og den maalte akse til hoejre;
-   under den stables de. Der er ikke indfoert et nyt brudpunkt. */
-@media (min-width:1181px){
-  .hero .rum{display:grid;align-items:start;
-    grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);
-    grid-template-areas:"ord stige" "chips chips";
-    column-gap:var(--r9);row-gap:var(--r7)}
-  .hero-ord{grid-area:ord}
-  .stige{grid-area:stige}
-  .chips{grid-area:chips}
-}
+/* --- 1b. YDERPUNKTERNE. Fotografiet leder: ét stort felt ("lead"), tre
+   mindre ved siden af. DESIGN.md's ledestjerne taaler at ét billede fører og
+   tre foelger — de fire behoever ikke vaere lige store. Lead-billedet er
+   markant stoerre end et katalogkort: katalogets billedfelt er ca. 310-330 px
+   bredt i et 1440 px-gitter; leaden her fylder op mod 55-60 % af rummets
+   bredde. Ingen dom: et yderpunkt er en MAALT kendsgerning (side.mjs,
+   ekstremer()), ikke en anbefaling — se forklaringen under gitteret.
 
-/* --- 1b. VAEGTSTIGEN ------------------------------------------------------
-   Hero'ens figur. Ingen robot er navngivet: ét maerke pr. robot med oplyst
-   egenvaegt, sat paa den akse siden i forvejen er ordnet efter, og de fire
-   vaegtklasser under den som links ned i sektionerne. Den er dermed ogsaa
-   sidens indholdsfortegnelse, og den virker uden en linje JavaScript.
+   Overskriften mister sin normale border+luft (systemets .sektion-hoved),
+   fordi det NETOP er springet fra overskrift til foto, der afgoer, om et
+   fotografi naar ind i foerste viewport (JPK's tillaeg). */
+.yderpunkter-sektion .sektion-hoved{border-bottom:0;padding-bottom:0}
+.yderpunkter{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
+  gap:var(--r6);margin-top:var(--r3);align-items:stretch}
 
-   Aksen viser en FORDELING, ikke en rangering. Maerkerne er anonyme og fører
-   ingen steder hen — et maerke, der kunne klikkes hen til én maskine, ville
-   vaere en fremhaevelse, og den har siden ingen metode til.
+.yderpunkt{position:relative;display:flex;background:var(--panel);
+  border:1px solid var(--linje);border-radius:var(--rund);box-shadow:var(--skygge);
+  overflow:hidden}
+.yderpunkt:hover,.yderpunkt:focus-within{border-color:#CFD4DB;box-shadow:var(--skygge-loeft)}
+/* Kildemaerket skal kunne rammes trods navnets kortdaekkende ::after — samme
+   teknik som .kort .kildemaerke. */
+.yderpunkt .kildemaerke{position:relative;z-index:2}
+.yderpunkt-krop{display:flex;flex-direction:column;gap:6px;min-width:0}
+.yderpunkt-krop > .etiket{display:flex;align-items:center;gap:8px}
+.yderpunkt-krop > .etiket .ikon{width:16px;height:16px;stroke-width:1.8;color:var(--accent)}
+.yderpunkt-navn{font-size:17px;font-weight:700;letter-spacing:-.016em;margin-top:2px}
+.yderpunkt-navn a{color:var(--blaek);text-decoration:none}
+.yderpunkt-navn a::after{content:"";position:absolute;inset:0;z-index:1}
+.yderpunkt-navn a:hover{text-decoration:underline;text-decoration-thickness:2px}
+.yderpunkt-prod{font-size:13px;color:var(--blaek3)}
 
-   Det fjerde trin ligger UDEN FOR aksen, i hullets sprog: de robotter,
-   producenten ikke oplyser en vaegt for, kan ikke placeres, og de bliver
-   hverken gemt eller lagt i en klasse, de ikke hoerer til. Det er sidens
-   hele pointe, sat i den foerste viewport. */
-.stige{display:flex;flex-direction:column;gap:var(--r4);padding:var(--r5)}
-.stige-akse{position:relative;height:74px}
+.yderpunkt--lead{flex-direction:column}
+.yderpunkt--lead .billedled{aspect-ratio:16/10;border-bottom:1px solid var(--linje)}
+.yderpunkt--lead .yderpunkt-krop{padding:var(--r5)}
+.yderpunkt--lead .v{font-size:clamp(36px,3.6vw,52px)}
+.yderpunkt--lead .yderpunkt-navn{font-size:20px}
 
-/* Maerkerne haenger ned til aksen fra oven. --x er vaegten i procent af aksens
-   top og saettes af generatoren. */
-.stige-maerker{position:absolute;left:0;right:0;top:0;height:36px}
-.stige-maerker span{position:absolute;left:var(--x);top:0;width:1.5px;height:100%;
-  margin-left:-.75px;background:var(--blaek)}
+.yderpunkter-liste{display:flex;flex-direction:column;gap:var(--r3)}
+.yderpunkt--lille{flex-direction:row;align-items:stretch}
+.yderpunkt--lille .billedled{width:112px;aspect-ratio:1/1;flex:none;
+  border-bottom:0;border-right:1px solid var(--linje)}
+.yderpunkt--lille .yderpunkt-krop{padding:14px 16px;justify-content:center;flex:1;min-width:0}
+.yderpunkt--lille .v{font-size:25px}
 
-/* Aksen selv, med de to klassegraenser som korte skridt paa tvaers. De er
-   --hegn og ikke --blaek, saa en graense aldrig kan taelles som en robot. */
-.stige-linje{position:absolute;left:0;right:0;top:36px;height:1px;background:var(--hegn)}
-.stige-linje .graense{position:absolute;left:var(--x);top:-8px;width:1px;height:17px;
-  margin-left:-.5px;background:var(--hegn)}
-
-.stige-tal{position:absolute;left:0;right:0;top:45px;height:14px}
-.stige-tal span{position:absolute;left:var(--x);top:0;transform:translateX(-50%);
-  font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10.5px;
-  letter-spacing:.04em;color:var(--blaek3);white-space:nowrap}
-.stige-tal span:first-child{transform:none}
-.stige-tal span:last-child{transform:translateX(-100%)}
-
-/* De fire trin. Tallet er en optaelling af kort, ikke en maaling af en maskine,
-   og staar derfor uden enhed — men i mono med tabulaere cifre, saa de fire tal
-   flugter lodret. */
-.stige-baand{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--r2)}
-.stige-trin{display:flex;flex-direction:column;justify-content:space-between;
-  gap:var(--r2);min-height:84px;padding:10px 12px 9px;text-decoration:none;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
-/* 13 px = t-mikro; 25 px = .stribe .v ved 680 px. Begge laant fra en
-   eksisterende sats i stedet for opfundet ved siden af skalaen. */
-.stige-trin .navn{font-size:13px;font-weight:600;line-height:1.25;color:var(--blaek2)}
-.stige-trin .figur{font-size:25px;font-weight:700;line-height:1;
-  letter-spacing:-.02em;color:var(--blaek)}
-.stige-trin:hover{border-color:var(--hegn);background:var(--accent-ro)}
-.stige-trin:hover .navn{color:var(--blaek)}
-
-/* Hullet. Samme sprog som "ikke oplyst": stiplet hegn, --tom flade, daempet
-   tal. Det staar med lidt mere luft til de tre andre, fordi det ikke ligger
-   paa aksen. Hullet loeftes ikke og fyldes ikke ved hover — det er et link,
-   saa navnet understreges, og det er alt. */
-.stige-trin--hul{margin-left:var(--r2);background:var(--tom);
-  border-style:dashed;border-color:var(--hegn)}
-.stige-trin--hul .navn,.stige-trin--hul .figur{color:var(--blaek3)}
-.stige-trin--hul:hover{background:var(--tom);border-color:var(--hegn)}
-.stige-trin--hul:hover .navn{color:var(--blaek3);text-decoration:underline}
-
-/* Under 680 px falder aksestrimlen og etiketten bort. De fire trin baerer den
-   samme oplysning, og strimlen er aria-hidden i forvejen — den kan undvaeres,
-   uden at der forsvinder indhold. Grunden er maalt plads: hero'ens hoejde paa
-   en 375 x 667-skaerm skal stadig efterlade anvendelsesfiltrene i den foerste
-   viewport (L17). */
-@media (max-width:679px){
-  .stige{padding:var(--r4);gap:var(--r3)}
-  .stige > .etiket,.stige-akse{display:none}
-}
+@media (max-width:1180px){.yderpunkter{grid-template-columns:1fr}}
 @media (max-width:420px){
-  .stige-baand{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stige-trin--hul{margin-left:0}
+  .yderpunkt--lille .billedled{width:84px}
+  .yderpunkt--lead .v{font-size:32px}
 }
 
-/* Filterlinks i hero'en. Samme form som .filtre label, men de er links:
-   de fører til katalogsiden med filteret sat (:target), saa de virker uden
-   en linje JavaScript. */
-.chips{display:flex;flex-direction:column;gap:var(--r2)}
-.chips-raekke{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;
-  font-size:15px;font-weight:600;color:var(--blaek2);text-decoration:none;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
-.chip:hover{border-color:var(--hegn);color:var(--blaek);background:var(--accent-ro)}
-.chip .antal{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3)}
+/* --- 1c. EU-FUNDET. Én saetning, ét stort tal — laesbar paa to sekunder,
+   ikke en infografik. Beregnet i forside.mjs, aldrig skrevet i haanden. */
+.eu-fund-linje{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 12px;max-width:74ch}
+.eu-fund-linje .ikon{align-self:center;color:var(--accent)}
+.eu-fund-tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:clamp(26px,2.6vw,34px);font-weight:700;letter-spacing:-.01em;color:var(--blaek)}
+.eu-fund-linje span{font-size:17px;line-height:1.5;color:var(--blaek2)}
+
+/* --- 1d. FORMAALSFILTERET. Fra smaa chips til en tydelig, indbydende
+   indgang: samme LINKS til kataloget (ikke afkrydsningsfelter — forsiden er
+   delt i vaegtklassesektioner), stoerre maal, tallet som en rigtig figur. */
+.formaal-gitter{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:var(--r3);margin-top:var(--r5)}
+.formaal{display:flex;flex-direction:column;justify-content:space-between;gap:var(--r4);
+  min-height:96px;padding:16px 18px;text-decoration:none;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
+  box-shadow:var(--skygge)}
+.formaal:hover{border-color:var(--hegn);background:var(--accent-ro);box-shadow:var(--skygge-loeft)}
+.formaal-navn{font-size:16.5px;font-weight:700;letter-spacing:-.014em;color:var(--blaek)}
+.formaal-tal{font-size:25px;font-weight:700;letter-spacing:-.02em;color:var(--blaek2);align-self:flex-end}
+/* Hullet: samme sprog som "ikke oplyst" andre steder — stiplet hegn, --tom
+   flade, daempet tekst. Ikke rødt: at en producent intet skriver om formaal
+   er ikke en fejl. */
+.formaal--tom{background:var(--tom);border-style:dashed;border-color:var(--hegn);box-shadow:none}
+.formaal--tom .formaal-navn{color:var(--blaek3);font-weight:600}
+.formaal--tom .formaal-tal{color:var(--blaek3)}
+.formaal--tom:hover{background:var(--tom);border-color:var(--hegn)}
 
 /* --- 2. Filterlagene ------------------------------------------------------
    Ét lag pr. facet. display:contents, saa laget ikke selv bliver en
@@ -162,12 +148,15 @@
 .sektion-note{margin-top:var(--r3);max-width:86ch}
 .sektion .gitter{margin-top:var(--r5)}
 
-/* Forsidens vejrtraekning. Fire gitre paa 12, 12, 13 og 9 kort i traek er en
-   lang, ensartet strimmel, hvis skiftet mellem dem er 64 px. 96 px goer
-   vaegtklasseskiftet til en paegribelig graense. Det foerste hoved staar
-   taettere paa hero'en, som selv har bundluft. */
-.hero + .rum .sektion{padding-top:var(--r9)}
-.hero + .rum > .sektion:first-child{padding-top:var(--r7)}
+/* --- 3b. KATALOGETS FLADE (JPK's tillaeg, 24. aug 2026): tonespring, ikke
+   en streg. --panel-ro (lidt lysere end --bund) signalerer "her begynder
+   kataloget" ved at skifte flade, ikke ved at traekke en linje — samme
+   flade, systemet allerede bruger til et roligt indfelt andre steder, saa
+   der er ingen ny farve. Fire gitre paa 12, 12, 13 og 9 kort i traek faar
+   luft nok (r8 mellem hver, system.css) til at laeses som adskilte grupper;
+   det foerste hoved staar taettere paa fladeskiftet, som selv er graensen. */
+.katalog-flade{background:var(--panel-ro);padding-bottom:var(--r8)}
+.katalog-flade > .rum > .sektion:first-child{padding-top:var(--r7)}
 .styr .gitter{margin-top:var(--r6)}
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}

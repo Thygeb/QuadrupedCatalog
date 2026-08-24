@@ -32,6 +32,20 @@
   "soeg_kraever_js": "Søgefeltet kræver JavaScript og vises kun, når det er slået til. Filtrene virker uden.",
   "soeg_ingen_traef": "Ingen robotter matcher søgningen.",
 
+  "yderpunkter_etiket": "Yderpunkter",
+  "yderpunkter_titel": "Feltets yderpunkter",
+  "yderpunkter_forklaring": "Fire målte fakta fra kataloget - ikke et udvalg og ikke en anbefaling. Den tungeste robot er ikke bedre end den letteste; den er bare tungest.",
+  "yderpunkt_letteste": "Letteste",
+  "yderpunkt_tungeste": "Tungeste",
+  "yderpunkt_hurtigste": "Hurtigste",
+  "yderpunkt_laengste_driftstid": "Længste driftstid",
+
+  "forside_eu_tal": "{n} af {m}",
+  "forside_eu_paastand": "robotter i kataloget oplyser CE-mærkning fra producenten.",
+
+  "forside_formaal_titel": "Find efter formål",
+  "forside_formaal_forklaring": "En robot kan høre til mere end ét formål - vælg ét for at se, hvad producenten selv har sat den til.",
+
   "katalog_titel": "Alle robotter",
   "katalog_antal": "robotter i kataloget",
   "katalog_uden_js": "Filtrene kræver JavaScript. Hele kataloget står i tabellen nedenfor uanset.",
