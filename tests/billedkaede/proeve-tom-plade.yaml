@@ -1,0 +1,16 @@
+# PROEVEPOST — ikke katalogindhold. Se tests/billedkaede/LAESMIG.md.
+#
+# INGEN billede:-noegle. Den tomme plade skal blive ved med at virke, ogsaa naar
+# naboposterne har et billede - ellers ville en enkelt fil i assets/ gaa fra 46
+# aerlige huller til 45 huller og ét, der saa itu ud.
+slug: proeve-tom-plade
+navn: Proeve Tom Plade
+producent: Proeveproducent
+producentland: Kina
+status: i_produktion
+felter:
+  egenvaegt:
+    vaerdi: 12
+    enhed: kg
+    kilde: https://example.com/proeve
+    hentet: 2026-08-21

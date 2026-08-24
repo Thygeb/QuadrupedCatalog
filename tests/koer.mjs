@@ -31,6 +31,14 @@ status: i_produktion
 felter:
 `;
 
+/** Hoved uden felter, til R18-tilfaeldene. `felter:` skrives af hvert tilfaelde. */
+const BILLEDHOVED = `slug: NAVN
+navn: Proeve
+producent: Proeveproducent
+producentland: Kina
+status: i_produktion
+`;
+
 /** Hvert tilfaelde: [navn, forventet regelkode, felter-blok]. */
 const ITUSLAAEDE = [
   ['talfelt uden enhed', 'R5',
@@ -185,6 +193,56 @@ const ITUSLAAEDE_HOVED = [
     `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\n  arvet_fra: 42\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+
+  /* R18 — billedet. Tre ting maa ikke kunne ske: et billede uden ophav (saa
+     ved siden ikke, om S1 gaelder), en sti til en fil, ingen har lagt (saa
+     staar der et brudt billede og intet fejlsignal), og en sti ud af assets/
+     (saa er fabrikantens materiale paa vej ind i bygget).
+     Filen `silhuetter/_proeve-kaede.svg` FINDES i assets/ - den bruges her,
+     saa hvert tilfaelde fejler paa netop den ting, det handler om. */
+  ['billede uden ophav - siden kan ikke se, om S1 gaelder', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billede med et ophav, skemaet ikke kender', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: pressefoto\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billede uden fil', 'R18',
+    BILLEDHOVED + `billede:\n  ophav: eget_foto\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billede peger paa en fil, der ikke findes i assets/', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/findes-ikke.svg\n  ophav: silhuet\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billede peger ind i media/ - fabrikantens materiale', 'R18',
+    BILLEDHOVED + `billede:\n  fil: media/_kilder/unitree-b2.jpg\n  ophav: fabrikant\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billedstien gaar op ad mappetraeet', 'R18',
+    BILLEDHOVED + `billede:\n  fil: ../media/x.jpg\n  ophav: fabrikant\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billedstien skrevet med "assets/" foran - den er allerede relativ til assets/', 'R18',
+    BILLEDHOVED + `billede:\n  fil: assets/silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['silhuet uden kilde paa de maal, den er tegnet efter', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['fabrikantbillede uden kilde - det kan ikke foelges hjem', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: fabrikant\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billede med kilde, men uden hentedato (R18 genbruger R7)', 'R7',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n` +
+    `  kilde: https://example.com/a\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['ukendt noegle i billedposten (tastefejl)', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n  ophavv: silhuet\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['billede som bar tekst - der findes ingen tilstand "billede: ikke_oplyst"', 'R18',
+    BILLEDHOVED + `billede: ikke_oplyst\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['delt_med peger paa robotten selv', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\n  delt_med: NAVN\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['tom alt-tekst - et hul, der ligner indhold', 'R18',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: eget_foto\n  alt: ""\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['topnoeglen "silhuet" findes ikke laengere - billede: er den eneste vej ind', 'R1',
+    BILLEDHOVED + `silhuet: silhuetter/_proeve-kaede.svg\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 ];
 
 /**
@@ -261,6 +319,26 @@ const GYLDIGE_HOVED = [
     `anvendelse:\n  vaerdi: [inspektion, sikkerhed_overvaagning]\n` +
     `  citat: "ideal for security, inspection, and advanced applications."\n` +
     `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+
+  // R18 — de former, billedfeltet SKAL kunne baere. Uden dem beviser de
+  // fjorten tilfaelde ovenfor kun, at validatoren siger nej til alt, der hedder
+  // "billede".
+  ['silhuet med fil, ophav, kilde og hentedato',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
+    `  alt: "Maaltro silhuet"\n  note: "Tegnet efter L 1000 x H 700 mm."\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['eget foto UDEN kilde - vi har taget det selv, der er ingen URL at pege paa',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: eget_foto\n` +
+    `felter:\n  egenvaegt: ikke_oplyst\n`],
+  ['fabrikantbillede med kilde - tilladt lokalt (L13), spaerret ved udgivelse (S1)',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: fabrikant\n` +
+    `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['plade og pos skrevet ud i haanden',
+    BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: eget_foto\n` +
+    `  plade: ja\n  pos: "50% 40%"\nfelter:\n  egenvaegt: ikke_oplyst\n`],
+  ['robot helt uden billede - feltet er valgfrit, og den tomme plade er aerlig',
+    BILLEDHOVED + `felter:\n  egenvaegt: ikke_oplyst\n`],
 ];
 
 /* ------------------------------------------------------------------ koersel */
@@ -504,6 +582,158 @@ console.log('\n3b. Naevneren (D7 / L30)');
     for (const d4 of [false, true]) vaerst = Math.max(vaerst, val.taethed(doc, skema.NAEVNER, d4).pct);
   }
   ok(`ingen af de ${filer.length} poster kommer over 100 % (hoejeste: ${vaerst} %)`, vaerst <= 100);
+}
+
+/* ------------------------------------------------------------------------
+   3c. BILLEDKAEDEN — fra `billede:` i YAML til <picture> i dist/.
+
+   Hvert led er efterprovet for sig andre steder. Det her afsnit efterproever
+   SAMMENHAENGEN, som er der, den slags gaar galt: R18 kan sige god for en fil,
+   der findes i assets/, uden at bygget nogensinde kopierer den, og saa staar
+   der et brudt billede paa siden med gronne tests bagved.
+
+   Datasaettet er tests/billedkaede/: én post med silhuet, én der DELER filen,
+   og én HELT UDEN billede. Den sidste er lige saa vigtig som de to foerste -
+   den tomme plade skal blive ved med at virke, ogsaa naar naboen har et
+   billede.
+   ------------------------------------------------------------------------ */
+console.log('\n3c. Billedkaeden: YAML -> assets/ -> dist/billeder/ -> <picture>');
+const kaedeDist = path.join(tmp, 'dist-billedkaede');
+{
+  const kaedeData = path.join(rod, 'tests', 'billedkaede');
+  const v = koerValidator([`--data=${kaedeData}`]);
+  ok('de tre proeveposter valideres uden fejl', v.kode === 0,
+    v.ud.trim().split('\n').filter((l) => l.startsWith('FEJL')).join(' / '));
+
+  const b = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
+    `--data=${kaedeData}`, `--ud=${kaedeDist}`], { cwd: rod, encoding: 'utf8' });
+  ok('bygget giver exit 0', b.status === 0, (b.stderr || '').trim().split('\n').slice(-3).join(' / '));
+
+  // 1. Filen skal vaere KOPIERET. fil:linje beviser, at kopikoden findes -
+  //    ikke at den ramte den fil, en robotpost peger paa.
+  const kopi = path.join(kaedeDist, 'billeder', 'silhuetter', '_proeve-kaede.svg');
+  ok('silhuetten er kopieret til dist/billeder/silhuetter/', fs.existsSync(kopi));
+  ok('bygget taeller billedet i sin slutrapport',
+    /billeder kopieret fra assets\/: 1\b/.test(b.stdout || ''), (b.stdout || '').split('\n').slice(-4).join(' | '));
+  ok('bygget skriver ophavet ud, saa S1 kan ses uden at aabne en fil',
+    /silhuet: 2/.test(b.stdout || ''));
+
+  const kat = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'index.html'), 'utf8');
+  const side = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
+  const tom = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-tom-plade', 'index.html'), 'utf8');
+
+  // 2. <picture>-moensteret, paa BAADE kortet og robotsiden.
+  ok('kortet bruger <picture>', /<picture>[\s\S]*?_proeve-kaede\.svg[\s\S]*?<\/picture>/.test(kat));
+  ok('robotsiden bruger <picture>', /<picture>[\s\S]*?_proeve-kaede\.svg[\s\S]*?<\/picture>/.test(side));
+  ok('robotsidens billedled er det store', /class="billedled billedled--stor/.test(side));
+  ok('silhuetten faar --plade (contain), ikke en 16:10-beskaering af poterne',
+    /class="billedled billedled--plade"/.test(kat));
+
+  // 3. Stien skal PEGE rigtigt fra hver sidedybde. En haandregnet '../../' er
+  //    den slags fejl, der foerst ses i browseren.
+  ok('kortets sti gaar to mapper op (/da/robotter/)',
+    kat.includes('src="../../billeder/silhuetter/_proeve-kaede.svg"'));
+  ok('robotsidens sti gaar tre mapper op (/da/robotter/<slug>/)',
+    side.includes('src="../../../billeder/silhuetter/_proeve-kaede.svg"'));
+  for (const [navn, fil] of [['kortet', kat], ['robotsiden', side]]) {
+    const stier = [...fil.matchAll(/src="([^"]*billeder\/[^"]+)"/g)].map((m) => m[1]);
+    ok(`hver billedsti paa ${navn} findes som fil i dist/`,
+      stier.length > 0 && stier.every((s) => fs.existsSync(path.join(kaedeDist, 'da', 'robotter',
+        navn === 'kortet' ? '' : 'proeve-silhuet', s))),
+      stier.join(' / '));
+  }
+
+  // 4. Den tomme plade skal blive ved med at virke - MED en grund skrevet ud.
+  ok('robotten uden billede faar den tomme plade', /class="intetfoto"/.test(tom));
+  ok('den tomme plade baerer en grund, ikke bare et ikon',
+    /class="grund">[^<]{20,}</.test(tom));
+  ok('robotten uden billede har intet <picture>', !/<picture>/.test(tom));
+  ok('kataloget har baade et <picture> og en tom plade paa samme side',
+    /<picture>/.test(kat) && /class="intetfoto"/.test(kat));
+
+  // 5. Delt fil (L28): maerket staar PAA billedet og naevner den anden model.
+  ok('den delte fil er maerket med .billedmaerke', /class="billedmaerke"/.test(kat));
+  ok('fodnoten siger, hvem filen deles med',
+    /Samme fil som proeve-silhuet/.test(kat));
+
+  // 6. Billedets sandhed - ophavet skal staa skrevet, ikke gaettes af mappen.
+  ok('robotsidens billedfod siger, at det er en silhuet og ikke et fotografi',
+    /billedfod[\s\S]*?silhuet/i.test(side));
+  ok('dataskriverens egen note staar under billedet',
+    side.includes('Figuren er paafundet til proeven'));
+
+  // 7. alt-teksten. En silhuet SIGER, at den er en silhuet - en
+  //    skaermlaeserbruger skal have samme oplysning som en seende.
+  ok('dataskriverens egen alt-tekst vinder', side.includes('alt="Proevefigur i profil'));
+  ok('uden egen alt-tekst siger silhuetten selv, at den er en silhuet',
+    /alt="M[^"]*ltro silhuet af Proeve Delt/.test(kat));
+
+  // 8. media/ maa aldrig staa som sti. Bygget paastaar det selv; her laeses
+  //    de faerdige filer igennem uafhaengigt af bygget.
+  const kaedeSider = [];
+  (function gaa(m) {
+    for (const f of fs.readdirSync(m, { withFileTypes: true })) {
+      const p = path.join(m, f.name);
+      if (f.isDirectory()) gaa(p); else if (f.name.endsWith('.html')) kaedeSider.push(p);
+    }
+  })(kaedeDist);
+  ok('ingen henvisning til media/ i billedkaedens byg',
+    !kaedeSider.some((f) => /["'(/]media\//.test(fs.readFileSync(f, 'utf8'))));
+
+  // 9. S1 mekanisk: --til-udgivelse skal AFVISE et fabrikantbillede og
+  //    SLIPPE et saet uden. Kun det foerste beviser noget om spaerringen.
+  const s1Data = path.join(tmp, 's1-data');
+  fs.mkdirSync(s1Data, { recursive: true });
+  fs.writeFileSync(path.join(s1Data, 'proeve-fabrikant.yaml'),
+    `slug: proeve-fabrikant\nnavn: Proeve Fabrikant\nproducent: P\nproducentland: Kina\n`
+    + `status: i_produktion\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: fabrikant\n`
+    + `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`, 'utf8');
+  const s1 = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
+    `--data=${s1Data}`, `--ud=${path.join(tmp, 'dist-s1')}`, '--til-udgivelse'],
+  { cwd: rod, encoding: 'utf8' });
+  ok('--til-udgivelse afviser et fabrikantbillede (S1)',
+    s1.status === 1 && /SPAERRING S1/.test((s1.stdout || '') + (s1.stderr || '')), `exit ${s1.status}`);
+  const s1ok = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
+    `--data=${kaedeData}`, `--ud=${path.join(tmp, 'dist-s1-ok')}`, '--til-udgivelse'],
+  { cwd: rod, encoding: 'utf8' });
+  ok('--til-udgivelse slipper et saet uden fabrikantbilleder igennem', s1ok.status === 0,
+    ((s1ok.stdout || '') + (s1ok.stderr || '')).trim().split('\n').slice(-2).join(' / '));
+
+  // 10. <source> skrives KUN for filer, der findes. En srcset til en fil, ingen
+  //     har lavet, er en tom paastand. Proeven laver et lille assets-trae med
+  //     en .webp ved siden af en .png og laeser modulet direkte.
+  {
+    const asstRod = path.join(tmp, 'alt-rod');
+    const m = path.join(asstRod, 'assets', 'fotos');
+    fs.mkdirSync(m, { recursive: true });
+    fs.writeFileSync(path.join(m, 'a.png'), 'ikke et rigtigt billede', 'utf8');
+    fs.writeFileSync(path.join(m, 'a.webp'), 'ikke et rigtigt billede', 'utf8');
+    fs.writeFileSync(path.join(m, 'b.png'), 'ikke et rigtigt billede', 'utf8');
+    const url = new URL('../tools/skabelon/side.mjs', import.meta.url).href;
+    const mod = await import(url);
+    const medWebp = mod.billedAlternativer('fotos/a.png', asstRod);
+    const udenWebp = mod.billedAlternativer('fotos/b.png', asstRod);
+    ok('<source> skrives for den .webp, der FINDES',
+      medWebp.length === 1 && medWebp[0][0] === 'fotos/a.webp' && medWebp[0][1] === 'image/webp',
+      JSON.stringify(medWebp));
+    ok('ingen <source> for et format, ingen har lavet', udenWebp.length === 0, JSON.stringify(udenWebp));
+  }
+}
+
+/* R18 paa tvaers af filer: `delt_med` skal pege paa en robot, der findes.
+   Ellers ville maerket paa billedet naevne en maskine, kataloget ikke har. */
+console.log('\n3d. R18 paa tvaers af filer');
+{
+  const m = path.join(tmp, 'delt-med');
+  fs.mkdirSync(m, { recursive: true });
+  fs.writeFileSync(path.join(m, 'proeve-delt.yaml'),
+    `slug: proeve-delt\nnavn: Proeve Delt\nproducent: P\nproducentland: Kina\n`
+    + `status: i_produktion\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n`
+    + `  kilde: https://example.com/a\n  hentet: 2026-08-19\n  delt_med: findes-ikke\n`
+    + `felter:\n  egenvaegt: ikke_oplyst\n`, 'utf8');
+  const r = koerValidator([`--data=${m}`]);
+  ok('delt_med peger paa en robot, der ikke findes  ->  R18',
+    r.kode === 1 && /\bR18:/.test(r.ud), `exit ${r.kode}`);
 }
 
 console.log('\n4. Bygget');

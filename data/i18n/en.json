@@ -233,6 +233,9 @@
   "billede_uden_tilladelse": "Manufacturer photo. Uncredited, no permission.",
   "billede_ingen_egen": "We have not photographed this model ourselves, and the manufacturer’s own image may not be built into the site.",
   "billede_ingen_grund": "We have not photographed this model ourselves, and the manufacturer’s own image may not be built into the site.",
+  "billede_ophav_eget_foto": "Our own photograph.",
+  "billede_ophav_silhuet": "Scale silhouette, drawn from the manufacturer's own dimensions. Not a photograph.",
+  "billede_alt_silhuet": "Scale silhouette of {model}, drawn from the manufacturer's own dimensions",
 
   "land_Kina": "China",
   "land_USA": "United States",

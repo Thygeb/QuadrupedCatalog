@@ -72,6 +72,27 @@ const SAGER = [
     { 'unitree-as2-w': l('unitree-as2-w').replace(/^  hentet: 2026-08-19\r?\n(?=  note)/m, '') }],
   ['X30 Pro: arvet_fra peger paa sig selv', 'R17',
     { 'deep-robotics-x30-pro': l('deep-robotics-x30-pro').replace('arvet_fra: deep-robotics-x30', 'arvet_fra: deep-robotics-x30-pro') }],
+
+  /* R18 — billedet, sat ind i RIGTIGE filer. tests/koer.mjs proever R18 paa
+     syntetiske poster; de her sager beviser, at reglen ogsaa naar den form, de
+     46 faktiske filer er skrevet i. Ingen af dem har et `billede:` i dag, saa
+     mutationen TILFOEJER et - det er praecis den redigering, en dataagent vil
+     lave, naar billederne begynder at komme ind. */
+  ['B2: billede tilfoejet uden ophav', 'R18',
+    { 'unitree-b2': l('unitree-b2').replace(/^felter:/m,
+      'billede:\n  fil: silhuetter/_proeve-kaede.svg\n  kilde: https://www.unitree.com/b2\n'
+      + '  hentet: 2026-08-19\nfelter:') }],
+  ['B2: billede peger paa en fil, ingen har lagt i assets/', 'R18',
+    { 'unitree-b2': l('unitree-b2').replace(/^felter:/m,
+      'billede:\n  fil: silhuetter/unitree-b2-staaende.svg\n  ophav: silhuet\n'
+      + '  kilde: https://www.unitree.com/b2\n  hentet: 2026-08-19\nfelter:') }],
+  ['Spot: billede hentet direkte fra media/', 'R18',
+    { 'boston-dynamics-spot': l('boston-dynamics-spot').replace(/^felter:/m,
+      'billede:\n  fil: media/_kilder/spot.jpg\n  ophav: fabrikant\n'
+      + '  kilde: https://bostondynamics.com/products/spot/\n  hentet: 2026-08-19\nfelter:') }],
+  ['ANYmal: silhuet uden kilde paa de maal, den er tegnet efter', 'R18',
+    { 'anybotics-anymal': l('anybotics-anymal').replace(/^felter:/m,
+      'billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\nfelter:') }],
 ];
 
 let proevet = 0, fanget = 0, huller = 0, uventet = 0;

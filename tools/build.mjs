@@ -12,6 +12,7 @@
  *                                              (L30, vender L19's 31). Flaget staar,
  *                                              saa en gammel skala kan MAALES imod
  *   node tools/build.mjs --type-uden-model=tael D4 (L20)
+ *   node tools/build.mjs --til-udgivelse        afviser fabrikantbilleder (S1)
  *   node tools/build.mjs --spring-validering-over   (kun til fejlsoegning)
  *
  * Bygget koerer validate.mjs foerst og stopper, hvis den fejler. Det er den
@@ -32,6 +33,7 @@ import process from 'node:process';
 import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, FILTER_FELTER, SPROG, tilstandAf, normaliserRobot,
+  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_SPAERRET,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 import {
@@ -366,18 +368,63 @@ async function main(argv) {
       fs.copyFileSync(path.join(fontMappe, f), path.join(ud, 'fonts', f));
     }
   }
-  // Billeder: KUN fra assets/. media/ kopieres aldrig - se side.mjs, afsnit 8.
+  /* --- billederne. KUN fra assets/. -------------------------------------
+     media/ kopieres aldrig og staar ikke som sti nogen steder. Det er den
+     STRUKTURELLE haandhaevelse af, at fabrikanternes materiale ikke kan slippe
+     ud ved et uheld: der findes ingen kodesti fra media/ til dist/, saa reglen
+     kan ikke glemmes af den, der skriver den naeste skabelon.
+
+     Kopien gaar rekursivt, saa assets/silhuetter/unitree/b2.svg ogsaa lander -
+     mapperne bliver dybere, naar 46 robotter faar hver sin fil. */
   let billeder = 0;
-  for (const mappe of ['fotos', 'silhuetter']) {
-    const fuld = path.join(rod, 'assets', mappe);
-    if (!fs.existsSync(fuld)) continue;
-    for (const f of fs.readdirSync(fuld)) {
-      if (f.startsWith('.') || f.toUpperCase().startsWith('LÆSMIG')) continue;
-      if (!/\.(jpg|jpeg|png|webp|avif|svg)$/i.test(f)) continue;
-      fs.mkdirSync(path.join(ud, 'billeder', mappe), { recursive: true });
-      fs.copyFileSync(path.join(fuld, f), path.join(ud, 'billeder', mappe, f));
-      billeder++;
-    }
+  const kopieredeBilleder = new Set();
+  for (const mappe of BILLEDMAPPER) {
+    const start = path.join(rod, 'assets', mappe);
+    if (!fs.existsSync(start)) continue;
+    (function gaa(m, praefiks) {
+      for (const p of fs.readdirSync(m, { withFileTypes: true })) {
+        if (p.name.startsWith('.') || p.name.toUpperCase().startsWith('LÆSMIG')) continue;
+        const rel = praefiks ? `${praefiks}/${p.name}` : p.name;
+        if (p.isDirectory()) { gaa(path.join(m, p.name), rel); continue; }
+        if (!BILLEDE_ENDELSER.includes(path.extname(p.name).toLowerCase())) continue;
+        const maal = path.join(ud, 'billeder', mappe, ...rel.split('/'));
+        fs.mkdirSync(path.dirname(maal), { recursive: true });
+        fs.copyFileSync(path.join(m, p.name), maal);
+        kopieredeBilleder.add(`${mappe}/${rel}`);
+        billeder++;
+      }
+    })(start, '');
+  }
+
+  /* Naaede hvert erklaeret billede frem? `fil:linje` beviser, at kopikoden
+     findes - ikke at den ramte den fil, en robotpost peger paa. R18 har
+     allerede sagt, at filen ligger i assets/; her siges det, at den ogsaa
+     ligger i dist/. Uden det her ville et brudt billede foerst blive opdaget
+     i en browser. */
+  const brugteBilleder = new Map();      // sti -> [slug, ...]
+  const spaerrede = [];                  // robotter med ophav, S1 daekker
+  const ophavstal = {};
+  for (const r of robotter) {
+    const b = r.billede;
+    if (!b || typeof b.fil !== 'string') continue;
+    if (!brugteBilleder.has(b.fil)) brugteBilleder.set(b.fil, []);
+    brugteBilleder.get(b.fil).push(r.slug);
+    ophavstal[b.ophav] = (ophavstal[b.ophav] ?? 0) + 1;
+    if (BILLEDE_SPAERRET.has(b.ophav)) spaerrede.push(`${r.slug} (${b.fil})`);
+  }
+  for (const [fil, slugs] of brugteBilleder) {
+    paastaa(kopieredeBilleder.has(fil),
+      `${slugs.join(', ')} peger paa assets/${fil}, men filen naaede ikke dist/billeder/${fil}.`);
+  }
+
+  /* S1 er en spaerring, ikke en huskeregel. `--til-udgivelse` goer den
+     mekanisk: bygget kan ikke laves faerdigt med et fabrikantbillede i.
+     Uden flaget bygges der som i dag - lokalt, med billederne (L13). */
+  if (flag['til-udgivelse']) {
+    paastaa(spaerrede.length === 0,
+      `SPAERRING S1: ${spaerrede.length} billede(r) har ophav "fabrikant" og maa ikke publiceres `
+      + `uden skriftlig tilladelse:\n    ${spaerrede.join('\n    ')}\n  `
+      + `Skift dem ud med egne fotos eller maaltro silhuetter, eller byg uden --til-udgivelse.`);
   }
 
   /* --- sprogvaelger paa roden --- */
@@ -411,6 +458,36 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
   paastaa(Object.values(klasser).reduce((a, b) => a + b, 0) === robotter.length,
     'vaegtklasserne summer ikke til antallet af robotter.');
 
+  /* Naaede media/ ud i HTML? Kopikoden laeser kun assets/, men en skabelon kan
+     skrive en sti i haanden, og en sti er nok - browseren henter den. Derfor
+     laeses de faerdige sider igennem, ikke bare koden. Det er den samme
+     kontrol, tests/koer.mjs har paa proevebygget; her staar den paa det
+     rigtige byg, saa den ogsaa gaelder de 46 poster. */
+  const htmlFiler = [];
+  (function gaa(m) {
+    for (const p of fs.readdirSync(m, { withFileTypes: true })) {
+      const fuld = path.join(m, p.name);
+      if (p.isDirectory()) gaa(fuld); else if (p.name.endsWith('.html')) htmlFiler.push(fuld);
+    }
+  })(ud);
+  // Samme moenster som tests/koer.mjs bruger paa proevebygget: en sti begynder
+  // efter et anfoerselstegn, en parentes eller en skraastreg. Ordet "media/"
+  // i en saetning er ikke en henvisning - det er prosa, og den maa staa.
+  const medMedia = htmlFiler.filter((f) => /["'(/]media\//.test(fs.readFileSync(f, 'utf8')));
+  paastaa(medMedia.length === 0,
+    `${medMedia.length} side(r) henviser til media/. Fabrikanternes materiale maa aldrig `
+    + `indgaa i et byg:\n    ${medMedia.slice(0, 5).join('\n    ')}`);
+
+  // Kortene og robotsiderne skal tegne ét billedled pr. robot pr. sprog -
+  // enten et <picture> eller den tomme plade. Er tallet lavere, er et kort
+  // faldet ud af skabelonen uden at nogen har bedt om det.
+  let tommePlader = 0; let picture = 0;
+  for (const f of htmlFiler) {
+    const s = fs.readFileSync(f, 'utf8');
+    tommePlader += (s.match(/class="intetfoto"/g) || []).length;
+    picture += (s.match(/<picture>/g) || []).length;
+  }
+
   let medKilde = 0; let udenKilde = 0; let sekundaere = 0;
   for (const r of robotter) {
     for (const n of FELTNAVNE) {
@@ -442,6 +519,19 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
     + `(skal vaere lig ${robotter.length}). Kildemaerker: ${medKilde} tal med kilde, ${udenKilde} uden.`);
   console.log(`Kort i kataloget: ${kortIKatalog} · sekundaere kilder: ${sekundaere} felter · `
     + `billeder kopieret fra assets/: ${billeder} (media/ indgaar aldrig)`);
+  const ophavstekst = Object.keys(ophavstal).length
+    ? Object.entries(ophavstal).map(([o, n]) => `${o}: ${n}`).join(', ')
+    : 'ingen robotpost peger paa en fil';
+  console.log(`Billedfelter: ${brugteBilleder.size} fil(er) brugt af ${
+    [...brugteBilleder.values()].reduce((a, b) => a + b.length, 0)} robot(ter) · ${ophavstekst}`);
+  console.log(`Billedled i dist/: ${picture} <picture> · ${tommePlader} tomme plader `
+    + `(${robotter.length} robotter x ${SPROG.length} sprog x 2 sider = `
+    + `${robotter.length * SPROG.length * 2} led plus producentsidernes kort)`);
+  if (spaerrede.length) {
+    console.error(`\n  SPAERRING S1: ${spaerrede.length} af billederne har ophav "fabrikant". `
+      + `Siden maa ikke publiceres med dem uden skriftlig tilladelse.`
+      + `\n  Byg med --til-udgivelse for at faa bygget til at afvise dem.`);
+  }
   console.log(`Taethedsnaevnere brugt: ${naevnere.join(', ')}`);
   return 0;
 }

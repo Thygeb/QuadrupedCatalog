@@ -16,6 +16,7 @@
  *                                 mod den gamle skala — ikke saa siden kan vise to tal
  *   --type-uden-model=tael|tael-ikke|begge   D4. Standard: begge
  *   --imperial-tolerance=<pct>    Standard: 2. Graensen er max(denne, afrundingsslaek)
+ *   --assets=<mappe>              hvor R18 slaar billedfiler op. Standard: ./assets
  *   --streng                      advarsler taeller som fejl
  *
  * Exit 0 = ingen fejl. Exit 1 = mindst én fejl; robotnavn og feltnavn staar i linjen.
@@ -24,6 +25,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import {
   parseYaml, YamlFejl, normaliser, faelderI, findTal, kanoniskEnhed,
   ENHEDER, TYPE_ENHEDER, IMPERIALE, tilBasis, decimaler, ORD_OPERATOR, ORD_MAASKE,
@@ -32,6 +34,7 @@ import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
   ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER, sorterAnvendelse,
+  BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER,
 } from './skema.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
@@ -43,10 +46,17 @@ let robotINavn = '(ukendt robot)';
 function FEJL(regel, felt, besked) { fejl.push({ robot: robotINavn, felt, regel, besked }); }
 function ADVARSEL(regel, felt, besked) { advarsler.push({ robot: robotINavn, felt, regel, besked }); }
 
+/** Projektroden, regnet ud af filens egen placering — ikke af cwd. Bygget og
+ *  validatoren skal se den SAMME assets/, ogsaa naar de koeres fra en anden mappe. */
+const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
 export const cfg = {
   imperialTolerance: 2,   // procent — prompten: afviger de mere end 2 %, skal det fanges
   streng: false,
   iDag: new Date().toISOString().slice(0, 10),
+  // R18 slaar billedfiler op her. Overskrives med --assets=<mappe>, saa en test
+  // kan pege paa sit eget saet uden at skulle lave filer i det rigtige assets/.
+  assets: path.join(ROD, 'assets'),
 };
 
 const OPERATORER = new Set(['>', '>=', '<', '<=', '~', '±']);
@@ -657,6 +667,175 @@ export function tjekArv(robotter, dataMappe) {
   }
 }
 
+/* ------------------------------------------------------------- R18 billede */
+
+/**
+ * R18 — robottens billede.
+ *
+ * Tre ting skal vaere sande, foer et billede maa naa en side:
+ *
+ *   1. Filen FINDES i assets/. En sti til en fil, ingen har lagt, giver et
+ *      brudt billede i browseren og intet sted et rigtigt fejlsignal. Det er
+ *      den samme fejl som en pladsholder, der overlever til lancering.
+ *   2. Ophavet staar skrevet. Uden det kan hverken siden eller et menneske se,
+ *      om vi viser eget arbejde eller fabrikantens materiale — og S1 forbyder
+ *      publicering med det sidste.
+ *   3. Stien peger ind i assets/ og ingen andre steder. media/ er fabrikantens
+ *      ophavsret og maa aldrig indgaa i et byg (CLAUDE.md, mappestruktur).
+ *      Bygget haandhaever det ved kun at kopiere fra assets/; her haandhaeves
+ *      det ogsaa i data, saa spaerringen ikke kun findes ét sted.
+ *
+ * Feltet er valgfrit. En robot uden `billede:` er ikke en fejl — den faar den
+ * tomme plade med en grund skrevet ud, og det er den aerlige tilstand.
+ */
+function tjekBillede(b, egenSlug) {
+  const sti = 'billede';
+  if (b === undefined) return;                 // ingen billede = den tomme plade
+
+  if (typeof b === 'string') {
+    FEJL('R18', sti, `"billede" skal vaere et kort med "fil" og "ophav", ikke en tekst ` +
+      `(${JSON.stringify(b)}). Der findes ingen tilstand "billede: ikke_oplyst" — ` +
+      `udelad noeglen, saa staar den tomme plade`);
+    return;
+  }
+  if (!erPost(b)) {
+    FEJL('R18', sti, `"billede" skal vaere et kort med mindst "fil" og "ophav", fik ` +
+      `${JSON.stringify(b)}`);
+    return;
+  }
+
+  for (const n of Object.keys(b)) {
+    if (!BILLEDE_NOEGLER.has(n)) {
+      FEJL('R18', sti, `ukendt noegle "${n}" i billedposten. Tilladte: ` +
+        `${[...BILLEDE_NOEGLER].join(', ')}`);
+    }
+  }
+
+  /* --- ophavet. Uden det ved siden ikke, hvad den viser. --- */
+  const ophav = b.ophav;
+  if (ophav === undefined) {
+    FEJL('R18', `${sti}.ophav`, `billedet mangler "ophav". Uden det kan siden ikke skelne ` +
+      `vores eget arbejde fra fabrikantens materiale, og S1 forbyder publicering med det ` +
+      `sidste. Gyldige: ${BILLEDE_OPHAV.join(' | ')}`);
+  } else if (!BILLEDE_OPHAV.includes(ophav)) {
+    FEJL('R18', `${sti}.ophav`, `${JSON.stringify(ophav)} er ikke et gyldigt ophav. ` +
+      `Gyldige: ${BILLEDE_OPHAV.join(' | ')}`);
+  }
+
+  /* --- filen. Findes den ikke, er stien en paastand. --- */
+  const fil = b.fil;
+  if (typeof fil !== 'string' || fil.trim() === '') {
+    FEJL('R18', `${sti}.fil`, `"fil" mangler eller er tom. Den skal vaere stien RELATIV TIL ` +
+      `assets/, fx "silhuetter/unitree-b2-staaende.svg"`);
+  } else {
+    let ok = true;
+    if (fil !== fil.trim()) {
+      FEJL('R18', `${sti}.fil`, `stien har mellemrum i hver ende: ${JSON.stringify(fil)}`); ok = false;
+    }
+    if (fil.includes('\\')) {
+      FEJL('R18', `${sti}.fil`, `stien bruger omvendt skraastreg: ${JSON.stringify(fil)}. ` +
+        `Skriv den med "/" — to stavemaader af den samme fil er to filer for et byg`); ok = false;
+    }
+    if (fil.startsWith('/') || /^[a-zA-Z]:/.test(fil) || /^[a-z]+:\/\//i.test(fil)) {
+      FEJL('R18', `${sti}.fil`, `stien er absolut eller en URL: ${JSON.stringify(fil)}. ` +
+        `Den skal vaere relativ til assets/`); ok = false;
+    }
+    if (fil.split('/').includes('..')) {
+      FEJL('R18', `${sti}.fil`, `stien gaar op ad mappetraeet: ${JSON.stringify(fil)}. ` +
+        `Et billede maa ikke ligge uden for assets/`); ok = false;
+    }
+    if (/^assets\//.test(fil)) {
+      FEJL('R18', `${sti}.fil`, `stien begynder med "assets/": ${JSON.stringify(fil)}. ` +
+        `Den er ALLEREDE relativ til assets/ — skriv "${fil.replace(/^assets\//, '')}"`); ok = false;
+    }
+    if (/(^|\/)media(\/|$)/.test(fil)) {
+      FEJL('R18', `${sti}.fil`, `stien peger paa media/: ${JSON.stringify(fil)}. media/ er ` +
+        `fabrikantens materiale og indgaar ALDRIG i et byg (CLAUDE.md, mappestruktur). ` +
+        `Skal billedet med, skal filen ligge i assets/`); ok = false;
+    }
+    const mappe = fil.split('/')[0];
+    if (ok && !BILLEDMAPPER.includes(mappe)) {
+      FEJL('R18', `${sti}.fil`, `"${mappe}/" er ikke en billedmappe. Bygget kopierer fra ` +
+        `${BILLEDMAPPER.map((m) => `assets/${m}/`).join(', ')} — en fil et andet sted naar ` +
+        `aldrig dist/`); ok = false;
+    }
+    const endelse = path.extname(fil).toLowerCase();
+    if (ok && !BILLEDE_ENDELSER.includes(endelse)) {
+      FEJL('R18', `${sti}.fil`, `endelsen "${endelse || '(ingen)'}" er ikke et billedformat, ` +
+        `bygget kopierer. Gyldige: ${BILLEDE_ENDELSER.join(', ')}`); ok = false;
+    }
+    if (ok) {
+      const fuld = path.join(cfg.assets, fil);
+      if (!fs.existsSync(fuld)) {
+        FEJL('R18', `${sti}.fil`, `filen findes ikke: assets/${fil}. En sti til en fil, ingen ` +
+          `har lagt, giver et brudt billede i browseren og intet fejlsignal her`);
+      } else if (!fs.statSync(fuld).isFile()) {
+        FEJL('R18', `${sti}.fil`, `assets/${fil} er ikke en fil`);
+      }
+    }
+  }
+
+  /* --- kilden. Samme krav som til et tal, af samme grund. --- */
+  const kraeverKilde = BILLEDE_KRAEVER_KILDE.has(ophav);
+  if (b.kilde === undefined) {
+    if (kraeverKilde) {
+      FEJL('R18', `${sti}.kilde`, `ophavet "${ophav}" kraever "kilde". ` +
+        (ophav === 'silhuet'
+          ? `En silhuet er en gengivelse af MAALTAL, og et maal uden kilde er ikke indsamlet, ` +
+            `det er husket (assets/silhuetter/LÆSMIG.md, regel 5)`
+          : `Et fabrikantbillede skal kunne foelges tilbage til den side, det blev hentet fra`));
+    }
+  } else {
+    tjekKilde(sti, b);          // R6: URL og kildetype-formen
+    tjekHentet(sti, b);         // R7: hentedato, saa posten kan foraeldes
+  }
+  if (b.hentet !== undefined && b.kilde === undefined) {
+    FEJL('R18', `${sti}.hentet`, `"hentet" staar uden "kilde". En hentedato uden et sted at ` +
+      `hente fra daterer ingenting`);
+  }
+
+  /* --- teksterne. Tomme strenge er huller, der ligner indhold. --- */
+  for (const n of ['alt', 'note']) {
+    if (b[n] === undefined) continue;
+    if (typeof b[n] !== 'string' || b[n].trim() === '') {
+      FEJL('R18', `${sti}.${n}`, `"${n}" skal vaere en ikke-tom tekst, fik ${JSON.stringify(b[n])}`);
+    }
+  }
+  if (b.pos !== undefined && (typeof b.pos !== 'string' || b.pos.trim() === '')) {
+    FEJL('R18', `${sti}.pos`, `"pos" er en object-position som tekst, fx "50% 40%"`);
+  }
+  if (b.plade !== undefined && typeof b.plade !== 'boolean') {
+    FEJL('R18', `${sti}.plade`, `"plade" skal vaere ja eller nej, fik ${JSON.stringify(b.plade)}`);
+  }
+
+  /* --- delt fil (L28). Maerket paa billedet siger, at filen deles. --- */
+  if (b.delt_med !== undefined) {
+    if (typeof b.delt_med !== 'string' || b.delt_med.trim() === '') {
+      FEJL('R18', `${sti}.delt_med`, `"delt_med" skal vaere den anden robots slug som tekst, ` +
+        `fik ${JSON.stringify(b.delt_med)}`);
+    } else if (b.delt_med === egenSlug) {
+      FEJL('R18', `${sti}.delt_med`, `"delt_med" peger paa robotten selv. En fil, der kun ` +
+        `bruges ét sted, er ikke delt`);
+    }
+  }
+}
+
+/**
+ * R18, den del der foerst kan afgoeres, naar alle filer er laest: peger
+ * `delt_med` paa en robot, der findes? Uden opslaget ville en tastefejl give
+ * et maerke, der siger "delt med" og naevner en maskine, kataloget ikke har.
+ */
+export function tjekBilledeDelt(robotter) {
+  const kendte = new Set(robotter.map((r) => r.slug).filter(Boolean));
+  for (const r of robotter) {
+    const d = r.billede?.delt_med;
+    if (typeof d !== 'string' || d === '' || kendte.has(d)) continue;
+    robotINavn = r.slug || '(ukendt robot)';
+    FEJL('R18', 'billede.delt_med', `"${d}" er ikke en robot i datasaettet. Maerket paa ` +
+      `billedet ville naevne en maskine, kataloget ikke har`);
+  }
+}
+
 /* --------------------------------------------------------------- taethed */
 
 /**
@@ -743,6 +922,11 @@ export function tjekRobot(doc, fil) {
   // vilje: den taeller ikke i specifikationstaetheden, fordi den ikke er en
   // specifikation, producenten kunne have oplyst og lod vaere.
   tjekAnvendelse(doc.anvendelse, doc.slug);
+
+  // R18 — billedet. Ligger ogsaa uden for "felter": et billede er ikke en
+  // specifikation, producenten oplyser eller lader vaere med at oplyse, og maa
+  // derfor ikke flytte naevneren i specifikationstaetheden (D7 er aaben).
+  tjekBillede(doc.billede, doc.slug);
 
   const felter = doc.felter;
   if (felter === undefined || felter === null) { FEJL('R1', 'felter', `"felter" mangler`); return null; }
@@ -882,6 +1066,7 @@ export function main(argv) {
   const { flag, filer } = laesFlag(argv);
   if (flag['selvtest']) return selvtest();
   if (flag['imperial-tolerance'] !== undefined) cfg.imperialTolerance = Number(flag['imperial-tolerance']);
+  if (flag['assets'] !== undefined) cfg.assets = path.resolve(String(flag['assets']));
   cfg.streng = Boolean(flag['streng']);
 
   let maal = filer;
@@ -910,6 +1095,8 @@ export function main(argv) {
 
   // R17 — arven kan foerst afgoeres, naar moderen kan slaas op.
   tjekArv(robotter, arvMappe);
+  // R18 — det samme gaelder et delt billede: den anden robot skal findes.
+  tjekBilledeDelt(robotter);
 
   for (const f of fejl) console.error(`FEJL      ${f.robot} · ${f.felt} · ${f.regel}: ${f.besked}`);
   for (const a of advarsler) console.error(`advarsel  ${a.robot} · ${a.felt} · ${a.regel}: ${a.besked}`);

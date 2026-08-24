@@ -64,10 +64,16 @@ export const GRUPPER = ['fysik', 'energi', 'sensorik', 'nyttelast', 'kommercielt
 /** Identitet. Skrives af os og taeller ikke i taetheden. */
 export const IDENTITET_PAAKRAEVET = ['slug', 'navn', 'producent', 'producentland', 'status'];
 export const IDENTITET_VALGFRI = [
-  'foerste_udgivelse', 'forgaenger', 'noter', 'silhuet',
+  'foerste_udgivelse', 'forgaenger', 'noter',
   // Producentens by. Sammen med producentland er den svaret paa "hvor staar de
   // henne" — ANYbotics ligger i Zuerich, og Schweiz er ikke EU.
   'producentby',
+  // Robottens billede. Se BILLEDE_* nedenfor og R18.
+  // `silhuet` STOD her indtil 21. aug 2026 som en noegle uden regler, uden
+  // laeser og uden en eneste fil, der brugte den (maalt: 0 af 46). To noegler
+  // for det samme billede er en kontakt med to stillinger, og den her havde
+  // ingen. Den er fjernet, saa `billede:` er den eneste vej ind.
+  'billede',
   // Varianterne ved navn. Naar den staar, er den listen over de kolonner, et felts
   // "varianter:"-blok maa bruge — se R15. Uden den kan en variant hedde noget
   // forskelligt paa to felter i samme fil, og de to kan ikke stilles op mod hinanden.
@@ -197,6 +203,90 @@ export function jaNejAf(v) {
   return null;
 }
 
+/* ======================================================================
+   billede — hvem har lavet det, og hvor kom det fra
+
+   Feltet er en TOPNOEGLE af samme grund som `anvendelse`: et billede er ikke
+   en specifikation, producenten oplyser eller lader vaere med at oplyse, saa
+   det maa ikke flytte naevneren i specifikationstaetheden (D7 er stadig aaben).
+
+   Formen:
+
+     billede:
+       fil: silhuetter/unitree-b2-staaende.svg   # RELATIV TIL assets/
+       ophav: silhuet                            # eget_foto | silhuet | fabrikant
+       kilde: https://www.unitree.com/b2         # hvor maalene/billedet kom fra
+       hentet: 2026-08-21
+       alt: "Maaltro silhuet af Unitree B2"      # valgfri
+       note: "Tegnet efter L 1098 x B 450 mm."   # valgfri
+       delt_med: unitree-b2                      # valgfri, L28
+       plade: ja                                 # valgfri, ellers udledt af ophav
+       pos: "50% 40%"                            # valgfri object-position
+
+   Tre ting, feltet er bygget for at goere umuligt:
+
+   1. **Et billede uden ophav.** Uden `ophav` kan siden ikke vide, om den viser
+      vores eget arbejde eller fabrikantens materiale — og S1 forbyder
+      publicering med det sidste. Ophavet er derfor PAAKRAEVET (R18), ikke
+      udledt af mappen. En mappe kan flyttes; en oplysning i data kan ikke
+      flytte sig selv.
+   2. **En silhuet uden kilde paa de maal, den er tegnet efter.** Det er
+      assets/silhuetter/LÆSMIG.md regel 5, og det er den samme regel som for
+      tal: et maal uden kilde er ikke indsamlet, det er husket. Derfor kraever
+      `silhuet` og `fabrikant` begge `kilde` + `hentet`.
+   3. **En sti ud af assets/.** `fil` er relativ til assets/ og maa hverken
+      begynde med `/`, indeholde `..` eller pege paa media/. Det er den samme
+      spaerring som i bygget, skrevet ind i data-laget, saa den ikke kun
+      findes ét sted.
+
+   `eget_foto` maa staa uden kilde: vi har taget det selv, og der er ingen
+   URL at pege paa. Staar der alligevel en kilde, skal `hentet` foelge med.
+   ====================================================================== */
+
+export const BILLEDE_OPHAV = ['eget_foto', 'silhuet', 'fabrikant'];
+
+/** Ophav, hvor billedet ikke er vores eget arbejde og skal kunne foelges hjem. */
+export const BILLEDE_KRAEVER_KILDE = new Set(['silhuet', 'fabrikant']);
+
+/**
+ * Ophav, spaerring S1 daekker. Siden maa ikke PUBLICERES, mens den viser dem;
+ * lokalt er de tilladt (L13). Bygget taeller dem og kan afvise dem med
+ * `--til-udgivelse`, saa spaerringen er en maaling og ikke en huskeregel.
+ */
+export const BILLEDE_SPAERRET = new Set(['fabrikant']);
+
+/** Noegler, en billedpost maa indeholde. Alt andet fejler paa R18. */
+export const BILLEDE_NOEGLER = new Set([
+  'fil', 'ophav', 'kilde', 'hentet', 'alt', 'note', 'delt_med', 'plade', 'pos',
+]);
+
+/** Mapper under assets/, et billede maa ligge i. media/ staar ikke og kan ikke staa her. */
+export const BILLEDMAPPER = ['fotos', 'silhuetter', 'ikoner'];
+
+/** Endelser, bygget kopierer og skabelonerne kan vise. */
+export const BILLEDE_ENDELSER = ['.svg', '.jpg', '.jpeg', '.png', '.webp', '.avif'];
+
+/**
+ * Kilder til et <picture>: de moderne formater foerst, i den raekkefoelge en
+ * browser skal proeve dem. Kun formater, der FINDES som fil, bliver til en
+ * <source> — en srcset til en fil, ingen har lavet, er en tom paastand.
+ */
+export const BILLEDE_ALTERNATIVER = [['.avif', 'image/avif'], ['.webp', 'image/webp']];
+
+/**
+ * Skal billedet staa som en genstand paa hvid plade (contain) frem for at
+ * beskaeres (cover)? Silhuetter skal — de er tegninger i faelles maalestok, og
+ * en 16:10-beskaering ville tage poterne. Fotografier beskaeres, med mindre
+ * dataskriveren siger andet. Én udledning ét sted, saa kort og robotside ikke
+ * kan naa til hver sin konklusion om den samme fil.
+ */
+export function billedPlade(b) {
+  if (!b) return false;
+  const p = jaNejAf(b.plade);
+  if (p !== null) return p;
+  return b.ophav === 'silhuet';
+}
+
 /** Noegler, en feltpost maa indeholde. Alt andet fejler — en tastefejl i en
  *  noegle ville ellers forsvinde tavst ud af bygget.
  *  `varianter` er skemaudvidelse 2: Go2's fire varianter er fire maskiner. */
@@ -285,7 +375,19 @@ const erKort = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
  * Kaldes af begge programmer lige efter parseYaml.
  */
 export function normaliserRobot(doc) {
-  if (!erKort(doc) || !erKort(doc.felter)) return doc;
+  if (!erKort(doc)) return doc;
+
+  // 0. Billedposten. "plade: ja" bliver til true ét sted, saa validatoren og
+  //    generatoren ikke kan naa til hver sin konklusion om, hvordan filen skal
+  //    staa. Et ord, der hverken er ja eller nej, roeres IKKE — R18 skal kunne
+  //    se det. Stien roeres heller ikke: en omvendt skraastreg er en fejl, der
+  //    skal fejle synligt, ikke rettes tavst til en anden stavemaade.
+  if (erKort(doc.billede)) {
+    const p = jaNejAf(doc.billede.plade);
+    if (p !== null) doc.billede.plade = p;
+  }
+
+  if (!erKort(doc.felter)) return doc;
   for (const [navn, post] of Object.entries(doc.felter)) {
     const spec = FELTER[navn];
     if (!erKort(post)) continue;
