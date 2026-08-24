@@ -449,8 +449,15 @@
 
 /* --- 9g. Noter og kilder ----------------------------------------------------- */
 .noter{display:flex;flex-direction:column;gap:10px;padding-top:var(--r3);max-width:82ch}
+/* overflow-wrap (fund/FUND-detalje.md, opgave 1-regressionssweep): en note
+   kan baere en raa URL uden mellemrum (fx xiaomi-cyberdog-1/2's dokumentation
+   af en JS-bundle-kilde) - uden ombrydningen skubber den .noter li 56 px ud
+   over sin ramme ved 360 px, en horisontal overloeb-fejl der var til stede
+   FOER dette spor ogsaa (bekraeftet mod grenens startpunkt), men som denne
+   migrering nu retter, fordi klassen endelig har en regel at rette i. Samme
+   "ombryd hellere end skub ud af sporet"-princip som .stribe .v (system.css). */
 .noter li{font-size:15px;line-height:1.55;color:var(--blaek2);
-  padding-left:16px;border-left:2px solid var(--linje)}
+  padding-left:16px;border-left:2px solid var(--linje);overflow-wrap:break-word}
 .kilder .kildeliste{padding-top:var(--r4)}
 .kilder .kildeliste li{font-size:12.5px}
 .kilder .url{display:inline-block;padding:6px 0;min-height:24px}
