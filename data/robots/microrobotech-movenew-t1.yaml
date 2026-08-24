@@ -1,0 +1,148 @@
+slug: microrobotech-movenew-t1
+navn: MOVENEW T1
+producent: MicroRoboTech
+producentland: Kina
+producentby: Hangzhou
+status: i_produktion
+noter:
+  - "STOPPROEVE (firbenet): bestaaet. Producentens egen produktside skriver i meta-keywords \"Micbot, quadruped robot, ...\" og i meta-description \"Micbot's quadruped robot features... (70kg dynamic load, 200kg static load)...\" (https://www.micbotics.com/list_13/96.html, hentet 2026-08-24). T1 er en hjul-ben-hybrid (\"wheeled quadruped\"/\"轮式四足机器人\") - opgaven definerer hjul-ben-hybrider som firbenede, saa den taeller."
+  - "PRODUCENTEN HAR SKIFTET NAVN/DOMAENE. Domaenet CEO'ens opgave og pressen bruger (microrobotech.com) omdirigerer 301 til micbotics.com. Hele det nuvaerende site bruger brandnavnet \"Micbot\"/\"MICBOT\" (meta-keywords, sidens titel-tags \"...-MICBOT\", navigationslogo) - IKKE \"MicroRoboTech\". Det juridiske firmanavn er fortsat 杭州具微科技有限公司 (Hangzhou Juwei Technology), som 36Kr's projektside oversaetter til \"MicroRoboTech\" (https://pitchhub.36kr.com/project/3401143382263687, hentet 2026-08-24). Producent-feltet her bevarer CEO'ens navngivning \"MicroRoboTech\", men det forbrugervendte brand at lede efter i fremtiden er \"Micbot\"."
+  - "Datasheet-tabellen er identisk paa engelsk (micbotics.com) og kinesisk (micbotics.cn) site - alle 25+ raekker krydstjekket ordret, 0 afvigelser. Den engelske version er derfor brugt direkte som kilde uden oversaettelsesrisiko for selve tallene."
+  - "Foldet maal 1025 x 750 x 150 mm er oplyst men har intet skemafelt (skemaet har kun staaende maal)."
+  - "\"Total Battery Weight: 40~50kg\" / kinesisk \"整机电机重量\" er en tvetydig etikette (blander \"整机重量\", helmaskinevaegt, med \"电池\", batteri). Placeret som egenvaegt ud fra sammenhaengen (staar under \"Mechanical Parameters\" sammen med maalene, ikke under \"Electrical Parameters\"), men ordlyden er ikke entydig - se advarsel paa feltet."
+  - "Ingen pris fundet paa nogen af de to sprogversioner - kun \"Buy Now\"/\"Get Solutions\"-kontaktknapper, intet trykt tal."
+  - "REGELAENDRING (CEO'en, under dette spor): producentens PDF-datablade/manualer taeller nu ogsaa som kilde. Producentens support-side (https://www.micbotics.com/support/, hentet 2026-08-24) har en rigtig, downloadbar PDF: \"MOVNEWT1 Product Datasheet\" (https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf, 13,2 MB). Den blev hentet, men KUNNE IKKE LAESES med de vaerktoejer, der var til raadighed i denne session: Read-vaerktoejets PDF-understoettelse kraever pdftoppm/poppler-utils (ikke installeret paa maskinen), WebFetch gav HTTP 403 paa filen, og et forsoeg paa at trakke tekst direkte ud af PDF'ens komprimerede indholdsstrømme (Python + zlib) fandt ingen laesbare tekstoperatorer - filen er formentlig bygget som billeder/vektorgrafik uden en tekstlagbar tekst. INGEN data herfra er brugt i posten. \"T1 SDK Development Guide\", \"T1 Operation Guide\" og \"Micbot Reinforcement Learning/Perception SDK Developer Guide\" staar ogsaa paa support-siden, men alle fire har TOMME download-links (href=\"\") paa hentetidspunktet - ikke publicerede endnu, intet at hente."
+felter:
+  egenvaegt:
+    vaerdi_min: 40
+    vaerdi_maks: 50
+    enhed: kg
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Total Battery Weight\" (kinesisk \"整机电池重量\") - ordret \"helmaskine-batteri-vaegt\", en sammenblandet etikette. Placeret som egenvaegt (med batteri), fordi raekken staar under \"Mechanical Parameters\" ved siden af maalene, ikke under \"Electrical Parameters\". Ikke en tastefejl fra vores side - producentens egen etikette er tvetydig."
+  laengde:
+    vaerdi: 800
+    enhed: mm
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "\"Standing Dimensions: 800mm x 600mm x 540mm\" - producenten maerker ikke akserne. Braekkefoelgen laengde x bredde x hoejde er antaget efter saedvane, ikke bekraeftet af kilden (samme usikkerhed som deep-robotics-x30)."
+  bredde:
+    vaerdi: 600
+    enhed: mm
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "USIKKER TILDELING - se laengde. Akserne er ikke maerket i kilden."
+  hoejde:
+    vaerdi: 540
+    enhed: mm
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "USIKKER TILDELING - se laengde. Foldet maal er 1025 x 750 x 150 mm; skemaet har intet foldefelt."
+  frihedsgrader:
+    vaerdi: 16
+    enhed: DoF
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Producenten skriver \"High-Performance Motors: 16 units\", ikke \"Degrees of Freedom\". T1 er en hjul-ben-hybrid, saa de 16 motorer daekker formentlig baade ben-led og hjulnav - ikke noedvendigvis 16 rene bevaegelsesfrihedsgrader. Samme fortolkning som Go2's motor-optaelling."
+  nyttelast_gaaende:
+    vaerdi: 50
+    enhed: kg
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Continuous Walking Load\"."
+  nyttelast_staaende:
+    vaerdi: 100
+    enhed: kg
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Max Standing Load\"."
+  hastighed:
+    vaerdi: 18
+    enhed: km/h
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Max Moving Speed\" - et loft, ikke en vedvarende driftshastighed. Ingen operator tilfoejet, da \"Max\" her er en etikette (jf. skillens sondring mellem etikette og operator)."
+  haeldning:
+    vaerdi: 45
+    enhed: "°"
+    operator: "<="
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Kilden trykker tegnet U+2264 (<=) foran 45° under \"Slope Capability\" - et LOFT, samme moenster som X30's advarsel om samme tegn hos en anden producent."
+  forhindring_enkelt:
+    vaerdi: 40
+    enhed: cm
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Step Negotiation\": \"Forward climbing up/down 40cm steps\"."
+  trappetrin_kontinuerlig:
+    vaerdi: 25
+    enhed: cm
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Stair Climbing Capability\": \"Max step height 25cm\". Adskilt fra forhindring_enkelt, fordi kilden selv bruger to forskellige etiketter og to forskellige tal (25 cm vs. 40 cm) for de to begreber - modsat X30, hvor de stod som ét kombineret felt."
+  ip_klasse:
+    vaerdi: IP68
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+  temp_min:
+    vaerdi: -40
+    enhed: "°C"
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+  temp_maks:
+    vaerdi: 55
+    enhed: "°C"
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+  batteri_wh:
+    vaerdi_min: 3500
+    vaerdi_maks: 4500
+    enhed: Wh
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Kilden skriver \"Battery Capacity: 3.5/4.5 kwh, Supply Voltage 72V\" - to batteripakke-stoerrelser at vaelge imellem, ikke et maalt interval. Gemt som min/maks, fordi skemaet ikke har et \"to varianter\"-format for et enkeltstaaende tal."
+  driftstid:
+    vaerdi: 12
+    enhed: t
+    operator: "<="
+    ved_last: ikke_oplyst
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Etiket \"Max Endurance Time: <=12h\". Ingen lastbetingelse oplyst - kan derfor ikke sammenlignes direkte med en driftstid, der ER lastmaerket."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Raekken hedder \"Charging Station: Fast Charge\" (kinesisk: label \"充电桩\", vaerdi \"快充\"). Bekraefter en ladestation findes, MEN bekraefter IKKE autonom hjemkoersel/selvopladning - i modsaetning til GENISOM L2's eksplicitte \"包含自主回充功能\" (inkl. autonom genopladningsfunktion). Fortolket som \"ja, der findes en ladestation\", ikke som \"ja, med selvkoerende genopladning\"."
+  lidar:
+    vaerdi: "Onboard LiDAR (model ikke oplyst)"
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Kilden markerer kun \"Onboard LiDAR\" med en udfyldt cirkel (til stede), uden model eller linjetal. Type uden model - taeller ikke under D4, naar den indstilling er valgt."
+  kameraer:
+    vaerdi: "HD Depth Camera, 360° Panoramic Vision, Ultrasonic Radar"
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Ultrasonic Radar er strengt taget ikke et kamera, men skemaet har intet selvstaendigt radar-felt under sensorik - listet her for ikke at miste oplysningen."
+  compute:
+    vaerdi: "Jetson Orin NX Super + RK3588, 181 TOPS"
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "NeuroFuse multimodal perception + CogniDecide AI decision engine: environmental perception, task planning, knowledge reasoning, human-robot interaction"
+    kilde: https://www.micbotics.com/list_13/96.html
+    hentet: 2026-08-24
+    advarsel: "Kvalitativ beskrivelse af producentens egne systemnavne, ikke et niveau paa en skala."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst

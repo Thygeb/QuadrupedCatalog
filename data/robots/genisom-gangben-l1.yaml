@@ -1,0 +1,149 @@
+slug: genisom-gangben-l1
+navn: Gangben L1
+producent: GENISOM AI
+producentland: Kina
+producentby: Beijing / Suzhou
+status: i_produktion
+anvendelse:
+  vaerdi: [inspektion, forsvar_beredskab, sikkerhed_overvaagning, forskning_udvikling]
+  citat: "钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。"
+  kilde: https://www.genisomai.com/product-robot/L1
+  hentet: 2026-08-24
+  note: "Egen oversaettelse: \"Gangben L1 er GENISOM AI's selvudviklede foerste industriklasse smaa firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse.\" 电力巡检 -> inspektion; 应急救援 -> forsvar_beredskab; 安防巡逻 -> sikkerhed_overvaagning; 科研教育 -> forskning_udvikling (uddannelsesdelen af 科研教育 har intet praecist svar i vaerdisaettet ud over forbruger_uddannelse, som ikke er brugt her, da konteksten er faglig forskning, ikke forbrugerprodukt)."
+noter:
+  - "STOPPROEVE (firbenet): bestaaet, entydigt. Meta-keywords paa producentens egen produktside: \"具身智能,四足机器人,机器狗,行业级机器人,钢镚L1,...\" (fire ben; 四足机器人 = quadruped robot, 机器狗 = robot dog). Meta-description: \"钢镚L1是智身科技自主研发的首款行业级小型四足机器人\" (Gangben L1 er GENISOM AI's selvudviklede foerste industriklasse smaa firbenede robot). https://www.genisomai.com/product-robot/L1, hentet 2026-08-24. L1 er en ren gaaende (\"点足\", punktfod) model, ikke en hjul-ben-hybrid."
+  - "PRODUKTIONSTAL 15.000+ ENHEDER: EFTERPROEVET SOM PRODUCENTENS EGET, IKKE KUN PRESSENS. Homepage genisomai.com viser billedtekst \"累计量产突破 15,000 台\" (kumuleret produktion har passeret 15.000 enheder) direkte i en heltalsgrafik paa forsiden. Selskabets egen om-os-side gentager det i en tidslinje: \"2026年6月底，完成了第15000台行业级具身智能机器人的量产\" (ved udgangen af juni 2026 blev produktion af den 15.000. industriklasse embodied-AI-robot fuldfoert). Begge citater er hentet direkte fra genisomai.com (hhv. forsiden og /aboutus.html, hentet 2026-08-24), ikke fra pressemateriale. FUND-messe.md's oprindelige kilde for tallet var Sohu (presse) - denne runde bekraefter, at producenten selv trykker det samme tal paa egen hjemmeside. Tallet DAEKKER HELE GENISOM-KATALOGET (Gangben L1/L1-W/L2 + Tongchui M1), ikke L1 alene - producenten opdeler ikke tallet pr. model."
+  - "GANGBEN-SERIEN ER STOERRE END DE TO POSTER I DENNE OMGANG. Fundet paa genisomai.com, men IKKE bygget som selvstaendige poster: 钢镚 L1-W (hjul-ben-variant af L1), 钢镚 L1 Maker (undervisningsudgave af L1), 钢镚 L2-W og 钢镚 L2-W Ultra (hjul-ben-varianter af L2, dokumenteret i L2's egen tekniske JSON-tabel). Desuden fandtes to selvstaendige produktlinjer hos samme producent, der IKKE hedder \"钢镚\"/Gangben: 铜锤 M1 (Tongchui M1, mellemklasse firbenet robot, egen produktside genisomai.com/product-robot/M1) og 铅球 SP1 (Qiuqiu SP1, eksplosionssikker hjul-ben firbenet robot). Alle er bekraeftet firbenede efter producentens egne ord (WebSearch-uddrag citeret i FUND-kand1b.md), men er UDENFOR denne opgaves navngivne omfang (\"Gangben-serien\") og er ikke efterproevet mod raa HTML paa samme niveau som L1/L2. Angivet her, saa et fravalg ikke forveksles med en forglemmelse."
+  - "SENSOR-UOVERENSSTEMMELSE MELLEM MARKEDSFOERINGSTEKST OG SPECIFIKATIONSTABEL, IKKE LOEST STILTIENDE: se samme problem paa genisom-gangben-l2.yaml (L2's egen side har samme moenster). L1's egen JSON-specifikationstabel naevner INGEN LiDAR for basismodellen - kun bredvinkelkamera og IMU."
+  - "REGELAENDRING (CEO'en, under dette spor): producentens eget materiale ud over produktsiden - PDF-datablade, manualer, udviklerdokumentation - taeller nu ogsaa som gyldig kilde, mod at det maerkes kildetype: sekundaer. Brugt til sdk_sprog nedenfor: github.com/zsibot er GENISOM AI's egen officielle GitHub-organisation (linket direkte fra genisomai.com/download.html: \"官方 GitHub: https://github.com/zsibot/\"). Repoet \"genisom_L1_sdk\" er eksplicit navngivet \"Official SDK for Genisom L1 Series robots\" og README'en skriver \"基于 C++20 开发\" (udviklet med C++20) - ingen ROS/ROS2-omtale i den README. https://github.com/zsibot/genisom_L1_sdk, hentet 2026-08-24."
+  - "ROS2 IKKE SAT FOR L1, BEVIDST. Et andet repo i samme organisation, genisom_roamerx_open (\"Open-source navigation stack for GENISOM-AI robots\"), kraever eksplicit \"ROS2 Humble Hawksbill\" og er \"Based on ROS2 Nav2\". Men L1's EGEN produktside naevner ikke navigationssystemet \"RoamerX\" - det er en \"新一代\"/naeste-generations-funktion, som kun staar paa L2's produktside (se genisom-gangben-l2.yaml). Uden den kobling er der ikke grundlag for at saette ros2: ja paa L1 specifikt - feltet staar derfor ikke_oplyst, med denne begrundelse, i stedet for at antage at hele produktfamilien deler samme navigationsstak."
+  - "Tredjeparts-WebSearch-sammendrag (ikke direkte efterproevet mod raa HTML) naevner et valgfrit, konfigurerbart sensorsaet for L1 - Intel RealSense dybdekamera, Livox Mid360 LiDAR og NVIDIA Orin NX (op til 100 TOPS) - som IKKE staar i den officielle specifikations-JSON paa produktsiden (den viser kun \"8-kernet CPU\" og bredvinkelkameraet). Ikke medtaget som data, fordi den ikke kunne bekraeftes i raa HTML."
+felter:
+  egenvaegt:
+    vaerdi: 15
+    enhed: kg
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"整机重量（含电池）: 15 kg\" - eksplicit \"含电池\" (inkl. batteri). RETTET VED SELV-TJEK: raekken har INTET \"约\" (cirka)-tegn foran vaegten, i modsaetning til maalene lige ovenover i samme tabel, som ER markeret \"约\". Foerste udkast af denne post satte fejlagtigt operator \"~\" paa vaegten ud fra en antagelse om, at hele sektionen delte samme cirka-markering - rettet efter genlaesning af raa-JSON'en."
+  laengde:
+    vaerdi: 630
+    enhed: mm
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"站立尺寸（长 x 宽 x 高）约 630 x 360 x 415 mm\" - akserne ER maerket eksplicit af producenten (长=laengde, 宽=bredde, 高=hoejde), i modsaetning til MicroRoboTechs to poster."
+  bredde:
+    vaerdi: 360
+    enhed: mm
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+  hoejde:
+    vaerdi: 415
+    enhed: mm
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "Krybende maal (\"趴地尺寸\") er ~670 x 425 x 145 mm; skemaet har intet felt til den tilstand."
+  frihedsgrader:
+    vaerdi: 12
+    enhed: DoF
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"关节电机数量: 12个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\"/\"自由度\". Samme fortolkning som Unitree Go2 i denne samling."
+  nyttelast_gaaende:
+    vaerdi: 8
+    enhed: kg
+    operator: "~"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" - graensevaerdi op til ca. 10 kg oplyst separat."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 3.7
+    enhed: m/s
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"最大速度: 3.7 m/s\". En separat \"极限速度\" (graensehastighed) paa 5 m/s er ogsaa oplyst - ikke brugt som hovedvaerdi, fordi \"最大速度\" er den etiket, der svarer til \"normal maksimal hastighed\" i resten af samlingen."
+  haeldning:
+    vaerdi: 30
+    enhed: "°"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"最大爬坡角度: 标准环境 30°，极限可达 40°\" (standardmiljoe 30°, graense op til 40°). Standardvaerdien er brugt; graensevaerdien 40° er noteret her, ikke skrevet ind som feltets vaerdi."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 16
+    enhed: cm
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehoejde)."
+  ip_klasse:
+    vaerdi: IP54
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+  temp_min:
+    vaerdi: 0
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+  temp_maks:
+    vaerdi: 40
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+  batteri_wh:
+    vaerdi: ikke_oplyst
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "Tilbehoersliste oplyser \"电池\": \"标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V\" (nominel kapacitet 5 Ah, maerkekapacitet 4,6 Ah, spaending 43,2 V). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9 - MagicLab-posten er beviset paa, at producentens eget udregnede Wh-tal ikke altid stemmer med Ah x V)."
+  driftstid:
+    vaerdi_min: 1
+    vaerdi_maks: 2
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"续航时间: 1-2 h\", ingen lastbetingelse oplyst. Raekkevidde \"续航里程: 6 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+  hot_swap: ikke_oplyst
+  ladetid:
+    vaerdi: 1
+    enhed: t
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"充电时长: 1 h\"."
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "Tilbehoersliste: \"充电座: 标配\" (ladesokkel, standardudstyr). Bekraefter en fysisk ladestation foelger med som standard, MEN bekraefter IKKE autonom hjemkoersel/selvgenopladning - det ord staar ikke paa L1's side (modsat L2's eksplicitte \"自主回充功能\")."
+  lidar: ikke_oplyst
+  kameraer:
+    vaerdi: "Bredvinkelkamera, 8 MP (800万像素), DFOV 122° / HFOV 111° / VFOV 70°"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+  compute:
+    vaerdi: "8-kernet CPU"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er ogsaa oplyst i samme sektion; skemaet har intet effektfelt. Se ogsaa top-noten om et ubekraeftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsaet naevnt i tredjepartskilder, men ikke i denne officielle tabel."
+  ros2: ikke_oplyst
+  sdk_sprog:
+    vaerdi: ["C++"]
+    kilde: https://github.com/zsibot/genisom_L1_sdk
+    hentet: 2026-08-24
+    kildetype: sekundaer
+    advarsel: "Kilde er producentens egen GitHub-organisation (zsibot = GENISOM AI), repoet \"genisom_L1_sdk\", eksplicit navngivet officiel L1-SDK. README: \"基于 C++20 开发\" (C++20). Ikke produktsiden selv, derfor kildetype: sekundaer efter den nye regel."
+  autonominiveau:
+    vaerdi: "AI强化学习运控 (标配, AI-forstaerkningslaering bevaegelsesstyring); 目标识别与追踪 (maalgenkendelse og -sporing); OTA升级; 二次开发支持 (understoetter videreudvikling)"
+    kilde: https://www.genisomai.com/product-robot/L1
+    hentet: 2026-08-24
+    advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau paa en skala."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  eu_tilgaengelig: ikke_oplyst
+  ce_oplyst: ikke_oplyst
+  eu_service: ikke_oplyst
+  leveringstid: ikke_oplyst
