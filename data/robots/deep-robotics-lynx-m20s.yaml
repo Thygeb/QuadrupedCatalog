@@ -13,6 +13,13 @@ anvendelse:
 noter:
   - "Tredje faneblad paa M20-siden. Samme maal og vaegt som M20, men markant hoejere tal paa naesten alt andet - det er en anden robot, ikke en udstyrsvariant."
   - "Indsamlingens taetteste post (18 af 31 felter). Den bryder robotdata-skillens advarselstaerskel paa 55 %, men alle 18 felter staar i producentens egen tabel paa producentens eget domaene. Det er taersklen, der skal justeres, ikke posten."
+billede:
+  fil: fotos/fabrikant/deep-robotics-lynx-m20s.jpg
+  ophav: fabrikant
+  kilde: https://deeprobotics.cn/en/index/lynx.html
+  hentet: 2026-08-19
+  alt: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
+  note: "Producentens eget billede for hele Lynx-serien paa lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
 felter:
   egenvaegt:
     vaerdi: 35

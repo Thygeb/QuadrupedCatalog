@@ -13,6 +13,13 @@ anvendelse:
 noter:
   - "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlaegningen er laest i sidens egen JavaScript, ikke gaettet."
   - "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhoejder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekraeftelse paa, at de to felter skal vaere adskilt."
+billede:
+  fil: fotos/fabrikant/deep-robotics-lynx-m20.jpg
+  ophav: fabrikant
+  kilde: https://deeprobotics.cn/en/index/lynx.html
+  hentet: 2026-08-19
+  alt: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
+  note: "Producentens eget billede for hele Lynx-serien paa lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
 felter:
   egenvaegt:
     vaerdi: 35

@@ -12,6 +12,12 @@ anvendelse:
   note: "L22: \"security patrol\" er omsat til sikkerhed_overvaagning. \"emergency firefighting\" er forsvar_beredskab. De fem kategorier er producentens egen opremsning i én saetning og staar uden indbyrdes rangering (L27)."
 noter:
   - "Lanceringsside, ikke et datablad. Ingen specifikationstabel paa noget af sprogene. Alle fem tal staar i loebende broedtekst - de er svaerere at datere og lettere at aendre uden spor end tal i en tabel."
+billede:
+  fil: fotos/fabrikant/deep-robotics-lynx-s10.jpg
+  ophav: fabrikant
+  kilde: https://www.deeprobotics.cn/robot/index/lynxs10.html
+  hentet: 2026-08-19
+  alt: "DEEP Robotics Lynx S10 paa en plankestabel i en nedrevet bygning"
 felter:
   egenvaegt:
     vaerdi: 20

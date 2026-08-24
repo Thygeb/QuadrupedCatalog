@@ -14,6 +14,13 @@ noter:
   - "PRODUCENTEN BEKRAEFTER, AT MODELLEN HAR EKSISTERET. Unitrees About-side, tidslinjen for 2017: In September 2017, the reconstructed quadruped robot Laikago came out (taken from the space dog Laika). Derfra kommer foerste_udgivelse 2017. Samme tidslinje naevner Laikago Pro under 2019 i en salgstalsopgoerelse - der findes altsaa mindst to varianter, men ingen af dem har en side."
   - "NUL FELTER INDSAMLET, OG DET ER MED VILJE. Der findes specifikationer for Laikago i tredjepartsdatabaser og hos forhandlere. De er ikke hentet, fordi de ikke kan dateres mod producenten og ville give posten en falsk friskhed. Samme afgoerelse som paa Spirit 40."
   - "HVORFOR POSTEN ALLIGEVEL FINDES: en oversigt, der kun viser de modeller producenten stadig markedsfoerer, fortaeller ikke en indkoeber, at Unitree har bygget firbenede robotter siden 2017, og hvilke der ikke laengere findes. Posten er en daekningsoplysning, ikke en katalogpost."
+billede:
+  fil: fotos/fabrikant/unitree-laikago.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/products/laikago/
+  hentet: 2026-08-24
+  alt: "Unitree Laikago Pro, studiofoto paa graa baggrund"
+  note: "Unitrees egen Laikago-side svarer i dag 404 (se noter ovenfor). Billedet er hentet 24. aug 2026 via Wayback Machine-snapshot af siden fra 21. juni 2021 - den eneste tilgaengelige kopi af producentens eget materiale. billede_url i MANIFEST.tsv peger paa web.archive.org, ikke paa unitree.com direkte."
 felter:
   egenvaegt: ikke_oplyst
   laengde: ikke_oplyst

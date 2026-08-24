@@ -14,6 +14,12 @@ noter:
   - "VEDLIGEHOLDSFORBEHOLD 2: en validator, der kun ser sidens HTML, vil rapportere posten som TOM."
   - "mi.com bruger en BLOKERINGSliste, ikke en tilladelsesliste: curl, tom user-agent, libwww-perl og Go-http-client faar alle 200; wget, Scrapy og Java faar 403 (fra Akamai, ikke fra Xiaomi). En hentelogik bygget paa antagelsen om at alle vaerktoejer blokeres, ville vaere bygget paa en fejl."
   - "DENNE POST HAR SOM DEN ENESTE I HELE INDSAMLINGEN baade LiDAR-MODEL, FRIHEDSGRADER, ROS 2 og BATTERI I Wh - fire af de seks felter, der havde nul daekning paa alle tre referencerobotter i DATAMODEL.md."
+billede:
+  fil: fotos/fabrikant/xiaomi-cyberdog-2.png
+  ophav: fabrikant
+  kilde: https://www.mi.com/cyberdog2
+  hentet: 2026-08-19
+  alt: "Xiaomi CyberDog 2, studiofoto paa graa baggrund"
 felter:
   egenvaegt:
     vaerdi: 8.9
