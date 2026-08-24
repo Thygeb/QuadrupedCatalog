@@ -382,8 +382,11 @@
 .anvendelse-citat p + p{margin-top:8px}
 .anvendelse-citat p:not(.etiket){font-size:16px;line-height:1.5;color:var(--blaek)}
 /* Arven skal SES, med grundmodellens navn og et rigtigt link (L23, opgave 4c) —
-   ikke den raa slug uden markering, det gamle .arvet skrev. */
-.anvendelse__arv{font-style:normal;color:var(--blaek3)}
+   ikke den raa slug uden markering, det gamle .arvet skrev. Baerer sin egen
+   fulde typografi (samme tal som .t-mikro) i stedet for at dele klasse med
+   den: robot.mjs' markup skal kunne testes paa netop denne ene BEM-klasse
+   alene (class="anvendelse__arv", ikke "t-mikro anvendelse__arv"). */
+.anvendelse__arv{font-size:13px;line-height:1.5;font-style:normal;color:var(--blaek3)}
 .anvendelse__arv a{color:var(--blaek3);text-decoration-thickness:1.5px}
 .anvendelse__arv a:hover{color:var(--accent)}
 .anvendelse__note{margin-top:4px}

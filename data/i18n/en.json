@@ -90,6 +90,7 @@
   "noegletal_taeller": "{a} of {b} stated",
   "noegletal_hul_en": "1 gap",
   "noegletal_hul_flere": "{n} gaps",
+  "noegletal_afvigelser": "Deviations and variants in the key figures ({n})",
   "noegletal_intet": "The manufacturer states none of the six key figures.",
   "noegletal_intet_alle": "The manufacturer states none of the {b} key figures.",
   "noegletal_intet_grund": "The cells are not empty by mistake. There is no manufacturer page carrying the figures.",
