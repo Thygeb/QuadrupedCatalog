@@ -13,6 +13,13 @@ anvendelse:
   note: "ARVET (L23). X30 Pro har ingen egen produktside; den staar som en variant paa X30-siden, og saetningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er daekket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed_overvaagning."
 noter:
   - "Staar som egen kolonne paa X30's produktside. Afviger fra X30 paa tre felter: vaegt, det midterste maal og portlisten. Alt andet er tegn for tegn ens."
+billede:
+  fil: fotos/fabrikant/deep-robotics-x30-pro.jpg
+  ophav: fabrikant
+  kilde: https://deeprobotics.cn/en/index/product3.html
+  hentet: 2026-08-19
+  alt: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
+  note: "Samme billede bruges af producenten paa baade X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
 felter:
   egenvaegt:
     vaerdi: 59

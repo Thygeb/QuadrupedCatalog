@@ -18,6 +18,13 @@ noter:
   - "DE TRE TAL, DER ER FOERT IND, ER SEKUNDAERE OG MAERKET SOM SAADAN. De staar hos KAIST RaiLab, laboratoriet der byggede robotten, ikke hos den virksomhed der saelger den: 42 kg, op til 6 m/s, op til 8 timers uafbrudt drift. De er maerket kildetype sekundaer, saa det senere kan besluttes, om de overhovedet maa taelle med (robotdata-skillens regel 3). Uden dem ville posten vaere helt tom for tal, og en tom post ville skjule, at oplysningerne findes - bare ikke hos saelgeren."
   - "SAMMENLIGN MED WEILAN E300: to poster med naesten nul oplyste felter, af to helt forskellige grunde. Weilan HAR oplyst og har taget det ned. Raion Robotics har aldrig oplyst noget om robotten, kun om dens motor. En katalogvisning, der viser begge som 0 %, taber den forskel."
   - "MARATHONEN ER MARKEDSFOERING, IKKE EN SPECIFIKATION. Producenten skriver RAIBO2 demonstrates long-duration mobility through a public marathon course. Distancen og tiden staar ikke paa producentens side og er ikke hentet fra pressen."
+billede:
+  fil: fotos/fabrikant/raion-robotics-raibo2.jpg
+  ophav: fabrikant
+  kilde: https://raionrobotics.com/en/product/Raibo2
+  hentet: 2026-08-24
+  alt: "Raion Robotics RAIBO2 udendoers paa asfalt"
+  note: "Hentet direkte fra producentens produktside 24. aug 2026, ikke fra det eksisterende billedarkiv, som ikke havde en mappe for denne robot."
 felter:
   egenvaegt:
     vaerdi: 42

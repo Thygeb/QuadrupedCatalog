@@ -13,6 +13,13 @@ anvendelse:
 noter:
   - "Kinesisk og engelsk side er enige om samtlige tal. Eneste forskel: EN tilfoejer (battery included) til vaegten."
   - "X30 oplyser INGEN nyttelast - hverken gaaende eller staaende, paa noget sprog. Den aeldre X20 oplyser 20 kg. Producentens flagskib er blevet mindre oplysende end sin forgaenger."
+billede:
+  fil: fotos/fabrikant/deep-robotics-x30.jpg
+  ophav: fabrikant
+  kilde: https://deeprobotics.cn/en/index/product3.html
+  hentet: 2026-08-19
+  alt: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
+  note: "Samme billede bruges af producenten paa baade X30- og X30 Pro-siden."
 felter:
   egenvaegt:
     vaerdi: 56

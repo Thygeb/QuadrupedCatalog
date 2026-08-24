@@ -16,6 +16,12 @@ noter:
   - "PRODUCENTEN OPLYSER INGEN TAL. Specifikationsafsnittet paa produktsiden bestaar af EN saetning: 2026 ANYmal X specifications coming soon."
   - "PROJEKTETS BEDSTE ARGUMENT, OG DET LIGNER ET NEDERLAG. Den robot i feltet, der har den staerkeste europaeiske certificering - ATEX og IECEx op til Zone 1 IIB, det papir der afgoer, om en maskine overhovedet maa ind paa et raffinaderi - har den naestlaveste specifikationstaethed i hele indsamlingen. Taethed maaler AABENHED, ikke EGNETHED. Sorterer kataloget paa taethed som standard, lander den robot, en dansk procesindustri faktisk maa koebe, i bunden."
   - "SKEMAET MANGLER ET FELT: ex_certificering. ATEX/IECEx-zoneklassifikation kan ikke skrives ind i nogen af de 33 felter uden at blive kvalt i ce_oplyst. Producentens ordrette tekst: ATEX & IECEx certified up to Zone 1 IIB; Certified for up to Zone 1 where inflammable gases are likely to occur; intrinsically safe. Forslag: ex_certificering med standard (ATEX|IECEx), zone (0|1|2) og gasgruppe (IIA|IIB|IIC), og ikke_oplyst som foerstegangsvaerdi for alle andre poster."
+billede:
+  fil: fotos/fabrikant/anybotics-anymal-x.jpg
+  ophav: fabrikant
+  kilde: https://www.anybotics.com/
+  hentet: 2026-08-19
+  alt: "ANYbotics ANYmal X fotograferet indendoers i et industrianlaeg"
 felter:
   egenvaegt: ikke_oplyst
   laengde: ikke_oplyst
