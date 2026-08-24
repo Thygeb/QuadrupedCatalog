@@ -1,0 +1,84 @@
+slug: bhairav-robotics-shvana
+navn: Shvana
+producent: Bhairav Robotics
+producentland: Indien
+producentby: Kakinada, Andhra Pradesh
+status: annonceret
+anvendelse:
+  vaerdi: [forsvar_beredskab, industri, inspektion]
+  citat:
+    - "Defence & Homeland Security: Shvana can be effectively used by various divisions of armed forces for: Strategic area monitoring | Border patrol & surveillance | Tactical situations | Explosive detection | Search and rescue operations. Shvana also offers the possibility of carrying EW (electronic warfare) payloads, munitions etc., with advanced target tracking software and image recognition capabilities."
+    - "Industrial Environments: ... Confined area entry | Hazardous/Corrosive environment inspection | Routine field checks – detecting leaks, abnormal sound, etc | Detecting hotspots | Handling radioactive waste | Fire fighting"
+  kilde: https://bhairavrobotics.com/shvana-robot/
+  hentet: 2026-08-24
+  note: "\"Defence & Homeland Security\" med bevaebnings-/ammunitionsomtale ('munitions', 'EW payloads') -> forsvar_beredskab (IKKE sikkerhed_overvaagning - L22 indfoerte netop den kategori for at skille civil patrulje/overvaagning fra militaerplatforme, og Shvana er eksplicit \"Bharat's first ARMED quadruped\" for vaebnede styrker). \"Industrial Environments\" med \"Hazardous/Corrosive environment inspection\", \"Routine field checks - detecting leaks\" m.fl. -> industri + inspektion."
+noter:
+  - "STOPPROEVE (firbenet): BESTAAET, med et direkte og eksplicit producentcitat - ikke kun en afledning: \"Bhairav Robotics unveils Bharat's first armed quadruped 'Shvana (श्वान)'\". Kilde: https://bhairavrobotics.com/shvana-robot/, hentet 2026-08-24 (raa HTML gemt, verificeret - se noten om sidens fulde indhold nedenfor). Samme ord (\"quadruped\") staar ogsaa paa forsiden: \"Armed Quadruped UGV Made in India\", https://bhairavrobotics.com/, hentet 2026-08-24."
+  - "STOPPROEVE (reelt produkt, ikke legetoej/hobbykit): BESTAAET paa firma- og formaalsniveau, men med forbehold om PRODUKTIONSSTATUS (se naeste note). Siden beskriver udelukkende militaere og industrielle anvendelser (Defence & Homeland Security, Industrial Environments) - ingen forbruger-, legetoejs- eller hobbysprog noget sted. Firmaet er et registreret indisk selskab med et team af ingenioerer med 25+ aars erfaring i forsvarsindustrien (\"MohanRaj Gangadharan ... 25+ years of experience in design and manufacturing of numerous products for defense industry\"; \"Ramakrishna Commuri ... 25+ years of experience... building drones for armed forces\"), https://bhairavrobotics.com/, hentet 2026-08-24. IKKE brugt som feltkilde, kun som kontekst for stopproeven: en ekstern soegning (Dealroom) fandt at Zen Technologies Limited (indisk forsvarsboers-selskab) i 2025 tog en ejerandel paa 45,33% i Bhairav Robotics - bekraefter et reelt, kapitaliseret selskab, men er presseformidlet/tredjepart og indgaar derfor IKKE i noget felt (L21/L33)."
+  - "STATUS-VURDERING, IKKE ENTYDIG FRA PRODUCENTEN SELV: Shvana-siden praesenterer robotten med et konkret \"Features\"-specark (samme opbygning som et saelgende produkt), men bruger intetsteds ord som \"available now\", \"in production\", \"order\" eller lignende - eneste handlingsopfordring er \"For more details, email info@bhairavrobotics.com\". Ingen kundecase, ingen leveret enhed naevnt (i modsaetning til Keybotic Keypers case study). Saettes derfor til status: annonceret, ikke i_produktion - samme forsigtige laesning som fund/FUND-kandglobal.md's egen vurdering (\"status for serieproduktion uklar fra siden selv\")."
+  - "VAEGT ER EKSPLICIT UDEN NYTTELAST: \"Weight: 25 kg (minus payload)\" - grundvaegten er 25 kg UDEN den paafoerte nyttelast. En eventuel totalvaegt med fuld 10 kg nyttelast (op til 35 kg) er ALDRIG oplyst af producenten og er derfor ikke udregnet eller skrevet nogen steder i denne post (regel 1 - vi gaetter ikke et tal, producenten ikke selv har skrevet)."
+  - "NYTTELAST PLACERET SOM GAAENDE, IKKE STAAENDE: siden skelner ikke selv mellem gaaende/staaende nyttelast - der staar kun ét tal, \"Payload: 10 kg\". Placeret under nyttelast_gaaende, fordi al anvendelsestekst handler om at baere/goere noget UNDER bevaegelse (\"Shvana can carry can also walk in the field areas/shopfloor along the designated path to carry out required tasks\"), ikke om en staaende last. nyttelast_staaende staar derfor ikke_oplyst, ikke 0 - samme fortolkningsprincip som brugt i data/robots/yufan-lingmao-cyvet.yaml."
+  - "KAMERAER BEVIDST IKKE SAT TIL EN VAERDI: siden skriver kvalitativt at Shvana er \"packed with a suite of sensors that act like eyes and ears\" og naevner \"Vision based detection and recognition\" som en evne - men navngiver INTET kameratype, -antal eller -model som STANDARDUDSTYR. \"high resolution RGB/thermal cameras\" naevnes eksplicit kun som ET EKSEMPEL PAA EN NYTTELAST, Shvana KAN baere (\"A few payloads Shvana can carry include robotic arm, high resolution RGB/thermal cameras and specialized sensors\") - altsaa tilbehoer, ikke bekraeftet indbygget udstyr. De to udsagn modsiger ikke hinanden, men entydiggoer heller ikke, om der er indbyggede kameraer. Sat til ikke_oplyst frem for at gaette, hvilken af de to der gaelder (samme princip som lidar-haandteringen i data/robots/genisom-gangben-l2.yaml)."
+  - "COMPUTE BEVIDST IKKE SAT TIL EN VAERDI: \"Thanks to... onboard computational power, Shvana can quickly adapt\" naevner \"onboard computational power\" uden noget chip-navn, kerneantal eller TOPS-tal. Teksten baerer ingen maalbar oplysning ud over at der findes en computer ombord - ikke_oplyst er derfor mere aerligt end at gengive en indholdsloes saetning som et \"felt\"."
+  - "KOMMUNIKATION (LTE/RF) HAR INTET SKEMAFELT: \"Communication: LTE, RF\" er robottens egen fjernstyrings-/dataforbindelse, ikke fysiske dataporte til tilbehoer (jf. samme afgraensning som Keybotic Keypers WiFi/Ethernet-afsnit, se data/robots/keybotic-keyper.yaml). Noteret her, ikke brugt til at udfylde dataporte."
+  - "MONTERINGSINTERFACE BEVIDST SAT TIL IKKE_OPLYST: producenten naevner \"payloads Shvana can carry include robotic arm, high resolution RGB/thermal cameras and specialized sensors\" - en KATEGORILISTE, men ingen monteringsstandard, boltmoenster, spaending eller lastkapacitet for selve grafnsefladen (i modsaetning til fx Cyvet, hvor siden eksplicit oplyser \"20kg industrial payload platform\"). At genbruge nyttelast-teksten som monteringsinterface ville kun gentage nyttelast_gaaende uden ny oplysning - derfor ikke_oplyst."
+  - "INGEN DIMENSIONER, IP-KLASSE, TEMPERATUR, BATTERI-Wh, LADETID, DOCKINGSTATION, HOT-SWAP, ROS2, SDK-SPROG, HAELDNING, FORHINDRINGSHOEJDE ELLER PRIS FUNDET NOGEN STEDER PAA PRODUCENTENS SITE (shvana-robot/, forside, careers, kontakt-side delvist utilgaengelig). Alle disse felter staar ikke_oplyst uden yderligere note, da der intet var at citere - hverken tal, kvalitativ tekst eller modsigelse."
+  - "BILLEDE: ingen billede:-blok i denne post - separat spor. Kandidat-URL'er fra producentens egen Shvana-side, fuld-maskine produktfotos: https://bhairavrobotics.com/wp-content/uploads/sites/197/2025/08/Shvana-page-pic1.png og .../Shvana-page-pic4.png - ikke bedoemt med oejne i dette spor."
+felter:
+  egenvaegt:
+    vaerdi: 25
+    enhed: kg
+    kilde: https://bhairavrobotics.com/shvana-robot/
+    hentet: 2026-08-24
+    advarsel: "\"Weight: 25 kg (minus payload)\" - se topnote: eksplicit UDEN nyttelast."
+  laengde: ikke_oplyst
+  bredde: ikke_oplyst
+  hoejde: ikke_oplyst
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 10
+    enhed: kg
+    kilde: https://bhairavrobotics.com/shvana-robot/
+    hentet: 2026-08-24
+    advarsel: "\"Payload: 10 kg\" - se topnote om placering som gaaende, ikke staaende."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    min: 2
+    maks: 5
+    enhed: m/s
+    operator: "~"
+    kilde: https://bhairavrobotics.com/shvana-robot/
+    hentet: 2026-08-24
+    advarsel: "\"Speed: ~2-5 m/sec\" - producentens eget tilde-forbehold bevaret som operator paa hele intervallet."
+  haeldning: ikke_oplyst
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig: ikke_oplyst
+  ip_klasse: ikke_oplyst
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi: 120
+    enhed: min
+    operator: "~"
+    ved_last: ikke_oplyst
+    kilde: https://bhairavrobotics.com/shvana-robot/
+    hentet: 2026-08-24
+    advarsel: "\"Endurance: ~120 mins\" - ingen lastbetingelse knyttet til dette tal. Det separate \"Payload: 10 kg\" staar som sit eget punkt i samme liste, IKKE eksplicit bundet til driftstidstallet - vi antager derfor ikke en sammenhaeng, regel 8."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer: ikke_oplyst
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "Reinforcement learning-baseret styring med onboard beregningskraft, der lader Shvana hurtigt tilpasse sig nye omgivelser (\"Thanks to the reinforcement learning algorithms and onboard computational power, Shvana can quickly adapt to new surroundings\"). Ingen eksplicit navngivet autonominiveau-skala eller SLAM-detalje oplyst."
+    kilde: https://bhairavrobotics.com/shvana-robot/
+    hentet: 2026-08-24
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris: ikke_oplyst
+  ce_oplyst: ikke_oplyst
