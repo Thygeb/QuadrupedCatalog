@@ -564,14 +564,19 @@ a:hover{text-decoration-thickness:2.5px}
   border-color:var(--hegn);font-weight:500;font-family:var(--mono);font-size:11.5px}
 
 /* Kortets fodnote. Her staar billedets sandhed — og kun den. Ingen pris,
-   ingen knap, ingen opfordring. Kortet har ingen doer ud af sitet. */
-.kort-fod{margin-top:auto;padding:13px 16px 14px;border-top:1px solid var(--linje);
-  display:flex;flex-direction:column;gap:5px}
-.kort-fod p{font-family:var(--mono);font-size:11px;line-height:1.45;color:var(--blaek3);
-  display:flex;gap:7px;align-items:flex-start}
-.kort-fod .prik{flex:none;width:5px;height:5px;border-radius:99px;background:var(--hegn);margin-top:6px}
-.kort-fod .prik--klip{border-radius:0;background:none;
-  border:1px dashed var(--hegn);width:7px;height:7px;margin-top:5px}
+   ingen knap, ingen opfordring. Kortet har ingen doer ud af sitet.
+   ÉT loebende afsnit, ikke en stak (24.08.2026): to-tre ens monospor-
+   raekker paa alle 46 kort i traek var mere visuel vaegt end kortets egne
+   tal. Hvert led beholder sit eget tegn og HELE sin tekst - intet ord,
+   intet kildetal og intet forbehold er fjernet, kun stablingen er vaek. */
+.kort-fod{margin-top:auto;padding:11px 16px 13px;border-top:1px solid var(--linje)}
+.kort-fod p{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--blaek3)}
+.kort-fod .led{display:inline}
+.kort-fod .led + .led{margin-left:11px}
+.kort-fod .prik{display:inline-block;width:5px;height:5px;border-radius:99px;
+  background:var(--hegn);margin-right:6px;vertical-align:1px}
+.kort-fod .prik--klip{display:inline-block;border-radius:0;background:none;
+  border:1px dashed var(--hegn);width:6px;height:6px;margin-right:6px;vertical-align:0}
 
 /* Den ene tilladte bevaegelse. Fotografiet traeder frem; hullerne roerer
    sig ikke — de er ikke en tilstand, der kan forbedres ved at pege paa den. */

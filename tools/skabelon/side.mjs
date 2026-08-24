@@ -899,6 +899,16 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       ? billedLinjer(bp, billedTekst(robot, bp))
       : [['prik prik--klip', `${T.billede_intet}. ${t('billede_ingen_egen')}`]];
 
+    // Fodnoten som ÉT loebende afsnit, ikke en stak af linjer (24.08.2026).
+    // Maalt: to-tre ens monospor-raekker paa alle 46 kort var mere visuel
+    // vaegt end kortets egne tal. Hvert led beholder sit eget tegn (prik =
+    // oplysning, stiplet firkant = billedforbehold) og HELE sin tekst -
+    // ingen ord er fjernet, kun stablingen. Kildetal og forbehold er
+    // produktkrav og staar uafkortet, som foer.
+    const fodled = [...billedlinjer, ['prik', kildelinje]]
+      .map(([klasse, linje]) => `<span class="led"><i class="${attr(klasse)}"></i>${esc(linje)}</span>`)
+      .join(' ');
+
     return `<article class="kort">
 ${billede(robot, op)}
 <div class="kort-krop">
@@ -913,8 +923,7 @@ ${a.maerker()}
 ${eu(robot)}
 </div>
 <div class="kort-fod">
-${billedlinjer.map(([klasse, linje]) => `<p><i class="${attr(klasse)}"></i>${esc(linje)}</p>`).join('\n')}
-<p><i class="prik"></i>${esc(kildelinje)}</p>
+<p>${fodled}</p>
 </div>
 </article>`;
   }
