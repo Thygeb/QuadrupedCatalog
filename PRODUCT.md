@@ -16,16 +16,25 @@ efterlader ingen delbar URL pr. robot).
 
 ## Users
 
-**Primær:** driftschef, teknisk indkøber, CTO/COO i produktion, logistik, forsyning,
+**Primær:** den nysgerrige fagperson — presse, studerende og folk i branchen — der vil
+forstå, hvad feltet af firbenede robotter består af. Hun ankommer typisk **uden** et
+modelnavn i hovedet og vil have et retvisende overblik over feltet, ikke en
+anskaffelsesbeslutning.
+
+**Sekundær:** driftschef, teknisk indkøber, CTO/COO i produktion, logistik, forsyning,
 inspektion og beredskab i Nordeuropa, som overvejer en firbenet robot til en konkret
-opgave og skal kunne afvise 55 af 60 modeller hurtigt og begrunde valget internt.
+opgave og skal kunne afvise mange modeller hurtigt og begrunde valget internt; samt
+forskere og integratorer, der skal bruge SDK-, ROS- og nyttelastoplysninger samlet ét
+sted.
 
-**Sekundær:** forskere og integratorer, der skal bruge SDK-, ROS- og
-nyttelastoplysninger samlet ét sted, samt journalister og analytikere, der har brug for
-et citerbart opslagsværk med kilder.
+Den nysgerrige fagperson ankommer typisk fra en generel søgning ("firbenede robotter",
+"robothund"), en nyhedsartikel eller ren nysgerrighed efter feltet — ikke fra et
+modelnavn. Den tekniske indkøber ankommer stadig ofte fra en søgning på en konkret
+model eller et konkret krav ("firbenet robot IP67", "nyttelast 20 kg").
 
-De ankommer typisk fra en søgning på en konkret model eller på et konkret krav
-("firbenet robot IP67", "nyttelast 20 kg"), ikke fra en forside.
+**Ændret 24. aug 2026 (L31):** primær og sekundær er byttet om. Tidligere stod den
+tekniske indkøber som primær. Se L31 i STATUS.md for begrundelsen og hvad der talte
+imod.
 
 ## Product Purpose
 
@@ -34,31 +43,54 @@ afgrænset — omkring 42 producenter globalt, og den grundigste eksisterende ov
 sammenligner 28+ modeller. Det betyder, at kataloget kan gøres **færdigt**, i modsætning
 til humanoid.guide, hvis ~235 poster nødvendigvis er tynde.
 
-Succes: en teknisk indkøber kan på under ti minutter komme fra "vi overvejer en
-firbenet robot" til en kort liste på to-tre modeller, med kilde på hvert tal, og kan
-sende linket videre uden at skulle forklare hvor tallene kommer fra.
+Succes: en nysgerrig fagperson uden forudgående kendskab kan på få minutter få et
+retvisende billede af feltet — hvor mange producenter, hvilke typer robotter, hvad de
+kan — med kilde på hvert tal, og kan citere eller dele siden videre uden selv at skulle
+efterprøve tallene.
+
+For den sekundære læser gælder det tidligere kriterium fortsat: en teknisk indkøber kan
+på under ti minutter komme fra "vi overvejer en firbenet robot" til en kort liste på
+to-tre modeller, med kilde på hvert tal, og sende linket videre uden at skulle forklare
+hvor tallene kommer fra.
 
 ## Positioning
 
 Tre ting, en konkurrerende oversigt ikke kan kopiere uden at lave arbejdet:
 
 1. **Hvert tal har en kilde og en hentedato.** Poster over 12 måneder markeres synligt
-   som forældede.
-2. **EU-kolonnen.** CE-mærkning oplyst ja/nej/ukendt, hvem der bliver importør ved
-   direkte køb fra Asien, dokumentation på EU-sprog, servicepunkt og reservedele i EU.
-   Ingen eksisterende oversigt svarer på det, og det er præcis det spørgsmål, der
-   afgør om en dansk fabrik overhovedet må sætte maskinen i drift.
-3. **Specifikationstæthed** som eneste rangering: hvor mange af vores felter
-   producenten faktisk oplyser. Den måler producenternes åbenhed, ikke vores mening,
-   kan ikke spilles uden at udgive flere data, og erstatter den 1-5-score, konkurrenten
-   bruger uden offentlig metode.
+   som forældede. Gælder for enhver læser: en journalist, der citerer ét tal, skal
+   kunne belægge det lige så let som en indkøber, der sammenligner ti.
+2. **EU-kolonnen — en hensigt, vi arbejder mod, ikke en position, siden indtager i
+   dag.** Feltet skal dække CE-mærkning oplyst ja/nej/ukendt, tilgængelighed i EU,
+   EU-service og leveringstid. Målt 24. aug 2026: `ce_oplyst` er udfyldt på 2 af 46
+   robotter, de tre øvrige EU-felter på 0 af 46 — 2 af 184 mulige feltværdier. Ingen
+   eksisterende oversigt svarer på spørgsmålet i dag, men det gør vi heller ikke
+   endnu. Spørgsmålet tjener desuden primært den sekundære læser (teknisk indkøber,
+   integrator) — den primære læser har sjældnere brug for at vide, om en dansk fabrik
+   må sætte maskinen i drift. **Ændret 24. aug 2026 (L31):** påstanden om at køberen
+   selv bliver importør ved direkte køb fra Asien var allerede droppet af L25 i
+   STATUS.md, men stod stadig i denne fil — rettet her.
+3. **Specifikationstæthed** som eneste rangering: hvor mange af skemaets 33 felter
+   producenten faktisk oplyser (nævneren er udledt af skemaet, se L30 i STATUS.md).
+   Den måler producenternes åbenhed, ikke vores mening, kan ikke spilles uden at
+   udgive flere data, og erstatter den 1-5-score, konkurrenten bruger uden offentlig
+   metode. Det er lige så læsbart for en nysgerrig læser, der vil vide, hvor
+   gennemsigtigt feltet er, som for en indkøber, der skal vælge — begge kan se
+   forskel på en producent, der svarer, og en, der ikke gør.
 
 ## Operating Context
 
-Læseren sammenligner typisk mod et eksisterende alternativ (fast installation, drone,
-menneske på en rundering) og skal kunne begrunde en indstilling for en ledelse eller et
-indkøbsudvalg. Beslutningen kræver ofte tal, producenten ikke oplyser — derfor skal
-"ikke oplyst" være en synlig og filtrerbar tilstand, ikke et tomt felt.
+Den nysgerrige fagperson kommer typisk uden et referencepunkt: hun kender ikke feltets
+størrelse, sprogbrug eller hvilke producenter der findes, og skal kunne orientere sig
+uden at kende et modelnavn i forvejen. Artikler, oplæg og undervisning citerer ofte ét
+tal eller én robot ad gangen — kildeangivelsen skal derfor holde til at blive citeret
+isoleret, ikke kun i sammenhæng med resten af siden.
+
+Den tekniske indkøber (sekundær) sammenligner typisk mod et eksisterende alternativ
+(fast installation, drone, menneske på en rundering) og skal kunne begrunde en
+indstilling for en ledelse eller et indkøbsudvalg. Beslutningen kræver ofte tal,
+producenten ikke oplyser — derfor skal "ikke oplyst" være en synlig og filtrerbar
+tilstand, ikke et tomt felt, uanset hvilken af de to læsere der ser den.
 
 Udgives af KeyResearch, Aarhus, under eget domæne og eget navn. KeyResearch står som
 udgiver i footer og på Om-siden, ikke som afsender i katalogposterne.
