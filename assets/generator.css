@@ -178,6 +178,31 @@
 .varianter dd{font-family:var(--mono);font-size:12.5px;color:var(--blaek2);margin:0}
 .varianter dd b{color:var(--blaek);font-weight:700}
 
+/* .feltvaerdi (fund/FUND-detalje.md, opgave 4b): manglede helt - robot.mjs'
+   feltKrop() og stribe() pakker hver vaerdi ind i den, og kildemaerket sidder
+   som soeskende til figuren, ikke som barn af den. Uden regel her springer
+   .stribe .krop's hoejdemaal (afsnit 10 ovenfor, som maaler paa `.krop > .v`)
+   over enhver celle, hvor vaerdien har et kildemaerke - cellerne ville springe
+   i hoejde alt efter, om tallet havde et maerke eller ej. */
+.feltvaerdi{display:flex;flex-wrap:wrap;align-items:baseline;gap:.34em;min-width:0}
+.feltvaerdi > .forbehold{align-self:center}
+.stribe .krop > .feltvaerdi{min-height:30px;align-items:center}
+.stribe--kompakt .krop > .feltvaerdi{min-height:23px}
+
+/* robot.mjs' EGEN varianter() (feltKrop, forskellig fra flet dt/dd-formen
+   ovenfor) pakker hvert par i sit eget .variant-chip. Mere specifik end
+   ".varianter dt/dd" ovenfor (tre klasser slaar to), saa de to sameksisterer
+   uden at det ene bryder det andet. */
+.varianter .variant{display:flex;align-items:baseline;gap:7px;
+  border:1px solid var(--linje);border-radius:var(--rund-lille);
+  background:var(--panel-ro);padding:3px 9px 4px}
+.varianter .variant dt{width:auto;font-family:var(--mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--blaek3)}
+.varianter .variant dd{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;
+  font-weight:700;color:var(--blaek);margin:0}
+.varianter .variant--navn{background:none;border:0;padding-left:0}
+.varianter .variant--navn dt{color:var(--blaek2)}
+
 /* --- 5. EU-markeringen ----------------------------------------------------
    CE ud af noegletalsstriben (maalt: tom paa 42 af 46 kort - en celle, der
    altid er tom, laerer laeseren at springe striben over). Her er tavsheden
