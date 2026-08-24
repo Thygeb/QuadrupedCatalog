@@ -348,6 +348,18 @@ function billedTekst(ctx, b) {
 
 export function billedled(ctx, { stor = false } = {}) {
   const b = billedeAf(ctx);
+  const H = ctx?.hjaelp ?? hjaelp;
+  // Intet rigtigt billede: gaa den FAELLES vej i side.mjs (hjaelp.billede),
+  // som tegner MAALEPLADEN, naar robotten oplyser laengde og hoejde, og ellers
+  // den tomme plade. Foer 24.08.2026 tegnede denne fil sin egen flade plade
+  // udenom, saa kortet paa forsiden og robotsiden viste to forskellige ting
+  // for den samme robot (flettecommit 347051a flagede det som fund).
+  // ctx.billede-overskrivningen sendes med, saa producentsidens opslag stadig
+  // vinder over robottens eget felt — ogsaa naar opslaget er ubrugeligt.
+  if (!b && ctx?.robot && typeof H?.billede === 'function') {
+    const emne = ctx.billede ? { ...ctx.robot, billede: ctx.billede } : ctx.robot;
+    return H.billede(emne, opAf(ctx), { stor });
+  }
   return billedledHTML({ b, op: opAf(ctx), stor, tekst: billedTekst(ctx, b) });
 }
 
