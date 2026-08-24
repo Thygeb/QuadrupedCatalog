@@ -205,17 +205,11 @@
 .eu--nej .eu-svar{color:var(--blaek);font-weight:600}
 .eu--ikke{background:var(--tom);border-style:dashed;border-color:var(--hegn)}
 
-/* --- 6. Kortet: rettelser til den nye stribe ------------------------------
-   Striben paa kortet har fem celler (vaegt, nyttelast, driftstid, fart, IP)
-   og bryder derfor til 3 + 2. system.css slaar toplinjen fra i den kompakte
-   udgave, fordi den var tre celler paa én raekke. Anden raekke skal have den. */
-.stribe--kompakt > li:nth-child(n+4){border-top:1px solid var(--linje)}
-@media (max-width:420px){
-  .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stribe--kompakt > li:nth-child(n+3){border-top:1px solid var(--linje)}
-  .stribe--kompakt > li:nth-child(3n+1){border-left:1px solid var(--linje)}
-  .stribe--kompakt > li:nth-child(2n+1){border-left:0}
-}
+/* --- 6. Kortet: striben ----------------------------------------------------
+   24.08.2026: den kompakte stribe er to spalter ved ALLE bredder og ejes nu
+   helt af system.css (spalter, kantlinjer, femte celle over hele raekken).
+   De tidligere 3+2-regler her er fjernet - ved ~100 px pr. spalte klippede
+   NYTTELAST og DRIFTSTID paa hvert kort ved 1440 px (maalt: 284 fund). */
 
 /* Navnets ::after daekker hele kortet, saa kortet er ét klikmaal. Kildemaerket
    er et andet maal og skal ligge OVEN PAA det - ellers er bogstavet et link,
