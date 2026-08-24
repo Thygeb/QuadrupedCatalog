@@ -635,11 +635,14 @@ kunne overses.
 
 ---
 
-**Note om to forældede filer.** `assets/stil.css` (14 tokens, med mørk tilstand) og
-`assets/sider.css` er rester fra en tidligere runde. Bygget sender kun `system.css` og
-`generator.css`; de to andre nævnes udelukkende i en forladt testmappe. De er farlige,
-fordi de genbruger tokennavne med andre værdier — bliver en af dem hentet ind på en side,
-skifter farverne uden en fejlmeddelelse.
+**Note om to forældede filer — HISTORISK, filerne er slettet 24. aug 2026.**
+`assets/stil.css` (14 tokens, med mørk tilstand) og `assets/sider.css` var rester fra
+en tidligere runde. Bygget sendte kun `system.css` og `generator.css`; de to andre
+blev udelukkende nævnt i en forladt testmappe. De var farlige, fordi de genbrugte
+tokennavne med andre værdier — blev en af dem hentet ind på en side, skiftede
+farverne uden en fejlmeddelelse. Alt indhold, skabelonerne faktisk brugte, er
+migreret til `generator.css` (se changelog-posten "robotdetaljesidens designløft"
+nedenfor og `fund/FUND-detalje.md`); begge filer er nu slettet fra repoet.
 
 *Skrevet 21. aug 2026 ud fra `assets/system.css` (547 linjer, 34 tokens) og
 `assets/generator.css` (136 linjer). 16 kontrastpar genmålt: 0 under kravet, og alle 16
@@ -763,3 +766,63 @@ marketingtekst og et seks-robotters familiebanner med kinesisk overskrift — be
 modsiger "maskinen står frit". Hurtigste (DEEP Robotics Lynx S10) er det eneste
 tekstfrie enkeltbillede af de fire og blev valgt som lead; reglen og begrundelsen står i
 `forside.mjs`s kildekode, ikke kun her.
+
+---
+
+**Opdateret 24. aug 2026 (robotdetaljesidens designløft, `fund/FUND-detalje.md`).**
+Robotsidens layout (`.robot-top`, `.robot-foto`, `.robot-navn`, `.skema`, `.eu-blok`,
+`.stribe--fem` m.fl.) havde aldrig en levende CSS-regel — kun i den aldrig-linkede
+`assets/sider.css` — så billedet (16:10, fuld rækkebredde) skubbede navnet under
+enhver rimelig skærmhøjde ved 1440 OG 360 px. Rettelsen er primært en migrering, ikke
+en omskrivning: sider.css's indhold (130 regelblokke) er flyttet ind i
+`generator.css` §9, med to bevidste afvigelser (`.advarsel` og `.v-tekst` udelades,
+fordi generator.css allerede definerer dem med andre, LEVENDE værdier) og to huller,
+migreringen selv afslørede (`.feltvaerdi`, `.variant`/`.variant--navn`, begge rettet
+før sletning). `assets/stil.css` og `assets/sider.css` (544 linjer) er slettet — se
+noten to afsnit nedenfor, som nu er historisk.
+
+- **Fra 900 px op** står billede og navn side om side (7fr/5fr). **Under 900 px**
+  (også ved 360 px) stakkes de stadig, men to nye narrow-width-regler holder navnet
+  inden for første viewport: `.baand nav a` får mindre luft under 420 px (nav gik fra
+  3 rækker til 1, sparede 46 px på ALLE sider), og et rigtigt fotografi (ikke
+  måltro-pladen, `:not(.billedled--maal)`) får `max-height:190px`.
+- **Advarsel-/variantbokse under nøgletalsstriben** (op til fem, tidligere alle
+  udfoldet som standard) er foldet bag `<details class="stribe-under-fold">` med en
+  kort opsummering. Teksten er UÆNDRET — kun standardtilstanden er ny. De fire
+  datatilstande i selve striben er urørt.
+- **Kildemærket** (`side.mjs`s `kildemaerke()`) fik `tabindex="-1"`: målt på
+  `/da/robotter/`, 47 → 39 tab-tryk for at nå det 5. katalogkort fra sidens top,
+  fordi op til 4 kildemærker pr. kort tidligere hver var sit eget tab-stop. Linket
+  forbliver et rigtigt `<a href>`, klikbart og i tilgængelighedstræet — kun den
+  sekventielle Tab-vej er lukket.
+- **`.billednote .maerke`** (banner-badgen "BILLEDER") satte aldrig sin egen
+  `background`, så den generiske `.maerke{background:var(--panel-ro)}` vandt på
+  netop den egenskab, mens `.billednote .maerke`s egen, mere specifikke regel kun
+  vandt på `color` — næsten-hvid tekst (`--paafod`) på næsten-hvid bund
+  (`--panel-ro`), 1,1:1, målt programmatisk. Rettet med én linje
+  (`background:transparent`); nu 14,88:1, som kildens egen kommentar altid påstod.
+- **Forbeholdet på robot- og producentsider** (`robot.mjs`s `forbehold()`) skiftede
+  fra det altid-synlige ord "Advarsel" til samme hævede `*`-tegn som side.mjs's
+  `fnote()` — samme rettelse, kataloget fik 24. aug, men som robot.mjs's egen
+  advarselsvisning aldrig arvede, fordi den er en selvstændig funktion.
+  Producentsidernes minikort arver rettelsen automatisk, fordi de kalder netop
+  denne funktion.
+- **Arven (L23)** vises nu med moderens rigtige navn og et rigtigt link
+  (`.anvendelse__arv`, BEM) i stedet for den rå slug uden markering. `hjaelp.
+  anvendelse()` manglede at returnere `arvet_fra`, selv om kontrakten
+  dokumenterede feltet — arve-blokken var derfor altid tom, uanset data.
+  Kategorimærker (`anvendelse__maerke--<værdi>`) og deres rækkefølge (`skema.mjs`s
+  `sorterAnvendelse()`, skrevet til formålet men aldrig kaldt) er nu konsistente på
+  tværs af robotter med samme kategorisæt.
+
+**Målt** (Playwright, `unitree-go2`): H1 top 1081 px → **276 px** ved 1440×900 (var
+uden for viewporten); ved 360×740 (Android-referencehøjde, se `fund/FUND-detalje.md`
+for hvorfor netop den højde): producent/status-linje 625 px, H1 661–694 px — begge
+inden for. 184 sidevisninger (46 robotter × 2 sprog × 2 bredder) regressionssweepet:
+0 klip, 0 horisontalt overløb (én præ-eksisterende overløbsfejl på
+`xiaomi-cyberdog-1`/`-2`, fundet og rettet undervejs — den var der allerede FØR dette
+spor). `node tools/validate.mjs`: 0 fejl. `node tools/linktjek.mjs`: 0 døde links.
+`node tests/koer.mjs`: 195 ok / 2 fejl (var 190 ok / 7 fejl; de to tilbageværende er
+en produktbeslutning om vægtinterval-klassificering og en L27-uenighed sporet til
+`tools/build.mjs`, en forbudt fil i dette spor — begge begrundet i
+`fund/FUND-detalje.md`, ingen krav sænket).
