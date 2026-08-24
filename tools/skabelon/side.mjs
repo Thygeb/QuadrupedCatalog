@@ -446,10 +446,9 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     if (post.ved_last !== undefined) {
       const ukendt = typeof post.ved_last === 'string' || tilstandAf(post.ved_last.vaerdi);
       ud += ukendt
-        ? `<abbr class="forbehold" title="${attr(T.ved_last_ukendt)}">${esc(T.ved_last_ukendt)}</abbr>`
+        ? `<abbr class="forbehold" title="${attr(T.ved_last_ukendt)}">${esc(T.advarsel)}</abbr>`
         : `<abbr class="forbehold" title="${attr(T.ved_last)} ${attr(nformat(post.ved_last.vaerdi))} `
-          + `${attr(post.ved_last.enhed ?? '')}">${esc(T.ved_last)} ${esc(nformat(post.ved_last.vaerdi))} `
-          + `${esc(post.ved_last.enhed ?? '')}</abbr>`;
+          + `${attr(post.ved_last.enhed ?? '')}">${esc(T.advarsel)}</abbr>`;
     }
     if (maerke && kilder) ud += kildemaerke(post, kilder, hvorhen);
     ud += `</span>`;

@@ -9,6 +9,11 @@ anvendelse:
   kilde: https://www.rivr.ai/product
   hentet: 2026-08-19
   note: "Producentens navigation deler i Parcel Delivery, Grocery Delivery og \"Instant food and convenience store delivery\" - tre former for det samme."
+billede:
+  fil: fotos/fabrikant/rivr-one.jpg
+  ophav: fabrikant
+  kilde: https://www.rivr.ai/product
+  hentet: 2026-08-19
 noter:
   - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
   - "Robotten saelges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkoebere, ikke til ingenioerer. Kun 3 af 31 felter er oplyst: ingen vaegt, ingen maal, ingen IP-klasse, ingen batteristoerrelse, ingen frihedsgrader. Negativsoegt paa tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste traef er de 30 kg nedenfor."

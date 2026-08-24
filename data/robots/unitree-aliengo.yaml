@@ -11,6 +11,11 @@ anvendelse:
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen AlienGo staar i."
+billede:
+  fil: fotos/fabrikant/unitree-aliengo.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/aliengo
+  hentet: 2026-08-19
 felter:
   egenvaegt:
     vaerdi: 21.5

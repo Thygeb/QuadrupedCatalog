@@ -12,6 +12,11 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen Go2 staar i."
 varianter: [AIR, PRO, X, EDU]
+billede:
+  fil: fotos/fabrikant/unitree-go2.png
+  ophav: fabrikant
+  kilde: https://www.unitree.com/go2
+  hentet: 2026-08-19
 felter:
   egenvaegt:
     vaerdi: 15

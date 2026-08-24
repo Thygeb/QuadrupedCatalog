@@ -375,8 +375,12 @@ a:hover{text-decoration-thickness:2.5px}
   .stribe--kompakt .v{font-size:18px}
   .stribe--kompakt .etiket{letter-spacing:.06em}
 }
-/* Vaerdien maa hellere ombryde end skubbe cellen ud af sit spor. */
-.stribe .v,.stribe--kompakt .v{overflow-wrap:anywhere}
+/* Vaerdien maa hellere ombryde end skubbe cellen ud af sit spor. break-word
+   (ikke anywhere) proever et mellemrum foerst — "ikke oplyst" bryder til to
+   linjer i stedet for elleve, ét bogstav pr. linje. Rene tal uden mellemrum
+   (fx "110min") bryder stadig midt i, naar der intet andet er at bryde ved -
+   sikkerheden mod at skubbe cellen ud af sporet er uaendret. */
+.stribe .v,.stribe--kompakt .v{overflow-wrap:break-word}
 
 /* --- 11. ROBOTKORTET ------------------------------------------------------ */
 /* Fotografiet fylder toppen. Navnet ligger UNDER billedet, ikke paa det.

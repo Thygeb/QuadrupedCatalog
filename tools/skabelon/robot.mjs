@@ -207,7 +207,7 @@ function forbehold(post, ctx) {
   const tekst = ukendt
     ? T(i18n, 'ved_last_ukendt')
     : `${T(i18n, 'ved_last')} ${lokaltTal(post.ved_last.vaerdi, sprog)} ${post.ved_last.enhed ?? ''}`.trim();
-  return `<abbr class="forbehold" title="${esc(tekst)}">${esc(tekst)}</abbr>`;
+  return `<abbr class="forbehold" title="${esc(tekst)}">${esc(T(i18n, 'advarsel'))}</abbr>`;
 }
 
 /**

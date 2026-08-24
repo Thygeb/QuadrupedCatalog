@@ -12,6 +12,11 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen A2 staar i."
 varianter: [A2, A2-PRO]
+billede:
+  fil: fotos/fabrikant/unitree-a2.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/A2
+  hentet: 2026-08-19
 noter:
   - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene staar paa de paagaeldende felter."
 felter:

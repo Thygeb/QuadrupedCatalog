@@ -12,6 +12,11 @@ anvendelse:
   kilde: https://www.anybotics.com/robotics/anymal/
   hentet: 2026-08-19
   note: "Foerste citat er sidens egen titel."
+billede:
+  fil: fotos/fabrikant/anybotics-anymal.jpg
+  ophav: fabrikant
+  kilde: https://www.anybotics.com/robotics/anymal/
+  hentet: 2026-08-19
 noter:
   - "ANYbotics AG, Hagenholzstrasse 83a, 8050 Zuerich. Kontor ogsaa i San Francisco. Schweiz er ikke EU."
   - "Et komplet datablad findes, men kun bag en formular (https://www.anybotics.com/anymal-specifications-sheet/). Ikke hentet."

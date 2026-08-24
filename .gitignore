@@ -22,5 +22,10 @@ tests/.tmp-*/
 # Billedagentens arbejdsmappe: fabrikantmateriale, aldrig distribution
 media/_arbejde/**
 
+# Fabrikantbilleder, R18 kraever i assets/ (byg og validator laeser kun her),
+# men de er stadig fabrikantens ophavsret og maa ikke i git-historikken - kun
+# lokalt (L13). Samme regel som media/_kilder/, blot paa den sti R18 kraever.
+assets/fotos/fabrikant/**
+
 # Inspirationsmateriale: andres ophavsret
 media/inspiration/**

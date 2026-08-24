@@ -12,6 +12,11 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen Go1 staar i."
 varianter: [Air, Pro, Edu]
+billede:
+  fil: fotos/fabrikant/unitree-go1.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/go1
+  hentet: 2026-08-19
 felter:
   egenvaegt:
     vaerdi: 12

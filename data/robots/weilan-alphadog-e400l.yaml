@@ -9,6 +9,11 @@ anvendelse:
   kilde: https://www.weilan.com/en/en/alphadoge.html
   hentet: 2026-08-19
   note: "Se noten paa E300: E-seriens positionering ligger inde i en HTML-kommentar og bruges ikke."
+billede:
+  fil: fotos/fabrikant/weilan-alphadog-e400l.jpg
+  ophav: fabrikant
+  kilde: https://www.weilan.com/en/en/alphadoge.html
+  hentet: 2026-08-19
 noter:
   - "NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden bestaar udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige paa siden overhovedet; de staar paa producentens katalogside sammen med underteksten Enterprise Version Available."
   - "SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Maalt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altsaa 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller."

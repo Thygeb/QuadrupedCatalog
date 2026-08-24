@@ -10,6 +10,11 @@ anvendelse:
   kilde: https://www.magiclabglobal.com/products/magicdog/
   hentet: 2026-08-19
   note: "Samme afsnit slutter: \"PRO and EDU configurations are available\"."
+billede:
+  fil: fotos/fabrikant/magiclab-magicdog-edu.png
+  ophav: fabrikant
+  kilde: https://www.magiclabglobal.com/products/magicdog/
+  hentet: 2026-08-19
 noter:
   - "TO PRODUCENTSITES, DER MODSIGER HINANDEN. magiclab.top og det nye magiclabglobal.com er begge i luften, begge producentens egne, og de er ikke enige om vaegt, forhindringshoejde, frihedsgrader, driftstid og hastighed. Kilden her er magiclab.top; det globale sites afvigende tal staar i advarslerne. Hvilket site der er primaerkilde, er ikke indsamlerens beslutning."
   - "EDU og PRO deler 41 af 43 tabelraekker. Den eneste specifikationsforskel er SDK-adgang: EDU har SDK-adgang, PRO har ikke. Maalt celle for celle: 43 datalinjer, 41 identiske, 2 forskellige (navneraekken og SDK-raekken)."

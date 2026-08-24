@@ -10,6 +10,11 @@ anvendelse:
   hentet: 2026-08-19
   note: "A2-W staar ikke i producentens produktnavigation, hvor A2 staar under \"Robot - Industry\". Kategorien her er derfor produktsidens egen saetning, ikke navigationens gruppe. Samme side kalder robotten \"Industrial-grade mobile platform\" - det er en byggekvalitet, ikke en anvendelse, og taeller ikke med."
 varianter: [A2-W, A2-W PRO]
+billede:
+  fil: fotos/fabrikant/unitree-a2-w.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/A2-W
+  hentet: 2026-08-19
 noter:
   - "Hjulbenet udgave af A2. Alt der ikke afviger, er ordret identisk med A2's side."
 felter:

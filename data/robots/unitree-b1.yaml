@@ -11,6 +11,11 @@ anvendelse:
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen B1 staar i."
+billede:
+  fil: fotos/fabrikant/unitree-b1.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/b1
+  hentet: 2026-08-19
 felter:
   egenvaegt:
     vaerdi: 50

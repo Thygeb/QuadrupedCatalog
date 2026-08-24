@@ -12,6 +12,11 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen As2 staar i. MODSIGELSE: As2 staar under Consumer/Education i navigationen, men As2-produktsidens egen titel er \"Unitree As2 Compact Size Industrial Capability\". Producenten siger begge dele."
 varianter: [AIR, PRO, X, EDU]
+billede:
+  fil: fotos/fabrikant/unitree-as2.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/As2
+  hentet: 2026-08-19
 noter:
   - "Varianttabel med fire kolonner. Kolonnerne er forskellige maskiner - se varianter-blokkene paa de enkelte felter."
 felter:

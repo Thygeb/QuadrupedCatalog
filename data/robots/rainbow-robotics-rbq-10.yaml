@@ -13,6 +13,11 @@ anvendelse:
   kilde: https://rainbow-robotics.com/en/products/rbq-10/
   hentet: 2026-08-19
   note: "\"Research Platform\" er en etikette paa selve produktet, ved siden af \"Outdoor Walking\" og \"AI Gait\". L22: \"patrol\" og \"surveillance\" er omsat til sikkerhed_overvaagning; tredje citat er produktsidens egen modulbeskrivelse. Producentens brancheliste for hele firmaet naevner ogsaa Defense & Security og Logistics, men den er ikke skrevet om RBQ-10 og er ikke brugt."
+billede:
+  fil: fotos/fabrikant/rainbow-robotics-rbq-10.png
+  ophav: fabrikant
+  kilde: https://rainbow-robotics.com/en/products/rbq-10/
+  hentet: 2026-08-19
 noter:
   - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON. FUND-vest skrev Daejeon; strengen findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og omraadenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger. Rettet efter KILDEKORT-B F5."
   - "RAINBOW ROBOTICS UDGIVER HELE BRUGERMANUALEN OFFENTLIGT som en statisk side - inklusive batteridata, ledmomenter, IMU-specifikationer og monteringsinterface. Ingen formular, intet login. Det er derfor posten er indsamlingens taetteste vestlige/asiatiske post, og det giver en test, kataloget kan bruge: publicerer producenten sin brugermanual aabent, ja/nej."

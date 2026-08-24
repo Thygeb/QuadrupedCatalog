@@ -10,6 +10,11 @@ anvendelse:
   kilde: https://www.magiclabglobal.com/products/magicdog-w/
   hentet: 2026-08-19
   note: "Producentens kinesiske og engelske produktsider paa magiclab.top kalder den kun \"MagicLab Quadruped Wheeled Robot\" - en form, ikke en anvendelse."
+billede:
+  fil: fotos/fabrikant/magiclab-magicdog-w.png
+  ophav: fabrikant
+  kilde: https://www.magiclabglobal.com/products/magicdog-w/
+  hentet: 2026-08-19
 noter:
   - "TO PRODUCENTSITES, DER MODSIGER HINANDEN - og her vender operatorerne. magiclab.top skriver hastighed 0-3 m/s og haeldning <= 40 grader; magiclabglobal.com skriver >= 3.0 m/s og >= 40 grader for samme robot, samme sprog, samme dag. Det ene er et loft, det andet et gulv. Kilden her er magiclab.top; det globale sites tal staar i advarslerne."
 felter:

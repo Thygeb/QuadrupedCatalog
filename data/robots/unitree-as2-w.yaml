@@ -10,6 +10,11 @@ anvendelse:
   hentet: 2026-08-19
   note: "L22: producentens eget ord \"security\" i samme saetning er nu omsat til sikkerhed_overvaagning. Citatet er As2-W's egen produktside; As2-W staar ikke i produktnavigationen, saa der er intet arvet her."
 varianter: [X, EDU]
+billede:
+  fil: fotos/fabrikant/unitree-as2-w.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/As2-W
+  hentet: 2026-08-19
 noter:
   - "Hjulbenet udgave af As2. De to varianter adskiller sig kun paa ladestation og udvidelsesdok."
   - "Siden modsiger sig selv fire steder om raekkevidde og forhindringshoejde. Parametertabellen er brugt som vaerdi; noegletalskortets tal er foert som advarsel."
