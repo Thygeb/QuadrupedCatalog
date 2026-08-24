@@ -68,11 +68,8 @@ felter:
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ja
     kilde: https://www.anybotics.com/robotics/anymal-x/
     hentet: 2026-08-19
     advarsel: "Producenten skriver FCC and CE compliant og Complies with CE directives for industrial deployment. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklaering. Se noten om ATEX/IECEx, som skemaet ikke har plads til."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

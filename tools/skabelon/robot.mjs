@@ -99,8 +99,12 @@ export const STRIBE_FELTER = [
   ['ip_klasse', 'i-ip'],
 ];
 
-/** EU-blokken. CE staar foerst, fordi det er den, en dansk indkoeber leder efter. */
-const EU_FELTER = ['ce_oplyst', 'eu_tilgaengelig', 'eu_service', 'leveringstid'];
+/** EU-blokken. L32 (24. aug 2026) fjernede eu_tilgaengelig, eu_service og
+ *  leveringstid fra skemaet — CE er den eneste EU-oplysning skemaet stadig
+ *  baerer. Listen har ét element tilbage, ikke fire; den lever videre som en
+ *  liste og ikke en streng, saa euBlok() nedenfor ikke skal vide, at den er
+ *  skrumpet. */
+const EU_FELTER = ['ce_oplyst'];
 
 /**
  * Streng, der SKAL findes. i18n kan vaere en Proxy, der selv kaster, eller et
@@ -456,9 +460,18 @@ ${under}
 
 /**
  * EU-blokken. CE er taget ud af striben, fordi feltet er tomt paa 42 af 46 —
- * en fast celle, der er et hul 42 gange, laerer ingen noget. Her staar den
- * sammen med de tre andre EU-felter, hvor tomheden er en oplysning om
- * producenten frem for et hul hos os.
+ * en fast celle, der er et hul 42 gange, laerer ingen noget. Her staar den i
+ * sin egen sektion, hvor tomheden er en oplysning om producenten frem for et
+ * hul hos os.
+ *
+ * L32 (24. aug 2026): de tre andre EU-felter (eu_tilgaengelig, eu_service,
+ * leveringstid), CE tidligere stod sammen med her, er fjernet fra skemaet —
+ * alle tre stod ikke_oplyst paa samtlige robotter. Blokken viser derfor kun
+ * ét felt nu, men bevarer sin form (dl/raekke) frem for at blive skrevet om
+ * til en enkelt saetning: modsat producentsidens EU-kolonne (mange modeller
+ * paa én gang, se producent.mjs' euSaetning) er der her kun ét dyr og ét
+ * felt, saa en tabelform vs. en saetningsform er ikke en forskel, en laeser
+ * maerker.
  *
  * L25: der staar INTET om, at koeberen bliver importoer. Paastanden er droppet,
  * fordi der ikke findes en primaerkilde. Feltet hedder "CE oplyst", ikke

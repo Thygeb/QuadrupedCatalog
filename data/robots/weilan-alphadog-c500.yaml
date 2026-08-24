@@ -140,11 +140,8 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Weilans egen ordreside oplyser ingen priser overhovedet - kun at man skal skrive en e-mail."
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ikke_oplyst
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producentens eneste bemaerkning om markeder er: Due to standards and regulations, some features may not be available in all countries or regions. Ingen CE, ingen anden overensstemmelsesmaerkning."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

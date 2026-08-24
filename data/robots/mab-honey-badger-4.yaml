@@ -90,11 +90,8 @@ felter:
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ikke_oplyst
     kilde: https://www.mabrobotics.pl/honey-badger
     hentet: 2026-08-19
     advarsel: "Negativkontrolleret med ordgraense: 0 traef paa CE i 1,55 MB HTML, og 0 paa conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA og FCC."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

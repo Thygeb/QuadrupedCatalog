@@ -156,11 +156,8 @@ felter:
     hentet: 2026-08-19
     advarsel: "Radio: WiFi / LTE (tilvalg)."
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ikke_oplyst
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "IKKE EFTERPROEVET TIL BUNDS. FUND-vests eget selv-review noterer, at CE-feltet for RBQ-10 ikke er negativkontrolleret paa samme maade som for MAB og Boston Dynamics."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

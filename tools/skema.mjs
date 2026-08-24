@@ -52,10 +52,12 @@ export const FELTER = {
   dataporte:               { gruppe: 'nyttelast',   art: 'liste' },
 
   pris:                    { gruppe: 'kommercielt', art: 'tal',   type: 'valuta' },
-  eu_tilgaengelig:         { gruppe: 'eu',          art: 'jaNej' },
+  // L32 (24. aug 2026): eu_tilgaengelig, eu_service og leveringstid fjernet -
+  // stod ikke_oplyst paa alle 55 robotter (0 af 165 mulige vaerdier udfyldt),
+  // og deres indhold laa i sekundaere kilder D1 aldrig har godkendt. ce_oplyst
+  // er tilbage som den eneste EU-oplysning skemaet baerer, og gruppen 'eu'
+  // lever videre alene paa den.
   ce_oplyst:               { gruppe: 'eu',          art: 'jaNej' },
-  eu_service:              { gruppe: 'eu',          art: 'jaNej' },
-  leveringstid:            { gruppe: 'eu',          art: 'tal',   type: 'tid' },
 };
 
 export const FELTNAVNE = Object.keys(FELTER);
@@ -115,11 +117,11 @@ export function tilstandAf(v) {
    Feltet er en TOPNOEGLE, ikke et felt i "felter". To grunde:
    1. Det er ikke en specifikation, producenten oplyser eller lader vaere med at
       oplyse — det er den hylde, producenten selv stiller robotten paa.
-   2. Ville det taelle i specifikationstaetheden, ville naevneren skifte fra 33 til
-      34, og alle historiske taethedstal i STATUS.md og DATAMODEL.md ville blive
+   2. Ville det taelle i specifikationstaetheden, ville naevneren skifte fra 30 til
+      31, og alle historiske taethedstal i STATUS.md og DATAMODEL.md ville blive
       uforlignelige. Naevneren er udledt siden L30, saa skiftet ville ske TAVST i
       koden — men metodeproeven i tests/koer.mjs fanger det, fordi metode.md saa
-      ville sige 33, hvor koden siger 34.
+      ville sige 30, hvor koden siger 31.
 
    Form:
      anvendelse:
@@ -307,20 +309,27 @@ export const POST_NOEGLE_ALIAS = { vaerdi_min: 'min', vaerdi_maks: 'maks' };
 
 /**
  * D7 — naevneren i specifikationstaetheden. LUKKET med L30 (21. aug 2026): den er
- * FELTNAVNE.length, i dag 33.
+ * FELTNAVNE.length, i dag 30.
  *
  * Den bliver UDLEDT og maa aldrig skrives som et tal igen. Det var praecis det, der
- * gik galt: `taethed()` har hele tiden talt taelleren op over FELTNAVNE (33 noegler),
- * mens naevneren stod som en haandskrevet konstant. To lister, ét broekstreg — og de
- * skred fra hinanden ved hver skemaaendring uden at noget fejlede.
+ * gik galt: `taethed()` har hele tiden talt taelleren op over FELTNAVNE (i dag 30
+ * noegler), mens naevneren stod som en haandskrevet konstant. To lister, ét
+ * broekstreg — og de skred fra hinanden ved hver skemaaendring uden at noget fejlede.
  *
- * Lineage, maalt 21. aug 2026:
+ * Lineage:
  *   29  praeliste fra foer L6 (nyttelast som ét felt, trinhoejde som ét). Levn.
  *   31  L19's tal. Talte "maal staaende L x B x H" som ÉN post, hvor skemaet har tre
  *       noegler med hver sin kilde, og talte et felt med, "maal sammenfoldet", som
  *       skemaet aldrig har haft. To modsatrettede fejl, der naesten gik lige op.
- *   33  det skemaet har, og det de 46 datafiler skriver: 46 x 33 = 1518 feltposter,
- *       nul ukendte noegler, nul ubrugte skemafelter.
+ *   33  maalt 21. aug 2026 (L30-lukningen): det skemaet havde dengang, og det de 46
+ *       datafiler skrev: 46 x 33 = 1518 feltposter, nul ukendte noegler, nul ubrugte
+ *       skemafelter.
+ *   30  L32 (24. aug 2026): eu_tilgaengelig, eu_service og leveringstid fjernet fra
+ *       FELTER. De stod ikke_oplyst paa alle 55 robotter (0 af 165 mulige vaerdier
+ *       udfyldt) — intet kildebelagt tal gik tabt. ce_oplyst blev. Naevneren gaar 33
+ *       -> 30 og alle taethedstal stiger ~10 % som foelge (anden niveauforskydning
+ *       paa en uge efter L30 — sammenlign aldrig et tal fra foer 24. aug 2026 med et
+ *       nyt uden at regne om).
  *
  * Aendrer nogen FELTER, flytter naevneren med — og det ER det rigtige, fordi
  * taelleren allerede flytter med. Metodesiden maa saa rettes: tests/koer.mjs har en
@@ -339,7 +348,7 @@ export const KATALOG_FELTER = [
 
 /** Felter, klientside-filtreringen kan bruge. Holdes lille — indekset skal vaere lille. */
 export const FILTER_FELTER = [
-  'nyttelast_gaaende', 'driftstid', 'ip_klasse', 'ros2', 'eu_tilgaengelig', 'ce_oplyst', 'pris',
+  'nyttelast_gaaende', 'driftstid', 'ip_klasse', 'ros2', 'ce_oplyst', 'pris',
 ];
 
 export const SPROG = ['da', 'en'];

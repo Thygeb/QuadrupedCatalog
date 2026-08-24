@@ -157,11 +157,8 @@ felter:
     hentet: 2026-08-19
     advarsel: "FUND-vest skrev Gigabit Ethernet her. Rettet: strengen Gigabit findes ikke paa produktsiden, og i databladet staar den i Spot Dockens afsnit som passthrough to robot (KILDEKORT-A FEJL 1). Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed."
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst:
     vaerdi: ikke_oplyst
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
     advarsel: "Databladets afsnit hedder ordret Safety and Compliance, United States og naevner ISO 12100, IEC 60204-1, ISO 13850, FCC Part 15B, FCC Part 68, IEC 60825-1. Ingen CE, ingen EU-erklaering. Feltet er ikke_oplyst - IKKE nej: databladet henviser til et Information for Use-dokument, vi ikke har aabnet."
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

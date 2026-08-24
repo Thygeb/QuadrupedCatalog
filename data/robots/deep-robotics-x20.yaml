@@ -104,7 +104,4 @@ felter:
     hentet: 2026-08-19
     advarsel: "CN skriver eksternt interface: INGEN. EN skriver Interface: / - som enhver importoer laeser som ikke oplyst. Producenten har svaret NEJ. Regel 10 fanget i naturen, og igen afgoer den kinesiske side feltet."
   pris: ikke_oplyst
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst: ikke_oplyst
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst

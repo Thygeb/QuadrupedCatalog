@@ -150,7 +150,4 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra webbutikkens Shopify-produktdata (variant \"D5\": price 8000000, dvs. 80.000 USD i cent-enheder). D5-W koster 85.000 USD ifoelge samme kilde (variant \"D5-W\": price 8500000) - se pudu-d5-w.yaml."
-  eu_tilgaengelig: ikke_oplyst
   ce_oplyst: ikke_oplyst
-  eu_service: ikke_oplyst
-  leveringstid: ikke_oplyst
