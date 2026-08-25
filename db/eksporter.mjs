@@ -28,6 +28,17 @@
  * for hvorfor "parse" her betyder normaliserRobot(parseYaml(x)) og ikke den
  * raa parseYaml alene.
  *
+ * VAGTEN (L35-opfoelgning, STATUS.md's D12/L35-raekke): eksporten skriver
+ * ALDRIG direkte ind i udMappe. Den skriver foerst til en midlertidig
+ * sibling-mappe, koerer tools/validate.mjs PAA DEN, og flytter kun filerne
+ * ind i udMappe, hvis valideringen er fejlfri. Slaar valideringen fejl,
+ * staar udMappe UBERoeRT — samme princip som db/migrer.mjs's vagt (linje
+ * "VAGTEN" i den fil): en kontrol, der koerer EFTER filerne allerede er
+ * skrevet, opdager problemet, den forhindrer det ikke. Kun FEJL blokerer;
+ * advarsler (fx R9 paa ghost-robotics-vision-60) slipper igennem uaendret,
+ * ligesom de altid har gjort i data/robots/. Se boerFlyttes() nedenfor for
+ * selve beslutningen som en ren, testbar funktion.
+ *
  * STRATEGI: for hver robot genopbygges et JS-objekt, der ser ud som den
  * originale YAML-fils PARSEDE (men IKKE normaliserede) form — samme
  * noeglenavne (vaerdi/min/maks/kilde/hentet/...), samme topnoegler
@@ -43,6 +54,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { FELTNAVNE } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`);
@@ -401,6 +413,56 @@ function laesFlag(argv) {
   return flag;
 }
 
+/**
+ * Koerer tools/validate.mjs som subproces mod `mappe` og traekker samme tal
+ * ud af opsummeringslinjen ("N fil(er) · M fejl · K advarsler"), som
+ * db/rundtur.mjs's traekValidateTal allerede goer.
+ *
+ * BEVIDST DUPLIKERET REGEX, IKKE GENBRUGT: db/rundtur.mjs staar paa den
+ * forbudte fil-liste i dette spors opgavebrev (et andet spor arbejder i den
+ * lige nu), og traekValidateTal er desuden ikke eksporteret derfra — kun
+ * dybtLig er. Et forsoeg paa at importere en ueksporteret funktion ville
+ * fejle haardt, og filen maa ikke redigeres til at eksportere den, foer det
+ * andet spor er landet. Regex'en herunder er derfor en BEVIDST, midlertidig
+ * kopi af rundtur.mjs's egen — samme moenster, samme adskillelsestegn " · ",
+ * samme "N fil(er) · M fejl · K advarsler". Naar db/rundtur.mjs igen er frit
+ * at redigere, boer traekValidateTal eksporteres derfra og denne kopi
+ * fjernes, saa de to ikke kan skride fra hinanden (D7/L30-faelden — se
+ * fund/FUND-eksval.md).
+ */
+function koerValidator(mappe) {
+  let udskrift;
+  try {
+    udskrift = execFileSync(process.execPath, ['tools/validate.mjs', `--data=${mappe}`],
+      { cwd: ROD, encoding: 'utf8' });
+  } catch (e) {
+    udskrift = (e.stdout ?? '') + (e.stderr ?? '');
+  }
+  const m = udskrift.match(/(\d+) fil\(er\) · (\d+) fejl · (\d+) advarsler/);
+  if (!m) throw new Error(`Kunne ikke laese validate.mjs's opsummeringslinje i:\n${udskrift}`);
+  const fejlLinjer = udskrift.split('\n').filter((l) => l.startsWith('FEJL'));
+  return { filer: Number(m[1]), fejl: Number(m[2]), advarsler: Number(m[3]), fejlLinjer };
+}
+
+/**
+ * Ren beslutningsfunktion — ingen filsystem, ingen netvaerk. Givet
+ * valideringens optalte tal ({fejl, ...}, samme facon koerValidator()
+ * ovenfor og rundtur.mjs's traekValidateTal begge producerer), afgoer den om
+ * den midlertidige eksportmappe maa flyttes ind i den endelige udMappe.
+ *
+ * KUN FEJL BLOKERER. Advarsler (fx R9 paa ghost-robotics-vision-60, som
+ * datasaettet i dag baerer én af, med vilje) maa IKKE blokere — opgavebrevet
+ * er eksplicit paa det punkt, og validate.mjs's egen --streng-flag findes
+ * netop for den, der VIL have advarsler til at taelle som fejl. Eksporten
+ * bruger den ikke.
+ *
+ * Testet uden netvaerk og uden .env i tests/koer.mjs (samme moenster som
+ * db/migrer.mjs's sammenlignDbMedYaml testes rent i afsnit 7 der).
+ */
+export function boerFlyttes(valideringsTal) {
+  return valideringsTal.fejl === 0;
+}
+
 async function main(argv) {
   const flag = laesFlag(argv);
   const udMappe = path.resolve(String(flag['ud'] ?? 'db/eksport'));
@@ -419,21 +481,46 @@ async function main(argv) {
     robotter = JSON.parse(fs.readFileSync(kanoniskFil, 'utf8')).robotter;
   }
 
-  fs.mkdirSync(udMappe, { recursive: true });
-  // Ryd mappen for gamle filer fra en tidligere koersel, saa en fjernet
-  // robot ikke efterlader en foraeldreloes fil, rundturen ville laese ved
-  // en fejl.
-  for (const f of fs.readdirSync(udMappe)) {
-    if (/\.ya?ml$/.test(f)) fs.rmSync(path.join(udMappe, f));
-  }
+  // VAGTEN: skriv til en midlertidig SIBLING-mappe (samme foraelder som
+  // udMappe, saa den senere flytning er en rename inden for samme drev),
+  // valider DEN, og ryd den op i ALLE udfald — bestaaet, afvist eller en
+  // kastet fejl undervejs. udMappe roeres foerst, naar valideringen er
+  // bevist fejlfri.
+  const tmpMappe = `${udMappe}.eksport-tmp-${process.pid}`;
+  try {
+    fs.rmSync(tmpMappe, { recursive: true, force: true });
+    fs.mkdirSync(tmpMappe, { recursive: true });
 
-  for (const r of robotter) {
-    const doc = byggRobotDoc(r);
-    fs.writeFileSync(path.join(udMappe, `${r.slug}.yaml`), skrivRobotYaml(doc), 'utf8');
-  }
+    for (const r of robotter) {
+      const doc = byggRobotDoc(r);
+      fs.writeFileSync(path.join(tmpMappe, `${r.slug}.yaml`), skrivRobotYaml(doc), 'utf8');
+    }
 
-  console.log(`${robotter.length} YAML-fil(er) skrevet til ${udMappe}`);
-  return 0;
+    const valideringsTal = koerValidator(tmpMappe);
+    if (!boerFlyttes(valideringsTal)) {
+      console.error(`EKSPORT AFVIST: validatoren fandt ${valideringsTal.fejl} fejl i det, ` +
+        `databasen ville skrive.`);
+      for (const linje of valideringsTal.fejlLinjer) console.error(linje);
+      console.error(`${udMappe} er IKKE aendret.`);
+      return 1;
+    }
+
+    fs.mkdirSync(udMappe, { recursive: true });
+    // Ryd maalmappen for gamle filer fra en tidligere koersel, saa en
+    // fjernet robot ikke efterlader en foraeldreloes fil, rundturen ville
+    // laese ved en fejl — men roer kun *.yaml, ligesom hidtil.
+    for (const f of fs.readdirSync(udMappe)) {
+      if (/\.ya?ml$/.test(f)) fs.rmSync(path.join(udMappe, f));
+    }
+    for (const f of fs.readdirSync(tmpMappe)) {
+      fs.renameSync(path.join(tmpMappe, f), path.join(udMappe, f));
+    }
+
+    console.log(`${robotter.length} YAML-fil(er) skrevet til ${udMappe}`);
+    return 0;
+  } finally {
+    fs.rmSync(tmpMappe, { recursive: true, force: true });
+  }
 }
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('eksporter.mjs');
