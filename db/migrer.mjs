@@ -361,9 +361,9 @@ function laesDotEnv(fil) {
 }
 
 /**
- * FORBEREDT, IKKE KOERT: skriver robotterne til et rigtigt Supabase-projekt
- * via fetch mod PostgREST. Kaldes kun naar --til-db er sat PAA kommandolinjen
- * — der findes intet projekt at skrive til endnu (25. aug 2026).
+ * Skriver robotterne til et rigtigt Supabase-projekt via fetch mod PostgREST.
+ * Kaldes kun naar --til-db er sat PAA kommandolinjen. Kraever SUPABASE_URL og
+ * SUPABASE_SERVICE_ROLE_KEY i .env (se db/LAESMIG.md).
  *
  * REST-mønsteret: POST til <SUPABASE_URL>/rest/v1/<tabel> med
  *   headers: apikey + Authorization: Bearer <SUPABASE_SERVICE_ROLE_KEY>,
@@ -372,6 +372,33 @@ function laesDotEnv(fil) {
  * service_role omgaar RLS (db/skema.sql's afsnit 7), saa denne vej kraever
  * IKKE en policy — men noeglen maa ALDRIG bruges andre steder end her og i
  * db/eksporter.mjs's --fra-db, og ALDRIG i en offentlig klient.
+ *
+ * GENKOeRSELSSTRATEGI: toem-og-genindlaes (ikke upsert). Migreringen ER
+ * redaktionslagets FULDE indlaesning (opgavebrevets egen formulering), ikke
+ * en inkrementel sync — der er intet krav om at bevare raekker, en fjernet
+ * YAML-fil ikke laengere leverer. Upsert paa slug/unikke noegler ville kraeve
+ * en SLETNINGSdetektion oveni (hvilke DB-raekker svarer IKKE laengere til en
+ * fil?), som toem-og-genindlaes faar gratis: DB'en efter koerslen er PRAeCIS
+ * det, data/robots/ siger, hverken mere eller mindre. Prisen er, at de
+ * generede `id`-vaerdier IKKE er stabile paa tvaers af koersler (identity-
+ * sekvensen fortsaetter, den nulstilles ikke af DELETE) — men id er den
+ * TEKNISKE noegle (db/skema.sql's egen begrundelse), slug er den
+ * FORRETNINGSMAeSSIGE, og intet uden for denne proces gemmer et id paa
+ * tvaers af koersler.
+ *
+ * SLETNINGSRAeKKEFOeLGE (boern foer foraeldre, PLUS et saerligt hensyn til
+ * selvreferencen): feltpost_varianter -> feltposter -> anvendelse -> billede
+ * -> robotter -> feltdefinitioner (uafhaengig, ingen FK). robotter.
+ * forgaenger_robot_id er en SELVreference uden "on delete cascade" (default
+ * NO ACTION) — at slette alle raekker i én DELETE-saetning risikerer at
+ * Postgres tjekker FK'en foer alle de refererede raekker selv er vaek, saa
+ * forgaenger_robot_id nulstilles FOeRST med en UPDATE, for at goere sletningen
+ * uafhaengig af Postgres' interne raekkefoelge inden for saetningen.
+ *
+ * POSTGREST-OVERRASKELSE 1: DELETE uden filter afvises haardt (400, "DELETE
+ * requires a WHERE clause", kode 21000) — Supabase/PostgREST kraever et
+ * filter paa enhver DELETE/UPDATE, ogsaa naar service_role omgaar RLS. Fixet
+ * med et filter, der matcher enhver raekke: "<NOT NULL-kolonne>=not.is.null".
  */
 async function tilDb(robotter) {
   laesDotEnv(path.join(ROD, '.env'));
@@ -381,29 +408,126 @@ async function tilDb(robotter) {
     console.error('--til-db kraever SUPABASE_URL og SUPABASE_SERVICE_ROLE_KEY i .env (se db/LAESMIG.md).');
     return 1;
   }
-  const headers = {
-    apikey: noegle, Authorization: `Bearer ${noegle}`,
-    'Content-Type': 'application/json', Prefer: 'return=representation',
-  };
-  async function post(tabel, raekker) {
-    if (!raekker.length) return;
-    const svar = await fetch(`${url}/rest/v1/${tabel}`, { method: 'POST', headers, body: JSON.stringify(raekker) });
-    if (!svar.ok) throw new Error(`POST ${tabel} fejlede: ${svar.status} ${await svar.text()}`);
+  const headers = { apikey: noegle, Authorization: `Bearer ${noegle}`, 'Content-Type': 'application/json' };
+
+  async function del(tabel, matchAltKolonne) {
+    const svar = await fetch(`${url}/rest/v1/${tabel}?${matchAltKolonne}=not.is.null`, { method: 'DELETE', headers });
+    if (!svar.ok) throw new Error(`DELETE ${tabel} fejlede: ${svar.status} ${await svar.text()}`);
   }
-  // Raekkefoelgen foelger fremmednoeglerne: robotter foerst (saa id'erne
-  // findes), saa feltposter/anvendelse/billede/feltdefinitioner, som alle
-  // peger paa robotter.id. forgaenger_robot_id/arvet_fra_robot_id/
-  // delt_med_robot_id kraever et opslag fra slug til den id, PostgREST
-  // netop har genereret — det opslaget er IKKE skrevet her (ingen live DB
-  // at proeve det imod), og er den del af --til-db, der staar tilbage som
-  // aabent arbejde. Se db/LAESMIG.md.
-  await post('robotter', robotter.map((r) => ({
+  async function patch(tabel, filter, body) {
+    const svar = await fetch(`${url}/rest/v1/${tabel}?${filter}`, { method: 'PATCH', headers, body: JSON.stringify(body) });
+    if (!svar.ok) throw new Error(`PATCH ${tabel} fejlede: ${svar.status} ${await svar.text()}`);
+  }
+  async function post(tabel, raekker, { repraesentation = false } = {}) {
+    if (!raekker.length) return [];
+    const h = repraesentation ? { ...headers, Prefer: 'return=representation' } : headers;
+    const svar = await fetch(`${url}/rest/v1/${tabel}`, { method: 'POST', headers: h, body: JSON.stringify(raekker) });
+    if (!svar.ok) throw new Error(`POST ${tabel} fejlede (${raekker.length} raekker): ${svar.status} ${await svar.text()}`);
+    return repraesentation ? svar.json() : [];
+  }
+
+  console.log('  toemmer eksisterende raekker (toem-og-genindlaes — se funktionens kommentar for begrundelsen) ...');
+  await del('feltpost_varianter', 'robot_id');
+  await del('feltposter', 'robot_id');
+  await del('anvendelse', 'robot_id');
+  await del('billede', 'robot_id');
+  await patch('robotter', 'id=not.is.null', { forgaenger_robot_id: null }); // loes selvreferencen foer sletning
+  await del('robotter', 'id');
+  await del('feltdefinitioner', 'feltnavn');
+
+  // 1. robotter FOeRST, med Prefer: return=representation for at faa de
+  // genererede id'er tilbage — resten af tabellerne peger via robot_id/
+  // *_robot_id og kan foerst skrives, naar dette opslag findes.
+  const indsatte = await post('robotter', robotter.map((r) => ({
     slug: r.slug, navn: r.navn, producent: r.producent, producentland: r.producentland,
     producentby: r.producentby, status: r.status, foerste_udgivelse: r.foerste_udgivelse,
     varianter: r.varianter, noter: r.noter,
-  })));
-  console.log('  robotter skrevet. forgaenger/anvendelse/billede/feltposter/feltdefinitioner ' +
-    'er IKKE fuldfoert i --til-db — se db/LAESMIG.md\'s "ikke bygget endnu".');
+  })), { repraesentation: true });
+  const slugTilId = new Map(indsatte.map((r) => [r.slug, r.id]));
+  if (slugTilId.size !== robotter.length) {
+    throw new Error(`Forventede ${robotter.length} indsatte robotter, PostgREST returnerede ${slugTilId.size}.`);
+  }
+
+  // 2. forgaenger_robot_id: ANDET pas, fordi den kraever robottens EGEN nye
+  // id, som lige er blevet genereret ovenfor. Kun 1/62 i data i dag.
+  for (const r of robotter.filter((r) => r.forgaenger)) {
+    const forgaengerId = slugTilId.get(r.forgaenger);
+    if (!forgaengerId) throw new Error(`${r.slug}: forgaenger "${r.forgaenger}" findes ikke i slug->id-opslaget.`);
+    await patch('robotter', `slug=eq.${encodeURIComponent(r.slug)}`, { forgaenger_robot_id: forgaengerId });
+  }
+
+  // 3. feltposter — 62 x 30 = 1860 raekker, ÉN POST-request (afproevet:
+  // PostgREST tog imod alle 1860 i ét kald uden at chunke eller time ud).
+  const feltRaekker = [];
+  for (const r of robotter) {
+    const robotId = slugTilId.get(r.slug);
+    for (const feltnavn of FELTNAVNE) {
+      const f = r.felter[feltnavn];
+      feltRaekker.push({
+        robot_id: robotId, feltnavn, form: f.form, tilstand: f.tilstand ?? null,
+        vaerdi_tal: f.vaerdi_tal ?? null, min: f.min ?? null, maks: f.maks ?? null,
+        vaerdi_tekst: f.vaerdi_tekst ?? null, vaerdi_bool: f.vaerdi_bool ?? null,
+        vaerdi_liste: f.vaerdi_liste ?? null, enhed: f.enhed ?? null, enhed_imperial: f.enhed_imperial ?? null,
+        vaerdi_imperial: f.vaerdi_imperial ?? null, operator: f.operator ?? null, kilde: f.kilde ?? null,
+        hentet: f.hentet ?? null, kildetype: f.kildetype ?? null, advarsel: f.advarsel ?? null,
+        note: f.note ?? null, raa: f.raa ?? null, valuta: f.valuta ?? null,
+        ved_last_tilstand: f.ved_last?.tilstand ?? null, ved_last_vaerdi: f.ved_last?.vaerdi ?? null,
+        ved_last_enhed: f.ved_last?.enhed ?? null,
+      });
+    }
+  }
+  await post('feltposter', feltRaekker);
+
+  // 4. feltpost_varianter — kraever, at feltposter allerede findes (den
+  // sammensatte FK er (robot_id, feltnavn) references feltposter).
+  const variantRaekker = [];
+  for (const r of robotter) {
+    const robotId = slugTilId.get(r.slug);
+    for (const feltnavn of FELTNAVNE) {
+      const f = r.felter[feltnavn];
+      if (!f.varianter) continue;
+      for (const [navn, vaerdi] of Object.entries(f.varianter)) {
+        variantRaekker.push({ robot_id: robotId, feltnavn, variant_navn: navn, vaerdi });
+      }
+    }
+  }
+  await post('feltpost_varianter', variantRaekker);
+
+  // 5. anvendelse — arvet_fra_robot_id kraever samme slug->id-opslag.
+  const anvRaekker = robotter.filter((r) => r.anvendelse).map((r) => {
+    const a = r.anvendelse;
+    return {
+      robot_id: slugTilId.get(r.slug), er_bar_streng: a.er_bar_streng, er_ikke_oplyst: a.er_ikke_oplyst,
+      vaerdi: a.vaerdi, citat: a.citat, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
+      arvet_fra_robot_id: a.arvet_fra ? slugTilId.get(a.arvet_fra) : null, note: a.note,
+    };
+  });
+  await post('anvendelse', anvRaekker);
+
+  // 6. billede — delt_med_robot_id kraever samme opslag.
+  const bilRaekker = robotter.filter((r) => r.billede).map((r) => {
+    const b = r.billede;
+    return {
+      robot_id: slugTilId.get(r.slug), fil: b.fil, ophav: b.ophav, kilde: b.kilde, hentet: b.hentet,
+      alt: b.alt, note: b.note, delt_med_robot_id: b.delt_med ? slugTilId.get(b.delt_med) : null,
+      plade: b.plade, pos: b.pos,
+    };
+  });
+  await post('billede', bilRaekker);
+
+  // 7. feltdefinitioner — uafhaengig af robotter, udledt direkte af FELTER.
+  const defRaekker = FELTNAVNE.map((navn) => {
+    const spec = FELTER[navn];
+    return {
+      feltnavn: navn, gruppe: spec.gruppe, art: spec.art, dimension: spec.type ?? null,
+      ogsaa_dimension: spec.ogsaaType ?? null, kraever_ved_last: !!spec.kraeverVedLast,
+      d4_beroert: !!spec.d4, katalogfelt: KATALOG_FELTER.includes(navn), filterfelt: FILTER_FELTER.includes(navn),
+    };
+  });
+  await post('feltdefinitioner', defRaekker);
+
+  console.log(`  ${slugTilId.size} robotter · ${feltRaekker.length} feltposter · ${variantRaekker.length} varianter · ` +
+    `${anvRaekker.length} anvendelser · ${bilRaekker.length} billeder · ${defRaekker.length} feltdefinitioner skrevet.`);
   return 0;
 }
 
