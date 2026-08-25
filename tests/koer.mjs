@@ -1309,6 +1309,46 @@ console.log('\n6. Vaegtklasser og flervaerdi-anvendelse');
     iData.length === 0, iData.join(', '));
 }
 
+console.log('\n7. Vagten i db/migrer.mjs — ren sammenligningsfunktion (L35)');
+{
+  // Ren funktion, testes uden netvaerk og uden .env - se db/migrer.mjs's
+  // sammenlignDbMedYaml. Importeres som modul; erHoved-vagten i migrer.mjs
+  // (og i eksporter.mjs/rundtur.mjs, som den selv importerer) sikrer, at
+  // ingen af dem koerer deres main() bare fordi de bliver importeret her.
+  const migrer = await import(`file://${path.join(rod, 'db', 'migrer.mjs').replace(/\\/g, '/')}`);
+
+  /** Én minimal, men kanonisk-formet robot - samme noeglesaet som
+   *  klassificerRobot()/omdanRobotFraDb() begge producerer. Funktionen kan
+   *  ikke se forskel paa "kommer fra YAML" og "kommer fra DB'en" - begge
+   *  sider er allerede paa denne form, naar sammenlignDbMedYaml() kaldes. */
+  const grundrobot = () => ({
+    slug: 'proeve-vagt', navn: 'Proeve', producent: 'X', producentland: 'Kina',
+    producentby: 'Beijing', status: 'i_produktion', foerste_udgivelse: 2024,
+    forgaenger: null, varianter: null, noter: null,
+    felter: {
+      egenvaegt: {
+        form: 'tal', vaerdi_tal: 50, min: null, maks: null, enhed: 'kg',
+        enhed_imperial: null, vaerdi_imperial: null, operator: null,
+        kilde: 'https://example.com/a', hentet: '2026-08-19', kildetype: null,
+        advarsel: null, note: null, raa: null, valuta: null,
+      },
+    },
+    anvendelse: null, billede: null,
+  });
+
+  const ensAfvigelser = migrer.sammenlignDbMedYaml([grundrobot()], [grundrobot()]);
+  ok('ens DB- og YAML-tilstand giver nul afvigelser',
+    Array.isArray(ensAfvigelser) && ensAfvigelser.length === 0, JSON.stringify(ensAfvigelser));
+
+  const dbMedEnAendring = grundrobot();
+  dbMedEnAendring.producentby = 'VAGTTEST';
+  const afvigelser = migrer.sammenlignDbMedYaml([dbMedEnAendring], [grundrobot()]);
+  ok('én aendret vaerdi giver praecis én afvigelse, med rigtig slug og feltsti',
+    afvigelser.length === 1 && afvigelser[0].slug === 'proeve-vagt' && afvigelser[0].sti === 'producentby'
+    && afvigelser[0].db === 'VAGTTEST' && afvigelser[0].yaml === 'Beijing',
+    JSON.stringify(afvigelser));
+}
+
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
   + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
