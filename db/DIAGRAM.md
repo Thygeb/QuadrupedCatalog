@@ -10,11 +10,15 @@ Læsebillede af [skema.sql](skema.sql), som er sandheden. Opdateret 25. aug 2026
 Databasen svarer på ét spørgsmål: **"Hvad ved vi om hver robot, og hvor ved vi det fra?"**
 
 - Én række i `robotter` = én robot (fx Spot).
-- Hver robot har **altid præcis 30 rækker** i `feltposter` — én pr. specifikation
-  (vægt, fart, IP-klasse …). Også når svaret er "det oplyser producenten ikke".
-  Det er sådan, vi kan regne udfyldningsgrad: udfyldte felter ud af 30.
+- Hver robot har **altid præcis 30 rækker** i `feltposter` — én pr. specifikation.
+  Også når svaret er "det oplyser producenten ikke". Sådan kan udfyldningsgraden
+  regnes: udfyldte felter ud af 30.
 - Billede og anvendelse er **0 eller 1 række** pr. robot — findes rækken ikke,
   er det i sig selv et svar (intet billede = måleplade vises i stedet).
+
+---
+
+## ER-diagrammet
 
 ```mermaid
 erDiagram
@@ -41,7 +45,7 @@ erDiagram
   feltposter {
     bigint robot_id FK "hvilken robot"
     feltnavn_enum feltnavn PK "hvilket af de 30 felter"
-    feltform_enum form "tal, interval, tekst, bool, liste eller tilstand"
+    feltform_enum form "hvilken svarform raekken har"
     tilstand_enum tilstand "ikke_oplyst / nej / kun_billede"
     numeric vaerdi_tal "selve tallet, fx 32.7"
     numeric min "intervallets bund, fx 35"
@@ -60,26 +64,26 @@ erDiagram
     numeric ved_last_vaerdi "fx 20 kg last under driftstiden"
   }
   feltpost_varianter {
-    bigint robot_id FK "-"
+    bigint robot_id FK "hvilken robot"
     feltnavn_enum feltnavn FK "hvilket felt varianten aendrer"
     text variant_navn PK "fx Go2 Pro"
     jsonb vaerdi "variantens eget tal"
   }
   anvendelse {
-    bigint robot_id FK "-"
+    bigint robot_id FK "hvilken robot"
     boolean er_ikke_oplyst "producenten inddeler ikke selv"
     jsonb vaerdi "kategorier, fx inspektion + industri"
     jsonb citat "producentens ordrette saetning - kraevet"
     text kilde "URL"
-    date hentet "-"
+    date hentet "hvornaar vi laeste kilden"
     bigint arvet_fra_robot_id FK "moderen, naar en variant arver"
   }
   billede {
-    bigint robot_id FK "-"
+    bigint robot_id FK "hvilken robot"
     text fil "filnavn i assets, fx spot.jpg"
     ophav_enum ophav "eget_foto / silhuet / fabrikant"
     text kilde "hvor billedet er hentet - kraevet for fabrikant"
-    date hentet "-"
+    date hentet "hvornaar billedet blev hentet"
     text alt "alt-tekst til sitet"
     bigint delt_med_robot_id FK "to robotter, eet foto"
   }
@@ -112,70 +116,104 @@ eller ét billede" — cirklen ER måleplade-fallbacken.
 
 ---
 
-## Først: hvad er en "enum"?
+## Enum-opslagsværket — alle syv lister, alle værdier
 
-En enum er bare en **lukket liste af lovlige værdier** — som en dropdown, hvor man
-ikke kan skrive frit. Feltet `status` kan fx KUN indeholde ét af fire ord; prøver
-man at skrive "coming soon", nægter databasen. Pointen: stavefejl og hjemmelavede
-kategorier er umulige.
+En enum er en **lukket liste af lovlige værdier** — som en dropdown, hvor man ikke
+kan skrive frit. Prøver man at indsætte noget uden for listen, nægter databasen.
+Pointen: stavefejl og hjemmelavede kategorier er strukturelt umulige.
 
-### De syv lister, oversat til hverdagssprog
+### 1. `tilstand_enum` — de ærlige ikke-tal-svar
 
-**1. Robottens fire svar-tilstande** (`tilstand_enum` + tal)
+Det vigtigste begreb i kataloget. Når vi spørger "hvad vejer robotten?", findes
+der fire slags svar, som ALDRIG må blandes sammen:
 
-Det vigtigste begreb i hele kataloget. Når vi spørger "hvad vejer robotten?",
-findes der fire slags svar, og de må ALDRIG blandes sammen:
+| Svaret | Gemmes som | Betyder | Eksempel |
+|---|---|---|---|
+| et tal, fx `32.7` | talkolonne | producenten oplyser tallet | Spots egenvægt: 32,7 kg |
+| `0` | talkolonne | producenten oplyser tallet NUL — et rigtigt svar | 0 kr. i licens |
+| `ikke_oplyst` | enum | producenten siger ingenting — et hul | ANYmal X' vægt |
+| `nej` | enum | producenten siger udtrykkeligt "det har den ikke" | "ingen dockingstation" |
+| `kun_billede` | enum | oplysningen findes kun som billede/tegning hos producenten — vi kan se den, men ikke citere et tal | bruges sjældent (0 af 77 i dag) |
 
-| Svaret            | Betyder                                                                                            | Eksempel                   |
-| ----------------- | -------------------------------------------------------------------------------------------------- | -------------------------- |
-| et tal, fx `32.7` | Producenten oplyser tallet                                                                         | Spots egenvægt: 32,7 kg    |
-| `0`               | Producenten oplyser tallet NUL — det er et rigtigt svar                                            | 0 kr. i licensomkostning   |
-| `nej`             | Producenten siger udtrykkeligt "det har den ikke"                                                  | "Ingen dockingstation"     |
-| `ikke_oplyst`     | Producenten siger ingenting — et hul                                                               | ANYmal X' vægt: intet svar |
-| `kun_billede`     | Oplysningen findes kun som billede/tegning hos producenten — vi kan se den, men ikke citere et tal | (bruges sjældent)          |
+Katalogsider "lyver" typisk ved at vise et hul som et nul eller omvendt. Denne
+database KAN ikke blande dem: 0 er et tal i talkolonnen, resten er enum-værdier
+i tilstandskolonnen.
 
-Hvorfor det betyder noget: katalogsider "lyver" typisk ved at vise et hul som et
-nul eller omvendt. Vores database KAN ikke blande dem — 0 gemmes som tal,
-de andre som enum-værdi i en anden kolonne.
+### 2. `feltform_enum` — hvilken svarform har rækken?
 
-**2. Feltets form** (`feltform_enum`) — _hvilken slags svar står der i rækken?_
+| Værdi | Betyder | Eksempel |
+|---|---|---|
+| `tal` | ét tal med enhed | fart: 1,6 m/s |
+| `interval` | fra-til | højde: 35-75 cm (Keyper) |
+| `tekst` | ord, ikke tal | "M5 T-slot-skinner" |
+| `bool` | ja/nej-svar | ROS 2: ja |
+| `liste` | flere værdier | dataporte: Ethernet, USB, RS485 |
+| `bare_tilstand` | kun en tilstand, ingen kilde krævet | `ikke_oplyst` |
+| `tilstand_med_herkomst` | en tilstand MED kilde | et "nej" producenten selv har skrevet, med URL |
 
-| Form                    | Betyder                                                                              | Eksempel                        |
-| ----------------------- | ------------------------------------------------------------------------------------ | ------------------------------- |
-| `tal`                   | ét tal med enhed                                                                     | fart: 1,6 m/s                   |
-| `interval`              | fra-til                                                                              | højde: 35-75 cm (Keyper)        |
-| `tekst`                 | ord, ikke tal                                                                        | "M5 T-slot-skinner"             |
-| `bool`                  | ja/nej-svar                                                                          | ROS 2: ja                       |
-| `liste`                 | flere værdier                                                                        | dataporte: Ethernet, USB, RS485 |
-| `bare_tilstand`         | kun en tilstand, ingen kilde krævet                                                  | `ikke_oplyst`                   |
-| `tilstand_med_herkomst` | en tilstand MED kilde — fx et "nej", producenten selv har skrevet, med link til hvor | "nej" + URL                     |
+Formen styrer resten af rækken via databasens egne tjek: et `tal` uden enhed
+afvises, en tilstand med enhed afvises.
 
-Hvorfor: formen styrer, hvilke kolonner der SKAL og MÅ være udfyldt. Et "tal"
-uden enhed afvises. En "tilstand" med en enhed afvises. Reglerne håndhæves af
-databasen selv, ikke af, om nogen husker dem.
+### 3. `feltnavn_enum` — de 30 felter
 
-**3. De 30 feltnavne** (`feltnavn_enum`) — egenvaegt, laengde, hastighed, ip_klasse
-osv. Låst liste = ingen kan opfinde et 31. felt ved en stavefejl ("egenvægt" med
-ø ville blive afvist). Ændres skemaet (fx D11-trimmen), er det en beslutning med
-L-nummer, ikke et skred.
+**Fysik:** `egenvaegt` · `laengde` · `bredde` · `hoejde` · `frihedsgrader` ·
+`nyttelast_gaaende` · `nyttelast_staaende` · `hastighed` · `haeldning` ·
+`forhindring_enkelt` · `trappetrin_kontinuerlig` · `ip_klasse` · `temp_min` · `temp_maks`
 
-**4. Robottens livsstatus** (`status_enum`): `i_produktion` (kan købes/lejes nu) ·
-`annonceret` (vist, men ikke i handel) · `udgaaet` (historisk, fx Laikago) ·
-`demonstrator` (forskningsplatform, aldrig et produkt).
+**Energi:** `batteri_wh` · `driftstid` · `hot_swap` · `ladetid` · `dockingstation`
 
-**5. Kildens art** (`kildetype_enum`): `primaer` = selve produktsiden ·
-`sekundaer` = producentens ØVRIGE materiale (PDF-datablad, manual, egen GitHub).
-Aldrig presse eller forhandlere — de kan slet ikke gemmes. Sekundære kilder
-markeres synligt (L33).
+**Sensorik og autonomi:** `lidar` · `kameraer` · `compute` · `ros2` · `sdk_sprog` · `autonominiveau`
 
-**6. Forbeholdstegn** (`operator_enum`): når producenten selv skriver "op til
-5 m/s" eller "~120 min", gemmer vi tegnet (`<=`, `~`, `±` …) sammen med tallet.
-Hvorfor: at slette forbeholdet ville gøre producentens cirka-tal til vores
-præcise påstand.
+**Nyttelast og udvidelser:** `monteringsinterface` · `stroem_ud` · `dataporte`
 
-**7. Billedets ophav** (`ophav_enum`): `eget_foto` (vores kamera — frit at bruge) ·
-`silhuet` (vores måltro tegning) · `fabrikant` (producentens pressefoto — må KUN
-bruges lokalt; S1-spærringen nægter at bygge til udgivelse, så længe de findes).
+**Kommercielt:** `pris`
+
+**EU:** `ce_oplyst`
+
+Låst liste = ingen kan opfinde et 31. felt ved en stavefejl ("egenvægt" med ø
+afvises). Ændres listen (fx D11-trimmen), er det en beslutning med L-nummer i
+STATUS.md, ikke et skred.
+
+### 4. `status_enum` — robottens livsstatus
+
+| Værdi | Betyder | Eksempel |
+|---|---|---|
+| `i_produktion` | kan købes/lejes nu | Spot, Go2 |
+| `annonceret` | vist af producenten, men ikke i handel | Shvana |
+| `udgaaet` | historisk, ikke længere solgt | Laikago |
+| `demonstrator` | forskningsplatform, aldrig et produkt | (reserveret) |
+
+### 5. `kildetype_enum` — hvor tæt på producenten er kilden?
+
+| Værdi | Betyder |
+|---|---|
+| `primaer` | selve produktsiden på producentens domæne |
+| `sekundaer` | producentens ØVRIGE eget materiale: PDF-datablad, manual, egen GitHub (L33) — markeres synligt på sitet |
+
+Presse, forhandlere og databaser kan slet ikke gemmes — de er ikke lovlige værdier
+nogen steder.
+
+### 6. `operator_enum` — producentens egne forbeholdstegn
+
+| Værdi | Læses som | Eksempel fra kataloget |
+|---|---|---|
+| `>` | mere end | nyttelast "> 40 kg" (B2) |
+| `>=` | mindst | |
+| `<` | under | |
+| `<=` | op til | driftstid "op til 12 t" (MOVENEW T1) |
+| `~` | cirka | hastighed "~2-5 m/s" (Shvana) |
+| `±` | plus/minus | vægt "± 5,6 kg" (Y10) |
+
+Tegnet gemmes sammen med tallet — at slette det ville gøre producentens cirka-tal
+til vores præcise påstand.
+
+### 7. `ophav_enum` — hvor kommer billedet fra?
+
+| Værdi | Betyder | Konsekvens |
+|---|---|---|
+| `eget_foto` | vores eget kamera | frit at bruge, ingen kilde krævet |
+| `silhuet` | vores måltro tegning | kilde krævet (måltallene skal kunne følges) |
+| `fabrikant` | producentens pressefoto | kilde krævet — og S1-spærringen nægter at bygge til udgivelse, så længe de findes uden skriftlig tilladelse |
 
 ---
 
@@ -183,70 +221,79 @@ bruges lokalt; S1-spærringen nægter at bygge til udgivelse, så længe de find
 
 ### `robotter` — én række pr. robot
 
-| Kolonne                                             | Hvad står der                                | Hvorfor findes den                                                                      |
-| --------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `id`                                                | et løbenummer, databasen selv finder på      | teknisk nøgle, som de andre tabeller peger på                                           |
-| `slug`                                              | robottens webnavn, fx `boston-dynamics-spot` | matcher filnavnet i git og URL'en på sitet — menneskets nøgle                           |
-| `navn`, `producent`, `producentland`, `producentby` | identiteten                                  | producenter er IKKE en egen tabel — de udledes af robotterne, som sitet altid har gjort |
-| `status`                                            | de fire livstilstande ovenfor                | så kataloget kan skelne købbart fra historisk                                           |
-| `foerste_udgivelse`                                 | årstal                                       | kun når producenten selv oplyser det (3 af 77)                                          |
-| `forgaenger_robot_id`                               | peger på en ÆLDRE robot i samme tabel        | fx "afløser Honey Badger 4.0"                                                           |
-| `varianter`                                         | navneliste, fx Go2 Air/Pro/Edu               | når ét produktnavn dækker flere udgaver med hver sine tal                               |
-| `noter`                                             | fritekst-forbehold                           | modsigelser i producentens eget materiale, stop-tjek-citater osv.                       |
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `id` | løbenummer, databasen selv finder på | teknisk nøgle, de andre tabeller peger på |
+| `slug` | webnavnet, fx `boston-dynamics-spot` | matcher filnavnet i git og URL'en — menneskets nøgle |
+| `navn`, `producent`, `producentland`, `producentby` | identiteten | producenter er IKKE en egen tabel — de udledes af robotterne, som sitet altid har gjort |
+| `status` | livsstatus (enum 4) | skelner købbart fra historisk |
+| `foerste_udgivelse` | årstal | kun når producenten selv oplyser det (3 af 77) |
+| `forgaenger_robot_id` | peger på en ældre robot | fx "afløser Honey Badger 4.0" |
+| `varianter` | navneliste, fx Go2 Air/Pro/Edu | når ét produktnavn dækker flere udgaver med hver sine tal |
+| `noter` | fritekst-forbehold | modsigelser i producentens materiale, stop-tjek-citater |
 
 ### `feltposter` — 30 rækker pr. robot (77 × 30 = 2.310)
 
-| Kolonne                                                                       | Hvad står der                                | Hvorfor findes den                                                                 |
-| ----------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `robot_id` + `feltnavn`                                                       | hvem + hvilket felt                          | tilsammen nøglen: der kan aldrig være to vægt-rækker for Spot                      |
-| `form`                                                                        | hvilken svarform (se enum 2)                 | styrer resten af rækken via databasens egne tjek                                   |
-| `tilstand`                                                                    | ikke_oplyst / nej / kun_billede              | de ærlige ikke-tal-svar                                                            |
-| `vaerdi_tal` / `min`+`maks` / `vaerdi_tekst` / `vaerdi_bool` / `vaerdi_liste` | selve svaret — KUN én af dem må være udfyldt | R4: "værdi ELLER interval, aldrig begge" er en regel databasen selv håndhæver      |
-| `enhed` (+ `vaerdi_imperial`)                                                 | kg, m/s, cm …                                | et tal uden enhed er ikke et tal — afvises                                         |
-| `operator`                                                                    | forbeholdstegnet                             | se enum 6                                                                          |
-| `kilde` + `hentet` + `kildetype`                                              | URL, dato, primær/sekundær                   | KRAVET på alt undtagen et rent "ikke_oplyst" — det er hele katalogets troværdighed |
-| `advarsel`                                                                    | synligt forbehold                            | fx "gælder kun tilkøbt vandtæt variant" (Cyvets IP54)                              |
-| `ved_last_*`                                                                  | driftstidens lastbetingelse                  | "90 min" betyder intet uden at vide, om robotten bar noget imens (R10)             |
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `robot_id` + `feltnavn` | hvem + hvilket felt | tilsammen nøglen: aldrig to vægt-rækker for Spot |
+| `form` | svarformen (enum 2) | styrer via databasens tjek, hvilke kolonner der SKAL/MÅ udfyldes |
+| `tilstand` | de ærlige ikke-tal-svar (enum 1) | hullet, nej'et og kun-billede |
+| `vaerdi_tal` / `min`+`maks` / `vaerdi_tekst` / `vaerdi_bool` / `vaerdi_liste` | selve svaret — KUN én udfyldt | R4: værdi ELLER interval, aldrig begge — databasen håndhæver det selv |
+| `enhed`, `vaerdi_imperial` | kg, m/s … + dobbeltenhed | et tal uden enhed er ikke et tal — afvises |
+| `operator` | forbeholdstegnet (enum 6) | producentens cirka forbliver cirka |
+| `kilde`, `hentet`, `kildetype` | URL, dato, primær/sekundær | KRÆVET på alt undtagen rent `ikke_oplyst` — katalogets troværdighed |
+| `advarsel` | synligt forbehold | fx "gælder kun tilkøbt vandtæt variant" (Cyvets IP54) |
+| `ved_last_tilstand`, `ved_last_vaerdi`, `ved_last_enhed` | lastbetingelsen | "90 min" betyder intet uden at vide, om robotten bar noget (R10) |
 
 ### `feltpost_varianter` — når ét felt har flere tal
 
-Go2 findes i fire udgaver, og nyttelasten falder fra 5 til 2,5 kg hen over dem.
-I stedet for at vælge ét tal (og lyve lidt) gemmes alle fire med hver sit
-variantnavn. | `variant_navn` = udgavens navn · `vaerdi` = udgavens tal |
+Go2 findes i fire udgaver; nyttelasten falder fra 5 til 2,5 kg hen over dem.
+I stedet for at vælge ét tal gemmes alle med hver sit variantnavn.
 
-### `anvendelse` — hvad producenten SELV siger robotten er til
+### `anvendelse` — hvad producenten SELV siger, robotten er til
 
-| Kolonne              | Hvad står der                       | Hvorfor findes den                                                                                                     |
-| -------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `vaerdi`             | kategorier (inspektion, industri …) | KUN producentens egen inddeling — aldrig vores mening                                                                  |
-| `citat`              | producentens ordrette sætning       | uden citatet ville kategorien være vores påstand (R16)                                                                 |
-| `arvet_fra_robot_id` | peger på "moderen"                  | en W-variant må arve kategorien fra grundmodellen — men det skal stå der, så arv aldrig ligner selvstændig kilde (R17) |
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `vaerdi` | kategorier (inspektion, industri …) | KUN producentens egen inddeling — aldrig vores mening |
+| `citat` | producentens ordrette sætning | uden citatet var kategorien vores påstand (R16) |
+| `arvet_fra_robot_id` | "moderen" | en W-variant må arve — men det skal stå der, så arv aldrig ligner selvstændig kilde (R17) |
 
-Tæller bevidst IKKE med i udfyldningsgraden — det er identitet, ikke specifikation.
+Tæller bevidst IKKE i udfyldningsgraden — identitet, ikke specifikation.
 
-### `billede` — robotens foto (0 eller 1)
+### `billede` — robottens foto (0 eller 1)
 
-| Kolonne             | Hvad står der                   | Hvorfor findes den                                                          |
-| ------------------- | ------------------------------- | --------------------------------------------------------------------------- |
-| `fil`               | filnavnet i assets/             |                                                                             |
-| `ophav`             | eget_foto / silhuet / fabrikant | S1: fabrikant-billeder spærrer for udgivelse                                |
-| `kilde` + `hentet`  | hvor og hvornår hentet          | kræves for fabrikant og silhuet — et billede skal kunne følges til sin side |
-| `delt_med_robot_id` | to robotter, ét foto            | fx varianter fotograferet sammen (L28)                                      |
-
-Ingen række = robotten vises med sin måleplade i stedet. Det er et ærligt svar,
-ikke en fejl.
+Se enum 7 for ophav-reglerne. `delt_med_robot_id`: to robotter kan dele ét foto
+(L28). Ingen række = måleplade vises — et ærligt svar, ikke en fejl.
 
 ### `feltdefinitioner` — ordbogen over de 30 felter
 
 Maskinskrevet kopi af `tools/skema.mjs` (genskrives ved hver migrering, aldrig
-håndredigeret): hvilken gruppe hvert felt hører til, hvilken svarform det tager,
-og om det vises på kort/kan filtreres på. Findes, så en fremtidig redigerings-UI
-kan læse skemaet uden at kende projektets JavaScript.
+håndredigeret). Findes, så en fremtidig redigerings-UI kan læse skemaet uden at
+kende projektets JavaScript.
 
 ---
 
+## Kredsløbet — hvem må ændre hvad lige nu
+
+```mermaid
+flowchart LR
+  yaml["YAML-filerne i git<br/>(77 poster — den arbejdende sandhed)"]
+  db[("Supabase<br/>(spejlet)")]
+  studio["Supabase Studio<br/>(kig, men RET IKKE endnu)"]
+  port["validate + build + tests<br/>(dommerne)"]
+
+  yaml -- "migrer: tøm og genindlæs" --> db
+  db -- "eksporter + rundtur: bevis enighed" --> port
+  port --> yaml
+  studio -. "redigering åbner ved D12-vippet" .-> db
+```
+
+Indtil D12-vippet: **redigér aldrig i Studio** — næste migrering overskriver det.
+Efter vippet vender pilen: så redigeres der i Studio, og filerne genereres.
+
 ---
 
-_Rækketal efter næste migrering: robotter 77 · feltposter 2.310 · billede 54 ·
+*Rækketal efter næste migrering: robotter 77 · feltposter 2.310 · billede 54 ·
 varianter og anvendelse tælles ved migreringen. Kilde: db/skema.sql +
-fund/FUND-db1.md/FUND-db2.md._
+fund/FUND-db1.md/FUND-db2.md.*
