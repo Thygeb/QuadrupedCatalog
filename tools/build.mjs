@@ -255,9 +255,20 @@ async function main(argv) {
       const ctx = grund('');
       const main0 = forsideSkabelon.render(ctx);
       kortPaaForside = taelKort(main0);
-      paastaa(kortPaaForside === robotter.length,
-        `forsiden (${sprogkode}) har ${kortPaaForside} kort, men der er ${robotter.length} datafiler. `
-        + 'Prototypen tabte tre robotter praecis her.');
+      // VENDT (spor/lysbyg, retning LYS): forsiden er ikke laengere sitets
+      // fulde katalog - den var det, foer forsiden fik sin egen "Fra
+      // kataloget"-smagsproeve (tools/skabelon/forside.mjs, UDVALG_ANTAL).
+      // Den gamle regel var "forsiden viser ALLE robotter"; den nye er
+      // "forsiden viser NOEJAGTIGT smagsproevens antal, aldrig flere, aldrig
+      // faerre" - kravet er skaerpet, ikke sloejfet: bygget skal stadig
+      // fejle, hvis et kort falder ud af smagsproeven eller hvis flere end
+      // de tilsigtede seks sniger sig med. Kataloget (nedenfor) beviser
+      // stadig, at INTET robot gaar tabt paa vejen fra YAML til side.
+      const UDVALG_ANTAL = 6;
+      const forventetPaaForside = Math.min(UDVALG_ANTAL, robotter.length);
+      paastaa(kortPaaForside === forventetPaaForside,
+        `forsiden (${sprogkode}) har ${kortPaaForside} kort, men "Fra kataloget" skal vise `
+        + `${forventetPaaForside} (min(${UDVALG_ANTAL}, ${robotter.length} datafiler)).`);
       skrivFil(path.join(ud, sprogkode, 'index.html'), skal({
         sprogkode, T, t, sti: '', aktiv: '', script: true, harProducenter,
         titel: `${T.sted_navn} · ${T.sted_undertitel}`,
@@ -547,8 +558,8 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
 
   console.log(`\nByggede ${sider} sider. `
     + `Vaegtklasser: ${klasser.under_20}/${klasser['20_40']}/${klasser.over_40}/${klasser.ikke_oplyst} `
-    + `over ${robotter.length} datafiler. Kort paa forsiden: ${kortPaaForside} `
-    + `(skal vaere lig ${robotter.length}). Kildemaerker: ${medKilde} tal med kilde, ${udenKilde} uden.`);
+    + `over ${robotter.length} datafiler. Kort paa forsiden ("Fra kataloget"): ${kortPaaForside} `
+    + `(skal vaere lig min(6, ${robotter.length})). Kildemaerker: ${medKilde} tal med kilde, ${udenKilde} uden.`);
   console.log(`Kort i kataloget: ${kortIKatalog} · sekundaere kilder: ${sekundaere} felter · `
     + `billeder kopieret fra assets/: ${billeder} (media/ indgaar aldrig)`);
   const ophavstekst = Object.keys(ophavstal).length

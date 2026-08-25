@@ -14,6 +14,7 @@
   "spring_til_indhold": "Spring til indholdet",
   "nav_forside": "Forside",
   "nav_katalog": "Katalog",
+  "nav_sammenligning": "Sammenligning",
   "nav_producenter": "Producenter",
   "til_katalog": "Tilbage til kataloget",
   "andet_sprog": "In English",
@@ -45,6 +46,22 @@
 
   "forside_formaal_titel": "Find efter formål",
   "forside_formaal_forklaring": "En robot kan høre til mere end ét formål - vælg ét for at se, hvad producenten selv har sat den til.",
+
+  "forside_udvalg_etiket": "{n} af {m}",
+  "forside_udvalg_titel": "Fra kataloget",
+
+  "katalog_sortering_etiket": "Sortering",
+  "katalog_sortering_vaegt": "Vægt, stigende",
+
+  "sammenligning_titel": "Sammenlign robotter, felt for felt",
+  "sammenligning_lede": "Vælg 2 eller 3 robotter for at sammenligne dem felt for felt. Alle felter fra skemaet står i samme rækkefølge som på robotsiden.",
+  "sammenligning_vaelg_titel": "Vælg robotter",
+  "sammenligning_vaelg_forklaring": "Vælg 2 eller 3 robotter fra listen. Tabellen opdateres automatisk.",
+  "sammenligning_maks": "Du kan sammenligne højst 3 robotter ad gangen.",
+  "sammenligning_for_faa": "Vælg mindst 2 robotter for at se sammenligningen.",
+  "sammenligning_uden_js_forklaring": "Sammenligningen kræver JavaScript. Uden det: vælg en robot fra listen for at se dens fulde specifikation.",
+  "sammenligning_legende_vinder_titel": "Ingen vinder markeret",
+  "sammenligning_legende_vinder_forklaring": "Vi markerer ikke en vindercelle pr. række. En lavere værdi er ikke bedre end en højere - kun anvendelsen afgør det, og siden kender ikke anvendelsen.",
 
   "katalog_titel": "Alle robotter",
   "katalog_antal": "robotter i kataloget",

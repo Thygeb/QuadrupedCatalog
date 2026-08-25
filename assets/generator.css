@@ -157,6 +157,10 @@
    det foerste hoved staar taettere paa fladeskiftet, som selv er graensen. */
 .katalog-flade{background:var(--panel-ro);padding-bottom:var(--r8)}
 .katalog-flade > .rum > .sektion:first-child{padding-top:var(--r7)}
+/* Forsidens "Fra kataloget"-smagsproeve (spor/lysbyg): samme flade, samme
+   tonespring-regel som resten af kataloget - kun ÉT afsnit i stedet for
+   alle vaegtklasserne. */
+.udvalg-videre{text-align:center;margin-top:var(--r6)}
 .styr .gitter{margin-top:var(--r6)}
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}

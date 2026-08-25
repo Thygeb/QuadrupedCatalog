@@ -1,6 +1,12 @@
 /**
  * tools/skabelon/forside.mjs — forsiden.
  *
+ * OMBYGGET 25. aug 2026 (spor/lysbyg): forsiden bliver retning LYS' teaser,
+ * ikke laengere sitets eneste browsested. Kontrakten er
+ * prototype/retning-lys/forside.html + BEGRUNDELSE.md, godkendt af
+ * orkestratoren. Formen (hero -> yderpunkter -> EU-fund -> smagsproeve) er
+ * mockuppens; TALLENE er stadig udledt her, aldrig haardkodet.
+ *
  * OMBYGGET 24. aug 2026 (JPK, efter interview + grilning + maaling). Laeseren
  * er den nysgerrige fagperson — presse, studerende, branchefolk — der vil
  * forstaa FELTET af firbenede robotter, og som ankommer UDEN et modelnavn i
@@ -11,8 +17,11 @@
  * — maskinen staar frit paa hvid plade, fotografiet leder, graensefladen
  * traeder tilbage. Stadig et opslagsvaerk, ikke en gallerside.
  *
- * SIDENS FEM DELE, top til bund:
- *   1. Hero — kort overskrift + lede. Ren tekst, ingen figur.
+ * SIDENS FIRE DELE, top til bund (spor/lysbyg fjernede to af de fem
+ * tidligere dele — se ARKITEKTURAENDRING nedenfor):
+ *   1. Hero — kort overskrift + lede + "Se hele kataloget"-knap. Ren tekst,
+ *      ingen figur, INGEN soegefelt (soegningen flyttede til katalogsiden,
+ *      se ARKITEKTURAENDRING).
  *   2. YDERPUNKTER — feltets fire maalte yderpunkter (letteste, tungeste,
  *      hurtigste, laengste driftstid). Loesningen paa "ingen fremhaevet
  *      robot": DESIGN.md forbyder eksplicit "featured", fordi en
@@ -20,16 +29,33 @@
  *      producenternes aabenhed, ikke deres kvalitet). Et yderpunkt er ingen
  *      dom — den tungeste robot er ikke "bedre" end den letteste. Beregnet i
  *      hjaelp.ekstremer() (side.mjs) af de samme data, kortene selv viser.
+ *      UAENDRET beregning fra foer spor/lysbyg.
  *   3. EU-FUNDET — én rolig saetning med ét stort tal: hvor mange af
  *      kataloget oplyser CE-maerkning. Beregnet her, ikke skrevet i haanden.
- *   4. FORMAALSFILTERET — samme syv+1 kategorier som foer (nu "chips"), men
- *      som en tydelig, indbydende indgang. Stadig et FILTER (link ind i
- *      kataloget), ikke en gruppering: 29 af 46 robotter har mere end ét
- *      formaal, saa en gruppering ville vise samme robot flere gange.
- *   5. KATALOGET — alle 46, statisk, grupperet i vaegtklasser (L27). Vaegten
- *      er stadig aksen: den er maalt og entydig. Faar sin egen flade
- *      (`.katalog-flade`, --panel-ro) som TONESPRING fra aabningen ovenfor —
- *      ikke en streg.
+ *      UAENDRET beregning fra foer spor/lysbyg.
+ *   4. "FRA KATALOGET" — en smagsproeve paa seks kort (eller alle, er der
+ *      faerre end seks datafiler — proevedatasaettet har kun tre), med et
+ *      link "Se alle N robotter ->" til katalogsiden. Se udvalgReglen()
+ *      nedenfor for udvaelgelsesreglen.
+ *
+ * ARKITEKTURAENDRING (spor/lysbyg, kontrakt: prototype/retning-lys/,
+ * BEGRUNDELSE.md "Arkitekturaendring" + "Hvad jeg bevidst fravalgte"):
+ * forsiden viser IKKE laengere alle robotter grupperet i vaegtklasser, og
+ * IKKE laengere formaalsfilteret (`.formaal-gitter`) eller soegefeltet.
+ * Begge dele FLYTTER til katalogsiden (tools/skabelon/katalog.mjs), som nu
+ * er sitets fulde browsested: vaegtklasse-salene I-IV, facetfiltrene
+ * (inkl. "Anvendelse", som allerede daekkede formaalsfilterets FUNKTION) og
+ * fritekstsoegningen. Det er ikke et tab af indhold, men en arbejdsdeling
+ * mellem "indgang" (forside) og "montre" (katalog) — se BEGRUNDELSE.md's
+ * eget afsnit om praecis denne todeling.
+ *
+ * Formaalsfilterets STORE FLISER (`.formaal-gitter`) er IKKE genskabt paa
+ * katalogsiden: katalogsidens egen "Anvendelse"-facet (fem afkrydsningsfelter
+ * blandt facetterne, tools/skabelon/katalog.mjs) filtrerer allerede paa
+ * praecis det samme felt. To samtidige UI'er for én dimension paa én side
+ * ville vaere den slags dobbelt-mekanik, DESIGN.md's princip om "ét
+ * signaturelement, ro omkring det" advarer imod — se fund/FUND-lysbyg.md for
+ * den fulde begrundelse.
  *
  * VAEGTSTIGEN ER FJERNET (superseret, ikke en stille sletning). Den stod her
  * fra 21.08.2026 til 24.08.2026 som "sidens indholdsfortegnelse": ét maerke
@@ -39,9 +65,6 @@
  * et katalogkort. Der var ikke plads til baade en abstrakt akse-figur OG
  * fire fotobaarne yderpunkter inden for det budget, og yderpunkterne tjener
  * "Udstillingssalen" bedre: de viser en maskine, aksen viste en graf.
- * Navigationen, stigen bar (link ned i hver vaegtklassesektion), er ikke
- * tabt: hver sektion viser sit eget antal i overskriften (uaendret), og
- * siden er kort nok til at rulles.
  *
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
@@ -49,15 +72,6 @@
 import { esc, ekstremer } from './side.mjs';
 
 const attr = esc;
-
-/** Vaegten i kg til sortering inde i en sektion. Uoplyst sorteres sidst. */
-function sorteringsvaegt(robot) {
-  const p = robot?.felter?.egenvaegt;
-  if (!p || typeof p === 'string' || typeof p.vaerdi === 'string') return Infinity;
-  const v = p.min !== undefined ? (p.min + p.maks) / 2 : p.vaerdi;
-  if (typeof v !== 'number') return Infinity;
-  return p.enhed === 'g' ? v / 1000 : v;
-}
 
 /**
  * Ét yderpunkt-felt: fotografi + ét stort maalt tal + robotnavn. Hele fladen
@@ -86,23 +100,23 @@ ${figur}
 }
 
 export function render(ctx) {
-  const { robotter, i18n, sprog, hjaelp } = ctx;
-  const { T, t, tf } = i18n;
+  const { robotter, i18n, hjaelp } = ctx;
+  const { t, tf } = i18n;
 
   const producenter = new Set(robotter.map((r) => r.producent));
 
-  /* --- 1. HERO. Ren tekst, ingen figur — figuren er nu yderpunkterne. --- */
+  /* --- 1. HERO. Ren tekst, ingen figur — figuren er nu yderpunkterne.
+     INGEN soegefelt (spor/lysbyg): kontrakten (BEGRUNDELSE.md, "Hvad jeg
+     bevidst fravalgte") flytter soegningen til katalogsiden, hvor JS'en,
+     der taender feltet, allerede bor (katalog.js' data-sog="katalog"). At
+     lade et andet soegefelt staa paa forsiden, der ogsaa poster til
+     robotter/, ville vaere to indgange til samme funktion. --- */
   const hero = `<section class="hero">
 <div class="rum">
 <div class="hero-ord">
 <h1 class="t-hero">${esc(t('forside_overskrift'))}</h1>
 <p class="t-broed maal hero-lede">${esc(tf('forside_lede', { n: robotter.length, p: producenter.size }))}</p>
 <div class="styring">
-<form class="sog" action="robotter/" method="get" data-sog="forside" hidden>
-<label class="etiket" for="sog-forside">${esc(t('forside_soeg_etiket'))}</label>
-<input id="sog-forside" name="s" type="search" autocomplete="off"
- placeholder="${attr(t('forside_soeg_pladsholder'))}">
-</form>
 <p class="hero-videre"><a class="videre videre--stille" href="robotter/">${esc(tf('se_alle', { n: robotter.length }))}`
     + `${hjaelp.ikon('i-pil')}</a></p>
 </div>
@@ -163,79 +177,39 @@ ${ypResten.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 </div>
 </section>`;
 
-  /* --- 4. FORMAALSFILTERET. Samme beregning som foer (chips), nu en
-     tydelig, indbydende indgang. Stadig LINKS til kataloget, ikke
-     afkrydsningsfelter: forsiden er delt i vaegtklassesektioner, og et
-     filter, der tommer tre af fire, efterlader tomme overskrifter. Stadig
-     et FILTER, ikke en gruppering — 29 af 46 robotter har mere end ét
-     formaal (maalt), saa en gruppering ville vise samme robot flere
-     gange. --- */
-  const anvAntal = new Map();
-  for (const r of robotter) {
-    for (const v of hjaelp.anvendelse(r).vaerdier) anvAntal.set(v, (anvAntal.get(v) ?? 0) + 1);
-  }
-  const anvOrden = [...anvAntal.entries()]
-    .sort((a, b) => (a[0] === 'ikke_oplyst' ? 1 : b[0] === 'ikke_oplyst' ? -1 : b[1] - a[1]));
+  /* --- 4. "FRA KATALOGET" — en smagsproeve, ikke hele kataloget.
+     spor/lysbyg (BEGRUNDELSE.md, "Arkitekturaendring"): forsiden viser ikke
+     laengere alle robotter. Seks kort (eller alle, er der faerre) leder
+     videre til katalogsiden, som nu er stedet, hvor hele kataloget bor.
+     UDVAELGELSESREGLEN er den samme, ekstremer() allerede foelger: INGEN
+     redaktionel udvaelgelse (CLAUDE.md haard begraensning 6). De foerste
+     seks robotter i den alfabetiske raekkefoelge, `robotter` selv modtages
+     i (samme sortering som build.mjs bruger og katalogsiden viser inden for
+     hver vaegtklasse), er en deterministisk, gentagelig regel uden en
+     kvalitetsdom — ikke et haandplukket "bedste" udvalg. */
+  const UDVALG_ANTAL = 6;
+  const udvalg = robotter.slice(0, UDVALG_ANTAL);
 
-  const formaalTiles = anvOrden.map(([v, n]) => {
-    const tom = v === 'ikke_oplyst' ? ' formaal--tom' : '';
-    const navn = v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst : t('anvendelse_' + v);
-    return `<a class="formaal${tom}" href="robotter/#f-anv-${attr(v)}">`
-      + `<span class="formaal-navn">${esc(navn)}</span>`
-      + `<span class="formaal-tal figur" aria-hidden="true">${esc(hjaelp.nformat(n))}</span>`
-      + `<span class="kunskaerm">${esc(tf('antal_kort', { n }))}</span></a>`;
-  }).join('\n');
-
-  const formaalSektion = `<section class="formaal-sektion" aria-labelledby="h-formaal">
+  const smagsproeveSektion = udvalg.length ? `<div class="katalog-flade">
 <div class="rum">
+<section class="sektion" aria-labelledby="h-udvalg">
 <div class="sektion-hoved">
-<span class="etiket">${esc(t('forside_filtre_etiket'))}</span>
-<h2 class="t-h2" id="h-formaal">${esc(t('forside_formaal_titel'))}</h2>
+<span class="etiket">${esc(tf('forside_udvalg_etiket', { n: udvalg.length, m: robotter.length }))}</span>
+<h2 class="t-h2" id="h-udvalg">${esc(t('forside_udvalg_titel'))}</h2>
 </div>
-<p class="t-lille sektion-note">${esc(t('forside_formaal_forklaring'))}</p>
-<nav class="formaal-gitter" aria-label="${attr(t('forside_filtre_etiket'))}">
-${formaalTiles}
-</nav>
-</div>
-</section>`;
-
-  /* --- 5. KATALOGET. Vaegtklassesektionerne (L27), uaendret logik. --- */
-  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
-  for (const r of robotter) efterKlasse.get(hjaelp.vaegtklasse(r)).push(r);
-  for (const liste of efterKlasse.values()) {
-    liste.sort((a, b) => sorteringsvaegt(a) - sorteringsvaegt(b)
-      || String(a.navn).localeCompare(String(b.navn), sprog));
-  }
-
-  const sektioner = hjaelp.VAEGTKLASSER.map((klasse) => {
-    const liste = efterKlasse.get(klasse);
-    if (!liste.length) return '';
-    const forklaring = klasse === 'ikke_oplyst'
-      ? t('vaegtklasse_ikke_oplyst_forklaring') : '';
-    return `<section class="sektion" id="vaegt-${attr(klasse)}" aria-labelledby="h-${attr(klasse)}">
-<div class="sektion-hoved">
-<span class="etiket">${esc(t('vaegtklasse_titel'))}</span>
-<h2 class="t-h2" id="h-${attr(klasse)}">${esc(t('vaegtklasse_' + klasse))}</h2>
-<span class="tal">${esc(tf('antal_kort', { n: liste.length }))}</span>
-</div>
-${forklaring ? `<p class="t-lille sektion-note">${esc(forklaring)}</p>` : ''}
 <div class="gitter">
-${liste.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
+${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
 </div>
-</section>`;
-  }).join('\n');
+<p class="udvalg-videre"><a class="videre videre--stille" href="robotter/">`
+    + `${esc(tf('se_alle', { n: robotter.length }))}${hjaelp.ikon('i-pil')}</a></p>
+</section>
+</div>
+</div>` : '';
 
   return `<div class="aabning">
 ${hero}
 ${yderpunkterSektion}
 ${euFund}
-${formaalSektion}
 </div>
-<div class="katalog-flade">
-<div class="rum">
-${sektioner}
-<p class="t-mikro sektion-note">${esc(t('vaegtklasse_forklaring'))}</p>
-<p class="t-mikro sektion-note">${esc(t('forside_ordning'))}</p>
-</div>
-</div>`;
+${smagsproeveSektion}`;
 }
