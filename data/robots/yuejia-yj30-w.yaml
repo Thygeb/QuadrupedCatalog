@@ -1,0 +1,114 @@
+slug: yuejia-yj30-w
+navn: YJ30 W
+producent: Yuejia Lingdong
+producentland: Kina
+producentby: Shenzhen
+status: i_produktion
+anvendelse:
+  vaerdi: [inspektion, sikkerhed_overvaagning, forsvar_beredskab, industri, forskning_udvikling]
+  citat:
+    - "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
+    - "工业、安防巡检领域"
+    - "警用巡逻"
+  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+  hentet: 2026-08-25
+  note: "Foerste citat er YJ30 W's egen produktbeskrivelse (samme side). Egen oversaettelse: 多光谱火情探测/火情预警 (multispektral brandfaredetektion/-varsling) -> forsvar_beredskab; 自主移动巡检/自主巡逻 (autonom mobil inspektion/patrulje) -> inspektion; 工业 -> industri; 科研 -> forskning_udvikling. \"仓储\" (lager/logistik) er IKKE medtaget som logistik-kategori her, da det kun staar i en opremsning af mulige indsatsmiljoeer (\"工业、仓储、科研等复杂场景\"), ikke som en selvstaendig anvendelseskategori paa linje med de oevrige - en mere forsigtig laesning end den bredeste mulige. De to sidste citater er fra sidens delte \"行业应用\"-sektion: \"警用巡逻\" -> sikkerhed_overvaagning."
+noter:
+  - "STOPPROEVE (hjul-ben-hybrid, ikke ren hjulplatform): bestaaet, MED forbehold. Producentens egen tekst siger \"四足巡检机器人，采用四轮独立驱动结构\" (firbenet inspektionsrobot med firehjuls uafhaengigt drev) - selve maskintypen kaldes \"四足\" (firbenet) i overskriften, mens bevaegelsen sker paa fire uafhaengigt drevne hjul monteret paa ben-lignende strukturer. Samme mønster som Unitree B2/B2-W og Genisom Gangben L2/L2-W, som allerede staar som separate katalogposter. Robotten staar under samme \"越甲四足系列\"-produktnavigation som den rent gaaende YJ30/YJ30Max. Se fund/FUND-kand4.md afsnit 2 for den fulde afvejning af hjul-ben-praecedensen."
+  - "IKKE LEGETOEJ (L11): nej. Pris 88.000 kr og brandinspektions-/sikkerhedsanvendelse."
+  - "GENBRUGT EVIDENS: research udfoert i spor/kand4. Raa HTML genbruges fra media/_kilder/raa-kand4-2026-08-25/yuejialingdong-yj-59-2026-08-25.html (hentet 2026-08-25). Samme \"基础参数\"-tabel (YJ30 vs. YJ30 W) staar ogsaa paa side 56 (yuejialingdong-yj-56-2026-08-25.html) - begge kilder krydstjekket og enige."
+  - "SINGLE \"负载\"-FELT, SAMME MOENSTER SOM YJ30: tabellen har kun én uspecificeret \"负载\"-raekke (12kg) for YJ30 W, ikke en gaaende/staaende-splittet raekke. Placeret i nyttelast_gaaende som et forsigtigt skoen, jf. YJ30's begrundelse."
+  - "TRAPPETRIN_KONTINUERLIG BRUGER SAMME KOLONNE SOM BASISUDGAVEN: \"攀爬台阶高度\" er ÉN kolonne i tabellen, delt af baade YJ30 (20cm) og YJ30 W (60cm) - producenten skelner IKKE mellem \"kontinuerlig trappe\" og \"enkelt forhindring\" med to forskellige feltnavne, saadan som Galileo og Genisom goer. Vaerdien er derfor lagt i trappetrin_kontinuerlig for begge varianter for at holde feltvalget konsistent inden for samme producents tabel - IKKE fordi 60cm noedvendigvis er en kontinuerlig trappe i praksis for en hjulbenet robot. Se ogsaa forhindring_enkelt: ikke_oplyst."
+  - "MULTISPEKTRAL SENSORPAKKE (kameraer) ER EKSPLICIT HER, MODSAT YJ30/YJ30Max: produktteksten naevner tre navngivne detektionsteknologier specifikt til denne (og YJ30W MAX's) brandinspektionsvariant - se feltet kameraer."
+felter:
+  egenvaegt:
+    vaerdi: 20
+    enhed: kg
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"重量: 20kg\" i \"基础参数\"-tabellen."
+  laengde:
+    vaerdi: 682
+    enhed: mm
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"站立尺寸: 682×354×532mm\"."
+  bredde:
+    vaerdi: 354
+    enhed: mm
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+  hoejde:
+    vaerdi: 532
+    enhed: mm
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+  frihedsgrader: ikke_oplyst
+  nyttelast_gaaende:
+    vaerdi: 12
+    enhed: kg
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "Producenten skriver kun \"负载: 12kg\" uden gaaende/staaende-skel (se topnote). Forsigtigt skoen, ikke en aflaesning."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 5
+    enhed: m/s
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"最大速度: 5m/s\" - hoejere end den gaaende YJ30's 3m/s, som forventet for en hjuldrevet variant."
+  haeldning:
+    vaerdi: 50
+    enhed: "°"
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30 - se yuejia-yj30.yaml's topnote."
+  forhindring_enkelt: ikke_oplyst
+  trappetrin_kontinuerlig:
+    vaerdi: 60
+    enhed: cm
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"攀爬台阶高度: 60cm\" - se topnoten om det delte kolonnenavn med basisudgaven YJ30 (20cm)."
+  ip_klasse:
+    vaerdi: IP54
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+  temp_min: ikke_oplyst
+  temp_maks: ikke_oplyst
+  batteri_wh: ikke_oplyst
+  driftstid:
+    vaerdi_min: 1.5
+    vaerdi_maks: 2
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"续航: 1.5-2h\" i basisvaerdien. Samme celle naevner separat \"3.5~4h (Dual Battery)\" - ekstra tilbehoersafhaengig konfiguration, ikke brugt som hovedvaerdi. Ingen lastbetingelse (kg) oplyst."
+  hot_swap: ikke_oplyst
+  ladetid: ikke_oplyst
+  dockingstation: ikke_oplyst
+  lidar: ikke_oplyst
+  kameraer:
+    vaerdi: "红外热成像 (infraroed varmesoegning); hoejfoelsom UV-lysgenkendelse; synligt-lys roeg-/ildgenkendelse (三重探测技术: infrared thermal imaging + UV detection + visible-light smoke/fire recognition)"
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" - tre navngivne detektionsteknologier, specifikt til denne brandinspektionsvariant. Ingen modelbetegnelse eller opløsning oplyst for nogen af de tre."
+  compute: ikke_oplyst
+  ros2: ikke_oplyst
+  sdk_sprog: ikke_oplyst
+  autonominiveau:
+    vaerdi: "WIFI (有/ja); 4G/5G (有/ja); 图传/billedtransmission (有/ja); 语音识别/stemmegenkendelse (有/ja); 跟随/autonom foelgning (有/ja); 导航/navigation (有/ja); WiFi6 og Bluetooth 5.2 kompatibel (兼容WiFi6、蓝牙5.2); realtids fuldskaerms-temperaturmaaling og zoneovervaagning (实时全屏测温、自定义区域温度监测)"
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "Kombinerer \"基础参数\"-tabellens seks ja/nej-raekker (samme moenster som YJ30) med produktbeskrivelsens ekstra kommunikations- og dataanalysefunktioner specifikt for brandinspektionsvarianten."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte: ikke_oplyst
+  pris:
+    vaerdi: 88000
+    enhed: CNY
+    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+    hentet: 2026-08-25
+    advarsel: "\"￥88000.00\" ved siden af en \"立即购买\" (koeb nu)-knap."
+  ce_oplyst: ikke_oplyst
