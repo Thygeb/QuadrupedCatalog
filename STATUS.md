@@ -56,7 +56,7 @@ Opdateret 24. august 2026.
 | # | Punkt |
 |---|---|
 | **Å2** | Visuel retning. Påbegyndt |
-| **Å4** | **Salgssiden er ikke flyttet.** `c:\Praktik\website` → `websites\salg`. Kræver Claude Code lukket; kør `c:\Praktik\flyt-salg.ps1` |
+| ~~**Å4**~~ | ~~Salgssiden er ikke flyttet~~ **Lukket 25. aug 2026: begge flytninger er udført og efterprøvet** — `c:\Praktik\website` og `c:\Praktik\guide` findes ikke længere på disken; begge projekter ligger under `c:\Praktik\websites\`. CLAUDE.md's indledning og worktree-instruks er synkroniseret samme dag |
 | **Å6** | **EU-kolonnens hovedpåstand er ubelagt.** PLAN.md siger, køberen bliver importør ved direkte køb fra Asien. Der findes ingen primærkilde for import *til eget brug* |
 | **Å7** | **"42 producenter" kan ikke citeres.** Kilden svarer 403, tallet er fra "early 2024" uden definition. Reelt tal er ≥57. PLAN.md afsnit 1 skal rettes |
 | **D3** | Hvordan vises intervaller (`20~25cm`, `4-6h`)? |

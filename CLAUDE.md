@@ -2,20 +2,29 @@
 
 Selvstændigt projekt. **Ikke** en del af KeyResearch-konceptsiden.
 
-Mappestrukturen er besluttet 19. aug 2026, men **ikke udført endnu** — se Å4 i
-[STATUS.md](STATUS.md) for hvorfor rækkefølgen betyder noget:
+Mappestrukturen, besluttet 19. aug 2026, er **udført** — begge flytninger er sket,
+og de gamle stier `c:\Praktik\guide` og `c:\Praktik\website` findes ikke længere
+(målt 25. aug 2026):
 
 ```
-c:\Praktik\websites\salg\          KeyResearch' salgsside   (i dag: c:\Praktik\website)
-c:\Praktik\websites\udstilling\    dette projekt            (i dag: c:\Praktik\guide)
+c:\Praktik\websites\salg\          KeyResearch' salgsside
+c:\Praktik\websites\udstilling\    dette projekt
 ```
 
 De to deler tone, målescripts og fontstrategi — intet andet.
 De har hver sit git-repo, hver sin CLAUDE.md og hver sin beslutningshistorik.
 
 **Denne fil er reglerne. [PRODUCT.md](PRODUCT.md) er produktsandheden. [PLAN.md](PLAN.md) er
-byggeplanen.** Status: planlægning. Der er ikke skrevet kode endnu, og der skrives ikke kode,
-før CEO'en siger til.
+byggeplanen. [DATAFLOW.md](DATAFLOW.md) er vejen et tal går** — fra producentens side til
+den byggede side, med sekvensdiagrammer for de to veje ind i data og for billedvejen.
+
+Status 25. aug 2026: **bygget og i drift.** Her stod tidligere *"planlægning. Der er ikke
+skrevet kode endnu"* — det holdt op med at passe for en uge siden og vildledte enhver ny
+agent, der læste linjen. Der findes i dag en afhængighedsfri Node-generator, 77 robotposter
+med 1.110 kildebelagte tal, 213 byggede sider på to sprog, en Supabase-database som
+redaktionslag (L34/L35) og to private Storage-spande (L36). Selve *lanceringen* er stadig
+spærret af S1: siden må ikke publiceres, mens den viser fabrikantbilleder uden skriftlig
+tilladelse.
 
 ---
 
@@ -107,9 +116,11 @@ Fast regel, sat af JPK 19. aug 2026. Gælder alt arbejde i dette projekt.
    samme fil, eller at det ene venter på det andets resultat. *"Kan ikke deles"* er et
    gyldigt svar, men det skal begrundes, ellers kan næste læser ikke se forskel på et
    fravalg og en forglemmelse.
-2. **Egen git-worktree til hver agent.** `git worktree add ../guide-wt-<navn> -b <gren>`
-   fra `c:\Praktik\guide`. **Ikke** Agent-værktøjets `isolation: "worktree"` — den
-   forgrener fra sessionens arbejdsmappe, som kan være et andet repo.
+2. **Egen git-worktree til hver agent.** `git worktree add ../udstilling-wt-<navn> -b spor/<navn>`
+   fra `c:\Praktik\websites\udstilling`. **Ikke** Agent-værktøjets `isolation: "worktree"` — den
+   forgrener fra sessionens arbejdsmappe, som kan være et andet repo. Husk: `.env` og
+   `assets/fotos/fabrikant/` er gitignoreret og skal kopieres ind, hvis sporet skal
+   bruge dem — to spor er allerede snublet over det.
 3. **Hver agent indlæser passende skill, hver gang en ny opgave starter.** Skriv hvilken
    der blev valgt, og hvilke der blev gået forbi med begrundelse. "Ingen skill passer
    her" er et gyldigt svar — men det skal skrives, ellers kan næste læser ikke se
