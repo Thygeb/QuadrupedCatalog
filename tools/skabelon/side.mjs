@@ -1100,6 +1100,9 @@ export function skal({
   const nav = [
     ['', T.nav_forside],
     ['robotter/', T.nav_katalog],
+    // spor/lysbyg: sammenligningssiden foelger katalogsiden i navigationen,
+    // samme raekkefoelge mockuppens baand havde (prototype/retning-lys/*.html).
+    ['sammenligning/', T.nav_sammenligning],
   ];
   if (harProducenter) nav.push(['producenter/', t('nav_producenter')]);
 
@@ -1153,7 +1156,7 @@ ${kropp}
 <p>${esc(T.udgiver)} · <a href="${attr(`${op}${andet}/${sti}`)}" hreflang="${attr(andet)}" lang="${attr(andet)}">${esc(T.andet_sprog)}</a></p>
 </div>
 </footer>
-${script ? `<script src="${op}katalog.js" defer></script>` : ''}
+${script ? `<script src="${op}${attr(script === true ? 'katalog.js' : script)}" defer></script>` : ''}
 </body>
 </html>
 `;

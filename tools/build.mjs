@@ -33,7 +33,7 @@ import process from 'node:process';
 import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, FILTER_FELTER, SPROG, tilstandAf, normaliserRobot,
-  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_SPAERRET,
+  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_SPAERRET, feltVisning,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 import {
@@ -42,6 +42,7 @@ import {
 } from './skabelon/side.mjs';
 import * as forsideSkabelon from './skabelon/forside.mjs';
 import * as katalogSkabelon from './skabelon/katalog.mjs';
+import * as sammenligningSkabelon from './skabelon/sammenligning.mjs';
 
 const rod = process.cwd();
 const iDag = new Date().toISOString().slice(0, 10);
@@ -243,6 +244,7 @@ async function main(argv) {
           sti, dybde, op,
           forside: her,
           katalog: `${her}robotter/`,
+          sammenligning: `${her}sammenligning/`,
           producenter: `${her}producenter/`,
           robot: (slug) => `${her}robotter/${slug}/`,
           producent: (slug) => `${her}producenter/${slug}/`,
@@ -290,6 +292,20 @@ async function main(argv) {
         titel: `${T.katalog_titel} · ${T.sted_navn}`,
         beskrivelse: T.sted_undertitel,
         stil: katalogSkabelon.hovedStil(ctx),
+        main: main0,
+      }));
+      sider++;
+    }
+
+    /* --- sammenligningssiden (spor/lysbyg) --- */
+    {
+      const ctx = grund('sammenligning/');
+      const main0 = sammenligningSkabelon.render(ctx);
+      skrivFil(path.join(ud, sprogkode, 'sammenligning', 'index.html'), skal({
+        sprogkode, T, t, sti: 'sammenligning/', aktiv: 'sammenligning/',
+        script: 'sammenligning.js', harProducenter,
+        titel: `${T.sammenligning_titel} · ${T.sted_navn}`,
+        beskrivelse: T.sammenligning_lede,
         main: main0,
       }));
       sider++;
@@ -387,6 +403,10 @@ async function main(argv) {
         kilder: lavKilder(r).liste.map((k) => ({ bogstav: k.bogstav, url: k.url, hentet: k.hentet, sekundaer: k.sekundaer })),
         taethed: Object.fromEntries(naevnere.map((n) => [n, taethed(r, n, d4).pct])),
         felter: f,
+        // /sammenligning/'s fulde felt-for-felt-visning (spor/lysbyg): alle
+        // FELTNAVNE.length felter, ikke kun FILTER_FELTER's seks - se
+        // feltVisning() ovenfor for hvorfor formen adskiller sig fra `felter`.
+        alle_felter: Object.fromEntries(FELTNAVNE.map((n) => [n, feltVisning(n, r.felter[n])])),
       };
     }),
   };
@@ -397,6 +417,7 @@ async function main(argv) {
     ['assets/system.css', 'system.css'],
     ['assets/generator.css', 'generator.css'],
     ['assets/katalog.js', 'katalog.js'],
+    ['assets/sammenligning.js', 'sammenligning.js'],
   ]) {
     const kilde = path.join(rod, fra);
     if (fs.existsSync(kilde)) skrivFil(path.join(ud, til), fs.readFileSync(kilde, 'utf8'));
