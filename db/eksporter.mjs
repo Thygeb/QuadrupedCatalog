@@ -273,13 +273,100 @@ function laesDotEnv(fil) {
   }
 }
 
+/** Genopbygger ÉN feltposts kanoniske form (samme facon som db/migrer.mjs's
+ *  klassificerFeltpost bygger fra YAML) af DENS raa DB-raekke. */
+function omdanFeltpostFraDb(row) {
+  const ud = {
+    form: row.form, tilstand: row.tilstand,
+    vaerdi_tal: row.vaerdi_tal, min: row.min, maks: row.maks,
+    vaerdi_tekst: row.vaerdi_tekst, vaerdi_bool: row.vaerdi_bool, vaerdi_liste: row.vaerdi_liste,
+    enhed: row.enhed, enhed_imperial: row.enhed_imperial, vaerdi_imperial: row.vaerdi_imperial,
+    operator: row.operator, kilde: row.kilde, hentet: row.hentet, kildetype: row.kildetype,
+    advarsel: row.advarsel, note: row.note, raa: row.raa, valuta: row.valuta,
+  };
+  // ved_last_* er tre kolonner paa hver raekke (kun ikke-null for driftstid,
+  // jf. db/skema.sql's feltposter_ved_last_kun_paa_driftstid) — genopbyg kun
+  // ved_last-noeglen, naar mindst én af dem baerer noget, samme betingelse
+  // klassificerVedLast (migrer.mjs) selv bruger til at afgoere om noeglen
+  // findes overhovedet.
+  if (row.ved_last_tilstand !== null || row.ved_last_vaerdi !== null || row.ved_last_enhed !== null) {
+    ud.ved_last = { tilstand: row.ved_last_tilstand, vaerdi: row.ved_last_vaerdi, enhed: row.ved_last_enhed };
+  }
+  // feltpost_varianter er indlejret UNDER feltposter i selve GET'et (se
+  // POSTGREST-OVERRASKELSE 2 nedenfor) — {variant_navn, vaerdi}[] -> {navn: vaerdi}.
+  if (row.feltpost_varianter && row.feltpost_varianter.length) {
+    ud.varianter = Object.fromEntries(row.feltpost_varianter.map((v) => [v.variant_navn, v.vaerdi]));
+  }
+  return ud;
+}
+
+/** Genopbygger ÉN robots kanoniske form af dens raa, indlejrede DB-raekke.
+ *  `idTilSlug` opslaar en robots EGEN id -> slug for de tre selv/kryds-
+ *  referencer (forgaenger/arvet_fra/delt_med), som DB'en baerer som
+ *  numeriske id'er, men kanonisk() (og dermed YAML) baerer som slugs. */
+function omdanRobotFraDb(raa, idTilSlug) {
+  const felter = {};
+  for (const fp of raa.feltposter) felter[fp.feltnavn] = omdanFeltpostFraDb(fp);
+  if (Object.keys(felter).length !== FELTNAVNE.length) {
+    throw new Error(`${raa.slug}: ${Object.keys(felter).length} feltposter hentet, forventede ${FELTNAVNE.length} — ` +
+      'migreringen har efterladt et hul, eller GET-kaldet blev pagineret. Undersoeg, foer resultatet bruges.');
+  }
+
+  let anvendelse = null;
+  if (raa.anvendelse) {
+    const a = raa.anvendelse;
+    anvendelse = {
+      er_bar_streng: a.er_bar_streng, er_ikke_oplyst: a.er_ikke_oplyst,
+      vaerdi: a.vaerdi, citat: a.citat, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
+      arvet_fra: a.arvet_fra_robot_id ? idTilSlug.get(a.arvet_fra_robot_id) : null, note: a.note,
+    };
+  }
+
+  let billede = null;
+  if (raa.billede) {
+    const b = raa.billede;
+    billede = {
+      fil: b.fil, ophav: b.ophav, kilde: b.kilde, hentet: b.hentet, alt: b.alt, note: b.note,
+      delt_med: b.delt_med_robot_id ? idTilSlug.get(b.delt_med_robot_id) : null,
+      plade: b.plade, pos: b.pos,
+    };
+  }
+
+  return {
+    slug: raa.slug, navn: raa.navn, producent: raa.producent, producentland: raa.producentland,
+    producentby: raa.producentby, status: raa.status, foerste_udgivelse: raa.foerste_udgivelse,
+    forgaenger: raa.forgaenger_robot_id ? idTilSlug.get(raa.forgaenger_robot_id) : null,
+    varianter: raa.varianter, noter: raa.noter,
+    felter, anvendelse, billede,
+  };
+}
+
 /**
- * FORBEREDT, IKKE KOERT: henter robotterne fra et rigtigt Supabase-projekt
- * via fetch mod PostgREST (GET med ?select=... og indlejrede ressourcer for
- * feltposter/anvendelse/billede/feltpost_varianter). Kaldes kun med --fra-db.
+ * Henter robotterne fra et rigtigt Supabase-projekt via fetch mod PostgREST
+ * (GET med indlejrede relationer for feltposter/feltpost_varianter/
+ * anvendelse/billede) og omsaetter DEM til den SAMME kanoniske,
+ * slug-noeglede form, db/migrer.mjs bygger lokalt af YAML — se
+ * omdanRobotFraDb ovenfor. Kaldes kun med --fra-db.
  *
- * Ligesom db/migrer.mjs's tilDb() staar denne funktion ufuldstaendig, fordi
- * der ikke er noget projekt at proeve den imod endnu — se db/LAESMIG.md.
+ * POSTGREST-OVERRASKELSE 2 (fundet ved afproevning mod en rigtig instans,
+ * 25. aug 2026): et indlejret select fra robotter til anvendelse/billede er
+ * TVETYDIGT og fejler med 300 + PGRST201 ("more than one relationship was
+ * found"), fordi begge tabeller har TO fremmednoegler til robotter
+ * (robot_id OG arvet_fra_robot_id / delt_med_robot_id). PostgREST kan ikke
+ * gaette, hvilken der menes, og kraever eksplicit valg af constraint-navn:
+ * `anvendelse!anvendelse_robot_id_fkey(*)` / `billede!billede_robot_id_fkey(*)`.
+ *
+ * POSTGREST-OVERRASKELSE 3: feltpost_varianter har INGEN direkte
+ * fremmednoegle til robotter (dens FK er den SAMMENSATTE (robot_id,
+ * feltnavn) -> feltposter) — et forsoeg paa at indlejre den direkte under
+ * robotter fejler med 400 + PGRST200 ("no matches were found... Perhaps you
+ * meant 'feltposter'"). Den skal indlejres UNDER feltposter i stedet:
+ * `feltposter(*,feltpost_varianter(*))`.
+ *
+ * POSTGREST-OVERRASKELSE 4: anvendelse og billede kommer tilbage som ENKELTE
+ * OBJEKTER (ikke ét-elements arrays), fordi PostgREST selv opdager, at
+ * relationen er ét-til-ét (robot_id er BAADE fremmednoegle OG primaernoegle
+ * i begge tabeller) — samme facon som naar en 0-1-relation laeses lokalt.
  */
 async function fraDb() {
   laesDotEnv(path.join(ROD, '.env'));
@@ -290,17 +377,16 @@ async function fraDb() {
     return null;
   }
   const headers = { apikey: noegle, Authorization: `Bearer ${noegle}` };
-  // PostgREST's indlejrede select kan hente robot + dens feltposter +
-  // anvendelse + billede i ét kald: ?select=*,feltposter(*),anvendelse(*),billede(*)
-  // — IKKE afproevet mod en rigtig instans. Se db/LAESMIG.md's "ikke bygget endnu".
-  const svar = await fetch(
-    `${url}/rest/v1/robotter?select=*,feltposter(*),feltpost_varianter(*),anvendelse(*),billede(*)`,
-    { headers }
-  );
+  const select = 'select=*,feltposter(*,feltpost_varianter(*)),' +
+    'anvendelse!anvendelse_robot_id_fkey(*),billede!billede_robot_id_fkey(*)';
+  const svar = await fetch(`${url}/rest/v1/robotter?${select}`, { headers });
   if (!svar.ok) throw new Error(`GET robotter fejlede: ${svar.status} ${await svar.text()}`);
-  console.error('--fra-db: raa PostgREST-respons hentet, men OMSAeTNING til kanonisk() form ' +
-    '(slug-opslag for forgaenger/arvet_fra/delt_med fra numerisk id) er IKKE fuldfoert — se db/LAESMIG.md.');
-  return null;
+  const raaRobotter = await svar.json();
+
+  const idTilSlug = new Map(raaRobotter.map((r) => [r.id, r.slug]));
+  const robotter = raaRobotter.map((r) => omdanRobotFraDb(r, idTilSlug));
+  robotter.sort((a, b) => a.slug.localeCompare(b.slug));
+  return robotter;
 }
 
 /* --------------------------------------------------------------- main */
