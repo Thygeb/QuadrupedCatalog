@@ -152,6 +152,12 @@ Den må **ikke** producere selve leverancen: kildekode, skabeloner, CSS eller ro
 Er en rettelse så lille, at et subagent-kald føles overdrevet, er den stadig
 implementering — send den, eller saml den med næste spor.
 
+**Den anden vej gælder lige så hårdt, indskærpet af JPK 25. aug 2026: reviews og
+analyser er ALDRIG Sonnets.** En subagents selv-review er en ærlighedsrapport (usikkerheder,
+udeladelser, tællinger) — ikke reviewet. Dommen fældes af orkestratoren (Fable/Opus), som
+selv kører målingerne, læser diffen og ser leverancen med egne øjne, før der flettes.
+Send aldrig et "review-spor" eller "analyse-spor" til en Sonnet-agent.
+
 ---
 
 ## Mappestruktur
