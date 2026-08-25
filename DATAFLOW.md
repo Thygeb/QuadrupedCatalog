@@ -160,17 +160,18 @@ En port, der aldrig afviser noget, er ikke en port. Derfor tælles afvisningerne
 
 ## Status, 25. aug 2026
 
-Dokumentet beskriver flowet, som det er bygget. To ting er værd at skille ad:
+Dokumentet beskriver flowet, som det er bygget, og **alt i de tre diagrammer er
+nu flettet og efterprøvet** (samme dag, senere): validatorens 18 regler,
+agenternes worktree-kæde, orkestratorens review, vagten i `--til-db` (L35),
+eksportens egen validering-før-flytning i diagram 2 (`EKSPORT AFVIST` ved
+regelbrud, målmappen urørt — bevist med en R5-overtrædelse lagt direkte i
+databasen), den private billedspand og arkivspanden (L36, 770 filer oppe,
+770 af 770 SHA-identiske ved rundtur).
 
-- **Færdigt og flettet:** validatorens 18 regler, agenternes worktree-kæde,
-  orkestratorens review, vagten i `--til-db` (L35), den private billedspand og
-  arkivspanden (L36).
-- **Under arbejde, ikke flettet endnu:** valideringstrinnet i
-  `db/eksporter.mjs` i diagram 2 — i dag validerer eksporten **ikke** det, den
-  skriver, så en Studio-rettelse kan indtil videre lande uvalideret i
-  `data/robots/`. Indtil sporet er flettet, kør `node tools/validate.mjs`
-  manuelt efter hver eksport. Arkivspandens upload af de 305 MB kører også
-  stadig.
+Én ting er stadig manuel, med vilje: **intet lytter på databasen.** En
+Studio-rettelse bliver først synlig på siden, når nogen kører eksport, commit
+og byg — se afsnittet ovenfor om, hvorfor den statiske side er et valg og
+ikke en forglemmelse.
 
 Kataloget stod ved skrivetidspunktet på **77 robotter, 1.110 kildebelagte tal
 og 213 sider**.
