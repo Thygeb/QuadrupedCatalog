@@ -2,7 +2,10 @@
 /**
  * db/rundtur.mjs — fundamentets faerdighedskriterium (L34, STATUS.md).
  *
- * Koerer HELE den lokale kaede fra bunden, hver gang:
+ * TO TILSTANDE:
+ *
+ *   node db/rundtur.mjs          LOKAL (standard, uaendret siden fundamentet).
+ *                                 Koerer HELE den lokale kaede fra bunden:
  *   1. node db/migrer.mjs          data/robots/*.yaml -> db/kanonisk.json
  *   2. node db/eksporter.mjs       db/kanonisk.json -> db/.tmp/rundtur-eksport/*.yaml
  *   3. For alle 62 filer: parse(original) skal vaere DYBT LIG parse(eksport).
@@ -19,7 +22,19 @@
  *      koersel — tallene MAALES her, ikke hardkodede fra en tidligere
  *      session, saa proeven ikke raadner, hvis datasaettet vokser).
  *
- * Exit 0 = alle fire trin bestod. Exit 1 = mindst ét faldt, med detaljer.
+ *   node db/rundtur.mjs --live   LIVE (L34-tilslutning). Samme fem trin,
+ *                                 men trin 1-2 gaar mod den RIGTIGE Supabase-
+ *                                 instans i stedet for db/kanonisk.json:
+ *                                   1. node db/migrer.mjs --til-db
+ *                                   2. node db/eksporter.mjs --fra-db --ud=db/.tmp/rundtur-live-eksport
+ *                                 Trin 3-5 er BOGSTAVELIGT den samme
+ *                                 sammenligningskode som den lokale tilstand
+ *                                 (koerSammenligning nedenfor) — kun mappen,
+ *                                 der sammenlignes mod, skifter. Kraever
+ *                                 SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY i
+ *                                 .env, se db/LAESMIG.md.
+ *
+ * Exit 0 = alle trin bestod. Exit 1 = mindst ét faldt, med detaljer.
  * Ingen npm-afhaengigheder — child_process.execFileSync mod den samme
  * node-binaer, denne proces selv koerer under (process.execPath), saa
  * scriptet virker uanset PATH.
@@ -36,7 +51,9 @@ const { parseYaml } = await import(`file://${path.join(ROD, 'tools/yaml.mjs')}`)
 const { normaliserRobot } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`);
 
 const EKSPORT_MAPPE = path.join(ROD, 'db/.tmp/rundtur-eksport');
+const LIVE_EKSPORT_MAPPE = path.join(ROD, 'db/.tmp/rundtur-live-eksport');
 const BYG_EKSPORT = path.join(ROD, 'db/.tmp/rundtur-byg-eksport');
+const BYG_LIVE_EKSPORT = path.join(ROD, 'db/.tmp/rundtur-byg-live-eksport');
 const BYG_ORIGINAL = path.join(ROD, 'db/.tmp/rundtur-byg-original');
 
 /* -------------------------------------------------------------- hjaelp */
@@ -101,24 +118,25 @@ function traekBuildTal(ud) {
 
 /* --------------------------------------------------------------- main */
 
-function main() {
+/**
+ * Trin 3-5 (lokal) / 3-5 (live) er BOGSTAVELIGT samme kode i begge
+ * tilstande — kun `eksportMappe`/`bygEksportMappe` skifter. Adskillelsen fra
+ * trin 1-2 (som ER forskellige: lokal fil vs. rigtig DB) er bevidst, saa der
+ * ikke findes to kopier af sammenligningslogikken, der kan skride fra
+ * hinanden (samme princip som D7/L30's to-lister-fælde andre steder i
+ * projektet).
+ */
+function koerSammenligning(eksportMappe, bygEksportMappe, trinPraefix) {
   const fejl = [];
 
-  console.log('1/5  node db/migrer.mjs ...');
-  koer(['db/migrer.mjs']);
-
-  console.log('2/5  node db/eksporter.mjs --ud=db/.tmp/rundtur-eksport ...');
-  fs.rmSync(EKSPORT_MAPPE, { recursive: true, force: true });
-  koer(['db/eksporter.mjs', `--ud=${EKSPORT_MAPPE}`]);
-
-  console.log('3/5  Dyb lighed for alle 62 filer (normaliserRobot(parseYaml(x))) ...');
+  console.log(`${trinPraefix}  Dyb lighed for alle filer (normaliserRobot(parseYaml(x))) ...`);
   const originalMappe = path.join(ROD, 'data/robots');
   const originalFiler = fs.readdirSync(originalMappe).filter((f) => /\.ya?ml$/.test(f)).sort();
   let ligeAntal = 0;
   const uligeDetaljer = [];
   for (const f of originalFiler) {
     const slug = f.replace(/\.ya?ml$/, '');
-    const eksportFil = path.join(EKSPORT_MAPPE, `${slug}.yaml`);
+    const eksportFil = path.join(eksportMappe, `${slug}.yaml`);
     if (!fs.existsSync(eksportFil)) {
       uligeDetaljer.push(`${slug}: eksportfilen findes ikke (${eksportFil})`);
       continue;
@@ -138,10 +156,10 @@ function main() {
       uligeDetaljer.join('\n  '));
   }
 
-  console.log('4/5  node tools/validate.mjs paa den eksporterede mappe ...');
+  console.log(`${trinPraefix}  node tools/validate.mjs paa den eksporterede mappe ...`);
   let validateUd;
   try {
-    validateUd = koer(['tools/validate.mjs', `--data=${EKSPORT_MAPPE}`]);
+    validateUd = koer(['tools/validate.mjs', `--data=${eksportMappe}`]);
   } catch (e) {
     validateUd = (e.stdout ?? '') + (e.stderr ?? '');
   }
@@ -151,10 +169,10 @@ function main() {
     fejl.push(`validate.mjs fandt ${vTal.fejl} fejl paa den eksporterede mappe (forventet 0):\n${validateUd}`);
   }
 
-  console.log('5/5  node tools/build.mjs paa eksport vs. original — sidetal og kildetal skal vaere ens ...');
-  fs.rmSync(BYG_EKSPORT, { recursive: true, force: true });
+  console.log(`${trinPraefix}  node tools/build.mjs paa eksport vs. original — sidetal og kildetal skal vaere ens ...`);
+  fs.rmSync(bygEksportMappe, { recursive: true, force: true });
   fs.rmSync(BYG_ORIGINAL, { recursive: true, force: true });
-  const bEksport = traekBuildTal(koer(['tools/build.mjs', `--data=${EKSPORT_MAPPE}`, `--ud=${BYG_EKSPORT}`]));
+  const bEksport = traekBuildTal(koer(['tools/build.mjs', `--data=${eksportMappe}`, `--ud=${bygEksportMappe}`]));
   const bOriginal = traekBuildTal(koer(['tools/build.mjs', `--data=${originalMappe}`, `--ud=${BYG_ORIGINAL}`]));
   console.log(`     eksport:  ${bEksport.sider} sider · ${bEksport.medKilde} tal med kilde, ${bEksport.udenKilde} uden`);
   console.log(`     original: ${bOriginal.sider} sider · ${bOriginal.medKilde} tal med kilde, ${bOriginal.udenKilde} uden`);
@@ -166,12 +184,16 @@ function main() {
       `vs. original ${bOriginal.medKilde}/${bOriginal.udenKilde}`);
   }
 
+  return { fejl, ligeAntal, totalFiler: originalFiler.length, vTal, bEksport, bOriginal };
+}
+
+function afslut(resultat) {
   console.log('\n' + '='.repeat(72));
-  console.log(`RUNDTUR: ${ligeAntal}/${originalFiler.length} dybt lig · validate ${vTal.fejl} fejl · ` +
-    `build sider ${bEksport.sider}=${bOriginal.sider} · kilder ${bEksport.medKilde}=${bOriginal.medKilde}`);
-  if (fejl.length) {
-    console.log(`\n${fejl.length} PROBLEM(ER):\n`);
-    for (const f of fejl) console.log(`- ${f}\n`);
+  console.log(`RUNDTUR: ${resultat.ligeAntal}/${resultat.totalFiler} dybt lig · validate ${resultat.vTal.fejl} fejl · ` +
+    `build sider ${resultat.bEksport.sider}=${resultat.bOriginal.sider} · kilder ${resultat.bEksport.medKilde}=${resultat.bOriginal.medKilde}`);
+  if (resultat.fejl.length) {
+    console.log(`\n${resultat.fejl.length} PROBLEM(ER):\n`);
+    for (const f of resultat.fejl) console.log(`- ${f}\n`);
     console.log('RUNDTUR FEJLEDE.');
     return 1;
   }
@@ -179,10 +201,38 @@ function main() {
   return 0;
 }
 
+function hovedLokal() {
+  console.log('1/5  node db/migrer.mjs ...');
+  koer(['db/migrer.mjs']);
+
+  console.log('2/5  node db/eksporter.mjs --ud=db/.tmp/rundtur-eksport ...');
+  fs.rmSync(EKSPORT_MAPPE, { recursive: true, force: true });
+  koer(['db/eksporter.mjs', `--ud=${EKSPORT_MAPPE}`]);
+
+  const resultat = koerSammenligning(EKSPORT_MAPPE, BYG_EKSPORT, '3-5/5');
+  return afslut(resultat);
+}
+
+/** LIVE-tilstand (--live): samme fem trin, men 1-2 gaar mod den rigtige
+ *  Supabase-instans. Kraever SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY i .env
+ *  — se db/LAESMIG.md. Fejler tydeligt (exit 1, ingen npm-retry-loop), hvis
+ *  .env mangler eller et af de to underliggende scripts returnerer fejl. */
+function hovedLive() {
+  console.log('1/5  node db/migrer.mjs --til-db ...');
+  koer(['db/migrer.mjs', '--til-db']);
+
+  console.log('2/5  node db/eksporter.mjs --fra-db --ud=db/.tmp/rundtur-live-eksport ...');
+  fs.rmSync(LIVE_EKSPORT_MAPPE, { recursive: true, force: true });
+  koer(['db/eksporter.mjs', '--fra-db', `--ud=${LIVE_EKSPORT_MAPPE}`]);
+
+  const resultat = koerSammenligning(LIVE_EKSPORT_MAPPE, BYG_LIVE_EKSPORT, '3-5/5');
+  return afslut(resultat);
+}
+
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('rundtur.mjs');
 if (erHoved) {
   try {
-    process.exit(main());
+    process.exit(process.argv.includes('--live') ? hovedLive() : hovedLokal());
   } catch (e) {
     console.error(String(e && e.stack ? e.stack : e));
     process.exit(1);
