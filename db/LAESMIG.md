@@ -163,6 +163,18 @@ ikke PostgREST:
    `sikrSpand()` i `db/billeder.mjs`, så "findes ikke" og "gik galt" ikke
    kan forveksles.
 
+Og to mere fra `spor/arkiv` samme dag:
+
+6. **Objektnøgler med ikke-ASCII eller `#`/`%` afvises med `InvalidKey`** —
+   også percent-kodede. Ramte én rigtig fil, `media/_kilder/LÆSMIG.md`
+   (Æ'et). Løsning: `sikkerObjektNoegle()` i `db/billeder.mjs`, en ren
+   transformation der er identitet for almindelige ASCII-navne — de 54
+   billedfilers nøgler er uændrede, regressionstestet.
+7. **`object/list` returnerer mapper som poster med `id: null`** — de har
+   ingen størrelse og skal foldes ud med rekursive `prefix`-kald, før
+   objektstørrelser kan summeres. Pladsmålinger, der kun læser første
+   niveau, tæller derfor alt for lavt.
+
 ## Vagten: `--til-db` nægter at overskrive Studio-redigeringer (L35)
 
 Siden L35 (25. aug 2026, `spor/vagt`) starter `db/migrer.mjs --til-db` med
@@ -178,7 +190,11 @@ efterlignet Studio-redigering: afvisningen kom, og rækketallene bagefter
 stod urørt på 77 robotter / 2.310 feltposter / 54 billeder.
 
 - `node db/eksporter.mjs --fra-db --ud=data/robots` henter rettelserne hjem,
-  hvorefter de committes som almindelige YAML-ændringer.
+  hvorefter de committes som almindelige YAML-ændringer. Eksporten har sin
+  **egen** vagt (siden `spor/eksval`, 25. aug 2026): den skriver til en
+  midlertidig mappe, kører `tools/validate.mjs` på den, og flytter kun på
+  plads ved 0 fejl — ellers `EKSPORT AFVIST`, og målmappen står urørt.
+  Advarsler blokerer ikke.
 - `--overskriv-databasen` springer vagten over **og kasserer** det, der står
   i databasen. Brug den kun, når det er meningen.
 - En tom database (0 robotter) stopper aldrig — den har intet at miste.

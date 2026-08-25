@@ -55,6 +55,16 @@ ikke samtalen. Hver prompt skal derfor selv bære:
 8. **Output-filnavn og commit-instruks.** Brug `git commit -F <fil>` — dobbelte
    anførselstegn ødelægger argumentoverførsel til native kommandoer i PowerShell 5.1.
 9. **Ærlig rapportering:** hvad blev ikke nået, hvad blev sprunget over.
+10. **"Ét commit pr. punkt" skal formuleres som en skrive-grænse, ikke en commit-grænse.**
+    Målt 25. aug 2026 på to agenter i træk (`fund/FUND-billedspand.md`,
+    `fund/FUND-arkiv.md`), begge trods eksplicit instruks: agenten skrev HELE scriptet i
+    ét første Write-kald, og så bar punkt 1's commit også punkt 2-3's kode, uefterprøvet.
+    Skriv derfor *"skriv KUN punkt 1's kode, mål den, commit — og først DEREFTER må
+    punkt 2's kode skrives"*. En instruks om commits alene ændrer ikke skrivevanen.
+11. **Gitignorerede forudsætninger følger ikke med i en frisk worktree.** `.env` og
+    `assets/fotos/fabrikant/` mangler, og validatorens R18 giver da 54 fejl, der ligner
+    agentens egne. To spor snublede samme dag (`fund/FUND-vagt.md`, `fund/FUND-eksval.md`).
+    Skriv i prompten, hvad der skal kopieres ind, eller gør det før udsendelsen.
 
 Send alle agenter af sted **i samme svar**, ellers er de ikke parallelle.
 Kør dem i baggrunden, så brugeren kan afbryde undervejs.

@@ -58,6 +58,7 @@ Opdateret 24. august 2026.
 | **Å2** | Visuel retning. Påbegyndt |
 | ~~**Å4**~~ | ~~Salgssiden er ikke flyttet~~ **Lukket 25. aug 2026: begge flytninger er udført og efterprøvet** — `c:\Praktik\website` og `c:\Praktik\guide` findes ikke længere på disken; begge projekter ligger under `c:\Praktik\websites\`. CLAUDE.md's indledning og worktree-instruks er synkroniseret samme dag |
 | **Å6** | **EU-kolonnens hovedpåstand er ubelagt.** PLAN.md siger, køberen bliver importør ved direkte køb fra Asien. Der findes ingen primærkilde for import *til eget brug* |
+| **Å12** | **Bevidst duplikeret regex skal samles igen.** `db/eksporter.mjs`'s `koerValidator` bærer en kopi af `db/rundtur.mjs`'s udtræk af validatorens opsummeringslinje, fordi rundtur-filen var forbudt for eksval-sporet, mens vagt-sporet arbejdede i den (25. aug 2026). Begge spor er flettet — nu skal `traekValidateTal` eksporteres fra `db/rundtur.mjs`, og kopien fjernes, så de to ikke kan skride fra hinanden (D7/L30-fælden). Lille Sonnet-opgave; se `fund/FUND-eksval.md` |
 | **Å7** | **"42 producenter" kan ikke citeres.** Kilden svarer 403, tallet er fra "early 2024" uden definition. Reelt tal er ≥57. PLAN.md afsnit 1 skal rettes |
 | **D3** | Hvordan vises intervaller (`20~25cm`, `4-6h`)? |
 | **D9** | Syv skemamangler — se nedenfor |
