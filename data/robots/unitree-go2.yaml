@@ -14,6 +14,12 @@ anvendelse:
 varianter: [AIR, PRO, X, EDU]
 noter:
   - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (unitree-go2-1.png) var et skaermbillede af Unitrees fjernbetjenings-app paa en telefon - et LiDAR-punktskykort med kamerafeed og betjeningsknapper, ikke et foto af robotten. De fire oevrige arkivkandidater (go2-2 til -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
+  - "Billed3 25. aug 2026: nyt billede fundet paa producentens egen side (ikke arkivkandidaterne, som ikke findes i denne worktree). unitree-go2-6.jpg (hero med indbraendt overskriftstekst) og unitree-go2-7.jpg (eksploderet infografik med komponentkald) blev begge AFVIST. unitree-go2-8.jpg - robotten fuldt synlig paa en klippe i vand, feltfoto, ingen tekst - bestod og er sat ind."
+billede:
+  fil: fotos/fabrikant/unitree-go2.jpg
+  ophav: fabrikant
+  kilde: https://www.unitree.com/go2
+  hentet: 2026-08-25
 felter:
   egenvaegt:
     vaerdi: 15

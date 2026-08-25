@@ -14,6 +14,12 @@ anvendelse:
   note: "ARVET (L23). Go2-W staar ikke i produktnavigationen, og dens egen side https://www.unitree.com/go2-w er gennemlaest 2026-08-19 og siger kun \"Driving All Terrain\" og \"Go2 New Model Transformative Newborn\". Citatet er Go2's, og koblingen Go2-W = Go2 i hjulet udgave er vores slutning, ikke producentens."
 noter:
   - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (unitree-go2-w-1.jpg) viste et stort antal Go2-robotter opstillet i formation paa et stadion, hver med et roedt loeve-dans-kostumehoved paa ryggen, som skjuler selve produktets sensorhoved. Ikke en enkelt, tydelig maskine. De fire oevrige arkivkandidater (go2-w-2 til -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
+  - "Billed3 25. aug 2026: nyt billede fundet paa producentens egen go2-w-side (ikke arkivkandidaterne, som ikke findes i denne worktree - de var alle hentet fra unitree.com's forside, ikke fra go2-w-siden selv, og viste sig ved kontrol at vaere Unitree H1-humanoidbilleder til kinesisk nytaar med indbraendt reklametekst, ikke Go2-W). unitree-go2-w-6.png - enkelt hjulforsynet Go2-W i oerkenterraen, hjulene tydelige, sensorhoved frit, intet tekstoverlay - bestod og er sat ind."
+billede:
+  fil: fotos/fabrikant/unitree-go2-w.png
+  ophav: fabrikant
+  kilde: https://www.unitree.com/go2-w
+  hentet: 2026-08-25
 felter:
   egenvaegt:
     vaerdi: 18

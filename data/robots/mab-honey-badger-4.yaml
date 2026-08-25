@@ -14,8 +14,14 @@ anvendelse:
   note: "FIRMANIVEAU, IKKE MODELNIVEAU. Citaterne er to punkter i producentens \"Industries\"-menu, som staar paa hele sitet: Industrial inspection, Mining, Public safety, Utilities, Civil engineering, Academia & Research. Honey Badger er producentens eneste robot, men producenten har ikke selv sat etiketten paa modellen. Mining, Public safety, Utilities og Civil engineering har det tilladte saet ingen kategorier for."
 noter:
   - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (mab-honey-badger-4-1.png) var logoet for et forskningsinstitut (\"Instituto Cajal\", roed stjerne), ikke et foto af robotten - fejlklassificeret som fabrikantfoto ved indsamlingen. De fire oevrige arkivkandidater (badger-4-2 til -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
+  - "Billed3 25. aug 2026: nyt billede fundet direkte paa honey-badger-siden (statisk HTML havde kun logo-/partnerbilleder synlige - kandidaten blev lokaliseret ved at bede om en gengivelse af den JS-renderede side). mab-honey-badger-4-6.png - robotten fuldt synlig under en rustet jernbanebro, \"MAB ROBOTICS\" som paamalet produktnavn (ikke overlejret reklame), feltfoto - bestod. Web-kopien er gemt som .jpg i stedet for producentens .png: originalfilen var et ukomprimeret 24 MB kamerafoto, som efter beskaering til 2400 px stadig fyldte 6,75 MB i lossless PNG; JPEG-kvalitet 88 gav 1,13 MB uden synligt kvalitetstab og ligger inden for de eksisterende 46 filers stoerrelsesspaend."
   - "PRODUCENTEN ERKLAERER SELV MODELLEN UDGAAET, ordret (inklusive producentens egen stavefejl): With the launch of the new version, sales of the Honey Badger 4.0 have officialy come to an end. Og: Don't worry, we'll support your existing HB4.0 robot during the warranty period."
   - "Generationsskiftet gaar den forkerte vej paa to felter: 5.0 er tungere (17 mod 12 kg) og har lavere taethedsklasse (IP66 mod up to IP67), mens nyttelasten stiger (5 mod 4 kg) og driftstemperaturen udvides (0-45 mod 0-40 C)."
+billede:
+  fil: fotos/fabrikant/mab-honey-badger-4.jpg
+  ophav: fabrikant
+  kilde: https://www.mabrobotics.pl/honey-badger
+  hentet: 2026-08-25
 felter:
   egenvaegt:
     vaerdi: 12

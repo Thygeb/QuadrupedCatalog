@@ -12,8 +12,14 @@ anvendelse:
   note: "Saetningen staar som indledning paa katalogsiden for hele serien (Y20, Y10, e-Dog) og er ikke skrevet om den enkelte model. Ordet \"commercial\" har det tilladte saet ingen kategori for."
 noter:
   - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (yobotics-y10-2.jpg) var et familiebanner: seks forskellige Yobotics-modeller opstillet i raekke, med indbraendt kinesisk marketingtekst (\"智能灵巧 轻松驾驭多场景\" / \"优宝特四足机器人系列\") - hverken en enkelt maskine eller Y10 specifikt identificerbar. De fire oevrige arkivkandidater (y10-1, -3, -4, -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
+  - "Billed3 25. aug 2026: producentsidens egen markup (swiper-slide med tit-en Y10/Y20/e-Dog) afsloerede at det GAMLE manifest havde krydset billeder mellem Y10 og Y20 - den forrige indsamling havde tildelt pro-1.png (som siden selv maerker Y20) til slug yobotics-y10. Rettet ved at laese HTML-konteksten direkte i stedet for at genbruge den gamle tildeling: pro-2.png (siden maerker den Y10) - rent hvidt studiorender, hel maskine, intet tekstoverlay - bestod og er sat ind."
   - "AABENT PUNKT: producentens overskrift siger Y10, men beskrivelsen lige under handler om Y5. Overskriften er brugt som modelnavn. Posten kan ikke laases, foer producenten er spurgt."
   - "Yobotics er domaenenavnet; producentens eget engelske navn er Shandong Youbaote Intelligent Robot Co., Ltd."
+billede:
+  fil: fotos/fabrikant/yobotics-y10.png
+  ophav: fabrikant
+  kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
+  hentet: 2026-08-25
 felter:
   egenvaegt:
     vaerdi: 5.6

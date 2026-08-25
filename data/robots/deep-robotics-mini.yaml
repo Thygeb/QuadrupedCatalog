@@ -11,8 +11,14 @@ anvendelse:
   note: "GENNEMLAEST, INTET FUNDET. Mini staar heller ikke i producentens kinesiske produktpanel, hvor Lite3, X20 og X30 hver faar en anvendelsesetikette. Sidens egen tekst handler om teknologi (\"deep learning\", \"visual perception\"), ikke om hvem robotten er til."
 noter:
   - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (deep-robotics-mini-3.png) var et LiDAR-punktskybillede, ikke et foto af robotten - fejlklassificeret som fabrikantfoto ved indsamlingen. De fire oevrige arkivkandidater (mini-1, -2, -4, -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
+  - "Billed3 25. aug 2026: nyt billede fundet direkte paa Mini-produktsiden (pro2_main.png, det billede siden selv bruger som hovedbillede for Mini). Blaat/sort glansrender, hele maskinen, hvid/transparent baggrund, intet tekstoverlay - bestod. Afviste undervejs: deep-robotics-mini-7.png, en 3D-terraengengivelse/pointcloud-visualisering med et lille indlejret foto - gentager NOEJAGTIGT samme fejlmoenster som det oprindeligt afviste billede (teknisk visualisering, ikke et foto); deep-robotics-mini-8.png viste sig slet ikke at vaere robotten, men et menneske-positurgenkendelses-demofoto med fire personer og skeletoverlay."
   - "AEldre side, stadig online, afkoblet fra baade den engelske og den kinesiske navigation. Status kan ikke udfyldes fra kilden - i_produktion er et valg, ikke en aflaesning."
   - "Batterifeltet er indsamlingens tydeligste gevinst ved at laese kilden paa originalsproget: den engelske side har en enhedsfejl, den kinesiske har det rigtige tal."
+billede:
+  fil: fotos/fabrikant/deep-robotics-mini.png
+  ophav: fabrikant
+  kilde: https://deeprobotics.cn/en/index/product2.html
+  hentet: 2026-08-25
 felter:
   egenvaegt:
     vaerdi: 23
