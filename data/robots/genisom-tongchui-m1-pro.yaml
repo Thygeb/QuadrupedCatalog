@@ -1,0 +1,161 @@
+slug: genisom-tongchui-m1-pro
+navn: Tongchui M1 Pro
+producent: GENISOM AI
+producentland: Kina
+producentby: Beijing / Suzhou
+status: i_produktion
+anvendelse:
+  vaerdi: [forsvar_beredskab, inspektion, sikkerhed_overvaagning, logistik]
+  citat: ["森林消防", "石化消防", "电力巡检", "园区巡逻", "物流运输"]
+  kilde: https://www.genisomai.com/product-robot/M1
+  hentet: 2026-08-25
+  note: "Fra sektionen \"下一个应用场景，它已提前就位\" (naeste anvendelsesscenarie, allerede klar) paa M1's egen produktside. Teksten staar EN gang paa siden, delt af alle tre faner (M1/M1 Pro/M1 Ultra) i den strukturerede specifikationstabel - den daekker hele Tongchui M1-familien som helhed. Citeret selvstaendigt fra samme URL, IKKE via arvet_fra: det er den samme primaerkilde for alle tre varianter, ikke en slutning laant fra en anden robots side (samme princip som GENISOM Gangben L2-W/L2-W Ultra i dette katalog - arvet_fra ville forudsaette, at M1 Pro's EGEN side var tavs og laante M1's citat, hvilket den ikke er: teksten staar paa netop den side, M1 Pro ogsaa bor paa). Egen oversaettelse - identisk med genisom-tongchui-m1.yaml's: 森林消防 (skovbrandbekaempelse) -> forsvar_beredskab; 石化消防 (petrokemisk brandbekaempelse) -> forsvar_beredskab; 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (omraadepatrulje) -> sikkerhed_overvaagning; 物流运输 (logistiktransport) -> logistik."
+noter:
+  - "STOPPROEVE (firbenet): BESTAAET, entydigt. Samme side, samme meta-keywords som basisudgaven (\"具身智能,四足机器人,机器狗,行业级机器人,...\"). M1 Pro's egen fane i techParamsData: classname \"铜锤 M1 Pro\", id 226, ingen humanoid- eller andet-kropstype-sprog. https://www.genisomai.com/product-robot/M1, hentet 2026-08-25."
+  - "INGEN SELVSTAENDIG URL: M1 Pro findes udelukkende som et fane-skift i M1's egen, strukturerede techParamsData-JSON (datas[1], id 226, delliste-id'er 497-502). Alle feltvaerdier nedenfor er hentet fra netop denne JSON-blok, IKKE fra basisudgaven M1 (id 217) eller M1 Ultra (id 227) - efterproevet byte-for-byte mod raa HTML i denne session."
+  - "OPGRADERING FRA BASIS-M1, IKKE JUST EN OMDOEBNING: hoejden ved staaende maal er 595mm mod basisudgavens 585mm (+10mm), og krybende hoejde er 210mm mod basisudgavens 200mm (+10mm) - laengde, bredde og vaegt er ellers identiske. Sensorlisten tilfoejer et \"超声波传ensor\" (ultralydssensor, ingen skemafelt til det). Tilbehoerslisten opgraderer lagerplads til \"256G+512G TF卡\" (base: kun \"标配 256G\") - ingen skemafelt til lagerplads. Funktionslisten tilfoejer tre nye punkter ud over basisudgavens: \"目标追踪\" (maalfoelging: UWB跟随；激光视觉跟随 - UWB- og laser/visuel foelging), \"语音对讲\" (talekommunikation) og \"录音广播\" (optagelse/broadcast). Sidens egen broedtekst bekraefter: \"UWB模块、麦克风与扬声器 / 铜锤M1 Pro 支持语音对讲、录音广播、UWB与激光视觉融合跟随等功能。\" (UWB-modul, mikrofon og hoejttaler - Tongchui M1 Pro understoetter talekommunikation, optagelse/broadcast, UWB- og laser-visuel fusionsfoelgning)."
+  - "AUTONOM NAVIGATION ER STANDARD, IKKE TILVALG, PAA M1 PRO: basisudgavens funktionsliste skriver \"自主导航: 选配：智航Pro版\" (selvstaendig navigation: TILVALG). M1 Pro's egen funktionsliste for SAMME punkt skriver blot \"自主导航: 智航Pro版\" - UDEN \"选配\" (tilvalg)-praefikset. Laest som en reel forskel, ikke en udeladelse: M1 Pro leveres med selvstaendig navigation som standardfunktion."
+  - "VAEGT-UOVERENSSTEMMELSEN FRA BASIS-M1 GAELDER OGSAA HER, DEN ER SIDEBRED: sidens fremhaevede hero-marketingkort (\"约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，...近 1:1 负载自重比\") staar EN gang for hele siden, foer fanebladene - IKKE gentaget i M1 Pro's egen JSON-blok, som i stedet siger \"整机重量（含电池）: 41 kg\". Samme selvmodsigelse som paa basisudgaven, samme haandtering: den strukturerede tabels 41 kg er brugt som feltvaerdi (regel 9: rettes ikke stiltiende)."
+  - "FORHINDRING_ENKELT (80cm) OG DATAPORTE-ANTALLET (9 mod \"15\") ER LIGELEDES FRA DEN DELTE, SIDEBREDE MARKETINGTEKST, IKKE M1 Pro's EGEN JSON-BLOK - samme kilde og samme fortolkning som basisudgavens tilsvarende felter (\"80cm 垂直越障高度\" og \"15 大标准硬件接口全开放\" mod den strukturerede tabels 9 navngivne porte). Se genisom-tongchui-m1.yaml's noter for den fulde begrundelse; gentaget her fordi begge tal ligger UDEN for M1 Pro's egen tab-specifikke datablok, men PAA samme URL som resten af posten."
+  - "SDK_SPROG IKKE GENUNDERSOEGT I DENNE SESSION: basisudgavens post dokumenterer en udtoemmende undersoegelse af GENISOM AI's GitHub-organisation (github.com/zsibot/genisom_robot_sdk), som konkluderede ikke_oplyst, fordi repoet ikke eksplicit binder sig til noget produktnavn. Denne konklusion er OVERFOERT her uden en frisk, selvstaendig efterproevning af GitHub i DENNE session - det er en antagelse om, at M1 Pro deler samme SDK-oekosystem som basisudgaven, ikke en ny maaling. Markeret som usikkerhed i selv-reviewet."
+felter:
+  egenvaegt:
+    vaerdi: 41
+    enhed: kg
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"整机重量（含电池）: 41 kg\" i M1 Pro's egen specifikationstabel (id 497) - identisk med basisudgaven, INGEN \"约\" (cirka)-markering. MODSIGES af sidens sidebredde marketingkort (\"约 30kg\") - se topnoten. Regel 9: ikke rettet stiltiende."
+  laengde:
+    vaerdi: 930
+    enhed: mm
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+  bredde:
+    vaerdi: 480
+    enhed: mm
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+  hoejde:
+    vaerdi: 595
+    enhed: mm
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm\" - 10mm hoejere end basisudgavens 585mm. Krybende maal (\"趴地尺寸\"): 930 x 630 x 210 mm; skemaet har intet felt til den tilstand."
+  frihedsgrader:
+    vaerdi: 12
+    enhed: DoF
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"关节电机数量: 12 个\" i M1 Pro's egen datablok - identisk med basisudgaven."
+  nyttelast_gaaende:
+    vaerdi: 30
+    enhed: kg
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"最大载荷: 30 kg\" i M1 Pro's egen datablok - identisk med basisudgaven."
+  nyttelast_staaende: ikke_oplyst
+  hastighed:
+    vaerdi: 6
+    enhed: m/s
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"最大速度: 6 m/s\" - identisk med basisudgaven. Separat \"极限速度\" (graensehastighed) 8 m/s er ogsaa oplyst, ikke brugt som hovedvaerdi (samme princip som basisudgaven)."
+  haeldning:
+    vaerdi: 45
+    enhed: "°"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"最大爬坡角度: 45°\" i M1 Pro's egen datablok - identisk med basisudgaven."
+  forhindring_enkelt:
+    vaerdi: 80
+    enhed: cm
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"80cm 垂直越障高度\" fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Pro's egen JSON-blok (som ikke har et separat felt for denne vaerdi). Samme kilde og forbehold som basisudgavens tilsvarende felt - se topnoten."
+  trappetrin_kontinuerlig:
+    vaerdi: 25
+    enhed: cm
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"连续攀爬楼梯高度: 25 cm\" i M1 Pro's EGEN datablok (id 498) - identisk med basisudgaven, men denne gang direkte fra fanen selv, ikke en sidebredt vaerdi."
+  ip_klasse:
+    vaerdi: IP67
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+  temp_min:
+    vaerdi: -20
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard (identisk forbehold som basisudgaven)."
+  temp_maks:
+    vaerdi: 55
+    enhed: "°C"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "Samme forbehold som temp_min."
+  batteri_wh:
+    vaerdi: ikke_oplyst
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "Tilbehoersliste oplyser \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" - identisk med basisudgaven. Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9)."
+  driftstid:
+    vaerdi_min: 3.5
+    vaerdi_maks: 5
+    enhed: t
+    ved_last: ikke_oplyst
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Pro's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte - derfor ved_last: ikke_oplyst. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+  hot_swap:
+    vaerdi: ja
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" i M1 Pro's egen tilbehoersliste - identisk med basisudgaven."
+  ladetid:
+    vaerdi: 2
+    enhed: t
+    operator: "<"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"充电时长: ＜ 2 h\" i M1 Pro's egen datablok - identisk med basisudgaven."
+  dockingstation:
+    vaerdi: ja
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "Tilbehoersliste: \"充电座: 标配\" (standardudstyr). Separat \"充电桩: 选配\" (tilvalgt ladestation) er ogsaa oplyst - samme to-niveau-moenster som basisudgaven."
+  lidar:
+    vaerdi: "3D LiDAR (type og model ikke oplyst)"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"3D激光雷达: 支持\" i M1 Pro's egen sensor-sektion - identisk med basisudgaven, hverken linjetal, model eller producent oplyst."
+  kameraer:
+    vaerdi: "2x bredvinkelkamera, 8 MP hver, DFOV 122° / HFOV 111° / VFOV 70°"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°\" og \"相机像索: 800万 x 2\" i M1 Pro's egen sensor-sektion - identisk med basisudgaven (bemaerk: samme kameraopstilling som basis-M1, IKKE M1 Ultra's fiskeoeje-array - se genisom-tongchui-m1-ultra.yaml). M1 Pro's sensor-sektion tilfoejer desuden \"超声波传感器: 支持\" (ultralydssensor) ud over basisudgavens IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor, noteret her."
+  compute:
+    vaerdi: "8-kernet CPU, 100 TOPS"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\" i M1 Pro's egen datablok - identisk med basisudgaven (bemaerk: DIFFERER fra M1 Ultra's 6-kernet/128TOPS - se genisom-tongchui-m1-ultra.yaml)."
+  ros2: ikke_oplyst
+  sdk_sprog:
+    vaerdi: ikke_oplyst
+    kilde: https://github.com/zsibot/genisom_robot_sdk
+    hentet: 2026-08-24
+    advarsel: "IKKE GENUNDERSOEGT I DENNE SESSION - se topnoten. Overfoert fra basisudgavens konklusion (samme producent-GitHub, intet produktnavn i README'en), IKKE en frisk maaling for netop M1 Pro."
+  autonominiveau:
+    vaerdi: "AI强化学习运控 (标配); 基础动作 (踏步/滑行/匍匐等姿态, 前后左右直线移动, 原地旋转, 膝关节姿态变换, 支持砂石路/柏油路/草地/沙地/森林地面/建筑废墟等路面); 特技动作 (爬高墙/过挡鼠板/过窄墙/扭一扭等); 实时图像传输; OTA升级; 二次开发支持; 目标追踪 (UWB跟随；激光视觉跟随); 自主导航 (智航Pro版: 建图/定位/导航/避障 - standard, IKKE mærket tilvalg for denne variant); 智能避障; 语音对讲 (支持); 录音广播 (支持)"
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "Fra M1 Pro's egen funktionsliste (id 501). Fire punkter ud over basisudgaven: 目标追踪, 语音对讲, 录音广播, samt at 自主导航 her staar UDEN \"选配\"-praefikset - se topnoten."
+  monteringsinterface: ikke_oplyst
+  stroem_ud: ikke_oplyst
+  dataporte:
+    vaerdi: ["Gigabit netvaerksport x2", "USB 3.0 x2", "RS232 x1", "RS485 x1", "SBUS x2", "PPS x1"]
+    kilde: https://www.genisomai.com/product-robot/M1
+    hentet: 2026-08-25
+    advarsel: "\"功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1\" i M1 Pro's egen datablok - identisk med basisudgaven (9 navngivne porte). Sidens sidebredde marketingtekst paastaar separat \"15 大标准硬件接口全开放\" - et hoejere, ikke-specificeret tal, IKKE brugt som feltvaerdi (samme uafklarede uoverensstemmelse som basisudgaven)."
+  pris: ikke_oplyst
+  ce_oplyst: ikke_oplyst
