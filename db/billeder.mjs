@@ -185,8 +185,27 @@ function contentType(relPath) {
   }[ext] ?? 'application/octet-stream';
 }
 
+/** STORAGE-FAeLDE (fundet ved afproevning 25. aug 2026, ikke antaget):
+ *  Supabase Storage afviser objektnoegler med tegn uden for trykbar ASCII,
+ *  samt de bogstavelige tegn '#' og '%' — POST svarer 400 med
+ *  {"error":"InvalidKey"}, OGSAA naar tegnet er procent-kodet i URL'en
+ *  (encodeURIComponent duer ikke her, det er selve NOEGLEN, Storage afviser,
+ *  ikke transportlaget). Ramte ÉN fil i arkivet ved foerste --arkiv-op:
+ *  media/_kilder/LÆSMIG.md ('Æ' er uden for ASCII). Loesning: erstat hvert
+ *  problematisk tegn med en "_u<kodepunkt>_"-escape FOeR URL-kodning, som en
+ *  REN funktion af relPath — ingen tilstand at gemme, samme transformation
+ *  regnes ud igen ved upload, download og --tjek. relPath (den lokale, sande
+ *  sti under assets/ eller media/) forbliver UAeNDRET alle andre steder i
+ *  scriptet — kun selve objektnavnet i spanden paavirkes. Identitet for
+ *  almindelige ASCII-filnavne (fx alle 54 i "robotbilleder"-spanden), saa
+ *  dette aendrer intet for den eksisterende billedretning. */
+function sikkerObjektNoegle(relPath) {
+  return relPath.replace(/[^\x20-\x7E]|[#%]/g, (t) => `_u${t.codePointAt(0)}_`);
+}
+
 function objektUrl(url, spandNavn, relPath) {
-  const kodet = relPath.split('/').map(encodeURIComponent).join('/');
+  const sikker = sikkerObjektNoegle(relPath);
+  const kodet = sikker.split('/').map(encodeURIComponent).join('/');
   return `${url}/storage/v1/object/${spandNavn}/${kodet}`;
 }
 
