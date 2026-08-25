@@ -22,6 +22,24 @@
  * :target gaar den samme vej, saa forsidens filterlinks
  * (robotter/#f-anv-industri) saetter et filter uden JavaScript.
  *
+ * OMBYGGET 25. aug 2026 (spor/lysbyg, retning LYS): kataloget er nu sitets
+ * fulde browsested (se tools/skabelon/forside.mjs' ARKITEKTURAENDRING-note
+ * — forsiden viser kun en smagsproeve). Kortene grupperes i FIRE
+ * "sale" (prototype/retning-lys/katalog.html, BEGRUNDELSE.md): romertal
+ * I-IV over vaegtklasserne, samme graenser som L27 allerede satte
+ * (hjaelp.VAEGTKLASSER/hjaelp.vaegtklasse). Grupperingen aendrer INTET ved
+ * selve filtermekanikken ovenfor: hvert kort staar stadig indpakket i det
+ * samme lag pr. facet, blot fordelt paa fire mindre gitre i stedet for ét
+ * langt. :has()-reglerne i hovedStil() nedenfor kender ikke til sale-
+ * inddelingen og virker uaendret paa tvaers af dem.
+ *
+ * Sal-antallet er en AEGTE OPTAELLING (liste.length pr. vaegtklasse), ikke
+ * et tal skrevet i haanden - det AENDRER sig, naar kataloget vokser (i dag
+ * 14/17/21/10 over 62 robotter, maalt 25.08.2026; se
+ * tools/skabelon/side.mjs' vaegtklasse()). Sal IV ("vaegt ikke oplyst")
+ * staar sidst og aabent, med samme forklaringstekst forsiden allerede
+ * brugte foer denne aendring (`vaegtklasse_ikke_oplyst_forklaring`).
+ *
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
@@ -29,6 +47,12 @@ import { esc } from './side.mjs';
 import { tilstandAf } from '../skema.mjs';
 
 const attr = esc;
+
+/** Romertal I-IV, udledt af VAEGTKLASSERs faste raekkefoelge (index+1) -
+ *  ikke skrevet ud pr. robot eller pr. antal. Der er altid praecis fire
+ *  vaegtklasser (hjaelp.VAEGTKLASSER), saa listen er en konstant af samme
+ *  art som selve klasseinddelingen, ikke et haandtal, der kan skride. */
+const ROMERTAL = ['I', 'II', 'III', 'IV'];
 
 /** Et vaerdinavn, der kan staa i et id og i en attributvaelger. */
 const nogle = (v) => String(v).toLowerCase().replace(/[^a-z0-9_]+/g, '-');
@@ -143,8 +167,10 @@ ${f.liste.map((v) => {
 </div>
 </fieldset>`).join('\n');
 
-  /* --- kortene, pakket i ét lag pr. facet --- */
-  const kort = sorteret.map((r) => {
+  /* --- kortet indpakket i ét lag pr. facet - uaendret pr.-kort mekanik,
+     kaldes nu pr. vaegtklassegruppe (se sale-loekken nedenfor) i stedet for
+     ét langt kald over hele `sorteret`. --- */
+  const kortHTML = (r) => {
     const sogetekst = [
       r.navn, r.producent, r.producentland, hjaelp.land(r.producentland),
       ipVaerdi(r), t('vaegtklasse_' + hjaelp.vaegtklasse(r)),
@@ -157,6 +183,29 @@ ${f.liste.map((v) => {
       return `<div class="lag lag-${attr(f.navn)}" data-${attr(f.navn)}="${attr(vaerdier)}"${ekstra}>`;
     }).join('');
     return `${aabne}\n${hjaelp.kort(r, { op: '../../', til: '' })}\n${'</div>'.repeat(F.length)}`;
+  };
+
+  /* --- SALENE. Fire vaegtklassegrupper, romertal I-IV, hver med sin egen
+     AEGTE optaelling (liste.length) - se filhovedets note. `sorteret` er
+     allerede ordnet efter klasse foerst (klasseOrden), saa en simpel
+     partition efter vaegtklasse bevarer den eksisterende vaegtorden inden
+     for hver sal, uden at sortere igen. */
+  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
+  for (const r of sorteret) efterKlasse.get(hjaelp.vaegtklasse(r)).push(r);
+
+  const saleHTML = hjaelp.VAEGTKLASSER.map((klasse, i) => {
+    const liste = efterKlasse.get(klasse);
+    if (!liste.length) return '';
+    const forklaring = klasse === 'ikke_oplyst' ? t('vaegtklasse_ikke_oplyst_forklaring') : '';
+    return `<div class="sal">
+<span class="sal__nr" aria-hidden="true">${esc(ROMERTAL[i])}</span>
+<h2 class="t-h3 sal__titel" id="h-${attr(klasse)}">${esc(t('vaegtklasse_' + klasse))}</h2>
+<span class="sal__antal figur">${esc(tf('antal_kort', { n: liste.length }))}</span>
+</div>
+${forklaring ? `<p class="t-lille sal__forklaring">${esc(forklaring)}</p>` : ''}
+<div class="gitter">
+${liste.map(kortHTML).join('\n')}
+</div>`;
   }).join('\n');
 
   /* --- EU-pointen. Staar én gang, ikke paa hvert kort. --- */
@@ -175,6 +224,8 @@ ${f.liste.map((v) => {
 <input id="sog-katalog" name="s" type="search" autocomplete="off"
  placeholder="${attr(t('forside_soeg_pladsholder'))}">
 </div>
+<p class="katalog-sortering"><span class="etiket">${esc(t('katalog_sortering_etiket'))}</span>`
+    + `<span class="katalog-sortering__vaerdi">${esc(t('katalog_sortering_vaegt'))}</span></p>
 </div>
 
 <div class="facetter">
@@ -183,8 +234,8 @@ ${grupper}
 <p class="t-mikro facet-hjaelp">${esc(t('filter_uden_js'))}</p>
 <p class="facet-ryd"><a class="videre videre--stille" href="#alle">${esc(t('filter_vis_alle'))}</a></p>
 
-<div class="gitter" id="alle">
-${kort}
+<div id="alle">
+${saleHTML}
 </div>
 </form>
 <p class="tomt" data-tomt hidden>${esc(t('soeg_ingen_traef'))}</p>

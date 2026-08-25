@@ -161,6 +161,30 @@
    tonespring-regel som resten af kataloget - kun ÉT afsnit i stedet for
    alle vaegtklasserne. */
 .udvalg-videre{text-align:center;margin-top:var(--r6)}
+
+/* --- 2b. Katalogets vaegtklasse-sale (spor/lysbyg, kontrakt:
+   prototype/retning-lys/katalog.html) ---------------------------------------
+   Museumssalens rumnummer: romertallet ER salens plads i den faste
+   raekkefoelge (I-IV, tools/skabelon/katalog.mjs' ROMERTAL), ikke et
+   pyntetal. `.sal__antal` er en AEGTE optaelling - samme `.figur`-sprog
+   (mono, tabulaere cifre) som ethvert andet tal paa siden, ikke en saerlig
+   type. `.gitter + .sal` rammer enhver sal EFTER den foerste (adskiller
+   grupperne med systemets hoeje luft), mens den foerste sal beholder
+   afstanden fra facetterne ovenfor. */
+.gitter + .sal{margin-top:var(--r8)}
+.sal{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--r3) var(--r4);margin-bottom:var(--r2)}
+.sal__nr{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--hegn)}
+.sal__titel{margin:0}
+.sal__antal{font-size:13px;color:var(--blaek3);margin-left:auto}
+.sal__forklaring{margin-bottom:var(--r3);max-width:60ch}
+
+/* Sorteringsetiketten (spor/lysbyg): katalogsiden sorterer altid efter
+   vaegt, stigende (samme regel forsiden brugte foer denne aendring, se
+   forside_ordning) - etiketten siger det, den er ikke en knap for
+   alternative sorteringer, systemet ikke bygger endnu (se fund/FUND-lysbyg.md). */
+.katalog-sortering{display:flex;flex-direction:column;gap:4px;margin-left:auto}
+.katalog-sortering .etiket{margin:0}
+.katalog-sortering__vaerdi{font-size:15px;font-weight:600;color:var(--blaek)}
 .styr .gitter{margin-top:var(--r6)}
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
