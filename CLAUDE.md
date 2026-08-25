@@ -158,6 +158,23 @@ udeladelser, tællinger) — ikke reviewet. Dommen fældes af orkestratoren (Fab
 selv kører målingerne, læser diffen og ser leverancen med egne øjne, før der flettes.
 Send aldrig et "review-spor" eller "analyse-spor" til en Sonnet-agent.
 
+**Reviewets form, indskærpet af JPK 25. aug 2026: Sonnet er junior-udvikleren — præcision
+i forklaringen er det, der forhindrer fejl og ekstra runder.** Når orkestratoren sender
+rettelser eller et nyt brief til en Sonnet-agent, gælder:
+
+1. **Peg præcist:** fil og linje (`fil:linje`), og citér det, der står der nu.
+2. **Sig det ønskede resultat konkret** — hvad der skal stå, eller hvilket tal en kørsel
+   skal vise bagefter. Aldrig "stram op", "gør det pænere" eller "fix X" uden et eksempel.
+3. **Ét entydigt acceptkriterium pr. punkt:** "færdig, når \<kommando\> viser \<tal\>."
+   Samme krav som grillmig stiller til indvendinger — uden acceptkriterium er en rettelse
+   en stemning.
+4. **Nummerér uafhængige punkter** i den rækkefølge, de skal udføres; bland aldrig to
+   rettelser i én sætning.
+5. **Én linje HVORFOR pr. punkt**, så reglen læres — men HVAD skal kunne stå alene.
+
+En rettelse, junioren skal gætte sig til, koster en ekstra runde og en ny fejl. Det er
+reviewerens ansvar, at det ikke sker — ikke juniorens.
+
 ---
 
 ## Mappestruktur
