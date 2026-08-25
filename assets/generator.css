@@ -287,6 +287,25 @@
 .billedled--stor .intetfoto{border-radius:var(--rund)}
 .billedled--stor img{transition:none}
 
+/* "Vitrine"-mat (spor/lysbyg, retning LYS, prototype/retning-lys/lys.css'
+   .vitrine): fotografiet hviler PAA en hvid plade i stedet for at fylde
+   kortets kant helt ud - signaturgrebet, mockuppen brugte paa alle fire
+   sider. Kun robotsidens STORE billede faar den: katalogets 62 kort er
+   uaendret (samme regel ville have krympet hvert billedfelt 62 gange for
+   en effekt, der kun betaler sig, naar billedet i forvejen er stort).
+   Maaltro-pladen (.billedled--maal) er UNDTAGET - dens kasse regner sin
+   egen procentbredde ud fra hele feltets 16:10-flade og ville forskydes af
+   en ekstra ramme af luft udenom.
+   `img` fylder sit `<picture>`, som fylder billedled (system.css §11's
+   `.billedled img{width:100%;height:100%}`) - padding paa den YDRE flade
+   insaetter derfor billedet uden at aendre selve fyld-mekanikken, kun den
+   plads, den regner ud fra. IKKE visuelt efterproevet med en browser i
+   denne session (ingen Playwright-adgang) - se fund/FUND-lysbyg.md. */
+.billedled--stor:not(.billedled--maal){padding:12px 12px 0}
+.billedled--stor:not(.billedled--maal) picture{
+  display:block;width:100%;height:100%;overflow:hidden;
+  border-radius:var(--rund-ind);border:1px solid var(--linje)}
+
 /* --- 8b. SAMMENLIGNINGSSIDEN (spor/lysbyg, kontrakt:
    prototype/retning-lys/sammenligning.html + BEGRUNDELSE.md) --------------- */
 
