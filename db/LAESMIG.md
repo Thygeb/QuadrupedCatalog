@@ -153,6 +153,39 @@ Alle fire er fundet af selve afprøvningen mod den rigtige instans (25. aug
 2026), ikke ved at læse PostgREST's dokumentation på forhånd — samme princip
 som formscannet i `fund/FUND-db1.md`: målt, ikke gættet.
 
+En femte kom til med `spor/billedspand` samme dag, og den gælder Storage,
+ikke PostgREST:
+
+5. **En spand, der ikke findes, svarer 400 — ikke 404.** `GET
+   /storage/v1/bucket/<navn>` på et ukendt navn giver HTTP **400** med
+   `"statusCode": "404"` inde i JSON-kroppen. Koden alene lyver altså om,
+   hvad der skete. Løsning: læs kroppen, ikke kun statuslinjen — det gør
+   `sikrSpand()` i `db/billeder.mjs`, så "findes ikke" og "gik galt" ikke
+   kan forveksles.
+
+## Vagten: `--til-db` nægter at overskrive Studio-redigeringer (L35)
+
+Siden L35 (25. aug 2026, `spor/vagt`) starter `db/migrer.mjs --til-db` med
+at læse databasens nuværende indhold gennem **samme kodevej**, som
+`db/eksporter.mjs --fra-db` bruger, og sammenligne det med `data/robots/`
+via **samme dybe lighed**, som `db/rundtur.mjs` allerede bygger på. Begge
+er importeret, ikke genskrevet: to kopier af samme sammenligning er præcis
+den fælde, L30 kostede en uge.
+
+Afviger databasen, stopper migreringen **før første `DELETE`** og skriver
+hvilke robotter og felter der er uenige. Efterprøvet ved flettet med en
+efterlignet Studio-redigering: afvisningen kom, og rækketallene bagefter
+stod urørt på 77 robotter / 2.310 feltposter / 54 billeder.
+
+- `node db/eksporter.mjs --fra-db --ud=data/robots` henter rettelserne hjem,
+  hvorefter de committes som almindelige YAML-ændringer.
+- `--overskriv-databasen` springer vagten over **og kasserer** det, der står
+  i databasen. Brug den kun, når det er meningen.
+- En tom database (0 robotter) stopper aldrig — den har intet at miste.
+
+Grunden til at vagten skal findes: tøm-og-genindlæs er hurtig og
+genkørselssikker, men den aner ikke, hvad den sletter.
+
 ## Bygget og efterprøvet (tidligere "ikke bygget endnu")
 
 Opgavebrevet afgrænsede oprindeligt, hvad L34-fundamentet IKKE skulle
