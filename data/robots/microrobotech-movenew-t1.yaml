@@ -12,6 +12,8 @@ noter:
   - "\"Total Battery Weight: 40~50kg\" / kinesisk \"整机电机重量\" er en tvetydig etikette (blander \"整机重量\", helmaskinevaegt, med \"电池\", batteri). Placeret som egenvaegt ud fra sammenhaengen (staar under \"Mechanical Parameters\" sammen med maalene, ikke under \"Electrical Parameters\"), men ordlyden er ikke entydig - se advarsel paa feltet."
   - "Ingen pris fundet paa nogen af de to sprogversioner - kun \"Buy Now\"/\"Get Solutions\"-kontaktknapper, intet trykt tal."
   - "REGELAENDRING (CEO'en, under dette spor): producentens PDF-datablade/manualer taeller nu ogsaa som kilde. Producentens support-side (https://www.micbotics.com/support/, hentet 2026-08-24) har en rigtig, downloadbar PDF: \"MOVNEWT1 Product Datasheet\" (https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf, 13,2 MB). Den blev hentet, men KUNNE IKKE LAESES med de vaerktoejer, der var til raadighed i denne session: Read-vaerktoejets PDF-understoettelse kraever pdftoppm/poppler-utils (ikke installeret paa maskinen), WebFetch gav HTTP 403 paa filen, og et forsoeg paa at trakke tekst direkte ud af PDF'ens komprimerede indholdsstrømme (Python + zlib) fandt ingen laesbare tekstoperatorer - filen er formentlig bygget som billeder/vektorgrafik uden en tekstlagbar tekst. INGEN data herfra er brugt i posten. \"T1 SDK Development Guide\", \"T1 Operation Guide\" og \"Micbot Reinforcement Learning/Perception SDK Developer Guide\" staar ogsaa paa support-siden, men alle fire har TOMME download-links (href=\"\") paa hentetidspunktet - ikke publicerede endnu, intet at hente."
+  - "OPFOELGNING 2026-08-25 (PDF-opfyldningsrunde, L33): poppler er stadig ikke installeret paa maskinen (bekraeftet paa ny), og WebFetch giver stadig HTTP 403 paa PDF'en direkte - men et npm-pakke-baseret pure-JS-alternativ (pdf-parse v2, installeret i en scratch-mappe uden for repoet, IKKE en projektafhaengighed) kunne rendere PDF-siderne til PNG-billeder, som derefter blev laest visuelt side for side med Read-vaerktoejet. PDF'en (12 sider) viste sig at vaere naesten teksttom (kun sideskift-tegn ved almindelig tekstudtraek) - dvs. rent visuel/vektorgrafik, hvilket forklarer hvorfor det tidligere Python+zlib-forsoeg intet fandt. Spec-tabellen star paa side 8, en batteri-/effektside paa side 5. Evidens: media/_kilder/raa-pdf-2026-08-24/t1-pages/page-{1..12}.png. Tre nye felter udfyldt herfra (hot_swap, stroem_ud, monteringsinterface); resten af PDF'ens indhold bekraefter allerede udfyldte felter (se advarsler nedenfor) uden at tilfoeje nyt."
+  - "EFTERPROEVET AF EFTERFOELGENDE AGENT (2026-08-25), UCOMMITTET ARV: de tre felter ovenfor (hot_swap, stroem_ud, monteringsinterface) var skrevet af en forgaenger-agent, hvis session doede foer commit. Alle tre er genefterproevet mod kilden - t1-pages/page-5.png og page-8.png laest paa ny med oejne - og citaterne stemmer ordret. Alle tre BEHOLDT uaendret. Samtlige oevrige 10 sider (page-1 til -4, -6, -7, -9 til -12) er ogsaa gennemgaaet paa ny: ingen yderligere skemafelter fundet ud over de tre allerede skrevne (siderne er marketingprosa om DynaCore/DynaForce-motorteknologi, sensoropstilling, anvendelsesscenarier, farve-/materialevalg og virksomhedskontakt - intet om pris, CE, ROS2, SDK-sprog eller dataporte). Ingen modsigelser fundet mellem PDF'ens \"Parameter Information\"-tabel (side 8) og de allerede udfyldte felter fra produktsiden - alle sammenlignelige tal (maal, vaegt, hastighed, driftstid, nyttelast, haeldning, trappetrin, IP-klasse, temp) stemmer overens."
 billede:
   fil: fotos/fabrikant/microrobotech-movenew-t1.jpg
   ophav: fabrikant
@@ -115,7 +117,12 @@ felter:
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Endurance Time: <=12h\". Ingen lastbetingelse oplyst - kan derfor ikke sammenlignes direkte med en driftstid, der ER lastmaerket."
-  hot_swap: ikke_oplyst
+  hot_swap:
+    vaerdi: ja
+    kilde: https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf
+    hentet: 2026-08-25
+    kildetype: sekundaer
+    advarsel: "PDF-datablad (\"MOVNEWT1 Product Datasheet\", fundet via micbotics.com/support/), side 5: \"Equipped with high-density solid-state dual batteries and a modular quick-swap architecture, it supports hot-swappable battery replacement and provides external battery solutions.\" Ikke naevnt i den strukturerede specifikationstabel paa produktsiden (kilden til de oevrige felter) - kun i databladets prosa-afsnit om batteriarkitektur."
   ladetid: ikke_oplyst
   dockingstation:
     vaerdi: ja
@@ -143,8 +150,18 @@ felter:
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Kvalitativ beskrivelse af producentens egne systemnavne, ikke et niveau paa en skala."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
+  monteringsinterface:
+    vaerdi: "Topmonteret udvidelsesinterface (\"Top Mount Expansion\") samt undervogns-udvidelsesinterface (\"Undercarriage Expansion\"), begge markeret som standardfunktion i databladets funktionstabel. Ingen standardiseret monteringsflade-navn, -maal eller hurtigskift-mekanisme oplyst."
+    kilde: https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf
+    hentet: 2026-08-25
+    kildetype: sekundaer
+    advarsel: "PDF-datablad, side 8 (\"Parameter Information\"), afsnit \"Functionality\": raekkerne \"Top Mount Expansion\" og \"Undercarriage Expansion\" er begge markeret med en prik (til stede), uden yderligere specifikation af interface-standard, maal eller belastningsevne."
+  stroem_ud:
+    vaerdi: "AC220V / 12V DC OUTLET (dual-mode, automotive-grade effektudgangsstandard, via \"quick interface matrix\"). 12V DC OUTLET: 10A maks. (ISO 4165). AC-side: 220V ±7% i Kina/Sydoestasien (GB/T 12325-2008); 120V/240V i Nordamerika; nominelt 230V ±10% i EU (reelt kompatibel med 220V)."
+    kilde: https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf
+    hentet: 2026-08-25
+    kildetype: sekundaer
+    advarsel: "PDF-datablad, side 5: \"Featuring automotive-grade power output standards (supporting AC220V / 12V DC OUTLET dual-mode), it is compatible with multi-scenario devices via a quick interface matrix\", med fodnoter om regionale AC-spaendingstolerancer og \"12V DC OUTLET - 10A maximum, compliant with ISO 4165\". Watt-tal for AC-siden ikke eksplicit oplyst (kun spaending); 12V-siden giver 120W ved 10A, men producenten skriver ikke selv dette udregnede tal, saa kun de trykte A/V-vaerdier er gengivet."
   dataporte: ikke_oplyst
   pris: ikke_oplyst
   ce_oplyst: ikke_oplyst

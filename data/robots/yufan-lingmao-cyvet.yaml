@@ -76,7 +76,11 @@ felter:
     kilde: https://www.uniubi.com/shop/buy?product=air
     hentet: 2026-08-24
     advarsel: "\"连续攀爬楼梯高度 17cm\" (kontinuerlig trappekravlehoejde)."
-  ip_klasse: ikke_oplyst
+  ip_klasse:
+    vaerdi: IP54
+    kilde: https://www.uniubi.com/shop/buy?product=air
+    hentet: 2026-08-25
+    advarsel: "GAELDER IKKE STANDARDMODELLEN - kun en tilkoebt/tilpasset variant. FAQ (genfundet ved fornyet gennemgang af koebssiden 2026-08-25, ikke i den oprindelige 2026-08-24-optagelse): \"灵猫・Cyvet 户外雨天能不能使用？防水等级多少？\" -> \"仅支持室内、干燥户外，防水工业定制版支持 IP54 级防泼溅，小雨环境短时作业。\" (standardmodellen er KUN egnet til indendoers og toer udendoers brug, ingen IP-klasse oplyst for den; en separat, vandtaet \"防水工业定制版\"/industri-tilpasset udgave taaler IP54-niveau stroeg i let regn, kortvarigt). Fyldt her med IP54 (i stedet for ikke_oplyst), fordi der findes et konkret, trykt tal - men laeseren skal vide, at det er betinget af en anden konfiguration end den, resten af posten beskriver."
   temp_min:
     vaerdi: -10
     enhed: C
@@ -124,7 +128,12 @@ felter:
     kilde: https://www.uniubi.com/shop/buy?product=air
     hentet: 2026-08-24
     advarsel: "\"端侧算力 Orin Nano 8GB 最高 67 TOPS AI 算力 / Orin NX 8GB 最高 117 TOPS AI 算力 / Orin NX 16GB 最高 157 TOPS AI 算力\" - alle tre er mærket 可选配 (tilvalg) paa forsiden."
-  ros2: ikke_oplyst
+  ros2:
+    vaerdi: ja
+    kilde: https://github.com/uniubi-ai/uniubi_ros2
+    hentet: 2026-08-25
+    kildetype: sekundaer
+    advarsel: "Producentens (Yufan/Uniubi, GitHub-org uniubi-ai) egen ROS 2-integrationspakke. READMEen naevner ikke modelnavnet \"cyvet\" direkte, men uniubi-ai's ENESTE aktuelle robotmodel er \"cyvet\" (bekraeftet i samme organisations repo uniubi_robot_description, som kun har én robotmappe: robots/cyvet/). Repoet er en fuldt dokumenteret, virkende integration - ikke en TODO-markeret plan: \"ROS 2 integration for Uniubi robots... Prerequisites: ROS 2 Humble is installed and sourced\", med en komplet motion-bridge-arkitektur og reelle topics (/cmd_vel, /odom, /joint_states, /imu/data, /battery_state). Til forskel fra GENISOM L2's roamerx-repo (afvist i genisom-gangben-l2.yaml pga. et eksplicit \"TODO\" paa hardware-koblingen) er der her ingen tilsvarende forbehold i kilden selv."
   sdk_sprog:
     vaerdi: [C++, Python]
     kilde: https://www.uniubi.com/shop/buy?product=air

@@ -19,6 +19,7 @@ noter:
   - "Producentens egne fodnoter paa \"产品亮点\"-siden svaekker flere af tallene med vilje: \"*续航时间: 在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal, reel brug varierer); \"*稳定穿越35°陡坡等地形...基于自适应步态算法与电驱动关节的实验室测试结果\"; \"*-20℃至55℃作业：指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\". Disse forbehold er gengivet paa de enkelte felters advarsel."
   - "MAXHUB X7's SOESTERPRODUKT \"商用清洁机器人\" (kommerciel rengoeringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifoelge nyhedsartiklen er solgt til Europa/Sydoestasien/Japan (\"进入欧洲、东南亚及日本市场\"). Det gaelder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 paa dette grundlag."
   - "INGEN billede:-blok. Billedkandidater fundet men ikke bedoemt med oejne i dette spor - se fund/FUND-kand2.md."
+  - "PDF-OPFYLDNINGSRUNDEN (2026-08-25): intet CVTE-PDF-datablad fundet i det arvede arkiv - se media/_kilder/raa-pdf-2026-08-24/, som ingen CVTE-filer har. Et forsoeg paa at hente produktsiden (https://www.cvte.com/product/quadrupedrobot) paa ny bekraeftede blot samme oplysninger som allerede i felterne - ingen download-/PDF-link fundet paa siden. Ingen af de 20 tilbageværende ikke_oplyst-felter kunne fyldes."
 billede:
   fil: fotos/fabrikant/cvte-maxhub-x7.jpg
   ophav: fabrikant
