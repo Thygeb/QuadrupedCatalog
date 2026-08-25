@@ -1,129 +1,192 @@
-# Robotkatalogets datamodel — diagram
+# Robotkatalogets datamodel — lavpraktisk forklaret
 
-Læsebillede af [skema.sql](skema.sql), som er sandheden. Genereret 25. aug 2026 til
-planlægning (L34/D12). Ændrer skemaet sig, skal denne fil følge med — eller slettes.
+Læsebillede af [skema.sql](skema.sql), som er sandheden. Opdateret 25. aug 2026
+(77 poster). Ændrer skemaet sig, skal denne fil følge med — eller slettes.
 
-## Kredsløbet — sådan bevæger sandheden sig
+---
 
-Indtil D12-vippet er YAML-filerne den arbejdende sandhed; databasen er et efterprøvet
-spejl. Rundturen er beviset: alt, der migreres ind, skal komme identisk ud igen.
+## Det store billede på 30 sekunder
 
-```mermaid
-flowchart LR
-  yaml["data/robots/*.yaml<br/>67 poster i git"]
-  mig["db/migrer.mjs --til-db<br/>tøm og genindlæs"]
-  db[("Supabase<br/>6 tabeller · RLS · kun service_role")]
-  studio["Supabase Studio<br/>redigering — først efter D12"]
-  eks["db/eksporter.mjs --fra-db"]
-  ud["eksporteret YAML<br/>(midlertidig mappe)"]
-  port["validate · build · tests<br/>18 regler, 195 prøver"]
-  rt{"rundtur --live<br/>62/62 dybt lig?"}
+Databasen svarer på ét spørgsmål: **"Hvad ved vi om hver robot, og hvor ved vi det fra?"**
 
-  yaml --> mig --> db
-  db --> eks --> ud --> port --> rt
-  rt -- "ja: bevist enige" --> yaml
-  studio -. "efter vippet" .-> db
-  rt -- "nej: flet afvises" --> mig
-```
-
-Målt 25. aug 2026: live-rundtur 62/62 · validate 0 fejl · build 173=173 sider ·
-857=857 kildebelagte tal. Filerne er siden vokset til 67 poster; databasen
-genmigreres, når kand5 og lysbyg er flettet.
-
-## ER-diagram — de seks tabeller
-
-Alt hænger på `robotter.id` med kaskadesletning. Fravær af en række er information:
-ingen billede-række betyder måleplade, ingen anvendelse-række betyder at topnøglen
-ikke findes i YAML'en.
+- Én række i `robotter` = én robot (fx Spot).
+- Hver robot har **altid præcis 30 rækker** i `feltposter` — én pr. specifikation
+  (vægt, fart, IP-klasse …). Også når svaret er "det oplyser producenten ikke".
+  Det er sådan, vi kan regne udfyldningsgrad: udfyldte felter ud af 30.
+- Billede og anvendelse er **0 eller 1 række** pr. robot — findes rækken ikke,
+  er det i sig selv et svar (intet billede = måleplade vises i stedet).
 
 ```mermaid
 erDiagram
-  robotter ||--o{ feltposter : "praecis 30 pr. robot"
-  feltposter ||--o{ feltpost_varianter : "0-n varianter (R15)"
-  robotter ||--o| anvendelse : "0-1 (R16)"
-  robotter ||--o| billede : "0-1 (R18)"
-  robotter |o--o| robotter : "forgaenger / arv / delt billede"
-  feltdefinitioner ||..o{ feltposter : "30 feltnavne (spejl af skema.mjs)"
+  robotter ||--o{ feltposter : "altid 30"
+  feltposter ||--o{ feltpost_varianter : "0-n"
+  robotter ||--o| anvendelse : "0-1"
+  robotter ||--o| billede : "0-1"
+  feltdefinitioner ||..o{ feltposter : "ordbogen"
 
-  robotter {
-    bigint id PK
-    text slug UK "R14: slug = filnavn"
-    text navn
-    text producent
-    text producentland
-    status_enum status
-    bigint forgaenger_robot_id FK
-    text_arr varianter
-    jsonb noter "streng ELLER liste"
-  }
-  feltposter {
-    bigint robot_id PK,FK
-    feltnavn_enum feltnavn PK
-    feltform_enum form "R4 som CHECK"
-    tilstand_enum tilstand
-    numeric vaerdi_tal
-    numeric min
-    numeric maks
-    text vaerdi_tekst
-    boolean vaerdi_bool
-    text_arr vaerdi_liste
-    text enhed "R5: tal kraever enhed"
-    operator_enum operator
-    text kilde "R6: http-regex, NOT NULL"
-    date hentet "R7: NOT NULL"
-    kildetype_enum kildetype
-    text advarsel
-    tilstand_enum ved_last_tilstand "R10"
-  }
-  feltpost_varianter {
-    bigint robot_id PK,FK
-    feltnavn_enum feltnavn PK,FK
-    text variant_navn PK
-    jsonb vaerdi "skalar"
-  }
-  anvendelse {
-    bigint robot_id PK,FK
-    boolean er_ikke_oplyst
-    jsonb vaerdi "kategorier"
-    jsonb citat "R16: paakraevet"
-    text kilde
-    bigint arvet_fra_robot_id FK "R17"
-  }
-  billede {
-    bigint robot_id PK,FK
-    text fil
-    ophav_enum ophav "S1 doemmer paa fabrikant"
-    text kilde "kraevet for fabrikant+silhuet"
-    bigint delt_med_robot_id FK "L28"
-  }
-  feltdefinitioner {
-    feltnavn_enum feltnavn PK
-    text gruppe
-    text art
-    boolean katalogfelt
-    boolean filterfelt
-  }
+  robotter { text slug "fx boston-dynamics-spot" }
+  feltposter { text feltnavn "fx egenvaegt" }
+  feltpost_varianter { text variant_navn "fx Go2 Pro" }
+  anvendelse { text kategori "fx inspektion" }
+  billede { text fil "fx spot.jpg" }
+  feltdefinitioner { text feltnavn "de 30 felters ordbog" }
 ```
 
-Rækketal efter fuld migrering af 67 poster: robotter 67 · feltposter 2.010 ·
-varianter 127 · anvendelse 66 · billede 54 · feltdefinitioner 30.
+---
 
-## De syv enum-typer
+## Først: hvad er en "enum"?
 
-| Enum | Værdier |
-|---|---|
-| `tilstand_enum` | ikke_oplyst · nej · kun_billede — 0 er strukturelt et tal, aldrig en tilstand |
-| `feltform_enum` | bare_tilstand · tilstand_med_herkomst · tal · interval · tekst · bool · liste |
-| `feltnavn_enum` | de 30 feltnavne — et ukendt felt kan ikke indsættes |
-| `status_enum` | i_produktion · annonceret · udgaaet · demonstrator |
-| `kildetype_enum` | primaer · sekundaer |
-| `operator_enum` | > · >= · < · <= · ~ · ± |
-| `ophav_enum` | eget_foto · silhuet · fabrikant |
+En enum er bare en **lukket liste af lovlige værdier** — som en dropdown, hvor man
+ikke kan skrive frit. Feltet `status` kan fx KUN indeholde ét af fire ord; prøver
+man at skrive "coming soon", nægter databasen. Pointen: stavefejl og hjemmelavede
+kategorier er umulige.
 
-## Hvem fanger hvad
+### De syv lister, oversat til hverdagssprog
 
-| Lag | Håndhæver |
-|---|---|
-| **Databasen selv** | enums, NOT NULL, FK'er · R4 (værdi XOR interval, CHECK) · R5 (tal kræver enhed) · R6/R7 (kilde-URL + hentedato på alt undtagen bar tilstand) · R16 (kategori kræver ordret citat) |
-| **Migrering + validate** | R15 (variantnavn i robottens egen liste) · hele R17-arven (kræver opslag i moderens række) · enhedens dimension · R18's stiregler + fil-findes-på-disk |
-| **Build + drift** | S1 (`--til-udgivelse` afviser fabrikant-billeder) · nævneren udledes af skemaet (L30) · RLS uden policies: kun service_role, nøglen i gitignoreret `.env` |
+**1. Robottens fire svar-tilstande** (`tilstand_enum` + tal)
+
+Det vigtigste begreb i hele kataloget. Når vi spørger "hvad vejer robotten?",
+findes der fire slags svar, og de må ALDRIG blandes sammen:
+
+| Svaret | Betyder | Eksempel |
+|---|---|---|
+| et tal, fx `32.7` | Producenten oplyser tallet | Spots egenvægt: 32,7 kg |
+| `0` | Producenten oplyser tallet NUL — det er et rigtigt svar | 0 kr. i licensomkostning |
+| `nej` | Producenten siger udtrykkeligt "det har den ikke" | "Ingen dockingstation" |
+| `ikke_oplyst` | Producenten siger ingenting — et hul | ANYmal X' vægt: intet svar |
+| `kun_billede` | Oplysningen findes kun som billede/tegning hos producenten — vi kan se den, men ikke citere et tal | (bruges sjældent) |
+
+Hvorfor det betyder noget: katalogsider "lyver" typisk ved at vise et hul som et
+nul eller omvendt. Vores database KAN ikke blande dem — 0 gemmes som tal,
+de andre som enum-værdi i en anden kolonne.
+
+**2. Feltets form** (`feltform_enum`) — *hvilken slags svar står der i rækken?*
+
+| Form | Betyder | Eksempel |
+|---|---|---|
+| `tal` | ét tal med enhed | fart: 1,6 m/s |
+| `interval` | fra-til | højde: 35-75 cm (Keyper) |
+| `tekst` | ord, ikke tal | "M5 T-slot-skinner" |
+| `bool` | ja/nej-svar | ROS 2: ja |
+| `liste` | flere værdier | dataporte: Ethernet, USB, RS485 |
+| `bare_tilstand` | kun en tilstand, ingen kilde krævet | `ikke_oplyst` |
+| `tilstand_med_herkomst` | en tilstand MED kilde — fx et "nej", producenten selv har skrevet, med link til hvor | "nej" + URL |
+
+Hvorfor: formen styrer, hvilke kolonner der SKAL og MÅ være udfyldt. Et "tal"
+uden enhed afvises. En "tilstand" med en enhed afvises. Reglerne håndhæves af
+databasen selv, ikke af, om nogen husker dem.
+
+**3. De 30 feltnavne** (`feltnavn_enum`) — egenvaegt, laengde, hastighed, ip_klasse
+osv. Låst liste = ingen kan opfinde et 31. felt ved en stavefejl ("egenvægt" med
+ø ville blive afvist). Ændres skemaet (fx D11-trimmen), er det en beslutning med
+L-nummer, ikke et skred.
+
+**4. Robottens livsstatus** (`status_enum`): `i_produktion` (kan købes/lejes nu) ·
+`annonceret` (vist, men ikke i handel) · `udgaaet` (historisk, fx Laikago) ·
+`demonstrator` (forskningsplatform, aldrig et produkt).
+
+**5. Kildens art** (`kildetype_enum`): `primaer` = selve produktsiden ·
+`sekundaer` = producentens ØVRIGE materiale (PDF-datablad, manual, egen GitHub).
+Aldrig presse eller forhandlere — de kan slet ikke gemmes. Sekundære kilder
+markeres synligt (L33).
+
+**6. Forbeholdstegn** (`operator_enum`): når producenten selv skriver "op til
+5 m/s" eller "~120 min", gemmer vi tegnet (`<=`, `~`, `±` …) sammen med tallet.
+Hvorfor: at slette forbeholdet ville gøre producentens cirka-tal til vores
+præcise påstand.
+
+**7. Billedets ophav** (`ophav_enum`): `eget_foto` (vores kamera — frit at bruge) ·
+`silhuet` (vores måltro tegning) · `fabrikant` (producentens pressefoto — må KUN
+bruges lokalt; S1-spærringen nægter at bygge til udgivelse, så længe de findes).
+
+---
+
+## Tabellerne, felt for felt
+
+### `robotter` — én række pr. robot
+
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `id` | et løbenummer, databasen selv finder på | teknisk nøgle, som de andre tabeller peger på |
+| `slug` | robottens webnavn, fx `boston-dynamics-spot` | matcher filnavnet i git og URL'en på sitet — menneskets nøgle |
+| `navn`, `producent`, `producentland`, `producentby` | identiteten | producenter er IKKE en egen tabel — de udledes af robotterne, som sitet altid har gjort |
+| `status` | de fire livstilstande ovenfor | så kataloget kan skelne købbart fra historisk |
+| `foerste_udgivelse` | årstal | kun når producenten selv oplyser det (3 af 77) |
+| `forgaenger_robot_id` | peger på en ÆLDRE robot i samme tabel | fx "afløser Honey Badger 4.0" |
+| `varianter` | navneliste, fx Go2 Air/Pro/Edu | når ét produktnavn dækker flere udgaver med hver sine tal |
+| `noter` | fritekst-forbehold | modsigelser i producentens eget materiale, stop-tjek-citater osv. |
+
+### `feltposter` — 30 rækker pr. robot (77 × 30 = 2.310)
+
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `robot_id` + `feltnavn` | hvem + hvilket felt | tilsammen nøglen: der kan aldrig være to vægt-rækker for Spot |
+| `form` | hvilken svarform (se enum 2) | styrer resten af rækken via databasens egne tjek |
+| `tilstand` | ikke_oplyst / nej / kun_billede | de ærlige ikke-tal-svar |
+| `vaerdi_tal` / `min`+`maks` / `vaerdi_tekst` / `vaerdi_bool` / `vaerdi_liste` | selve svaret — KUN én af dem må være udfyldt | R4: "værdi ELLER interval, aldrig begge" er en regel databasen selv håndhæver |
+| `enhed` (+ `vaerdi_imperial`) | kg, m/s, cm … | et tal uden enhed er ikke et tal — afvises |
+| `operator` | forbeholdstegnet | se enum 6 |
+| `kilde` + `hentet` + `kildetype` | URL, dato, primær/sekundær | KRAVET på alt undtagen et rent "ikke_oplyst" — det er hele katalogets troværdighed |
+| `advarsel` | synligt forbehold | fx "gælder kun tilkøbt vandtæt variant" (Cyvets IP54) |
+| `ved_last_*` | driftstidens lastbetingelse | "90 min" betyder intet uden at vide, om robotten bar noget imens (R10) |
+
+### `feltpost_varianter` — når ét felt har flere tal
+
+Go2 findes i fire udgaver, og nyttelasten falder fra 5 til 2,5 kg hen over dem.
+I stedet for at vælge ét tal (og lyve lidt) gemmes alle fire med hver sit
+variantnavn. | `variant_navn` = udgavens navn · `vaerdi` = udgavens tal |
+
+### `anvendelse` — hvad producenten SELV siger robotten er til
+
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `vaerdi` | kategorier (inspektion, industri …) | KUN producentens egen inddeling — aldrig vores mening |
+| `citat` | producentens ordrette sætning | uden citatet ville kategorien være vores påstand (R16) |
+| `arvet_fra_robot_id` | peger på "moderen" | en W-variant må arve kategorien fra grundmodellen — men det skal stå der, så arv aldrig ligner selvstændig kilde (R17) |
+
+Tæller bevidst IKKE med i udfyldningsgraden — det er identitet, ikke specifikation.
+
+### `billede` — robotens foto (0 eller 1)
+
+| Kolonne | Hvad står der | Hvorfor findes den |
+|---|---|---|
+| `fil` | filnavnet i assets/ | |
+| `ophav` | eget_foto / silhuet / fabrikant | S1: fabrikant-billeder spærrer for udgivelse |
+| `kilde` + `hentet` | hvor og hvornår hentet | kræves for fabrikant og silhuet — et billede skal kunne følges til sin side |
+| `delt_med_robot_id` | to robotter, ét foto | fx varianter fotograferet sammen (L28) |
+
+Ingen række = robotten vises med sin måleplade i stedet. Det er et ærligt svar,
+ikke en fejl.
+
+### `feltdefinitioner` — ordbogen over de 30 felter
+
+Maskinskrevet kopi af `tools/skema.mjs` (genskrives ved hver migrering, aldrig
+håndredigeret): hvilken gruppe hvert felt hører til, hvilken svarform det tager,
+og om det vises på kort/kan filtreres på. Findes, så en fremtidig redigerings-UI
+kan læse skemaet uden at kende projektets JavaScript.
+
+---
+
+## Kredsløbet — hvem må ændre hvad lige nu
+
+```mermaid
+flowchart LR
+  yaml["YAML-filerne i git<br/>(77 poster — den arbejdende sandhed)"]
+  db[("Supabase<br/>(spejlet)")]
+  studio["Supabase Studio<br/>(kig, men RET IKKE endnu)"]
+  port["validate + build + tests<br/>(dommerne)"]
+
+  yaml -- "migrer: tøm og genindlæs" --> db
+  db -- "eksporter + rundtur: bevis enighed" --> port
+  port --> yaml
+  studio -. "redigering åbner ved D12-vippet" .-> db
+```
+
+Indtil D12-vippet: **redigér aldrig i Studio** — næste migrering overskriver det.
+Efter vippet vender pilen: så redigeres der i Studio, og filerne genereres.
+
+---
+
+*Rækketal efter næste migrering: robotter 77 · feltposter 2.310 · billede 54 ·
+varianter og anvendelse tælles ved migreringen. Kilde: db/skema.sql +
+fund/FUND-db1.md/FUND-db2.md.*
