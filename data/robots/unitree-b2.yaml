@@ -13,6 +13,12 @@ anvendelse:
   note: "Producentens egen produktnavigation, gruppen B2 staar i."
 noter:
   - "Billedport 24. aug 2026: billede fjernet. `fil:`-feltet pegede paa unitree-b2.jpg, som ikke findes paa disk - den faktiske fil var unitree-b2.png (bekraeftet med gyldige PNG-magicbytes og MANIFEST-match til unitree-b2-2.png, unitree.com/b2). Denne sessions billedlaesekvote blev opbrugt foer billedets indhold naaede at blive set - det er derfor ALDRIG blevet visuelt godkendt, kun sporet som en filstiskaeg. Billedet er slettet frem for gættet godkendt, jf. reglen om at et uefterproevet billede er lige saa risikabelt som et forkert. Skal ses og domsfaeldes paa ny naar kvoten er tilgaengelig."
+  - "Billed3 25. aug 2026: den tidligere uverificerede fil (0f744c68717d4b21a874f0983f0e40db_1708x866.png, samme sha256 som det gamle unitree-b2-2.png) er nu genhentet og set: den viser HELE robotten paa en klippe med et bjergpanorama, IKKE et diagram - dommen ville have vaeret GODKENDT. Valgte alligevel et andet, mere utvetydigt billede: unitree-b2-11.png, et rent hvidt studiorender fra shop.unitree.com, samme stil som Xiaomi Cyberdog 2's godkendte render. Afviste undervejs: unitree-b2-8.jpeg (forkert motiv - en scenefremvisning med dansere og robotokser, slet ikke B2), unitree-b2-7.png (infografik med turkise komponentkald), unitree-b2-9.jpg (person i centrum, robotten lille og loeftet i baggrunden), unitree-b2-10.jpg (robot i unaturlig, vaeltet positur med en menneskehaand og en trae-stok i billedet - stuntagtig demofoto)."
+billede:
+  fil: fotos/fabrikant/unitree-b2.png
+  ophav: fabrikant
+  kilde: https://shop.unitree.com/products/unitree-b2
+  hentet: 2026-08-25
 felter:
   egenvaegt:
     vaerdi: 60
