@@ -16,6 +16,8 @@ noter:
   - "Load Dimensions 595 x 419 x 129 mm (lastrummets maal) og Foldet maal 1150 x 800 x 200 mm er begge oplyst, men har intet skemafelt."
   - "REGELAENDRING (CEO'en, under dette spor): se microrobotech-movenew-t1.yaml for den fulde undersoegelse af producentens support-side under den nye regel om PDF/manual-kilder. Kort: P1 har ogsaa en rigtig PDF (\"MOVENEW P1 Product Datasheet\", https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf, 7,2 MB, hentet 2026-08-24), men den kunne af samme grund (intet poppler/pdftoppm, WebFetch 403, ingen laesbar tekst i de dekomprimerede indholdsstroemme) ikke laeses - ingen data herfra i posten. \"P1 SDK Development Guide\" og \"P1 Operation Guide\" har tomme download-links paa hentetidspunktet."
   - "Tabellens raekkefoelge er forvirrende: \"Max Climbing Ability: 800 mm\" staar lige foer \"Step Negotiation: 45°\" og \"Slope Capability: >45°\" - dvs. to raekker med samme talvaerdi (45°) under to forskellige etiketter, og en meget stor 800 mm-vaerdi under en etikette (\"Climbing Ability\"), man normalt ville forvente var en vinkel. Ikke rettet stiltiende - se advarsler paa forhindring_enkelt og haeldning."
+  - "MODSIGELSE FUNDET VED PDF-OPFYLDNINGSRUNDEN (2026-08-25), IKKE RETTET: PDF-databladets \"P1 Technical Specifications\"-tabel (side 4) skriver \"Operating Temperature: -40°C to 85°C\", og samme tal gentages i markedsfoeringsteksten paa side 3 (\"FROM THE FRIGID COLD OF -40°C TO THE SCORCHING HEAT OF 85°C\"). Det MODSIGER produktsidens allerede udfyldte temp_maks (55°C, https://www.micbotics.com/list_12/98.html, hentet 2026-08-24) - samme moenster som T1, hvor produktsiden ogsaa skriver 55°C. temp_maks er IKKE rettet (regel: et allerede udfyldt felt aendres aldrig), men modsigelsen (55°C vs. 85°C) er hermed dokumenteret. Kilde til 85°C: PDF-datablad, https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf, side 3-4, hentet 2026-08-25."
+  - "MINDRE UOVERENSSTEMMELSE, IKKE RETTET: PDF-databladet skriver \"Max Static Payload: > 400 kg\" og \"Max Dynamic Payload: > 200 kg\" (med \">\"-operator), mens produktsidens allerede udfyldte nyttelast_staaende (400 kg) og nyttelast_gaaende (200 kg) staar uden operator. Samme talvaerdier, men PDF'en praesenterer dem som et gulv (\"mere end\") snarere end et loft. Felterne er ikke aendret - kun noteret her."
 billede:
   fil: fotos/fabrikant/microrobotech-movenew-p1.jpg
   ophav: fabrikant
@@ -146,8 +148,18 @@ felter:
     advarsel: "Raa tekst: \"Supports 2000 tops\". Ordet \"Supports\" antyder maksimal understoettet regnekraft ved tilvalgt modul, ikke noedvendigvis indbygget som standard - modsat T1, hvor \"Jetson Orin NX Super+RK3588\" er navngivet som det faktiske kernemodul."
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
+  autonominiveau:
+    vaerdi: "Multi-sensor fusion perception system + high-computing power platform, der danner et 360° omnidirektionelt situationsbevidsthedsnetvaerk, som daekker miljoepercepetion, overvaagning og vidensresonnering (\"knowledge reasoning\")."
+    kilde: https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf
+    hentet: 2026-08-25
+    kildetype: sekundaer
+    advarsel: "PDF-datablad (\"MOVENEW P1 - Industrial Special-Purpose Wheeled Quadruped Robot\"), side 3 (\"Integrated Sensing & Control\"): \"Equipped with a multi-sensor fusion perception system and a high-computing power platform, it forms a 360° omnidirectional environmental awareness network, fully covering functional modules such as environmental perception, monitoring, and knowledge reasoning.\" Kvalitativ beskrivelse - intet numerisk autonominiveau (SAE/ISO-lignende skala) oplyst."
+  monteringsinterface:
+    vaerdi: "\"Expansion Rails\" markeret som standardfunktion i databladets funktionstabel (side 4, \"Function Configuration\"). Ingen standardiseret monteringsflade-navn, -maal eller hurtigskift-mekanisme oplyst."
+    kilde: https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf
+    hentet: 2026-08-25
+    kildetype: sekundaer
+    advarsel: "PDF-datablad, side 4 (\"P1 Technical Specifications\"), afsnit \"Function Configuration\": raekken \"Expansion Rails\" er markeret med en prik (til stede), samme moenster som T1's \"Top Mount Expansion\"/\"Undercarriage Expansion\" - men uden yderligere specifikation af interface-standard eller belastningsevne."
   stroem_ud: ikke_oplyst
   dataporte:
     vaerdi: ["HDMI x1 (Audio-Radar-Vision Port)", "USB x1 (Audio-Radar-Vision Port)", "RS485 x1 (Radar Port)", "USB x3 (Radar Port)", "HDMI x1 (Camera Port)"]
