@@ -15,6 +15,30 @@ nedenfor er destillatet; hver enkelt er lært på en rigtig robot, ikke opfundet
 
 ---
 
+## To veje ind i data, siden L35 (25. aug 2026)
+
+Data findes nu to steder: `data/robots/*.yaml` (git, sandheden agenterne arbejder mod) og
+en Supabase-database (redaktionslag, L34). Siden L35 kan JPK også rette direkte i
+**Supabase Studio** — det er JPK's vej, ikke agenternes.
+
+**Agenternes egen arbejdsgang er UÆNDRET.** En agent, der indsamler eller retter en
+robotpost, redigerer stadig `data/robots/<slug>.yaml` i sin egen worktree, som hidtil —
+aldrig databasen direkte. Intet i denne skill ændrer sig for det arbejde.
+
+Retter JPK i Studio, skal rettelsen hentes hjem, før nogen kører en migrering:
+
+```
+node db/eksporter.mjs --fra-db --ud=data/robots
+```
+
+...og resultatet committes som almindelige YAML-ændringer. `db/migrer.mjs --til-db`
+**nægter selv at køre**, hvis databasens indhold afviger fra `data/robots/` uden at
+være hentet hjem først — det er den mekaniske vagt (se `db/LAESMIG.md`), ikke en
+formaning. Vagten kan omgås bevidst med `--overskriv-databasen`, som kasserer
+Studio-rettelsen og skriver YAML'en ind i stedet — brug den kun, når det er meningen.
+
+---
+
 ## De ti hårde regler
 
 Brud på disse gør posten ubrugelig — ikke ufuldstændig, ubrugelig, fordi en post man ikke

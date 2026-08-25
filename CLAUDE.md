@@ -180,7 +180,11 @@ reviewerens ansvar, at det ikke sker — ikke juniorens.
 ## Mappestruktur
 
 ```
-data/robots/          én YAML pr. robot — én robot = én commit, git-diffbar
+data/robots/          én YAML pr. robot — én robot = én commit, git-diffbar.
+                      Kan siden L35 også regenereres fra Supabase med
+                      `db/eksporter.mjs --fra-db` (JPK's Studio-vej) — men
+                      validate/build/tests kører altid paa YAML'en, aldrig
+                      direkte paa databasen
 data/manufacturers/   én YAML pr. producent
 data/i18n/            da.json, en.json — UI-strenge og feltnavne
 assets/silhuetter/    måltro SVG i fælles målestok. Se mappens LÆSMIG.md
