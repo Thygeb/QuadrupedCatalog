@@ -37,6 +37,16 @@ være hentet hjem først — det er den mekaniske vagt (se `db/LAESMIG.md`), ikk
 formaning. Vagten kan omgås bevidst med `--overskriv-databasen`, som kasserer
 Studio-rettelsen og skriver YAML'en ind i stedet — brug den kun, når det er meningen.
 
+**Eksporten validerer sig selv, før den rører `data/robots/`.** `db/eksporter.mjs`
+skriver ikke længere direkte ind i `udMappe` — den skriver først til en midlertidig
+mappe, kører `tools/validate.mjs` PÅ DEN, og flytter kun filerne ind, hvis
+valideringen er fejlfri. Bryder en Studio-rettelse en regel (forkert enhedstype,
+manglende kilde, ugyldig operator, …), stopper kommandoen med `EKSPORT AFVIST:
+validatoren fandt <M> fejl …`, validatorens egne fejllinjer og `<udMappe> er IKKE
+ændret.` — og `data/robots/` står urørt. **Advarsler blokerer ikke:** en kendt
+advarsel (fx R9 på `ghost-robotics-vision-60`) slipper igennem uændret, ligesom den
+altid har gjort. Ret fejlen i Studio og kør kommandoen igen.
+
 ---
 
 ## De ti hårde regler

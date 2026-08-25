@@ -1349,6 +1349,28 @@ console.log('\n7. Vagten i db/migrer.mjs — ren sammenligningsfunktion (L35)');
     JSON.stringify(afvigelser));
 }
 
+console.log('\n8. Vagten i db/eksporter.mjs — ren beslutningsfunktion (L35-opfoelgning, punkt 1)');
+{
+  // Ren funktion, testes uden netvaerk og uden .env - se db/eksporter.mjs's
+  // boerFlyttes. Importeres som modul; erHoved-vagten i eksporter.mjs
+  // sikrer, at main() ikke koerer bare fordi filen bliver importeret her -
+  // samme moenster som afsnit 7 bruger for db/migrer.mjs's
+  // sammenlignDbMedYaml. Beviser netop det, punktets opgavebrev kraever: at
+  // et fejlfrit valideringsresultat foerer til flytning (boerFlyttes === true),
+  // og at et fejlbehaeftet ikke goer (boerFlyttes === false) - uafhaengigt af
+  // om databasen eller assets/ overhovedet findes paa maskinen.
+  const eksporter = await import(`file://${path.join(rod, 'db', 'eksporter.mjs').replace(/\\/g, '/')}`);
+
+  ok('0 fejl foerer til flytning (boerFlyttes === true)',
+    eksporter.boerFlyttes({ filer: 77, fejl: 0, advarsler: 1 }) === true);
+  ok('0 fejl og 0 advarsler foerer ogsaa til flytning',
+    eksporter.boerFlyttes({ filer: 1, fejl: 0, advarsler: 0 }) === true);
+  ok('1 fejl blokerer flytningen (boerFlyttes === false), selv med 0 advarsler',
+    eksporter.boerFlyttes({ filer: 77, fejl: 1, advarsler: 0 }) === false);
+  ok('flere fejl blokerer ligesaa - advarsler alene maa aldrig kunne maskere en fejl',
+    eksporter.boerFlyttes({ filer: 77, fejl: 55, advarsler: 1 }) === false);
+}
+
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
   + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
