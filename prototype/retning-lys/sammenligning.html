@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sammenlign tre robotter — LYS-mockup</title>
+<link rel="stylesheet" href="lys.css">
+</head>
+<body>
+<a class="kunskaerm" href="#indhold">Spring til indholdet</a>
+
+<div class="baand">
+  <div class="rum"><nav>
+    <div class="baand__navn">
+      <a href="forside.html">Firbenede robotter</a>
+      <span class="baand__midlertidig">MIDLERTIDIGT NAVN</span>
+    </div>
+    <ul class="baand__links">
+      <li><a href="forside.html">Forside</a></li>
+      <li><a href="katalog.html">Katalog</a></li>
+      <li><a href="sammenligning.html" aria-current="page">Sammenligning</a></li>
+      <li><a href="robot.html">Robotside</a></li>
+    </ul>
+  </nav></div>
+</div>
+
+<div class="billednote">
+  <div class="rum">
+    <span class="billednote__maerke">Billeder</span>
+    <p>Siden viser producenternes egne billeder uden skriftlig tilladelse. Det er tilladt, så længe siden kun findes lokalt. Siden må ikke publiceres, før tilladelserne er indhentet, eller billederne er skiftet ud med egne fotografier og måltro silhuetter.</p>
+  </div>
+</div>
+
+<main id="indhold">
+  <section class="sektion" style="padding-top:var(--r7)">
+    <div class="rum">
+
+      <div style="max-width:78ch; display:flex; flex-direction:column; gap:12px; margin-bottom:var(--r7)">
+        <a class="sti-tilbage" href="katalog.html">← Tilbage til kataloget</a>
+        <h1 class="t-h1">Tre robotter, felt for felt</h1>
+        <p class="t-brod">Spot, ANYmal X og Go2 er valgt for kontrasten: en industrirobot med tredive år undervejs, en robot hvis producentside i skrivende stund kun har én sætning specifikationer, og en forbrugerrobot med rigtige priser trykt. De 30 felter fra skemaet står i samme rækkefølge som på robotsiden.</p>
+      </div>
+
+      <!-- ============================================================ SÅDAN LÆSES DEN
+           Forklarer eksplicit hvorfor der IKKE markeres en "bedste værdi" pr.
+           række — se BEGRUNDELSE.md for den fulde afvejning. -->
+      <div class="legende" style="margin-bottom:var(--r8)">
+        <div class="legende__post">
+          <p class="t-etiket t-etiket--accent">Fire tilstande</p>
+          <p class="t-lille"><span class="v v-tal" style="font-size:1em"><b class="num">1,6</b><span class="enhed">m/s</span></span> er et målt tal. <span class="v v-nul" style="font-size:1em"><b class="num">0</b></span> er også et tal — nul er en oplysning, ikke et hul.</p>
+        </div>
+        <div class="legende__post">
+          <p class="t-etiket">Nej og ja</p>
+          <p class="t-lille"><span class="v v-nej" style="font-size:1em"><i class="mrk"></i>nej</span> og <span class="v v-ja" style="font-size:1em"><i class="mrk"></i>ja</span> er svar, producenten har givet. De er ikke hverandres modsætning af "ikke oplyst".</p>
+        </div>
+        <div class="legende__post">
+          <p class="t-etiket">Ikke oplyst</p>
+          <p class="t-lille"><span class="v v-ikke" style="font-size:1em"><i class="mrk"></i>ikke oplyst</span> er et hul, producenten har ladet stå åbent. Se dockingstation-rækken nedenfor: samme række viser alle tre svar ved siden af hinanden.</p>
+        </div>
+        <div class="legende__post">
+          <p class="t-etiket">Ingen "bedst"-markering</p>
+          <p class="t-lille">Vi markerer ikke en vindercelle pr. række. En lavere vægt er ikke "bedre" end en højere — kun anvendelsen afgør det, og siden kender ikke anvendelsen. At markere en vinder ville være den redaktionelle score, produktreglerne forbyder.</p>
+        </div>
+      </div>
+
+      <!-- ============================================================ SPECIMEN-HOVEDET (signaturelement: de tre montrer side om side) -->
+      <div class="specimen-hoved" style="grid-template-columns:220px repeat(3,1fr); margin-bottom:var(--r8)">
+        <div></div>
+
+        <div class="specimen">
+          <div class="specimen__label"><span class="specimen__bogstav">SPOT</span><span class="specimen__taethed">20 af 30 felter</span></div>
+          <div class="vitrine" style="padding:12px 12px 0"><div class="vitrine__foto">
+            <img src="../../assets/fotos/fabrikant/boston-dynamics-spot.jpg" alt="Spot fra Boston Dynamics" loading="lazy">
+          </div></div>
+          <div style="padding:14px 16px 18px">
+            <p class="skilt__navn" style="font-size:19px">Spot</p>
+            <p class="skilt__meta">Boston Dynamics · USA · <span style="text-transform:none">I produktion</span></p>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div class="specimen__label"><span class="specimen__bogstav">ANYMAL X</span><span class="specimen__taethed">4 af 30 felter</span></div>
+          <div class="vitrine" style="padding:12px 12px 0"><div class="vitrine__foto">
+            <img src="../../assets/fotos/fabrikant/anybotics-anymal-x.jpg" alt="ANYmal X fra ANYbotics" loading="lazy">
+          </div></div>
+          <div style="padding:14px 16px 18px">
+            <p class="skilt__navn" style="font-size:19px">ANYmal X</p>
+            <p class="skilt__meta">ANYbotics · Schweiz · <span style="text-transform:none">Annonceret</span></p>
+          </div>
+        </div>
+
+        <div class="specimen">
+          <div class="specimen__label"><span class="specimen__bogstav">GO2</span><span class="specimen__taethed">14 af 30 felter</span></div>
+          <div class="vitrine" style="padding:12px 12px 0"><div class="vitrine__foto">
+            <img src="../../assets/fotos/fabrikant/unitree-go2.jpg" alt="Go2 fra Unitree Robotics" loading="lazy">
+          </div></div>
+          <div style="padding:14px 16px 18px">
+            <p class="skilt__navn" style="font-size:19px">Go2</p>
+            <p class="skilt__meta">Unitree Robotics · Kina · <span style="text-transform:none">I produktion</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================ FELTTABELLEN -->
+      <div class="saml-tabel">
+
+        <div class="saml-gruppe">
+          <p class="saml-gruppe__titel">Fysik</p>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Egenvægt</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span><span class="imperial">74,5 lb</span><span class="forbehold" title="Producentens eget datablad oplyser 32,7 kg (72,1 lbs) i stedet — 1,1 kg forskel, ingen af de to kan afvises.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><span class="op" aria-hidden="true">ca.</span><b class="num">15</b><span class="enhed">kg</span><span class="forbehold" title="Med batteri.">*</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Længde</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">1.100</b><span class="enhed">mm</span><span class="imperial">43,3 in</span><span class="forbehold" title="Producentens egen produktside skriver 110 mm — en faktor 10 fra sit eget imperiale tal. Databladet skriver 1.100 mm, som bruges her.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">70</b><span class="enhed">cm</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Bredde</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">500</b><span class="enhed">mm</span><span class="imperial">19,7 in</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">31</b><span class="enhed">cm</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Højde</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">610</b><span class="enhed">mm</span><span class="imperial">24,0 in</span><span class="forbehold" title="Producenten oplyser fire højder (siddende, standard gående, maks., min.). Standard gående er vist her.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">40</b><span class="enhed">cm</span><span class="forbehold" title="Foldet: 76 × 31 × 20 cm. Skemaet har intet foldemålsfelt.">*</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Frihedsgrader</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">12</b><span class="enhed">DoF</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Nyttelast, gående</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span><span class="imperial">30,9 lb</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><span class="op" aria-hidden="true">ca.</span><b class="num">7</b><span class="enhed">kg</span><span class="forbehold" title="AIR-variantens tal. PRO/X/EDU ligger på 8 kg.">*</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Nyttelast, stående</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Maks. hastighed</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">1,6</b><span class="enhed">m/s</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">0–2,5</b><span class="enhed">m/s</span><span class="forbehold" title="AIR-variantens interval. PRO/X/EDU går op til 3,5–3,7 m/s.">*</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Maks. hældning</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><span class="op" aria-hidden="true">±</span><b class="num">30</b><span class="enhed">°</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">30</b><span class="enhed">°</span><span class="forbehold" title="AIR-variantens tal. PRO/X/EDU går op til 40°.">*</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Enkelt forhindring</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">300</b><span class="enhed">mm</span><span class="imperial">11,8 in</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><span class="op" aria-hidden="true">ca.</span><b class="num">15</b><span class="enhed">cm</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Trappetrin, kontinuerligt</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">IP-klasse</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">IP54</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">IP67</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Driftstemperatur, nedre</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">−20</b><span class="enhed">°C</span><span class="forbehold" title="Databladet tilføjer: robotten skal tændes ved mindst 0 °C.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Driftstemperatur, øvre</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">55</b><span class="enhed">°C</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+        </div>
+
+        <div class="saml-gruppe">
+          <p class="saml-gruppe__titel">Energi</p>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Batteri</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">564</b><span class="enhed">Wh</span><span class="forbehold" title="Batteriet vejer selv 5,2 kg.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Driftstid</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">90</b><span class="enhed">min</span><span class="forbehold" title="Lastbetingelse ikke oplyst. Standby oplyses separat til 180 min.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><span class="op" aria-hidden="true">ca.</span><b class="num">1–2</b><span class="enhed">t</span><span class="forbehold" title="Lastbetingelse ikke oplyst. AIR/PRO/X-variantens tal; EDU går til 2–4 t.">*</span></span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Hot-swap af batteri</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Ladetid</div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">60</b><span class="enhed">min</span><span class="forbehold" title="Databladets egen ladetabel siger noget andet: 50 min til 80 % / 2 t til 100 % ved 25 °C.">*</span></span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke" style="background:var(--accent-ro)">
+            <div class="saml-raekke__navn" style="font-weight:700; color:var(--blaek)">Dockingstation</div>
+            <div class="saml-raekke__celle"><span class="v v-ja"><i class="mrk"></i>ja</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-nej"><i class="mrk"></i>nej</span><span class="forbehold" title="AIR/PRO-variantens svar. X/EDU-varianten har dockingstation.">*</span></div>
+          </div>
+        </div>
+
+        <div class="saml-gruppe">
+          <p class="saml-gruppe__titel">Sensorik og autonomi</p>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">LiDAR</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">4D LiDAR L2</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Kameraer</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">Stereokameraer (antal og model ikke oplyst); vandret synsfelt 360°</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">Zoomkamera 20x optisk; termokamera -10 til +400 grader C; mikrofon; pan-tilt +/- 90 grader vertikalt, +/- 165 grader horisontalt</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">HD vidvinkel</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Onboard compute</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">8-kernet CPU</span><span class="forbehold" title="PRO/X-variantens tal. AIR er ikke oplyst; EDU har desuden NVIDIA Orin, 40-100 TOPS.">*</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">ROS 2</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">SDK-sprog</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">Python</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Autonominiveau</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">Manual &amp; Autonomous Operation; Object Avoidance; Stair &amp; Complex Terrain Navigation; autonome missioner startet fra dock</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">Fully autonomous data gathering; fjernstyring i zone</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+        </div>
+
+        <div class="saml-gruppe">
+          <p class="saml-gruppe__titel">Nyttelast og udvidelser</p>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Monteringsinterface</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">M5 T-slot rails</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Strøm ud</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">Ureguleret DC 35–58,8 V, 150 W pr. port</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Dataporte</div>
+            <div class="saml-raekke__celle"><span class="v v-tekst">DB25 x2, Ethernet, WiFi 2,4/5 GHz b/g/n</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+        </div>
+
+        <div class="saml-gruppe">
+          <p class="saml-gruppe__titel">Kommercielt</p>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">Vejledende pris</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+            <div class="saml-raekke__celle"><span class="v v-tal"><b class="num">1.600</b><span class="enhed">USD</span><span class="forbehold" title="AIR-variantens pris, eksklusiv skat og fragt. PRO 2.800 USD, X 4.500 USD, EDU efter forespørgsel.">*</span></span></div>
+          </div>
+        </div>
+
+        <div class="saml-gruppe">
+          <p class="saml-gruppe__titel">EU</p>
+
+          <div class="saml-raekke">
+            <div class="saml-raekke__navn">CE oplyst</div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span><span class="forbehold" title="Databladet nævner amerikanske standarder (ISO, IEC, FCC), ingen CE og ingen EU-erklæring — men henviser til et Information for Use-dokument, vi ikke har åbnet.">*</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ja"><i class="mrk"></i>ja</span></div>
+            <div class="saml-raekke__celle"><span class="v v-ikke"><i class="mrk"></i>ikke oplyst</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="t-mikro" style="margin-top:var(--r6); max-width:70ch">Varianter og lastbetingelser er markeret med et hævet stjernetegn — hold musen over tallet, eller læs det op med en skærmlæser. Trappetrin og nyttelast findes i to udgaver hver; sammenlign kun felter med samme etikette.</p>
+
+    </div>
+  </section>
+</main>
+
+<footer class="bund-fod">
+  <div class="rum">
+    <p>Udgivet af KeyResearch. Vi er ikke forhandler af nogen robot på denne side, og vi modtager ikke betaling fra producenterne.</p>
+    <p class="t-mikro" style="color:var(--paafod2)">Mockup — designretning LYS ("Udstillingssalen, forfinet"). Ikke til publicering.</p>
+  </div>
+</footer>
+
+</body>
+</html>
