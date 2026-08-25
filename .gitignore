@@ -29,3 +29,6 @@ assets/fotos/fabrikant/**
 
 # Inspirationsmateriale: andres ophavsret
 media/inspiration/**
+
+# L34 (db/): Supabase-noegler. Maa ALDRIG committes - se db/LAESMIG.md
+.env
