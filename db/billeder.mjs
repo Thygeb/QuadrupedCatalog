@@ -244,6 +244,7 @@ async function tjek(url, noegle, bucketInfo) {
   const manifest = await hentManifest(url, noegle);
   const stier = Object.keys(manifest);
   const testSti = stier.length ? stier[0] : MANIFEST_STI;
+  console.log(`  proever at laese "${testSti}" uden nogen apikey- eller Authorization-header ...`);
 
   const svarUdenNoegle = await fetch(objektUrl(url, testSti)); // helt uden headers
   if (svarUdenNoegle.status === 200) {
