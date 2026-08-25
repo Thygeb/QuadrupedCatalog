@@ -113,10 +113,12 @@ To sider bærer mere end deres størrelse antyder:
 
 - **`/metode/`** er hele troværdigheden. Den skal sige hvad vi *ikke* gør: vi tester
   ikke, vi måler ikke, vi rangerer ikke kvalitet, vi tager ikke penge fra producenter.
-- **`/ordbog/`** gør siden brugbar for indkøb, ikke kun for ingeniører — og en indkøber,
-  der kan forstå specifikationerne, er den der booker mødet.
+- **`/ordbog/`** gør siden forståelig, uden at kræve fagsprog i forvejen — ikke kun for
+  ingeniører. For den tekniske indkøber gælder det samme: en, der kan forstå
+  specifikationerne, er den der booker mødet.
 
-**Forsiden må ikke være et marketinglag foran kataloget.** Læseren ankommer fra en
+**Forsiden må ikke være et marketinglag foran kataloget.** Den nysgerrige læser ankommer
+ofte uden et modelnavn i hovedet; den tekniske indkøber ankommer stadig ofte fra en
 søgning på en konkret model eller et konkret krav. Filtrene skal være synlige i første
 viewport.
 
