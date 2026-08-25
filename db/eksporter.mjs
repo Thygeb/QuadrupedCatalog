@@ -1,0 +1,361 @@
+#!/usr/bin/env node
+/**
+ * db/eksporter.mjs — DB  ->  data/robots/*.yaml-lignende filer (L34, STATUS.md)
+ *
+ * Nul afhaengigheder.
+ *
+ * TO TILSTANDE:
+ *
+ *   node db/eksporter.mjs --ud=<mappe>     LOKAL (standard). Ingen DB findes
+ *                                          endnu. Laeser db/kanonisk.json
+ *                                          (skrevet af db/migrer.mjs) og
+ *                                          genererer én YAML-fil pr. robot i
+ *                                          <mappe> — IKKE oven i data/robots/,
+ *                                          som er laesekilde for et andet spor.
+ *
+ *   node db/eksporter.mjs --fra-db --ud=<mappe>   FORBEREDT, IKKE KOERT.
+ *                                          Henter robotterne fra et rigtigt
+ *                                          Supabase-projekt via fetch mod
+ *                                          PostgREST og skriver samme YAML.
+ *                                          Kraever SUPABASE_URL og
+ *                                          SUPABASE_SERVICE_ROLE_KEY i .env.
+ *
+ * FIDELITETSKONTRAKTEN: den genererede YAML skal, naar den laeses igen med
+ * tools/yaml.mjs's parseYaml + tools/skema.mjs's normaliserRobot, give et
+ * DYBT LIG resultat af det samme kaldt paa originalen. Det er IKKE et krav
+ * om byte-identisk tekst (facon, kommentarer og noegleraekkefoelge maa gerne
+ * skifte) — det er kravet, db/rundtur.mjs proever. Se den fils kommentarer
+ * for hvorfor "parse" her betyder normaliserRobot(parseYaml(x)) og ikke den
+ * raa parseYaml alene.
+ *
+ * STRATEGI: for hver robot genopbygges et JS-objekt, der ser ud som den
+ * originale YAML-fils PARSEDE (men IKKE normaliserede) form — samme
+ * noeglenavne (vaerdi/min/maks/kilde/hentet/...), samme topnoegler
+ * (billede/anvendelse/felter/...) — og det objekt skrives saa til YAML af en
+ * generisk emitter. Fordi kanonisk.json allerede er bygget af
+ * normaliserRobot(parseYaml(original)), er den forme, der skrives her,
+ * ALLEREDE i kanonisk form (min/maks ikke vaerdi_min, boolean ikke "ja"),
+ * saa en fornyet normalisering af den eksporterede fil er et no-op i forhold
+ * til betydning.
+ */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
+
+const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const { FELTNAVNE } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`);
+
+/* --------------------------------------------------------- YAML-udskrift */
+
+/** Alle streng-skalarer skrives dobbelt-citeret via JSON.stringify. Projektets
+ *  egen parser (tools/yaml.mjs's laesSkalar) laeser en dobbeltciteret
+ *  vaerdi ved simpelthen at kalde JSON.parse paa den — saa denne vej er
+ *  bevisligt tur-retur-sikker for ALT, JSON.stringify kan producere
+ *  (kolon, "#", citationstegn, unicode, ±-tegn, ...), i modsaetning til en
+ *  "er det sikkert at skrive den bart"-heuristik, der skal gaette rigtigt
+ *  hver gang. */
+function kvaerdi(v) {
+  if (typeof v === 'string') return JSON.stringify(v);
+  if (typeof v === 'number') {
+    if (!Number.isFinite(v)) throw new Error(`kvaerdi: ikke-endeligt tal ${v}`);
+    return String(v);
+  }
+  if (typeof v === 'boolean') return v ? 'true' : 'false';
+  throw new Error(`kvaerdi: uventet type ${typeof v} (${JSON.stringify(v)})`);
+}
+
+/** Skriver ét YAML-kort (objekt) som indrykkede "noegle: vaerdi"-linjer.
+ *  null/undefined springes over — det er praecis det samme som at udelade
+ *  noeglen, hvilket parseYaml ikke kan skelne fra. Rakkefoelgen er
+ *  Object.entries' egen (indsaettelsesraekkefoelgen, som byggFeltpostDoc/
+ *  byggRobotDoc styrer eksplicit nedenfor, saa output er stabilt).
+ *
+ *  LISTER SKRIVES SOM BLOKSEKVENS ("- vaerdi" pr. linje), IKKE SOM
+ *  FLOW-LISTE ("[a, b]"). Fundet af rundturstesten selv, ikke antaget:
+ *  tools/yaml.mjs's laesFlow (flow-listens egen laeser) sporer citerede
+ *  strenge med en naiv "er dette tegn samme citationstegn som aabnede"-
+ *  regel, UDEN at tjekke om et forudgaaende backslash goer citationstegnet
+ *  escaped (fjernKommentar, den anden strengsporing i samme fil, HAR den
+ *  kontrol — laesFlow mangler den). En flow-liste med lange citater, der selv
+ *  indeholder \"-escapede citater (fx robotdata-noter, der citerer en
+ *  producent), bliver derfor splittet forkert midt i strengen. Bloksekvensens
+ *  vej gennem parseren er laesSkalar paa HELE linjen efter "- ", som bruger
+ *  JSON.parse direkte og haandterer \" korrekt. Fundet paa 12 filer i
+ *  db/rundtur.mjs's foerste koersel (25. aug 2026) — noter-listen delte sig i
+ *  op til 3x for mange elementer. */
+function emitKort(obj, indent, linjer) {
+  const pad = ' '.repeat(indent);
+  for (const [noegle, vaerdi] of Object.entries(obj)) {
+    if (vaerdi === null || vaerdi === undefined) continue;
+    if (Array.isArray(vaerdi)) {
+      if (!vaerdi.length) continue; // en tom liste er ikke gyldig i skemaet (R4/R16/R18) — skriv slet ikke noeglen
+      linjer.push(`${pad}${noegle}:`);
+      for (const el of vaerdi) linjer.push(`${pad}  - ${kvaerdi(el)}`);
+    } else if (typeof vaerdi === 'object') {
+      const under = [];
+      emitKort(vaerdi, indent + 2, under);
+      if (!under.length) continue; // et tomt underkort er ikke meningsfuldt — udelad
+      linjer.push(`${pad}${noegle}:`);
+      linjer.push(...under);
+    } else {
+      linjer.push(`${pad}${noegle}: ${kvaerdi(vaerdi)}`);
+    }
+  }
+}
+
+/* -------------------------------------------------- genopbygning: felter */
+
+/** Genopbygger ÉN feltposts YAML-repraesentation af dens kanoniske form
+ *  (se db/migrer.mjs's klassificerFeltpost for det modsatte). */
+function byggFeltpostVaerdi(f) {
+  if (f.form === 'bare_tilstand') return f.tilstand; // en ren streng, ikke et kort
+
+  const kort = {};
+  if (f.form === 'tilstand_med_herkomst') {
+    kort.vaerdi = f.tilstand;
+  } else if (f.form === 'tal') {
+    kort.vaerdi = f.vaerdi_tal;
+  } else if (f.form === 'interval') {
+    kort.min = f.min; kort.maks = f.maks;
+  } else if (f.form === 'tekst') {
+    kort.vaerdi = f.vaerdi_tekst;
+  } else if (f.form === 'bool') {
+    kort.vaerdi = f.vaerdi_bool;
+  } else if (f.form === 'liste') {
+    kort.vaerdi = f.vaerdi_liste;
+  } else {
+    throw new Error(`byggFeltpostVaerdi: ukendt form ${f.form}`);
+  }
+
+  // SIDESPOR (1 forekomst i data, se db/migrer.mjs's kommentar ved samme
+  // navn): et maaleligt interval kan staa ved siden af en tekst/bool/liste-
+  // vaerdi — Boston Dynamics' Spot skriver stroem_ud som TEKST og har
+  // samtidig min/maks for spaendingen. 'interval'-formen selv har allerede
+  // sat kort.min/kort.maks ovenfor og rammer aldrig denne gren.
+  if (f.form !== 'interval' && f.min !== undefined && f.min !== null) {
+    kort.min = f.min; kort.maks = f.maks;
+  }
+
+  if (f.form === 'tal' || f.form === 'interval' || f.form === 'tekst' || f.form === 'bool' || f.form === 'liste') {
+    kort.enhed = f.enhed ?? undefined;
+    kort.enhed_imperial = f.enhed_imperial ?? undefined;
+    kort.vaerdi_imperial = f.vaerdi_imperial ?? undefined;
+    kort.operator = f.operator ?? undefined;
+    kort.note = f.note ?? undefined;
+    kort.raa = f.raa ?? undefined;
+    kort.valuta = f.valuta ?? undefined;
+  }
+  if (f.form === 'tilstand_med_herkomst' || f.form === 'tal' || f.form === 'interval'
+    || f.form === 'tekst' || f.form === 'bool' || f.form === 'liste') {
+    kort.kilde = f.kilde ?? undefined;
+    kort.hentet = f.hentet ?? undefined;
+    kort.kildetype = f.kildetype ?? undefined;
+    kort.advarsel = f.advarsel ?? undefined;
+  }
+  if (f.ved_last) {
+    // Tre virkelige former, alle fundet i data/robots/ (25. aug 2026, ikke
+    // antaget): en BAR tilstand ("ikke_oplyst", 40 forekomster), et
+    // masse-kort med tal+enhed (11 forekomster), og — Yobotics Y20 alene —
+    // et kort med TILSTAND OG enhed: { vaerdi: ikke_oplyst, enhed: kg },
+    // fordi producenten oplyser AT tallet gaelder med last, men ikke hvor
+    // meget (D10/R10's egen begrundelse i STATUS.md). Den tredje form ville
+    // miste sin enhed, hvis tilstand alene afgjorde om ved_last skrives bart.
+    if (f.ved_last.tilstand && f.ved_last.enhed) {
+      kort.ved_last = { vaerdi: f.ved_last.tilstand, enhed: f.ved_last.enhed };
+    } else if (f.ved_last.tilstand) {
+      kort.ved_last = f.ved_last.tilstand;
+    } else {
+      kort.ved_last = { vaerdi: f.ved_last.vaerdi, enhed: f.ved_last.enhed ?? undefined };
+    }
+  }
+  if (f.varianter) kort.varianter = f.varianter;
+
+  // Fjern undefined-noegler (emitKort springer null/undefined over, men et
+  // objekt med kun undefined-vaerdier skal genkendes som "intet at skrive"
+  // af Object.entries — undefined-noegler bliver alligevel filtreret der).
+  return kort;
+}
+
+/* --------------------------------------------------------- genopbygning: robot */
+
+function byggRobotDoc(r) {
+  const doc = {
+    slug: r.slug, navn: r.navn, producent: r.producent, producentland: r.producentland,
+    producentby: r.producentby ?? undefined, status: r.status,
+    foerste_udgivelse: r.foerste_udgivelse ?? undefined,
+    forgaenger: r.forgaenger ?? undefined,
+    varianter: r.varianter ?? undefined,
+    noter: r.noter ?? undefined,
+  };
+
+  if (r.anvendelse) {
+    const a = r.anvendelse;
+    if (a.er_bar_streng) {
+      doc.anvendelse = 'ikke_oplyst';
+    } else {
+      const kort = { vaerdi: a.er_ikke_oplyst ? 'ikke_oplyst' : a.vaerdi };
+      if (!a.er_ikke_oplyst) kort.citat = a.citat;
+      kort.kilde = a.kilde ?? undefined;
+      kort.hentet = a.hentet ?? undefined;
+      kort.kildetype = a.kildetype ?? undefined;
+      kort.arvet_fra = a.arvet_fra ?? undefined;
+      kort.note = a.note ?? undefined;
+      doc.anvendelse = kort;
+    }
+  }
+
+  if (r.billede) {
+    const b = r.billede;
+    doc.billede = {
+      fil: b.fil, ophav: b.ophav, kilde: b.kilde ?? undefined, hentet: b.hentet ?? undefined,
+      alt: b.alt ?? undefined, note: b.note ?? undefined, delt_med: b.delt_med ?? undefined,
+      plade: b.plade ?? undefined, pos: b.pos ?? undefined,
+    };
+  }
+
+  doc.felter = {};
+  for (const feltnavn of FELTNAVNE) {
+    doc.felter[feltnavn] = byggFeltpostVaerdi(r.felter[feltnavn]);
+  }
+
+  return doc;
+}
+
+function skrivRobotYaml(doc) {
+  const linjer = [];
+  // Topnoeglerne i en stabil, laesbar raekkefoelge — identisk med den
+  // raekkefoelge robotdata-skillen selv anbefaler (identitet foerst, saa
+  // anvendelse/billede, saa felter til sidst).
+  const topRaekkefoelge = [
+    'slug', 'navn', 'producent', 'producentland', 'producentby', 'status',
+    'foerste_udgivelse', 'forgaenger', 'varianter', 'noter', 'anvendelse', 'billede',
+  ];
+  const top = {};
+  for (const n of topRaekkefoelge) if (doc[n] !== undefined) top[n] = doc[n];
+  emitKort(top, 0, linjer);
+
+  linjer.push('felter:');
+  const feltLinjer = [];
+  for (const feltnavn of FELTNAVNE) {
+    const v = doc.felter[feltnavn];
+    if (typeof v === 'string') {
+      feltLinjer.push(`  ${feltnavn}: ${kvaerdi(v)}`);
+    } else {
+      const under = [];
+      emitKort(v, 4, under);
+      feltLinjer.push(`  ${feltnavn}:`);
+      feltLinjer.push(...under);
+    }
+  }
+  linjer.push(...feltLinjer);
+
+  return linjer.join('\n') + '\n';
+}
+
+/* ------------------------------------------------------------- --fra-db */
+
+function laesDotEnv(fil) {
+  if (!fs.existsSync(fil)) return;
+  for (const linje of fs.readFileSync(fil, 'utf8').split(/\r?\n/)) {
+    const t = linje.trim();
+    if (!t || t.startsWith('#')) continue;
+    const m = t.match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+    if (!m) continue;
+    const [, noegle, raaVaerdi] = m;
+    if (process.env[noegle] !== undefined) continue;
+    let vaerdi = raaVaerdi.trim();
+    if ((vaerdi.startsWith('"') && vaerdi.endsWith('"')) || (vaerdi.startsWith("'") && vaerdi.endsWith("'"))) {
+      vaerdi = vaerdi.slice(1, -1);
+    }
+    process.env[noegle] = vaerdi;
+  }
+}
+
+/**
+ * FORBEREDT, IKKE KOERT: henter robotterne fra et rigtigt Supabase-projekt
+ * via fetch mod PostgREST (GET med ?select=... og indlejrede ressourcer for
+ * feltposter/anvendelse/billede/feltpost_varianter). Kaldes kun med --fra-db.
+ *
+ * Ligesom db/migrer.mjs's tilDb() staar denne funktion ufuldstaendig, fordi
+ * der ikke er noget projekt at proeve den imod endnu — se db/LAESMIG.md.
+ */
+async function fraDb() {
+  laesDotEnv(path.join(ROD, '.env'));
+  const url = process.env.SUPABASE_URL;
+  const noegle = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !noegle) {
+    console.error('--fra-db kraever SUPABASE_URL og SUPABASE_SERVICE_ROLE_KEY i .env (se db/LAESMIG.md).');
+    return null;
+  }
+  const headers = { apikey: noegle, Authorization: `Bearer ${noegle}` };
+  // PostgREST's indlejrede select kan hente robot + dens feltposter +
+  // anvendelse + billede i ét kald: ?select=*,feltposter(*),anvendelse(*),billede(*)
+  // — IKKE afproevet mod en rigtig instans. Se db/LAESMIG.md's "ikke bygget endnu".
+  const svar = await fetch(
+    `${url}/rest/v1/robotter?select=*,feltposter(*),feltpost_varianter(*),anvendelse(*),billede(*)`,
+    { headers }
+  );
+  if (!svar.ok) throw new Error(`GET robotter fejlede: ${svar.status} ${await svar.text()}`);
+  console.error('--fra-db: raa PostgREST-respons hentet, men OMSAeTNING til kanonisk() form ' +
+    '(slug-opslag for forgaenger/arvet_fra/delt_med fra numerisk id) er IKKE fuldfoert — se db/LAESMIG.md.');
+  return null;
+}
+
+/* --------------------------------------------------------------- main */
+
+function laesFlag(argv) {
+  const flag = {};
+  for (const a of argv) {
+    if (!a.startsWith('--')) continue;
+    const i = a.indexOf('=');
+    if (i === -1) flag[a.slice(2)] = true; else flag[a.slice(2, i)] = a.slice(i + 1);
+  }
+  return flag;
+}
+
+async function main(argv) {
+  const flag = laesFlag(argv);
+  const udMappe = path.resolve(String(flag['ud'] ?? 'db/eksport'));
+
+  let robotter;
+  if (flag['fra-db']) {
+    const data = await fraDb();
+    if (!data) return 1;
+    robotter = data;
+  } else {
+    const kanoniskFil = path.join(ROD, 'db/kanonisk.json');
+    if (!fs.existsSync(kanoniskFil)) {
+      console.error(`${kanoniskFil} findes ikke. Koer db/migrer.mjs foerst.`);
+      return 1;
+    }
+    robotter = JSON.parse(fs.readFileSync(kanoniskFil, 'utf8')).robotter;
+  }
+
+  fs.mkdirSync(udMappe, { recursive: true });
+  // Ryd mappen for gamle filer fra en tidligere koersel, saa en fjernet
+  // robot ikke efterlader en foraeldreloes fil, rundturen ville laese ved
+  // en fejl.
+  for (const f of fs.readdirSync(udMappe)) {
+    if (/\.ya?ml$/.test(f)) fs.rmSync(path.join(udMappe, f));
+  }
+
+  for (const r of robotter) {
+    const doc = byggRobotDoc(r);
+    fs.writeFileSync(path.join(udMappe, `${r.slug}.yaml`), skrivRobotYaml(doc), 'utf8');
+  }
+
+  console.log(`${robotter.length} YAML-fil(er) skrevet til ${udMappe}`);
+  return 0;
+}
+
+const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('eksporter.mjs');
+if (erHoved) {
+  main(process.argv.slice(2)).then((k) => process.exit(k)).catch((e) => {
+    console.error(String(e && e.stack ? e.stack : e));
+    process.exit(1);
+  });
+}
+
+export { byggRobotDoc, skrivRobotYaml };
