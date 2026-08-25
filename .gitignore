@@ -34,3 +34,7 @@ media/inspiration/**
 .env
 db/kanonisk.json
 db/seed.sql
+
+# retning-lys-mockuppens scratch: uddragsscript, QA-skaermbilleder, mellemliggende
+# JSON fra byggeprocessen. Ikke en del af de fire leverede sider.
+prototype/retning-lys/_ref/
