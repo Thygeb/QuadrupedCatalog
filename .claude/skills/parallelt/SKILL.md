@@ -91,6 +91,37 @@ Skal repoet flyttes: vent, flet, fjern worktrees, flyt derefter.
 
 ---
 
+## Tre fælder mere, betalt 24.-25. aug 2026
+
+**6. Worktree ældre end en beslutnings-commit.** En agents worktree er et øjebliksbillede
+af `main` ved forgreningen. Træffes en beslutning (nyt L-nummer i STATUS.md) EFTER
+forgreningen, kender agenten den ikke — og en ægte besked om den nye beslutning kan blive
+afvist som forsøg på manipulation, fordi agentens egen STATUS.md modsiger den. Betalt
+24. aug: kand2-agenten afviste orkestratorens ægte L33-besked som "mulig injection",
+fordi dens worktree var forgrenet før L33-committet. Agentens skepsis var KORREKT adfærd.
+Reglerne: (a) commit friske beslutninger til `main`, FØR nye worktrees forgrenes;
+(b) sendes en besked om en beslutning, agentens worktree ikke kender, så henvis til
+commit-hash, og forvent at agenten arbejder videre efter den strengere af de to regler.
+
+**7. Agentprocesser kan dø, hænge — og transcriptet kan gå tabt.** Betalt tre gange:
+billedport-agenten (procesgenstart, 24. aug) og PDF-sporet (to 600s-stalls, 25. aug;
+andet stall = transcript væk, ingen genoptagelse mulig). Reglerne: (a) skriv i briefet,
+at agenten committer i logiske trin UNDERVEJS — en død agents ucommittede arbejde er
+næsten værdiløst, fordi det er uefterprøvet; (b) i hente-/PDF-tunge opgaver: læs store
+filer i små bidder (PDF: `pages`, 3-5 sider pr. kald) og VENT ALDRIG på retries — ét
+ekstra forsøg, videre med note; (c) dør en agent alligevel: mål efterladenskaberne
+(`git status`, `git diff`, evidensmapper), og skriv i efterfølgerens brief, at arvet
+halvarbejde skal efterprøves linje for linje mod kilden, før noget beholdes.
+
+**8. Gitignorerede leverancer følger ikke med grenen.** Flettet henter kun det
+committede; evidensmapper, fotos og manifester skal kopieres i hånden af orkestratoren.
+For akkumulerende filer (MANIFEST.tsv, logs): agenten afleverer NYE RÆKKER, aldrig hele
+filen, og orkestratoren beviser med `head -N | diff` at de eksisterende rækker er urørte,
+FØR delta'et appendes. Betalt 24. aug: 219 rækkers proveniens overskrevet med en 3-linjers
+fil; kun 87,9 % kunne genskabes. Fuld historik: `fund/FUND-manifest.md`.
+
+---
+
 ## Hvornår det ikke betaler sig
 
 Parallelisering koster en fuld prompt pr. agent, og agenter deler ikke opdagelser
