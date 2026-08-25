@@ -25,7 +25,23 @@ en Supabase-database (redaktionslag, L34). Siden L35 kan JPK også rette direkte
 robotpost, redigerer stadig `data/robots/<slug>.yaml` i sin egen worktree, som hidtil —
 aldrig databasen direkte. Intet i denne skill ændrer sig for det arbejde.
 
-Retter JPK i Studio, skal rettelsen hentes hjem, før nogen kører en migrering:
+Retter JPK i Studio, skal rettelsen hentes hjem, før nogen kører en migrering.
+**JPK's egen vej (siden L35-opfølgningen) er én kommando, ikke tre:**
+
+```
+node db/hentbyg.mjs
+```
+
+Den kører eksportén, måler om noget overhovedet ændrede sig (`git status --porcelain
+data/robots` — tomt betyder "Ingen ændringer i Studio siden sidst", ingen commit, ingen
+byg), viser diffen kort, committer med besked skrevet til fil, og bygger — samme fire
+trin som nedenfor, som én kommando. Den nægter og stopper, hvis `db/eksporter.mjs`
+selv nægter (se "Eksporten validerer sig selv" nedenfor), og gør det tydeligt, hvis
+et efterfølgende byg fejler pga. en låst `dist/` (data er da allerede hentet og
+committet). Flag: `--uden-commit` (stopper efter diff-visningen) og `--uden-byg`.
+
+De fire trin, `db/hentbyg.mjs` pakker sammen, én for én — til fejlsøgning, eller hvis
+kun ét trin skal køres:
 
 ```
 node db/eksporter.mjs --fra-db --ud=data/robots
