@@ -805,11 +805,17 @@ const dist = path.join(tmp, 'dist');
      forsidesporet aendrede build.mjs' sidestruktur, og et haandskrevet tal ville
      skride igen ved naeste aendring (samme laere som NAEVNER, STATUS.md L30).
      Formlen foelger den struktur, build.mjs selv skriver: én rodside (sprogvaelgeren
-     paa /index.html) og, pr. sprog, forsiden, kataloget, én side pr. robot, og -
-     naar producentskabelonen findes - producentindekset plus én side pr. UNIK
-     producent. Robot- og producentantal laeses af proevedatasaettet selv
-     (tests/eksempel-robotter), og sprogantallet af skema.SPROG, saa tallet foelger
-     med, hvis dén data aendrer sig, i stedet for at kraeve en ny konstant her. */
+     paa /index.html) og, pr. sprog, forsiden, kataloget, SAMMENLIGNINGSSIDEN,
+     én side pr. robot, og - naar producentskabelonen findes - producentindekset
+     plus én side pr. UNIK producent. Robot- og producentantal laeses af
+     proevedatasaettet selv (tests/eksempel-robotter), og sprogantallet af
+     skema.SPROG, saa tallet foelger med, hvis dén data aendrer sig, i stedet for
+     at kraeve en ny konstant her.
+     VENDT (spor/lysbyg, retning LYS): leddet var "2" (forside + katalog) og er
+     nu "3" - /sammenligning/ er en NY sidetype, tools/skabelon/sammenligning.mjs,
+     bygget én gang pr. sprog uafhaengigt af robotantallet (klientside vaelger,
+     se dens filhoved). Kravet er skaerpet, ikke sloejfet: formlen fanger stadig
+     enhver fremtidig sidetype-aendring, praecis som foer. */
   const fixtureRobotter = lasRobotter(path.join(rod, 'tests', 'eksempel-robotter'));
   const fixtureProducenter = new Set(fixtureRobotter.map((rb) => rb.producent));
   // Samme gate som build.mjs L327 bruger for producenter/index.html - IKKE bare om
@@ -820,10 +826,10 @@ const dist = path.join(tmp, 'dist');
   const producentModul = await import(
     `file://${path.join(rod, 'tools', 'skabelon', 'producent.mjs').replace(/\\/g, '/')}`).catch(() => null);
   const harProducentindeks = typeof producentModul?.renderIndeks === 'function';
-  const forventetSider = 1 + skema.SPROG.length * (2 + fixtureRobotter.length
+  const forventetSider = 1 + skema.SPROG.length * (3 + fixtureRobotter.length
     + (harProducentindeks ? 1 + fixtureProducenter.size : 0));
   ok(`${forventetSider} HTML-sider bygget, afledt af ${fixtureRobotter.length} robotter / `
-    + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog (fandt ${sider.length})`,
+    + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog + sammenligningssiden (fandt ${sider.length})`,
     sider.length === forventetSider);
 
   const katalogDa = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');

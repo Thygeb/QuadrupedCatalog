@@ -14,6 +14,7 @@
   "spring_til_indhold": "Skip to content",
   "nav_forside": "Home",
   "nav_katalog": "Catalogue",
+  "nav_sammenligning": "Compare",
   "nav_producenter": "Manufacturers",
   "til_katalog": "Back to the catalogue",
   "andet_sprog": "På dansk",
@@ -45,6 +46,22 @@
 
   "forside_formaal_titel": "Find by intended use",
   "forside_formaal_forklaring": "A robot can belong to more than one intended use - pick one to see what the manufacturer itself put it down for.",
+
+  "forside_udvalg_etiket": "{n} of {m}",
+  "forside_udvalg_titel": "From the catalogue",
+
+  "katalog_sortering_etiket": "Sort order",
+  "katalog_sortering_vaegt": "Weight, ascending",
+
+  "sammenligning_titel": "Compare robots, field by field",
+  "sammenligning_lede": "Choose 2 or 3 robots to compare them field by field. Every field from the schema stands in the same order as on the robot page.",
+  "sammenligning_vaelg_titel": "Choose robots",
+  "sammenligning_vaelg_forklaring": "Pick 2 or 3 robots from the list. The table updates automatically.",
+  "sammenligning_maks": "You can compare at most 3 robots at a time.",
+  "sammenligning_for_faa": "Choose at least 2 robots to see the comparison.",
+  "sammenligning_uden_js_forklaring": "The comparison requires JavaScript. Without it: pick a robot from the list to see its full specification.",
+  "sammenligning_legende_vinder_titel": "No winner marked",
+  "sammenligning_legende_vinder_forklaring": "We do not mark a winning cell per row. A lower value is not better than a higher one - only the intended use decides that, and the page does not know the use.",
 
   "katalog_titel": "All robots",
   "katalog_antal": "robots in the catalogue",

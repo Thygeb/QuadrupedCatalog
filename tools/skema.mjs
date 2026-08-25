@@ -351,6 +351,66 @@ export const FILTER_FELTER = [
   'nyttelast_gaaende', 'driftstid', 'ip_klasse', 'ros2', 'ce_oplyst', 'pris',
 ];
 
+/**
+ * Ét felt i SAMMENLIGNINGENS visningsform — sprogneutralt (tal forbliver
+ * tal, operatoren forbliver sin raa kode), til /sammenligning/'s klientside
+ * felt-for-felt-tabel (tools/skabelon/sammenligning.mjs, assets/sammenligning.js).
+ * Delt af build.mjs (robots.json's `alle_felter`) og sammenligning.mjs (den
+ * inline JSON-blok, hver sprogudgave af siden baerer) — ét sted, saa de to
+ * ikke kan naa til hver sin laesning af den samme YAML.
+ *
+ * Deler INGEN kode med side.mjs' tal()/tilstand() (som skriver HTML for ét
+ * sprog ad gangen) — de to har forskellige job: side.mjs afgoer UDSEENDET
+ * for en robot, bygget kender paa forhaand; denne funktion afgoer DATAEN
+ * for en robot, LAESEREN vaelger i browseren, og som derfor maa vaere klar i
+ * begge sprogudgaver paa forhaand. Formen genbruger samme fire tilstande og
+ * samme felter (operator, min/maks, ved_last, forbehold) som resten af
+ * systemet — kun UDTRYKKET er strukturerede data i stedet for HTML.
+ *
+ * IKKE med: `kilde`, `hentet`, `kildetype`. Kildemaerker forbliver skjult
+ * paa sammenligningssiden (CEO-beslutning 24. aug, se BEGRUNDELSE.md
+ * "Kilder skjules") — de udelades her, saa de aldrig kan naa klienten,
+ * ikke kun visuelt skjules med CSS.
+ */
+export function feltVisning(navn, post) {
+  const spec = FELTER[navn];
+  if (post === undefined) return { tilstand: 'ikke_oplyst' };
+  if (typeof post === 'string') {
+    const t0 = tilstandAf(post);
+    return t0 ? { tilstand: t0 === 'nej' ? 'nej' : t0 } : { tilstand: 'tekst', tekst: post };
+  }
+  if (typeof post !== 'object') return { tilstand: 'ikke_oplyst' };
+  const t0 = tilstandAf(post.vaerdi);
+  if (t0) return { tilstand: t0 === 'nej' ? 'nej' : t0, forbehold: post.advarsel ?? null };
+  if (spec?.art === 'jaNej') return { tilstand: post.vaerdi ? 'ja' : 'nej', forbehold: post.advarsel ?? null };
+  if (spec?.art === 'liste') {
+    const v = Array.isArray(post.vaerdi) ? post.vaerdi : [post.vaerdi];
+    return { tilstand: 'tekst', tekst: v.join(', '), forbehold: post.advarsel ?? null };
+  }
+  if (typeof post.vaerdi === 'string' && spec?.art !== 'ip') {
+    // Et tekstfelt kan baere et maalbart interval ved siden af producentens
+    // ordlyd (Spots "ureguleret DC 35-58,8 V") - samme regel som robot.mjs' vaerdi().
+    const ud = { tilstand: 'tekst', tekst: post.vaerdi, forbehold: post.advarsel ?? null };
+    if (post.min !== undefined) { ud.min = post.min; ud.maks = post.maks; ud.enhed = post.enhed ?? null; }
+    return ud;
+  }
+  // Tal - ogsaa art:'ip' ("IP67" er en figur, ikke prosa, samme regel som robot.mjs).
+  const erNul = post.vaerdi === 0;
+  const ud = {
+    tilstand: erNul ? 'nul' : 'tal',
+    vaerdi: post.min !== undefined ? null : (typeof post.vaerdi === 'number' ? post.vaerdi : String(post.vaerdi)),
+    min: post.min ?? null, maks: post.maks ?? null,
+    enhed: post.enhed ?? null, operator: post.operator ?? null,
+    forbehold: post.advarsel ?? null,
+  };
+  if (post.ved_last !== undefined) {
+    const raa = post.ved_last;
+    const ukendt = typeof raa === 'string' || tilstandAf(typeof raa === 'object' ? raa.vaerdi : raa);
+    ud.ved_last = ukendt ? { ukendt: true } : { vaerdi: raa.vaerdi, enhed: raa.enhed ?? null };
+  }
+  return ud;
+}
+
 export const SPROG = ['da', 'en'];
 
 /* ======================================================================

@@ -157,6 +157,34 @@
    det foerste hoved staar taettere paa fladeskiftet, som selv er graensen. */
 .katalog-flade{background:var(--panel-ro);padding-bottom:var(--r8)}
 .katalog-flade > .rum > .sektion:first-child{padding-top:var(--r7)}
+/* Forsidens "Fra kataloget"-smagsproeve (spor/lysbyg): samme flade, samme
+   tonespring-regel som resten af kataloget - kun ÉT afsnit i stedet for
+   alle vaegtklasserne. */
+.udvalg-videre{text-align:center;margin-top:var(--r6)}
+
+/* --- 2b. Katalogets vaegtklasse-sale (spor/lysbyg, kontrakt:
+   prototype/retning-lys/katalog.html) ---------------------------------------
+   Museumssalens rumnummer: romertallet ER salens plads i den faste
+   raekkefoelge (I-IV, tools/skabelon/katalog.mjs' ROMERTAL), ikke et
+   pyntetal. `.sal__antal` er en AEGTE optaelling - samme `.figur`-sprog
+   (mono, tabulaere cifre) som ethvert andet tal paa siden, ikke en saerlig
+   type. `.gitter + .sal` rammer enhver sal EFTER den foerste (adskiller
+   grupperne med systemets hoeje luft), mens den foerste sal beholder
+   afstanden fra facetterne ovenfor. */
+.gitter + .sal{margin-top:var(--r8)}
+.sal{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--r3) var(--r4);margin-bottom:var(--r2)}
+.sal__nr{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--hegn)}
+.sal__titel{margin:0}
+.sal__antal{font-size:13px;color:var(--blaek3);margin-left:auto}
+.sal__forklaring{margin-bottom:var(--r3);max-width:60ch}
+
+/* Sorteringsetiketten (spor/lysbyg): katalogsiden sorterer altid efter
+   vaegt, stigende (samme regel forsiden brugte foer denne aendring, se
+   forside_ordning) - etiketten siger det, den er ikke en knap for
+   alternative sorteringer, systemet ikke bygger endnu (se fund/FUND-lysbyg.md). */
+.katalog-sortering{display:flex;flex-direction:column;gap:4px;margin-left:auto}
+.katalog-sortering .etiket{margin:0}
+.katalog-sortering__vaerdi{font-size:15px;font-weight:600;color:var(--blaek)}
 .styr .gitter{margin-top:var(--r6)}
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
@@ -258,6 +286,83 @@
   border-radius:var(--rund);box-shadow:var(--skygge);background:var(--panel)}
 .billedled--stor .intetfoto{border-radius:var(--rund)}
 .billedled--stor img{transition:none}
+
+/* "Vitrine"-mat (spor/lysbyg, retning LYS, prototype/retning-lys/lys.css'
+   .vitrine): fotografiet hviler PAA en hvid plade i stedet for at fylde
+   kortets kant helt ud - signaturgrebet, mockuppen brugte paa alle fire
+   sider. Kun robotsidens STORE billede faar den: katalogets 62 kort er
+   uaendret (samme regel ville have krympet hvert billedfelt 62 gange for
+   en effekt, der kun betaler sig, naar billedet i forvejen er stort).
+   Maaltro-pladen (.billedled--maal) er UNDTAGET - dens kasse regner sin
+   egen procentbredde ud fra hele feltets 16:10-flade og ville forskydes af
+   en ekstra ramme af luft udenom.
+   `img` fylder sit `<picture>`, som fylder billedled (system.css §11's
+   `.billedled img{width:100%;height:100%}`) - padding paa den YDRE flade
+   insaetter derfor billedet uden at aendre selve fyld-mekanikken, kun den
+   plads, den regner ud fra. IKKE visuelt efterproevet med en browser i
+   denne session (ingen Playwright-adgang) - se fund/FUND-lysbyg.md. */
+.billedled--stor:not(.billedled--maal){padding:12px 12px 0}
+.billedled--stor:not(.billedled--maal) picture{
+  display:block;width:100%;height:100%;overflow:hidden;
+  border-radius:var(--rund-ind);border:1px solid var(--linje)}
+
+/* --- 8b. SAMMENLIGNINGSSIDEN (spor/lysbyg, kontrakt:
+   prototype/retning-lys/sammenligning.html + BEGRUNDELSE.md) --------------- */
+
+/* Tegnforklaringens femte tegn - "ingen vinder markeret". Samme skala som
+   de fire andre tegn i .v (system.css §8), men det er ikke en datatilstand,
+   saa det bruger ikke .v-selv - kun etikettens font. */
+.v-vinder-tegn{font-family:var(--mono);font-size:15px;color:var(--blaek3)}
+
+/* Vaelgeren genbruger .facet/.filtre (system.css §13) uaendret - kun en
+   loft-hoejde, saa 62 afkrydsningsfelter ikke skubber tabellen langt ned. */
+.sammenligning-vaelger .filtre{max-height:260px;overflow-y:auto;
+  padding:2px;border:1px solid var(--linje);border-radius:var(--rund-ind)}
+.sammenligning-status{margin-top:var(--r3);padding:10px 14px;background:var(--accent-ro);
+  border-radius:var(--rund-ind);color:var(--blaek)}
+.sammenligning-status[hidden]{display:none}
+
+/* Specimen-raekken: de valgte robotter side om side, foer laeseren ser et
+   eneste tal (BEGRUNDELSE.md, signaturelement). --n saettes af
+   assets/sammenligning.js (2 eller 3 valgte) - samme "dynamisk vaerdi via
+   CSS-variabel"-moenster som maalepladens --bw/--bh (system.css). */
+.specimen-hoved{display:grid;grid-template-columns:180px repeat(var(--n,3),minmax(0,1fr));
+  gap:var(--r4);margin-top:var(--r5)}
+.specimen{background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
+  box-shadow:var(--skygge);overflow:hidden}
+.specimen__label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding:10px 12px;background:var(--panel-ro);border-bottom:1px solid var(--linje)}
+.specimen__navn{font-size:15px;font-weight:700;color:var(--blaek)}
+.specimen__taethed{font-size:12px;color:var(--accent)}
+.specimen__meta{padding:8px 12px 10px;font-size:12.5px;color:var(--blaek3)}
+
+/* Felttabellen. Grid frem for <table>: en subgrid-lignende raekke (200px
+   etiket + N vaerdikolonner) lader hver celle vaere sin egen boks med egen
+   venstrekant, samme princip som mockuppens .saml-*. */
+.saml-tabel{margin-top:var(--r6);display:flex;flex-direction:column}
+.saml-gruppe{border-top:2px solid var(--blaek)}
+.saml-gruppe:first-child{border-top:0}
+.saml-gruppe__titel{padding:var(--r5) 0 10px;font-family:var(--mono);font-size:13px;
+  font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--blaek)}
+.saml-raekke{display:grid;grid-template-columns:200px repeat(var(--n,3),minmax(0,1fr));
+  border-top:1px solid var(--linje)}
+.saml-raekke__navn{padding:14px 14px 14px 0;font-size:14.5px;font-weight:500;
+  color:var(--blaek2);display:flex;align-items:center}
+.saml-raekke__celle{padding:14px;display:flex;align-items:center;
+  border-left:1px solid var(--linje);min-width:0}
+.saml-raekke__celle .v{font-size:16px}
+
+@media (max-width:900px){
+  .specimen-hoved{grid-template-columns:1fr;gap:var(--r3)}
+  .specimen-hoved > div:first-child{display:none}
+  .saml-raekke{grid-template-columns:1fr;row-gap:8px;padding:14px 0}
+  .saml-raekke__navn{padding:0;font-weight:700;color:var(--blaek)}
+  .saml-raekke__celle{border-left:2px solid var(--linje);padding:2px 0 2px 14px;
+    display:flex;flex-direction:column;gap:3px}
+  .saml-raekke__celle::before{content:attr(data-robot);font-family:var(--mono);
+    font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--blaek3)}
+}
 
 /* =============================================================================
    9. SIDENS RAMME, ROBOTSIDEN OG PRODUCENTSIDEN
