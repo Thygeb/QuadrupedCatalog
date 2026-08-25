@@ -39,7 +39,7 @@ erDiagram
     jsonb noter "forbehold og stop-tjek-citater"
   }
   feltposter {
-    bigint robot_id PK_FK "hvilken robot"
+    bigint robot_id FK "hvilken robot"
     feltnavn_enum feltnavn PK "hvilket af de 30 felter"
     feltform_enum form "tal, interval, tekst, bool, liste eller tilstand"
     tilstand_enum tilstand "ikke_oplyst / nej / kun_billede"
@@ -60,26 +60,26 @@ erDiagram
     numeric ved_last_vaerdi "fx 20 kg last under driftstiden"
   }
   feltpost_varianter {
-    bigint robot_id PK_FK ""
-    feltnavn_enum feltnavn PK_FK "hvilket felt varianten aendrer"
+    bigint robot_id FK "-"
+    feltnavn_enum feltnavn FK "hvilket felt varianten aendrer"
     text variant_navn PK "fx Go2 Pro"
     jsonb vaerdi "variantens eget tal"
   }
   anvendelse {
-    bigint robot_id PK_FK ""
+    bigint robot_id FK "-"
     boolean er_ikke_oplyst "producenten inddeler ikke selv"
     jsonb vaerdi "kategorier, fx inspektion + industri"
     jsonb citat "producentens ordrette saetning - kraevet"
     text kilde "URL"
-    date hentet ""
+    date hentet "-"
     bigint arvet_fra_robot_id FK "moderen, naar en variant arver"
   }
   billede {
-    bigint robot_id PK_FK ""
+    bigint robot_id FK "-"
     text fil "filnavn i assets, fx spot.jpg"
     ophav_enum ophav "eget_foto / silhuet / fabrikant"
     text kilde "hvor billedet er hentet - kraevet for fabrikant"
-    date hentet ""
+    date hentet "-"
     text alt "alt-tekst til sitet"
     bigint delt_med_robot_id FK "to robotter, eet foto"
   }
