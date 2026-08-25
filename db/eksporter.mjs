@@ -444,4 +444,4 @@ if (erHoved) {
   });
 }
 
-export { byggRobotDoc, skrivRobotYaml };
+export { byggRobotDoc, skrivRobotYaml, fraDb };

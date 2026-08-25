@@ -44,6 +44,13 @@ const {
   ANVENDELSE_NOEGLER, GRUPPER, KATALOG_FELTER, FILTER_FELTER,
 } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`);
 const { main: validerMain, findFiler } = await import(`file://${path.join(ROD, 'tools/validate.mjs')}`);
+// VAGTEN (L35): laeser DB'ens nuvaerende indhold gennem PRAeCIS den samme
+// kodevej, som db/eksporter.mjs's --fra-db bruger (importeret, ikke
+// genimplementeret), og sammenligner med samme dybe lighed, db/rundtur.mjs
+// allerede bruger til at bevise fundamentet (importeret, ikke genimplementeret)
+// — to kopier af samme forespoergsel/sammenligning er praecis D7/L30-faelden.
+const { fraDb } = await import(`file://${path.join(ROD, 'db/eksporter.mjs')}`);
+const { dybtLig } = await import(`file://${path.join(ROD, 'db/rundtur.mjs')}`);
 
 /* ------------------------------------------------------------------------
  * DRIFTVAGT: feltnavn_enum i db/skema.sql er en haandskrevet oejeblikslisme
@@ -360,6 +367,89 @@ function laesDotEnv(fil) {
   }
 }
 
+/* --------------------------------------------------------------- vagten */
+
+/** Skriver én vaerdi til rapportformatet "DB "<v>" vs YAML "<v>"" — strenge
+ *  skrives raat (uden ekstra JSON-citering, formatet laegger selv citaterne
+ *  udenom), tal/bool som deres egen String(), objekter/lister som JSON, og
+ *  null/undefined som den synlige streng "null" (ellers ville "" og "null"
+ *  se ens ud i rapporten). */
+function formatVaerdi(v) {
+  if (v === null || v === undefined) return 'null';
+  if (typeof v === 'string') return v;
+  if (typeof v === 'object') return JSON.stringify(v);
+  return String(v);
+}
+
+/** Graver videre i to vaerdier, der dybtLig() allerede har afgjort er
+ *  UENS, for at finde den/de konkrete bladsti(er) og de to bladvaerdier —
+ *  dybtLig alene fortaeller kun "typeforskel"/"listelaengde" til
+ *  fejlsoegning, ikke de faktiske vaerdier en redaktoer skal kunne laese.
+ *  Rekurserer parallelt med dybtLig's egne regler (samme kort/liste/blad-
+ *  afgoerelser), saa "er de uens" og "hvor er de uens" aldrig kan skride
+ *  fra hinanden. */
+function findAfvigelser(dbVaerdi, yamlVaerdi, sti, slug, ud) {
+  if (dybtLig(dbVaerdi, yamlVaerdi)) return;
+
+  if (erKort(dbVaerdi) && erKort(yamlVaerdi)) {
+    const noegler = new Set([...Object.keys(dbVaerdi), ...Object.keys(yamlVaerdi)]);
+    for (const n of [...noegler].sort()) {
+      findAfvigelser(dbVaerdi[n] ?? null, yamlVaerdi[n] ?? null, sti ? `${sti}.${n}` : n, slug, ud);
+    }
+    return;
+  }
+  if (Array.isArray(dbVaerdi) && Array.isArray(yamlVaerdi) && dbVaerdi.length === yamlVaerdi.length) {
+    for (let i = 0; i < dbVaerdi.length; i++) {
+      findAfvigelser(dbVaerdi[i], yamlVaerdi[i], `${sti}[${i}]`, slug, ud);
+    }
+    return;
+  }
+  // Bladniveau, eller en strukturel forskel (liste vs. ikke-liste, forskellig
+  // listelaengde, ...), som ikke kan graves laengere ned i — rapportér HELE
+  // undertraeet paa dette sted som ét afvigende blad.
+  ud.push({ slug, sti: sti || '(hele robotten)', db: formatVaerdi(dbVaerdi), yaml: formatVaerdi(yamlVaerdi) });
+}
+
+/**
+ * VAGTEN's rene sammenligningsfunktion (L35, STATUS.md). Sammenligner
+ * DB'ens nuvaerende indhold (samme kanoniske, slug-noeglede form, fraDb()
+ * returnerer) mod YAML-kildernes kanoniske form (samme `robotter`-argument,
+ * tilDb() selv modtager fra klassificerRobot()) — begge sider er ALLEREDE
+ * paa den form, db/kanonisk.json selv bruger, saa der er ingen tredje,
+ * uprøvet normalisering imellem dem.
+ *
+ * Bruger dybtLig (db/rundtur.mjs) til selve ja/nej-afgoerelsen paa hvert
+ * delfelt — praecis den samme regel, "RUNDTUR BESTAAET" allerede staar paa
+ * — og finder derefter, via findAfvigelser, den konkrete feltsti og de to
+ * vaerdier for hvert punkt, hvor de er uenige.
+ *
+ * Ren funktion: ingen fetch, ingen filsystem — testes derfor uden netvaerk
+ * og uden .env (tests/koer.mjs's afsnit 7).
+ *
+ * Returnerer en liste af { slug, sti, db, yaml }. Tom liste = ingen
+ * afvigelse (databasen er, feltvis, den samme, YAML'en siger).
+ */
+function sammenlignDbMedYaml(dbRobotter, yamlRobotter) {
+  const afvigelser = [];
+  const dbPrSlug = new Map(dbRobotter.map((r) => [r.slug, r]));
+  const yamlPrSlug = new Map(yamlRobotter.map((r) => [r.slug, r]));
+  const alleSlugs = new Set([...dbPrSlug.keys(), ...yamlPrSlug.keys()]);
+  for (const slug of [...alleSlugs].sort()) {
+    const dbR = dbPrSlug.get(slug);
+    const yamlR = yamlPrSlug.get(slug);
+    if (dbR === undefined || yamlR === undefined) {
+      afvigelser.push({
+        slug, sti: '(hele robotten)',
+        db: dbR === undefined ? 'mangler i DB' : 'findes i DB',
+        yaml: yamlR === undefined ? 'mangler i data/robots/' : 'findes i data/robots/',
+      });
+      continue;
+    }
+    findAfvigelser(dbR, yamlR, '', slug, afvigelser);
+  }
+  return afvigelser;
+}
+
 /**
  * Skriver robotterne til et rigtigt Supabase-projekt via fetch mod PostgREST.
  * Kaldes kun naar --til-db er sat PAA kommandolinjen. Kraever SUPABASE_URL og
@@ -399,8 +489,18 @@ function laesDotEnv(fil) {
  * requires a WHERE clause", kode 21000) — Supabase/PostgREST kraever et
  * filter paa enhver DELETE/UPDATE, ogsaa naar service_role omgaar RLS. Fixet
  * med et filter, der matcher enhver raekke: "<NOT NULL-kolonne>=not.is.null".
+ *
+ * VAGTEN (L35, STATUS.md): foer toem-og-genindlaes overhovedet starter,
+ * laeses DB'ens NUVAeRENDE indhold (samme kodevej som eksporter.mjs's
+ * --fra-db) og sammenlignes (samme dybe lighed som rundtur.mjs) mod
+ * `robotter` — YAML-filernes kanoniske form. Afviger de, stopper funktionen
+ * UDEN at kalde del()/patch() en eneste gang: JPK's redigeringer i Supabase
+ * Studio maa ikke kunne overskrives af en genkoersel, der ikke ved, de er
+ * der (se db/LAESMIG.md og STATUS.md's L35 for hvorfor). --overskriv-
+ * databasen paa kommandolinjen springer vagten over med vilje. En TOM
+ * database (0 robotter) har intet at miste og stopper ikke.
  */
-async function tilDb(robotter) {
+async function tilDb(robotter, argv = []) {
   laesDotEnv(path.join(ROD, '.env'));
   const url = process.env.SUPABASE_URL;
   const noegle = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -408,6 +508,36 @@ async function tilDb(robotter) {
     console.error('--til-db kraever SUPABASE_URL og SUPABASE_SERVICE_ROLE_KEY i .env (se db/LAESMIG.md).');
     return 1;
   }
+
+  if (!argv.includes('--overskriv-databasen')) {
+    console.log('  vagt: laeser DB\'ens nuvaerende indhold og sammenligner med data/robots/ ...');
+    const dbRobotter = await fraDb();
+    if (dbRobotter === null) {
+      // Kan i praksis ikke ske her (url/noegle er lige valideret ovenfor),
+      // men fraDb() KAN returnere null (manglende .env) — fejl hoejlydt frem
+      // for at lade en null-vaerdi glide videre ind i sammenligningen.
+      console.error('VAGT: kunne ikke laese databasens nuvaerende indhold (fraDb() gav null, uventet).');
+      return 1;
+    }
+    if (dbRobotter.length === 0) {
+      console.log('  vagt: databasen er tom, intet at miste — fortsaetter.');
+    } else {
+      const afvigelser = sammenlignDbMedYaml(dbRobotter, robotter);
+      if (afvigelser.length) {
+        console.error('VAGT: databasen indeholder aendringer, der ikke findes i data/robots/.');
+        for (const a of afvigelser.slice(0, 20)) {
+          console.error(`  ${a.slug}: ${a.sti} — DB "${a.db}" vs YAML "${a.yaml}"`);
+        }
+        if (afvigelser.length > 20) console.error(`  ... og ${afvigelser.length - 20} flere`);
+        console.error('Koer db/eksporter.mjs --fra-db foerst, eller gentag med --overskriv-databasen hvis aendringerne skal kasseres.');
+        return 1;
+      }
+      console.log(`  vagt: databasen (${dbRobotter.length} robotter) matcher data/robots/ — fortsaetter.`);
+    }
+  } else {
+    console.log('  vagt: sprunget over (--overskriv-databasen).');
+  }
+
   const headers = { apikey: noegle, Authorization: `Bearer ${noegle}`, 'Content-Type': 'application/json' };
 
   async function del(tabel, matchAltKolonne) {
@@ -550,7 +680,7 @@ async function main(argv) {
   });
   robotter.sort((a, b) => a.slug.localeCompare(b.slug));
 
-  if (argv.includes('--til-db')) return tilDb(robotter);
+  if (argv.includes('--til-db')) return tilDb(robotter, argv);
 
   const kanoniskFil = path.join(ROD, 'db/kanonisk.json');
   fs.writeFileSync(kanoniskFil, JSON.stringify({ genereret: new Date().toISOString().slice(0, 10), robotter }, null, 2), 'utf8');
@@ -572,4 +702,7 @@ if (erHoved) {
   });
 }
 
-export { klassificerRobot, klassificerFeltpost, tjekEnumDrift, FELTNAVN_ENUM_I_SKEMA_SQL };
+export {
+  klassificerRobot, klassificerFeltpost, tjekEnumDrift, FELTNAVN_ENUM_I_SKEMA_SQL,
+  sammenlignDbMedYaml,
+};
