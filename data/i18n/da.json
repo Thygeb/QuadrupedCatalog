@@ -141,6 +141,7 @@
   "kort_kilder_flere": "Kortets tal kommer fra {n} kilder - se mærkerne",
   "kort_kilder_ingen": "Ingen af kortets tal har en kilde i datafilen.",
   "kort_legende": "Fotos på kortene er producenternes egne, ikke krediteret og uden tilladelse, medmindre andet er angivet under det enkelte kort. Kortenes tal har kilde - et hævet bogstav ved tallet peger på hvilken.",
+  "kort_invitation": "Se robotten",
 
   "ved_last": "ved last",
   "ved_last_ukendt": "lastbetingelse ikke oplyst",

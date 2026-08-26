@@ -1167,8 +1167,19 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // mere end én kilde.
     const stribeKilder = antalKilder > 1 ? k : null;
 
+    // Hover-/fokus-signalet (spor/indgang, punkt 3, 26. aug 2026): kortets
+    // eneste hover-effekt var foer dette scale(1.024) paa fotografiet - 2,4 %,
+    // maalt usynligt. Teksten er rent dekorativ (aria-hidden): kortets navn
+    // baerer allerede det rigtige link (::after daekker hele kortet), saa
+    // invitationen skal ikke laeses to gange af en skaermlaeser. `.kort-billed`
+    // er en almindelig wrapper omkring billede() - selve billedet/pladen/den
+    // tomme flade er urort, saa alle tre billedtilstande faar signalet uden
+    // at nogen af dem er aendret.
     return `<article class="kort">
+<div class="kort-billed">
 ${billede(robot, op, { eager })}
+<span class="kort-invit" aria-hidden="true">${esc(t('kort_invitation'))}${ikon('i-pil', 'ikon ikon--lille')}</span>
+</div>
 <div class="kort-krop">
 <div class="kort-hoved">
 <p class="kort-ophav"><span class="prod">${esc(robot.producent)}</span>`
