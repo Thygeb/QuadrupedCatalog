@@ -239,4 +239,4 @@ if (erHoved) {
   }
 }
 
-export { dybtLig };
+export { dybtLig, traekValidateTal };
