@@ -447,3 +447,8 @@ Tre fælder, der kostede kald samme dag ([ARBEJDSGANG.md](ARBEJDSGANG.md)):
   `grep` bagefter, eller brug Edit-værktøjet, som fejler synligt.
 - **Lange markdown-filer knækker i bash-heredocs.** Brug Write-værktøjet.
 - **node og Git Bash er ikke enige om, hvor `/tmp` ligger.** Brug en sti i projektet.
+- **`split()` på et sektions-id rammer det tomme mellemstykke.** Skabelonerne skriver hvert
+  sektions-id **to gange** — én gang i `aria-labelledby` og én gang i `id` — så
+  `html.split('h-udvalg')[1]` giver strengen *mellem de to forekomster*, ikke sektionen.
+  Den fejl ramte to acceptkriterier 26. aug 2026 og fik begge til at printe 0, uanset om
+  arbejdet var rigtigt. Brug `indexOf` på klassenavnet og skær frem til næste sektion.
