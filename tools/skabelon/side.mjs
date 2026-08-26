@@ -36,7 +36,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   FELTER, SPROG, tilstandAf, sorterAnvendelse,
-  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade,
+  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade, jaNejAf,
 } from '../skema.mjs';
 import { ENHEDER } from '../yaml.mjs';
 
@@ -108,15 +108,154 @@ export function billedFiler(rod = ROD) {
 /** Ryd cachen. Kun til test: et byg laeser assets/ én gang. */
 export function glemBilledFiler() { _billedFiler.clear(); }
 
+/* ============================================================== pladen
+   Rammen (.billedled) er 16:10. Et fotografi, der ikke ligner det ret meget,
+   bliver klippet forkert af `object-fit:cover` — poter, hoved eller sider
+   ryger uden for kanten. `.billedled--plade` (object-fit:contain) findes
+   allerede i assets/system.css, men den var indtil nu kun tilgaengelig via
+   et felt (`billede.plade` i YAML'en), som ingen huskede at saette for et
+   fotografi (kun for silhuetter, via ophav). Derfor stod 0 fotografier med
+   klassen, selvom 27 af 75 (maalt 26. aug 2026, se .tmp-agent/dim.mjs) afveg
+   over 25 % fra 16:10.
+
+   Loesningen her laeser filens EGNE dimensioner af byte-headeren — ingen
+   billedbibliotek, ingen dependency — og afgoer sagen derfra, saa et felt
+   ikke laengere er noedvendigt. Et eksplicit `plade: ja` eller `plade: nej`
+   i YAML'en vinder stadig (billedPlade()/jaNejAf ovenfor); det automatiske
+   spor traeder kun til, naar feltet ikke er sat.
+   ====================================================================== */
+
+/** Rammens eget forhold, sat i assets/system.css:442 (aspect-ratio:16/10). */
+const SIDEFORHOLD_MAAL = 16 / 10;
+
+/**
+ * Graense for relativ afvigelse fra 16:10, foer et foto faar --plade i
+ * stedet for at blive beskaaret. Maalt paa alle 75 billeder i assets/fotos/
+ * (.tmp-agent/dim.mjs, 26. aug 2026): brudpunktet ligger IKKE ved et rundt
+ * tal ved en tilfaeldighed — der er et hul paa 2,3 procentpoint mellem
+ * 24,2 % (yobotics-y10/-y20, kvadratiske produktfotos der bevidst skal
+ * beskaeres til liggende) og 26,5 % (unitree-go2, som skal have plade). Et
+ * naboliggende hul paa 4,4 point ligger mellem 19,0 % og 23,4 % (den
+ * fejlmaerkede cvte-maxhub-x7.jpg, se noten ved dimAfFil) og ville ogsaa
+ * virke, men 25 % ligger midt i SIT hul og reproducerer praecis de 27, der
+ * blev talt op i briefet: alt over 25 % (fra 26,5 % og opefter) faar --plade,
+ * alt under (op til 24,2 %) beholder cover — 27 af 75 billeder rammes,
+ * deriblandt alle 7 portraetter.
+ */
+const SIDEFORHOLD_TOLERANCE = 0.25;
+
+function dimAfPNG(buf) {
+  if (buf.length < 24 || buf.readUInt32BE(0) !== 0x89504e47) return null;
+  return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+}
+
+function dimAfJPEG(buf) {
+  if (buf.length < 4 || buf.readUInt16BE(0) !== 0xffd8) return null;
+  let o = 2;
+  while (o + 4 <= buf.length) {
+    if (buf[o] !== 0xff) { o += 1; continue; }
+    const markoer = buf[o + 1];
+    if (markoer === 0xd8 || markoer === 0x01 || (markoer >= 0xd0 && markoer <= 0xd7)) { o += 2; continue; }
+    if (markoer === 0xd9) break;
+    const laengde = buf.readUInt16BE(o + 2);
+    // SOFn baerer maalene (0xC0-0xCF, undtagen DHT/JPG/DAC som ikke er SOF).
+    const erSOF = markoer >= 0xc0 && markoer <= 0xcf
+      && markoer !== 0xc4 && markoer !== 0xc8 && markoer !== 0xcc;
+    if (erSOF) {
+      if (o + 9 > buf.length) return null;
+      return { h: buf.readUInt16BE(o + 5), w: buf.readUInt16BE(o + 7) };
+    }
+    o += 2 + laengde;
+  }
+  return null;
+}
+
+function dimAfWebP(buf) {
+  if (buf.length < 30) return null;
+  if (buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WEBP') return null;
+  const fourcc = buf.toString('ascii', 12, 16);
+  if (fourcc === 'VP8X') {
+    return {
+      w: 1 + (buf[24] | (buf[25] << 8) | (buf[26] << 16)),
+      h: 1 + (buf[27] | (buf[28] << 8) | (buf[29] << 16)),
+    };
+  }
+  if (fourcc === 'VP8 ') {
+    return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+  }
+  if (fourcc === 'VP8L') {
+    const b0 = buf[21]; const b1 = buf[22]; const b2 = buf[23]; const b3 = buf[24];
+    return {
+      w: 1 + (((b1 & 0x3f) << 8) | b0),
+      h: 1 + (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6)),
+    };
+  }
+  return null;
+}
+
+/**
+ * Billedets pixelmaal, laest af filens egen byte-header — ikke af filnavnets
+ * endelse. Fundet 26. aug 2026: assets/fotos/fabrikant/cvte-maxhub-x7.jpg
+ * hedder .jpg, men INDEHOLDER en WebP-fil (RIFF/WEBP-signatur). Et opslag
+ * efter filendelsen ville have fejlet stille paa netop den fil og ladet den
+ * falde tilbage til cover, uden at nogen kunne se hvorfor. Derfor proeves
+ * alle tre formater efter tur, uanset hvad filen hedder.
+ */
+const _billedDim = new Map();
+function dimAfFil(sti) {
+  if (_billedDim.has(sti)) return _billedDim.get(sti);
+  let dim = null;
+  try {
+    const buf = fs.readFileSync(sti);
+    dim = dimAfPNG(buf) || dimAfJPEG(buf) || dimAfWebP(buf);
+  } catch {
+    dim = null;
+  }
+  _billedDim.set(sti, dim);
+  return dim;
+}
+
+/** Ryd dimensions-cachen. Kun til test. */
+export function glemBilledDimensioner() { _billedDim.clear(); }
+
+/**
+ * Skal billedet have --plade, UDLEDT af filens eget sideforhold? Bruges kun
+ * naar YAML'en ikke selv har taget stilling (se laesBillede). Afvigelsen
+ * regnes relativt og retningsloest — |forhold - 16/10| / (16/10) — saa et
+ * for smalt portraet (yufan-lingmao-cyvet, 0,66) og et for bredt liggende
+ * billede (unitree-laikago, 2,34) behandles ens: begge mister noget af
+ * robotten under cover, saa begge skal have contain. At skelne retning ville
+ * kraeve en begrundelse for hvorfor den ene slags beskaering er vaerre end
+ * den anden, og der er ingen — cover skaerer poter af i begge retninger.
+ */
+export function billedAutoPlade(fil, rod = ROD) {
+  if (typeof fil !== 'string' || fil.trim() === '') return false;
+  const dim = dimAfFil(path.join(path.resolve(rod), 'assets', fil));
+  if (!dim || !dim.w || !dim.h) return false;
+  const forhold = dim.w / dim.h;
+  const afvigelse = Math.abs(forhold - SIDEFORHOLD_MAAL) / SIDEFORHOLD_MAAL;
+  return afvigelse > SIDEFORHOLD_TOLERANCE;
+}
+
 /**
  * Robottens billedpost i den form, skabelonerne bruger — eller null.
  * Null betyder den tomme plade, og den er en aerlig tilstand, ikke en fejl.
  */
-export function laesBillede(robot) {
+export function laesBillede(robot, rod = ROD) {
   const b = robot?.billede;
   if (!b || typeof b !== 'object' || Array.isArray(b)) return null;
   if (typeof b.fil !== 'string' || b.fil.trim() === '') return null;
   const tekst = (v) => (typeof v === 'string' && v.trim() !== '' ? v : null);
+  // Eksplicit `plade: ja`/`nej` i YAML'en vinder altid, i begge retninger —
+  // et felt, en dataskriver bevidst har sat, skal ikke kunne overstyres af
+  // en maaling, den ikke kan se. Er feltet IKKE sat, afgoer billedPlade()
+  // stadig silhuetter (ophav==='silhuet'); for alt andet traeder det
+  // automatiske sideforhold-tjek til, saa et fotograf ikke laengere kraever
+  // et huskefelt for at faa den rigtige beskaering.
+  const eksplicitPlade = jaNejAf(b.plade);
+  const plade = eksplicitPlade !== null
+    ? eksplicitPlade
+    : (billedPlade(b) || billedAutoPlade(b.fil, rod));
   return {
     fil: b.fil,
     ophav: tekst(b.ophav),
@@ -125,7 +264,7 @@ export function laesBillede(robot) {
     alt: tekst(b.alt),
     note: tekst(b.note),
     delt_med: tekst(b.delt_med),
-    plade: billedPlade(b),
+    plade,
     pos: tekst(b.pos),
   };
 }
