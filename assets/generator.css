@@ -308,6 +308,21 @@
    CSS-variabel"-moenster som maalepladens --bw/--bh (system.css). */
 .specimen-hoved{display:grid;grid-template-columns:180px repeat(var(--n,3),minmax(0,1fr));
   gap:var(--r4);margin-top:var(--r5)}
+/* spor/enheder, punkt 2: tabellen (30 raekker i seks grupper, ca. 1200 px
+   lodret) rummer robotnavnene KUN i specimen-hovedet. Ved raekken
+   "Autonominiveau" er hovedet rullet ud af billedet, og de tre kolonner kan
+   ikke skelnes. Klaebende, saa navnene bliver i billedet, saa laenge
+   tabellen goer det - kun paa bredder, hvor hovedet reelt ER en raekke (se
+   900 px-graensen nedenfor: under den stakker mobiloverstyringen specimen-
+   kortene i ÉT fuldbredt kort pr. robot, og et klaebende sådant ville daekke
+   det meste af skaermen). En gennemsigtig baggrund ville lade raekkerne
+   nedenunder skinne igennem, naar de ruller under - designsystemets
+   panelfarve (--panel), samme moenster som .baand (system.css) bruger til
+   topbaandet, ikke en haardkodet hvid. */
+@media (min-width:901px){
+  .specimen-hoved{position:sticky;top:0;z-index:5;background:var(--panel);
+    padding:10px 0;border-bottom:1px solid var(--linje)}
+}
 .specimen{background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
   box-shadow:var(--skygge);overflow:hidden}
 .specimen__label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
