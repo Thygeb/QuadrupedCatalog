@@ -58,6 +58,13 @@ import { execFileSync } from 'node:child_process';
 
 const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { FELTNAVNE } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`);
+// Aa12 (STATUS.md): traekValidateTal var tidligere en BEVIDST duplikeret
+// regex her, fordi db/rundtur.mjs var forbudt for dette spor, mens et andet
+// spor arbejdede i den (25. aug 2026) - og funktionen var dengang ikke
+// eksporteret derfra. Den laas er vaek nu; funktionen importeres i stedet,
+// saa udtraekket af validatorens opsummeringslinje kun findes ÉT sted
+// (D7/L30-faelden: to kopier af samme ting skrider fra hinanden).
+const { traekValidateTal } = await import(`file://${path.join(ROD, 'db/rundtur.mjs')}`);
 
 /* --------------------------------------------------------- YAML-udskrift */
 
@@ -414,21 +421,15 @@ function laesFlag(argv) {
 }
 
 /**
- * Koerer tools/validate.mjs som subproces mod `mappe` og traekker samme tal
- * ud af opsummeringslinjen ("N fil(er) · M fejl · K advarsler"), som
- * db/rundtur.mjs's traekValidateTal allerede goer.
- *
- * BEVIDST DUPLIKERET REGEX, IKKE GENBRUGT: db/rundtur.mjs staar paa den
- * forbudte fil-liste i dette spors opgavebrev (et andet spor arbejder i den
- * lige nu), og traekValidateTal er desuden ikke eksporteret derfra — kun
- * dybtLig er. Et forsoeg paa at importere en ueksporteret funktion ville
- * fejle haardt, og filen maa ikke redigeres til at eksportere den, foer det
- * andet spor er landet. Regex'en herunder er derfor en BEVIDST, midlertidig
- * kopi af rundtur.mjs's egen — samme moenster, samme adskillelsestegn " · ",
- * samme "N fil(er) · M fejl · K advarsler". Naar db/rundtur.mjs igen er frit
- * at redigere, boer traekValidateTal eksporteres derfra og denne kopi
- * fjernes, saa de to ikke kan skride fra hinanden (D7/L30-faelden — se
- * fund/FUND-eksval.md).
+ * Koerer tools/validate.mjs som subproces mod `mappe` og traekker tallene ud
+ * af opsummeringslinjen ("N fil(er) · M fejl · K advarsler") via
+ * db/rundtur.mjs's traekValidateTal (importeret ovenfor, ikke genskrevet —
+ * Aa12, STATUS.md: en tidligere bevidst duplikeret kopi af regex'en er
+ * fjernet nu, hvor rundtur.mjs's forbud fra et andet spor er ophoert. To
+ * kopier af samme udtraek er praecis D7/L30-faelden: de skrider fra
+ * hinanden ved naeste aendring, fordi ingen af dem ved, den anden findes).
+ * fejlLinjer (de FEJL-praefikserede linjer, til selve fejlteksten i
+ * rapporten) er IKKE en del af traekValidateTal og hentes derfor stadig her.
  */
 function koerValidator(mappe) {
   let udskrift;
@@ -438,10 +439,9 @@ function koerValidator(mappe) {
   } catch (e) {
     udskrift = (e.stdout ?? '') + (e.stderr ?? '');
   }
-  const m = udskrift.match(/(\d+) fil\(er\) · (\d+) fejl · (\d+) advarsler/);
-  if (!m) throw new Error(`Kunne ikke laese validate.mjs's opsummeringslinje i:\n${udskrift}`);
+  const { filer, fejl, advarsler } = traekValidateTal(udskrift);
   const fejlLinjer = udskrift.split('\n').filter((l) => l.startsWith('FEJL'));
-  return { filer: Number(m[1]), fejl: Number(m[2]), advarsler: Number(m[3]), fejlLinjer };
+  return { filer, fejl, advarsler, fejlLinjer };
 }
 
 /**
