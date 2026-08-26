@@ -486,6 +486,39 @@ direkte i et fund uden mellemregning. Serveren skal køre:
 `python -m http.server 8080 --directory dist` **fra projektroden**, aldrig
 `cd dist` (så låser serveren mappen, og næste byg fejler med EPERM).
 
+**To fælder ved serveren, begge målt 26. aug 2026, og de forstærker hinanden.**
+
+**1. `python` er ikke på PATH i en baggrundsskal.** Startes serveren med
+`(python -m http.server ... &)`, fejler den **tavst** med exit 127 — men
+kommandoen ser ud til at lykkes, fordi `&` skjuler exitkoden. Brug altid
+fuld sti:
+
+```
+/c/Users/thyge/AppData/Local/Programs/Python/Python314/python.exe -m http.server <port> --directory dist
+```
+
+**2. Port 8080 er delt mellem alle samtidige spor.** Da fælde 1 slog til,
+svarede `curl http://localhost:8080/` alligevel **200** — fra en anden agents
+server. `spor/instrument2` fandt **tre** forældreløse python-processer på
+8080 samtidig og målte derfor de gamle tal, efter at CSS'en var ændret.
+
+**Konsekvensen er, at et måletal kan se rigtigt ud og komme fra en fremmed
+mappe.** Derfor gælder to ting, hver gang der måles i browseren:
+
+- **Egen port pr. worktree.** 8123, 8124, 8125 … aldrig 8080 fra et spor.
+- **Verificér serveren mod disken, før ét eneste tal bruges.** Vælg en
+  streng, der kun findes i din egen udgave, og sammenlign:
+
+  ```
+  curl -s http://localhost:<port>/system.css | grep -c "<din streng>"
+  grep -c "<din streng>" assets/system.css
+  ```
+
+  Giver de to forskellige tal, måler du en anden agents byg. **Det er samme
+  regel som for måleværktøjet selv: et nyt måleapparat — og en ny server er
+  et måleapparat — skal valideres mod et kendt svar, før dets tal bruges i
+  et fund.**
+
 **Fælden, værktøjet selv faldt i første gang det blev brugt:** det målte
 beskæring mod `<img>`-elementets egen kasse og gav **0** — mens filmålingen gav
 **16**. `<img>` fylder ikke nødvendigvis sit `<picture>`, så billedets kasse
