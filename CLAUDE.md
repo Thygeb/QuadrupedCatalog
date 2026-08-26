@@ -65,7 +65,16 @@ derfor skrevet om til det, der faktisk kan kaldes:
 | `impeccable polish` · `harden` · `adapt` · `clarify` | Sidste kvalitetspas, produktionsklarhed, skærmstørrelser, UX-tekst |
 | `impeccable live` | Vælg elementer i browseren og få genereret alternativer |
 | `ui-ux-critique` | **Fejljagt** på en bygget side: hierarki, tilgængelighed, mobil, AI-prosa. Bemærk forskellen til `impeccable critique` — se advarslen nedenfor |
-| `critique` | **Ude af drift.** Kræver `frontend-design` + `teach-impeccable`, som ikke findes. Brug `impeccable critique` |
+| `frontend-design` | **Anthropics officielle skill til visuelt design af ny eller omformet UI.** Slået til 26. aug 2026. Bærer to ting, `impeccable` ikke fremhæver lige så skarpt: kalibreringen mod de tre AI-standardudseender, og to-trins-processen hvor designplanen kritiseres for at være generisk, **før** der skrives kode. Brug den ved enhver ny flade |
+| `critique` | **Ude af drift.** Kræver også `teach-impeccable`, som ikke findes. Brug `impeccable critique` |
+
+**Fælde, der kostede fire agentbeskeder 26. aug 2026:** `frontend-design` lå hele
+tiden på disken i `~/.claude/plugins/marketplaces/claude-plugins-official/`, men var
+**ikke slået til** i `enabledPlugins`. Den dukkede derfor ikke op i skill-listen, og
+fire spor blev sendt uden den. **Et plugin, der ligger i marketplace-mappen, er ikke
+installeret** — kun det, der står i `.claude/settings.json`s `enabledPlugins`, kan
+kaldes. Er en skill ikke slået til, kan dens `SKILL.md` stadig læses fra disk; skriv
+da i rapporten at det blev gjort.
 
 **Advarslen, der kostede tre runder:** `ui-ux-critique` svarer på *"er den her
 side udført rigtigt?"*. `impeccable critique` svarer på *"er det her det rigtige

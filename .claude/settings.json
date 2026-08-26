@@ -28,7 +28,10 @@
       "C:/Praktik/websites/udstilling-wt-enheder",
       "C:/Praktik/websites/udstilling-wt-producent",
       "C:/Praktik/websites/udstilling-wt-yderpunkt",
-      "C:/Praktik/websites/udstilling-wt-billedramme"
+      "C:/Praktik/websites/udstilling-wt-indgang",
+      "C:/Praktik/websites/udstilling-wt-vitrine",
+      "C:/Praktik/websites/udstilling-wt-instrument",
+      "C:/Praktik/websites/udstilling-wt-register"
     ]
   },
   "hooks": {
@@ -45,6 +48,7 @@
     ]
   },
   "enabledPlugins": {
-    "playwright@claude-plugins-official": true
+    "playwright@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
   }
 }
