@@ -1779,6 +1779,75 @@ console.log('\n12. spor/sammenlign: standardtrio (punkt 1), tekst+interval (punk
     && chips.filter((c) => !c.hidden).every((c) => (c.getAttribute('data-sog') || '').includes('gang')));
 }
 
+// === spor/yderpunkt: K5 + K6 ===
+// Beviser tre ting, der ellers ville faa forsidens yderpunkter til at lyve:
+// K5a en graense-operator (<=, >=, <, >) kan ikke baere et yderpunkt (Aa-fund
+//     26. aug 2026: "<= 100 kg" beviser ikke at Qiuqiu SP1 er tungest, kun at
+//     den ikke er tungere end 100 - den kunne veje 40).
+// K5b sammen med K5a: intet yderpunkt mangler et rigtigt fotografi - en
+//     afskaaret maaleplade i det lille felt er ikke information.
+// K6  forklaringens tal (tf('yderpunkter_forklaring', {n})) foelger det
+//     faktiske antal viste kort paa den BYGGEDE forside, ikke et haardkodet
+//     "Fire" - og ingen af kortene viser en maaleplade (.billedled--maal).
+console.log('\n13. Yderpunkternes graense-operator- og fotokrav (spor/yderpunkt)');
+{
+  const sideModul = await import(
+    `file://${path.join(rod, 'tools', 'skabelon', 'side.mjs').replace(/\\/g, '/')}`);
+  const robotterNu = lasRobotter(path.join(rod, 'data', 'robots'));
+  const yp = sideModul.ekstremer(robotterNu);
+
+  const GRAENSE_OPERATORER = new Set(['<', '<=', '>', '>=']);
+  const medGraense = yp.filter((x) => GRAENSE_OPERATORER.has(x.post?.operator));
+  ok('K5a: intet yderpunkt baeres af en graense-operator (<, <=, >, >=)',
+    medGraense.length === 0,
+    medGraense.map((x) => `${x.id}=${x.robot.slug} (${x.post.operator})`).join(', '));
+
+  const udenFoto = yp.filter((x) => !sideModul.laesBillede(x.robot));
+  ok('K5b: intet yderpunkt mangler et rigtigt fotografi (laesBillede() !== null)',
+    udenFoto.length === 0,
+    udenFoto.map((x) => `${x.id}=${x.robot.slug}`).join(', '));
+
+  // K5c: SYNTETISK fixture, ikke det rigtige katalog. Paa dagens 77 datafiler
+  // aendrer fotokravet 0 yderpunkter (alle vindere har allerede et foto af
+  // andre grunde), saa K5b alene ville forblive groen, selv hvis fotokravet
+  // blev fjernet fra ekstremer() - den maaler kun DAGENS tilfaeldighed, ikke
+  // REGLEN. Denne fixture tvinger en robot uden foto til at vaere den letteste
+  // paa et rent tal, og beviser at den IKKE vindes vaek fra fotobaerende R2.
+  const fiksturFotokrav = [
+    { slug: 'uden-foto-letst', navn: 'Uden foto', felter: { egenvaegt: { vaerdi: 1, enhed: 'kg' } } },
+    { slug: 'med-foto-naestletst', navn: 'Med foto', felter: { egenvaegt: { vaerdi: 2, enhed: 'kg' } },
+      billede: { fil: 'test.jpg' } },
+  ];
+  const ypFikstur = sideModul.ekstremer(fiksturFotokrav);
+  const letsteFikstur = ypFikstur.find((x) => x.id === 'letteste');
+  ok('K5c (syntetisk): en robot uden foto vinder IKKE et yderpunkt, selv med det mest ekstreme tal',
+    !!letsteFikstur && letsteFikstur.robot.slug === 'med-foto-naestletst',
+    letsteFikstur ? `valgte ${letsteFikstur.robot.slug}` : 'intet letteste-yderpunkt fundet');
+
+  const udY = path.join(tmp, 'dist-yderpunkt');
+  const bY = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'), `--ud=${udY}`],
+    { cwd: rod, encoding: 'utf8' });
+  ok('K6: build.mjs (spor/yderpunkt-testbyg) giver exit 0', bY.status === 0, (bY.stderr || '').trim());
+
+  const forsideHTML = fs.readFileSync(path.join(udY, 'da', 'index.html'), 'utf8');
+  const sektionMatch = forsideHTML.match(
+    /<div class="yderpunkter">([\s\S]*?)\n<\/div>\n<p class="t-lille sektion-note">([\s\S]*?)<\/p>/);
+  ok('K6: yderpunktsektionen findes paa den byggede forside', !!sektionMatch);
+
+  if (sektionMatch) {
+    const [, sektion, forklaring] = sektionMatch;
+    const antalKort = (sektion.match(/<article class="yderpunkt">/g) || []).length;
+    const talIForklaring = forklaring.match(/^(\d+)/);
+    ok('K6b: forklaringens tal foelger det faktiske antal viste yderpunkt-kort',
+      !!talIForklaring && Number(talIForklaring[1]) === antalKort,
+      `forklaring siger "${talIForklaring ? talIForklaring[1] : '?'}", gitteret viser ${antalKort} kort`);
+
+    const antalMaal = (sektion.match(/billedled--maal/g) || []).length;
+    ok('K6c: intet yderpunkt viser en maaleplade (0 forekomster af billedled--maal)',
+      antalMaal === 0, `${antalMaal} forekomster`);
+  }
+}
+
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
   + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
