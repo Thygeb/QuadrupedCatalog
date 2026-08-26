@@ -197,6 +197,7 @@ ${ypResten.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 <span class="etiket">${esc(tf('forside_udvalg_etiket', { n: udvalg.length, m: robotter.length }))}</span>
 <h2 class="t-h2" id="h-udvalg">${esc(t('forside_udvalg_titel'))}</h2>
 </div>
+<p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
 <div class="gitter">
 ${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
 </div>

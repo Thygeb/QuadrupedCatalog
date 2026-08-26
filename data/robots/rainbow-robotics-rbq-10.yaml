@@ -19,7 +19,7 @@ billede:
   kilde: https://rainbow-robotics.com/en/products/rbq-10/
   hentet: 2026-08-19
 noter:
-  - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON. FUND-vest skrev Daejeon; strengen findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og omraadenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger. Rettet efter KILDEKORT-B F5."
+  - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON, som firmaet undertiden tilskrives: strengen \"Daejeon\" findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og omraadenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger."
   - "RAINBOW ROBOTICS UDGIVER HELE BRUGERMANUALEN OFFENTLIGT som en statisk side - inklusive batteridata, ledmomenter, IMU-specifikationer og monteringsinterface. Ingen formular, intet login. Det er derfor posten er indsamlingens taetteste vestlige/asiatiske post, og det giver en test, kataloget kan bruge: publicerer producenten sin brugermanual aabent, ja/nej."
 felter:
   egenvaegt:
@@ -48,7 +48,7 @@ felter:
     enhed: DoF
     kilde: https://rainbowrobotics.github.io/RBQ/
     hentet: 2026-08-19
-    advarsel: "UDLEDT, IKKE OPLYST SOM SPECIFIKATION. Strengen 12 joints findes kun i SDK-afsnittene (LegJointInfo, Joint position and velocity (12 joints), Claim ownership of all 12 joints) - en API-beskrivelse. Soegning paa degrees of freedom giver 0 traef i hele manualen. Opdelingen 3 pr. ben foelger af hardware-tabellens tre ledtyper. Tallet er hoejst sandsynligt rigtigt, men producenten oplyser det ikke som specifikation (KILDEKORT-B F7). Ledspecifikation: nominelt moment 40/40/50 Nm, maks. 104/104/140 Nm, maks. vinkelhastighed 14,4/14,4/11,15 rad/s."
+    advarsel: "UDLEDT, IKKE OPLYST SOM SPECIFIKATION. Strengen 12 joints findes kun i SDK-afsnittene (LegJointInfo, Joint position and velocity (12 joints), Claim ownership of all 12 joints) - en API-beskrivelse. Soegning paa degrees of freedom giver 0 traef i hele manualen. Opdelingen 3 pr. ben foelger af hardware-tabellens tre ledtyper. Tallet er hoejst sandsynligt rigtigt, men producenten oplyser det ikke som specifikation. Ledspecifikation: nominelt moment 40/40/50 Nm, maks. 104/104/140 Nm, maks. vinkelhastighed 14,4/14,4/11,15 rad/s."
   nyttelast_gaaende:
     vaerdi: 15
     enhed: kg
@@ -160,4 +160,4 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
-    advarsel: "IKKE EFTERPROEVET TIL BUNDS. FUND-vests eget selv-review noterer, at CE-feltet for RBQ-10 ikke er negativkontrolleret paa samme maade som for MAB og Boston Dynamics."
+    advarsel: "IKKE EFTERPROEVET TIL BUNDS: CE er ikke negativkontrolleret lige saa grundigt som for andre poster i kataloget."

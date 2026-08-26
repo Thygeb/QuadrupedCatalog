@@ -16,7 +16,6 @@ noter:
   - "VIGTIG FORBEHOLD FRA PRODUCENTEN SELV: koebssidens bundtekst skriver ordret: \"本页参数基于当前工程样机测试结果与版本规划整理，部分功能及性能数据仍在持续开发和优化中。实际量产配置、性能表现及交付内容以订单确认信息和实际发货版本为准.\" (parametrene paa denne side er baseret paa test af det nuvaerende ingenioer-praeproduktionseksemplar og planlagte versioner; nogle funktioner og ydelsestal er stadig under udvikling; det faktiske masseproduktionsudstyr afgoeres af ordrebekraeftelsen). Derfor status: annonceret, ikke i_produktion - specifikationerne er selv markeret som proevemaskine-tal, ikke et endeligt produkt."
   - "Feltet 关节峰值扭旋/额定扭矩 (led-drejningsmoment) har intet felt i skemaet. Noteret her: peak 60 N·m, nominel ca. 18 N·m pr. led (kilde som frihedsgrader nedenfor)."
   - "工作最大功率 (maks. arbejdseffekt) 3500 W har intet felt i skemaet - noteret her, ikke i felter."
-  - "INGEN billede:-blok. Billedkandidater fundet men ikke bedoemt med oejne i dette spor - se fund/FUND-kand2.md."
 billede:
   fil: fotos/fabrikant/yufan-lingmao-cyvet.jpg
   ophav: fabrikant
