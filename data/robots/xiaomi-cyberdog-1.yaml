@@ -10,9 +10,6 @@ anvendelse:
   note: "GENNEMLAEST, INTET FUNDET - ogsaa i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen 仿生四足机器人 (biomimetisk firbenet robot) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som paa CyberDog 2."
 foerste_udgivelse: 2021
 noter:
-  # INTERN EFTERPROEVNINGSNOTE (flyttet fra noter, KRITIK-2 fund 1 25. aug
-  # 2026): filen blev efterproevet HTTP 200, 84.338 bytes, sha256 begynder
-  # med 601acc43 (gemt 2026-08-21).
   - "SAMME FAELDE SOM CYBERDOG 2, SAMME LOESNING. Specifikationssiden leverer et tomt indholdselement; hele arket ligger som ren tekst i en JavaScript-bundle, som siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog/specs.5406502c.js (hentet 2026-08-21). Primaerkilde: producentens egen server, producentens eget indhold."
   - "BUNDLENS FILNAVN ER INDHOLDS-HASHET. Retter Xiaomi et tal, skifter filnavnet. Vedligeholdsrutinen skal hente HTML'en foerst og laese bundle-URL'en ud af den."
   - "STATUS ER EN KATALOGBESLUTNING PAA MAALT LIGHED, IKKE EN ERKLAERING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 paa mi.com: HTTP-status paa produktsiden (200 mod 200), koebsknappen 立即购买 (2 forekomster mod 2), laeg-i-kurv-knappen 加入购物车 (0 forekomster mod 0), udsolgt-markering 已售罄 (0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altsaa INGEN maalbar forskel paa producentens side mellem den model, vi foerer som i produktion, og den her. Det eneste argument for udgaaet er, at der findes en efterfoelger med et hoejere generationsnummer - og det er vores slutning, ikke Xiaomis ord."

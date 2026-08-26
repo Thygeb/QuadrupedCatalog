@@ -18,9 +18,6 @@ billede:
   kilde: https://www.ghostrobotics.io/vision-60
   hentet: 2026-08-19
 noter:
-  # INTERN REVISIONSNOTE (flyttet fra noter, KRITIK-2 fund 1 25. aug 2026):
-  # en tidligere version af posten skrev fejlagtigt Philadelphia som hjemby
-  # (rettet efter KILDEKORT-B F6).
   - "HJEMBY ER IKKE OPLYST: strengen \"Philadelphia\", som ofte tilskrives producenten, findes 0 gange i producentens forside, produktside og datablad. Sidefoden har kun Get In Touch, og databladet har e-mail og domaene, ingen adresse."
   - "Databladet (SPECSHEET V3.3, 2024) downloades direkte fra produktsiden, men ligger paa producentens Webflow-CDN, ikke paa deres eget domaene. URL'en kan doe."
 felter:
@@ -141,9 +138,6 @@ felter:
     vaerdi: ja
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
-    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
-    # 2026): FUND-vest skrev, at feltet kun stod i databladet - strengen
-    # staar ogsaa ordret paa produktsiden (KILDEKORT-B F1).
     advarsel: "Wireless Charge Kit - wireless charging station for persistent 24x7 operation. Strengen staar ordret paa produktsiden. Kilden er derfor produktsiden."
   lidar:
     vaerdi: nej
@@ -163,9 +157,6 @@ felter:
     vaerdi: ja
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
-    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
-    # 2026): FUND-vest kildeangav feltet kun til databladet - strengen
-    # staar ogsaa i produktsidens DOM (KILDEKORT-B F2).
     advarsel: "C/C++, ROS, ROS2, MAVLink Compatible, Zeno, ATAK, JSON Mission. Strengen staar ogsaa i produktsidens DOM."
   sdk_sprog:
     vaerdi: ["C/C++", "ROS", "ROS2"]
@@ -185,9 +176,6 @@ felter:
     vaerdi: "power:12V regulated & unregulated 32-42V"
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
-    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
-    # 2026): en tidligere version havde fejlagtigt indsat et mellemrum i
-    # dette ordrette citat (KILDEKORT-B F4).
     advarsel: "Gengivet ordret UDEN mellemrum efter kolon, som producenten skriver det. Volt oplyst, WATT IKKE. Spot oplyser 35-58,8 V og 150 W pr. port. De to felter ser ens ud i en tabel og er det ikke."
   dataporte:
     vaerdi: ["3x Ethernet", "1x USB 3.1", "6x GMSL2"]

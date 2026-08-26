@@ -126,9 +126,6 @@ felter:
     vaerdi: "stereokameraer (antal og model ikke oplyst); vandret synsfelt 360 grader"
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
-    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
-    # 2026): FUND-vest tilskrev begge strenge produktsiden - rettet her
-    # (KILDEKORT-A FEJL 2).
     advarsel: "Strengen built-in stereo cameras staar KUN i databladet (marketingprosa, ikke specifikationstabel); Horizontal Field of View 360 staar paa produktsiden. Terrain sensing: 360 grader, raekkevidde 4 m, lys > 2 lux."
   compute: ikke_oplyst
   ros2: ikke_oplyst
@@ -141,7 +138,7 @@ felter:
     vaerdi: "Manual & Autonomous Operation; Object Avoidance; Stair & Complex Terrain Navigation; autonome missioner startet fra dock"
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
-    advarsel: "Kvalitativt, ikke et niveau paa en skala. De tre citerede strenge findes KUN i databladet - produktsiden stoetter substansen i andre ord (KILDEKORT-A FEJL 3)."
+    advarsel: "Kvalitativt, ikke et niveau paa en skala. De tre citerede strenge findes KUN i databladet - produktsiden stoetter substansen i andre ord."
   monteringsinterface:
     vaerdi: "M5 T-slot rails"
     kilde: https://bostondynamics.com/products/spot/
@@ -158,9 +155,6 @@ felter:
     vaerdi: ["DB25 x2", "Ethernet", "WiFi 2,4/5 GHz b/g/n"]
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
-    # 2026): en tidligere version skrev fejlagtigt Gigabit Ethernet her
-    # (KILDEKORT-A FEJL 1).
     advarsel: "Strengen Gigabit findes ikke paa produktsiden, og i databladet staar den i Spot Dockens afsnit som passthrough to robot, ikke om selve robotten. Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed."
   pris: ikke_oplyst
   ce_oplyst:
