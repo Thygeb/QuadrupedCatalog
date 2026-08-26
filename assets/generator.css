@@ -39,55 +39,48 @@
    foerste viewport. */
 @media (min-width:680px){.hero-lede{font-size:19px}}
 
-/* --- 1b. YDERPUNKTERNE. Fotografiet leder: ét stort felt ("lead"), tre
-   mindre ved siden af. DESIGN.md's ledestjerne taaler at ét billede fører og
-   tre foelger — de fire behoever ikke vaere lige store. Lead-billedet er
-   markant stoerre end et katalogkort: katalogets billedfelt er ca. 310-330 px
-   bredt i et 1440 px-gitter; leaden her fylder op mod 55-60 % af rummets
-   bredde. Ingen dom: et yderpunkt er en MAALT kendsgerning (side.mjs,
-   ekstremer()), ikke en anbefaling — se forklaringen under gitteret.
+/* --- 1b. YDERPUNKTERNE. FIRE LIGESTILLEDE KORT (fund 2, JPK 26. aug 2026 —
+   afloeser lead/lille-opdelingen: ét kort fyldte foer ca. TI GANGE de tre
+   andres areal, mens teksten under gitteret hele tiden sagde, at et
+   yderpunkt "ikke er et udvalg og ikke en anbefaling". Layout vinder altid
+   over tekst, saa arealet maatte rettes, ikke saetningen. Historik: den
+   gamle "ét leder, tre foelger"-loesning valgte lead-billedet redaktionelt
+   ud fra billedKVALITET (se DESIGN.md), ikke af tallet — men arealforskellen
+   havde intet offentliggjort kriterium og modsagde selv teksten, den stod
+   ved siden af. JPK fravalgte reviewets alternativ (rotation efter
+   ugenummer): det ville goere bygget uafhaengigt af sit eget input.
+   Samme gitter-ramme genbruges (--rund, --linje, --skygge, samme hover som
+   .kort) — ingen ny komponentfamilie, kun fire ens instanser af én. Ingen
+   dom: et yderpunkt er en MAALT kendsgerning (side.mjs, ekstremer()), ikke
+   en anbefaling — se forklaringen under gitteret.
 
    Overskriften mister sin normale border+luft (systemets .sektion-hoved),
    fordi det NETOP er springet fra overskrift til foto, der afgoer, om et
    fotografi naar ind i foerste viewport (JPK's tillaeg). */
 .yderpunkter-sektion .sektion-hoved{border-bottom:0;padding-bottom:0}
-.yderpunkter{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
+.yderpunkter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:var(--r6);margin-top:var(--r3);align-items:stretch}
 
-.yderpunkt{position:relative;display:flex;background:var(--panel);
+.yderpunkt{position:relative;display:flex;flex-direction:column;background:var(--panel);
   border:1px solid var(--linje);border-radius:var(--rund);box-shadow:var(--skygge);
   overflow:hidden}
 .yderpunkt:hover,.yderpunkt:focus-within{border-color:#CFD4DB;box-shadow:var(--skygge-loeft)}
 /* Kildemaerket skal kunne rammes trods navnets kortdaekkende ::after — samme
    teknik som .kort .kildemaerke. */
 .yderpunkt .kildemaerke{position:relative;z-index:2}
-.yderpunkt-krop{display:flex;flex-direction:column;gap:6px;min-width:0}
+.yderpunkt .billedled{aspect-ratio:4/3;border-bottom:1px solid var(--linje)}
+.yderpunkt-krop{display:flex;flex-direction:column;gap:6px;min-width:0;padding:var(--r4)}
 .yderpunkt-krop > .etiket{display:flex;align-items:center;gap:8px}
 .yderpunkt-krop > .etiket .ikon{width:16px;height:16px;stroke-width:1.8;color:var(--accent)}
+.yderpunkt-krop .v{font-size:clamp(24px,2.1vw,29px)}
 .yderpunkt-navn{font-size:17px;font-weight:700;letter-spacing:-.016em;margin-top:2px}
 .yderpunkt-navn a{color:var(--blaek);text-decoration:none}
 .yderpunkt-navn a::after{content:"";position:absolute;inset:0;z-index:1}
 .yderpunkt-navn a:hover{text-decoration:underline;text-decoration-thickness:2px}
 .yderpunkt-prod{font-size:13px;color:var(--blaek3)}
 
-.yderpunkt--lead{flex-direction:column}
-.yderpunkt--lead .billedled{aspect-ratio:16/10;border-bottom:1px solid var(--linje)}
-.yderpunkt--lead .yderpunkt-krop{padding:var(--r5)}
-.yderpunkt--lead .v{font-size:clamp(36px,3.6vw,52px)}
-.yderpunkt--lead .yderpunkt-navn{font-size:20px}
-
-.yderpunkter-liste{display:flex;flex-direction:column;gap:var(--r3)}
-.yderpunkt--lille{flex-direction:row;align-items:stretch}
-.yderpunkt--lille .billedled{width:112px;aspect-ratio:1/1;flex:none;
-  border-bottom:0;border-right:1px solid var(--linje)}
-.yderpunkt--lille .yderpunkt-krop{padding:14px 16px;justify-content:center;flex:1;min-width:0}
-.yderpunkt--lille .v{font-size:25px}
-
-@media (max-width:1180px){.yderpunkter{grid-template-columns:1fr}}
-@media (max-width:420px){
-  .yderpunkt--lille .billedled{width:84px}
-  .yderpunkt--lead .v{font-size:32px}
-}
+@media (max-width:1180px){.yderpunkter{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.yderpunkter{grid-template-columns:1fr}}
 
 /* --- 1c. EU-FUNDET. Én saetning, ét stort tal — laesbar paa to sekunder,
    ikke en infografik. Beregnet i forside.mjs, aldrig skrevet i haanden. */

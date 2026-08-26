@@ -377,23 +377,29 @@ tungeste, hurtigste, længste driftstid — beregnet i `side.mjs`s `ekstremer()`
 samme data, kortene selv viser. Uafgjort løses deterministisk, alfabetisk på slug (regel
 skrevet i koden, ingen af de fire har i praksis et uafgjort resultat).
 
-- **Ét leder, tre følger.** DESIGN.md's ledestjerne tåler at ét billede fører og tre
-  følger — de fire behøver ikke være lige store. Lead-feltets foto er markant større end
-  et katalogkort (katalogets billedfelt ≈ 310–330 px i et 1440 px-gitter; leaden fylder
-  op mod 55–60 % af rummets bredde). Under 1181 px stables alle fire i én spalte.
-- **Hvilket af de fire, der leder, er redaktionelt — men billedvalget er det, ikke
-  tallet.** Målt 24. aug: "tungeste" (Unitree B2-W) og "letteste" (Yobotics Y10) er de
-  eneste billeder med henholdsvis en marketinginfografik (paaklæbet spec-tekst) og et
-  seks-robotters familiebanner — begge modsiger "maskinen står frit". "Hurtigste" (DEEP
-  Robotics Lynx S10) er et rent, tekstfrit enkeltbillede og er derfor lead. Reglen står i
-  koden (`forside.mjs`), ikke kun i dette dokument.
+- **Fire ligestillede kort** (JPK 26. aug 2026, afløser "Ét leder, tre følger" nedenfor).
+  Samme gitter, fire kolonner ved bred skærm, faldende til 2 ved 1180 px og 1 ved 420 px
+  (de brudpunkter, `generator.css` allerede brugte). Hvert kort viser billede, ét stort
+  målt tal, robotnavn, producent og kildemærke — intet er fjernet fra det gamle lead-kort,
+  kun arealet er udlignet.
+- **Hvad der stod her før, og hvorfor det blev forladt.** Fra 24. til 26. aug 2026 fulgte
+  siden "ét leder, tre følger": lead-feltets foto var markant større end et katalogkort
+  (leaden fyldte 55–60 % af rummets bredde, de tre andre delte resten), og hvilket af de
+  fire yderpunkter der ledte, var redaktionelt afgjort af billedKVALITET — "hurtigste"
+  (DEEP Robotics Lynx S10) var det eneste rene, tekstfrie enkeltbillede, mens "tungeste"
+  (Unitree B2-W) og "letteste" (Yobotics Y10) bar marketinginfografik. Løsningen var
+  forsvarlig på billedvalget, men areal-forskellen (ca. 10×) havde intet offentliggjort
+  kriterium og modsagde selve teksten under gitteret, der siger, at et yderpunkt "ikke er
+  et udvalg og ikke en anbefaling" — layout vandt over tekst. JPK fravalgte samtidig
+  reviewets alternativ (rotation efter ugenummer): rotation ville gøre bygget uafhængigt
+  af sit eget input, så samme data kunne give en anden forside næste uge.
 - **Kortets ramme genbruges** (`--rund`, `--linje`, `--skygge`, hover til `#CFD4DB` +
   `--skygge-loeft`) — samme sprog som `.kort`, ikke en ny komponentfamilie.
 - **Tallet** er `hjaelp.tal()`s almindelige `.v-tal`, samme kildemærke-mekanik som alle
-  andre tal på siden — intet særtal, ingen genvej uden om regel 1 (kilde på alt).
-  Lead-figuren får en ny, større kontekststørrelse, `clamp(36px, 3,6vw, 52px)` — ingen af
-  systemets tre eksisterende figurstørrelser (29/25/20 px) var bygget til at bære
-  aabningens visuelle vægt alene.
+  andre tal på siden — intet særtal, ingen genvej uden om regel 1 (kilde på alt). Alle
+  fire kort deler nu én kontekststørrelse, `clamp(24px, 2,1vw, 29px)` — mellem systemets
+  "lille" (25 px) og gamle "lead" (36–52 px), fordi ingen af de fire længere skal bære
+  åbningens visuelle vægt alene.
 - **Forklaringen står under gitteret, ikke over det.** Et forklarende afsnit mellem
   overskrift og foto kostede plads, foerste skærm ikke havde råd til (se *Aabningens
   budget* nedenfor).

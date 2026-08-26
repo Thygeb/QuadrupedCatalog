@@ -61,17 +61,103 @@
  * fra 21.08.2026 til 24.08.2026 som "sidens indholdsfortegnelse": ét maerke
  * pr. robot paa en akse, fire trin ned i sektionerne. JPK's tillaeg 24. aug
  * kraevede at aabningen (titel + lede + yderpunkter) holder sig til 1,5
- * skaermhoejde, og at MINDST ét fotografi i aabningen er markant stoerre end
- * et katalogkort. Der var ikke plads til baade en abstrakt akse-figur OG
- * fire fotobaarne yderpunkter inden for det budget, og yderpunkterne tjener
- * "Udstillingssalen" bedre: de viser en maskine, aksen viste en graf.
+ * skaermhoejde, og at (dengang) MINDST ét fotografi i aabningen er markant
+ * stoerre end et katalogkort. Der var ikke plads til baade en abstrakt
+ * akse-figur OG fire fotobaarne yderpunkter inden for det budget, og
+ * yderpunkterne tjener "Udstillingssalen" bedre: de viser en maskine, aksen
+ * viste en graf. KRAVET OM ÉT STORT FOTO ER SELV OMGJORT 26. aug 2026 (fund
+ * 2): fire ligestillede kort er nu reglen — se yderpunktHTML() og
+ * afsnittet "FIRE LIGESTILLEDE KORT" nedenfor. 1,5-skaermhoejde-budgettet
+ * (1350 px) staar uaendret.
  *
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc, ekstremer } from './side.mjs';
+import { esc, ekstremer, vaegtklasse } from './side.mjs';
+import { taethed } from '../validate.mjs';
 
 const attr = esc;
+
+/**
+ * Spredningsreglen for "Fra kataloget" (fund 1, JPK 26. aug 2026 — afloeser
+ * den gamle "de foerste seks alfabetisk", som var et alfabethoved, ikke et
+ * udsnit af kataloget). Deterministisk, ingen Math.random, ingen dato:
+ *
+ *   (a) hoejst ét kort pr. producent
+ *   (b) mindst MIN_VAEGTKLASSER forskellige vaegtklasser repraesenteret
+ *   (c) inden for de rammer: hoejeste specifikationstaethed foerst
+ *       (samme taethed()-funktion og samme naevner som resten af bygget
+ *       bruger, jf. skema.mjs/NAEVNER — L30. Uafgjort afgoeres af slug
+ *       alfabetisk, saa bygget er 100 % reproducerbart)
+ *
+ * Fremgangsmaade: reducér foerst til én kandidat pr. producent (den med
+ * hoejeste taethed), sortér kandidaterne efter (c). Tag toppen UDVALG_ANTAL.
+ * Mangler der stadig vaegtklasser, byttes det svageste (laveste taethed)
+ * medlem af en OVERrepraesenteret klasse ud med den naeste kandidat, der
+ * baerer en klasse, valget endnu ikke har — indtil kravet er opfyldt, eller
+ * der ikke er flere kandidater at bytte med.
+ *
+ * NEDGRADERING AF (a), kun naar kataloget selv er mindre end antallet af
+ * kort: build.mjs' egen invariant (paastaa() ved "Fra kataloget skal vise")
+ * kraever, at forsiden ALTID viser noejagtigt min(antal, robotter.length)
+ * kort - ikke faerre, heller ikke naar der er faerre distinkte producenter
+ * end antal (tests/eksempel-robotter, byggets 3-fils reservesaet, deler i
+ * praksis ét producentnavn). Det rigtige katalog rammer aldrig denne gren
+ * (77 robotter, 25 distinkte producenter, altid >= antal=6) - grenen findes
+ * kun for ikke at braekke den invariant, build.mjs allerede haandhaever. */
+export function udvalgReglen(robotter, { naevner, d4, antal, minVaegtklasser }) {
+  const medTaethed = robotter
+    .map((r) => ({ r, pct: taethed(r, naevner, d4).pct }))
+    .sort((a, b) => b.pct - a.pct || a.r.slug.localeCompare(b.r.slug));
+
+  const perProducent = new Map();
+  for (const x of medTaethed) {
+    if (!perProducent.has(x.r.producent)) perProducent.set(x.r.producent, x);
+  }
+  const kandidater = [...perProducent.values()]; // (a) opfyldt her, sorteret efter (c)
+
+  let valgt = kandidater.slice(0, antal);
+  const resten = kandidater.slice(antal);
+
+  const klasserI = (liste) => new Set(liste.map((x) => vaegtklasse(x.r)));
+
+  for (const erstatning of resten) {
+    if (klasserI(valgt).size >= minVaegtklasser) break;
+    const klasse = vaegtklasse(erstatning.r);
+    if (klasserI(valgt).has(klasse)) continue; // giver ingen ny klasse
+
+    const taelling = new Map();
+    for (const x of valgt) {
+      const k = vaegtklasse(x.r);
+      taelling.set(k, (taelling.get(k) || 0) + 1);
+    }
+    // Byt det svageste (laveste taethed = sidst i den sorterede liste) medlem
+    // af en overrepraesenteret klasse ud — (c) afgoer stadig, hvem der viger.
+    let byttes = -1;
+    for (let i = valgt.length - 1; i >= 0; i--) {
+      if ((taelling.get(vaegtklasse(valgt[i].r)) || 0) > 1) { byttes = i; break; }
+    }
+    if (byttes === -1) break; // ingen klasse er overrepraesenteret - kan ikke byttes
+    valgt = valgt.map((x, i) => (i === byttes ? erstatning : x));
+  }
+
+  // Nedgraderingen af (a): kandidater.length < antal betyder faerre distinkte
+  // producenter end kort, sektionen skal vise. Fyld op fra det FULDE,
+  // taethedssorterede datasaet (producent-gentagelser tilladt), saa antallet
+  // af kort aldrig bliver mindre end min(antal, robotter.length).
+  const maal = Math.min(antal, robotter.length);
+  if (valgt.length < maal) {
+    const brugte = new Set(valgt.map((x) => x.r.slug));
+    for (const x of medTaethed) {
+      if (valgt.length >= maal) break;
+      if (brugte.has(x.r.slug)) continue;
+      valgt.push(x);
+      brugte.add(x.r.slug);
+    }
+  }
+
+  return valgt.map((x) => x.r);
+}
 
 /**
  * Ét yderpunkt-felt: fotografi + ét stort maalt tal + robotnavn. Hele fladen
@@ -79,16 +165,15 @@ const attr = esc;
  * loeftes over det, praecis som paa kortet — ellers er bogstavet et link,
  * ingen kan ramme.
  */
-function yderpunktHTML(x, { hjaelp, t }, { lead = false } = {}) {
+function yderpunktHTML(x, { hjaelp, t }) {
   const { robot, post, ikon } = x;
   const hvorhen = `robotter/${robot.slug}/`;
   const kilder = hjaelp.kilder(robot);
   const figur = hjaelp.tal(post, { kilder, hvorhen, maerke: true });
-  const klasse = lead ? 'yderpunkt yderpunkt--lead' : 'yderpunkt yderpunkt--lille';
   // op='../': forsiden ligger paa dist/<sprog>/index.html, billeder/ paa
   // dist/billeder/ — samme "../" som hjaelp.kort() bruger andre steder paa
   // denne side (op:'../' i sektioner-loekken nedenfor).
-  return `<article class="${klasse}">
+  return `<article class="yderpunkt">
 ${hjaelp.billede(robot, '../')}
 <div class="yderpunkt-krop">
 <span class="etiket">${hjaelp.ikon(ikon)}${esc(t('yderpunkt_' + x.id))}</span>
@@ -126,21 +211,23 @@ export function render(ctx) {
 
   /* --- 2. YDERPUNKTERNE. Beregnet i side.mjs (ekstremer), aldrig hardkodet.
      Raekkefoelgen i ekstremer()'s eget udtryk (letteste, tungeste, hurtigste,
-     laengste driftstid) er uaendret; kun VISNINGEN her vaelger, hvilket af de
-     fire der bliver aabningens ene store foto.
-     Lead = hurtigste (23.-24. aug 2026 fotogennemgang): "tungeste" er Unitree
-     B2-W, hvis eneste billede er en moerk marketing-infografik med paaklaebet
-     spec-tekst ("32-wire Automotive-grade LiDAR" osv.) — den modsiger
-     ledestjernen "maskinen staar frit", jo stoerre den vises. "Letteste" (Y10)
-     er endnu vaerre: et banner med SEKS forskellige robotter og kinesisk
-     marketingoverskrift, ikke ét enkelt foto af Y10. "Hurtigste" (Lynx S10) og
-     "laengste driftstid" (RAIBO2) er begge rene, tekstfrie enkeltbilleder;
-     Lynx S10 er valgt, fordi robotten staar roligt frem for at loebe i
-     bevaegelsesslør. Ingen af billederne er redigeret eller beskaaret uden om
-     kortenes egen <picture>-vej — kun VALGET af, hvilket der bliver stort. --- */
+     laengste driftstid) er uaendret.
+     FIRE LIGESTILLEDE KORT (fund 2, JPK 26. aug 2026 — afloeser lead/lille-
+     opdelingen fra 24. aug). Teksten under gitteret har hele tiden sagt, at
+     et yderpunkt "ikke er et udvalg og ikke en anbefaling" (regel 4,
+     PRODUCT.md princip 4: vi rangerer producenternes aabenhed, ikke deres
+     kvalitet) — men layoutet gav ét af de fire ca. ti gange de andre tres
+     areal, og layout vinder altid over tekst. Den gamle loesning (ét foto
+     leder, tre foelger, valgt ud fra billedkvalitet — se DESIGN.md) var
+     redaktionelt forsvarlig paa BILLEDVALGET, men uforsvarlig paa AREALET:
+     der findes intet offentliggjort kriterium for, hvorfor "hurtigste"
+     skal fylde ti gange saa meget som "laengste driftstid". JPK har valgt
+     fire ens kort frem for reviewets alternativ (rotation efter ugenummer),
+     fordi rotation ville goere bygget uafhaengigt af sit eget input - samme
+     data ville give en anden forside naeste uge. Alle fire renderes nu af
+     samme kald med samme klasse (yderpunktHTML ovenfor), og CSS-gitteret
+     (assets/generator.css, afsnit 1b) haandterer stoerrelsen alene. --- */
   const yp = ekstremer(robotter);
-  const ypLead = yp.find((x) => x.id === 'hurtigste') ?? yp[0];
-  const ypResten = yp.filter((x) => x !== ypLead);
 
   /* Forklaringen staar UNDER gitteret, ikke over det (JPK's tillaeg, 24. aug
      2026): foerste skaerm skal naa et fotografi, foer nogen har rullet, og
@@ -154,10 +241,7 @@ export function render(ctx) {
 <h2 class="t-h2" id="h-yderpunkter">${esc(t('yderpunkter_titel'))}</h2>
 </div>
 <div class="yderpunkter">
-${yderpunktHTML(ypLead, { hjaelp, t }, { lead: true })}
-<div class="yderpunkter-liste">
-${ypResten.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
-</div>
+${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 </div>
 <p class="t-lille sektion-note">${esc(t('yderpunkter_forklaring'))}</p>
 </div>
@@ -181,14 +265,21 @@ ${ypResten.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
      spor/lysbyg (BEGRUNDELSE.md, "Arkitekturaendring"): forsiden viser ikke
      laengere alle robotter. Seks kort (eller alle, er der faerre) leder
      videre til katalogsiden, som nu er stedet, hvor hele kataloget bor.
-     UDVAELGELSESREGLEN er den samme, ekstremer() allerede foelger: INGEN
-     redaktionel udvaelgelse (CLAUDE.md haard begraensning 6). De foerste
-     seks robotter i den alfabetiske raekkefoelge, `robotter` selv modtages
-     i (samme sortering som build.mjs bruger og katalogsiden viser inden for
-     hver vaegtklasse), er en deterministisk, gentagelig regel uden en
-     kvalitetsdom — ikke et haandplukket "bedste" udvalg. */
+     UDVAELGELSESREGLEN (fund 1, JPK 26. aug 2026): den gamle regel var "de
+     foerste seks alfabetisk" — deterministisk, men ikke et udsnit af
+     kataloget, kun et alfabethoved (fire ud af seks fra Unitree, to uden
+     billede, jf. FUND-forside.md). Reglen er nu udvalgReglen() ovenfor:
+     spredning paa producent og vaegtklasse, med specifikationstaethed som
+     prioritet inden for de rammer. Stadig INGEN redaktionel udvaelgelse
+     (CLAUDE.md haard begraensning 6) — metoden staar paa siden
+     (forside_udvalg_regel), ikke kun her, saa "hvorfor lige de her seks" er
+     et efterproveligt svar, ikke en tillidserklaering. */
   const UDVALG_ANTAL = 6;
-  const udvalg = robotter.slice(0, UDVALG_ANTAL);
+  const MIN_VAEGTKLASSER = 3;
+  const NAEVNER = ctx.naevnere[0];
+  const udvalg = udvalgReglen(robotter, {
+    naevner: NAEVNER, d4: ctx.d4, antal: UDVALG_ANTAL, minVaegtklasser: MIN_VAEGTKLASSER,
+  });
 
   const smagsproeveSektion = udvalg.length ? `<div class="katalog-flade">
 <div class="rum">
@@ -197,6 +288,7 @@ ${ypResten.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 <span class="etiket">${esc(tf('forside_udvalg_etiket', { n: udvalg.length, m: robotter.length }))}</span>
 <h2 class="t-h2" id="h-udvalg">${esc(t('forside_udvalg_titel'))}</h2>
 </div>
+<p class="t-lille udvalg-regel">${esc(tf('forside_udvalg_regel', { n: udvalg.length, m: NAEVNER }))}</p>
 <p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
 <div class="gitter">
 ${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}

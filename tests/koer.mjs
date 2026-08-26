@@ -1498,6 +1498,47 @@ console.log('\n10. spor/kort: fodnotesektion og EU/CE-maerke vaek fra katalogkor
     ceMatch ? `fandt "${ceMatch[1]} af ${ceMatch[2]}"` : 'ingen eu-fund-tal fundet paa forsiden');
 }
 
+// === spor/forside: fund 2 + 7 ===
+// Nummereret 11 ved flettet 26. aug 2026: sporet skrev "7", men afsnit 7 var
+// optaget, og spor/kort tog 10 i samme flet. Numrene er kun laeseordre.
+console.log('\n11. Forsidens udvalgsregel (fund 2) og yderpunkter (fund 7) — spor/forside');
+{
+  const forsideModul = await import(
+    `file://${path.join(rod, 'tools', 'skabelon', 'forside.mjs').replace(/\\/g, '/')}`);
+
+  // 3a + 3b: udvalgReglen() kaldes direkte paa det rigtige katalog - ingen fixture,
+  // for hvis kataloget aendrer sig, skal testen maale DET rigtige katalog, ikke
+  // et haardkodet snapshot af det. Samme skema.NAEVNER som build.mjs bruger (L30).
+  const robotterNu = lasRobotter(path.join(rod, 'data', 'robots'));
+  const udvalgOpts = { naevner: skema.NAEVNER, d4: false, antal: 6, minVaegtklasser: 3 };
+
+  const valgt1 = forsideModul.udvalgReglen(robotterNu, udvalgOpts);
+  const producenterIValgt = new Set(valgt1.map((r) => r.producent));
+  ok('3a. udvalgReglen(): 6 forskellige producenter paa det nuvaerende katalog',
+    producenterIValgt.size === 6,
+    `fik ${producenterIValgt.size} producent(er): ${[...producenterIValgt].join(', ')}`);
+
+  const valgt2 = forsideModul.udvalgReglen(robotterNu, udvalgOpts);
+  ok('3b. udvalgReglen(): deterministisk - samme input to gange giver samme raekkefoelge',
+    JSON.stringify(valgt1.map((r) => r.slug)) === JSON.stringify(valgt2.map((r) => r.slug)),
+    `${valgt1.map((r) => r.slug).join(',')} vs ${valgt2.map((r) => r.slug).join(',')}`);
+
+  // 3c: bygget, ikke bare skabelonens funktion - beviser at HTML'en, en laeser
+  // faktisk moeder, har mistet lead/lille-opdelingen, ikke kun at koden gør.
+  const ud7 = path.join(tmp, 'dist-forside-fund2');
+  const b7 = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'), `--ud=${ud7}`],
+    { cwd: rod, encoding: 'utf8' });
+  ok('build.mjs (spor/forside-testbyg) giver exit 0', b7.status === 0, (b7.stderr || '').trim());
+
+  const forsideHTML = fs.readFileSync(path.join(ud7, 'da', 'index.html'), 'utf8');
+  const ypFaelles = (forsideHTML.match(/<article class="yderpunkt">/g) || []).length;
+  const harLead = forsideHTML.includes('yderpunkt--lead');
+  const harLille = forsideHTML.includes('yderpunkt--lille');
+  ok('3c. alle fire yderpunkter renderes med samme (faelles) klasse - ingen lead, ingen lille',
+    ypFaelles === 4 && !harLead && !harLille,
+    `yderpunkt-kort (faelles klasse): ${ypFaelles}, lead-forekomster: ${harLead}, lille-forekomster: ${harLille}`);
+}
+
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
   + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
