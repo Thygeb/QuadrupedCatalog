@@ -1859,6 +1859,19 @@ console.log('\n5. spor/billedramme: sideforhold -> --plade automatisk, og eager/
     eagerAntal === sideMod.EAGER_KORT_ANTAL);
   ok(`3c: resten af billederne (${imgAntal} <img> i alt) er loading="lazy" (fandt ${lazyAntal})`,
     lazyAntal === imgAntal - eagerAntal && lazyAntal > 0);
+
+  // --- Punkt 5: S1 er ophaevet (JPK, 26. aug 2026) - billednote-banneret er
+  // fjernet fra ALLE sider, og forhandler-fodnoten (et andet krav, om
+  // forhandlerforhold, ikke billedtilladelse) staar stadig. ---
+  const forsideHTML = fs.readFileSync(path.join(eagerDist, 'da', 'index.html'), 'utf8');
+  ok('5: billednote-banneret findes ikke laengere paa katalogsiden',
+    !katalogHTML.includes('billednote'));
+  ok('5: billednote-banneret findes ikke laengere paa forsiden',
+    !forsideHTML.includes('billednote'));
+  ok('5: teksten om manglende skriftlig tilladelse er vaek fra kataloget',
+    !katalogHTML.includes('uden skriftlig tilladelse'));
+  ok('5: sidefodens forhandler-fodnote staar stadig (produktkrav, ikke S1)',
+    forsideHTML.includes('Vi er ikke forhandler'));
 }
 
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `

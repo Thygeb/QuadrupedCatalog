@@ -19,9 +19,6 @@
   "til_katalog": "Back to the catalogue",
   "andet_sprog": "På dansk",
 
-  "billednote_maerke": "Images",
-  "billednote_tekst": "This site shows the manufacturers' own images without written permission. That is allowed while the site stays local. It must not be published until the permissions are obtained, or the images are replaced with our own photographs and scale-true silhouettes.",
-
   "forside_overskrift": "Quadruped robots, field by field",
   "forside_lede": "{n} models from {p} manufacturers. Every figure carries a source and a retrieval date, and every gap is as visible as the figure.",
   "forside_ordning": "Ordered by weight, because weight is measured and unambiguous. Intended use is a filter, not an axis.",

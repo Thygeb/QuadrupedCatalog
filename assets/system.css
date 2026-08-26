@@ -9,7 +9,6 @@
      - de fire datatilstande som fire FORSKELLIGE visuelle sprog
      - de to billedklasser (miljoefoto = cover, plade paa hvid = contain)
      - den tomme plade, der laeses som et hul i vaerket, ikke et brudt billede
-     - den moerke billednote (moerk, ikke roed: roed laeses som salg)
 
    ALLE farver er MAALT med prototype/kontrast-system.mjs. Tallene i
    prototype/system.html kommer derfra, ikke fra et skoen.
@@ -60,7 +59,7 @@
   --hegn:#7C8695;            /* BETYDNINGSBAERENDE kant: 3,68 : hvid  3,32 : bund
                                 3,20 : tomfelt. Stiplet hul, inputkant, ikon-hul. */
 
-  --fod:#14161A;             /* moerk flade: billednote og sidefod */
+  --fod:#14161A;             /* moerk flade: sidefod */
   --paafod:#E6E9EE;          /* 14,88 paa --fod */
   --paafod2:#B9C0CA;         /*  9,88 paa --fod */
 
@@ -188,27 +187,6 @@ a:hover{text-decoration-thickness:2.5px}
 @media (max-width:420px){
   .baand nav a{padding:0 10px;font-size:14px}
 }
-
-/* --- 7. Billednoten (spaerring S1) ---------------------------------------- */
-/* Moerk, ikke roed. Roed laeses som fejl eller som salg; det her er en
-   redaktionel oplysning, der skal ses hver gang og aldrig kunne overses. */
-.billednote{background:var(--fod);color:var(--paafod)}
-.billednote .rum{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;
-  padding-block:14px}
-/* FUND-detalje.md, opgave 3a: denne regel satte aldrig sin egen baggrund, saa
-   den generiske .maerke{background:var(--panel-ro)} (afsnit "Anvendelsesmaerket"
-   nedenfor) vandt paa netop DEN egenskab — mens .billednote .maerke selv vandt
-   paa `color` (2 klasser slaar 1). Resultatet var --paafod-tekst (naesten hvid,
-   lavet til 14,88:1 mod den moerke --fod) oven paa en --panel-ro-flade (naesten
-   hvid) den ALDRIG var maalt mod: 1,1:1, maalt med Playwright paa den faktisk
-   gengivne side, ikke i teorien. Rettelsen er at fjerne den arvede flade — maerket
-   skal sidde direkte paa billednotens egen moerke bund, som resten af baandet. */
-.billednote .maerke{flex:none;font-family:var(--mono);font-size:11px;font-weight:500;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--paafod);background:transparent;
-  border:1px solid var(--paafod2);border-radius:var(--rund-lille);
-  padding:4px 10px;margin-top:2px;white-space:nowrap}
-.billednote p{font-size:14.5px;line-height:1.5;color:var(--paafod);max-width:96ch}
-.billednote code,.billednote b{font-family:var(--mono);font-size:13px;color:#FFFFFF;font-weight:500}
 
 /* --- 8. De fire datatilstande --------------------------------------------- */
 /* Reglen, hele kataloget hviler paa: "ikke oplyst", "nej", "0" og

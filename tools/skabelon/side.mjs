@@ -21,7 +21,7 @@
  *   ctx.sprog 'da' | 'en'
  *   ctx.url   { dybde, sti, op }   sti er uden sprogpraefiks, fx 'robotter/'
  *
- * Skallen (<head>, baand, billednote, skip-link, hreflang, fod) skrives af
+ * Skallen (<head>, baand, skip-link, hreflang, fod) skrives af
  * skal() her i filen. En skabelon skriver KUN indholdet af <main>.
  *
  * ============================================================================
@@ -1210,7 +1210,7 @@ export const hjaelp = new Proxy({}, {
 
 /**
  * Sideskallen. Alt uden for <main>: <head>, hreflang, skip-link, baandet
- * oeverst, billednoten (spaerring S1) og sidefoden.
+ * oeverst og sidefoden.
  */
 export function skal({
   sprogkode, T, t, titel, beskrivelse, sti, main, aktiv,
@@ -1265,12 +1265,6 @@ ${nav.map(([href, tekst]) => `<a href="${attr(op + sprogkode + '/' + href)}"`
 </nav>
 </div>
 </header>
-<aside class="billednote">
-<div class="rum">
-<span class="maerke">${esc(t('billednote_maerke'))}</span>
-<p>${esc(t('billednote_tekst'))}</p>
-</div>
-</aside>
 ${kropp}
 <footer class="fod">
 <div class="rum">
