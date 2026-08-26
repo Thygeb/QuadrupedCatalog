@@ -46,9 +46,24 @@ Relevante for det her projekt:
 
 | Skill | Hvornår |
 |---|---|
-**Målt 26. aug 2026: der findes præcis tre globale skills på maskinen** —
-`impeccable`, `ui-ux-critique` og `critique`. Tabellen her nævnte tidligere også
-`new-project`, `dataviz`, `code-review` og `simplify`; **ingen af dem findes**,
+**Skills kommer fra to steder, og det er den fælde, der kostede en fejlkonklusion
+26. aug 2026.** `ls ~/.claude/skills/` viser **kun de lokale** — `impeccable`,
+`ui-ux-critique` og `critique`. **Plugin-skills ligger et andet sted** og er
+mindst lige så mange. Måling samme dag: **ti plugins er installeret, og ni er
+slået til på brugerniveau** — heriblandt `frontend-design` (siden 13. aug),
+`skill-creator` (21. aug), `code-review`, `feature-dev`, `impeccable`,
+`ui-ux-pro-max` og `taste-skill`.
+
+**Projektets `.claude/settings.json` lægger TIL brugerens, den erstatter den
+ikke.** At projektfilen kun nævner to plugins betyder altså ikke, at kun to er
+aktive. Vil du vide, hvad der faktisk er tilgængeligt, så læs begge:
+
+```
+node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('C:/Users/thyge/.claude/plugins/installed_plugins.json','utf8')).plugins))"
+```
+
+Tabellen her nævnte tidligere også
+`new-project`, `dataviz` og `simplify`; **ingen af dem findes**,
 og en agent, der fulgte tabellen, fik `Unknown skill` og gik videre uden skill.
 `critique` er *installeret* men **kan ikke køre**: dens første linje kræver
 `frontend-design` og `teach-impeccable`, som heller ikke findes. Tabellen er
@@ -84,8 +99,13 @@ det er derfor, udseendet ikke flyttede sig, selvom hver runde fandt ægte fejl.
 Den kan aldrig hæve loftet.** Skal loftet hæves, er det `new-work` eller
 `bolder`, ikke endnu en fejljagt.
 
-**Til kodegennemgang** bruges CLI-kommandoen `/code-review` — den er ikke en
-skill og kan ikke kaldes med `Skill`-værktøjet.
+**Til kodegennemgang** findes både CLI-kommandoen `/code-review` og pluginnet
+`code-review@claude-plugins-official`, som er installeret og slået til.
+
+**Andre installerede plugins, der ikke er nævnt i tabellen, men findes:**
+`skill-creator` (byg og evaluér nye skills), `feature-dev` (agenterne
+`code-architect`, `code-explorer`, `code-reviewer`), `ui-ux-pro-max`,
+`taste-skill` og `commit-commands`. `android-skills` er irrelevant her.
 
 ## Sprog
 
