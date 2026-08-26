@@ -36,19 +36,36 @@
  */
 
 import { esc } from './side.mjs';
-import { FELTER, FELTNAVNE, GRUPPER, feltVisning } from '../skema.mjs';
+import { FELTER, FELTNAVNE, GRUPPER, NAEVNER, feltVisning } from '../skema.mjs';
+import { taethed } from '../validate.mjs';
 
 const attr = esc;
 
-/** Mockuppens trio, hvis alle tre findes i det aktuelle datasaet — ellers de
- *  tre foerste robotter alfabetisk (samme regel som forsidens smagsproeve:
- *  deterministisk, ingen redaktionel udvaelgelse). */
-const STANDARD_SLUGS = ['boston-dynamics-spot', 'anybotics-anymal-x', 'unitree-go2'];
-
-function standardvalg(robotter) {
-  const slugs = new Set(robotter.map((r) => r.slug));
-  if (STANDARD_SLUGS.every((s) => slugs.has(s))) return STANDARD_SLUGS;
-  return robotter.slice(0, 3).map((r) => r.slug);
+/**
+ * Standardtrioen (spor/sammenlign, punkt 1 — afloeser den haardkodede
+ * Spot/ANYmal-X/Go2-liste, som mockuppen fastlagde): de tre robotter med
+ * HOEJEST specifikationstaethed, hoejst én pr. producent, afgjort alfabetisk
+ * paa slug ved lige taethed. UDLEDT af bygget, ikke en redaktionel liste -
+ * ANYmal X (4 af 30 felter) mødte foerstegangsbesoegende med 26 stiplede
+ * "ikke oplyst"-bokse, det stik modsatte af sitets 1.110 kildebelagte tal.
+ *
+ * Taetheden er den SAMME `taethed()`, validate.mjs og build.mjs allerede
+ * bruger til sluttaellingen og robots.json's `taethed`-felt - ingen ny
+ * maalestok. NAEVNER (FELTNAVNE.length, i dag 30) er importeret, ALDRIG
+ * skrevet som et tal her (L30/D7).
+ */
+function standardvalg(robotter, d4) {
+  const med = robotter.map((r) => ({ r, tal: taethed(r, NAEVNER, d4).udfyldt }));
+  med.sort((a, b) => b.tal - a.tal || String(a.r.slug).localeCompare(String(b.r.slug)));
+  const producenter = new Set();
+  const valgt = [];
+  for (const { r } of med) {
+    if (producenter.has(r.producent)) continue;
+    producenter.add(r.producent);
+    valgt.push(r.slug);
+    if (valgt.length === 3) break;
+  }
+  return valgt;
 }
 
 /** Operatorernes tekst, sprogspecifik — samme noegler som side.mjs' operator(). */
@@ -61,7 +78,7 @@ const OPNAVN = {
  *  en lille sprogspecifik ordbog, assets/sammenligning.js bruger til at
  *  tegne cellerne (label pr. felt/gruppe, operator-tekst, tilstandstekst). */
 function dataBlok(ctx) {
-  const { robotter, i18n } = ctx;
+  const { robotter, i18n, d4 } = ctx;
   const { T, t } = i18n;
 
   const robotterUd = robotter.map((r) => {
@@ -95,7 +112,7 @@ function dataBlok(ctx) {
   );
 
   return {
-    standard: standardvalg(robotter),
+    standard: standardvalg(robotter, d4),
     maksAntal: 3,
     robotter: robotterUd,
     grupper,
