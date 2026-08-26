@@ -48,24 +48,18 @@ const ctx = {
 };
 
 /** Raekkefoelgen er laeseorden, IKKE en afhaengighedskaede - hver del bygger
- *  sit eget data/dist i sin egen undermappe af tmp. Tilfoej en ny del ved at
- *  laegge filnavnet her, se tests/LAESMIG.md. */
-const DELE = [
-  'dele/01-validator-regler.mjs',
-  'dele/02-spec-taethed.mjs',
-  'dele/03-billedkaede.mjs',
-  'dele/04-byg-struktur.mjs',
-  'dele/05-visning-nye-former.mjs',
-  'dele/06-vaegtklasse-anvendelse.mjs',
-  'dele/07-db-vagt.mjs',
-  'dele/08-alder.mjs',
-  'dele/09-katalog-producent-sider.mjs',
-  'dele/10-forside-yderpunkter.mjs',
-  'dele/11-sammenligning.mjs',
-  'dele/12-enheder.mjs',
-  'dele/13-billedramme.mjs',
-  'dele/14-afslutning-oprydning.mjs',
-];
+ *  sit eget data/dist i sin egen undermappe af tmp. Listen er IKKE skrevet i
+ *  haanden: den er selve det, to samtidige spor ellers ville konfliktere om
+ *  (ARBEJDSGANG-2.md, punkt O1 - "eet spor = een ny fil = INGEN konflikt"
+ *  holder ikke, hvis alle stadig skal redigere den samme array). En ny del
+ *  tilfoejes ved at laegge filen i tests/dele/ med det naeste ledige
+ *  tocifrede praefiks - og INTET andet, se tests/LAESMIG.md. Praefikset
+ *  baerer raekkefoelgen (deraf de to cifre); `_faelles.mjs` falder automatisk
+ *  udenfor, fordi den ikke starter med to cifre efterfulgt af "-". */
+const DELE = fs.readdirSync(path.join(rod, 'tests', 'dele'))
+  .filter((f) => /^\d\d-.*\.mjs$/.test(f))
+  .sort()
+  .map((f) => `dele/${f}`);
 
 let validatorTal = null;
 for (const rel of DELE) {
