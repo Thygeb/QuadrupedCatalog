@@ -22,12 +22,10 @@
   "forside_overskrift": "Quadruped robots, field by field",
   "forside_lede": "{n} models from {p} manufacturers. Every figure carries a source and a retrieval date, and every gap is as visible as the figure.",
   "forside_ordning": "Ordered by weight, because weight is measured and unambiguous. Intended use is a filter, not an axis.",
-  "forside_soeg_etiket": "Search by model, manufacturer or requirement",
-  "forside_soeg_pladsholder": "e.g. Spot, DEEP Robotics or IP67",
-  "forside_filtre_etiket": "Intended use, per the manufacturer",
+  "katalog_soeg_etiket": "Search by model, manufacturer or requirement",
+  "katalog_soeg_pladsholder": "e.g. Spot, DEEP Robotics or IP67",
   "se_alle": "See all {n} robots",
   "antal_kort": "{n} robots",
-  "soeg_kraever_js": "The search field requires JavaScript and is shown only when it is enabled. The filters work without it.",
   "soeg_ingen_traef": "No robots match the search.",
 
   "yderpunkter_etiket": "Extremes",
@@ -40,9 +38,6 @@
 
   "forside_eu_tal": "{n} of {m}",
   "forside_eu_paastand": "robots in the catalogue state CE marking from the manufacturer.",
-
-  "forside_formaal_titel": "Find by intended use",
-  "forside_formaal_forklaring": "A robot can belong to more than one intended use - pick one to see what the manufacturer itself put it down for.",
 
   "forside_udvalg_etiket": "{n} of {m}",
   "forside_udvalg_titel": "From the catalogue",

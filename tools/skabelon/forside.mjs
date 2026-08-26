@@ -44,7 +44,7 @@
  * ARKITEKTURAENDRING (spor/lysbyg, kontrakt: prototype/retning-lys/,
  * BEGRUNDELSE.md "Arkitekturaendring" + "Hvad jeg bevidst fravalgte"):
  * forsiden viser IKKE laengere alle robotter grupperet i vaegtklasser, og
- * IKKE laengere formaalsfilteret (`.formaal-gitter`) eller soegefeltet.
+ * IKKE laengere formaalsfilterets store fliser eller soegefeltet.
  * Begge dele FLYTTER til katalogsiden (tools/skabelon/katalog.mjs), som nu
  * er sitets fulde browsested: vaegtklasse-salene I-IV, facetfiltrene
  * (inkl. "Anvendelse", som allerede daekkede formaalsfilterets FUNKTION) og
@@ -52,7 +52,8 @@
  * mellem "indgang" (forside) og "montre" (katalog) — se BEGRUNDELSE.md's
  * eget afsnit om praecis denne todeling.
  *
- * Formaalsfilterets STORE FLISER (`.formaal-gitter`) er IKKE genskabt paa
+ * Formaalsfilterets STORE FLISER (CSS-klassen der baerede dem er slettet
+ * i spor/indgang, punkt 1b - den rendredes 0 gange) er IKKE genskabt paa
  * katalogsiden: katalogsidens egen "Anvendelse"-facet (fem afkrydsningsfelter
  * blandt facetterne, tools/skabelon/katalog.mjs) filtrerer allerede paa
  * praecis det samme felt. To samtidige UI'er for én dimension paa én side

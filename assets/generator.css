@@ -10,7 +10,7 @@
    ========================================================================== */
 
 /* --- 1. AABNINGEN (JPK's tillaeg, 24. aug 2026) ---------------------------
-   Titel + yderpunkter + EU-fundet + formaalsfilteret. Budgettet: op til 1,5
+   Titel + yderpunkter + EU-fundet. Budgettet: op til 1,5
    skaermhoejde ved 1440x900. Foerste skaerm skal goere praecis tre ting:
    sige hvad samlingen er, vise mindst én maskine stor nok til at lede
    blikket, og goere det tydeligt at der er mere nedenunder. Fladen er
@@ -96,26 +96,6 @@
 .eu-fund-tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
   font-size:clamp(26px,2.6vw,34px);font-weight:700;letter-spacing:-.01em;color:var(--blaek)}
 .eu-fund-linje span{font-size:17px;line-height:1.5;color:var(--blaek2)}
-
-/* --- 1d. FORMAALSFILTERET. Fra smaa chips til en tydelig, indbydende
-   indgang: samme LINKS til kataloget (ikke afkrydsningsfelter — forsiden er
-   delt i vaegtklassesektioner), stoerre maal, tallet som en rigtig figur. */
-.formaal-gitter{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
-  gap:var(--r3);margin-top:var(--r5)}
-.formaal{display:flex;flex-direction:column;justify-content:space-between;gap:var(--r4);
-  min-height:96px;padding:16px 18px;text-decoration:none;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
-  box-shadow:var(--skygge)}
-.formaal:hover{border-color:var(--hegn);background:var(--accent-ro);box-shadow:var(--skygge-loeft)}
-.formaal-navn{font-size:16.5px;font-weight:700;letter-spacing:-.014em;color:var(--blaek)}
-.formaal-tal{font-size:25px;font-weight:700;letter-spacing:-.02em;color:var(--blaek2);align-self:flex-end}
-/* Hullet: samme sprog som "ikke oplyst" andre steder — stiplet hegn, --tom
-   flade, daempet tekst. Ikke rødt: at en producent intet skriver om formaal
-   er ikke en fejl. */
-.formaal--tom{background:var(--tom);border-style:dashed;border-color:var(--hegn);box-shadow:none}
-.formaal--tom .formaal-navn{color:var(--blaek3);font-weight:600}
-.formaal--tom .formaal-tal{color:var(--blaek3)}
-.formaal--tom:hover{background:var(--tom);border-color:var(--hegn)}
 
 /* --- 2. Filterlagene ------------------------------------------------------
    Ét lag pr. facet. display:contents, saa laget ikke selv bliver en
@@ -406,9 +386,10 @@
 @media (min-width:900px){
   .robot-top{grid-template-columns:minmax(0,7fr) minmax(280px,5fr);gap:var(--r6)}
 }
-/* Under 900 px stakkes billede og navn (§9a). Maalt fund/FUND-detalje.md:
-   et rigtigt fotografi i 16:10 fylder stadig ~205 px hoejde ved 360 px bredde
-   alene, og lagt oven paa navigation + billednote + "Tilbage til kataloget"
+/* Under 900 px stakkes billede og navn (§9a). Maalt fund/FUND-detalje.md,
+   dengang siden endnu viste billednote-banneret fra S1 (fjernet 26. aug 2026,
+   se L37): et rigtigt fotografi i 16:10 fylder stadig ~205 px hoejde ved
+   360 px bredde alene, og lagt oven paa navigation + "Tilbage til kataloget"
    skubbede navnet for taet paa en almindelig telefons foerste skaermhoejde.
    Loftet gaelder KUN et rigtigt fotografi — :not(.billedled--maal) holder
    maaltro-pladen udenfor, fordi dens kasse regner sin egen procentbredde ud
