@@ -95,6 +95,13 @@ Arvet fra KeyResearch, og de gælder her med fuld kraft:
 - **PowerShell 5.1:** dobbelte anførselstegn ødelægger argumentoverførsel til native kommandoer.
   Skriv commit-beskeder til en fil og brug `git commit -F <fil>`.
 - Skriv filer med UTF-8 **uden** BOM. `Set-Content -Encoding utf8` ødelægger tankestreger.
+- **Efterprøv altid indhold, som skallen har skrevet — ikke kun `sed`.** Reglen har hidtil
+  kun dækket `sed -i`, der fejler tavst. Den gælder alt: 25. aug 2026 blev en STATUS.md-post
+  skrevet gennem en `node -e`-streng, hvor bash udførte backtickene som kommandosubstitution
+  og strøg **alle** filnavne ud af teksten — commit og push gik igennem uden en fejl. Bærer
+  indholdet backticks, `$`, `%` eller anførselstegn, så brug Write/Edit-værktøjet, som fejler
+  synligt. Gør du det alligevel i skallen: `grep` efter et af de tegn bagefter, før du
+  committer.
 
 ---
 
@@ -218,6 +225,16 @@ det modsatte af formålet.
 Alt andet — den fulde udredning, alle kørsler, alle overvejelser — hører i commit-beskederne,
 hvor det står ved siden af den diff, det handler om.
 
+**To sektioner ligger UDEN FOR de 60 linjer, og de er obligatoriske:**
+
+- **"Nye fælder og opdagelser."** Loftet må ikke koste det, rapporterne er værd. Målt
+  25. aug 2026: de lange rapporter bar netop opdagelserne — `InvalidKey` på ikke-ASCII
+  objektnøgler, mappeposter med `id: null`, og den bevidste regex-duplikering, der blev til
+  Å12. Under et hårdt loft dropper en agent det overraskende og beholder tjeklisten, for
+  tjeklisten er det, den blev bedt om. Er der intet at skrive, skal der stå, at der intet er.
+- **"Punkter i briefet, jeg ikke nåede."** Én linje pr. punkt, tom hvis ingen. Ærlighed skal
+  være strukturel, ikke noget der gemmer sig i prosaen under selv-reviewet.
+
 ### 2. Konfidensniveauet skal have en metode, ikke en fornemmelse
 
 Hård begrænsning 6 forbyder en redaktionel score uden offentliggjort metode. **Den regel
@@ -233,6 +250,13 @@ hvor sikker agenten føler sig:
 **Høj uden en genkørbar kommando nedskrives automatisk til lav.** Det er den eneste måde at
 forhindre, at niveauet inflaterer til "høj" på alting.
 
+**Og høj kræver to ting, ikke ét: kommandoen plus én linje om, hvad tallet ville have været,
+hvis arbejdet var forkert.** Genkørbarhed beviser reproducerbarhed, ikke relevans. Målt
+25. aug 2026: et spors worktree manglede de gitignorerede fabrikantbilleder, så
+`validate.mjs` gav **54 fejl** — kommandoen kørte, tallet var reproducerbart, og det målte
+agentens *miljø* frem for dens arbejde. Kan agenten ikke skrive den kontrafaktiske linje, er
+niveauet middel.
+
 ### 3. Orkestratoren efterprøver *efter* konfidens
 
 Reviewet er ikke en gennemlæsning. Det er en måling, og konfidensniveauet bestemmer, hvor den
@@ -247,6 +271,21 @@ Efterprøvningen skrives ind i fletbeskeden med tal, så næste læser kan se, h
 af orkestratoren selv, og hvad der kun står i agentens rapport. **Er noget ikke efterprøvet,
 skal det stå.**
 
+**Efterprøvningen har tre udfald — ikke ét.** En arbejdsgang, der ender på "flet", trækker mod
+at flette; det er formfejlen, dette punkt lukker:
+
+1. **Flet.** Målingerne holder.
+2. **Flet efter rettelse.** Send de præcise punkter tilbage til samme agent (fil, linje, citat,
+   acceptkriterium) og efterprøv igen.
+3. **Afvis.** Løsningens *retning* er forkert, ikke bare dens udførelse. Commit da agentens
+   arbejde på grenen som **mellemtilstand** med en besked, der siger hvad der er rigtigt ved
+   den, og hvad der ikke er — og send en efterfølger, der får den commit som læsestof.
+   **Worktreen ryddes ikke ved afvis.**
+
+Det tredje udfald skete 25. aug 2026: prosa-sporets analyse var rigtig, men dens løsning
+(YAML-kommentarer) ville være slettet tavst ved næste regenerering fra databasen. Havde
+arbejdsgangen kun haft udfald 1, var den fejl flettet ind.
+
 ### 4. Orkestratoren fletter og rydder op
 
 `git merge --no-ff` med en fletbesked, der bærer efterprøvningens tal — derefter
@@ -255,6 +294,41 @@ En efterladt worktree bliver til en gren, ingen tør slette, fordi ingen længer
 noget i den.
 
 **Et spor er ikke færdigt, før worktreen er væk.**
+
+**En worktree, der bevidst sættes på pause, skal skrives ind i STATUS.md** — med gren, sti og
+hvad der ligger i den. Ellers bliver den til en mappe, ingen tør slette, fordi ingen længere
+ved, om der var noget værd at redde. Målt 25. aug 2026: `spor/retning-atlas` og
+`spor/retning-moerk` har ligget siden designrunden og er nævnt **nul** gange i STATUS.md.
+
+---
+
+## Hvornår der IKKE sendes et spor
+
+*"Subagenter laver alt rugbrødsarbejdet"* betyder **ændringer**, ikke opslag. Følgende er
+orkestratorens eget arbejde, og et spor til dem er spildt tid og en ekstra runde:
+
+- **Målinger og opslag** — "hvor mange robotter mangler IP-klasse?" er én forespørgsel.
+- **Reviews, kritik og analyser.** Aldrig en Sonnets, jf. reglen ovenfor.
+- **Procesdokumenter** — STATUS.md, CLAUDE.md, skills, hukommelse, kritikdokumenter.
+- **Flet, oprydning og servere.**
+
+## Briefet — to regler, der kostede en runde hver
+
+**1. Første kommando i ethvert spor er en grundmåling, og den skal stå i rapporten.**
+Uden den kan agenten ikke svare på "var det mig, der ødelagde det?". Målt 25. aug 2026: to
+spor mødte 54 valideringsfejl, som stammede fra manglende gitignorerede billeder — det ene
+spor havde taget grundmålingen først og kunne bevise, at fejlene var der i forvejen; det
+andet brugte en runde på at finde ud af det.
+
+**2. Et tal i et brief er enten et krav eller et gæt — og det skal fremgå hvilket.**
+Skriv aldrig et hårdkodet forventet tal som acceptkriterium, når det kan udledes. `"213 sider"`
+bliver forkert, så snart kataloget vokser; `"samme sidetal som før dit spor, plus 2 pr. nyt
+sprog"` bliver ikke. Bærer briefet alligevel et forventet tal, skal det mærkes som
+**forudsigelse** — agenten skal måle og skrive det faktiske, ikke ramme mit gæt. Målt samme
+dag: mit `"177 sider"` blev til 175, og mit `"stort set alle 77"` blev til 33 af 77. Begge
+agenter gjorde det rigtige og skrev det målte tal; en mindre samvittighedsfuld agent ville
+have rettet mod tallet. Det er D7/L30-fælden i ny forklædning: et håndskrevet tal ved siden
+af et udledt.
 
 ---
 

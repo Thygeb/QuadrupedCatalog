@@ -66,6 +66,22 @@ ikke samtalen. Hver prompt skal derfor selv bære:
     ender alt på høj. Målt 25. aug 2026: seks rapporter samme dag lå på 226 linjer i snit
     (længste 337), og den slags bliver skimmet i stedet for læst. Den fulde udredning hører
     i commit-beskederne, ved siden af den diff den handler om.
+    **To sektioner ligger uden for loftet og er obligatoriske:** *"Nye fælder og opdagelser"*
+    (loftet må ikke koste det, rapporten er værd — under et hårdt loft dropper en agent det
+    overraskende og beholder tjeklisten) og *"Punkter i briefet, jeg ikke nåede"*.
+    **Høj konfidens kræver desuden en kontrafaktisk linje:** hvad tallet ville have været,
+    hvis arbejdet var forkert. Genkørbarhed beviser reproducerbarhed, ikke relevans — 25. aug
+    2026 gav `validate.mjs` 54 reproducerbare fejl, der målte agentens miljø, ikke dens arbejde.
+9c. **Grundmåling som første kommando.** Skriv i prompten, at sporet starter med at måle
+    udgangspunktet og skrive tallet i rapporten. Uden det kan agenten ikke svare på "var det
+    mig, der ødelagde det?" — og to spor mødte samme dag 54 valideringsfejl, der stammede fra
+    manglende gitignorerede billeder.
+9d. **Mærk forventede tal som forudsigelser.** Et acceptkriterium skal udledes, ikke hårdkodes:
+    *"samme sidetal som før dit spor, plus 2 pr. nyt sprog"*, ikke *"213 sider"* — det sidste
+    bliver forkert, så snart kataloget vokser. Bærer briefet et forventet tal, så skriv, at det
+    er et gæt, og at agenten skal måle og rapportere det faktiske. Målt 25. aug 2026: mit
+    "177 sider" blev 175, mit "stort set alle 77" blev 33 af 77. Begge agenter skrev det målte
+    tal; en mindre samvittighedsfuld ville have rettet mod mit gæt.
 10. **"Ét commit pr. punkt" skal formuleres som en skrive-grænse, ikke en commit-grænse.**
     Målt 25. aug 2026 på to agenter i træk (`fund/FUND-billedspand.md`,
     `fund/FUND-arkiv.md`), begge trods eksplicit instruks: agenten skrev HELE scriptet i
@@ -116,9 +132,19 @@ der *ikke* blev efterprøvet. Se de tre eksempler fra 25. aug 2026 (`spor/vagt`,
 `spor/eksval`), hvor efterprøvningen fangede ting, agentens egen rapport ikke havde set:
 i vagt-sporet efterlignede orkestratoren selv en Studio-redigering og talte rækkerne bagefter.
 
+**Efterprøvningen har tre udfald, ikke ét** — en arbejdsgang, der ender på "flet", trækker mod
+at flette: **flet** · **flet efter rettelse** (præcise punkter tilbage til samme agent) ·
+**afvis**, når løsningens *retning* er forkert. Ved afvis committes agentens arbejde på grenen
+som **mellemtilstand** med en besked om, hvad der er rigtigt ved den og hvad der ikke er, og en
+efterfølger får den commit som læsestof. **Worktreen ryddes ikke ved afvis.** Det skete
+25. aug 2026 med `spor/prosa`: analysen var rigtig, løsningen (YAML-kommentarer) ville være
+slettet tavst ved næste regenerering fra databasen.
+
 **Et spor er ikke færdigt, før worktreen er væk** og `additionalDirectories` i
 `.claude/settings.json` er nulstillet. En efterladt worktree bliver til en gren, ingen tør
-slette, fordi ingen længere ved, om der lå noget i den.
+slette, fordi ingen længere ved, om der lå noget i den — `spor/retning-atlas` og
+`spor/retning-moerk` har ligget siden designrunden. **Sættes en worktree bevidst på pause,
+skal den skrives ind i STATUS.md** med gren, sti og indhold.
 
 ## 5. Flytning under kørsel — gør det ikke
 
