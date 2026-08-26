@@ -188,6 +188,76 @@ reviewerens ansvar, at det ikke sker — ikke juniorens.
 
 ---
 
+## Den faste arbejdsgang — rollerne og konfidensniveauet
+
+Fast regel, sat af JPK 25. aug 2026. Gælder **hver eneste opgave** fra nu af, uden undtagelse.
+
+**Rollefordelingen er låst:**
+
+| Hvem | Gør hvad |
+|---|---|
+| **Orkestratoren** (Opus/Fable) | Orkestrerer, reviewer, analyserer. Skriver aldrig selv leverancen |
+| **Subagenter** (`model: "sonnet"`, skrevet eksplicit) | Alt rugbrødsarbejdet: kode, data, skabeloner, CSS, indsamling |
+
+Orkestratorens fire faste skridt om hver opgave: **send sporet ud → læs rapporten → efterprøv
+selv → flet og ryd op.** Ingen af dem kan springes over, og ingen af dem kan uddelegeres.
+
+### 1. Rapporten skal være kort
+
+Målt 25. aug 2026 på seks rapporter fra samme dag: **226 linjer i gennemsnit**, længste 337.
+Det er en afhandling, ikke en rapport, og den bliver skimmet i stedet for læst — hvilket er
+det modsatte af formålet.
+
+**Højst 60 linjer.** Rapporten skal indeholde fire ting og ikke mere:
+
+1. **Hvilken løsning blev valgt** — og hvilken blev fravalgt, i én linje hver.
+2. **Konfidensniveau pr. punkt** (se skalaen nedenfor).
+3. **Usikkerheder mødt undervejs** — det agenten ikke kunne afgøre.
+4. **Målingerne** som tal, ikke som prosa: "validate 77/0", "tests 212/2", ikke "alt kører".
+
+Alt andet — den fulde udredning, alle kørsler, alle overvejelser — hører i commit-beskederne,
+hvor det står ved siden af den diff, det handler om.
+
+### 2. Konfidensniveauet skal have en metode, ikke en fornemmelse
+
+Hård begrænsning 6 forbyder en redaktionel score uden offentliggjort metode. **Den regel
+gælder også agenternes egne tal om sig selv.** Konfidens bindes derfor til bevistype, ikke til
+hvor sikker agenten føler sig:
+
+| Niveau | Betyder præcist |
+|---|---|
+| **Høj** | Målt med en kommando, tallet står i rapporten, og **orkestratoren kan genkøre den og få samme tal** |
+| **Middel** | Efterprøvet indirekte — enhedstest, strukturkontrol, delvis stikprøve — men ikke målt i den endelige form, brugeren møder |
+| **Lav** | Ikke efterprøvet: antaget, udledt, eller blokeret af noget agenten ikke kunne komme udenom |
+
+**Høj uden en genkørbar kommando nedskrives automatisk til lav.** Det er den eneste måde at
+forhindre, at niveauet inflaterer til "høj" på alting.
+
+### 3. Orkestratoren efterprøver *efter* konfidens
+
+Reviewet er ikke en gennemlæsning. Det er en måling, og konfidensniveauet bestemmer, hvor den
+lægges:
+
+- **Lav konfidens efterprøves først og hårdest.** Det er dér, fejlene bor.
+- **Middel** efterprøves i den endelige form — kør det, brugeren ville møde.
+- **Høj** stikprøves ved at genkøre agentens egen kommando. Giver den et andet tal, er hele
+  rapporten mistænkt, ikke kun det punkt.
+
+Efterprøvningen skrives ind i fletbeskeden med tal, så næste læser kan se, hvad der blev målt
+af orkestratoren selv, og hvad der kun står i agentens rapport. **Er noget ikke efterprøvet,
+skal det stå.**
+
+### 4. Orkestratoren fletter og rydder op
+
+`git merge --no-ff` med en fletbesked, der bærer efterprøvningens tal — derefter
+`git worktree remove`, og `additionalDirectories` i `.claude/settings.json` nulstilles.
+En efterladt worktree bliver til en gren, ingen tør slette, fordi ingen længere ved, om der lå
+noget i den.
+
+**Et spor er ikke færdigt, før worktreen er væk.**
+
+---
+
 ## Mappestruktur
 
 ```

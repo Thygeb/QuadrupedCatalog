@@ -55,6 +55,17 @@ ikke samtalen. Hver prompt skal derfor selv bære:
 8. **Output-filnavn og commit-instruks.** Brug `git commit -F <fil>` — dobbelte
    anførselstegn ødelægger argumentoverførsel til native kommandoer i PowerShell 5.1.
 9. **Ærlig rapportering:** hvad blev ikke nået, hvad blev sprunget over.
+9b. **Rapportens form — højst 60 linjer, med konfidensniveau** (fast regel, JPK 25. aug 2026;
+    se CLAUDE.md's "Den faste arbejdsgang"). Skriv ordret i prompten, at rapporten skal bære
+    fire ting og ikke mere: valgt løsning + fravalgt alternativ i én linje hver ·
+    **konfidensniveau pr. punkt** · usikkerheder mødt undervejs · målingerne som tal.
+    Kræv skalaen eksplicit, ellers bliver niveauet en fornemmelse:
+    **høj** = målt med en kommando, orkestratoren kan genkøre den og få samme tal ·
+    **middel** = efterprøvet indirekte, ikke i den endelige form · **lav** = ikke efterprøvet.
+    Skriv også, at *høj uden genkørbar kommando nedskrives til lav* — uden den sætning
+    ender alt på høj. Målt 25. aug 2026: seks rapporter samme dag lå på 226 linjer i snit
+    (længste 337), og den slags bliver skimmet i stedet for læst. Den fulde udredning hører
+    i commit-beskederne, ved siden af den diff den handler om.
 10. **"Ét commit pr. punkt" skal formuleres som en skrive-grænse, ikke en commit-grænse.**
     Målt 25. aug 2026 på to agenter i træk (`fund/FUND-billedspand.md`,
     `fund/FUND-arkiv.md`), begge trods eksplicit instruks: agenten skrev HELE scriptet i
@@ -90,6 +101,24 @@ git branch -d <gren>
 
 **Flet først, når arbejdet er efterprøvet.** En agents selv-review er et input til
 beslutningen, ikke beslutningen.
+
+**Efterprøv efter konfidensniveau** (fast regel, JPK 25. aug 2026). Rapporten angiver et
+niveau pr. punkt; det bestemmer, hvor orkestratorens måling lægges:
+
+- **Lav** efterprøves først og hårdest — det er dér, fejlene bor.
+- **Middel** efterprøves i den **endelige form**, altså det brugeren ville møde, ikke i den
+  enhedstest agenten allerede kørte.
+- **Høj** stikprøves ved at genkøre agentens egen kommando. Giver den et andet tal, er hele
+  rapporten mistænkt, ikke kun det ene punkt.
+
+Fletbeskeden skal bære **orkestratorens egne tal**, ikke agentens — og skrive tydeligt, hvad
+der *ikke* blev efterprøvet. Se de tre eksempler fra 25. aug 2026 (`spor/vagt`, `spor/arkiv`,
+`spor/eksval`), hvor efterprøvningen fangede ting, agentens egen rapport ikke havde set:
+i vagt-sporet efterlignede orkestratoren selv en Studio-redigering og talte rækkerne bagefter.
+
+**Et spor er ikke færdigt, før worktreen er væk** og `additionalDirectories` i
+`.claude/settings.json` er nulstillet. En efterladt worktree bliver til en gren, ingen tør
+slette, fordi ingen længere ved, om der lå noget i den.
 
 ## 5. Flytning under kørsel — gør det ikke
 
