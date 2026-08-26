@@ -22,12 +22,10 @@
   "forside_overskrift": "Firbenede robotter, felt for felt",
   "forside_lede": "{n} modeller fra {p} producenter. Hvert tal har kilde og hentedato, og hvert hul er lige så synligt som tallet.",
   "forside_ordning": "Ordnet efter vægt, fordi vægten er målt og entydig. Anvendelse er filter, ikke akse.",
-  "forside_soeg_etiket": "Søg efter model, producent eller krav",
-  "forside_soeg_pladsholder": "fx Spot, DEEP Robotics eller IP67",
-  "forside_filtre_etiket": "Anvendelse ifølge producenten",
+  "katalog_soeg_etiket": "Søg efter model, producent eller krav",
+  "katalog_soeg_pladsholder": "fx Spot, DEEP Robotics eller IP67",
   "se_alle": "Se alle {n} robotter",
   "antal_kort": "{n} robotter",
-  "soeg_kraever_js": "Søgefeltet kræver JavaScript og vises kun, når det er slået til. Filtrene virker uden.",
   "soeg_ingen_traef": "Ingen robotter matcher søgningen.",
 
   "yderpunkter_etiket": "Yderpunkter",
@@ -41,11 +39,11 @@
   "forside_eu_tal": "{n} af {m}",
   "forside_eu_paastand": "robotter i kataloget oplyser CE-mærkning fra producenten.",
 
-  "forside_formaal_titel": "Find efter formål",
-  "forside_formaal_forklaring": "En robot kan høre til mere end ét formål - vælg ét for at se, hvad producenten selv har sat den til.",
-
   "forside_udvalg_etiket": "{n} af {m}",
   "forside_udvalg_titel": "Fra kataloget",
+  "forside_afslutning_titel": "Ingen vinder her heller",
+  "forside_afslutning_saetning": "Kataloget har alle {n} robotter fra {p} producenter - samme kilde og hentedato på hvert tal, ingen udpeget som den bedste.",
+  "forside_afslutning_knap": "Se hele kataloget",
 
   "katalog_sortering_etiket": "Sortering",
   "katalog_sortering_vaegt": "Vægt, stigende",
@@ -143,6 +141,7 @@
   "kort_kilder_flere": "Kortets tal kommer fra {n} kilder - se mærkerne",
   "kort_kilder_ingen": "Ingen af kortets tal har en kilde i datafilen.",
   "kort_legende": "Fotos på kortene er producenternes egne, ikke krediteret og uden tilladelse, medmindre andet er angivet under det enkelte kort. Kortenes tal har kilde - et hævet bogstav ved tallet peger på hvilken.",
+  "kort_invitation": "Se robotten",
 
   "ved_last": "ved last",
   "ved_last_ukendt": "lastbetingelse ikke oplyst",

@@ -419,7 +419,13 @@ et senere spor og indgår ikke her.
   celler, intet ikon-batteri.
 - Sidder på `--bund`, samme flade som resten af åbningen — ingen ny farve, ingen ramme.
 
-### Formålsfilteret
+### Formålsfilteret — HISTORISK, slettet 26. aug 2026 (spor/indgang)
+
+**Findes ikke længere.** L17 (søgefelt + anvendelsesfiltre i forsidens første viewport)
+blev skrevet om 26. aug 2026: forsiden er en indgang, kataloget er værktøjet. CSS-klassen
+(`.formaal-gitter`) rendredes 0 gange i den byggede forside — sporet efter flytningen til
+katalogsiden (se *Filtre (kataloget)* nedenfor), som stod tilbage uden at nogen kaldte
+den. Afsnittet nedenfor er arkiv: det beskriver et komponent, siden IKKE længere bygger.
 
 Ombygget 24. aug 2026 fra en række på seks-syv små `.chip`-piller til en tydelig,
 indbydende indgang: `.formaal-gitter`, `repeat(auto-fill, minmax(190px,1fr))`, hver
@@ -447,6 +453,26 @@ flerlaget, ikke kun farven: fladeskiftet, en generøs `--r7`-luft til den først
 sektionsoverskrift, og selve overskriften ("Vægtklasse · Under 20 kg") sammen udgør
 tonespringet.
 
+### Afslutningen
+
+Tilføjet 26. aug 2026 (spor/indgang). Forsiden sluttede før dette spor med kun en stille
+"Se alle N robotter →"-linje efter "Fra kataloget" — for diskret til at være sidens
+sidste indtryk, når hele formålet er at lede videre til kataloget. Et første udkast
+(centreret heading + sætning + knap) blev afvist i samme spor efter en impeccable-
+gennemgang: det ER netop kategoriens standardsvar ("hero-metric"/CTA-skabelon).
+
+- **Genbrugt sætning, ikke en ny.** Overskriften ("Ingen vinder her heller"/"No winner
+  here either") gentager bevidst sammenligningssidens `sammenligning_legende_vinder_titel`
+  ("Ingen vinder markeret") — samme påstand om yderpunkterne og "Fra kataloget"-udvalget
+  ovenfor, ikke en generisk invitation.
+- **Ingen ny flade, ingen ny bloklayout.** Sektionen er en almindelig `.sektion` i den
+  eksisterende `.katalog-flade` (samme flade som "Fra kataloget"), venstrestillet som
+  resten af siden — ikke centreret.
+- **Sætningen bærer UDLEDTE tal** (antal robotter, antal producenter), aldrig hårdkodet.
+- **Knappen er den fyldte `.videre`**, ikke `.videre--stille` (som allerede bærer den mere
+  tilbageholdne linje i "Fra kataloget"). Ingen robot er navngivet eller vist — L17's
+  kerne (ingen fremhævet robot) står ved magt.
+
 ### Åbningens budget
 
 JPK's kompositionstillæg 24. aug 2026: åbningen (titel + lede + yderpunkter) må fylde op
@@ -473,16 +499,18 @@ fravalgt i skabelonerne; den er ikke defineret i systemet.
 
 ### Filtre (kataloget)
 
-Kataloget (`katalog.mjs`)s egne afkrydsningsfelter — ikke forsidens formålsfilter, se
-*Formålsfilteret* under Komponenter/Åbningen. `.chip`/`.chips` (forsidens tidligere,
-små anvendelseslænker) er nedlagt 24. aug 2026 og erstattet af `.formaal-gitter`.
+Kataloget (`katalog.mjs`)s egne afkrydsningsfelter. `.chip`/`.chips` (forsidens
+tidligere, små anvendelseslænker) er nedlagt 24. aug 2026 og erstattet af
+`.formaal-gitter`, som selv er slettet 26. aug 2026 (spor/indgang) — se *Formålsfilteret*
+ovenfor. Kataloget er nu ENESTE sted, anvendelse filtreres fra.
 
 - **Form:** 8 px radius, mindst 44 px høj, hårfin `linje`-kant på hvid flade
 - **Hvile:** `blaek2`-tekst med et monospor antal i `blaek3`
 - **Hover:** kanten skifter til `hegn`, teksten til fuld blæk
 - **Valgt:** accentfyldt flade, hvid tekst, antallet i `accent-ro`
 - **Tilstanden nås på tre måder** — `:checked`, `:target` og `aria-current` — så et
-  filterlink fra forsidens formålsfilter også *ses* som valgt uden en linje JavaScript
+  filterlink (historisk: fra forsidens nu slettede formålsfilter; i dag fra ethvert
+  internt link med et `#f-anv-…`-fragment) også *ses* som valgt uden en linje JavaScript
 - Selve afkrydsningsfeltet er skjult, men fokuserbart; fokusringen tegnes på etiketten
 
 ### Kort
@@ -495,6 +523,14 @@ Kortets orden er fast: **fotografi · ophav · navn · mærker · stribe · fodn
 - **Navn:** 22 px, −0,026em, **under** billedet. Navnets `::after` dækker hele kortet, så
   kortet er ét klikmål
 - **Hover:** kanten lysner til `#CFD4DB`, skyggen løfter, fotografiet skalerer 1,024
+- **Hover-/fokusinvitation** (`.kort-invit`, spor/indgang, 26. aug 2026): fotografiets
+  scale er 2,4 % — for lille til at læses som et signal. Én tekst+pil ("Se robotten"/
+  "See the robot") toner ind ØVERST i billedet ved `:hover`/`:focus-within` (samme to
+  tilstande som skyggeløftet). Øverst, ikke nederst: bunden er allerede optaget af
+  `.maalplade .titelfelt` og `.billedmaerke`, som begge er altid-synlige, ikke hover-kun.
+  `position:absolute`, så kortets højde aldrig ændrer sig. Synligheden (opacity) virker
+  uden for `prefers-reduced-motion`; kun selve glidningen er betinget af `no-preference`,
+  samme opdeling som fotografiets egen scale.
 - **Fodnote:** monospor 11 px øverst adskilt af en linje. Her står billedets sandhed — og
   kun den. Ingen pris, ingen knap. **Kortet har ingen dør ud af sitet**
 

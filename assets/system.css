@@ -588,6 +588,42 @@ a:hover{text-decoration-thickness:2.5px}
   .kort:hover .billedled--plade img,.kort:focus-within .billedled--plade img{transform:scale(1.04)}
 }
 
+/* KORTETS HOVER-/FOKUS-INVITATION (spor/indgang, punkt 3, 26. aug 2026).
+   Fotografiets scale(1.024) ovenfor er 2,4 % — maalt usynligt, ikke et
+   signal. Ét ekstra, klart greb: en tekst+pil toner ind oppe i billedet.
+   TOPPEN, ikke bunden: bunden af billedet er allerede optaget af to andre
+   overlays paa netop de kort, hvor de findes — `.maalplade .titelfelt`
+   (LAENGDE x HOEJDE) og `.billedmaerke` (delt-foto-maerket) sidder begge
+   `bottom:`. Et hover-signal dernede ville daekke de to, som IKKE er
+   hover-kun og altid skal kunne laeses.
+   `.kort-billed` er en ren wrapper om billede() (urort - alle tre
+   billedtilstande: foto, maaleplade og tom flade faar signalet uden at
+   nogen af dem selv er aendret).
+   Reglen om det ubevaegelige hul gaelder stadig: signalet ligger OVEN PAA
+   billedet (position:absolute), saa det kan aldrig aendre kortets hoejde
+   eller skubbe teksten under det - ingen "hop" i gitteret.
+   Synligheden (opacity) virker UDEN for media queryen, saa signalet findes
+   for alle, ogsaa naar bevaegelse er slaaet fra; kun SELVE BEVAEGELSEN
+   (transform, transition) er lagt inde i `no-preference`-blokken ovenfor,
+   samme moenster som fotografiets egen scale. */
+.kort-billed{position:relative;overflow:hidden}
+.kort-invit{
+  position:absolute;left:0;right:0;top:0;z-index:1;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;background:var(--panel);color:var(--blaek);
+  font-size:13px;font-weight:600;letter-spacing:-.008em;
+  border-bottom:1px solid var(--linje);
+  opacity:0;pointer-events:none;
+}
+.kort-invit .ikon{width:15px;height:15px;stroke-width:2;color:var(--accent)}
+.kort:hover .kort-invit,.kort:focus-within .kort-invit{opacity:1}
+
+@media (prefers-reduced-motion:no-preference){
+  .kort-invit{transform:translateY(-100%);
+    transition:transform var(--tid) var(--slyng),opacity var(--tid) var(--slyng)}
+  .kort:hover .kort-invit,.kort:focus-within .kort-invit{transform:translateY(0)}
+}
+
 /* --- 12. Gitteret ---------------------------------------------------------
    26 og 22 px stod uden for ottetalsskalaen — de var opfundet ved siden af
    den. Nu 32 / 24, som er skalaens egne trin. Ved 1440 px giver det stadig

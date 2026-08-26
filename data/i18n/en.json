@@ -22,12 +22,10 @@
   "forside_overskrift": "Quadruped robots, field by field",
   "forside_lede": "{n} models from {p} manufacturers. Every figure carries a source and a retrieval date, and every gap is as visible as the figure.",
   "forside_ordning": "Ordered by weight, because weight is measured and unambiguous. Intended use is a filter, not an axis.",
-  "forside_soeg_etiket": "Search by model, manufacturer or requirement",
-  "forside_soeg_pladsholder": "e.g. Spot, DEEP Robotics or IP67",
-  "forside_filtre_etiket": "Intended use, per the manufacturer",
+  "katalog_soeg_etiket": "Search by model, manufacturer or requirement",
+  "katalog_soeg_pladsholder": "e.g. Spot, DEEP Robotics or IP67",
   "se_alle": "See all {n} robots",
   "antal_kort": "{n} robots",
-  "soeg_kraever_js": "The search field requires JavaScript and is shown only when it is enabled. The filters work without it.",
   "soeg_ingen_traef": "No robots match the search.",
 
   "yderpunkter_etiket": "Extremes",
@@ -41,11 +39,11 @@
   "forside_eu_tal": "{n} of {m}",
   "forside_eu_paastand": "robots in the catalogue state CE marking from the manufacturer.",
 
-  "forside_formaal_titel": "Find by intended use",
-  "forside_formaal_forklaring": "A robot can belong to more than one intended use - pick one to see what the manufacturer itself put it down for.",
-
   "forside_udvalg_etiket": "{n} of {m}",
   "forside_udvalg_titel": "From the catalogue",
+  "forside_afslutning_titel": "No winner here either",
+  "forside_afslutning_saetning": "The catalogue holds all {n} robots from {p} manufacturers - the same source and retrieval date on every figure, none singled out as the best.",
+  "forside_afslutning_knap": "See the full catalogue",
 
   "katalog_sortering_etiket": "Sort order",
   "katalog_sortering_vaegt": "Weight, ascending",
@@ -143,6 +141,7 @@
   "kort_kilder_flere": "The figures on this card come from {n} sources - see the marks",
   "kort_kilder_ingen": "None of the figures on this card carry a source in the data file.",
   "kort_legende": "Card photos are the manufacturers' own, uncredited and without permission, unless noted otherwise under the individual card. Card figures carry a source - a raised letter next to a figure points to which one.",
+  "kort_invitation": "See the robot",
 
   "ved_last": "at load",
   "ved_last_ukendt": "load condition not stated",

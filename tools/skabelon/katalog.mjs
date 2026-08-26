@@ -227,9 +227,9 @@ ${liste.map(kortHTML).join('\n')}
 <form class="styr" id="styr" action="#alle" method="get">
 <div class="styring">
 <div class="sog" data-sog="katalog" hidden>
-<label class="etiket" for="sog-katalog">${esc(t('forside_soeg_etiket'))}</label>
+<label class="etiket" for="sog-katalog">${esc(t('katalog_soeg_etiket'))}</label>
 <input id="sog-katalog" name="s" type="search" autocomplete="off"
- placeholder="${attr(t('forside_soeg_pladsholder'))}">
+ placeholder="${attr(t('katalog_soeg_pladsholder'))}">
 </div>
 <p class="katalog-sortering"><span class="etiket">${esc(t('katalog_sortering_etiket'))}</span>`
     + `<span class="katalog-sortering__vaerdi">${esc(t('katalog_sortering_vaegt'))}</span></p>
