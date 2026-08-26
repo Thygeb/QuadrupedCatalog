@@ -1348,6 +1348,39 @@ console.log('\n7. Vagten i db/migrer.mjs — ren sammenligningsfunktion (L35)');
     afvigelser.length === 1 && afvigelser[0].slug === 'proeve-vagt' && afvigelser[0].sti === 'producentby'
     && afvigelser[0].db === 'VAGTTEST' && afvigelser[0].yaml === 'Beijing',
     JSON.stringify(afvigelser));
+
+  // Å14: afgoerVagt() er selve beslutningen (naegt / naegt ikke), retter L35's
+  // foerste udgave, som sammenlignede databasen mod YAML og derfor naegtede
+  // lige saa haardt paa et agent-spors normale fremrykning som paa en
+  // faktisk Studio-redigering. Ren funktion - samme betingelse som ovenfor
+  // (intet fetch, intet filsystem), og fire scenarier daekker begge grene af
+  // det, punktet skal skelne: aftryk-sammenligning naar der findes et aftryk,
+  // fald-tilbage til YAML naar der ikke goer.
+  const yamlMedNyRobot = [grundrobot(), { ...grundrobot(), slug: 'ny-fra-agent' }];
+
+  const tomDb = migrer.afgoerVagt([], [grundrobot()], yamlMedNyRobot);
+  ok('afgoerVagt: en tom database naegter aldrig, uanset aftryk/YAML',
+    tomDb.naegt === false && tomDb.kilde === 'tom-database', JSON.stringify(tomDb));
+
+  const agentTilfaeldet = migrer.afgoerVagt([grundrobot()], [grundrobot()], yamlMedNyRobot);
+  ok('afgoerVagt: DB matcher AFTRYKKET, YAML er rykket videre (agent-tilfaeldet) - naegter IKKE',
+    agentTilfaeldet.naegt === false && agentTilfaeldet.kilde === 'aftryk', JSON.stringify(agentTilfaeldet));
+
+  const dbRedigeretIStudio = grundrobot();
+  dbRedigeretIStudio.producentby = 'VAGT2TEST';
+  const studioTilfaeldet = migrer.afgoerVagt([dbRedigeretIStudio], [grundrobot()], [grundrobot()]);
+  ok('afgoerVagt: DB afviger fra AFTRYKKET (Studio-tilfaeldet) - naegter, selv naar YAML uaendret',
+    studioTilfaeldet.naegt === true && studioTilfaeldet.kilde === 'aftryk'
+    && studioTilfaeldet.afvigelser.length === 1 && studioTilfaeldet.afvigelser[0].sti === 'producentby',
+    JSON.stringify(studioTilfaeldet));
+
+  const intetAftrykEns = migrer.afgoerVagt([grundrobot()], null, [grundrobot()]);
+  ok('afgoerVagt: intet aftryk findes endnu, DB matcher YAML - fald-tilbage naegter ikke',
+    intetAftrykEns.naegt === false && intetAftrykEns.kilde === 'yaml-fallback', JSON.stringify(intetAftrykEns));
+
+  const intetAftrykUens = migrer.afgoerVagt([dbRedigeretIStudio], null, [grundrobot()]);
+  ok('afgoerVagt: intet aftryk findes endnu, DB afviger fra YAML - fald-tilbage naegter (som L35s foerste udgave)',
+    intetAftrykUens.naegt === true && intetAftrykUens.kilde === 'yaml-fallback', JSON.stringify(intetAftrykUens));
 }
 
 console.log('\n8. Vagten i db/eksporter.mjs — ren beslutningsfunktion (L35-opfoelgning, punkt 1)');

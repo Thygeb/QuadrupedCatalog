@@ -429,7 +429,7 @@ function findAfvigelser(dbVaerdi, yamlVaerdi, sti, slug, ud) {
  * Returnerer en liste af { slug, sti, db, yaml }. Tom liste = ingen
  * afvigelse (databasen er, feltvis, den samme, YAML'en siger).
  */
-function sammenlignDbMedYaml(dbRobotter, yamlRobotter) {
+function sammenlignDbMedYaml(dbRobotter, yamlRobotter, modLabel = 'data/robots/') {
   const afvigelser = [];
   const dbPrSlug = new Map(dbRobotter.map((r) => [r.slug, r]));
   const yamlPrSlug = new Map(yamlRobotter.map((r) => [r.slug, r]));
@@ -441,13 +441,60 @@ function sammenlignDbMedYaml(dbRobotter, yamlRobotter) {
       afvigelser.push({
         slug, sti: '(hele robotten)',
         db: dbR === undefined ? 'mangler i DB' : 'findes i DB',
-        yaml: yamlR === undefined ? 'mangler i data/robots/' : 'findes i data/robots/',
+        yaml: yamlR === undefined ? `mangler i ${modLabel}` : `findes i ${modLabel}`,
       });
       continue;
     }
     findAfvigelser(dbR, yamlR, '', slug, afvigelser);
   }
   return afvigelser;
+}
+
+/**
+ * VAGTENS BESLUTNINGSFUNKTION (Å14). Ren funktion: intet fetch, intet
+ * filsystem — testes derfor uden netvaerk og uden .env (tests/koer.mjs's
+ * afsnit 7, som denne funktion nu er den centrale del af).
+ *
+ * Afgoer, om --til-db maa fortsaette, givet:
+ *   - dbRobotter: databasens NUVAeRENDE indhold (fraDb()'s kanoniske form).
+ *   - aftrykRobotter: den kanoniske robotter-struktur, GEMT ved seneste
+ *     vellykkede --til-db (synk_aftryk.aftryk, db/skema.sql's afsnit 7) —
+ *     eller null, hvis der endnu ikke findes noget aftryk.
+ *   - yamlRobotter: YAML-kildernes nuvaerende kanoniske form
+ *     (klassificerRobot() paa hele data/robots/).
+ *
+ * REGLERNE (Å14, STATUS.md — retter L35's foerste udgave, som naegtede paa
+ * BEGGE de tilfaelde, den skulle adskille):
+ *   1. En TOM database har intet at miste — naegter aldrig.
+ *   2. Findes der et aftryk, sammenlignes DATABASEN MOD AFTRYKKET — IKKE mod
+ *      YAML. Matcher de, er databasen uroert siden sidste migrering, og det
+ *      er derfor underordnet, hvor meget YAML selv er rykket videre (det
+ *      normale agent-tilfaelde: nye robotter tilfoejet, intet at miste).
+ *      Afviger de, er databasen redigeret uden om YAML siden sidst
+ *      (Studio-tilfaeldet) — naegt, med de praecise afvigelser (slug +
+ *      feltsti + de to vaerdier).
+ *   3. Findes der IKKE et aftryk endnu (foerste koersel efter Å14, eller
+ *      synk_aftryk er ikke oprettet endnu i den live database), er der
+ *      ingen kendt "senest synkede" tilstand at maale databasen mod —
+ *      funktionen falder da tilbage til den GAMLE sammenligning (databasen
+ *      mod YAML), praecis som vagten opfoerte sig foer Å14. Det er en
+ *      bevidst, midlertidig tilstand: naeste vellykkede koersel gemmer et
+ *      aftryk (skrivAftryk nedenfor), og fald-tilbage-grenen rammes ikke
+ *      igen, foer synk_aftryk er tom af en anden grund.
+ *
+ * Returnerer { naegt, afvigelser, kilde }, hvor kilde er
+ * 'tom-database' | 'aftryk' | 'yaml-fallback'.
+ */
+function afgoerVagt(dbRobotter, aftrykRobotter, yamlRobotter) {
+  if (dbRobotter.length === 0) {
+    return { naegt: false, afvigelser: [], kilde: 'tom-database' };
+  }
+  if (aftrykRobotter === null) {
+    const afvigelser = sammenlignDbMedYaml(dbRobotter, yamlRobotter);
+    return { naegt: afvigelser.length > 0, afvigelser, kilde: 'yaml-fallback' };
+  }
+  const afvigelser = sammenlignDbMedYaml(dbRobotter, aftrykRobotter, 'aftrykket');
+  return { naegt: afvigelser.length > 0, afvigelser, kilde: 'aftryk' };
 }
 
 /**
@@ -490,16 +537,86 @@ function sammenlignDbMedYaml(dbRobotter, yamlRobotter) {
  * filter paa enhver DELETE/UPDATE, ogsaa naar service_role omgaar RLS. Fixet
  * med et filter, der matcher enhver raekke: "<NOT NULL-kolonne>=not.is.null".
  *
- * VAGTEN (L35, STATUS.md): foer toem-og-genindlaes overhovedet starter,
- * laeses DB'ens NUVAeRENDE indhold (samme kodevej som eksporter.mjs's
- * --fra-db) og sammenlignes (samme dybe lighed som rundtur.mjs) mod
- * `robotter` — YAML-filernes kanoniske form. Afviger de, stopper funktionen
- * UDEN at kalde del()/patch() en eneste gang: JPK's redigeringer i Supabase
- * Studio maa ikke kunne overskrives af en genkoersel, der ikke ved, de er
- * der (se db/LAESMIG.md og STATUS.md's L35 for hvorfor). --overskriv-
+ * VAGTEN (Å14, revideret fra L35's oprindelige udgave, STATUS.md): foer
+ * toem-og-genindlaes overhovedet starter, laeses DB'ens NUVAeRENDE indhold
+ * (samme kodevej som eksporter.mjs's --fra-db) og sammenlignes — IKKE mod
+ * `robotter` (YAML'ens nuvaerende tilstand, som L35's foerste udgave gjorde),
+ * men mod AFTRYKKET af den tilstand, seneste vellykkede --til-db selv
+ * skrev (synk_aftryk, db/skema.sql's afsnit 7). Det er praecis den
+ * retningsforskel, Å14 blev fundet af: L35's udgave naegtede lige saa
+ * haardt, naar et agent-spor blot havde rykket YAML videre (databasen har
+ * intet at miste), som naar Supabase Studio faktisk var redigeret
+ * (databasen KAN miste noget) — og et rutineflag, der beskytter mod begge
+ * dele, beskytter reelt mod ingen af dem. Se afgoerVagt() nedenfor for selve
+ * beslutningen som en ren, testbar funktion (inkl. fald-tilbage-reglen, naar
+ * intet aftryk findes endnu). Afviger databasen fra aftrykket, stopper
+ * funktionen UDEN at kalde del()/patch() en eneste gang. --overskriv-
  * databasen paa kommandolinjen springer vagten over med vilje. En TOM
  * database (0 robotter) har intet at miste og stopper ikke.
  */
+
+/**
+ * Laeser den ENE raekke fra synk_aftryk (Å14) — se db/skema.sql's afsnit 7
+ * for singleton-begrundelsen. Returnerer null i TO tilfaelde, som funktionen
+ * bevidst ikke skelner mellem: "tabellen findes ikke endnu" (den opdaterede
+ * db/skema.sql er ikke koert i den live database) og "tabellen findes, men
+ * er tom" (foerste --til-db efter Å14 er ikke koert faerdig endnu) — begge
+ * betyder for kaldstedet praecis det samme: "intet aftryk at sammenligne
+ * imod", og afgoerVagt() falder da tilbage til at sammenligne mod YAML (se
+ * den funktions kommentar). Fejler selve HTTP-kaldet (netvaerk, forkert
+ * noegle), behandles det IKKE som "intet aftryk" — en uventet fejl her
+ * kastes videre, saa den ikke kan forveksles med en legitim fald-tilbage.
+ */
+async function laesAftryk(url, headers) {
+  const svar = await fetch(`${url}/rest/v1/synk_aftryk?select=aftryk,robotantal,opdateret&limit=1`, { headers });
+  if (!svar.ok) {
+    const krop = await svar.text();
+    // PostgREST svarer 404 (ofte med kode PGRST205, "Could not find the
+    // table ... in the schema cache") naar tabellen slet ikke findes endnu
+    // — det er den FORVENTEDE tilstand, foer JPK har koert den opdaterede
+    // db/skema.sql i den live database, og skal IKKE stoppe migreringen.
+    // Ethvert andet fejlsvar (401/500/...) er derimod uventet og kastes.
+    if (svar.status === 404) {
+      console.log(`  vagt: synk_aftryk findes ikke endnu (404) — behandler som "intet aftryk" (fald-tilbage til YAML). Kør den opdaterede db/skema.sql for at faa fingeraftryksvagten fuldt ud.`);
+      return null;
+    }
+    throw new Error(`GET synk_aftryk fejlede: ${svar.status} ${krop}`);
+  }
+  const raekker = await svar.json();
+  return raekker.length ? raekker[0] : null;
+}
+
+/**
+ * Gemmer aftrykket af den robotter-struktur, --til-db LIGE HAR skrevet,
+ * i synk_aftryk (slet-og-genindsaet, samme toem-og-genindlaes-princip som
+ * resten af tabellerne — se db/skema.sql's afsnit 7). Kaldes KUN efter hele
+ * toem-og-genindlaes-sekvensen er lykkedes, saa et aftryk aldrig kan pege
+ * paa en migrering, der reelt fejlede undervejs.
+ *
+ * BEVIDST IKKE-FATAL: fejler dette skridt (typisk fordi synk_aftryk ikke
+ * findes endnu i den live database), er selve robotdata-migreringen
+ * ALLEREDE gennemfoert og committet — at lade aftryksskrivningen fejle
+ * migreringen ville goere en NY sikkerhedsforanstaltning til en aarsag til
+ * falske fejl paa en ellers vellykket koersel. Naeste koersel falder blot
+ * tilbage til YAML-sammenligningen (afgoerVagt's 'yaml-fallback'-gren),
+ * indtil synk_aftryk findes og et aftryk er gemt.
+ */
+async function skrivAftryk(url, headers, robotter) {
+  try {
+    await fetch(`${url}/rest/v1/synk_aftryk?id=not.is.null`, { method: 'DELETE', headers });
+    const svar = await fetch(`${url}/rest/v1/synk_aftryk`, {
+      method: 'POST',
+      headers: { ...headers, Prefer: 'return=minimal' },
+      body: JSON.stringify([{ id: true, aftryk: robotter, robotantal: robotter.length }]),
+    });
+    if (!svar.ok) throw new Error(`${svar.status} ${await svar.text()}`);
+    console.log(`  vagt: aftryk gemt (${robotter.length} robotter) — naeste koersel sammenligner databasen mod DETTE, ikke mod YAML.`);
+  } catch (e) {
+    console.log(`  vagt: KUNNE IKKE gemme aftrykket (${e.message}) — selve migreringen er alligevel gennemfoert. ` +
+      'Naeste koersel falder tilbage til at sammenligne mod YAML, indtil synk_aftryk findes (kør den opdaterede db/skema.sql) og et aftryk er gemt.');
+  }
+}
+
 async function tilDb(robotter, argv = []) {
   laesDotEnv(path.join(ROD, '.env'));
   const url = process.env.SUPABASE_URL;
@@ -508,9 +625,10 @@ async function tilDb(robotter, argv = []) {
     console.error('--til-db kraever SUPABASE_URL og SUPABASE_SERVICE_ROLE_KEY i .env (se db/LAESMIG.md).');
     return 1;
   }
+  const headers = { apikey: noegle, Authorization: `Bearer ${noegle}`, 'Content-Type': 'application/json' };
 
   if (!argv.includes('--overskriv-databasen')) {
-    console.log('  vagt: laeser DB\'ens nuvaerende indhold og sammenligner med data/robots/ ...');
+    console.log('  vagt: laeser DB\'ens nuvaerende indhold ...');
     const dbRobotter = await fraDb();
     if (dbRobotter === null) {
       // Kan i praksis ikke ske her (url/noegle er lige valideret ovenfor),
@@ -519,26 +637,31 @@ async function tilDb(robotter, argv = []) {
       console.error('VAGT: kunne ikke laese databasens nuvaerende indhold (fraDb() gav null, uventet).');
       return 1;
     }
-    if (dbRobotter.length === 0) {
-      console.log('  vagt: databasen er tom, intet at miste — fortsaetter.');
-    } else {
-      const afvigelser = sammenlignDbMedYaml(dbRobotter, robotter);
-      if (afvigelser.length) {
-        console.error('VAGT: databasen indeholder aendringer, der ikke findes i data/robots/.');
-        for (const a of afvigelser.slice(0, 20)) {
-          console.error(`  ${a.slug}: ${a.sti} — DB "${a.db}" vs YAML "${a.yaml}"`);
-        }
-        if (afvigelser.length > 20) console.error(`  ... og ${afvigelser.length - 20} flere`);
-        console.error('Koer db/eksporter.mjs --fra-db foerst, eller gentag med --overskriv-databasen hvis aendringerne skal kasseres.');
-        return 1;
+    const aftrykRaekke = dbRobotter.length === 0 ? null : await laesAftryk(url, headers);
+    const beslutning = afgoerVagt(dbRobotter, aftrykRaekke ? aftrykRaekke.aftryk : null, robotter);
+    if (beslutning.naegt) {
+      const forklaring = beslutning.kilde === 'aftryk'
+        ? 'databasen er aendret siden seneste --til-db (sammenlignet mod det gemte aftryk i synk_aftryk) — en Studio-redigering ville blive slettet af en genindlaesning.'
+        : 'intet aftryk findes endnu i synk_aftryk, saa vagten faldt tilbage til den gamle sammenligning (databasen mod data/robots/), og de to er uenige.';
+      console.error(`VAGT: ${forklaring}`);
+      const modLabel = beslutning.kilde === 'aftryk' ? 'AFTRYK' : 'YAML';
+      for (const a of beslutning.afvigelser.slice(0, 20)) {
+        console.error(`  ${a.slug}: ${a.sti} — DB "${a.db}" vs ${modLabel} "${a.yaml}"`);
       }
-      console.log(`  vagt: databasen (${dbRobotter.length} robotter) matcher data/robots/ — fortsaetter.`);
+      if (beslutning.afvigelser.length > 20) console.error(`  ... og ${beslutning.afvigelser.length - 20} flere`);
+      console.error('Koer db/eksporter.mjs --fra-db foerst, eller gentag med --overskriv-databasen hvis aendringerne skal kasseres.');
+      return 1;
+    }
+    if (beslutning.kilde === 'tom-database') {
+      console.log('  vagt: databasen er tom, intet at miste — fortsaetter.');
+    } else if (beslutning.kilde === 'aftryk') {
+      console.log(`  vagt: databasen (${dbRobotter.length} robotter) matcher aftrykket fra seneste migrering — fortsaetter, uanset hvor langt data/robots/ selv er rykket.`);
+    } else {
+      console.log(`  vagt: intet aftryk fundet endnu i synk_aftryk — databasen (${dbRobotter.length} robotter) matcher data/robots/ (fald-tilbage, foerste koersel efter Å14) — fortsaetter.`);
     }
   } else {
     console.log('  vagt: sprunget over (--overskriv-databasen).');
   }
-
-  const headers = { apikey: noegle, Authorization: `Bearer ${noegle}`, 'Content-Type': 'application/json' };
 
   async function del(tabel, matchAltKolonne) {
     const svar = await fetch(`${url}/rest/v1/${tabel}?${matchAltKolonne}=not.is.null`, { method: 'DELETE', headers });
@@ -658,6 +781,12 @@ async function tilDb(robotter, argv = []) {
 
   console.log(`  ${slugTilId.size} robotter · ${feltRaekker.length} feltposter · ${variantRaekker.length} varianter · ` +
     `${anvRaekker.length} anvendelser · ${bilRaekker.length} billeder · ${defRaekker.length} feltdefinitioner skrevet.`);
+
+  // Aftrykket gemmes SIDST, kun naar hele toem-og-genindlaes-sekvensen ovenfor
+  // er lykkedes (se skrivAftryk's kommentar for hvorfor et fejlslagent forsoeg
+  // her ikke maa faelde en ellers vellykket migrering).
+  await skrivAftryk(url, headers, robotter);
+
   return 0;
 }
 
@@ -704,5 +833,5 @@ if (erHoved) {
 
 export {
   klassificerRobot, klassificerFeltpost, tjekEnumDrift, FELTNAVN_ENUM_I_SKEMA_SQL,
-  sammenlignDbMedYaml,
+  sammenlignDbMedYaml, afgoerVagt,
 };

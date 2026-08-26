@@ -488,12 +488,64 @@ create table billede (
 );
 comment on table billede is 'R18. 0-1 raekke pr. robot. SPAERRING S1: alle raekker med ophav=fabrikant er ikke-publicerbare, haandhaeves af build.mjs --til-udgivelse.';
 
+/* ============================================================
+   7. SYNK_AFTRYK — vagtens fingeraftryk (Å14, STATUS.md)
+   ============================================================
+   L35's oprindelige vagt (db/migrer.mjs's sammenlignDbMedYaml) sammenlignede
+   databasens NUVAeRENDE indhold mod YAML'ens NUVAeRENDE tilstand og naegtede
+   ved enhver forskel — ogsaa naar forskellen blot var et agent-spors nye
+   robotter i data/robots/, som databasen aldrig havde tabt noget af. Å14
+   retter det: vagten skal kun raabe, naar DATABASEN selv har flyttet sig
+   siden sidste migrering (en Studio-redigering) — ikke naar YAML'en er
+   rykket videre.
+
+   Loesningen er et FINGERAFTRYK: hver vellykket "--til-db" gemmer den
+   kanoniske robotter-struktur, den LIGE HAR SKREVET, i denne ene raekke.
+   Naeste koersel sammenligner databasens nuvaerende indhold mod AFTRYKKET
+   (ikke mod YAML) — matcher de, er intet redigeret i Studio siden sidst, og
+   migreringen fortsaetter, uanset hvor langt YAML selv er rykket. Afviger
+   de, er databasen redigeret uden om YAML siden sidste migrering, og
+   migreringen stopper foer foerste DELETE (se db/migrer.mjs's tilDb).
+
+   VALG: ÉN SINGLETON-RAeKKE, IKKE EN LOGTABEL MED ÉN RAeKKE PR. KOeRSEL.
+   Vagten skal kun kende SENESTE tilstand — en historik af tidligere aftryk
+   loeser ingen del af Å14's problem og ville blot vokse ubegraenset ved
+   hver migrering (77 robotter x hver koersel). "--til-db" SLETTER OG
+   GENINDSAeTTER derfor denne ene raekke ved hver vellykket koersel, samme
+   toem-og-genindlaes-princip som resten af tabellerne.
+
+   SINGLETON-MOeNSTERET: en `bigint identity`-noegle (skema-primary-keys.md's
+   generelle anbefaling for en enkelt database) loeser IKKE "praecis én
+   raekke" — det kraever enten en separat unik delvis-indeks-regel eller en
+   applikationsdisciplin, ingen af delene findes her. `id boolean primary
+   key default true` sammen med CHECK (id) er i stedet en velkendt Postgres-
+   idiom for netop singleton-konfigurationstabeller: booleans domaene har
+   kun to vaerdier, og CHECK (id) forbyder den ene af dem (false) som raekke
+   — der kan derfor STRUKTURELT aldrig eksistere mere end én raekke, ikke
+   kun "i praksis, hvis koden opfoerer sig ordentligt".
+
+   RLS: samme "basis" som resten af filen (se afsnit 8 nedenfor) — ingen
+   policy for anon/authenticated, kun service_role (BYPASSRLS) laeser og
+   skriver. security-rls-performance.md's advarsel om auth.uid() kaldt pr.
+   raekke er IKKE relevant her, fordi der slet ikke findes nogen policy at
+   optimere — samme begrundelse som resten af filens RLS-afsnit. */
+create table synk_aftryk (
+  id          boolean primary key default true,
+  aftryk      jsonb not null,      -- den kanoniske robotter-struktur, senest skrevet af --til-db
+  robotantal  integer not null,    -- til hurtig, laesbar logging uden at aabne aftryk selv
+  opdateret   timestamptz not null default now(),
+
+  constraint synk_aftryk_er_singleton check (id)
+);
+comment on table synk_aftryk is
+  'Å14: singleton-raekke. Vagten sammenligner databasens nuvaerende indhold mod aftryk (ikke mod YAML), saa den kun naegter, naar DATABASEN er redigeret siden sidste --til-db.';
+
 commit;
 
 /* ============================================================
-   7. ROW LEVEL SECURITY — "basis", jf. opgavens afgraensning
+   8. ROW LEVEL SECURITY — "basis", jf. opgavens afgraensning
    ============================================================
-   Se filens toptekst. RLS slaas til paa alle seks tabeller UDEN nogen
+   Se filens toptekst. RLS slaas til paa alle syv tabeller UDEN nogen
    policy for anon/authenticated — Postgres' egen default, naar RLS er
    aktiveret uden en matchende policy, er at NÆGTE adgang for enhver rolle,
    der ikke er ejeren eller BYPASSRLS. service_role har altid BYPASSRLS i
@@ -513,6 +565,7 @@ alter table feltposter         enable row level security;
 alter table feltpost_varianter enable row level security;
 alter table anvendelse         enable row level security;
 alter table billede            enable row level security;
+alter table synk_aftryk        enable row level security;
 
 -- Least privilege (security-privileges.md): PUBLIC-skemaets standardrettigheder
 -- fjernes eksplicit, saa en fremtidig anon/authenticated-rolle ikke arver
