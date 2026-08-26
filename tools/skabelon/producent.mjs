@@ -359,14 +359,84 @@ ${alleProducenter(arbejde)}
 /* ----------------------------------------------------------------- indeks */
 
 /**
+ * Landefordelingen: producenter og modeller grupperet paa producentens land.
+ * Et land, der ikke er oplyst (falsy, eller en tilstandsvaerdi som
+ * "ikke_oplyst" — samme vagt som hjemstedAf() ovenfor), taeller IKKE med i
+ * fordelingen: vi kan ikke sige, hvilket land der har "flest", naar landet
+ * ikke er kendt. Det taeller stadig med i totalerne (n af {alle.length}) —
+ * kun selve fordelingen udelader det.
+ */
+function landefordeling(alle) {
+  const perLand = new Map();
+  for (const p of alle) {
+    if (!p.land || tilstandAf(p.land)) continue;
+    const noegle = String(p.land);
+    const t = perLand.get(noegle) ?? { producenter: 0, modeller: 0 };
+    t.producenter += 1;
+    t.modeller += (typeof p.antal === 'number' ? p.antal : 0);
+    perLand.set(noegle, t);
+  }
+  return perLand;
+}
+
+/**
+ * Den beregnede iagttagelse (spor/producent, punkt 2, 26. aug 2026).
+ * Producentsiden har hele fordelingen liggende foran sig og sagde hidtil
+ * intet om den — modsat forsidens CE-linje (forside.mjs' euFund) og
+ * katalogets vaegtklasse-sale, der begge tør skrive et stort udledt tal.
+ * Formen laaner CE-linjens: ét tal, en noegtern konstatering, ALDRIG en dom
+ * (begraensning 6 — "kinesisk dominans" er en dom, "14 af 25 er fra Kina"
+ * er et tal). Derfor "fra {land}", ikke et demonym-adjektiv ("kinesisk") -
+ * et adjektiv skal boejes rigtigt for hvert land, et landenavn skal ikke.
+ *
+ * Landet med flest producenter findes ved LOEB over `alle` ved byggetid,
+ * ALDRIG skrevet i haanden — se D7/L30-faelden i CLAUDE.md: et haardkodet
+ * 14/25/62/77 her ville vaere fundet FLYTTET, ikke løst, og ville staa
+ * forkert i det oejeblik kataloget fik en 78. robot eller en 26. producent.
+ * Uafgjort (samme producentantal) afgoeres alfabetisk paa landenavnet, saa
+ * resultatet er deterministisk uden at vaere en redaktionel rangering.
+ */
+function producentSaetning(ctx, alle) {
+  const { i18n } = ctx;
+  const perLand = landefordeling(alle);
+  if (perLand.size === 0) return '';
+
+  let bedst = null;
+  for (const [land, tal] of perLand) {
+    const bedreEnd = !bedst
+      || tal.producenter > bedst.tal.producenter
+      || (tal.producenter === bedst.tal.producenter && land.localeCompare(bedst.land, 'da') < 0);
+    if (bedreEnd) bedst = { land, tal };
+  }
+
+  const totalProducenter = alle.length;
+  const totalModeller = alle.reduce((s, p) => s + (typeof p.antal === 'number' ? p.antal : 0), 0);
+  const landNavn = esc(TD(i18n, 'land_' + bedst.land, bedst.land));
+  const saetning = flet(T(i18n, 'producent_fordeling_saetning'), {
+    n: bedst.tal.producenter,
+    m: totalProducenter,
+    land: landNavn,
+    x: bedst.tal.modeller,
+    y: totalModeller,
+  });
+  return `<p class="t-broed producent-fordeling">${saetning}</p>`;
+}
+
+/**
  * Producentindekset — siden paa /<sprog>/producenter/, F1's manglende doer ind.
  * Ét led pr. producent: navn (link), land og antal modeller i kataloget.
  * Ingen vurdering og ingen raekkefoelge ud over alfabetet: en sortering efter
  * "stoerst foerst" ville vaere en redaktionel skala, vi ikke har metode til.
  *
- * Markup'en bruger KUN klasser, der findes i system.css/generator.css
- * (katalog-hoved, raekker/raekke, v v-tekst, figur). .prodliste/.pnavn fra
- * den forladte sider.css genbruges IKKE — den fil indgaar ikke i bygget.
+ * L(spor/producent, 26. aug 2026), punkt 1: raekken var FOER en <dl>/.raekke
+ * (system.css' delte 2-kolonne-komponent) med land og modeltal klistret sammen
+ * i én <dd>-streng ("Kina 13 modeller") — to tal, der ikke flugtede lodret, og
+ * en side, der brugte under halvdelen af sin bredde. .raekker/.raekke ejes af
+ * et andet spor (system.css), saa den genbruges IKKE laengere her; en rigtig
+ * <table> med tre <td> giver tre selvstaendige kolonner, kan style modeltallet
+ * for sig (font-variant-numeric: tabular-nums via .figur) og fylder .rum's
+ * fulde bredde. Markup'en bruger .prod-tabel (assets/generator.css, afsnit 9h)
+ * plus .figur, som allerede findes i system.css og ikke er min at redefinere.
  *
  * Linket er `<slug>/` og ikke sti(ctx, 'producent', …): siden ligger selv i
  * producenter/, saa barnelinket kan ikke pege forkert, heller ikke uden ctx.url.
@@ -386,27 +456,42 @@ export function renderIndeks(ctx) {
     // Landet er et felt som ethvert andet: mangler det, staar hullet med
     // tilstandens eget sprog — aldrig som en tom plads (begraensning 5).
     const landDel = p.land
-      ? `<span class="v v-tekst">${esc(TD(i18n, 'land_' + p.land, p.land))}</span>`
+      ? esc(TD(i18n, 'land_' + p.land, p.land))
       : (typeof H?.tilstand === 'function' ? H.tilstand('ikke_oplyst', i18n) : '');
-    const antalDel = p.antal === null ? ''
-      : ` <span class="figur">${esc(modelTal(i18n, p.antal))}</span>`;
-    return `<div class="raekke">
-<dt><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></dt>
-<dd>${landDel}${antalDel}</dd>
-</div>`;
+    // Modelkolonnen viser TALLET alene — kolonnehovedet baerer allerede ordet
+    // "modeller" ("1 modeller" er ikke dansk, se producent_model_en, men her
+    // opstaar problemet slet ikke, fordi entalsformen aldrig skrives ud).
+    const antalDel = p.antal === null ? '' : esc(String(p.antal));
+    return `<tr>
+<td><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></td>
+<td>${landDel}</td>
+<td class="figur">${antalDel}</td>
+</tr>`;
   }).join('\n');
 
   return `<main class="side" id="hoved">
 <div class="rum">
 <div class="katalog-hoved">
 <h1 class="t-h1">${esc(T(i18n, 'nav_producenter'))}</h1>
+${producentSaetning(ctx, alle)}
 <p class="t-broed maal">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</p>
 </div>
 <section class="sektion" aria-labelledby="prodliste-h">
 <h2 class="t-h2 kunskaerm" id="prodliste-h">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</h2>
-<dl class="raekker">
+<div class="prod-tabel-wrap">
+<table class="prod-tabel">
+<thead>
+<tr>
+<th scope="col">${esc(T(i18n, 'tabel_producent'))}</th>
+<th scope="col">${esc(T(i18n, 'tabel_land'))}</th>
+<th scope="col" class="figur">${esc(T(i18n, 'tabel_modeller'))}</th>
+</tr>
+</thead>
+<tbody>
 ${raekker}
-</dl>
+</tbody>
+</table>
+</div>
 </section>
 </div>
 </main>

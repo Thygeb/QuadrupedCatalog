@@ -586,6 +586,32 @@
 .producentside .gitter > li > .kort{flex:1}
 .producentside .kort-krop{padding-bottom:16px}
 
+/* Producentindekset (F1, /producenter/): tre adskilte kolonner navn/land/
+   modeller i stedet for én sammenklistret <dd>-streng ("Kina 13 modeller") -
+   spor/producent, punkt 1, 26. aug 2026. .raekker/.raekke (system.css) er en
+   delt 2-kolonne-komponent ejet af et andet spor og bruges IKKE her; en rigtig
+   <table> giver tre selvstaendige celler og fylder .rum's fulde bredde i
+   stedet for at efterlade over halvdelen tom. .figur (system.css) laegger
+   allerede font-variant-numeric: tabular-nums paa modeltallet - kun
+   hoejrestillingen tilfoejes her. */
+.prod-tabel-wrap{overflow-x:auto;padding-top:var(--r4)}
+.prod-tabel{width:100%;border-collapse:collapse}
+.prod-tabel th,.prod-tabel td{padding:11px var(--r4) 11px 0;text-align:left;
+  border-top:1px solid var(--linje);vertical-align:baseline}
+.prod-tabel thead th{border-top:0;padding-bottom:8px;font-size:12.5px;
+  font-weight:600;color:var(--blaek3);text-transform:uppercase;letter-spacing:.02em}
+.prod-tabel tbody tr:first-child td{border-top:1px solid var(--linje)}
+.prod-tabel a{color:var(--accent);font-weight:600;display:inline-flex;
+  align-items:center;min-height:24px}
+.prod-tabel th.figur,.prod-tabel td.figur{text-align:right;padding-right:0}
+.prod-tabel th:nth-child(2),.prod-tabel td:nth-child(2){width:20ch}
+.prod-tabel th:last-child,.prod-tabel td:last-child{width:12ch}
+
+/* Den beregnede fordelingssaetning under overskriften (spor/producent, punkt
+   2, 26. aug 2026) - samme brede maal som t-broed andre steder, saa linjen
+   ikke straekker sig over hele .rum's 1440px og bliver svaer at laese. */
+.producent-fordeling{padding-top:var(--r3);max-width:70ch}
+
 /* --- 9i. Feltmarkør: værdien varierer mellem modelvarianter (opgave 4c) ----
    Kun en prikket underkant — ingen ny farve, ingen ny komponentfamilie. */
 .maerke--varianter{border-bottom:1px dotted var(--hegn)}

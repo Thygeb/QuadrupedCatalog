@@ -1848,6 +1848,77 @@ console.log('\n13. Yderpunkternes graense-operator- og fotokrav (spor/yderpunkt)
   }
 }
 
+// === spor/producent: K11 + K12 ===
+console.log('\nK11 + K12. Producentoversigten: tre kolonner + beregnet fordelingssaetning');
+{
+  // Genbruger `dist` (byggeoutput fra tests/eksempel-robotter, afsnit 4
+  // ovenfor) og lasRobotter() - IKKE producent.mjs's egne hjaelpefunktioner
+  // (landefordeling/producentSaetning), saa testen er en uafhaengig
+  // efterregning af det byggede resultat, ikke et ekko af samme kode.
+  const fixtureMappe = path.join(rod, 'tests', 'eksempel-robotter');
+  const fixtureRobotter = lasRobotter(fixtureMappe);
+  const fixtureProducenter = new Set(fixtureRobotter.map((r) => r.producent));
+
+  const prodIndeksDa = fs.readFileSync(path.join(dist, 'da', 'producenter', 'index.html'), 'utf8');
+  const prodIndeksEn = fs.readFileSync(path.join(dist, 'en', 'producenter', 'index.html'), 'utf8');
+
+  // K11: tre adskilte celler pr. raekke - IKKE land og modeltal klistret
+  // sammen i én <dd>-streng ("Kina 13 modeller", saadan stod det foer punkt
+  // 1). Rulles aendringen tilbage til .raekker/.raekke, forsvinder <table>
+  // og <td> helt, og testen fejler paa antallet (0 != forventet).
+  const trIAlt = (prodIndeksDa.match(/<tr>/g) || []).length;
+  const tdAntal = (prodIndeksDa.match(/<td[ >]/g) || []).length;
+  const figurTdAntal = (prodIndeksDa.match(/<td class="figur">/g) || []).length;
+  const forventetRaekker = fixtureProducenter.size;
+  ok(`K11: producentoversigten har ${forventetRaekker} datarækker med tre <td> hver, `
+    + `modeltallet højrestillet med .figur `
+    + `(fandt ${trIAlt - 1}/${forventetRaekker} <tr>, ${tdAntal}/${forventetRaekker * 3} <td>, `
+    + `${figurTdAntal}/${forventetRaekker} <td class="figur">)`,
+    trIAlt - 1 === forventetRaekker && tdAntal === forventetRaekker * 3
+    && figurTdAntal === forventetRaekker
+    && /<th scope="col" class="figur">/.test(prodIndeksDa));
+
+  // K12: den beregnede fordelingssaetning baerer TAL, der matcher en
+  // UAFHAENGIG optaelling af proevedatasaettet (Set af producentnavne pr.
+  // land, ikke summering af `antal`-feltet, som producent.mjs selv bruger) -
+  // ikke konstanter, der bare tilfaeldigvis passer i dag. Rulles punkt 2
+  // tilbage (saetningen fjernes, eller et tal haardkodes), fejler testen paa
+  // enten fravaeret af klassen eller et forkert tal.
+  const perLand = new Map();
+  for (const r of fixtureRobotter) {
+    const land = r.producentland;
+    if (!land || skema.tilstandAf(land)) continue;
+    const t = perLand.get(land) ?? { producenter: new Set(), modeller: 0 };
+    t.producenter.add(r.producent);
+    t.modeller += 1;
+    perLand.set(land, t);
+  }
+  let bedstLand = null; let bedstTal = null;
+  for (const [land, t] of perLand) {
+    const producenter = t.producenter.size;
+    if (!bedstLand || producenter > bedstTal.producenter
+      || (producenter === bedstTal.producenter && land.localeCompare(bedstLand, 'da') < 0)) {
+      bedstLand = land; bedstTal = { producenter, modeller: t.modeller };
+    }
+  }
+  const totalProducenter = fixtureProducenter.size;
+  const totalModeller = fixtureRobotter.length;
+
+  const forventetDa = `${bedstTal.producenter} af ${totalProducenter} producenter er fra ${bedstLand} `
+    + `og står for ${bedstTal.modeller} af de ${totalModeller} modeller i kataloget.`;
+  ok(`K12: fordelingssaetningen matcher en uafhaengig optaelling af proevedatasaettet ("${forventetDa}")`,
+    prodIndeksDa.includes(forventetDa));
+
+  // Samme paa /en/ - beviser at det er ÉN oversat skabelon, ikke to kopier
+  // der kan skride fra hinanden (samme princip som 4.'s katalog-test).
+  const landOversat = { Kina: 'China', Schweiz: 'Switzerland', USA: 'USA' };
+  const bedstLandEn = landOversat[bedstLand] ?? bedstLand;
+  const forventetEn = `${bedstTal.producenter} of ${totalProducenter} manufacturers are from ${bedstLandEn} `
+    + `and account for ${bedstTal.modeller} of the ${totalModeller} models in the catalogue.`;
+  ok(`K12: samme fordelingssaetning er oversat paa /en/ ("${forventetEn}")`,
+    prodIndeksEn.includes(forventetEn));
+}
+
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
   + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);

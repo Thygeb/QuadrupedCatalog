@@ -291,5 +291,8 @@
 
   "forside_udvalg_regel": "{n} robotter fra {n} producenter, valgt efter hvor mange af de {m} felter producenten selv oplyser.",
   "sammenligning_soeg_etiket": "Søg blandt robotterne",
-  "sammenligning_soeg_pladsholder": "fx Spot eller GENISOM"
+  "sammenligning_soeg_pladsholder": "fx Spot eller GENISOM",
+
+  "tabel_modeller": "Modeller",
+  "producent_fordeling_saetning": "{n} af {m} producenter er fra {land} og står for {x} af de {y} modeller i kataloget."
 }
