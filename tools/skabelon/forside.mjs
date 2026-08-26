@@ -285,6 +285,35 @@ ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
     naevner: NAEVNER, d4: ctx.d4, antal: UDVALG_ANTAL, minVaegtklasser: MIN_VAEGTKLASSER,
   });
 
+  /* --- 5. AFSLUTNINGEN (spor/indgang, punkt 2, 26. aug 2026, revideret efter
+     impeccable-gennemgang samme dag). Forsiden sluttede foer dette spor med
+     kun den stille "Se alle N robotter"-linje nedenfor - for diskret til at
+     vaere det sidste, en besoegende ser. Foerste udkast var netop den skabelon,
+     impeccable's craft-floor navngiver som kategoriens standardsvar ("heading
+     + saetning + knap, centreret") - rettet til at genbruge SIDENS EGEN saetning
+     i stedet: sammenligningssiden siger allerede "Ingen vinder markeret" (se
+     sammenligning_legende_vinder_titel i18n-noeglen), fordi en lavere vaegt
+     eller hastighed ikke er "bedre". Overskriften her ("Ingen vinder her
+     heller") gentager PRAECIS den paastand om yderpunkterne og "Fra
+     kataloget"-udvalget ovenfor: ingen af dem er en anbefaling, kun kataloget
+     i sin fulde form lader laeseren selv afgoere hvad der taeller. Det er en
+     saetning, kun DENNE side kan sige - ikke en generisk "se mere"-invitation.
+     Ingen ny flade: sektionen er en ganske almindelig .sektion, samme
+     .katalog-flade som "Fra kataloget" ovenfor (samme rum, samme r8-luft
+     mellem sektioner .sektion allerede giver systemet, ingen ny centreret
+     bloklayout opfundet ved siden af). Knappen bruger den fyldte .videre
+     (system.css: "Den eneste knapform paa sitet"), ikke .videre--stille, som
+     allerede baerer den mere tilbageholdne linje ovenfor - to lige tydelige
+     knapper paa samme skaerm ville ophaeve hinandens vaegt. INGEN fremhaevet
+     robot (L17's kerne staar ved magt) og INGEN salgssprog (nøgtern tone,
+     samme register som forside_ordning). */
+  const afslutningSektion = `<section class="sektion afslutning" aria-labelledby="h-afslutning">
+<h2 class="t-h2" id="h-afslutning">${esc(t('forside_afslutning_titel'))}</h2>
+<p class="t-broed maal afslutning-saetning">${esc(tf('forside_afslutning_saetning', { n: robotter.length, p: producenter.size }))}</p>
+<p class="afslutning-knap"><a class="videre" href="robotter/">`
+    + `${esc(t('forside_afslutning_knap'))}${hjaelp.ikon('i-pil')}</a></p>
+</section>`;
+
   const smagsproeveSektion = udvalg.length ? `<div class="katalog-flade">
 <div class="rum">
 <section class="sektion" aria-labelledby="h-udvalg">
@@ -300,8 +329,9 @@ ${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
 <p class="udvalg-videre"><a class="videre videre--stille" href="robotter/">`
     + `${esc(tf('se_alle', { n: robotter.length }))}${hjaelp.ikon('i-pil')}</a></p>
 </section>
+${afslutningSektion}
 </div>
-</div>` : '';
+</div>` : afslutningSektion;
 
   return `<div class="aabning">
 ${hero}

@@ -142,6 +142,16 @@
    alle vaegtklasserne. */
 .udvalg-videre{text-align:center;margin-top:var(--r6)}
 
+/* --- 3c. FORSIDENS AFSLUTNING (spor/indgang, 26. aug 2026). Ganske
+   almindelig .sektion, samme katalog-flade og samme r8-luft til "Fra
+   kataloget" ovenfor - ingen ny centreret bloklayout, ingen ny flade.
+   Venstrestillet som resten af siden (hero, yderpunkter, EU-fundet er
+   heller ikke centreret); en centreret afslutningsblok er netop den
+   skabelon, impeccable's craft-floor navngiver som kategoriens
+   standardsvar. */
+.afslutning-saetning{margin-top:var(--r3)}
+.afslutning-knap{margin-top:var(--r5)}
+
 /* --- 2b. Katalogets vaegtklasse-sale (spor/lysbyg, kontrakt:
    prototype/retning-lys/katalog.html) ---------------------------------------
    Museumssalens rumnummer: romertallet ER salens plads i den faste

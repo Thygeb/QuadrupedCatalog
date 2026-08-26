@@ -41,6 +41,9 @@
 
   "forside_udvalg_etiket": "{n} af {m}",
   "forside_udvalg_titel": "Fra kataloget",
+  "forside_afslutning_titel": "Ingen vinder her heller",
+  "forside_afslutning_saetning": "Kataloget har alle {n} robotter fra {p} producenter - samme kilde og hentedato på hvert tal, ingen udpeget som den bedste.",
+  "forside_afslutning_knap": "Se hele kataloget",
 
   "katalog_sortering_etiket": "Sortering",
   "katalog_sortering_vaegt": "Vægt, stigende",

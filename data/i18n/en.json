@@ -41,6 +41,9 @@
 
   "forside_udvalg_etiket": "{n} of {m}",
   "forside_udvalg_titel": "From the catalogue",
+  "forside_afslutning_titel": "No winner here either",
+  "forside_afslutning_saetning": "The catalogue holds all {n} robots from {p} manufacturers - the same source and retrieval date on every figure, none singled out as the best.",
+  "forside_afslutning_knap": "See the full catalogue",
 
   "katalog_sortering_etiket": "Sort order",
   "katalog_sortering_vaegt": "Weight, ascending",
