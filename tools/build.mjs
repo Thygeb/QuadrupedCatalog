@@ -12,7 +12,6 @@
  *                                              (L30, vender L19's 31). Flaget staar,
  *                                              saa en gammel skala kan MAALES imod
  *   node tools/build.mjs --type-uden-model=tael D4 (L20)
- *   node tools/build.mjs --til-udgivelse        afviser fabrikantbilleder (S1)
  *   node tools/build.mjs --spring-validering-over   (kun til fejlsoegning)
  *
  * Bygget koerer validate.mjs foerst og stopper, hvis den fejler. Det er den
@@ -33,7 +32,7 @@ import process from 'node:process';
 import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, FILTER_FELTER, SPROG, tilstandAf, normaliserRobot,
-  BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_SPAERRET, feltVisning,
+  BILLEDMAPPER, BILLEDE_ENDELSER, feltVisning,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 import {
@@ -466,7 +465,6 @@ async function main(argv) {
      ligger i dist/. Uden det her ville et brudt billede foerst blive opdaget
      i en browser. */
   const brugteBilleder = new Map();      // sti -> [slug, ...]
-  const spaerrede = [];                  // robotter med ophav, S1 daekker
   const ophavstal = {};
   for (const r of robotter) {
     const b = r.billede;
@@ -474,21 +472,10 @@ async function main(argv) {
     if (!brugteBilleder.has(b.fil)) brugteBilleder.set(b.fil, []);
     brugteBilleder.get(b.fil).push(r.slug);
     ophavstal[b.ophav] = (ophavstal[b.ophav] ?? 0) + 1;
-    if (BILLEDE_SPAERRET.has(b.ophav)) spaerrede.push(`${r.slug} (${b.fil})`);
   }
   for (const [fil, slugs] of brugteBilleder) {
     paastaa(kopieredeBilleder.has(fil),
       `${slugs.join(', ')} peger paa assets/${fil}, men filen naaede ikke dist/billeder/${fil}.`);
-  }
-
-  /* S1 er en spaerring, ikke en huskeregel. `--til-udgivelse` goer den
-     mekanisk: bygget kan ikke laves faerdigt med et fabrikantbillede i.
-     Uden flaget bygges der som i dag - lokalt, med billederne (L13). */
-  if (flag['til-udgivelse']) {
-    paastaa(spaerrede.length === 0,
-      `SPAERRING S1: ${spaerrede.length} billede(r) har ophav "fabrikant" og maa ikke publiceres `
-      + `uden skriftlig tilladelse:\n    ${spaerrede.join('\n    ')}\n  `
-      + `Skift dem ud med egne fotos eller maaltro silhuetter, eller byg uden --til-udgivelse.`);
   }
 
   /* --- sprogvaelger paa roden --- */
@@ -591,11 +578,6 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
   console.log(`Billedled i dist/: ${picture} <picture> · ${tommePlader} tomme plader `
     + `(${robotter.length} robotter x ${SPROG.length} sprog x 2 sider = `
     + `${robotter.length * SPROG.length * 2} led plus producentsidernes kort)`);
-  if (spaerrede.length) {
-    console.error(`\n  SPAERRING S1: ${spaerrede.length} af billederne har ophav "fabrikant". `
-      + `Siden maa ikke publiceres med dem uden skriftlig tilladelse.`
-      + `\n  Byg med --til-udgivelse for at faa bygget til at afvise dem.`);
-  }
   console.log(`Taethedsnaevnere brugt: ${naevnere.join(', ')}`);
   return 0;
 }

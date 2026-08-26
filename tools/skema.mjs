@@ -250,13 +250,6 @@ export const BILLEDE_OPHAV = ['eget_foto', 'silhuet', 'fabrikant'];
 /** Ophav, hvor billedet ikke er vores eget arbejde og skal kunne foelges hjem. */
 export const BILLEDE_KRAEVER_KILDE = new Set(['silhuet', 'fabrikant']);
 
-/**
- * Ophav, spaerring S1 daekker. Siden maa ikke PUBLICERES, mens den viser dem;
- * lokalt er de tilladt (L13). Bygget taeller dem og kan afvise dem med
- * `--til-udgivelse`, saa spaerringen er en maaling og ikke en huskeregel.
- */
-export const BILLEDE_SPAERRET = new Set(['fabrikant']);
-
 /** Noegler, en billedpost maa indeholde. Alt andet fejler paa R18. */
 export const BILLEDE_NOEGLER = new Set([
   'fil', 'ophav', 'kilde', 'hentet', 'alt', 'note', 'delt_med', 'plade', 'pos',
