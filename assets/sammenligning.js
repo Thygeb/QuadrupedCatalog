@@ -72,7 +72,18 @@
     if (f.forbehold) noter.push(f.forbehold);
     var noteHTML = noter.length ? fnote(noter.join(' · ')) : '';
     var klasse = 'v v-tal' + (f.tilstand === 'nul' ? ' v-nul' : '');
-    return '<span class="' + klasse + '">' + op + '<b class="num">' + esc(figur) + '</b>' + enhed + '</span>' + noteHTML;
+    var vaerdiHTML = '<span class="' + klasse + '">' + op + '<b class="num">' + esc(figur) + '</b>' + enhed + '</span>';
+    // spor/enheder (K9) omregner visse felter til sidens faelles enhed;
+    // `f.kildeform` (sat i sammenligning.mjs' dataBlok()) er producentens
+    // egen figur+enhed. Samme title, samme i18n-noegle, samme placering
+    // (uden om et eventuelt forbeholdstegn) som robot.mjs allerede bruger -
+    // genbrugt moenster, ikke et nyt, se robot.mjs's kommentar ved
+    // "original-enhed".
+    if (f.kildeform) {
+      var titel = String(DATA.tekst.kilde_original_form || '').replace('{figur}', f.kildeform);
+      vaerdiHTML = '<span class="original-enhed" title="' + esc(titel) + '">' + vaerdiHTML + '</span>';
+    }
+    return vaerdiHTML + noteHTML;
   }
 
   /* Ét felt, de samme fire datatilstande som resten af sitet

@@ -82,7 +82,20 @@ function dataBlok(ctx) {
   const { T, t } = i18n;
 
   const robotterUd = robotter.map((r) => {
-    const felter = Object.fromEntries(FELTNAVNE.map((n) => [n, feltVisning(n, r.felter[n])]));
+    // Kildeformen (spor/enheder, K9): `feltVisning()` bygger sit udtryk af
+    // NAVNGIVNE noegler og daekker derfor aldrig `_kildeform` - samme grund
+    // til, at den ikke er en del af POST_NOEGLER (skema.mjs). Den laeses her
+    // direkte fra raadataen, r.felter[n], ved siden af feltVisning()-kaldet,
+    // og sendes med som `kildeform` (uden understreg - klientens JSON-noegle,
+    // ikke skema.mjs' interne felt) SAA sammenligning.js kan tegne samme
+    // title, robot.mjs allerede viser ("Producenten skrev: …") - genbrugt
+    // moenster, ikke et nyt. Findes ingen omregning, er `_kildeform`
+    // undefined, og feltet er urort (samme som paa robotsiden).
+    const felter = Object.fromEntries(FELTNAVNE.map((n) => {
+      const vis = feltVisning(n, r.felter[n]);
+      const kildeform = r.felter[n]?._kildeform;
+      return [n, kildeform ? { ...vis, kildeform } : vis];
+    }));
     // "N af 30 felter" (skilt__nr i mockuppen): samme maalestok som
     // resten af sitets taethedstal - "oplyst" er alt, der ikke er hullet
     // ("ikke_oplyst"), praecis de andre taetheds-visninger (skema_taeller,
@@ -129,6 +142,9 @@ function dataBlok(ctx) {
       maks: t('sammenligning_maks'),
       for_faa: t('sammenligning_for_faa'),
       taethed_skabelon: T.skema_taeller,
+      // Raa moenster med "{figur}" - klienten selv erstatter (sammenligning.js'
+      // renderTal()), samme funktion som robot.mjs' flet() udfoerer server-side.
+      kilde_original_form: T.kilde_original_form,
       vaegtklasse: {
         under_20: T.vaegtklasse_under_20,
         '20_40': T.vaegtklasse_20_40,
