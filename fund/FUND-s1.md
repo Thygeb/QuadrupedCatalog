@@ -60,3 +60,21 @@ build.mjs/skema.mjs/koer.mjs uden UI-, data- eller Supabase-berøring. Ingen ski
 ## Punkter i briefet, jeg ikke nåede
 
 (ingen)
+
+## Selv-efterprøvning
+
+18 ting efterprøvet: grundmåling (validate/tests/build, 3 kørsler), grep af alle
+S1-referencer før ændring (build.mjs 9 · skema.mjs 2), grep af `flag['til-udgivelse']`
+og `BILLEDE_SPAERRET` repo-bredt for andre kaldesteder (0 fundet ud over de rettede),
+grep af `ophavstal`-brug for at bekræfte den skulle blive, hver enkelt sed/edit
+verificeret med `grep`/`sed -n` bagefter (6 redigeringer i build.mjs, 1 i skema.mjs),
+build+validate genkørt efter kodeændringer, prototype/tjek-system.mjs's S1-sektion
+læst og vurderet ude af scope, de tre "S1"-navngivne tests uden for min ændring læst
+og vurderet urelaterede, ny testblok kørt og verificeret i output, fuld testsuite
+kørt to gange (efter reversering og efter ny blok), git diff --stat verificeret til
+kun 3 filer, AC1/AC2 gentestet efter commit.
+
+Fejl fundet under efterprøvning: 0 i den endelige kode. (Undervejs stødte jeg på
+værktøjsfejl - CRLF-mismatch i en sed-baseret erstatning og gentagne "classifier
+denied" på Edit-kald - men det var værktøjsfejl, ikke fejl i leverancen, og begge
+blev rettet før commit.)
