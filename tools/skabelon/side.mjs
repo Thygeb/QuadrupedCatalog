@@ -144,6 +144,20 @@ const SIDEFORHOLD_MAAL = 16 / 10;
  */
 const SIDEFORHOLD_TOLERANCE = 0.25;
 
+/**
+ * Antal katalogkort, der faar `loading="eager"` i stedet for `lazy`.
+ * Maalt (ikke gaettet) 26. aug 2026 med et engangsscript i
+ * maalevaerktoej/ (_agent-raekke.mjs), der taeller `.kort`-elementer i
+ * DOM'ens foerste raekke: ved 1440px bredde giver `.gitter`s
+ * `repeat(auto-fill,minmax(310px,1fr))` praecis 4 kort per raekke, og ved
+ * viewport-hoejder fra 700-1000px (almindelige laptops) er det enten 0
+ * eller netop de samme 4 kort, der er synlige foer scroll — aldrig en
+ * delvis raekke. 4 er derfor det stoerste tal, der er sikkert "foerste
+ * skaermbillede" paa tvaers af almindelige skaermhoejder uden at hente
+ * billeder, ingen ser foer scroll.
+ */
+export const EAGER_KORT_ANTAL = 4;
+
 function dimAfPNG(buf) {
   if (buf.length < 24 || buf.readUInt32BE(0) !== 0x89504e47) return null;
   return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
@@ -291,10 +305,17 @@ export function billedAlternativer(fil, rod = ROD) {
  *
  *   b     laesBillede(robot) eller null
  *   op    stien tilbage til dist/-roden, fx '../../'
- *   stor  robotsidens store led (billedled--stor). Det er sidens foerste
- *         element og indlaeses derfor IKKE dovent
+ *   stor   robotsidens store led (billedled--stor). Det er sidens foerste
+ *          element og indlaeses derfor IKKE dovent
+ *   eager  katalogkortets billede skal IKKE laeses dovent, fordi kortet er
+ *          blandt de foerste EAGER_KORT_ANTAL paa siden (maalt med
+ *          maalevaerktoej/_agent-raekke.mjs 26. aug 2026: praecis 4 kort
+ *          staar i foerste raekke ved 1440px bredde, og ingen flere er
+ *          synlige foer scroll ved nogen almindelig laptop-hoejde 700-1000px)
  */
-export function billedledHTML({ b, op = '', stor = false, tekst, rod = ROD }) {
+export function billedledHTML({
+  b, op = '', stor = false, eager = false, tekst, rod = ROD,
+}) {
   const klasser = ['billedled'];
   if (stor) klasser.push('billedled--stor');
 
@@ -324,10 +345,16 @@ export function billedledHTML({ b, op = '', stor = false, tekst, rod = ROD }) {
     ? `\n<span class="billedmaerke"><i class="mrk"></i>${esc(tekst.delt)}</span>`
     : '';
 
+  // stor (robotsidens hero) har ALDRIG baaret et loading-attribut - den er
+  // sidens foerste element og skal ikke se ud som en eftertanke. `eager` er
+  // et katalogkort blandt de foerste EAGER_KORT_ANTAL: det FÅR attributten,
+  // skrevet eksplicit, saa "hvor mange kort er eager" kan taelles med en
+  // grep i stedet for at taelle "mangler lazy" negativt.
+  const indlaesning = stor ? '' : ` loading="${eager ? 'eager' : 'lazy'}"`;
   return `<div class="${klasser.join(' ')}">
 <picture>
 ${kilder.length ? kilder.join('\n') + '\n' : ''}<img src="${attr(sti(b.fil))}" alt="${attr(tekst.alt)}"${stil}`
-    + `${stor ? '' : ' loading="lazy"'} decoding="async">
+    + `${indlaesning} decoding="async">
 </picture>${maerke}
 </div>`;
 }
@@ -995,10 +1022,12 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     return navn;
   }
 
-  function billede(robot, op = '', { stor = false } = {}) {
+  function billede(robot, op = '', { stor = false, eager = false } = {}) {
     const b = laesBillede(robot);
     if (!b) return tomPlade(robot, op, stor);
-    return billedledHTML({ b, op, stor, tekst: billedTekst(robot, b) });
+    return billedledHTML({
+      b, op, stor, eager, tekst: billedTekst(robot, b),
+    });
   }
 
   /** Billedets sandhed under billedet. Tom liste, naar pladen er tom. */
@@ -1094,7 +1123,9 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    * op  = stien tilbage til dist/ (til billeder og aktiver)
    * til = stien til robotmapperne fra den side, kortet staar paa
    */
-  function kort(robot, { op = '', til = '', kilder = null } = {}) {
+  function kort(robot, {
+    op = '', til = '', kilder = null, eager = false,
+  } = {}) {
     const k = kilder ?? lavKilder(robot);
     const hvorhen = `${til}${robot.slug}/`;
     const a = anvendelse(robot);
@@ -1105,7 +1136,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     const stribeKilder = antalKilder > 1 ? k : null;
 
     return `<article class="kort">
-${billede(robot, op)}
+${billede(robot, op, { eager })}
 <div class="kort-krop">
 <div class="kort-hoved">
 <p class="kort-ophav"><span class="prod">${esc(robot.producent)}</span>`
@@ -1148,7 +1179,7 @@ ${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</s
     // --- bekvemmeligheder ---
     esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe,
     ceTilstand, billede, billedsandhed, billedTekst, kort, tegnforklaring, nformat, dformat, operator,
-    saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER,
+    saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER, EAGER_KORT_ANTAL,
   };
 }
 

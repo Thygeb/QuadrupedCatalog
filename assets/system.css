@@ -442,6 +442,21 @@ a:hover{text-decoration-thickness:2.5px}
 }
 .billedled img{width:100%;height:100%;object-fit:cover;object-position:center}
 
+/* PRINT/PDF: kataloget bruges som haandout, og en udskrift uden billeder er
+   ubrugelig. `loading="lazy"` paa kortene under folden er ALLEREDE ignoreret
+   af Chromium og Firefox ved print — begge motorer tvangsindlaeser dovne
+   billeder foer selve udskriften (shippet adfaerd, ikke noget CSS kan styre
+   eller forstaerke: der findes ingen CSS-egenskab, der udloeser en
+   netvaerkshentning). Den regel her loeser derfor IKKE indlaesningen — det
+   goer browseren allerede — men de to ting, CSS RENT FAKTISK kan styre for
+   et katalogudskrift: at et kort ikke splittes over et sideskift, og at
+   fotografiet printes i sin fulde farve i stedet for browserens
+   blaekbesparende udskrifts-graatoning. */
+@media print{
+  .kort{break-inside:avoid}
+  .billedled img{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
 /* PLADE: maskinen er fotograferet fri paa hvid. En 16:10-beskaering tager
    enten poterne eller hovedet. Den faar hele billedet paa kortets egen
    hvide flade. Det er ogsaa den klasse, de maaltro silhuetter skal baere. */

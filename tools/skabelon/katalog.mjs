@@ -170,6 +170,11 @@ ${f.liste.map((v) => {
   /* --- kortet indpakket i ét lag pr. facet - uaendret pr.-kort mekanik,
      kaldes nu pr. vaegtklassegruppe (se sale-loekken nedenfor) i stedet for
      ét langt kald over hele `sorteret`. --- */
+  // Loebende taeller paa tvaers af ALLE sale (vaegtklasser), ikke nulstillet
+  // pr. sal - de foerste EAGER_KORT_ANTAL kort paa SIDEN (uanset hvilken sal
+  // de staar i) er dem, en besoegende ser foer scroll (spor/billedramme,
+  // 26. aug 2026: maalt til 4 med maalevaerktoej/_agent-raekke.mjs).
+  let kortIndeks = 0;
   const kortHTML = (r) => {
     const sogetekst = [
       r.navn, r.producent, r.producentland, hjaelp.land(r.producentland),
@@ -182,7 +187,9 @@ ${f.liste.map((v) => {
       const ekstra = i === 0 ? ` data-sog="${attr(sogetekst)}"` : '';
       return `<div class="lag lag-${attr(f.navn)}" data-${attr(f.navn)}="${attr(vaerdier)}"${ekstra}>`;
     }).join('');
-    return `${aabne}\n${hjaelp.kort(r, { op: '../../', til: '' })}\n${'</div>'.repeat(F.length)}`;
+    const eager = kortIndeks < hjaelp.EAGER_KORT_ANTAL;
+    kortIndeks += 1;
+    return `${aabne}\n${hjaelp.kort(r, { op: '../../', til: '', eager })}\n${'</div>'.repeat(F.length)}`;
   };
 
   /* --- SALENE. Fire vaegtklassegrupper, romertal I-IV, hver med sin egen
