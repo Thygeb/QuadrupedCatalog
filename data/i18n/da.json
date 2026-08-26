@@ -254,7 +254,7 @@
   "billede_delt_forklaring": "Samme fil som {model}. Producentens eget valg - billedet er ikke nødvendigvis denne model.",
   "billede_fravalgt": "Billedet er fravalgt.",
   "billede_uden_tilladelse": "Producentens eget billede. Ikke krediteret, ingen tilladelse.",
-  "billede_ingen_egen": "Vi har ikke selv fotograferet modellen, og producentens eget billede må ikke bygges ind i siden.",
+  "billede_ingen_egen": "Vi har ikke selv fotograferet modellen, og producenten har ikke et brugbart billede af netop denne variant.",
   "billede_ingen_grund": "Vi har ikke selv fotograferet modellen, og producentens eget billede må ikke bygges ind i siden.",
   "billede_ophav_eget_foto": "Vores eget fotografi.",
   "billede_ophav_silhuet": "Måltro silhuet, tegnet efter producentens egne mål. Ikke et fotografi.",
