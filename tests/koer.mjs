@@ -735,8 +735,10 @@ const kaedeDist = path.join(tmp, 'dist-billedkaede');
   ok('ingen henvisning til media/ i billedkaedens byg',
     !kaedeSider.some((f) => /["'(/]media\//.test(fs.readFileSync(f, 'utf8'))));
 
-  // 9. S1 mekanisk: --til-udgivelse skal AFVISE et fabrikantbillede og
-  //    SLIPPE et saet uden. Kun det foerste beviser noget om spaerringen.
+  // 9. spor/s1 (L37): spaerringen er OPHAEVET. Foer afviste --til-udgivelse
+  //    et fabrikantbillede (SPAERRING S1) - proeven er VENDT OM, ikke slettet:
+  //    den beviser nu, at bygget GENNEMFOERER med et, og at det gamle flag
+  //    ikke laengere goer noget.
   const s1Data = path.join(tmp, 's1-data');
   fs.mkdirSync(s1Data, { recursive: true });
   fs.writeFileSync(path.join(s1Data, 'proeve-fabrikant.yaml'),
@@ -744,15 +746,16 @@ const kaedeDist = path.join(tmp, 'dist-billedkaede');
     + `status: i_produktion\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: fabrikant\n`
     + `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`, 'utf8');
   const s1 = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
-    `--data=${s1Data}`, `--ud=${path.join(tmp, 'dist-s1')}`, '--til-udgivelse'],
+    `--data=${s1Data}`, `--ud=${path.join(tmp, 'dist-s1')}`],
   { cwd: rod, encoding: 'utf8' });
-  ok('--til-udgivelse afviser et fabrikantbillede (S1)',
-    s1.status === 1 && /SPAERRING S1/.test((s1.stdout || '') + (s1.stderr || '')), `exit ${s1.status}`);
-  const s1ok = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
-    `--data=${kaedeData}`, `--ud=${path.join(tmp, 'dist-s1-ok')}`, '--til-udgivelse'],
+  ok('bygget gennemfoerer nu med et fabrikantbillede (S1 ophaevet)',
+    s1.status === 0 && !/SPAERRING/.test((s1.stdout || '') + (s1.stderr || '')), `exit ${s1.status}`);
+  const s1flag = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
+    `--data=${s1Data}`, `--ud=${path.join(tmp, 'dist-s1-flag')}`, '--til-udgivelse'],
   { cwd: rod, encoding: 'utf8' });
-  ok('--til-udgivelse slipper et saet uden fabrikantbilleder igennem', s1ok.status === 0,
-    ((s1ok.stdout || '') + (s1ok.stderr || '')).trim().split('\n').slice(-2).join(' / '));
+  ok('det gamle --til-udgivelse-flag er nu virkningsloest, ikke en spaerring',
+    s1flag.status === 0 && !/SPAERRING/.test((s1flag.stdout || '') + (s1flag.stderr || '')),
+    `exit ${s1flag.status}`);
 
   // 10. <source> skrives KUN for filer, der findes. En srcset til en fil, ingen
   //     har lavet, er en tom paastand. Proeven laver et lille assets-trae med
@@ -1779,6 +1782,29 @@ console.log('\n12. spor/sammenlign: standardtrio (punkt 1), tekst+interval (punk
     && chips.filter((c) => !c.hidden).every((c) => (c.getAttribute('data-sog') || '').includes('gang')));
 }
 
+// === spor/s1: spaerringen ophaevet (L37) ===
+// Ny proeve (ikke en reversering af en eksisterende): bygger det RIGTIGE
+// katalog (data/robots, med de eksisterende fabrikantfotos) uden noget
+// saerligt flag, og beviser to ting paa samme tid: exit 0 og INGEN
+// "SPAERRING"-tekst nogen steder i output. Genindfoeres spaerringen ved et
+// uheld - fx ved at BILLEDE_SPAERRET eller den gamle console.error-blok
+// kommer tilbage i en fremtidig aendring - vil denne proeve fejle igen,
+// fordi den rigtige datamaengde indeholder 75 fabrikantbilleder (maalt i
+// build.mjs' egen "Billedfelter"-linje).
+{
+  const distEkte = path.join(tmp, 'dist-s1-ekte');
+  const b = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'), `--ud=${distEkte}`],
+    { cwd: rod, encoding: 'utf8' });
+  const ud = (b.stdout || '') + (b.stderr || '');
+  ok('spor/s1: det rigtige katalog (med fabrikantfotos) bygger med exit 0',
+    b.status === 0, `exit ${b.status}`);
+  ok('spor/s1: bygget udskriver ikke "SPAERRING" nogen steder',
+    !/SPAERRING/.test(ud), ud.includes('SPAERRING') ? 'fandt SPAERRING i output' : 'ingen forekomst');
+  const fabrikantMatch = ud.match(/fabrikant: (\d+)/);
+  ok('spor/s1: fabrikantbilleder er stadig talt op i output (kun spaerringen er vaek, ikke tallet)',
+    !!fabrikantMatch && Number(fabrikantMatch[1]) > 0,
+    fabrikantMatch ? `fabrikant: ${fabrikantMatch[1]}` : 'intet fabrikant-tal fundet i output');
+}
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `
   + `(${alle.length} i én fil + ${arvsagerFangede} paa tvaers af filer), fangede ${fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
