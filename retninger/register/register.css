@@ -1,0 +1,333 @@
+/* retning REGISTER — designkontrakt i tre linjer:
+   THESIS: siden er et register, ikke en montre. Den er bygget til at blive slaaet op i,
+   ikke laest fra top til bund — derfor bogstavskanten, ikke en artikelspalte.
+   OWN-WORLD: dictionary/karkotek-tommelfingerregister, JetBrains Mono som ledger-skrift,
+   Manrope kun til navne. Farver og typefamilier arvet uaendret fra DESIGN.md.
+   SIGNATURE: en klikbar bogstavskant i siden af registret, aekvivalent til et leksikons
+   afskaarne tommelfingerfaner — reelle ankre, ingen JavaScript, ingen dekoration. */
+
+:root{
+  --bund:#F2F3F5;
+  --panel:#FFFFFF;
+  --panel-ro:#F7F8FA;
+  --tom:#EDEFF2;
+  --blaek:#14161A;
+  --blaek2:#4A515C;
+  --blaek3:#5A626E;
+  --accent:#0D5C86;
+  --accent-ro:#E7F0F6;
+  --linje:#E3E5E9;
+  --hegn:#7C8695;
+  --fod:#14161A;
+  --paafod:#E6E9EE;
+  --paafod2:#B9C0CA;
+
+  --rund:12px;
+  --rund-ind:8px;
+  --rund-lille:6px;
+
+  --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px; --r7:48px; --r8:64px; --r9:96px;
+  --kant: clamp(16px, 3.4vw, 44px);
+
+  --sans: "Manrope lokal", Manrope, "Segoe UI Variable Text", system-ui, sans-serif;
+  --mono: "JetBrains Mono lokal", "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+}
+
+@font-face{
+  font-family:"Manrope lokal";
+  font-weight:400 800;
+  src:local("Manrope"),local("Manrope Regular"),
+      url("fonts/Manrope-variable.woff2") format("woff2-variations");
+  font-display:swap;
+}
+@font-face{
+  font-family:"JetBrains Mono lokal";
+  font-weight:400 700;
+  src:local("JetBrains Mono"),local("JetBrainsMono-Regular"),
+      url("fonts/JetBrainsMono-variable.woff2") format("woff2-variations");
+  font-display:swap;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bund);
+  color:var(--blaek);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+.rum{max-width:1440px;margin:0 auto;padding-inline:var(--kant);}
+
+.spring-over{
+  position:absolute; left:-9999px; top:0;
+  background:var(--blaek); color:#fff; padding:10px 16px; border-radius:var(--rund-ind);
+  z-index:50;
+}
+.spring-over:focus{left:var(--kant); top:8px;}
+
+:focus-visible{outline:3px solid var(--accent); outline-offset:2px; border-radius:2px;}
+
+/* ---------- Baand ---------- */
+.baand{
+  background:var(--panel);
+  border-bottom:1px solid var(--linje);
+}
+.baand .rum{
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:52px; gap:var(--r4);
+}
+.baand-navn{
+  font-family:var(--mono); font-weight:600; font-size:12.5px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--blaek);
+}
+.baand-navn .midlertidig{
+  display:inline-block; margin-left:8px; padding:1px 6px 2px; font-size:9.5px;
+  border:1px dashed var(--hegn); border-radius:var(--rund-lille); color:var(--blaek3);
+  letter-spacing:.08em; text-transform:none; font-weight:500;
+}
+.baand nav{display:flex; gap:var(--r4); font-size:13px; font-weight:600;}
+.baand nav a{text-decoration:none; padding:4px 2px;}
+.baand nav a:hover{color:var(--accent);}
+
+/* ---------- Hero (bevidst kort — registret skal starte hoejt paa siden) ---------- */
+.hero{padding:var(--r3) 0 var(--r2);}
+.hero .kicker{
+  display:block; font-family:var(--mono); font-size:10px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:4px;
+}
+.hero h1{
+  margin:0 0 4px;
+  font-family:var(--sans); font-weight:800; letter-spacing:-0.03em; line-height:1.05;
+  font-size:clamp(22px, 2.6vw, 32px);
+  max-width:none;
+}
+.hero p{
+  margin:0; color:var(--blaek2); font-size:14px; line-height:1.4; max-width:78ch;
+}
+.hero .greb{
+  margin-top:6px; font-size:12px; color:var(--blaek3); max-width:80ch;
+  border-left:2px solid var(--linje); padding-left:var(--r2);
+}
+.hero .greb b{color:var(--blaek2); font-weight:600;}
+
+/* ---------- Yderpunkter: én tæt linje pr. yderpunkt, ikke fire fotokort ---------- */
+.yderpunkter{padding:var(--r2) 0; border-top:1px solid var(--linje); border-bottom:1px solid var(--linje); background:var(--panel);}
+.yderpunkter h2{
+  font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--blaek3); margin:0 0 6px;
+}
+.yp-stribe{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:var(--r3);
+}
+.yp{border-left:1px solid var(--linje); padding-left:var(--r3); display:flex; flex-direction:column; gap:1px;}
+.yp:first-child{border-left:none; padding-left:0;}
+.yp .yp-etiket{
+  font-family:var(--mono); font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--blaek3);
+}
+.yp .yp-rad{display:flex; align-items:baseline; gap:6px; flex-wrap:wrap; line-height:1.25;}
+.yp .yp-tal{
+  font-family:var(--mono); font-weight:700; font-size:15px;
+  font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:var(--blaek); white-space:nowrap;
+}
+.yp .yp-tal .op{font-weight:500; opacity:.68; font-size:.72em; margin-right:2px;}
+.yp .yp-tal .enh{font-weight:500; opacity:.68; font-size:.62em; margin-left:2px;}
+.yp .yp-navn{font-size:12px; font-weight:600;}
+.yp .yp-producent{font-size:11px; color:var(--blaek3);}
+.kildemaerke{
+  color:var(--accent); font-size:.7em; vertical-align:super; text-decoration:none;
+  margin-left:1px; position:relative;
+}
+.kildemaerke::before{content:"";position:absolute;inset:-9px;}
+.kildemaerke:hover{text-decoration:underline;}
+
+/* ---------- Beregnet iagttagelse ---------- */
+.iagttagelser{padding:var(--r2) 0;}
+.iagttagelser ul{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--r5);}
+.iagttagelser li{
+  font-size:12.5px; color:var(--blaek2); max-width:46ch;
+  padding-left:14px; position:relative; line-height:1.35;
+}
+.iagttagelser li::before{
+  content:"§"; position:absolute; left:0; top:0; color:var(--hegn); font-family:var(--mono); font-size:11px;
+}
+.iagttagelser b{
+  font-family:var(--mono); font-weight:700; font-variant-numeric:tabular-nums; color:var(--blaek);
+}
+
+/* ---------- Registret ---------- */
+.register-sektion{padding-top:var(--r3);}
+.register-hoved{
+  display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:var(--r3);
+  margin-bottom:6px;
+}
+.register-hoved h2{
+  font-family:var(--sans); font-weight:700; font-size:clamp(19px,2vw,24px); letter-spacing:-0.02em; margin:0;
+}
+.register-kriterium{
+  font-size:12.5px; color:var(--blaek3); font-family:var(--mono);
+}
+.register-kriterium b{color:var(--blaek2); font-weight:600;}
+
+.register-krop{
+  display:flex; align-items:flex-start; gap:var(--r3);
+  background:var(--panel-ro);
+  border:1px solid var(--linje);
+  border-radius:var(--rund);
+  overflow:hidden;
+}
+
+/* Bogstavskanten — signaturelementet: reelle ankre, dictionary-tommelfinger */
+.bogstavskant{
+  flex:0 0 34px;
+  position:sticky; top:0; align-self:flex-start;
+  max-height:100vh; overflow-y:auto;
+  border-right:1px solid var(--linje);
+  background:var(--panel);
+  padding-block:var(--r2);
+}
+.bogstavskant ol{list-style:none; margin:0; padding:0; display:flex; flex-direction:column;}
+.bogstavskant a{
+  display:flex; align-items:center; justify-content:center;
+  height:30px; font-family:var(--mono); font-weight:700; font-size:11px;
+  text-decoration:none; color:var(--blaek3);
+}
+.bogstavskant a:hover, .bogstavskant a:focus-visible{background:var(--accent-ro); color:var(--accent);}
+
+.ledger-wrap{flex:1 1 auto; min-width:0; overflow-x:auto; background:var(--panel);}
+table.ledger{
+  width:100%; border-collapse:collapse; font-size:13px;
+}
+table.ledger caption{
+  text-align:left; font-size:11.5px; color:var(--blaek3); padding:var(--r2) var(--r3);
+  border-bottom:1px solid var(--linje);
+}
+table.ledger thead th{
+  position:sticky; top:0; background:var(--panel); z-index:1;
+  text-align:left; font-family:var(--mono); font-weight:600; font-size:10px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--blaek3);
+  padding:var(--r2) var(--r2) 9px;
+  border-bottom:2px solid var(--blaek);
+  white-space:nowrap;
+}
+table.ledger thead th.num, table.ledger td.num{text-align:right; font-variant-numeric:tabular-nums;}
+table.ledger tbody tr.post{border-bottom:1px solid var(--linje);}
+table.ledger tbody tr.post:hover{background:var(--accent-ro);}
+table.ledger tbody tr.post.udpeget{background:var(--accent-ro); box-shadow:inset 2px 0 0 var(--accent);}
+table.ledger td{padding:5px var(--r2); vertical-align:baseline;}
+table.ledger td.nr{
+  font-family:var(--mono); color:var(--blaek3); font-size:11px; font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+table.ledger td.nr .stjerne{color:var(--accent); margin-left:3px;}
+table.ledger td.navn{min-width:200px; white-space:nowrap;}
+table.ledger td.navn strong{font-size:13px; font-weight:700; letter-spacing:-0.01em;}
+table.ledger td.navn .producent{font-size:11px; color:var(--blaek3); margin-left:6px;}
+table.ledger td.navn .producent::before{content:"— "; color:var(--linje);}
+table.ledger td.chip{white-space:nowrap;}
+.vaegtchip{
+  display:inline-block; font-family:var(--mono); font-size:10px; font-weight:600;
+  letter-spacing:.04em; padding:2px 6px 3px; border-radius:var(--rund-lille);
+  background:var(--panel-ro); color:var(--blaek2); border:1px solid var(--linje);
+  white-space:nowrap;
+}
+
+/* De fire datatilstande i tætte celler */
+.v{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap;}
+.v-tal{font-weight:700; color:var(--blaek); font-size:12.5px;}
+.v-tal .op{font-weight:500; opacity:.62; font-size:.78em; margin-right:1px;}
+.v-tal .enh{font-weight:500; opacity:.6; font-size:.72em; margin-left:2px;}
+
+.v-mark{display:inline-flex; align-items:center; gap:5px;}
+.v-mark .glyf{
+  width:8px; height:8px; flex:0 0 8px; display:inline-block; position:relative;
+}
+.v-ja .glyf{border:1.4px solid var(--accent); border-radius:2px;}
+.v-ja .glyf::after{
+  content:""; position:absolute; inset:2px; background:var(--accent); border-radius:1px;
+}
+.v-ja .etikettxt{font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--blaek);}
+
+.v-nej .glyf{background:var(--blaek); border-radius:2px;}
+.v-nej .etikettxt{font-size:10.5px; font-weight:700; letter-spacing:.06em; color:var(--blaek);}
+
+.v-ikke .glyf{border:1.4px dashed var(--hegn); border-radius:2px; background:var(--tom);}
+.v-ikke .etikettxt{font-size:10px; font-weight:500; letter-spacing:.02em; color:var(--blaek3); font-style:italic; font-family:var(--sans);}
+
+.bogstav-raekke th{
+  text-align:left; background:var(--panel-ro); color:var(--blaek);
+  font-family:var(--mono); font-weight:700; font-size:13px; letter-spacing:.03em;
+  padding:6px var(--r2); border-bottom:1px solid var(--linje); border-top:1px solid var(--linje);
+}
+
+.register-fod{
+  padding:var(--r3) 0 var(--r6); font-size:12px; color:var(--blaek3); max-width:70ch;
+}
+
+/* ---------- Afslutning ---------- */
+.afslutning{
+  background:var(--fod); color:var(--paafod); padding:var(--r6) 0; margin-top:var(--r6);
+}
+.afslutning .rum{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--r4);}
+.afslutning h2{font-size:19px; font-weight:700; margin:0 0 4px; color:#fff;}
+.afslutning p{margin:0; font-size:13.5px; color:var(--paafod2); max-width:56ch;}
+.afslutning .til-katalog{
+  display:inline-flex; align-items:center; height:46px; padding:0 18px; border-radius:var(--rund-ind);
+  background:var(--blaek); color:#fff; font-weight:600; font-size:14.5px; text-decoration:none; white-space:nowrap;
+}
+.afslutning .til-katalog:hover{background:var(--accent);}
+
+/* ---------- Smalt (< 860px): bogstavskant vandret, tabel bliver etiket/vaerdi ---------- */
+@media (max-width:860px){
+  .yp-stribe{grid-template-columns:repeat(2,1fr); row-gap:var(--r3);}
+  .yp:nth-child(3){border-left:none; padding-left:0;}
+  .yp:nth-child(2n+1){border-left:none; padding-left:0;}
+  .yp:nth-child(2n){border-left:1px solid var(--linje); padding-left:var(--r3);}
+
+  .register-krop{flex-direction:column; border-radius:var(--rund-ind);}
+  .bogstavskant{
+    position:sticky; top:0; z-index:2;
+    flex:none; width:100%; max-height:none;
+    border-right:none; border-bottom:1px solid var(--linje);
+    overflow-x:auto; overflow-y:hidden;
+  }
+  .bogstavskant ol{flex-direction:row;}
+  .bogstavskant a{height:32px; width:32px; flex:0 0 32px;}
+
+  table.ledger thead{position:static;}
+  table.ledger thead tr{position:absolute; left:-9999px;}
+  table.ledger, table.ledger tbody, table.ledger tr.post, table.ledger caption{display:block; width:100%;}
+  table.ledger caption{padding:var(--r2) var(--r3);}
+  table.ledger tr.post{
+    padding:var(--r3) var(--r2); border-bottom:1px solid var(--linje);
+    display:grid; grid-template-columns:1fr 1fr; column-gap:var(--r2); row-gap:4px;
+  }
+  table.ledger tr.post td{
+    display:block; padding:0; border:none;
+  }
+  table.ledger td.nr{grid-column:1 / -1; order:-2;}
+  table.ledger td.navn{grid-column:1 / -1; order:-1; margin-bottom:2px; white-space:normal;}
+  table.ledger td.navn .producent{display:block; margin-left:0;}
+  table.ledger td.navn .producent::before{content:"";}
+  table.ledger td[data-th]::before{
+    content:attr(data-th); display:block; font-family:var(--mono); font-size:9px;
+    letter-spacing:.08em; color:var(--blaek3); margin-bottom:1px;
+  }
+  .bogstav-raekke{display:block !important; width:100%;}
+  .bogstav-raekke th{display:block; border-radius:0;}
+}
+
+@media (max-width:480px){
+  .hero h1{font-size:clamp(25px,7.2vw,32px);}
+  .iagttagelser ul{gap:var(--r4);}
+  table.ledger tr.post{grid-template-columns:1fr;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto !important;}
+}

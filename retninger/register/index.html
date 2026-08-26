@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Firbenede robotter — Register</title>
+<meta name="description" content="Et register over 77 firbenede robotter fra 25 producenter, sorteret alfabetisk efter producent, med kilde paa hvert tal.">
+<link rel="stylesheet" href="register.css">
+</head>
+<body>
+<!--
+DESIGNKONTRAKT (retning: REGISTER)
+THESIS: siden er et register, ikke en montre — bygget til at blive slaaet op i,
+  ikke laest fra top til bund. Afviser baade fotokort-gitteret og bladreartiklen.
+OWN-WORLD: dictionary-/kartotekstommelfinger, JetBrains Mono som ledger-skrift til
+  alt der maales, Manrope kun til navne. DESIGN.md's palet og typefamilier uaendret;
+  skala, vaegte og taethed er strammet markant efter briefets tilladelse.
+STORY: laeseren ser feltets fulde stoerrelse i ét overblik, kan slaa et navn op via
+  bogstavskanten, og ser fire maalte yderpunkter uden at nogen robot er anbefalet.
+FIRST VIEWPORT: kort baand, komprimeret hero, tæt fire-felts yderpunktstribe,
+  to beregnede iagttagelser, saa registret starter saa hoejt paa siden som muligt.
+FORM: alfabetisk ledger med sticky bogstavskant (signaturelement), ingen fotokort.
+FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
+  orkestratorens egen efterproevning og flet — se fund/FUND-retning-register.md.
+-->
+<a class="spring-over" href="#reg">Spring til registret</a>
+<header class="baand">
+  <div class="rum">
+    <span class="baand-navn">Firbenede robotter<span class="midlertidig">navn ikke afgjort</span></span>
+    <nav aria-label="Sidenavigation"><a href="#reg">Registret</a></nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero rum">
+    <span class="kicker">Opslagsværk · retning: register</span>
+    <h1>Firbenede robotter, felt for felt</h1>
+    <p>77 robotter fra 25 producenter, hver med kilde og hentedato. Sorteret, ikke udvalgt.</p>
+    <p class="greb"><b>Greb:</b> typografisk hierarki bærer sitet — ingen fotokort, ingen montre. Robotterne står som et register, du slår op i via bogstavskanten til venstre, ikke som en række billeder, du blar igennem.</p>
+  </section>
+
+  <section class="yderpunkter">
+    <div class="rum">
+      <h2>Fire målte yderpunkter — ikke en anbefaling</h2>
+      <div class="yp-stribe">
+        <div class="yp">
+    <span class="yp-etiket">Letteste</span>
+    <span class="yp-rad">
+      <span class="yp-tal">12<span class="enh">kg</span></span><a class="kildemaerke" href="https://www.unitree.com/go1" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/go1">A</a>
+      <span class="yp-navn">Go1</span>
+      <span class="yp-producent">Unitree Robotics</span>
+    </span>
+  </div>
+        <div class="yp">
+    <span class="yp-etiket">Tungeste</span>
+    <span class="yp-rad">
+      <span class="yp-tal">85<span class="enh">kg</span></span><a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a>
+      <span class="yp-navn">S1-W</span>
+      <span class="yp-producent">Galileo (Tianjin)</span>
+    </span>
+  </div>
+        <div class="yp">
+    <span class="yp-etiket">Hurtigste</span>
+    <span class="yp-rad">
+      <span class="yp-tal">8<span class="enh">m/s</span></span><a class="kildemaerke" href="https://deeprobotics.cn/en/index/lynxs10.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/lynxs10.html">A</a>
+      <span class="yp-navn">Lynx S10</span>
+      <span class="yp-producent">DEEP Robotics</span>
+    </span>
+  </div>
+        <div class="yp">
+    <span class="yp-etiket">Længste driftstid</span>
+    <span class="yp-rad">
+      <span class="yp-tal">360<span class="enh">min</span></span><a class="kildemaerke" href="https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf" target="_blank" rel="noopener" title="Kilde A: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf">A</a>
+      <span class="yp-navn">NEURA Quadruped</span>
+      <span class="yp-producent">NEURA Robotics</span>
+    </span>
+  </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="iagttagelser rum">
+    <ul>
+      <li><b>14 af 25</b> producenter i kataloget er fra Kina, og de står for <b>62 af 77</b> modeller.</li>
+      <li>Kun <b>2 af 77</b> robotter i kataloget oplyser CE-mærkning — resten står som «ikke oplyst», ikke som «nej».</li>
+    </ul>
+  </section>
+
+  <section class="register-sektion rum" id="reg">
+    <div class="register-hoved">
+      <h2>Registret — alle 77</h2>
+      <span class="register-kriterium">Sorteret alfabetisk efter <b>producentnavn</b>, dernæst modelnavn. * markerer de seks robotter, alle tre retninger viser.</span>
+    </div>
+    <div class="register-krop">
+      <nav class="bogstavskant" aria-label="Spring til bogstav (producentnavn)">
+        <ol><li><a href="#p-A">A</a></li><li><a href="#p-B">B</a></li><li><a href="#p-C">C</a></li><li><a href="#p-D">D</a></li><li><a href="#p-G">G</a></li><li><a href="#p-K">K</a></li><li><a href="#p-M">M</a></li><li><a href="#p-N">N</a></li><li><a href="#p-P">P</a></li><li><a href="#p-R">R</a></li><li><a href="#p-S">S</a></li><li><a href="#p-U">U</a></li><li><a href="#p-W">W</a></li><li><a href="#p-X">X</a></li><li><a href="#p-Y">Y</a></li></ol>
+      </nav>
+      <div class="ledger-wrap">
+        <table class="ledger">
+          <caption>Egenvægt, nyttelast (gående), hastighed og driftstid er producentens egne tal; «ikke oplyst» betyder at producenten ikke oplyser feltet, ikke at værdien er nul.</caption>
+          <thead>
+            <tr>
+              <th>Nr.</th>
+              <th>Robot</th>
+              <th>Vægtklasse</th>
+              <th class="num">Egenvægt</th>
+              <th class="num">Nyttelast</th>
+              <th class="num">Hastighed</th>
+              <th class="num">Driftstid</th>
+              <th>CE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bogstav-raekke" id="p-A"><th colspan="8">A</th></tr>
+<tr class="post" id="r-addverb-trakr-20">
+    <td class="nr" data-th="Nr.">001</td>
+    <td class="navn" data-th="Robot"><strong>Trakr 20</strong><span class="producent">Addverb<a class="kildemaerke" href="https://addverb.ai/trakr" target="_blank" rel="noopener" title="Kilde A: https://addverb.ai/trakr">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20<span class="enh">kg</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-addverb-trakr-5">
+    <td class="nr" data-th="Nr.">002</td>
+    <td class="navn" data-th="Robot"><strong>Trakr 5</strong><span class="producent">Addverb<a class="kildemaerke" href="https://addverb.ai/trakr" target="_blank" rel="noopener" title="Kilde A: https://addverb.ai/trakr">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">18<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">1,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-anybotics-anymal">
+    <td class="nr" data-th="Nr.">003</td>
+    <td class="navn" data-th="Robot"><strong>ANYmal (Generation D)</strong><span class="producent">ANYbotics<a class="kildemaerke" href="https://www.anybotics.com/robotics/anymal/" target="_blank" rel="noopener" title="Kilde A: https://www.anybotics.com/robotics/anymal/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0,75<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ja"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">JA</span></span></td>
+  </tr>
+<tr class="post udpeget" id="r-anybotics-anymal-x">
+    <td class="nr" data-th="Nr.">004<span class="stjerne" title="Vist i alle tre retninger">*</span></td>
+    <td class="navn" data-th="Robot"><strong>ANYmal X</strong><span class="producent">ANYbotics<a class="kildemaerke" href="https://www.anybotics.com/robotics/anymal-x/" target="_blank" rel="noopener" title="Kilde A: https://www.anybotics.com/robotics/anymal-x/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ja"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">JA</span></span></td>
+  </tr>
+<tr class="post" id="r-astrall-dynamics-hypertron-t01">
+    <td class="nr" data-th="Nr.">005</td>
+    <td class="navn" data-th="Robot"><strong>Hypertron-T01</strong><span class="producent">Astrall Dynamics<a class="kildemaerke" href="https://www.astralldynamics.com/project-Hypertron-T01.html" target="_blank" rel="noopener" title="Kilde A: https://www.astralldynamics.com/project-Hypertron-T01.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">82<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&lt;=</span>80<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">240–480<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-B"><th colspan="8">B</th></tr>
+<tr class="post" id="r-bhairav-robotics-shvana">
+    <td class="nr" data-th="Nr.">006</td>
+    <td class="navn" data-th="Robot"><strong>Shvana</strong><span class="producent">Bhairav Robotics<a class="kildemaerke" href="https://bhairavrobotics.com/shvana-robot/" target="_blank" rel="noopener" title="Kilde A: https://bhairavrobotics.com/shvana-robot/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">25<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">2–5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">~</span>120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post udpeget" id="r-boston-dynamics-spot">
+    <td class="nr" data-th="Nr.">007<span class="stjerne" title="Vist i alle tre retninger">*</span></td>
+    <td class="navn" data-th="Robot"><strong>Spot</strong><span class="producent">Boston Dynamics<a class="kildemaerke" href="https://bostondynamics.com/products/spot/" target="_blank" rel="noopener" title="Kilde A: https://bostondynamics.com/products/spot/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">33,8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">14<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">1,6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-C"><th colspan="8">C</th></tr>
+<tr class="post" id="r-cvte-maxhub-x7">
+    <td class="nr" data-th="Nr.">008</td>
+    <td class="navn" data-th="Robot"><strong>MAXHUB X7</strong><span class="producent">CVTE<a class="kildemaerke" href="https://www.cvte.com/product/quadrupedrobot" target="_blank" rel="noopener" title="Kilde A: https://www.cvte.com/product/quadrupedrobot">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>480<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-D"><th colspan="8">D</th></tr>
+<tr class="post" id="r-deep-robotics-lite3">
+    <td class="nr" data-th="Nr.">009</td>
+    <td class="navn" data-th="Robot"><strong>Jueying Lite3</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/product1.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/product1.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">12<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">5<span class="enh">kg</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-mini">
+    <td class="nr" data-th="Nr.">010</td>
+    <td class="navn" data-th="Robot"><strong>Jueying Mini</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/product2.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/product2.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">23<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">40<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-x20">
+    <td class="nr" data-th="Nr.">011</td>
+    <td class="navn" data-th="Robot"><strong>Jueying X20</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/product.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/product.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">53<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&gt;=</span>4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">120–240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-x30">
+    <td class="nr" data-th="Nr.">012</td>
+    <td class="navn" data-th="Robot"><strong>Jueying X30</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/product3.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/product3.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">56<span class="enh">kg</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&gt;=</span>4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150–240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-x30-pro">
+    <td class="nr" data-th="Nr.">013</td>
+    <td class="navn" data-th="Robot"><strong>Jueying X30 Pro</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/product3.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/product3.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">59<span class="enh">kg</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&gt;=</span>4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150–240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-lynx-m20">
+    <td class="nr" data-th="Nr.">014</td>
+    <td class="navn" data-th="Robot"><strong>Lynx M20</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/lynx.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/lynx.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">35<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">2<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-lynx-m20-pro">
+    <td class="nr" data-th="Nr.">015</td>
+    <td class="navn" data-th="Robot"><strong>Lynx M20 Pro</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/lynx.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/lynx.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">35<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">2<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-lynx-m20s">
+    <td class="nr" data-th="Nr.">016</td>
+    <td class="navn" data-th="Robot"><strong>Lynx M20S</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/lynx.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/lynx.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">35<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">35<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">2<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150–210<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-deep-robotics-lynx-s10">
+    <td class="nr" data-th="Nr.">017</td>
+    <td class="navn" data-th="Robot"><strong>Lynx S10</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/lynxs10.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/lynxs10.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">&lt;=</span>20<span class="enh">kg</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">8<span class="enh">m/s</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-G"><th colspan="8">G</th></tr>
+<tr class="post" id="r-galileo-c1">
+    <td class="nr" data-th="Nr.">018</td>
+    <td class="navn" data-th="Robot"><strong>C1</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–360<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-galileo-c1-w">
+    <td class="nr" data-th="Nr.">019</td>
+    <td class="navn" data-th="Robot"><strong>C1-W</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">19<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–2,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150–300<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-galileo-e1">
+    <td class="nr" data-th="Nr.">020</td>
+    <td class="navn" data-th="Robot"><strong>E1</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">44<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">120–240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-galileo-e1-w">
+    <td class="nr" data-th="Nr.">021</td>
+    <td class="navn" data-th="Robot"><strong>E1-W</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">38<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–180<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post udpeget" id="r-galileo-s1">
+    <td class="nr" data-th="Nr.">022<span class="stjerne" title="Vist i alle tre retninger">*</span></td>
+    <td class="navn" data-th="Robot"><strong>S1</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">60<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">40<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">300–450<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-galileo-s1-w">
+    <td class="nr" data-th="Nr.">023</td>
+    <td class="navn" data-th="Robot"><strong>S1-W</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">85<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">40<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">240–360<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-gangben-l1">
+    <td class="nr" data-th="Nr.">024</td>
+    <td class="navn" data-th="Robot"><strong>Gangben L1</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/L1" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/L1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">60–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-gangben-l1-w">
+    <td class="nr" data-th="Nr.">025</td>
+    <td class="navn" data-th="Robot"><strong>Gangben L1-W</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/L1-W" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/L1-W">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">22<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">60–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post udpeget" id="r-genisom-gangben-l2">
+    <td class="nr" data-th="Nr.">026<span class="stjerne" title="Vist i alle tre retninger">*</span></td>
+    <td class="navn" data-th="Robot"><strong>Gangben L2</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/L2" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/L2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">21<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>16<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,2<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–330<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-gangben-l2-w">
+    <td class="nr" data-th="Nr.">027</td>
+    <td class="navn" data-th="Robot"><strong>Gangben L2-W</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/L2" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/L2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">27<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>16<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–330<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-gangben-l2-w-ultra">
+    <td class="nr" data-th="Nr.">028</td>
+    <td class="navn" data-th="Robot"><strong>Gangben L2-W Ultra</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/L2" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/L2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">27<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>16<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">180–270<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-qiuqiu-sp1">
+    <td class="nr" data-th="Nr.">029</td>
+    <td class="navn" data-th="Robot"><strong>Qiuqiu SP1</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/sp1" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/sp1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">&lt;=</span>100<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">50<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">1,2<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;=</span>240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-tongchui-m1">
+    <td class="nr" data-th="Nr.">030</td>
+    <td class="navn" data-th="Robot"><strong>Tongchui M1</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/M1" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/M1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">41<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–300<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-tongchui-m1-pro">
+    <td class="nr" data-th="Nr.">031</td>
+    <td class="navn" data-th="Robot"><strong>Tongchui M1 Pro</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/M1" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/M1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">41<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–300<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-genisom-tongchui-m1-ultra">
+    <td class="nr" data-th="Nr.">032</td>
+    <td class="navn" data-th="Robot"><strong>Tongchui M1 Ultra</strong><span class="producent">GENISOM AI<a class="kildemaerke" href="https://www.genisomai.com/product-robot/M1" target="_blank" rel="noopener" title="Kilde A: https://www.genisomai.com/product-robot/M1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">41<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–300<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-ghost-robotics-spirit-40">
+    <td class="nr" data-th="Nr.">033</td>
+    <td class="navn" data-th="Robot"><strong>Spirit 40</strong><span class="producent">Ghost Robotics<a class="kildemaerke" href="https://www.ghostrobotics.io/spirit-40" target="_blank" rel="noopener" title="Kilde A: https://www.ghostrobotics.io/spirit-40">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-ghost-robotics-vision-60">
+    <td class="nr" data-th="Nr.">034</td>
+    <td class="navn" data-th="Robot"><strong>Vision 60</strong><span class="producent">Ghost Robotics<a class="kildemaerke" href="https://www.ghostrobotics.io/vision-60" target="_blank" rel="noopener" title="Kilde A: https://www.ghostrobotics.io/vision-60">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">51<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">2,4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">189<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-K"><th colspan="8">K</th></tr>
+<tr class="post" id="r-keybotic-keyper">
+    <td class="nr" data-th="Nr.">035</td>
+    <td class="navn" data-th="Robot"><strong>Keyper</strong><span class="producent">Keybotic<a class="kildemaerke" href="https://keybotic.com/technology/" target="_blank" rel="noopener" title="Kilde A: https://keybotic.com/technology/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">43<span class="enh">kg</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-M"><th colspan="8">M</th></tr>
+<tr class="post" id="r-mab-honey-badger-4">
+    <td class="nr" data-th="Nr.">036</td>
+    <td class="navn" data-th="Robot"><strong>Honey Badger 4.0</strong><span class="producent">MAB Robotics<a class="kildemaerke" href="https://www.mabrobotics.pl/honey-badger" target="_blank" rel="noopener" title="Kilde A: https://www.mabrobotics.pl/honey-badger">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">12<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&lt;=</span>4<span class="enh">kg</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-mab-honey-badger-5">
+    <td class="nr" data-th="Nr.">037</td>
+    <td class="navn" data-th="Robot"><strong>Honey Badger 5.0</strong><span class="producent">MAB Robotics<a class="kildemaerke" href="https://www.mabrobotics.pl/honey-badger-5" target="_blank" rel="noopener" title="Kilde A: https://www.mabrobotics.pl/honey-badger-5">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">17<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&lt;=</span>5<span class="enh">kg</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-magiclab-magicdog-edu">
+    <td class="nr" data-th="Nr.">038</td>
+    <td class="navn" data-th="Robot"><strong>MagicDog EDU</strong><span class="producent">MagicLab<a class="kildemaerke" href="https://www.magiclab.top/en/dog" target="_blank" rel="noopener" title="Kilde A: https://www.magiclab.top/en/dog">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">15,8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–180<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-magiclab-magicdog-pro">
+    <td class="nr" data-th="Nr.">039</td>
+    <td class="navn" data-th="Robot"><strong>MagicDog PRO</strong><span class="producent">MagicLab<a class="kildemaerke" href="https://www.magiclab.top/en/dog" target="_blank" rel="noopener" title="Kilde A: https://www.magiclab.top/en/dog">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">15,8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–180<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-magiclab-magicdog-y1">
+    <td class="nr" data-th="Nr.">040</td>
+    <td class="navn" data-th="Robot"><strong>MagicDog Y1</strong><span class="producent">MagicLab<a class="kildemaerke" href="https://www.magiclab.top/en/dog-y" target="_blank" rel="noopener" title="Kilde A: https://www.magiclab.top/en/dog-y">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">70<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">45<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-magiclab-magicdog-w">
+    <td class="nr" data-th="Nr.">041</td>
+    <td class="navn" data-th="Robot"><strong>MagicDog-W</strong><span class="producent">MagicLab<a class="kildemaerke" href="https://www.magiclab.top/en/dog-w" target="_blank" rel="noopener" title="Kilde A: https://www.magiclab.top/en/dog-w">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">22,5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">120–240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post udpeget" id="r-microrobotech-movenew-p1">
+    <td class="nr" data-th="Nr.">042<span class="stjerne" title="Vist i alle tre retninger">*</span></td>
+    <td class="navn" data-th="Robot"><strong>MOVENEW P1</strong><span class="producent">MicroRoboTech<a class="kildemaerke" href="https://www.micbotics.com/list_12/98.html" target="_blank" rel="noopener" title="Kilde A: https://www.micbotics.com/list_12/98.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">77<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">200<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">480–720<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-microrobotech-movenew-t1">
+    <td class="nr" data-th="Nr.">043</td>
+    <td class="navn" data-th="Robot"><strong>MOVENEW T1</strong><span class="producent">MicroRoboTech<a class="kildemaerke" href="https://www.micbotics.com/list_13/96.html" target="_blank" rel="noopener" title="Kilde A: https://www.micbotics.com/list_13/96.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">40–50<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">50<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>720<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-N"><th colspan="8">N</th></tr>
+<tr class="post" id="r-neura-quadruped">
+    <td class="nr" data-th="Nr.">044</td>
+    <td class="navn" data-th="Robot"><strong>NEURA Quadruped</strong><span class="producent">NEURA Robotics<a class="kildemaerke" href="https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf" target="_blank" rel="noopener" title="Kilde A: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">60<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">22<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,333333<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">360<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-P"><th colspan="8">P</th></tr>
+<tr class="post" id="r-pudu-d5">
+    <td class="nr" data-th="Nr.">045</td>
+    <td class="navn" data-th="Robot"><strong>PUDU D5</strong><span class="producent">Pudu Robotics<a class="kildemaerke" href="https://store.pudurobotics.com/products/pudu-d5" target="_blank" rel="noopener" title="Kilde A: https://store.pudurobotics.com/products/pudu-d5">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">61<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20–30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-pudu-d5-w">
+    <td class="nr" data-th="Nr.">046</td>
+    <td class="navn" data-th="Robot"><strong>PUDU D5-W</strong><span class="producent">Pudu Robotics<a class="kildemaerke" href="https://store.pudurobotics.com/products/pudu-d5" target="_blank" rel="noopener" title="Kilde A: https://store.pudurobotics.com/products/pudu-d5">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">62<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20–30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">120–180<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-R"><th colspan="8">R</th></tr>
+<tr class="post" id="r-rainbow-robotics-rbq-10">
+    <td class="nr" data-th="Nr.">047</td>
+    <td class="navn" data-th="Robot"><strong>RBQ-10</strong><span class="producent">Rainbow Robotics<a class="kildemaerke" href="https://rainbow-robotics.com/en/products/rbq-10/" target="_blank" rel="noopener" title="Kilde A: https://rainbow-robotics.com/en/products/rbq-10/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">42<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">2,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-raion-robotics-raibo2">
+    <td class="nr" data-th="Nr.">048</td>
+    <td class="navn" data-th="Robot"><strong>RAIBO2</strong><span class="producent">Raion Robotics<a class="kildemaerke" href="https://railab.kaist.ac.kr/sections/robots.html" target="_blank" rel="noopener" title="Kilde A: https://railab.kaist.ac.kr/sections/robots.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">42<span class="enh">kg</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&lt;=</span>6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>480<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-rivr-one">
+    <td class="nr" data-th="Nr.">049</td>
+    <td class="navn" data-th="Robot"><strong>RIVR ONE</strong><span class="producent">RIVR<a class="kildemaerke" href="https://www.rivr.ai/product" target="_blank" rel="noopener" title="Kilde A: https://www.rivr.ai/product">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&gt;</span>30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&lt;=</span>3,888889<span class="enh">m/s</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-S"><th colspan="8">S</th></tr>
+<tr class="post" id="r-yobotics-e-dog">
+    <td class="nr" data-th="Nr.">050</td>
+    <td class="navn" data-th="Robot"><strong>e-Dog</strong><span class="producent">Shandong Youbaote Intelligent Robot<a class="kildemaerke" href="https://www.yobotics.cn/en/product/quadruped_robot_series/" target="_blank" rel="noopener" title="Kilde A: https://www.yobotics.cn/en/product/quadruped_robot_series/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">±</span>15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">3<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&gt;=</span>3,333333<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;=</span>90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-yobotics-y10">
+    <td class="nr" data-th="Nr.">051</td>
+    <td class="navn" data-th="Robot"><strong>Y10</strong><span class="producent">Shandong Youbaote Intelligent Robot<a class="kildemaerke" href="https://www.yobotics.cn/en/product/quadruped_robot_series/" target="_blank" rel="noopener" title="Kilde A: https://www.yobotics.cn/en/product/quadruped_robot_series/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">±</span>5,6<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&gt;</span>3<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">1,4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">110<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-yobotics-y20">
+    <td class="nr" data-th="Nr.">052</td>
+    <td class="navn" data-th="Robot"><strong>Y20</strong><span class="producent">Shandong Youbaote Intelligent Robot<a class="kildemaerke" href="https://www.yobotics.cn/en/product/quadruped_robot_series/" target="_blank" rel="noopener" title="Kilde A: https://www.yobotics.cn/en/product/quadruped_robot_series/">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>60<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">80<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">4<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>150<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-U"><th colspan="8">U</th></tr>
+<tr class="post" id="r-unitree-a1">
+    <td class="nr" data-th="Nr.">053</td>
+    <td class="navn" data-th="Robot"><strong>A1</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/A1" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/A1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">60–150<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-a2">
+    <td class="nr" data-th="Nr.">054</td>
+    <td class="navn" data-th="Robot"><strong>A2</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/A2" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/A2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>42<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>25<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>180<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-a2-w">
+    <td class="nr" data-th="Nr.">055</td>
+    <td class="navn" data-th="Robot"><strong>A2-W</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/A2-W" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/A2-W">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>52<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>25<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-aliengo">
+    <td class="nr" data-th="Nr.">056</td>
+    <td class="navn" data-th="Robot"><strong>AlienGo</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/aliengo" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/aliengo">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">±</span>21,5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">13<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&gt;</span>1,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">150–276<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-as2">
+    <td class="nr" data-th="Nr.">057</td>
+    <td class="navn" data-th="Robot"><strong>As2</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/As2" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/As2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>20<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-as2-w">
+    <td class="nr" data-th="Nr.">058</td>
+    <td class="navn" data-th="Robot"><strong>As2-W</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/As2-W" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/As2-W">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>25<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>16<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3,7<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-b1">
+    <td class="nr" data-th="Nr.">059</td>
+    <td class="navn" data-th="Robot"><strong>B1</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/b1" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/b1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>50<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">20<span class="enh">kg</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-b2">
+    <td class="nr" data-th="Nr.">060</td>
+    <td class="navn" data-th="Robot"><strong>B2</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/b2" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/b2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>60<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&gt;</span>40<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&gt;</span>6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-b2-w">
+    <td class="nr" data-th="Nr.">061</td>
+    <td class="navn" data-th="Robot"><strong>B2-W</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/b2-w" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/b2-w">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>85<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&gt;</span>40<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">4,166667<span class="enh">m/s</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-go1">
+    <td class="nr" data-th="Nr.">062</td>
+    <td class="navn" data-th="Robot"><strong>Go1</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/go1" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/go1">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">12<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>4<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–2,5<span class="enh">m/s</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post udpeget" id="r-unitree-go2">
+    <td class="nr" data-th="Nr.">063<span class="stjerne" title="Vist i alle tre retninger">*</span></td>
+    <td class="navn" data-th="Robot"><strong>Go2</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/go2" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/go2">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>7<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–2,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">60–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-go2-w">
+    <td class="nr" data-th="Nr.">064</td>
+    <td class="navn" data-th="Robot"><strong>Go2-W</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/go2-w" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/go2-w">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>18<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>8<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–2,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–180<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-unitree-laikago">
+    <td class="nr" data-th="Nr.">065</td>
+    <td class="navn" data-th="Robot"><strong>Laikago</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/laikago" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/laikago">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-W"><th colspan="8">W</th></tr>
+<tr class="post" id="r-weilan-alphadog-c500">
+    <td class="nr" data-th="Nr.">066</td>
+    <td class="navn" data-th="Robot"><strong>AlphaDog C500</strong><span class="producent">WEILAN<a class="kildemaerke" href="https://www.weilan.com/en/en/alphadogc.html" target="_blank" rel="noopener" title="Kilde A: https://www.weilan.com/en/en/alphadogc.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">24<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&lt;=</span>3<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&lt;=</span>1,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>198<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-weilan-alphadog-c501">
+    <td class="nr" data-th="Nr.">067</td>
+    <td class="navn" data-th="Robot"><strong>AlphaDog C501</strong><span class="producent">WEILAN<a class="kildemaerke" href="https://www.weilan.com/en/en/alphadogc.html" target="_blank" rel="noopener" title="Kilde A: https://www.weilan.com/en/en/alphadogc.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">24,3<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">&lt;=</span>3<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal"><span class="op">&lt;=</span>1,5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>198<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-weilan-alphadog-e300">
+    <td class="nr" data-th="Nr.">068</td>
+    <td class="navn" data-th="Robot"><strong>AlphaDog E300</strong><span class="producent">WEILAN<a class="kildemaerke" href="https://www.weilan.com/en/en/alphadoge.html" target="_blank" rel="noopener" title="Kilde A: https://www.weilan.com/en/en/alphadoge.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-weilan-alphadog-e400l">
+    <td class="nr" data-th="Nr.">069</td>
+    <td class="navn" data-th="Robot"><strong>AlphaDog E400L</strong><span class="producent">WEILAN<a class="kildemaerke" href="https://www.weilan.com/en/en/alphadoge.html" target="_blank" rel="noopener" title="Kilde A: https://www.weilan.com/en/en/alphadoge.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-weilan-babyalpha">
+    <td class="nr" data-th="Nr.">070</td>
+    <td class="navn" data-th="Robot"><strong>BabyAlpha</strong><span class="producent">WEILAN<a class="kildemaerke" href="https://www.weilan.com/en/en/babyAlpha.html" target="_blank" rel="noopener" title="Kilde A: https://www.weilan.com/en/en/babyAlpha.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Vægt ikke oplyst</span></td>
+    <td data-th="Egenvægt"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Nyttelast"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Hastighed"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-X"><th colspan="8">X</th></tr>
+<tr class="post" id="r-xiaomi-cyberdog-1">
+    <td class="nr" data-th="Nr.">071</td>
+    <td class="navn" data-th="Robot"><strong>CyberDog</strong><span class="producent">Xiaomi<a class="kildemaerke" href="https://www.mi.com/cyberdog/specs" target="_blank" rel="noopener" title="Kilde A: https://www.mi.com/cyberdog/specs">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">14<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">3<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3,2<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">~</span>60<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-nej"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">NEJ</span></span></td>
+  </tr>
+<tr class="post" id="r-xiaomi-cyberdog-2">
+    <td class="nr" data-th="Nr.">072</td>
+    <td class="navn" data-th="Robot"><strong>CyberDog 2</strong><span class="producent">Xiaomi<a class="kildemaerke" href="https://www.mi.com/cyberdog2/specs" target="_blank" rel="noopener" title="Kilde A: https://www.mi.com/cyberdog2/specs">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">±</span>8,9<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">1<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">1,6<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">~</span>90<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-nej"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">NEJ</span></span></td>
+  </tr>
+<tr class="bogstav-raekke" id="p-Y"><th colspan="8">Y</th></tr>
+<tr class="post" id="r-yuejia-yj30">
+    <td class="nr" data-th="Nr.">073</td>
+    <td class="navn" data-th="Robot"><strong>YJ30</strong><span class="producent">Yuejia Lingdong<a class="kildemaerke" href="https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html" target="_blank" rel="noopener" title="Kilde A: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">17,5<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">10<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-yuejia-yj30-w">
+    <td class="nr" data-th="Nr.">074</td>
+    <td class="navn" data-th="Robot"><strong>YJ30 W</strong><span class="producent">Yuejia Lingdong<a class="kildemaerke" href="https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html" target="_blank" rel="noopener" title="Kilde A: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">20–40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">20<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">12<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">90–120<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-yuejia-yj30-max">
+    <td class="nr" data-th="Nr.">075</td>
+    <td class="navn" data-th="Robot"><strong>YJ30Max</strong><span class="producent">Yuejia Lingdong<a class="kildemaerke" href="https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html" target="_blank" rel="noopener" title="Kilde A: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">45<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">30<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">180–240<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-yuejia-yj30-max-w">
+    <td class="nr" data-th="Nr.">076</td>
+    <td class="navn" data-th="Robot"><strong>YJ30W MAX</strong><span class="producent">Yuejia Lingdong<a class="kildemaerke" href="https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html" target="_blank" rel="noopener" title="Kilde A: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Over 40 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal">55<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal">35<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">5<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal">210–270<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+<tr class="post" id="r-yufan-lingmao-cyvet">
+    <td class="nr" data-th="Nr.">077</td>
+    <td class="navn" data-th="Robot"><strong>Lingmao Cyvet (灵猫·Cyvet)</strong><span class="producent">Yufan Intelligent<a class="kildemaerke" href="https://www.uniubi.com/shop/buy?product=air" target="_blank" rel="noopener" title="Kilde A: https://www.uniubi.com/shop/buy?product=air">A</a></span></td>
+    <td class="chip" data-th="Vægtklasse"><span class="vaegtchip">Under 20 kg</span></td>
+    <td class="num" data-th="Egenvægt"><span class="v v-tal"><span class="op">~</span>15<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Nyttelast"><span class="v v-tal"><span class="op">~</span>20<span class="enh">kg</span></span></td>
+    <td class="num" data-th="Hastighed"><span class="v v-tal">0–3<span class="enh">m/s</span></span></td>
+    <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">~</span>210<span class="enh">min</span></span></td>
+    <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
+  </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="register-fod">Kildebogstavet efter producentnavnet lænker til robottens første kilde. Fire tilstande står med hver sit tegn: et mørkt, fed tal er en oplysning (0 iberegnet); en fyldt firkant er «nej»; en åben firkant med fyldt kerne er «ja»; en stiplet, grå firkant er «ikke oplyst».</p>
+  </section>
+</main>
+
+<footer class="afslutning">
+  <div class="rum">
+    <div>
+      <h2>Se hele kataloget</h2>
+      <p>Registret ovenfor er en prøve på én retning. Det fulde katalog har filtre, robotsider og producentsider.</p>
+    </div>
+    <a class="til-katalog" href="#reg">Til registret</a>
+  </div>
+</footer>
+</body>
+</html>
