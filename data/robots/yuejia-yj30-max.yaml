@@ -19,6 +19,12 @@ noter:
   - "GAAENDE/STAAENDE-SPLIT ER EKSPLICIT HER, MODSAT YJ30: tabellen har TO separate raekker \"静态负载\" (statisk last) og \"动态负载\" (dynamisk last), i modsaetning til YJ30's ene uspecificerede \"负载\"-raekke. 静态负载 -> nyttelast_staaende, 动态负载 -> nyttelast_gaaende - en direkte aflaesning, ikke et skoen."
   - "SAMME MERGED-KOLONNE-MOENSTER SOM YJ30 FOR HAELDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilfoejelsen - DOF er derfor slet ikke naevnt noget sted paa siden for YJ30Max, ikke kun udeladt af en fejlslaaet kolonne. frihedsgrader er ikke_oplyst."
   - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-raekke i \"基础参数\"-tabellen."
+billede:
+  fil: fotos/fabrikant/yuejia-yj30-max.png
+  ophav: fabrikant
+  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
+  hentet: 2026-08-26
+  alt: "Yuejia Lingdong YJ30Max, gaaende firbenet robot, feltfoto ved en el-transformerstation"
 felter:
   egenvaegt:
     vaerdi: 45

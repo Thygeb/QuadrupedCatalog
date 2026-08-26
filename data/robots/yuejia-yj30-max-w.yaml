@@ -20,6 +20,12 @@ noter:
   - "GAAENDE/STAAENDE-SPLIT ER EKSPLICIT: som YJ30Max har tabellen TO separate raekker \"静态负载\" og \"动态负载\" for YJ30W Max. 静态负载 -> nyttelast_staaende, 动态负载 -> nyttelast_gaaende - direkte aflaesning."
   - "TRAPPETRIN_KONTINUERLIG: samme delte kolonnenavn \"攀爬台阶高度\" som YJ30/YJ30 W-parret (se yuejia-yj30-w.yaml's topnote for den fulde begrundelse) - vaerdien 80cm er markant hoejere end YJ30Max's 30cm, som forventet for en hjuldrevet variant."
   - "MULTISPEKTRAL SENSORPAKKE (kameraer): identisk tekst med YJ30 W - se dens post for den fulde citation."
+billede:
+  fil: fotos/fabrikant/yuejia-yj30-max-w.png
+  ophav: fabrikant
+  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
+  hentet: 2026-08-26
+  alt: "Yuejia Lingdong YJ30W MAX, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 55
