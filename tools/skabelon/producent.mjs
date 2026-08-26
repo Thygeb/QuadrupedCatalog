@@ -77,6 +77,7 @@ const EU_FELTER = ['ce_oplyst'];
 const KORT_FELTER = [
   ['egenvaegt', 'i-vaegt'],
   ['nyttelast_gaaende', 'i-nyttelast'],
+  ['hastighed', 'i-fart'],
   ['driftstid', 'i-driftstid'],
 ];
 
