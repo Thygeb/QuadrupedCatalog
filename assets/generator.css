@@ -231,21 +231,9 @@
 .varianter .variant--navn{background:none;border:0;padding-left:0}
 .varianter .variant--navn dt{color:var(--blaek2)}
 
-/* --- 5. EU-markeringen ----------------------------------------------------
-   CE ud af noegletalsstriben (maalt: tom paa 42 af 46 kort - en celle, der
-   altid er tom, laerer laeseren at springe striben over). Her er tavsheden
-   et udsagn i stedet for et hul. */
-.eu{display:flex;flex-wrap:wrap;align-items:center;gap:4px 9px;
-  padding:9px 12px 10px;border-radius:var(--rund-ind);
-  background:var(--panel-ro);border:1px solid var(--linje)}
-.eu .ikon{color:var(--blaek3)}
-.eu .etiket{display:inline-block;flex:none}
-.eu-svar{font-size:13.5px;line-height:1.4;color:var(--blaek2);flex:1 1 auto;min-width:0}
-.eu--ja{background:var(--accent-ro);border-color:var(--accent-ro)}
-.eu--ja .ikon{color:var(--accent)}
-.eu--ja .eu-svar{color:var(--blaek);font-weight:600}
-.eu--nej .eu-svar{color:var(--blaek);font-weight:600}
-.eu--ikke{background:var(--tom);border-style:dashed;border-color:var(--hegn)}
+/* --- 5. (fjernet 26.08.2026: EU/CE-maerket paa katalogkortet - JPK bad om det
+   vaek fra kortene. ce_oplyst-feltet, forsidens CE-taelling og robotsidens
+   egen EU-blok staar uaendret, se robot.mjs og forside.mjs.) */
 
 /* --- 6. Kortet: striben ----------------------------------------------------
    24.08.2026: den kompakte stribe er to spalter ved ALLE bredder og ejes nu
@@ -258,7 +246,6 @@
    ingen kan ramme. */
 .kort .kildemaerke{position:relative;z-index:2}
 .kort .stribe{margin-top:2px}
-.kort .eu{margin-top:2px}
 .kort-krop{padding-bottom:var(--r3)}
 
 /* --- 7. Specifikationstaetheden ------------------------------------------- */
