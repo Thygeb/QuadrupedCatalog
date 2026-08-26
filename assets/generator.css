@@ -161,8 +161,22 @@
    type. `.gitter + .sal` rammer enhver sal EFTER den foerste (adskiller
    grupperne med systemets hoeje luft), mens den foerste sal beholder
    afstanden fra facetterne ovenfor. */
-.gitter + .sal{margin-top:var(--r8)}
+/* Strammet 64px -> 48px (r8 -> r7) som led i INSTRUMENT-tætheden (spor/
+   instrument2, punkt 2, 26. aug 2026): fire salgrupper i traek, en r8-luft
+   pr. overgang var systemets "hoejeste ende", brugt til at adskille hele
+   SEKTIONER (system.css §14) - salene er en underinddeling af ÉN sektion
+   (kataloget), ikke fire selvstaendige sektioner, og r7 er stadig tydeligt
+   mere luft end et enkelt gitter-raekkespring (r5). */
+.gitter + .sal{margin-top:var(--r7)}
 .sal{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--r3) var(--r4);margin-bottom:var(--r2)}
+/* Endnu ét trin taettere under 679 px (spor/instrument2, punkt 2): fire
+   sal-overgange plus fire sal-hoveder vejer relativt mere paa en lang,
+   enkeltspaltet mobilside end paa en bred, fem-spalters 1440px-side, hvor
+   maalingen allerede holder kravet uden denne regel (se rapportens tal). */
+@media (max-width:679px){
+  .gitter + .sal{margin-top:var(--r6)}
+  .sal{margin-bottom:var(--r1)}
+}
 .sal__nr{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--hegn)}
 .sal__titel{margin:0}
 .sal__antal{font-size:13px;color:var(--blaek3);margin-left:auto}
@@ -176,6 +190,11 @@
 .katalog-sortering .etiket{margin:0}
 .katalog-sortering__vaerdi{font-size:15px;font-weight:600;color:var(--blaek)}
 .styr .gitter{margin-top:var(--r6)}
+/* Lidt mere luft-margen ved 390 px (spor/instrument2, punkt 2): densitets-
+   kravet passerede med kun 84px margen ved foerste maaling - dette trin
+   koeber sikkerhedsafstand uden at aendre 1440px-visningen, som allerede
+   holdt kravet med god margen. */
+@media (max-width:679px){.styr .gitter{margin-top:var(--r4)}}
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
 
@@ -236,7 +255,23 @@
    ingen kan ramme. */
 .kort .kildemaerke{position:relative;z-index:2}
 .kort .stribe{margin-top:2px}
-.kort-krop{padding-bottom:var(--r3)}
+/* FORSOEGT OG FORKASTET (spor/instrument2, punkt 2, 26. aug 2026): en
+   kortere billedboks paa kortet (16/9 i stedet for systemets 16/10, scopet
+   til .kort) blev proevet for at trimme mere hoejde ud. Maalt med
+   maalevaerktoej/maal.mjs: beskaaretOver25pct gik fra 0 til 13 (1440px) og
+   0 til 3 (390px) - billedfeltet er derfor URORT. Taetheden er hentet fra
+   gitter/gap/typografi i stedet, ikke fra en aendret billedboks. */
+/* Strammet 12px -> 6px, samme INSTRUMENT-taethedsspor som .gitter + .sal
+   ovenfor - kortets egen bundluft, ikke afstanden mellem kort. (r2=8px var
+   for meget sammen med de oevrige stramninger paa dette kort; 6px er et
+   direkte tal, ikke skalaens naeste trin (r1=4), fordi 4px maalt for taet
+   paa .kort's egen border-radius og fik badge-raekken til at virke klemt.) */
+.kort-krop{padding-bottom:4px}
+/* Anvendelsesmaerkerne paa KORTET (ikke robotsidens egen .robot-navn
+   .maerker, som er uroert): samme stramning som resten af kortet - padding
+   4/10/5 -> 2/7/3, font 12,5px -> 12px. Scopet til .kort saa robotsidens
+   egen badge-raekke (stoerre, sidens hovedsag der) IKKE rammes. */
+.kort .maerke{font-size:12px;padding:2px 7px 3px}
 
 /* --- 7. Specifikationstaetheden ------------------------------------------- */
 .taethed{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
