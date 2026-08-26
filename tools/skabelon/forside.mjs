@@ -243,7 +243,7 @@ export function render(ctx) {
 <div class="yderpunkter">
 ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 </div>
-<p class="t-lille sektion-note">${esc(t('yderpunkter_forklaring'))}</p>
+<p class="t-lille sektion-note">${esc(tf('yderpunkter_forklaring', { n: yp.length }))}</p>
 </div>
 </section>` : '';
 

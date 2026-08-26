@@ -35,7 +35,7 @@
 
   "yderpunkter_etiket": "Extremes",
   "yderpunkter_titel": "The field's extremes",
-  "yderpunkter_forklaring": "Four measured facts from the catalogue - not a selection and not a recommendation. The heaviest robot is not better than the lightest; it is simply heaviest.",
+  "yderpunkter_forklaring": "{n} measured facts from the catalogue — not a selection and not a recommendation. The heaviest robot is not better than the lightest; it is simply heaviest.",
   "yderpunkt_letteste": "Lightest",
   "yderpunkt_tungeste": "Heaviest",
   "yderpunkt_hurtigste": "Fastest",

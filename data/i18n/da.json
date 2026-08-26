@@ -35,7 +35,7 @@
 
   "yderpunkter_etiket": "Yderpunkter",
   "yderpunkter_titel": "Feltets yderpunkter",
-  "yderpunkter_forklaring": "Fire målte fakta fra kataloget - ikke et udvalg og ikke en anbefaling. Den tungeste robot er ikke bedre end den letteste; den er bare tungest.",
+  "yderpunkter_forklaring": "{n} målte fakta fra kataloget — ikke et udvalg og ikke en anbefaling. Den tungeste robot er ikke bedre end den letteste; den er bare tungest.",
   "yderpunkt_letteste": "Letteste",
   "yderpunkt_tungeste": "Tungeste",
   "yderpunkt_hurtigste": "Hurtigste",
