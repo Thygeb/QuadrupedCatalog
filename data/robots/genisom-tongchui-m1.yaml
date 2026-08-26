@@ -16,6 +16,13 @@ noter:
   - "VAEGT-UOVERENSSTEMMELSE PAA SAMME SIDE, IKKE LOEST STILTIENDE: se advarslen paa egenvaegt nedenfor - marketingteksten paastaar \"naesten 1:1 negativt/positivt last-egenvaegt-forhold\" ud fra en \"~30kg\"-vaegt, mens den strukturerede tabel siger 41 kg."
   - "KONKURRENCE- OG MARATHON-PAASTANDE, CITERET MEN IKKE EFTERPROEVET UD OVER PRODUCENTENS EGEN SIDE: \"2026北京亦庄机器人勇士挑战赛，铜锤M1 自主导航项目全场唯一完赛，并斩获四足机器人大类自主导航第一、奖项数第一、总分第一、速度第一\" (2026 Beijing Yizhuang Robot Warrior-udfordringen - M1 var det eneste hold, der gennemfoerte den autonome navigationsdisciplin, og vandt foerstepladsen i autonom navigation, flest priser, hoejeste totalscore og hurtigst i firbenet-kategorien). Samt: \"全球首次由自主跟随机器人陪人类完成马拉松赛事... 铜锤M1作为全球首个自主跟随的机器人\"关门兔\"完成半马陪跑任务\" (foerste gang globalt en autonomt foelgende robot fuldfoerte et marathon sammen med et menneske - M1 fungerede som verdens foerste autonomt foelgende \"sweep hare\" paa en halvmaraton). Ingen af de to hoerer til i de 30 skemafelter - noteret her som producentcitat, ikke som et efterproevet tredjepartsfaktum."
   - "M1 HAR TO YDERLIGERE TIER-VARIANTER PAA SAMME SIDE, IKKE BYGGET: samme techParamsData-JSON som base-M1 rummer ogsaa \"铜锤 M1 Pro\" (tilfoejer UWB-modul, mikrofon/hoejtaler, taleopkald, RTK) og \"铜锤 M1 Ultra\" (tilfoejer 720° panoramasyn med fire fiskeoejekameraer). Begge er nye fund udenfor denne opgaves navngivne omfang (\"Tongchui M1\") - dokumenteret her, saa et fravalg ikke forveksles med en forglemmelse, samme princip som L2-W/L2-W Ultra fik i forrige runde."
+billede:
+  fil: fotos/fabrikant/genisom-tongchui-m1.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/M1
+  hentet: 2026-08-26
+  alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  note: "Delt foto: M1's produktside viser samme model paa tvaers af M1/M1 Pro/M1 Ultra-fanebladet (kun ét kort-thumbnail-billede fundet for hele familien) - Pro og Ultra faar samme foto (se genisom-tongchui-m1-pro.yaml og genisom-tongchui-m1-ultra.yaml)."
 felter:
   egenvaegt:
     vaerdi: 41

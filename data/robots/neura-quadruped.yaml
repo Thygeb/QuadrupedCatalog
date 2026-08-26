@@ -18,6 +18,12 @@ noter:
   - "En tidligere gennemgang (24. aug 2026) besoegte samme URL og konkluderede: \"Nej — kun pris publiceret paa egen reservationsside. Intet vaegt-, nyttelast-, hastigheds- eller batterital fundet\". Denne gennemgang (25. aug 2026, eet doegn senere) fandt paa samme URL BAADE en udfyldt \"At A Glance\"-specifikationstabel OG et \"Datasheet\"-download-link, der foerer til en fuld teknisk PDF med konkrete tal. Enten er siden opdateret i mellemtiden, eller databladlinket var der allerede og blev ikke set af den tidligere gennemgang - begge dele er mulige, og ingen af dem kan afgoeres herfra. Dette er IKKE en rettelse af en tidligere fejl (den tidligere gennemgang rapporterede korrekt, hvad den saa paa daviaerende tidspunkt), kun en dokumenteret aendring/nyt fund."
   - "DATABLAD-PDF'EN ER PRIMAERKILDEN TIL DE FLESTE TALFELTER: linket \"Datasheet\" paa reservationssiden peger paa https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf - hostet paa en marketing-CDN-underdomaene (px.media), men lagt direkte og udelukkende fra NEURA Robotics' egen officielle produktside som selskabets eget datablad, dateret \"V1 / 01.01.2026\" og med copyright \"NEURA Robotics GmbH\". Behandlet som producentens eget materiale efter L21/L33 og maerket kildetype: sekundaer paa hvert felt, der stammer derfra (PDF-datablad, ikke selve produktsiden). PDF'en har INGEN Tj/TJ-tekstoperatorer (overskrifter er outline-tegnede vektorstier, ikke tekstlag) - almindelig tekstudtraekning (node+zlib) fejlede; pdftotext -layout (poppler-utils, tilgaengelig via Git Bash paa denne maskine) lykkedes og gav en ren, entydig tekstgengivelse."
   - "WEBSEARCH-OPSUMMERINGENS TAL ER IKKE BRUGT: en indledende websoegning (brugt til at finde frem til denne side, ikke som kilde til noget feltdata) gengav payload som \"21.9 kg (48.5 lb.)\" - databladets EGET trykte tal er \"22 kg / 48.5 lbs\" (konsistent internt: 22 kg x 2,20462 = 48,50 lbs). Kun PDF'ens eget tal er brugt som feltvaerdi, jf. regel 1 (kilden er dokumentet selv, ikke en AI-opsummering af det)."
+billede:
+  fil: fotos/fabrikant/neura-quadruped.webp
+  ophav: fabrikant
+  kilde: https://neura-robotics.com/wp-content/uploads/2026/01/NEURA_Quadruped_2.webp
+  hentet: 2026-08-26
+  alt: "NEURA Quadruped, hvid firbenet robot med NEURA-logo, feltfoto paa betongulv"
 felter:
   egenvaegt:
     vaerdi: 60

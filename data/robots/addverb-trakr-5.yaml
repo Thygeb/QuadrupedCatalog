@@ -15,6 +15,13 @@ noter:
   - "STOPPROEVE (reelt produkt, ikke legetoej/hobbykit): BESTAAET. Dedikeret produktside med fuld teknisk specifikationstabel, \"DOWNLOAD BROCHURE\"- og \"INQUIRE ABOUT ADD-ONS\"-knapper, en separat \"DEV PORTAL\" for tredjepartsudvikling, og en blogartikel om lancering paa Addverbs eget BotValley-anlaeg daekket af India Today. Addverb er en etableret, velfinansieret indisk robotikvirksomhed (ikke en ny opstart). Ingen tegn paa undervisningskit-karakter (modsat L11's navngivne eksempler)."
   - "TO VARIANTER PAA SAMME SIDE, TRAKR 20'S EGEN TABEL ER UPAALIDELIG: siden har en fane-vaelger (\"2 VARIANTS AVAILABLE\", \"COMPARE\", \"TRAKR 5\"/\"TRAKR 20\"). Trakr 5's tabel (denne fil) er fuldt og konsistent udfyldt. Trakr 20's tabel viser TIL GENGAELD samme MECHANICAL-vaerdier som Trakr 5 (18 KG, 280 MM, PAYLOAD: 5 KG) - selvom sidens EGEN broedtekst siger \"Trakr 20 is the heavy-duty quadruped. 20 kg carry\" for netop denne fane. Det er en direkte selvmodsigelse inden for samme side/samme variant, og de oevrige otte specifikationsgrupper (MOBILITY, ACTUATION, COMPUTE osv.) staar helt uden vaerdier for Trakr 20-fanen i den hentede statiske HTML. Vurderet som en overfoerselsfejl i sidens fane-komponent (Framer), ikke virkelige Trakr 20-tal - se addverb-trakr-20.yaml for den fulde konsekvens af dette fund. Raw HTML gemt til efterproevning."
   - "BLOGGENS TREDJE PAYLOAD-TAL, IKKE BRUGT: addverb.ai/blog/trakr-indias-homegrown-robotic-dog-quadruped's resume-linje skriver \"carries a 5 kg and 10 kg payload\" - et 10 kg-tal, der hverken matcher denne fils 5 kg eller Trakr 20's 20 kg. Ikke brugt til noget felt, kun noteret som endnu en intern uoverensstemmelse i Addverbs eget materiale over tid (blog dateret 15. dec. 2025, formentlig foer den nuvaerende Trakr 5/Trakr 20-opdeling var endeligt navngivet)."
+billede:
+  fil: fotos/fabrikant/addverb-trakr-5.png
+  ophav: fabrikant
+  kilde: https://addverb.ai/trakr
+  hentet: 2026-08-26
+  alt: "Addverb Trakr, firbenet robot i roedt og graat, studiofoto set fra siden paa hvid baggrund"
+  note: "Delt foto med addverb-trakr-20.yaml: samme produktside/fane-vaelger, som ikke har to forskellige produktfotos for Trakr 5 og Trakr 20."
 felter:
   egenvaegt:
     vaerdi: 18

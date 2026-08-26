@@ -26,6 +26,13 @@ noter:
   - "TILDELING AF DE TO VAERDIBLOKKE TIL E1 HHV. E1-W: siden har TO saet elektriske/motoriske parametre efter hinanden, uden entydig visuel raekkefoelge i det udtrukne tekstlag. Tildelingen her er baseret paa INDHOLDET, ikke positionen: blokken med \"30cm高连续台阶\" (kontinuerlig trappe, samme formulering som den gaaende C1) er tildelt E1, og blokken med \"正向高度差1m高台\" (platform-hoejde, samme formulering som den hjulbenede C1-W) er tildelt E1-W. Denne indholdsbaserede tildeling er mere paalidelig end tekstens raekkefoelge, men er stadig en tolkning - flagget her som en usikkerhed."
   - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
+billede:
+  fil: fotos/fabrikant/galileo-e1.jpg
+  ophav: fabrikant
+  kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
+  hentet: 2026-08-26
+  alt: "Galileo (Tianjin) firbenet robot, staaende udgave, produktfoto fra virksomhedens PDF-produktmanual"
+  note: "Delt foto: PDF-manualens produktgalleri viser samme kropsudgave (uden top-sensor-modul) for baade C1 og E1 - manualen skelner ikke mellem dem i billedvalget. S1 har et synligt ekstra sensor-modul paa ryggen og faar derfor sit eget foto (se galileo-s1.yaml)."
 felter:
   egenvaegt:
     vaerdi: 44

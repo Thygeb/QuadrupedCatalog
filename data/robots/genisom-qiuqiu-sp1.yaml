@@ -16,6 +16,12 @@ noter:
   - "LIDAR-FELTET SAT TIL IKKE_OPLYST PAA GRUND AF ET TVETYDIGT ORD, IKKE FORDI INTET BLEV FUNDET: SP1's marketingtekst skriver \"感知雷达封装于隔爆视窗之后，保障精准感知\" (opfattelsesradar/-lidar indkapslet bag et eksplosionssikkert vindue, sikrer praecis opfattelse). Ordet \"雷达\" betyder generisk \"radar\" og bruges ikke her sammen med \"激光\" (som ellers klart betyder LiDAR paa L2-W Ultra's side: \"3D激光雷达\"). Uden det praecise ord er det en gaetning at kalde det LiDAR specifikt - regel 1. Feltet staar derfor ikke_oplyst."
   - "KOMMUNIKATION OG LADEMETODE, IKKE KORTLAGT TIL ET FELT: strukturerede tabel oplyser \"通讯方式: WIFI/4G/5G\" og \"充电方式: 无线/有线\" (lademetode: traadloes/kabelforbundet) - INGEN af de to felter passer praecist til et af de 30 skemafelter (kommunikationsform er ikke et felt; \"lademetode\" er ikke det samme som \"dockingstation\", som specifikt kraever en fysisk ladestation nogen har bekraeftet foelger med). dockingstation staar derfor ikke_oplyst, selvom traadloes ladning antyder en ladepude/-station kan findes - det er ikke eksplicit bekraeftet paa siden."
   - "TYNDESTE KILDE I DENNE RUNDE: SP1's egen strukturerede specifikationstabel har kun TRE sektioner (基础信息/性能参数/功能列表) mod L1/L2/M1's fem-seks - INGEN sektion for ledparametre (frihedsgrader, moment) og INGEN sensor-sektion (kamera, IMU, LiDAR). Taetheden er derfor markant lavere end de oevrige fire poster i dette spor, og det er en aegte forskel i, hvad producenten oplyser om denne specifikke model - ikke en indsamlingsfejl."
+billede:
+  fil: fotos/fabrikant/genisom-qiuqiu-sp1.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/sp1
+  hentet: 2026-08-26
+  alt: "GENISOM Qiuqiu SP1, eksplosionssikret hjulbenet inspektionsrobot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 100

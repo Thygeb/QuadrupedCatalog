@@ -19,6 +19,12 @@ noter:
   - "SINGLE \"负载\"-FELT, SAMME MOENSTER SOM YJ30: tabellen har kun én uspecificeret \"负载\"-raekke (12kg) for YJ30 W, ikke en gaaende/staaende-splittet raekke. Placeret i nyttelast_gaaende som et forsigtigt skoen, jf. YJ30's begrundelse."
   - "TRAPPETRIN_KONTINUERLIG BRUGER SAMME KOLONNE SOM BASISUDGAVEN: \"攀爬台阶高度\" er ÉN kolonne i tabellen, delt af baade YJ30 (20cm) og YJ30 W (60cm) - producenten skelner IKKE mellem \"kontinuerlig trappe\" og \"enkelt forhindring\" med to forskellige feltnavne, saadan som Galileo og Genisom goer. Vaerdien er derfor lagt i trappetrin_kontinuerlig for begge varianter for at holde feltvalget konsistent inden for samme producents tabel - IKKE fordi 60cm noedvendigvis er en kontinuerlig trappe i praksis for en hjulbenet robot. Se ogsaa forhindring_enkelt: ikke_oplyst."
   - "MULTISPEKTRAL SENSORPAKKE (kameraer) ER EKSPLICIT HER, MODSAT YJ30/YJ30Max: produktteksten naevner tre navngivne detektionsteknologier specifikt til denne (og YJ30W MAX's) brandinspektionsvariant - se feltet kameraer."
+billede:
+  fil: fotos/fabrikant/yuejia-yj30-w.png
+  ophav: fabrikant
+  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
+  hentet: 2026-08-26
+  alt: "Yuejia Lingdong YJ30 W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 20
