@@ -287,5 +287,7 @@
   "land_Rusland": "Rusland",
   "land_Tyrkiet": "Tyrkiet",
   "land_Brasilien": "Brasilien",
-  "producent_model_en": "1 model"
+  "producent_model_en": "1 model",
+
+  "forside_udvalg_regel": "{n} robotter fra {n} producenter, valgt efter hvor mange af de {m} felter producenten selv oplyser."
 }
