@@ -22,9 +22,9 @@ Status 25. aug 2026: **bygget og i drift.** Her stod tidligere *"planlægning. D
 skrevet kode endnu"* — det holdt op med at passe for en uge siden og vildledte enhver ny
 agent, der læste linjen. Der findes i dag en afhængighedsfri Node-generator, 77 robotposter
 med 1.110 kildebelagte tal, 213 byggede sider på to sprog, en Supabase-database som
-redaktionslag (L34/L35) og to private Storage-spande (L36). Selve *lanceringen* er stadig
-spærret af S1: siden må ikke publiceres, mens den viser fabrikantbilleder uden skriftlig
-tilladelse.
+redaktionslag (L34/L35) og to private Storage-spande (L36). **Lanceringen er ikke længere
+spærret:** JPK ophævede billedspærringen S1 den 26. aug 2026 (L37). Her stod tidligere, at
+siden ikke måtte publiceres med fabrikantbilleder — den betingelse gælder ikke mere.
 
 ---
 
@@ -94,13 +94,11 @@ Arvet fra KeyResearch, og de gælder her med fuld kraft:
    Ingen købsknap, ingen affiliate-links, ingen prisforespørgselsformular i en katalogpost.
 2. **Opfind aldrig tal, cases, certificeringer eller kapaciteter.** Håndhæves mekanisk:
    bygget skal fejle, hvis et talfelt mangler enhed eller kilde.
-3. **Fabrikanternes billeder må bruges — men kun så længe siden er lokal.** Ophævet af JPK
-   19. aug 2026. Den oprindelige regel forbød dem helt, både juridisk og fordi et pressefoto
-   er det stærkeste signal om et forhandlerforhold, der ikke findes.
-   **Spærring, der ikke må glemmes:** siden må ikke publiceres, mens den viser fabrikantbilleder
-   uden skriftlig tilladelse. Enten indhentes tilladelserne, eller billederne udskiftes med
-   egne fotos og silhuetter før lancering. Nabosiden har allerede oplevet, at en pladsholder
-   overlevede til lancering — se `media/_kilder/LÆSMIG.md`.
+3. **Fabrikanternes billeder må bruges — også på en publiceret side.** Spærringen mod
+   publicering er **ophævet af JPK 26. aug 2026** (L37). Reglen har haft tre trin:
+   oprindeligt forbudt helt; 19. aug tilladt lokalt; 26. aug tilladt uden begrænsning.
+   Rejs den ikke igen, og bed ikke om tilladelser — det er besluttet, ikke glemt.
+   Ingen agent skal fremover føre S1 som en åben spærring eller blokere en lancering på den.
 4. **Ingen AI-genererede billeder af robotter eller mennesker.**
 5. **"Ikke oplyst", "nej" og "0" er tre forskellige tilstande** og skal se forskellige ud.
    Det er der, katalogsider lyver.
