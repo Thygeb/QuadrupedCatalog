@@ -23,7 +23,13 @@ noter:
   - "KOMMUNIKATION (LTE/RF) HAR INTET SKEMAFELT: \"Communication: LTE, RF\" er robottens egen fjernstyrings-/dataforbindelse, ikke fysiske dataporte til tilbehoer (jf. samme afgraensning som Keybotic Keypers WiFi/Ethernet-afsnit, se data/robots/keybotic-keyper.yaml). Noteret her, ikke brugt til at udfylde dataporte."
   - "MONTERINGSINTERFACE BEVIDST SAT TIL IKKE_OPLYST: producenten naevner \"payloads Shvana can carry include robotic arm, high resolution RGB/thermal cameras and specialized sensors\" - en KATEGORILISTE, men ingen monteringsstandard, boltmoenster, spaending eller lastkapacitet for selve grafnsefladen (i modsaetning til fx Cyvet, hvor siden eksplicit oplyser \"20kg industrial payload platform\"). At genbruge nyttelast-teksten som monteringsinterface ville kun gentage nyttelast_gaaende uden ny oplysning - derfor ikke_oplyst."
   - "INGEN DIMENSIONER, IP-KLASSE, TEMPERATUR, BATTERI-Wh, LADETID, DOCKINGSTATION, HOT-SWAP, ROS2, SDK-SPROG, HAELDNING, FORHINDRINGSHOEJDE ELLER PRIS FUNDET NOGEN STEDER PAA PRODUCENTENS SITE (shvana-robot/, forside, careers, kontakt-side delvist utilgaengelig). Alle disse felter staar ikke_oplyst uden yderligere note, da der intet var at citere - hverken tal, kvalitativ tekst eller modsigelse."
-  - "BILLEDE: ingen billede:-blok i denne post - separat spor. Kandidat-URL'er fra producentens egen Shvana-side, fuld-maskine produktfotos: https://bhairavrobotics.com/wp-content/uploads/sites/197/2025/08/Shvana-page-pic1.png og .../Shvana-page-pic4.png - ikke bedoemt med oejne i dette spor."
+  - "BILLEDE: billedport-spor 26. aug 2026 vurderede begge kandidater med oejne. pic1.png (staaende ben-udgave, sort baggrund, intet paaskrevet tekst ud over robottens eget logo) blev godkendt og brugt. pic4.png viser en hjul-variant af Shvana, som denne post ikke handler om, og blev derfor IKKE brugt."
+billede:
+  fil: fotos/fabrikant/bhairav-robotics-shvana.png
+  ophav: fabrikant
+  kilde: https://bhairavrobotics.com/wp-content/uploads/sites/197/2025/08/Shvana-page-pic1.png
+  hentet: 2026-08-26
+  alt: "Bhairav Robotics Shvana, staaende firbenet robot, studiofoto paa sort baggrund"
 felter:
   egenvaegt:
     vaerdi: 25
