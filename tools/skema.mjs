@@ -527,10 +527,33 @@ export function normaliserRobot(doc) {
      samme enhed, som de i forvejen vises side om side paa (L x B x H).
      Prisen: 11 af 59 laengdevaerdier faar én decimal (721 mm -> 72,1 cm) -
      det er en PRAECIS omregning (mm er altid et heltal), ikke et gaet.
-   - hastighed -> m/s. Allerede den dominerende enhed (58 af 64 vaerdier).
-     Modsat vej (alle til km/h) ville tvinge 58 vaerdier igennem *3,6 med
-     mange decimaler (2,4 m/s -> 8,64 km/h); m/s tvinger kun 6 vaerdier
-     igennem /3,6, og maks-tallet er ét ciffer (8).
+   - hastighed -> km/h. BESLUTNING VENDT 26. aug 2026 (spor/hastighed) — stod
+     her foer som "-> m/s", med den dominerende raa-enhed (58 af 64 vaerdier)
+     som eneste begrundelse. Den begrundelse regnede rigtigt paa sit eget
+     tal, men maalte den forkerte ting: fire vaerdier i det byggede
+     robots.json baerer FALSK PRAECISION, fordi de er producentens egne
+     km/t-tal, TVUNGET om til m/s af denne samme funktion. Maalt paa main
+     (dist/robots.json, 80 hastighedsposter) foer denne vending:
+     yobotics-e-dog og neura-quadruped stod som 3,333333 m/s mod
+     producentens 12 km/h; unitree-b2-w stod som 4,166667 m/s mod
+     producentens 15 km/h; rivr-one stod som 3,888889 m/s mod producentens
+     14 km/h — m/s opfandt decimaler, ingen kilde skrev. Fordelingen af alle
+     80 vaerdier i hver retning:
+       | | m/s (den gamle retning) | km/h (denne) |
+       |---|---|---|
+       | hele tal          | 50 | 27   |
+       | én decimal        | 25 | 34   |
+       | to decimaler      |  1 | 16   |
+       | stoerste tal      |  8 | 28,8 |
+     Antallet af decimaler stiger altsaa i km/h — men de decimaler er AEGTE
+     (3,3 m/s -> 11,88 km/h er en praecis omregning af et tal producenten
+     selv skrev), mens m/s-vejens fire falske vaerdier ikke var. En laeser
+     uden ingenioerbaggrund har desuden ingen fornemmelse for "3,3 m/s"; det
+     har de fleste for "12 km/h". Enhedsstrengen skrives 'km/h', ikke 'km/t'
+     — den samme streng vises raat paa begge sprog (ingen enhedsoversaettelse
+     findes i data/i18n/), og 'km/t' ville vaere forkert paa den engelske
+     side. `ENHEDER['km/h']` i tools/yaml.mjs (faktor 1/3,6) og alias-tabellen
+     (`'km/t' -> 'km/h'`) fandtes allerede — ingen ny enhed er tilfoejet.
    - driftstid, ladetid -> min. MODSAT den dominerende enhed (t staar paa
      59/66 af driftstidsposterne) - maalt fordi minutter viser sig at vaere
      det BROEKFRIE valg: alle fundne "t"-vaerdier (1.5, 2.5, 3.15, 3.3, 4.6 t)
@@ -549,7 +572,7 @@ export function normaliserRobot(doc) {
    ====================================================================== */
 export const KANONISK_VISNINGSENHED = {
   laengde: 'cm', bredde: 'cm', hoejde: 'cm', forhindring_enkelt: 'cm',
-  hastighed: 'm/s',
+  hastighed: 'km/h',
   driftstid: 'min', ladetid: 'min',
 };
 
