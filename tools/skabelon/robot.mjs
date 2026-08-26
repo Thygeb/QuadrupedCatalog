@@ -303,6 +303,14 @@ export function vaerdi(navn, post, ctx, kilder) {
     }
   } else {
     html = H.tal(post, sprog);
+    // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
+    // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
+    // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,
+    // der faktisk blev omregnet (fx Spots "1100 mm"); resten af felterne
+    // (og alle andre arter) gaar uroert gennem denne gren.
+    if (post._kildeform) {
+      html = `<span class="original-enhed" title="${esc(flet(T(i18n, 'kilde_original_form'), { figur: post._kildeform }))}">${html}</span>`;
+    }
   }
 
   html += forbehold(post, ctx);
