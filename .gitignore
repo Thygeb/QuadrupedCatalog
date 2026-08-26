@@ -1,5 +1,11 @@
 node_modules/
 dist/
+
+# Maalebyg fra spor: dist-c, dist-e, dist-p ... Et spor, der skal maale sit
+# eget resultat mod main, bygger til en sidemappe frem for at overskrive dist/.
+# De blev efterladt som usporede 44-51 MB mapper tre gange 26. aug 2026, foer
+# moensteret blev daekket her.
+dist-*/
 .DS_Store
 Thumbs.db
 *.log
