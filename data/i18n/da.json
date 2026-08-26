@@ -294,5 +294,6 @@
   "sammenligning_soeg_pladsholder": "fx Spot eller GENISOM",
 
   "tabel_modeller": "Modeller",
-  "producent_fordeling_saetning": "{n} af {m} producenter er fra {land} og står for {x} af de {y} modeller i kataloget."
+  "producent_fordeling_saetning": "{n} af {m} producenter er fra {land} og står for {x} af de {y} modeller i kataloget.",
+  "kilde_original_form": "Producenten skrev: {figur}. Vi viser tallet i sidens fælles enhed."
 }

@@ -34,6 +34,7 @@ import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, FILTER_FELTER, SPROG, tilstandAf, normaliserRobot,
   BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_SPAERRET, feltVisning,
+  normaliserVisningsEnheder,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 import {
@@ -184,8 +185,15 @@ async function main(argv) {
 
   // Samme normalisering som validatoren koerer. Delt funktion, ikke en kopi:
   // to laesninger af den samme fil er praecis den fejl, der kostede 358 felter.
+  //
+  // normaliserVisningsEnheder() koeres KUN her, ALDRIG i validate.mjs (spor/
+  // enheder, se skema.mjs): den omsaetter fx laengde til kanonisk cm paa
+  // bygget's egen i-hukommelse-kopi, saa validatorens R5/R9 blive ved med at
+  // se producentens raa enhed, mens ALLE skabeloner (kort, robotside,
+  // sammenligning), der laeser samme robotter-array, automatisk viser én
+  // enhed pr. felt.
   const robotter = filer.map((f) => {
-    try { return normaliserRobot(parseYaml(fs.readFileSync(f, 'utf8'), f)); }
+    try { return normaliserVisningsEnheder(normaliserRobot(parseYaml(fs.readFileSync(f, 'utf8'), f))); }
     catch (e) { if (e instanceof YamlFejl) { console.error(String(e.message)); return null; } throw e; }
   }).filter(Boolean);
   robotter.sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'));

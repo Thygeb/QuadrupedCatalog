@@ -294,5 +294,6 @@
   "sammenligning_soeg_pladsholder": "e.g. Spot or GENISOM",
 
   "tabel_modeller": "Models",
-  "producent_fordeling_saetning": "{n} of {m} manufacturers are from {land} and account for {x} of the {y} models in the catalogue."
+  "producent_fordeling_saetning": "{n} of {m} manufacturers are from {land} and account for {x} of the {y} models in the catalogue.",
+  "kilde_original_form": "The manufacturer wrote: {figur}. We show the figure in the site's shared unit."
 }

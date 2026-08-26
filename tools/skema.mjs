@@ -7,7 +7,7 @@
  * oversaettelse skal fejle synligt, ikke lande som dansk paa /en/.
  */
 
-import { kanoniskEnhed, ENHEDER } from './yaml.mjs';
+import { kanoniskEnhed, ENHEDER, tilBasis } from './yaml.mjs';
 
 /**
  * art:  tal | jaNej | tekst | liste | ip
@@ -495,6 +495,134 @@ export function normaliserRobot(doc) {
       const b = jaNejAf(post.vaerdi);
       if (b !== null) post.vaerdi = b;
     }
+  }
+  return doc;
+}
+
+/* ======================================================================
+   spor/enheder (26. aug 2026) — kanonisk VISNINGSenhed pr. felt
+
+   BEVISET (dist-e/robots.json, alle 77 robotter, foer dette spor):
+     laengde mm:50 cm:8 m:1 · bredde mm:50 cm:8 m:1 · hoejde mm:52 cm:8 m:1
+     forhindring_enkelt cm:25 mm:2 m:3 · hastighed m/s:58 km/h:6
+     driftstid t:59 min:7 · ladetid t:18 min:5 · haeldning °:52 %:1
+     pris CNY:6 USD:4 EUR:1
+   Ni felter, ni forskellige enheder ved siden af hinanden i samme raekke.
+
+   Dette er IKKE en aendring af normaliserRobot() ovenfor. Den funktion deles
+   med validate.mjs, og validatoren skal blive ved med at se PRODUCENTENS
+   egen enhed (R5/R9 regner paa den). Kanonisk VISNINGSenhed er en ny,
+   adskilt omregning, som KUN build.mjs kalder — paa den i-hukommelse-kopi af
+   robotten, bygget selv har lavet. Datafilerne (data/robots/*.yaml) roeres
+   aldrig, og validatoren ser intet af det her.
+
+   TO FELTER ER BEVIDST UDELADT herfra:
+   - `pris`: CNY/USD/EUR kan kun omregnes med en valutakurs, og en kurs er et
+     tal, siden ikke har en kilde til (CLAUDE.md-briefets regel 1b). Valutaen
+     staar som producenten skrev den.
+   - `haeldning`: allerede arkitektonisk besluttet ovenfor i FELTER
+     (kommentaren ved `ogsaaType: 'stigning'`) - ° og % er to DIMENSIONER,
+     ikke to enheder for samme stoerrelse (45 % er 24,2°, og atan(p/100) er en
+     udledning, ikke en oversaettelse). Begge staar uroert.
+
+   DE SYV TILBAGEVAERENDE — enheden og MAALINGEN, der afgjorde den (tools/
+   _maal_enheder2.mjs, koert 26. aug 2026 over alle 77 datafiler):
+
+   - laengde, bredde, hoejde, forhindring_enkelt -> cm.
+     mm giver op til FIRE cifre (forhindring_enkelt' 1100 mm, laengdes
+     1190 mm). cm giver hoejst TRE (119 cm) og holder alle fire maal i
+     samme enhed, som de i forvejen vises side om side paa (L x B x H).
+     Prisen: 11 af 59 laengdevaerdier faar én decimal (721 mm -> 72,1 cm) -
+     det er en PRAECIS omregning (mm er altid et heltal), ikke et gaet.
+   - hastighed -> m/s. Allerede den dominerende enhed (58 af 64 vaerdier).
+     Modsat vej (alle til km/h) ville tvinge 58 vaerdier igennem *3,6 med
+     mange decimaler (2,4 m/s -> 8,64 km/h); m/s tvinger kun 6 vaerdier
+     igennem /3,6, og maks-tallet er ét ciffer (8).
+   - driftstid, ladetid -> min. MODSAT den dominerende enhed (t staar paa
+     59/66 af driftstidsposterne) - maalt fordi minutter viser sig at vaere
+     det BROEKFRIE valg: alle fundne "t"-vaerdier (1.5, 2.5, 3.15, 3.3, 4.6 t)
+     er hele antal minutter (90, 150, 189, 198, 276), mens flere "min"-
+     vaerdier (40, 110, 160 min) IKKE er hele antal timer (0,667 t, 1,833 t,
+     2,667 t - periodiske decimaler). At foelge flertallet havde givet
+     broeker; minutter giver ingen, og max-tallet (720) er stadig kun tre
+     cifre. Det er den ene af de ni felter, hvor kriteriet ("uden broeker OG
+     uden firecifrede tal") peger paa MINDRETallets enhed - skrevet ud her,
+     saa den naeste laeser ikke tror det er en fejl.
+
+   Rundes til 6 decimaler for at fjerne flydende-komma-stoej (fx 189,00000
+   000000003 fra 3,15 t * 60) - IKKE for at reducere praecisionen laeseren
+   ser. Den sidste afrunding til visning sker stadig i side.mjs' nformat/
+   assets/sammenligning.js' fmt (begge maximumFractionDigits: 3), uaendret.
+   ====================================================================== */
+export const KANONISK_VISNINGSENHED = {
+  laengde: 'cm', bredde: 'cm', hoejde: 'cm', forhindring_enkelt: 'cm',
+  hastighed: 'm/s',
+  driftstid: 'min', ladetid: 'min',
+};
+
+/**
+ * Ét felts post OMSAT til dets kanoniske visningsenhed - VISNING KUN, se
+ * kommentaren ovenfor. Returnerer en NY kopi (originalen roeres aldrig - kun
+ * build.mjs's egen i-hukommelse-kopi af robotten kalder denne funktion, via
+ * normaliserVisningsEnheder nedenfor).
+ *
+ * `post` uaendret (SAMME reference) naar: feltet ikke er et af de syv,
+ * enheden allerede er den kanoniske, vaerdien er en tilstand
+ * (ikke_oplyst/nej/kun_billede), vaerdien er fri tekst (Spots "ureguleret DC
+ * 35-58,8 V" - samme regel som feltVisning ovenfor: en tekstvaerdis
+ * indlejrede tal roeres ikke), eller enheden er ukendt/en anden dimension
+ * (fejler et andet sted, ikke her).
+ *
+ * Naar en omregning FAKTISK sker, faar kopien en `_kildeform`: producentens
+ * egen figur + enhed, fx "70 cm". Det er raamaterialet til "kildens egen
+ * formulering", som CLAUDE.md-briefet kraever tilgaengelig - se
+ * tools/skabelon/robot.mjs, hvor den vises i en title. `_kildeform` er ALDRIG
+ * en del af POST_NOEGLER og skrives aldrig til robots.json (feltVisning() og
+ * indekset i build.mjs bygger begge deres udtryk af navngivne noegler, ikke
+ * ved at sprede posten).
+ */
+export function visningsPost(navn, post) {
+  const maal = KANONISK_VISNINGSENHED[navn];
+  if (!maal || !erKort(post)) return post;
+  if (!post.enhed || post.enhed === maal) return post;
+  if (tilstandAf(post.vaerdi)) return post;
+  if (typeof post.vaerdi === 'string') return post;
+
+  const fra = ENHEDER[post.enhed];
+  const til = ENHEDER[maal];
+  if (!fra || !til || fra[0] !== til[0]) return post; // ukendt/forskellig dimension - R5's bord, ikke dette
+
+  const om = (v) => {
+    if (typeof v !== 'number') return v;
+    const basis = tilBasis(v, post.enhed);
+    return Math.round((basis / til[1]) * 1e6) / 1e6;
+  };
+  const kildeform = post.min !== undefined
+    ? `${post.min}–${post.maks} ${post.enhed}`
+    : `${post.vaerdi} ${post.enhed}`;
+
+  const ny = { ...post, enhed: maal, _kildeform: kildeform };
+  if (post.min !== undefined) { ny.min = om(post.min); ny.maks = om(post.maks); }
+  else ny.vaerdi = om(post.vaerdi);
+  return ny;
+}
+
+/**
+ * Kaldes af build.mjs, LIGE EFTER normaliserRobot() - aldrig af validate.mjs.
+ * Muterer doc.felter PAA STEDET (samme begrundelse som normaliserRobot: det
+ * er bygget's egen kortlevede kopi, ikke en fil paa disk), saa ALLE
+ * skabeloner, der laeser robot.felter[navn] fra samme robotter-array
+ * (side.mjs' kort/stribe, forside.mjs' yderpunkter, katalog.mjs,
+ * sammenligning.mjs' feltVisning-kald), automatisk ser den kanoniske enhed -
+ * uden at nogen af de filer skal aendres.
+ */
+export function normaliserVisningsEnheder(doc) {
+  if (!erKort(doc) || !erKort(doc.felter)) return doc;
+  for (const navn of Object.keys(KANONISK_VISNINGSENHED)) {
+    const post = doc.felter[navn];
+    if (post === undefined) continue;
+    const ny = visningsPost(navn, post);
+    if (ny !== post) doc.felter[navn] = ny;
   }
   return doc;
 }
