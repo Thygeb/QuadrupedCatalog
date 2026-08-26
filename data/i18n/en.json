@@ -293,5 +293,6 @@
   "sammenligning_soeg_etiket": "Search the robots",
   "sammenligning_soeg_pladsholder": "e.g. Spot or GENISOM",
 
-  "tabel_modeller": "Models"
+  "tabel_modeller": "Models",
+  "producent_fordeling_saetning": "{n} of {m} manufacturers are from {land} and account for {x} of the {y} models in the catalogue."
 }
