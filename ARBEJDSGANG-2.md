@@ -117,6 +117,47 @@ beslutning, der navngiver en fil eller et element på siden: kør en søgning, d
 beviser, at den stadig holder. Det er få linjers script, og det er den eneste
 måde at opdage en beslutning, der er forladt i stilhed.
 
+### Målingen er nu kørt — og den fandt sin egen grænse
+
+**26. aug 2026, orkestratoren.** Trak alle backtick-navne ud af STATUS.md's
+**Lukket**-tabel: **39 lukkede beslutninger**, som tilsammen navngiver **18
+filer, funktioner og CSS-klasser**. Alle 13 unikke filer findes stadig. Fem
+substantielle påstande blev genmålt, og **alle fem holder**:
+
+| Påstand | Fra | Genmålt |
+|---|---|---|
+| Fire i18n-nøgler var død kode | L38 | 0 i `da.json`, 0 kaldesteder — fjernet |
+| CSS-afsnit 1d stylede noget renderet 0 gange | L38 | 0 i CSS, 0 i byggede sider — fjernet |
+| `billedled--plade` blev vakt til live | L38 | **166 forekomster** i `dist/` |
+| Nævneren er 30, både i koden og i den offentliggjorte metode | L30/L32 | `indhold/metode.md` siger "30 felter", `robots.json` siger `[30]` |
+| Nævneren udledes, den er ikke håndskrevet | L30 | `FELTNAVNE = Object.keys(FELTER)` i `tools/skema.mjs:63` |
+
+**Men samme dag fandt to andre målinger hver sin forladte beslutning, som
+denne her IKKE ville have fanget** — og det er det egentlige resultat:
+
+* **Å25:** 100 interne revisionsnoter på 37 offentlige robotsider. KRITIK-2
+  fund 1 var lukket — på kortene.
+* **Å26:** 54 sider siger stadig, at fotoene er brugt *"uden tilladelse"*.
+  L37/S1 var lukket — i banneret.
+
+Ingen af de to navngiver en fil i sin påstand. De påstår noget om, **hvad der
+står på siden**, og den slags påstand kan ikke efterprøves med `grep` efter et
+identifikatornavn. Begge blev fundet ved at **læse den byggede side som en
+læser** — Å26 endda som biprodukt af at efterprøve et helt andet spor.
+
+**Optimeringen skal derfor være dobbelt, ikke enkelt:**
+
+1. **Identifikatormålingen** ovenfor — billig, mekanisk, kan køres hver uge.
+   Den fanger død kode og filer, der er forsvundet.
+2. **En læsning af den byggede side** mod de beslutninger, der påstår noget om
+   dens indhold. Den kan ikke automatiseres, og den er den eneste, der fanger
+   den dyre slags drift.
+
+Fællestrækket i Å25 og Å26 er skarpere end "beslutninger driver": **en sag
+lukkes ét af de steder, den findes, fordi fundets ordlyd navngav det ene sted.**
+Rettelsen sker der, hvor fundet peger — ikke der, hvor problemet er. Det er
+værd at gøre til en vane ved enhver lukning: *"hvor ellers findes det her?"*
+
 ---
 
 ## O5. Tre gange præsenterede jeg en slutning som en måling
