@@ -46,12 +46,37 @@ Relevante for det her projekt:
 
 | Skill | Hvornår |
 |---|---|
-| `impeccable` (`shape`, `new-work`, `harden`, `adapt`) | Al design- og IA-planlægning. Kører nu |
-| `new-project` | Når vi scaffolder: git, .gitignore, /run. Ikke før vi koder |
-| `ui-ux-critique` | Kritikrunder på en bygget side. AI-prosa-scanneren hører til her |
-| `critique` | Designeffektivitet, når der er noget at vurdere |
-| `dataviz` | Sammenligningsgrafik, specifikationstæthed, filtervisualisering |
-| `code-review` / `simplify` | På generatoren, når den findes |
+**Målt 26. aug 2026: der findes præcis tre globale skills på maskinen** —
+`impeccable`, `ui-ux-critique` og `critique`. Tabellen her nævnte tidligere også
+`new-project`, `dataviz`, `code-review` og `simplify`; **ingen af dem findes**,
+og en agent, der fulgte tabellen, fik `Unknown skill` og gik videre uden skill.
+`critique` er *installeret* men **kan ikke køre**: dens første linje kræver
+`frontend-design` og `teach-impeccable`, som heller ikke findes. Tabellen er
+derfor skrevet om til det, der faktisk kan kaldes:
+
+| Skill | Hvornår |
+|---|---|
+| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med 20+ underkommandoer. Se rækkerne nedenfor |
+| `impeccable new-work` | Når en flade skal have en **retning**, ikke en rettelse. Bygger konkurrerende visuelle verdener, man kan se ved siden af hinanden |
+| `impeccable shape` | Planlæg UX/UI, før der skrives kode |
+| `impeccable critique` | Design-vurdering med heuristisk scoring: **virker designet**, ikke er det fejlfrit |
+| `impeccable audit` | Teknisk kvalitet: tilgængelighed, ydelse, responsivitet |
+| `impeccable layout` · `typeset` · `colorize` · `bolder` · `quieter` | Målrettede løft af ét lag ad gangen |
+| `impeccable polish` · `harden` · `adapt` · `clarify` | Sidste kvalitetspas, produktionsklarhed, skærmstørrelser, UX-tekst |
+| `impeccable live` | Vælg elementer i browseren og få genereret alternativer |
+| `ui-ux-critique` | **Fejljagt** på en bygget side: hierarki, tilgængelighed, mobil, AI-prosa. Bemærk forskellen til `impeccable critique` — se advarslen nedenfor |
+| `critique` | **Ude af drift.** Kræver `frontend-design` + `teach-impeccable`, som ikke findes. Brug `impeccable critique` |
+
+**Advarslen, der kostede tre runder:** `ui-ux-critique` svarer på *"er den her
+side udført rigtigt?"*. `impeccable critique` svarer på *"er det her det rigtige
+design?"*. KRITIK-1, KRITIK-2 og KRITIK-3 er alle tre af den første slags — og
+det er derfor, udseendet ikke flyttede sig, selvom hver runde fandt ægte fejl.
+**En fejlliste kan kun bringe siden tilbage til sit eget tilsigtede udseende.
+Den kan aldrig hæve loftet.** Skal loftet hæves, er det `new-work` eller
+`bolder`, ikke endnu en fejljagt.
+
+**Til kodegennemgang** bruges CLI-kommandoen `/code-review` — den er ikke en
+skill og kan ikke kaldes med `Skill`-værktøjet.
 
 ## Sprog
 
@@ -392,7 +417,30 @@ Målt 19. aug 2026. Git Bash har **ingen** af dem på PATH:
 node    /c/Program Files/nodejs/node.exe          (v24.13.0)
 python  /c/Users/thyge/AppData/Local/Programs/Python/Python314/python.exe
 jq      findes ikke — brug node til at læse JSON
+npm     ligger samme sted som node, men er heller ikke på PATH i Git Bash.
+        Kør den som  PATH="/c/Program Files/nodejs:$PATH" npm ...
 ```
+
+**Browsermåling — `C:\Praktik\websites\maalevaerktoej\`** (sat op 26. aug 2026).
+Playwright ligger **bevidst uden for repoet**, så løftet om en afhængighedsfri
+generator står urørt. Intet derfra indgår nogensinde i et byg.
+
+```
+node C:/Praktik/websites/maalevaerktoej/maal.mjs <url> [bredde]
+```
+
+Den skriver JSON med kortantal, højdespring inden for en række, spildt lodret
+plads, beskårne billeder, vandret overløb og sidehøjde — tal, der kan citeres
+direkte i et fund uden mellemregning. Serveren skal køre:
+`python -m http.server 8080 --directory dist` **fra projektroden**, aldrig
+`cd dist` (så låser serveren mappen, og næste byg fejler med EPERM).
+
+**Fælden, værktøjet selv faldt i første gang det blev brugt:** det målte
+beskæring mod `<img>`-elementets egen kasse og gav **0** — mens filmålingen gav
+**16**. `<img>` fylder ikke nødvendigvis sit `<picture>`, så billedets kasse
+følger dets naturlige forhold; beskæringen sker, fordi *rammen* klipper. Rettet
+til at måle mod `.billedled`. **Lærdommen er større end fejlen: et nyt
+måleapparat skal valideres mod et kendt svar, før dets tal bruges i et fund.**
 
 Tre fælder, der kostede kald samme dag ([ARBEJDSGANG.md](ARBEJDSGANG.md)):
 

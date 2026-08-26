@@ -25,10 +25,7 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-forside",
-      "C:/Praktik/websites/udstilling-wt-sammenlign",
-      "C:/Praktik/websites/udstilling-wt-billeder",
-      "C:/Praktik/websites/udstilling-wt-kort"
+      "C:/Praktik/websites/udstilling-wt-billeder"
     ]
   },
   "hooks": {
