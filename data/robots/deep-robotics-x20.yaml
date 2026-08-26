@@ -16,7 +16,20 @@ billede:
   kilde: https://www.deeprobotics.cn/en/wap/product.html
   hentet: 2026-08-24
   alt: "DEEP Robotics X20, hvidt studiofoto/render fra siden af"
-  note: "IKKE det tidligere afviste delte 'andre produkter'-miniaturebillede (samme sha256 4eb65513a6... som paa Lite3-siden) og heller ikke ledmodul-fotografierne. Billedet er hentet fra X20's EGEN mobil-side (en/wap/product.html), som IKKE var i det tidligere indsamlede materiale. Billed-URL'en /public/static/robot/demo/p66.jpg er unik og sha256-efterproevet mod alle 43 eksisterende filer i assets/fotos/fabrikant/ - ingen dubletter. Samme sides oevrige demobilleder (p11_-p55.jpg) viser samme robot i felttest med paatrykt 'DEEPRobotics/云深处科技'-logo direkte paa chassiset og en person i sikkerhedshjelm til stoerrelsesreference - ingen af dem baerer teksten 'X30', modsat filen p8_.jpg paa samme side (afvist, se Lite3-postens note for samme fund)."
+  # INTERN REVISIONSNOTE (billedport 24. aug 2026, flyttet fra billede.note
+  # KRITIK-2 fund 1 25. aug 2026 - stod foer synligt paa katalogkortet):
+  # IKKE det tidligere afviste delte 'andre produkter'-miniaturebillede
+  # (samme sha256 4eb65513a6... som paa Lite3-siden) og heller ikke
+  # ledmodul-fotografierne. Billedet er hentet fra X20's EGEN mobil-side
+  # (en/wap/product.html), som IKKE var i det tidligere indsamlede
+  # materiale. Billed-URL'en /public/static/robot/demo/p66.jpg er unik og
+  # sha256-efterproevet mod alle 43 eksisterende filer i
+  # assets/fotos/fabrikant/ - ingen dubletter. Samme sides oevrige
+  # demobilleder (p11_-p55.jpg) viser samme robot i felttest med paatrykt
+  # 'DEEPRobotics/云深处科技'-logo direkte paa chassiset og en person i
+  # sikkerhedshjelm til stoerrelsesreference - ingen af dem baerer teksten
+  # 'X30', modsat filen p8_.jpg paa samme side (afvist, se Lite3-postens
+  # note for samme fund).
 noter:
   - "Producentens fulde navn: Hangzhou Yunshenchu Technology. Serier: Jueying og Lynx."
   - "STATUS KAN IKKE UDFYLDES FRA KILDEN. Produktsiden lever paa begge sprog, men er afkoblet fra navigationen: linket er udkommenteret i baade header og footer paa EN og CN. Kun det kinesiske forsidegitter linker den stadig. Producenten har ikke erklaeret modellen udgaaet. i_produktion er derfor et valg, ikke en aflaesning."

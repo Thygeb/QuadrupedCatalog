@@ -41,7 +41,10 @@ felter:
     enhed_imperial: mph
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
-    advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/t = 8,699 mph, gaar op. FUND-vest kildeangav ogsaa forsiden; forsiden indeholder NUL forekomster af baade 14 km/h og 8.7 mph (KILDEKORT-D FEJL 1). Kilden er produktsiden alene."
+    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
+    # 2026): FUND-vest kildeangav ogsaa forsiden - forsiden indeholder NUL
+    # forekomster af baade 14 km/h og 8.7 mph (KILDEKORT-D FEJL 1).
+    advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/t = 8,699 mph, gaar op. Kilden er produktsiden alene."
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst

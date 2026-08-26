@@ -21,8 +21,19 @@ noter:
   - "STOPPROEVE (firbenet): bestaaet, entydigt. Producentens egen model-tabel-overskrift: \"【C1工业小型】智能仿生四足机器人\" (C1 lille industrimodel - intelligent bionisk FIRBENET robot). Hele manualens titel er \"智能仿生四足机器人 / INTELLIGENT BIONIC QUADRUPED ROBOT\"."
   - "IKKE LEGETOEJ (L11): nej. Anvendelser (lufthavn/togstation/grænsepatrulje, brandvæsen, industriinspektion, militaer/politi \"武装反恐\") og en fuld teknisk specifikationstabel med enheder placerer produktet klart uden for legetoejs-/hobbykit-kategorien."
   - "REELT PRODUKT, IKKE KUN RENDERING: manualen har fulde tekniske specifikationstabeller med tal og enheder for alle seks modeller, ikke kun marketingtekst - samme standard som resten af kataloget."
-  - "KILDETYPE SEKUNDAER (L33): PDF'en er uploadet af Galileo selv til World Robot Conferences officielle udstillerprofilside (worldrobotconference.com), ikke hentet fra Galileos eget domæne (galileotime.com). galileotime.com er en tung Vue/React-SPA, der ikke lod sig hente statisk i research-runden (spor/kand4, se fund/FUND-kand4.md afsnit 3 og 9) - dette er den bedste tilgaengelige kilde til Galileos tekniske specifikationer, men mærket sekundær per L33, saa det er synligt at den ikke kommer direkte fra producentens eget domæne."
-  - "GENBRUGT EVIDENS: PDF'en (galileo-wrc-product-manual-2025.pdf) blev hentet i spor/kand4 og genbruges uaendret fra media/_kilder/raa-kand4-2026-08-25/. Talvaerdierne i denne post er laest 2026-08-25 i spor/kand5, MEN krævede et selvbygget PDF-tekstudtraek (se selv-review i fund/FUND-kand5.md) - poppler/pdftoppm var ikke tilgaengeligt i denne kørsel, saa Read-vaerktoejets pages-parameter kunne ikke bruges direkte."
+  # INTERN KILDEHENVISNING (flyttet fra noter, KRITIK-2 fund 1 25. aug
+  # 2026): research-runden er dokumenteret i spor/kand4, fund/FUND-kand4.md
+  # afsnit 3 og 9.
+  - "KILDETYPE SEKUNDAER (L33): PDF'en er uploadet af Galileo selv til World Robot Conferences officielle udstillerprofilside (worldrobotconference.com), ikke hentet fra Galileos eget domæne (galileotime.com). galileotime.com er en tung Vue/React-SPA, der ikke lod sig hente statisk - dette er den bedste tilgaengelige kilde til Galileos tekniske specifikationer, men mærket sekundær per L33, saa det er synligt at den ikke kommer direkte fra producentens eget domæne."
+  # INTERN NOTE (flyttet fra noter, KRITIK-2 fund 1 25. aug 2026 - ren
+  # proces-note om vaerktoejsvalg, uden laeserrelevans): "GENBRUGT EVIDENS:
+  # PDF'en (galileo-wrc-product-manual-2025.pdf) blev hentet i spor/kand4
+  # og genbruges uaendret fra media/_kilder/raa-kand4-2026-08-25/.
+  # Talvaerdierne i denne post er laest 2026-08-25 i spor/kand5, MEN
+  # krævede et selvbygget PDF-tekstudtraek (se selv-review i
+  # fund/FUND-kand5.md) - poppler/pdftoppm var ikke tilgaengeligt i denne
+  # kørsel, saa Read-vaerktoejets pages-parameter kunne ikke bruges
+  # direkte."
   - "TABEL-TERMINOLOGI FOR KLATREEVNE: C1's tabel skriver \"可攀爬高度: 20cm高连续台阶\" (klatrehoejde: 20cm kontinuerligt trappetrin) - \"连续台阶\" (kontinuerlig trin/trappe) mappet til trappetrin_kontinuerlig. C1-W's tilsvarende raekke skriver i stedet \"正向高度差70cm高台\" (fremadrettet hoejdeforskel, 70cm platform) - mappet til forhindring_enkelt paa C1-W's egen post. De to modeller bruger FORSKELLIGE formuleringer for samme raekkenavn, konsekvent med skemaets to-felts-opdeling (regel 7)."
   - "DRIFTSTID UDEN LASTBETINGELSE: C1's \"续航时间: 3.5h～6h\" har intet kg-tal - ved_last er derfor ikke_oplyst, i modsaetning til S1/S1-W, hvis tabeller eksplicit skriver \"(20kg负载)\"."
   - "HOT_SWAP FRA DEN DELTE FUNKTIONSSIDE (side 6), IKKE FRA C1's EGEN TABEL: manualens fælles funktionsbeskrivelse (foer variant-opdelingen) skriver \"智能仿生四足机器人采用'自主充电+手动换电'双模能源管理系统...同时配备模块化热插拔电池仓，支持数秒完成电池更换\" (dual-mode: autonom opladning + manuel batteriskift; modulaert hot-swap-batterirum, batteriskift paa faa sekunder). Dette er IKKE gentaget i C1's egen tekniske parametertabel (som kun har en \"自主充电功能: 支持\"-raekke, ingen hot-swap-raekke) - samme forsigtighedsprincip som anvendelse-feltet: citeret uafhaengigt fra familiesiden, ikke fra en model-specifik tabelraekke."

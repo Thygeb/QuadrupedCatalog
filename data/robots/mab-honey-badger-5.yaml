@@ -14,7 +14,16 @@ anvendelse:
   note: "FIRMANIVEAU, IKKE MODELNIVEAU - se noten paa Honey Badger 4.0. Modelsidens egen overskrift \"Designed with Precision for Industrial-grade Standards\" er en byggekvalitet, ikke en anvendelse, og taeller ikke med."
 forgaenger: mab-honey-badger-4
 noter:
-  - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (mab-honey-badger-5-1.png) var byte-identisk med Honey Badger 4.0's fejlbillede: logoet for et forskningsinstitut (\"Instituto Cajal\", roed stjerne), ikke et foto af robotten. Hele arkivmappen deler filsaet med Honey Badger 4.0 (samme fem sha256-summer); de fire oevrige kandidater (badger-5-2 til -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt. Billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
+  # INTERN REVISIONSNOTE (billedport 24. aug 2026, flyttet fra noter,
+  # KRITIK-2 fund 1 25. aug 2026 - overhalet af Billed3-fundet nedenfor):
+  # billede fjernet. Det tidligere billede (mab-honey-badger-5-1.png) var
+  # byte-identisk med Honey Badger 4.0's fejlbillede: logoet for et
+  # forskningsinstitut ("Instituto Cajal", roed stjerne), ikke et foto af
+  # robotten. Hele arkivmappen deler filsaet med Honey Badger 4.0 (samme
+  # fem sha256-summer); de fire oevrige kandidater (badger-5-2 til -5)
+  # kunne ikke efterproeves foer denne sessions billedlaesekvote blev
+  # opbrugt.
+  - "Billedport 24. aug 2026: det daviaerende billede var byte-identisk med Honey Badger 4.0's fejlbillede (logoet for et forskningsinstitut, ikke et foto af robotten) og blev derfor slettet. Se noten nedenfor for det nye billede, fundet 25. aug 2026."
   - "Billed3 25. aug 2026: nyt billede fundet direkte paa honey-badger-5-siden. To kandidater bestod dommen: mab-honey-badger-5-6.jpg (to enheder side om side paa groesplaene i en park - graensetilfaelde efter rivr-one-praecedens, samme model, ikke flere modeller) og mab-honey-badger-5-7.jpg (EN robot paa en betonkant i samme parkanlaeg, \"MAB ROBOTICS\" paamalet). Valgte -7 for den utvetydige enkeltmaskine-komposition."
   - "EU-PRODUCENT - den eneste i hele indsamlingen. MAB Robotics Sp. z o.o., ul. Za Cytadela 108, Poznan. VAT PL7822870297."
   - "EU-KOLONNENS MODEKSEMPEL. Den eneste EU-producent i indsamlingen oplyser INTET om CE - og bredere: nul traef paa CE, conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA og FCC i 1,48 MB HTML, negativt OG positivt kontrolleret. Ikke fordi maskinen ikke har CE (en polsk maskine solgt i EU skal have det), men fordi CE er saa selvfoelgeligt for en EU-producent, at ingen skriver det. CE oplyst = nej betyder derfor ikke det samme for en polsk og en amerikansk producent. Kolonnen maa vise oplyst / ikke oplyst, aldrig har CE / har ikke CE."

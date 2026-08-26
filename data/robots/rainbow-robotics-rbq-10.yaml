@@ -19,7 +19,10 @@ billede:
   kilde: https://rainbow-robotics.com/en/products/rbq-10/
   hentet: 2026-08-19
 noter:
-  - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON. FUND-vest skrev Daejeon; strengen findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og omraadenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger. Rettet efter KILDEKORT-B F5."
+  # INTERN REVISIONSNOTE (flyttet fra noter, KRITIK-2 fund 1 25. aug 2026):
+  # en tidligere version af posten skrev fejlagtigt Daejeon som hjemby
+  # (rettet efter KILDEKORT-B F5).
+  - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON, som firmaet undertiden tilskrives: strengen \"Daejeon\" findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og omraadenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger."
   - "RAINBOW ROBOTICS UDGIVER HELE BRUGERMANUALEN OFFENTLIGT som en statisk side - inklusive batteridata, ledmomenter, IMU-specifikationer og monteringsinterface. Ingen formular, intet login. Det er derfor posten er indsamlingens taetteste vestlige/asiatiske post, og det giver en test, kataloget kan bruge: publicerer producenten sin brugermanual aabent, ja/nej."
 felter:
   egenvaegt:
@@ -160,4 +163,8 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
-    advarsel: "IKKE EFTERPROEVET TIL BUNDS. FUND-vests eget selv-review noterer, at CE-feltet for RBQ-10 ikke er negativkontrolleret paa samme maade som for MAB og Boston Dynamics."
+    # INTERN REVISIONSNOTE (flyttet fra advarsel, KRITIK-2 fund 1 25. aug
+    # 2026): FUND-vests eget selv-review noterer, at CE-feltet for RBQ-10
+    # ikke er negativkontrolleret paa samme maade som for MAB og Boston
+    # Dynamics.
+    advarsel: "IKKE EFTERPROEVET TIL BUNDS: CE er ikke negativkontrolleret lige saa grundigt som for andre poster i kataloget."
