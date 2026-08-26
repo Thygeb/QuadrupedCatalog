@@ -114,21 +114,45 @@ eneste af de fire datatilstande, siden ikke har besluttet sig for.
 | 1 | 2 |
 | **0** | **6** |
 
-Seks kort har altså navn, producent og **ingen tal overhovedet**. Sammen med
-fodnoten, der målt svinger fra 0 til 310 tegn (Laikago er længst), giver det
-kort med meget forskellig højde i samme række — det takkede gitter, JPK ser.
+Seks kort har altså navn, producent og **ingen tal overhovedet**.
 
-**Fix:** giv striben en fast højde svarende til fire pladser, og lad de
-manglende pladser stå som "ikke oplyst" i den stiplede form, siden allerede
-bruger. Så bliver hullet synligt frem for at trække kortet sammen — og det er
-netop sidens egen holdning til huller.
+### RETTET SAMME DAG — min første forklaring var forkert
 
-**Accept:** forskellen mellem højeste og laveste kort i samme række er 0 px,
-målt i browseren.
+Jeg skrev oprindeligt, at dette gav *"kort med meget forskellig højde i samme
+række — det takkede gitter"*. **Det er målt forkert.** Med Playwright installeret
+kunne jeg måle i browseren i stedet for at slutte mig til det fra strukturen:
 
-**Bemærk:** `spor/kort` fjerner fodnoten i denne time, hvilket alene fjerner
-310 tegns variation. K3 skal måles igen bagefter, før den løses — måske er den
-halvt væk af sig selv.
+```
+stoersteSpringIRaekke: 0      spildtLodretPx: 0
+kortHoejde: lavest 600 · hoejest 806      raekker: 21
+```
+
+Gitteret strækker alle kort i en række til samme højde. **Inden for en række er
+raggedheden nul px.** Der er intet takket gitter.
+
+Det, der faktisk er galt, er to andre ting:
+
+1. **Rækkerne svinger 600 → 806 px** — et spring på 206 px fra den laveste til
+   den højeste af de 21 rækker. Rytmen ned gennem siden er ujævn, ikke kanten.
+2. **Et mindretal af kort bærer meget dødt bundrum.** Medianen er **13 px** —
+   de fleste kort er stramme. Men de værste har 206-211 px tomt under indholdet
+   (As2, Gangben L2, RIVR ONE), fordi de sidder i en række, et højt kort har
+   strakt. Blandt kortene uden nøgletal: Spirit 40 181 px, ANYmal X 174 px,
+   BabyAlpha 174 px — mens AlphaDog E300 kun har 13 px. Antallet af nøgletal
+   er altså **ikke** hoveddriveren, sådan som jeg først skrev.
+
+**Fix:** find ud af, hvad der gør de høje kort høje — det er ikke nøgletallene.
+Mistanken falder på anvendelseschips og navne, der brydes over to linjer.
+Mål det, før noget rettes.
+
+**Accept:** medianen for dødt bundrum forbliver under 20 px, og den værste
+falder fra 211 px til under 60 px. Måles med
+`node maal.mjs http://localhost:8080/da/robotter/ 1440`.
+
+**Lærdommen, der er dyrere end fundet:** jeg udledte "takket gitter" af
+strukturelle tal — antal nøgletal og fodnotelængde — og af et skærmbillede.
+Begge dele pegede på noget, der ikke var der. Det er projektets egen regel om
+at måle frem for at skønne, og jeg brød den i mit eget kritikdokument.
 
 ---
 

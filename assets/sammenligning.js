@@ -184,6 +184,25 @@
     });
   });
 
+  /* Soegefeltet (punkt 3, spor/sammenlign): 77 chips uden soegning kraevede
+     visuel skimning af alle for at finde én model. Genbruger katalogsidens
+     moenster (assets/katalog.js' `soeg()`: lowercased substring-match paa et
+     `data-sog`-maerket lag, `hidden`-attributten alene styrer synlighed) -
+     tilpasset til denne sides ét-niveaus vaelger (ingen facetter at krydse,
+     kun navn+producent pr. chip, sat af tools/skabelon/sammenligning.mjs'
+     vaelgerHTML()). Ingen netvaerkskald, samme regel som resten af siden. */
+  var soegInput = app.querySelector('#saml-soeg');
+  var traeffere = Array.prototype.slice.call(vaelger.querySelectorAll('[data-sog]'));
+  if (soegInput && traeffere.length) {
+    soegInput.addEventListener('input', function () {
+      var q = soegInput.value.trim().toLowerCase();
+      traeffere.forEach(function (el) {
+        var traf = !q || el.getAttribute('data-sog').indexOf(q) !== -1;
+        el.hidden = !traf;
+      });
+    });
+  }
+
   /* Samme betjeningsflade, to udtryksformer: JS erstatter den statiske
      fallback-liste med vaelgeren + tabellen i stedet for at vise begge. */
   var fallback = document.querySelector('[data-sammenligning-fallback-wrap]');

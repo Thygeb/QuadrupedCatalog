@@ -390,9 +390,14 @@ export function feltVisning(navn, post) {
   if (typeof post.vaerdi === 'string' && spec?.art !== 'ip') {
     // Et tekstfelt kan baere et maalbart interval ved siden af producentens
     // ordlyd (Spots "ureguleret DC 35-58,8 V") - samme regel som robot.mjs' vaerdi().
-    const ud = { tilstand: 'tekst', tekst: post.vaerdi, forbehold: post.advarsel ?? null };
-    if (post.min !== undefined) { ud.min = post.min; ud.maks = post.maks; ud.enhed = post.enhed ?? null; }
-    return ud;
+    // Intervallet er tekstvaerdiens maskinlaesbare skygge, IKKE en ekstra
+    // oplysning til laeseren: findes begge, vises kun tekstvaerdien (spor/
+    // sammenlign, fund 3+6+8, punkt 2) - ellers saa Spots "Stroem ud" baade
+    // "ureguleret DC 35-58,8 V, 150 W pr. port" OG "35-58,8 V" samtidig.
+    // min/maks/enhed udelades derfor helt af udtrykket her; de forbliver i
+    // raadata (post.min/post.maks), saa intet forsvinder - kun visningen af
+    // dem, naar en tekstvaerdi allerede daekker samme tal.
+    return { tilstand: 'tekst', tekst: post.vaerdi, forbehold: post.advarsel ?? null };
   }
   // Tal - ogsaa art:'ip' ("IP67" er en figur, ikke prosa, samme regel som robot.mjs).
   const erNul = post.vaerdi === 0;

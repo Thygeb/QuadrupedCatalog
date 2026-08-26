@@ -36,19 +36,36 @@
  */
 
 import { esc } from './side.mjs';
-import { FELTER, FELTNAVNE, GRUPPER, feltVisning } from '../skema.mjs';
+import { FELTER, FELTNAVNE, GRUPPER, NAEVNER, feltVisning } from '../skema.mjs';
+import { taethed } from '../validate.mjs';
 
 const attr = esc;
 
-/** Mockuppens trio, hvis alle tre findes i det aktuelle datasaet — ellers de
- *  tre foerste robotter alfabetisk (samme regel som forsidens smagsproeve:
- *  deterministisk, ingen redaktionel udvaelgelse). */
-const STANDARD_SLUGS = ['boston-dynamics-spot', 'anybotics-anymal-x', 'unitree-go2'];
-
-function standardvalg(robotter) {
-  const slugs = new Set(robotter.map((r) => r.slug));
-  if (STANDARD_SLUGS.every((s) => slugs.has(s))) return STANDARD_SLUGS;
-  return robotter.slice(0, 3).map((r) => r.slug);
+/**
+ * Standardtrioen (spor/sammenlign, punkt 1 — afloeser den haardkodede
+ * Spot/ANYmal-X/Go2-liste, som mockuppen fastlagde): de tre robotter med
+ * HOEJEST specifikationstaethed, hoejst én pr. producent, afgjort alfabetisk
+ * paa slug ved lige taethed. UDLEDT af bygget, ikke en redaktionel liste -
+ * ANYmal X (4 af 30 felter) mødte foerstegangsbesoegende med 26 stiplede
+ * "ikke oplyst"-bokse, det stik modsatte af sitets 1.110 kildebelagte tal.
+ *
+ * Taetheden er den SAMME `taethed()`, validate.mjs og build.mjs allerede
+ * bruger til sluttaellingen og robots.json's `taethed`-felt - ingen ny
+ * maalestok. NAEVNER (FELTNAVNE.length, i dag 30) er importeret, ALDRIG
+ * skrevet som et tal her (L30/D7).
+ */
+function standardvalg(robotter, d4) {
+  const med = robotter.map((r) => ({ r, tal: taethed(r, NAEVNER, d4).udfyldt }));
+  med.sort((a, b) => b.tal - a.tal || String(a.r.slug).localeCompare(String(b.r.slug)));
+  const producenter = new Set();
+  const valgt = [];
+  for (const { r } of med) {
+    if (producenter.has(r.producent)) continue;
+    producenter.add(r.producent);
+    valgt.push(r.slug);
+    if (valgt.length === 3) break;
+  }
+  return valgt;
 }
 
 /** Operatorernes tekst, sprogspecifik — samme noegler som side.mjs' operator(). */
@@ -61,7 +78,7 @@ const OPNAVN = {
  *  en lille sprogspecifik ordbog, assets/sammenligning.js bruger til at
  *  tegne cellerne (label pr. felt/gruppe, operator-tekst, tilstandstekst). */
 function dataBlok(ctx) {
-  const { robotter, i18n } = ctx;
+  const { robotter, i18n, d4 } = ctx;
   const { T, t } = i18n;
 
   const robotterUd = robotter.map((r) => {
@@ -95,7 +112,7 @@ function dataBlok(ctx) {
   );
 
   return {
-    standard: standardvalg(robotter),
+    standard: standardvalg(robotter, d4),
     maksAntal: 3,
     robotter: robotterUd,
     grupper,
@@ -126,16 +143,39 @@ function dataBlok(ctx) {
  *  katalogets facetter (genbrugt CSS, ingen ny komponentfamilie). Legenden
  *  er `.kunskaerm` (skjult visuelt): sektion-hovedet lige ovenfor i render()
  *  viser samme etikette allerede synligt, og to synlige kopier af den
- *  samme etikette ville vaere stoej. */
-function vaelgerHTML(robotter, standard, legendeTekst) {
+ *  samme etikette ville vaere stoej.
+ *
+ *  Punkt 3 (spor/sammenlign): 77 chips uden soegning kraevede visuel
+ *  skimning af alle for at finde én model. Soegefeltet genbruger
+ *  katalogsidens moenster (assets/katalog.js' `soeg()`: substring-match paa
+ *  et `data-sog`-maerket lag, lowercased, ingen netvaerkskald) - hver chip
+ *  paakes her i et `<span data-sog="...">`, samme idé som katalogets
+ *  `.lag[data-sog]`, blot ét niveau (ingen facetter at krydse). Tilpasset:
+ *  soegeteksten er "navn producent" (ikke katalogets fulde kort-tekst, som
+ *  ogsaa baerer land/vaegtklasse/anvendelse - irrelevant her, jf. briefets
+ *  krav om at matche paa robotnavn OG producentnavn). Feltet staar UDEN
+ *  `hidden`: hele `.sammenligning-app` er allerede skjult, indtil
+ *  sammenligning.js fjerner det - et andet lag `hidden` her ville vaere
+ *  overfloedigt (samme logik som resten af app'en, ingen CSS-only-fallback
+ *  for soegning, ligesom katalogets soegefelt heller ingen har). */
+function vaelgerHTML(robotter, standard, legendeTekst, sogEtiket, sogPladsholder) {
   const std = new Set(standard);
   const felter = [...robotter].sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'))
-    .map((r) => `<input type="checkbox" class="f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
-      + `${std.has(r.slug) ? ' checked' : ''}>`
-      + `<label for="saml-${attr(r.slug)}">${esc(r.navn)}<span class="antal">${esc(r.producent)}</span></label>`)
+    .map((r) => {
+      const sogetekst = `${r.navn} ${r.producent}`.toLowerCase();
+      return `<span class="saml-chip" data-sog="${attr(sogetekst)}">`
+        + `<input type="checkbox" class="f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
+        + `${std.has(r.slug) ? ' checked' : ''}>`
+        + `<label for="saml-${attr(r.slug)}">${esc(r.navn)}<span class="antal">${esc(r.producent)}</span></label>`
+        + `</span>`;
+    })
     .join('\n');
   return `<fieldset class="facet sammenligning-vaelger">
 <legend class="etiket kunskaerm">${esc(legendeTekst)}</legend>
+<div class="sog">
+<label class="etiket" for="saml-soeg">${esc(sogEtiket)}</label>
+<input id="saml-soeg" type="search" autocomplete="off" placeholder="${attr(sogPladsholder)}">
+</div>
 <div class="filtre" data-saml-vaelger>
 ${felter}
 </div>
@@ -206,7 +246,7 @@ ${legendeHTML(t, T)}
 <span class="etiket">${esc(T.sammenligning_vaelg_titel)}</span>
 </div>
 <p class="t-lille sektion-note">${esc(T.sammenligning_vaelg_forklaring)}</p>
-${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel)}
+${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenligning_soeg_etiket, T.sammenligning_soeg_pladsholder)}
 <p class="t-lille sammenligning-status" data-saml-status role="status" aria-live="polite" hidden></p>
 <div data-saml-resultat></div>
 </div>

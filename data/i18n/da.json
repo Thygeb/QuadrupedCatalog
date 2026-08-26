@@ -289,5 +289,7 @@
   "land_Brasilien": "Brasilien",
   "producent_model_en": "1 model",
 
-  "forside_udvalg_regel": "{n} robotter fra {n} producenter, valgt efter hvor mange af de {m} felter producenten selv oplyser."
+  "forside_udvalg_regel": "{n} robotter fra {n} producenter, valgt efter hvor mange af de {m} felter producenten selv oplyser.",
+  "sammenligning_soeg_etiket": "Søg blandt robotterne",
+  "sammenligning_soeg_pladsholder": "fx Spot eller GENISOM"
 }
