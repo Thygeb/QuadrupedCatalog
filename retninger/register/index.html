@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Firbenede robotter — Register</title>
 <meta name="description" content="Et register over 77 firbenede robotter fra 25 producenter, sorteret alfabetisk efter producent, med kilde paa hvert tal.">
+<link rel="icon" href="data:,">
 <link rel="stylesheet" href="register.css">
 </head>
 <body>
@@ -86,9 +87,9 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     </ul>
   </section>
 
-  <section class="register-sektion rum" id="reg">
+  <section class="register-sektion rum" id="reg" aria-labelledby="register-titel">
     <div class="register-hoved">
-      <h2>Registret — alle 77</h2>
+      <h2 id="register-titel">Registret — alle 77</h2>
       <span class="register-kriterium">Sorteret alfabetisk efter <b>producentnavn</b>, dernæst modelnavn. * markerer de seks robotter, alle tre retninger viser.</span>
     </div>
     <div class="register-krop">
@@ -100,18 +101,18 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
           <caption>Egenvægt, nyttelast (gående), hastighed og driftstid er producentens egne tal; «ikke oplyst» betyder at producenten ikke oplyser feltet, ikke at værdien er nul.</caption>
           <thead>
             <tr>
-              <th>Nr.</th>
-              <th>Robot</th>
-              <th>Vægtklasse</th>
-              <th class="num">Egenvægt</th>
-              <th class="num">Nyttelast</th>
-              <th class="num">Hastighed</th>
-              <th class="num">Driftstid</th>
-              <th>CE</th>
+              <th scope="col">Nr.</th>
+              <th scope="col">Robot</th>
+              <th scope="col">Vægtklasse</th>
+              <th class="num" scope="col">Egenvægt</th>
+              <th class="num" scope="col">Nyttelast</th>
+              <th class="num" scope="col">Hastighed</th>
+              <th class="num" scope="col">Driftstid</th>
+              <th scope="col">CE</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="bogstav-raekke" id="p-A"><th colspan="8">A</th></tr>
+            <tr class="bogstav-raekke" id="p-A"><th colspan="8" scope="colgroup">A</th></tr>
 <tr class="post" id="r-addverb-trakr-20">
     <td class="nr" data-th="Nr.">001</td>
     <td class="navn" data-th="Robot"><strong>Trakr 20</strong><span class="producent">Addverb<a class="kildemaerke" href="https://addverb.ai/trakr" target="_blank" rel="noopener" title="Kilde A: https://addverb.ai/trakr">A</a></span></td>
@@ -162,7 +163,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal">240–480<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-B"><th colspan="8">B</th></tr>
+<tr class="bogstav-raekke" id="p-B"><th colspan="8" scope="colgroup">B</th></tr>
 <tr class="post" id="r-bhairav-robotics-shvana">
     <td class="nr" data-th="Nr.">006</td>
     <td class="navn" data-th="Robot"><strong>Shvana</strong><span class="producent">Bhairav Robotics<a class="kildemaerke" href="https://bhairavrobotics.com/shvana-robot/" target="_blank" rel="noopener" title="Kilde A: https://bhairavrobotics.com/shvana-robot/">A</a></span></td>
@@ -183,7 +184,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal">90<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-C"><th colspan="8">C</th></tr>
+<tr class="bogstav-raekke" id="p-C"><th colspan="8" scope="colgroup">C</th></tr>
 <tr class="post" id="r-cvte-maxhub-x7">
     <td class="nr" data-th="Nr.">008</td>
     <td class="navn" data-th="Robot"><strong>MAXHUB X7</strong><span class="producent">CVTE<a class="kildemaerke" href="https://www.cvte.com/product/quadrupedrobot" target="_blank" rel="noopener" title="Kilde A: https://www.cvte.com/product/quadrupedrobot">A</a></span></td>
@@ -194,7 +195,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>480<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-D"><th colspan="8">D</th></tr>
+<tr class="bogstav-raekke" id="p-D"><th colspan="8" scope="colgroup">D</th></tr>
 <tr class="post" id="r-deep-robotics-lite3">
     <td class="nr" data-th="Nr.">009</td>
     <td class="navn" data-th="Robot"><strong>Jueying Lite3</strong><span class="producent">DEEP Robotics<a class="kildemaerke" href="https://deeprobotics.cn/en/index/product1.html" target="_blank" rel="noopener" title="Kilde A: https://deeprobotics.cn/en/index/product1.html">A</a></span></td>
@@ -285,7 +286,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-G"><th colspan="8">G</th></tr>
+<tr class="bogstav-raekke" id="p-G"><th colspan="8" scope="colgroup">G</th></tr>
 <tr class="post" id="r-galileo-c1">
     <td class="nr" data-th="Nr.">018</td>
     <td class="navn" data-th="Robot"><strong>C1</strong><span class="producent">Galileo (Tianjin)<a class="kildemaerke" href="https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf" target="_blank" rel="noopener" title="Kilde A: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf">A</a></span></td>
@@ -456,7 +457,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal">189<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-K"><th colspan="8">K</th></tr>
+<tr class="bogstav-raekke" id="p-K"><th colspan="8" scope="colgroup">K</th></tr>
 <tr class="post" id="r-keybotic-keyper">
     <td class="nr" data-th="Nr.">035</td>
     <td class="navn" data-th="Robot"><strong>Keyper</strong><span class="producent">Keybotic<a class="kildemaerke" href="https://keybotic.com/technology/" target="_blank" rel="noopener" title="Kilde A: https://keybotic.com/technology/">A</a></span></td>
@@ -467,7 +468,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal">90–120<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-M"><th colspan="8">M</th></tr>
+<tr class="bogstav-raekke" id="p-M"><th colspan="8" scope="colgroup">M</th></tr>
 <tr class="post" id="r-mab-honey-badger-4">
     <td class="nr" data-th="Nr.">036</td>
     <td class="navn" data-th="Robot"><strong>Honey Badger 4.0</strong><span class="producent">MAB Robotics<a class="kildemaerke" href="https://www.mabrobotics.pl/honey-badger" target="_blank" rel="noopener" title="Kilde A: https://www.mabrobotics.pl/honey-badger">A</a></span></td>
@@ -548,7 +549,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&lt;=</span>720<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-N"><th colspan="8">N</th></tr>
+<tr class="bogstav-raekke" id="p-N"><th colspan="8" scope="colgroup">N</th></tr>
 <tr class="post" id="r-neura-quadruped">
     <td class="nr" data-th="Nr.">044</td>
     <td class="navn" data-th="Robot"><strong>NEURA Quadruped</strong><span class="producent">NEURA Robotics<a class="kildemaerke" href="https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf" target="_blank" rel="noopener" title="Kilde A: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf">A</a></span></td>
@@ -559,7 +560,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal">360<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-P"><th colspan="8">P</th></tr>
+<tr class="bogstav-raekke" id="p-P"><th colspan="8" scope="colgroup">P</th></tr>
 <tr class="post" id="r-pudu-d5">
     <td class="nr" data-th="Nr.">045</td>
     <td class="navn" data-th="Robot"><strong>PUDU D5</strong><span class="producent">Pudu Robotics<a class="kildemaerke" href="https://store.pudurobotics.com/products/pudu-d5" target="_blank" rel="noopener" title="Kilde A: https://store.pudurobotics.com/products/pudu-d5">A</a></span></td>
@@ -580,7 +581,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal">120–180<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-R"><th colspan="8">R</th></tr>
+<tr class="bogstav-raekke" id="p-R"><th colspan="8" scope="colgroup">R</th></tr>
 <tr class="post" id="r-rainbow-robotics-rbq-10">
     <td class="nr" data-th="Nr.">047</td>
     <td class="navn" data-th="Robot"><strong>RBQ-10</strong><span class="producent">Rainbow Robotics<a class="kildemaerke" href="https://rainbow-robotics.com/en/products/rbq-10/" target="_blank" rel="noopener" title="Kilde A: https://rainbow-robotics.com/en/products/rbq-10/">A</a></span></td>
@@ -611,7 +612,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-S"><th colspan="8">S</th></tr>
+<tr class="bogstav-raekke" id="p-S"><th colspan="8" scope="colgroup">S</th></tr>
 <tr class="post" id="r-yobotics-e-dog">
     <td class="nr" data-th="Nr.">050</td>
     <td class="navn" data-th="Robot"><strong>e-Dog</strong><span class="producent">Shandong Youbaote Intelligent Robot<a class="kildemaerke" href="https://www.yobotics.cn/en/product/quadruped_robot_series/" target="_blank" rel="noopener" title="Kilde A: https://www.yobotics.cn/en/product/quadruped_robot_series/">A</a></span></td>
@@ -642,7 +643,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">&gt;</span>150<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-U"><th colspan="8">U</th></tr>
+<tr class="bogstav-raekke" id="p-U"><th colspan="8" scope="colgroup">U</th></tr>
 <tr class="post" id="r-unitree-a1">
     <td class="nr" data-th="Nr.">053</td>
     <td class="navn" data-th="Robot"><strong>A1</strong><span class="producent">Unitree Robotics<a class="kildemaerke" href="https://www.unitree.com/A1" target="_blank" rel="noopener" title="Kilde A: https://www.unitree.com/A1">A</a></span></td>
@@ -773,7 +774,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-W"><th colspan="8">W</th></tr>
+<tr class="bogstav-raekke" id="p-W"><th colspan="8" scope="colgroup">W</th></tr>
 <tr class="post" id="r-weilan-alphadog-c500">
     <td class="nr" data-th="Nr.">066</td>
     <td class="navn" data-th="Robot"><strong>AlphaDog C500</strong><span class="producent">WEILAN<a class="kildemaerke" href="https://www.weilan.com/en/en/alphadogc.html" target="_blank" rel="noopener" title="Kilde A: https://www.weilan.com/en/en/alphadogc.html">A</a></span></td>
@@ -824,7 +825,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td data-th="Driftstid"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
     <td data-th="CE"><span class="v v-mark v-ikke"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">ikke oplyst</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-X"><th colspan="8">X</th></tr>
+<tr class="bogstav-raekke" id="p-X"><th colspan="8" scope="colgroup">X</th></tr>
 <tr class="post" id="r-xiaomi-cyberdog-1">
     <td class="nr" data-th="Nr.">071</td>
     <td class="navn" data-th="Robot"><strong>CyberDog</strong><span class="producent">Xiaomi<a class="kildemaerke" href="https://www.mi.com/cyberdog/specs" target="_blank" rel="noopener" title="Kilde A: https://www.mi.com/cyberdog/specs">A</a></span></td>
@@ -845,7 +846,7 @@ FINISH: unreviewed and undocumented is unfinished; dette spor afsluttes af
     <td class="num" data-th="Driftstid"><span class="v v-tal"><span class="op">~</span>90<span class="enh">min</span></span></td>
     <td data-th="CE"><span class="v v-mark v-nej"><span class="glyf" aria-hidden="true"></span><span class="etikettxt">NEJ</span></span></td>
   </tr>
-<tr class="bogstav-raekke" id="p-Y"><th colspan="8">Y</th></tr>
+<tr class="bogstav-raekke" id="p-Y"><th colspan="8" scope="colgroup">Y</th></tr>
 <tr class="post" id="r-yuejia-yj30">
     <td class="nr" data-th="Nr.">073</td>
     <td class="navn" data-th="Robot"><strong>YJ30</strong><span class="producent">Yuejia Lingdong<a class="kildemaerke" href="https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html" target="_blank" rel="noopener" title="Kilde A: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html">A</a></span></td>
