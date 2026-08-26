@@ -436,6 +436,23 @@ session, giver den `Unknown skill`. Læs da `SKILL.md` fra disk og følg den der
 **skriv i rapporten at du gjorde det**, så et stille fallback ikke forveksles med at
 skillen kørte.
 
+**Målt 26. aug 2026: en agent i en worktree kan ikke kalde `impeccable`, selvom
+orkestratoren kan det fra hovedrepoet.** Begge blev prøvet samme dag: kaldet lykkes fra
+`c:\Praktik\websites\udstilling`, og fejler fra `udstilling-wt-instrument`. Projektets
+egne fem skills følger med worktreen (de ligger i `.claude/skills/` og er versionerede),
+men bruger- og plugin-skills gør ikke.
+
+**Konsekvens for ethvert brief til et worktree-spor: giv diskstien med fra starten**,
+frem for at bede agenten kalde skillen og selv opdage, at det ikke går. Det koster ellers
+hver agent et fejlet kald og en omvej. Stierne:
+
+```
+C:/Users/thyge/.claude/skills/impeccable/SKILL.md
+C:/Users/thyge/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md
+```
+
+Kravet om at **skrive i rapporten, at den blev læst fra disk**, gælder uændret.
+
 ## Værktøjer på denne maskine
 
 Målt 19. aug 2026. Git Bash har **ingen** af dem på PATH:
