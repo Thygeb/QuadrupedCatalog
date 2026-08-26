@@ -31,9 +31,28 @@ returnerer `{validator: {ietFilAntal, paaTVaersAntal, fangede}}`, som
 **Så er du færdig.** Læg filen i `tests/dele/` med sit tocifrede præfiks —
 og INTET andet. Der er ingen liste, kommentar eller anden fil at røre.
 
-## Sådan flyttes `tests/nyt-instrument.mjs`/`tests/nyt-hastighed.mjs` ind
+## `tests/nyt-instrument.mjs`/`tests/nyt-hastighed.mjs` — flyttet ind 26. aug 2026
 
-De to filer er selvstændige i dag. Ombryd deres krop i
+Udført af spor/testfold. De to selvstændige filer er ombrudt til
 `export default async function koer(ctx) { const {ok, rod, tmp, node, ...} =
-ctx; ... }`, fjern deres egen `ok()`/tæller/`process.exit`, og læg filen i
-`tests/dele/` med det næste ledige tocifrede præfiks.
+ctx; ... }`, deres egen `ok()`/tæller/`process.exit` er fjernet, og de ligger
+nu som `tests/dele/15-hastighedsenhed.mjs` (27 påstande, L41) og
+`tests/dele/16-instrumentkort.mjs` (11 påstande, L40). De gamle filer er slettet.
+
+Kontrakten ovenfor holdt uændret — med to ting, den ikke selv nævnte, men som
+den generelle kontrakt (afsnittet "Byg dit eget data/dist...") allerede
+dækkede:
+
+- Begge filer byggede oprindeligt deres eget `dist` direkte under `tests/`
+  (`tests/.tmp-hastighed-dist`, `tests/.tmp-instrument-dist`). Det skal rettes
+  til en undermappe af `ctx.tmp` (`dist-hastighed`, `dist-instrument`) — ellers
+  risikerer en fremtidig del at kollidere med den samme mappe.
+- Instrumentkort-filen havde en lokal hjælpefunktion (`laesFil`), der
+  lukkede over den gamle `udMappe`-variabel. Den måtte flyttes ind i selve
+  `koer(ctx)`-funktionen, fordi `udMappe` nu afhænger af `ctx.tmp`. Den anden
+  hjælpefunktion (`taelStribeLi`) rørte ikke `udMappe` og kunne blive på
+  modulniveau uændret.
+
+Navngivningen er efter emne (`hastighedsenhed`, `instrumentkort`), ikke efter
+sporet der skrev dem (`hastighed`, `instrument2`) — jf. instruksen om, at en
+fremtidig læser leder efter emnet.
