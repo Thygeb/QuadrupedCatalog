@@ -1,0 +1,296 @@
+/* retninger/vitrine/vitrine.css
+   Retning "Vitrine" — billedet baerer, tallene traeder frem ved beroering.
+   Paletten og skrifterne er IKKE nye: vaerdierne er kopieret fra DESIGN.md
+   (system.css's :root), fordi de allerede er besluttet og maalt. Det, denne
+   fil selv opfinder, er layoutet, taetheden og kort-scrim-mekanikken. */
+
+@font-face{
+  font-family:"Manrope lokal";
+  src:url("../../assets/fonts/Manrope-variable.woff2") format("woff2-variations");
+  font-weight:200 800; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"JetBrains Mono lokal";
+  src:url("../../assets/fonts/JetBrainsMono-variable.woff2") format("woff2-variations");
+  font-weight:400 700; font-style:normal; font-display:swap;
+}
+
+:root{
+  /* Flader — uaendrede fra DESIGN.md */
+  --bund:#F2F3F5;
+  --panel:#FFFFFF;
+  --panel-ro:#F7F8FA;
+  --tom:#EDEFF2;
+
+  /* Blaek */
+  --blaek:#14161A;
+  --blaek2:#4A515C;
+  --blaek3:#5A626E;
+
+  --accent:#0D5C86;
+  --accent-ro:#E7F0F6;
+
+  --linje:#E3E5E9;
+  --hegn:#7C8695;
+
+  /* Moerk flade — bruges her til kortenes hover-scrim, ikke kun bund/fod */
+  --fod:#14161A;
+  --paafod:#E6E9EE;
+  --paafod2:#B9C0CA;
+  /* Hullet paa den moerke flade findes ikke i DESIGN.md (systemet har ingen
+     moerk "ikke oplyst"-tilstand dokumenteret) — dette er en ny, minimal
+     udvidelse for vitrine: samme --paafod2 (allerede maalt 9,88:1 paa --fod),
+     med en falmet kant afledt af --paafod, ikke en ny farve. */
+  --hul-kant-moerk: rgba(230,233,238,.32);
+
+  --sans:"Manrope lokal",Manrope,"Segoe UI Variable Text","Segoe UI",
+         system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono lokal","JetBrains Mono","Cascadia Mono",Consolas,
+         "SFMono-Regular","DejaVu Sans Mono","Liberation Mono",monospace;
+
+  --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px;
+  --r7:48px; --r8:64px; --r9:96px;
+  --kant:clamp(16px,3.4vw,44px);
+  --maal:68ch;
+
+  --rund:12px;
+  --rund-ind:8px;
+  --rund-lille:6px;
+
+  --skygge-baaret: 0 1px 2px rgba(20,22,26,.045), 0 10px 28px -18px rgba(20,22,26,.20);
+  --skygge-loeft: 0 2px 4px rgba(20,22,26,.055), 0 18px 40px -20px rgba(20,22,26,.26);
+
+  /* Vitrines eget maalforhold til fotos: 1,3 (naermere kvadrat end det
+     etablerede systems 16:10), fordi et taettere forhold giver stoerre
+     billeder i en portraet-praeget kortsoejle uden at gaette paa beskaering —
+     se rapporten for de 3 af 10 billeder, der derfor faar --indeholdt. */
+  --v-forhold: 13 / 10;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bund); color:var(--blaek);
+  font-family:var(--sans); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block}
+a{color:var(--accent); text-decoration-thickness:1.5px; text-underline-offset:3px}
+a:hover{text-decoration-thickness:2.5px}
+:focus-visible{outline:3px solid var(--accent); outline-offset:3px; border-radius:2px}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--bund)}
+::-webkit-scrollbar-thumb{background:var(--hegn); border:3px solid var(--bund); border-radius:99px}
+::selection{background:var(--accent); color:#fff}
+
+.kunskaerm{position:absolute!important; width:1px; height:1px; overflow:hidden;
+  clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
+
+.spring{position:absolute; left:-9999px; top:0; z-index:99; background:var(--blaek);
+  color:#fff; padding:14px 20px; font-family:var(--mono); font-size:14px;
+  text-decoration:none; border-radius:0 0 var(--rund-ind) 0}
+.spring:focus{left:0; top:0}
+
+.rum{max-width:1440px; margin:0 auto; padding-inline:var(--kant)}
+
+h1,h2,h3,p{margin:0}
+
+/* ---------- Navigation ---------- */
+.baand{background:var(--panel); border-bottom:1px solid var(--linje)}
+.baand-indre{display:flex; align-items:center; justify-content:space-between;
+  min-height:64px; gap:var(--r4)}
+.maerkenavn{display:flex; align-items:baseline; gap:var(--r2);
+  font-family:var(--mono); font-size:13px; font-weight:500; letter-spacing:.08em;
+  color:var(--blaek); text-transform:uppercase}
+.maerkenavn .arbejdstitel{font-size:10.5px; font-weight:500; letter-spacing:.1em;
+  color:var(--blaek3); border:1px dashed var(--hegn); border-radius:var(--rund-lille);
+  padding:2px 6px; text-transform:none}
+.baand nav a{font-weight:600; font-size:15px; text-decoration:none; color:var(--blaek2);
+  padding:10px 14px; border-radius:var(--rund-ind); min-height:44px; display:inline-flex;
+  align-items:center}
+.baand nav a:hover{background:var(--panel-ro); color:var(--blaek)}
+
+/* ---------- Hero ---------- */
+.hero{padding-block:var(--r8) var(--r7)}
+.hero h1{
+  font-family:var(--sans); font-weight:800; font-size:clamp(33px,6.2vw,76px);
+  line-height:.98; letter-spacing:-.035em; max-width:16ch;
+}
+.hero .lede{margin-top:var(--r5); max-width:52ch; font-size:19px; line-height:1.5;
+  color:var(--blaek2)}
+.hero .lede b{font-family:var(--mono); font-weight:700; color:var(--blaek);
+  font-feature-settings:"tnum" 1}
+
+/* ---------- Frisen: de fire yderpunkter ---------- */
+.frise-sektion{padding-bottom:var(--r9)}
+.frise{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:var(--r5);
+  list-style:none; margin:0; padding:0;
+}
+.frise-kort{min-width:0; position:relative}
+.frise-billede{
+  position:relative; aspect-ratio:var(--v-forhold); border-radius:var(--rund);
+  overflow:hidden; background:var(--panel-ro);
+}
+.frise-billede img{position:absolute; inset:0; width:100%; height:100%}
+.frise-billede img[data-fit="cover"]{object-fit:cover}
+.frise-billede img[data-fit="indeholdt"]{object-fit:contain; padding:6%}
+.frise-kort:hover .frise-billede img, .frise-kort:focus-within .frise-billede img{
+  transform:scale(1.024);
+}
+.frise-billede img{transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.frise-tekst{margin-top:var(--r4)}
+.frise-etiket{
+  display:block; font-family:var(--mono); font-size:11.5px; font-weight:500;
+  letter-spacing:.15em; text-transform:uppercase; color:var(--blaek3);
+}
+.frise-tal{
+  /* Samme klump som DESIGN.md's etablerede Yderpunkter-komponent allerede
+     bruger til sine fire kort ("Alle fire kort deler nu én kontekststørrelse,
+     clamp(24px, 2,1vw, 29px)") — genbrugt praecist, ikke opfundet paa ny. */
+  display:block; margin-top:var(--r1); font-family:var(--mono); font-weight:700;
+  font-size:clamp(24px,2.1vw,29px); letter-spacing:-.02em; color:var(--blaek);
+  font-feature-settings:"tnum" 1;
+}
+.frise-navn{margin-top:var(--r2); font-size:15px; color:var(--blaek2)}
+/* Kortdaekkende link: navnet ER linket, ::after spreder klikmaalet ud til
+   hele kortet (samme moenster som det etablerede systems .kort-navn::after),
+   saa vi undgaar en ugyldig indlejret <a> med kildelinket. */
+.frise-link{color:var(--blaek); font-weight:700; text-decoration:none}
+.frise-link::after{content:""; position:absolute; inset:0; z-index:1; border-radius:var(--rund)}
+.frise-link:hover, .frise-link:focus-visible{text-decoration:underline}
+.frise-kilde{
+  position:relative; z-index:2; display:inline-block; margin-top:var(--r2);
+  font-family:var(--mono); font-size:11px; color:var(--blaek3);
+  text-decoration-color:var(--hegn);
+}
+
+/* ---------- Iagttagelsen ---------- */
+.iagttagelse{padding-block:var(--r7); border-top:1px solid var(--linje)}
+.iagttagelse p{max-width:64ch; font-size:19px; line-height:1.55; color:var(--blaek2)}
+.iagttagelse b{font-family:var(--mono); font-weight:700; color:var(--blaek);
+  font-feature-settings:"tnum" 1}
+.iagttagelse .metode{display:block; margin-top:var(--r3); font-size:13px;
+  color:var(--blaek3)}
+
+/* ---------- Kataloget ---------- */
+.katalog-flade{background:var(--panel-ro); padding-block:var(--r9)}
+.katalog-flade h2{
+  font-weight:700; font-size:clamp(23px,2.8vw,34px); line-height:1.08;
+  letter-spacing:-.026em;
+}
+.katalog-gitter{
+  margin-top:var(--r7); display:grid; grid-template-columns:repeat(3,1fr);
+  gap:var(--r5); list-style:none; padding:0;
+}
+.v-kort{
+  position:relative; background:var(--panel); border:1px solid var(--linje);
+  border-radius:var(--rund); overflow:hidden; box-shadow:var(--skygge-baaret);
+  transition:box-shadow .2s ease, border-color .2s ease;
+}
+.v-kort:hover, .v-kort:focus-within{
+  border-color:#CFD4DB; box-shadow:var(--skygge-loeft);
+}
+.v-kort-lag{position:relative; aspect-ratio:var(--v-forhold); background:var(--panel-ro);
+  overflow:hidden}
+.v-kort-billede, .v-kort-billede img{position:absolute; inset:0; width:100%; height:100%}
+.v-kort-billede img[data-fit="cover"]{object-fit:cover}
+.v-kort-billede img[data-fit="indeholdt"]{object-fit:contain; padding:7%}
+.v-kort:hover .v-kort-billede img[data-fit="cover"],
+.v-kort:focus-within .v-kort-billede img[data-fit="cover"]{transform:scale(1.024)}
+.v-kort-billede img{transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+
+.v-kort-scrim{
+  position:absolute; inset:auto 0 0 0; background:var(--fod); color:var(--paafod);
+  padding:var(--r4); transform:translateY(100%);
+  transition:transform .22s cubic-bezier(.2,.7,.3,1);
+}
+.v-kort:hover .v-kort-scrim, .v-kort:focus-within .v-kort-scrim{
+  transform:translateY(0);
+}
+.v-kort-scrim :focus-visible{outline-color:var(--paafod)}
+.v-kort-scrim a{position:relative; z-index:2}
+
+/* Kortdaekkende link: navnet ER linket (samme moenster som frisen ovenfor). */
+.v-kort-navn{position:static}
+.v-kort-navn-link{color:var(--blaek); text-decoration:none}
+.v-kort-navn-link::after{content:""; position:absolute; inset:0; z-index:1; border-radius:var(--rund)}
+.v-kort-navn-link:hover, .v-kort-navn-link:focus-visible{text-decoration:underline}
+
+.v-data{display:grid; grid-template-columns:1fr 1fr; gap:var(--r3) var(--r4); margin:0}
+.v-data > div{min-width:0}
+.v-data dt{
+  font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--paafod2); margin:0;
+}
+.v-data dd{margin:4px 0 0}
+
+.v-tal{font-family:var(--mono); font-weight:700; font-size:17px; letter-spacing:-.01em;
+  font-feature-settings:"tnum" 1; color:var(--paafod)}
+.v-ikke{
+  display:inline-block; font-size:13px; color:var(--paafod2); text-transform:lowercase;
+  border:1px dashed var(--hul-kant-moerk); border-radius:var(--rund-lille);
+  padding:2px 7px 3px; font-family:var(--sans);
+}
+.v-nej,.v-ja{
+  display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--paafod);
+}
+.v-glyf{width:9px; height:9px; border:1.4px solid var(--paafod); flex:none}
+.v-nej .v-glyf{background:var(--paafod)}
+.v-ja .v-glyf{position:relative}
+.v-ja .v-glyf::after{content:"";position:absolute; inset:2px; background:var(--paafod)}
+
+.v-doeck{
+  margin-top:var(--r3); padding-top:var(--r3); border-top:1px solid rgba(230,233,238,.18);
+  display:flex; align-items:center; justify-content:space-between; gap:var(--r3);
+}
+.v-doeck dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--paafod2)}
+
+.v-kilde{
+  display:block; margin-top:var(--r3); font-family:var(--mono); font-size:10.5px;
+  color:var(--paafod2); text-decoration-color:rgba(185,192,202,.5);
+}
+.v-kilde:hover{color:var(--paafod)}
+
+.v-kort-fod{padding:var(--r3) var(--r4) var(--r4)}
+.v-kort-navn{font-size:19px; font-weight:700; letter-spacing:-.02em; color:var(--blaek)}
+.v-kort-producent{margin-top:2px; font-size:13px; color:var(--blaek2)}
+
+/* ---------- Afslutning ---------- */
+.afslutning{padding-block:var(--r9) var(--r8); text-align:left}
+.afslutning p{max-width:56ch; font-size:19px; color:var(--blaek2); line-height:1.5}
+.knap{
+  display:inline-flex; align-items:center; justify-content:center; margin-top:var(--r5);
+  height:46px; padding:0 18px; border-radius:var(--rund-ind); background:var(--blaek);
+  color:#fff; font-weight:600; font-size:15px; text-decoration:none;
+}
+.knap:hover{background:var(--accent)}
+
+/* ---------- Sidefod ---------- */
+.side-fod{background:var(--fod); color:var(--paafod2); padding-block:var(--r6)}
+.side-fod p{font-size:13px; max-width:70ch; line-height:1.6}
+.side-fod strong{color:var(--paafod); font-weight:600}
+
+/* ---------- Reduceret bevaegelse ---------- */
+@media (prefers-reduced-motion:reduce){
+  .frise-billede img, .v-kort-billede img, .v-kort-scrim, .v-kort-link{transition:none!important}
+}
+
+/* ---------- Brudpunkter ---------- */
+@media (max-width:1040px){
+  .frise{grid-template-columns:repeat(2,1fr); row-gap:var(--r7)}
+  .katalog-gitter{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:679px){
+  .frise{grid-template-columns:1fr}
+  .katalog-gitter{grid-template-columns:1fr}
+  .hero{padding-block:var(--r7) var(--r6)}
+  .hero .lede{font-size:17px}
+  .v-data{grid-template-columns:1fr 1fr}
+}
+@media (max-width:420px){
+  .baand nav a{padding:10px 10px; font-size:13px}
+  .maerkenavn{font-size:11.5px}
+}
