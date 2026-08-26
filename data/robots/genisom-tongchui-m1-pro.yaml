@@ -18,6 +18,13 @@ noter:
   - "VAEGT-UOVERENSSTEMMELSEN FRA BASIS-M1 GAELDER OGSAA HER, DEN ER SIDEBRED: sidens fremhaevede hero-marketingkort (\"约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，...近 1:1 负载自重比\") staar EN gang for hele siden, foer fanebladene - IKKE gentaget i M1 Pro's egen JSON-blok, som i stedet siger \"整机重量（含电池）: 41 kg\". Samme selvmodsigelse som paa basisudgaven, samme haandtering: den strukturerede tabels 41 kg er brugt som feltvaerdi (regel 9: rettes ikke stiltiende)."
   - "FORHINDRING_ENKELT (80cm) OG DATAPORTE-ANTALLET (9 mod \"15\") ER LIGELEDES FRA DEN DELTE, SIDEBREDE MARKETINGTEKST, IKKE M1 Pro's EGEN JSON-BLOK - samme kilde og samme fortolkning som basisudgavens tilsvarende felter (\"80cm 垂直越障高度\" og \"15 大标准硬件接口全开放\" mod den strukturerede tabels 9 navngivne porte). Se genisom-tongchui-m1.yaml's noter for den fulde begrundelse; gentaget her fordi begge tal ligger UDEN for M1 Pro's egen tab-specifikke datablok, men PAA samme URL som resten af posten."
   - "SDK_SPROG IKKE GENUNDERSOEGT I DENNE SESSION: basisudgavens post dokumenterer en udtoemmende undersoegelse af GENISOM AI's GitHub-organisation (github.com/zsibot/genisom_robot_sdk), som konkluderede ikke_oplyst, fordi repoet ikke eksplicit binder sig til noget produktnavn. Denne konklusion er OVERFOERT her uden en frisk, selvstaendig efterproevning af GitHub i DENNE session - det er en antagelse om, at M1 Pro deler samme SDK-oekosystem som basisudgaven, ikke en ny maaling. Markeret som usikkerhed i selv-reviewet."
+billede:
+  fil: fotos/fabrikant/genisom-tongchui-m1-pro.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/M1
+  hentet: 2026-08-26
+  alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  note: "Delt foto med genisom-tongchui-m1.yaml (basisudgaven) og genisom-tongchui-m1-ultra.yaml: M1 Pro findes kun som fane-skift paa M1's egen side, og siden viser samme produktfoto for hele familien."
 felter:
   egenvaegt:
     vaerdi: 41

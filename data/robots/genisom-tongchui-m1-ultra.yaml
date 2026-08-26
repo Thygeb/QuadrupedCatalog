@@ -20,6 +20,13 @@ noter:
   - "VAEGT-UOVERENSSTEMMELSEN OG DE SIDEBREDDE MARKETINGTAL (forhindring_enkelt 80cm, dataporte 15 vs 9) GAELDER OGSAA HER, SAMME BEGRUNDELSE SOM M1 PRO: se genisom-tongchui-m1-pro.yaml's noter for den fulde forklaring - identisk mekanisme, samme delte, ikke-fane-specifikke kilde paa samme URL."
   - "TILBEHOER: samme lagerplads-opgradering som M1 Pro (\"存储单元: 256G+512G TF卡\" mod basisudgavens \"标配 256G\") og samme \"超声波传感器: 支持\" som M1 Pro - ingen skemafelt til nogen af de to, noteret her."
   - "SDK_SPROG IKKE GENUNDERSOEGT I DENNE SESSION: samme forbehold som M1 Pro - se den fils tilsvarende note. Overfoert antagelse, ikke en frisk maaling."
+billede:
+  fil: fotos/fabrikant/genisom-tongchui-m1-ultra.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/M1
+  hentet: 2026-08-26
+  alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  note: "Delt foto med genisom-tongchui-m1.yaml og genisom-tongchui-m1-pro.yaml: M1 Ultra findes kun som fane-skift paa M1's egen side, selvom den fysisk har en anden kameraopstilling (720 grader rundtomsyn) end de to andre - producentens side viser ikke desto mindre samme produktfoto for hele familien."
 felter:
   egenvaegt:
     vaerdi: 41

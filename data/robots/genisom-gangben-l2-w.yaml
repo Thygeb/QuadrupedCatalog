@@ -14,6 +14,13 @@ noter:
   - "STOPPROEVE (firbenet, hjul-ben-hybrid): bestaaet. L2-siden markerer denne variant \"轮足运动版\" (hjul-fod bevaegelsesudgave) i techParamsData - samme princip som Unitree B2-W/MOVENEW T1/Gangben L1-W."
   - "INGEN SELVSTAENDIG URL: L2-W har intet eget navigationslink paa genisomai.com - den findes udelukkende som et fane-skift i den strukturerede specifikationstabel paa L2's egen side (https://www.genisomai.com/product-robot/L2, techParamsData.datas[1], classname \"钢镚 L2-W\", id 1249). Alle feltvaerdier nedenfor er hentet fra netop denne JSON-blok, IKKE fra L2 (id 63, basisudgaven) eller L2-W Ultra (id 1250)."
   - "MARKETINGKORTETS TAL (70cm forhindringshoejde, 756Wh batteri, 86 TOPS) ER BEVIDST IKKE BRUGT HER: L2-sidens fremhaevede hero-marketingkort (\"70cm 垂直越障高度\", \"756Wh 大容量电池\", \"高达 86 TOPS 算力平台\") staar EN gang for hele siden, foer fanebladene, og er ikke gentaget i L2-W's egen JSON-blok. De matcher L2 (basisudgavens) egne tal noejagtigt - men uden en eksplicit gentagelse i L2-W's egen datablok kan de ikke sikkert tilskrives netop denne variant. forhindring_enkelt, batteri_wh og compute's TOPS-tal staar derfor ikke_oplyst/uden TOPS-tal her, i modsaetning til den eksisterende L2-post, som bruger dem for basisudgaven."
+billede:
+  fil: fotos/fabrikant/genisom-gangben-l2-w.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/L2
+  hentet: 2026-08-26
+  alt: "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  note: "Delt foto med genisom-gangben-l2.yaml (basisudgaven): L2-W findes kun som fane-skift paa L2's egen side og har ingen selvstaendig produktside, saa producenten har heller ikke noget separat produktfoto for netop denne variant - samme billed-URL som den eksisterende L2-post."
 felter:
   egenvaegt:
     vaerdi: 27

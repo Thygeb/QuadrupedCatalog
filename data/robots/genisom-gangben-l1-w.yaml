@@ -15,6 +15,12 @@ noter:
   - "IKKE EN DUBLET AF L1/L2: L1-W har egen produktside, eget navn, egne maal (630x430x485mm mod L1's 630x360x415mm) og en fjerde hjulmotor-gruppe, L1 ikke har. Klart en selvstaendig variant, ikke L1 under et andet navn."
   - "PRODUKTIONSTAL 15.000+ ENHEDER DAEKKER HELE KATALOGET: se genisom-gangben-l1.yaml for den fulde efterproevning - tallet er ikke opdelt pr. model og gentages derfor ikke her."
   - "TO SOEGENDE MODELLER IKKE BYGGET DENNE RUNDE: L1-W's egen produktside naevner \"钢镚 L1-W EDU\" (NVIDIA Orin NX, op til 100 TOPS, indbygget 3D LiDAR, dybdekamera, GNSS og 5G) som en selvstaendig konfiguration under \"形态百变, 场景无界\" - INGEN egen produktside fundet (kun en tekstboks paa L1-W's side), ikke efterproevet med samme kildedisciplin. Desuden findes tre navngivne undermodeller \"ZSL-1 Air/Pro/Max\" i en model-vaelger nederst paa siden uden synlige separate specifikationer i denne HTML - heller ikke bygget."
+billede:
+  fil: fotos/fabrikant/genisom-gangben-l1-w.webp
+  ophav: fabrikant
+  kilde: https://www.genisomai.com/product-robot/L1-W
+  hentet: 2026-08-26
+  alt: "GENISOM Gangben L1-W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 22
