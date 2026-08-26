@@ -25,7 +25,10 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-billeder"
+      "C:/Praktik/websites/udstilling-wt-enheder",
+      "C:/Praktik/websites/udstilling-wt-producent",
+      "C:/Praktik/websites/udstilling-wt-yderpunkt",
+      "C:/Praktik/websites/udstilling-wt-billedramme"
     ]
   },
   "hooks": {
