@@ -291,6 +291,7 @@ function modelafsnit(ctx, modeller) {
 <div class="sektion-hoved">
 <h2 class="t-h2" id="modeller-h">${esc(modelTal(i18n, modeller.length))}</h2>
 </div>
+<p class="t-lille kort-legende">${esc(T(i18n, 'kort_legende'))}</p>
 <ul class="gitter">
 ${modeller.map((m) => modelkort(ctx, m)).join('\n')}
 </ul>

@@ -233,6 +233,7 @@ ${grupper}
 </div>
 <p class="t-mikro facet-hjaelp">${esc(t('filter_uden_js'))}</p>
 <p class="facet-ryd"><a class="videre videre--stille" href="#alle">${esc(t('filter_vis_alle'))}</a></p>
+<p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
 
 <div id="alle">
 ${saleHTML}

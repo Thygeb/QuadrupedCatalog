@@ -980,9 +980,13 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     const hvorhen = `${til}${robot.slug}/`;
     const a = anvendelse(robot);
     const antalKilder = k.antal;
-    const kildelinje = antalKilder === 0 ? t('kort_kilder_ingen')
-      : antalKilder === 1 ? t('kort_kilder_en')
-        : tf('kort_kilder_flere', { n: antalKilder });
+    // KRITIK-2 fund 4 (25.08.2026): "Kortets tal kommer fra N kilder" stod paa
+    // alle 77 kort - samme skabelon-saetning, kun N varierede, og bogstaverne
+    // i striben viser allerede hvilken kilde. Flyttet til ÉN legendelinje pr.
+    // side (se katalog.mjs/forside.mjs/producent.mjs). Kortet viser kun
+    // 0-kilder-tilstanden, som AFVIGER fra normen og derfor stadig er en
+    // oplysning, ikke en gentagelse.
+    const kildelinje = antalKilder === 0 ? t('kort_kilder_ingen') : null;
 
     // Designsystemets regel: bogstaverne staar paa kortet KUN naar posten har
     // mere end én kilde. Kortets fodnote taeller altid kilderne, saa et kort
@@ -994,9 +998,19 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // modsige sit eget fotografi den dag, den foerste fil lander. Det er
     // praecis den slags pladsholder, der overlever til lancering.
     const bp = laesBillede(robot);
-    const billedlinjer = bp
+    const alleBilledlinjer = bp
       ? billedLinjer(bp, billedTekst(robot, bp))
       : [['prik prik--klip', `${T.billede_intet}. ${t('billede_ingen_egen')}`]];
+
+    // KRITIK-2 fund 4: standardteksten "Producentens eget billede. Ikke
+    // krediteret, ingen tilladelse." (ophav: fabrikant) stod paa 54 kort -
+    // samme saetning hver gang. Den staar nu i den samme legendelinje som
+    // kildesaetningen ovenfor. Kortet viser linjen KUN, naar ophavet AFVIGER
+    // fra fabrikant-standarden (eget foto, silhuet) eller baerer sin egen
+    // note/delt-forklaring - de tilfaelde legenden ikke daekker.
+    const billedlinjer = bp && bp.ophav === 'fabrikant'
+      ? alleBilledlinjer.filter(([, linje]) => linje !== T.billede_uden_tilladelse)
+      : alleBilledlinjer;
 
     // Fodnoten som ÉT loebende afsnit, ikke en stak af linjer (24.08.2026).
     // Maalt: to-tre ens monospor-raekker paa alle 46 kort var mere visuel
@@ -1004,7 +1018,8 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // oplysning, stiplet firkant = billedforbehold) og HELE sin tekst -
     // ingen ord er fjernet, kun stablingen. Kildetal og forbehold er
     // produktkrav og staar uafkortet, som foer.
-    const fodled = [...billedlinjer, ['prik', kildelinje]]
+    const alleLed = [...billedlinjer, ...(kildelinje ? [['prik', kildelinje]] : [])];
+    const fodled = alleLed
       .map(([klasse, linje]) => `<span class="led"><i class="${attr(klasse)}"></i>${esc(linje)}</span>`)
       .join(' ');
 
@@ -1021,9 +1036,9 @@ ${stribe(robot, { kompakt: true, kilder: stribeKilder, hvorhen })}
 ${a.maerker()}
 ${eu(robot)}
 </div>
-<div class="kort-fod">
+${alleLed.length ? `<div class="kort-fod">
 <p>${fodled}</p>
-</div>
+</div>` : ''}
 </article>`;
   }
 
