@@ -38,3 +38,11 @@ db/seed.sql
 # retning-lys-mockuppens scratch: uddragsscript, QA-skaermbilleder, mellemliggende
 # JSON fra byggeprocessen. Ikke en del af de fire leverede sider.
 prototype/retning-lys/_ref/
+
+# Retning "instrument" (spor/instrument) kopierer fabrikantfotos fra
+# assets/fotos/fabrikant/ ind i retninger/instrument/billeder/, saa
+# proevesiden kan aabnes selvstaendigt. Samme regel som linje 25-28 ovenfor:
+# billederne er stadig fabrikantens ophavsret og maa ikke i git-historikken,
+# kun lokalt i worktreen. Gaelder enhver fremtidig retnings-mappe med samme
+# moenster, ikke kun denne ene.
+retninger/*/billeder/**
