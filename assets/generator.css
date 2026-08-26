@@ -54,6 +54,13 @@
    dom: et yderpunkt er en MAALT kendsgerning (side.mjs, ekstremer()), ikke
    en anbefaling — se forklaringen under gitteret.
 
+   spor/yderpunkt (26. aug 2026): ekstremer() garanterer nu, at et yderpunkt
+   altid har et RIGTIGT fotografi (laesBillede() !== null) - maaltro-pladen
+   (.billedled--maal, afsnit 8b) er dimensioneret til katalogkortets bredere
+   felt og blev afskaaret her. Dette afsnit skal derfor ALDRIG style
+   .billedled--maal for .yderpunkt - regnes den paastand engang forkert,
+   skal fejlen rettes i udvaelgelsen (side.mjs), ikke med CSS-plaster her.
+
    Overskriften mister sin normale border+luft (systemets .sektion-hoved),
    fordi det NETOP er springet fra overskrift til foto, der afgoer, om et
    fotografi naar ind i foerste viewport (JPK's tillaeg). */

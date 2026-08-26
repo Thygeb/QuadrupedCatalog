@@ -29,7 +29,10 @@
  *      producenternes aabenhed, ikke deres kvalitet). Et yderpunkt er ingen
  *      dom — den tungeste robot er ikke "bedre" end den letteste. Beregnet i
  *      hjaelp.ekstremer() (side.mjs) af de samme data, kortene selv viser.
- *      UAENDRET beregning fra foer spor/lysbyg.
+ *      UAENDRET beregning fra foer spor/lysbyg. RETTET af spor/yderpunkt
+ *      (26. aug 2026): ekstremer() udelukker nu graense-operatorer (<=, >= …)
+ *      og robotter uden et rigtigt fotografi - se begrundelsen ved
+ *      YDERPUNKT_OPERATOR_TILLADT i side.mjs.
  *   3. EU-FUNDET — én rolig saetning med ét stort tal: hvor mange af
  *      kataloget oplyser CE-maerkning. Beregnet her, ikke skrevet i haanden.
  *      UAENDRET beregning fra foer spor/lysbyg.
