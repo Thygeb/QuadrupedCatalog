@@ -436,15 +436,22 @@ session, giver den `Unknown skill`. Læs da `SKILL.md` fra disk og følg den der
 **skriv i rapporten at du gjorde det**, så et stille fallback ikke forveksles med at
 skillen kørte.
 
-**Målt 26. aug 2026: en agent i en worktree kan ikke kalde `impeccable`, selvom
-orkestratoren kan det fra hovedrepoet.** Begge blev prøvet samme dag: kaldet lykkes fra
-`c:\Praktik\websites\udstilling`, og fejler fra `udstilling-wt-instrument`. Projektets
-egne fem skills følger med worktreen (de ligger i `.claude/skills/` og er versionerede),
-men bruger- og plugin-skills gør ikke.
+**Målt 26. aug 2026: kaldet til en bruger- eller plugin-skill fra en worktree lykkes
+nogle gange og fejler andre gange — og vi ved ikke hvorfor.** Tre datapunkter samme dag:
+orkestratoren kaldte `impeccable` fra hovedrepoet — **virkede**. `spor/instrument` kaldte
+den fra sin worktree — **fejlede**, og faldt korrekt tilbage til disken.
+`spor/indgang` kaldte den fra *sin* worktree — **virkede**.
 
-**Konsekvens for ethvert brief til et worktree-spor: giv diskstien med fra starten**,
-frem for at bede agenten kalde skillen og selv opdage, at det ikke går. Det koster ellers
-hver agent et fejlet kald og en omvej. Stierne:
+*(Første udgave af denne regel sagde "en agent i en worktree kan ikke kalde skills". Det
+var generaliseret fra ét datapunkt og blev modbevist en time senere af det næste spor.
+Det er præcis fejl O5 i `ARBEJDSGANG-2.md`, begået i selve reglen om at måle.)*
+
+Projektets egne fem skills ligger i `.claude/skills/`, er versionerede og følger derfor
+altid med worktreen. Bruger- og plugin-skills gør ikke.
+
+**Konsekvens for ethvert brief til et worktree-spor: giv diskstien med fra starten som
+en udtrykkelig reserve** — *"kald skillen; lykkes det ikke, så læs denne fil"*. Det
+koster ingenting, når kaldet virker, og sparer en omvej, når det ikke gør. Stierne:
 
 ```
 C:/Users/thyge/.claude/skills/impeccable/SKILL.md
