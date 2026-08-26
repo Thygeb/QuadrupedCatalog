@@ -810,26 +810,6 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     return `<div class="stribe-hylster">${hoved}\n<ul class="${klasse}">\n${celler}\n</ul></div>`;
   }
 
-  /* --- 7. EU-markeringen -------------------------------------------------- */
-
-  /**
-   * CE ud af striben, ind i sin egen markering. Maalt: 2 robotter oplyser CE,
-   * 2 oplyser at der ikke er CE, og 42 siger intet. Som tom celle i en stribe
-   * var tavsheden et hul; her er den et udsagn.
-   */
-  function eu(robot) {
-    const ce = robot.felter?.ce_oplyst;
-    const t0 = ce === undefined ? 'ikke_oplyst'
-      : (typeof ce === 'string' ? (tilstandAf(ce) ?? 'ikke_oplyst') : tilstandAf(ce.vaerdi));
-    let tekst; let klasse;
-    if (t0) { tekst = t0 === 'nej' ? t('eu_ce_nej') : t('eu_ce_ikke_oplyst'); klasse = t0 === 'nej' ? 'nej' : 'ikke'; }
-    else if (ce.vaerdi === true) { tekst = t('eu_ce_ja'); klasse = 'ja'; }
-    else { tekst = t('eu_ce_nej'); klasse = 'nej'; }
-    return `<p class="eu eu--${klasse}">${ikon('i-ce', 'ikon ikon--lille')}`
-      + `<span class="etiket">${esc(t('eu_titel'))}</span>`
-      + `<span class="eu-svar">${esc(tekst)}</span></p>`;
-  }
-
   /** ja / nej / ikke_oplyst for CE - bruges af filtrene. */
   function ceTilstand(robot) {
     const ce = robot.felter?.ce_oplyst;
@@ -980,48 +960,10 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     const hvorhen = `${til}${robot.slug}/`;
     const a = anvendelse(robot);
     const antalKilder = k.antal;
-    // KRITIK-2 fund 4 (25.08.2026): "Kortets tal kommer fra N kilder" stod paa
-    // alle 77 kort - samme skabelon-saetning, kun N varierede, og bogstaverne
-    // i striben viser allerede hvilken kilde. Flyttet til ÉN legendelinje pr.
-    // side (se katalog.mjs/forside.mjs/producent.mjs). Kortet viser kun
-    // 0-kilder-tilstanden, som AFVIGER fra normen og derfor stadig er en
-    // oplysning, ikke en gentagelse.
-    const kildelinje = antalKilder === 0 ? t('kort_kilder_ingen') : null;
 
     // Designsystemets regel: bogstaverne staar paa kortet KUN naar posten har
-    // mere end én kilde. Kortets fodnote taeller altid kilderne, saa et kort
-    // uden bogstaver skyldes en optalt kilde, ikke tavshed.
+    // mere end én kilde.
     const stribeKilder = antalKilder > 1 ? k : null;
-
-    // Fodnoten baerer BILLEDETS sandhed - og den skifter, naar der kommer et
-    // billede. Stod linjen "Ingen brugbar optagelse" fast, ville kortet
-    // modsige sit eget fotografi den dag, den foerste fil lander. Det er
-    // praecis den slags pladsholder, der overlever til lancering.
-    const bp = laesBillede(robot);
-    const alleBilledlinjer = bp
-      ? billedLinjer(bp, billedTekst(robot, bp))
-      : [['prik prik--klip', `${T.billede_intet}. ${t('billede_ingen_egen')}`]];
-
-    // KRITIK-2 fund 4: standardteksten "Producentens eget billede. Ikke
-    // krediteret, ingen tilladelse." (ophav: fabrikant) stod paa 54 kort -
-    // samme saetning hver gang. Den staar nu i den samme legendelinje som
-    // kildesaetningen ovenfor. Kortet viser linjen KUN, naar ophavet AFVIGER
-    // fra fabrikant-standarden (eget foto, silhuet) eller baerer sin egen
-    // note/delt-forklaring - de tilfaelde legenden ikke daekker.
-    const billedlinjer = bp && bp.ophav === 'fabrikant'
-      ? alleBilledlinjer.filter(([, linje]) => linje !== T.billede_uden_tilladelse)
-      : alleBilledlinjer;
-
-    // Fodnoten som ÉT loebende afsnit, ikke en stak af linjer (24.08.2026).
-    // Maalt: to-tre ens monospor-raekker paa alle 46 kort var mere visuel
-    // vaegt end kortets egne tal. Hvert led beholder sit eget tegn (prik =
-    // oplysning, stiplet firkant = billedforbehold) og HELE sin tekst -
-    // ingen ord er fjernet, kun stablingen. Kildetal og forbehold er
-    // produktkrav og staar uafkortet, som foer.
-    const alleLed = [...billedlinjer, ...(kildelinje ? [['prik', kildelinje]] : [])];
-    const fodled = alleLed
-      .map(([klasse, linje]) => `<span class="led"><i class="${attr(klasse)}"></i>${esc(linje)}</span>`)
-      .join(' ');
 
     return `<article class="kort">
 ${billede(robot, op)}
@@ -1034,11 +976,7 @@ ${billede(robot, op)}
 </div>
 ${stribe(robot, { kompakt: true, kilder: stribeKilder, hvorhen })}
 ${a.maerker()}
-${eu(robot)}
 </div>
-${alleLed.length ? `<div class="kort-fod">
-<p>${fodled}</p>
-</div>` : ''}
 </article>`;
   }
 
@@ -1069,7 +1007,7 @@ ${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</s
     // --- kontrakten ---
     tal, tilstand, kildemaerke, kilder: lavKilder, vaegtklasse, anvendelse,
     // --- bekvemmeligheder ---
-    esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe, eu,
+    esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe,
     ceTilstand, billede, billedsandhed, billedTekst, kort, tegnforklaring, nformat, dformat, operator,
     saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER,
   };

@@ -671,6 +671,7 @@ const kaedeDist = path.join(tmp, 'dist-billedkaede');
   const kat = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'index.html'), 'utf8');
   const side = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
   const tom = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-tom-plade', 'index.html'), 'utf8');
+  const sideDelt = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-delt', 'index.html'), 'utf8');
 
   // 2. <picture>-moensteret, paa BAADE kortet og robotsiden.
   ok('kortet bruger <picture>', /<picture>[\s\S]*?_proeve-kaede\.svg[\s\S]*?<\/picture>/.test(kat));
@@ -703,8 +704,12 @@ const kaedeDist = path.join(tmp, 'dist-billedkaede');
 
   // 5. Delt fil (L28): maerket staar PAA billedet og naevner den anden model.
   ok('den delte fil er maerket med .billedmaerke', /class="billedmaerke"/.test(kat));
-  ok('fodnoten siger, hvem filen deles med',
-    /Samme fil som proeve-silhuet/.test(kat));
+  // spor/kort (26.08.2026) fjernede katalogkortets fodnote helt (JPK's direkte
+  // bestilling) - "Samme fil som X" flyttede derfor med resten af
+  // billedsandheden til robotsidens EGEN billedfod (billedLinjer() bruges
+  // stadig af robot.mjs, uaendret) og staar ikke laengere paa kortet.
+  ok('robotsidens billedfod siger, hvem filen deles med',
+    /Samme fil som proeve-silhuet/.test(sideDelt));
 
   // 6. Billedets sandhed - ophavet skal staa skrevet, ikke gaettes af mappen.
   ok('robotsidens billedfod siger, at det er en silhuet og ikke et fotografi',
@@ -1463,6 +1468,34 @@ console.log('\n9. tools/alder.mjs — rene funktioner (aeldste/nyeste/median, gr
   const docUdenDato = { felter: { egenvaegt: 'ikke_oplyst' }, anvendelse: 'ikke_oplyst' };
   ok('datoerIRobot: en robot helt uden daterede kilder giver en tom liste, ikke en fejl',
     Array.isArray(alder.datoerIRobot(docUdenDato)) && alder.datoerIRobot(docUdenDato).length === 0);
+}
+
+// === spor/kort: fodnote + CE-maerke vaek ===
+// JPK bad om at fodnotesektionen og EU/CE-maerket forsvinder fra katalogkortene
+// (side.mjs kort()). Disse tre proever ville FEJLE, hvis nogen af de to blev
+// rullet tilbage - og de bruger det samme fixture-byg (`dist`) som afsnit 4
+// allerede byggede ovenfor, saa de proever det faktiske HTML-output, ikke
+// skabelonens kildekode.
+console.log('\n10. spor/kort: fodnotesektion og EU/CE-maerke vaek fra katalogkort');
+{
+  const katalogDaKort = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');
+  const forsideDa = fs.readFileSync(path.join(dist, 'da', 'index.html'), 'utf8');
+
+  ok('4a: et bygget katalogkort indeholder ingen kort-fod',
+    !katalogDaKort.includes('kort-fod'));
+
+  ok('4b: et bygget katalogkort indeholder intet EU/CE-maerke (klassen "eu eu--" er vaek)',
+    !/class="eu eu--/.test(katalogDaKort) && !katalogDaKort.includes('eu-svar'));
+
+  // L32: forsidens CE-taelling (hjaelp.ceTilstand via forside.mjs) skal blive
+  // staaende uaendret. Tallene er UDLEDT af proevedatasaettet her, ikke
+  // haardkodede - fixture-settet (tests/eksempel-robotter) kan aendre sig,
+  // uden at proeven bliver forkert af den grund.
+  const ceMatch = forsideDa.match(/<b class="eu-fund-tal">(\d+) af (\d+)<\/b>/);
+  ok('4c: forsidens CE-saetning findes stadig og baerer to udledte tal (VAERN OM L32)',
+    !!ceMatch && Number.isInteger(Number(ceMatch[1])) && Number.isInteger(Number(ceMatch[2]))
+    && Number(ceMatch[2]) > 0,
+    ceMatch ? `fandt "${ceMatch[1]} af ${ceMatch[2]}"` : 'ingen eu-fund-tal fundet paa forsiden');
 }
 
 console.log(`\nValidator: ${alle.length + arvsagerFangede} oedelagte tilfaelde `

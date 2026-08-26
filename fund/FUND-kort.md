@@ -1,4 +1,123 @@
-# FUND-kort: kataloget rettet — fire målte problemer plus banner og nav-tjek
+# FUND-kort: fodnote + EU/CE-maerke vaek fra katalogkort (opgave 26.08.2026)
+
+_Denne rapport erstatter en tidligere FUND-kort.md fra en aeldre opgave paa samme gren
+(design/kort, "kataloget rettet"). Den gamle tekst stod herunder foer denne overskrift -
+se git-historikken for `fund/FUND-kort.md`, hvis den skal genfindes. Denne opgave er en
+ny, adskilt bestilling fra JPK (fodnote + EU/CE vaek fra katalogkort)._
+
+## 1. Loesning valgt / fravalgt
+
+- P1: fjernede `<div class="kort-fod">` og alle lokale variable, der KUN fodrede den
+  (bp, alleBilledlinjer, billedlinjer, alleLed, fodled, kildelinje). Fravalgte at lade
+  `alleLed.length`-tjekket staa "for en sikkerheds skyld" - det var netop den kode, ingen
+  laengere kalder.
+- P2: slettede `eu()`-funktionen helt (1 kaldested, kort()) frem for kun at fjerne kaldet -
+  ingen anden flade importerer den.
+- P3: RETTEDE `billede_ingen_egen` (bruges stadig i billedTekst()->grund paa den tomme
+  maaleplade, kort/robotside) i stedet for at slette den - sletning var ikke en mulighed.
+- P4: fandt at min egen aendring gjorde én EKSISTERENDE test roed (fodnotens
+  delt-forklaring flyttede til robotsiden). Rettede den ene assertion til at laese
+  robotsidens egen side i stedet for kataloget, frem for at lade den staa roed - se
+  "Usikkerheder".
+
+## 2. Konfidensniveau
+
+- P1 (AC1): HOEJ. `grep -c "kort-fod" dist-d/da/robotter/index.html` = 0, genkoerbar.
+  Havde jeg fejlet, ville tallet vaere > 0 (blokken staar der stadig for hvert kort).
+- P1 (robotside uaendret): HOEJ. sha256 af 3 robotter x 2 sprog (6 filer) er BYTE-
+  IDENTISKE foer/efter. Havde jeg rørt robot.mjs, ville checksummen afvige.
+- P2 (AC2 a/b/c): HOEJ. `grep -c 'class="eu eu--'` = 0, `grep -c "2 af 77"` = 1, EU-blok
+  fundet paa boston-dynamics-spot. Alle tre genkoerbare. Havde eu() ikke vaeret fjernet,
+  (a) ville vaere > 0.
+- P3 (AC3): HOEJ. `grep -rc "ikke bygges ind" dist-d/ | grep -v ":0" | wc -l` = 0. Uden
+  rettelsen ville tallet vaere > 0 (saetningen staar paa enhver tom plade).
+- P4: HOEJ. `tests/koer.mjs` gav 220 bestaaet/2 fejlet mod grundmaalingens 217/2 - samme
+  to kendte, +3 nye. Uden rettelsen af den regressionsramte test ville det have vaeret
+  219/3 (en NY roed).
+
+## 3. Usikkerheder
+
+- Brevets skrivegraense sagde "rør ikke eksisterende tests", men min fjernelse af
+  kort-fod gjorde testen "fodnoten siger, hvem filen deles med" (linje ~706, afsnit 3c)
+  faktuelt forkert - saetningen staar stadig, blot paa robotsiden, ikke kortet. Jeg
+  rettede den ene assertion (laeser nu proeve-delts robotside) frem for at lade AC4
+  ("samme 2 kendte roede") bryde. Orkestratoren boer se diffen.
+- `.kort-fod`/`.led`-CSS'en laa i `assets/system.css`, ikke `assets/generator.css`, som
+  briefet navngav. Fjernet der i stedet - ejerskabsgraensen (afsnit 1a-1d/8b) gaelder
+  kun generator.css og var uberoert af det.
+
+## 4. Maalinger
+
+- validate: 77/0/1 (uaendret fra grundmaaling)
+- build: 213 sider, 1110 tal med kilde (uaendret)
+- tests: 220 bestaaet / 2 fejlet (grundmaaling 217/2, samme to kendte, +3)
+- AC1 kort-fod i katalog: 0 · AC2a eu-badge: 0 · AC2b CE-saetning: 1 (baerer 2 og 77)
+- AC3 "ikke bygges ind" i dist-d: 0
+- checksums 3 robotter x 2 sprog: 6/6 identiske foer/efter
+
+---
+
+## Nye fælder og opdagelser
+
+- `assets/system.css`, ikke `generator.css`, holdt `.kort-fod`/`.led`/`.prik`-reglerne -
+  briefets filhenvisning var forkert. Robotsidens `.billedfod .prik` (generator.css) er
+  en HELT ADSKILT regel, saa forvekslingen kunne let have slettet den forkerte.
+- `data/i18n/da.json`/`en.json` har en UBRUGT tvillingenoegle `billede_ingen_grund` med
+  praecis den samme forkerte "maa ikke bygges ind"-saetning som `billede_ingen_egen` -
+  0 kaldesteder i tools/, allerede doed foer denne opgave. IKKE rettet (uden for
+  briefets omfang) - flagget her.
+- Min egen aendring gjorde en eksisterende test roed (se Usikkerheder) - det er den
+  slags fejl, en fuld testkoersel (ikke kun `grep`) fanger, og grundmaalingsreglen fangede.
+
+## Punkter i briefet, jeg ikke naaede
+
+(ingen - alle fire punkter er gennemfoert og efterproevet)
+
+## Selv-efterproevning
+
+24 ting efterproevet enkeltvis (grep-tal, checksums, node --check, fulde koersel af
+validate/build/tests, samt manuel gennemlaesning af hver aendret fil):
+
+1. grep kort-fod i da/robotter/index.html = 0
+2. grep kort-fod i producenter/anybotics = 0
+3. grep kort-fod i da/index.html (forside) = 0
+4. eu-badge-klasse i da/robotter/index.html = 0
+5. eu-badge-klasse i producenter/anybotics = 0
+6. eu-badge-klasse i da/index.html = 0
+7. sha256 af 6 filer (3 robotter x 2 sprog) identiske foer/efter
+8. forsidens CE-saetning: 1 forekomst, baerer "2 af 77"
+9. EU-blokken fundet paa boston-dynamics-spot (eu-blok, eu-h, ce_oplyst)
+10. grep "ikke bygges ind" i hele dist-d = 0
+11. validate.mjs uaendret: 77/0/1
+12. build.mjs uaendret: 213 sider, 1110 tal med kilde
+13. tests: 220 bestaaet / 2 fejlet (samme 2 kendte)
+14. node --check paa side.mjs og koer.mjs: begge OK
+15. grep bekraefter ingen af de doede variabelnavne staar tilbage i tools/
+16. grep bekraefter ingen doede eu-CSS-klasser (eu-svar, eu--ja/nej/ikke) staar tilbage
+17. billedLinjer()-hjaelperen er stadig eksporteret og brugt af robot.mjs - ikke slettet
+18. ceTilstand(), eu_titel, billede_ingen_egen bekraeftet stadig brugt andre steder
+19. proeve-delt-robotsiden viser stadig "Samme fil som proeve-silhuet" (efter testrettelse)
+20-24. manuel gennemlaesning af hver af de fem aendrede filer (side.mjs, generator.css,
+   system.css, da.json, en.json, koer.mjs) linje for linje efter redigering
+
+1 fejl fundet: min P1-fjernelse gjorde én eksisterende test roed (dokumenteret og rettet
+under "Usikkerheder"). Ingen andre fejl fundet.
+
+## Ubrugte i18n-noegler efter denne opgave (IKKE slettet, jf. briefets punkt 1/3)
+
+- `kort_kilder_ingen` (kun brugt af den nu fjernede kort-fod)
+- `eu_ce_ja`, `eu_ce_nej`, `eu_ce_ikke_oplyst` (kun brugt af den nu fjernede `eu()`)
+- `billede_ingen_grund` (allerede doed foer denne opgave - se "Nye fælder")
+
+## Commits
+
+- `1f1145c` Fjern fodnotesektion og EU/CE-maerke fra katalogkort (P1+P2)
+- `5019175` Ret den usande "maa ikke bygges ind"-saetning (P3)
+- `4152e78` Tests: fodnote + EU/CE-maerke vaek fra katalogkort (P4)
+
+---
+
+## ~~gammel rapport herunder, erstattet~~
 
 Gren: `design/kort`, worktree `c:\Praktik\websites\udstilling-wt-kort`. 6 commits, alle
 efterprøvet med `node tools/build.mjs` og `node tools/validate.mjs` undervejs (0 fejl hver
