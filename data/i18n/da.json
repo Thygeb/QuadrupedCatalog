@@ -103,7 +103,7 @@
   "noegletal_hul_en": "1 hul",
   "noegletal_hul_flere": "{n} huller",
   "noegletal_afvigelser": "Afvigelser og varianter i nøgletallene ({n})",
-  "noegletal_intet": "Producenten oplyser ingen af de seks nøgletal.",
+  "noegletal_intet": "Producenten oplyser ingen af de {b} nøgletal.",
   "noegletal_intet_alle": "Producenten oplyser ingen af de {b} nøgletal.",
   "noegletal_intet_grund": "Rubrikkerne er ikke tomme ved en fejl. Der findes ingen producentside med tallene på.",
 

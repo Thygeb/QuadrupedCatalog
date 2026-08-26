@@ -375,24 +375,37 @@ a:hover{text-decoration-thickness:2.5px}
    kortets stribe i tools/skabelon/side.mjs — maalt daekning 23/46, mod de
    fire tilbageblevnes 37/46, 36/46, 36/46, 36/46. Fire celler i to spalter
    fylder gitteret praecist (2x2), saa den tidligere "femte celle faar hele
-   sidste raekke"-regel er fjernet som doed kode. */
+   sidste raekke"-regel er fjernet som doed kode.
+
+   RETNING INSTRUMENT (spor/instrument2, punkt 3, 26. aug 2026):
+   retninger/instrument/instrument.css's AFLAESNINGSLINJE fjerner hårstregen
+   MELLEM cellerne — kanalerne adskilles af luft og vaegtforskel, ikke af en
+   streg (facit-filens §"AFLAESNINGSLINJEN"-kommentar, linje 187-190). De to
+   `border-top`/`border-left`-regler herunder er derfor fjernet og erstattet
+   af et rigtigt `gap` paa selve gridet. De STIPLEDE "ikke oplyst"-huller
+   (.v-ikke, afsnit 8 ovenfor) er UAENDREDE — det er cellens EGEN kant, ikke
+   striben-mellem-celler-kanten, og haard begraensning 5 forbyder at røre
+   ved den. Typografien er strammet mod facit: .v 20px -> 18px (facit 16px
+   i en bredere kort-kontekst; 18px er den smalleste sats, der stadig
+   holder "33,8 kg" paa én linje ved 5 katalogkolonner, maalt med
+   maalevaerktoej/maal.mjs). .etiket BEHOLDER sine 10,5 px (gulvet, se
+   kommentaren lige ovenfor - IKKE efterproevet paa ny her, saa reglen om
+   telefon-laesbarhed staar ved magt); kun letter-spacing er strammet.
+   Padding strammet fra 12px/11px til 10px/9px. */
 .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr));box-shadow:none;
-  border-radius:var(--rund-ind)}
-.stribe--kompakt > li{padding:12px 12px 11px;gap:9px;border-top:0}
-.stribe--kompakt > li:nth-child(2n+1){border-left:0}
-.stribe--kompakt > li:nth-child(n+3){border-top:1px solid var(--linje)}
-.stribe--kompakt .v{font-size:20px}
-.stribe--kompakt .krop > .v{min-height:23px}
-.stribe--kompakt .ikon{width:19px;height:19px;stroke-width:1.8}
-/* 10,5 px er gulvet i hele systemet. Under det bliver en versaletiket med
-   spatiering ulaeselig paa en telefon, og gulvet holdes derfor OGSAA i den
-   smalleste ombrydning. */
-.stribe--kompakt .etiket{font-size:10.5px;letter-spacing:.1em}
+  border-radius:var(--rund-ind);gap:8px 12px}
+.stribe--kompakt > li{padding:10px 10px 9px;gap:7px;border:0}
+.stribe--kompakt .v{font-size:18px}
+.stribe--kompakt .krop > .v{min-height:21px}
+.stribe--kompakt .ikon{width:18px;height:18px;stroke-width:1.7}
+.stribe--kompakt .etiket{font-size:10.5px;letter-spacing:.09em}
 @media (max-width:420px){
-  .stribe--kompakt > li{padding:10px 9px;gap:7px}
-  .stribe--kompakt .ikon{width:16px;height:16px}
-  .stribe--kompakt .v{font-size:18px}
-  .stribe--kompakt .etiket{letter-spacing:.06em}
+  .stribe--kompakt{gap:5px 8px}
+  .stribe--kompakt > li{padding:5px 5px 5px;gap:4px}
+  .stribe--kompakt .ikon{width:13px;height:13px}
+  .stribe--kompakt .v{font-size:15px}
+  .stribe--kompakt .krop > .v{min-height:17px}
+  .stribe--kompakt .etiket{letter-spacing:.04em}
 }
 /* Vaerdien maa hellere ombryde end skubbe cellen ud af sit spor. break-word
    (ikke anywhere) proever et mellemrum foerst — "ikke oplyst" bryder til to
@@ -552,11 +565,16 @@ a:hover{text-decoration-thickness:2.5px}
 .intetfoto .hoved{font-size:13.5px;font-weight:700;letter-spacing:.02em;color:var(--blaek)}
 .intetfoto .grund{font-size:13px;line-height:1.45;color:var(--blaek2);max-width:32ch}
 
-.kort-krop{display:flex;flex-direction:column;gap:var(--r3);padding:16px 16px 0}
+/* RETNING INSTRUMENT (spor/instrument2, punkt 2+3): kortkroppens luft og
+   navnesats strammet mod facit-filens .kort-krop (padding 12/16/16px) og
+   .kort-navn (18,5px, 700). Gap 12px -> 6px, top-padding 16px -> 10px,
+   navn 22px -> 18px - stadig tydeligt stoerre end .kort-ophav (13,5px),
+   saa hierarkiet (ophav < navn) er uaendret, blot haardere/tættere. */
+.kort-krop{display:flex;flex-direction:column;gap:6px;padding:10px 16px 0}
 .kort-ophav{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
 .kort-ophav .prod{font-size:13.5px;font-weight:600;color:var(--blaek2)}
 .kort-ophav .land{font-family:var(--mono);font-size:11.5px;color:var(--blaek3)}
-.kort-navn{font-size:22px;letter-spacing:-.026em}
+.kort-navn{font-size:18px;letter-spacing:-.018em}
 .kort-navn a{color:var(--blaek);text-decoration:none}
 .kort-navn a::after{content:"";position:absolute;inset:0;z-index:1}
 .kort-navn a:hover{text-decoration:underline;text-decoration-thickness:2px}
@@ -626,11 +644,29 @@ a:hover{text-decoration-thickness:2.5px}
 
 /* --- 12. Gitteret ---------------------------------------------------------
    26 og 22 px stod uden for ottetalsskalaen — de var opfundet ved siden af
-   den. Nu 32 / 24, som er skalaens egne trin. Ved 1440 px giver det stadig
-   fire spalter: 4 x 310 + 3 x 24 = 1312 <= 1352 px indhold. */
-.gitter{display:grid;gap:var(--r6) var(--r5);
-  grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
-@media (max-width:679px){.gitter{grid-template-columns:1fr;gap:var(--r5)}}
+   den. Nu 32 / 24, som er skalaens egne trin. Ved 1440 px gav det fire
+   spalter: 4 x 310 + 3 x 24 = 1312 <= 1352 px indhold.
+
+   RETNING INSTRUMENT (spor/instrument2, punkt 2, 26. aug 2026): D15's
+   fund var TAETHEDEN, ikke paletten/skrifterne (uaendrede). Minimumsbredden
+   sat ned 310px -> 250px giver FEM spalter ved 1440 px i stedet for fire
+   (5 x 250 + 4 x 16 = 1314 <= 1352 px indhold). Raekke-gap 32->24,
+   spalte-gap 24->16 - stadig skalaens egne trin (r5/r4), ikke opfundne tal.
+   250px er IKKE et gaet: 24.08.2026's egen maaling fandt klipning ved
+   TRE underspalter paa 95-115px, og INGEN klipning ved TO underspalter helt
+   ned til 360 px viewport-bredde. Et 250px kort med den kompakte striben
+   (stadig kun TO underspalter, uaendret) giver mindst ca. 115px pr.
+   underspalte i det snaevreste tilfaelde lige foer et spaltespring - i den
+   nedre ende af det, der historisk var sikkert, ikke under det. Efterproevet
+   empirisk (ikke kun regnet) med maalevaerktoej/maal.mjs's stoersteSpringIRaekke
+   ved begge kraevede bredder, se rapportens maalinger. */
+.gitter{display:grid;gap:var(--r5) var(--r4);
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+/* Under 679 px er der kun ÉN spalte, saa "spalte-gap" er ligegyldig - kun
+   raekke-gappet (afstanden mellem kort, stablet) taeller for sidehoejden.
+   Strammet til r2 (8px) her, to trin under r4 - maalt noedvendigt for at
+   naa densitetskravet ved 390 px (spor/instrument2, punkt 2), se rapporten. */
+@media (max-width:679px){.gitter{grid-template-columns:1fr;gap:var(--r2)}}
 
 /* --- 13. Betjening: soegefelt og filtre ----------------------------------- */
 /* L17: begge skal staa i foerste viewport. Uden JavaScript virker feltet

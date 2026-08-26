@@ -424,10 +424,19 @@ function stribe(ctx, kilder) {
 
   // Ved NUL oplyste tal ville fem huller vaere fem gange den samme oplysning.
   // Maalt: 5 af 46 robotter staar saadan (Weilan E300 er én af dem).
+  //
+  // RETTET (spor/instrument2, punkt 2 - efterfoelgende rettelse fra
+  // orkestratoren, 26. aug 2026): 'noegletal_intet' stod hardkodet til "seks
+  // nøgletal" i begge sprogfiler, selvom striben her har FEM felter (og
+  // producent.mjs's nu fjernede sidestykke havde tre) - et tal, der var
+  // forkert begge steder det blev brugt. Strengen baerer nu samme {b}-
+  // pladsholder som sin nabo noegletal_intet_alle, og celler.length (det
+  // AEGTE antal for denne stribe) sendes med via flet(), samme moenster som
+  // hovedet et par linjer ovenfor allerede bruger til noegletal_taeller.
   const krop = oplyst === 0
     ? `<div class="stribe stribe--intet">
 <svg class="ikon" aria-hidden="true"><use href="#i-hul"/></svg>
-<div class="tekst"><p class="hoved">${esc(T(i18n, 'noegletal_intet'))}</p></div>
+<div class="tekst"><p class="hoved">${esc(flet(T(i18n, 'noegletal_intet'), { b: celler.length }))}</p></div>
 </div>`
     : `<ul class="stribe stribe--fem">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
 

@@ -219,7 +219,17 @@ function euSaetning(ctx, modeller) {
 /* ---------------------------------------------------------------- kortene */
 
 /** Kortets kompakte stribe: tre celler, samme regel som striben paa robotsiden
- *  — cellen bliver staaende, ogsaa naar den er tom. */
+ *  — cellen bliver staaende, ogsaa naar den er tom.
+ *
+ *  RETTET (spor/instrument2, punkt 1 - efterfoelgende rettelse fra
+ *  orkestratoren, 26. aug 2026): denne funktion havde sin EGEN "nul oplyste
+ *  tal"-prosagren, en tredje haandkopi af den samme fejl, der blev rettet i
+ *  side.mjs' stribe(). Katalogsiden (side.mjs) fik dengang IKKE en tilsvarende
+ *  prosagren for sit kompakte kort, fordi den kun findes for kompakt:false
+ *  (robotsidens store stribe). Denne funktion har intet kompakt:false-sidestykke
+ *  - den bruges KUN til det kompakte producentkort - saa prosagrenen skal vaek
+ *  helt, ikke betinges. Maalt FOER rettelsen: 8 filer (4 producenter x 2 sprog)
+ *  viste "stribe--intet" i stedet for de faste celler; katalog og forside gav 0. */
 function kompaktStribe(ctx, m) {
   const kilder = ctx.__kilder?.get(m.slug) ?? [];
   const celler = KORT_FELTER.map(([navn, ikon]) => {
@@ -231,14 +241,6 @@ function kompaktStribe(ctx, m) {
 ${html}</span></li>`,
     };
   });
-  const oplyst = celler.filter((c) => !c.hul).length;
-  if (oplyst === 0) {
-    // Tre huller ville vaere tre gange den samme oplysning.
-    return `<div class="stribe stribe--intet stribe--intet-kort">
-<svg class="ikon ikon--lille" aria-hidden="true"><use href="#i-hul"/></svg>
-<div class="tekst"><p class="hoved">${esc(T(ctx.i18n, 'noegletal_intet'))}</p></div>
-</div>`;
-  }
   return `<ul class="stribe stribe--kompakt panel--ro">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
 }
 
