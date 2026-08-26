@@ -25,9 +25,7 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-instrument2",
-      "C:/Praktik/websites/udstilling-wt-testdele",
-      "C:/Praktik/websites/udstilling-wt-data2"
+      "C:/Praktik/websites/udstilling-wt-instrument2"
     ]
   },
   "hooks": {
