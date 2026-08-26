@@ -369,20 +369,52 @@ const YDERPUNKT_SPEC = [
 ];
 
 /**
+ * spor/yderpunkt (JPK's fund, 26. aug 2026): en OEVRE/NEDRE GRAENSE
+ * (`<=`, `>=`, `<`, `>`) kan ikke baere et yderpunkt. "Qiuqiu SP1 <= 100 kg"
+ * beviser kun at robotten ikke er tungere end 100 kg - den kan i praksis veje
+ * 40, og "tungest" er derfor en paastand, dataene ikke baerer. Samme fejl som
+ * haard begraensning 2 (opfind aldrig et tal), blot vendt om: her udledes en
+ * paastand af et tal, der ikke er det.
+ *
+ * `~` og `±` er BEVIDST tilladt, og det er den ene undtagelse, briefet bad om
+ * en begrundelse for: begge er et skoen OM ét kendt centraltal (Y10's
+ * "± 5,6 kg" betyder ca. 5,6 kg, ikke "et sted under X"), ikke en graense uden
+ * kendt tal. feltIBasis() bruger allerede centraltallet for et interval
+ * (min+maks)/2 - `~`/`±` er den samme slags skoen, blot udtrykt som ét tal med
+ * et forbehold i stedet for et interval. En stram ulighed derimod navngiver
+ * ALDRIG et centraltal - kun en retning, tallet ligger i.
+ */
+const YDERPUNKT_OPERATOR_TILLADT = new Set(['~', '±']);
+function operatorTilladt(op) {
+  return !op || YDERPUNKT_OPERATOR_TILLADT.has(op);
+}
+
+/**
  * Returnerer op til fire poster { id, felt, ikon, robot, post }. Et yderpunkt
  * udelades helt, hvis INTET af de 46 datafiler oplyser feltet som et tal —
  * det sker ikke i dag, men skal ikke kunne kaste en fejl, hvis det gjorde.
+ *
+ * spor/yderpunkt: en kandidat skal OGSAA (a) baere et tal uden en graense-
+ * operator (operatorTilladt ovenfor) og (b) have et rigtigt fotografi
+ * (laesBillede !== null) - en afskaaret maaleplade i yderpunktets lille felt
+ * er ikke information, den er en oedelagt streng (assets/generator.css afsnit
+ * 1b er dimensioneret til katalogkortet, ikke til yderpunktfeltet).
  */
 export function ekstremer(robotter) {
   return YDERPUNKT_SPEC.map((spec) => {
     const kandidater = robotter
-      .map((robot) => ({ robot, basis: feltIBasis(robot.felter?.[spec.felt]) }))
-      .filter((x) => x.basis !== null);
+      .map((robot) => {
+        const post = robot.felter?.[spec.felt];
+        return { robot, post, basis: feltIBasis(post) };
+      })
+      .filter((x) => x.basis !== null
+        && operatorTilladt(x.post?.operator)
+        && laesBillede(x.robot) !== null);
     if (!kandidater.length) return null;
     kandidater.sort((a, b) => (spec.retning === 'lav' ? a.basis - b.basis : b.basis - a.basis)
       || String(a.robot.slug).localeCompare(String(b.robot.slug)));
     const bedst = kandidater[0];
-    return { ...spec, robot: bedst.robot, post: bedst.robot.felter[spec.felt] };
+    return { ...spec, robot: bedst.robot, post: bedst.post };
   }).filter(Boolean);
 }
 
