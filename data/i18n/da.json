@@ -287,5 +287,8 @@
   "land_Rusland": "Rusland",
   "land_Tyrkiet": "Tyrkiet",
   "land_Brasilien": "Brasilien",
-  "producent_model_en": "1 model"
+  "producent_model_en": "1 model",
+
+  "sammenligning_soeg_etiket": "Søg blandt robotterne",
+  "sammenligning_soeg_pladsholder": "fx Spot eller GENISOM"
 }

@@ -143,16 +143,39 @@ function dataBlok(ctx) {
  *  katalogets facetter (genbrugt CSS, ingen ny komponentfamilie). Legenden
  *  er `.kunskaerm` (skjult visuelt): sektion-hovedet lige ovenfor i render()
  *  viser samme etikette allerede synligt, og to synlige kopier af den
- *  samme etikette ville vaere stoej. */
-function vaelgerHTML(robotter, standard, legendeTekst) {
+ *  samme etikette ville vaere stoej.
+ *
+ *  Punkt 3 (spor/sammenlign): 77 chips uden soegning kraevede visuel
+ *  skimning af alle for at finde én model. Soegefeltet genbruger
+ *  katalogsidens moenster (assets/katalog.js' `soeg()`: substring-match paa
+ *  et `data-sog`-maerket lag, lowercased, ingen netvaerkskald) - hver chip
+ *  paakes her i et `<span data-sog="...">`, samme idé som katalogets
+ *  `.lag[data-sog]`, blot ét niveau (ingen facetter at krydse). Tilpasset:
+ *  soegeteksten er "navn producent" (ikke katalogets fulde kort-tekst, som
+ *  ogsaa baerer land/vaegtklasse/anvendelse - irrelevant her, jf. briefets
+ *  krav om at matche paa robotnavn OG producentnavn). Feltet staar UDEN
+ *  `hidden`: hele `.sammenligning-app` er allerede skjult, indtil
+ *  sammenligning.js fjerner det - et andet lag `hidden` her ville vaere
+ *  overfloedigt (samme logik som resten af app'en, ingen CSS-only-fallback
+ *  for soegning, ligesom katalogets soegefelt heller ingen har). */
+function vaelgerHTML(robotter, standard, legendeTekst, sogEtiket, sogPladsholder) {
   const std = new Set(standard);
   const felter = [...robotter].sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'))
-    .map((r) => `<input type="checkbox" class="f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
-      + `${std.has(r.slug) ? ' checked' : ''}>`
-      + `<label for="saml-${attr(r.slug)}">${esc(r.navn)}<span class="antal">${esc(r.producent)}</span></label>`)
+    .map((r) => {
+      const sogetekst = `${r.navn} ${r.producent}`.toLowerCase();
+      return `<span class="saml-chip" data-sog="${attr(sogetekst)}">`
+        + `<input type="checkbox" class="f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
+        + `${std.has(r.slug) ? ' checked' : ''}>`
+        + `<label for="saml-${attr(r.slug)}">${esc(r.navn)}<span class="antal">${esc(r.producent)}</span></label>`
+        + `</span>`;
+    })
     .join('\n');
   return `<fieldset class="facet sammenligning-vaelger">
 <legend class="etiket kunskaerm">${esc(legendeTekst)}</legend>
+<div class="sog">
+<label class="etiket" for="saml-soeg">${esc(sogEtiket)}</label>
+<input id="saml-soeg" type="search" autocomplete="off" placeholder="${attr(sogPladsholder)}">
+</div>
 <div class="filtre" data-saml-vaelger>
 ${felter}
 </div>
@@ -223,7 +246,7 @@ ${legendeHTML(t, T)}
 <span class="etiket">${esc(T.sammenligning_vaelg_titel)}</span>
 </div>
 <p class="t-lille sektion-note">${esc(T.sammenligning_vaelg_forklaring)}</p>
-${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel)}
+${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenligning_soeg_etiket, T.sammenligning_soeg_pladsholder)}
 <p class="t-lille sammenligning-status" data-saml-status role="status" aria-live="polite" hidden></p>
 <div data-saml-resultat></div>
 </div>

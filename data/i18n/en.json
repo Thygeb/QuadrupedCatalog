@@ -287,5 +287,8 @@
   "land_Rusland": "Russia",
   "land_Tyrkiet": "Turkey",
   "land_Brasilien": "Brazil",
-  "producent_model_en": "1 model"
+  "producent_model_en": "1 model",
+
+  "sammenligning_soeg_etiket": "Search the robots",
+  "sammenligning_soeg_pladsholder": "e.g. Spot or GENISOM"
 }
