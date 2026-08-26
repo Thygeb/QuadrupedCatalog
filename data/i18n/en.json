@@ -291,5 +291,7 @@
 
   "forside_udvalg_regel": "{n} robots from {n} manufacturers, selected by how many of the {m} fields the manufacturer discloses.",
   "sammenligning_soeg_etiket": "Search the robots",
-  "sammenligning_soeg_pladsholder": "e.g. Spot or GENISOM"
+  "sammenligning_soeg_pladsholder": "e.g. Spot or GENISOM",
+
+  "tabel_modeller": "Models"
 }

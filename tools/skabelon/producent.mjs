@@ -364,9 +364,15 @@ ${alleProducenter(arbejde)}
  * Ingen vurdering og ingen raekkefoelge ud over alfabetet: en sortering efter
  * "stoerst foerst" ville vaere en redaktionel skala, vi ikke har metode til.
  *
- * Markup'en bruger KUN klasser, der findes i system.css/generator.css
- * (katalog-hoved, raekker/raekke, v v-tekst, figur). .prodliste/.pnavn fra
- * den forladte sider.css genbruges IKKE — den fil indgaar ikke i bygget.
+ * L(spor/producent, 26. aug 2026), punkt 1: raekken var FOER en <dl>/.raekke
+ * (system.css' delte 2-kolonne-komponent) med land og modeltal klistret sammen
+ * i én <dd>-streng ("Kina 13 modeller") — to tal, der ikke flugtede lodret, og
+ * en side, der brugte under halvdelen af sin bredde. .raekker/.raekke ejes af
+ * et andet spor (system.css), saa den genbruges IKKE laengere her; en rigtig
+ * <table> med tre <td> giver tre selvstaendige kolonner, kan style modeltallet
+ * for sig (font-variant-numeric: tabular-nums via .figur) og fylder .rum's
+ * fulde bredde. Markup'en bruger .prod-tabel (assets/generator.css, afsnit 9h)
+ * plus .figur, som allerede findes i system.css og ikke er min at redefinere.
  *
  * Linket er `<slug>/` og ikke sti(ctx, 'producent', …): siden ligger selv i
  * producenter/, saa barnelinket kan ikke pege forkert, heller ikke uden ctx.url.
@@ -386,14 +392,17 @@ export function renderIndeks(ctx) {
     // Landet er et felt som ethvert andet: mangler det, staar hullet med
     // tilstandens eget sprog — aldrig som en tom plads (begraensning 5).
     const landDel = p.land
-      ? `<span class="v v-tekst">${esc(TD(i18n, 'land_' + p.land, p.land))}</span>`
+      ? esc(TD(i18n, 'land_' + p.land, p.land))
       : (typeof H?.tilstand === 'function' ? H.tilstand('ikke_oplyst', i18n) : '');
-    const antalDel = p.antal === null ? ''
-      : ` <span class="figur">${esc(modelTal(i18n, p.antal))}</span>`;
-    return `<div class="raekke">
-<dt><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></dt>
-<dd>${landDel}${antalDel}</dd>
-</div>`;
+    // Modelkolonnen viser TALLET alene — kolonnehovedet baerer allerede ordet
+    // "modeller" ("1 modeller" er ikke dansk, se producent_model_en, men her
+    // opstaar problemet slet ikke, fordi entalsformen aldrig skrives ud).
+    const antalDel = p.antal === null ? '' : esc(String(p.antal));
+    return `<tr>
+<td><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></td>
+<td>${landDel}</td>
+<td class="figur">${antalDel}</td>
+</tr>`;
   }).join('\n');
 
   return `<main class="side" id="hoved">
@@ -404,9 +413,20 @@ export function renderIndeks(ctx) {
 </div>
 <section class="sektion" aria-labelledby="prodliste-h">
 <h2 class="t-h2 kunskaerm" id="prodliste-h">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</h2>
-<dl class="raekker">
+<div class="prod-tabel-wrap">
+<table class="prod-tabel">
+<thead>
+<tr>
+<th scope="col">${esc(T(i18n, 'tabel_producent'))}</th>
+<th scope="col">${esc(T(i18n, 'tabel_land'))}</th>
+<th scope="col" class="figur">${esc(T(i18n, 'tabel_modeller'))}</th>
+</tr>
+</thead>
+<tbody>
 ${raekker}
-</dl>
+</tbody>
+</table>
+</div>
 </section>
 </div>
 </main>
