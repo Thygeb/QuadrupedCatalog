@@ -25,10 +25,10 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-enheder",
-      "C:/Praktik/websites/udstilling-wt-producent",
-      "C:/Praktik/websites/udstilling-wt-yderpunkt",
-      "C:/Praktik/websites/udstilling-wt-retning"
+      "C:/Praktik/websites/udstilling-wt-instrument2",
+      "C:/Praktik/websites/udstilling-wt-hastighed",
+      "C:/Praktik/websites/udstilling-wt-testdele",
+      "C:/Praktik/websites/udstilling-wt-data2"
     ]
   },
   "hooks": {
