@@ -988,8 +988,16 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
         : saetInd(T.noegletal_hul_flere, { n: huller }))}</span>` : '')
       + `</span></div>`;
 
-    // Nul oplyste tal: fem huller ville vaere fem gange den samme oplysning.
-    if (oplyst === 0) {
+    // Nul oplyste tal, PAA ROBOTSIDEN (kompakt:false): fem/fire huller ville
+    // vaere fem/fire gange den samme oplysning, saa prosagrenen bliver staaende
+    // dér. PAA KORTET (kompakt:true) gaelder den modsatte regel: INSTRUMENT-
+    // retningens aflaesningslinje (L40, STATUS.md) kraever, at ALLE FIRE
+    // pladser altid staar i samme raekkefoelge paa hvert eneste kort - de
+    // stiplede "ikke oplyst"-huller ER selve pointen (haard begraensning 5:
+    // "ikke oplyst" skal SES, ikke skjules bag en saetning). Foer denne
+    // rettelse gav dette 6 af 77 kort en prosaboks uden en eneste af de fire
+    // faste celler (maalt paa main, spor/instrument2's brief).
+    if (oplyst === 0 && !kompakt) {
       return `<div class="stribe-hylster">${hoved}
 <div class="stribe stribe--intet">${ikon('i-hul')}
 <div class="tekst"><p class="hoved">${esc(tf('noegletal_intet_alle', { b: felter.length }))}</p>
