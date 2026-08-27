@@ -16,7 +16,7 @@ billede:
   hentet: 2026-08-19
 noter:
   - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
-  - "Robotten saelges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkoebere, ikke til ingenioerer. Kun 3 af 31 felter er oplyst: ingen vaegt, ingen maal, ingen IP-klasse, ingen batteristoerrelse, ingen frihedsgrader. Negativsoegt paa tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste traef er de 30 kg nedenfor."
+  - "Robotten sælges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkøbere, ikke til ingeniører. Kun 3 af 31 felter er oplyst: ingen vægt, ingen mål, ingen IP-klasse, ingen batteristørrelse, ingen frihedsgrader. Negativsøgt på tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste træf er de 30 kg nedenfor."
 felter:
   egenvaegt: ikke_oplyst
   laengde: ikke_oplyst
@@ -29,7 +29,7 @@ felter:
     operator: ">"
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
-    advarsel: "Producenten skriver over 30 kg of parcels, groceries, and food. Operatoren bevaret. Der skelnes ikke mellem gaaende og staaende last."
+    advarsel: "Producenten skriver over 30 kg of parcels, groceries, and food. Operatoren bevaret. Der skelnes ikke mellem gående og stående last."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 14
@@ -39,7 +39,7 @@ felter:
     enhed_imperial: mph
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
-    advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/t = 8,699 mph, gaar op. Kilden er produktsiden alene."
+    advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/t = 8,699 mph, går op. Kilden er produktsiden alene."
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -51,7 +51,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser raekkevidde (over 30 km), ikke tid. Vi regner ikke baglaens - se noten."
+    advarsel: "Producenten oplyser rækkevidde (over 30 km), ikke tid. Vi regner ikke baglæns - se noten."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi_min: 2

@@ -11,7 +11,7 @@ anvendelse:
     - "NEURA Quadruped is specifically designed for demanding industrial and service applications, including inspection, surveillance, and payload transport."
   kilde: https://neura-robotics.com/product/quadruped-reservation/
   hentet: 2026-08-25
-  note: "Foerste citat fra \"At A Glance\"-tabellens \"Use cases\"-raekke; andet fra FAQ-afsnittet \"What are the primary use cases for NEURA Quadruped?\". Egen fortolkning: Inspection -> inspektion; surveillance -> sikkerhed_overvaagning; transport/payload transport -> logistik; research (in complex environments) -> forskning_udvikling; industrial and service applications -> industri."
+  note: "Første citat fra \"At A Glance\"-tabellens \"Use cases\"-række; andet fra FAQ-afsnittet \"What are the primary use cases for NEURA Quadruped?\". Egen fortolkning: Inspection -> inspektion; surveillance -> sikkerhed og overvågning; transport/payload transport -> logistik; research (in complex environments) -> forskning og udvikling; industrial and service applications -> industri."
 billede:
   fil: fotos/fabrikant/neura-quadruped.webp
   ophav: fabrikant
@@ -48,7 +48,7 @@ felter:
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"Payload: 22 kg / 48.5 lbs\" - databladet skelner ikke mellem gaaende og staaende last. Placeringen under gaaende last er vores tolkning, ikke en aflaesning (samme princip som Boston Dynamics Spot m.fl.)."
+    advarsel: "\"Payload: 22 kg / 48.5 lbs\" - databladet skelner ikke mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning (samme princip som Boston Dynamics Spot m.fl.)."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 12
@@ -67,7 +67,7 @@ felter:
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"Step Height: 15 cm / 5.9 in\" - databladet skelner ikke selv mellem enkelt forhindring og kontinuerlig trappe. Klassificeret som trappetrin_kontinuerlig ud fra ordlyden (\"step height\", ental) og stoerrelsesordenen (15 cm ligger paa niveau med andre robotters kontinuerlige trappetal i dette katalog, fx Unitree B2's 20-25 cm, ikke deres enkelt-forhindringstal paa 40-80 cm) - vores fortolkning, ikke en producentmaerkning."
+    advarsel: "\"Step Height: 15 cm / 5.9 in\" - databladet skelner ikke selv mellem enkelt forhindring og kontinuerlig trappe. Klassificeret som trappetrin_kontinuerlig ud fra ordlyden (\"step height\", ental) og størrelsesordenen (15 cm ligger på niveau med andre robotters kontinuerlige trappetal i dette katalog, fx Unitree B2's 20-25 cm, ikke deres enkelt-forhindringstal på 40-80 cm) - vores fortolkning, ikke en producentmærkning."
   ip_klasse: ikke_oplyst
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
@@ -79,7 +79,7 @@ felter:
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"Battery Life (h): 6\" - ingen lastbetingelse oplyst, selvom et separat 22 kg-payloadtal findes i samme dokument (regel 8: gaetter ikke paa koblingen)."
+    advarsel: "\"Battery Life (h): 6\" - ingen lastbetingelse oplyst, selvom et separat 22 kg-payloadtal findes i samme dokument (regel 8: gætter ikke på koblingen)."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -89,20 +89,20 @@ felter:
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "Databladets funktionsblok \"Environment Vision / 360°\", bekraeftet af hovedsidens \"multi-sensor fusion...360° environment vision\". Hverken kameraantal, opløsning eller sensortype (kamera vs. LiDAR vs. andet) er specificeret - lidar-feltet er derfor ikke_oplyst i stedet for at gaette, at 360°-daekningen kommer fra LiDAR."
+    advarsel: "Databladets funktionsblok \"Environment Vision / 360°\", bekræftet af hovedsidens \"multi-sensor fusion...360° environment vision\". Hverken kameråntal, opløsning eller sensortype (kamera vs. LiDAR vs. andet) er specificeret - lidar-feltet er derfor ikke oplyst i stedet for at gætte, at 360°-dækningen kommer fra LiDAR."
   compute: ikke_oplyst
   ros2:
     vaerdi: ja
     kilde: https://neura-robotics.com/product/quadruped-reservation/
     hentet: 2026-08-25
-    advarsel: "\"Interfaces: Wi-Fi 6, Gigabit Ethernet, ROS 2, C++, Python SDK, NEURA Sync\" i reservationssidens \"At A Glance\"-tabel, bekraeftet ordret enslydende i databladets Interfaces-felt (\"Wi-Fi 6, Gigabit Ethernet, ROS2, C++, & Python SDK, NeuraSync\")."
+    advarsel: "\"Interfaces: Wi-Fi 6, Gigabit Ethernet, ROS 2, C++, Python SDK, NEURA Sync\" i reservationssidens \"At A Glance\"-tabel, bekræftet ordret enslydende i databladets Interfaces-felt (\"Wi-Fi 6, Gigabit Ethernet, ROS2, C++, & Python SDK, NeuraSync\")."
   sdk_sprog:
     vaerdi: [C++, Python]
     kilde: https://neura-robotics.com/product/quadruped-reservation/
     hentet: 2026-08-25
-    advarsel: "Fra samme Interfaces-raekke som ros2-feltet. \"NEURA Sync\" er en proprietaer platform, ikke et programmeringssprog, og er derfor ikke medtaget i sdk_sprog-listen."
+    advarsel: "Fra samme Interfaces-række som ros2-feltet. \"NEURA Sync\" er en proprietær platform, ikke et programmeringssprog, og er derfor ikke medtaget i sdk_sprog-listen."
   autonominiveau:
-    vaerdi: "Fuldt autonom (\"Fully Autonomous\"); intelligent algoritme til kortlaegning, lokalisering og navigation (\"Intelligent Algorithm for Mapping, Localization, and Navigation\"); stiplanlaegning og forhindringsundvigelse (\"Path Planning and Obstacle Avoidance\"); multimodal kognitiv interaktion (\"Multimodal Cognitive Interaction\"); digital tvilling-adgang, teleoperation, klar til traening i NEURA Gym"
+    vaerdi: "Fuldt autonom (\"Fully Autonomous\"); intelligent algoritme til kortlægning, lokalisering og navigation (\"Intelligent Algorithm for Mapping, Localization, and Navigation\"); stiplanlægning og forhindringsundvigelse (\"Path Planning and Obstacle Avoidance\"); multimodal kognitiv interaktion (\"Multimodal Cognitive Interaction\"); digital tvilling-adgang, teleoperation, klar til træning i NEURA Gym"
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf
     hentet: 2026-08-25
     kildetype: sekundaer

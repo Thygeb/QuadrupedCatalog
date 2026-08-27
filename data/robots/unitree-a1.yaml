@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 消费级 / 科研"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen A1 staar i. Den engelske og den kinesiske navigation navngiver gruppen forskelligt: EN \"Consumer/Education\", CN \"forbrugerniveau / videnskabelig forskning\". Begge er producentens."
+  note: "Producentens egen produktnavigation, gruppen A1 står i. Den engelske og den kinesiske navigation navngiver gruppen forskelligt: EN \"Consumer/Education\", CN \"forbrugerniveau / videnskabelig forskning\". Begge er producentens."
 billede:
   fil: fotos/fabrikant/unitree-a1.png
   ophav: fabrikant
@@ -21,7 +21,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
-    advarsel: "Negativkontrolleret: ordet Weight staar ikke ET sted paa siden."
+    advarsel: "Negativkontrolleret: ordet Weight står ikke ET sted på siden."
   laengde: ikke_oplyst
   bredde: ikke_oplyst
   hoejde: ikke_oplyst
@@ -31,14 +31,14 @@ felter:
     enhed: kg
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
-    advarsel: "Producenten skriver Effective Load uden at skelne gaaende/staaende. Placeringen er en slutning."
+    advarsel: "Producenten skriver Effective Load uden at skelne gående/stående. Placeringen er en slutning."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.3
     enhed: m/s
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
-    advarsel: "Producenten skriver 3.3 m/s (11.88 km/h) som maximum continuous running speed. Krydstjek: 3,3 m/s = 11,88 km/t, gaar op."
+    advarsel: "Producenten skriver 3.3 m/s (11.88 km/h) som maximum continuous running speed. Krydstjek: 3,3 m/s = 11,88 km/t, går op."
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -46,7 +46,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
-    advarsel: "Siden skriver, at foden er vand- og stoevtaet, uden klasse."
+    advarsel: "Siden skriver, at foden er vand- og støvtæt, uden klasse."
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
   batteri_wh: ikke_oplyst
@@ -87,7 +87,7 @@ felter:
     vaerdi: "5 V; 12 V; 19 V ud (24 V ind)"
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
-    advarsel: "Spaending oplyst, watt ikke. 24 V er stroem IND og hoerer ikke i dette felt."
+    advarsel: "Spænding oplyst, watt ikke. 24 V er strøm IND og hører ikke i dette felt."
   dataporte:
     vaerdi: ["HDMI x2", "Ethernet x2", "USB x4"]
     kilde: https://www.unitree.com/A1
