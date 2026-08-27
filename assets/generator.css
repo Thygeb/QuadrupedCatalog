@@ -98,6 +98,51 @@
    teknik som .kort .kildemaerke. */
 .yderpunkt .kildemaerke{position:relative;z-index:2}
 .yderpunkt .billedled{aspect-ratio:4/3;border-bottom:1px solid var(--linje)}
+
+/* --- 1c. Pladernes FAELLES indre format (KRITIK-4 fund 7).
+   Pladernes egne kasser var allerede ens (maalt 1440: fire gange 312x234 px)
+   - fundet handlede aldrig om rammen, men om hvad der skete INDE i den.
+   Maalt paa de fire billeders egne kasser foer denne regel:
+     Y10       312x257   cover, HOEJERE end rammen -> 23 px klippet af
+     S1-W      312x188   --plade: contain, svaevede med brede margener
+     Lynx S10  312x234   cover, udfyldte praecist
+     MOVENEW   312x221   cover
+   Tre plader gik kant til kant, én svaevede. Det er derfor raekken laeses som
+   fire loesrevne kort i stedet for ét instrument med fire aflaesninger.
+
+   Loesningen er pladens ramme, ikke billedet: samme bund og samme indre
+   format til alle fire. Ingen beskaering (vaernet i briefet og grunden til
+   at --plade findes: en 4:3-beskaering tager enten poterne eller hovedet),
+   og intet billede genereret.
+
+   BIVIRKNING, der er en gevinst: Y10 blev beskaaret 23 px af rammen foer.
+   Med contain er ingen af de fire beskaaret overhovedet.
+
+   --panel-ro er systemets egen "rolige indfelt inde i et hvidt panel" - en
+   polet, der allerede findes. D15 laaste paletten; her indfoeres ingen ny
+   farve.
+
+   AARSAGEN, som ikke var object-fit. Billedet ligger i et <picture>, og det
+   er <picture>, der er .billedled's gridfelt - ikke <img>. <picture> er
+   inline og har ingen hoejde, saa system.css' `.billedled img{height:100%}`
+   aldrig kunne opløses: den regnede mod en auto-hoej beholder og faldt
+   tilbage til billedets NATURLIGE forhold. Derfor blev hver plades billede
+   312 px bredt gange sit eget sideforhold - 255, 181, 234, 223 - og rammen
+   klippede eller lod bunden staa. Det er praecis den faelde, CLAUDE.md
+   beskriver for maalevaerktoejet: "<img> fylder ikke noedvendigvis sit
+   <picture>". At saette object-fit alene flyttede kun tallene 2-7 px, fordi
+   det aldrig var problemet - foerst da <picture> fik en kasse, virkede det. */
+.yderpunkt .billedled{background:var(--panel-ro)}
+/* position:absolute + inset:0 frem for height:100%. .billedled er
+   position:relative i forvejen, saa <picture> faar praecis rammens kasse.
+   height:100% var IKKE nok: .billedled er et grid med align-items:center, saa
+   den implicitte raekke sizes efter sit INDHOLD. Et billede hoejere end 4:3
+   pustede raekken op over rammen, og 100% regnede saa mod den oppustede
+   raekke - en cyklisk procent, der stabiliserede paa 255 px i en 234 px
+   ramme. Maalt: Y10 blev ved med at staa paa 312x255, mens de tre andre
+   ramte 233-234, indtil pladen blev taget ud af raekkens hoejdeberegning. */
+.yderpunkt .billedled picture{position:absolute;inset:0;display:block}
+.yderpunkt .billedled img{object-fit:contain;padding:var(--r3) var(--r4)}
 .yderpunkt-krop{display:flex;flex-direction:column;gap:8px;min-width:0;padding:var(--r5)}
 .yderpunkt-krop > .etiket{display:flex;align-items:center;gap:8px}
 .yderpunkt-krop > .etiket .ikon{width:16px;height:16px;stroke-width:1.8;color:var(--accent)}
