@@ -51,11 +51,28 @@
       + '<span class="kunskaerm">' + esc(DATA.tekst.advarsel) + ': ' + esc(tekst) + '</span></abbr>';
   }
 
+  /* Kildemaerket (spor/sammenlign, punkt 2 - Å38's krydskontrolfund): samme
+     markup, samme klasse (kildemaerke/kildemaerke--sek), samme title-tekster
+     som side.mjs' egen kildemaerke() bygger server-side for de andre flader -
+     genbrugt form, ikke en ny. `f.k` (bogstavet) og `f.sek` (sekundaer-flaget)
+     er sat pr. felt af sammenligning.mjs' dataBlok(); `r.href` er robottens
+     egen side, sat ÉN gang pr. robot (ikke gentaget pr. felt, jf. punkt 3).
+     ANKERET (fælden, spor/proveniens naesten faldt i 27. aug 2026): kildelisten
+     staar IKKE paa denne side, saa href er `r.href + '#kilde-' + f.k` -
+     robottens egen #kilde-<bogstav>, aldrig et bart `#kilde-A` her. */
+  function kildeMaerkeHTML(r, f) {
+    if (!r || !f || !f.k) return '';
+    var sek = f.sek ? ' kildemaerke--sek' : '';
+    var titel = f.sek ? DATA.tekst.kilde_sekundaer_forklaring : DATA.tekst.kilde_primaer;
+    return '<a class="kildemaerke' + sek + '" href="' + esc(r.href) + '#kilde-' + esc(f.k) + '"'
+      + ' tabindex="-1" title="' + esc(titel) + '">' + esc(f.k) + '</a>';
+  }
+
   /* Talvaerdien: operator (set OG hoert - regel 4), figur, enhed, og et
      samlet forbeholdstegn af ved_last + advarsel (samme sammenlaegning som
      side.mjs' tal() bruger til den kompakte visning, som mockuppens egen
      sammenligningstabel ogsaa bruger - se sammenligning.mjs' filhoved). */
-  function renderTal(f) {
+  function renderTal(f, r) {
     var figur = (f.min !== null && f.min !== undefined)
       ? fmt(f.min) + '–' + fmt(f.maks)
       : (typeof f.vaerdi === 'number' ? fmt(f.vaerdi) : String(f.vaerdi));
@@ -74,7 +91,12 @@
     if (f.forbehold) noter.push(f.forbehold);
     var noteHTML = noter.length ? fnote(noter.join(' · ')) : '';
     var klasse = 'v v-tal' + (f.tilstand === 'nul' ? ' v-nul' : '');
-    var vaerdiHTML = '<span class="' + klasse + '">' + op + '<b class="num">' + esc(figur) + '</b>' + enhed + '</span>';
+    // Kildemaerket SKAL staa som direkte barn af .v-tal (system.css'
+    // ".v-tal > .kildemaerke{align-self:flex-start}") - derfor inde i spannet,
+    // foer det lukker, samme placering som side.mjs' egen tal()-funktion
+    // bruger server-side (krop += kildemaerke(...) foer </span>).
+    var vaerdiHTML = '<span class="' + klasse + '">' + op + '<b class="num">' + esc(figur) + '</b>' + enhed
+      + kildeMaerkeHTML(r, f) + '</span>';
     // spor/enheder (K9) omregner visse felter til sidens faelles enhed;
     // `f.kildeform` (sat i sammenligning.mjs' dataBlok()) er producentens
     // egen figur+enhed. Samme title, samme i18n-noegle, samme placering
@@ -91,18 +113,19 @@
   /* Ét felt, de samme fire datatilstande som resten af sitet
      (system.css §8) - kun bygget her af JS i stedet for af side.mjs' egne
      tal()/tilstand(). Se tools/skabelon/sammenligning.mjs' feltVisning(). */
-  function renderFelt(f) {
+  function renderFelt(f, r) {
     if (!f) f = { tilstand: 'ikke_oplyst' };
     var forbeholdHTML = f.forbehold ? fnote(f.forbehold) : '';
+    var kildeHTML = kildeMaerkeHTML(r, f);
     switch (f.tilstand) {
       case 'nej':
-        return '<span class="v v-nej"><i class="mrk"></i>' + esc(DATA.tekst.nej) + '</span>' + forbeholdHTML;
+        return '<span class="v v-nej"><i class="mrk"></i>' + esc(DATA.tekst.nej) + kildeHTML + '</span>' + forbeholdHTML;
       case 'ja':
-        return '<span class="v v-ja"><i class="mrk"></i>' + esc(DATA.tekst.ja) + '</span>' + forbeholdHTML;
+        return '<span class="v v-ja"><i class="mrk"></i>' + esc(DATA.tekst.ja) + kildeHTML + '</span>' + forbeholdHTML;
       case 'kun_billede':
-        return '<span class="v v-billede"><i class="mrk"></i><span class="ord">' + esc(DATA.tekst.kun_billede) + '</span></span>' + forbeholdHTML;
+        return '<span class="v v-billede"><i class="mrk"></i><span class="ord">' + esc(DATA.tekst.kun_billede) + '</span>' + kildeHTML + '</span>' + forbeholdHTML;
       case 'tekst': {
-        var ud = '<span class="v v-tekst">' + esc(f.tekst) + '</span>';
+        var ud = '<span class="v v-tekst">' + esc(f.tekst) + kildeHTML + '</span>';
         if (f.min !== null && f.min !== undefined) {
           ud += ' ' + renderTal({ tilstand: 'tal', vaerdi: null, min: f.min, maks: f.maks, enhed: f.enhed, operator: null });
         }
@@ -110,10 +133,10 @@
       }
       case 'tal':
       case 'nul':
-        return renderTal(f);
+        return renderTal(f, r);
       case 'ikke_oplyst':
       default:
-        return '<span class="v v-ikke"><i class="mrk"></i>' + esc(DATA.tekst.ikke_oplyst) + '</span>' + forbeholdHTML;
+        return '<span class="v v-ikke"><i class="mrk"></i>' + esc(DATA.tekst.ikke_oplyst) + kildeHTML + '</span>' + forbeholdHTML;
     }
   }
 
@@ -145,7 +168,7 @@
         // maerke (CSS ::before), fordi kolonneoverskriften (specimen-raekken)
         // er langt vaek, naar tabellen staar i én spalte pr. robot.
         var celler = robotter.map(function (r) {
-          return '<div class="saml-raekke__celle" data-robot="' + esc(r.navn) + '">' + renderFelt(r.felter[feltNavn]) + '</div>';
+          return '<div class="saml-raekke__celle" data-robot="' + esc(r.navn) + '">' + renderFelt(r.felter[feltNavn], r) + '</div>';
         }).join('');
         return '<div class="saml-raekke" style="--n:' + n + '">'
           + '<div class="saml-raekke__navn">' + esc(DATA.feltNavne[feltNavn]) + '</div>' + celler + '</div>';
