@@ -23,7 +23,7 @@ felter:
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"整机重量（含电池）: 21 kg\" - eksplicit \"含电池\" (inkl. batteri). Raekken har INTET \"约\" (cirka)-tegn, i modsaetning til maalene lige ovenover i samme tabel (samme moenster som genisom-gangben-l1.yaml, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl)."
+    advarsel: "\"整机重量（含电池）: 21 kg\" - eksplicit \"含电池\" (inkl. batteri). Raekken har INTET \"约\" (cirka)-tegn, i modsaetning til maalene lige ovenover i samme tabel (samme moenster som Gangben L1, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl)."
   laengde:
     vaerdi: 720
     enhed: mm
@@ -114,7 +114,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for \"fuld last\" - derfor ved_last: ikke_oplyst, ikke et masse-kort. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for \"fuld last\" - derfor er lastbetingelsen ikke oplyst, ikke et gaettet masse-kort. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5

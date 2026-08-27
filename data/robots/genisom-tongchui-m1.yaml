@@ -110,7 +110,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
-    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" (5t tomgang / 3,5t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte til denne raekke - derfor ved_last: ikke_oplyst, selvom et separat \"最大载荷: 30 kg\" staar andetsteds paa siden. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" (5t tomgang / 3,5t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte til denne raekke - derfor er lastbetingelsen ikke oplyst, selvom et separat \"最大载荷: 30 kg\" staar andetsteds paa siden. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1

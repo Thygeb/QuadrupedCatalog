@@ -44,7 +44,7 @@ felter:
     enhed: kg
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
-    advarsel: "\"PAYLOAD: 5 KG\" - producenten skelner ikke mellem gaaende og staaende last. Placeringen i nyttelast_gaaende er vores tolkning, ikke en aflaesning (samme princip som Boston Dynamics Spot og ANYbotics ANYmal i dette katalog)."
+    advarsel: "\"PAYLOAD: 5 KG\" - producenten skelner ikke mellem gaaende og staaende last. Placeringen under gaaende last er vores tolkning, ikke en aflaesning (samme princip som Boston Dynamics Spot og ANYbotics ANYmal i dette katalog)."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.5
@@ -89,7 +89,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
-    advarsel: "\"ENDURANCE: 1.5 HRS\" i specifikationstabellen, bekraeftet af blogindlaeggets gentagne \"90-minute runtime\" (=1,5 t). Ingen lastbetingelse oplyst - ved_last ikke_oplyst, selvom et separat 5 kg-payloadtal findes andetsteds paa siden (regel 8: gaetter ikke paa koblingen). VOLTAGE 24V og BATTERY CAPACITY 10AH er ogsaa oplyst; Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9-praecedens fra flere andre poster i kataloget)."
+    advarsel: "\"ENDURANCE: 1.5 HRS\" i specifikationstabellen, bekraeftet af blogindlaeggets gentagne \"90-minute runtime\" (=1,5 t). Ingen lastbetingelse oplyst, selvom et separat 5 kg-payloadtal findes andetsteds paa siden - forbindelsen mellem de to er ikke lavet af producenten, saa driftstiden staar uden lastkrav. VOLTAGE 24V og BATTERY CAPACITY 10AH er ogsaa oplyst; Wh er ikke trykt direkte og udregnes ikke af V x Ah, samme forsigtighed som andre poster i kataloget."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5

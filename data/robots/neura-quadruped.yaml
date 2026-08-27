@@ -48,7 +48,7 @@ felter:
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"Payload: 22 kg / 48.5 lbs\" - databladet skelner ikke mellem gaaende og staaende last. Placeringen i nyttelast_gaaende er vores tolkning, ikke en aflaesning (samme princip som Boston Dynamics Spot m.fl.)."
+    advarsel: "\"Payload: 22 kg / 48.5 lbs\" - databladet skelner ikke mellem gaaende og staaende last. Placeringen under gaaende last er vores tolkning, ikke en aflaesning (samme princip som Boston Dynamics Spot m.fl.)."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 12

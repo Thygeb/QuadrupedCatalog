@@ -32,7 +32,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "USIKKER TILDELING. Producenten trykker \"Standing Dimensions: 900 x 543 x 572 mm (35.4 x 21.4 x 22.5 in)\" uden at maerke akserne enkeltvis. Foerste tal er her antaget som laengde, som i moenstret fra deep-robotics-x30.yaml. Ikke bekraeftet ud fra kilden."
+    advarsel: "USIKKER TILDELING. Producenten trykker \"Standing Dimensions: 900 x 543 x 572 mm (35.4 x 21.4 x 22.5 in)\" uden at maerke akserne enkeltvis. Foerste tal er her antaget som laengde, som i moenstret fra Deep Robotics X30. Ikke bekraeftet ud fra kilden."
   bredde:
     vaerdi: 543
     enhed: mm
@@ -150,5 +150,5 @@ felter:
     enhed: USD
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Fra webbutikkens Shopify-produktdata (variant \"D5\": price 8000000, dvs. 80.000 USD i cent-enheder). D5-W koster 85.000 USD ifoelge samme kilde (variant \"D5-W\": price 8500000) - se pudu-d5-w.yaml."
+    advarsel: "Fra webbutikkens Shopify-produktdata (variant \"D5\": price 8000000, dvs. 80.000 USD i cent-enheder). D5-W koster 85.000 USD ifoelge samme kilde (variant \"D5-W\": price 8500000)."
   ce_oplyst: ikke_oplyst

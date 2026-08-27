@@ -88,7 +88,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
-    advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal staar direkte paa denne raekke. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds paa siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor ved_last: ikke_oplyst, jf. regel 8 og samme forsigtighed som L2/M1's driftstidsfelter."
+    advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal staar direkte paa denne raekke. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds paa siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

@@ -85,7 +85,7 @@ felter:
     enhed: C
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
-    advarsel: "Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to temperaturer. Skal normaliseres i indlaesningen, ellers matcher intervalparseren ikke."
+    advarsel: "Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to temperaturer."
   batteri_wh:
     vaerdi: ikke_oplyst
     kilde: https://www.weilan.com/en/en/alphadogc.html

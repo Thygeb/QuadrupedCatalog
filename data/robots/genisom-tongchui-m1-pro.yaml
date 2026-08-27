@@ -107,7 +107,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
-    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Pro's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte - derfor ved_last: ikke_oplyst. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Pro's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte - derfor er lastbetingelsen ikke oplyst. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1
@@ -134,12 +134,12 @@ felter:
     vaerdi: "2x bredvinkelkamera, 8 MP hver, DFOV 122° / HFOV 111° / VFOV 70°"
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
-    advarsel: "\"相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°\" og \"相机像索: 800万 x 2\" i M1 Pro's egen sensor-sektion - identisk med basisudgaven (bemaerk: samme kameraopstilling som basis-M1, IKKE M1 Ultra's fiskeoeje-array - se genisom-tongchui-m1-ultra.yaml). M1 Pro's sensor-sektion tilfoejer desuden \"超声波传感器: 支持\" (ultralydssensor) ud over basisudgavens IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor, noteret her."
+    advarsel: "\"相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°\" og \"相机像索: 800万 x 2\" i M1 Pro's egen sensor-sektion - identisk med basisudgaven (bemaerk: samme kameraopstilling som basis-M1, IKKE M1 Ultra's fiskeoeje-array). M1 Pro's sensor-sektion tilfoejer desuden \"超声波传感器: 支持\" (ultralydssensor) ud over basisudgavens IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor, noteret her."
   compute:
     vaerdi: "8-kernet CPU, 100 TOPS"
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
-    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\" i M1 Pro's egen datablok - identisk med basisudgaven (bemaerk: DIFFERER fra M1 Ultra's 6-kernet/128TOPS - se genisom-tongchui-m1-ultra.yaml)."
+    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\" i M1 Pro's egen datablok - identisk med basisudgaven (bemaerk: DIFFERER fra M1 Ultra's 6-kernet/128TOPS)."
   ros2: ikke_oplyst
   sdk_sprog:
     vaerdi: ikke_oplyst

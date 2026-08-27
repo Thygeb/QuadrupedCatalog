@@ -105,7 +105,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" i L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor ved_last: ikke_oplyst. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" i L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5

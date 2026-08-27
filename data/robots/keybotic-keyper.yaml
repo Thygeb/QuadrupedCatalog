@@ -66,7 +66,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
-    advarsel: "\"90/120 min battery run time\" - de to tal er ikke maerket med hvilken last de gaelder for (se topnote). ved_last er derfor ikke_oplyst, ikke et gaettet kg-tal."
+    advarsel: "\"90/120 min battery run time\" - de to tal er ikke maerket med hvilken last de gaelder for (se topnote). lastbetingelsen er derfor ikke oplyst, ikke et gaettet kg-tal."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 60

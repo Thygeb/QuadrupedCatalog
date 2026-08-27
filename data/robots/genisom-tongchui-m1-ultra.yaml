@@ -27,7 +27,7 @@ felter:
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
-    advarsel: "\"整机重量（含电池）: 41 kg\" i M1 Ultras egen specifikationstabel (id 504) - identisk med basisudgaven og M1 Pro. MODSIGES af sidens sidebredde marketingkort (\"约 30kg\") - se genisom-tongchui-m1-pro.yaml's topnote. Regel 9: ikke rettet stiltiende."
+    advarsel: "\"整机重量（含电池）: 41 kg\" i M1 Ultras egen specifikationstabel (id 504) - identisk med basisudgaven og M1 Pro. MODSIGES af sidens sidebredde marketingkort (\"约 30kg\"), samme selvmodsigelse som M1 Pro. Ikke rettet stiltiende."
   laengde:
     vaerdi: 930
     enhed: mm
@@ -109,7 +109,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
-    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - ved_last: ikke_oplyst. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Raekkevidde \"续航里程: 空载 29 km；满载 18 km\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1

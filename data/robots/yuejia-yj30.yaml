@@ -54,7 +54,7 @@ felter:
     enhed: kg
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gaaende eller staaende last - samme situation som Unitree Go2 (se topnote). Placeringen i nyttelast_gaaende er et forsigtigt skoen ud fra stoerrelsesordenen, IKKE en aflaesning."
+    advarsel: "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gaaende eller staaende last - samme situation som Unitree Go2 (se topnote). Placeringen under gaaende last er et forsigtigt skoen ud fra stoerrelsesordenen, IKKE en aflaesning."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3

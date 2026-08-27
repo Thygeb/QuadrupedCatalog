@@ -102,7 +102,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
-    advarsel: "\"续航时间 4~8小时 (有负载/空载)\" (belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-vaerdi - vi gaetter ikke, at det er de 80 kg fra 工作负载-feltet, saa ved_last staar ikke_oplyst i stedet for at opfinde koblingen."
+    advarsel: "\"续航时间 4~8小时 (有负载/空载)\" (belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-vaerdi - vi gaetter ikke, at det er de 80 kg fra 工作负载-feltet, saa lastbetingelsen staar ikke oplyst i stedet for at opfinde koblingen."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:

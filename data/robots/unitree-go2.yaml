@@ -58,7 +58,7 @@ felter:
       PRO: "ca. 8 kg (maks. ca. 10 kg)"
       X: "ca. 8 kg (maks. ca. 12 kg)"
       EDU: "ca. 8 kg (maks. ca. 12 kg)"
-    advarsel: "Producenten skriver kun Payload og siger ikke, om det er gaaende eller staaende last. Placeringen i nyttelast_gaaende er en konservativ slutning ud fra stoerrelsesordenen, IKKE en aflaesning. Vaerdien er AIR-variantens."
+    advarsel: "Producenten skriver kun Payload og siger ikke, om det er gaaende eller staaende last. Placeringen under gaaende last er en konservativ slutning ud fra stoerrelsesordenen, IKKE en aflaesning. Vaerdien er AIR-variantens."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi_min: 0

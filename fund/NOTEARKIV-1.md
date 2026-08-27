@@ -1,4 +1,4 @@
-# NOTEARKIV-1.md — interne noter flyttet ud af `data/robots/*.yaml`
+# NOTEARKIV-1.md — interne noter og instrukser flyttet ud af `data/robots/*.yaml`
 
 Bygget under spor/noter (27. aug 2026), punkt Å25a i briefet. Grundlaget er
 `fund/FUND-forbehold.md` afsnit 3b: 100 af 325 offentlige noter (regex-gulv, ikke facit)
@@ -498,6 +498,26 @@ efterprøves.
 **[1]** Sensorerne naevnes i prosa uden modeller og uden antal: wide-angle vision, active infrared vision, 360-degree lidar, multi-time-of-flight (TOF) radar, microphone array, multipoint touch sensor, temperature and humidity sensor, 6DF inertial measurement unit (IMU) sensor, joint torque sensor, displacement sensor og 6D pose estimation. 360-degree lidar er type uden model og taeller ikke under D4.
 
 **[3]** KLASSEMARKERING MANGLER I SKEMAET. BabyAlpha er en hjemme-/selskabsrobot, ikke et arbejdsredskab. Den staar ikke paa CEO ens udelukkelsesliste (Petoi, MangDang, Hiwonder, Yahboom, Elephant Robotics, Sony aibo, Tombot), og er derfor konverteret - men om den hoerer i kataloget er et aabent spoergsmaal.
+
+---
+
+## weilan-alphadog-c500 (fra `advarsel:`, ikke `noter:`)
+
+Punkt Å25b, ikke Å25a: dette er en direkte instruks til os, fundet i feltet
+`felter.temp_maks.advarsel`, ikke i en `noter:`-post. Det producentvendte forbehold
+("Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to
+temperaturer.") er BEVARET i `advarsel:` - kun instruksen herunder er fjernet derfra.
+
+**[advarsel/temp_maks]** Skal normaliseres i indlaesningen, ellers matcher intervalparseren ikke.
+
+---
+
+## weilan-alphadog-c501 (fra `advarsel:`, ikke `noter:`)
+
+Samme fund og samme begrundelse som weilan-alphadog-c500 - identisk producentside,
+identisk enhedsfejl (fuldbredde-tilde U+FF5E).
+
+**[advarsel/temp_maks]** Skal normaliseres i indlaesningen, ellers matcher intervalparseren ikke.
 
 ---
 

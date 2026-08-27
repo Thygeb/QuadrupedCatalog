@@ -63,7 +63,7 @@ felter:
     enhed: "°"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
-    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30 - se yuejia-yj30.yaml's topnote."
+    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30, samme forbehold som i YJ30's egen post."
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 60
