@@ -409,10 +409,24 @@ a:hover{text-decoration-thickness:2.5px}
 }
 /* Vaerdien maa hellere ombryde end skubbe cellen ud af sit spor. break-word
    (ikke anywhere) proever et mellemrum foerst — "ikke oplyst" bryder til to
-   linjer i stedet for elleve, ét bogstav pr. linje. Rene tal uden mellemrum
-   (fx "110min") bryder stadig midt i, naar der intet andet er at bryde ved -
-   sikkerheden mod at skubbe cellen ud af sporet er uaendret. */
+   linjer i stedet for elleve, ét bogstav pr. linje.
+
+   RETTET (K8, JPK 27. aug 2026, forstaerket af L41's laengere km/h-tal):
+   den gamle regel accepterede BEVIDST at "rene tal uden mellemrum bryder
+   midt i, naar der intet andet er at bryde ved" - men det var netop fejlen.
+   .v er allerede inline-flex+flex-wrap:wrap (afsnit 8, linje 195-196), saa
+   .num er en flex-item med automatisk minimumsbredde regnet ud fra sit eget
+   indhold - MEDMINDRE overflow-wrap:break-word (arvet fra .v) giver den lov
+   til at skrumpe under den bredde ved at knaekke sin egen tekst. Det er
+   PRAECIS det, der knaekker "0–14,4" til "0–"/"14,4": flexboxen bruger
+   friheden i break-word til at proppe tallet i den smalle celle, i stedet
+   for at lade .enhed falde til naeste flex-linje for sig selv - hvilket
+   .v's egen flex-wrap allerede haandterer uden hjaelp fra break-word.
+   Et tal er ALDRIG et sted, et linjeskift maa laegges - kun ordmellemrum
+   (fx i "ikke oplyst") er det. Derfor tager .num sin egen regel HER, efter
+   .v's brede regel, saa .num vinder ved specificitet: */
 .stribe .v,.stribe--kompakt .v{overflow-wrap:break-word}
+.stribe .num,.stribe--kompakt .num{overflow-wrap:normal;word-break:keep-all;white-space:nowrap}
 
 /* --- 11. ROBOTKORTET ------------------------------------------------------ */
 /* Fotografiet fylder toppen. Navnet ligger UNDER billedet, ikke paa det.
