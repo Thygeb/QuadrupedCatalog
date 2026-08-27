@@ -786,6 +786,9 @@ ${anvendelseMaerker(ctx)}
 ${varianterDel}
 ${producentSlug ? `<p class="t-lille"><a href="${esc(sti(ctx, 'producent', producentSlug))}">${esc(flet(T(i18n, 'til_producent'), { producent: producentNavn }))}</a></p>` : ''}
 </div>
+<div class="robot-noegletal">
+${stribe(ctx, kilder)}
+</div>
 </header>`;
 }
 
@@ -806,7 +809,6 @@ export function render(ctx) {
 
 <article class="robotside">
 ${top(arbejde, kilder)}
-${stribe(arbejde, kilder)}
 ${euBlok(arbejde, kilder)}
 ${produktside(arbejde, kilder)}
 ${anvendelseBlok(arbejde)}

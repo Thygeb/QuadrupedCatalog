@@ -98,6 +98,51 @@
    teknik som .kort .kildemaerke. */
 .yderpunkt .kildemaerke{position:relative;z-index:2}
 .yderpunkt .billedled{aspect-ratio:4/3;border-bottom:1px solid var(--linje)}
+
+/* --- 1c. Pladernes FAELLES indre format (KRITIK-4 fund 7).
+   Pladernes egne kasser var allerede ens (maalt 1440: fire gange 312x234 px)
+   - fundet handlede aldrig om rammen, men om hvad der skete INDE i den.
+   Maalt paa de fire billeders egne kasser foer denne regel:
+     Y10       312x257   cover, HOEJERE end rammen -> 23 px klippet af
+     S1-W      312x188   --plade: contain, svaevede med brede margener
+     Lynx S10  312x234   cover, udfyldte praecist
+     MOVENEW   312x221   cover
+   Tre plader gik kant til kant, én svaevede. Det er derfor raekken laeses som
+   fire loesrevne kort i stedet for ét instrument med fire aflaesninger.
+
+   Loesningen er pladens ramme, ikke billedet: samme bund og samme indre
+   format til alle fire. Ingen beskaering (vaernet i briefet og grunden til
+   at --plade findes: en 4:3-beskaering tager enten poterne eller hovedet),
+   og intet billede genereret.
+
+   BIVIRKNING, der er en gevinst: Y10 blev beskaaret 23 px af rammen foer.
+   Med contain er ingen af de fire beskaaret overhovedet.
+
+   --panel-ro er systemets egen "rolige indfelt inde i et hvidt panel" - en
+   polet, der allerede findes. D15 laaste paletten; her indfoeres ingen ny
+   farve.
+
+   AARSAGEN, som ikke var object-fit. Billedet ligger i et <picture>, og det
+   er <picture>, der er .billedled's gridfelt - ikke <img>. <picture> er
+   inline og har ingen hoejde, saa system.css' `.billedled img{height:100%}`
+   aldrig kunne opløses: den regnede mod en auto-hoej beholder og faldt
+   tilbage til billedets NATURLIGE forhold. Derfor blev hver plades billede
+   312 px bredt gange sit eget sideforhold - 255, 181, 234, 223 - og rammen
+   klippede eller lod bunden staa. Det er praecis den faelde, CLAUDE.md
+   beskriver for maalevaerktoejet: "<img> fylder ikke noedvendigvis sit
+   <picture>". At saette object-fit alene flyttede kun tallene 2-7 px, fordi
+   det aldrig var problemet - foerst da <picture> fik en kasse, virkede det. */
+.yderpunkt .billedled{background:var(--panel-ro)}
+/* position:absolute + inset:0 frem for height:100%. .billedled er
+   position:relative i forvejen, saa <picture> faar praecis rammens kasse.
+   height:100% var IKKE nok: .billedled er et grid med align-items:center, saa
+   den implicitte raekke sizes efter sit INDHOLD. Et billede hoejere end 4:3
+   pustede raekken op over rammen, og 100% regnede saa mod den oppustede
+   raekke - en cyklisk procent, der stabiliserede paa 255 px i en 234 px
+   ramme. Maalt: Y10 blev ved med at staa paa 312x255, mens de tre andre
+   ramte 233-234, indtil pladen blev taget ud af raekkens hoejdeberegning. */
+.yderpunkt .billedled picture{position:absolute;inset:0;display:block}
+.yderpunkt .billedled img{object-fit:contain;padding:var(--r3) var(--r4)}
 .yderpunkt-krop{display:flex;flex-direction:column;gap:8px;min-width:0;padding:var(--r5)}
 .yderpunkt-krop > .etiket{display:flex;align-items:center;gap:8px}
 .yderpunkt-krop > .etiket .ikon{width:16px;height:16px;stroke-width:1.8;color:var(--accent)}
@@ -179,6 +224,50 @@
 }
 .facet-hjaelp{margin-top:var(--r4);max-width:86ch}
 .facet-ryd{margin-top:var(--r3)}
+
+/* --- L44: sorteringskontrollen og tommelindekset -------------------------
+   Begge er ren HTML. Sorteringen er radioknapper, som CSS'ens :has() laeser
+   (reglerne genereres i katalog.mjs' hovedStil); indekset er ankre til
+   salenes egne id'er. Ingen af dem roerer JavaScript, og uden :has()-stoette
+   staar kortene i vaegtorden - samme fejlvej som filtrene.
+
+   Chipformen er den SAMME som .filtre (system.css afsnit 13), ikke en ny:
+   to betjeningsflader, der goer beslaegtede ting, skal ikke se ud som to
+   systemer. Kun tilstanden er anderledes - en radio er et enten-eller. */
+.katalog-sortering{border:0;margin:0;padding:0;min-width:0}
+.katalog-sortering > legend{padding:0;margin:0 0 6px}
+.sortervalg{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sortervalg input{position:absolute;width:1px;height:1px;opacity:0}
+.sortervalg label{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+  cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
+  background:var(--panel);border:1px solid transparent;border-radius:var(--rund-ind);
+}
+.sortervalg label:hover{background:var(--accent-ro);color:var(--blaek)}
+.sortervalg input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.sortervalg input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+.sortering-hjaelp{margin-top:var(--r2);max-width:86ch}
+
+/* Tommelindekset. Katalogsiden er maalt til 10.652 px ved 1440 og 37.551 px
+   ved 390 - det er den flade, grebet findes for. Baandet staar lige over
+   listen, hvor et spring giver mening, ikke oeverst blandt filtrene. */
+.tommelindeks{margin-top:var(--r6);padding-top:var(--r4);border-top:1px solid var(--linje)}
+.tommelindeks > .etiket{display:block;margin-bottom:var(--r2)}
+.tommelindeks__liste{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.tommelindeks__liste a{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+  font-size:15px;font-weight:600;color:var(--blaek2);text-decoration:none;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
+}
+.tommelindeks__liste a:hover{background:var(--accent-ro);color:var(--blaek);border-color:var(--accent-ro)}
+.tommelindeks__liste a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+/* Taelleren saettes som sidens andre tal: mono med tabulaere cifre, saa 10 og
+   29 fylder det samme og raekken ikke vibrerer. */
+.tommelindeks__liste .antal{font-family:var(--mono);font-size:12px;font-weight:500;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
+/* Springer man til en sal, skal man kunne SE, at man landede rigtigt, og
+   overskriften maa ikke gemme sig under den klaebende sidetop. */
+.sal__titel{scroll-margin-top:var(--r8)}
 
 /* :target giver de samme to tilstande som :checked, saa et filterlink fra
    forsiden ogsaa SES som valgt. Hullet ("ikke oplyst", system.css afsnit 13)
@@ -526,6 +615,81 @@
 @media (max-width:899px){
   .robot-top{gap:var(--r4)}
   .robot-foto .billedled--stor:not(.billedled--maal){max-height:190px}
+}
+
+/* --- 9a-2. Noegletallene op ved siden af fotografiet (KRITIK-4 fund 4).
+   Maalt paa 12 robotsider ved 1440 foer aendringen: hoejre spalte baerer
+   producent, land, status, navn, vaegtklasse, chips og ét link — og derunder
+   175-343 px, hvor der staar INTET, ned til fotoets underkant. De fem
+   noegletal, som er det laeseren kom efter, begyndte foerst under fotoet.
+
+   Striben er derfor flyttet ind i .robot-top som tredje gridfelt (robot.mjs'
+   top()). DOM-raekkefoelgen er uaendret laesbar: foto, navn, tal — saa en
+   skaermlaeser og en tastaturbruger moeder dem i samme orden som foer, og
+   under 1180 px staar siden praecis som i dag.
+
+   Behold-punkt 4 i KRITIK-4 fredr aflaesningslinjen: fem felter, fast orden,
+   tabellariske cifre. Den er urgot — kun ANTALLET AF SPALTER skifter i den
+   smalle hoejrespalte, og tre spalter er ikke en ny form: det er praecis den
+   arrangement, striben allerede bruger under 1180 px (l.576 nedenfor). */
+.robot-noegletal{min-width:0;margin-top:var(--r6)}
+/* Sektionens egen lodrette rytme (.sektion{padding-top:var(--r8)}) hoerer til
+   mellem sidens sektioner, ikke inde i hovedet. Hovedets grid styrer nu
+   afstanden; uden nulstillingen ville de 64 px laegge sig oven i grid-gap'et. */
+.robot-noegletal > .sektion{padding-top:0}
+
+@media (min-width:900px){
+  /* Mellem 900 og 1180 px er hoejrespalten for smal til baade navn OG fem
+     tal. Striben spaender derfor hele bredden under hovedet — dagens billede. */
+  .robot-noegletal{grid-column:1 / -1}
+}
+
+@media (min-width:1180px){
+  .robot-top{
+    grid-template-columns:minmax(0,7fr) minmax(300px,5fr);
+    grid-template-areas:"foto navn" "foto tal";
+    column-gap:var(--r6);row-gap:var(--r5);
+  }
+  .robot-foto{grid-area:foto}
+  .robot-navn{grid-area:navn}
+  .robot-noegletal{grid-area:tal;margin-top:0}
+  /* TO spalter, ikke tre. Foerste udgave af denne regel brugte tre, og det
+     var en maalt REGRESSION i aflaesningslinjen: en tre-spaltet celle er
+     183 px, hvoraf vaerdiblokken faar 121 px - mod ~200 px i den gamle
+     fem-spaltede stribe over hele bredden. Vaerdien ombroed derfor oftere,
+     og maalt over 25 robotsider ved 1440 gik flerlinjede vaerdiblokke fra
+     20 af 125 til 30 af 125.
+
+     Det er ikke en skoenhedsfejl. Det, der ombroed, var i vidt omfang
+     HULMAERKET "ikke oplyst" - sidens signatur - som gik fra én til tre
+     linjer. spor/typografi brugte hele sit spor paa at faa vaerdiblokkens
+     hoejde ned; en celle, der er tre linjer hoej paa nogle robotter og én
+     paa andre, goer striben til en liste igen.
+
+     To spalter giver ~275 px pr. celle og ~219 px til vaerdiblokken - altsaa
+     BREDERE end den oprindelige fem-spaltede stribe, ikke bare bredere end
+     tre spalter. Prisen er én raekke mere i hoejden.
+
+     FRAVALGT: at lade det imperiale chip staa paa egen linje. Det ville have
+     gjort ombrydningen ENSARTET, men ikke faerre - og paa fx
+     anybotics-anymal-x er alle fire ramte celler "ikke oplyst"-huller UDEN
+     imperialt chip, saa den mekanisme rammer ikke aarsagen. */
+  .robot-noegletal .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .robot-noegletal .stribe--fem > li{border-left:1px solid var(--linje)}
+  .robot-noegletal .stribe--fem > li:nth-child(2n+1){border-left:0}
+  .robot-noegletal .stribe--fem > li:nth-child(n+3){border-top:1px solid var(--linje)}
+  /* Fem celler i to spalter efterlader ét TOMT felt i tredje raekke. Paa
+     enhver anden side ville det vaere en skoenhedsfejl; her er det farligt.
+     Sidens signatur er, at et tomt felt BETYDER "ikke oplyst" (haard
+     begraensning 5), saa en tom gitterplads inde i noegletalspanelet kan
+     laeses som et sjette felt, producenten ikke oplyser. Den sidste celle
+     spaender derfor resten af raekken ud, saa panelet lukker.
+     Raekkefoelgen er urgot, og border-logikken ovenfor holder: celle 5 er
+     nth-child(2n+1) og faar ingen venstrekant. */
+  .robot-noegletal .stribe--fem > li:last-child{grid-column:span 2}
+  .robot-noegletal .stribe > li{padding:14px 13px 13px;gap:10px}
+  .robot-noegletal .stribe .v{font-size:23px}
+  .robot-noegletal .stribe .krop > .v{min-height:26px}
 }
 
 .robot-foto{margin:0;display:flex;flex-direction:column;gap:10px}

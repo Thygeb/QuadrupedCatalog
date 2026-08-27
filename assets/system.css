@@ -803,6 +803,23 @@ a:hover{text-decoration-thickness:2.5px}
    naa densitetskravet ved 390 px (spor/instrument2, punkt 2), se rapporten. */
 @media (max-width:679px){.gitter{grid-template-columns:1fr;gap:var(--r2)}}
 
+/* Forsidens smagsproeve "Fra kataloget" viser SEKS kort. auto-fill ovenfor
+   giver praecis fem spalter ved 1440 (250*5 + 16*4 = 1314 <= 1352, seks ville
+   kraeve 1580), saa raekke 2 stod med ét kort og fire tomme pladser ved siden
+   af - maalt med maal.mjs: kort 6, raekker 2. Den forældreløse laeses som en
+   fejl, ikke som en sektionsafslutning, og den staar lige over sidens
+   vigtigste gentagne CTA (KRITIK-4 fund 6).
+
+   SEKS SPALTER ER IKKE EN MULIGHED: (1352 - 5*16)/6 = 212 px pr. kort, under
+   det 250 px-gulv, linje 790 ovenfor saetter EFTER maaling - og 212 px kort
+   ville lande de kompakte underspalter paa ~95 px, praecis det interval, hvor
+   den maaling fandt klipning. To hele raekker a tre er derfor formen.
+   Kataloget selv beholder auto-fill: dér er en kortere sidste raekke det
+   normale for en lang liste, ikke en forældreløs. */
+@media (min-width:1080px){
+  .gitter--udvalg{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
 /* --- 13. Betjening: soegefelt og filtre ----------------------------------- */
 /* L17: begge skal staa i foerste viewport. Uden JavaScript virker feltet
    stadig som et almindeligt formularfelt, og filtrene som links. */
