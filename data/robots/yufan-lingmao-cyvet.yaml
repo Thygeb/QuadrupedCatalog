@@ -2,7 +2,7 @@ slug: yufan-lingmao-cyvet
 navn: "Lingmao Cyvet (灵猫·Cyvet)"
 producent: Yufan Intelligent
 producentland: Kina
-producentby: Hangzhou
+producentby: ikke_oplyst
 status: annonceret
 anvendelse:
   vaerdi: [industri, sikkerhed_overvaagning, forbruger_uddannelse]
@@ -11,6 +11,7 @@ anvendelse:
   hentet: 2026-08-24
   note: "\"工业场景\" (industrielle scenarier) er omsat til industri. \"家庭安防\" (hjemmesikkerhed/patrulje) er omsat til sikkerhed_overvaagning. \"亲子科教\" (foraelder-barn naturvidenskabsundervisning) er omsat til forbruger_uddannelse. \"创客、科研爱好者、极客、玩家\" (maker/forsker/geek/spiller) er en malgruppebeskrivelse, ikke en branche, og er ikke omsat til nogen kategori."
 noter:
+  - "HJEMBY ER IKKE OPLYST AF PRODUCENTEN SELV: otte gemte sider fra producentens eget domaene (forside, produktside, motorside, koebsside, to embodied-ai-sider, to download/GitHub-sider) naevner ingen by direkte - kun en Zhejiang-provins-registrering (ICP-koden begynder med \"浙\", provinsens eget praefiks, ikke en bykode). Den by, der ofte tilskrives selskabet (naeste note), staar kun i en ekstern encyklopaediopslag, der ikke er gemt her og derfor ikke kan efterproeves som producentens egen kilde."
   - "Produktnavnet staar ordret \"灵猫•Cyvet\" paa koebssiden (shop/buy?product=air) - \"Cyvet\" er altsaa en del af det officielle produktnavn, ikke kun en presseoversaettelse. Firmaets engelske juridiske navn i copyright-linjen er \"Universal Ubiquitous AI Co., Ltd.\", brandmaerket paa sitet er \"UNIUBI AI\", og domaenet er uniubi.com (omdirigeret fra det aeldre uni-ubi.com). Kinesisk navn 宇泛智能/杭州宇泛智能科技 = samme selskab, jf. baike.baidu.com/item/杭州宇泛智能科技有限公司."
   - "VIGTIG FORBEHOLD FRA PRODUCENTEN SELV: koebssidens bundtekst skriver ordret: \"本页参数基于当前工程样机测试结果与版本规划整理，部分功能及性能数据仍在持续开发和优化中。实际量产配置、性能表现及交付内容以订单确认信息和实际发货版本为准.\" (parametrene paa denne side er baseret paa test af det nuvaerende ingenioer-praeproduktionseksemplar og planlagte versioner; nogle funktioner og ydelsestal er stadig under udvikling; det faktiske masseproduktionsudstyr afgoeres af ordrebekraeftelsen). Derfor status: annonceret, ikke i_produktion - specifikationerne er selv markeret som proevemaskine-tal, ikke et endeligt produkt."
 billede:

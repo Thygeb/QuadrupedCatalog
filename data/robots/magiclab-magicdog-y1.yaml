@@ -2,7 +2,7 @@ slug: magiclab-magicdog-y1
 navn: MagicDog Y1
 producent: MagicLab
 producentland: Kina
-producentby: Wujiang/Suzhou
+producentby: Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [industri, inspektion, forsvar_beredskab]
@@ -13,6 +13,7 @@ anvendelse:
   hentet: 2026-08-19
   note: "De to producentdomaener siger det samme: magiclab.top skriver \"MagicLab Industrial Quadruped Robot\" (CN: \"魔法原子工业四足机器人\")."
 noter:
+  - "HJEMBYEN ER SUZHOU, IKKE WUJIANG: producentens globale site skriver direkte \"Founded in 2024 and headquartered in Suzhou\" og gentager \"Founded in Suzhou, China\". Strengen \"Wujiang\", som posten tidligere baar ved siden af Suzhou, findes 0 gange i selskabets gemte sider."
   - "Eneste MagicLab-model, hvor alle tre producentkilder (magiclab.top EN, magiclab.top CN og magiclabglobal.com) er indbyrdes konsistente. EN og CN er enige om hvert eneste tal."
   - "DOKUMENTERET SAMMENFALD MED UNITREE B2, uden forklaring. Sensorstrengen er samme konstruktion med samme antal og samme forbehold; batteriet oplyses i samme form med samme 45 Ah; driftstidsintervallet 4-6 t er identisk; og lastbetingelsen >4 t ved 20 kg er identisk ned til operatoren. Men Y1's hastighed er LAVERE (6 m/s mod B2's > 6 m/s), maalene er blandede, og paa det eneste sammenlignelige trinfelt oplyser B2 et tal og Y1 intet. Vi paastaar ingenting om aarsagen."
 billede:

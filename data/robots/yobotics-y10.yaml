@@ -2,7 +2,7 @@ slug: yobotics-y10
 navn: Y10
 producent: Shandong Youbaote Intelligent Robot
 producentland: Kina
-producentby: Shandong
+producentby: Jinan
 status: i_produktion
 anvendelse:
   vaerdi: [forskning_udvikling, forbruger_uddannelse]
@@ -11,6 +11,7 @@ anvendelse:
   hentet: 2026-08-19
   note: "Saetningen staar som indledning paa katalogsiden for hele serien (Y20, Y10, e-Dog) og er ikke skrevet om den enkelte model. Ordet \"commercial\" har det tilladte saet ingen kategori for."
 noter:
+  - "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser."
   - "AABENT PUNKT: producentens overskrift siger Y10, men beskrivelsen lige under handler om Y5. Overskriften er brugt som modelnavn. Posten kan ikke laases, foer producenten er spurgt."
   - "Yobotics er domaenenavnet; producentens eget engelske navn er Shandong Youbaote Intelligent Robot Co., Ltd."
 billede:

@@ -2,7 +2,7 @@ slug: boston-dynamics-spot
 navn: Spot
 producent: Boston Dynamics
 producentland: USA
-producentby: Waltham, Massachusetts
+producentby: ikke_oplyst
 status: i_produktion
 anvendelse:
   vaerdi: [industri, inspektion]
@@ -16,6 +16,7 @@ billede:
   kilde: https://bostondynamics.com/products/spot/
   hentet: 2026-08-19
 noter:
+  - "HJEMBY ER IKKE OPLYST: strengen \"Waltham\", som ofte tilskrives producenten, findes 0 gange i producentens egen produktside og datablad. Ingen af de to kilder oplyser en adresse eller by."
   - "Majoritetsejet af Hyundai Motor Group (Sydkorea). Noteret fordi producentland bliver tvetydigt."
   - "To producentkilder: produktside (K1) og producentens eget datablad (K2, maerket Updated: 05/22/2024). De er uenige om laengde og vaegt."
 felter:

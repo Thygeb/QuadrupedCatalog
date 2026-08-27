@@ -2,7 +2,7 @@ slug: yobotics-e-dog
 navn: e-Dog
 producent: Shandong Youbaote Intelligent Robot
 producentland: Kina
-producentby: Shandong
+producentby: Jinan
 status: i_produktion
 anvendelse:
   vaerdi: [forskning_udvikling, forbruger_uddannelse]
@@ -16,6 +16,7 @@ billede:
   kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
   hentet: 2026-08-19
 noter:
+  - "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser."
   - "AABENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
 felter:
   egenvaegt:
