@@ -345,7 +345,7 @@ ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 </div>
 <p class="t-lille udvalg-regel">${esc(tf('forside_udvalg_regel', { n: udvalg.length, m: NAEVNER }))}</p>
 <p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
-<div class="gitter">
+<div class="gitter gitter--udvalg">
 ${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
 </div>
 <p class="udvalg-videre"><a class="videre videre--stille" href="robotter/">`
