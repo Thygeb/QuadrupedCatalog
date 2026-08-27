@@ -11,14 +11,14 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producenten skriver om \"The LYNX M20 series\", og M20S er en variant i den serie."
 noter:
-  - "Tredje faneblad paa M20-siden. Samme maal og vaegt som M20, men markant hoejere tal paa naesten alt andet - det er en anden robot, ikke en udstyrsvariant."
+  - "Tredje faneblad på M20-siden. Samme mål og vægt som M20, men markant højere tal på næsten alt andet - det er en anden robot, ikke en udstyrsvariant."
 billede:
   fil: fotos/fabrikant/deep-robotics-lynx-m20s.jpg
   ophav: fabrikant
   kilde: https://deeprobotics.cn/en/index/lynx.html
   hentet: 2026-08-19
   alt: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
-  note: "Producentens eget billede for hele Lynx-serien paa lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
+  note: "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
 felter:
   egenvaegt:
     vaerdi: 35
@@ -52,13 +52,13 @@ felter:
     enhed: kg
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Producentens etiket: Maximum Payload Capacity. Siden siger ikke eksplicit staaende. Placeringen er en tolkning."
+    advarsel: "Producentens etiket: Maximum Payload Capacity. Siden siger ikke eksplicit stående. Placeringen er en tolkning."
   hastighed:
     vaerdi: 2
     enhed: m/s
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser ogsaa 9 m/s som laboratoriemaalt ekstremhastighed. Her bruges driftshastigheden."
+    advarsel: "Producenten oplyser også 9 m/s som laboratoriemålt ekstremhastighed. Her bruges driftshastigheden."
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -76,7 +76,7 @@ felter:
     enhed: cm
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Producentens egen etiket: Max. Continuous Stair Height. Forholdet mellem de to trinfelter er 3,3 gange. Paa det sammenlignelige tal ligger M20S paa niveau med Boston Dynamics Spots 30 cm; havde vi taget det hoeje tal, ville den slaa alt andet i feltet."
+    advarsel: "Producentens egen etiket: Max. Continuous Stair Height. Forholdet mellem de to trinfelter er 3,3 gange. På det sammenlignelige tal ligger M20S på niveau med Boston Dynamics Spots 30 cm; havde vi taget det høje tal, ville den slå alt andet i feltet."
   ip_klasse:
     vaerdi: IP67
     kilde: https://deeprobotics.cn/en/index/lynx.html
@@ -99,12 +99,12 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser to intervaller - 3,5-5 t / 16-20 km uden last og 2,5-3,5 t / 12-15 km i drift - men angiver IKKE hvilken last de 2,5-3,5 t gaelder ved. M20 oplyser sin lastbetingelse (15 kg); M20S goer ikke."
+    advarsel: "Producenten oplyser to intervaller - 3,5-5 t / 16-20 km uden last og 2,5-3,5 t / 12-15 km i drift - men angiver IKKE hvilken last de 2,5-3,5 t gælder ved. M20 oplyser sin lastbetingelse (15 kg); M20S gør ikke."
   hot_swap:
     vaerdi: ja
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Hot-Swappable Dual Battery System - staar i tabellen, i modsaetning til M20 hvor det kun staar i broedteksten."
+    advarsel: "Hot-Swappable Dual Battery System - står i tabellen, i modsætning til M20 hvor det kun står i brødteksten."
   ladetid:
     vaerdi: 1.5
     enhed: t
@@ -114,12 +114,12 @@ felter:
     vaerdi: ja
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Autonomous Charging (Optional) - staar paa engelsk her, i modsaetning til M20 hvor raekken kun findes paa kinesisk."
+    advarsel: "Autonomous Charging (Optional) - står på engelsk her, i modsætning til M20 hvor rækken kun findes på kinesisk."
   lidar:
     vaerdi: ikke_oplyst
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Type uden model - taeller ikke under D4."
+    advarsel: "Type uden model - tæller ikke under D4."
   kameraer:
     vaerdi: "vidvinkelkameraer x2"
     kilde: https://deeprobotics.cn/en/index/lynx.html
@@ -134,7 +134,7 @@ felter:
     vaerdi: "SLAM Mapping & Localization; Autonomous Navigation; Omnidirectional Obstacle Avoidance"
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "De samme poster baerer paa M20 fodnoten Feature enabled via future OTA update. Paa M20S staar de UDEN fodnote og regnes derfor som eksisterende."
+    advarsel: "De samme poster bærer på M20 fodnoten Feature enabled via future OTA update. På M20S står de UDEN fodnote og regnes derfor som eksisterende."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte:

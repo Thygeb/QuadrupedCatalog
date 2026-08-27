@@ -91,8 +91,24 @@ function tjekKilde(sti, post) {
  * begrundelsen for hvert moenster. Listen er den samme, briefet selv brugte som
  * acceptkriterium; udvid den her, hvis et nyt moenster findes, ikke i et
  * engangs-script.
+ *
+ * Udvidet 27. aug 2026 (spor/prosa2, KRITIK-4 fund 1/5): de fem interne
+ * enum-navne fra anvendelse-skemaet (tools/skema.mjs' ANVENDELSE_VAERDIER, plus
+ * "ikke_oplyst") laekker paa samme maade som et filnavn eller et feltnavn — en
+ * laeser ser "sikkerhed_overvaagning" i loebende tekst i stedet for "sikkerhed
+ * og overvaagning". "sikkerhed_overv(aa|å)gning" daekker begge stavemaader,
+ * fordi punkt 1's translit-rettelse kan naa at fikse "aa" -> "å" i selve
+ * enum-navnet FOER denne regel ser teksten, hvis de to rettelser nogensinde
+ * koerer i omvendt raekkefoelge af her.
+ *
+ * IKKE udvidet til en generel ae/oe/aa-detektor: samme translit-oprydning
+ * (punkt 1) fandt gentagne ordrette producent-citater midt i advarsel/noter
+ * ("How much does it cost...", "RaaS" i et FAQ-svar) — engelsk tekst, der
+ * ægte indeholder "oe"/"aa" uden at vaere internt sprog. En blind ae/oe/aa-vagt
+ * ville fejle paa netop den slags citater, og en vagt der fejler paa et gyldigt
+ * citat fra en engelsk producentside er vaerre end ingen vagt.
  */
-const INTERNT_SPROG = /\.yaml|\.mjs|ved_last|_gaaende|_staaende|validator|skal normaliseres|i indlaesningen|STOPPROEVE|BESTAAET/i;
+const INTERNT_SPROG = /\.yaml|\.mjs|ved_last|_gaaende|_staaende|validator|skal normaliseres|i indlaesningen|STOPPROEVE|BESTAAET|sikkerhed_overv(?:aa|å)gning|forsvar_beredskab|forskning_udvikling|forbruger_uddannelse|ikke_oplyst/i;
 
 function tjekInterntSprog(regel, sti, tekst) {
   if (typeof tekst !== 'string') return;

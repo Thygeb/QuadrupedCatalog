@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 行业级"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen B2 staar i."
+  note: "Producentens egen produktnavigation, gruppen B2 står i."
 billede:
   fil: fotos/fabrikant/unitree-b2.png
   ophav: fabrikant
@@ -23,7 +23,7 @@ felter:
     operator: "~"
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Total weight (battery included) - vaegten er MED batteri. AlienGos vaegt er uden batteri; de to felter er ikke sammenlignelige uden den oplysning."
+    advarsel: "Total weight (battery included) - vægten er MED batteri. AlienGos vægt er uden batteri; de to felter er ikke sammenlignelige uden den oplysning."
   laengde:
     vaerdi: 1098
     enhed: mm
@@ -42,7 +42,7 @@ felter:
     operator: "~"
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Foldet (Lying Prone) oplyses til ca. 880 x 460 x 330 mm. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet (Lying Prone) oplyses til ca. 880 x 460 x 330 mm. Skemaet har ingen felter til foldemål."
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 40
@@ -56,14 +56,14 @@ felter:
     operator: ">="
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Producenten skriver tegnet U+2265. To forskellige operatorer paa samme side: > paa gaaende last, >= paa staaende. B2-W skriver samme 120 kg helt uden operator."
+    advarsel: "Producenten skriver tegnet U+2265. To forskellige operatorer på samme side: > på gående last, >= på stående. B2-W skriver samme 120 kg helt uden operator."
   hastighed:
     vaerdi: 6
     enhed: m/s
     operator: ">"
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Producentens fodnote [1]: realized in special configurations, in practice there is a speed limit for security purposes. Den driftsrelevante hastighed staar ikke paa siden."
+    advarsel: "Producentens fodnote [1]: realized in special configurations, in practice there is a speed limit for security purposes. Den driftsrelevante hastighed står ikke på siden."
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -75,7 +75,7 @@ felter:
     enhed: cm
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Siden skriver baade Obstacle crossing: Max 40cm og Climb up and down stairs of 40cm in forward direction."
+    advarsel: "Siden skriver både Obstacle crossing: Max 40cm og Climb up and down stairs of 40cm in forward direction."
   trappetrin_kontinuerlig:
     vaerdi_min: 20
     vaerdi_maks: 25
@@ -102,7 +102,7 @@ felter:
     enhed: Wh
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Producentens eget regnestykke gaar ikke op: samme saetning skriver Battery capacity 45Ah(2250Wh), voltage 58V. 45 x 58 = 2610 Wh. Det trykte tal ligger 13,8 % under det beregnede (16,0 % med 2250 som naevner). Vi retter ikke - 2250 Wh er producentens tal."
+    advarsel: "Producentens eget regnestykke går ikke op: samme sætning skriver Battery capacity 45Ah(2250Wh), voltage 58V. 45 x 58 = 2610 Wh. Det trykte tal ligger 13,8 % under det beregnede (16,0 % med 2250 som nævner). Vi retter ikke - 2250 Wh er producentens tal."
   driftstid:
     vaerdi: 4
     enhed: t
@@ -110,7 +110,7 @@ felter:
     ved_last: { vaerdi: 20, enhed: kg }
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Tre driftstidstal paa samme side: > 5 t uden last (> 20 km), > 4 t ved 20 kg (> 15 km) og Battery life 4-6h uden lastangivelse. Her bruges det eneste med lastbetingelse."
+    advarsel: "Tre driftstidstal på samme side: > 5 t uden last (> 20 km), > 4 t ved 20 kg (> 15 km) og Battery life 4-6h uden lastangivelse. Her bruges det eneste med lastbetingelse."
   hot_swap:
     vaerdi: ja
     kilde: https://www.unitree.com/b2
@@ -126,12 +126,12 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Siden oplyser 3D LiDAR x1 - type uden model. Under D4's foreloebige regel taeller type uden model ikke som udfyldt. Vender D4, er feltet udfyldt."
+    advarsel: "Siden oplyser 3D LiDAR x1 - type uden model. Under D4's foreløbige regel tæller type uden model ikke som udfyldt. Vender D4, er feltet udfyldt."
   kameraer:
     vaerdi: "dybdekamera x2 + optisk kamera x2"
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Producenten tilfoejer: varies with different configurations."
+    advarsel: "Producenten tilføjer: varies with different configurations."
   compute:
     vaerdi: "Intel Core i5 (platform) / i7 (udvikling); tilvalg i7 eller NVIDIA Orin NX, op til 3 enheder"
     kilde: https://www.unitree.com/b2
@@ -144,7 +144,7 @@ felter:
     vaerdi: "12 V x4; 5 V x1; 24 V x4; BAT x1"
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
-    advarsel: "Spaending oplyst, watt ikke. Feltet er reelt halvt oplyst og kan ikke sammenlignes med Spots 35-58,8 V / 150 W pr. port."
+    advarsel: "Spænding oplyst, watt ikke. Feltet er reelt halvt oplyst og kan ikke sammenlignes med Spots 35-58,8 V / 150 W pr. port."
   dataporte:
     vaerdi: ["1000M-Base-Ethernet x4", "USB 3.0 x4"]
     kilde: https://www.unitree.com/b2
@@ -153,5 +153,5 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://shop.unitree.com/products/unitree-b2
     hentet: 2026-08-19
-    advarsel: "shop.unitree.com viser price:10000000 (= 100.000 USD) - noejagtig samme beloeb som A2 - sammen med teksten Contact us for the real price. Det er en pladsholder og foeres ikke som pris."
+    advarsel: "shop.unitree.com viser price:10000000 (= 100.000 USD) - nøjagtig samme beløb som A2 - sammen med teksten Contact us for the real price. Det er en pladsholder og føres ikke som pris."
   ce_oplyst: ikke_oplyst

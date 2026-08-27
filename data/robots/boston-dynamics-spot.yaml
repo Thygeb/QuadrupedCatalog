@@ -9,7 +9,7 @@ anvendelse:
   citat: "Our agile mobile robot for dynamic sensing and industrial inspection"
   kilde: https://bostondynamics.com/products/spot/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, teksten under punktet \"Spot\". Sidens loesningsmenu deler i \"Inspection\" og \"Safety & Response\"."
+  note: "Producentens egen produktnavigation, teksten under punktet \"Spot\". Sidens løsningsmenu deler i \"Inspection\" og \"Safety & Response\"."
 billede:
   fil: fotos/fabrikant/boston-dynamics-spot.jpg
   ophav: fabrikant
@@ -18,7 +18,7 @@ billede:
 noter:
   - "HJEMBY ER IKKE OPLYST: strengen \"Waltham\", som ofte tilskrives producenten, findes 0 gange i producentens egen produktside og datablad. Ingen af de to kilder oplyser en adresse eller by."
   - "Majoritetsejet af Hyundai Motor Group (Sydkorea). Noteret fordi producentland bliver tvetydigt."
-  - "To producentkilder: produktside (K1) og producentens eget datablad (K2, maerket Updated: 05/22/2024). De er uenige om laengde og vaegt."
+  - "To producentkilder: produktside (K1) og producentens eget datablad (K2, mærket Updated: 05/22/2024). De er uenige om længde og vægt."
 felter:
   egenvaegt:
     vaerdi: 33.8
@@ -50,7 +50,7 @@ felter:
     enhed_imperial: in
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Fire hoejder oplyses: siddende 191 mm, standard gaaende 610 mm, maks. 700 mm, min. 520 mm. Her bruges standard gaaende."
+    advarsel: "Fire højder oplyses: siddende 191 mm, standard gående 610 mm, maks. 700 mm, min. 520 mm. Her bruges standard gående."
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 14
@@ -59,7 +59,7 @@ felter:
     enhed_imperial: lbs
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gaaende og staaende last. Placeringen under gaaende last er vores tolkning, ikke en aflaesning. Databladets broedtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument."
+    advarsel: "Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning. Databladets brødtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.6
@@ -72,7 +72,7 @@ felter:
     operator: "±"
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Fortegnet plus/minus er producentens egen skrivemaade."
+    advarsel: "Fortegnet plus/minus er producentens egen skrivemåde."
   forhindring_enkelt:
     vaerdi: 300
     enhed: mm
@@ -80,7 +80,7 @@ felter:
     enhed_imperial: in
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver Max Step Height uden at sige om det er en enkelt forhindring eller kontinuerlig trappegang. Placeringen her er konservativ. DATAMODEL.md F2 sammenlignede tallet med Unitrees kontinuerlige 20-25 cm; den sammenligning hviler paa en tolkning, kilden ikke stoetter."
+    advarsel: "Producenten skriver Max Step Height uden at sige om det er en enkelt forhindring eller kontinuerlig trappegang. Placeringen her er konservativ. DATAMODEL.md F2 sammenlignede tallet med Unitrees kontinuerlige 20-25 cm; den sammenligning hviler på en tolkning, kilden ikke støtter."
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse:
     vaerdi: IP54
@@ -91,7 +91,7 @@ felter:
     enhed: C
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Databladet tilfoejer: Robot must be powered on at a minimum temperature of 0 C."
+    advarsel: "Databladet tilføjer: Robot must be powered on at a minimum temperature of 0 C."
   temp_maks:
     vaerdi: 55
     enhed: C
@@ -116,18 +116,18 @@ felter:
     enhed: min
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Databladets egen ladertabel siger noget andet: ved 25 C 50 min til 80 % og 2 t til 100 %; ved 35 C 2,5 t / 3,5 t. De 60 min er ikke betinget paa produktsiden."
+    advarsel: "Databladets egen ladertabel siger noget andet: ved 25 C 50 min til 80 % og 2 t til 100 %; ved 35 C 2,5 t / 3,5 t. De 60 min er ikke betinget på produktsiden."
   dockingstation:
     vaerdi: ja
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
-    advarsel: "Spot Dock, fuldt specificeret: 1140 x 414 x 403 mm, 22,9 kg, ind 90-277 VAC, ud 58 V ved 12 A, 0-35 C, cTUVus Certified to UL 1564 og CSA C22.2 No. 107.2. Dockens Gigabit Ethernet passthrough hoerer her, ikke i robottens dataporte."
+    advarsel: "Spot Dock, fuldt specificeret: 1140 x 414 x 403 mm, 22,9 kg, ind 90-277 VAC, ud 58 V ved 12 A, 0-35 C, cTUVus Certified to UL 1564 og CSA C22.2 No. 107.2. Dockens Gigabit Ethernet passthrough hører her, ikke i robottens dataporte."
   lidar: ikke_oplyst
   kameraer:
     vaerdi: "stereokameraer (antal og model ikke oplyst); vandret synsfelt 360 grader"
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
-    advarsel: "Strengen built-in stereo cameras staar KUN i databladet (marketingprosa, ikke specifikationstabel); Horizontal Field of View 360 staar paa produktsiden. Terrain sensing: 360 grader, raekkevidde 4 m, lys > 2 lux."
+    advarsel: "Strengen built-in stereo cameras står KUN i databladet (marketingprosa, ikke specifikationstabel); Horizontal Field of View 360 står på produktsiden. Terrain sensing: 360 grader, rækkevidde 4 m, lys > 2 lux."
   compute: ikke_oplyst
   ros2: ikke_oplyst
   sdk_sprog:
@@ -139,7 +139,7 @@ felter:
     vaerdi: "Manual & Autonomous Operation; Object Avoidance; Stair & Complex Terrain Navigation; autonome missioner startet fra dock"
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
-    advarsel: "Kvalitativt, ikke et niveau paa en skala. De tre citerede strenge findes KUN i databladet - produktsiden stoetter substansen i andre ord."
+    advarsel: "Kvalitativt, ikke et niveau på en skala. De tre citerede strenge findes KUN i databladet - produktsiden støtter substansen i andre ord."
   monteringsinterface:
     vaerdi: "M5 T-slot rails"
     kilde: https://bostondynamics.com/products/spot/
@@ -156,10 +156,10 @@ felter:
     vaerdi: ["DB25 x2", "Ethernet", "WiFi 2,4/5 GHz b/g/n"]
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Strengen Gigabit findes ikke paa produktsiden, og i databladet staar den i Spot Dockens afsnit som passthrough to robot, ikke om selve robotten. Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed."
+    advarsel: "Strengen Gigabit findes ikke på produktsiden, og i databladet står den i Spot Dockens afsnit som passthrough to robot, ikke om selve robotten. Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed."
   pris: ikke_oplyst
   ce_oplyst:
     vaerdi: ikke_oplyst
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
-    advarsel: "Databladets afsnit hedder ordret Safety and Compliance, United States og naevner ISO 12100, IEC 60204-1, ISO 13850, FCC Part 15B, FCC Part 68, IEC 60825-1. Ingen CE, ingen EU-erklaering. Feltet er ikke_oplyst - IKKE nej: databladet henviser til et Information for Use-dokument, vi ikke har aabnet."
+    advarsel: "Databladets afsnit hedder ordret Safety and Compliance, United States og nævner ISO 12100, IEC 60204-1, ISO 13850, FCC Part 15B, FCC Part 68, IEC 60825-1. Ingen CE, ingen EU-erklæring. Feltet er ikke oplyst - IKKE nej: databladet henviser til et Information for Use-dokument, vi ikke har åbnet."

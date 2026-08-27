@@ -9,7 +9,7 @@ anvendelse:
   citat: "Designed for real-world deployment in industrial, inspection, security, research, and advanced robotics applications."
   kilde: https://www.pudurobotics.com/en/products/d5
   hentet: 2026-08-24
-  note: "Samme produktside og samme saetning som pudu-d5.yaml - D5 og D5-W er to variantvalg paa EN Shopify-produktside (handle \"pudu-d5\"), ikke to adskilte sider. Se noter herunder."
+  note: "Samme produktside og samme sætning som pudu-d5.yaml - D5 og D5-W er to variantvalg på EN Shopify-produktside (handle \"pudu-d5\"), ikke to adskilte sider. Se noter herunder."
 billede:
   fil: fotos/fabrikant/pudu-d5-w.jpg
   ophav: fabrikant
@@ -29,7 +29,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "USIKKER TILDELING, samme forbehold som hos D5. Producenten skriver samme trippel \"900 x 543 x 572 mm\" for D5-W som for D5 - staaende maal er identiske paa tvaers af de to varianter ifoelge tabellen."
+    advarsel: "USIKKER TILDELING, samme forbehold som hos D5. Producenten skriver samme trippel \"900 x 543 x 572 mm\" for D5-W som for D5 - stående mål er identiske på tværs af de to varianter ifølge tabellen."
   bredde:
     vaerdi: 543
     enhed: mm
@@ -37,7 +37,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "USIKKER TILDELING - se laengde."
+    advarsel: "USIKKER TILDELING - se længde."
   hoejde:
     vaerdi: 572
     enhed: mm
@@ -45,7 +45,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "USIKKER TILDELING - se laengde."
+    advarsel: "USIKKER TILDELING - se længde."
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     min: 20
@@ -60,13 +60,13 @@ felter:
     enhed: m/s
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Fra generel markedsfoeringstekst \"Cruises at up to 5 m/s\" for D5-serien bredt. Pressemeddelelsen knytter samme tal specifikt til \"wheel-leg hybrid locomotion\" (D5-W). Sammenligningstabellen har ingen selvstaendig hastighedsraekke pr. variant."
+    advarsel: "Fra generel markedsføringstekst \"Cruises at up to 5 m/s\" for D5-serien bredt. Pressemeddelelsen knytter samme tal specifikt til \"wheel-leg hybrid locomotion\" (D5-W). Sammenligningstabellen har ingen selvstændig hastighedsrække pr. variant."
   haeldning:
     vaerdi: 30
     enhed: grader
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Fra den variant-specifikke sammenligningstabel: \"D5-W: 30 ascent, 45 descent\". Kun ascent brugt her; nedstigning er 45 grader, intet felt for det i skemaet. Dette tal stemmer (modsat D5's) overens med den generelle markedsfoeringsteksts \"30° climbs\"."
+    advarsel: "Fra den variant-specifikke sammenligningstabel: \"D5-W: 30 ascent, 45 descent\". Kun ascent brugt her; nedstigning er 45 grader, intet felt for det i skemaet. Dette tal stemmer (modsat D5's) overens med den generelle markedsføringsteksts \"30° climbs\"."
   forhindring_enkelt:
     vaerdi: 80
     enhed: cm
@@ -82,7 +82,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Producentens etiket \"Maximum Step Height: D5-W: 25 cm (9.84 in)\" - LAVERE end D5's 30 cm, selvom D5-W har hjul. Dette tal stemmer overens med den generelle markedsfoeringsteksts \"25 cm steps\"."
+    advarsel: "Producentens etiket \"Maximum Step Height: D5-W: 25 cm (9.84 in)\" - LAVERE end D5's 30 cm, selvom D5-W har hjul. Dette tal stemmer overens med den generelle markedsføringsteksts \"25 cm steps\"."
   ip_klasse:
     vaerdi: IP67
     kilde: https://store.pudurobotics.com/products/pudu-d5
@@ -117,14 +117,14 @@ felter:
     vaerdi: ja
     kilde: https://www.pudurobotics.com/en/products/d5
     hentet: 2026-08-24
-    advarsel: "\"Charging Station\" listet som tilbehoer, samme side som D5. Fodnote 3: saelges saerskilt, ikke inkluderet i grundprisen."
+    advarsel: "\"Charging Station\" listet som tilbehør, samme side som D5. Fodnote 3: sælges særskilt, ikke inkluderet i grundprisen."
   lidar:
-    vaerdi: "96-linjers LiDAR x2 (standardkonfiguration); opgraderbar til 192-linjers LiDAR x2 mod tillaeg"
+    vaerdi: "96-linjers LiDAR x2 (standardkonfiguration); opgraderbar til 192-linjers LiDAR x2 mod tillæg"
     kilde: https://www.pudurobotics.com/en/products/d5
     hentet: 2026-08-24
-    advarsel: "Fodnote 5, samme som hos D5 - gaelder D5-serien, ingen separat angivelse for D5-W."
+    advarsel: "Fodnote 5, samme som hos D5 - gælder D5-serien, ingen separat angivelse for D5-W."
   kameraer:
-    vaerdi: "4x fiskeoejekameraer (120 graders synsfelt)"
+    vaerdi: "4x fiskeøjekameraer (120 graders synsfelt)"
     kilde: https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html
     hentet: 2026-08-24
   compute:
@@ -134,10 +134,10 @@ felter:
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
   autonominiveau:
-    vaerdi: "Understoetter kontinuerlig, uovervaaget drift; udfoerer komplette selvstaendige arbejdsgange inkl. afgang, patrulje, forhindringshaandtering og retur-til-opladning."
+    vaerdi: "Understøtter kontinuerlig, uovervåget drift; udfører komplette selvstændige arbejdsgange inkl. afgang, patrulje, forhindringshåndtering og retur-til-opladning."
     kilde: https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html
     hentet: 2026-08-24
-    advarsel: "Kvalitativ, gaelder D5-serien bredt, ikke D5-W-specifik - samme kilde som hos D5."
+    advarsel: "Kvalitativ, gælder D5-serien bredt, ikke D5-W-specifik - samme kilde som hos D5."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst

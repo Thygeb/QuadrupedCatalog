@@ -11,7 +11,7 @@ anvendelse:
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
   arvet_fra: unitree-b2
-  note: "ARVET (L23). B2-W staar ikke i produktnavigationen, og dens egen side https://www.unitree.com/b2-w er gennemlaest 2026-08-19 uden at naevne nogen anvendelse - kun \"Go Further with Higher Efficiency\" og \"Brand New Intelligent Species\". Citatet er B2's, og koblingen B2-W = B2 i hjulet udgave er vores slutning, ikke producentens."
+  note: "ARVET (L23). B2-W står ikke i produktnavigationen, og dens egen side https://www.unitree.com/b2-w er gennemlæst 2026-08-19 uden at nævne nogen anvendelse - kun \"Go Further with Higher Efficiency\" og \"Brand New Intelligent Species\". Citatet er B2's, og koblingen B2-W = B2 i hjulet udgave er vores slutning, ikke producentens."
 billede:
   fil: fotos/fabrikant/unitree-b2-w.jpg
   ophav: fabrikant
@@ -45,7 +45,7 @@ felter:
     operator: "~"
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
-    advarsel: "Foldet ca. 950 x 550 x 450 mm. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet ca. 950 x 550 x 450 mm. Skemaet har ingen felter til foldemål."
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 40
@@ -64,7 +64,7 @@ felter:
     enhed: km/t
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
-    advarsel: "Eneste Unitree-model opgivet i km/t i stedet for m/s. Producentens fodnote [1] gaelder ogsaa her."
+    advarsel: "Eneste Unitree-model opgivet i km/t i stedet for m/s. Producentens fodnote [1] gælder også her."
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -102,12 +102,12 @@ felter:
     operator: ">"
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
-    advarsel: "Producenten skriver > 2 kWh ved 58 V - operatoren sidder paa selve kapaciteten. Omregnet til Wh uden aendring af tallet."
+    advarsel: "Producenten skriver > 2 kWh ved 58 V - operatoren sidder på selve kapaciteten. Omregnet til Wh uden ændring af tallet."
   driftstid:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
-    advarsel: "Ingen timer paa siden. Kun raekkevidde: 25 km ved 40 kg last og ca. 30 km uden last. Negativkontrolleret: hours/Nh findes ikke i talsammenhaeng. Ordet endurance baerer her en afstand, ikke en tid."
+    advarsel: "Ingen timer på siden. Kun rækkevidde: 25 km ved 40 kg last og ca. 30 km uden last. Negativkontrolleret: hours/Nh findes ikke i talsammenhæng. Ordet endurance bærer her en afstand, ikke en tid."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

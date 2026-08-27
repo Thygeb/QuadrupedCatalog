@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 消费级 / 科研"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen Go1 staar i."
+  note: "Producentens egen produktnavigation, gruppen Go1 står i."
 varianter: [Air, Pro, Edu]
 billede:
   fil: fotos/fabrikant/unitree-go1.jpg
@@ -29,13 +29,13 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
-    advarsel: "Staaende maal er ikke oplyst. Kun foldemaalet 0,588 x 0,22 x 0,29 m er trykt, og skemaet har ingen felter til foldemaal."
+    advarsel: "Stående mål er ikke oplyst. Kun foldemålet 0,588 x 0,22 x 0,29 m er trykt, og skemaet har ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
-    advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme graensetilfaelde som Go2."
+    advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme grænsetilfælde som Go2."
   nyttelast_gaaende:
     vaerdi: 4
     enhed: kg
@@ -43,10 +43,10 @@ felter:
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
     varianter:
-      Air: "ca. 4 kg (graense ca. 10 kg)"
-      Pro: "ca. 4 kg (graense ca. 10 kg)"
-      Edu: "ca. 6 kg (graense ca. 10 kg)"
-    advarsel: "Producenten skriver kun Load uden at skelne gaaende/staaende. Placeringen er en slutning. Vaerdien er Air/Pro."
+      Air: "ca. 4 kg (grænse ca. 10 kg)"
+      Pro: "ca. 4 kg (grænse ca. 10 kg)"
+      Edu: "ca. 6 kg (grænse ca. 10 kg)"
+    advarsel: "Producenten skriver kun Load uden at skelne gående/stående. Placeringen er en slutning. Værdien er Air/Pro."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi_min: 0
@@ -57,8 +57,8 @@ felter:
     varianter:
       Air: "0~2,5 m/s"
       Pro: "0~3,5 m/s"
-      Edu: "0~3,7 m/s (graense ca. 5 m/s)"
-    advarsel: "Vaerdien er Air-variantens."
+      Edu: "0~3,7 m/s (grænse ca. 5 m/s)"
+    advarsel: "Værdien er Air-variantens."
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -74,7 +74,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
-    advarsel: "Intet tal paa siden. Long Endurance staar som overskrift uden vaerdi."
+    advarsel: "Intet tal på siden. Long Endurance står som overskrift uden værdi."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -84,14 +84,14 @@ felter:
     hentet: 2026-08-19
     advarsel: "Radar: 2D eller 3D, tilvalg - type uden model."
   kameraer:
-    vaerdi: "1 par fiskeoeje-binokulaert dybdekamera"
+    vaerdi: "1 par fiskeøje-binokulært dybdekamera"
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
     varianter:
       Air: "1 par"
       Pro: "5 par"
       Edu: "5 par"
-    advarsel: "Vaerdien er Air-variantens."
+    advarsel: "Værdien er Air-variantens."
   compute:
     vaerdi: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
     kilde: https://www.unitree.com/go1
@@ -100,7 +100,7 @@ felter:
       Air: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
       Pro: "3x samme"
       Edu: "2 Jetson Nano + (1 Nano eller 1 NX)"
-    advarsel: "Vaerdien er Air-variantens."
+    advarsel: "Værdien er Air-variantens."
   ros2: ikke_oplyst
   sdk_sprog:
     vaerdi: ["Python"]
@@ -110,7 +110,7 @@ felter:
       Air: ikke_oplyst
       Pro: ikke_oplyst
       Edu: Python
-    advarsel: "Kun Edu: Python Programming Interface. Vaerdien gaelder Edu."
+    advarsel: "Kun Edu: Python Programming Interface. Værdien gælder Edu."
   autonominiveau: ikke_oplyst
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
@@ -124,5 +124,5 @@ felter:
       Air: 2700
       Pro: 3500
       Edu: "Contact Sales"
-    advarsel: "Vaerdien er Air-variantens. Priser paa producentens egen produktside, ikke shopsidens pladsholder."
+    advarsel: "Værdien er Air-variantens. Priser på producentens egen produktside, ikke shopsidens pladsholder."
   ce_oplyst: ikke_oplyst

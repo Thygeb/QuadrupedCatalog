@@ -16,9 +16,9 @@ billede:
   kilde: https://www.weilan.com/en/en/babyAlpha.html
   hentet: 2026-08-19
 noter:
-  - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsfoering: ingen vaegt, ingen maal, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
+  - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsføring: ingen vægt, ingen mål, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
   - "Siden har en BUY NOW-knap, men INGEN PRIS."
-  - "Weilan har tre nul-poster (E300, E400L, BabyAlpha) og en post paa 35 % (AlphaDog C500/C501). Den eneste model, der oplyser noget, er udviklerversionen af legetoejet."
+  - "Weilan har tre nul-poster (E300, E400L, BabyAlpha) og en post på 35 % (AlphaDog C500/C501). Den eneste model, der oplyser noget, er udviklerversionen af legetøjet."
 felter:
   egenvaegt: ikke_oplyst
   laengde: ikke_oplyst

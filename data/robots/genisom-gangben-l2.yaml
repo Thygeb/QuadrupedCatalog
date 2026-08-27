@@ -9,9 +9,9 @@ anvendelse:
   citat: ["安防巡逻", "科研教育", "短途配送"]
   kilde: https://www.genisomai.com/product-robot/L2
   hentet: 2026-08-24
-  note: "Fra siden \"下一个应用场景，它已提前就位\" (naeste anvendelsesscenarie, allerede klar). 安防巡逻 -> sikkerhed_overvaagning; 科研教育 -> forskning_udvikling; 短途配送 (kort-distance levering) -> logistik."
+  note: "Fra siden \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar). 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik."
 noter:
-  - "SENSOR-UOVERENSSTEMMELSE, IKKE LOEST STILTIENDE: L2's markedsfoeringstekst (samme side) skriver \"支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位\" (understoetter automatisk kortlaegning og ruteplanlaegning, kombineret med LiDAR og GNSS for centimeterpraecis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og \"双目相机\" (stereokamera) under \"传感器\" for basismodellen L2 - INGEN lidar-raekke. En lidar-raekke (\"3D激光雷达: 工业级96线激光雷达*2\") findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke_oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder paa samme side modsiger hinanden, og det rettes ikke stiltiende."
+  - "SENSOR-UOVERENSSTEMMELSE, IKKE LØST STILTIENDE: L2's markedsføringstekst (samme side) skriver \"支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位\" (understøtter automatisk kortlægning og ruteplanlægning, kombineret med LiDAR og GNSS for centimeterpræcis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og \"双目相机\" (stereokamera) under \"传感器\" for basismodellen L2 - INGEN lidar-række. En lidar-række (\"3D激光雷达: 工业级96线激光雷达*2\") findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder på samme side modsiger hinanden, og det rettes ikke stiltiende."
 billede:
   fil: fotos/fabrikant/genisom-gangben-l2.webp
   ophav: fabrikant
@@ -23,14 +23,14 @@ felter:
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"整机重量（含电池）: 21 kg\" - eksplicit \"含电池\" (inkl. batteri). Raekken har INTET \"约\" (cirka)-tegn, i modsaetning til maalene lige ovenover i samme tabel (samme moenster som Gangben L1, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl)."
+    advarsel: "\"整机重量（含电池）: 21 kg\" - eksplicit \"含电池\" (inkl. batteri). Rækken har INTET \"约\" (cirka)-tegn, i modsætning til målene lige ovenover i samme tabel (samme mønster som Gangben L1, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl)."
   laengde:
     vaerdi: 720
     enhed: mm
     operator: "~"
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"站立尺寸（长 x 宽 x 高）约 720 x 390 x 480 mm\" - akserne er eksplicit maerket af producenten."
+    advarsel: "\"站立尺寸（长 x 宽 x 高）约 720 x 390 x 480 mm\" - akserne er eksplicit mærket af producenten."
   bredde:
     vaerdi: 390
     enhed: mm
@@ -43,7 +43,7 @@ felter:
     operator: "~"
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "Krybende maal (\"趴地尺寸\") er ~780 x 460 x 190 mm; skemaet har intet felt til den tilstand."
+    advarsel: "Krybende mål (\"趴地尺寸\") er ~780 x 460 x 190 mm; skemaet har intet felt til den tilstand."
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -62,31 +62,31 @@ felter:
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"极限静态150kg\" i specifikationstabellen, bekraeftet af samme tal i markedsfoeringsteksten (\"最大静态载荷可达150kg\") - to steder paa samme side, enige."
+    advarsel: "\"极限静态150kg\" i specifikationstabellen, bekræftet af samme tal i markedsføringsteksten (\"最大静态载荷可达150kg\") - to steder på samme side, enige."
   hastighed:
     vaerdi: 3.2
     enhed: m/s
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"最大速度: 3.2 m/s\". En separat \"极限速度\" (graensehastighed) paa 5 m/s er ogsaa oplyst - ikke brugt som hovedvaerdi, samme princip som L1."
+    advarsel: "\"最大速度: 3.2 m/s\". En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1."
   haeldning:
     vaerdi: 40
     enhed: "°"
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"最大爬坡角度: 40°\", bekraeftet af homepage-kapacitetskortet."
+    advarsel: "\"最大爬坡角度: 40°\", bekræftet af homepage-kapacitetskortet."
   forhindring_enkelt:
     vaerdi: 70
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "Etiket \"70cm 垂直越障高度\" (70cm lodret forhindringshoejde) fra sidens kapacitetskort - adskilt fra trappetrin_kontinuerlig, som staar med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-moenster som deep-robotics-x30/B2."
+    advarsel: "Etiket \"70cm 垂直越障高度\" (70cm lodret forhindringshøjde) fra sidens kapacitetskort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som deep-robotics-x30/B2."
   trappetrin_kontinuerlig:
     vaerdi: 22
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehoejde) i den strukturerede specifikationstabel - lavere end det enkeltstaaende forhindringstal (70 cm), som forventet for de to forskellige maal."
+    advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel - lavere end det enkeltstående forhindringstal (70 cm), som forventet for de to forskellige mål."
   ip_klasse:
     vaerdi: IP66
     kilde: https://www.genisomai.com/product-robot/L2
@@ -106,7 +106,7 @@ felter:
     enhed: Wh
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"756Wh 大容量电池\" fra sidens kapacitetskort. Se top-noten om det separate \"15000mAh\"-tal i tilbehoerslisten - ikke brugt til at udregne Wh, kun noteret som fundet uden modsigelse."
+    advarsel: "\"756Wh 大容量电池\" fra sidens kapacitetskort. Se top-noten om det separate \"15000mAh\"-tal i tilbehørslisten - ikke brugt til at udregne Wh, kun noteret som fundet uden modsigelse."
   driftstid:
     vaerdi_min: 3.5
     vaerdi_maks: 5.5
@@ -114,7 +114,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for \"fuld last\" - derfor er lastbetingelsen ikke oplyst, ikke et gaettet masse-kort. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for \"fuld last\" - derfor er lastbetingelsen ikke oplyst, ikke et gættet masse-kort. Rækkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er også oplyst; skemaet har intet rækkeviddefelt."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5
@@ -126,7 +126,7 @@ felter:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "Tilbehoersliste har TO raekker: \"充电座: 标配\" (ladesokkel, standardudstyr - samme som L1 har) OG separat \"充电桩（包含自主回充功能）: 选配\" (ladestation inkl. autonom genopladningsfunktion, TILVALG). L2 har altsaa baade en standard-ladesokkel OG en betalt opgradering til autonom hjemkoersel - dockingstation: ja daekker minimum den foerste; den autonome genopladningsfunktion specifikt er kun bekraeftet som tilvalg, ikke standard."
+    advarsel: "Tilbehørsliste har TO rækker: \"充电座: 标配\" (ladesokkel, standardudstyr - samme som L1 har) OG separat \"充电桩（包含自主回充功能）: 选配\" (ladestation inkl. autonom genopladningsfunktion, TILVALG). L2 har altså både en standard-ladesokkel OG en betalt opgradering til autonom hjemkørsel - dockingstation: ja dækker minimum den første; den autonome genopladningsfunktion specifikt er kun bekræftet som tilvalg, ikke standard."
   lidar: ikke_oplyst
   kameraer:
     vaerdi: "Stereokamera, 2 x 2,07 MP (双目相机)"
@@ -136,18 +136,18 @@ felter:
     vaerdi: "8-kernet CPU, op til 86 TOPS"
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"基础算力: 8 核高性能 CPU\" fra den strukturerede specifikationstabel, kombineret med homepage-kapacitetskortets \"高达 86 TOPS 算力平台\" (op til 86 TOPS-regnekraftplatform) - begge fra genisomai.com, ikke krydsbekraeftet mod hinanden ud over at staa paa samme domaene."
+    advarsel: "\"基础算力: 8 核高性能 CPU\" fra den strukturerede specifikationstabel, kombineret med homepage-kapacitetskortets \"高达 86 TOPS 算力平台\" (op til 86 TOPS-regnekraftplatform) - begge fra genisomai.com, ikke krydsbekræftet mod hinanden ud over at stå på samme domæne."
   ros2:
     vaerdi: ikke_oplyst
     kilde: https://github.com/zsibot/genisom_roamerx_open
     hentet: 2026-08-24
-    advarsel: "UNDERSOEGT OG BEVIDST IKKE SAT TIL JA, EFTER SELV-TJEK FANGEDE FOR SVAGT BEVIS. L2's egen produktside naevner \"新一代 RoamerX 智能导航系统\" som en navngiven feature, og producentens GitHub-repo \"genisom_roamerx_open\" kraever eksplicit \"ROS2 Humble Hawksbill\". Foerste udkast af denne post satte ros2: ja paa den kobling. Ved genlaesning af repoets EGEN README staar der dog under et afsnit \"Hardware Deployment\": \"TODO\" - producenten skriver selv, at koblingen mellem dette open source-repo og et fysisk, saelgende produkt IKKE er dokumenteret endnu. Et navnesammenfald ('RoamerX') plus et repo, der selv siger 'TODO' til hardware-udrulning, er en gaetning, ikke en maaling - regel 1. Rettet til ikke_oplyst."
+    advarsel: "UNDERSØGT OG BEVIDST IKKE SAT TIL JA, EFTER SELV-TJEK FANGEDE FOR SVAGT BEVIS. L2's egen produktside nævner \"新一代 RoamerX 智能导航系统\" som en navngiven feature, og producentens GitHub-repo \"genisom_roamerx_open\" kræver eksplicit \"ROS2 Humble Hawksbill\". Første udkast af denne post satte ros2: ja på den kobling. Ved genlæsning af repoets EGEN README står der dog under et afsnit \"Hardware Deployment\": \"TODO\" - producenten skriver selv, at koblingen mellem dette open source-repo og et fysisk, sælgende produkt IKKE er dokumenteret endnu. Et navnesammenfald ('RoamerX') plus et repo, der selv siger 'TODO' til hardware-udrulning, er en gætning, ikke en måling - regel 1. Rettet til ikke oplyst."
   sdk_sprog: ikke_oplyst
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); UWB; 自主跟随 (autonom foelgning); 智能避障 (智能undvigelse af forhindringer); OTA升级; 二次开发支持"
+    vaerdi: "AI强化学习运控 (标配); UWB; 自主跟随 (autonom følgning); 智能避障 (智能undvigelse af forhindringer); OTA升级; 二次开发支持"
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau paa en skala."
+    advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte:
@@ -161,5 +161,5 @@ felter:
     operator: ">="
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"¥39999 起\" - \"起\" betyder \"fra\"/\"startende ved\": basiskonfigurationens pris, tilvalg (fx den valgfrie ladestation ovenfor) laegges oveni."
+    advarsel: "\"¥39999 起\" - \"起\" betyder \"fra\"/\"startende ved\": basiskonfigurationens pris, tilvalg (fx den valgfrie ladestation ovenfor) lægges oveni."
   ce_oplyst: ikke_oplyst

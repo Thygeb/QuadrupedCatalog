@@ -7,9 +7,9 @@ anvendelse:
   vaerdi: ikke_oplyst
   kilde: https://www.mi.com/cyberdog2/specs
   hentet: 2026-08-19
-  note: "GENNEMLAEST, INTET FUNDET - ogsaa i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til."
+  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til."
 noter:
-  - "SPECIFIKATIONERNE ER TEKST, IKKE BILLEDER - men de staar ikke i sidens HTML. Parametersidens indholdselement er tomt ved levering (75 bytes, kun en indlaesningssnurre); hele specifikationsarket ligger som ren tekst i den JavaScript-bundle, siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog2/specs.74df51bf.js (gemt, 200, 109.869 bytes). Det regnes som primaerkilde: producentens egen server, producentens eget indhold, og den tekst en besoegende faktisk faar vist."
+  - "SPECIFIKATIONERNE ER TEKST, IKKE BILLEDER - men de står ikke i sidens HTML. Parametersidens indholdselement er tomt ved levering (75 bytes, kun en indlæsningssnurre); hele specifikationsarket ligger som ren tekst i den JavaScript-bundle, siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog2/specs.74df51bf.js (gemt, 200, 109.869 bytes). Det regnes som primærkilde: producentens egen server, producentens eget indhold, og den tekst en besøgende faktisk får vist."
 billede:
   fil: fotos/fabrikant/xiaomi-cyberdog-2.png
   ophav: fabrikant
@@ -23,7 +23,7 @@ felter:
     operator: "±"
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "Producenten skriver 8.9 +/- 0.5kg. Toleranceomraadet er producentens og maa ikke reduceres til 8,9 kg."
+    advarsel: "Producenten skriver 8.9 +/- 0.5kg. Toleranceområdet er producentens og må ikke reduceres til 8,9 kg."
   laengde:
     vaerdi: 562
     enhed: mm
@@ -39,7 +39,7 @@ felter:
     enhed: mm
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser ogsaa maal i LIGGENDE stilling: 603 x 339 x 300 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemaal. Skemaet har alligevel ingen felter til foldemaal."
+    advarsel: "Producenten oplyser også mål i LIGGENDE stilling: 603 x 339 x 300 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har alligevel ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -51,7 +51,7 @@ felter:
     enhed: kg
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "Producentens etiket er maks. last - udelt, ingen skelnen mellem gaaende og staaende. Placeringen er en slutning."
+    advarsel: "Producentens etiket er maks. last - udelt, ingen skelnen mellem gående og stående. Placeringen er en slutning."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.6
@@ -68,7 +68,7 @@ felter:
     enhed: C
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "0 grader er en oplyst nedre graense, ikke et manglende tal. For udendoers dansk vinterdrift er den en diskvalifikator."
+    advarsel: "0 grader er en oplyst nedre grænse, ikke et manglende tal. For udendørs dansk vinterdrift er den en diskvalifikator."
   temp_maks:
     vaerdi: 40
     enhed: C
@@ -79,7 +79,7 @@ felter:
     enhed: Wh
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "4500 mAh, nominel spaending 21,6 V, ladegraense 24,9 V. Krydstjek: 4,5 Ah x 21,6 V = 97,2 Wh - producentens eget tal gaar praecist op."
+    advarsel: "4500 mAh, nominel spænding 21,6 V, ladegrænse 24,9 V. Krydstjek: 4,5 Ah x 21,6 V = 97,2 Wh - producentens eget tal går præcist op."
   driftstid:
     vaerdi: 90
     enhed: min
@@ -87,7 +87,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "INGEN LASTBETINGELSE, MEN EN TILSTANDSBETINGELSE - og den er usaedvanligt aerlig. Producentens fodnote: de 90 minutter er maalt som en blanding af at ligge ned, staa, vise statiske positurer og gaa stabilt paa normalt underlag. Det er mere, end nogen anden producent i indsamlingen giver, og skemaet har ikke plads til det."
+    advarsel: "INGEN LASTBETINGELSE, MEN EN TILSTANDSBETINGELSE - og den er usædvanligt ærlig. Producentens fodnote: de 90 minutter er målt som en blanding af at ligge ned, stå, vise statiske positurer og gå stabilt på normalt underlag. Det er mere, end nogen anden producent i indsamlingen giver, og skemaet har ikke plads til det."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 90
@@ -100,9 +100,9 @@ felter:
     vaerdi: "YDLIDAR TG30"
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "TYPE OG MODEL - en af faa poster i hele indsamlingen, der navngiver LiDAR'en. Feltet taeller uanset hvilken vej D4 falder."
+    advarsel: "TYPE OG MODEL - en af få poster i hele indsamlingen, der navngiver LiDAR'en. Feltet tæller uanset hvilken vej D4 falder."
   kameraer:
-    vaerdi: "Intel RealSense D430 (dybde); 13 MP (AI); 1 MP (RGB); fiskeoeje FOV 146 grader"
+    vaerdi: "Intel RealSense D430 (dybde); 13 MP (AI); 1 MP (RGB); fiskeøje FOV 146 grader"
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
   compute:
@@ -121,19 +121,19 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser adapteren MDY-13-EU: ind 100-240 V 50/60 Hz 3,0 A, ud 20 V 10,5 A maks. Det er stroem IND til robotten, ikke stroem ud til nyttelast."
+    advarsel: "Producenten oplyser adapteren MDY-13-EU: ind 100-240 V 50/60 Hz 3,0 A, ud 20 V 10,5 A maks. Det er strøm IND til robotten, ikke strøm ud til nyttelast."
   dataporte:
     vaerdi: ["USB Type-C x1"]
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "Traadloest: WiFi IEEE 802.11 a/b/g/n/ac og Bluetooth 5.0."
+    advarsel: "Trådløst: WiFi IEEE 802.11 a/b/g/n/ac og Bluetooth 5.0."
   pris:
     vaerdi: ikke_oplyst
     kilde: https://www.mi.com/cyberdog2
     hentet: 2026-08-19
-    advarsel: "Sidens egen produkt-JSON siger price 0, market_price 0 og is_enable false. Produktet er ikke koebbart paa mi.com paa indsamlingsdagen. Et price 0 for et produkt med is_enable false betyder INGEN PRIS SAT, ikke koster nul. At skrive 0 ind ville vaere regel 10-fejlen i sin reneste form."
+    advarsel: "Sidens egen produkt-JSON siger price 0, market_price 0 og is_enable false. Produktet er ikke købbart på mi.com på indsamlingsdagen. Et price 0 for et produkt med is_enable false betyder INGEN PRIS SAT, ikke koster nul. At skrive 0 ind ville være regel 10-fejlen i sin reneste form."
   ce_oplyst:
     vaerdi: nej
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
-    advarsel: "DOKUMENTERET NEJ, ikke et hul. Producenten oplyser sine standarder, og CE er ikke iblandt dem: GB 17625.1-2012, GB 4943.1-2011, GB/T 9254.1-2021, batteri GB31241-2014 og UN38.3. Kun kinesiske GB-standarder. Om et dokumenteret nej TAELLER MED i specifikationstaetheden er ikke besluttet - det er et spoergsmaal til JPK."
+    advarsel: "DOKUMENTERET NEJ, ikke et hul. Producenten oplyser sine standarder, og CE er ikke iblandt dem: GB 17625.1-2012, GB 4943.1-2011, GB/T 9254.1-2021, batteri GB31241-2014 og UN38.3. Kun kinesiske GB-standarder. Om et dokumenteret nej TÆLLER MED i specifikationstætheden er ikke besluttet - det er et spørgsmål til JPK."

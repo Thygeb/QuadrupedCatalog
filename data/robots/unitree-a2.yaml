@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 行业级"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen A2 staar i."
+  note: "Producentens egen produktnavigation, gruppen A2 står i."
 varianter: [A2, A2-PRO]
 billede:
   fil: fotos/fabrikant/unitree-a2.jpg
@@ -18,7 +18,7 @@ billede:
   kilde: https://www.unitree.com/A2
   hentet: 2026-08-19
 noter:
-  - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene staar paa de paagaeldende felter."
+  - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene står på de pågældende felter."
 felter:
   egenvaegt:
     vaerdi: 42
@@ -26,7 +26,7 @@ felter:
     operator: "~"
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Med batteri. Producenten oplyser ogsaa ca. 35 kg uden batteri - batteriet vejer altsaa ca. 7 kg. A2 er en af faa modeller, der oplyser begge."
+    advarsel: "Med batteri. Producenten oplyser også ca. 35 kg uden batteri - batteriet vejer altså ca. 7 kg. A2 er en af få modeller, der oplyser begge."
   laengde:
     vaerdi: 820
     enhed: mm
@@ -42,7 +42,7 @@ felter:
     enhed: mm
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Foldet 720 x 550 x 220 mm. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet 720 x 550 x 220 mm. Skemaet har ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -54,7 +54,7 @@ felter:
     operator: "~"
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Producenten tilfoejer ideelt ca. 35 kg."
+    advarsel: "Producenten tilføjer ideelt ca. 35 kg."
   nyttelast_staaende:
     vaerdi: 100
     enhed: kg
@@ -67,7 +67,7 @@ felter:
     enhed: m/s
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Driftsomraade 0-3,7 m/s; producenten angiver desuden op til ca. 5 m/s som spidsbelastning."
+    advarsel: "Driftsområde 0-3,7 m/s; producenten angiver desuden op til ca. 5 m/s som spidsbelastning."
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -110,7 +110,7 @@ felter:
     enhed: Wh
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbeltbatteri 907,2 Wh (18000 mAh). Begge producentens egne regnestykker gaar praecist op."
+    advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbeltbatteri 907,2 Wh (18000 mAh). Begge producentens egne regnestykker går præcist op."
   driftstid:
     vaerdi: 3
     enhed: t
@@ -118,19 +118,19 @@ felter:
     ved_last: { vaerdi: 25, enhed: kg }
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser ogsaa > 5 t uden last (ca. 20 km). Her bruges tallet med lastbetingelse (ca. 12,5 km)."
+    advarsel: "Producenten oplyser også > 5 t uden last (ca. 20 km). Her bruges tallet med lastbetingelse (ca. 12,5 km)."
   hot_swap:
     vaerdi: ja
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Dual slots, dual batteries - markedsfoeres som hot-swap."
+    advarsel: "Dual slots, dual batteries - markedsføres som hot-swap."
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
   lidar:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "A2: LiDAR x1. A2-PRO: LiDAR x2. Type uden model - taeller ikke under D4's foreloebige regel."
+    advarsel: "A2: LiDAR x1. A2-PRO: LiDAR x2. Type uden model - tæller ikke under D4's foreløbige regel."
   kameraer:
     vaerdi: "HD-kamera x1"
     kilde: https://www.unitree.com/A2
@@ -144,14 +144,14 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Siden skriver Secondary Development: Supported, men naevner ingen sprog."
+    advarsel: "Siden skriver Secondary Development: Supported, men nævner ingen sprog."
   autonominiveau: ikke_oplyst
   monteringsinterface: ikke_oplyst
   stroem_ud:
     vaerdi: "12 V / 24 V / BAT"
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Spaending oplyst, watt ikke."
+    advarsel: "Spænding oplyst, watt ikke."
   dataporte:
     vaerdi: ["RS485 x2", "CAN x2", "Gigabit Ethernet x2", "USB 3.0 Type-C x4"]
     kilde: https://www.unitree.com/A2
@@ -160,5 +160,5 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
-    advarsel: "Producenten skriver Contact Sales. Shopsiden viser pladsholderen 100.000 USD med teksten Contact us for the real price - samme beloeb som B2."
+    advarsel: "Producenten skriver Contact Sales. Shopsiden viser pladsholderen 100.000 USD med teksten Contact us for the real price - samme beløb som B2."
   ce_oplyst: ikke_oplyst

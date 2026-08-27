@@ -8,7 +8,7 @@ anvendelse:
   citat: "Suited for industrial inspection, park logistics, and emergency rescue and more."
   kilde: https://www.unitree.com/A2-W
   hentet: 2026-08-19
-  note: "A2-W staar ikke i producentens produktnavigation, hvor A2 staar under \"Robot - Industry\". Kategorien her er derfor produktsidens egen saetning, ikke navigationens gruppe. Samme side kalder robotten \"Industrial-grade mobile platform\" - det er en byggekvalitet, ikke en anvendelse, og taeller ikke med."
+  note: "A2-W står ikke i producentens produktnavigation, hvor A2 står under \"Robot - Industry\". Kategorien her er derfor produktsidens egen sætning, ikke navigationens gruppe. Samme side kalder robotten \"Industrial-grade mobile platform\" - det er en byggekvalitet, ikke en anvendelse, og tæller ikke med."
 varianter: [A2-W, A2-W PRO]
 billede:
   fil: fotos/fabrikant/unitree-a2-w.jpg
@@ -40,7 +40,7 @@ felter:
     enhed: mm
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
-    advarsel: "Foldet 930 x 685 x 210 mm - laengere end staaende. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet 930 x 685 x 210 mm - længere end stående. Skemaet har ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 16
     enhed: DoF
@@ -64,7 +64,7 @@ felter:
     enhed: m/s
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
-    advarsel: "Driftsomraade 0-3 m/s; spidsbelastning op til ca. 6 m/s. A2-W er hurtigere paa spids end A2 (ca. 6 mod ca. 5), men langsommere i drift (0-3 mod 0-3,7)."
+    advarsel: "Driftsområde 0-3 m/s; spidsbelastning op til ca. 6 m/s. A2-W er hurtigere på spids end A2 (ca. 6 mod ca. 5), men langsommere i drift (0-3 mod 0-3,7)."
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -114,7 +114,7 @@ felter:
     ved_last: { vaerdi: 25, enhed: kg }
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
-    advarsel: "Ogsaa > 3,5 t uden last (ca. 35 km). Ved samme last og samme batteri har A2-W under det halve af A2's driftstid (> 1,5 t mod > 3 t), men stoerre raekkevidde (ca. 15 km mod ca. 12,5 km)."
+    advarsel: "Også > 3,5 t uden last (ca. 35 km). Ved samme last og samme batteri har A2-W under det halve af A2's driftstid (> 1,5 t mod > 3 t), men større rækkevidde (ca. 15 km mod ca. 12,5 km)."
   hot_swap:
     vaerdi: ja
     kilde: https://www.unitree.com/A2-W
@@ -126,7 +126,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
-    advarsel: "LiDAR x1 (x2 paa PRO) - type uden model, taeller ikke under D4."
+    advarsel: "LiDAR x1 (x2 på PRO) - type uden model, tæller ikke under D4."
   kameraer:
     vaerdi: "HD-kamera x1"
     kilde: https://www.unitree.com/A2-W

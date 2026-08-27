@@ -9,7 +9,7 @@ anvendelse:
   citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
   kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
   hentet: 2026-08-19
-  note: "Serieindledning, ikke en modelspecifik saetning. Se noten paa Y10."
+  note: "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10."
 billede:
   fil: fotos/fabrikant/yobotics-e-dog.jpg
   ophav: fabrikant
@@ -17,7 +17,7 @@ billede:
   hentet: 2026-08-19
 noter:
   - "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser."
-  - "AABENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
+  - "ÅBENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
 felter:
   egenvaegt:
     vaerdi: 15
@@ -32,7 +32,7 @@ felter:
     operator: "±"
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver 680x330x380mm (+/-10mm). Tolerancen gaelder alle tre maal."
+    advarsel: "Producenten skriver 680x330x380mm (+/-10mm). Tolerancen gælder alle tre mål."
   bredde:
     vaerdi: 330
     enhed: mm
@@ -58,20 +58,20 @@ felter:
     enhed: kg
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
-    advarsel: "PRODUCENTEN OPLYSER TRE LASTTAL: maks. statisk 8 kg, maks. dynamisk 5 kg og dynamisk I DRIFT 3 kg. Her er drifts-tallet brugt, fordi det svarer til det, de oevrige poster kalder gaaende last. De to andre tal har ingen felt i skemaet."
+    advarsel: "PRODUCENTEN OPLYSER TRE LASTTAL: maks. statisk 8 kg, maks. dynamisk 5 kg og dynamisk I DRIFT 3 kg. Her er drifts-tallet brugt, fordi det svarer til det, de øvrige poster kalder gående last. De to andre tal har ingen felt i skemaet."
   nyttelast_staaende:
     vaerdi: 8
     enhed: kg
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
-    advarsel: "Producentens etiket er maks. STATISK lastevne. Statisk og staaende er ikke det samme ord; placeringen er en tolkning, ikke en aflaesning."
+    advarsel: "Producentens etiket er maks. STATISK lastevne. Statisk og stående er ikke det samme ord; placeringen er en tolkning, ikke en aflæsning."
   hastighed:
     vaerdi: 12
     enhed: km/t
     operator: ">="
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver maks. hastighed >= 12 km/t. Bemaerk enheden: km/t, ikke m/s som soesterposten Y20."
+    advarsel: "Producenten skriver maks. hastighed >= 12 km/t. Bemærk enheden: km/t, ikke m/s som søsterposten Y20."
   haeldning:
     vaerdi: 35
     enhed: grader
@@ -85,7 +85,7 @@ felter:
     operator: ">="
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
-    advarsel: "Producentens etiket bruger tegnene for TRAPPEKLATRINGSHOEJDE, >= 16 cm. Lagt i det kontinuerlige felt paa samme grundlag som Y20 og X30."
+    advarsel: "Producentens etiket bruger tegnene for TRAPPEKLATRINGSHØJDE, >= 16 cm. Lagt i det kontinuerlige felt på samme grundlag som Y20 og X30."
   ip_klasse: ikke_oplyst
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
