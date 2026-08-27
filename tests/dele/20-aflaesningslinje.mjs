@@ -170,24 +170,13 @@ export default async function koer(ctx) {
       `${medKilde[navn]}/${striber[navn]}`);
   }
 
-  /* KENDT AABEN FEJL, fundet af denne test 27. aug 2026 og BEVIDST efterladt
-     roed - se spor/typografis rapport.
-     tools/skabelon/producent.mjs' kompaktStribe() henter
-        const { html, hul } = vaerdi(...)
-     men vaerdi() returnerer { html, hul, MAERKE }. Kildemaerket bliver altsaa
-     regnet ud og smidt vaek, saa producentsidernes minikort viser 0
-     kildebogstaver - mens hver af de samme sider trykker kort_legende:
-     "Kortenes tal har kilde - et haevet bogstav ved tallet peger paa hvilken."
-     Siden paastaar altsaa noget om sig selv, der ikke er sandt, paa 24 sider
-     (12 producenter x 2 sprog).
-     Rettelsen er IKKE en linje: kildemaerkets anker er "#kilde-<bogstav>", og
-     kildelisten staar paa robottens egen side, ikke paa producentsiden. Den
-     kraever et `hvorhen`, der peger derhen - ellers bytter man et manglende
-     maerke ud med et doedt anker. Derfor er den ikke lavet i spor/typografi,
-     som er et typografispor.
-     Naar den bliver rettet, skal denne paastand blive staaende og blive
-     groen - ikke slettes. */
-  ok(`producentsidernes minikort baerer kildebogstaver (KENDT AABEN FEJL, se kommentar: maerket regnes ud i producent.mjs' kompaktStribe og smides vaek)`,
-    striber.producent > 0 && medKilde.producent > 0,
-    `${medKilde.producent} af ${striber.producent} striber har et kildemaerke, og ${legendePaaProducent} producentsider trykker alligevel kort_legende`);
+  /* Rettet (spor/proveniens, KRITIK-4 fund 2, 27. aug 2026): kompaktStribe()
+     i producent.mjs regner nu maerket ud selv, via H.kildemaerke(post, kilder,
+     hvorhen) med hvorhen = sti(ctx,'robot', m.slug) - samme anker-mekanisme
+     som katalog- og forsidekortene bruger til at pege paa robottens egen
+     #kilde-<bogstav>. Samme gulv som de to flader ovenfor, ikke 100 %: et
+     kort uden kildebelagt tal blandt sine fire felter faar ret ingen maerke. */
+  ok(`producentsidernes minikort baerer kildebogstaver (${medKilde.producent} af ${striber.producent} striber, gulv 35 %, maalt 142 af 154 den 27. aug 2026)`,
+    striber.producent > 0 && medKilde.producent / striber.producent >= 0.35,
+    `${medKilde.producent}/${striber.producent} striber har et kildemaerke, ${legendePaaProducent} producentsider trykker kort_legende`);
 }

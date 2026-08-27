@@ -230,16 +230,29 @@ function euSaetning(ctx, modeller) {
  *  (robotsidens store stribe). Denne funktion har intet kompakt:false-sidestykke
  *  - den bruges KUN til det kompakte producentkort - saa prosagrenen skal vaek
  *  helt, ikke betinges. Maalt FOER rettelsen: 8 filer (4 producenter x 2 sprog)
- *  viste "stribe--intet" i stedet for de faste celler; katalog og forside gav 0. */
+ *  viste "stribe--intet" i stedet for de faste celler; katalog og forside gav 0.
+ *
+ *  RETTET (spor/proveniens, KRITIK-4 fund 2, 27. aug 2026): vaerdi()s eget
+ *  returnerede `maerke` bruges IKKE laengere. Det kaldte H.kildemaerke(post,
+ *  kilder) UDEN et hvorhen — fint paa robotsidens egen stribe, hvor kildelisten
+ *  staar paa samme side, men her ville det give href="#kilde-A": et anker uden
+ *  et maal, fordi producentsiden ikke selv har en kildeliste. Mærket regnes
+ *  derfor ud herfra med et rigtigt `hvorhen`: samme sti(ctx,'robot',m.slug),
+ *  som allerede bruges til kortets eget navnelink to linjer laengere nede, og
+ *  samme H.kildemaerke(post, kilder, hvorhen)-kald som side.mjs' kort() og
+ *  forside.mjs bruger til at pege paa robottens egen #kilde-<bogstav>. */
 function kompaktStribe(ctx, m) {
   const kilder = ctx.__kilder?.get(m.slug) ?? [];
+  const hvorhen = sti(ctx, 'robot', m.slug);
   const celler = KORT_FELTER.map(([navn, ikon]) => {
-    const { html, hul } = vaerdi(navn, m.felter?.[navn], { ...ctx, robot: m, __kompakt: true }, kilder);
+    const post = m.felter?.[navn];
+    const { html, hul } = vaerdi(navn, post, { ...ctx, robot: m, __kompakt: true }, kilder);
+    const maerke = ctx.__H.kildemaerke(post, kilder, hvorhen) || '';
     return {
       hul,
       html: `<li${hul ? ' class="hul"' : ''}><svg class="ikon" aria-hidden="true"><use href="#${ikon}"/></svg><span class="krop">
 <span class="etiket">${esc(T(ctx.i18n, 'felt_' + navn))}</span>
-${html}</span></li>`,
+${html}${maerke}</span></li>`,
     };
   });
   return `<ul class="stribe stribe--kompakt panel--ro">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
