@@ -79,7 +79,7 @@
   "filter_alle": "All",
   "filter_ryd": "Clear filters",
   "filter_vis_alle": "Show all again",
-  "filter_uden_js": "The filters are ordinary checkboxes and work without JavaScript. Several ticks in one group widen the selection; ticks in different groups narrow it.",
+  "filter_uden_js": "Ticks in the same group widen the selection, ticks across groups narrow it. The filters work without JavaScript.",
   "filter_ingen_traef": "No robots match the filters.",
 
   "vaegtklasse_titel": "Weight class",

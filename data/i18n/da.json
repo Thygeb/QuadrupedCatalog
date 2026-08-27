@@ -79,7 +79,7 @@
   "filter_alle": "Alle",
   "filter_ryd": "Ryd filtre",
   "filter_vis_alle": "Vis alle igen",
-  "filter_uden_js": "Filtrene er afkrydsningsfelter og virker uden JavaScript. Flere afkrydsninger i samme gruppe udvider udvalget; afkrydsninger i forskellige grupper indsnævrer det.",
+  "filter_uden_js": "Afkrydsninger i samme gruppe udvider udvalget, på tværs af grupper indsnævrer de det. Filtrene virker uden JavaScript.",
   "filter_ingen_traef": "Ingen robotter matcher filtrene.",
 
   "vaegtklasse_titel": "Vægtklasse",

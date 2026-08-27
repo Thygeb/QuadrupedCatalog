@@ -786,7 +786,12 @@ a:hover{text-decoration-thickness:2.5px}
 /* L17: begge skal staa i foerste viewport. Uden JavaScript virker feltet
    stadig som et almindeligt formularfelt, og filtrene som links. */
 .styring{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-end}
-.sog{display:flex;flex-direction:column;gap:6px;flex:1 1 300px;min-width:250px}
+/* Loftet paa maalet (27. aug 2026): uden det strakte feltet sig til ca.
+   1230 px ved 1440, og sorteringsetiketten blev skubbet helt ud til modsatte
+   kant. Et soegefelt bliver ikke bedre af at vaere en meter bredt end
+   den laengste soegning, nogen skriver i det. */
+.sog{display:flex;flex-direction:column;gap:6px;flex:1 1 300px;min-width:250px;
+  max-width:640px}
 .sog input{
   font-family:var(--sans);font-size:16.5px;min-height:50px;padding:12px 15px;width:100%;
   background:var(--panel);color:var(--blaek);
@@ -795,18 +800,41 @@ a:hover{text-decoration-thickness:2.5px}
 .sog input::placeholder{color:var(--blaek3);opacity:1}
 .sog input:focus-visible{border-color:var(--accent);outline-offset:1px}
 
+/* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
+   katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
+   faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
+   flade mod sidens graa bund, som er forskel nok til at laese den som en
+   trykflade. Formen, maalet (44 px) og den valgte tilstand er uaendrede. */
 .filtre{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .filtre input{position:absolute;width:1px;height:1px;opacity:0}
 .filtre label{
-  display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
   cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
+  background:var(--panel);border:1px solid transparent;border-radius:var(--rund-ind);
 }
-.filtre label:hover{border-color:var(--hegn);color:var(--blaek)}
-.filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3)}
+.filtre label:hover{background:var(--accent-ro);color:var(--blaek)}
+/* Taelleren er et TAL og saettes som sidens andre tal: mono med tabulaere
+   cifre, saa 1 og 62 fylder det samme og kolonnen ikke vibrerer. */
+.filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
 .filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
 .filtre input:checked + label .antal{color:var(--accent-ro)}
 .filtre input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+
+/* HAARD BEGRAENSNING 5 I FILTERET. "ikke oplyst" er et HUL, ikke et svar, og
+   det skal ses. Foer denne regel saa hullet praecis ud som ethvert andet
+   filter: hvid chip, samme grad, samme farve - paa IP-KLASSE stod "nej" og
+   "ikke oplyst" ved siden af hinanden og var visuelt ét og det samme, og paa
+   CE stod alle tre tilstande ens. Sproget her er sidens EGET hulsprog fra
+   afsnit 8 (.v-ikke): daempet flade, stiplet hegn, ingen fed vaegt. Reglen
+   haenger paa inputtets `value`, som skabelonen allerede skriver, saa hverken
+   markup eller antallet af afkrydsningsfelter aendres. */
+.filtre input[value="ikke_oplyst"] + label{
+  background:var(--tom);border:1px dashed var(--hegn);
+  font-weight:500;color:var(--blaek3)}
+.filtre input[value="ikke_oplyst"] + label:hover{color:var(--blaek2);border-color:var(--blaek3)}
+.filtre input[value="ikke_oplyst"]:checked + label{
+  background:var(--accent);border:1px dashed #FFFFFF;color:#FFFFFF;font-weight:600}
 
 /* Den eneste knapform paa sitet: navigation inde paa sitet. Ingen koebsknap,
    ingen demo-knap, ingen prisforespoergsel. Formen findes ikke i systemet. */
