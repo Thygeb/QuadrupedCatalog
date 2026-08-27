@@ -10,16 +10,16 @@ anvendelse:
   kilde: https://deeprobotics.cn/en/index/product3.html
   hentet: 2026-08-19
   arvet_fra: deep-robotics-x30
-  note: "ARVET (L23). X30 Pro har ingen egen produktside; den staar som en variant paa X30-siden, og saetningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er daekket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed_overvaagning."
+  note: "ARVET (L23). X30 Pro har ingen egen produktside; den står som en variant på X30-siden, og sætningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er dækket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed og overvågning."
 noter:
-  - "Staar som egen kolonne paa X30's produktside. Afviger fra X30 paa tre felter: vaegt, det midterste maal og portlisten. Alt andet er tegn for tegn ens."
+  - "Står som egen kolonne på X30's produktside. Afviger fra X30 på tre felter: vægt, det midterste mål og portlisten. Alt andet er tegn for tegn ens."
 billede:
   fil: fotos/fabrikant/deep-robotics-x30-pro.jpg
   ophav: fabrikant
   kilde: https://deeprobotics.cn/en/index/product3.html
   hentet: 2026-08-19
   alt: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
-  note: "Samme billede bruges af producenten paa baade X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
+  note: "Samme billede bruges af producenten på både X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
 felter:
   egenvaegt:
     vaerdi: 59
@@ -37,7 +37,7 @@ felter:
     enhed: mm
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
-    advarsel: "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at maerke akserne, og X20-siden bruger en anden raekkefoelge. Den trykte raekkefoelge er fulgt bogstaveligt. Bredde og hoejde kan vaere byttet om."
+    advarsel: "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at mærke akserne, og X20-siden bruger en anden rækkefølge. Den trykte rækkefølge er fulgt bogstaveligt. Bredde og højde kan være byttet om."
   hoejde:
     vaerdi: 470
     enhed: mm
@@ -59,7 +59,7 @@ felter:
     operator: "<="
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
-    advarsel: "Tegn U+2264 - et loft, ikke en praestation."
+    advarsel: "Tegn U+2264 - et loft, ikke en præstation."
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -90,7 +90,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
-    advarsel: "Raekkevidde >= 10 km. Ingen lastbetingelse."
+    advarsel: "Rækkevidde >= 10 km. Ingen lastbetingelse."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -105,7 +105,7 @@ felter:
     vaerdi: "5 V; 12 V; 24 V"
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
-    advarsel: "Producenten skriver Output power supply (5V 12V 24V). Watt ikke oplyst. X30 uden Pro oplyser i stedet 72 V BAT - de to varianter har forskellig udgangsspaending."
+    advarsel: "Producenten skriver Output power supply (5V 12V 24V). Watt ikke oplyst. X30 uden Pro oplyser i stedet 72 V BAT - de to varianter har forskellig udgangsspænding."
   dataporte:
     vaerdi: ["USB 2.0", "USB 3.0", "Ethernet", "WiFi"]
     kilde: https://deeprobotics.cn/en/index/product3.html

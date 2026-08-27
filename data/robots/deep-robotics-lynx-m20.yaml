@@ -9,17 +9,17 @@ anvendelse:
   citat: "The LYNX M20 series represents the world’s first wheeled-legged robot built specifically for challenging terrains and hazardous environments during industrial operation. Featuring lightweight design with extreme-environment endurance, it conquers rugged mountain trails, muddy wetlands and debris-strewn ruins—pioneering embodied intelligence in power inspection, emergency response, logistics, and scientific exploration."
   kilde: https://deeprobotics.cn/en/index/lynx.html
   hentet: 2026-08-19
-  note: "FEM kategorier i én saetning. Det er producentens egen opremsning, og de fem staar uden indbyrdes rangering (L27): robotten hoerer til i alle fem, ikke i den foerste."
+  note: "FEM kategorier i én sætning. Det er producentens egen opremsning, og de fem står uden indbyrdes rangering (L27): robotten hører til i alle fem, ikke i den første."
 noter:
-  - "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlaegningen er laest i sidens egen JavaScript, ikke gaettet."
-  - "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhoejder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekraeftelse paa, at de to felter skal vaere adskilt."
+  - "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlægningen er læst i sidens egen JavaScript, ikke gættet."
+  - "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhøjder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekræftelse på, at de to felter skal være adskilt."
 billede:
   fil: fotos/fabrikant/deep-robotics-lynx-m20.jpg
   ophav: fabrikant
   kilde: https://deeprobotics.cn/en/index/lynx.html
   hentet: 2026-08-19
   alt: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
-  note: "Producentens eget billede for hele Lynx-serien paa lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
+  note: "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
 felter:
   egenvaegt:
     vaerdi: 35
@@ -53,13 +53,13 @@ felter:
     enhed: kg
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Producentens etiket er Max. Load Capacity. Siden siger IKKE, at det er staaende last. Placeringen her er en tolkning, valgt fordi feltet strukturelt spiller samme rolle som Unitrees staaende last."
+    advarsel: "Producentens etiket er Max. Load Capacity. Siden siger IKKE, at det er stående last. Placeringen her er en tolkning, valgt fordi feltet strukturelt spiller samme rolle som Unitrees stående last."
   hastighed:
     vaerdi: 2
     enhed: m/s
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "TRE tal for samme egenskab paa samme side: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, og fodnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Her bruges driftshastigheden - den eneste, brugeren faktisk faar."
+    advarsel: "TRE tal for samme egenskab på samme side: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, og fodnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Her bruges driftshastigheden - den eneste, brugeren faktisk får."
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -99,12 +99,12 @@ felter:
     ved_last: { vaerdi: 15, enhed: kg }
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser ogsaa 3 t / 15 km uden last. Her bruges tallet med lastbetingelse (12 km)."
+    advarsel: "Producenten oplyser også 3 t / 15 km uden last. Her bruges tallet med lastbetingelse (12 km)."
   hot_swap:
     vaerdi: ja
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Staar kun i broedteksten, ikke i specifikationstabellen."
+    advarsel: "Står kun i brødteksten, ikke i specifikationstabellen."
   ladetid:
     vaerdi: 1.5
     enhed: t
@@ -114,12 +114,12 @@ felter:
     vaerdi: ja
     kilde: https://www.deeprobotics.cn/robot/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Raekken autonom opladning (tilvalg) findes KUN i den kinesiske tabel. Den engelske tabel har den ikke - den naevnes kun i broedteksten ovenfor. Fem poster paa engelsk, seks paa kinesisk."
+    advarsel: "Rækken autonom opladning (tilvalg) findes KUN i den kinesiske tabel. Den engelske tabel har den ikke - den nævnes kun i brødteksten ovenfor. Fem poster på engelsk, seks på kinesisk."
   lidar:
     vaerdi: ikke_oplyst
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Type uden model - taeller ikke under D4."
+    advarsel: "Type uden model - tæller ikke under D4."
   kameraer:
     vaerdi: "vidvinkelkameraer x2"
     kilde: https://deeprobotics.cn/en/index/lynx.html
@@ -135,13 +135,13 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Siden lister Omnidirectional obstacle avoidance og Point cloud surround view som de eneste to autonomiposter, men BEGGE baerer fodnote [3][4]: Feature enabled via future OTA update. De findes ikke i dag. En post, der laeser funktionslisten uden fodnoten, tilskriver M20 en autonomi, producenten selv siger den ikke har endnu. M20S har de samme poster UDEN fodnote."
+    advarsel: "Siden lister Omnidirectional obstacle avoidance og Point cloud surround view som de eneste to autonomiposter, men BEGGE bærer fodnote [3][4]: Feature enabled via future OTA update. De findes ikke i dag. En post, der læser funktionslisten uden fodnoten, tilskriver M20 en autonomi, producenten selv siger den ikke har endnu. M20S har de samme poster UDEN fodnote."
   monteringsinterface: ikke_oplyst
   stroem_ud:
     vaerdi: ikke_oplyst
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
-    advarsel: "Sidens 72V power input er stroem IND, ikke ud."
+    advarsel: "Sidens 72V power input er strøm IND, ikke ud."
   dataporte:
     vaerdi: ["Gigabit Ethernet"]
     kilde: https://deeprobotics.cn/en/index/lynx.html
