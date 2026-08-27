@@ -447,7 +447,11 @@ a:hover{text-decoration-thickness:2.5px}
   margin-top:0}
 .stribe--kompakt .etiket{grid-area:etiket;font-size:10.5px;letter-spacing:.09em}
 .stribe--kompakt .krop > .v{grid-area:vaerdi;min-height:21px}
-.stribe--kompakt .v{font-size:18px}
+/* 18 -> 17 px. Den gamle grad blev valgt som "den smalleste sats, der stadig
+   holder 33,8 kg paa én linje" - maalt dengang mod de 60 px, cellen havde.
+   Maalt nu mod de 91: ved 18 px skyder 24 af 261 vaerdier ud over cellen,
+   ved 17 px gaar 0 ud. */
+.stribe--kompakt .v{font-size:17px}
 
 /* Aflaesningen bryder ALDRIG. Kun .v-tal: "ikke oplyst"-chippen (haard
    begraensning 5) skal stadig kunne bryde ved sit mellemrum frem for at
@@ -466,19 +470,32 @@ a:hover{text-decoration-thickness:2.5px}
 
 /* OPTISK TILPASNING, ikke en smagsdom. For hver af de 261 talceller blev den
    stoerste hele skriftgrad, der faktisk passer i cellen, maalt i browseren.
-   Resultatet grupperede sig efter SYNLIGE TEGN (operator + figur + enhed):
-   3-8 tegn passer alle ved 18 px (195 celler), ved 9-10 tegn faldt kravet til
-   13,5-15 px, og over 11 tegn til 11,5-13 px. Klasserne saettes i
-   skabelonen (side.mjs' tal()) og er inert uden for den kompakte celle.
-   Kun FIGUREN skifter grad - enhed, operator og kildebogstav bliver, hvor de
-   er, saa raekken af celler stadig laeses som ét instrument. */
-.stribe--kompakt .v-tal--lang .num{font-size:.67em}
-.stribe--kompakt .v-tal--xlang .num{font-size:.58em}
-.stribe--kompakt .v-tal--xlang .op{font-size:.55em}
+   Kravet grupperede sig efter SYNLIGE TEGN (operator + figur + enhed): 3-8
+   tegn passer alle ved fuld grad (195 celler), 9-10 tegn kraevede et trin ned,
+   11 og derover to. Klasserne saettes i skabelonen (side.mjs' tal()) og er
+   inerte uden for den kompakte celle.
 
-/* Kildebogstavet er sidens signatur og skal kunne LAESES. .34em af 18 px er
-   6,1 px - under det, en skaerm kan saette et versalt bogstav paa. I den
-   kompakte celle staar det derfor paa .47em (8,5 px). Det er stadig under
+   TRINNET ER SAA LILLE SOM MULIGT, og det er en RETTELSE af foerste forsoeg:
+   der stod .67/.58, og paa skaermen laeste "15 kg" ved siden af "13,32 km/h"
+   som to forskellige RANGE af oplysning - de fire aflaesninger paa et kort er
+   lige vigtige, og et stoerrelsesspring paa en tredjedel paastaar noget andet.
+   Pladsen til et blidere trin blev hentet tre steder i stedet: strammere sats
+   i figuren, mindre enhed og mindre gab - alle tre er ting, en lang vaerdi
+   taaler, fordi den alligevel laeses som én blok. Maalt over 261 celler ved
+   1750/1440: 0 vaerdier skyder ud over cellen, og alle 261 vaerdiblokke har
+   NOEJAGTIG samme hoejde. Kildebogstavet skifter aldrig grad - det er
+   signaturen og skal staa ens paa hver eneste celle. */
+.stribe--kompakt .v-tal--lang{gap:.15em}
+.stribe--kompakt .v-tal--lang .num{font-size:.80em;letter-spacing:-.045em}
+.stribe--kompakt .v-tal--lang .enhed{font-size:.5em}
+.stribe--kompakt .v-tal--xlang{gap:.12em}
+.stribe--kompakt .v-tal--xlang .num{font-size:.70em;letter-spacing:-.05em}
+.stribe--kompakt .v-tal--xlang .enhed{font-size:.46em}
+.stribe--kompakt .v-tal--xlang .op{font-size:.5em}
+
+/* Kildebogstavet er sidens signatur og skal kunne LAESES. .34em af 17 px er
+   5,8 px - under det, en skaerm kan saette et versalt bogstav paa. I den
+   kompakte celle staar det derfor paa .47em (8,0 px). Det er stadig under
    halvdelen af figuren, saa rangordenen er uaendret. */
 .stribe--kompakt .v-tal > .kildemaerke{font-size:.47em}
 
