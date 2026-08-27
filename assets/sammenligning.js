@@ -42,11 +42,13 @@
     return String(DATA.tekst.taethed_skabelon).replace('{a}', a).replace('{b}', FELT_ANTAL);
   }
 
-  /* Et haevet forbeholdstegn: samme sprog som side.mjs' fnote() (hele
-     teksten i title OG i .kunskaerm - ordet forsvinder ikke, det flytter). */
+  /* INTERIM UDEN synligt maerke (JPK 27. aug 2026): samme rettelse som
+     side.mjs' fnote() - teksten staar stadig i title OG i .kunskaerm, kun
+     den altid-synlige stjerne er fjernet, indtil D14's gyldigheds-niveauer
+     er flettet og et designet maerke kan saettes ind. */
   function fnote(tekst) {
-    return '<abbr class="forbehold forbehold--tegn" title="' + esc(tekst) + '">'
-      + '<span aria-hidden="true">*</span><span class="kunskaerm">' + esc(DATA.tekst.advarsel) + ': ' + esc(tekst) + '</span></abbr>';
+    return '<abbr class="forbehold--skjult" title="' + esc(tekst) + '">'
+      + '<span class="kunskaerm">' + esc(DATA.tekst.advarsel) + ': ' + esc(tekst) + '</span></abbr>';
   }
 
   /* Talvaerdien: operator (set OG hoert - regel 4), figur, enhed, og et

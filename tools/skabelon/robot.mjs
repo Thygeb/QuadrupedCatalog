@@ -204,14 +204,15 @@ export function kraevHjaelp(H) {
  * eneste felt i praksis, der baerer ved_last — og driftstid er ét af stribens
  * fem tal, saa forbeholdet maa ikke kunne falde ud.
  *
- * Haevet TEGN, ikke det fulde ord "Advarsel" (fund/FUND-detalje.md, opgave
- * 4a): denne funktion fodrer robot.mjs' EGEN feltKrop()/stribe() OG, via
- * `vaerdi()`, producent.mjs' minikort (`kompaktStribe()` kalder `vaerdi()`
- * herfra) - de arver derfor rettelsen uden selv at aendres. Samme sprog og
- * samme klasse (.forbehold--tegn) som side.mjs' fnote(), som 24. aug 2026
- * allerede loeste noejagtig det samme problem paa kataloget: 174 af 181
- * altid-synlige "Advarsel"-chips paa 41 af 46 kort. Ordet forsvinder ikke -
- * det staar stadig fuldt ud i title (museklik) og .kunskaerm (skaermlaeser).
+ * INTERIM UDEN synligt maerke (JPK 27. aug 2026 - se side.mjs' fnote() for
+ * den fulde begrundelse: D14's gyldigheds-niveauer er endnu ikke flettet, saa
+ * INTET synligt maerke staar her nu). Denne funktion fodrer robot.mjs' EGEN
+ * feltKrop()/stribe() OG, via `vaerdi()`, producent.mjs' minikort
+ * (`kompaktStribe()` kalder `vaerdi()` herfra) - de arver derfor rettelsen
+ * uden selv at aendres. Samme klasse (.forbehold--skjult) som side.mjs'
+ * fnote(). Ordet forsvinder ikke - det staar stadig fuldt ud i title
+ * (museklik) og .kunskaerm (skaermlaeser), kun den altid-synlige stjerne er
+ * vaek.
  */
 function forbehold(post, ctx) {
   if (post?.ved_last === undefined) return '';
@@ -220,8 +221,7 @@ function forbehold(post, ctx) {
   const tekst = ukendt
     ? T(i18n, 'ved_last_ukendt')
     : `${T(i18n, 'ved_last')} ${lokaltTal(post.ved_last.vaerdi, sprog)} ${post.ved_last.enhed ?? ''}`.trim();
-  return `<abbr class="forbehold forbehold--tegn" title="${esc(tekst)}">`
-    + `<span aria-hidden="true">*</span>`
+  return `<abbr class="forbehold--skjult" title="${esc(tekst)}">`
     + `<span class="kunskaerm">${esc(T(i18n, 'advarsel'))}: ${esc(tekst)}</span></abbr>`;
 }
 

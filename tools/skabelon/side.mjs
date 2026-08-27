@@ -710,20 +710,24 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   /* --- 1. tal ------------------------------------------------------------ */
 
   /**
-   * Forbeholdet som HAEVET TEGN. Samme sprog som kildemaerkets haevede
-   * bogstav (afsnit 3 nedenfor): bogstavet peger paa en kilde, tegnet peger
-   * paa et forbehold. Hele teksten staar i `title` (museklik) OG i
-   * `.kunskaerm` (skaermlaeser) - ordet "Advarsel" forsvinder ikke, det
-   * flytter fra en altid-synlig chip til skaermlaeserens tekst.
+   * Forbeholdet, INTERIM UDEN synligt maerke (JPK 27. aug 2026, ordre med
+   * skaermbillede: "*"-tegnet stablede sig hulter til bulter under og ved
+   * siden af tallene paa kortene). D14 (STATUS.md) vil give forbehold to
+   * niveauer - kun gyldighedstruende skal have et synligt maerke - men den
+   * klassifikation af de 562 er endnu ikke flettet. Indtil da: INGEN synlig
+   * markoer overhovedet. Teksten forsvinder ikke, den flytter til `title`
+   * (museklik) og `.kunskaerm` (skaermlaeser) - samme to steder som foer,
+   * blot uden den tredje, altid-synlige gengivelse. Naar klassifikationen
+   * lander, er det HER det designede gyldigheds-maerke skal saettes ind.
    *
-   * Maalt 24. aug 2026 paa /da/-forsiden: 174 af 181 forbeholdschips viste
-   * ordet "Advarsel", paa 41 af 46 kort. Naar alt advarer, advarer intet.
-   * Rettelsen fra 21. aug (den lange saetning -> "Advarsel") er IKKE rullet
-   * tilbage - den korte tekst staar stadig, nu i title og .kunskaerm.
+   * Historik: 24. aug 2026 blev den lange advarselssaetning kortet til
+   * ordet "Advarsel" som en haevet stjerne (174/181 chips viste "Advarsel"
+   * paa 41/46 kort - naar alt advarer, advarer intet). Den rettelse staar
+   * stadig i teksten (T.advarsel-praefikset i .kunskaerm); det er kun den
+   * ALTID SYNLIGE gengivelse (stjernen), der fjernes her.
    */
   function fnote(tekst) {
-    return `<abbr class="forbehold forbehold--tegn" title="${attr(tekst)}">`
-      + `<span aria-hidden="true">*</span>`
+    return `<abbr class="forbehold--skjult" title="${attr(tekst)}">`
       + `<span class="kunskaerm">${esc(T.advarsel)}: ${esc(tekst)}</span></abbr>`;
   }
 
