@@ -528,6 +528,64 @@
   .robot-foto .billedled--stor:not(.billedled--maal){max-height:190px}
 }
 
+/* --- 9a-2. Noegletallene op ved siden af fotografiet (KRITIK-4 fund 4).
+   Maalt paa 12 robotsider ved 1440 foer aendringen: hoejre spalte baerer
+   producent, land, status, navn, vaegtklasse, chips og ét link — og derunder
+   175-343 px, hvor der staar INTET, ned til fotoets underkant. De fem
+   noegletal, som er det laeseren kom efter, begyndte foerst under fotoet.
+
+   Striben er derfor flyttet ind i .robot-top som tredje gridfelt (robot.mjs'
+   top()). DOM-raekkefoelgen er uaendret laesbar: foto, navn, tal — saa en
+   skaermlaeser og en tastaturbruger moeder dem i samme orden som foer, og
+   under 1180 px staar siden praecis som i dag.
+
+   Behold-punkt 4 i KRITIK-4 fredr aflaesningslinjen: fem felter, fast orden,
+   tabellariske cifre. Den er urgot — kun ANTALLET AF SPALTER skifter i den
+   smalle hoejrespalte, og tre spalter er ikke en ny form: det er praecis den
+   arrangement, striben allerede bruger under 1180 px (l.576 nedenfor). */
+.robot-noegletal{min-width:0;margin-top:var(--r6)}
+/* Sektionens egen lodrette rytme (.sektion{padding-top:var(--r8)}) hoerer til
+   mellem sidens sektioner, ikke inde i hovedet. Hovedets grid styrer nu
+   afstanden; uden nulstillingen ville de 64 px laegge sig oven i grid-gap'et. */
+.robot-noegletal > .sektion{padding-top:0}
+
+@media (min-width:900px){
+  /* Mellem 900 og 1180 px er hoejrespalten for smal til baade navn OG fem
+     tal. Striben spaender derfor hele bredden under hovedet — dagens billede. */
+  .robot-noegletal{grid-column:1 / -1}
+}
+
+@media (min-width:1180px){
+  .robot-top{
+    grid-template-columns:minmax(0,7fr) minmax(300px,5fr);
+    grid-template-areas:"foto navn" "foto tal";
+    column-gap:var(--r6);row-gap:var(--r5);
+  }
+  .robot-foto{grid-area:foto}
+  .robot-navn{grid-area:navn}
+  .robot-noegletal{grid-area:tal;margin-top:0}
+  /* Fem celler i en ~550 px spalte er 110 px hver — for smalt til 29 px
+     cifre. Tre spalter giver ~183 px, som er bredere end de 156 px en
+     fem-spaltet stribe ville faa, og genbruger et arrangement, der allerede
+     er maalt. */
+  .robot-noegletal .stribe--fem{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .robot-noegletal .stribe--fem > li{border-left:1px solid var(--linje)}
+  .robot-noegletal .stribe--fem > li:nth-child(3n+1){border-left:0}
+  .robot-noegletal .stribe--fem > li:nth-child(n+4){border-top:1px solid var(--linje)}
+  /* Fem celler i tre spalter efterlader ét TOMT felt i anden raekke. Paa
+     enhver anden side ville det vaere en skoenhedsfejl; her er det farligt.
+     Sidens signatur er, at et tomt felt BETYDER "ikke oplyst" (haard
+     begraensning 5), saa en tom gitterplads inde i noegletalspanelet kan
+     laeses som et sjette felt, producenten ikke oplyser. Den sidste celle
+     spaender derfor resten af raekken ud, saa panelet lukker.
+     Raekkefoelgen er urgot, og border-logikken ovenfor holder: celle 4 er
+     stadig 3n+1 og faar ingen venstrekant. */
+  .robot-noegletal .stribe--fem > li:last-child{grid-column:span 2}
+  .robot-noegletal .stribe > li{padding:14px 13px 13px;gap:10px}
+  .robot-noegletal .stribe .v{font-size:23px}
+  .robot-noegletal .stribe .krop > .v{min-height:26px}
+}
+
 .robot-foto{margin:0;display:flex;flex-direction:column;gap:10px}
 .billedfod{display:flex;flex-direction:column;gap:5px}
 .billedfod p{font-family:var(--mono);font-size:11.5px;line-height:1.45;color:var(--blaek3);
