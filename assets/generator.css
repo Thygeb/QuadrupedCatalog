@@ -653,22 +653,39 @@
   .robot-foto{grid-area:foto}
   .robot-navn{grid-area:navn}
   .robot-noegletal{grid-area:tal;margin-top:0}
-  /* Fem celler i en ~550 px spalte er 110 px hver — for smalt til 29 px
-     cifre. Tre spalter giver ~183 px, som er bredere end de 156 px en
-     fem-spaltet stribe ville faa, og genbruger et arrangement, der allerede
-     er maalt. */
-  .robot-noegletal .stribe--fem{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* TO spalter, ikke tre. Foerste udgave af denne regel brugte tre, og det
+     var en maalt REGRESSION i aflaesningslinjen: en tre-spaltet celle er
+     183 px, hvoraf vaerdiblokken faar 121 px - mod ~200 px i den gamle
+     fem-spaltede stribe over hele bredden. Vaerdien ombroed derfor oftere,
+     og maalt over 25 robotsider ved 1440 gik flerlinjede vaerdiblokke fra
+     20 af 125 til 30 af 125.
+
+     Det er ikke en skoenhedsfejl. Det, der ombroed, var i vidt omfang
+     HULMAERKET "ikke oplyst" - sidens signatur - som gik fra én til tre
+     linjer. spor/typografi brugte hele sit spor paa at faa vaerdiblokkens
+     hoejde ned; en celle, der er tre linjer hoej paa nogle robotter og én
+     paa andre, goer striben til en liste igen.
+
+     To spalter giver ~275 px pr. celle og ~219 px til vaerdiblokken - altsaa
+     BREDERE end den oprindelige fem-spaltede stribe, ikke bare bredere end
+     tre spalter. Prisen er én raekke mere i hoejden.
+
+     FRAVALGT: at lade det imperiale chip staa paa egen linje. Det ville have
+     gjort ombrydningen ENSARTET, men ikke faerre - og paa fx
+     anybotics-anymal-x er alle fire ramte celler "ikke oplyst"-huller UDEN
+     imperialt chip, saa den mekanisme rammer ikke aarsagen. */
+  .robot-noegletal .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
   .robot-noegletal .stribe--fem > li{border-left:1px solid var(--linje)}
-  .robot-noegletal .stribe--fem > li:nth-child(3n+1){border-left:0}
-  .robot-noegletal .stribe--fem > li:nth-child(n+4){border-top:1px solid var(--linje)}
-  /* Fem celler i tre spalter efterlader ét TOMT felt i anden raekke. Paa
+  .robot-noegletal .stribe--fem > li:nth-child(2n+1){border-left:0}
+  .robot-noegletal .stribe--fem > li:nth-child(n+3){border-top:1px solid var(--linje)}
+  /* Fem celler i to spalter efterlader ét TOMT felt i tredje raekke. Paa
      enhver anden side ville det vaere en skoenhedsfejl; her er det farligt.
      Sidens signatur er, at et tomt felt BETYDER "ikke oplyst" (haard
      begraensning 5), saa en tom gitterplads inde i noegletalspanelet kan
      laeses som et sjette felt, producenten ikke oplyser. Den sidste celle
      spaender derfor resten af raekken ud, saa panelet lukker.
-     Raekkefoelgen er urgot, og border-logikken ovenfor holder: celle 4 er
-     stadig 3n+1 og faar ingen venstrekant. */
+     Raekkefoelgen er urgot, og border-logikken ovenfor holder: celle 5 er
+     nth-child(2n+1) og faar ingen venstrekant. */
   .robot-noegletal .stribe--fem > li:last-child{grid-column:span 2}
   .robot-noegletal .stribe > li{padding:14px 13px 13px;gap:10px}
   .robot-noegletal .stribe .v{font-size:23px}
