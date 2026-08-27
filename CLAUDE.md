@@ -289,13 +289,24 @@ Grene flettes til `main`, når arbejdet er efterprøvet — ikke før.
 Fast regel, sat af JPK 24. aug 2026. Gælder alt arbejde i dette projekt.
 
 **Orkestratoren kører Opus eller Fable og implementerer aldrig selv.** Den analyserer,
-planlægger, griller og fletter. Selve bygningen sendes ud som subagenter med
-`model: "sonnet"` **skrevet eksplicit i `Agent`-kaldet**.
+planlægger, griller og fletter. Selve bygningen sendes ud som subagenter — og modellen
+**skrives ALTID eksplicit i `Agent`-kaldet**, aldrig arvet:
+
+- **`model: "sonnet"`** til rugbrødsarbejde: data, tests, mekaniske rettelser,
+  omstruktureringer med et målbart facit.
+- **`model: "opus"` til designspor** — besluttet af JPK 27. aug 2026 (L45), en ændring
+  af den oprindelige regel. Begrundelsen: rykket pr. rotation på designarbejdet var for
+  lille; Sonnet leverede det mindste sikre inden for briefets værn. Et designspor er ét,
+  hvor leverancen dømmes med øjne (typografi, layout, en ny flade) — ikke ét, der
+  tilfældigvis rører CSS.
 
 Glemmes `model`-parameteren, arver subagenten sessionens aktuelle model. Det er ikke en
 teoretisk risiko: 24. aug 2026 blev to spor (kortdesign og fotos) startet fra en
 Fable-session uden parameteren, kørte rugbrødsarbejde på den dyre model og døde begge af
-et session-limit midt i arbejdet. Begge måtte genstartes fra bunden.
+et session-limit midt i arbejdet. Begge måtte genstartes fra bunden. **Det værn, der
+gør Opus-designspor forsvarlige i dag, er commit undervejs-kravet** (brief-skillens
+punkt 8): et spor, der dør, efterlader nu sine commits — målt 27. aug, hvor et stallet
+spor blev genoptaget uden tab, fordi 3 commits og en arbejdsfil lå der.
 
 **Grænsen, så reglen ikke lammer sessionen.** Orkestratoren må:
 
