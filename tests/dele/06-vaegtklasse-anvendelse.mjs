@@ -147,19 +147,12 @@ export default async function koer(ctx) {
     Object.values(fordeling).reduce((a, b) => a + b, 0) === json.robotter.length,
     `${JSON.stringify(fordeling)} mod ${json.robotter.length} robotter`);
 
-  /* L27 - maengden, ikke raekkefoelgen. STAAR STADIG BEVIDST SOM FEJL, men af
-     en ANDEN og smallere aarsag end foer (fund/FUND-detalje.md, opgave 4c):
-     tools/skabelon/side.mjs' hjaelp.anvendelse() sorterer nu vaerdierne via
-     skema.mjs' sorterAnvendelse() - det retter siden, katalogets maerker og
-     robotsidens BEM-klasser (de to proever lige nedenfor). Men robots.json's
-     "anvendelse.vaerdi" bliver IKKE bygget af hjaelp.anvendelse() - build.mjs
-     (L363-372, forbudt fil i dette spor) har sin EGEN, uafhaengige kopi af
-     samme udregning ("(Array.isArray(a.vaerdi) ? a.vaerdi :
-     [a.vaerdi]).map((v) => tilstandAf(v) ?? v)") direkte i indeks-byggeren,
-     uden at kalde hjaelp.anvendelse() eller sorterAnvendelse() overhovedet.
-     Kravet er ikke saenket - roeret er sporet til en konkret linje, den
-     staar bare i en fil, dette spor ikke maa aendre. */
-  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27) — uafklaret, robots.json bygges af build.mjs (forbudt fil), se fund/FUND-detalje.md',
+  /* L27 - maengden, ikke raekkefoelgen: to filer med de samme kategorier i
+     modsat YAML-raekkefoelge skal give samme indeks. build.mjs' indeks-bygger
+     (feltet "anvendelse" i "lille indeks til klientsiden") kalder nu ogsaa
+     skema.mjs' sorterAnvendelse(), samme kanoniske orden som
+     tools/skabelon/side.mjs' hjaelp.anvendelse() allerede brugte. */
+  ok('to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27)',
     JSON.stringify(anv['j-orden-en'].vaerdi) === JSON.stringify(anv['k-orden-to'].vaerdi),
     `${JSON.stringify(anv['j-orden-en'].vaerdi)} mod ${JSON.stringify(anv['k-orden-to'].vaerdi)}`);
 
