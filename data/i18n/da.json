@@ -132,6 +132,7 @@
   "kilde_primaer": "Producentens produktside.",
   "kilde_sekundaer": "Sekundær",
   "tegnforklaring_titel": "Sådan læses tallene",
+  "tegnforklaring_oplyst": "Producenten oplyser et tal med enhed.",
   "kilde_maerke_forklaring": "Hævet bogstav efter et tal peger på den kilde, tallet kommer fra. Robotter med flere kilder får flere bogstaver.",
   "kilde_sek_forklaring": "Stiplet bogstav: sekundær kilde på producentens eget domæne – datablad, manual eller udviklerdokumentation, ikke produktsiden.",
   "kilde_antal_en": "Kortets tal kommer fra 1 kilde",

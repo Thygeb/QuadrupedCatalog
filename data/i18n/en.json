@@ -132,6 +132,7 @@
   "kilde_primaer": "Manufacturer product page.",
   "kilde_sekundaer": "Secondary",
   "tegnforklaring_titel": "How to read the figures",
+  "tegnforklaring_oplyst": "The manufacturer states a figure with a unit.",
   "kilde_maerke_forklaring": "A superscript letter after a figure points to the source the figure came from. Robots with several sources carry several letters.",
   "kilde_sek_forklaring": "A dashed letter marks a secondary source on the manufacturer’s own domain – a datasheet, manual or developer documentation, not the product page.",
   "kilde_antal_en": "The figures on this card come from 1 source",

@@ -1307,7 +1307,7 @@ ${a.maerker()}
     return `<section class="sektion tegnforklaring" aria-labelledby="tegn">
 <div class="sektion-hoved"><h2 class="t-h2" id="tegn">${esc(t('tegnforklaring_titel'))}</h2></div>
 <dl class="raekker">
-${raekke(`<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>`, T.taethed_udfyldte)}
+${raekke(`<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>`, T.tegnforklaring_oplyst)}
 ${raekke(`<span class="v v-tal v-nul"><b class="num">0</b></span>`, T.tilstand_nul_forklaring)}
 ${raekke(tilstand('nej'), T.tilstand_nej_forklaring)}
 ${raekke(tilstand('ikke_oplyst'), T.tilstand_ikke_oplyst_forklaring)}
