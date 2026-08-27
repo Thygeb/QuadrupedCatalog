@@ -14,9 +14,6 @@ anvendelse:
   hentet: 2026-08-25
   note: "Foerste citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversaettelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar_beredskab; 复杂环境作业 (arbejde i komplekse miljoeer) -> industri. De to oevrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort staar identisk paa alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed_overvaagning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
 noter:
-  - "STOPPROEVE (firbenet): bestaaet. Samme producentnavigation som YJ30 (\"越甲四足系列\"), YJ30Max staar under samme hovedpunkt. https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html, hentet 2026-08-25."
-  - "IKKE LEGETOEJ (L11): nej. Pris 288.000 kr og anvendelser (工业巡检/消防应急/复杂环境作业) i samme industri-/beredskabskategori som resten af kataloget - hoejere prisklasse end YJ30, konsistent med \"高负载\" (hoej nyttelast) positioneringen."
-  - "GAAENDE/STAAENDE-SPLIT ER EKSPLICIT HER, MODSAT YJ30: tabellen har TO separate raekker \"静态负载\" (statisk last) og \"动态负载\" (dynamisk last), i modsaetning til YJ30's ene uspecificerede \"负载\"-raekke. 静态负载 -> nyttelast_staaende, 动态负载 -> nyttelast_gaaende - en direkte aflaesning, ikke et skoen."
   - "SAMME MERGED-KOLONNE-MOENSTER SOM YJ30 FOR HAELDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilfoejelsen - DOF er derfor slet ikke naevnt noget sted paa siden for YJ30Max, ikke kun udeladt af en fejlslaaet kolonne. frihedsgrader er ikke_oplyst."
   - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-raekke i \"基础参数\"-tabellen."
 billede:

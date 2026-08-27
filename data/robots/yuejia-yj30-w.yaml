@@ -14,10 +14,6 @@ anvendelse:
   hentet: 2026-08-25
   note: "Foerste citat er YJ30 W's egen produktbeskrivelse (samme side). Egen oversaettelse: 多光谱火情探测/火情预警 (multispektral brandfaredetektion/-varsling) -> forsvar_beredskab; 自主移动巡检/自主巡逻 (autonom mobil inspektion/patrulje) -> inspektion; 工业 -> industri; 科研 -> forskning_udvikling. \"仓储\" (lager/logistik) er IKKE medtaget som logistik-kategori her, da det kun staar i en opremsning af mulige indsatsmiljoeer (\"工业、仓储、科研等复杂场景\"), ikke som en selvstaendig anvendelseskategori paa linje med de oevrige - en mere forsigtig laesning end den bredeste mulige. De to sidste citater er fra sidens delte \"行业应用\"-sektion: \"警用巡逻\" -> sikkerhed_overvaagning."
 noter:
-  - "STOPPROEVE (hjul-ben-hybrid, ikke ren hjulplatform): bestaaet, MED forbehold. Producentens egen tekst siger \"四足巡检机器人，采用四轮独立驱动结构\" (firbenet inspektionsrobot med firehjuls uafhaengigt drev) - selve maskintypen kaldes \"四足\" (firbenet) i overskriften, mens bevaegelsen sker paa fire uafhaengigt drevne hjul monteret paa ben-lignende strukturer. Samme mønster som Unitree B2/B2-W og Genisom Gangben L2/L2-W, som allerede staar som separate katalogposter. Robotten staar under samme \"越甲四足系列\"-produktnavigation som den rent gaaende YJ30/YJ30Max."
-  - "IKKE LEGETOEJ (L11): nej. Pris 88.000 kr og brandinspektions-/sikkerhedsanvendelse."
-  - "SINGLE \"负载\"-FELT, SAMME MOENSTER SOM YJ30: tabellen har kun én uspecificeret \"负载\"-raekke (12kg) for YJ30 W, ikke en gaaende/staaende-splittet raekke. Placeret i nyttelast_gaaende som et forsigtigt skoen, jf. YJ30's begrundelse."
-  - "TRAPPETRIN_KONTINUERLIG BRUGER SAMME KOLONNE SOM BASISUDGAVEN: \"攀爬台阶高度\" er ÉN kolonne i tabellen, delt af baade YJ30 (20cm) og YJ30 W (60cm) - producenten skelner IKKE mellem \"kontinuerlig trappe\" og \"enkelt forhindring\" med to forskellige feltnavne, saadan som Galileo og Genisom goer. Vaerdien er derfor lagt i trappetrin_kontinuerlig for begge varianter for at holde feltvalget konsistent inden for samme producents tabel - IKKE fordi 60cm noedvendigvis er en kontinuerlig trappe i praksis for en hjulbenet robot. Se ogsaa forhindring_enkelt: ikke_oplyst."
   - "MULTISPEKTRAL SENSORPAKKE (kameraer) ER EKSPLICIT HER, MODSAT YJ30/YJ30Max: produktteksten naevner tre navngivne detektionsteknologier specifikt til denne (og YJ30W MAX's) brandinspektionsvariant - se feltet kameraer."
 billede:
   fil: fotos/fabrikant/yuejia-yj30-w.png
@@ -67,7 +63,7 @@ felter:
     enhed: "°"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
-    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30 - se yuejia-yj30.yaml's topnote."
+    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30, samme forbehold som i YJ30's egen post."
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 60

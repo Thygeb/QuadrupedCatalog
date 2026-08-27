@@ -18,15 +18,9 @@ anvendelse:
   kildetype: sekundaer
   note: "Fra manualens side 4 (\"应用场景\"), FOER de model-specifikke tekniske parameter-tabeller (side 7-9). Teksten staar under overskriften \"智能仿生四足机器人\" (det generiske familienavn, samme navn C1 selv baerer) og naevner ikke C1 ved navn specifikt - den daekker hele C1/E1/S1-serien som produktkategori. Egen oversaettelse: 安保巡逻 (sikkerhedspatrulje) -> sikkerhed_overvaagning; 应急救援/武装反恐/防爆 (beredskab/antiterror/spraengstofrydning) -> forsvar_beredskab; 安防巡检/智能巡检 (sikkerheds-/intelligent inspektion) -> inspektion. Samme citat er brugt uafhaengigt paa alle seks Galileo-poster (C1/C1-W/E1/E1-W/S1/S1-W), IKKE via arvet_fra, fordi det er familiesiden, der ligger foer variant-opdelingen - samme princip som Genisom Gangben L2-W's note om at citere den delte kilde selvstaendigt."
 noter:
-  - "STOPPROEVE (firbenet): bestaaet, entydigt. Producentens egen model-tabel-overskrift: \"【C1工业小型】智能仿生四足机器人\" (C1 lille industrimodel - intelligent bionisk FIRBENET robot). Hele manualens titel er \"智能仿生四足机器人 / INTELLIGENT BIONIC QUADRUPED ROBOT\"."
-  - "IKKE LEGETOEJ (L11): nej. Anvendelser (lufthavn/togstation/grænsepatrulje, brandvæsen, industriinspektion, militaer/politi \"武装反恐\") og en fuld teknisk specifikationstabel med enheder placerer produktet klart uden for legetoejs-/hobbykit-kategorien."
   - "REELT PRODUKT, IKKE KUN RENDERING: manualen har fulde tekniske specifikationstabeller med tal og enheder for alle seks modeller, ikke kun marketingtekst - samme standard som resten af kataloget."
-  - "KILDETYPE SEKUNDAER (L33): PDF'en er uploadet af Galileo selv til World Robot Conferences officielle udstillerprofilside (worldrobotconference.com), ikke hentet fra Galileos eget domæne (galileotime.com). galileotime.com er en tung Vue/React-SPA, der ikke lod sig hente statisk - dette er den bedste tilgaengelige kilde til Galileos tekniske specifikationer, men mærket sekundær per L33, saa det er synligt at den ikke kommer direkte fra producentens eget domæne."
-  - "TABEL-TERMINOLOGI FOR KLATREEVNE: C1's tabel skriver \"可攀爬高度: 20cm高连续台阶\" (klatrehoejde: 20cm kontinuerligt trappetrin) - \"连续台阶\" (kontinuerlig trin/trappe) mappet til trappetrin_kontinuerlig. C1-W's tilsvarende raekke skriver i stedet \"正向高度差70cm高台\" (fremadrettet hoejdeforskel, 70cm platform) - mappet til forhindring_enkelt paa C1-W's egen post. De to modeller bruger FORSKELLIGE formuleringer for samme raekkenavn, konsekvent med skemaets to-felts-opdeling (regel 7)."
-  - "DRIFTSTID UDEN LASTBETINGELSE: C1's \"续航时间: 3.5h～6h\" har intet kg-tal - ved_last er derfor ikke_oplyst, i modsaetning til S1/S1-W, hvis tabeller eksplicit skriver \"(20kg负载)\"."
   - "HOT_SWAP FRA DEN DELTE FUNKTIONSSIDE (side 6), IKKE FRA C1's EGEN TABEL: manualens fælles funktionsbeskrivelse (foer variant-opdelingen) skriver \"智能仿生四足机器人采用'自主充电+手动换电'双模能源管理系统...同时配备模块化热插拔电池仓，支持数秒完成电池更换\" (dual-mode: autonom opladning + manuel batteriskift; modulaert hot-swap-batterirum, batteriskift paa faa sekunder). Dette er IKKE gentaget i C1's egen tekniske parametertabel (som kun har en \"自主充电功能: 支持\"-raekke, ingen hot-swap-raekke) - samme forsigtighedsprincip som anvendelse-feltet: citeret uafhaengigt fra familiesiden, ikke fra en model-specifik tabelraekke."
   - "DOCKINGSTATION KOMBINERER TO KILDER: den model-specifikke tabellens \"自主充电功能: 支持\" (autonom opladningsfunktion: understoettet) OG den delte funktionssides \"通过激光雷达导航实现自动对接充电桩\" (via lidar-navigation, automatisk docking med ladestation) - de to bekraefter hinanden."
-  - "IKKE MEDTAGET: 通信 (WIFI/4G/5G-traadloes forbindelse) og 通信带宽 (≤20M) staar i tabellen, men skemaet har intet felt for traadloes forbindelse (kun dataporte for FYSISKE porte). Ikke tvunget ind i noget felt. Samme for 语音交互 (选配/tilvalg), som er lagt i autonominiveau i stedet."
 billede:
   fil: fotos/fabrikant/galileo-c1.jpg
   ophav: fabrikant
@@ -68,14 +62,14 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"有效负载: 8kg\" (effektiv nyttelast). Mappet til nyttelast_gaaende - \"有效\" (effektiv, under aktiv brug) fortolket som svarende til den gaaende/dynamiske last, parallelt med Yuejias eksplicitte \"动态负载\". En fortolkning, ikke producentens egne ord \"gaaende\"."
+    advarsel: "\"有效负载: 8kg\" (effektiv nyttelast). Mappet til gaaende last - \"有效\" (effektiv, under aktiv brug) fortolket som svarende til den gaaende/dynamiske last, parallelt med Yuejias eksplicitte \"动态负载\". En fortolkning, ikke producentens egne ord \"gaaende\"."
   nyttelast_staaende:
     vaerdi: 15
     enhed: kg
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"最大负载: 15kg\" (maks. nyttelast). Mappet til nyttelast_staaende - se advarslen paa nyttelast_gaaende for fortolkningsprincippet."
+    advarsel: "\"最大负载: 15kg\" (maks. nyttelast). Mappet til staaende last - samme fortolkningsprincip som for den gaaende last ovenfor."
   hastighed:
     vaerdi_min: 0
     vaerdi_maks: 3.7

@@ -11,7 +11,6 @@ anvendelse:
   hentet: 2026-08-24
   note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" staar EN gang paa L2-siden for hele Gangben L2-familien, foer variant-fanebladene. Citeret selvstaendigt fra samme URL, ikke via arvet_fra. Egen oversaettelse: 安防巡逻 -> sikkerhed_overvaagning; 应急消防 -> forsvar_beredskab; 科研教育 -> forskning_udvikling; 短途配送 -> logistik."
 noter:
-  - "STOPPROEVE (firbenet, hjul-ben-hybrid): bestaaet. L2-siden markerer denne variant \"轮足环视版\" (hjul-fod rundtomsyn-udgave) i techParamsData - samme hjul-ben-hybridtype som L2-W, med et udvidet 360°-sensorsaet oveni."
   - "INGEN SELVSTAENDIG URL: samme forbehold som L2-W - findes udelukkende som fane-skift paa L2's egen side (https://www.genisomai.com/product-robot/L2, techParamsData.datas[2], classname \"钢镚 L2-W Ultra\", id 1250)."
   - "MARKETINGKORTETS TAL (70cm forhindringshoejde, 756Wh batteri) ER BEVIDST IKKE BRUGT HER: samme forbehold som L2-W - hero-marketingkortets tal staar en gang for hele siden og er ikke gentaget i L2-W Ultra's egen datablok, derfor ikke tilskrevet denne variant specifikt."
   - "L2-W ULTRA HAR EGEN LIDAR-SPECIFIKATION, SOM L2/L2-W IKKE HAR: sensor-sektionen for netop denne variant navngiver \"3D激光雷达: 工业级96线激光雷达*2\" (industriel 96-linjers LiDAR, 2 stk.) - eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal."
@@ -108,7 +107,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"续航时间: 4.5H（空载） 3H（满载）\" - LAVERE end L2/L2-W's 5.5H/3.5H, som ventet naar det udvidede sensorsaet (dobbelt LiDAR, RTK) traekker mere stroem. Kvalitativ lastbetingelse, intet kg-tal - derfor ved_last: ikke_oplyst. Raekkevidde \"续航里程: 16KM（空载） 10KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 4.5H（空载） 3H（满载）\" - LAVERE end L2/L2-W's 5.5H/3.5H, som ventet naar det udvidede sensorsaet (dobbelt LiDAR, RTK) traekker mere stroem. Kvalitativ lastbetingelse, intet kg-tal - derfor er lastbetingelsen ikke oplyst. Raekkevidde \"续航里程: 16KM（空载） 10KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5

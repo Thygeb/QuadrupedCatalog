@@ -58,7 +58,7 @@ felter:
     enhed_imperial: lbs
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gaaende og staaende last. Placeringen i nyttelast_gaaende er vores tolkning, ikke en aflaesning. Databladets broedtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument."
+    advarsel: "Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gaaende og staaende last. Placeringen under gaaende last er vores tolkning, ikke en aflaesning. Databladets broedtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.6

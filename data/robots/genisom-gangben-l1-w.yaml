@@ -11,10 +11,7 @@ anvendelse:
   hentet: 2026-08-24
   note: "Fra sektionen \"下一个应用场景，它已提前就位\" (naeste anvendelsesscenarie, allerede klar) paa L1-W's egen produktside - fire selvstaendige citater, ikke arvet fra L1. Egen oversaettelse: 侦查搜救 (rekognoscering/eftersoegning-redning) -> forsvar_beredskab; 应急消防 (akut brandbekaempelse) -> forsvar_beredskab (samme kategori som 侦查搜救, to citater); 科研教育 -> forskning_udvikling; 安防巡逻 -> sikkerhed_overvaagning."
 noter:
-  - "STOPPROEVE (firbenet, hjul-ben-hybrid): bestaaet. Meta-keywords paa L1-W's egen produktside: \"具身智能,四足机器人,机器狗,行业级机器人,钢镚L1,铜锤M1,轮足机器人,...\" (四足机器人 = quadruped robot). Meta-description: \"钢镚L1-W是智身科技推出的首款行业级轮式四足机器人\" (Gangben L1-W er GENISOM AI's foerste industriklasse hjul-firbenede robot). Sidens egen overskrift: \"钢镚 L1-W - 首款小型行业级轮式四足机器人\" (foerste smaa industriklasse hjul-firbenede robot). https://www.genisomai.com/product-robot/L1-W, hentet 2026-08-24. Hjul-ben-hybrid (12 ledmotorer + 4 hjulnavmotorer, jf. \"高性能轮毂电机: 4 个\" i den strukturerede specifikationstabel) - taeller efter opgavens egen regel om at hjul-ben-hybrider er firbenede, samme princip som Unitree B2-W."
   - "IKKE EN DUBLET AF L1/L2: L1-W har egen produktside, eget navn, egne maal (630x430x485mm mod L1's 630x360x415mm) og en fjerde hjulmotor-gruppe, L1 ikke har. Klart en selvstaendig variant, ikke L1 under et andet navn."
-  - "PRODUKTIONSTAL 15.000+ ENHEDER DAEKKER HELE KATALOGET: se genisom-gangben-l1.yaml for den fulde efterproevning - tallet er ikke opdelt pr. model og gentages derfor ikke her."
-  - "TO SOEGENDE MODELLER IKKE BYGGET DENNE RUNDE: L1-W's egen produktside naevner \"钢镚 L1-W EDU\" (NVIDIA Orin NX, op til 100 TOPS, indbygget 3D LiDAR, dybdekamera, GNSS og 5G) som en selvstaendig konfiguration under \"形态百变, 场景无界\" - INGEN egen produktside fundet (kun en tekstboks paa L1-W's side), ikke efterproevet med samme kildedisciplin. Desuden findes tre navngivne undermodeller \"ZSL-1 Air/Pro/Max\" i en model-vaelger nederst paa siden uden synlige separate specifikationer i denne HTML - heller ikke bygget."
 billede:
   fil: fotos/fabrikant/genisom-gangben-l1-w.webp
   ophav: fabrikant

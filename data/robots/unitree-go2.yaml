@@ -12,9 +12,6 @@ anvendelse:
   hentet: 2026-08-19
   note: "Producentens egen produktnavigation, gruppen Go2 staar i."
 varianter: [AIR, PRO, X, EDU]
-noter:
-  - "Billedport 24. aug 2026: billede fjernet. Det tidligere billede (unitree-go2-1.png) var et skaermbillede af Unitrees fjernbetjenings-app paa en telefon - et LiDAR-punktskykort med kamerafeed og betjeningsknapper, ikke et foto af robotten. De fire oevrige arkivkandidater (go2-2 til -5) kunne ikke efterproeves foer denne sessions billedlaesekvote blev opbrugt; billedet er derfor slettet, ikke byttet. Skal gennemses paa ny naar kvoten er tilgaengelig."
-  - "Billed3 25. aug 2026: nyt billede fundet paa producentens egen side (ikke arkivkandidaterne, som ikke findes i denne worktree). unitree-go2-6.jpg (hero med indbraendt overskriftstekst) og unitree-go2-7.jpg (eksploderet infografik med komponentkald) blev begge AFVIST. unitree-go2-8.jpg - robotten fuldt synlig paa en klippe i vand, feltfoto, ingen tekst - bestod og er sat ind."
 billede:
   fil: fotos/fabrikant/unitree-go2.jpg
   ophav: fabrikant
@@ -61,7 +58,7 @@ felter:
       PRO: "ca. 8 kg (maks. ca. 10 kg)"
       X: "ca. 8 kg (maks. ca. 12 kg)"
       EDU: "ca. 8 kg (maks. ca. 12 kg)"
-    advarsel: "Producenten skriver kun Payload og siger ikke, om det er gaaende eller staaende last. Placeringen i nyttelast_gaaende er en konservativ slutning ud fra stoerrelsesordenen, IKKE en aflaesning. Vaerdien er AIR-variantens."
+    advarsel: "Producenten skriver kun Payload og siger ikke, om det er gaaende eller staaende last. Placeringen under gaaende last er en konservativ slutning ud fra stoerrelsesordenen, IKKE en aflaesning. Vaerdien er AIR-variantens."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi_min: 0

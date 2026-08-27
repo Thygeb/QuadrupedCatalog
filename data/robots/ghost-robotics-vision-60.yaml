@@ -74,7 +74,7 @@ felter:
     enhed_imperial: mph
     kilde: https://www.ghostrobotics.io/vision-60
     hentet: 2026-08-19
-    advarsel: "TO FEJL I ET FELT, begge paa producentens egen side. (1) Punktlisten oeverst paa produktsiden skriver up to 2.5 meters/second (5.6 miles/hour); specifikationstabellen laengere nede paa SAMME side skriver 2.4 m/s som sprint. (2) Parret 2.4m/s (4.9 mph) gaar ikke op: 2,4 m/s = 5,37 mph, og 4,9 mph = 2,19 m/s. Alle andre par paa linjen er rigtige (0,9 = 2,01; 1,2 = 2,68; 3,0 = 6,71). Kun sprintparret er forkert, og fejlen staar i baade produktside og datablad. Standardgang er 0,9 m/s (2 mph), hurtiggang 1,2 m/s. Fejlen kraever en procenttolerance i validatoren, ikke kun en stoerrelsesordenstest."
+    advarsel: "TO FEJL I ET FELT, begge paa producentens egen side. (1) Punktlisten oeverst paa produktsiden skriver up to 2.5 meters/second (5.6 miles/hour); specifikationstabellen laengere nede paa SAMME side skriver 2.4 m/s som sprint. (2) Parret 2.4m/s (4.9 mph) gaar ikke op: 2,4 m/s = 5,37 mph, og 4,9 mph = 2,19 m/s. Alle andre par paa linjen er rigtige (0,9 = 2,01; 1,2 = 2,68; 3,0 = 6,71). Kun sprintparret er forkert, og fejlen staar i baade produktside og datablad. Standardgang er 0,9 m/s (2 mph), hurtiggang 1,2 m/s."
   haeldning:
     vaerdi: ikke_oplyst
     kilde: https://www.ghostrobotics.io/vision-60

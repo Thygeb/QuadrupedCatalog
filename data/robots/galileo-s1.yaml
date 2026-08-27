@@ -18,12 +18,7 @@ anvendelse:
   kildetype: sekundaer
   note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, foer variant-opdelingen. Citeret uafhaengigt her, ikke via arvet_fra."
 noter:
-  - "STOPPROEVE (firbenet): bestaaet, entydigt. Producentens egen model-tabel-overskrift: \"【S1工业大型】智能仿生四足机器人\" (S1 stor industrimodel - intelligent bionisk FIRBENET robot)."
-  - "IKKE LEGETOEJ (L11): nej - samme begrundelse som C1. Kataloget stoerste/tungeste Galileo-model (120kg maks. nyttelast)."
-  - "KILDETYPE SEKUNDAER (L33) og GENBRUGT EVIDENS: se galileo-c1.yaml."
   - "S1 ER DEN ENESTE GALILEO-MODEL MED BEGGE KLATREFELTER UDFYLDT: tabellen skriver \"可攀爬高度: 25cm高连续台阶,正向高度差40cm高台\" - BAADE en kontinuerlig-trappe-vaerdi OG en platform-hoejde-vaerdi i samme raekke, i modsaetning til C1/E1 (kun trappetrin_kontinuerlig) og C1-W/E1-W (kun forhindring_enkelt). Begge felter er derfor udfyldt her: trappetrin_kontinuerlig=25cm, forhindring_enkelt=40cm."
-  - "DRIFTSTID MED EKSPLICIT LASTBETINGELSE: \"续航时间: 5h（20kg负载）～7.5h\" - S1 er den FOERSTE Galileo-model i denne runde med en tallastbetingelse (20kg) paa driftstiden, jf. regel 8. ved_last er derfor sat til 20kg, IKKE ikke_oplyst som paa C1/C1-W/E1/E1-W."
-  - "IKKE MEDTAGET I NOGET FELT: \"最大跳跃深堑宽度1.2m,最大跳远距离1.6m\" (maks. springbredde over en groeft 1.2m, maks. springlaengde 1.6m) - skemaet har intet springfelt. Kun naevnt her for fuldstaendighedens skyld, ikke opfundet ind i et eksisterende felt."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 billede:
   fil: fotos/fabrikant/galileo-s1.jpg
@@ -66,7 +61,7 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"有效负载: 40kg\" - samme fortolkning som C1, se galileo-c1.yaml."
+    advarsel: "\"有效负载: 40kg\" - samme fortolkning som hos C1."
   nyttelast_staaende:
     vaerdi: 120
     enhed: kg
@@ -143,7 +138,7 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "Fra den delte funktionsside (side 6) - se galileo-c1.yaml."
+    advarsel: "Fra den delte funktionsside (side 6), samme kilde som hos C1."
   ladetid: ikke_oplyst
   dockingstation:
     vaerdi: ja

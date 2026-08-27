@@ -17,7 +17,6 @@ billede:
   hentet: 2026-08-19
 noter:
   - "AABENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
-  - "E-DOG OPLYSER TRE NYTTELASTTAL, IKKE TO - og skemaet har kun to felter: maks. STATISK last 8 kg, maks. DYNAMISK last 5 kg, og dynamisk last I DRIFT 3 kg. Det tredje tal (arbejdslast) har ingen plads i skemaet og staar kun i advarslen paa nyttelast_gaaende. Det er en skemamangel, ikke en indsamlingsmangel."
 felter:
   egenvaegt:
     vaerdi: 15

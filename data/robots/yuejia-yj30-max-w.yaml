@@ -14,11 +14,6 @@ anvendelse:
   hentet: 2026-08-25
   note: "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversaettelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. \"仓储\" (lager) er af samme grund som der IKKE talt med som en selvstaendig logistik-kategori."
 noter:
-  - "STOPPROEVE (hjul-ben-hybrid, ikke ren hjulplatform): bestaaet, MED forbehold - samme begrundelse som YJ30 W, blot stor-udgaven (jf. YJ30/YJ30Max-parringen). https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html, hentet 2026-08-25."
-  - "IKKE LEGETOEJ (L11): nej. Pris 358.000 kr - kataloget dyreste Yuejia-model - og brandinspektions-/industrianvendelse."
-  - "GENBRUGT EVIDENS: research udfoert i spor/kand4. Raa HTML genbruges fra media/_kilder/raa-kand4-2026-08-25/yuejialingdong-yj-58-2026-08-25.html (hentet 2026-08-25). Samme \"基础参数\"-tabel (YJ30Max vs. YJ30W Max) staar ogsaa paa side 57 (yuejialingdong-yj-57-2026-08-25.html) - begge kilder krydstjekket og enige."
-  - "GAAENDE/STAAENDE-SPLIT ER EKSPLICIT: som YJ30Max har tabellen TO separate raekker \"静态负载\" og \"动态负载\" for YJ30W Max. 静态负载 -> nyttelast_staaende, 动态负载 -> nyttelast_gaaende - direkte aflaesning."
-  - "TRAPPETRIN_KONTINUERLIG: samme delte kolonnenavn \"攀爬台阶高度\" som YJ30/YJ30 W-parret (se yuejia-yj30-w.yaml's topnote for den fulde begrundelse) - vaerdien 80cm er markant hoejere end YJ30Max's 30cm, som forventet for en hjuldrevet variant."
   - "MULTISPEKTRAL SENSORPAKKE (kameraer): identisk tekst med YJ30 W - se dens post for den fulde citation."
 billede:
   fil: fotos/fabrikant/yuejia-yj30-max-w.png

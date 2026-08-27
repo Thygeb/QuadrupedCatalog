@@ -10,12 +10,6 @@ anvendelse:
   kilde: https://www.pudurobotics.com/en/products/d5
   hentet: 2026-08-24
   note: "Samme produktside og samme saetning som pudu-d5.yaml - D5 og D5-W er to variantvalg paa EN Shopify-produktside (handle \"pudu-d5\"), ikke to adskilte sider. Se noter herunder."
-noter:
-  - "STOPPROEVE (firbenet, hjul-ben-hybrid taeller jf. opgavens definition): webbutikkens beskrivelse skriver \"Choose between legged and wheel-legged configurations to match different terrain and mobility requirements\" - D5-W er den hjul-ben-hybride variant af samme firbenede platform som D5 (\"Industry-Grade Autonomous Quadruped Robot\"). Ingen tvivl om benantal i producentens egen tekst."
-  - "D5 og D5-W er SAMME produktside med en variantvaelger (Shopify, samme handle \"pudu-d5\"). Skrevet som to filer alligevel, i tråd med praksis for Unitree B2/B2-W, A2/A2-W, AS2/AS2-W og Go2/Go2-W. Feltet forgaenger er IKKE brugt her, fordi D5-W ikke er en efterfoelger i tid - kun den anden konfiguration paa samme side (Shopify-billedet for D5-W-varianten er tidsstemplet 2026-03-09, D5 selv 2026-02-04, men det er et billed-uploadtidspunkt, ikke en modeludgivelsesdato)."
-  - "Se pudu-d5.yaml's noter for den fulde redegoerelse af uoverensstemmelsen mellem den generelle markedsfoeringstekst (\"25 cm steps, 30° climbs, 45° descents\") og den variant-specifikke sammenligningstabel. For D5-W stemmer markedsfoeringsteksten faktisk overens med tabellens D5-W-raekke (30° ascent, 25 cm step) - modsat D5, hvor de IKKE stemmer overens."
-  - "Raa HTML-bevis: media/_kilder/raa-kand1a-2026-08-24/pudu-d5-storeside-2026-08-24.html (samme fil som pudu-d5.yaml - begge varianter staar paa denne ene side)."
-  - "PDF-OPFYLDNINGSRUNDEN (2026-08-25): se pudu-d5.yaml for den fulde gennemgang af flyeren, download-siden og Pudu Robotics' tomme GitHub-organisation - samme flyer daekker D5 og D5-W paa én sammenligningstabel, ingen af de ti tilbageværende ikke_oplyst-felter kunne fyldes for D5-W heller."
 billede:
   fil: fotos/fabrikant/pudu-d5-w.jpg
   ophav: fabrikant
@@ -35,7 +29,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "USIKKER TILDELING, se pudu-d5.yaml. Producenten skriver samme trippel \"900 x 543 x 572 mm\" for D5-W som for D5 - staaende maal er identiske paa tvaers af de to varianter ifoelge tabellen."
+    advarsel: "USIKKER TILDELING, samme forbehold som hos D5. Producenten skriver samme trippel \"900 x 543 x 572 mm\" for D5-W som for D5 - staaende maal er identiske paa tvaers af de to varianter ifoelge tabellen."
   bredde:
     vaerdi: 543
     enhed: mm
@@ -80,7 +74,7 @@ felter:
     enhed_imperial: in
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Producentens etiket \"Climbing Capability: Up to 80 cm\", identisk for D5 og D5-W. Se pudu-d5.yaml for tildelingsforbeholdet mellem dette felt og trappetrin_kontinuerlig."
+    advarsel: "Producentens etiket \"Climbing Capability: Up to 80 cm\", identisk for D5 og D5-W. Samme tildelingsforbehold mellem dette felt og den kontinuerlige trappe som hos D5."
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
@@ -103,7 +97,7 @@ felter:
     enhed: C
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Separat producentfelt \"Cold-Start Capability: Below -10°C\" - se pudu-d5.yaml for samme forbehold."
+    advarsel: "Separat producentfelt \"Cold-Start Capability: Below -10°C\" - samme forbehold som hos D5."
   batteri_wh:
     vaerdi: 1000
     enhed: Wh
@@ -116,7 +110,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
-    advarsel: "Webbutikkens tabel: \"Operating Time D5-W: 2 - 3 hours\", INGEN lastbetingelse (regel 8). Pressemeddelelsens lastbetingede \"over two hours at full load (30 kg)\" er ikke eksplicit knyttet til D5-W alene og er derfor kun brugt i pudu-d5.yaml (D5), ikke her."
+    advarsel: "Webbutikkens tabel: \"Operating Time D5-W: 2 - 3 hours\", INGEN lastbetingelse (regel 8). Pressemeddelelsens lastbetingede \"over two hours at full load (30 kg)\" er ikke eksplicit knyttet til D5-W alene og er derfor kun brugt hos D5, ikke her."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:
@@ -128,7 +122,7 @@ felter:
     vaerdi: "96-linjers LiDAR x2 (standardkonfiguration); opgraderbar til 192-linjers LiDAR x2 mod tillaeg"
     kilde: https://www.pudurobotics.com/en/products/d5
     hentet: 2026-08-24
-    advarsel: "Fodnote 5, samme som pudu-d5.yaml - gaelder D5-serien, ingen separat angivelse for D5-W."
+    advarsel: "Fodnote 5, samme som hos D5 - gaelder D5-serien, ingen separat angivelse for D5-W."
   kameraer:
     vaerdi: "4x fiskeoejekameraer (120 graders synsfelt)"
     kilde: https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html
@@ -143,7 +137,7 @@ felter:
     vaerdi: "Understoetter kontinuerlig, uovervaaget drift; udfoerer komplette selvstaendige arbejdsgange inkl. afgang, patrulje, forhindringshaandtering og retur-til-opladning."
     kilde: https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html
     hentet: 2026-08-24
-    advarsel: "Kvalitativ, gaelder D5-serien bredt, ikke D5-W-specifik. Se pudu-d5.yaml."
+    advarsel: "Kvalitativ, gaelder D5-serien bredt, ikke D5-W-specifik - samme kilde som hos D5."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst

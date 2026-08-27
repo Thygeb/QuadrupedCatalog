@@ -11,22 +11,7 @@ anvendelse:
   hentet: 2026-08-24
   note: "\"industrial inspection\" -> industri + inspektion; \"fire response\" -> forsvar_beredskab; \"public safety missions\" -> sikkerhed_overvaagning."
 noter:
-  - "STOPPROEVE (firbenet): bestaaet. Meta-keywords paa P1's egen produktside: \"quadruped robot, wheeled legged robot, ... high-payload legged robot\". Meta-description: \"All-terrain quadruped robot for industrial inspection, fire response, and public safety missions.\" (https://www.micbotics.com/list_12/98.html, hentet 2026-08-24). Hjul-ben-hybrid ('efficient wheeled cruising with superior legged obstacle-crossing capabilities' i banner-teksten) - taeller som firbenet efter opgavens egen regel."
-  - "Se microrobotech-movenew-t1.yaml for producentens dokumenterede navneskifte MicroRoboTech -> Micbot (samme rebrand-noter gaelder her, gentages ikke)."
-  - "Load Dimensions 595 x 419 x 129 mm (lastrummets maal) og Foldet maal 1150 x 800 x 200 mm er begge oplyst, men har intet skemafelt."
-  # INTERN PROCESNOTE (flyttet fra noter, KRITIK-2 fund 1 25. aug 2026): se
-  # microrobotech-movenew-t1.yaml for den fulde undersoegelse af support-
-  # siden. PDF-URL: https://www.micbotics.com/public/upload/file/20260416/
-  # 1776307542577931.pdf. Ikke laest, fordi hverken poppler/pdftoppm eller
-  # WebFetch kunne trakke laesbar tekst ud af filen i denne session.
-  - "P1 har ogsaa en produkt-PDF (\"MOVENEW P1 Product Datasheet\", 7,2 MB, hentet 2026-08-24) paa producentens supportside, men den kunne ikke laeses i denne omgang - ingen data herfra er brugt i posten. \"P1 SDK Development Guide\" og \"P1 Operation Guide\" har tomme download-links paa hentetidspunktet."
   - "Tabellens raekkefoelge er forvirrende: \"Max Climbing Ability: 800 mm\" staar lige foer \"Step Negotiation: 45°\" og \"Slope Capability: >45°\" - dvs. to raekker med samme talvaerdi (45°) under to forskellige etiketter, og en meget stor 800 mm-vaerdi under en etikette (\"Climbing Ability\"), man normalt ville forvente var en vinkel. Ikke rettet stiltiende - se advarsler paa forhindring_enkelt og haeldning."
-  # INTERN KILDEHENVISNING (flyttet fra noter, KRITIK-2 fund 1 25. aug
-  # 2026): raa PDF-URL til 85°C-tallet er
-  # https://www.micbotics.com/public/upload/file/20260416/
-  # 1776307542577931.pdf, side 3-4, hentet 2026-08-25.
-  - "MODSIGELSE FUNDET VED PDF-OPFYLDNINGSRUNDEN (2026-08-25), IKKE RETTET: PDF-databladets \"P1 Technical Specifications\"-tabel (side 4) skriver \"Operating Temperature: -40°C to 85°C\", og samme tal gentages i markedsfoeringsteksten paa side 3 (\"FROM THE FRIGID COLD OF -40°C TO THE SCORCHING HEAT OF 85°C\"). Det MODSIGER produktsidens allerede udfyldte temp_maks (55°C, https://www.micbotics.com/list_12/98.html, hentet 2026-08-24) - samme moenster som T1, hvor produktsiden ogsaa skriver 55°C. temp_maks er IKKE rettet (regel: et allerede udfyldt felt aendres aldrig), men modsigelsen (55°C vs. 85°C) er hermed dokumenteret. Kilde til 85°C: producentens PDF-datablad, side 3-4, hentet 2026-08-25."
-  - "MINDRE UOVERENSSTEMMELSE, IKKE RETTET: PDF-databladet skriver \"Max Static Payload: > 400 kg\" og \"Max Dynamic Payload: > 200 kg\" (med \">\"-operator), mens produktsidens allerede udfyldte nyttelast_staaende (400 kg) og nyttelast_gaaende (200 kg) staar uden operator. Samme talvaerdier, men PDF'en praesenterer dem som et gulv (\"mere end\") snarere end et loft. Felterne er ikke aendret - kun noteret her."
 billede:
   fil: fotos/fabrikant/microrobotech-movenew-p1.jpg
   ophav: fabrikant
@@ -138,7 +123,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
-    advarsel: "\"No-load continuous operating time: <=12h\" og \"Full-load continuous operating time: <=8h\". To lastbetingelser (ingen last / fuld last) uden et konkret kg-tal for \"fuld last\" - kan derfor ikke skrives som et masse-kort i ved_last, kun som tilstanden ikke_oplyst. \"Max Walking Load: 200kg\" staar i tabellen, men producenten forbinder den IKKE eksplicit til \"fuld last\"-raekken, saa forbindelsen er ikke lavet her."
+    advarsel: "\"No-load continuous operating time: <=12h\" og \"Full-load continuous operating time: <=8h\". To lastbetingelser (ingen last / fuld last) uden et konkret kg-tal for \"fuld last\" - kan derfor ikke skrives som et konkret lastkrav, kun som tilstanden ikke oplyst. \"Max Walking Load: 200kg\" staar i tabellen, men producenten forbinder den IKKE eksplicit til \"fuld last\"-raekken, saa forbindelsen er ikke lavet her."
   dockingstation: ikke_oplyst
   lidar:
     vaerdi: "96-line automotive-grade LiDAR (understoetter op til 3 enheder)"

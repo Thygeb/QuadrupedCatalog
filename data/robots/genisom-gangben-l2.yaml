@@ -11,13 +11,7 @@ anvendelse:
   hentet: 2026-08-24
   note: "Fra siden \"下一个应用场景，它已提前就位\" (naeste anvendelsesscenarie, allerede klar). 安防巡逻 -> sikkerhed_overvaagning; 科研教育 -> forskning_udvikling; 短途配送 (kort-distance levering) -> logistik."
 noter:
-  - "STOPPROEVE (firbenet): bestaaet, entydigt. Meta-keywords paa producentens egen produktside: \"具身智能,四足机器人,机器狗,行业级机器人,钢镚L2,...\". Meta-description: \"钢镚L2是智身科技自主研发的新一代行业级小型四足机器人\" (Gangben L2 er GENISOM AI's selvudviklede naeste-generations industriklasse smaa firbenede robot). https://www.genisomai.com/product-robot/L2, hentet 2026-08-24. Basismodellen (\"点足运动版\"/punktfod-bevaegelsesudgave) er ren gaaende, ikke hjul-ben."
-  - "PRODUKTSIDEN VISER TRE VARIANTER I ÉN STRUKTURERET JSON-BLOK: 钢镚 L2 (点足运动版, ren gaaende - denne post), 钢镚 L2-W (轮足运动版, hjul-ben) og 钢镚 L2-W Ultra (轮足环视版, hjul-ben med udvidet sensorpakke). Kun basisudgaven L2 er bygget som selvstaendig post i denne omgang - samme afgraensning som L1 (se genisom-gangben-l1.yaml's noter om Gangben-seriens fulde omfang). L2-W og L2-W Ultra har egne komplette parametersaet i samme kilde-JSON og kan bygges som selvstaendige poster senere uden ny research."
-  - "PRODUKTIONSTAL 15.000+ ENHEDER: se genisom-gangben-l1.yaml for den fulde efterproevning (producentens eget tal, bekraeftet paa baade forside og /aboutus.html, daekker HELE kataloget - ikke L2 alene)."
-  - "REGELAENDRING (CEO'en, under dette spor): producentens GitHub-organisation (github.com/zsibot, linket fra genisomai.com/download.html) taeller nu som gyldig kilde - mod sekundaer-maerkning. UNDERSOEGT FOR ros2/sdk_sprog, MEN IKKE BRUGT: se advarslen paa ros2-feltet nedenfor for den fulde begrundelse. Kort fortalt: L2's egen produktside naevner \"新一代 RoamerX 智能导航系统\", og repoet github.com/zsibot/genisom_roamerx_open kraever ROS2 Humble - men repoets eget README skriver \"Hardware Deployment: TODO\", altsaa at koblingen til et faktisk saelgende produkt IKKE er dokumenteret af producenten selv. Sat til ikke_oplyst i stedet for et gaet, der ikke kan skelnes fra en maaling (regel 1). Se genisom-gangben-l1.yaml for et modeksempel, hvor samme regelaendring GAV et brugbart resultat (sdk_sprog: C++, fordi det repo eksplicit er navngivet den officielle L1-SDK, uden et 'TODO' paa produktkoblingen)."
   - "SENSOR-UOVERENSSTEMMELSE, IKKE LOEST STILTIENDE: L2's markedsfoeringstekst (samme side) skriver \"支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位\" (understoetter automatisk kortlaegning og ruteplanlaegning, kombineret med LiDAR og GNSS for centimeterpraecis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og \"双目相机\" (stereokamera) under \"传感器\" for basismodellen L2 - INGEN lidar-raekke. En lidar-raekke (\"3D激光雷达: 工业级96线激光雷达*2\") findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke_oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder paa samme side modsiger hinanden, og det rettes ikke stiltiende."
-  - "BATTERI-Wh: to tal paa samme side, ikke indbyrdes modstridende, men heller ikke krydsbekraeftet af os. Et fremhaevet \"kapacitetskort\" paa siden skriver \"756Wh 大容量电池\" (756Wh stor-kapacitetsbatteri) - brugt som feltets vaerdi. Tilbehoerslisten i den strukturerede specifikationstabel skriver separat \"电池: 15000mAh\" uden spaending. Vi udregner IKKE Wh af mAh (regel 9) - de to tal er blot noteret som fundet paa samme side uden modsigelse."
-  - "PDF-OPFYLDNINGSRUNDEN (2026-08-25) UNDERSOEGTE, MEN BRUGTE IKKE: endnu et repo i zsibot-organisationen, \"genisom_robot_sdk\" (github.com/zsibot/genisom_robot_sdk), blev laest fuldt (README.md). Det er en generel C++-motion-control-SDK (Ubuntu 22.04, CMake 3.8+, GCC 11.4, Boost 1.74) - men repoets EGEN GitHub-beskrivelse er TOM (\"\"), i modsaetning til \"genisom_L1_sdk\", som eksplicit hedder \"Official SDK for the Genisom AI L1 Series\". Ingen model (L1, L2 eller andet) naevnes noget sted i README'en. Uden en eksplicit kobling til L2 specifikt ville det vaere en gaetning at bruge repoet til L2's sdk_sprog - samme forsigtighed som ros2-feltets begrundelse nedenfor (afvisning af roamerx-koblingen). Feltet sdk_sprog forbliver derfor ikke_oplyst for L2."
 billede:
   fil: fotos/fabrikant/genisom-gangben-l2.webp
   ophav: fabrikant
@@ -29,7 +23,7 @@ felter:
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"整机重量（含电池）: 21 kg\" - eksplicit \"含电池\" (inkl. batteri). Raekken har INTET \"约\" (cirka)-tegn, i modsaetning til maalene lige ovenover i samme tabel (samme moenster som genisom-gangben-l1.yaml, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl)."
+    advarsel: "\"整机重量（含电池）: 21 kg\" - eksplicit \"含电池\" (inkl. batteri). Raekken har INTET \"约\" (cirka)-tegn, i modsaetning til maalene lige ovenover i samme tabel (samme moenster som Gangben L1, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl)."
   laengde:
     vaerdi: 720
     enhed: mm
@@ -120,7 +114,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
-    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for \"fuld last\" - derfor ved_last: ikke_oplyst, ikke et masse-kort. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
+    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for \"fuld last\" - derfor er lastbetingelsen ikke oplyst, ikke et gaettet masse-kort. Raekkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er ogsaa oplyst; skemaet har intet raekkeviddefelt."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5

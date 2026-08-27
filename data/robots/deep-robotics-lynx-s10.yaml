@@ -26,7 +26,7 @@ felter:
     operator: "<="
     kilde: https://deeprobotics.cn/en/index/lynxs10.html
     hentet: 2026-08-19
-    advarsel: "En operator paa EGENVAEGT - foerste gang i indsamlingen. Det er reelt en lovning, ikke en maaling. Bemaerk ogsaa, at EN bruger tegnet U+2264 og CN tegnet U+2266 for samme robot, samme felt, samme dag. Enhver validator, der matcher paa tegnet frem for paa betydningen, ser dem som to forskellige operatorer."
+    advarsel: "En operator paa EGENVAEGT - foerste gang i indsamlingen. Det er reelt en lovning, ikke en maaling. Bemaerk ogsaa, at EN bruger tegnet U+2264 og CN tegnet U+2266 for samme robot, samme felt, samme dag - to forskellige tegn for samme betydning."
   laengde: ikke_oplyst
   bredde: ikke_oplyst
   hoejde: ikke_oplyst

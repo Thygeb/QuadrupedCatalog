@@ -11,11 +11,8 @@ anvendelse:
   hentet: 2026-08-24
   note: "\"工业场景\" (industrielle scenarier) er omsat til industri. \"家庭安防\" (hjemmesikkerhed/patrulje) er omsat til sikkerhed_overvaagning. \"亲子科教\" (foraelder-barn naturvidenskabsundervisning) er omsat til forbruger_uddannelse. \"创客、科研爱好者、极客、玩家\" (maker/forsker/geek/spiller) er en malgruppebeskrivelse, ikke en branche, og er ikke omsat til nogen kategori."
 noter:
-  - "STOPPROEVE (firbenet): Producentens egen navigation kalder produktet \"四足机器人\" (firbenet/quadruped-robot), link /embodied-ai/robot. Produktsiden skriver selv om bevaegelsen: \"无论是疾速奔跑、灵活转身，还是复杂的仿生步态，每一个指令都能精准执行\" (\"Uanset om det er lynhurtigt loeb, adroit vending eller kompleks biomimetisk gangart, udfoeres hver kommando praecist\"). Kilde: https://www.uniubi.com/embodied-ai/robot, hentet 2026-08-24."
   - "Produktnavnet staar ordret \"灵猫•Cyvet\" paa koebssiden (shop/buy?product=air) - \"Cyvet\" er altsaa en del af det officielle produktnavn, ikke kun en presseoversaettelse. Firmaets engelske juridiske navn i copyright-linjen er \"Universal Ubiquitous AI Co., Ltd.\", brandmaerket paa sitet er \"UNIUBI AI\", og domaenet er uniubi.com (omdirigeret fra det aeldre uni-ubi.com). Kinesisk navn 宇泛智能/杭州宇泛智能科技 = samme selskab, jf. baike.baidu.com/item/杭州宇泛智能科技有限公司."
   - "VIGTIG FORBEHOLD FRA PRODUCENTEN SELV: koebssidens bundtekst skriver ordret: \"本页参数基于当前工程样机测试结果与版本规划整理，部分功能及性能数据仍在持续开发和优化中。实际量产配置、性能表现及交付内容以订单确认信息和实际发货版本为准.\" (parametrene paa denne side er baseret paa test af det nuvaerende ingenioer-praeproduktionseksemplar og planlagte versioner; nogle funktioner og ydelsestal er stadig under udvikling; det faktiske masseproduktionsudstyr afgoeres af ordrebekraeftelsen). Derfor status: annonceret, ikke i_produktion - specifikationerne er selv markeret som proevemaskine-tal, ikke et endeligt produkt."
-  - "Feltet 关节峰值扭旋/额定扭矩 (led-drejningsmoment) har intet felt i skemaet. Noteret her: peak 60 N·m, nominel ca. 18 N·m pr. led (kilde som frihedsgrader nedenfor)."
-  - "工作最大功率 (maks. arbejdseffekt) 3500 W har intet felt i skemaet - noteret her, ikke i felter."
 billede:
   fil: fotos/fabrikant/yufan-lingmao-cyvet.jpg
   ophav: fabrikant
@@ -58,7 +55,7 @@ felter:
     operator: "~"
     kilde: https://www.uniubi.com/shop/buy?product=air
     hentet: 2026-08-24
-    advarsel: "\"最大载荷 约20kg\" - producenten skelner IKKE mellem gaaende og staaende nyttelast noget sted paa siden. Placeret i gaaende, fordi al produktomtale (fx driftstid \"15kg带负载匀速行走\") handler om baering under bevaegelse, ikke statisk staaende last. nyttelast_staaende er derfor ikke_oplyst, ikke 0."
+    advarsel: "\"最大载荷 约20kg\" - producenten skelner IKKE mellem gaaende og staaende nyttelast noget sted paa siden. Placeret i gaaende, fordi al produktomtale (fx driftstid \"15kg带负载匀速行走\") handler om baering under bevaegelse, ikke statisk staaende last. staaende nyttelast er derfor ikke oplyst, ikke 0."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi_min: 0
@@ -132,7 +129,7 @@ felter:
     kilde: https://github.com/uniubi-ai/uniubi_ros2
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "Producentens (Yufan/Uniubi, GitHub-org uniubi-ai) egen ROS 2-integrationspakke. READMEen naevner ikke modelnavnet \"cyvet\" direkte, men uniubi-ai's ENESTE aktuelle robotmodel er \"cyvet\" (bekraeftet i samme organisations repo uniubi_robot_description, som kun har én robotmappe: robots/cyvet/). Repoet er en fuldt dokumenteret, virkende integration - ikke en TODO-markeret plan: \"ROS 2 integration for Uniubi robots... Prerequisites: ROS 2 Humble is installed and sourced\", med en komplet motion-bridge-arkitektur og reelle topics (/cmd_vel, /odom, /joint_states, /imu/data, /battery_state). Til forskel fra GENISOM L2's roamerx-repo (afvist i genisom-gangben-l2.yaml pga. et eksplicit \"TODO\" paa hardware-koblingen) er der her ingen tilsvarende forbehold i kilden selv."
+    advarsel: "Producentens (Yufan/Uniubi, GitHub-org uniubi-ai) egen ROS 2-integrationspakke. READMEen naevner ikke modelnavnet \"cyvet\" direkte, men uniubi-ai's ENESTE aktuelle robotmodel er \"cyvet\" (bekraeftet i samme organisations repo uniubi_robot_description, som kun har én robotmappe: robots/cyvet/). Repoet er en fuldt dokumenteret, virkende integration - ikke en TODO-markeret plan: \"ROS 2 integration for Uniubi robots... Prerequisites: ROS 2 Humble is installed and sourced\", med en komplet motion-bridge-arkitektur og reelle topics (/cmd_vel, /odom, /joint_states, /imu/data, /battery_state). Til forskel fra GENISOM L2's roamerx-repo (afvist dér pga. et eksplicit \"TODO\" paa hardware-koblingen) er der her ingen tilsvarende forbehold i kilden selv."
   sdk_sprog:
     vaerdi: [C++, Python]
     kilde: https://www.uniubi.com/shop/buy?product=air
