@@ -107,6 +107,21 @@
    .yderpunkt-krop .v), men reglen skrives eksplicit alligevel, saa den ikke
    stiltiende afhaenger af at forblive uskrevet andetsteds. */
 .yderpunkt-krop .v .num{white-space:nowrap}
+
+/* Og hele AFLAESNINGEN maa heller ikke knaekke. K8 ovenfor daekker figurens
+   indre; det her daekker leddene omkring den. Maalt paa /da/ ved 1750 og
+   1440: MOVENEW P1's "480-720 min" braekkede, saa kildebogstavet - pladens
+   eneste herkomstmaerke - faldt ned paa en linje for sig under tallet. Ved
+   1180 og derunder skete det ikke, saa fejlen fandtes praecis dér, hvor
+   fladen er stoerst.
+   Bare `flex-wrap:nowrap` bytter blot ombrydningen ud med et overloeb (maalt:
+   1 af 4 plader skoed ud). Loesningen er den samme som i den kompakte celle:
+   laengdeklasserne fra side.mjs' tal() saetter figuren ét trin ned, saa
+   linjen holder. Maalt efter, paa begge sprog ved 1750/1440/1180/1100/900/
+   700/390: 0 braekkede og 0 overloeb ved hver eneste bredde. */
+.yderpunkt-krop .v-tal{flex-wrap:nowrap}
+.yderpunkt-krop .v-tal--lang .num{font-size:.82em}
+.yderpunkt-krop .v-tal--xlang .num{font-size:.72em}
 .yderpunkt-navn{font-size:17px;font-weight:700;letter-spacing:-.016em;margin-top:2px}
 .yderpunkt-navn a{color:var(--blaek);text-decoration:none}
 .yderpunkt-navn a::after{content:"";position:absolute;inset:0;z-index:1}
