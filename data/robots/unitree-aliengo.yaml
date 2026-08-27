@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 行业级"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen AlienGo staar i."
+  note: "Producentens egen produktnavigation, gruppen AlienGo står i."
 billede:
   fil: fotos/fabrikant/unitree-aliengo.jpg
   ophav: fabrikant
@@ -23,7 +23,7 @@ felter:
     operator: "±"
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "Producenten skriver Weight (without battery) 21.5kg +/-1kg. Vaegten er UDEN batteri - alle andre Unitree-modeller oplyser med. Sat ved siden af Go2's 15 kg og As2's 20 kg sammenligner man en robot uden batteri med to robotter med. Toleranceomraadet er +/- 1 kg."
+    advarsel: "Producenten skriver Weight (without battery) 21.5kg +/-1kg. Vægten er UDEN batteri - alle andre Unitree-modeller oplyser med. Sat ved siden af Go2's 15 kg og As2's 20 kg sammenligner man en robot uden batteri med to robotter med. Toleranceområdet er +/- 1 kg."
   laengde:
     vaerdi: 0.65
     enhed: m
@@ -39,7 +39,7 @@ felter:
     enhed: m
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "Foldet 0,60 x 0,31 x 0,15 m. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet 0,60 x 0,31 x 0,15 m. Skemaet har ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -51,7 +51,7 @@ felter:
     enhed: kg
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "Producenten skriver kun Load, uden angivelse af gaaende eller staaende. Placeringen er en slutning."
+    advarsel: "Producenten skriver kun Load, uden angivelse af gående eller stående. Placeringen er en slutning."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.5
@@ -65,7 +65,7 @@ felter:
     operator: "<="
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "Producenten skriver Climbing Angle <=25 (tegn U+2264). Det er en OEVRE GRAENSE, ikke en praestation. Alle andre skriver haeldning som > 45 eller ca. 45 - en praestation. Stilles 25 mod 45 i samme kolonne, ser AlienGo ud som en daarligere robot; det er et andet slags udsagn."
+    advarsel: "Producenten skriver Climbing Angle <=25 (tegn U+2264). Det er en ØVRE GRÆNSE, ikke en præstation. Alle andre skriver hældning som > 45 eller ca. 45 - en præstation. Stilles 25 mod 45 i samme kolonne, ser AlienGo ud som en dårligere robot; det er et andet slags udsagn."
   forhindring_enkelt:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/aliengo
@@ -83,7 +83,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "12600 mAh, hverken spaending eller Wh. Kan ikke omregnes, og skal ikke."
+    advarsel: "12600 mAh, hverken spænding eller Wh. Kan ikke omregnes, og skal ikke."
   driftstid:
     vaerdi_min: 2.5
     vaerdi_maks: 4.6
@@ -113,7 +113,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "Siden skriver supports C/C++, ROS og Environment Sensing: Ubuntu-ROS. Feltet hedder ROS 2, og versionen staar ikke. At taelle det med ville vaere at opfinde et versionsnummer."
+    advarsel: "Siden skriver supports C/C++, ROS og Environment Sensing: Ubuntu-ROS. Feltet hedder ROS 2, og versionen står ikke. At tælle det med ville være at opfinde et versionsnummer."
   sdk_sprog:
     vaerdi: ["C/C++", "ROS"]
     kilde: https://www.unitree.com/aliengo
@@ -124,7 +124,7 @@ felter:
     vaerdi: "5 V; 12 V; 19 V; BAT (24~30 V)"
     kilde: https://www.unitree.com/aliengo
     hentet: 2026-08-19
-    advarsel: "Spaending oplyst, watt ikke."
+    advarsel: "Spænding oplyst, watt ikke."
   dataporte:
     vaerdi: ["Ethernet x2", "USB 3.0 x2", "USB 2.0 x1", "RS485 x1"]
     kilde: https://www.unitree.com/aliengo

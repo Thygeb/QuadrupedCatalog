@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 行业级"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen B1 staar i."
+  note: "Producentens egen produktnavigation, gruppen B1 står i."
 billede:
   fil: fotos/fabrikant/unitree-b1.jpg
   ophav: fabrikant
@@ -39,14 +39,14 @@ felter:
     enhed: mm
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Foldet 1202 x 467 x 297 mm - LAENGERE end staaende. Plausibelt for udstrakte ben, men bemaerkelsesvaerdigt. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet 1202 x 467 x 297 mm - LÆNGERE end stående. Plausibelt for udstrakte ben, men bemærkelsesværdigt. Skemaet har ingen felter til foldemål."
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 20
     enhed: kg
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Uden operator. Siden tilfoejer i prosa: anbefales at holde vaegten inden for 20 kg."
+    advarsel: "Uden operator. Siden tilføjer i prosa: anbefales at holde vægten inden for 20 kg."
   nyttelast_staaende:
     vaerdi: 80
     enhed: kg
@@ -69,30 +69,30 @@ felter:
     vaerdi: IP68
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "IP68 staar KUN i overskriftsteksten (IP68 Waterproof, Industrial Level Heavy Loader), ikke i parametertabellen, som slet ingen IP-raekke har. B1 er dermed den eneste Unitree-model med IP68 - paa det svageste kildegrundlag."
+    advarsel: "IP68 står KUN i overskriftsteksten (IP68 Waterproof, Industrial Level Heavy Loader), ikke i parametertabellen, som slet ingen IP-række har. B1 er dermed den eneste Unitree-model med IP68 - på det svageste kildegrundlag."
   temp_min:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Tabellens Working Temperature har underraekken Battery: -5 C - 45 C. Det er BATTERIETS omraade, ikke robottens; der er ingen raekke for robotten. Stillet ved siden af B2's -20~55 C ville B1 se daarligere ud i kulde, og det foelger ikke af kilden."
+    advarsel: "Tabellens Working Temperature har underrækken Battery: -5 C - 45 C. Det er BATTERIETS område, ikke robottens; der er ingen række for robotten. Stillet ved siden af B2's -20~55 C ville B1 se dårligere ud i kulde, og det følger ikke af kilden."
   temp_maks:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Se temp_min - kun batteriets omraade er oplyst."
+    advarsel: "Se temp_min - kun batteriets område er oplyst."
   batteri_wh:
     vaerdi: 932.4
     enhed: Wh
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "18000 mAh, 51,8 V, ladegraense 58,8 V. Producentens regnestykke gaar praecist op: 18 x 51,8 = 932,4."
+    advarsel: "18000 mAh, 51,8 V, ladegrænse 58,8 V. Producentens regnestykke går præcist op: 18 x 51,8 = 932,4."
   driftstid:
     vaerdi: 2
     enhed: t
     ved_last: ikke_oplyst
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Producenten oplyser to tilstande: 5 t staaende og 2 t gaaende uden last. Her bruges den gaaende. Ingen lastbetingelse."
+    advarsel: "Producenten oplyser to tilstande: 5 t stående og 2 t gående uden last. Her bruges den gående. Ingen lastbetingelse."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi_min: 1
@@ -107,7 +107,7 @@ felter:
     vaerdi: "Intel RealSense D430 x5"
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Model oplyst - sjaeldent i materialet."
+    advarsel: "Model oplyst - sjældent i materialet."
   compute:
     vaerdi: "Intel i5-1135G7 + NVIDIA Xavier NX x3"
     kilde: https://www.unitree.com/b1
@@ -120,7 +120,7 @@ felter:
     vaerdi: "12 V / 24 V"
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
-    advarsel: "Spaending oplyst, watt ikke."
+    advarsel: "Spænding oplyst, watt ikke."
   dataporte:
     vaerdi: ["Gigabit x7", "RS485 x4", "USB x5", "CAN x4"]
     kilde: https://www.unitree.com/b1

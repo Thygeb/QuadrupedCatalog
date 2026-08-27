@@ -10,7 +10,7 @@ anvendelse:
     - "机器狗 - 消费级 / 科研"
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-  note: "Producentens egen produktnavigation, gruppen As2 staar i. MODSIGELSE: As2 staar under Consumer/Education i navigationen, men As2-produktsidens egen titel er \"Unitree As2 Compact Size Industrial Capability\". Producenten siger begge dele."
+  note: "Producentens egen produktnavigation, gruppen As2 står i. MODSIGELSE: As2 står under Consumer/Education i navigationen, men As2-produktsidens egen titel er \"Unitree As2 Compact Size Industrial Capability\". Producenten siger begge dele."
 varianter: [AIR, PRO, X, EDU]
 billede:
   fil: fotos/fabrikant/unitree-as2.jpg
@@ -18,7 +18,7 @@ billede:
   kilde: https://www.unitree.com/As2
   hentet: 2026-08-19
 noter:
-  - "Varianttabel med fire kolonner. Kolonnerne er forskellige maskiner - se varianter-blokkene paa de enkelte felter."
+  - "Varianttabel med fire kolonner. Kolonnerne er forskellige maskiner - se varianter-blokkene på de enkelte felter."
 felter:
   egenvaegt:
     vaerdi: 20
@@ -41,7 +41,7 @@ felter:
     enhed: mm
     kilde: https://www.unitree.com/As2
     hentet: 2026-08-19
-    advarsel: "Foldet 776 x 378 x 233 mm. Skemaet har ingen felter til foldemaal."
+    advarsel: "Foldet 776 x 378 x 233 mm. Skemaet har ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -58,7 +58,7 @@ felter:
       PRO: 13
       X: 15
       EDU: 15
-    advarsel: "Vaerdien er AIR-variantens. Spaendet over de fire varianter er 10-15 kg."
+    advarsel: "Værdien er AIR-variantens. Spændet over de fire varianter er 10-15 kg."
   nyttelast_staaende:
     vaerdi: 45
     enhed: kg
@@ -70,7 +70,7 @@ felter:
       PRO: 55
       X: 65
       EDU: 65
-    advarsel: "Vaerdien er AIR-variantens. Spaendet er 45-65 kg."
+    advarsel: "Værdien er AIR-variantens. Spændet er 45-65 kg."
   hastighed:
     vaerdi_min: 0
     vaerdi_maks: 3.0
@@ -82,7 +82,7 @@ felter:
       PRO: "0~3,7 m/s"
       X: "0~3,7 m/s (op til ca. 5 m/s)"
       EDU: "0~3,7 m/s (op til ca. 5 m/s)"
-    advarsel: "Vaerdien er AIR-variantens."
+    advarsel: "Værdien er AIR-variantens."
   haeldning:
     vaerdi: 30
     enhed: grader
@@ -94,13 +94,13 @@ felter:
       PRO: 40
       X: 40
       EDU: 40
-    advarsel: "Vaerdien er AIR-variantens."
+    advarsel: "Værdien er AIR-variantens."
   forhindring_enkelt:
     vaerdi: 50
     enhed: cm
     kilde: https://www.unitree.com/As2
     hentet: 2026-08-19
-    advarsel: "Staar KUN i broedteksten (with the ability to climb 50cm vertical platforms and 40 slopes), ikke i parametertabellen - i modsaetning til A2, A2-W og As2-W, der alle har en Max Climb Height-raekke. Besluttes det, at kun tabelvaerdier taeller, falder feltet ud."
+    advarsel: "Står KUN i brødteksten (with the ability to climb 50cm vertical platforms and 40 slopes), ikke i parametertabellen - i modsætning til A2, A2-W og As2-W, der alle har en Max Climb Height-række. Besluttes det, at kun tabelværdier tæller, falder feltet ud."
   trappetrin_kontinuerlig:
     vaerdi: 20
     enhed: cm
@@ -111,7 +111,7 @@ felter:
       PRO: 25
       X: 25
       EDU: 25
-    advarsel: "Vaerdien er AIR-variantens."
+    advarsel: "Værdien er AIR-variantens."
   ip_klasse:
     vaerdi: nej
     kilde: https://www.unitree.com/As2
@@ -121,7 +121,7 @@ felter:
       PRO: IP54
       X: IP54
       EDU: IP54
-    advarsel: "AIR-kolonnen har en eksplicit / hvor de andre kolonner har en vaerdi. Det laeses som NEJ, ikke som ikke oplyst (regel 10). Vaerdien her er AIR-variantens."
+    advarsel: "AIR-kolonnen har en eksplicit / hvor de andre kolonner har en værdi. Det læses som NEJ, ikke som ikke oplyst (regel 10). Værdien her er AIR-variantens."
   temp_min:
     vaerdi: -20
     enhed: C
@@ -137,7 +137,7 @@ felter:
       PRO: 50
       X: 55
       EDU: 55
-    advarsel: "Vaerdien er AIR/PRO-varianternes."
+    advarsel: "Værdien er AIR/PRO-varianternes."
   batteri_wh:
     vaerdi: 648
     enhed: Wh
@@ -148,7 +148,7 @@ felter:
       PRO: "648 Wh (15000 mAh)"
       X: "648 Wh (15000 mAh)"
       EDU: "648 Wh (15000 mAh)"
-    advarsel: "Vaerdien gaelder PRO/X/EDU. AIR oplyser kun 8000 mAh uden spaending - Wh kan ikke udledes og udledes ikke."
+    advarsel: "Værdien gælder PRO/X/EDU. AIR oplyser kun 8000 mAh uden spænding - Wh kan ikke udledes og udledes ikke."
   driftstid:
     vaerdi: 1.5
     enhed: t
@@ -161,7 +161,7 @@ felter:
       PRO: "> 2,5 t ved 13 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
       X: "> 2,5 t ved 15 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
       EDU: "> 2,5 t ved 15 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
-    advarsel: "Vaerdien er AIR-variantens belastede tal."
+    advarsel: "Værdien er AIR-variantens belastede tal."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: ikke_oplyst
@@ -177,7 +177,7 @@ felter:
       PRO: nej
       X: nej
       EDU: ja
-    advarsel: "Kun EDU har ladestation. Vaerdien her er AIR/PRO/X."
+    advarsel: "Kun EDU har ladestation. Værdien her er AIR/PRO/X."
   lidar:
     vaerdi: "Unitree L2"
     kilde: https://www.unitree.com/As2
@@ -187,7 +187,7 @@ felter:
       PRO: "64~128-linje industri-LiDAR (type uden model)"
       X: "64~128-linje industri-LiDAR (type uden model)"
       EDU: "64~128-linje industri-LiDAR (type uden model)"
-    advarsel: "Kun AIR-kolonnen navngiver en model. De tre andre oplyser en klasse, ikke en model, og taeller ikke under D4."
+    advarsel: "Kun AIR-kolonnen navngiver en model. De tre andre oplyser en klasse, ikke en model, og tæller ikke under D4."
   kameraer:
     vaerdi: "HD-kamera"
     kilde: https://www.unitree.com/As2
@@ -210,7 +210,7 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/As2
     hentet: 2026-08-19
-    advarsel: "Kun BAT er naevnt, uden spaending."
+    advarsel: "Kun BAT er nævnt, uden spænding."
   dataporte:
     vaerdi: ["Gigabit Ethernet x1", "SBUS x1"]
     kilde: https://www.unitree.com/As2
@@ -219,5 +219,5 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/As2
     hentet: 2026-08-19
-    advarsel: "Contact Sales paa alle fire varianter."
+    advarsel: "Contact Sales på alle fire varianter."
   ce_oplyst: ikke_oplyst
