@@ -90,20 +90,18 @@ derfor skrevet om til det, der faktisk kan kaldes:
 
 | | Antal |
 |---|---|
-| Plugins **installeret** | **10** |
-| Heraf **aktive i dette projekt** | **10 af 10** — ingen er slukket |
+| Plugins **installeret** | **15** (10 om morgenen; JPK godkendte fem til samme dag) |
+| Heraf **aktive i dette projekt** | **15 af 15** — ingen er slukket |
 | Plugin-mapper på disken i `claude-plugins-official` | **39** |
-| Heraf installeret | **5** |
+| Heraf installeret | **10** |
 
-**Ingen installeret plugin er slået fra her.** Brugerfilen slår ni til,
-projektfilen tilføjer `playwright` — unionen er alle ti. Spørgsmålet
-*"er der noget installeret, som ikke er aktivt i projektet?"* er altså målt og
-besvaret: **nej.**
+**Ingen installeret plugin er slået fra her.** Projektfilen lægger til
+brugerens; unionen er alle 15. De fem, der kom til 27. aug:
+`code-simplifier` (det, tabellen fejlagtigt kaldte `simplify`),
+`claude-md-management`, `pr-review-toolkit`, `session-report` og `hookify` —
+alle på brugerniveau, kaldbare fra sessioner startet efter installationen.
 
-**Til gengæld ligger der 34 uinstallerede plugins på disken**, som *ikke* kan
-kaldes. Blandt dem er nogle, der ville passe her, hvis de blev installeret:
-`code-simplifier`, `claude-md-management`, `pr-review-toolkit`, `session-report`
-og `hookify`. Genkør tallene med:
+**De resterende 29 på disken kan IKKE kaldes.** Genkør tallene med:
 
 ```
 node -e "const fs=require('fs');
@@ -506,13 +504,16 @@ skal ikke distribueres med repoet.
 
 ## Projektskills — brug dem frem for at gentage reglerne
 
-Ud over de globale skills i tabellen ovenfor har projektet tre egne i `.claude/skills/`:
+Ud over de globale skills i tabellen ovenfor har projektet otte egne i `.claude/skills/`:
 
 | Skill | Hvornår |
 |---|---|
 | `robotdata` | Hver gang en robotpost tilføjes, opdateres eller efterprøves. Bærer 29-feltsskemaet, de ti hårde regler og selv-tjekket med tælling |
 | `parallelt` | Hver gang arbejde deles på flere agenter. Bærer worktree-opsætningen, prompt-tjeklisten og de to fælder |
 | `grillmig` | **Før** et agentbrief sendes, og før en åben beslutning låses. Bærer de fem briefspørgsmål, de fire beslutningsspørgsmål og retten til at sige stop. Ikke en designkritik — den dømmer hensigten, ikke resultatet |
+| `brief` | **Efter grillmig, før afsendelse.** Bygger briefets krop: kørte acceptkriterier, komplet filejerskab, mærkede tal, rapportform, miljøfælder, pladsholder-scanning. Bygget 27. aug 2026 af ARBEJDSGANG-2 O3's fire defekter |
+| `fejljagt` | HVER gang noget opfører sig uventet — rød test, måletal der ikke passer, kriterium der giver 0 uanset input. Efterprøv måleapparatet før tallet; mekanismesætning før rettelse; revert-bevis efter. Bygget 27. aug 2026 af ugens tre målefejl |
+| `flet` | HVER gang et spor flettes, en worktree fjernes eller en gren lukkes. Bærer de to regler, der manglede: tests på det FLETTEDE resultat, og `--force` kræver en måling først. Bygget 27. aug 2026 efter superpowers-analysen (`fund/FUND-superpowers.md`) |
 | `supabase` | Alt arbejde mod Supabase-projektet (L34): MCP, fejlfinding, HTTP-/RLS-overraskelser. Officiel Supabase-skill, installeret 25. aug 2026 |
 | `supabase-postgres-best-practices` | **Før** enhver ændring i db/skema.sql, RLS-politikker, indeks eller migreringer — også en-kolonnes-ændringer. Officiel Supabase-skill |
 
@@ -535,7 +536,7 @@ den fra sin worktree — **fejlede**, og faldt korrekt tilbage til disken.
 var generaliseret fra ét datapunkt og blev modbevist en time senere af det næste spor.
 Det er præcis fejl O5 i `ARBEJDSGANG-2.md`, begået i selve reglen om at måle.)*
 
-Projektets egne fem skills ligger i `.claude/skills/`, er versionerede og følger derfor
+Projektets egne otte skills ligger i `.claude/skills/`, er versionerede og følger derfor
 altid med worktreen. Bruger- og plugin-skills gør ikke.
 
 **Konsekvens for ethvert brief til et worktree-spor: giv diskstien med fra starten som
