@@ -11,11 +11,11 @@ anvendelse:
     - "Industrial Environments: ... Confined area entry | Hazardous/Corrosive environment inspection | Routine field checks – detecting leaks, abnormal sound, etc | Detecting hotspots | Handling radioactive waste | Fire fighting"
   kilde: https://bhairavrobotics.com/shvana-robot/
   hentet: 2026-08-24
-  note: "\"Defence & Homeland Security\" med bevaebnings-/ammunitionsomtale ('munitions', 'EW payloads') -> forsvar_beredskab (IKKE sikkerhed_overvaagning - L22 indfoerte netop den kategori for at skille civil patrulje/overvaagning fra militaerplatforme, og Shvana er eksplicit \"Bharat's first ARMED quadruped\" for vaebnede styrker). \"Industrial Environments\" med \"Hazardous/Corrosive environment inspection\", \"Routine field checks - detecting leaks\" m.fl. -> industri + inspektion."
+  note: "\"Defence & Homeland Security\" med bevæbnings-/ammunitionsomtale ('munitions', 'EW payloads') -> forsvar og beredskab (IKKE sikkerhed og overvågning - L22 indførte netop den kategori for at skille civil patrulje/overvågning fra militærplatforme, og Shvana er eksplicit \"Bharat's first ARMED quadruped\" for væbnede styrker). \"Industrial Environments\" med \"Hazardous/Corrosive environment inspection\", \"Routine field checks - detecting leaks\" m.fl. -> industri + inspektion."
 noter:
-  - "STATUS-VURDERING, IKKE ENTYDIG FRA PRODUCENTEN SELV: Shvana-siden praesenterer robotten med et konkret \"Features\"-specark (samme opbygning som et saelgende produkt), men bruger intetsteds ord som \"available now\", \"in production\", \"order\" eller lignende - eneste handlingsopfordring er \"For more details, email info@bhairavrobotics.com\". Ingen kundecase, ingen leveret enhed naevnt (i modsaetning til Keybotic Keypers case study). Saettes derfor til status: annonceret, ikke i_produktion."
-  - "COMPUTE BEVIDST IKKE SAT TIL EN VAERDI: \"Thanks to... onboard computational power, Shvana can quickly adapt\" naevner \"onboard computational power\" uden noget chip-navn, kerneantal eller TOPS-tal. Teksten baerer ingen maalbar oplysning ud over at der findes en computer ombord - ikke_oplyst er derfor mere aerligt end at gengive en indholdsloes saetning som et \"felt\"."
-  - "INGEN DIMENSIONER, IP-KLASSE, TEMPERATUR, BATTERI-Wh, LADETID, DOCKINGSTATION, HOT-SWAP, ROS2, SDK-SPROG, HAELDNING, FORHINDRINGSHOEJDE ELLER PRIS FUNDET NOGEN STEDER PAA PRODUCENTENS SITE (shvana-robot/, forside, careers, kontakt-side delvist utilgaengelig). Alle disse felter staar ikke_oplyst uden yderligere note, da der intet var at citere - hverken tal, kvalitativ tekst eller modsigelse."
+  - "STATUS-VURDERING, IKKE ENTYDIG FRA PRODUCENTEN SELV: Shvana-siden præsenterer robotten med et konkret \"Features\"-specark (samme opbygning som et sælgende produkt), men bruger intetsteds ord som \"available now\", \"in production\", \"order\" eller lignende - eneste handlingsopfordring er \"For more details, email info@bhairavrobotics.com\". Ingen kundecase, ingen leveret enhed nævnt (i modsætning til Keybotic Keypers case study). Sættes derfor til status: annonceret, ikke i_produktion."
+  - "COMPUTE BEVIDST IKKE SAT TIL EN VÆRDI: \"Thanks to... onboard computational power, Shvana can quickly adapt\" nævner \"onboard computational power\" uden noget chip-navn, kerneantal eller TOPS-tal. Teksten bærer ingen målbar oplysning ud over at der findes en computer ombord - ikke oplyst er derfor mere ærligt end at gengive en indholdsløs sætning som et \"felt\"."
+  - "INGEN DIMENSIONER, IP-KLASSE, TEMPERATUR, BATTERI-Wh, LADETID, DOCKINGSTATION, HOT-SWAP, ROS2, SDK-SPROG, HÆLDNING, FORHINDRINGSHØJDE ELLER PRIS FUNDET NOGEN STEDER PÅ PRODUCENTENS SITE (shvana-robot/, forside, careers, kontakt-side delvist utilgængelig). Alle disse felter står ikke oplyst uden yderligere note, da der intet var at citere - hverken tal, kvalitativ tekst eller modsigelse."
 billede:
   fil: fotos/fabrikant/bhairav-robotics-shvana.png
   ophav: fabrikant
@@ -38,7 +38,7 @@ felter:
     enhed: kg
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
-    advarsel: "\"Payload: 10 kg\" - se topnote om placering som gaaende, ikke staaende."
+    advarsel: "\"Payload: 10 kg\" - se topnote om placering som gående, ikke stående."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     min: 2
@@ -47,7 +47,7 @@ felter:
     operator: "~"
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
-    advarsel: "\"Speed: ~2-5 m/sec\" - producentens eget tilde-forbehold bevaret som operator paa hele intervallet."
+    advarsel: "\"Speed: ~2-5 m/sec\" - producentens eget tilde-forbehold bevaret som operator på hele intervallet."
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -62,7 +62,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
-    advarsel: "\"Endurance: ~120 mins\" - ingen lastbetingelse knyttet til dette tal. Det separate \"Payload: 10 kg\" staar som sit eget punkt i samme liste, IKKE eksplicit bundet til driftstidstallet - vi antager derfor ikke en sammenhaeng, regel 8."
+    advarsel: "\"Endurance: ~120 mins\" - ingen lastbetingelse knyttet til dette tal. Det separate \"Payload: 10 kg\" står som sit eget punkt i samme liste, IKKE eksplicit bundet til driftstidstallet - vi antager derfor ikke en sammenhæng, regel 8."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

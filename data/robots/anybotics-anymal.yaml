@@ -11,14 +11,14 @@ anvendelse:
     - "Purpose-built for intricate industrial plants."
   kilde: https://www.anybotics.com/robotics/anymal/
   hentet: 2026-08-19
-  note: "Foerste citat er sidens egen titel."
+  note: "Første citat er sidens egen titel."
 billede:
   fil: fotos/fabrikant/anybotics-anymal.jpg
   ophav: fabrikant
   kilde: https://www.anybotics.com/robotics/anymal/
   hentet: 2026-08-19
 noter:
-  - "ANYbotics AG, Hagenholzstrasse 83a, 8050 Zuerich. Kontor ogsaa i San Francisco. Schweiz er ikke EU."
+  - "ANYbotics AG, Hagenholzstrasse 83a, 8050 Zuerich. Kontor også i San Francisco. Schweiz er ikke EU."
   - "Et komplet datablad findes, men kun bag en formular (https://www.anybotics.com/anymal-specifications-sheet/). Ikke hentet."
 felter:
   egenvaegt: ikke_oplyst
@@ -31,7 +31,7 @@ felter:
     enhed: kg
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver an additional 10 kg payload og skelner ikke mellem gaaende og staaende last. Placeringen her er vores tolkning, ikke en aflaesning. Ordet additional er producentens."
+    advarsel: "Producenten skriver an additional 10 kg payload og skelner ikke mellem gående og stående last. Placeringen her er vores tolkning, ikke en aflæsning. Ordet additional er producentens."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 0.75
@@ -40,7 +40,7 @@ felter:
     enhed_imperial: ft/s
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Etiketten er Normal walking speed, IKKE maksimum. Tallet er derfor ikke sammenligneligt med de oevrige posters makstal. Metrisk/imperialt krydstjek gaar op."
+    advarsel: "Etiketten er Normal walking speed, IKKE maksimum. Tallet er derfor ikke sammenligneligt med de øvrige posters makstal. Metrisk/imperialt krydstjek går op."
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -57,7 +57,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Samme side skriver ogsaa Walking range (90 - 120 min) per charge. To tal, samme side. Samme grafik oplyser raekkevidde 2 km (1.24 mi), som skemaet ikke har et felt til."
+    advarsel: "Samme side skriver også Walking range (90 - 120 min) per charge. To tal, samme side. Samme grafik oplyser rækkevidde 2 km (1.24 mi), som skemaet ikke har et felt til."
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 180
@@ -69,17 +69,17 @@ felter:
     vaerdi: ja
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Automatic docking; flere dockingstationer kan saettes op langs ruten."
+    advarsel: "Automatic docking; flere dockingstationer kan sættes op langs ruten."
   lidar:
     vaerdi: ikke_oplyst
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Siden oplyser 360-graders Lidar - type uden model. Taeller ikke under D4's foreloebige regel."
+    advarsel: "Siden oplyser 360-graders Lidar - type uden model. Tæller ikke under D4's foreløbige regel."
   kameraer:
     vaerdi: "6 dybdekameraer + 2 optiske teleoperationskameraer; zoomkamera 20x optisk; termokamera; ultralydsmikrofon 0-384 kHz; spotlys maks. 3790 lm; pan-tilt-enhed +/- 90 grader vertikalt, +/- 165 grader horisontalt"
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver 3790Im med stort I - naesten sikkert 3790 lm (lumen). Sidens -40 til 550 grader C er termokameraets maaleomraade, IKKE robottens driftstemperatur; let at forveksle ved maskinel udtraekning."
+    advarsel: "Producenten skriver 3790Im med stort I - næsten sikkert 3790 lm (lumen). Sidens -40 til 550 grader C er termokameraets måleområde, IKKE robottens driftstemperatur; let at forveksle ved maskinel udtrækning."
   compute:
     vaerdi: "2x Intel Core i7; 8th gen. Intel 6-core processors"
     kilde: https://www.anybotics.com/robotics/anymal/
@@ -91,7 +91,7 @@ felter:
     vaerdi: "Autonome inspektionsmissioner; AI-based mobility and autonomy; automatisk docking ved lav batteristand"
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Kvalitativt, ikke et niveau paa en skala."
+    advarsel: "Kvalitativt, ikke et niveau på en skala."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst
@@ -100,4 +100,4 @@ felter:
     vaerdi: ja
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver FCC, CE and Anatel compliant. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklaering."
+    advarsel: "Producenten skriver FCC, CE and Anatel compliant. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklæring."

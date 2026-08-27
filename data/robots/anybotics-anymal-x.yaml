@@ -11,9 +11,9 @@ anvendelse:
     - "Complies with CE directives for industrial deployment"
   kilde: https://www.anybotics.com/robotics/anymal-x/
   hentet: 2026-08-19
-  note: "Foerste citat er sidens egen titel. Siden praeciserer branchen: \"Automate inspections in Oil & Gas and Chemical operations to increase safety,\"."
+  note: "Første citat er sidens egen titel. Siden præciserer branchen: \"Automate inspections in Oil & Gas and Chemical operations to increase safety,\"."
 noter:
-  - "PRODUCENTEN OPLYSER INGEN TAL. Specifikationsafsnittet paa produktsiden bestaar af EN saetning: 2026 ANYmal X specifications coming soon."
+  - "PRODUCENTEN OPLYSER INGEN TAL. Specifikationsafsnittet på produktsiden består af EN sætning: 2026 ANYmal X specifications coming soon."
 billede:
   fil: fotos/fabrikant/anybotics-anymal-x.jpg
   ophav: fabrikant
@@ -48,12 +48,12 @@ felter:
     vaerdi: ikke_oplyst
     kilde: https://www.anybotics.com/robotics/anymal-x/
     hentet: 2026-08-19
-    advarsel: "Lidar Scanner med 360-graders environment scanning - type uden model. Taeller ikke under D4."
+    advarsel: "Lidar Scanner med 360-graders environment scanning - type uden model. Tæller ikke under D4."
   kameraer:
     vaerdi: "zoomkamera 20x optisk; termokamera -10 til +400 grader C; mikrofon; pan-tilt +/- 90 grader vertikalt, +/- 165 grader horisontalt"
     kilde: https://www.anybotics.com/robotics/anymal-x/
     hentet: 2026-08-19
-    advarsel: "Fortegnene er producentens. Termokameraets -10 til +400 C er MAALEOMRAADE, ikke robottens driftstemperatur."
+    advarsel: "Fortegnene er producentens. Termokameraets -10 til +400 C er MÅLEOMRÅDE, ikke robottens driftstemperatur."
   compute: ikke_oplyst
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
@@ -70,4 +70,4 @@ felter:
     vaerdi: ja
     kilde: https://www.anybotics.com/robotics/anymal-x/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver FCC and CE compliant og Complies with CE directives for industrial deployment. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklaering. Se noten om ATEX/IECEx, som skemaet ikke har plads til."
+    advarsel: "Producenten skriver FCC and CE compliant og Complies with CE directives for industrial deployment. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklæring. Se noten om ATEX/IECEx, som skemaet ikke har plads til."
