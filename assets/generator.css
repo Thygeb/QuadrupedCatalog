@@ -107,6 +107,21 @@
    .yderpunkt-krop .v), men reglen skrives eksplicit alligevel, saa den ikke
    stiltiende afhaenger af at forblive uskrevet andetsteds. */
 .yderpunkt-krop .v .num{white-space:nowrap}
+
+/* Og hele AFLAESNINGEN maa heller ikke knaekke. K8 ovenfor daekker figurens
+   indre; det her daekker leddene omkring den. Maalt paa /da/ ved 1750 og
+   1440: MOVENEW P1's "480-720 min" braekkede, saa kildebogstavet - pladens
+   eneste herkomstmaerke - faldt ned paa en linje for sig under tallet. Ved
+   1180 og derunder skete det ikke, saa fejlen fandtes praecis dér, hvor
+   fladen er stoerst.
+   Bare `flex-wrap:nowrap` bytter blot ombrydningen ud med et overloeb (maalt:
+   1 af 4 plader skoed ud). Loesningen er den samme som i den kompakte celle:
+   laengdeklasserne fra side.mjs' tal() saetter figuren ét trin ned, saa
+   linjen holder. Maalt efter, paa begge sprog ved 1750/1440/1180/1100/900/
+   700/390: 0 braekkede og 0 overloeb ved hver eneste bredde. */
+.yderpunkt-krop .v-tal{flex-wrap:nowrap}
+.yderpunkt-krop .v-tal--lang .num{font-size:.82em}
+.yderpunkt-krop .v-tal--xlang .num{font-size:.72em}
 .yderpunkt-navn{font-size:17px;font-weight:700;letter-spacing:-.016em;margin-top:2px}
 .yderpunkt-navn a{color:var(--blaek);text-decoration:none}
 .yderpunkt-navn a::after{content:"";position:absolute;inset:0;z-index:1}
@@ -131,16 +146,49 @@
 .lag{display:contents}
 .lag[hidden]{display:none}
 
-.facetter{display:flex;flex-wrap:wrap;gap:var(--r4) var(--r6);margin-top:var(--r5)}
-.facet{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:9px}
-.facet legend{padding:0;margin-bottom:2px}
-.facet-hjaelp{margin-top:var(--r3);max-width:86ch}
+/* FILTERPANELET, STRAMMET 27. aug 2026 (JPK: "filteret skal ogsaa have en
+   opstramning").
+
+   Den gamle regel var `display:flex;flex-wrap:wrap`, saa hver gruppe begyndte
+   dér, hvor den forrige tilfaeldigvis slap. Maalt i browseren ved 1440:
+   gruppeetiketterne stod paa TRE forskellige x (44, 648, 887 px), og
+   parringen "vaegtklasse + IP" og "producentland + CE" var ikke en beslutning,
+   men et resultat af, hvor lang den foregaaende gruppe var. Panelet saa
+   tilfaeldigt ud, fordi det VAR tilfaeldigt.
+
+   Nu: to spalter - etiketterne i én, vaerdierne i én. Maalt efter: ét x for
+   alle fem etiketter (44) og ét for alle fem vaerdiraekker (174). Det koster
+   45 px hoejde (267 -> 312) og giver panelet den ene lodrette linje, et
+   instrument skal have. `display:contents` paa fieldsettet lader legend og
+   .filtre blive gitterets egne felter, saa hverken markup eller
+   fieldset/legend-semantikken aendres. */
+.facetter{display:grid;grid-template-columns:max-content minmax(0,1fr);
+  gap:10px 20px;align-items:baseline;margin-top:var(--r5)}
+.facet{border:0;margin:0;padding:0;min-width:0;display:contents}
+.facet legend{padding:0;margin:0;grid-column:1;justify-self:start}
+.facet .filtre{grid-column:2}
+
+/* Paa telefonen koster etiketspalten mere, end den er vaerd. Maalt ved 390:
+   "PRODUCENTLAND" tager ca. 140 af de 390 px, saa chipperne fik under 230 px
+   og faldt ned til én pr. raekke - panelet blev 1430 px hoejt. Derfor én
+   spalte under 700 px: etiketten over sine vaerdier, som den stod foer. */
+@media (max-width:700px){
+  .facetter{grid-template-columns:minmax(0,1fr);gap:0}
+  .facet legend{grid-column:1;margin-top:var(--r3)}
+  .facet .filtre{grid-column:1;margin-top:8px}
+}
+.facet-hjaelp{margin-top:var(--r4);max-width:86ch}
 .facet-ryd{margin-top:var(--r3)}
 
 /* :target giver de samme to tilstande som :checked, saa et filterlink fra
-   forsiden ogsaa SES som valgt. */
+   forsiden ogsaa SES som valgt. Hullet ("ikke oplyst", system.css afsnit 13)
+   beholder sit stiplede hegn ogsaa naar det er valgt - ellers ville netop det
+   filter, der peger paa manglende data, tabe sit maerke i valgt tilstand, og
+   haard begraensning 5 gaelder i alle tilstande, ikke kun i hvile. */
 .filtre input:target + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
 .filtre input:target + label .antal{color:var(--accent-ro)}
+.filtre input[value="ikke_oplyst"]:target + label{
+  background:var(--accent);border:1px dashed #FFFFFF;color:#FFFFFF;font-weight:600}
 
 /* Soegefeltet er skjult, indtil JavaScript taender det: et felt, der intet
    goer, er en betjeningsflade uden funktion. Filtrene er der uanset.
@@ -212,10 +260,18 @@
 /* Sorteringsetiketten (spor/lysbyg): katalogsiden sorterer altid efter
    vaegt, stigende (samme regel forsiden brugte foer denne aendring, se
    forside_ordning) - etiketten siger det, den er ikke en knap for
-   alternative sorteringer, systemet ikke bygger endnu (se fund/FUND-lysbyg.md). */
-.katalog-sortering{display:flex;flex-direction:column;gap:4px;margin-left:auto}
+   alternative sorteringer, systemet ikke bygger endnu (se fund/FUND-lysbyg.md).
+
+   FORANKRET 27. aug 2026: `margin-left:auto` skoed etiketten helt ud til
+   hoejre kant, saa den ved 1440 stod ca. 200 px fra det soegefelt, den hoerer
+   sammen med, uden noget imellem sig - den svaevede. Nu staar den lige efter
+   feltet (soegefeltet har faaet et loft paa sit maal, saa parret bliver ved
+   hinanden), og VAERDIEN saettes i mono: det er en aflaest tilstand, ikke
+   prosa, og sidens andre aflaeste tilstande staar i mono. */
+.katalog-sortering{display:flex;flex-direction:column;gap:4px}
 .katalog-sortering .etiket{margin:0}
-.katalog-sortering__vaerdi{font-size:15px;font-weight:600;color:var(--blaek)}
+.katalog-sortering__vaerdi{font-family:var(--mono);font-size:14px;font-weight:500;
+  color:var(--blaek);letter-spacing:-.01em}
 .styr .gitter{margin-top:var(--r6)}
 /* Lidt mere luft-margen ved 390 px (spor/instrument2, punkt 2): densitets-
    kravet passerede med kun 84px margen ved foerste maaling - dette trin

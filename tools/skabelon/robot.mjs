@@ -204,14 +204,15 @@ export function kraevHjaelp(H) {
  * eneste felt i praksis, der baerer ved_last — og driftstid er ét af stribens
  * fem tal, saa forbeholdet maa ikke kunne falde ud.
  *
- * Haevet TEGN, ikke det fulde ord "Advarsel" (fund/FUND-detalje.md, opgave
- * 4a): denne funktion fodrer robot.mjs' EGEN feltKrop()/stribe() OG, via
- * `vaerdi()`, producent.mjs' minikort (`kompaktStribe()` kalder `vaerdi()`
- * herfra) - de arver derfor rettelsen uden selv at aendres. Samme sprog og
- * samme klasse (.forbehold--tegn) som side.mjs' fnote(), som 24. aug 2026
- * allerede loeste noejagtig det samme problem paa kataloget: 174 af 181
- * altid-synlige "Advarsel"-chips paa 41 af 46 kort. Ordet forsvinder ikke -
- * det staar stadig fuldt ud i title (museklik) og .kunskaerm (skaermlaeser).
+ * INTERIM UDEN synligt maerke (JPK 27. aug 2026 - se side.mjs' fnote() for
+ * den fulde begrundelse: D14's gyldigheds-niveauer er endnu ikke flettet, saa
+ * INTET synligt maerke staar her nu). Denne funktion fodrer robot.mjs' EGEN
+ * feltKrop()/stribe() OG, via `vaerdi()`, producent.mjs' minikort
+ * (`kompaktStribe()` kalder `vaerdi()` herfra) - de arver derfor rettelsen
+ * uden selv at aendres. Samme klasse (.forbehold--skjult) som side.mjs'
+ * fnote(). Ordet forsvinder ikke - det staar stadig fuldt ud i title
+ * (museklik) og .kunskaerm (skaermlaeser), kun den altid-synlige stjerne er
+ * vaek.
  */
 function forbehold(post, ctx) {
   if (post?.ved_last === undefined) return '';
@@ -220,8 +221,7 @@ function forbehold(post, ctx) {
   const tekst = ukendt
     ? T(i18n, 'ved_last_ukendt')
     : `${T(i18n, 'ved_last')} ${lokaltTal(post.ved_last.vaerdi, sprog)} ${post.ved_last.enhed ?? ''}`.trim();
-  return `<abbr class="forbehold forbehold--tegn" title="${esc(tekst)}">`
-    + `<span aria-hidden="true">*</span>`
+  return `<abbr class="forbehold--skjult" title="${esc(tekst)}">`
     + `<span class="kunskaerm">${esc(T(i18n, 'advarsel'))}: ${esc(tekst)}</span></abbr>`;
 }
 
@@ -271,6 +271,12 @@ export function vaerdi(navn, post, ctx, kilder) {
   const H = ctx.__H;
   const { i18n, sprog } = ctx;
   const spec = FELTER[navn];
+  // Producentsidens minikort er den samme trange celle som katalogets (se
+  // side.mjs' tal()): imperialkassen flytter til title dér, og kun dér.
+  // `sprog` blev tidligere sendt som andet argument til H.tal og faldt tavst
+  // igennem destruktureringen som lutter standardvaerdier - den var aldrig
+  // laest. Nu baerer pladsen den oplysning, der faktisk bruges.
+  const kompakt = ctx.__kompakt === true;
 
   if (post === undefined) {
     return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
@@ -299,10 +305,10 @@ export function vaerdi(navn, post, ctx, kilder) {
     // Et tekstfelt kan baere et maalbart interval ved siden af producentens
     // ordlyd (Spots "ureguleret DC 35-58,8 V"). Det skal med.
     if (post.min !== undefined) {
-      html += ` ${H.tal({ min: post.min, maks: post.maks, enhed: post.enhed }, sprog)}`;
+      html += ` ${H.tal({ min: post.min, maks: post.maks, enhed: post.enhed }, { kompakt })}`;
     }
   } else {
-    html = H.tal(post, sprog);
+    html = H.tal(post, { kompakt });
     // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
     // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
     // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,

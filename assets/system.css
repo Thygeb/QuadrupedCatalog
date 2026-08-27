@@ -236,17 +236,18 @@ a:hover{text-decoration-thickness:2.5px}
   letter-spacing:.02em;cursor:help;text-decoration:none;align-self:center}
 .forbehold:hover{border-color:var(--hegn);color:var(--blaek2)}
 
-/* Forbeholdet som HAEVET TEGN (24.08.2026) - typografi, ikke et ikon, i
-   samme familie som kildemaerkets haevede bogstav (afsnit 8b): bogstavet
-   peger paa en kilde, tegnet peger paa et forbehold. Ordet "Advarsel" var
-   maalt paa 174 af 181 forbehold, 41 af 46 kort paa /da/-forsiden - naar
-   alt advarer, advarer intet. Teksten er IKKE rullet tilbage til den lange
-   saetning (rettelsen fra 21. aug staar ved magt): den korte tekst ligger
-   stadig fuldt ud i title (museklik) og i .kunskaerm (skaermlaeser), kun den
-   ALTID SYNLIGE ordchip er skiftet til et lille tegn. */
-.forbehold--tegn{border:0;padding:0;background:none;font-size:14px;font-weight:700;
-  line-height:1;letter-spacing:0;color:var(--blaek3);align-self:flex-start}
-.forbehold--tegn:hover{color:var(--blaek);border:0}
+/* Forbeholdet INTERIM UDEN SYNLIGT MAERKE (JPK 27. aug 2026) - erstatter den
+   haevede stjerne fra 24.08.2026, som stablede sig hulter til bulter under
+   og ved siden af tallene paa kortene (skaermbillede i briefet). D14
+   (STATUS.md) vil give forbehold to niveauer - kun gyldighedstruende skal
+   have et synligt maerke - men klassifikationen af de 562 er endnu ikke
+   flettet. Indtil da: INTET synligt her. Teksten forsvinder ikke, den staar
+   stadig fuldt ud i title (museklik) og i .kunskaerm (skaermlaeser) - kun
+   den tredje, altid-synlige gengivelse (foerst ordet "Advarsel", saa
+   stjernen) er fjernet. NAAR klassifikationen lander, er det HER det
+   designede gyldigheds-maerke skal saettes ind - klassenavnet er det, en
+   fremtidig soegning efter ".forbehold--skjult" skal finde. */
+.forbehold--skjult{display:inline;border:0;padding:0;background:none}
 
 /* --- 8b. KILDEMAERKET ------------------------------------------------------
    Maalt: 23 af 46 poster henter tal fra mere end én URL. Boston Dynamics Spot
@@ -258,12 +259,32 @@ a:hover{text-decoration-thickness:2.5px}
    Formen: et haevet BOGSTAV efter vaerdien, der peger paa kildelisten
    nedenfor. Bogstav og ikke tal, saa det aldrig kan laeses som en del af
    figuren. Beroeringsmaalet er hele vaerdien, ikke bogstavet. */
+/* HAEVNINGEN, RETTET 27. aug 2026. Reglen sagde `vertical-align:super`, og den
+   linje har aldrig virket: .v er `display:inline-flex` (afsnit 8), og
+   vertical-align har ingen virkning paa et flex-element. Formen ovenfor lover
+   "et haevet BOGSTAV efter vaerdien"; det var ikke det, siden viste.
+
+   Maalt paa /da/robotter/ ved 1440 - bogstavets underkant mod figurens
+   grundlinje, over de 141 kortceller, der baerer et kildemaerke:
+     FOER    0 af 141 stod over grundlinjen, i snit 14,6 px UNDER den.
+     EFTER 141 af 141 staar over, i snit 8,2 px over.
+   De 14,6 px er ikke haevningen alene: i de fleste celler var vaerdilinjen
+   braekket, saa bogstavet var faldet ned paa linje to og stod UNDER tallet i
+   stedet for efter det. Denne rettelse og aflaesningslinjen i afsnit 10 tager
+   derfor fat i den samme fejl fra hver sin ende.
+
+   `align-self:flex-start` er haevningen, der virker i en flexboks
+   (samme greb som det gamle forbeholdstegn brugte), og den er
+   layout-bevidst: bogstavet loefter sig uden at kunne flyde ud over cellen,
+   som en relativ forskydning ville. Kun i .v-tal - i "ikke oplyst"-chippen
+   skal bogstavet blive staaende midt i. */
 .kildemaerke{
   position:relative;
   font-family:var(--mono);font-size:.34em;font-weight:700;line-height:1;
-  vertical-align:super;letter-spacing:.02em;color:var(--accent);
+  letter-spacing:.02em;color:var(--accent);
   text-decoration:none;padding:0 1px;
 }
+.v-tal > .kildemaerke{align-self:flex-start}
 /* Bogstavet er 6x8 px. Selve MAALET er 24x24 og ligger centreret om det,
    saa WCAG 2.5.8 holdes uden at bogstavet vokser. Uden det her ville
    maerket vaere et link, ingen kan ramme. */
@@ -394,15 +415,115 @@ a:hover{text-decoration-thickness:2.5px}
    Padding strammet fra 12px/11px til 10px/9px. */
 .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr));box-shadow:none;
   border-radius:var(--rund-ind);gap:8px 12px}
-.stribe--kompakt > li{padding:10px 10px 9px;gap:7px;border:0}
-.stribe--kompakt .v{font-size:18px}
-.stribe--kompakt .krop > .v{min-height:21px}
-.stribe--kompakt .ikon{width:18px;height:18px;stroke-width:1.7}
-.stribe--kompakt .etiket{font-size:10.5px;letter-spacing:.09em}
+
+/* AFLAESNINGEN FAAR HELE CELLENS BREDDE (JPK 27. aug 2026, ordre med
+   skaermbillede: "* stabler sig hulter til bulter").
+
+   Maalt i browseren paa /da/robotter/ ved 1440 foer rettelsen: cellen er
+   105 px, men vaerdilinjen havde kun 60 px at staa paa - ikonet (18) og dets
+   gab (7) tog 25 af de 85 px indhold, og krop fik resten. Medianen af det,
+   vaerdilinjerne har BRUG for, var 75 px, 90-percentilen 105 px. Foelgen:
+   175 af 261 talceller braekkede i to linjer, og vaerdiblokken optraadte i
+   15 forskellige hoejder (22, 28, 34, 40 ... 83 px) i det samme gitter. Et
+   instrument har én aflaesningshoejde, ikke femten.
+
+   Rettelsen er ikke en finjustering af gab og skriftgrad, men en flytning:
+   ikonet er en KANALMARKOER og hoerer til etiketten, ikke ved siden af
+   figuren, hvor det konkurrerer med den om bredden. Cellen bliver derfor to
+   raekker - aflaesningen oeverst i fuld bredde, kanalen (ikon + navn)
+   nedenunder - og vaerdilinjen gaar fra 60 til 91 px uden at cellen vokser.
+   `display:contents` paa .krop lader .etiket og .v blive gitterets egne
+   felter, saa HTML'en er uaendret og skaermlaeserens raekkefoelge (etiket
+   foer vaerdi) bevares praecis som column-reverse gav den.
+
+   Ikonet gaar 18 -> 13 px: det staar nu ved siden af en 10,5 px etiket, ikke
+   ved siden af en 18 px figur, og skal maale sig med DEN. */
+/* --kanal er ikonets maal OG kanalspaltens bredde: ét tal ét sted, saa de to
+   ikke kan komme fra hinanden.
+
+   Spalten skal vaere FAST, ikke `auto`. Med `auto` bidrager aflaesningen i
+   raekken ovenover - som spaender over BEGGE spalter - til spaltens
+   intrinsiske bredde, saa en bred vaerdi puster ikonspalten op og sulter
+   etiketten. Maalt paa en producentside ved 1440, hvor etiketterne er de
+   lange feltnavne ("Maks. hastighed", "Nyttelast, gaaende"): med `auto` satte
+   de 52 celler SEKSTEN forskellige spaltepar, fra 13px+73px til 73px+12px, og
+   20 af 52 etiketter blev klippet. Med et fast maal er der ét spaltepar
+   (13px + 72,8px) og 0 klippede. Katalogsiden skjulte fejlen, fordi den
+   bruger de KORTE etiketter (stribe_*) - producentkortet bruger felt_*. */
+.stribe--kompakt > li{--kanal:13px;border:0;padding:9px 7px 8px;
+  display:grid;grid-template-columns:var(--kanal) minmax(0,1fr);
+  grid-template-areas:"vaerdi vaerdi" "ikon etiket";
+  align-items:center;column-gap:5px;row-gap:3px}
+.stribe--kompakt .krop{display:contents}
+.stribe--kompakt > li > .ikon{grid-area:ikon;width:var(--kanal);height:var(--kanal);
+  stroke-width:1.7;margin-top:0}
+.stribe--kompakt .etiket{grid-area:etiket;font-size:10.5px;letter-spacing:.09em}
+.stribe--kompakt .krop > .v{grid-area:vaerdi;min-height:21px}
+/* 18 -> 17 px. Den gamle grad blev valgt som "den smalleste sats, der stadig
+   holder 33,8 kg paa én linje" - maalt dengang mod de 60 px, cellen havde.
+   Maalt nu mod de 91: ved 18 px skyder 24 af 261 vaerdier ud over cellen,
+   ved 17 px gaar 0 ud. */
+.stribe--kompakt .v{font-size:17px}
+
+/* Aflaesningen bryder ALDRIG. Kun .v-tal: "ikke oplyst"-chippen (haard
+   begraensning 5) skal stadig kunne bryde ved sit mellemrum frem for at
+   skyde ud af cellen. */
+.stribe--kompakt .v-tal{flex-wrap:nowrap;gap:.22em}
+
+/* FIGUR OG ENHED PAA SAMME GRUNDLINJE. .v saetter selv `align-items:baseline`
+   (afsnit 8), men stribens egen `.stribe .krop > .v{align-items:center}`
+   vinder paa specificitet og midterstillede enheden i forhold til figuren -
+   "kg" svaevede midt ud for cifrenes hoejde i stedet for at staa paa deres
+   linje. Maalt over de 261 talceller: afstanden mellem de to grundlinjer
+   flyttede sig 3,2 px, da align-items blev sat tilbage til baseline.
+   Kun .v-tal: chipperne (v-ikke, v-ja, v-nej, v-billede) har et lille
+   firkantmaerke, der SKAL staa midt i ordet, og de beholder derfor center. */
+.stribe .krop > .v-tal,.stribe--kompakt .krop > .v-tal{align-items:baseline}
+
+/* OPTISK TILPASNING, ikke en smagsdom. For hver af de 261 talceller blev den
+   stoerste hele skriftgrad, der faktisk passer i cellen, maalt i browseren.
+   Kravet grupperede sig efter SYNLIGE TEGN (operator + figur + enhed): 3-8
+   tegn passer alle ved fuld grad (195 celler), 9-10 tegn kraevede et trin ned,
+   11 og derover to. Klasserne saettes i skabelonen (side.mjs' tal()) og er
+   inerte uden for den kompakte celle.
+
+   TRINNET ER SAA LILLE SOM MULIGT, og det er en RETTELSE af foerste forsoeg:
+   der stod .67/.58, og paa skaermen laeste "15 kg" ved siden af "13,32 km/h"
+   som to forskellige RANGE af oplysning - de fire aflaesninger paa et kort er
+   lige vigtige, og et stoerrelsesspring paa en tredjedel paastaar noget andet.
+   Pladsen til et blidere trin blev hentet tre steder i stedet: strammere sats
+   i figuren, mindre enhed og mindre gab - alle tre er ting, en lang vaerdi
+   taaler, fordi den alligevel laeses som én blok. Maalt over 261 celler ved
+   1750/1440: 0 vaerdier skyder ud over cellen, og alle 261 vaerdiblokke har
+   NOEJAGTIG samme hoejde. Kildebogstavet skifter aldrig grad - det er
+   signaturen og skal staa ens paa hver eneste celle. */
+.stribe--kompakt .v-tal--lang{gap:.15em}
+.stribe--kompakt .v-tal--lang .num{font-size:.80em;letter-spacing:-.045em}
+.stribe--kompakt .v-tal--lang .enhed{font-size:.5em}
+.stribe--kompakt .v-tal--xlang{gap:.12em}
+.stribe--kompakt .v-tal--xlang .num{font-size:.70em;letter-spacing:-.05em}
+.stribe--kompakt .v-tal--xlang .enhed{font-size:.46em}
+.stribe--kompakt .v-tal--xlang .op{font-size:.5em}
+/* Fjerde trin: kun sproget udloeser det. Fem af de seks operatorer er TEGN
+   (≥ ≤ > < ±), men 'cirka' er et ord - "ca." paa dansk, "approx." paa
+   engelsk. Maalt paa katalogsiden: dansk naar 14 tegn i den laengste vaerdi,
+   engelsk 18, og de to laengste engelske skoed 111 og 96 px ud i en 91 px
+   celle, mens dansk gik fri. Fire celler i hele kataloget rammer trinnet
+   (3 engelske, 1 dansk). */
+.stribe--kompakt .v-tal--xxlang{gap:.1em}
+.stribe--kompakt .v-tal--xxlang .num{font-size:.56em;letter-spacing:-.055em}
+.stribe--kompakt .v-tal--xxlang .enhed{font-size:.38em}
+.stribe--kompakt .v-tal--xxlang .op{font-size:.4em}
+
+/* Kildebogstavet er sidens signatur og skal kunne LAESES. .34em af 17 px er
+   5,8 px - under det, en skaerm kan saette et versalt bogstav paa. I den
+   kompakte celle staar det derfor paa .47em (8,0 px). Det er stadig under
+   halvdelen af figuren, saa rangordenen er uaendret. */
+.stribe--kompakt .v-tal > .kildemaerke{font-size:.47em}
+
 @media (max-width:420px){
   .stribe--kompakt{gap:5px 8px}
-  .stribe--kompakt > li{padding:5px 5px 5px;gap:4px}
-  .stribe--kompakt .ikon{width:13px;height:13px}
+  .stribe--kompakt > li{--kanal:12px;padding:6px 5px 6px;column-gap:4px;row-gap:2px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}
@@ -686,7 +807,12 @@ a:hover{text-decoration-thickness:2.5px}
 /* L17: begge skal staa i foerste viewport. Uden JavaScript virker feltet
    stadig som et almindeligt formularfelt, og filtrene som links. */
 .styring{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-end}
-.sog{display:flex;flex-direction:column;gap:6px;flex:1 1 300px;min-width:250px}
+/* Loftet paa maalet (27. aug 2026): uden det strakte feltet sig til ca.
+   1230 px ved 1440, og sorteringsetiketten blev skubbet helt ud til modsatte
+   kant. Et soegefelt bliver ikke bedre af at vaere en meter bredt end
+   den laengste soegning, nogen skriver i det. */
+.sog{display:flex;flex-direction:column;gap:6px;flex:1 1 300px;min-width:250px;
+  max-width:640px}
 .sog input{
   font-family:var(--sans);font-size:16.5px;min-height:50px;padding:12px 15px;width:100%;
   background:var(--panel);color:var(--blaek);
@@ -695,18 +821,41 @@ a:hover{text-decoration-thickness:2.5px}
 .sog input::placeholder{color:var(--blaek3);opacity:1}
 .sog input:focus-visible{border-color:var(--accent);outline-offset:1px}
 
+/* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
+   katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
+   faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
+   flade mod sidens graa bund, som er forskel nok til at laese den som en
+   trykflade. Formen, maalet (44 px) og den valgte tilstand er uaendrede. */
 .filtre{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .filtre input{position:absolute;width:1px;height:1px;opacity:0}
 .filtre label{
-  display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 15px;
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
   cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
+  background:var(--panel);border:1px solid transparent;border-radius:var(--rund-ind);
 }
-.filtre label:hover{border-color:var(--hegn);color:var(--blaek)}
-.filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3)}
+.filtre label:hover{background:var(--accent-ro);color:var(--blaek)}
+/* Taelleren er et TAL og saettes som sidens andre tal: mono med tabulaere
+   cifre, saa 1 og 62 fylder det samme og kolonnen ikke vibrerer. */
+.filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
 .filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
 .filtre input:checked + label .antal{color:var(--accent-ro)}
 .filtre input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+
+/* HAARD BEGRAENSNING 5 I FILTERET. "ikke oplyst" er et HUL, ikke et svar, og
+   det skal ses. Foer denne regel saa hullet praecis ud som ethvert andet
+   filter: hvid chip, samme grad, samme farve - paa IP-KLASSE stod "nej" og
+   "ikke oplyst" ved siden af hinanden og var visuelt ét og det samme, og paa
+   CE stod alle tre tilstande ens. Sproget her er sidens EGET hulsprog fra
+   afsnit 8 (.v-ikke): daempet flade, stiplet hegn, ingen fed vaegt. Reglen
+   haenger paa inputtets `value`, som skabelonen allerede skriver, saa hverken
+   markup eller antallet af afkrydsningsfelter aendres. */
+.filtre input[value="ikke_oplyst"] + label{
+  background:var(--tom);border:1px dashed var(--hegn);
+  font-weight:500;color:var(--blaek3)}
+.filtre input[value="ikke_oplyst"] + label:hover{color:var(--blaek2);border-color:var(--blaek3)}
+.filtre input[value="ikke_oplyst"]:checked + label{
+  background:var(--accent);border:1px dashed #FFFFFF;color:#FFFFFF;font-weight:600}
 
 /* Den eneste knapform paa sitet: navigation inde paa sitet. Ingen koebsknap,
    ingen demo-knap, ingen prisforespoergsel. Formen findes ikke i systemet. */

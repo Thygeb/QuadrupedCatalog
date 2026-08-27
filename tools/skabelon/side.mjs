@@ -710,21 +710,40 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   /* --- 1. tal ------------------------------------------------------------ */
 
   /**
-   * Forbeholdet som HAEVET TEGN. Samme sprog som kildemaerkets haevede
-   * bogstav (afsnit 3 nedenfor): bogstavet peger paa en kilde, tegnet peger
-   * paa et forbehold. Hele teksten staar i `title` (museklik) OG i
-   * `.kunskaerm` (skaermlaeser) - ordet "Advarsel" forsvinder ikke, det
-   * flytter fra en altid-synlig chip til skaermlaeserens tekst.
+   * Forbeholdet, INTERIM UDEN synligt maerke (JPK 27. aug 2026, ordre med
+   * skaermbillede: "*"-tegnet stablede sig hulter til bulter under og ved
+   * siden af tallene paa kortene). D14 (STATUS.md) vil give forbehold to
+   * niveauer - kun gyldighedstruende skal have et synligt maerke - men den
+   * klassifikation af de 562 er endnu ikke flettet. Indtil da: INGEN synlig
+   * markoer overhovedet. Teksten forsvinder ikke, den flytter til `title`
+   * (museklik) og `.kunskaerm` (skaermlaeser) - samme to steder som foer,
+   * blot uden den tredje, altid-synlige gengivelse. Naar klassifikationen
+   * lander, er det HER det designede gyldigheds-maerke skal saettes ind.
    *
-   * Maalt 24. aug 2026 paa /da/-forsiden: 174 af 181 forbeholdschips viste
-   * ordet "Advarsel", paa 41 af 46 kort. Naar alt advarer, advarer intet.
-   * Rettelsen fra 21. aug (den lange saetning -> "Advarsel") er IKKE rullet
-   * tilbage - den korte tekst staar stadig, nu i title og .kunskaerm.
+   * Historik: 24. aug 2026 blev den lange advarselssaetning kortet til
+   * ordet "Advarsel" som en haevet stjerne (174/181 chips viste "Advarsel"
+   * paa 41/46 kort - naar alt advarer, advarer intet). Den rettelse staar
+   * stadig i teksten (T.advarsel-praefikset i .kunskaerm); det er kun den
+   * ALTID SYNLIGE gengivelse (stjernen), der fjernes her.
    */
   function fnote(tekst) {
-    return `<abbr class="forbehold forbehold--tegn" title="${attr(tekst)}">`
-      + `<span aria-hidden="true">*</span>`
+    return `<abbr class="forbehold--skjult" title="${attr(tekst)}">`
       + `<span class="kunskaerm">${esc(T.advarsel)}: ${esc(tekst)}</span></abbr>`;
+  }
+
+  /**
+   * Saetter en klasse - og eventuelt en title - paa vaerdiens AABNE
+   * `<span class="v ...">`, uden at tabe en title, der allerede staar der.
+   *
+   * Uden sammenfletningen fik en celle med baade imperial og varianter TO
+   * title-attributter; browseren viser den foerste og taber den anden tavst.
+   * Det er praecis den slags fejl, ingen validator fanger, fordi HTML'en
+   * parser fint.
+   */
+  function medMaerke(html, klasse, titel) {
+    return html.replace(/^<span class="(v[^"]*?)"(?:\s+title="([^"]*)")?/,
+      (_, klasser, gammel) => `<span class="${klasser}${klasse ? ' ' + klasse : ''}"`
+        + ` title="${gammel ? gammel + ' · ' : ''}${attr(titel)}"`);
   }
 
   /**
@@ -734,23 +753,47 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    * `forbehold` (valgfri tekstliste) flettes sammen med en eventuel
    * lastbetingelse til ÉT haevet tegn - to tegn ved siden af hinanden ville
    * laeses som to forskellige fejl, og de hoerer alligevel til samme vaerdi.
+   *
+   * `kompakt` (JPK 27. aug 2026) er kortets celle, ikke robotsidens. Den er
+   * MAALT 60 px bred i en 105 px celle ved 1440 - ikonet og dets gab tager de
+   * 25 - og medianen af det, vaerdilinjen har brug for, er 75 px. Derfor faldt
+   * 175 af 261 talceller fra hinanden i to ragede linjer med 15 forskellige
+   * hoejder. To ting foelger heraf, og de hoerer sammen:
+   *
+   *   1. IMPERIAL PAA KORTET er en kasse midt i cellen (Vision 60: "112 lb",
+   *      "4,9 mph"). Den er selve halen i maalingen - de bredeste celler laa
+   *      paa 144-147 px mod 60 tilraadige. Paa kortet flytter den derfor til
+   *      vaerdiens `title` (mus) og til `.kunskaerm` (skaermlaeser); den staar
+   *      uaendret og synlig paa robotsiden, hvor der er plads. Tallet
+   *      forsvinder ikke - det holder op med at konkurrere med hovedfiguren.
+   *   2. OPTISK TILPASNING. Laengdeklassen saettes ALTID (den er inert uden
+   *      for `.stribe--kompakt`), saa CSS kan saette en lang vaerdi et trin
+   *      ned i stedet for at lade den braekke. Traeklen 9 og 11 er ikke valgt
+   *      efter smag: for hver celle blev den stoerste hele skriftgrad, der
+   *      passer, maalt i browseren, og de to spring laa dér.
    */
-  function tal(post, { kilder = null, maerke = true, hvorhen = '', forbehold = [] } = {}) {
+  function tal(post, { kilder = null, maerke = true, hvorhen = '', forbehold = [], kompakt = false } = {}) {
     const nul = post.vaerdi === 0;
     const figur = post.min !== undefined
       ? `${nformat(post.min)}–${nformat(post.maks)}`
       : (typeof post.vaerdi === 'number' ? nformat(post.vaerdi) : String(post.vaerdi));
+    const enhed = post.enhed ? String(post.enhed) : '';
 
-    let ud = `<span class="v v-tal${nul ? ' v-nul' : ''}">`
-      + operator(post.operator)
+    let krop = operator(post.operator)
       + `<b class="num">${esc(figur)}</b>`
-      + (post.enhed ? `<span class="enhed">${esc(post.enhed)}</span>` : '');
+      + (enhed ? `<span class="enhed">${esc(enhed)}</span>` : '');
 
     // Regel 9: oplyser producenten baade metrisk og imperial, staar begge tal.
     // Vi omregner ikke og retter ikke - afvigelsen baeres af post.advarsel.
+    const titler = [];
     if (post.vaerdi_imperial !== undefined) {
       const imp = `${nformat(post.vaerdi_imperial)} ${post.enhed_imperial ?? ''}`.trim();
-      ud += `<abbr class="forbehold" title="${attr(t('imperial_forklaring'))}">${esc(imp)}</abbr>`;
+      if (kompakt) {
+        krop += `<span class="kunskaerm">${esc(imp)} · ${esc(t('imperial_forklaring'))}</span>`;
+        titler.push(`${imp} · ${t('imperial_forklaring')}`);
+      } else {
+        krop += `<abbr class="forbehold" title="${attr(t('imperial_forklaring'))}">${esc(imp)}</abbr>`;
+      }
     }
     const noter = [];
     if (post.ved_last !== undefined) {
@@ -760,10 +803,28 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
         : `${T.ved_last} ${nformat(post.ved_last.vaerdi)} ${post.ved_last.enhed ?? ''}`.trim());
     }
     noter.push(...forbehold);
-    if (noter.length) ud += fnote(noter.join(' · '));
-    if (maerke && kilder) ud += kildemaerke(post, kilder, hvorhen);
-    ud += `</span>`;
-    return ud;
+    if (noter.length) krop += fnote(noter.join(' · '));
+    if (maerke && kilder) krop += kildemaerke(post, kilder, hvorhen);
+
+    // Tegnene, som LAESEREN ser dem: operatoren staar som sit oversatte tegn
+    // ("ca.", "±", ">"), ikke som noeglen, saa laengden maales paa samme streng.
+    //
+    // Det er ogsaa derfor tallet skal maales PR. SPROG og ikke én gang: fem af
+    // de seks operatorer er tegn (≥ ≤ > < ±) og koster det samme overalt, men
+    // 'cirka' er et ORD. Dansk skriver "ca." (3 tegn), engelsk "approx." (7).
+    // Maalt paa katalogsiden: de laengste danske vaerdier naar 14 tegn, de
+    // engelske 18 - og de to laengste engelske skoed 111 og 96 px ud i en
+    // celle paa 91, mens dansk gik fri. Havde graenserne kun vaeret maalt paa
+    // dansk, ville fejlen staa paa den engelske side alene.
+    const opNavn = OPNAVN[post.operator];
+    const opTekst = post.operator ? String(opNavn ? (T['operator_' + opNavn] ?? '') : post.operator) : '';
+    const tegn = (opTekst ? opTekst.length + 1 : 0) + figur.length + enhed.length;
+    const laengde = tegn >= 14 ? ' v-tal--xxlang'
+      : tegn >= 11 ? ' v-tal--xlang'
+        : tegn >= 9 ? ' v-tal--lang' : '';
+
+    const ud = `<span class="v v-tal${nul ? ' v-nul' : ''}${laengde}">${krop}</span>`;
+    return titler.length ? medMaerke(ud, '', titler.join(' · ')) : ud;
   }
 
   /* --- 2. tilstand ------------------------------------------------------- */
@@ -865,7 +926,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    * uafkortet paa robotsiden. Uden det her ville et <p> desuden ligge inde i
    * et <span>, og det er ugyldig HTML, som ingen browser klager over.
    */
-  function felt(navn, post, { kilder = null, hvorhen = '', kunVaerdi = false } = {}) {
+  function felt(navn, post, { kilder = null, hvorhen = '', kunVaerdi = false, kompakt = false } = {}) {
     if (post === undefined) return tilstand('ikke_oplyst');
     if (typeof post === 'string') return tilstand(post);
 
@@ -881,7 +942,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     else if (spec?.art === 'jaNej') ud = jaNej(post.vaerdi, { kilder, post, hvorhen });
     else if (spec?.art === 'liste') ud = tekstvaerdi(post.vaerdi.join(', '), { kilder, post, hvorhen });
     else if (typeof post.vaerdi === 'string') ud = tekstvaerdi(post.vaerdi, { kilder, post, hvorhen });
-    else ud = tal(post, { kilder, hvorhen, forbehold: kunVaerdi && post.advarsel ? [post.advarsel] : [] });
+    else ud = tal(post, { kilder, hvorhen, kompakt, forbehold: kunVaerdi && post.advarsel ? [post.advarsel] : [] });
 
     if (kunVaerdi) {
       // Feltet varierer mellem robottens modelvarianter (fund/FUND-detalje.md,
@@ -891,8 +952,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       // robottens egen side, se robot.mjs' varianter()). Klassen saettes paa
       // det aabne <span class="v ...">, saa den er en del af selve vaerdien.
       if (post.varianter) {
-        ud = ud.replace(/^(<span class="v[^"]*)"/,
-          `$1 maerke--varianter" title="${attr(t('varianter_forklaring'))}"`);
+        ud = medMaerke(ud, 'maerke--varianter', t('varianter_forklaring'));
       }
       // Maerket saettes IND i vaerdiens .v-spann, ikke efter det: striben er
       // column-reverse, og et maerke placeret som en EGEN sideordnet node
@@ -1037,7 +1097,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
     const celler = felter.map((f) => {
       const etiket = kompakt ? t('stribe_' + f.navn) : T['felt_' + f.navn];
-      const vaerdi = felt(f.navn, f.post, { kilder, hvorhen, kunVaerdi: true });
+      const vaerdi = felt(f.navn, f.post, { kilder, hvorhen, kunVaerdi: true, kompakt });
       return `<li${f.oplyst ? '' : ' class="hul"'}>${ikon(f.ikonnavn)}<span class="krop">`
         + `<span class="etiket">${esc(etiket)}</span>${vaerdi}</span></li>`;
     }).join('\n');
