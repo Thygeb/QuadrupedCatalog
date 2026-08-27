@@ -12,10 +12,10 @@ anvendelse:
     - "警用巡逻"
   kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
   hentet: 2026-08-25
-  note: "Foerste citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversaettelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar_beredskab; 复杂环境作业 (arbejde i komplekse miljoeer) -> industri. De to oevrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort staar identisk paa alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed_overvaagning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
+  note: "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
 noter:
-  - "SAMME MERGED-KOLONNE-MOENSTER SOM YJ30 FOR HAELDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilfoejelsen - DOF er derfor slet ikke naevnt noget sted paa siden for YJ30Max, ikke kun udeladt af en fejlslaaet kolonne. frihedsgrader er ikke_oplyst."
-  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-raekke i \"基础参数\"-tabellen."
+  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\"-tabellen."
 billede:
   fil: fotos/fabrikant/yuejia-yj30-max.png
   ophav: fabrikant
@@ -51,13 +51,13 @@ felter:
     enhed: kg
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
     hentet: 2026-08-25
-    advarsel: "\"动态负载: 30kg\" (dynamisk/gaaende last) - eksplicit navngivet felt, ikke et skoen (se topnote)."
+    advarsel: "\"动态负载: 30kg\" (dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
   nyttelast_staaende:
     vaerdi: 50
     enhed: kg
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
     hentet: 2026-08-25
-    advarsel: "\"静态负载: 50kg\" (statisk/staaende last) - eksplicit navngivet felt."
+    advarsel: "\"静态负载: 50kg\" (statisk/stående last) - eksplicit navngivet felt."
   hastighed:
     vaerdi: 3
     enhed: m/s
@@ -104,7 +104,7 @@ felter:
     vaerdi: "WIFI (有/ja); 4G&5G (有/ja); 图传/billedtransmission (有/ja); 语音/stemme (有/ja); 导航/navigation (有/ja)"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
     hentet: 2026-08-25
-    advarsel: "Fem ja/nej-raekker fra \"基础参数\"-tabellen - én raekke faerre end YJ30's tabel (intet \"跟随\"/foelge-punkt her)."
+    advarsel: "Fem ja/nej-rækker fra \"基础参数\"-tabellen - én række færre end YJ30's tabel (intet \"跟随\"/følge-punkt her)."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst
@@ -113,5 +113,5 @@ felter:
     enhed: CNY
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
     hentet: 2026-08-25
-    advarsel: "\"￥288000.00\" ved siden af en \"立即购买\" (koeb nu)-knap."
+    advarsel: "\"￥288000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
   ce_oplyst: ikke_oplyst

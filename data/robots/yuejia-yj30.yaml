@@ -12,12 +12,12 @@ anvendelse:
     - "警用巡逻"
   kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
   hentet: 2026-08-25
-  note: "Foerste citat er YJ30's egen produktbeskrivelse (samme side). Egen oversaettelse: 教学科研 (undervisning/forskning) -> forskning_udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar_beredskab. De to oevrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort staar identisk paa alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed_overvaagning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
+  note: "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: 教学科研 (undervisning/forskning) -> forskning og udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
 noter:
-  - "STANDMAAL-TYPO I KILDEN: raekken skriver \"682×354×462m\" - manglende \"m\" i \"mm\", i modsaetning til alle oevrige raekker i samme tabel (fx YJ30W's \"682×354×532mm\"), inkl. i den engelsksprogede sideversion (samme typo gentaget der: \"682 × 354 × 462m\"). Vurderet som en kildeside-tastefejl, ikke en enhed paa meter - 462 m hoejde ville vaere absurd for en firbenet robot paa 17,5 kg. Enheden er sat til mm."
-  - "MERGED KOLONNEOVERSKRIFT \"爬坡角度/DOF\": tabellens raa HTML har headeren \"爬坡角度/DOF\" (haeldningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN vaerdi (50°) i datarraekken. Da 50° baerer gradtegnet, er det haeldningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke_oplyst, ikke gaettet til at vaere det samme tal."
-  - "DUAL-BATTERY-DRIFTSTID IKKE BRUGT SOM HOVEDVAERDI: tabellen viser \"1.5-2h\" i selve driftstid-raekken, og separat i samme celle (linjeskift) \"3h (Dual Battery)\" - en tilbehoersafhaengig udvidet konfiguration. Hovedvaerdien er 1,5-2 timer; dual-battery-tallet 3h staar i advarsel, ikke i vaerdi/maks."
-  - "LIDAR IKKE UDFYLDT: produktfeature-teksten naevner \"多模态感知矩阵：激光视觉协同\" (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve \"基础参数\"-tabellen (den strukturerede specifikationstabel) har INGEN lidar-raekke overhovedet. Feltet er derfor ikke_oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's haandtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
+  - "STANDMÅL-TYPO I KILDEN: rækken skriver \"682×354×462m\" - manglende \"m\" i \"mm\", i modsætning til alle øvrige rækker i samme tabel (fx YJ30W's \"682×354×532mm\"), inkl. i den engelsksprogede sideversion (samme typo gentaget der: \"682 × 354 × 462m\"). Vurderet som en kildeside-tastefejl, ikke en enhed på meter - 462 m højde ville være absurd for en firbenet robot på 17,5 kg. Enheden er sat til mm."
+  - "MERGED KOLONNEOVERSKRIFT \"爬坡角度/DOF\": tabellens rå HTML har headeren \"爬坡角度/DOF\" (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal."
+  - "DUAL-BATTERY-DRIFTSTID IKKE BRUGT SOM HOVEDVÆRDI: tabellen viser \"1.5-2h\" i selve driftstid-rækken, og separat i samme celle (linjeskift) \"3h (Dual Battery)\" - en tilbehørsafhængig udvidet konfiguration. Hovedværdien er 1,5-2 timer; dual-battery-tallet 3h står i advarsel, ikke i værdi/maks."
+  - "LIDAR IKKE UDFYLDT: produktfeature-teksten nævner \"多模态感知矩阵：激光视觉协同\" (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve \"基础参数\"-tabellen (den strukturerede specifikationstabel) har INGEN lidar-række overhovedet. Feltet er derfor ikke oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's håndtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
 billede:
   fil: fotos/fabrikant/yuejia-yj30.png
   ophav: fabrikant
@@ -36,7 +36,7 @@ felter:
     enhed: mm
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "\"站立尺寸: 682×354×462m\" - kildens egen enhedsangivelse mangler et \"m\" (se topnote). Akserne (laengde foerst) er eksplicit maerket af producenten i kolonneoverskriften \"站立尺寸\"."
+    advarsel: "\"站立尺寸: 682×354×462m\" - kildens egen enhedsangivelse mangler et \"m\" (se topnote). Akserne (længde først) er eksplicit mærket af producenten i kolonneoverskriften \"站立尺寸\"."
   bredde:
     vaerdi: 354
     enhed: mm
@@ -54,7 +54,7 @@ felter:
     enhed: kg
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gaaende eller staaende last - samme situation som Unitree Go2 (se topnote). Placeringen under gaaende last er et forsigtigt skoen ud fra stoerrelsesordenen, IKKE en aflaesning."
+    advarsel: "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gående eller stående last - samme situation som Unitree Go2 (se topnote). Placeringen under gående last er et forsigtigt skøn ud fra størrelsesordenen, IKKE en aflæsning."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3
@@ -67,14 +67,14 @@ felter:
     enhed: "°"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "Fra den sammenlagte kolonne \"爬坡角度/DOF\" - se topnoten. 50° er haeldningsvinklen, ikke DOF."
+    advarsel: "Fra den sammenlagte kolonne \"爬坡角度/DOF\" - se topnoten. 50° er hældningsvinklen, ikke DOF."
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 20
     enhed: cm
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "\"攀爬台阶高度: 20cm\" (klatre-trappetrinshoejde) - \"台阶\" betyder trin/trappe, tolket som den kontinuerlige trappeklatring, ikke en enkeltstaaende forhindring."
+    advarsel: "\"攀爬台阶高度: 20cm\" (klatre-trappetrinshøjde) - \"台阶\" betyder trin/trappe, tolket som den kontinuerlige trappeklatring, ikke en enkeltstående forhindring."
   ip_klasse:
     vaerdi: IP54
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
@@ -89,7 +89,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "\"续航: 1.5-2h\" i basisvaerdien. Samme celle naevner separat \"3h (Dual Battery)\" - en ekstra tilbehoersafhaengig konfiguration med et andet batterisetup, ikke brugt som hovedvaerdi (se topnote). Ingen lastbetingelse (kg) er oplyst for nogen af de to tal."
+    advarsel: "\"续航: 1.5-2h\" i basisværdien. Samme celle nævner separat \"3h (Dual Battery)\" - en ekstra tilbehørsafhængig konfiguration med et andet batterisetup, ikke brugt som hovedværdi (se topnote). Ingen lastbetingelse (kg) er oplyst for nogen af de to tal."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -99,10 +99,10 @@ felter:
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
   autonominiveau:
-    vaerdi: "WIFI (有/ja); 4G/5G (有/ja); 图传/billedtransmission (有/ja); 语音识别/stemmegenkendelse (有/ja); 跟随/autonom foelgning (有/ja); 导航/navigation (有/ja)"
+    vaerdi: "WIFI (有/ja); 4G/5G (有/ja); 图传/billedtransmission (有/ja); 语音识别/stemmegenkendelse (有/ja); 跟随/autonom følgning (有/ja); 导航/navigation (有/ja)"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "Seks ja/nej-raekker fra \"基础参数\"-tabellen, alle sat til \"有\" (ja) for YJ30. Kvalitativ liste, ikke et niveau paa en skala."
+    advarsel: "Seks ja/nej-rækker fra \"基础参数\"-tabellen, alle sat til \"有\" (ja) for YJ30. Kvalitativ liste, ikke et niveau på en skala."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst
@@ -111,5 +111,5 @@ felter:
     enhed: CNY
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
-    advarsel: "\"￥78000.00\" ved siden af en \"立即购买\" (koeb nu)-knap paa producentens egen side."
+    advarsel: "\"￥78000.00\" ved siden af en \"立即购买\" (køb nu)-knap på producentens egen side."
   ce_oplyst: ikke_oplyst
