@@ -9,7 +9,7 @@ anvendelse:
   citat: ["智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人", "自主巡检 数据回传 人员零涉险"]
   kilde: https://www.genisomai.com/product-robot/sp1
   hentet: 2026-08-24
-  note: "Egen oversaettelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til hoejrisiko-industrimiljoeer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverfoersel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"naeste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLAEGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlaeg), 化工储罐区 (kemisk lagertankomraade), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte saet, saa de er IKKE brugt som citat/vaerdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (hoejrisiko-industrimiljoe) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion)."
+  note: "Egen oversættelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverførsel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"næste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLÆGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlæg), 化工储罐区 (kemisk lagertankområde), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte sæt, så de er IKKE brugt som citat/værdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (højrisiko-industrimiljø) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion)."
 billede:
   fil: fotos/fabrikant/genisom-qiuqiu-sp1.webp
   ophav: fabrikant
@@ -46,7 +46,7 @@ felter:
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
-    advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekraeftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gaaelast)."
+    advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.2
@@ -58,14 +58,14 @@ felter:
     enhed: "°"
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
-    advarsel: "\"最大爬坡角度: 35°\", bekraeftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\"."
+    advarsel: "\"最大爬坡角度: 35°\", bekræftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\"."
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 23
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
-    advarsel: "\"攀爬能力: 23cm连续台阶\" (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet paa siden - derfor er forhindring_enkelt ikke_oplyst i stedet for at genbruge dette tal."
+    advarsel: "\"攀爬能力: 23cm连续台阶\" (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet på siden - derfor er forhindring_enkelt ikke oplyst i stedet for at genbruge dette tal."
   ip_klasse:
     vaerdi: IP66
     kilde: https://www.genisomai.com/product-robot/sp1
@@ -88,7 +88,7 @@ felter:
     ved_last: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
-    advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal staar direkte paa denne raekke. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds paa siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter."
+    advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal står direkte på denne række. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds på siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter."
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -98,10 +98,10 @@ felter:
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
   autonominiveau:
-    vaerdi: "AI强化学习运控 (支持); 自主导航 (支持); 智能避障 (支持); 二次开发支持; SLAM/IMU/AI-beslutningsfusion (\"融合 SLAM、IMU 与 AI 决策，自主规划、实时避障，现场信息同步回传\" - fusion af SLAM, IMU og AI-beslutning, autonom planlaegning, realtidsundvigelse, on-site dataoverfoersel i realtid)"
+    vaerdi: "AI强化学习运控 (支持); 自主导航 (支持); 智能避障 (支持); 二次开发支持; SLAM/IMU/AI-beslutningsfusion (\"融合 SLAM、IMU 与 AI 决策，自主规划、实时避障，现场信息同步回传\" - fusion af SLAM, IMU og AI-beslutning, autonom planlægning, realtidsundvigelse, on-site dataoverførsel i realtid)"
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
-    advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau paa en skala."
+    advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."
   monteringsinterface: ikke_oplyst
   stroem_ud: ikke_oplyst
   dataporte: ikke_oplyst

@@ -16,9 +16,9 @@ anvendelse:
   kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
   hentet: 2026-08-25
   kildetype: sekundaer
-  note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, foer variant-opdelingen. Citeret uafhaengigt her, ikke via arvet_fra."
+  note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra."
 noter:
-  - "S1 ER DEN ENESTE GALILEO-MODEL MED BEGGE KLATREFELTER UDFYLDT: tabellen skriver \"可攀爬高度: 25cm高连续台阶,正向高度差40cm高台\" - BAADE en kontinuerlig-trappe-vaerdi OG en platform-hoejde-vaerdi i samme raekke, i modsaetning til C1/E1 (kun trappetrin_kontinuerlig) og C1-W/E1-W (kun forhindring_enkelt). Begge felter er derfor udfyldt her: trappetrin_kontinuerlig=25cm, forhindring_enkelt=40cm."
+  - "S1 ER DEN ENESTE GALILEO-MODEL MED BEGGE KLATREFELTER UDFYLDT: tabellen skriver \"可攀爬高度: 25cm高连续台阶,正向高度差40cm高台\" - BÅDE en kontinuerlig-trappe-værdi OG en platform-højde-værdi i samme række, i modsætning til C1/E1 (kun trappetrin_kontinuerlig) og C1-W/E1-W (kun forhindring_enkelt). Begge felter er derfor udfyldt her: trappetrin_kontinuerlig=25cm, forhindring_enkelt=40cm."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 billede:
   fil: fotos/fabrikant/galileo-s1.jpg
@@ -26,7 +26,7 @@ billede:
   kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
   hentet: 2026-08-26
   alt: "Galileo (Tianjin) S1, staaende udgave med synligt sensor-modul paa ryggen, produktfoto fra virksomhedens PDF-produktmanual"
-  note: "S1 er den eneste ben-udgave med et ekstra cylindrisk sensor-modul paa ryggen i PDF-manualens produktgalleri - stemmer overens med S1's egne data (eneste model med begge klatrefelter udfyldt og eksplicit lastbetinget driftstid, se felternes noter)."
+  note: "S1 er den eneste ben-udgave med et ekstra cylindrisk sensor-modul på ryggen i PDF-manualens produktgalleri - stemmer overens med S1's egne data (eneste model med begge klatrefelter udfyldt og eksplicit lastbetinget driftstid, se felternes noter)."
 felter:
   egenvaegt:
     vaerdi: 60
@@ -76,7 +76,7 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"运动速度: 0-4m/s,（极限6m/s）\" - graensehastigheden 6 m/s er en separat, hoejere graensevaerdi, ikke brugt som hovedvaerdi."
+    advarsel: "\"运动速度: 0-4m/s,（极限6m/s）\" - grænsehastigheden 6 m/s er en separat, højere grænseværdi, ikke brugt som hovedværdi."
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -91,14 +91,14 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"正向高度差40cm高台\", del af samme raekke som trappetrin_kontinuerlig - se topnoten. S1 er den eneste Galileo-model med begge klatrefelter udfyldt."
+    advarsel: "\"正向高度差40cm高台\", del af samme række som trappetrin_kontinuerlig - se topnoten. S1 er den eneste Galileo-model med begge klatrefelter udfyldt."
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"25cm高连续台阶\", del af samme raekke som forhindring_enkelt - se topnoten."
+    advarsel: "\"25cm高连续台阶\", del af samme række som forhindring_enkelt - se topnoten."
   ip_klasse:
     vaerdi: IP67
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
@@ -110,7 +110,7 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"-20℃~55℃（-40℃可定制）\" - -40℃ er en tilvalgsgraense."
+    advarsel: "\"-20℃~55℃（-40℃可定制）\" - -40℃ er en tilvalgsgrænse."
   temp_maks:
     vaerdi: 55
     enhed: "°C"
@@ -123,7 +123,7 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"电池容量: 40Ah（2880Wh）\" - 72V nominel spaending, hoejere end C1/E1's 48V."
+    advarsel: "\"电池容量: 40Ah（2880Wh）\" - 72V nominel spænding, højere end C1/E1's 48V."
   driftstid:
     vaerdi_min: 5
     vaerdi_maks: 7.5
@@ -132,7 +132,7 @@ felter:
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
-    advarsel: "\"续航时间: 5h（20kg负载）～7.5h\" - laveste tal (5h) er eksplicit mærket ved 20kg last (regel 8); det oevre tal (7.5h) er formentlig uden/ved lettere last, ikke separat maerket. Separat \"续航里程: ＞20km\" er ogsaa oplyst."
+    advarsel: "\"续航时间: 5h（20kg负载）～7.5h\" - laveste tal (5h) er eksplicit mærket ved 20kg last (regel 8); det øvre tal (7.5h) er formentlig uden/ved lettere last, ikke separat mærket. Separat \"续航里程: ＞20km\" er også oplyst."
   hot_swap:
     vaerdi: ja
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
@@ -147,20 +147,20 @@ felter:
     kildetype: sekundaer
     advarsel: "\"自主充电功能: 支持\" kombineret med den delte funktionssides ladepile-docking."
   lidar:
-    vaerdi: "探测距离40m (LiDAR, detektionsraekkevidde 40m - ingen model/type oplyst)"
+    vaerdi: "探测距离40m (LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst)"
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
   kameraer: ikke_oplyst
   compute:
-    vaerdi: "X86或国产ARM低功耗高性能CPU (X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, hoej ydeevne)"
+    vaerdi: "X86或国产ARM低功耗高性能CPU (X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, høj ydeevne)"
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
   autonominiveau:
-    vaerdi: "自主充电功能: 支持 (autonom opladning, understoettet); 语音交互: 选配 (stemmeinteraktion, tilvalg)"
+    vaerdi: "自主充电功能: 支持 (autonom opladning, understøttet); 语音交互: 选配 (stemmeinteraktion, tilvalg)"
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
