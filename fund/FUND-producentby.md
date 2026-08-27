@@ -4,6 +4,29 @@ Spor `spor/paastande`, 27. aug 2026. Efterprøver punkt 2/3 i briefet: er `produ
 `data/robots/*.yaml` belagt af producentens eget gemte materiale i `media/_kilder/`
 (læst read-only fra hovedrepoets absolutte sti, aldrig skrevet i, intet nyt hentet)?
 
+## Punkt 1 — egne tal for producenter og modeller (PLAN.md afsnit 1)
+
+Kommando, genkørbar fra projektroden:
+
+```
+"/c/Program Files/nodejs/node.exe" -e "
+const fs = require('fs');
+const files = fs.readdirSync('data/robots').filter(f => f.endsWith('.yaml'));
+const producenter = new Set();
+for (const f of files) {
+  const m = fs.readFileSync('data/robots/'+f,'utf8').match(/^producent:\s*(.+)$/m);
+  if (m) producenter.add(m[1].trim());
+}
+console.log('Robotposter:', files.length, '| Unikke producenter:', producenter.size);
+"
+```
+
+**Resultat, målt 27. aug 2026: Robotposter: 77 | Unikke producenter: 25.** Matcher
+orkestratorens forudsigelse (påstand, nu efterprøvet). Dette er et opgørelsestal for vores
+eget katalog — ikke et loft over feltets globale størrelse; det tal (57, efterprøvet
+kandidatliste) står separat i `fund/FUND-felt.md` afsnit 4 og er ikke talt sammen med disse
+77/25, jf. PLAN.md afsnit 1.
+
 ## Metode
 
 For hver af de 61 poster med `producentby` er producentens navn + by søgt i alt gemt
