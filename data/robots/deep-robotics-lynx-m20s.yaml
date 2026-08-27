@@ -12,7 +12,6 @@ anvendelse:
   note: "Producenten skriver om \"The LYNX M20 series\", og M20S er en variant i den serie."
 noter:
   - "Tredje faneblad paa M20-siden. Samme maal og vaegt som M20, men markant hoejere tal paa naesten alt andet - det er en anden robot, ikke en udstyrsvariant."
-  - "Indsamlingens taetteste post (18 af 31 felter). Den bryder robotdata-skillens advarselstaerskel paa 55 %, men alle 18 felter staar i producentens egen tabel paa producentens eget domaene. Det er taersklen, der skal justeres, ikke posten."
 billede:
   fil: fotos/fabrikant/deep-robotics-lynx-m20s.jpg
   ophav: fabrikant

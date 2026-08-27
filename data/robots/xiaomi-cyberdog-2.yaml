@@ -10,10 +10,6 @@ anvendelse:
   note: "GENNEMLAEST, INTET FUNDET - ogsaa i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til."
 noter:
   - "SPECIFIKATIONERNE ER TEKST, IKKE BILLEDER - men de staar ikke i sidens HTML. Parametersidens indholdselement er tomt ved levering (75 bytes, kun en indlaesningssnurre); hele specifikationsarket ligger som ren tekst i den JavaScript-bundle, siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog2/specs.74df51bf.js (gemt, 200, 109.869 bytes). Det regnes som primaerkilde: producentens egen server, producentens eget indhold, og den tekst en besoegende faktisk faar vist."
-  - "VEDLIGEHOLDSFORBEHOLD 1: bundlens filnavn er indholds-hashet. Retter Xiaomi et tal, skifter filnavnet, og en gemt bundle-URL peger paa noget, der ikke findes. Vedligeholdsrutinen skal hente HTML'en foerst og laese bundle-URL'en ud af den - ikke gemme den som konstant."
-  - "VEDLIGEHOLDSFORBEHOLD 2: en validator, der kun ser sidens HTML, vil rapportere posten som TOM."
-  - "mi.com bruger en BLOKERINGSliste, ikke en tilladelsesliste: curl, tom user-agent, libwww-perl og Go-http-client faar alle 200; wget, Scrapy og Java faar 403 (fra Akamai, ikke fra Xiaomi). En hentelogik bygget paa antagelsen om at alle vaerktoejer blokeres, ville vaere bygget paa en fejl."
-  - "DENNE POST HAR SOM DEN ENESTE I HELE INDSAMLINGEN baade LiDAR-MODEL, FRIHEDSGRADER, ROS 2 og BATTERI I Wh - fire af de seks felter, der havde nul daekning paa alle tre referencerobotter i DATAMODEL.md."
 billede:
   fil: fotos/fabrikant/xiaomi-cyberdog-2.png
   ophav: fabrikant

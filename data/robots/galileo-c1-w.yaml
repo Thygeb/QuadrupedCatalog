@@ -18,11 +18,6 @@ anvendelse:
   kildetype: sekundaer
   note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, foer variant-opdelingen. Citeret uafhaengigt her, ikke via arvet_fra, jf. galileo-c1.yaml's note."
 noter:
-  - "STOPPROEVE (hjul-ben-hybrid, ikke ren hjulplatform): bestaaet, MED forbehold. Producentens egen model-tabel-overskrift: \"【C1-W工业小型】智能仿生轮足机器人\" (C1-W lille industrimodel - intelligent bionisk HJUL-BEN-robot, \"轮足\" = hjul+fod). Samme moenster som Unitree B2/B2-W: robotten staar under samme \"智能仿生四足机器人\"-manual/produktfamilie som den rent gaaende C1, med et navngivet \"轮足\" (hjul-ben) kendetegn, ikke en ren hjulplatform."
-  - "IKKE LEGETOEJ (L11): nej - samme begrundelse som C1."
-  - "KILDETYPE SEKUNDAER (L33): se galileo-c1.yaml's tilsvarende note - samme PDF, samme begrundelse."
-  - "GENBRUGT EVIDENS: se galileo-c1.yaml."
-  - "TABEL-TERMINOLOGI FOR KLATREEVNE: C1-W's tabel skriver \"正向高度差70cm高台\" (fremadrettet hoejdeforskel, 70cm platform) - mappet til forhindring_enkelt, IKKE trappetrin_kontinuerlig, i modsaetning til den gaaende C1's \"20cm高连续台阶\". De to modeller bruger forskellige formuleringer for samme raekkenavn i tabellen, konsekvent med skemaets to-felts-opdeling (regel 7) - se galileo-c1.yaml's topnote."
   - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2.5h～5h\" har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1 - fra den delte funktionsside (side 6) hhv. kombinationen af tabelraekke + funktionsside."
 billede:

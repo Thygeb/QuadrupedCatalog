@@ -18,11 +18,6 @@ anvendelse:
   kildetype: sekundaer
   note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, foer variant-opdelingen. Citeret uafhaengigt her, ikke via arvet_fra."
 noter:
-  - "STOPPROEVE (hjul-ben-hybrid, ikke ren hjulplatform): bestaaet, MED forbehold. Producentens egen model-tabel-overskrift: \"【S1-W工业大型】智能仿生轮足机器人\" (S1-W stor industrimodel - intelligent bionisk HJUL-BEN-robot). Samme moenster som C1/C1-W og E1/E1-W."
-  - "IKKE LEGETOEJ (L11): nej - samme begrundelse som C1. Kataloget tungeste Galileo-model (85kg egenvaegt, 120kg maks. nyttelast)."
-  - "KILDETYPE SEKUNDAER (L33) og GENBRUGT EVIDENS: se galileo-c1.yaml."
-  - "S1-W HAR OGSAA BEGGE KLATREFELTER UDFYLDT: tabellen skriver \"可攀爬高度: 25cm高连续台阶\" OG (paa naeste linje i samme raekke) \"正向高度差110cm高台\" - ligesom S1 (se galileo-s1.yaml), men med en markant hoejere platform-vaerdi (110cm mod S1's 40cm) - forventeligt for hjulbenet variant, som ogsaa saas mellem C1/C1-W (70cm) og E1/E1-W (100cm)."
-  - "DRIFTSTID MED EKSPLICIT LASTBETINGELSE: \"续航时间: 4h（20kg负载）～6h\" - samme moenster som S1: ved_last=20kg for laveste tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 billede:
   fil: fotos/fabrikant/galileo-s1-w.jpg

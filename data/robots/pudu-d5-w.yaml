@@ -10,12 +10,6 @@ anvendelse:
   kilde: https://www.pudurobotics.com/en/products/d5
   hentet: 2026-08-24
   note: "Samme produktside og samme saetning som pudu-d5.yaml - D5 og D5-W er to variantvalg paa EN Shopify-produktside (handle \"pudu-d5\"), ikke to adskilte sider. Se noter herunder."
-noter:
-  - "STOPPROEVE (firbenet, hjul-ben-hybrid taeller jf. opgavens definition): webbutikkens beskrivelse skriver \"Choose between legged and wheel-legged configurations to match different terrain and mobility requirements\" - D5-W er den hjul-ben-hybride variant af samme firbenede platform som D5 (\"Industry-Grade Autonomous Quadruped Robot\"). Ingen tvivl om benantal i producentens egen tekst."
-  - "D5 og D5-W er SAMME produktside med en variantvaelger (Shopify, samme handle \"pudu-d5\"). Skrevet som to filer alligevel, i tråd med praksis for Unitree B2/B2-W, A2/A2-W, AS2/AS2-W og Go2/Go2-W. Feltet forgaenger er IKKE brugt her, fordi D5-W ikke er en efterfoelger i tid - kun den anden konfiguration paa samme side (Shopify-billedet for D5-W-varianten er tidsstemplet 2026-03-09, D5 selv 2026-02-04, men det er et billed-uploadtidspunkt, ikke en modeludgivelsesdato)."
-  - "Se pudu-d5.yaml's noter for den fulde redegoerelse af uoverensstemmelsen mellem den generelle markedsfoeringstekst (\"25 cm steps, 30° climbs, 45° descents\") og den variant-specifikke sammenligningstabel. For D5-W stemmer markedsfoeringsteksten faktisk overens med tabellens D5-W-raekke (30° ascent, 25 cm step) - modsat D5, hvor de IKKE stemmer overens."
-  - "Raa HTML-bevis: media/_kilder/raa-kand1a-2026-08-24/pudu-d5-storeside-2026-08-24.html (samme fil som pudu-d5.yaml - begge varianter staar paa denne ene side)."
-  - "PDF-OPFYLDNINGSRUNDEN (2026-08-25): se pudu-d5.yaml for den fulde gennemgang af flyeren, download-siden og Pudu Robotics' tomme GitHub-organisation - samme flyer daekker D5 og D5-W paa én sammenligningstabel, ingen af de ti tilbageværende ikke_oplyst-felter kunne fyldes for D5-W heller."
 billede:
   fil: fotos/fabrikant/pudu-d5-w.jpg
   ophav: fabrikant

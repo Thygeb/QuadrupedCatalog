@@ -16,8 +16,6 @@ billede:
   ophav: fabrikant
   kilde: https://www.unitree.com/
   hentet: 2026-08-19
-noter:
-  - "A1-siden er en ren marketingside uden parametertabel. Det er ikke en fejl i indsamlingen - siden har ingen tabel. Konsekvensen er den laveste taethed i hele Unitree-materialet."
 felter:
   egenvaegt:
     vaerdi: ikke_oplyst

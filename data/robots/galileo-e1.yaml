@@ -18,12 +18,7 @@ anvendelse:
   kildetype: sekundaer
   note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, foer variant-opdelingen. Citeret uafhaengigt her, ikke via arvet_fra."
 noter:
-  - "STOPPROEVE (firbenet): bestaaet, entydigt. Producentens egen model-tabel-overskrift: \"【E1工业中型】智能仿生四足机器人\" (E1 mellemstor industrimodel - intelligent bionisk FIRBENET robot)."
-  - "IKKE LEGETOEJ (L11): nej - samme begrundelse som C1."
-  - "KILDETYPE SEKUNDAER (L33) og GENBRUGT EVIDENS: se galileo-c1.yaml."
-  - "SIDELAYOUT-AFVIGELSE VED UDTRAEK: E1/E1-W's side (manualens side 8) har en mere sammenfiltret tekstraekkefoelge end C1/C1-W og S1/S1-W's sider ved det tekstudtraek, der matte bygges i mangel af pdftoppm. SAERLIGT: \"外接电源接口\"-vaerdien \"5V；12V；48V\" optraadte kun ÉN gang i den udtrukne raekkefoelge (i slutningen af sideteksten) i stedet for to gange (én gang per model), selvom begge modellers labelliste efterspurgte den. Da C1/C1-W-parret havde IDENTISK vaerdi for dette felt paa begge varianter, er den samme vaerdi brugt for baade E1 og E1-W her - en analogislutning, ikke en uafhaengigt bekraeftet aflaesning for E1-W specifikt. Se advarslen paa stroem_ud."
   - "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver \"30cm高连续台阶\" -> trappetrin_kontinuerlig. E1-W's tilsvarende raekke skriver \"正向高度差1m高台\" -> forhindring_enkelt paa E1-W's egen post - samme moenster som C1/C1-W."
-  - "TILDELING AF DE TO VAERDIBLOKKE TIL E1 HHV. E1-W: siden har TO saet elektriske/motoriske parametre efter hinanden, uden entydig visuel raekkefoelge i det udtrukne tekstlag. Tildelingen her er baseret paa INDHOLDET, ikke positionen: blokken med \"30cm高连续台阶\" (kontinuerlig trappe, samme formulering som den gaaende C1) er tildelt E1, og blokken med \"正向高度差1m高台\" (platform-hoejde, samme formulering som den hjulbenede C1-W) er tildelt E1-W. Denne indholdsbaserede tildeling er mere paalidelig end tekstens raekkefoelge, men er stadig en tolkning - flagget her som en usikkerhed."
   - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 billede:

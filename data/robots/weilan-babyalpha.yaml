@@ -17,9 +17,7 @@ billede:
   hentet: 2026-08-19
 noter:
   - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsfoering: ingen vaegt, ingen maal, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
-  - "Sensorerne naevnes i prosa uden modeller og uden antal: wide-angle vision, active infrared vision, 360-degree lidar, multi-time-of-flight (TOF) radar, microphone array, multipoint touch sensor, temperature and humidity sensor, 6DF inertial measurement unit (IMU) sensor, joint torque sensor, displacement sensor og 6D pose estimation. 360-degree lidar er type uden model og taeller ikke under D4."
   - "Siden har en BUY NOW-knap, men INGEN PRIS."
-  - "KLASSEMARKERING MANGLER I SKEMAET. BabyAlpha er en hjemme-/selskabsrobot, ikke et arbejdsredskab. Den staar ikke paa CEO ens udelukkelsesliste (Petoi, MangDang, Hiwonder, Yahboom, Elephant Robotics, Sony aibo, Tombot), og er derfor konverteret - men om den hoerer i kataloget er et aabent spoergsmaal."
   - "Weilan har tre nul-poster (E300, E400L, BabyAlpha) og en post paa 35 % (AlphaDog C500/C501). Den eneste model, der oplyser noget, er udviklerversionen af legetoejet."
 felter:
   egenvaegt: ikke_oplyst

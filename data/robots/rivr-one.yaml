@@ -17,8 +17,6 @@ billede:
 noter:
   - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
   - "Robotten saelges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkoebere, ikke til ingenioerer. Kun 3 af 31 felter er oplyst: ingen vaegt, ingen maal, ingen IP-klasse, ingen batteristoerrelse, ingen frihedsgrader. Negativsoegt paa tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste traef er de 30 kg nedenfor."
-  - "SKEMAPROBLEM: RIVR oplyser RAEKKEVIDDE i km (over 30 km pr. opladning), ikke driftstid i timer. Skemaet har driftstid som felt og raekkevidde som beregnet felt; her er det omvendt. Med over 30 km og op til 14 km/t kunne man regne baglaens til ca. 2,1 timer - DET GOER VI IKKE. Det ville vaere et fabrikeret tal med to usikre operatorer ganget sammen."
-  - "RIVR TWO er navngivet i navigationen uden nogen specifikationer. Ingen post oprettet."
 felter:
   egenvaegt: ikke_oplyst
   laengde: ikke_oplyst
