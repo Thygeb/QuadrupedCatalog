@@ -63,7 +63,9 @@ node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('C:/Users
 ```
 
 Tabellen her nævnte tidligere også
-`new-project`, `dataviz` og `simplify`; **ingen af dem findes**,
+`new-project`, `dataviz` og `simplify`; **ingen af dem findes under de navne**
+(`simplify` hedder i virkeligheden `code-simplifier` og ligger på disken —
+se måletallet nedenfor — men er **ikke installeret** og kan derfor ikke kaldes),
 og en agent, der fulgte tabellen, fik `Unknown skill` og gik videre uden skill.
 `critique` er *installeret* men **kan ikke køre**: dens første linje kræver
 `frontend-design` og `teach-impeccable`, som heller ikke findes. Tabellen er
@@ -81,7 +83,36 @@ derfor skrevet om til det, der faktisk kan kaldes:
 | `impeccable live` | Vælg elementer i browseren og få genereret alternativer |
 | `ui-ux-critique` | **Fejljagt** på en bygget side: hierarki, tilgængelighed, mobil, AI-prosa. Bemærk forskellen til `impeccable critique` — se advarslen nedenfor |
 | `frontend-design` | **Anthropics officielle skill til visuelt design af ny eller omformet UI.** Slået til 26. aug 2026. Bærer to ting, `impeccable` ikke fremhæver lige så skarpt: kalibreringen mod de tre AI-standardudseender, og to-trins-processen hvor designplanen kritiseres for at være generisk, **før** der skrives kode. Brug den ved enhver ny flade |
+| `taste-skill:*` | **13 underskills mod "generisk AI-frontend".** Installeret 21. aug 2026, aktiv. **Læs grænsen nedenfor, før nogen af dem kaldes** — tre af dens afsnit bryder projektets hårde begrænsninger, hvis de følges bogstaveligt |
 | `critique` | **Ude af drift.** Kræver også `teach-impeccable`, som ikke findes. Brug `impeccable critique` |
+
+**Målt 27. aug 2026 — hvad der faktisk er tilgængeligt, og hvad der bare ligger der:**
+
+| | Antal |
+|---|---|
+| Plugins **installeret** | **10** |
+| Heraf **aktive i dette projekt** | **10 af 10** — ingen er slukket |
+| Plugin-mapper på disken i `claude-plugins-official` | **39** |
+| Heraf installeret | **5** |
+
+**Ingen installeret plugin er slået fra her.** Brugerfilen slår ni til,
+projektfilen tilføjer `playwright` — unionen er alle ti. Spørgsmålet
+*"er der noget installeret, som ikke er aktivt i projektet?"* er altså målt og
+besvaret: **nej.**
+
+**Til gengæld ligger der 34 uinstallerede plugins på disken**, som *ikke* kan
+kaldes. Blandt dem er nogle, der ville passe her, hvis de blev installeret:
+`code-simplifier`, `claude-md-management`, `pr-review-toolkit`, `session-report`
+og `hookify`. Genkør tallene med:
+
+```
+node -e "const fs=require('fs');
+const inst=new Set(Object.keys(JSON.parse(fs.readFileSync('C:/Users/thyge/.claude/plugins/installed_plugins.json','utf8')).plugins).map(k=>k.split('@')[0]));
+const rod='C:/Users/thyge/.claude/plugins/marketplaces/claude-plugins-official/plugins';
+const d=fs.readdirSync(rod).filter(f=>fs.statSync(rod+'/'+f).isDirectory());
+console.log('paa disk',d.length,'installeret',d.filter(p=>inst.has(p)).length);
+console.log('ikke installeret:',d.filter(p=>!inst.has(p)).join(', '));"
+```
 
 **Fælde, der kostede fire agentbeskeder 26. aug 2026:** `frontend-design` lå hele
 tiden på disken i `~/.claude/plugins/marketplaces/claude-plugins-official/`, men var
@@ -90,6 +121,64 @@ fire spor blev sendt uden den. **Et plugin, der ligger i marketplace-mappen, er 
 installeret** — kun det, der står i `.claude/settings.json`s `enabledPlugins`, kan
 kaldes. Er en skill ikke slået til, kan dens `SKILL.md` stadig læses fra disk; skriv
 da i rapporten at det blev gjort.
+
+### `taste-skill` — grænsen, målt 27. aug 2026
+
+Pluginnet blev installeret 21. aug og er aktivt. **Kaldet er efterprøvet fra
+hovedrepoet: `taste-skill:redesign-skill` svarer.** Det rummer **13 underskills**;
+langt fra alle hører hjemme her.
+
+**Skillens egen første linje afgrænser den, og den afgrænsning rammer os:**
+
+> *"Landing pages, portfolios, and redesigns. **Not dashboards, not data tables,
+> not multi-step product UI.**"*
+
+Katalogsiden, sammenligningssiden og robotsiden **er** datatabeller. Skillen er
+skrevet til en anden slags flade end den, dette projekt mest består af.
+
+**FIRE AFSNIT MÅ ALDRIG FØLGES HER. De er ikke smagssager — de bryder de hårde
+begrænsninger:**
+
+| Skillen siger | Bryder |
+|---|---|
+| *"Fake round numbers like `99.99%` → use organic, messy data: `47.2%`"* | **Hård begrænsning 2.** Opfind aldrig tal. Hvert tal på siden har en kilde |
+| *"Placeholder company names like Acme Corp → invent believable brand names"* | Siden viser **rigtige** producenter. Et opfundet navn er en løgn om en virksomhed |
+| *"Use placeholder sources like `picsum.photos`"* | **Hård begrænsning 4** og hele kildeløftet. Intet billede uden ophav |
+| *"Generic names like John Doe → use realistic-sounding names"* | Samme rod: skillen antager en markedsføringsside, hvor indhold må digtes |
+
+**To afsnit kolliderer med en truffet beslutning, ikke med en regel:**
+
+- **Skrift- og paletteråd** (Geist, Satoshi, "one accent color", gradienter):
+  **D15 låste paletten og skrifterne** — en ekstern anmelder anbefalede netop
+  dem som forbedring, altså er de ikke problemet. Varier dem ikke.
+- **Glasmorfisme, grain/noise, parallax-stakke, inerti-scroll:** L40 valgte
+  INSTRUMENT — *færre streger, strammere gitter, hårdere typografi*. De to peger
+  modsat.
+
+**Hvad der SÅ er brugbart, og det er ikke lidt.** `redesign-skill`s tjekliste
+bærer råd, der passer præcis på en datatung side og ikke rører nogen beslutning:
+`font-variant-numeric: tabular-nums` på taldata, synlige fokusringe,
+`min-height: 100dvh`, semantisk HTML, alt-tekst, "skip to content"-link, egen
+404-side, `text-wrap: balance`, animation via `transform` frem for `top/left`,
+og aktiv/trykket-tilstand på knapper.
+
+**Sådan bruges den:**
+
+| Underskill | Her? |
+|---|---|
+| `redesign-skill` | **Ja — som tjekliste**, med de fire forbudte afsnit sprunget over. Bedst til et revisionspas på en bygget flade |
+| `taste-skill` (v2) | **Kun forsiden**, og kun hvor den ikke rører palette, skrift eller INSTRUMENT-retningen |
+| `output-skill` | **Måske.** Handler ikke om design: den forbyder afkortet kode og pladsholdere. Kan være værd at give et Sonnet-spor, der skal levere komplet kode |
+| `brutalist-skill` · `minimalist-skill` · `soft-skill` | **Nej.** Stilvarianter — D15 låste stilen |
+| `brandkit` · `imagegen-frontend-web` · `imagegen-frontend-mobile` · `image-to-code` | **Nej.** De genererer billeder. Hård begrænsning 4 |
+| `gpt-tasteskill` · `stitch-skill` | **Nej.** Skrevet til GPT/Codex og Google Stitch |
+| `taste-skill-v1` | Nej, arkiv |
+
+**Den bredere lærdom, som ikke kun gælder denne skill:** en skill hentet udefra
+bærer sit eget projekts antagelser. Denne ene antager en markedsføringsside,
+hvor indhold må digtes for at se ægte ud. Vores antager det modsatte. **Læs en
+ny skills faktiske tekst for konflikter med de hårde begrænsninger, før den
+skrives ind i tabellen** — ikke kun dens beskrivelse.
 
 **Advarslen, der kostede tre runder:** `ui-ux-critique` svarer på *"er den her
 side udført rigtigt?"*. `impeccable critique` svarer på *"er det her det rigtige
