@@ -225,6 +225,50 @@
 .facet-hjaelp{margin-top:var(--r4);max-width:86ch}
 .facet-ryd{margin-top:var(--r3)}
 
+/* --- L44: sorteringskontrollen og tommelindekset -------------------------
+   Begge er ren HTML. Sorteringen er radioknapper, som CSS'ens :has() laeser
+   (reglerne genereres i katalog.mjs' hovedStil); indekset er ankre til
+   salenes egne id'er. Ingen af dem roerer JavaScript, og uden :has()-stoette
+   staar kortene i vaegtorden - samme fejlvej som filtrene.
+
+   Chipformen er den SAMME som .filtre (system.css afsnit 13), ikke en ny:
+   to betjeningsflader, der goer beslaegtede ting, skal ikke se ud som to
+   systemer. Kun tilstanden er anderledes - en radio er et enten-eller. */
+.katalog-sortering{border:0;margin:0;padding:0;min-width:0}
+.katalog-sortering > legend{padding:0;margin:0 0 6px}
+.sortervalg{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sortervalg input{position:absolute;width:1px;height:1px;opacity:0}
+.sortervalg label{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+  cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
+  background:var(--panel);border:1px solid transparent;border-radius:var(--rund-ind);
+}
+.sortervalg label:hover{background:var(--accent-ro);color:var(--blaek)}
+.sortervalg input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.sortervalg input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+.sortering-hjaelp{margin-top:var(--r2);max-width:86ch}
+
+/* Tommelindekset. Katalogsiden er maalt til 10.652 px ved 1440 og 37.551 px
+   ved 390 - det er den flade, grebet findes for. Baandet staar lige over
+   listen, hvor et spring giver mening, ikke oeverst blandt filtrene. */
+.tommelindeks{margin-top:var(--r6);padding-top:var(--r4);border-top:1px solid var(--linje)}
+.tommelindeks > .etiket{display:block;margin-bottom:var(--r2)}
+.tommelindeks__liste{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.tommelindeks__liste a{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
+  font-size:15px;font-weight:600;color:var(--blaek2);text-decoration:none;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
+}
+.tommelindeks__liste a:hover{background:var(--accent-ro);color:var(--blaek);border-color:var(--accent-ro)}
+.tommelindeks__liste a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+/* Taelleren saettes som sidens andre tal: mono med tabulaere cifre, saa 10 og
+   29 fylder det samme og raekken ikke vibrerer. */
+.tommelindeks__liste .antal{font-family:var(--mono);font-size:12px;font-weight:500;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
+/* Springer man til en sal, skal man kunne SE, at man landede rigtigt, og
+   overskriften maa ikke gemme sig under den klaebende sidetop. */
+.sal__titel{scroll-margin-top:var(--r8)}
+
 /* :target giver de samme to tilstande som :checked, saa et filterlink fra
    forsiden ogsaa SES som valgt. Hullet ("ikke oplyst", system.css afsnit 13)
    beholder sit stiplede hegn ogsaa naar det er valgt - ellers ville netop det

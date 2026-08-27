@@ -47,6 +47,10 @@
 
   "katalog_sortering_etiket": "Sort order",
   "katalog_sortering_vaegt": "Weight, ascending",
+  "katalog_sortering_taethed": "Specification density",
+  "katalog_sortering_alfabetisk": "Alphabetical",
+  "katalog_sortering_forklaring": "Sorting orders the cards within each weight class. The weight classes themselves always stay in the same order, so a card never moves to another hall. Works without JavaScript.",
+  "tommelindeks_titel": "Jump to weight class",
 
   "sammenligning_titel": "Compare robots, field by field",
   "sammenligning_lede": "Choose 2 or 3 robots to compare them field by field. Every field from the schema stands in the same order as on the robot page.",

@@ -47,6 +47,10 @@
 
   "katalog_sortering_etiket": "Sortering",
   "katalog_sortering_vaegt": "Vægt, stigende",
+  "katalog_sortering_taethed": "Specifikationstæthed",
+  "katalog_sortering_alfabetisk": "Alfabetisk",
+  "katalog_sortering_forklaring": "Sorteringen ordner kortene inden for hver vægtklasse. Vægtklasserne selv står altid i samme rækkefølge, så et kort ikke skifter sal. Virker uden JavaScript.",
+  "tommelindeks_titel": "Spring til vægtklasse",
 
   "sammenligning_titel": "Sammenlign robotter, felt for felt",
   "sammenligning_lede": "Vælg 2 eller 3 robotter for at sammenligne dem felt for felt. Alle felter fra skemaet står i samme rækkefølge som på robotsiden.",
