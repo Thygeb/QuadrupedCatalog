@@ -2,7 +2,7 @@ slug: magiclab-magicdog-pro
 navn: MagicDog PRO
 producent: MagicLab
 producentland: Kina
-producentby: Wujiang/Suzhou
+producentby: Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [forskning_udvikling, forbruger_uddannelse]
@@ -16,6 +16,7 @@ billede:
   kilde: https://www.magiclabglobal.com/products/magicdog/
   hentet: 2026-08-19
 noter:
+  - "HJEMBYEN ER SUZHOU, IKKE WUJIANG: producentens globale site skriver direkte \"Founded in 2024 and headquartered in Suzhou\" og gentager \"Founded in Suzhou, China\". Strengen \"Wujiang\", som posten tidligere baar ved siden af Suzhou, findes 0 gange i selskabets gemte sider."
   - "TO PRODUCENTSITES, DER MODSIGER HINANDEN. magiclab.top og det nye magiclabglobal.com er begge i luften, begge producentens egne, og de er ikke enige om vaegt, forhindringshoejde, frihedsgrader, driftstid og hastighed. Kilden her er magiclab.top; det globale sites afvigende tal staar i advarslerne. Hvilket site der er primaerkilde, er ikke indsamlerens beslutning."
   - "PRO og EDU deler 41 af 43 tabelraekker. Den eneste specifikationsforskel er SDK-adgang - og fortegnet er kontraintuitivt: EDU har SDK'et, PRO har det ikke."
 felter:
