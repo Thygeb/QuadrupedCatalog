@@ -33,7 +33,7 @@ import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
   FELTER, FELTNAVNE, GRUPPER, FILTER_FELTER, SPROG, tilstandAf, normaliserRobot,
   BILLEDMAPPER, BILLEDE_ENDELSER, feltVisning,
-  normaliserVisningsEnheder,
+  normaliserVisningsEnheder, sorterAnvendelse,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
 import {
@@ -403,7 +403,12 @@ async function main(argv) {
         // klientside-visning ikke kan naa til en anden inddeling end siden.
         vaegtklasse: vaegtklasse(r),
         anvendelse: {
-          vaerdi: (Array.isArray(a.vaerdi) ? a.vaerdi : [a.vaerdi]).map((v) => tilstandAf(v) ?? v),
+          // L27/fund/FUND-detalje.md opgave 4c: sorterAnvendelse() lagger
+          // vaerdierne i den kanoniske orden, saa to filer med de samme
+          // kategorier i modsat YAML-raekkefoelge giver samme indeks.
+          // Samme kald og samme raekkefoelge (tilstandAf foer sortering)
+          // som tools/skabelon/side.mjs' hjaelp.anvendelse().
+          vaerdi: sorterAnvendelse((Array.isArray(a.vaerdi) ? a.vaerdi : [a.vaerdi]).map((v) => tilstandAf(v) ?? v)),
           citat: a.citat === undefined ? [] : (Array.isArray(a.citat) ? a.citat : [a.citat]),
           kilde: a.kilde ?? null, hentet: a.hentet ?? null,
         },
