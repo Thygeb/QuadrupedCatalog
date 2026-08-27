@@ -25,7 +25,8 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-noter"
+      "C:/Praktik/websites/udstilling-wt-noter",
+      "C:/Praktik/websites/udstilling-wt-typografi"
     ]
   },
   "hooks": {
