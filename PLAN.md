@@ -14,13 +14,25 @@ og `critique` (vurderer noget der findes), `frontend-design` og `ui-ux-pro-max`
 
 ## 1. Hvad feltet er
 
-Omkring **42 producenter** af firbenede robotter globalt; den grundigste eksisterende
-oversigt sammenligner **28+ modeller**. Til sammenligning lister humanoid.guide ~235
-humanoider.
+Her stod tidligere et producenttal på 42 og et modeltal på "28+", begge globalt, med
+kilde til en side der i dag svarer HTTP 403 og aldrig definerede, hvad der talte som
+producent (STATUS.md, punkt Å7). Det tal kan ikke citeres og er fjernet.
 
-Det er planens vigtigste enkelttal. **Feltet kan gøres færdigt.** Et katalog på 50-70
-komplette poster er et opslagsværk; 235 halve poster er en liste. Hele strategien
-nedenfor følger af, at vi kan nå bunden af feltet, og at de ikke kan.
+Den bedst efterprøvede afgrænsning, vi selv har lavet, står i `fund/FUND-felt.md`
+(afsnit 4): en gennemsøgt kandidatliste på **57 producenter** — 31 verificeret mod eget
+domæne, 26 navne der kun kommer fra én sekundær kilde (CMRA) og ikke er
+domæneverificeret, 4 forkastede navne talt fra. Vores eget katalog dækker i dag **25
+unikke producenter og 77 robotposter** (`data/robots/*.yaml`, optællingskommando i
+`fund/FUND-producentby.md`). De to tal er talt på forskelligt grundlag og må ikke
+lægges sammen eller sættes i brøk med hinanden.
+
+Til sammenligning lister humanoid.guide ~235 humanoider uden noget tilsvarende loft.
+
+**Feltet kan gøres færdigt.** Ikke fordi vi har talt hvert eksemplar, men fordi den
+bedste kendte afgrænsning (57, efterprøvet — ikke 42 fra en død kilde) er lille nok til,
+at et katalog på 50-70 komplette poster reelt kan dække den, mod humanoid.guides 235
+halve poster, som ikke engang forsøger en afgrænsning. Strategien nedenfor følger af, at
+vi kan nå bunden af et afgrænset felt, og at de ikke kan.
 
 ## 2. Hvad der gør den bedre end forbilledet
 
