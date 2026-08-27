@@ -235,27 +235,58 @@ export function glemBilledDimensioner() { _billedDim.clear(); }
 /**
  * Skal billedet have --plade, UDLEDT af filens eget sideforhold? Bruges kun
  * naar YAML'en ikke selv har taget stilling (se laesBillede). Afvigelsen
- * regnes relativt og retningsloest — |forhold - 16/10| / (16/10) — saa et
+ * regnes relativt og retningsloest — |forhold - maal| / maal — saa et
  * for smalt portraet (yufan-lingmao-cyvet, 0,66) og et for bredt liggende
  * billede (unitree-laikago, 2,34) behandles ens: begge mister noget af
  * robotten under cover, saa begge skal have contain. At skelne retning ville
  * kraeve en begrundelse for hvorfor den ene slags beskaering er vaerre end
  * den anden, og der er ingen — cover skaerer poter af i begge retninger.
+ *
+ * `maal`/`tolerance` (spor/plader, 27. aug 2026): generaliseret fra det
+ * oprindelige katalogkort-specifikke 16:10-tjek, saa den SAMME maalte
+ * graense (25 %, se SIDEFORHOLD_TOLERANCE) kan genbruges mod en ANDEN
+ * rammes eget sideforhold — fx forsidens yderpunkt-plade (4:3, bredere end
+ * katalogkortet), i stedet for at opfinde en ny graense pr. ramme. Ingen
+ * kaldested aendrer sig: begge parametre har standardvaerdier, der giver
+ * PRAECIS den samme funktion som foer denne aendring.
  */
-export function billedAutoPlade(fil, rod = ROD) {
+export function billedAutoPlade(fil, rod = ROD, maal = SIDEFORHOLD_MAAL, tolerance = SIDEFORHOLD_TOLERANCE) {
   if (typeof fil !== 'string' || fil.trim() === '') return false;
   const dim = dimAfFil(path.join(path.resolve(rod), 'assets', fil));
   if (!dim || !dim.w || !dim.h) return false;
   const forhold = dim.w / dim.h;
-  const afvigelse = Math.abs(forhold - SIDEFORHOLD_MAAL) / SIDEFORHOLD_MAAL;
-  return afvigelse > SIDEFORHOLD_TOLERANCE;
+  const afvigelse = Math.abs(forhold - maal) / maal;
+  return afvigelse > tolerance;
 }
+
+/**
+ * Yderpunkt-pladens eget sideforhold (spor/plader, 27. aug 2026). Sat i
+ * assets/generator.css ".yderpunkt .billedled{aspect-ratio:4/3}" — de to
+ * tal SKAL vaere ens, ellers regner billedAutoPlade() mod en ramme, siden
+ * ikke laengere bruger. 4:3 (mod katalogkortets 16:10) er valgt, fordi det
+ * er den stoerste (tætteste-paa-kvadrat) ramme, der stadig lader tre af de
+ * fire faktiske yderpunkt-fotografier (deep-robotics-lynx-s10 1,333 = 0 %
+ * afvigelse, yobotics-y10 1,212 = 9,1 %, microrobotech-movenew-p1 1,409 =
+ * 5,7 %) blive under cover uden --plade — kun galileo-s1-w (1,779 = 33,4 %
+ * afvigelse fra 4:3) rammes og faar contain. Maalt med et engangsscript paa
+ * de fire filers egne byte-header-dimensioner, ikke gaettet.
+ */
+export const YDERPUNKT_FORHOLD = 4 / 3;
 
 /**
  * Robottens billedpost i den form, skabelonerne bruger — eller null.
  * Null betyder den tomme plade, og den er en aerlig tilstand, ikke en fejl.
+ *
+ * `forhold` (spor/plader, 27. aug 2026): hvilken rammes sideforhold det
+ * automatiske plade-tjek skal regne afvigelsen imod. Standard er
+ * SIDEFORHOLD_MAAL (katalogkortets 16:10, uaendret adfaerd for alle
+ * eksisterende kaldesteder). Forsidens yderpunkt-plade sender sin egen
+ * ramme (YDERPUNKT_FORHOLD, 4:3) ind her via hjaelp.billede()'s samme
+ * parameter, saa ÉT sted afgoer "passer billedet i DENNE ramme uden at
+ * miste robotten under cover" — ikke to separate, potentielt divergerende
+ * beregninger.
  */
-export function laesBillede(robot, rod = ROD) {
+export function laesBillede(robot, rod = ROD, { forhold = SIDEFORHOLD_MAAL } = {}) {
   const b = robot?.billede;
   if (!b || typeof b !== 'object' || Array.isArray(b)) return null;
   if (typeof b.fil !== 'string' || b.fil.trim() === '') return null;
@@ -269,7 +300,7 @@ export function laesBillede(robot, rod = ROD) {
   const eksplicitPlade = jaNejAf(b.plade);
   const plade = eksplicitPlade !== null
     ? eksplicitPlade
-    : (billedPlade(b) || billedAutoPlade(b.fil, rod));
+    : (billedPlade(b) || billedAutoPlade(b.fil, rod, forhold));
   return {
     fil: b.fil,
     ophav: tekst(b.ophav),
@@ -1062,8 +1093,12 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     return navn;
   }
 
-  function billede(robot, op = '', { stor = false, eager = false } = {}) {
-    const b = laesBillede(robot);
+  /* `forhold` (spor/plader, 27. aug 2026): sendes videre til laesBillede(),
+     saa en kaldested-specifik ramme (fx forsidens yderpunkt-plade,
+     YDERPUNKT_FORHOLD i side.mjs) kan faa sit EGET plade/cover-tjek, uden at
+     paavirke katalogkortets uaendrede standard (16:10). */
+  function billede(robot, op = '', { stor = false, eager = false, forhold } = {}) {
+    const b = laesBillede(robot, ROD, forhold !== undefined ? { forhold } : {});
     if (!b) return tomPlade(robot, op, stor);
     return billedledHTML({
       b, op, stor, eager, tekst: billedTekst(robot, b),

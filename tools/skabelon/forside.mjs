@@ -77,7 +77,9 @@
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc, ekstremer, vaegtklasse } from './side.mjs';
+import {
+  esc, ekstremer, vaegtklasse, YDERPUNKT_FORHOLD,
+} from './side.mjs';
 import { taethed } from '../validate.mjs';
 
 const attr = esc;
@@ -164,21 +166,41 @@ export function udvalgReglen(robotter, { naevner, d4, antal, minVaegtklasser }) 
 }
 
 /**
- * Ét yderpunkt-felt: fotografi + ét stort maalt tal + robotnavn. Hele fladen
+ * Ét yderpunkt-felt: fotoplade + ét stort maalt tal + robotnavn. Hele fladen
  * er ét klikmaal (samme ::after-teknik som .kort-navn), og kildemaerket
  * loeftes over det, praecis som paa kortet — ellers er bogstavet et link,
  * ingen kan ramme.
+ *
+ * TO RETTELSER (spor/plader, 27. aug 2026), begge uden at roere ekstremer()
+ * (K5: formen aendres, udvaelgelsen ikke):
+ *
+ * 1. `hjaelp.billede(robot, '../', { forhold: YDERPUNKT_FORHOLD })` — foer
+ *    denne rettelse laeste billedet sit plade/cover-tjek mod katalogkortets
+ *    16:10 (laesBillede()'s standard), selvom pladen her rendere i en 4:3-
+ *    ramme (.yderpunkt .billedled). Galileo S1-W (sideforhold 1,78) bestod
+ *    16:10-tjekket (kun 11,9 % afvigelse) men blev beskaaret 25,1 % under
+ *    4:3's cover — maalt paa main FOER denne rettelse. Nu tjekkes billedet
+ *    mod den ramme, det RENDERES i.
+ * 2. `forbehold: post.advarsel ? [post.advarsel] : []` — samme moenster som
+ *    felt()'s kompakte gren (side.mjs, kunVaerdi-stien) allerede bruger paa
+ *    katalogkortet. UDEN denne linje viste MOVENEW P1's driftstid kun den
+ *    generiske "lastbetingelse ikke oplyst" (fra post.ved_last) og TABTE
+ *    robottens egen, mere praecise advarselstekst om de to lastbetingelser
+ *    — den stod aldrig paa forsidens plade foer denne rettelse, kun paa
+ *    robottens egen side og i kataloget.
  */
 function yderpunktHTML(x, { hjaelp, t }) {
   const { robot, post, ikon } = x;
   const hvorhen = `robotter/${robot.slug}/`;
   const kilder = hjaelp.kilder(robot);
-  const figur = hjaelp.tal(post, { kilder, hvorhen, maerke: true });
+  const figur = hjaelp.tal(post, {
+    kilder, hvorhen, maerke: true, forbehold: post.advarsel ? [post.advarsel] : [],
+  });
   // op='../': forsiden ligger paa dist/<sprog>/index.html, billeder/ paa
   // dist/billeder/ — samme "../" som hjaelp.kort() bruger andre steder paa
   // denne side (op:'../' i sektioner-loekken nedenfor).
   return `<article class="yderpunkt">
-${hjaelp.billede(robot, '../')}
+${hjaelp.billede(robot, '../', { forhold: YDERPUNKT_FORHOLD })}
 <div class="yderpunkt-krop">
 <span class="etiket">${hjaelp.ikon(ikon)}${esc(t('yderpunkt_' + x.id))}</span>
 ${figur}

@@ -63,7 +63,29 @@
 
    Overskriften mister sin normale border+luft (systemets .sektion-hoved),
    fordi det NETOP er springet fra overskrift til foto, der afgoer, om et
-   fotografi naar ind i foerste viewport (JPK's tillaeg). */
+   fotografi naar ind i foerste viewport (JPK's tillaeg).
+
+   FOTOPLADER (spor/plader, 27. aug 2026 — L40's sidste punkt: "VITRINEs fire
+   fotoplader med ét stort tal hver", inden for INSTRUMENTs stramme, haarde
+   ramme). Facit er retninger/vitrine/index.html + vitrine.css, men KUN
+   billedgrebet og talstoerrelsen er hentet derfra — IKKE comp'ens loesning:
+   comp'en dropper kortets kant/skygge/baggrund helt (billedet flyder frit
+   paa siden), og det ville genindfoere de bloede streger, INSTRUMENT
+   bevidst fjernede (L40). Kortrammen herunder (border+skygge+hover) er
+   derfor UAENDRET fra spor/instrument2 - kun to ting er rettet for at goere
+   fotoet til pladens hovedsag:
+   1. Billedet faar sit EGET plade/cover-tjek (YDERPUNKT_FORHOLD i side.mjs,
+      4:3 - samme tal som .billedled's aspect-ratio herunder, IKKE
+      katalogkortets 16:10). Foer denne rettelse blev galileo-s1-w (side-
+      forhold 1,78) tjekket mod 16:10 (11,9 % afvigelse, bestod) men vist i
+      DENNE 4:3-ramme, hvor cover skar 25,1 % af billedet af - maalt paa
+      main med maalevaerktoej/maal.mjs FOER rettelsen (beskaaretOver25pct:1).
+      Nu tjekkes billedet mod den ramme, det faktisk vises i.
+   2. Tallet er forstoerret fra clamp(24px,2.1vw,29px) til t-h1's ETABLEREDE
+      skala clamp(27px,3.6vw,46px) (system.css:136) - genbrugt, ikke
+      opfundet - saa figuren baerer samme vaegt som en sideoverskrift, nu
+      hvor fotoet ovenover fylder mere og resten af kortet ellers ville
+      virke underdrevent ved siden af det. */
 .yderpunkter-sektion .sektion-hoved{border-bottom:0;padding-bottom:0}
 .yderpunkter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
   gap:var(--r6);margin-top:var(--r3);align-items:stretch}
@@ -76,10 +98,15 @@
    teknik som .kort .kildemaerke. */
 .yderpunkt .kildemaerke{position:relative;z-index:2}
 .yderpunkt .billedled{aspect-ratio:4/3;border-bottom:1px solid var(--linje)}
-.yderpunkt-krop{display:flex;flex-direction:column;gap:6px;min-width:0;padding:var(--r4)}
+.yderpunkt-krop{display:flex;flex-direction:column;gap:8px;min-width:0;padding:var(--r5)}
 .yderpunkt-krop > .etiket{display:flex;align-items:center;gap:8px}
 .yderpunkt-krop > .etiket .ikon{width:16px;height:16px;stroke-width:1.8;color:var(--accent)}
-.yderpunkt-krop .v{font-size:clamp(24px,2.1vw,29px)}
+.yderpunkt-krop .v{font-size:clamp(27px,3.6vw,46px);margin-top:2px}
+/* Samme princip som K8 (system.css:429): et tal maa aldrig knaekke
+   indvendigt. .v her arver ingen break-word (ingen regel saetter det paa
+   .yderpunkt-krop .v), men reglen skrives eksplicit alligevel, saa den ikke
+   stiltiende afhaenger af at forblive uskrevet andetsteds. */
+.yderpunkt-krop .v .num{white-space:nowrap}
 .yderpunkt-navn{font-size:17px;font-weight:700;letter-spacing:-.016em;margin-top:2px}
 .yderpunkt-navn a{color:var(--blaek);text-decoration:none}
 .yderpunkt-navn a::after{content:"";position:absolute;inset:0;z-index:1}
