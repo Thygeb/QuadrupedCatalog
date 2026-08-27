@@ -438,13 +438,25 @@ a:hover{text-decoration-thickness:2.5px}
 
    Ikonet gaar 18 -> 13 px: det staar nu ved siden af en 10,5 px etiket, ikke
    ved siden af en 18 px figur, og skal maale sig med DEN. */
-.stribe--kompakt > li{border:0;padding:9px 7px 8px;
-  display:grid;grid-template-columns:auto minmax(0,1fr);
+/* --kanal er ikonets maal OG kanalspaltens bredde: ét tal ét sted, saa de to
+   ikke kan komme fra hinanden.
+
+   Spalten skal vaere FAST, ikke `auto`. Med `auto` bidrager aflaesningen i
+   raekken ovenover - som spaender over BEGGE spalter - til spaltens
+   intrinsiske bredde, saa en bred vaerdi puster ikonspalten op og sulter
+   etiketten. Maalt paa en producentside ved 1440, hvor etiketterne er de
+   lange feltnavne ("Maks. hastighed", "Nyttelast, gaaende"): med `auto` satte
+   de 52 celler SEKSTEN forskellige spaltepar, fra 13px+73px til 73px+12px, og
+   20 af 52 etiketter blev klippet. Med et fast maal er der ét spaltepar
+   (13px + 72,8px) og 0 klippede. Katalogsiden skjulte fejlen, fordi den
+   bruger de KORTE etiketter (stribe_*) - producentkortet bruger felt_*. */
+.stribe--kompakt > li{--kanal:13px;border:0;padding:9px 7px 8px;
+  display:grid;grid-template-columns:var(--kanal) minmax(0,1fr);
   grid-template-areas:"vaerdi vaerdi" "ikon etiket";
   align-items:center;column-gap:5px;row-gap:3px}
 .stribe--kompakt .krop{display:contents}
-.stribe--kompakt > li > .ikon{grid-area:ikon;width:13px;height:13px;stroke-width:1.7;
-  margin-top:0}
+.stribe--kompakt > li > .ikon{grid-area:ikon;width:var(--kanal);height:var(--kanal);
+  stroke-width:1.7;margin-top:0}
 .stribe--kompakt .etiket{grid-area:etiket;font-size:10.5px;letter-spacing:.09em}
 .stribe--kompakt .krop > .v{grid-area:vaerdi;min-height:21px}
 /* 18 -> 17 px. Den gamle grad blev valgt som "den smalleste sats, der stadig
@@ -492,6 +504,16 @@ a:hover{text-decoration-thickness:2.5px}
 .stribe--kompakt .v-tal--xlang .num{font-size:.70em;letter-spacing:-.05em}
 .stribe--kompakt .v-tal--xlang .enhed{font-size:.46em}
 .stribe--kompakt .v-tal--xlang .op{font-size:.5em}
+/* Fjerde trin: kun sproget udloeser det. Fem af de seks operatorer er TEGN
+   (≥ ≤ > < ±), men 'cirka' er et ord - "ca." paa dansk, "approx." paa
+   engelsk. Maalt paa katalogsiden: dansk naar 14 tegn i den laengste vaerdi,
+   engelsk 18, og de to laengste engelske skoed 111 og 96 px ud i en 91 px
+   celle, mens dansk gik fri. Fire celler i hele kataloget rammer trinnet
+   (3 engelske, 1 dansk). */
+.stribe--kompakt .v-tal--xxlang{gap:.1em}
+.stribe--kompakt .v-tal--xxlang .num{font-size:.56em;letter-spacing:-.055em}
+.stribe--kompakt .v-tal--xxlang .enhed{font-size:.38em}
+.stribe--kompakt .v-tal--xxlang .op{font-size:.4em}
 
 /* Kildebogstavet er sidens signatur og skal kunne LAESES. .34em af 17 px er
    5,8 px - under det, en skaerm kan saette et versalt bogstav paa. I den
@@ -501,8 +523,7 @@ a:hover{text-decoration-thickness:2.5px}
 
 @media (max-width:420px){
   .stribe--kompakt{gap:5px 8px}
-  .stribe--kompakt > li{padding:6px 5px 6px;column-gap:4px;row-gap:2px}
-  .stribe--kompakt > li > .ikon{width:12px;height:12px}
+  .stribe--kompakt > li{--kanal:12px;padding:6px 5px 6px;column-gap:4px;row-gap:2px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}

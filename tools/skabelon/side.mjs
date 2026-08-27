@@ -808,10 +808,20 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
     // Tegnene, som LAESEREN ser dem: operatoren staar som sit oversatte tegn
     // ("ca.", "±", ">"), ikke som noeglen, saa laengden maales paa samme streng.
+    //
+    // Det er ogsaa derfor tallet skal maales PR. SPROG og ikke én gang: fem af
+    // de seks operatorer er tegn (≥ ≤ > < ±) og koster det samme overalt, men
+    // 'cirka' er et ORD. Dansk skriver "ca." (3 tegn), engelsk "approx." (7).
+    // Maalt paa katalogsiden: de laengste danske vaerdier naar 14 tegn, de
+    // engelske 18 - og de to laengste engelske skoed 111 og 96 px ud i en
+    // celle paa 91, mens dansk gik fri. Havde graenserne kun vaeret maalt paa
+    // dansk, ville fejlen staa paa den engelske side alene.
     const opNavn = OPNAVN[post.operator];
     const opTekst = post.operator ? String(opNavn ? (T['operator_' + opNavn] ?? '') : post.operator) : '';
     const tegn = (opTekst ? opTekst.length + 1 : 0) + figur.length + enhed.length;
-    const laengde = tegn >= 11 ? ' v-tal--xlang' : tegn >= 9 ? ' v-tal--lang' : '';
+    const laengde = tegn >= 14 ? ' v-tal--xxlang'
+      : tegn >= 11 ? ' v-tal--xlang'
+        : tegn >= 9 ? ' v-tal--lang' : '';
 
     const ud = `<span class="v v-tal${nul ? ' v-nul' : ''}${laengde}">${krop}</span>`;
     return titler.length ? medMaerke(ud, '', titler.join(' · ')) : ud;
