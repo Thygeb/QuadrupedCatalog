@@ -78,6 +78,29 @@ function tjekKilde(sti, post) {
   if (t !== undefined && t !== 'primaer' && t !== 'sekundaer') {
     FEJL('R6', sti, `"kildetype" skal vaere primaer eller sekundaer, ikke ${JSON.stringify(t)}`);
   }
+  tjekInterntSprog('R19', `${sti}.advarsel`, post.advarsel);
+}
+
+/**
+ * R19 — internt sprog maa ikke laekke ud paa siden (Å25, 27. aug 2026).
+ * "advarsel:" og "noter:" er skrevet TIL LAESEREN — en post der naevner et
+ * filnavn, et internt feltnavn, et vaerktoej eller vores egen STOPPROEVE-protokol
+ * er skrevet til os i stedet, og hoerer i fund/, ikke i datafilen. Fundet paa 189
+ * noter og 48 advarsler ved en fuld gennemlaesning (ikke en regex-doemt en) af
+ * kataloget 27. aug 2026 — se fund/NOTEARKIV-1.md for de flyttede tekster og
+ * begrundelsen for hvert moenster. Listen er den samme, briefet selv brugte som
+ * acceptkriterium; udvid den her, hvis et nyt moenster findes, ikke i et
+ * engangs-script.
+ */
+const INTERNT_SPROG = /\.yaml|\.mjs|ved_last|_gaaende|_staaende|validator|skal normaliseres|i indlaesningen|STOPPROEVE|BESTAAET/i;
+
+function tjekInterntSprog(regel, sti, tekst) {
+  if (typeof tekst !== 'string') return;
+  const m = tekst.match(INTERNT_SPROG);
+  if (m) {
+    FEJL(regel, sti, `internt sprog ("${m[0]}") i en tekst, laeseren ser paa siden. ` +
+      `Hoerer i fund/, ikke i datafilen — se fund/NOTEARKIV-1.md for moenstret og hvad det blev omskrevet til.`);
+  }
 }
 
 /** R7 — hentedato. Uden den kan posten ikke forældes (PLAN.md afsnit 11). */
@@ -916,6 +939,8 @@ export function tjekRobot(doc, fil) {
       ? n.trim() !== ''
       : Array.isArray(n) && n.length > 0 && n.every((x) => typeof x === 'string' && x.trim() !== '');
     if (!ok) FEJL('R1', 'noter', `"noter" skal vaere en tekst eller en liste af tekster`);
+    else if (typeof n === 'string') tjekInterntSprog('R19', 'noter', n);
+    else n.forEach((tekst, i) => tjekInterntSprog('R19', `noter[${i}]`, tekst));
   }
 
   // R16 — producentens egen anvendelsesinddeling. Ligger uden for "felter" med
