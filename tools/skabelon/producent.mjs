@@ -234,7 +234,7 @@ function euSaetning(ctx, modeller) {
 function kompaktStribe(ctx, m) {
   const kilder = ctx.__kilder?.get(m.slug) ?? [];
   const celler = KORT_FELTER.map(([navn, ikon]) => {
-    const { html, hul } = vaerdi(navn, m.felter?.[navn], { ...ctx, robot: m }, kilder);
+    const { html, hul } = vaerdi(navn, m.felter?.[navn], { ...ctx, robot: m, __kompakt: true }, kilder);
     return {
       hul,
       html: `<li${hul ? ' class="hul"' : ''}><svg class="ikon" aria-hidden="true"><use href="#${ikon}"/></svg><span class="krop">

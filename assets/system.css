@@ -259,12 +259,32 @@ a:hover{text-decoration-thickness:2.5px}
    Formen: et haevet BOGSTAV efter vaerdien, der peger paa kildelisten
    nedenfor. Bogstav og ikke tal, saa det aldrig kan laeses som en del af
    figuren. Beroeringsmaalet er hele vaerdien, ikke bogstavet. */
+/* HAEVNINGEN, RETTET 27. aug 2026. Reglen sagde `vertical-align:super`, og den
+   linje har aldrig virket: .v er `display:inline-flex` (afsnit 8), og
+   vertical-align har ingen virkning paa et flex-element. Formen ovenfor lover
+   "et haevet BOGSTAV efter vaerdien"; det var ikke det, siden viste.
+
+   Maalt paa /da/robotter/ ved 1440 - bogstavets underkant mod figurens
+   grundlinje, over de 141 kortceller, der baerer et kildemaerke:
+     FOER    0 af 141 stod over grundlinjen, i snit 14,6 px UNDER den.
+     EFTER 141 af 141 staar over, i snit 8,2 px over.
+   De 14,6 px er ikke haevningen alene: i de fleste celler var vaerdilinjen
+   braekket, saa bogstavet var faldet ned paa linje to og stod UNDER tallet i
+   stedet for efter det. Denne rettelse og aflaesningslinjen i afsnit 10 tager
+   derfor fat i den samme fejl fra hver sin ende.
+
+   `align-self:flex-start` er haevningen, der virker i en flexboks
+   (samme greb som det gamle forbeholdstegn brugte), og den er
+   layout-bevidst: bogstavet loefter sig uden at kunne flyde ud over cellen,
+   som en relativ forskydning ville. Kun i .v-tal - i "ikke oplyst"-chippen
+   skal bogstavet blive staaende midt i. */
 .kildemaerke{
   position:relative;
   font-family:var(--mono);font-size:.34em;font-weight:700;line-height:1;
-  vertical-align:super;letter-spacing:.02em;color:var(--accent);
+  letter-spacing:.02em;color:var(--accent);
   text-decoration:none;padding:0 1px;
 }
+.v-tal > .kildemaerke{align-self:flex-start}
 /* Bogstavet er 6x8 px. Selve MAALET er 24x24 og ligger centreret om det,
    saa WCAG 2.5.8 holdes uden at bogstavet vokser. Uden det her ville
    maerket vaere et link, ingen kan ramme. */
@@ -395,15 +415,77 @@ a:hover{text-decoration-thickness:2.5px}
    Padding strammet fra 12px/11px til 10px/9px. */
 .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr));box-shadow:none;
   border-radius:var(--rund-ind);gap:8px 12px}
-.stribe--kompakt > li{padding:10px 10px 9px;gap:7px;border:0}
+
+/* AFLAESNINGEN FAAR HELE CELLENS BREDDE (JPK 27. aug 2026, ordre med
+   skaermbillede: "* stabler sig hulter til bulter").
+
+   Maalt i browseren paa /da/robotter/ ved 1440 foer rettelsen: cellen er
+   105 px, men vaerdilinjen havde kun 60 px at staa paa - ikonet (18) og dets
+   gab (7) tog 25 af de 85 px indhold, og krop fik resten. Medianen af det,
+   vaerdilinjerne har BRUG for, var 75 px, 90-percentilen 105 px. Foelgen:
+   175 af 261 talceller braekkede i to linjer, og vaerdiblokken optraadte i
+   15 forskellige hoejder (22, 28, 34, 40 ... 83 px) i det samme gitter. Et
+   instrument har én aflaesningshoejde, ikke femten.
+
+   Rettelsen er ikke en finjustering af gab og skriftgrad, men en flytning:
+   ikonet er en KANALMARKOER og hoerer til etiketten, ikke ved siden af
+   figuren, hvor det konkurrerer med den om bredden. Cellen bliver derfor to
+   raekker - aflaesningen oeverst i fuld bredde, kanalen (ikon + navn)
+   nedenunder - og vaerdilinjen gaar fra 60 til 91 px uden at cellen vokser.
+   `display:contents` paa .krop lader .etiket og .v blive gitterets egne
+   felter, saa HTML'en er uaendret og skaermlaeserens raekkefoelge (etiket
+   foer vaerdi) bevares praecis som column-reverse gav den.
+
+   Ikonet gaar 18 -> 13 px: det staar nu ved siden af en 10,5 px etiket, ikke
+   ved siden af en 18 px figur, og skal maale sig med DEN. */
+.stribe--kompakt > li{border:0;padding:9px 7px 8px;
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  grid-template-areas:"vaerdi vaerdi" "ikon etiket";
+  align-items:center;column-gap:5px;row-gap:3px}
+.stribe--kompakt .krop{display:contents}
+.stribe--kompakt > li > .ikon{grid-area:ikon;width:13px;height:13px;stroke-width:1.7;
+  margin-top:0}
+.stribe--kompakt .etiket{grid-area:etiket;font-size:10.5px;letter-spacing:.09em}
+.stribe--kompakt .krop > .v{grid-area:vaerdi;min-height:21px}
 .stribe--kompakt .v{font-size:18px}
-.stribe--kompakt .krop > .v{min-height:21px}
-.stribe--kompakt .ikon{width:18px;height:18px;stroke-width:1.7}
-.stribe--kompakt .etiket{font-size:10.5px;letter-spacing:.09em}
+
+/* Aflaesningen bryder ALDRIG. Kun .v-tal: "ikke oplyst"-chippen (haard
+   begraensning 5) skal stadig kunne bryde ved sit mellemrum frem for at
+   skyde ud af cellen. */
+.stribe--kompakt .v-tal{flex-wrap:nowrap;gap:.22em}
+
+/* FIGUR OG ENHED PAA SAMME GRUNDLINJE. .v saetter selv `align-items:baseline`
+   (afsnit 8), men stribens egen `.stribe .krop > .v{align-items:center}`
+   vinder paa specificitet og midterstillede enheden i forhold til figuren -
+   "kg" svaevede midt ud for cifrenes hoejde i stedet for at staa paa deres
+   linje. Maalt over de 261 talceller: afstanden mellem de to grundlinjer
+   flyttede sig 3,2 px, da align-items blev sat tilbage til baseline.
+   Kun .v-tal: chipperne (v-ikke, v-ja, v-nej, v-billede) har et lille
+   firkantmaerke, der SKAL staa midt i ordet, og de beholder derfor center. */
+.stribe .krop > .v-tal,.stribe--kompakt .krop > .v-tal{align-items:baseline}
+
+/* OPTISK TILPASNING, ikke en smagsdom. For hver af de 261 talceller blev den
+   stoerste hele skriftgrad, der faktisk passer i cellen, maalt i browseren.
+   Resultatet grupperede sig efter SYNLIGE TEGN (operator + figur + enhed):
+   3-8 tegn passer alle ved 18 px (195 celler), ved 9-10 tegn faldt kravet til
+   13,5-15 px, og over 11 tegn til 11,5-13 px. Klasserne saettes i
+   skabelonen (side.mjs' tal()) og er inert uden for den kompakte celle.
+   Kun FIGUREN skifter grad - enhed, operator og kildebogstav bliver, hvor de
+   er, saa raekken af celler stadig laeses som ét instrument. */
+.stribe--kompakt .v-tal--lang .num{font-size:.67em}
+.stribe--kompakt .v-tal--xlang .num{font-size:.58em}
+.stribe--kompakt .v-tal--xlang .op{font-size:.55em}
+
+/* Kildebogstavet er sidens signatur og skal kunne LAESES. .34em af 18 px er
+   6,1 px - under det, en skaerm kan saette et versalt bogstav paa. I den
+   kompakte celle staar det derfor paa .47em (8,5 px). Det er stadig under
+   halvdelen af figuren, saa rangordenen er uaendret. */
+.stribe--kompakt .v-tal > .kildemaerke{font-size:.47em}
+
 @media (max-width:420px){
   .stribe--kompakt{gap:5px 8px}
-  .stribe--kompakt > li{padding:5px 5px 5px;gap:4px}
-  .stribe--kompakt .ikon{width:13px;height:13px}
+  .stribe--kompakt > li{padding:6px 5px 6px;column-gap:4px;row-gap:2px}
+  .stribe--kompakt > li > .ikon{width:12px;height:12px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}

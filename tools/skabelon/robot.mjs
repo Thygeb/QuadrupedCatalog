@@ -271,6 +271,12 @@ export function vaerdi(navn, post, ctx, kilder) {
   const H = ctx.__H;
   const { i18n, sprog } = ctx;
   const spec = FELTER[navn];
+  // Producentsidens minikort er den samme trange celle som katalogets (se
+  // side.mjs' tal()): imperialkassen flytter til title dér, og kun dér.
+  // `sprog` blev tidligere sendt som andet argument til H.tal og faldt tavst
+  // igennem destruktureringen som lutter standardvaerdier - den var aldrig
+  // laest. Nu baerer pladsen den oplysning, der faktisk bruges.
+  const kompakt = ctx.__kompakt === true;
 
   if (post === undefined) {
     return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
@@ -299,10 +305,10 @@ export function vaerdi(navn, post, ctx, kilder) {
     // Et tekstfelt kan baere et maalbart interval ved siden af producentens
     // ordlyd (Spots "ureguleret DC 35-58,8 V"). Det skal med.
     if (post.min !== undefined) {
-      html += ` ${H.tal({ min: post.min, maks: post.maks, enhed: post.enhed }, sprog)}`;
+      html += ` ${H.tal({ min: post.min, maks: post.maks, enhed: post.enhed }, { kompakt })}`;
     }
   } else {
-    html = H.tal(post, sprog);
+    html = H.tal(post, { kompakt });
     // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
     // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
     // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,
