@@ -8,16 +8,16 @@ anvendelse:
   vaerdi: ikke_oplyst
   kilde: https://www.ghostrobotics.io/spirit-40
   hentet: 2026-08-19
-  note: "PRODUCENTEN HAR INGEN SIDE OM MODELLEN. Den gemte fil har <title>Not Found</title> og teksten \"Page Not Found\". Uden en side er der intet at citere, og Ghost Robotics generelle forsvarspositionering hoerer til Vision 60, ikke til en model producenten ikke laengere omtaler."
+  note: "PRODUCENTEN HAR INGEN SIDE OM MODELLEN. Den gemte fil har <title>Not Found</title> og teksten \"Page Not Found\". Uden en side er der intet at citere, og Ghost Robotics generelle forsvarspositionering hører til Vision 60, ikke til en model producenten ikke længere omtaler."
 billede:
   fil: fotos/fabrikant/ghost-robotics-spirit-40.jpg
   ophav: fabrikant
   kilde: https://www.ghostrobotics.io/
   hentet: 2026-08-19
 noter:
-  - "PRODUCENTEN OMTALER IKKE LAENGERE MODELLEN. https://www.ghostrobotics.io/spirit-40 svarer HTTP 404, og navigationen paa producentens forside indeholder praecis ET produktlink: /vision-60. Maalt 2026-08-19."
+  - "PRODUCENTEN OMTALER IKKE LÆNGERE MODELLEN. https://www.ghostrobotics.io/spirit-40 svarer HTTP 404, og navigationen på producentens forside indeholder præcis ET produktlink: /vision-60. Målt 2026-08-19."
   - "INGEN FELTER INDSAMLET. Der findes specifikationer hos forhandlere og i tredjepartsdatabaser; de er bevidst ikke hentet, fordi de ikke kan dateres mod producenten og ville give posten en falsk friskhed."
-  - "Status udgaaet er en katalogbeslutning truffet paa 404-svaret og navigationen, ikke en erklaering fra producenten. Producenten har ikke selv sagt, at modellen er udgaaet."
+  - "Status udgået er en katalogbeslutning truffet på 404-svaret og navigationen, ikke en erklæring fra producenten. Producenten har ikke selv sagt, at modellen er udgået."
 felter:
   egenvaegt: ikke_oplyst
   laengde: ikke_oplyst
