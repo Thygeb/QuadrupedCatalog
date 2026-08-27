@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"PROJEKTREGEL (quadruped-guide): Start opgaven med en skill-vurdering. Skriv hvilken skill du valgte og hvilke du gik forbi, med begrundelse. Ingen skill passer her er et gyldigt svar, men det skal skrives. Kan opgaven deles: koer agenter parallelt, hver med egen git-worktree, egen skill-vurdering, egen selv-test med taelling af efterproevede felter, og eget review. Projektskills: .claude/skills/robotdata (robotposter) og .claude/skills/parallelt (parallelle agenter). Roer aldrig salgssiden.\"}}'",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"PROJEKTREGEL (quadruped-guide): Start opgaven med en skill-vurdering. Skriv hvilken skill du valgte og hvilke du gik forbi, med begrundelse. Ingen skill passer her er et gyldigt svar, men det skal skrives. Kan opgaven deles: koer agenter parallelt, hver med egen git-worktree, egen skill-vurdering, egen selv-test med taelling af efterproevede felter, og eget review. Projektskills (8, se CLAUDE.md's tabel): robotdata, parallelt, grillmig (foer brief/beslutning), brief (byg briefets krop), fejljagt (uventet adfaerd), flet (flet+oprydning), supabase, supabase-postgres-best-practices. Roer aldrig salgssiden.\"}}'",
             "timeout": 5
           }
         ]

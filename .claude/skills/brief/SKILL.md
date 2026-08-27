@@ -81,6 +81,25 @@ X". Finder du ét, er briefet ikke færdigt. Reglen for rettelses-briefs er den
 samme, skærpet: fil:linje, citat af det nuværende, det ønskede resultat
 konkret, ét kriterium pr. punkt, én linje hvorfor.
 
+### 10. Briefets fakta er påstande — og at måle dem er sporets leverance
+
+Skriv det ind i briefet: **afviger noget, agenten måler, fra noget, briefet
+påstår, skal afvigelsen rapporteres — det er en del af leverancen, ikke
+ulydighed.** Session 26.-27. aug: to agenter rettede orkestratorens fakta
+(et forkert struktur-antaget script, et forkert feltantal), begge på eget
+initiativ, begge korrekte. Det var sessionens billigste kvalitetskontrol —
+orkestratoren kontrolleres ellers af ingen.
+
+Samme regel for citater, dine egne inklusive: **et citat er et tal.** Citeret
+med linjenummer og slået op = høj konfidens; citeret efter hukommelse = lav,
+og skal mærkes. To løse citater slap igennem på én session (ARBEJDSGANG-3 V3),
+og begge lød dokumenterede, netop fordi de bar en henvisning.
+
+**Denne tjekliste gælder også rettelsesbeskeder til et kørende spor.** En
+rettelsesbesked er et brief — fil:linje, citat af det nuværende (opslået, ikke
+husket), ønsket resultat, kørt acceptkriterium. Sessionens fejl 6 var en
+rettelsesbesked sendt uden om alle værn.
+
 ## Efter afsendelse
 
 Skriv sporet i STATUS.md's kørende-spor-post (worktree, gren, ejerskab,
