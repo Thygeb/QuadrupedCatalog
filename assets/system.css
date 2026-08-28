@@ -217,19 +217,69 @@ a:hover{text-decoration-thickness:2.5px}
   text-transform:uppercase;color:var(--blaek3);
   border:1px dashed var(--hegn);border-radius:var(--rund-lille);padding:1px 7px 2px;
   align-self:flex-start;margin-top:2px}
-.baand nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:2px}
+/* ÉT SPOR, ALDRIG TO RAEKKER. Reglen staar her og ikke inde i brudpunktet,
+   fordi braekket ikke hoerer til én bredde: maalt 28. aug 2026 stod baandet
+   paa 160 px og TO raekker fra 320 px helt op til ca. 500 px, og foerst ved
+   600 px paa én. `overflow-x:auto` er inert dér, hvor laenkerne har plads —
+   den koster ingenting paa de bredder, hvor der intet er at rulle. Den
+   fulde begrundelse staar ved brudpunktet nedenfor. */
+.baand nav{margin-left:auto;display:flex;flex-wrap:nowrap;gap:2px;
+  overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;
+  scroll-padding-inline:var(--r9)}
+.baand nav::-webkit-scrollbar{display:none}
+.baand nav a{flex:0 0 auto}
+/* TO TING, ET RULLESPOR KOSTER, HVIS INGEN MAALER DEM. Begge er fundet ved
+   at foere tastaturet gennem baandet 28. aug 2026, ikke ved at se paa det.
+
+   1. `scroll-padding-inline`. Blink ruller KUN et fokuseret element frem,
+      naar det ligger HELT uden for rulleporten - 17 px synligt regnes som
+      synligt nok. Maalt: en tastaturbruger, der naaede "In English" ved
+      390 px, fik den staaende paa 17 af 76 px, og sporet blev paa
+      scrollLeft 0. Bekraeftet ved kontrolforsoeg: samme spor med laenken
+      HELT uden for rullede 217 af 217 px. Rullefyldet skubber laenken ud af
+      den "optimale visningszone", saa browseren beslutter at rulle.
+      96 px er MAALT, ikke valgt: 48 px afsloerede stadig kun 94 af 111 px
+      paa "Producenter" ved 421 px; 96 px afsloerer alle fem laenker helt
+      ved 320, 390, 421 og 480 px, og 128 px goer ikke mere.
+
+   2. `outline-offset:-3px`. `overflow-x:auto` klipper ogsaa fokusringen -
+      OGSAA ved 1440 px, hvor der intet er at rulle, for en overflow-boks
+      klipper uanset om den ruller. Ringen tegnes derfor INDE i laenken.
+      Uden det staar den yderste laenkes ring uden for klipkassen og
+      forsvinder helt paa den side, den vender ud mod. */
+.baand nav a:focus-visible{outline-offset:-3px}
 .baand nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
   font-size:15px;font-weight:600;text-decoration:none;color:var(--blaek2);
   border-radius:var(--rund-ind)}
 .baand nav a:hover{background:var(--panel-ro);color:var(--blaek)}
 .baand nav a[aria-current]{color:var(--accent);background:var(--accent-ro)}
-/* Under 420 px (systemets eget kompakt-brudpunkt, jf. §11 nedenfor) er de
-   fire navigationslaenke tilsammen bredere end skaermen og braekker over to
+/* Under 420 px (systemets eget kompakt-brudpunkt, jf. §11 nedenfor) er
+   navigationslaenkene tilsammen bredere end skaermen og braekker over to
    raekker i stedet for én — maalt at koste en hel ekstra 44 px-raekke paa
    robotsidens foerste skaermhoejde (fund/FUND-detalje.md, opgave 1). Mindre
-   vandret luft, ikke en mindre trykflade: min-height holder 44 px. */
+   vandret luft, ikke en mindre trykflade: min-height holder 44 px.
+
+   DEN RETTELSE HOLDT IKKE, OG GRUNDEN STAAR I SAETNINGEN OVENFOR: den blev
+   regnet paa FIRE laenker. Sprogskifteren "In English" kom til bagefter, og
+   med den er summen 429 px mod 358 px raadighed ved 390 px — baandet stod
+   paa 160 px og TO raekker fra 320 helt op til 480, mens DESIGN.md's
+   changelog paastod én. Maalt 28. aug 2026, fem bredder.
+
+   Mindre luft raekker ikke laengere: for at presse 429 px ind paa 358 skulle
+   graden ned paa 12 px, og det er at betale for én raekke med laeselighed.
+   Baandet bliver derfor ét SPOR, der kan rulles vandret — alle fem laenker
+   beholdt, 44 px trykflade beholdt, 14 px grad beholdt. Affordancen er, at
+   den femte laenke er SKAARET, ikke skjult: den rager synligt ind i sporet,
+   og et snit paa et element er den eneste maade, en vandret liste kan sige
+   "der er mere" uden at bruge en raekke paa at sige det.
+
+   Rullepanelet selv er slaaet fra i sporet: en 12 px bred bjaelke under en
+   44 px raekke ville vaere en fjerdedel af baandet. Sporet er ikke en
+   tastaturfaelde — laenkerne er selv fokuserbare, og browseren ruller
+   sporet hen til den laenke, der faar fokus. */
 @media (max-width:420px){
-  .baand nav a{padding:0 10px;font-size:14px}
+  .baand nav a{padding:0 8px;font-size:14px}
+  .baand nav{width:100%;margin-left:0}
 }
 
 /* --- 8. De fire datatilstande --------------------------------------------- */
