@@ -1,11 +1,22 @@
-/* filter.js — JavaScript maa KUN tilfoeje filtrering.
-   Kataloget er allerede fuldt renderet i tabellen, naar denne fil koerer. Uden
-   JS ser laeseren hele tabellen og ingen daade knapper: formularen staar med
-   `hidden` i HTML'en, og det er denne fil, der fjerner den. Skulle filen fejle,
-   bliver siden staaende som en komplet, statisk tabel.
+/* filter.js — IKKE LAESSET AF NOGEN SIDE (opdaget under spor/spaend, L50,
+   27. aug 2026 - grep efter "filter.js" i hele tools/ og dist/ giver 0
+   traeff, ingen skabelon skriver <script src="filter.js">). Filen antager
+   en <table><tr>-struktur (#filter, .katalog tbody, tr) og <select>-vaerdier
+   (v.value), som slet ikke findes i kataloget i dag - katalog.mjs blev
+   ombygget 25. aug 2026 (spor/lysbyg) til kort/gitter/"sal"-markup, og
+   filtreringen sker nu UDEN JavaScript, alene i CSS med :has() (se
+   tools/skabelon/katalog.mjs' hovedStil()). katalog.js (som RENT FAKTISK
+   indlæses) tilfoejer kun fritekstsoegning oveni - ikke selve filtreringen.
 
-   Hver filtertilstand faar sin egen URL (PLAN.md afsnit 6), saa en filtreret
-   liste kan sendes videre. */
+   Denne fil ser ud til at vaere en rest fra FOER 25. aug-ombygningen, som
+   ikke blev slettet. Den er IKKE slettet her (uden for dette punkts
+   bemyndigelse - se rapporten), men linje 39's strenge lighed er alligevel
+   rettet til en medlemskabstest nedenfor, saa filen ikke laengere
+   demonstrerer den forkerte regel, hvis den nogensinde genoplives eller
+   bruges som skabelon andetsteds. L50 kraever, at en robot med FLERE
+   vaerdier i sit data-attribut (mellemrumsadskilt, samme form som
+   katalog.mjs allerede skriver) matcher paa ETHVERT af dem - ikke kun ved
+   fuld strengelighed. */
 (function () {
   'use strict';
   var form = document.getElementById('filter');
@@ -36,7 +47,13 @@
     var synlige = 0;
     raekker.forEach(function (r) {
       var vis = vaelgere.every(function (v) {
-        return !v.value || r.dataset[v.dataset.filter] === v.value;
+        // L50: en medlemskabstest, ikke streng lighed - et data-attribut kan
+        // baere flere mellemrumsadskilte vaerdier (fx en vaegtklasse-robot,
+        // hvis spaend daekker flere klasser), og skal matche saa snart
+        // filtervaerdien er ÉT af dem.
+        if (!v.value) return true;
+        var vaerdi = r.dataset[v.dataset.filter] || '';
+        return vaerdi.split(/\s+/).indexOf(v.value) !== -1;
       });
       r.hidden = !vis;
       if (vis) synlige++;

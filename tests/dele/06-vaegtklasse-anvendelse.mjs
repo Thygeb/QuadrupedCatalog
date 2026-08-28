@@ -43,6 +43,28 @@ export default async function koer(ctx) {
     // Interval hen over en graense: maa ikke kollapse til sit midtpunkt (regel 5).
     vaegt('g-interval', 'G Interval', `  egenvaegt:\n    vaerdi_min: 18\n    vaerdi_maks: 25\n    enhed: kg\n` +
       `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // L50 (JPK 27. aug 2026, spor/spaend): et vaegtspaend, der daekker flere
+    // klasser, skal vises i dem ALLE. Briefets to navngivne eksempler
+    // (mab-honey-badger-4/-5, 15-50 og 13-50 kg) kan ikke bruges her laengere
+    // - data/robots/ er rettet siden briefet blev skrevet (spor/d14data, som
+    // ikke ejes af dette spor), og begge robotter har i dag ét enkelt tal
+    // (12 kg og 17 kg). De to fixtures her genbruger PRAECIS briefets egne
+    // graenser (13-50 og 15-50 kg) som syntetisk data i stedet - samme
+    // moenster testen allerede bruger til alt andet ovenfor.
+    vaegt('n-tre-klasser-a', 'N Tre A', `  egenvaegt:\n    vaerdi_min: 13\n    vaerdi_maks: 50\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    vaegt('n-tre-klasser-b', 'N Tre B', `  egenvaegt:\n    vaerdi_min: 15\n    vaerdi_maks: 50\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // Graensetilfaelde (punkt 2's valg): et spaend der SLUTTER praecis paa 20
+    // taeller med i BAADE under_20 og 20_40.
+    vaegt('p-graense-20-spaend', 'P Graense 20', `  egenvaegt:\n    vaerdi_min: 10\n    vaerdi_maks: 20\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
+    // Graensetilfaelde (punkt 2's valg): et spaend der STARTER praecis paa 40
+    // taeller med i BAADE 20_40 og over_40. Samme graense som den ENESTE
+    // robot, der reelt har et vaegtinterval i data/robots/ i dag
+    // (microrobotech-movenew-t1, 40-50 kg, opdaget under efterproevning).
+    vaegt('o-graense-40-spaend', 'O Graense 40', `  egenvaegt:\n    vaerdi_min: 40\n    vaerdi_maks: 60\n    enhed: kg\n` +
+      `    kilde: https://example.com/a\n    hentet: 2026-08-19\n`),
     vaegt('h-ingen-vaegt', 'H Ingen', `  egenvaegt: ikke_oplyst\n`),
     // Vaegt i pund er ikke kg og maa ikke laeses som et tal i kg.
     vaegt('i-kun-imperial', 'I Imperial', `  egenvaegt:\n    vaerdi: 74\n    enhed: lb\n` +
@@ -109,16 +131,20 @@ export default async function koer(ctx) {
   const fSide = fs.readFileSync(path.join(ud, 'da', 'robotter', 'f-paa-graensen', 'index.html'), 'utf8');
   ok('"<= 20 kg" ligger paa graensen, og operatoren staar synligt paa siden i stedet for et flag',
     vk['f-paa-graensen'] === '20_40' && operatorRegex('≤', '20').test(fSide));
-  /* IKKE RETTET - flyttet til en kendt, aaben brist. vaegtIKg() i side.mjs
-     regner et interval som (min+maks)/2 for at afgoere klassen: (18+25)/2 =
-     21,5 -> 20_40. Det er PRAECIS den kollaps til midtpunktet, denne proeves
-     oprindelige navn advarer imod ("kollapser ikke til sit midtpunkt"), og der
-     findes intet graensetilfaelde-flag eller andet signal, der viser laeseren,
-     at 18 kg af intervallet faktisk ligger i under_20. Proeven er IKKE vendt
-     om til at bevise midtpunktsreglen - det ville saenke et krav, ingen har
-     besluttet at saenke. Den staar bevidst som FEJL. Se fund/FUND-test.md. */
-  ok('interval 18-25 kg kollapser ikke til sit midtpunkt (uafklaret - se fund/FUND-test.md)',
-    vk['g-interval'] !== '20_40', vk['g-interval']);
+  /* L50 (JPK 27. aug 2026) har afgjort det, denne test tidligere holdt aabent
+     (fund/FUND-test.md): en robot, hvis vaegtspaend daekker flere klasser,
+     skal vises i dem ALLE. Det er IKKE laengere en aaben brist - det er en
+     implementeret regel, blot et andet sted end denne proeve oprindeligt
+     kiggede.
+
+     vaegtklasse() (ENTAL, det felt robots.json og vk[] her laeser) laeser
+     stadig KUN ét tal via centralVaerdi()'s midtpunkt - (18+25)/2 = 21,5 ->
+     '20_40' - fordi forsidens fremhaevelseslogik og robotsidens klassetekst
+     forudsaetter praecis én klasse pr. robot (uaendrede filer, uden for
+     dette spors ejerskab). Det er nu det TILSIGTEDE resultat for ENTAL, ikke
+     en brist. */
+  ok('18-25 kg (g-interval) -> vaegtklasse() i ENTAL giver stadig 20_40 (midtpunkt, tilsigtet - se L50-proeverne nedenfor for FLERTAL)',
+    vk['g-interval'] === '20_40', vk['g-interval']);
   ok('ingen vaegt -> klassen ikke_oplyst, og robotten bliver staaende',
     vk['h-ingen-vaegt'] === 'ikke_oplyst', vk['h-ingen-vaegt']);
   ok('74 lb laeses ikke som 74 kg', vk['i-kun-imperial'] === 'ikke_oplyst', vk['i-kun-imperial']);
@@ -132,16 +158,20 @@ export default async function koer(ctx) {
      ekstra kilde, der kan skride fra den foerste. */
   const fordeling = { under_20: 0, '20_40': 0, over_40: 0, ikke_oplyst: 0 };
   for (const rb of json.robotter) fordeling[rb.vaegtklasse] = (fordeling[rb.vaegtklasse] ?? 0) + 1;
-  // Taellingen er efterregnet i haanden fil for fil (g-interval taeller her
-  // som 20_40, jf. den kendte midtpunktsbrist ovenfor):
-  //   under_20 1   a-under 19,9
-  //   20_40    5   b-nedre 20 · c-midt 39,9 · d-oevre 40 (rettet graense) · f-graense <=20 · g-interval (kollaps)
-  //   over_40  1   e-cirka ~60
+  // Taellingen er efterregnet i haanden fil for fil. Denne fordeling bruger
+  // stadig vaegtklasse() i ENTAL (robots.json's felt, midtpunktsbaseret) -
+  // de fire L50-fixtures nedenfor tilfoejer hver praecis ÉT tal her, uanset
+  // hvor mange klasser de daekker i kataloget (se de nye "L50"-proever):
+  //   under_20 2   a-under 19,9 · p-graense-20 (midtp. 15)
+  //   20_40    7   b-nedre 20 · c-midt 39,9 · d-oevre 40 · f-graense <=20 ·
+  //                g-interval (midtp. 21,5) · n-tre-klasser-a (midtp. 31,5) ·
+  //                n-tre-klasser-b (midtp. 32,5)
+  //   over_40  2   e-cirka ~60 · o-graense-40 (midtp. 50)
   //   ikke_oplyst 6  h-ingen · i-imperial(lb) · j · k · l-mor · m-barn
-  // 1+5+1+6 = 13 filer, som der er.
-  ok('den afledte fordeling summer korrekt: under_20 1 / 20_40 5 / over_40 1 / ikke_oplyst 6',
-    fordeling.under_20 === 1 && fordeling['20_40'] === 5
-    && fordeling.over_40 === 1 && fordeling.ikke_oplyst === 6,
+  // 2+7+2+6 = 17 filer, som der er (13 + de fire nye L50-fixtures).
+  ok('den afledte fordeling summer korrekt: under_20 2 / 20_40 7 / over_40 2 / ikke_oplyst 6',
+    fordeling.under_20 === 2 && fordeling['20_40'] === 7
+    && fordeling.over_40 === 2 && fordeling.ikke_oplyst === 6,
     JSON.stringify(fordeling));
   ok('og summen af de fire klasser er alle robotterne - ingen falder ud imellem dem',
     Object.values(fordeling).reduce((a, b) => a + b, 0) === json.robotter.length,
@@ -220,6 +250,41 @@ export default async function koer(ctx) {
   ok('og anvendelserne som en maengde, mellemrumsadskilt',
     jMaengde.includes(['industri', 'logistik', 'sikkerhed_overvaagning'].sort().join(' ')),
     jMaengde.join(' | '));
+
+  /* --- L50 (JPK 27. aug 2026): en robot med et vaegtspaend, der daekker
+     flere klasser, skal vises i dem ALLE. Proevet robot for robot (ikke kun
+     "en eller anden raekke har disse vaerdier" som anv-maengden ovenfor) -
+     hver robots eget data-vaegt-lag findes ud fra dens EGEN "href="<slug>/""
+     i kataloget, saa en fejl i én robots klassificering ikke kan forveksles
+     med en anden robots. */
+  const blokForSlug = (html, slug) => {
+    const i = html.indexOf(`href="${slug}/"`);
+    if (i === -1) return '';
+    const start = html.lastIndexOf('<div class="lag lag-anv"', i);
+    const naeste = html.indexOf('<div class="lag lag-anv"', i + 1);
+    return html.slice(start, naeste === -1 ? html.length : naeste);
+  };
+  const vaegtAf = (slug) => {
+    const m = blokForSlug(katalog, slug).match(/<div class="lag lag-vaegt" data-vaegt="([^"]*)"/);
+    return m ? m[1].split(' ').filter(Boolean).sort().join(' ') : '(robot ikke fundet i kataloget)';
+  };
+  ok('L50: 13-50 kg (n-tre-klasser-a, briefets eget regneeksempel) daekker alle tre klasser',
+    vaegtAf('n-tre-klasser-a') === ['under_20', '20_40', 'over_40'].sort().join(' '),
+    vaegtAf('n-tre-klasser-a'));
+  ok('L50: 15-50 kg (n-tre-klasser-b) daekker alle tre klasser, ligesom 13-50',
+    vaegtAf('n-tre-klasser-b') === ['under_20', '20_40', 'over_40'].sort().join(' '),
+    vaegtAf('n-tre-klasser-b'));
+  ok('L50 graensetilfaelde: spaend der SLUTTER praecis paa 20 (10-20 kg) daekker BAADE under_20 og 20_40',
+    vaegtAf('p-graense-20-spaend') === ['under_20', '20_40'].sort().join(' '),
+    vaegtAf('p-graense-20-spaend'));
+  ok('L50 graensetilfaelde: spaend der STARTER praecis paa 40 (40-60 kg) daekker BAADE 20_40 og over_40',
+    vaegtAf('o-graense-40-spaend') === ['20_40', 'over_40'].sort().join(' '),
+    vaegtAf('o-graense-40-spaend'));
+  ok('L50: 18-25 kg (g-interval) daekker BAADE under_20 og 20_40 i kataloget - den regel, denne fil holdt aaben, er nu proevet direkte',
+    vaegtAf('g-interval') === ['under_20', '20_40'].sort().join(' '),
+    vaegtAf('g-interval'));
+  ok('enkelttal-robotter faar fortsat PRAECIS én klasse i kataloget (fx a-under, 19,9 kg)',
+    vaegtAf('a-under') === 'under_20', vaegtAf('a-under'));
 
   // Klassen er afledt. Staar den i en YAML-fil, er beslutningen brudt.
   const iData = fs.readdirSync(path.join(rod, 'data', 'robots'))

@@ -43,7 +43,7 @@
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc } from './side.mjs';
+import { esc, centralVaerdi } from './side.mjs';
 import { tilstandAf } from '../skema.mjs';
 /* Specifikationstaetheden hentes fra validate.mjs' egen taethed() - IKKE
    regnet efter i haanden her. Et haandregnet taethedstal ved siden af det
@@ -87,9 +87,16 @@ function facetter(robotter, hjaelp, i18n) {
       tekst: (v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst : t('anvendelse_' + v)),
     },
     {
+      // L50: en robot med et vaegtspaend, der daekker flere klasser, skal
+      // matche i dem ALLE. vaerdier() returnerer derfor SAETTET fra
+      // hjaelp.vaegtklasser() (flertal), ikke det enkelte hjaelp.vaegtklasse()
+      // - samme mekanik som 'anv'-facetten ovenfor allerede bruger til flere
+      // vaerdier pr. robot. antal-taellingen laengere nede (linje ~117) og
+      // CSS'ens data-vaegt~="..."-medlemskabstest (hovedStil) kraever ingen
+      // aendring: de virker allerede paa en vaerdiliste, ikke ét tal.
       navn: 'vaegt',
       etiket: t('filter_vaegt'),
-      vaerdier: (r) => [hjaelp.vaegtklasse(r)],
+      vaerdier: (r) => hjaelp.vaegtklasser(r),
       tekst: (v) => t('vaegtklasse_' + v),
       orden: hjaelp.VAEGTKLASSER,
     },
@@ -173,7 +180,7 @@ export function render(ctx) {
   const vaegt = (r) => {
     const p = r.felter?.egenvaegt;
     if (!p || typeof p === 'string' || typeof p.vaerdi === 'string') return Infinity;
-    const v = p.min !== undefined ? (p.min + p.maks) / 2 : p.vaerdi;
+    const v = centralVaerdi(p);
     return typeof v === 'number' ? (p.enhed === 'g' ? v / 1000 : v) : Infinity;
   };
   const sorteret = [...robotter].sort((a, b) => klasseOrden(a) - klasseOrden(b)

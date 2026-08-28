@@ -12,7 +12,11 @@
  *
  * De seks navne ovenfor er kontrakten og aendres ikke. `hjaelp` baerer desuden
  * et par bekvemmeligheder (esc, felt, stribe, kort, eu, billede, ikon, land,
- * taethed, tegnforklaring), som skabelonerne maa bruge, men ikke skal.
+ * taethed, tegnforklaring, vaegtklasser), som skabelonerne maa bruge, men
+ * ikke skal. vaegtklasser (L50) er vaegtklasse()'s flertalsversion - svarer
+ * et SAET klasser for et vaegtspaend i stedet for én streng - og bruges i
+ * dag kun af katalog.mjs; de skabeloner der forudsaetter praecis én klasse
+ * (forside, robotside) laeser fortsat vaegtklasse() uaendret.
  *
  *   ctx.i18n  T         opslag der FEJLER paa en manglende noegle (streng)
  *             t(n)      bloedt opslag: en manglende noegle bliver til «noegle»
@@ -506,16 +510,53 @@ export const ikon = (navn, klasse = 'ikon') =>
 export const VAEGTKLASSER = ['under_20', '20_40', 'over_40', 'ikke_oplyst'];
 export const VAEGTGRAENSER = { under: 20, over: 40 };
 
+/**
+ * Reducerer ét talfelt - der kan vaere et enkelt tal ELLER et interval
+ * ({min, maks}) - til ÉT centraltal (midtpunktet for et interval).
+ *
+ * HVORFOR vi overhovedet reducerer: nogle beregninger kan pr. definition kun
+ * arbejde med ét tal ad gangen - en grov vaegtklasse (`vaegtIKg`), en
+ * tvaers-af-enheder-sammenligning til et yderpunkt (`feltIBasis`), eller en
+ * skalering af en maalt silhuet i millimeter (`iMillimeter`). Midtpunktet er
+ * det mindst vilkaarlige valg, naar vi alligevel er tvunget til ét tal.
+ *
+ * MAA bruges til: intern sortering, klassificering og sammenligning, hvor
+ * resultatet ALDRIG vises for laeseren som et selvstaendigt tal.
+ *
+ * MAA IKKE bruges til at VISE et interval. Regel 5 og L47 er, at et spaend
+ * vises som producentens eget "20-25 cm", aldrig som "22,5 cm" - et tal
+ * producenten aldrig skrev. Visning laeser `post.min`/`post.maks` direkte
+ * (se fx `somSkrevet()` laengere nede) og kalder aldrig denne funktion.
+ *
+ * Var TRE selvstaendige kopier af samme regning (side.mjs, foer dette punkt:
+ * ca. linje 514, 552 og 1204) - projektets dyreste tilbagevendende fejl
+ * (L30, Aa12, KRITIK-4 fund 2) er netop at saadanne kopier skrider fra
+ * hinanden ved den fjerde. Samlet her, saa der kun er ét sted at rette.
+ */
+export function centralVaerdi(post) {
+  return post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+}
+
+/** Omregningsfaktor til kg, eller null hvis enheden ikke er en vaegt vi
+ *  kender. KUN kg/g accepteres her - `ton`/`lb`/`oz` findes i ENHEDER, men
+ *  egenvaegt-feltet er valideret til kun at bruge kg/g (se validate.mjs), saa
+ *  en tredje enhed her ville vaere et datafejlsymptom, ikke en gyldig vaegt.
+ *  Ét sted for denne regel, brugt af baade vaegtIKg og vaegtEndepunkterIKg. */
+function vaegtFaktor(enhed) {
+  if (enhed === 'kg') return 1;
+  if (enhed === 'g') return 0.001;
+  return null; // ukendt/uventet enhed taeller ikke som oplyst vaegt
+}
+
 /** Egenvaegten i kg, eller null hvis den ikke er oplyst som et tal. */
 function vaegtIKg(robot) {
   const p = robot?.felter?.egenvaegt;
   if (!p || typeof p === 'string') return null;
   if (tilstandAf(p.vaerdi)) return null;
-  const v = p.min !== undefined ? (p.min + p.maks) / 2 : p.vaerdi;
+  const v = centralVaerdi(p);
   if (typeof v !== 'number' || Number.isNaN(v)) return null;
-  if (p.enhed === 'kg') return v;
-  if (p.enhed === 'g') return v / 1000;
-  return null; // ukendt enhed taeller ikke som oplyst vaegt
+  const faktor = vaegtFaktor(p.enhed);
+  return faktor === null ? null : v * faktor;
 }
 
 export function vaegtklasse(robot) {
@@ -524,6 +565,57 @@ export function vaegtklasse(robot) {
   if (kg < VAEGTGRAENSER.under) return 'under_20';
   if (kg <= VAEGTGRAENSER.over) return '20_40';
   return 'over_40';
+}
+
+/** Egenvaegtens graenser i kg som {min, maks}, eller null hvis feltet ikke
+ *  er et interval (se vaegtklasser() nedenfor for det tilfaelde), ikke er
+ *  oplyst, eller staar i en enhed vaegtFaktor() ikke kender. */
+function vaegtEndepunkterIKg(robot) {
+  const p = robot?.felter?.egenvaegt;
+  if (!p || typeof p === 'string') return null;
+  if (p.min === undefined) return null; // intet interval
+  if (tilstandAf(p.vaerdi)) return null;
+  const faktor = vaegtFaktor(p.enhed);
+  if (faktor === null) return null;
+  return { min: p.min * faktor, maks: p.maks * faktor };
+}
+
+/**
+ * L50 (JPK 27. aug 2026): en robot, hvis vaegtspaend daekker flere
+ * vaegtklasser, skal vises i dem ALLE - en robot paa "13-50 kg" skal dukke
+ * op baade naar laeseren filtrerer "under 20 kg" OG "over 40 kg". Denne
+ * funktion svarer et SAET (som array, mindst ét element) i stedet for
+ * vaegtklasse()'s ene streng. vaegtklasse() selv er IKKE aendret og
+ * bruges stadig uaendret alle de steder, der forudsaetter praecis én klasse
+ * (forsidens fremhaevelseslogik, den enkelte robotsides klassetekst) - kun
+ * kataloget (spor/spaends eget filejerskab) laeser denne.
+ *
+ * Uden et interval (ét tal, eller "ikke oplyst") svarer denne funktion
+ * PRAECIS det samme som vaegtklasse() ville, blot pakket i et array - der
+ * er intet nyt at afgoere, naar der kun er ét tal.
+ *
+ * GRAENSETILFAELDE (mit valg for dette punkt, skrevet frem saa det kan
+ * efterproeves og ikke bare antages):
+ *
+ *   Et spaend der SLUTTER praecis paa 20 (fx "10-20 kg") taeller med i
+ *   BAADE under_20 og 20_40. Et spaend der STARTER praecis paa 40 (fx
+ *   "40-60 kg") taeller med i BAADE 20_40 og over_40. Begrundelsen er
+ *   symmetri med vaegtklasse()'s egen regel for ét enkelt tal (v=20 giver
+ *   20_40, ikke under_20; v=40 giver 20_40, ikke over_40): graensetallet
+ *   selv hoerer til den midterste klasse - og et spaend, hvis ene ende
+ *   RAMMER graensen, mens den anden ende ligger klart paa den anden side,
+ *   daekker begge de klasser, graensen skiller. Et spaend der ikke naar
+ *   graensen (fx "10-19 kg") giver kun under_20, som foer.
+ */
+export function vaegtklasser(robot) {
+  const grae = vaegtEndepunkterIKg(robot);
+  if (!grae) return [vaegtklasse(robot)]; // intet interval - uaendret adfaerd
+  const { min, maks } = grae;
+  const klasser = [];
+  if (min < VAEGTGRAENSER.under) klasser.push('under_20');
+  if (maks >= VAEGTGRAENSER.under && min <= VAEGTGRAENSER.over) klasser.push('20_40');
+  if (maks > VAEGTGRAENSER.over) klasser.push('over_40');
+  return klasser;
 }
 
 /* ------------------------------------------------------------- yderpunkter
@@ -549,7 +641,7 @@ export function vaegtklasse(robot) {
 function feltIBasis(post) {
   if (!post || typeof post === 'string') return null;
   if (typeof post.vaerdi === 'string') return null;
-  const v = post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+  const v = centralVaerdi(post);
   if (typeof v !== 'number' || Number.isNaN(v)) return null;
   const e = ENHEDER[post.enhed];
   if (!e) return null;
@@ -1201,7 +1293,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   function iMillimeter(post) {
     if (!post || typeof post === 'string') return null;
     if (typeof post.vaerdi === 'string') return null;
-    const v = post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+    const v = centralVaerdi(post);
     if (typeof v !== 'number' || !(v > 0)) return null;
     if (post.enhed === 'mm') return v;
     if (post.enhed === 'cm') return v * 10;
@@ -1326,6 +1418,9 @@ ${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</s
     esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe,
     ceTilstand, billede, billedsandhed, billedTekst, kort, tegnforklaring, nformat, dformat, operator,
     saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER, EAGER_KORT_ANTAL,
+    // L50: vaegtklasser() - flertalsversionen, se dens egen kommentar ved
+    // definitionen. KUN kataloget (katalog.mjs) laeser den i dag.
+    vaegtklasser,
   };
 }
 
