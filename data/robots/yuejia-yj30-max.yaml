@@ -8,8 +8,8 @@ anvendelse:
   vaerdi: [inspektion, sikkerhed_overvaagning, forsvar_beredskab, industri]
   citat:
     - "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。"
-    - "工业、安防巡检领域"
-    - "警用巡逻"
+    - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+    - "Politipatrulje (警用巡逻)"
   kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
   hentet: 2026-08-25
   note: "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."

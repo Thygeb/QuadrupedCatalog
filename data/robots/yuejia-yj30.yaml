@@ -8,8 +8,8 @@ anvendelse:
   vaerdi: [inspektion, sikkerhed_overvaagning, forskning_udvikling, forsvar_beredskab]
   citat:
     - "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。"
-    - "工业、安防巡检领域"
-    - "警用巡逻"
+    - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+    - "Politipatrulje (警用巡逻)"
   kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
   hentet: 2026-08-25
   note: "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: 教学科研 (undervisning/forskning) -> forskning og udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
