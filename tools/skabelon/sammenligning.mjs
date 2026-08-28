@@ -141,6 +141,12 @@ function dataBlok(ctx) {
       advarsel: T.advarsel,
       maks: t('sammenligning_maks'),
       for_faa: t('sammenligning_for_faa'),
+      // Aa54: tabellens <caption>. Raat moenster med "{robotter}" - klienten
+      // erstatter selv (sammenligning.js' tabelHTML()), praecis som
+      // kilde_original_form's "{figur}" lige nedenfor. `t()` og ikke `T.`,
+      // saa en manglende noegle bliver RAPPORTERET af build.mjs i stedet for
+      // at blive til en tom caption, ingen opdager.
+      tabel_caption: t('sammenligning_tabel_caption'),
       taethed_skabelon: T.skema_taeller,
       // Raa moenster med "{figur}" - klienten selv erstatter (sammenligning.js'
       // renderTal()), samme funktion som robot.mjs' flet() udfoerer server-side.
@@ -269,6 +275,9 @@ ${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenlign
 </div>
 
 <div data-sammenligning-fallback-wrap>
+<noscript>
+<p class="t-lille sammenligning-noscript">${esc(t('sammenligning_uden_js_noscript'))} <a href="${attr(url.katalog)}">${esc(t('sammenligning_uden_js_link'))}</a></p>
+</noscript>
 <p class="t-lille sektion-note">${esc(T.sammenligning_uden_js_forklaring)}</p>
 ${fallbackHTML(robotter, ctx)}
 </div>

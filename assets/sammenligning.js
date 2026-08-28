@@ -117,43 +117,105 @@
     }
   }
 
+  /* Aa54: matricen er en RIGTIG tabel, ikke et div-gitter.
+     Foer stod hver vaerdi i et <div class="saml-raekke__celle"> uden nogen
+     relation til robotnavnet i toppen. En skaermlaeser fik 90 loese
+     tekstklumper; "1,5 m/s" kunne ikke knyttes til hverken feltet eller
+     robotten. Sammenligning ER sidens kerneopgave, saa den relation er ikke
+     pynt - den er indholdet.
+
+     TO TING GOER DET IKKE-TRIVIELT, og begge er loest her:
+
+     1. UDSEENDET MAA IKKE FLYTTE SIG (D15 laaste paletten, L40 valgte
+        INSTRUMENT). Layoutet er et CSS-grid via --n. Loesningen er derfor
+        rigtige tabelelementer, hvor CSS'en saetter display:grid/block
+        ovenpaa - samme gitter, ny semantik. Se generator.css.
+
+     2. AT AENDRE `display` PAA ET TABELELEMENT FJERNER DETS ROLLE i
+        browserens tilgaengelighedstrae. Det er den klassiske faelde ved
+        "display:grid paa en <table>": markup'en ser rigtig ud i kilden, og
+        skaermlaeseren faar alligevel ingen tabel. Derfor staar de eksplicitte
+        ARIA-roller (role="table"/"rowgroup"/"row"/"columnheader"/
+        "rowheader"/"cell") ved siden af de native elementer - baelte OG
+        seler. De koster ~1,2 KB i den tegnede streng og er den eneste maade
+        at gaa god for semantikken paa uden en styrbar browser at maale i.
+        Af samme grund har <caption> et id, som <table aria-labelledby>
+        peger paa: caption->navn-relationen er lige saa udsat som resten. */
+  var CAPTION_ID = 'saml-tabel-caption';
+
   /* Specimen-raekken: signaturelementet mockuppen viser oeverst (de valgte
      robotter side om side, foer laeseren ser et eneste tal). Fotografiet er
      UDELADT her (dokumenteret afvigelse, fund/FUND-lysbyg.md) - at indlejre
      alle 62 robotters billedmarkup (picture/source/alt/delt-maerke) i den
      samme JSON-blok var uforholdsmaessigt for et JS-lag, der kun forbedrer
-     en side, som allerede virker uden det. */
-  function specimenHTML(slugs, n) {
-    var celler = slugs.map(function (slug) {
-      var r = robotAf(slug);
-      if (!r) return '<div></div>';
-      return '<div class="specimen">'
+     en side, som allerede virker uden det.
+
+     Aa54: raekken er nu tabellens <thead>, og hvert specimen-kort er et
+     <th scope="col">. Robotnavnet er dermed det, en skaermlaeser laeser op
+     som kolonneoverskrift foran hver eneste vaerdi nedenunder.
+     Hjoernecellen er et TOMT <td> (ikke et <th>): et <th> uden indhold
+     ville taelle med som en kolonneoverskrift uden kolonne. */
+  function specimenHoved(robotter, n) {
+    var celler = robotter.map(function (r) {
+      return '<th scope="col" role="columnheader" class="specimen">'
         + '<div class="specimen__label"><span class="specimen__navn">' + esc(r.navn) + '</span>'
         + '<span class="specimen__taethed figur">' + esc(taethedTekst(r.taethedAntal)) + '</span></div>'
         + '<p class="specimen__meta">' + esc(r.producent) + '</p>'
-        + '</div>';
+        + '</th>';
     }).join('');
-    return '<div class="specimen-hoved" style="--n:' + n + '"><div aria-hidden="true"></div>' + celler + '</div>';
+    return '<thead class="specimen-hoved" role="rowgroup" style="--n:' + n + '">'
+      + '<tr class="specimen-hoved__raekke" role="row">'
+      + '<td class="specimen-hoved__hjoerne" role="cell"></td>' + celler
+      + '</tr></thead>';
   }
 
   function tabelHTML(slugs) {
-    var n = slugs.length;
+    // `robotter` styrer BAADE hovedet og kroppen, og `n` udledes af den.
+    // Foer taalte specimenHTML() over `slugs` og kroppen over den filtrerede
+    // `robotter` - en ukendt slug gav derfor ét hoved for meget, og hver
+    // vaerdi rykkede en kolonne. Usynligt i et div-gitter, men i en tabel
+    // ville skaermlaeseren laese hver vaerdi op under den FORKERTE robot.
     var robotter = slugs.map(robotAf).filter(Boolean);
+    var n = robotter.length;
+    if (!n) return '';
+    var spalter = n + 1;
+
     var grupperHTML = DATA.grupper.map(function (g) {
       var raekker = g.felter.map(function (feltNavn) {
         // data-robot: navnet, en smal skaerm viser som cellens eget mikro-
         // maerke (CSS ::before), fordi kolonneoverskriften (specimen-raekken)
-        // er langt vaek, naar tabellen staar i én spalte pr. robot.
+        // er langt vaek, naar tabellen staar i én spalte pr. robot. Det
+        // maerke er stadig KUN visuelt - relationen baeres nu af scope="col".
         var celler = robotter.map(function (r) {
-          return '<div class="saml-raekke__celle" data-robot="' + esc(r.navn) + '">' + renderFelt(r.felter[feltNavn]) + '</div>';
+          return '<td class="saml-raekke__celle" role="cell" data-robot="' + esc(r.navn) + '">'
+            + renderFelt(r.felter[feltNavn]) + '</td>';
         }).join('');
-        return '<div class="saml-raekke" style="--n:' + n + '">'
-          + '<div class="saml-raekke__navn">' + esc(DATA.feltNavne[feltNavn]) + '</div>' + celler + '</div>';
+        return '<tr class="saml-raekke" role="row" style="--n:' + n + '">'
+          + '<th scope="row" role="rowheader" class="saml-raekke__navn">'
+          + esc(DATA.feltNavne[feltNavn]) + '</th>' + celler + '</tr>';
       }).join('');
-      return '<div class="saml-gruppe" style="--n:' + n + '">'
-        + '<p class="saml-gruppe__titel">' + esc(g.titel) + '</p>' + raekker + '</div>';
+      // Én <tbody> pr. gruppe. Gruppetitlen er scope="rowgroup" - den
+      // gaelder netop de raekker, der foelger i DENNE tbody, hvilket er
+      // praecis det, HTML'ens rowgroup-scope betyder.
+      return '<tbody class="saml-gruppe" role="rowgroup" style="--n:' + n + '">'
+        + '<tr class="saml-gruppe__titelraekke" role="row">'
+        + '<th scope="rowgroup" role="rowheader" colspan="' + spalter + '" class="saml-gruppe__titel">'
+        + esc(g.titel) + '</th></tr>'
+        + raekker + '</tbody>';
     }).join('');
-    return specimenHTML(slugs, n) + '<div class="saml-tabel">' + grupperHTML + '</div>';
+
+    // Captionen navngiver tabellen for den, der springer mellem tabeller,
+    // og naevner hvilke robotter der staar i den. Visuelt skjult
+    // (.kunskaerm): de tre navne staar allerede synligt i specimen-hovedet,
+    // saa en synlig caption ville vaere en dublet - samme begrundelse som
+    // sidens egen <h2 class="t-h2 kunskaerm">.
+    var navne = robotter.map(function (r) { return r.navn; }).join(', ');
+    var caption = String(DATA.tekst.tabel_caption || '').replace('{robotter}', navne);
+
+    return '<table class="saml-matrix" role="table" aria-labelledby="' + CAPTION_ID + '">'
+      + '<caption id="' + CAPTION_ID + '" class="kunskaerm">' + esc(caption) + '</caption>'
+      + specimenHoved(robotter, n) + grupperHTML
+      + '</table>';
   }
 
   var vaelger = app.querySelector('[data-saml-vaelger]');

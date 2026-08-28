@@ -61,6 +61,7 @@
   "sammenligning_tabel_caption": "Comparison field by field: {robotter}",
   "sammenligning_uden_js_forklaring": "The comparison requires JavaScript. Without it: pick a robot from the list to see its full specification.",
   "sammenligning_uden_js_noscript": "Side-by-side comparison requires JavaScript. The catalogue shows the robots' key figures without JavaScript.",
+  "sammenligning_uden_js_link": "Go to the catalogue",
   "sammenligning_legende_vinder_titel": "No winner marked",
   "sammenligning_legende_vinder_forklaring": "We do not mark a winning cell per row. A lower value is not better than a higher one – only the intended use decides that, and the page does not know the use.",
 
