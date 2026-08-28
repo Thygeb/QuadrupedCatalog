@@ -578,8 +578,39 @@ Playwright ligger **bevidst uden for repoet**, så løftet om en afhængighedsfr
 generator står urørt. Intet derfra indgår nogensinde i et byg.
 
 ```
-node C:/Praktik/websites/maalevaerktoej/maal.mjs <url> [bredde]
+node C:/Praktik/websites/maalevaerktoej/maal.mjs <url> [bredde]        # tal
+node C:/Praktik/websites/maalevaerktoej/flade-skud.mjs <url> <bredde> <udfil.png> [--kunFold]
 ```
+
+`flade-skud.mjs` giver et **skærmbillede**, som kan læses med Read-værktøjet. Det
+er vejen til at *se* en flade, ikke kun måle den — brugt af orkestratoren
+28. aug 2026 til at se katalogsiden med egne øjne midt i en kritik.
+
+**Playwright-MCP'en fejler, og det er IKKE et netværksproblem — rodårsagen er
+målt 28. aug 2026.** `plugin:playwright:playwright` melder `CONNECTION_CLOSED`
+ved hver sessionsstart, og **Reconnect giver nøjagtig samme besked**, fordi
+knappen gentager den fejlende kommando. Pluginnets `.mcp.json` siger:
+
+```json
+{ "playwright": { "command": "npx", "args": ["@playwright/mcp@latest"] } }
+```
+
+`C:\Program Files\nodejs\npx` **uden endelse er en bash-shellscript**
+(`#!/usr/bin/env bash`), og Windows' CreateProcess kan ikke udføre den. Målt
+med `spawn(cmd, [...], {shell:false})`: `npx` → **ENOENT**, mens `npx.cmd`
+findes ved siden af. Serveren dør altså i samme øjeblik, den startes.
+
+**To hypoteser blev modbevist undervejs, og de er værd at kende, så de ikke
+prøves igen:** (1) *"npx er ikke på PATH"* — den er ikke i Git Bash, men det
+siger intet om den proces, Claude Code selv spawner. (2) *"pakken er ikke
+hentet"* — `npx @playwright/mcp@latest --help` hentede den og svarede exit 0,
+og Reconnect fejlede alligevel bagefter.
+
+**Konsekvensen for et spor: du mister KUN den styrbare browser** — klik, hover,
+tastaturnavigation og script-injektion. Alt måleligt virker: gengivelse,
+skærmbilleder, kortantal, højdespring, beskæring, overløb, sidehøjde.
+`impeccable critique`s overlay-trin kan derfor ikke køres, og det skal
+rapporteres som fallback-signal, aldrig påstås udført.
 
 Den skriver JSON med kortantal, højdespring inden for en række, spildt lodret
 plads, beskårne billeder, vandret overløb og sidehøjde — tal, der kan citeres
