@@ -195,11 +195,24 @@ Begge dele er målt forkert:
 | **L17** | **Forsidens top** | **Typografisk hero med søgning.** Kort overskrift der siger hvad siden er, søgefelt og anvendelsesfiltre synlige i første viewport. Ingen robot fremhævet — at vælge én ville være en anbefaling |
 | **L18** | **Navn i mellemtiden** | **Neutral pladsholder** i header, tydeligt midlertidig, indtil Å1 er afgjort |
 | **L15** | **Informationsarkitektur** | **Forsiden organiseres efter vægtklasse** (under 20 kg · 20-60 kg · over 60 kg), ikke efter producent. Producentsider findes som andet niveau og bærer EU-kolonnen. Hver robot beholder sin egen URL. Begrundelse: 43 robotter ligner hinanden; størrelse er den eneste forskel, en køber både kan se og bruge — og tre producenter har 26 af de 43, så producentopdeling giver en skæv forside |
+| **L46** | **D17 — kildebogstaver vises IKKE på sammenligningssiden** | **Besluttet af JPK 27. aug 2026.** Beslutningen fra 24. aug står ved magt: kilder ligger i dataen, men mærket vises ikke på den flade. `spor/sammenlign` havde bygget og målt det modsatte (tests 463/1 → 472/1, sidevægt +7,7 %, 1.225 bogstaver, anker 5/5) — arbejdet er **kasseret**, men gemt som taggen `arkiv/d17-afvist` (`06af2fb`), så det kan genfindes, hvis beslutningen nogensinde vendes. **To ting følger af valget, og de er ikke valgfrie:** (1) `tools/skema.mjs`s docstring ved `feltVisning()` skal pege på **denne L-post** i stedet for på `prototype/retning-lys/BEGRUNDELSE.md` — en beslutning, der kun står i en prototypefil og en kodekommentar, er ikke fundet af nogen i tre dage. (2) Sætningen *"Kortenes tal har kilde — et hævet bogstav ved tallet peger på hvilken"* står på **27 sider pr. sprog** og lover noget, sammenligningssiden ikke holder; den skal nuanceres, så den taler om kortene og ikke om alle tal |
+| **L47** | **D3 — intervaller vises som producentens eget spænd, ikke som midtpunkt** | **Besluttet af JPK 27. aug 2026.** `20~25 cm` vises som **20–25 cm**. Midtpunktet blev fravalgt, fordi 22,5 er et tal, producenten aldrig har skrevet — hård begrænsning 2. **Konsekvensen, der skal skrives frem og ikke gættes:** sortering og sammenligning kan ikke sortere på et spænd, så de må vælge ét tal internt (nedre grænse, øvre eller midtpunkt), og **det valg skal stå ét sted i koden med en begrundelse** — ikke tre steder som L30-fælden. Testen `interval 18-25 kg kollapser ikke til sit midtpunkt` **vendes om**, så den beviser den nye regel; den slettes ikke |
+| **L48** | **D14 — gyldighedsmærket beholder sine 46 %, men får en diskret form** | **Besluttet af JPK 27. aug 2026.** Klassifikationen af alle 562 forbehold gav **259 gyldighed (46,1 %) / 303 uddybning** og er læst post for post, ikke gættet af en regex — tallet er altså den ærlige opgørelse, og det er **formen**, der skal bære det. Mærket må ikke være et tegn ved tallet: et tegn på næsten hvert andet tal bliver visuel tekstur, og det var netop den fejl, D14 blev truffet for at rette (stjernen stod på 69 %). Retningen er et dæmpet greb — fx en understregning af tallet selv — der kan bære at stå på halvdelen uden at støje. **Værn:** de 303 uddybninger beholder deres `title` uden mærke, og informationen må ikke falde bort |
+| **L49** | **Å42 — tab-ordenen under de alternative sorteringer beholdes som den er** | **Besluttet af JPK 27. aug 2026.** L44's sortering bruger CSS `order`, den eneste JS-frie vej på en statisk side, og `order` flytter visuel frem for DOM-rækkefølge. Under de to alternative sorteringer følger tabulator-ordenen derfor stadig vægtordenen (WCAG 2.4.3); **standardvisningen er urørt**. De to alternativer blev prissat og fravalgt: tre rigtige sider koster fire ekstra sider pr. sprog og duplikerer 77 kort (støder ind i Å13's sidevægtsfund), og JavaScript-sortering bryder det JS-frie løfte, siden selv trykker. **Tages op igen, hvis en tilgængelighedsgennemgang kræver det før lancering** — ikke før |
 
-> **SPÆRRING S1 — må ikke glemmes.** Siden må **ikke publiceres**, mens den viser
-> fabrikantbilleder uden skriftlig tilladelse. Enten indhentes tilladelserne, eller
-> billederne udskiftes med egne fotos og silhuetter før lancering. En pladsholder, der
-> ligner et rigtigt billede, overlever til lancering — det er sket på nabosiden.
+> **~~SPÆRRING S1~~ — OPHÆVET af JPK 26. august 2026, se L37.** Her stod i to dage
+> efter ophævelsen, at siden **ikke måtte publiceres** med fabrikantbilleder. Det er
+> forkert, og blokken er rettet 27. aug 2026, da orkestratoren fandt den under
+> D17-oprydningen. **Fabrikantbilleder må bruges på en publiceret side uden
+> begrænsning**, og spærringen må ikke omtales på websiden. Ingen agent skal føre S1
+> som en åben spærring eller blokere en lancering på den.
+>
+> **Det er fjerde sted, samme ophævede spærring overlevede** — efter banneret
+> (`spor/s1`), kortlegenden (Å26) og de 152 robotsider (Å35). De tre første stod på
+> websiden; denne stod i **selve indekset, som enhver ny agent læser først**, og var
+> derfor den dyreste af dem. Den eneste grund til, at den blev fundet, er at et andet
+> punkt tvang en læsning af filens bund. Se Å37: et fund uden for indekset findes ikke
+> — og et forældet fund **inde** i indekset er værre, fordi det bliver troet.
 
 ---
 
