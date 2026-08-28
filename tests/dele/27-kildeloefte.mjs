@@ -10,7 +10,7 @@
  * til kortenes bogstavmærkning specifikt ("Kortenes tal bærer kildemærker"),
  * uden at nævne sammenligningssiden negativt.
  *
- * Vagterne her beviser tre ting, valgt saa de ville FEJLE, hvis nogen
+ * Vagterne her beviser fire ting, valgt saa de ville FEJLE, hvis nogen
  * senere skrev løftet bredere igen:
  *
  * 1. Legenden staar paa netop de sider, der viser kort (forsiden,
@@ -22,6 +22,14 @@
  * 3. Selve ordlyden knytter loeftet til KORTENE og naevner dem ved navn, og
  *    rammer ikke moensteret "hvert tal"/"alle tal"/"every figure" — den
  *    generelle formulering, der udloeste dette spor.
+ * 4. TILFOEJET 28. aug 2026 efter orkestratorens fund: kort_legende og
+ *    kilde_maerke_forklaring stod paa SAMME side (dist/en/robotter/index.html)
+ *    og brugte hver sit engelske ord for det haevede bogstav ("raised
+ *    letter" vs. "superscript letter") — samme fejlform som Å30 (to noegler
+ *    skrevet paa hver sin dag, ikke en besluttet forskel). Rettet til
+ *    "superscript letter" begge steder; dansk er uroert, der var ingen
+ *    divergens der. Guarden her ville fejle, hvis den ene noegle senere
+ *    driver fra den anden igen.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -76,6 +84,18 @@ export default async function koer(ctx) {
       && (sprog === 'da' ? /mærke/i.test(legendeTekst) : /\bmark/i.test(legendeTekst));
     ok(`27.3b.${sprog}: legenden knytter sig til den SYNLIGE markering, ikke kun til at tallet "har" en kilde`,
       naevnerMaerke, `fik: ${JSON.stringify(legendeTekst)}`);
+
+    /* --- 4. EN-only: kort_legende og kilde_maerke_forklaring bruger SAMME
+     *  udtryk for det haevede bogstav. Dansk har ingen divergens (begge
+     *  siger "hævet bogstav") og roeres derfor ikke. */
+    if (sprog === 'en') {
+      const udtrykRegex = /superscript letter|raised letter/i;
+      const term1 = udtrykRegex.exec(legendeTekst)?.[0]?.toLowerCase() ?? null;
+      const term2 = udtrykRegex.exec(String(i18n.kilde_maerke_forklaring))?.[0]?.toLowerCase() ?? null;
+      ok('27.7.en: kort_legende og kilde_maerke_forklaring bruger samme engelske udtryk for det haevede bogstav',
+        term1 !== null && term1 === term2,
+        `kort_legende: ${JSON.stringify(term1)}, kilde_maerke_forklaring: ${JSON.stringify(term2)}`);
+    }
 
     if (!fs.existsSync(dist) || typeof legendeTekst !== 'string') {
       ok(`27.4.${sprog}: der ER bygget sider at maale paa`, false,
