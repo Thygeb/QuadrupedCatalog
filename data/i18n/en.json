@@ -145,7 +145,7 @@
   "kort_kilder_en": "The figures on this card come from 1 source",
   "kort_kilder_flere": "The figures on this card come from {n} sources – see the marks",
   "kort_kilder_ingen": "None of the figures on this card carry a source in the data file.",
-  "kort_legende": "Card photos are the manufacturers’ own. Card figures carry a source – a raised letter next to a figure points to which one.",
+  "kort_legende": "Card photos are the manufacturers’ own. Card figures carry source marks – a raised letter points to which source a figure comes from.",
   "kort_invitation": "See the robot",
 
   "ved_last": "at load",
