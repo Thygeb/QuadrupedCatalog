@@ -6,7 +6,7 @@ producentby: ikke_oplyst
 status: annonceret
 anvendelse:
   vaerdi: [industri, sikkerhed_overvaagning, forbruger_uddannelse]
-  citat: "灵猫是一个开放的具身智能载具和技术平台，具备多场景适应能力，不但可以用在工业场景解决多领域问题，更是可玩性极高的创客、科研爱好者、极客、玩家的实践载体。作为普通用户，也具备完整陪伴和安全防护功能，支持家用场景智能化交互功能，包括：语音对话、跟随行走、全屋巡逻、远程画面查看，适合科技爱好者、家庭安防、亲子科教等。"
+  citat: "Lingmao er en åben platform for embodied-intelligence-køretøjer og -teknologi med tilpasningsevne til mange scenarier. Den kan bruges i industrielle scenarier til at løse problemer på tværs af flere fagområder, men er også et yderst legesygt praksisredskab for makere, forskningsentusiaster, geeks og spillere. Som almindelig bruger har den også fuld følgeskabs- og sikkerhedsfunktion og understøtter intelligente interaktionsfunktioner til hjemmebrug, herunder stemmedialog, gå-følge, patrulje i hele hjemmet og fjernvisning af billede - velegnet til teknologientusiaster, hjemmesikkerhed samt forælder-barn naturvidenskabsundervisning m.m. (灵猫是一个开放的具身智能载具和技术平台，具备多场景适应能力，不但可以用在工业场景解决多领域问题，更是可玩性极高的创客、科研爱好者、极客、玩家的实践载体。作为普通用户，也具备完整陪伴和安全防护功能，支持家用场景智能化交互功能，包括：语音对话、跟随行走、全屋巡逻、远程画面查看，适合科技爱好者、家庭安防、亲子科教等。)"
   kilde: https://www.uniubi.com/shop/buy?product=air
   hentet: 2026-08-24
   note: "\"工业场景\" (industrielle scenarier) er omsat til industri. \"家庭安防\" (hjemmesikkerhed/patrulje) er omsat til sikkerhed og overvågning. \"亲子科教\" (forælder-barn naturvidenskabsundervisning) er omsat til forbruger og uddannelse. \"创客、科研爱好者、极客、玩家\" (maker/forsker/geek/spiller) er en malgruppebeskrivelse, ikke en branche, og er ikke omsat til nogen kategori."
@@ -127,7 +127,7 @@ felter:
     hentet: 2026-08-24
     advarsel: "\"激光雷达 可选配\" (LiDAR - tilvalg) - hverken type eller model oplyst, kun at det findes som tilvalg. Tæller ikke som udfyldt under D4's foreløbige regel."
   kameraer:
-    vaerdi: "双目高清可见光相机 (stereo/dobbeltøjet HD synligt-lys-kamera), model ikke oplyst"
+    vaerdi: "Stereo/dobbeltøjet HD synligt-lys-kamera, model ikke oplyst (双目高清可见光相机)"
     kilde: https://www.uniubi.com/shop/buy?product=air
     hentet: 2026-08-24
     advarsel: "Spec-tabel: \"视觉传感器 双目高清动态相机\". FAQ uddyber: \"标准配置：双目高清可见光相机、IMU 惯性单元、内置麦克风扬声器、GPS 定位模组、4G 通信模块；可选配激光雷达、360°UWB 定位。\""

@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [forsvar_beredskab, forskning_udvikling, sikkerhed_overvaagning]
-  citat: ["侦查搜救", "应急消防", "科研教育", "安防巡逻"]
+  citat: ["Rekognoscering og eftersøgningsredning (侦查搜救)", "Akut brandbekæmpelse (应急消防)", "Forskning og uddannelse (科研教育)", "Sikkerhedspatrulje (安防巡逻)"]
   kilde: https://www.genisomai.com/product-robot/L1-W
   hentet: 2026-08-24
   note: "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på L1-W's egen produktside - fire selvstændige citater, ikke arvet fra L1. Egen oversættelse: 侦查搜救 (rekognoscering/eftersøgning-redning) -> forsvar og beredskab; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab (samme kategori som 侦查搜救, to citater); 科研教育 -> forskning og udvikling; 安防巡逻 -> sikkerhed og overvågning."

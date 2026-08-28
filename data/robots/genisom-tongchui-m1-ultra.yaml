@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [forsvar_beredskab, inspektion, sikkerhed_overvaagning, logistik]
-  citat: ["森林消防", "石化消防", "电力巡检", "园区巡逻", "物流运输"]
+  citat: ["Skovbrandbekæmpelse (森林消防)", "Petrokemisk brandbekæmpelse (石化消防)", "Elkraftinspektion (电力巡检)", "Områdepatrulje (园区巡逻)", "Logistiktransport (物流运输)"]
   kilde: https://www.genisomai.com/product-robot/M1
   hentet: 2026-08-25
   note: "Samme kilde-sektion som genisom-tongchui-m1-pro.yaml og basisudgaven (\"下一个应用场景，它已提前就位\") - den samme primærkilde for alle tre varianter, IKKE arvet_fra. Se genisom-tongchui-m1-pro.yaml for den fulde begrundelse for hvorfor arvet_fra ikke bruges her."

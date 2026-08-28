@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [inspektion, forsvar_beredskab, sikkerhed_overvaagning, forskning_udvikling]
-  citat: "钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。"
+  citat: "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。)"
   kilde: https://www.genisomai.com/product-robot/L1
   hentet: 2026-08-24
   note: "Egen oversættelse: \"Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse.\" 电力巡检 -> inspektion; 应急救援 -> forsvar og beredskab; 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling (uddannelsesdelen af 科研教育 har intet præcist svar i værdisættet ud over forbruger og uddannelse, som ikke er brugt her, da konteksten er faglig forskning, ikke forbrugerprodukt)."

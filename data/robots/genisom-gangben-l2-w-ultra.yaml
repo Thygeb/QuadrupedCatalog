@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [sikkerhed_overvaagning, forsvar_beredskab, forskning_udvikling, logistik]
-  citat: ["安防巡逻", "应急消防", "科研教育", "短途配送"]
+  citat: ["Sikkerhedspatrulje (安防巡逻)", "Akut brandbekæmpelse (应急消防)", "Forskning og uddannelse (科研教育)", "Kort-distance levering (短途配送)"]
   kilde: https://www.genisomai.com/product-robot/L2
   hentet: 2026-08-24
   note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik."

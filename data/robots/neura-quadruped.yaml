@@ -55,7 +55,7 @@ felter:
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 12
-    enhed: km/t
+    enhed: km/h
     vaerdi_imperial: 7.5
     enhed_imperial: mph
     kilde: https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf

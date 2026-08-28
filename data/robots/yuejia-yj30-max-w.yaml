@@ -8,8 +8,8 @@ anvendelse:
   vaerdi: [inspektion, sikkerhed_overvaagning, forsvar_beredskab, industri, forskning_udvikling]
   citat:
     - "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
-    - "工业、安防巡检领域"
-    - "警用巡逻"
+    - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+    - "Politipatrulje (警用巡逻)"
   kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
   hentet: 2026-08-25
   note: "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversættelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. \"仓储\" (lager) er af samme grund som der IKKE talt med som en selvstændig logistik-kategori."

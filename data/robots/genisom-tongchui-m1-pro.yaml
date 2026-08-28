@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [forsvar_beredskab, inspektion, sikkerhed_overvaagning, logistik]
-  citat: ["森林消防", "石化消防", "电力巡检", "园区巡逻", "物流运输"]
+  citat: ["Skovbrandbekæmpelse (森林消防)", "Petrokemisk brandbekæmpelse (石化消防)", "Elkraftinspektion (电力巡检)", "Områdepatrulje (园区巡逻)", "Logistiktransport (物流运输)"]
   kilde: https://www.genisomai.com/product-robot/M1
   hentet: 2026-08-25
   note: "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Teksten står EN gang på siden, delt af alle tre faner (M1/M1 Pro/M1 Ultra) i den strukturerede specifikationstabel - den dækker hele Tongchui M1-familien som helhed. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning lånt fra en anden robots side (samme princip som GENISOM Gangben L2-W/L2-W Ultra i dette katalog - arvet_fra ville forudsætte, at M1 Pro's EGEN side var tavs og lånte M1's citat, hvilket den ikke er: teksten står på netop den side, M1 Pro også bor på). Egen oversættelse - identisk med genisom-tongchui-m1.yaml's: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab; 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik."
