@@ -410,6 +410,20 @@ export const FILTER_FELTER = [
  * paa sammenligningssiden (L46 i STATUS.md, bekraeftet af JPK 27. aug 2026 -
  * beslutningen fra 24. aug staar ved magt) — de udelades her, saa de aldrig
  * kan naa klienten, ikke kun visuelt skjules med CSS.
+ *
+ * HELLER IKKE med: `advarsel_klasse` (D18/L48). Det er et VALG, ikke en
+ * forglemmelse, og det staar her, saa den naeste ikke "retter" det i
+ * tavshed. Gyldighedsmaerket er et herkomsttegn, og L46 afgjorde, at
+ * sammenligningssiden ikke baerer herkomsttegn: spor/sammenlign havde
+ * bygget og maalt det modsatte, og arbejdet blev KASSERET (taggen
+ * arkiv/d17-afvist). Et maerke for gyldighed er samme slags aendring paa
+ * samme flade og hoerer derfor til en beslutning fra JPK, ikke til et
+ * designspor.
+ *
+ * Prisen, hvis beslutningen en dag vendes, saa den er maalt og ikke
+ * gaettet: robots.json er 478,0 KiB og baerer 890 forbehold; en klasse
+ * paa hvert af dem koster ca. 19,1 KiB (+4,0 %) hos hver eneste
+ * katalogbesoegende.
  */
 export function feltVisning(navn, post) {
   const spec = FELTER[navn];
