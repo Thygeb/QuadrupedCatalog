@@ -1,0 +1,33 @@
+robot.mjs: en celle udskriver sit forbehold én gang, ikke to (D18 punkt 1)
+
+vaerdi() sendte hele posten gennem side.mjs' tal() og lagde DEREFTER
+forbehold(post, ctx) paa. Begge udskriver lastbetingelsen (ved_last), og
+begge fyrer paa praecis samme betingelse (post.ved_last !== undefined) —
+saa hver celle med en lastbetingelse bar to identiske
+<abbr class="forbehold--skjult">.
+
+Maalt paa grenens udgangspunkt (28. aug 2026):
+  stribeceller med >1 forbehold--skjult : 264 af 2.000  ->  0
+  forbehold--skjult i dist i alt        : 1.336         ->  940
+  celler i striben MED maerke           : 800           ->  800  (uaendret)
+
+De 800 er det tal, der beviser, at intet gik tabt: lige saa mange celler
+baerer et maerke som foer, de baerer det bare én gang hver. De 396, der
+forsvandt, er 264 dubletter i striben og 132 i feltlistens raekker.
+
+Flaget saettes KUN i den gren, der sender hele posten gennem H.tal.
+Tekstgrenen kalder ogsaa H.tal, men med en syntetisk post uden ved_last —
+dér udskriver tal() intet, og forbehold() er stadig eneste udskriver.
+
+Hvorfor det skal ske foer maerket: i dag siger en skaermlaeser forbeholdet
+dobbelt. Naar gyldighedsmaerket bliver synligt, ville det ogsaa blive
+TEGNET dobbelt paa de 264 celler.
+
+BEMAERK — én test bliver roed af dette, og den er IKKE rettet:
+tests/dele/20-aflaesningslinje.mjs:159 har et gulv paa 2.000 .kunskaerm
+(maalt 2.154 den 27. aug). Efter afdublering: 1.763. Gulvet kan ikke
+skelne "tekst forsvandt" fra "dublet fjernet". Testen er ladt uroert efter
+briefets regel; orkestratoren afgoer, om gulvet skal saenkes eller
+omskrives til at taelle DISTINKTE forbehold pr. celle.
+
+Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>

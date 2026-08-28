@@ -1,0 +1,71 @@
+D18 · C · ETIKET: gyldighedsmaerket rider paa feltnavnet, aldrig paa vaerdien
+
+Punkt 1-4 i briefet. Klassen fandtes i data (562 felter) og var kendt af
+validate.mjs R20, men naaede ingenting: grep i tools/skabelon/ og assets/
+gav 0 traef, og den byggede side vidste ikke, at den fandtes.
+
+EN udledning, ikke fire kopier
+------------------------------
+skema.mjs faar erGyldighedsforbehold() og forbeholdsArt(). Fire flader
+spoerger om det samme, og fire haandskrevne `=== 'gyldighed'` ville
+divergere ved den femte aendring. `advarsel_klasse` er samtidig optaget i
+POST_NOEGLER: nu hvor bygget FORBRUGER noeglen, hoerer den til skemaet.
+Adfaerdsneutralt — POST_NOEGLER laeses kun af validate.mjs:275, som
+allerede lagde noeglen til i sin egen lokale union.
+
+Kun de 259
+----------
+Maalt i data/robots/: 562 klassificerede felter = 259 gyldighed + 303
+uddybning (briefets tal bekraeftet). Kun gyldighed faar maerket.
+"gyldighed" betyder "dette forbehold paavirker sammenligneligheden";
+"uddybning" er en note. Maerkes begge, betyder maerket ingenting.
+De 328 UKLASSIFICEREDE forbehold faar det heller ikke — de har en tekst,
+men ingen dom, og en dom skal ikke opfindes af en skabelon.
+
+Fire flader, ikke tre
+---------------------
+Briefet naevner tre. Producentsidens minikort er den FJERDE, og den er
+den samme .stribe--kompakt-komponent som katalogkortet: uden maerket dér
+ville én komponent opfoere sig forskelligt paa to sider, og et forbehold
+ville forsvinde ved at gaa fra kataloget ind paa producenten.
+
+Blokken har to slags nu
+-----------------------
+.advarsel--gyldighed baerer --hegn i venstrekanten, samme polet som
+marken paa feltnavnet ovenover: ét tegn paa to skalaer. .advarsel--
+uddybning faar --linje og ingen flade og traeder tilbage.
+Og de hedder noget forskelligt: foer hed alle 1.158 blokke pr. sprog
+"Advarsel" — ogsaa de 303, der ikke advarer om noget.
+
+Maalinger
+---------
+  validate                   77 filer · 0 fejl · 1 advarsel   (uaendret)
+  build                      213 sider · 1110 tal m. kilde, 0 uden (uaendret)
+  advarsel--gyldighed        0 -> 803 i dist (800 HTML + 3 i CSS)
+  advarsel--uddybning        0 -> 1516 i dist
+  m-etiket i HTML            0 -> 1656
+     heraf span.etiket       854 · dt 518 · p.etiket 284
+     heraf paa en vaerdi     0   <- VAERNET, og det er selve D18
+  blokkens navn pr. sprog    401 Forbehold + 757 Note (da)
+                             401 Caveat    + 757 Note (en)
+
+VAERNET (K2): grep -c "v-tal.*m-etiket\|\.v-tal\.m-" paa begge css-filer
+giver 0 og 0, uaendret. Og i HTML: 0 forekomster af m-etiket paa et
+element med en v-klasse. Havde jeg bygget A · KANT i stedet for C, ville
+begge tal have vaeret forskellige fra 0.
+
+TO TESTS BLIVER ROEDE, OG DE ER IKKE RETTET (briefets regel)
+------------------------------------------------------------
+04-byg-struktur.mjs:115 og 05-visning-nye-former.mjs:141 matcher paa den
+EKSAKTE literal class="advarsel" med afsluttende citationstegn. Blokken
+baerer nu to klasser, saa attributten ikke laengere slutter dér.
+
+KRAVET, de vogter, HOLDER — efterproevet i deres egne fixtures:
+  04: advarselsblok paa 8140, "43,3 in" paa 8011  -> blokken staar efter
+  05: advarselsblok paa 11434, "v-ikke" paa 4620  -> blokken staar efter
+
+Rettelsen er ét tegn hvert sted, men PAS PAA: en bar `class="advarsel`
+rammer OGSAA `class="advarsel-navn"`. Brug `class="advarsel ` MED
+mellemrum, eller `class="advarsel advarsel--`.
+
+Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>

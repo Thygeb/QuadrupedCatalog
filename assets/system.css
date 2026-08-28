@@ -182,7 +182,7 @@ a:hover{text-decoration-thickness:2.5px}
    Med robotsidens indryk satte marken sig MELLEM ikon og navn og laeste som
    et lodret streg-TEGN i teksten frem for som en mark. Her faar den luft nok
    til at staa for sig selv. */
-.stribe--kompakt .etiket.m-etiket{padding-left:10px;margin-left:-1px}
+.stribe--kompakt .etiket.m-etiket{padding-left:8px;margin-left:1px}
 .stribe--kompakt .etiket.m-etiket::before{top:.05em;bottom:.05em}
 
 /* Tal saettes i mono med tabulaere cifre, saa kolonner flugter. */
@@ -559,6 +559,9 @@ a:hover{text-decoration-thickness:2.5px}
 @media (max-width:420px){
   .stribe--kompakt{gap:5px 8px}
   .stribe--kompakt > li{--kanal:12px;padding:6px 5px 6px;column-gap:4px;row-gap:2px}
+  /* Kanalspalten er 1 px smallere her (column-gap 5 -> 4), saa maerket
+     rykkes 1 px laengere ind for at holde samme luft til ikonet. */
+  .stribe--kompakt .etiket.m-etiket{padding-left:8px;margin-left:2px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}
