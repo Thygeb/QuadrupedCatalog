@@ -288,6 +288,19 @@ export function vaerdi(navn, post, ctx, kilder) {
 
   let html;
   let hul = false;
+  // Saettes KUN af den gren, der sender hele `post` gennem side.mjs' tal().
+  // Den funktion udskriver selv lastbetingelsen (`ved_last`) i sit eget
+  // `fnote()`, saa et kald til forbehold() nedenfor ville tegne den ANDEN
+  // gang. Maalt paa main 28. aug 2026: 264 af 2.000 stribeceller bar
+  // <abbr class="forbehold--skjult"> to gange - samme tekst, samme celle.
+  // I dag siger en skaermlaeser forbeholdet dobbelt; naar gyldighedsmaerket
+  // (D18) bliver synligt, ville det ogsaa TEGNES dobbelt.
+  //
+  // Tekstgrenen nedenfor kalder ogsaa H.tal, men med en SYNTETISK post
+  // ({min,maks,enhed}) uden `ved_last` - dér udskriver tal() intet, og
+  // forbehold() er stadig den eneste udskriver. Derfor saettes flaget kun
+  // i den sidste gren, ikke ved ethvert H.tal-kald.
+  let talUdskrevForbehold = false;
   const t = tilstandAf(post.vaerdi);
   if (t) {
     // Tilstanden MED herkomst. Den ser ud som den bare tilstand — ellers ville
@@ -309,6 +322,7 @@ export function vaerdi(navn, post, ctx, kilder) {
     }
   } else {
     html = H.tal(post, { kompakt });
+    talUdskrevForbehold = true;
     // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
     // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
     // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,
@@ -319,7 +333,7 @@ export function vaerdi(navn, post, ctx, kilder) {
     }
   }
 
-  html += forbehold(post, ctx);
+  if (!talUdskrevForbehold) html += forbehold(post, ctx);
   const maerke = post.kilde ? (H.kildemaerke(post, kilder) || '') : '';
   return { html, hul, maerke };
 }
