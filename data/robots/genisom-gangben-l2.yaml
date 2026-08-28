@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [sikkerhed_overvaagning, forskning_udvikling, logistik]
-  citat: ["安防巡逻", "科研教育", "短途配送"]
+  citat: ["Sikkerhedspatrulje (安防巡逻)", "Forskning og uddannelse (科研教育)", "Kort-distance levering (短途配送)"]
   kilde: https://www.genisomai.com/product-robot/L2
   hentet: 2026-08-24
   note: "Fra siden \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar). 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik."

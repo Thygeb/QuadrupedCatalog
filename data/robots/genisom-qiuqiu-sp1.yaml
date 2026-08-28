@@ -6,7 +6,7 @@ producentby: Beijing / Suzhou
 status: i_produktion
 anvendelse:
   vaerdi: [industri, inspektion]
-  citat: ["智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人", "自主巡检 数据回传 人员零涉险"]
+  citat: ["GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人)", "Autonom inspektion, dataoverførsel, nul personalerisiko (自主巡检 数据回传 人员零涉险)"]
   kilde: https://www.genisomai.com/product-robot/sp1
   hentet: 2026-08-24
   note: "Egen oversættelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverførsel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"næste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLÆGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlæg), 化工储罐区 (kemisk lagertankområde), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte sæt, så de er IKKE brugt som citat/værdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (højrisiko-industrimiljø) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion)."
