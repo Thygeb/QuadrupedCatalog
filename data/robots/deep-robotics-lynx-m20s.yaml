@@ -47,36 +47,42 @@ felter:
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket: Effective Payload (standard terrain)."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 100
     enhed: kg
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket: Maximum Payload Capacity. Siden siger ikke eksplicit stående. Placeringen er en tolkning."
+    advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 2
     enhed: m/s
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producenten oplyser også 9 m/s som laboratoriemålt ekstremhastighed. Her bruges driftshastigheden."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: grader
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Fodnote [2]: Lab-tested slope angle; actual performance varies by surface material."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 100
     enhed: cm
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens egen etiket: Max. Single-Step Height."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: cm
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens egen etiket: Max. Continuous Stair Height. Forholdet mellem de to trinfelter er 3,3 gange. På det sammenlignelige tal ligger M20S på niveau med Boston Dynamics Spots 30 cm; havde vi taget det høje tal, ville den slå alt andet i feltet."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP67
     kilde: https://deeprobotics.cn/en/index/lynx.html
@@ -100,6 +106,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producenten oplyser to intervaller - 3,5-5 t / 16-20 km uden last og 2,5-3,5 t / 12-15 km i drift - men angiver IKKE hvilken last de 2,5-3,5 t gælder ved. M20 oplyser sin lastbetingelse (15 kg); M20S gør ikke."
+    advarsel_klasse: "gyldighed"
   hot_swap:
     vaerdi: ja
     kilde: https://deeprobotics.cn/en/index/lynx.html

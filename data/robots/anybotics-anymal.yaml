@@ -32,6 +32,7 @@ felter:
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
     advarsel: "Producenten skriver an additional 10 kg payload og skelner ikke mellem gående og stående last. Placeringen her er vores tolkning, ikke en aflæsning. Ordet additional er producentens."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 0.75
@@ -41,6 +42,7 @@ felter:
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
     advarsel: "Etiketten er Normal walking speed, IKKE maksimum. Tallet er derfor ikke sammenligneligt med de øvrige posters makstal. Metrisk/imperialt krydstjek går op."
+    advarsel_klasse: "gyldighed"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -58,6 +60,7 @@ felter:
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
     advarsel: "Samme side skriver også Walking range (90 - 120 min) per charge. To tal, samme side. Samme grafik oplyser rækkevidde 2 km (1.24 mi), som skemaet ikke har et felt til."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 180
@@ -65,6 +68,7 @@ felter:
     kilde: https://www.anybotics.com/robotics/anymal/
     hentet: 2026-08-19
     advarsel: "Producenten oplyser to ladetider: 100 min for 70% quick charge og 3 h for full charge. Her bruges den fulde opladning; hurtigopladningen kan ikke sammenlignes med andres fulde ladetider."
+    advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: ja
     kilde: https://www.anybotics.com/robotics/anymal/

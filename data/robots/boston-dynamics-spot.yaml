@@ -28,6 +28,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Producentens eget datablad oplyser 32,7 kg (72,1 lbs) - https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf. Begge tal er internt konsistente metrisk/imperialt; ingen af dem kan afvises. Forskellen er 1,1 kg."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 1100
     enhed: mm
@@ -36,6 +37,7 @@ felter:
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf
     hentet: 2026-08-19
     advarsel: "Produktsiden skriver 110mm (43.3 in) - faktor 10 fra sit eget imperiale tal. Databladet skriver 1100 mm (43.3 in). Vi retter ikke produktsiden; vi bruger databladet og noterer modstriden."
+    advarsel_klasse: "gyldighed"
   bredde:
     vaerdi: 500
     enhed: mm
@@ -51,6 +53,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Fire højder oplyses: siddende 191 mm, standard gående 610 mm, maks. 700 mm, min. 520 mm. Her bruges standard gående."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 14
@@ -60,6 +63,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning. Databladets brødtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.6
@@ -73,6 +77,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Fortegnet plus/minus er producentens egen skrivemåde."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 300
     enhed: mm
@@ -81,6 +86,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Producenten skriver Max Step Height uden at sige om det er en enkelt forhindring eller kontinuerlig trappegang. Placeringen her er konservativ. DATAMODEL.md F2 sammenlignede tallet med Unitrees kontinuerlige 20-25 cm; den sammenligning hviler på en tolkning, kilden ikke støtter."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse:
     vaerdi: IP54
@@ -92,6 +98,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Databladet tilføjer: Robot must be powered on at a minimum temperature of 0 C."
+    advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: C
@@ -103,6 +110,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Batteriet vejer selv 5,2 kg (11,5 lbs)."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 90
     enhed: min
@@ -110,6 +118,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Producentens fodnote: Runtime may vary depending on payloads and environmental factors. Standby oplyses til 180 min."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 60
@@ -117,6 +126,7 @@ felter:
     kilde: https://bostondynamics.com/products/spot/
     hentet: 2026-08-19
     advarsel: "Databladets egen ladertabel siger noget andet: ved 25 C 50 min til 80 % og 2 t til 100 %; ved 35 C 2,5 t / 3,5 t. De 60 min er ikke betinget på produktsiden."
+    advarsel_klasse: "gyldighed"
   dockingstation:
     vaerdi: ja
     kilde: https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf

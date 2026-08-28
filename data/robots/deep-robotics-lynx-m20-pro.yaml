@@ -48,36 +48,42 @@ felter:
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket er Payload Capacity."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 50
     enhed: kg
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket er Max. Load Capacity. Siden siger IKKE, at det er stående last. Placeringen her er en tolkning, valgt fordi feltet strukturelt spiller samme rolle som Unitrees stående last."
+    advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 2
     enhed: m/s
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "TRE tal for samme egenskab på samme side: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, og fodnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Her bruges driftshastigheden - den eneste, brugeren faktisk får."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: grader
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens fodnote [2]: Lab-tested slope angle; actual performance varies by surface material."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 80
     enhed: cm
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens egen etiket: Max. Single-Step Height."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producentens egen etiket: Max. Continuous Stair Height. Sammenligninger skal bruge dette tal, ikke de 80 cm."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP66
     kilde: https://deeprobotics.cn/en/index/lynx.html
@@ -100,6 +106,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/lynx.html
     hentet: 2026-08-19
     advarsel: "Producenten oplyser også 3 t / 15 km uden last. Her bruges tallet med lastbetingelse (12 km)."
+    advarsel_klasse: "uddybning"
   hot_swap:
     vaerdi: ja
     kilde: https://deeprobotics.cn/en/index/lynx.html

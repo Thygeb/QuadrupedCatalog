@@ -27,6 +27,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/lynxs10.html
     hentet: 2026-08-19
     advarsel: "En operator på EGENVÆGT - første gang i indsamlingen. Det er reelt en lovning, ikke en måling. Bemærk også, at EN bruger tegnet U+2264 og CN tegnet U+2266 for samme robot, samme felt, samme dag - to forskellige tegn for samme betydning."
+    advarsel_klasse: "gyldighed"
   laengde: ikke_oplyst
   bredde: ikke_oplyst
   hoejde: ikke_oplyst
@@ -39,6 +40,7 @@ felter:
     kilde: https://www.deeprobotics.cn/robot/index/lynxs10.html
     hentet: 2026-08-19
     advarsel: "CN er skarpere end EN: den kinesiske side skriver grænse-/ekstremhastighed - samme ord som i M20-tabellens laboratorie-ekstremhastighed. EN skriver blot flat-ground top speed. Den kinesiske side markerer altså, at 8 m/s er et grænsetal; den engelske gør ikke."
+    advarsel_klasse: "gyldighed"
   haeldning: ikke_oplyst
   forhindring_enkelt:
     vaerdi: 50
@@ -46,6 +48,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/lynxs10.html
     hentet: 2026-08-19
     advarsel: "clear obstacles up to 50 cm high - brødtekst, ikke tabel."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse:
     vaerdi: IP66

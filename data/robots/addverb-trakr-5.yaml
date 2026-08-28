@@ -24,6 +24,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"WEIGHT (INCL BATTERY): 18 KG\" i den strukturerede specifikationstabel for Trakr 5-fanen."
+    advarsel_klasse: "uddybning"
   laengde: ikke_oplyst
   bredde: ikke_oplyst
   hoejde:
@@ -32,6 +33,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"STANDING HEIGHT: 280 MM\". En separat \"HEIGHT OF CROUCHING: 150 MM\" er også oplyst; skemaet har intet felt til den tilstand. Længde og bredde er ikke oplyst noget sted på siden."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -39,12 +41,14 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "Blogindlæggets \"12 actuators\", ikke eksplicit \"frihedsgrader\" - samme fortolkning som andre robotter i kataloget, hvor kun ledmotor-/aktuatorantal er oplyst. Tildelt Trakr 5 (ikke Trakr 20), fordi bloggens øvrige tal (90-min drift, 5 kg payload) er identiske med Trakr 5's egen specifikationstabel."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 5
     enhed: kg
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"PAYLOAD: 5 KG\" - producenten skelner ikke mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning (samme princip som Boston Dynamics Spot og ANYbotics ANYmal i dette katalog)."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.5
@@ -52,6 +56,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"SPEED: 1.5 M/S\" i specifikationstabellen."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
     enhed: "°"
@@ -59,6 +64,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "Specifikationstabellen skriver \"MAX CLIMB ANGLE: 30 DEGREES\" uden operator; funktionsbeskrivelsen på samme side skriver \"Climbs stairs, slopes (≤ 30°)...\". Operatoren er hentet fra funktionsbeskrivelsen, tallet fra begge steder (identisk)."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 12
@@ -66,11 +72,13 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"MAXIMUM STEP: 120 MM\" i specifikationstabellen (=12 cm). MODSIGES af sidens egen brødtekst for netop Trakr 5: \"Trakr 5 is our agile quadruped robot with 5 kg payload capacity and climb steps upto 170 mm\" (=17 cm) - to forskellige tal for samme evne på samme side, regel 9: ikke rettet stiltiende. Tabellens tal er brugt som primær værdi. Producenten skelner ikke selv mellem \"enkelt forhindring\" og \"kontinuerlig trappe\" - klassificeret som trappetrin_kontinuerlig ud fra ordlyden (\"step\"/\"climb steps\") og størrelsesordenen (12-17 cm ligger på niveau med andre robotters kontinuerlige trappetal, ikke deres enkelt-forhindringstal på 40-80 cm). En separat \"MAX CLIMB DROP HEIGHT: 150 MM\" er også oplyst; skemaet har intet felt til nedstigningshøjde."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP67
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"INGRESS PROTECTION (IP RATING): IP67 (OPTIONAL)\" - tilvalg, ikke standard på alle enheder."
+    advarsel_klasse: "gyldighed"
   temp_min:
     vaerdi: 5
     enhed: "°C"
@@ -82,6 +90,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"TEMPERATURE: +5 °C TO +45 °C\"."
+    advarsel_klasse: "uddybning"
   batteri_wh: ikke_oplyst
   driftstid:
     vaerdi: 1.5
@@ -90,6 +99,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"ENDURANCE: 1.5 HRS\" i specifikationstabellen, bekræftet af blogindlæggets gentagne \"90-minute runtime\" (=1,5 t). Ingen lastbetingelse oplyst, selvom et separat 5 kg-payloadtal findes andetsteds på siden - forbindelsen mellem de to er ikke lavet af producenten, så driftstiden står uden lastkrav. VOLTAGE 24V og BATTERY CAPACITY 10AH er også oplyst; Wh er ikke trykt direkte og udregnes ikke af V x Ah, samme forsigtighed som andre poster i kataloget."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5
@@ -97,6 +107,7 @@ felter:
     kilde: https://addverb.ai/trakr
     hentet: 2026-08-25
     advarsel: "\"CHARGING TIME: 90 MINS\" (=1,5 t) - samme talværdi som ENDURANCE, tilsyneladende en tilfældighed, ikke rettet. Charger: 24V, 10A er også oplyst; intet skemafelt til input-effekt."
+    advarsel_klasse: "gyldighed"
   dockingstation:
     vaerdi: ja
     kilde: https://addverb.ai/trakr
