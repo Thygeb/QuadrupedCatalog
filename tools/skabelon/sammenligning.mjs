@@ -204,8 +204,9 @@ ${felter}
  *  ny CSS-komponent til selve strukturen, kun raekkerne selv er andre.
  *  IKKE hjaelp.tegnforklaring() direkte: den viser ogsaa de to
  *  kildemaerke-raekker (bogstav/sekundaer), og kilder er skjult paa denne
- *  side (BEGRUNDELSE.md "Kilder skjules") - en forklaring paa et maerke,
- *  der aldrig staar paa siden, ville vaere en forklaring uden genstand. De
+ *  side (L46 i STATUS.md, bekraeftet af JPK 27. aug 2026 - beslutningen fra
+ *  24. aug staar ved magt) - en forklaring paa et maerke, der aldrig staar
+ *  paa siden, ville vaere en forklaring uden genstand. De
  *  fire tilstandsraekker her genbruger de samme i18n-noegler,
  *  tegnforklaringen selv bruger; den femte er sammenligningens egen. */
 function legendeHTML(t, T) {
