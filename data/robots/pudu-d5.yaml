@@ -25,6 +25,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket er \"Weight (with Battery)\" - inkl. batteri."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 900
     enhed: mm
@@ -33,6 +34,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING. Producenten trykker \"Standing Dimensions: 900 x 543 x 572 mm (35.4 x 21.4 x 22.5 in)\" uden at mærke akserne enkeltvis. Første tal er her antaget som længde, som i mønstret fra Deep Robotics X30. Ikke bekræftet ud fra kilden."
+    advarsel_klasse: "gyldighed"
   bredde:
     vaerdi: 543
     enhed: mm
@@ -41,6 +43,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde. Andet tal i den utakserede trippel antaget som bredde."
+    advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 572
     enhed: mm
@@ -49,6 +52,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde. Tredje tal i den utakserede trippel antaget som højde."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     min: 20
@@ -57,6 +61,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket er \"Continuous Walking Payload: 20-30 kg (44-66 lbs)\" - interval bevaret. PR Newswires overskrift \"30kg Payload\" bruger kun intervallets øvre grænse."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 5
@@ -64,12 +69,14 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra generel markedsføringstekst \"Cruises at up to 5 m/s\", gældende for D5-serien bredt. Sammenligningstabellen har ingen selvstændig hastighedsrække pr. variant."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 25
     enhed: grader
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra den variant-specifikke sammenligningstabel: \"D5: 25 ascent, 45 descent\". Kun ascent (stigning) er brugt her; nedstigning er 45 grader for begge varianter, og skemaet har intet separat nedstigningsfelt. Se topnoten om uoverensstemmelsen med den generelle markedsføringstekst (30 grader), som er D5-W's tal."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 80
     enhed: cm
@@ -78,6 +85,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket er \"Climbing Capability: Up to 80 cm\", identisk for D5 og D5-W. Tildelt forhindring_enkelt (regel 7) fordi producenten selv adskiller dette fra det lavere \"Maximum Step Height\"-felt (se trappetrin_kontinuerlig) - men ingen af de to etiketter bruger selv ordene \"enkelt\" eller \"kontinuerlig\", så tildelingen er vores fortolkning."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: cm
@@ -86,6 +94,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket er \"Maximum Step Height: D5: 30 cm (11.8 in)\", lavere end \"Climbing Capability\" (80 cm, se forhindring_enkelt). Den generelle markedsføringstekst skriver i stedet 25 cm - det er D5-W's tabelværdi, ikke D5's. Se topnoten."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP67
     kilde: https://store.pudurobotics.com/products/pudu-d5
@@ -101,6 +110,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Separat producentfelt \"Cold-Start Capability: Below -10°C\" - en skarpere grænse for opstart end drift. Skemaet har intet cold-start-felt; noteret her fordi -10°C ellers kunne forveksles med temp_min (-20°C)."
+    advarsel_klasse: "uddybning"
   batteri_wh:
     vaerdi: 1000
     enhed: Wh
@@ -114,6 +124,7 @@ felter:
     kilde: https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html
     hentet: 2026-08-24
     advarsel: "Pressemeddelelsen skriver \"stable 30-kilogram payloads with over two hours of continuous runtime at full load\" - eneste tal med eksplicit lastbetingelse (regel 8), derfor brugt frem for webbutikkens tabelværdi \"Operating Time: 2 - 2.5 hours\" (uden lastbetingelse, samme kilde som ovenstående felter)."
+    advarsel_klasse: "uddybning"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:
@@ -151,4 +162,5 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra webbutikkens Shopify-produktdata (variant \"D5\": price 8000000, dvs. 80.000 USD i cent-enheder). D5-W koster 85.000 USD ifølge samme kilde (variant \"D5-W\": price 8500000)."
+    advarsel_klasse: "uddybning"
   ce_oplyst: ikke_oplyst

@@ -29,18 +29,21 @@ felter:
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
     advarsel: "\"Weight: 43kgs\" i sidens Specifications-afsnit. Ingen angivelse af med/uden batteri."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 60
     enhed: cm
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
     advarsel: "\"Length: 60cm\". Se topnoten om at bredden (95cm) er større end længden - usædvanligt, ikke rettet."
+    advarsel_klasse: "gyldighed"
   bredde:
     vaerdi: 95
     enhed: cm
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
     advarsel: "\"Width: 95cm\" - større end det opgivne længdemål (60cm). Står sådan hos producenten, gengivet ordret uden rettelse. Se topnoten."
+    advarsel_klasse: "gyldighed"
   hoejde:
     min: 35
     maks: 75
@@ -48,6 +51,7 @@ felter:
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
     advarsel: "\"Height: 60cm (min 35 max 75)\" - producenten oplyser en standardhøjde på 60cm OG et interval 35-75cm (højden er justerbar, formentlig via benenes ståehøjde). Skemaet tillader kun ÉN af \"værdi\" og \"min\"/\"maks\" (R4) - intervallet er valgt, fordi det bærer mest information; 60cm-standardtallet er bevaret her i citatet i stedet for at gå tabt."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende: ikke_oplyst
   nyttelast_staaende: ikke_oplyst
@@ -67,6 +71,7 @@ felter:
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
     advarsel: "\"90/120 min battery run time\" - de to tal er ikke mærket med hvilken last de gælder for (se topnote). lastbetingelsen er derfor ikke oplyst, ikke et gættet kg-tal."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 60
@@ -74,6 +79,7 @@ felter:
     kilde: https://keybotic.com/technology/
     hentet: 2026-08-24
     advarsel: "\"60 min for full charge\"."
+    advarsel_klasse: "uddybning"
   dockingstation: ikke_oplyst
   lidar:
     vaerdi: "3D LiDAR, 32 kanaler, 360° horisontalt / 90° vertikalt synsfelt, rækkevidde 35 m, præcision op til 1 cm, Class 1 øjensikker laser (IEC/EN 60825-1:2014), bølgelængde 865 nm"

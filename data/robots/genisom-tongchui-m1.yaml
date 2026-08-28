@@ -28,12 +28,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"整机重量（含电池）: 41 kg\" i den strukturerede specifikationstabel - ingen \"约\" (cirka)-markering. MODSIGES af sidens eget marketingkort: \"约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，在四足机器人行业内首次实现近 1:1 负载自重比\" (ca. 30kg egenvægt, ca. 30kg vedvarende last, næsten 1:1-forhold). De to tal (41kg vs. 30kg) er den samme robots egenvægt på den SAMME side og står i modstrid. Regel 9: rettes ikke stiltiende. Den strukturerede tabel er brugt som feltværdi, fordi den er den mest specifikke kilde (samme princip som resten af GENISOM-posterne), men uoverensstemmelsen er ikke bortforklaret."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 930
     enhed: mm
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"站立尺寸（长 × 宽 × 高）: 930 × 480 × 585 mm\" - INGEN \"约\" (cirka)-tegn i denne række, modsat L1/L2's tilsvarende mål. Ingen operator sat, jf. regel 4 (opfind aldrig et forbehold, producenten ikke skrev)."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 480
     enhed: mm
@@ -45,18 +47,21 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "Krybende mål (\"趴地尺寸\") er 930 x 630 x 200 mm; skemaet har intet felt til den tilstand."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"关节电机数量: 12 个\" i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende \"16个自由度\"-påstand, som IKKE er brugt her."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 30
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"最大载荷: 30 kg\". Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 6
@@ -64,24 +69,28 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"最大速度: 6 m/s\". En separat \"极限速度\" (grænsehastighed) på 8 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1/L2/L1-W."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"最大爬坡角度: 45°\", bekræftet af marketingkortets \"45° 极限爬坡角度\" - ingen separat standard/grænse-splittelse her, modsat L1/L1-W."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"80cm 垂直越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel, bekræftet af marketingkortets \"25cm 持续攀爬台阶\"."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP67
     kilde: https://www.genisomai.com/product-robot/M1
@@ -92,12 +101,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" - basisspecifikationen (-20~55°C) er brugt; den bredere -40~80°C er kun en tilvalgt batteriversion, ikke standard."
+    advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "Samme forbehold som temp_min: -40~80°C er en tilvalgt \"宽温电池版本\" (bredtemperatur-batteriversion), ikke basiskonfigurationen."
+    advarsel_klasse: "uddybning"
   batteri_wh:
     vaerdi: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/M1
@@ -111,6 +122,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" (5t tomgang / 3,5t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte til denne række - derfor er lastbetingelsen ikke oplyst, selvom et separat \"最大载荷: 30 kg\" står andetsteds på siden. Rækkevidde \"续航里程: 空载 29 km；满载 18 km\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel_klasse: "gyldighed"
   hot_swap:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1
@@ -123,6 +135,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-24
     advarsel: "\"充电时长: ＜ 2 h\"."
+    advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1

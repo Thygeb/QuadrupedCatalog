@@ -24,42 +24,49 @@ felter:
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "\"Total Weight: 77kg (Battery included)\" - eksplicit med batteri, i modsætning til T1's tvetydige etikette."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 900
     enhed: mm
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "\"Standing Dimensions: 900mm x 600mm x 650mm\" - akserne er ikke mærket. Brækkefølgen længde x bredde x højde er antaget, ikke bekræftet."
+    advarsel_klasse: "gyldighed"
   bredde:
     vaerdi: 600
     enhed: mm
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde."
+    advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 650
     enhed: mm
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde. Foldet mål 1150 x 800 x 200 mm; skemaet har intet foldefelt."
+    advarsel_klasse: "gyldighed"
   frihedsgrader:
     vaerdi: 16
     enhed: DoF
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "\"High-Performance Motors: 16 units\" - motorantal, ikke eksplicit DoF. Samme fortolkning som T1 og Go2."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 200
     enhed: kg
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Walking Load\"."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 400
     enhed: kg
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Standing Load\"."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 3
     enhed: m/s
@@ -72,23 +79,27 @@ felter:
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Slope Capability: >45°\". En anden række, \"Step Negotiation\", viser også 45° uden \">\" - muligvis samme oplysning gentaget under to etiketter, muligvis en skabelonfejl hos producenten. Kun \"Slope Capability\"-rækken er brugt her, fordi den har den klareste etikette og operator."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 800
     enhed: mm
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Climbing Ability: 800 mm\". Usædvanligt stort tal for en enkelt forhindring (dobbelt så højt som T1's 400mm-klasse forhindring) - ikke efterprøvet mod et andet felt, og kunne være en skrivefejl hos producenten (fx forvekslet med rampe-/last-relateret mål). Gemt ordret, ikke rettet."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Stair Climbing Capability: Max step height 25cm\"."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP67
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Kilden tilføjer \"(Wheel Protection Rating IP68)\" - hjulene har en anden, højere klasse end helmaskinen. Kun helmaskinens IP67 er brugt i feltet."
+    advarsel_klasse: "uddybning"
   temp_min:
     vaerdi: -40
     enhed: "°C"
@@ -105,6 +116,7 @@ felter:
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "\"Hot-swappable 3.2kWh NMC battery (Supply voltage: 72V)\"."
+    advarsel_klasse: "uddybning"
   hot_swap:
     vaerdi: ja
     kilde: https://www.micbotics.com/list_12/98.html
@@ -116,6 +128,7 @@ felter:
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Charging Time: 1.5h\"."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi_min: 8
     vaerdi_maks: 12
@@ -124,6 +137,7 @@ felter:
     kilde: https://www.micbotics.com/list_12/98.html
     hentet: 2026-08-24
     advarsel: "\"No-load continuous operating time: <=12h\" og \"Full-load continuous operating time: <=8h\". To lastbetingelser (ingen last / fuld last) uden et konkret kg-tal for \"fuld last\" - kan derfor ikke skrives som et konkret lastkrav, kun som tilstanden ikke oplyst. \"Max Walking Load: 200kg\" står i tabellen, men producenten forbinder den IKKE eksplicit til \"fuld last\"-rækken, så forbindelsen er ikke lavet her."
+    advarsel_klasse: "gyldighed"
   dockingstation: ikke_oplyst
   lidar:
     vaerdi: "96-line automotive-grade LiDAR (understøtter op til 3 enheder)"

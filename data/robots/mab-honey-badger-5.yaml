@@ -45,6 +45,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger-5
     hentet: 2026-08-19
     advarsel: "HØJDEN ER ET INTERVAL - 13-50 cm, altså liggende til fuldt strakt. Bevaret som interval; et enkelt tal ville være opfundet."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 5
@@ -53,6 +54,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger-5
     hentet: 2026-08-19
     advarsel: "Producenten skriver up to 5 kg. Operatoren er bevaret. Der skelnes ikke mellem gående og stående last."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed: ikke_oplyst
   haeldning: ikke_oplyst
@@ -82,6 +84,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger-5
     hentet: 2026-08-19
     advarsel: "Producenten skriver up to 2 hours. Operatoren bevaret. Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

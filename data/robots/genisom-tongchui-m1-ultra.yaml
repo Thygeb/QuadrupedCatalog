@@ -28,6 +28,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"整机重量（含电池）: 41 kg\" i M1 Ultras egen specifikationstabel (id 504) - identisk med basisudgaven og M1 Pro. MODSIGES af sidens sidebredde marketingkort (\"约 30kg\"), samme selvmodsigelse som M1 Pro. Ikke rettet stiltiende."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 930
     enhed: mm
@@ -44,18 +45,21 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm\" - identisk med M1 Pro, 10mm højere end basisudgavens 585mm. Krybende mål (\"趴地尺寸\"): 930 x 630 x 210 mm; skemaet har intet felt til den tilstand."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"关节电机数量: 12 个\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 30
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"最大载荷: 30 kg\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 6
@@ -63,24 +67,28 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"最大速度: 6 m/s\" - identisk med basisudgaven og M1 Pro. Separat \"极限速度\" (grænsehastighed) 8 m/s er også oplyst, ikke brugt som hovedværdi."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"最大爬坡角度: 45°\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"80cm 垂直越障高度\" fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Ultras egen JSON-blok. Samme kilde og forbehold som basisudgaven/M1 Pro."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"连续攀爬楼梯高度: 25 cm\" i M1 Ultras EGEN datablok (id 505) - identisk med basisudgaven og M1 Pro, direkte fra fanen selv."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP67
     kilde: https://www.genisomai.com/product-robot/M1
@@ -91,12 +99,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard."
+    advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "Samme forbehold som temp_min."
+    advarsel_klasse: "uddybning"
   batteri_wh:
     vaerdi: ikke_oplyst
     kilde: https://www.genisomai.com/product-robot/M1
@@ -110,6 +120,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Rækkevidde \"续航里程: 空载 29 km；满载 18 km\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel_klasse: "gyldighed"
   hot_swap:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1
@@ -122,6 +133,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/M1
     hentet: 2026-08-25
     advarsel: "\"充电时长: ＜ 2 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/M1
