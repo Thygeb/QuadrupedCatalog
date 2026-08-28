@@ -106,7 +106,16 @@ b,strong{font-weight:700}
 
 /* Browserfladerne baerer ogsaa designet. */
 ::selection{background:var(--accent);color:#FFFFFF}
-:root{caret-color:var(--accent)}
+/* accent-color er den sidste utegnede browserflade. VAER PRAECIS OM, HVAD DEN
+   GOER: maalt 28. aug 2026 tegner browseren i dag NUL kontroller selv - alle
+   220 afkrydsningsfelter og radioer i bygget (214 checkbox, 6 radio) staar
+   1x1 px med opacity:0, fordi chippen ER etiketten, og der findes hverken
+   <progress>, <select> eller type="range" paa nogen side. Erklaeringen
+   flytter altsaa ingen pixel i dag. Den staar her, fordi den ellers foerst
+   bliver opdaget den dag, nogen tilfoejer en kontrol, der TEGNES - og saa i
+   form af et blaat felt, ingen har valgt. En flade, man ikke har tegnet,
+   baerer stadig designet. */
+:root{caret-color:var(--accent);accent-color:var(--accent)}
 a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
 a:hover{text-decoration-thickness:2.5px}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}

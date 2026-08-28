@@ -63,4 +63,21 @@ export default async function koer(ctx) {
     /\.stribe--kompakt \.v-tal--xxlang \.num\{font-size:\.80em/.test(sys),
     'ellers staar det fjerde trin paa .56em i en celle med 62 px luft');
 
+  /* --- 2. accent-color -------------------------------------------------- */
+  // Backlogpunktet paastod, at browseren tegner 110 felter i sin egen blaa.
+  // MAALT: den tegner nul - alle 220 felter staar 1x1 px med opacity:0, og
+  // chippen ER etiketten. Erklaeringen staar alligevel, saa den flade ikke
+  // foerst opdages den dag, nogen tilfoejer en kontrol, der TEGNES.
+  const accent = [...sys.matchAll(/accent-color:\s*([^;}]+)/g)].map((m) => m[1].trim());
+  ok('31.6: accent-color er sat', accent.length >= 1,
+    'ellers tegner browseren en fremtidig kontrol i en blaa, ingen har valgt');
+  ok('31.7: accent-color kommer fra paletten, ikke fra en loes hex',
+    accent.length > 0 && accent.every((v) => v.startsWith('var(--')),
+    `fandt: ${accent.join(' | ')}`);
+  // Vagten paa PRAEMISSEN: bliver et felt en dag SYNLIGT, skal nogen se
+  // efter, om chip-grammatikken stadig holder. Skjulningen er selve grunden
+  // til, at accent-color er insurance og ikke en synlig rettelse.
+  ok('31.8: filterfelterne er stadig visuelt skjulte (chippen er etiketten)',
+    /\.filtre input\{position:absolute;width:1px;height:1px;opacity:0\}/.test(sys),
+    'holder den ikke, tegner browseren felterne, og accent-color bliver synlig');
 }
