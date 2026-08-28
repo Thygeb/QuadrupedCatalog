@@ -11,9 +11,17 @@ gav 0 (to gange), et selvmodsigende filejerskab, en manglende designskill, en
 forældet grundmåling. `grillmig` fangede dem ikke, for den dømmer hensigten —
 ingen skill dækkede konstruktionen. Det gør denne.
 
-**Rækkefølgen:** `grillmig` først (skal briefet overhovedet sendes?), så denne
-tjekliste (er det bygget rigtigt?). Spring aldrig den første over, fordi den
-anden findes.
+**Rækkefølgen, ændret 28. aug 2026 af JPK:** denne tjekliste kaldes nu **direkte**.
+`grillmig` er taget ud af det obligatoriske workflow, fordi den holdt designprocessen
+tilbage og skar for mange idéer — se CLAUDE.md's skilltabel. Den må stadig kaldes
+bevidst på et brief, men aldrig på en designretning, og aldrig automatisk.
+
+**Det ene spørgsmål fra grillmig, der SKAL overleve her, fordi intet andet bærer det:**
+*er der en tidligere beslutning imod?* Slå efter i STATUS.md's **Lukket**-tabel og i
+*"Kom ikke igen med disse"* — og **afkort aldrig den søgning med `head`.** Lukket-tabellen
+ligger nederst i filen, så `head` rammer systematisk den halvdel, spørgsmålet handler om.
+Det er Å55: sessionens dyreste fejl blev begået med grillmig kørende, fordi søgningen
+efter tidligere beslutninger stoppede 100 linjer før svaret.
 
 ## Tjeklisten — ni punkter, alle målbare
 
