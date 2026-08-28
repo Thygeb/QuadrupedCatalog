@@ -26,6 +26,7 @@
   "katalog_soeg_pladsholder": "e.g. Spot, DEEP Robotics or IP67",
   "se_alle": "See all {n} robots",
   "antal_kort": "{n} robots",
+  "antal_kort_en": "1 robot",
   "soeg_ingen_traef": "No robots match the search.",
 
   "yderpunkter_etiket": "Extremes",
@@ -87,7 +88,10 @@
   "filter_ryd": "Clear filters",
   "filter_vis_alle": "Show all again",
   "filter_uden_js": "Ticks in the same group widen the selection, ticks across groups narrow it. The filters work without JavaScript.",
-  "filter_ingen_traef": "No robots match the filters.",
+  "filter_ingen_traef": "No robots match this combination of filters. Remove one filter and results will come back.",
+  "filter_omfang_statisk": "A filter is on. The figures beside the filters and the halls count the whole catalogue – not the selection shown below. A hall with no cards has no robots that match.",
+  "taeller_af_alle": "of {n}",
+  "taeller_i_kataloget": "in the catalogue",
 
   "vaegtklasse_titel": "Weight class",
   "vaegtklasse_under_20": "Under 20 kg",

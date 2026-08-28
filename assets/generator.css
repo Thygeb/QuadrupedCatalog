@@ -285,7 +285,58 @@
 .sog[hidden],.styr[hidden],.tomt[hidden]{display:none}
 .tomt{margin-top:var(--r5);padding:18px 20px;background:var(--tom);
   border:1px dashed var(--hegn);border-radius:var(--rund);
-  font-size:15px;color:var(--blaek2)}
+  font-size:15px;color:var(--blaek2);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.tomt__ryd{font-size:14px}
+
+/* --- 2b. TAELLERNES OMFANG (P0, 28. aug 2026) -----------------------------
+   Katalogets taellere - 30 ved facetterne, 4 i tommelindekset, 4 ved salene -
+   er regnet ved BYGGETIDEN over hele kataloget. Filtreringen sker i CSS, og
+   CSS kan taende og slukke kort, men ikke taelle dem. Uden JavaScript stod
+   tallene derfor uaendret ved siden af et udvalg, de ikke laengere beskrev.
+   Maalt paa `#f-land-tyskland` ved 1440 foer rettelsen: 1 synligt kort mod
+   37 taellere, hvis tal ikke passede paa det viste.
+
+   Loesningen er ikke at skjule tallene - de er nyttige, og det er dem, der
+   forhindrer en blindgyde ("0" ved en facet betyder: klik ikke her). Den er
+   at lade dem SIGE, hvad de taeller, i praecis den tilstand hvor det ellers
+   ville vaere tvetydigt: "18" bliver "18 af 77".
+
+   To betingelser, begge noedvendige:
+   - `:has(.facetter input:checked/:target)` - der ER et filter i brug. I
+     hvile beskriver taellerne hele kataloget OG det viste udvalg paa én gang,
+     og saa er efterstillingen stoej.
+   - `:not([data-levende])` - JavaScript koerer IKKE. Naar katalog.js er i
+     drift, regner den taellerne om ved hvert klik, og saa er de levende og
+     skal ikke baere et forbehold. Flaget saettes af katalog.js selv, saa
+     forbeholdet forsvinder i samme oejeblik, det bliver usandt.
+
+   Rangordenen: efterstillingen er sekundaer tekst i normal vaegt, saa selve
+   tallet stadig er det, oejet lander paa. */
+[data-sal][hidden],[data-omfang][hidden],[data-omfang-note][hidden],
+[data-tomt-grund][hidden]{display:none}
+.taeller-omfang{font-weight:400;letter-spacing:0;color:var(--blaek3)}
+/* Paa en VALGT chip er bunden accentfarven, og --blaek3 er da moerk paa
+   moerk. Efterstillingen foelger derfor samme lyse tone som selve tallet
+   (`.filtre input:checked + label .antal`, system.css §13). Maalt paa
+   "Tyskland 1 af 77" i den valgte tilstand: uden denne regel stod "af 77"
+   i moerk graa paa accentbunden. */
+.filtre input:checked + label .taeller-omfang,
+.filtre input:target + label .taeller-omfang{color:var(--accent-ro)}
+.facet-omfang{margin-top:var(--r4);max-width:86ch;color:var(--blaek2)}
+/* En facet, der ikke kan give ét eneste kort mere, dæmpes af katalog.js.
+   Den bliver ikke `disabled`: laeseren skal kunne se, at muligheden findes
+   og hvorfor den er tom, og et felt, der er krydset af, maa aldrig blive
+   ubetjenligt under fingeren paa laeseren. */
+.filtre input:not(:checked) + label.facet-tom{opacity:.5}
+.filtre input:not(:checked) + label.facet-tom .antal{color:var(--blaek3)}
+
+@supports selector(:has(*)){
+  .styr:not([data-levende]):has(.facetter input:checked) [data-omfang],
+  .styr:not([data-levende]):has(.facetter input:target) [data-omfang]{display:inline}
+  .styr:not([data-levende]):has(.facetter input:checked) [data-omfang-note],
+  .styr:not([data-levende]):has(.facetter input:target) [data-omfang-note]{display:block}
+}
 
 /* --- 3. Katalogets og sektionernes tekstled ------------------------------- */
 .katalog-hoved{padding-block:var(--r7) 0;display:flex;flex-direction:column;gap:var(--r3)}
