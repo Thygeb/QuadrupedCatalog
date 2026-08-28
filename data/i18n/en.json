@@ -131,6 +131,8 @@
   "hentet": "Retrieved",
   "foraeldet": "Retrieved more than 12 months ago – may be wrong now.",
   "advarsel": "Warning",
+  "forbehold_navn": "Caveat",
+  "note_navn": "Note",
   "kilder_titel": "Sources",
   "kilder_forklaring": "One line per source, not per figure: a source has one retrieval date. The letter beside a figure points to the line it came from.",
   "kilde_primaer": "Manufacturer product page.",

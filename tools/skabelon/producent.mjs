@@ -58,7 +58,7 @@
  */
 
 import { skal, hjaelp } from './side.mjs';
-import { tilstandAf } from '../skema.mjs';
+import { tilstandAf, erGyldighedsforbehold } from '../skema.mjs';
 import {
   esc, T, TD, flet, sti, kraevHjaelp, vaerdi, billedled,
 } from './robot.mjs';
@@ -250,8 +250,12 @@ function kompaktStribe(ctx, m) {
     const maerke = ctx.__H.kildemaerke(post, kilder, hvorhen) || '';
     return {
       hul,
+      // D18 · ETIKET. Minikortet er den SAMME .stribe--kompakt som katalog-
+      // kortet; uden maerket her ville én komponent opfoere sig forskelligt
+      // paa to sider, og laeseren ville se et forbehold forsvinde ved at gaa
+      // fra kataloget ind paa producenten.
       html: `<li${hul ? ' class="hul"' : ''}><svg class="ikon" aria-hidden="true"><use href="#${ikon}"/></svg><span class="krop">
-<span class="etiket">${esc(T(ctx.i18n, 'felt_' + navn))}</span>
+<span class="etiket${erGyldighedsforbehold(post) ? ' m-etiket' : ''}">${esc(T(ctx.i18n, 'felt_' + navn))}</span>
 ${html}${maerke}</span></li>`,
     };
   });
