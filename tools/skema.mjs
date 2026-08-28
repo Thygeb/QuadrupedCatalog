@@ -361,9 +361,9 @@ export const FILTER_FELTER = [
  * systemet — kun UDTRYKKET er strukturerede data i stedet for HTML.
  *
  * IKKE med: `kilde`, `hentet`, `kildetype`. Kildemaerker forbliver skjult
- * paa sammenligningssiden (CEO-beslutning 24. aug, se BEGRUNDELSE.md
- * "Kilder skjules") — de udelades her, saa de aldrig kan naa klienten,
- * ikke kun visuelt skjules med CSS.
+ * paa sammenligningssiden (L46 i STATUS.md, bekraeftet af JPK 27. aug 2026 -
+ * beslutningen fra 24. aug staar ved magt) — de udelades her, saa de aldrig
+ * kan naa klienten, ikke kun visuelt skjules med CSS.
  */
 export function feltVisning(navn, post) {
   const spec = FELTER[navn];
