@@ -64,10 +64,10 @@ felter:
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 15
-    enhed: km/t
+    enhed: km/h
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
-    advarsel: "Eneste Unitree-model opgivet i km/t i stedet for m/s. Producentens fodnote [1] gælder også her."
+    advarsel: "Eneste Unitree-model opgivet i km/h i stedet for m/s. Producentens fodnote [1] gælder også her."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45

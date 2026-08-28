@@ -74,11 +74,11 @@ felter:
     advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 12
-    enhed: km/t
+    enhed: km/h
     operator: ">="
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
-    advarsel: "Producenten skriver maks. hastighed >= 12 km/t. Bemærk enheden: km/t, ikke m/s som søsterposten Y20."
+    advarsel: "Producenten skriver maks. hastighed >= 12 km/h. Bemærk enheden: km/h, ikke m/s som søsterposten Y20."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 35

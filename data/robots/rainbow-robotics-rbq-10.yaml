@@ -61,10 +61,10 @@ felter:
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 9
-    enhed: km/t
+    enhed: km/h
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
-    advarsel: "Specifikationstabellen: 9 km/h (up to 14 km/h in running mode). Resumeet ØVERST PÅ SAMME SIDE skriver Walking 6 km/h, running 14 km/h. 6 mod 9 km/t for gang. Specifikationstabellen er brugt som værdi; resumeet ført som modstrid. Ingen af de to kan afvises af os."
+    advarsel: "Specifikationstabellen: 9 km/h (up to 14 km/h in running mode). Resumeet ØVERST PÅ SAMME SIDE skriver Walking 6 km/h, running 14 km/h. 6 mod 9 km/h for gang. Specifikationstabellen er brugt som værdi; resumeet ført som modstrid. Ingen af de to kan afvises af os."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45

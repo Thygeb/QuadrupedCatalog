@@ -7,7 +7,7 @@ foerste_udgivelse: 2025
 status: i_produktion
 anvendelse:
   vaerdi: [industri, forsvar_beredskab]
-  citat: "适用于工业、电力、救援等场景"
+  citat: "Anvendes til industri, elkraft, redning og lignende scenarier (适用于工业、电力、救援等场景)"
   kilde: https://www.cvte.com/product/quadrupedrobot
   hentet: 2026-08-24
   note: "\"工业\" (industri) og \"电力\" (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). \"救援\" (redning) er omsat til forsvar og beredskab."
@@ -79,7 +79,7 @@ felter:
     hentet: 2026-08-24
     advarsel: "Nyhedsartiklen: \"深度融合激光雷达、里程计、IMU、UWB、GNSS、视觉相机等多种传感器\" (dyb fusion af LiDAR, odometri, IMU, UWB, GNSS, visuelt kamera m.fl.). LiDAR nævnes kun som sensor-TYPE i en opremsning - intet antal, ingen model. Tæller ikke som udfyldt under D4's foreløbige regel."
   kameraer:
-    vaerdi: "可见光+红外双光云台 (dobbeltspektret synligt lys + infrarødt drejetårn-kamera), model ikke oplyst"
+    vaerdi: "Dobbeltspektret synligt lys + infrarødt drejetårn-kamera, model ikke oplyst (可见光+红外双光云台)"
     kilde: https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db
     hentet: 2026-08-24
     advarsel: "\"X7搭载可见光+红外双光云台、气体传感器、机械臂甚至灭火装置\"."

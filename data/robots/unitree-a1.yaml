@@ -39,7 +39,7 @@ felter:
     enhed: m/s
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
-    advarsel: "Producenten skriver 3.3 m/s (11.88 km/h) som maximum continuous running speed. Krydstjek: 3,3 m/s = 11,88 km/t, går op."
+    advarsel: "Producenten skriver 3.3 m/s (11.88 km/h) som maximum continuous running speed. Krydstjek: 3,3 m/s = 11,88 km/h, går op."
     advarsel_klasse: "uddybning"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
