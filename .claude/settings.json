@@ -24,7 +24,12 @@
       "Write(//c/Praktik/websites/salg/**)",
       "Bash(rm -rf:*)"
     ],
-    "additionalDirectories": []
+    "additionalDirectories": [
+      "C:/Praktik/websites/udstilling-wt-spaend",
+      "C:/Praktik/websites/udstilling-wt-d14data",
+      "C:/Praktik/websites/udstilling-wt-legende2",
+      "C:/Praktik/websites/udstilling-wt-maerke"
+    ]
   },
   "hooks": {
     "UserPromptSubmit": [
