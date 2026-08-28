@@ -313,9 +313,36 @@ a:hover{text-decoration-thickness:2.5px}
    layout-bevidst: bogstavet loefter sig uden at kunne flyde ud over cellen,
    som en relativ forskydning ville. Kun i .v-tal - i "ikke oplyst"-chippen
    skal bogstavet blive staaende midt i. */
+/* GULVET, sat 28. aug 2026 (spor/haerd). CSS'en havde allerede DOEMT sin egen
+   grundregel fem afsnit laengere nede (se ".34em af 17 px er 5,8 px - under
+   det, en skaerm kan saette et versalt bogstav paa"), men rettelsen naaede kun
+   ÉN flade: `.stribe--kompakt .v-tal`. Maalt paa tre flader x to bredder foer
+   rettelsen (forside, katalog, robotside ved 1440 og 390 px):
+
+     robotsiden      22 af 22 maerker paa 5,78 px  (.34em af 17 px)
+     kataloget        4 maerker paa 3,74 px        (.34em af 11 px, .v-ikke-chippen
+                                                    - og de fire ER links)
+                      2 maerker paa 5,78 px        (.raekke .v-tal, som .47em-reglen
+                                                    aldrig daekkede)
+                    141 maerker paa 7,99 px        (.47em af 17 px - selve
+                                                    "rettelsen" ramte 0,01 px UNDER
+                                                    de 8,0 px, den lovede)
+     forsiden        16 maerker paa 7,99/7,05 px
+
+   Et gulv i em kan ikke loese det, for fejlen ER at graden arves fra en
+   foraelder, der selv kan vaere lille. `max()` goer gulvet uafhaengigt af
+   arven og lader maerket vokse med figuren, hvor figuren er stor: paa
+   forsidens store tal staar det stadig paa .34em (15,64 px ved 1440), saa
+   rangordenen - maerket markant mindre end figuren - er uaendret dér, hvor der
+   ER en figur at vaere mindre end.
+
+   px og ikke rem: gulvet er en RENDERINGSGRAENSE ("hvad en skaerm kan saette
+   et versalt bogstav paa"), ikke en andel af laeserens tekststoerrelse. Det er
+   ogsaa den enhed, CSS'ens egen begrundelse ovenfor regner i. Browserzoom
+   skalerer px med; -webkit-text-size-adjust:100% staar allerede paa <html>. */
 .kildemaerke{
   position:relative;
-  font-family:var(--mono);font-size:.34em;font-weight:700;line-height:1;
+  font-family:var(--mono);font-size:max(8px,.34em);font-weight:700;line-height:1;
   letter-spacing:.02em;color:var(--accent);
   text-decoration:none;padding:0 1px;
 }
@@ -550,11 +577,24 @@ a:hover{text-decoration-thickness:2.5px}
 .stribe--kompakt .v-tal--xxlang .enhed{font-size:.38em}
 .stribe--kompakt .v-tal--xxlang .op{font-size:.4em}
 
-/* Kildebogstavet er sidens signatur og skal kunne LAESES. .34em af 17 px er
-   5,8 px - under det, en skaerm kan saette et versalt bogstav paa. I den
-   kompakte celle staar det derfor paa .47em (8,0 px). Det er stadig under
-   halvdelen af figuren, saa rangordenen er uaendret. */
-.stribe--kompakt .v-tal > .kildemaerke{font-size:.47em}
+/* Kildebogstavet er sidens signatur og skal kunne LAESES. Her stod indtil
+   28. aug 2026 undtagelsen `.stribe--kompakt .v-tal > .kildemaerke{.47em}`
+   med begrundelsen ".34em af 17 px er 5,8 px - under det, en skaerm kan saette
+   et versalt bogstav paa. I den kompakte celle staar det derfor paa .47em
+   (8,0 px)."
+
+   BEGRUNDELSEN HOLDT; UNDTAGELSEN GJORDE IKKE. To ting maalt samme dag:
+   (1) .47em af 17 px er 7,99 px - reglen ramte 0,01 px under sit eget maal,
+   og (2) den daekkede ÉN af de fem sammenhaenge, maerket optraeder i, saa
+   robotsiden (5,78 px), `.raekke`-cellen (5,78 px) og `.v-ikke`-chippen
+   (3,74 px, et link) stod tilbage under gulvet.
+
+   Gulvet er derfor flyttet op i grundreglen som `max(8px,.34em)` (se afsnit
+   ovenfor), og denne undtagelse er FJERNET frem for rettet: den er blevet
+   overfloedig. `.stribe--kompakt .v` staar paa 17 px (15 px under 420 px), saa
+   grundreglens max() giver 8,00 px i praecis den celle, undtagelsen fandtes
+   for - og i de fire andre sammenhaenge, den aldrig naaede. Én regel i stedet
+   for to, og ingen flade tilbage under gulvet. */
 
 @media (max-width:420px){
   .stribe--kompakt{gap:5px 8px}

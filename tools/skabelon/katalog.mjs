@@ -162,12 +162,86 @@ export function hovedStil(ctx) {
     '.styr:has(#sort-alfa:checked) .kort{order:var(--o-alfa)}',
   ];
 
+  /* --- TOMME SALE, SKJULT I REN CSS (P0, 28. aug 2026) --------------------
+     Problemet: naar et filter tommer en hel vaegtklasse, blev salens
+     overskrift, romertal og taelling staaende over et tomt gitter. Maalt paa
+     `#f-land-tyskland` ved 1440: 1 synligt kort, og 3 sale med overskrift og
+     tal over nul kort - inklusive saetningen "De staar her, ikke skjult i
+     bunden af en anden klasse" over et tomt felt.
+
+     Den naerliggende konklusion er, at det KUN kan loeses med JavaScript,
+     fordi :has() ikke kan se computed display paa et kort, en anden regel har
+     skjult. Det er rigtigt - men det er ikke det spoergsmaal, der skal
+     stilles. Vi behoever ikke spoerge DOM'en, om salen blev tom: vi ved ved
+     byggetiden, hvilke vaerdier hver sal indeholder.
+
+     Reglen pr. (sal, facet) bliver derfor:
+
+       "facetten er i brug, OG ingen af de vaerdier, salen faktisk
+        indeholder, er valgt"  ->  salen kan ikke have et eneste kort
+
+     som i CSS er
+       .styr:has(.f-land:checked):not(:has(:is(#f-land-kina,...):checked))
+         [data-sal="under_20"]{display:none}
+
+     hvor :is()-listen er praecis de landevaerdier, sal I indeholder. Det
+     haandterer ELLER inden for facetten korrekt: er baade Kina og Tyskland
+     krydset af, og salen har kinesiske robotter, saa fanger :is() den, og
+     salen bliver staaende.
+
+     REGLEN ER SUND, MEN IKKE KOMPLET, og det skal staa her, saa den naeste
+     laeser ikke tror, den daekker mere end den goer. Den skjuler aldrig en
+     sal, der HAR kort (ingen falske positive). Men den ser kun ÉN facet ad
+     gangen, saa en tomhed, der foerst opstaar paa TVAERS af to facetter,
+     fanger den ikke: har en sal én tysk robot til forskning og én kinesisk
+     til industri, og laeseren vaelger "Tyskland + industri", er salen tom
+     uden at nogen enkelt facet gjorde den tom. Den fulde betingelse ville
+     kraeve én regel pr. kombination (5 facetter, 30 vaerdier), og det er ikke
+     en stilart, det er en eksplosion.
+
+     Det udestaaende tilfaelde daekkes to andre steder: JavaScript skjuler
+     enhver tom sal praecist (katalog.js), og UDEN JavaScript staar
+     omfangsmaerkerne og noten over salene, saa intet tal lyver - salen
+     staar da med en overskrift og en SAND taelling ("18 robotter i
+     kataloget"), ikke med et tal om et udvalg, den ikke beskriver.
+
+     `[data-sal]` rammer alle fire dele af salen paa én gang: indeksposten i
+     tommelindekset, hovedet, forklaringen og gitteret. Indeksposten SKAL med
+     - ellers ville tommelindekset tilbyde et spring til et anker, der er
+     skjult. */
+  const tommeSale = [];
+  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
+  for (const r of robotter) efterKlasse.get(hjaelp.vaegtklasse(r))?.push(r);
+  for (const klasse of hjaelp.VAEGTKLASSER) {
+    const iSalen = efterKlasse.get(klasse) ?? [];
+    if (!iSalen.length) continue;
+    for (const f of F) {
+      // De vaerdier i denne facet, som salen FAKTISK indeholder.
+      const tilstede = new Set();
+      for (const r of iSalen) for (const v of f.vaerdier(r)) tilstede.add(v);
+      const ider = f.liste.filter((v) => tilstede.has(v))
+        .map((v) => `#f-${f.navn}-${nogle(v)}`);
+      const maal = `[data-sal="${klasse}"]`;
+      for (const tilstand of ['checked', 'target']) {
+        const brug = `.styr:has(.f-${f.navn}:${tilstand})`;
+        // Tom :is()-liste er ugyldig CSS. Indeholder salen ingen af
+        // facettens vaerdier overhovedet, tommer ENHVER markering den.
+        tommeSale.push(ider.length
+          ? `${brug}:not(:has(:is(${ider.join(',')}):${tilstand})) ${maal}{display:none}`
+          : `${brug} ${maal}{display:none}`);
+      }
+    }
+  }
+
   return `/* Filtrene. Genereret af tools/skabelon/katalog.mjs - én regel pr. vaerdi. */
 @supports selector(:has(*)){
 ${linjer.join('\n')}
 
 /* Sorteringen (L44). */
 ${sortering.join('\n')}
+
+/* Sale, som det valgte filter beviseligt tommer (P0). Se hovedStil()s note. */
+${tommeSale.join('\n')}
 }`;
 }
 
@@ -216,6 +290,35 @@ export function render(ctx) {
   const rangAlfa = rang([...robotter]
     .sort((a, b) => String(a.navn).localeCompare(String(b.navn), sprog)));
 
+  /* --- OMFANGSMAERKET (P0, 28. aug 2026) ---------------------------------
+     Hver statisk taeller paa siden faar en lille efterstilling, der siger
+     HVAD den taeller. Den staar `hidden` i hvile og vises kun, naar et filter
+     er slaaet til OG JavaScript ikke koerer (reglerne i generator.css §2b).
+
+     Hvorfor overhovedet: tallene er regnet ved BYGGETIDEN over hele
+     kataloget. Uden JavaScript kan de ikke regnes om, naar laeseren filtrerer
+     - :has() kan taende og slukke kort, men kan ikke taelle dem. Et tal, der
+     staar uaendret ved siden af et udvalg, det ikke laengere beskriver, er en
+     paastand uden daekning; sidens positionering nr. 1 er, at hvert tal har
+     en kilde. "18" bliver derfor til "18 af 77", og "18 robotter" til
+     "18 robotter i kataloget" - sandt i enhver filtertilstand.
+
+     Teksten staar i HTML og ikke i CSS' content: den skal oversaettes gennem
+     de samme sprogfiler som alt andet, kunne markeres og kopieres, og kunne
+     ses af de tests, der laeser byggets synlige tekst. */
+  const alle = robotter.length;
+  const omfangAlle = `<span class="taeller-omfang" data-omfang hidden> ${esc(tf('taeller_af_alle', { n: alle }))}</span>`;
+  const omfangKatalog = `<span class="taeller-omfang" data-omfang hidden> ${esc(t('taeller_i_kataloget'))}</span>`;
+
+  /* Salens taelling boejes. Den var hidtil altid flertal ("1 robotter"), fordi
+     den kun blev skrevet ved byggetiden, hvor ingen sal har ét kort. Naar
+     JavaScript regner den om ved hvert filterklik, bliver ental den normale
+     tilstand og ikke et kantstilfaelde - saa formen skal findes, og den skal
+     findes ÉT sted, som baade bygget og browseren laeser. `data-*`-parret
+     nedenfor er det sted: sprogfilerne ejer ordene, katalog.js kopierer dem
+     aldrig. */
+  const antalKort = (n) => (n === 1 ? t('antal_kort_en') : tf('antal_kort', { n }));
+
   /* --- filterfelterne --- */
   const grupper = F.map((f) => `<fieldset class="facet">
 <legend class="etiket">${esc(f.etiket)}</legend>
@@ -223,7 +326,8 @@ export function render(ctx) {
 ${f.liste.map((v) => {
     const id = `f-${f.navn}-${nogle(v)}`;
     return `<input type="checkbox" class="f-${attr(f.navn)}" id="${attr(id)}" name="${attr(f.navn)}" value="${attr(v)}">`
-      + `<label for="${attr(id)}">${esc(f.tekst(v))}<span class="antal">${esc(String(f.antal.get(v)))}</span></label>`;
+      + `<label for="${attr(id)}">${esc(f.tekst(v))}`
+      + `<span class="antal"><span class="antal__tal">${esc(String(f.antal.get(v)))}</span>${omfangAlle}</span></label>`;
   }).join('\n')}
 </div>
 </fieldset>`).join('\n');
@@ -267,17 +371,24 @@ ${f.liste.map((v) => {
   const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
   for (const r of sorteret) efterKlasse.get(hjaelp.vaegtklasse(r)).push(r);
 
+  /* `data-sal` paa ALLE en sals dele - indeksposten, hovedet, forklaringen og
+     gitteret. Salen er fire soeskende i DOM'en, ikke ét element (og maa blive
+     ved med at vaere det: `.gitter + .sal`s luftregel i generator.css laeser
+     netop den soeskenderaekke). Ét faelles attribut giver alligevel ÉN
+     vaelger, der tager hele salen med - baade for de genererede
+     tomhedsregler nedenfor og for JavaScript. */
   const saleHTML = hjaelp.VAEGTKLASSER.map((klasse, i) => {
     const liste = efterKlasse.get(klasse);
     if (!liste.length) return '';
     const forklaring = klasse === 'ikke_oplyst' ? t('vaegtklasse_ikke_oplyst_forklaring') : '';
-    return `<div class="sal">
+    const s = attr(klasse);
+    return `<div class="sal" data-sal="${s}">
 <span class="sal__nr" aria-hidden="true">${esc(ROMERTAL[i])}</span>
 <h2 class="t-h3 sal__titel" id="h-${attr(klasse)}">${esc(t('vaegtklasse_' + klasse))}</h2>
-<span class="sal__antal figur">${esc(tf('antal_kort', { n: liste.length }))}</span>
+<span class="sal__antal figur" data-antal-flere="${attr(t('antal_kort'))}" data-antal-en="${attr(t('antal_kort_en'))}"><span class="antal__tal">${esc(antalKort(liste.length))}</span>${omfangKatalog}</span>
 </div>
-${forklaring ? `<p class="t-lille sal__forklaring">${esc(forklaring)}</p>` : ''}
-<div class="gitter">
+${forklaring ? `<p class="t-lille sal__forklaring" data-sal="${s}">${esc(forklaring)}</p>` : ''}
+<div class="gitter" data-sal="${s}">
 ${liste.map(kortHTML).join('\n')}
 </div>`;
   }).join('\n');
@@ -298,8 +409,9 @@ ${liste.map(kortHTML).join('\n')}
   const tommelindeks = indeksPoster.length ? `<nav class="tommelindeks" aria-labelledby="tommel-h">
 <h2 class="etiket" id="tommel-h">${esc(t('tommelindeks_titel'))}</h2>
 <ul class="tommelindeks__liste">
-${indeksPoster.map(({ klasse, liste }) => `<li><a href="#h-${attr(klasse)}">`
-    + `${esc(t('vaegtklasse_' + klasse))}<span class="antal">${esc(String(liste.length))}</span></a></li>`).join('\n')}
+${indeksPoster.map(({ klasse, liste }) => `<li data-sal="${attr(klasse)}"><a href="#h-${attr(klasse)}">`
+    + `${esc(t('vaegtklasse_' + klasse))}`
+    + `<span class="antal"><span class="antal__tal">${esc(String(liste.length))}</span>${omfangAlle}</span></a></li>`).join('\n')}
 </ul>
 </nav>` : '';
 
@@ -337,16 +449,23 @@ ${[['vaegt', 'katalog_sortering_vaegt'],
 ${grupper}
 </div>
 <p class="t-mikro facet-hjaelp">${esc(t('filter_uden_js'))}</p>
-<p class="facet-ryd"><a class="videre videre--stille" href="#alle">${esc(t('filter_vis_alle'))}</a></p>
+<p class="facet-ryd"><a class="videre videre--stille" data-ryd href="#alle">${esc(t('filter_vis_alle'))}</a></p>
 <p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
 
 ${tommelindeks}
 
+<p class="t-mikro facet-omfang" data-omfang-note hidden>${esc(t('filter_omfang_statisk'))}</p>
+
 <div id="alle">
 ${saleHTML}
 </div>
+
+<p class="tomt" data-tomt hidden role="status">
+<span data-tomt-grund="soeg">${esc(t('soeg_ingen_traef'))}</span>
+<span data-tomt-grund="filter" hidden>${esc(t('filter_ingen_traef'))}</span>
+<a class="videre videre--stille tomt__ryd" data-ryd href="#alle">${esc(t('filter_vis_alle'))}</a>
+</p>
 </form>
-<p class="tomt" data-tomt hidden>${esc(t('soeg_ingen_traef'))}</p>
 
 <p class="t-lille sektion-note">${esc(tf('eu_pointe', { n: udenCe, m: robotter.length }))}</p>
 ${hjaelp.tegnforklaring()}

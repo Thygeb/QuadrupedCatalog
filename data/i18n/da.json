@@ -26,6 +26,7 @@
   "katalog_soeg_pladsholder": "fx Spot, DEEP Robotics eller IP67",
   "se_alle": "Se alle {n} robotter",
   "antal_kort": "{n} robotter",
+  "antal_kort_en": "1 robot",
   "soeg_ingen_traef": "Ingen robotter matcher søgningen.",
 
   "yderpunkter_etiket": "Yderpunkter",
@@ -87,7 +88,10 @@
   "filter_ryd": "Ryd filtre",
   "filter_vis_alle": "Vis alle igen",
   "filter_uden_js": "Afkrydsninger i samme gruppe udvider udvalget, på tværs af grupper indsnævrer de det. Filtrene virker uden JavaScript.",
-  "filter_ingen_traef": "Ingen robotter matcher filtrene.",
+  "filter_ingen_traef": "Ingen robotter matcher denne kombination af filtre. Fjern ét filter, så kommer der resultater igen.",
+  "filter_omfang_statisk": "Et filter er slået til. Tallene ved filtrene og ved salene tæller hele kataloget – ikke det udvalg, der vises herunder. En sal uden kort har ingen robotter, der matcher.",
+  "taeller_af_alle": "af {n}",
+  "taeller_i_kataloget": "i kataloget",
 
   "vaegtklasse_titel": "Vægtklasse",
   "vaegtklasse_under_20": "Under 20 kg",
