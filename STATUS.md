@@ -4,25 +4,35 @@
 arkiv og opdateres ikke bagud. Holdes kort med vilje: bliver den en essaysamling, holder
 folk op med at læse den.
 
-Opdateret 24. august 2026.
+Opdateret **27. august 2026**, og hver linje nedenfor er **målt samme dag**, ikke husket.
+
+> **Til dig, der lige er startet: læs denne tabel og hop så til "Åbent".** Her stod indtil
+> 27. aug en tabel fra den 24., som sagde *"`data/robots/*.yaml` + validator: ikke
+> påbegyndt"* og *"0 maskinlæsbare datafiler"* på et tidspunkt, hvor der lå 77 datafiler
+> og 213 byggede sider. Det er anden gang samme fejl: CLAUDE.md beskriver den første, hvor
+> forsiden af projektet sagde *"der er ikke skrevet kode endnu"* en uge for længe.
+> **En forældet linje i indekset er dyrere end et manglende fund** — den bliver troet.
 
 ---
 
 ## Hvor vi er
 
+**Bygget og i drift.** Alle tal målt 27. aug 2026 på `47afcf9`:
+
 | Trin | Status |
 |---|---|
-| Produktsandhed, byggeplan, datamodel | **Færdig** |
-| Dataindsamling Kina (26 poster) | **Færdig, med gemte råkilder og manifest** |
-| Dataindsamling Vest (19 poster) | Færdig, men **17 fejl fundet** — rettelser mangler |
-| Feltkortlægning + EU-kolonnen | Færdig, **to huller** — se Å6 og Å7 |
-| Efterprøvning af råkilder | **Færdig** — 152 påstande, 17 fejl. Se `KILDEKORT-*.md` |
-| `data/robots/*.yaml` + validator | **Ikke påbegyndt.** Kode er nu tilladt |
-| Visuel retning | Påbegyndt, agent døde på sessionsgrænse |
-| Generator, katalog, sider | Ikke påbegyndt |
+| Datagrundlag | **77 robotposter · 25 producenter · 1.110 tal med kilde, 0 uden** |
+| Generator og sider | **213 sider bygget** på to sprog, afhængighedsfri Node |
+| Validator | **77 filer / 0 fejl / 1 kendt advarsel** · R1–R20 |
+| Testkørsel | **496 beståede / 0 fejlede** — helt grøn for første gang, se Å49 |
+| Interne links | **0 døde** · alle 50 producentsider nås fra deres indeks |
+| Eksterne kilder | **103 URL'er prøvet: 100 ok · 3 døde** (kendte, dokumenterede) · genkør med `node tools/kildetjek.mjs` |
+| Billeder | **76 af 77 robotter har foto** — kun `xiaomi-cyberdog-1` mangler (Å27) |
+| Visuel retning | **Låst: INSTRUMENT med VITRINEs fotoplader** (L40), fuldt implementeret |
+| Database (Supabase) | Spejl, ikke sandhed. **Bevidst ude af trit lige nu — se Å48, kør ikke `--til-db`** |
 
-**Materialet:** ~45 robotposter i 6 FUND-dokumenter · 249 råkildefiler med manifest ·
-0 maskinlæsbare datafiler. Det sidste tal er projektets flaskehals.
+**Beslutningshistorik:** 49 lukkede beslutninger (L-tabellen nederst) · 38 åbne punkter.
+**Det, der venter på CEO'en, står øverst under "Åbent".**
 
 ---
 
