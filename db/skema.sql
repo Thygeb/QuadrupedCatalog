@@ -216,6 +216,26 @@ create table feltposter (
   hentet              date,
   kildetype           kildetype_enum,
   advarsel            text,
+  -- R20/L48/D14 (spor/d14data, opfoelgning spor/dbklasse): et forbehold
+  -- ("advarsel") kan baere en MASKINLAESBAR klasse — "gyldighed" (paavirker
+  -- sammenligneligheden) eller "uddybning" (uddybende kontekst, intet tvivl
+  -- om selve tallet). 562 af 890 forbehold er klassificeret af et menneske,
+  -- post for post (fund/FUND-d14-klassifikation.md); de resterende 328 er
+  -- BEVIDST uklassificerede (CLAUDE.md begraensning 6: ingen redaktionel dom
+  -- uden offentliggjort metode) — kolonnen er derfor NULLABLE, IKKE NOT NULL.
+  --
+  -- KOLONNETYPE: text + CHECK, ikke et nyt enum (advarsel_klasse_enum).
+  -- Begrundelse (skema-data-types.md tillader begge: "Enums: use text with
+  -- check constraint or create enum type"): de to gyldige vaerdier staar
+  -- IKKE i tools/skema.mjs (som feltnavn_enum goer, jf. toptekstens
+  -- driftvagt-forklaring) — de staar alene i tools/validate.mjs's
+  -- ADVARSEL_KLASSER-saet. Et enum ville kraeve sin EGEN driftvagt
+  -- (endnu et sted, to lister kan skride fra hinanden, D7/L30-faelden) for
+  -- praecis to vaerdier, der sjaeldent aendrer sig. En CHECK holder samme
+  -- haandhaevelse ved siden af selve kolonnen, uden det ekstra synk-punkt,
+  -- og uden ALTER TYPE ... ADD VALUE-koreografien, hvis en tredje klasse
+  -- nogensinde tilfoejes.
+  advarsel_klasse     text,
   note                text,
   raa                 text,           -- 0 forekomster i dag (formscan), men et gyldigt POST_NOEGLER-felt
   valuta              text,           -- 0 forekomster i dag, samme grund
@@ -300,6 +320,23 @@ create table feltposter (
   -- tools/validate.mjs (/^https?:\/\//).
   constraint feltposter_kilde_er_url check (
     kilde is null or kilde ~ '^https?://'
+  ),
+
+  -- R20/L48/D14: advarsel_klasse er enten NULL (uklassificeret, lovligt —
+  -- se kolonnens egen kommentar ovenfor) eller PRAECIS én af de to tekster,
+  -- validate.mjs's ADVARSEL_KLASSER kender. Samme grov haandhaevelse som
+  -- validatorens tjekAdvarselKlasse, skrevet som CHECK i stedet for kun at
+  -- staa som applikationslogik.
+  constraint feltposter_advarsel_klasse_gyldig check (
+    advarsel_klasse is null or advarsel_klasse in ('gyldighed', 'uddybning')
+  ),
+  -- R20's andet krav: en klasse klassificerer et forbehold — uden et
+  -- forbehold er der intet at klassificere. Samme regel som validatorens
+  -- tjekAdvarselKlasse ("advarsel_klasse staar uden advarsel"), gjort til
+  -- en DB-CHECK saa en fremtidig Studio-redigering ikke kan skabe det
+  -- samme ugyldige par uden om YAML-vejen.
+  constraint feltposter_advarsel_klasse_kraever_advarsel check (
+    advarsel_klasse is null or (advarsel is not null and btrim(advarsel) <> '')
   ),
 
   -- KUN_MED_TAL (den del af R4, der gaelder tilstandsposter): en tilstand
