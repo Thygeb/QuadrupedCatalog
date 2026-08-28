@@ -58,7 +58,10 @@
   "sammenligning_vaelg_forklaring": "Vælg 2 eller 3 robotter fra listen. Tabellen opdateres automatisk.",
   "sammenligning_maks": "Du kan sammenligne højst 3 robotter ad gangen.",
   "sammenligning_for_faa": "Vælg mindst 2 robotter for at se sammenligningen.",
+  "sammenligning_tabel_caption": "Sammenligning felt for felt: {robotter}",
   "sammenligning_uden_js_forklaring": "Sammenligningen kræver JavaScript. Uden det: vælg en robot fra listen for at se dens fulde specifikation.",
+  "sammenligning_uden_js_noscript": "Sammenligning side om side kræver JavaScript. Kataloget viser robotternes nøgletal uden JavaScript.",
+  "sammenligning_uden_js_link": "Gå til kataloget",
   "sammenligning_legende_vinder_titel": "Ingen vinder markeret",
   "sammenligning_legende_vinder_forklaring": "Vi markerer ikke en vindercelle pr. række. En lavere værdi er ikke bedre end en højere – kun anvendelsen afgør det, og siden kender ikke anvendelsen.",
 

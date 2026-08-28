@@ -517,8 +517,12 @@
    loft-hoejde, saa 62 afkrydsningsfelter ikke skubber tabellen langt ned. */
 .sammenligning-vaelger .filtre{max-height:260px;overflow-y:auto;
   padding:2px;border:1px solid var(--linje);border-radius:var(--rund-ind)}
-.sammenligning-status{margin-top:var(--r3);padding:10px 14px;background:var(--accent-ro);
-  border-radius:var(--rund-ind);color:var(--blaek)}
+/* Samme notits-form til to beskeder, der begge siger "det, du forventede,
+   sker ikke her": JS-status'en (for faa/for mange valgte) og noscript-
+   beskeden (punkt 3, Aa54). Ingen ny visuel familie - kun klassenavnet er
+   nyt, poletterne er de samme. */
+.sammenligning-status,.sammenligning-noscript{margin-top:var(--r3);padding:10px 14px;
+  background:var(--accent-ro);border-radius:var(--rund-ind);color:var(--blaek)}
 .sammenligning-status[hidden]{display:none}
 
 /* Specimen-raekken: de valgte robotter side om side, foer laeseren ser et
@@ -542,21 +546,67 @@
   .specimen-hoved{position:sticky;top:0;z-index:5;background:var(--panel);
     padding:10px 0;border-bottom:1px solid var(--linje)}
 }
+/* Specimen-kortet er nu et <th scope="col"> (Aa54). Det arver dermed
+   system.css §14's `thead th{font-family:mono;font-size:11.5px;
+   font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+   color:--blaek3;white-space:nowrap}` og `th,td{padding:12px 16px}` - regler
+   skrevet til producentsidens smalle kolonneoverskrifter. Uden
+   nulstillingen herunder ville producentnavnet i .specimen__meta staa
+   VERSALT i mono og ikke kunne ombrydes, og kortet ville faa 12/16px
+   luft, det aldrig har haft. `font:inherit` henter hele skriftsaettet
+   tilbage fra dokumentet, praecis som da kortet var et <div>. */
 .specimen{background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
-  box-shadow:var(--skygge);overflow:hidden}
+  box-shadow:var(--skygge);overflow:hidden;
+  padding:0;font:inherit;color:inherit;letter-spacing:inherit;
+  text-transform:none;white-space:normal}
 .specimen__label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
   padding:10px 12px;background:var(--panel-ro);border-bottom:1px solid var(--linje)}
 .specimen__navn{font-size:15px;font-weight:700;color:var(--blaek)}
 .specimen__taethed{font-size:12px;color:var(--accent)}
 .specimen__meta{padding:8px 12px 10px;font-size:12.5px;color:var(--blaek3)}
 
-/* Felttabellen. Grid frem for <table>: en subgrid-lignende raekke (200px
-   etiket + N vaerdikolonner) lader hver celle vaere sin egen boks med egen
-   venstrekant, samme princip som mockuppens .saml-*. */
-.saml-tabel{margin-top:var(--r6);display:flex;flex-direction:column}
-.saml-gruppe{border-top:2px solid var(--blaek)}
-.saml-gruppe:first-child{border-top:0}
-.saml-gruppe__titel{padding:var(--r5) 0 10px;font-family:var(--mono);font-size:13px;
+/* Felttabellen. Aa54: en RIGTIG <table>, men med display:block/grid ovenpaa,
+   saa gitteret staar som foer - en subgrid-lignende raekke (200px etiket +
+   N vaerdikolonner) lader hver celle vaere sin egen boks med egen
+   venstrekant, samme princip som mockuppens .saml-*. Semantikken baeres af
+   elementerne PLUS eksplicitte ARIA-roller; se sammenligning.js' kommentar
+   om hvorfor begge dele skal til, naar `display` aendres paa et tabelelement.
+
+   Tre globale regler i system.css §14 er skrevet til producentsidens brede
+   .prod-tabel og ville ellers naa herind. De neutraliseres praecist HER, saa
+   §14 selv staar uroert for de sider, der bygger paa den:
+     table{width:100%;min-width:620px;font-size:15px}  -> .saml-matrix
+     th,td{border-top:1px}                             -> celle-reglen
+     thead th{...}                                     -> .specimen ovenfor
+   min-width:620px er den farligste af dem: paa en telefon ville den give
+   vandret overloeb, hvor der foer ingen var. */
+.saml-matrix{display:block;width:auto;min-width:0;font-size:inherit}
+/* Nulstiller §14's th,td{border-top:1px} paa PRAECIS de celler, der ellers
+   ville faa en streg, de aldrig har haft. Raekkens og gruppens egne streger
+   sidder paa <tr> og <tbody>, ikke paa cellerne.
+
+   Foerste forsoeg var den brede `.saml-matrix th,.saml-matrix td` - og den
+   var forkert. Specificiteten (0,1,1) slaar `.specimen` (0,1,0), saa
+   specimen-kortet mistede sin egen overkant: kortet blev 84 -> 83 px, og
+   hele siden 4014 -> 4013 px. Maalt med en geometrisonde, ikke set med
+   oejet - 1 px flytter sig ikke synligt, men det ER en aendring af
+   udseendet. Vaelgerne herunder roerer aldrig .specimen, som beholder sin
+   ramme hele vejen rundt (og som §14's thead th{border-top:0} i forvejen
+   ikke generer, fordi .specimen's egen `border` vinder over den). */
+.saml-raekke > th,.saml-raekke > td,
+.saml-gruppe__titelraekke > th,
+.specimen-hoved__hjoerne{border-top:0}
+/* Hovedets <tr> er display:contents, saa hjoernet og specimen-kortene bliver
+   gitterceller i <thead>s eget grid - noejagtig samme boksetrae som da
+   hovedet var ét <div> med fire boern. */
+.specimen-hoved__raekke{display:contents}
+.specimen-hoved__hjoerne{padding:0}
+.saml-gruppe{display:block;border-top:2px solid var(--blaek)}
+/* :first-of-type, IKKE :first-child - tabellens foerste barn er <caption>.
+   margin-top er den, .saml-tabel bar, foer den blev til seks <tbody>. */
+.saml-gruppe:first-of-type{border-top:0;margin-top:var(--r6)}
+.saml-gruppe__titelraekke{display:block}
+.saml-gruppe__titel{display:block;padding:var(--r5) 0 10px;font-family:var(--mono);font-size:13px;
   font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--blaek)}
 .saml-raekke{display:grid;grid-template-columns:200px repeat(var(--n,3),minmax(0,1fr));
   border-top:1px solid var(--linje)}
@@ -568,7 +618,10 @@
 
 @media (max-width:900px){
   .specimen-hoved{grid-template-columns:1fr;gap:var(--r3)}
-  .specimen-hoved > div:first-child{display:none}
+  /* Hjoernecellen. Var `.specimen-hoved > div:first-child`, men hjoernet er
+     nu et <td> inde i en <tr> - vaelgeren gaar paa DOM-traeet, ikke paa
+     boksetraeet, saa `>` ramte ingenting efter Aa54. Egen klasse i stedet. */
+  .specimen-hoved__hjoerne{display:none}
   .saml-raekke{grid-template-columns:1fr;row-gap:8px;padding:14px 0}
   .saml-raekke__navn{padding:0;font-weight:700;color:var(--blaek)}
   .saml-raekke__celle{border-left:2px solid var(--linje);padding:2px 0 2px 14px;
