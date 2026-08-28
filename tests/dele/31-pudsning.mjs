@@ -124,4 +124,30 @@ export default async function koer(ctx) {
     /\.kildemaerke--sek\{[^}]*border-radius:0[;}]/.test(sys)
       && /\.kildeliste \.sek \.bogstav\{[^}]*border-radius:0[;}]/.test(sys),
     'ved 6 px bliver den 11 px hoeje kasse en prik, ikke et maerke');
+
+  /* --- 5. Variantfelterne deler ikke chip-grammatikken ------------------ */
+  // Chip-grammatikken er de TRE ting sammen: flade + ramme + radius. Faldt
+  // én af dem vaek, ville en senere redigering kunne laegge den tilbage
+  // uden at nogen opdagede det, saa vagten ser efter alle tre.
+  const variantnavn = (gen.match(/\.variantnavn\{[^}]*\}/) || [''])[0];
+  ok('31.15: .variantnavn fandtes stadig som regel', variantnavn !== '',
+    'reglen er forsvundet - saa maaler de foelgende vagter ingenting');
+  ok('31.16: variantnavnene har hverken flade, ramme eller radius',
+    !/background:(?!none)/.test(variantnavn)
+      && !/border:(?!0)/.test(variantnavn)
+      && !/border-radius/.test(variantnavn),
+    `flade+ramme+radius ER chip-grammatikken: ${variantnavn}`);
+  ok('31.17: variantnavnene er sat som sidens vaerdier (mono, fuld blaek)',
+    /font-family:var\(--mono\)/.test(variantnavn)
+      && /color:var\(--blaek\)/.test(variantnavn),
+    'oplysningen skal blive - det er kun formen, der skilles fra chippen');
+
+  // Parboksen under striben maatte IKKE bare fjernes: den grupperer navn og
+  // vaerdi. Den er skiftet til den mindste form, der stadig grupperer.
+  const parboks = (gen.match(/\.varianter \.variant\{[^}]*\}/) || [''])[0];
+  ok('31.18: variantparret grupperes af en 1 px tap, ikke af en chip',
+    /border-left:1px solid/.test(parboks)
+      && /background:none/.test(parboks)
+      && /border-radius:0/.test(parboks),
+    `staar stadig som chip: ${parboks}`);
 }
