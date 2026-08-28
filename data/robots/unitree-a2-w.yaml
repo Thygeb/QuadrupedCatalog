@@ -25,6 +25,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
     advarsel: "Med batteri. Uden batteri ca. 45 kg."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 900
     enhed: mm
@@ -41,6 +42,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
     advarsel: "Foldet 930 x 685 x 210 mm - længere end stående. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 16
     enhed: DoF
@@ -65,6 +67,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
     advarsel: "Driftsområde 0-3 m/s; spidsbelastning op til ca. 6 m/s. A2-W er hurtigere på spids end A2 (ca. 6 mod ca. 5), men langsommere i drift (0-3 mod 0-3,7)."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -79,6 +82,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
     advarsel: "Etiket Max Climb Height."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: cm
@@ -107,6 +111,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
     advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbelt 907,2 Wh. Samme batteri som A2."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 1.5
     enhed: t
@@ -115,6 +120,7 @@ felter:
     kilde: https://www.unitree.com/A2-W
     hentet: 2026-08-19
     advarsel: "Også > 3,5 t uden last (ca. 35 km). Ved samme last og samme batteri har A2-W under det halve af A2's driftstid (> 1,5 t mod > 3 t), men større rækkevidde (ca. 15 km mod ca. 12,5 km)."
+    advarsel_klasse: "uddybning"
   hot_swap:
     vaerdi: ja
     kilde: https://www.unitree.com/A2-W

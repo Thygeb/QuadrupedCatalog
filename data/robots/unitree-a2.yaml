@@ -27,6 +27,7 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Med batteri. Producenten oplyser også ca. 35 kg uden batteri - batteriet vejer altså ca. 7 kg. A2 er en af få modeller, der oplyser begge."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 820
     enhed: mm
@@ -43,6 +44,7 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Foldet 720 x 550 x 220 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -55,6 +57,7 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Producenten tilføjer ideelt ca. 35 kg."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 100
     enhed: kg
@@ -68,6 +71,7 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Driftsområde 0-3,7 m/s; producenten angiver desuden op til ca. 5 m/s som spidsbelastning."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -82,12 +86,14 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Producentens etiket er Max Climb Height, opgivet som interval ca. 0,5~1 m."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: cm
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Etiket: Stair Climbing Capability, Max Step Height."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP56
     kilde: https://www.unitree.com/A2
@@ -111,6 +117,7 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbeltbatteri 907,2 Wh (18000 mAh). Begge producentens egne regnestykker går præcist op."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 3
     enhed: t
@@ -119,6 +126,7 @@ felter:
     kilde: https://www.unitree.com/A2
     hentet: 2026-08-19
     advarsel: "Producenten oplyser også > 5 t uden last (ca. 20 km). Her bruges tallet med lastbetingelse (ca. 12,5 km)."
+    advarsel_klasse: "uddybning"
   hot_swap:
     vaerdi: ja
     kilde: https://www.unitree.com/A2

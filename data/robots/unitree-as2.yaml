@@ -42,6 +42,7 @@ felter:
     kilde: https://www.unitree.com/As2
     hentet: 2026-08-19
     advarsel: "Foldet 776 x 378 x 233 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
@@ -59,6 +60,7 @@ felter:
       X: 15
       EDU: 15
     advarsel: "Værdien er AIR-variantens. Spændet over de fire varianter er 10-15 kg."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende:
     vaerdi: 45
     enhed: kg
@@ -71,6 +73,7 @@ felter:
       X: 65
       EDU: 65
     advarsel: "Værdien er AIR-variantens. Spændet er 45-65 kg."
+    advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi_min: 0
     vaerdi_maks: 3.0
@@ -83,6 +86,7 @@ felter:
       X: "0~3,7 m/s (op til ca. 5 m/s)"
       EDU: "0~3,7 m/s (op til ca. 5 m/s)"
     advarsel: "Værdien er AIR-variantens."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 30
     enhed: grader
@@ -95,12 +99,14 @@ felter:
       X: 40
       EDU: 40
     advarsel: "Værdien er AIR-variantens."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 50
     enhed: cm
     kilde: https://www.unitree.com/As2
     hentet: 2026-08-19
     advarsel: "Står KUN i brødteksten (with the ability to climb 50cm vertical platforms and 40 slopes), ikke i parametertabellen - i modsætning til A2, A2-W og As2-W, der alle har en Max Climb Height-række. Besluttes det, at kun tabelværdier tæller, falder feltet ud."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 20
     enhed: cm
@@ -112,6 +118,7 @@ felter:
       X: 25
       EDU: 25
     advarsel: "Værdien er AIR-variantens."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: nej
     kilde: https://www.unitree.com/As2
@@ -138,6 +145,7 @@ felter:
       X: 55
       EDU: 55
     advarsel: "Værdien er AIR/PRO-varianternes."
+    advarsel_klasse: "gyldighed"
   batteri_wh:
     vaerdi: 648
     enhed: Wh
@@ -149,6 +157,7 @@ felter:
       X: "648 Wh (15000 mAh)"
       EDU: "648 Wh (15000 mAh)"
     advarsel: "Værdien gælder PRO/X/EDU. AIR oplyser kun 8000 mAh uden spænding - Wh kan ikke udledes og udledes ikke."
+    advarsel_klasse: "gyldighed"
   driftstid:
     vaerdi: 1.5
     enhed: t
@@ -162,6 +171,7 @@ felter:
       X: "> 2,5 t ved 15 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
       EDU: "> 2,5 t ved 15 kg (ca. 13 km); ca. 4 t ubelastet (ca. 20 km)"
     advarsel: "Værdien er AIR-variantens belastede tal."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: ikke_oplyst

@@ -24,6 +24,7 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "Inkl. batteri; batteriet oplyses separat til ca. 5 kg."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1126
     enhed: mm
@@ -40,6 +41,7 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "Foldet 1202 x 467 x 297 mm - LÆNGERE end stående. Plausibelt for udstrakte ben, men bemærkelsesværdigt. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 20
@@ -47,12 +49,14 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "Uden operator. Siden tilføjer i prosa: anbefales at holde vægten inden for 20 kg."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 80
     enhed: kg
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "Uden operator."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b1
@@ -70,6 +74,7 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "IP68 står KUN i overskriftsteksten (IP68 Waterproof, Industrial Level Heavy Loader), ikke i parametertabellen, som slet ingen IP-række har. B1 er dermed den eneste Unitree-model med IP68 - på det svageste kildegrundlag."
+    advarsel_klasse: "gyldighed"
   temp_min:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b1
@@ -86,6 +91,7 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "18000 mAh, 51,8 V, ladegrænse 58,8 V. Producentens regnestykke går præcist op: 18 x 51,8 = 932,4."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 2
     enhed: t
@@ -93,6 +99,7 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "Producenten oplyser to tilstande: 5 t stående og 2 t gående uden last. Her bruges den gående. Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi_min: 1
@@ -101,6 +108,7 @@ felter:
     kilde: https://www.unitree.com/b1
     hentet: 2026-08-19
     advarsel: "Eneste af de tolv Unitree-modeller med en ladetid."
+    advarsel_klasse: "uddybning"
   dockingstation: ikke_oplyst
   lidar: ikke_oplyst
   kameraer:

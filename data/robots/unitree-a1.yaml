@@ -32,6 +32,7 @@ felter:
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
     advarsel: "Producenten skriver Effective Load uden at skelne gående/stående. Placeringen er en slutning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.3
@@ -39,6 +40,7 @@ felter:
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
     advarsel: "Producenten skriver 3.3 m/s (11.88 km/h) som maximum continuous running speed. Krydstjek: 3,3 m/s = 11,88 km/t, går op."
+    advarsel_klasse: "uddybning"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -58,6 +60,7 @@ felter:
     kilde: https://www.unitree.com/A1
     hentet: 2026-08-19
     advarsel: "Uden lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
