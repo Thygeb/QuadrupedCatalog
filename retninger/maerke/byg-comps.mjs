@@ -63,9 +63,21 @@ function vaerdiHTML(slug, navn, post, { variant, kilde = 'A', kompakt = false })
   const figur = post.vaerdi !== null && post.vaerdi !== undefined
     ? tal(post.vaerdi)
     : `${tal(post.min)}–${tal(post.maks)}`;
-  const lang = figur.length >= 5 ? ' v-tal--lang' : '';
+  // Laengdetrinnene, ordret fra tools/skabelon/side.mjs:819-824. Uden dem
+  // klipper lange vaerdier i kortets celle, og comp'en ville vise en fejl,
+  // bygget ikke har. Foerste udgave af comp'en gjorde netop det: "60-120 mi".
+  const opTekst = post.operator ? String(OP[post.operator] || post.operator) : '';
+  const enhedTekst = post.enhed || '';
+  const figurTekst = post.vaerdi !== null && post.vaerdi !== undefined
+    ? tal(post.vaerdi) : `${tal(post.min)}–${tal(post.maks)}`;
+  const tegn = (opTekst ? opTekst.length + 1 : 0) + figurTekst.length + enhedTekst.length;
+  const lang = tegn >= 14 ? ' v-tal--xxlang' : tegn >= 11 ? ' v-tal--xlang'
+    : tegn >= 9 ? ' v-tal--lang' : '';
   const op = post.operator ? `<span class="op" aria-hidden="true">${esc(OP[post.operator] || post.operator)}</span>` : '';
-  const m = vis ? ` m-${variant}` : '';
+  // Udgave C laegger maerket paa ETIKETTEN, ikke paa vaerdien. Uden denne
+  // gren fik .v-tal ogsaa klassen m-etiket - en klasse uden regel, som
+  // maaleapparatet talte med og gav 150 % maerker paa striben.
+  const m = vis && variant !== 'etiket' ? ` m-${variant}` : '';
   const krop = `${op}<b class="num">${figur}</b>`
     + (post.enhed ? `<span class="enhed">${esc(post.enhed)}</span>` : '');
   const v = `<span class="v v-${post.tilstand === 'nul' ? 'nul v-tal' : 'tal'}${lang}${m}">`
@@ -76,6 +88,16 @@ function vaerdiHTML(slug, navn, post, { variant, kilde = 'A', kompakt = false })
 function etiketHTML(tekst, markeret, variant) {
   const m = markeret && variant === 'etiket' ? ' m-etiket' : '';
   return `<span class="etiket${m}">${esc(tekst)}</span>`;
+}
+
+/** dt-klassen i kollisionsproeven. Udgave C's maerke sidder paa FELTNAVNET,
+ *  saa proeven skal baere den samme klasse - ellers viser C-spalten intet
+ *  maerke, og proeven maaler den forkerte ting. (Foerste udgave af proeven
+ *  gjorde netop det: C-spalten stod uden et eneste maerke.) */
+function DTM(variant, felt) {
+  if (variant !== 'etiket') return '';
+  return klassenAf(EMNE.slug, felt, EMNE.alle_felter[felt]) === 'gyldighed'
+    ? ' class="m-etiket"' : '';
 }
 
 /* --- flade 1: robotsidens noegletalsstribe -------------------------------- */
@@ -310,16 +332,54 @@ const oversigt = `<main class="rum rum--bred">
 <section class="flade" id="kollision">
 <h3 class="flade-navn">Kollisionsprøven — de fire datatilstande plus mærket</h3>
 <p class="comp-note">Hård begrænsning 5 siger, at «ikke oplyst», «nej» og «0» skal se forskellige ud. Mærket lægger en fjerde dimension oven i dem. Rækken her er ikke opdigtet: den er Xiaomi CyberDogs egne felter, med hver tilstand vist én gang.</p>
-<div class="kollision">${['kant', 'streg', 'etiket'].map((v) => `<div class="kol-boks"><p class="prove-navn">${VARIANTER[v].navn}</p>
+<div class="kollision">${['kant', 'streg', 'etiket'].map((v) => `<div class="kol-boks"><p class="prove-navn">${esc(VARIANTER[v].navn)}</p>
 <dl class="raekker">
-<div class="raekke"><dt>Nyttelast, gående</dt><dd>${vaerdiHTML(EMNE.slug, 'nyttelast_gaaende', EMNE.alle_felter.nyttelast_gaaende, { variant: v })}<span class="kol-note">tal · gyldighedsforbehold → mærket</span></dd></div>
-<div class="raekke"><dt>Bredde</dt><dd>${vaerdiHTML(EMNE.slug, 'bredde', EMNE.alle_felter.bredde, { variant: v })}<span class="kol-note">tal · intet forbehold</span></dd></div>
-<div class="raekke"><dt>Egenvægt</dt><dd>${vaerdiHTML(EMNE.slug, 'egenvaegt', EMNE.alle_felter.egenvaegt, { variant: v })}<span class="kol-note">tal · uddybning → intet mærke</span></dd></div>
-<div class="raekke"><dt>Driftstemperatur, nedre</dt><dd>${vaerdiHTML(EMNE.slug, 'temp_min', EMNE.alle_felter.temp_min, { variant: v })}<span class="kol-note kol-note--hul">nul · forbehold UDEN klasse i D14</span></dd></div>
-<div class="raekke"><dt>CE oplyst</dt><dd>${vaerdiHTML(EMNE.slug, 'ce_oplyst', EMNE.alle_felter.ce_oplyst, { variant: v })}<span class="kol-note">nej · et svar, ikke et hul</span></dd></div>
-<div class="raekke"><dt>IP-klasse</dt><dd>${vaerdiHTML(EMNE.slug, 'ip_klasse', EMNE.alle_felter.ip_klasse, { variant: v })}<span class="kol-note">ikke oplyst · et hul</span></dd></div>
-<div class="raekke"><dt>LiDAR</dt><dd>${vaerdiHTML(EMNE.slug, 'lidar', EMNE.alle_felter.lidar, { variant: v })}<span class="kol-note kol-note--hul">ikke oplyst MED forbehold — 109 af dem findes</span></dd></div>
+<div class="raekke"><dt${DTM(v,'nyttelast_gaaende')}>Nyttelast, gående</dt><dd>${vaerdiHTML(EMNE.slug, 'nyttelast_gaaende', EMNE.alle_felter.nyttelast_gaaende, { variant: v })}<span class="kol-note">tal · gyldighedsforbehold → mærket</span></dd></div>
+<div class="raekke"><dt${DTM(v,'bredde')}>Bredde</dt><dd>${vaerdiHTML(EMNE.slug, 'bredde', EMNE.alle_felter.bredde, { variant: v })}<span class="kol-note">tal · intet forbehold</span></dd></div>
+<div class="raekke"><dt${DTM(v,'egenvaegt')}>Egenvægt</dt><dd>${vaerdiHTML(EMNE.slug, 'egenvaegt', EMNE.alle_felter.egenvaegt, { variant: v })}<span class="kol-note">tal · uddybning → intet mærke</span></dd></div>
+<div class="raekke"><dt${DTM(v,'temp_min')}>Driftstemperatur, nedre</dt><dd>${vaerdiHTML(EMNE.slug, 'temp_min', EMNE.alle_felter.temp_min, { variant: v })}<span class="kol-note kol-note--hul">nul · forbehold UDEN klasse i D14</span></dd></div>
+<div class="raekke"><dt${DTM(v,'ce_oplyst')}>CE oplyst</dt><dd>${vaerdiHTML(EMNE.slug, 'ce_oplyst', EMNE.alle_felter.ce_oplyst, { variant: v })}<span class="kol-note">nej · et svar, ikke et hul</span></dd></div>
+<div class="raekke"><dt${DTM(v,'ip_klasse')}>IP-klasse</dt><dd>${vaerdiHTML(EMNE.slug, 'ip_klasse', EMNE.alle_felter.ip_klasse, { variant: v })}<span class="kol-note">ikke oplyst · et hul</span></dd></div>
+<div class="raekke"><dt${DTM(v,'lidar')}>LiDAR</dt><dd>${vaerdiHTML(EMNE.slug, 'lidar', EMNE.alle_felter.lidar, { variant: v })}<span class="kol-note kol-note--hul">ikke oplyst MED forbehold — 109 af dem findes</span></dd></div>
 </dl></div>`).join('\n')}</div>
+</section>
+
+<section class="flade" id="maalinger">
+<h3 class="flade-navn">Målingerne — hvad der skiller de tre</h3>
+<p class="comp-note">Ikke «ser rigtigt ud». Alle fire kolonner er målt i browseren på præcis de sider, der står ovenfor. Kommandoerne står under tabellen, og de kan genkøres.</p>
+<div class="tabelrum"><table>
+<thead><tr><th>Måling</th><th>A · Kant</th><th>B · Understreg</th><th>C · Etiket</th><th>Hvad det betyder</th></tr></thead>
+<tbody>
+<tr><th>Markens sideværts spredning, sd(x) i px<br><span class="t-mikro">stribe / kort / feltliste</span></th>
+<td class="god">0,3 / 0 / 0</td><td class="daarlig">18,3 / 10,5 / 11,8</td><td class="god">0,3 / 0 / 0</td>
+<td>Stjernen døde af at <b>flytte sig</b>. Lav spredning = mærkerne læses som en kolonne. B's mærke starter og slutter, hvor cifrene tilfældigvis gør.</td></tr>
+<tr><th>Markens egen størrelse</th>
+<td class="god">2 px bred, én højde pr. flade</td><td class="daarlig">2 px høj, <b>9 forskellige bredder</b> på kortet</td><td class="god">2 px bred, én højde pr. flade</td>
+<td>Et instrument har ét mærke, ikke ni.</td></tr>
+<tr><th>Rører mærket nabotekst?<br><span class="t-mikro">mindste luft i px, 1440 / 390</span></th>
+<td class="god">nej · 10,8 / 10,0</td><td class="daarlig"><b>ja</b> · 5 af 9 celler i striben ved 1440 har 0 px. På kortet 0,9 px</td><td class="god">nej · 3,5 / 3,5</td>
+<td>B's streg lander oven i etiketten under tallet og læses som en understregning af feltnavnet.</td></tr>
+<tr><th>Koster mærket en brækket aflæsning på kortet?</th>
+<td class="god">nej (0 af 45)</td><td class="god">nej</td><td class="god">nej</td>
+<td>A's første udgave kostede 1 af 45. Rettet ved at hænge marken uden for værdiboksen, i cellens egen polstring.</td></tr>
+<tr><th>Vandret overløb ved 390 px</th><td class="god">0</td><td class="god">0</td><td class="god">0</td><td>Alle tre holder på telefon.</td></tr>
+<tr><th>Bærer nogen af de tre andre datatilstande et mærke?</th><td class="god">0</td><td class="god">0</td><td class="god">0</td><td>Hård begrænsning 5 er urørt: kun tal og nul kan bære mærket.</td></tr>
+</tbody></table></div>
+<p class="comp-note">Genkør: <code>node maerke-maal.mjs http://localhost:8195/retninger/maerke 1440</code> · <code>node maerke-brud.mjs …</code> · <code>node maerke-overlap.mjs … 390</code> — alle tre i <code>C:/Praktik/websites/maalevaerktoej/</code>. Havde mærkerne siddet forkert, ville tælleren have vist noget andet end 9 / 26 / 4, som generatoren regner uafhængigt ud af databasen.</p>
+</section>
+
+<section class="flade" id="ord">
+<h3 class="flade-navn">Ordene, mærket har brug for — forslag, ikke besluttet</h3>
+<p class="comp-note">Et mærke uden forklaring er en gåde. Og der er et andet ordproblem ved siden af: <b>alle</b> forbeholdstekster hedder i dag «Advarsel» i feltlisten — også de 303 uddybninger, der ikke advarer om noget. Læseren, der følger et mærke ned i feltlisten, møder derfor 25 identiske overskrifter og kan ikke se, hvilken af dem mærket pegede på. Feltlisten ovenfor viser forslaget: to slags blok, to navne.</p>
+<div class="tabelrum"><table>
+<thead><tr><th>i18n-nøgle</th><th>da</th><th>en</th></tr></thead>
+<tbody>
+<tr><th>maerke_forklaring</th><td>Streg ved tallet: producentens tal er ikke uden videre sammenligneligt med de andres. Forbeholdet står ordret under «Alle felter».</td><td>Rule beside the figure: this number is not directly comparable with the others. The caveat is spelled out under “All fields”.</td></tr>
+<tr><th>forbehold_gyldighed_navn</th><td>Forbehold</td><td>Caveat</td></tr>
+<tr><th>forbehold_uddybning_navn</th><td>Note</td><td>Note</td></tr>
+<tr><th>maerke_skaermlaeser</th><td>Forbehold: {tekst}</td><td>Caveat: {text}</td></tr>
+</tbody></table></div>
+<p class="comp-note"><code>data/i18n/</code> ejes af <code>spor/legende2</code> i denne runde, så nøglerne står her som forslag og er ikke skrevet ind nogen steder.</p>
 </section>
 </main>`;
 fs.writeFileSync(path.join(UD, 'index.html'),

@@ -113,7 +113,20 @@ a{color:var(--accent);text-underline-offset:3px}
 .stribe--kompakt .etiket{grid-area:etiket;font-size:10.5px;letter-spacing:.09em}
 .stribe--kompakt .krop > .v{grid-area:vaerdi;min-height:21px}
 .stribe--kompakt .v{font-size:17px}
-.stribe--kompakt .v-tal{flex-wrap:nowrap;white-space:nowrap}
+.stribe--kompakt .v-tal{flex-wrap:nowrap;gap:.22em}
+/* Laengdetrinnene, ordret fra system.css:500-516. Uden dem klipper lange
+   vaerdier i cellen, og comp'en ville vise en fejl, bygget ikke har. */
+.stribe--kompakt .v-tal--lang{gap:.15em}
+.stribe--kompakt .v-tal--lang .num{font-size:.80em;letter-spacing:-.045em}
+.stribe--kompakt .v-tal--lang .enhed{font-size:.5em}
+.stribe--kompakt .v-tal--xlang{gap:.12em}
+.stribe--kompakt .v-tal--xlang .num{font-size:.70em;letter-spacing:-.05em}
+.stribe--kompakt .v-tal--xlang .enhed{font-size:.46em}
+.stribe--kompakt .v-tal--xlang .op{font-size:.5em}
+.stribe--kompakt .v-tal--xxlang{gap:.1em}
+.stribe--kompakt .v-tal--xxlang .num{font-size:.56em;letter-spacing:-.055em}
+.stribe--kompakt .v-tal--xxlang .enhed{font-size:.38em}
+.stribe--kompakt .v-tal--xxlang .op{font-size:.4em}
 @media (max-width:520px){.stribe--kompakt .etiket{letter-spacing:.04em}}
 
 /* --- kortet --------------------------------------------------------------- */
@@ -180,9 +193,22 @@ a{color:var(--accent);text-underline-offset:3px}
    Faste position er hele argumentet: stjernen doede af at flytte sig med
    figurens bredde. Denne gør ikke - den er haengt op paa cellen. */
 .v-tal.m-kant{position:relative;padding-left:11px}
-.v-tal.m-kant::before{content:"";position:absolute;left:0;top:.02em;bottom:.10em;
-  width:2px;background:var(--hegn)}
-.stribe--kompakt .v-tal.m-kant{padding-left:9px}
+/* FAST hoejde, ikke `bottom`. Maalt i browseren paa striben: med `bottom`
+   fulgte marken vaerdiboksens hoejde og blev 31,3 / 41,2 / 60,7 px alt efter,
+   om vaerdien braekkede - tre forskellige marker for den samme oplysning.
+   `height` bundet til .v's egen grad giver ét maal pr. flade. */
+.v-tal.m-kant::before{content:"";position:absolute;left:0;top:.06em;
+  height:.94em;width:2px;background:var(--hegn)}
+/* PAA KORTET HAENGER MARKEN UDEN FOR VAERDIBOKSEN. Maalt med
+   maalevaerktoej/maerke-brud.mjs: med de 9 px indryk inde i boksen braekkede
+   1 af 45 talceller i to linjer (Go2's "ca. 60-120 min"), mens B og C
+   braekkede 0. Vaerdikanalen paa kortet er 91 px, og spor/instrument2 brugte
+   en hel runde paa at faa alle celler ned paa ÉN aflaesningshoejde; et maerke
+   maa ikke betale den runde tilbage. Marken staar nu i cellens egen venstre
+   polstring og koster 0 px af kanalen. */
+.stribe--kompakt .v-tal.m-kant{padding-left:0}
+.stribe--kompakt .v-tal.m-kant::before{left:-6px;height:.90em}
+.stribe--kompakt > li{padding-left:9px}
 .raekke .v-tal.m-kant{padding-left:10px}
 
 /* --- B · UNDERSTREG -------------------------------------------------------
@@ -210,9 +236,15 @@ a{color:var(--accent);text-underline-offset:3px}
    handler om hvad feltet BETYDER for denne robot (nyttelast gaaende/staaende
    er vores tildeling; vaegt med eller uden batteri; driftstid uden
    lastbetingelse) - altsaa om etiketten, ikke om cifferet. */
-.etiket.m-etiket{color:var(--blaek);position:relative;padding-left:9px}
+.etiket.m-etiket{color:var(--blaek);position:relative;padding-left:11px}
 .etiket.m-etiket::before{content:"";position:absolute;left:0;top:.12em;bottom:.12em;
   width:2px;background:var(--hegn)}
+/* Paa kortet staar etiketten 5 px fra ikonet i en 13 px kanal. Med samme
+   indryk som paa robotsiden satte marken sig MELLEM ikon og navn og laeste
+   som et lodret streg-tegn i teksten, ikke som en mark. Maalt i skud
+   etiket-kort-1440.png. Her faar den luft nok til at staa for sig selv. */
+.stribe--kompakt .etiket.m-etiket{padding-left:8px;margin-left:-1px}
+.stribe--kompakt .etiket.m-etiket::before{top:.05em;bottom:.05em}
 .raekke dt.m-etiket{position:relative;padding-left:10px;color:var(--blaek)}
 .raekke dt.m-etiket::before{content:"";position:absolute;left:0;top:.18em;bottom:.18em;
   width:2px;background:var(--hegn)}
@@ -274,6 +306,21 @@ a{color:var(--accent);text-underline-offset:3px}
 .kol-note{display:block;margin-top:5px;font-family:var(--mono);font-size:10.5px;
   line-height:1.45;letter-spacing:.02em;color:var(--blaek3)}
 .kol-note--hul{color:var(--accent)}
+
+.tabelrum{overflow-x:auto;border:1px solid var(--linje);border-radius:var(--rund);
+  background:var(--panel);box-shadow:var(--skygge);margin-top:var(--r5)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{text-align:left;padding:12px 16px;border-top:1px solid var(--linje);vertical-align:top}
+thead th{border-top:0;border-bottom:2px solid var(--blaek);white-space:nowrap;
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--blaek3)}
+tbody th{font-weight:600;font-size:14px;color:var(--blaek);max-width:26ch}
+td{color:var(--blaek2);line-height:1.5}
+td.god,td.daarlig{font-family:var(--mono);font-size:12.5px;color:var(--blaek)}
+/* Ikke farve alene: den daarlige celle har OGSAA en tyk venstrekant. */
+td.daarlig{border-left:3px solid var(--hegn);background:var(--panel-ro)}
+.t-mikro{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;
+  letter-spacing:.06em;text-transform:none;color:var(--blaek3);margin-top:3px}
 
 @media (max-width:520px){
   .rum{padding-top:var(--r6)}
