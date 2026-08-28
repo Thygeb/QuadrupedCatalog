@@ -232,9 +232,19 @@ a:hover{text-decoration-thickness:2.5px}
 
 /* TAL — den eneste tilstand med stor, fed, moerk figur. */
 .v-tal{color:var(--blaek)}
-.v-tal .op{font-size:.72em;font-weight:500;color:var(--blaek3);letter-spacing:0}
+/* GRADERNE HAR ET GULV, praecis som kildemaerket (afsnit 9). Samme sygdom,
+   samme kur: en em-andel af en foraelder, der selv kan skrumpe, ender under
+   det, en skaerm kan saette et bogstav paa. Maalt 28. aug 2026 paa kataloget
+   FOER gulvet: .enhed ned til 5,70 px og .op ned til 6,00 px ved 390 px,
+   6,46/6,80 px ved 1440 — mens den samme .enhed staar paa 8,40 px i cellen
+   ved siden af. Det er ikke en grad, det er en fejl i kaskaden.
+   max() goer gulvet uafhaengigt af arven og lader graden vokse med figuren
+   dér, hvor figuren er stor: paa forsidens store tal staar enheden stadig paa
+   .56em, saa rangordenen — enheden markant mindre end tallet — er uroert dér,
+   hvor der ER en figur at vaere mindre end. */
+.v-tal .op{font-size:max(8px,.72em);font-weight:500;color:var(--blaek3);letter-spacing:0}
 .v-tal .num{font-size:1em;font-weight:700;letter-spacing:-.02em}
-.v-tal .enhed{font-size:.56em;font-weight:500;color:var(--blaek2);letter-spacing:.02em}
+.v-tal .enhed{font-size:max(8px,.56em);font-weight:500;color:var(--blaek2);letter-spacing:.02em}
 
 /* NUL — ET TAL. Saettes praecis som ethvert andet tal, saa det aldrig kan
    forveksles med et hul. Faar ingen daempning, ingen stiplet kant. */
@@ -559,13 +569,16 @@ a:hover{text-decoration-thickness:2.5px}
    1750/1440: 0 vaerdier skyder ud over cellen, og alle 261 vaerdiblokke har
    NOEJAGTIG samme hoejde. Kildebogstavet skifter aldrig grad - det er
    signaturen og skal staa ens paa hver eneste celle. */
+/* Hvert trin baerer gulvet med sig (max(8px,…)). Uden det arver enheden og
+   operatoren trinnets skrump OVEN PAA foraeldrens - to multiplikationer, som
+   ingen af de to erklaeringer kan se hver for sig. */
 .stribe--kompakt .v-tal--lang{gap:.15em}
 .stribe--kompakt .v-tal--lang .num{font-size:.80em;letter-spacing:-.045em}
-.stribe--kompakt .v-tal--lang .enhed{font-size:.5em}
+.stribe--kompakt .v-tal--lang .enhed{font-size:max(8px,.5em)}
 .stribe--kompakt .v-tal--xlang{gap:.12em}
 .stribe--kompakt .v-tal--xlang .num{font-size:.70em;letter-spacing:-.05em}
-.stribe--kompakt .v-tal--xlang .enhed{font-size:.46em}
-.stribe--kompakt .v-tal--xlang .op{font-size:.5em}
+.stribe--kompakt .v-tal--xlang .enhed{font-size:max(8px,.46em)}
+.stribe--kompakt .v-tal--xlang .op{font-size:max(8px,.5em)}
 /* Fjerde trin: kun sproget udloeser det. Fem af de seks operatorer er TEGN
    (≥ ≤ > < ±), men 'cirka' er et ord - "ca." paa dansk, "approx." paa
    engelsk. Maalt paa katalogsiden: dansk naar 14 tegn i den laengste vaerdi,
@@ -574,8 +587,8 @@ a:hover{text-decoration-thickness:2.5px}
    (3 engelske, 1 dansk). */
 .stribe--kompakt .v-tal--xxlang{gap:.1em}
 .stribe--kompakt .v-tal--xxlang .num{font-size:.56em;letter-spacing:-.055em}
-.stribe--kompakt .v-tal--xxlang .enhed{font-size:.38em}
-.stribe--kompakt .v-tal--xxlang .op{font-size:.4em}
+.stribe--kompakt .v-tal--xxlang .enhed{font-size:max(8px,.38em)}
+.stribe--kompakt .v-tal--xxlang .op{font-size:max(8px,.4em)}
 
 /* Kildebogstavet er sidens signatur og skal kunne LAESES. Her stod indtil
    28. aug 2026 undtagelsen `.stribe--kompakt .v-tal > .kildemaerke{.47em}`
@@ -605,6 +618,24 @@ a:hover{text-decoration-thickness:2.5px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}
+
+  /* LAENGDESTIGEN FALDER TIL ÉT TRIN HER, og det er en maaling, ikke en smag.
+     Stigen blev bygget mod den TRANGE celle: 91 px indre bredde ved 1440 px,
+     hvor den bredeste vaerdiblok maaler 84 px — 7 px luft. Under 420 px er
+     den samme celle 147 px bred (132 px ved 360 px), mens den bredeste blok
+     maaler 75 px: 72 px luft. Stigen komprimerede altsaa dér, hvor der var
+     mest plads, og skubbede enhed og operator under 8 px for at spare en
+     plads, ingen manglede. Alle tre trin saettes derfor paa --lang's grad;
+     maalt efter rettelsen ved 390 px: bredeste blok 107 px i en 147 px celle
+     (40 px luft), 0 overskud, uaendret cellehoejde. */
+  .stribe--kompakt .v-tal--xlang,
+  .stribe--kompakt .v-tal--xxlang{gap:.15em}
+  .stribe--kompakt .v-tal--xlang .num,
+  .stribe--kompakt .v-tal--xxlang .num{font-size:.80em;letter-spacing:-.045em}
+  .stribe--kompakt .v-tal--xlang .enhed,
+  .stribe--kompakt .v-tal--xxlang .enhed{font-size:max(8px,.5em)}
+  .stribe--kompakt .v-tal--xlang .op,
+  .stribe--kompakt .v-tal--xxlang .op{font-size:max(8px,.6em)}
 }
 /* Vaerdien maa hellere ombryde end skubbe cellen ud af sit spor. break-word
    (ikke anywhere) proever et mellemrum foerst — "ikke oplyst" bryder til to
