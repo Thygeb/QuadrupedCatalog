@@ -87,9 +87,16 @@ function facetter(robotter, hjaelp, i18n) {
       tekst: (v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst : t('anvendelse_' + v)),
     },
     {
+      // L50: en robot med et vaegtspaend, der daekker flere klasser, skal
+      // matche i dem ALLE. vaerdier() returnerer derfor SAETTET fra
+      // hjaelp.vaegtklasser() (flertal), ikke det enkelte hjaelp.vaegtklasse()
+      // - samme mekanik som 'anv'-facetten ovenfor allerede bruger til flere
+      // vaerdier pr. robot. antal-taellingen laengere nede (linje ~117) og
+      // CSS'ens data-vaegt~="..."-medlemskabstest (hovedStil) kraever ingen
+      // aendring: de virker allerede paa en vaerdiliste, ikke ét tal.
       navn: 'vaegt',
       etiket: t('filter_vaegt'),
-      vaerdier: (r) => [hjaelp.vaegtklasse(r)],
+      vaerdier: (r) => hjaelp.vaegtklasser(r),
       tekst: (v) => t('vaegtklasse_' + v),
       orden: hjaelp.VAEGTKLASSER,
     },
