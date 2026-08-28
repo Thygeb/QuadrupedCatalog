@@ -506,12 +506,39 @@ export const ikon = (navn, klasse = 'ikon') =>
 export const VAEGTKLASSER = ['under_20', '20_40', 'over_40', 'ikke_oplyst'];
 export const VAEGTGRAENSER = { under: 20, over: 40 };
 
+/**
+ * Reducerer ét talfelt - der kan vaere et enkelt tal ELLER et interval
+ * ({min, maks}) - til ÉT centraltal (midtpunktet for et interval).
+ *
+ * HVORFOR vi overhovedet reducerer: nogle beregninger kan pr. definition kun
+ * arbejde med ét tal ad gangen - en grov vaegtklasse (`vaegtIKg`), en
+ * tvaers-af-enheder-sammenligning til et yderpunkt (`feltIBasis`), eller en
+ * skalering af en maalt silhuet i millimeter (`iMillimeter`). Midtpunktet er
+ * det mindst vilkaarlige valg, naar vi alligevel er tvunget til ét tal.
+ *
+ * MAA bruges til: intern sortering, klassificering og sammenligning, hvor
+ * resultatet ALDRIG vises for laeseren som et selvstaendigt tal.
+ *
+ * MAA IKKE bruges til at VISE et interval. Regel 5 og L47 er, at et spaend
+ * vises som producentens eget "20-25 cm", aldrig som "22,5 cm" - et tal
+ * producenten aldrig skrev. Visning laeser `post.min`/`post.maks` direkte
+ * (se fx `somSkrevet()` laengere nede) og kalder aldrig denne funktion.
+ *
+ * Var TRE selvstaendige kopier af samme regning (side.mjs, foer dette punkt:
+ * ca. linje 514, 552 og 1204) - projektets dyreste tilbagevendende fejl
+ * (L30, Aa12, KRITIK-4 fund 2) er netop at saadanne kopier skrider fra
+ * hinanden ved den fjerde. Samlet her, saa der kun er ét sted at rette.
+ */
+export function centralVaerdi(post) {
+  return post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+}
+
 /** Egenvaegten i kg, eller null hvis den ikke er oplyst som et tal. */
 function vaegtIKg(robot) {
   const p = robot?.felter?.egenvaegt;
   if (!p || typeof p === 'string') return null;
   if (tilstandAf(p.vaerdi)) return null;
-  const v = p.min !== undefined ? (p.min + p.maks) / 2 : p.vaerdi;
+  const v = centralVaerdi(p);
   if (typeof v !== 'number' || Number.isNaN(v)) return null;
   if (p.enhed === 'kg') return v;
   if (p.enhed === 'g') return v / 1000;
@@ -549,7 +576,7 @@ export function vaegtklasse(robot) {
 function feltIBasis(post) {
   if (!post || typeof post === 'string') return null;
   if (typeof post.vaerdi === 'string') return null;
-  const v = post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+  const v = centralVaerdi(post);
   if (typeof v !== 'number' || Number.isNaN(v)) return null;
   const e = ENHEDER[post.enhed];
   if (!e) return null;
@@ -1201,7 +1228,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   function iMillimeter(post) {
     if (!post || typeof post === 'string') return null;
     if (typeof post.vaerdi === 'string') return null;
-    const v = post.min !== undefined ? (post.min + post.maks) / 2 : post.vaerdi;
+    const v = centralVaerdi(post);
     if (typeof v !== 'number' || !(v > 0)) return null;
     if (post.enhed === 'mm') return v;
     if (post.enhed === 'cm') return v * 10;
