@@ -100,4 +100,28 @@ export default async function koer(ctx) {
   ok('31.12: trykfladen er stadig 44 px',
     /\.baand nav a\{[^}]*min-height:44px/.test(sys),
     'én raekke maa ikke koebes for en mindre trykflade');
+
+  /* --- 4. Radius-skalaen ------------------------------------------------ */
+  // Skalaen er 0/6/8/12 (--rund-lille/--rund-ind/--rund) plus 99px-pillen,
+  // som er "fuldt afrundet ende" og ikke et trin. Alt andet er drift: en
+  // 3 px radius er hverken en kant eller et hjoerne, og den opstaar, fordi
+  // nogen skoennede i stedet for at vaelge fra skalaen.
+  const LOVLIG = new Set(['0', '0px', '6px', '8px', '12px', '99px', '50%']);
+  const drift = [];
+  for (const [fil, css] of [['system.css', sys], ['generator.css', gen]]) {
+    for (const m of css.matchAll(/border-radius:([^;}]+)/g)) {
+      for (const del of m[1].trim().split(/[\s/]+/)) {
+        if (del.startsWith('var(') || del === 'inherit') continue;
+        if (!LOVLIG.has(del)) drift.push(`${fil}: ${del}`);
+      }
+    }
+  }
+  ok('31.13: ingen radius uden for skalaen 0/6/8/12 (+ 99px-pillen)',
+    drift.length === 0, `uden for skalaen: ${drift.join(', ')}`);
+  // De to smaa kildemaerker skal blive ved med at vaere KLAMMER. Ved 6 px
+  // moedes hjoernerne paa en 11 px hoej kasse og maerket bliver en prik.
+  ok('31.14: begge sekundaere kildemaerker staar paa 0',
+    /\.kildemaerke--sek\{[^}]*border-radius:0[;}]/.test(sys)
+      && /\.kildeliste \.sek \.bogstav\{[^}]*border-radius:0[;}]/.test(sys),
+    'ved 6 px bliver den 11 px hoeje kasse en prik, ikke et maerke');
 }
