@@ -581,10 +581,21 @@
    min-width:620px er den farligste af dem: paa en telefon ville den give
    vandret overloeb, hvor der foer ingen var. */
 .saml-matrix{display:block;width:auto;min-width:0;font-size:inherit}
-/* Ingen komponentregel nedenfor saetter border-top paa en celle, saa denne
-   ene nulstilling kan staa bredt uden at overskrive noget: raekkens og
-   gruppens egne streger sidder paa <tr> og <tbody>, ikke paa cellerne. */
-.saml-matrix th,.saml-matrix td{border-top:0}
+/* Nulstiller §14's th,td{border-top:1px} paa PRAECIS de celler, der ellers
+   ville faa en streg, de aldrig har haft. Raekkens og gruppens egne streger
+   sidder paa <tr> og <tbody>, ikke paa cellerne.
+
+   Foerste forsoeg var den brede `.saml-matrix th,.saml-matrix td` - og den
+   var forkert. Specificiteten (0,1,1) slaar `.specimen` (0,1,0), saa
+   specimen-kortet mistede sin egen overkant: kortet blev 84 -> 83 px, og
+   hele siden 4014 -> 4013 px. Maalt med en geometrisonde, ikke set med
+   oejet - 1 px flytter sig ikke synligt, men det ER en aendring af
+   udseendet. Vaelgerne herunder roerer aldrig .specimen, som beholder sin
+   ramme hele vejen rundt (og som §14's thead th{border-top:0} i forvejen
+   ikke generer, fordi .specimen's egen `border` vinder over den). */
+.saml-raekke > th,.saml-raekke > td,
+.saml-gruppe__titelraekke > th,
+.specimen-hoved__hjoerne{border-top:0}
 /* Hovedets <tr> er display:contents, saa hjoernet og specimen-kortene bliver
    gitterceller i <thead>s eget grid - noejagtig samme boksetrae som da
    hovedet var ét <div> med fire boern. */
