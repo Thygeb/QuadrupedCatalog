@@ -271,6 +271,19 @@ a{color:var(--accent);text-underline-offset:3px}
   font-weight:700;letter-spacing:-.02em}
 .fakta span{font-size:12.5px;color:var(--blaek3)}
 
+.anbefaling{margin:var(--r7) 0 var(--r8);padding:var(--r5) var(--r6) var(--r6);
+  background:var(--panel);border:1px solid var(--linje);border-left:3px solid var(--blaek);
+  border-radius:0 var(--rund) var(--rund) 0;box-shadow:var(--skygge);max-width:92ch}
+.anbefaling h2{font-size:24px;margin:8px 0 var(--r4)}
+.anbefaling p + p{margin-top:var(--r3)}
+.anbefaling p{font-size:15.5px;line-height:1.62;color:var(--blaek2);max-width:80ch}
+.anbefaling code{font-family:var(--mono);font-size:13px;background:var(--panel-ro);
+  border:1px solid var(--linje);border-radius:4px;padding:1px 5px}
+.hegnprove,.linjeprove{display:inline-block;width:34px;height:.8em;vertical-align:-.06em;
+  border-radius:2px;margin:0 2px}
+.hegnprove{background:var(--hegn)}
+.linjeprove{background:var(--linje);box-shadow:inset 0 0 0 1px var(--hegn)}
+
 .flade{margin-top:var(--r8)}
 .flade-navn{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;font-size:15px;
   padding-bottom:var(--r3);margin-bottom:var(--r4);border-bottom:1px solid var(--linje)}

@@ -24,6 +24,16 @@
 </div>
 <p class="comp-note">De to sidste tal er sporets eget fund og står ikke i briefet: striben og kortet viser netop de fire-fem felter, hvis forbehold oftest truer sammenligneligheden (nyttelast gående/stående, driftstid uden lastbetingelse, vægt med/uden batteri). Mærkets tæthed dér er altså ikke katalogets 31,5 % — den er over halvdelen. Genkør med <code>node retninger/maerke/fladetaethed.mjs</code>.</p>
 </header>
+
+<section class="anbefaling">
+<p class="comp-mikro">Sporets anbefaling</p>
+<h2>A · KANT — og prisen er, at mærket ligner cellens egen kant</h2>
+<p>A og C har samme måletal på det, der dræbte stjernen: blækket falder i 16 kolonner ved 1440 og 4 ved 390, mod B's 329 og 93. Mellem de to vinder A på to ting. Den lægger 22 % mere blæk (796 mod 654 px) og den lægger det <b>ved tallet</b>, hvor læseren i forvejen kigger — C lægger sit i etiketrækken, hvor 10,5 px-teksten og ikonet står 5 px fra hinanden, og hvor marken derfor læses som et lodret streg-tegn i ordet, ikke som et mærke.</p>
+<p><b>Prisen ved A:</b> på robotsidens stribe står marken 2 px bred i <span class="hegnprove"></span> ved siden af cellens egen skillelinje, som er 1 px i <span class="linjeprove"></span>. De to er tæt på hinanden i formsprog. Ved 1440 kan de skelnes; på en dårligt kalibreret skærm er jeg ikke sikker. Målingen, der ville afgøre det, er ikke en jeg kan køre: den kræver, at et menneske ser striben uden at vide, hvad de leder efter, og siger hvilke tal der er mærket.</p>
+<p><b>Det, der ville få mig til at skifte til C:</b> hvis den prøve viste, at marken læses som en skillelinje. Så er C's plads i etiketrækken en fordel og ikke en fejl, og C skal i stedet gøres kraftigere dér — fx ved at feltnavnet også skifter fra <code>--blaek3</code> til <code>--blaek</code>, hvilket den allerede gør, og det er den halvdel af C, der virker.</p>
+<p><b>B fravælges,</b> og det er den eneste af de tre, jeg fravælger. Den er L48's egen formulering, og den falder på sine egne tal: 329 blækkolonner, ni forskellige markbredder på ét kort, og 5 af 9 celler i striben hvor stregen rører etiketten under tallet.</p>
+</section>
+
 <div class="spalter"><article class="spalte" id="s-kant">
 <header class="spalte-hoved"><h2>A · KANT</h2><p>En 2 px lodret streg foran værdien — samme streg som forbeholdsblokken bærer i venstre kant.</p>
 <p class="spalte-link"><a href="kant.html">Se udgaven i fuld bredde →</a></p></header>
@@ -302,6 +312,12 @@
 <div class="tabelrum"><table>
 <thead><tr><th>Måling</th><th>A · Kant</th><th>B · Understreg</th><th>C · Etiket</th><th>Hvad det betyder</th></tr></thead>
 <tbody>
+<tr><th>Blækket, mærkerne lægger på de tolv kort<br><span class="t-mikro">ændrede pixels mod samme side uden mærker · 1440</span></th>
+<td class="god">796 px</td><td>1060 px</td><td class="god">654 px</td>
+<td>B lægger <b>mest</b> blæk af de tre. Det er ikke mængden, der afgør det — se næste række.</td></tr>
+<tr><th>Hvor mange x-kolonner blækket falder i<br><span class="t-mikro">1440 · 390</span></th>
+<td class="god"><b>16</b> · 4<br>50 px pr. kolonne</td><td class="daarlig"><b>329</b> · 93<br>3,2 px pr. kolonne</td><td class="god"><b>16</b> · 4<br>41 px pr. kolonne</td>
+<td><b>Det er her stjernen døde.</b> Blæk, der stabler sig i få kolonner, findes uden at lede. Blæk spredt over 329 kolonner skal søges celle for celle — uanset at der er mere af det.</td></tr>
 <tr><th>Markens sideværts spredning, sd(x) i px<br><span class="t-mikro">stribe / kort / feltliste</span></th>
 <td class="god">0,3 / 0 / 0</td><td class="daarlig">18,3 / 10,5 / 11,8</td><td class="god">0,3 / 0 / 0</td>
 <td>Stjernen døde af at <b>flytte sig</b>. Lav spredning = mærkerne læses som en kolonne. B's mærke starter og slutter, hvor cifrene tilfældigvis gør.</td></tr>
@@ -317,7 +333,8 @@
 <tr><th>Vandret overløb ved 390 px</th><td class="god">0</td><td class="god">0</td><td class="god">0</td><td>Alle tre holder på telefon.</td></tr>
 <tr><th>Bærer nogen af de tre andre datatilstande et mærke?</th><td class="god">0</td><td class="god">0</td><td class="god">0</td><td>Hård begrænsning 5 er urørt: kun tal og nul kan bære mærket.</td></tr>
 </tbody></table></div>
-<p class="comp-note">Genkør: <code>node maerke-maal.mjs http://localhost:8195/retninger/maerke 1440</code> · <code>node maerke-brud.mjs …</code> · <code>node maerke-overlap.mjs … 390</code> — alle tre i <code>C:/Praktik/websites/maalevaerktoej/</code>. Havde mærkerne siddet forkert, ville tælleren have vist noget andet end 9 / 26 / 4, som generatoren regner uafhængigt ud af databasen.</p>
+<p class="comp-note">Genkør: <code>node maerke-maal.mjs http://localhost:8195/retninger/maerke 1440</code> · <code>node maerke-brud.mjs …</code> · <code>node maerke-overlap.mjs … 390</code> · <code>node maerke-signal.mjs … 1440</code> — alle fire i <code>C:/Praktik/websites/maalevaerktoej/</code>. Havde mærkerne siddet forkert, ville tælleren have vist noget andet end 9 / 26 / 4, som generatoren regner uafhængigt ud af databasen.</p>
+<p class="comp-note">Blækmålingen slukker mærket med én CSS-regel (<code>background:transparent</code>) og sammenligner de to skærmbilleder pixel for pixel i browserens eget canvas. Layoutet er identisk i de to; kun marken forsvinder. Havde målingen været i stykker, ville alle tre have vist 0 ændrede pixels.</p>
 </section>
 
 <section class="flade" id="ord">
