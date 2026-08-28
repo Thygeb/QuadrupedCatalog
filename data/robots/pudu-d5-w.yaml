@@ -22,6 +22,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket er \"Weight (with Battery)\" - inkl. batteri. 1 kg tungere end D5 (61 kg)."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 900
     enhed: mm
@@ -30,6 +31,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING, samme forbehold som hos D5. Producenten skriver samme trippel \"900 x 543 x 572 mm\" for D5-W som for D5 - stående mål er identiske på tværs af de to varianter ifølge tabellen."
+    advarsel_klasse: "gyldighed"
   bredde:
     vaerdi: 543
     enhed: mm
@@ -38,6 +40,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde."
+    advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 572
     enhed: mm
@@ -46,6 +49,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     min: 20
@@ -54,6 +58,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket \"Continuous Walking Payload: 20-30 kg\" - identisk tal for D5 og D5-W i tabellen."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 5
@@ -61,12 +66,14 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra generel markedsføringstekst \"Cruises at up to 5 m/s\" for D5-serien bredt. Pressemeddelelsen knytter samme tal specifikt til \"wheel-leg hybrid locomotion\" (D5-W). Sammenligningstabellen har ingen selvstændig hastighedsrække pr. variant."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 30
     enhed: grader
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra den variant-specifikke sammenligningstabel: \"D5-W: 30 ascent, 45 descent\". Kun ascent brugt her; nedstigning er 45 grader, intet felt for det i skemaet. Dette tal stemmer (modsat D5's) overens med den generelle markedsføringsteksts \"30° climbs\"."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
     enhed: cm
@@ -75,6 +82,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket \"Climbing Capability: Up to 80 cm\", identisk for D5 og D5-W. Samme tildelingsforbehold mellem dette felt og den kontinuerlige trappe som hos D5."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
@@ -83,6 +91,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Producentens etiket \"Maximum Step Height: D5-W: 25 cm (9.84 in)\" - LAVERE end D5's 30 cm, selvom D5-W har hjul. Dette tal stemmer overens med den generelle markedsføringsteksts \"25 cm steps\"."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP67
     kilde: https://store.pudurobotics.com/products/pudu-d5
@@ -98,6 +107,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Separat producentfelt \"Cold-Start Capability: Below -10°C\" - samme forbehold som hos D5."
+    advarsel_klasse: "uddybning"
   batteri_wh:
     vaerdi: 1000
     enhed: Wh
@@ -111,6 +121,7 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Webbutikkens tabel: \"Operating Time D5-W: 2 - 3 hours\", INGEN lastbetingelse (regel 8). Pressemeddelelsens lastbetingede \"over two hours at full load (30 kg)\" er ikke eksplicit knyttet til D5-W alene og er derfor kun brugt hos D5, ikke her."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:
@@ -147,4 +158,5 @@ felter:
     kilde: https://store.pudurobotics.com/products/pudu-d5
     hentet: 2026-08-24
     advarsel: "Fra webbutikkens Shopify-produktdata (variant \"D5-W\": price 8500000, dvs. 85.000 USD i cent-enheder). 5.000 USD dyrere end D5."
+    advarsel_klasse: "uddybning"
   ce_oplyst: ikke_oplyst

@@ -43,6 +43,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger
     hentet: 2026-08-19
     advarsel: "Højden er et interval, liggende til fuldt strakt. Bevaret som interval."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 4
@@ -51,6 +52,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger
     hentet: 2026-08-19
     advarsel: "Producenten skriver up to 4 kg. Der skelnes ikke mellem gående og stående last."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed: ikke_oplyst
   haeldning: ikke_oplyst
@@ -62,6 +64,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger
     hentet: 2026-08-19
     advarsel: "Producenten skriver up to IP67 i specifikationstabellen. Operatoren er producentens og skal bevares - up to IP67 er ikke det samme som IP67. MEN SIDEN MODSIGER SIG SELV: brødteksten skriver to gange det stærkere IP67-rated construction, uden forbehold. IP67 optræder 6 gange i filen, hvoraf kun 1 er up to IP67. Den forsigtige tabelværdi er brugt."
+    advarsel_klasse: "gyldighed"
   temp_min:
     vaerdi: 0
     enhed: C
@@ -81,6 +84,7 @@ felter:
     kilde: https://www.mabrobotics.pl/honey-badger
     hentet: 2026-08-19
     advarsel: "up to 2 hours. Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

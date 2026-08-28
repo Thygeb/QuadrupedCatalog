@@ -27,6 +27,7 @@ felter:
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
     advarsel: "Inkl. batteri."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1098
     enhed: mm
@@ -46,6 +47,7 @@ felter:
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
     advarsel: "Foldet ca. 950 x 550 x 450 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 40
@@ -59,12 +61,14 @@ felter:
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
     advarsel: "UDEN operator. B2 skriver >= 120 kg for samme tal. Forskellen er bevaret med vilje - ensretning ville enten opfinde eller fjerne et forbehold."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 15
     enhed: km/t
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
     advarsel: "Eneste Unitree-model opgivet i km/t i stedet for m/s. Producentens fodnote [1] gælder også her."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -103,6 +107,7 @@ felter:
     kilde: https://www.unitree.com/b2-w
     hentet: 2026-08-19
     advarsel: "Producenten skriver > 2 kWh ved 58 V - operatoren sidder på selve kapaciteten. Omregnet til Wh uden ændring af tallet."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: ikke_oplyst
     kilde: https://www.unitree.com/b2-w

@@ -29,6 +29,7 @@ felter:
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
     advarsel: "\"Weight: 25 kg (minus payload)\" - se topnote: eksplicit UDEN nyttelast."
+    advarsel_klasse: "uddybning"
   laengde: ikke_oplyst
   bredde: ikke_oplyst
   hoejde: ikke_oplyst
@@ -39,6 +40,7 @@ felter:
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
     advarsel: "\"Payload: 10 kg\" - se topnote om placering som gående, ikke stående."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     min: 2
@@ -48,6 +50,7 @@ felter:
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
     advarsel: "\"Speed: ~2-5 m/sec\" - producentens eget tilde-forbehold bevaret som operator på hele intervallet."
+    advarsel_klasse: "uddybning"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -63,6 +66,7 @@ felter:
     kilde: https://bhairavrobotics.com/shvana-robot/
     hentet: 2026-08-24
     advarsel: "\"Endurance: ~120 mins\" - ingen lastbetingelse knyttet til dette tal. Det separate \"Payload: 10 kg\" står som sit eget punkt i samme liste, IKKE eksplicit bundet til driftstidstallet - vi antager derfor ikke en sammenhæng, regel 8."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

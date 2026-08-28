@@ -26,6 +26,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "UDEN BATTERI (Net Weight, Excluding Battery) - unikt i indsamlingen; alle andre modeller, også MagicLabs egne MagicDog-W og Y1, oplyser vægt MED batteri. Uden den markering bliver nyttelast delt med egenvægt systematisk forkert, og forkert i den flatterende retning. Det globale site oplyser 17 kg med batteri for samme robot; de to tal er forenelige, hvis batteriet vejer ca. 1,2 kg, men det er en udledning og skrives ikke ind som data."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 670
     enhed: mm
@@ -42,12 +43,14 @@ felter:
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Liggende (Lying Down) 720 x 440 x 290 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 13
     enhed: DoF
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Producenten skriver Degrees of Freedom (DOF) 13 og separat Aluminum Alloy Precision Joint Motor 12. Det globale site skriver samme tal som 12 + 1 (head DOF) - altså 12 i benene plus hovedet."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 5
     enhed: kg
@@ -55,6 +58,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Producenten skriver ca. 5 kg (maks. ca. 10 kg) med tegnet U+2248 og fuldbredde-parenteser. Der skelnes ikke mellem gående og stående last."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.0
@@ -62,6 +66,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Etiket Maximum Speed. Det globale site skriver samme tal som Movement Speed 0-3.0m/s, altså et interval frem for et maksimum."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 40
     enhed: grader
@@ -73,6 +78,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Etiket Maximum Obstacle Height. Det globale site skriver Max Obstacle Step Height Approx. 18cm (lab data) for samme robot - 20 % højere, og med en laboratoriemarkering det ældre site ikke har."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse: ikke_oplyst
   temp_min: ikke_oplyst
@@ -90,6 +96,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog
     hentet: 2026-08-19
     advarsel: "Det globale site skriver i stedet Approx. 2.5 hours of continuous movement."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:

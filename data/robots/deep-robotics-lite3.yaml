@@ -32,6 +32,7 @@ felter:
       Pro: 12.9
       LIDAR: 13.5
     advarsel: "Med batteri. Værdien er Basic-variantens."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 610
     enhed: mm
@@ -53,6 +54,7 @@ felter:
       Pro: 450
       LIDAR: 496
     advarsel: "Højden stiger med sensorpakken. Værdien er Basic-variantens."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 5
@@ -65,6 +67,7 @@ felter:
       Pro: 4
       LIDAR: 2.5
     advarsel: "Den kinesiske etiket er KONTINUERLIG gående last; den engelske skriver blot Walking Load. Værdien er Basic-variantens."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed: ikke_oplyst
   haeldning:
@@ -73,6 +76,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product1.html
     hentet: 2026-08-19
     advarsel: "Ens for alle fire varianter."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 18
@@ -80,6 +84,7 @@ felter:
     kilde: https://www.deeprobotics.cn/robot/index/product1.html
     hentet: 2026-08-19
     advarsel: "KUN den kinesiske side afgør, hvilket felt tallet hører i. CN-etiketten er kontinuerlig trappehøjde; EN-etiketten er bare ordet Stair. Læser man kun engelsk, kan tallet lige så godt lande i forhindring_enkelt - og så sammenlignes en kontinuerlig trappehøjde med andre robotters enkelttrin, som er 2-4 gange større."
+    advarsel_klasse: "gyldighed"
   ip_klasse: ikke_oplyst
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
@@ -97,6 +102,7 @@ felter:
       Pro: "1,5-2 t, 3,4 km"
       LIDAR: "1,5-2 t, 2,7 km"
     advarsel: "Ingen lastbetingelse. Rækkevidden falder med udstyret; skemaet har intet rækkeviddefelt."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

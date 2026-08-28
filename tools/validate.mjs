@@ -263,12 +263,55 @@ function tjekRaa(sti, post, tal, enhed, operator) {
   }
 }
 
+/**
+ * R11's noegleliste, UDVIDET med "advarsel_klasse" (L48/D14, spor/d14data
+ * punkt 1) — UDEN at aendre tools/skema.mjs's egen POST_NOEGLER. To andre
+ * spor arbejder i skema.mjs lige nu (CLAUDE.md's filejerskab for dette
+ * spor forbyder den fil), saa unionen bygges lokalt her og bruges KUN af
+ * tjekNoegler nedenfor. Naar skema.mjs en dag faar sin egen POST_NOEGLER
+ * udvidet med samme noegle, kan denne lokale union fjernes igen uden at
+ * nogen adfaerd aendrer sig.
+ */
+const POST_NOEGLER_UDVIDET = new Set([...POST_NOEGLER, 'advarsel_klasse']);
+
 /** R11 — ukendte noegler i en feltpost. En tastefejl skal ikke forsvinde tavst. */
 function tjekNoegler(sti, post) {
   for (const n of Object.keys(post)) {
-    if (!POST_NOEGLER.has(n)) {
-      FEJL('R11', sti, `ukendt noegle "${n}" i feltposten. Tilladte: ${[...POST_NOEGLER].join(', ')}`);
+    if (!POST_NOEGLER_UDVIDET.has(n)) {
+      FEJL('R11', sti, `ukendt noegle "${n}" i feltposten. Tilladte: ${[...POST_NOEGLER_UDVIDET].join(', ')}`);
     }
+  }
+}
+
+/**
+ * R20 — L48/D14: et forbehold ("advarsel:") kan baere en maskinlaesbar
+ * klasse i søsterfeltet "advarsel_klasse:" — "gyldighed" (paavirker
+ * sammenligneligheden, faar et synligt maerke i et senere spor) eller
+ * "uddybning" (uddybende kontekst, ingen tvivl om selve tallet). Klassen
+ * er sat af et menneske, post for post, i fund/FUND-d14-klassifikation.md
+ * (562 forbehold, ikke en regex-doemt vaerdi) — validatoren haandhaever
+ * kun FORMEN her, ikke klassifikationens rigtighed.
+ *
+ * Et forbehold UDEN klasse er LOVLIGT: FUND-dokumentet daekker 562 af
+ * (maalt 28. aug 2026) 890 "advarsel:"-forekomster i alt — resten (328,
+ * mest sensorik/EU-felter som lidar/kameraer/dockingstation/ce_oplyst)
+ * ligger uden for dets seks familier og skal ikke gaettes en klasse paa
+ * (CLAUDE.md begraensning 6: ingen redaktionel dom uden offentliggjort
+ * metode). En UGYLDIG klasse, eller en klasse uden et forbehold at
+ * klassificere (feltet har "advarsel_klasse" men intet "advarsel"), er
+ * det ikke — begge er en form, der ikke kan vaere sand, og skal fejle.
+ */
+const ADVARSEL_KLASSER = new Set(['gyldighed', 'uddybning']);
+function tjekAdvarselKlasse(sti, post) {
+  const k = post.advarsel_klasse;
+  if (k === undefined) return;
+  if (typeof k !== 'string' || !ADVARSEL_KLASSER.has(k)) {
+    FEJL('R20', sti, `"advarsel_klasse" skal vaere "gyldighed" eller "uddybning", fik ${JSON.stringify(k ?? null)}`);
+    return;
+  }
+  if (typeof post.advarsel !== 'string' || post.advarsel.trim() === '') {
+    FEJL('R20', sti, `"advarsel_klasse: ${k}" staar uden "advarsel" — en klasse klassificerer et ` +
+      `forbehold, og uden et forbehold er der intet at klassificere`);
   }
 }
 
@@ -443,6 +486,7 @@ function tjekFelt(navn, vaerdi, spec, kendteVarianter) {
 
   tjekNoegler(sti, vaerdi);
   tjekVarianter(sti, vaerdi, kendteVarianter);
+  tjekAdvarselKlasse(sti, vaerdi);   // R20 — foer typegrenen, gaelder alle former ens
 
   // Skemaudvidelse 1: tilstanden med herkomst. "Producenten svarer nej, her er
   // hvor det staar" er en anden oplysning end en bar "nej" — og en langt bedre.

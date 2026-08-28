@@ -37,6 +37,7 @@ felter:
     kilde: https://www.anybotics.com/robotics/anymal-x/
     hentet: 2026-08-19
     advarsel: "Producenten skriver IP67 : Water and dust ingress protection."
+    advarsel_klasse: "uddybning"
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
   batteri_wh: ikke_oplyst

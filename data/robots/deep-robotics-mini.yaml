@@ -45,6 +45,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product2.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket er Max.load uden at skelne gående/stående. Placeringen er en slutning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.3
@@ -52,12 +53,14 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product2.html
     hentet: 2026-08-19
     advarsel: "Hastighed og hældning står i EN række, adskilt af et fuldbredde-semikolon (U+FF1B): 3.3m/s; 30 grader. En parser, der læser rækken som ET felt, får noget vrøvl."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 30
     enhed: grader
     kilde: https://deeprobotics.cn/en/index/product2.html
     hentet: 2026-08-19
     advarsel: "Står i samme række som hastigheden - se hastighed."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse: ikke_oplyst
@@ -69,6 +72,7 @@ felter:
     kilde: https://www.deeprobotics.cn/robot/index/product2.html
     hentet: 2026-08-19
     advarsel: "KUN den kinesiske side er brugbar. Den engelske side trykker Battery capacity 10kg - kilogram i et energifelt, sandsynligvis Max.load 10kg kopieret ind i den forkerte række. Det korrekte tal findes kun ved at læse originalsproget, ikke den engelske oversættelse."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 40
     enhed: min
@@ -76,6 +80,7 @@ felter:
     kilde: https://www.deeprobotics.cn/robot/index/product2.html
     hentet: 2026-08-19
     advarsel: "PRODUCENTEN MÆRKER SELV TALLET SOM TVIVLSOMT. Den kinesiske tabel skriver 40min efterfulgt af tegnene for tvivlsomt, afventer verifikation. Det står KUN på kinesisk og er usynligt for enhver, der læser engelsk."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

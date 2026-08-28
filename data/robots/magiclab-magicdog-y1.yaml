@@ -29,6 +29,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Med batteri."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1050
     enhed: mm
@@ -51,18 +52,21 @@ felter:
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Producentens etiket: Dynamic Payload (CN: bevægelseslast)."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
     enhed: kg
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Producentens etiket: Maximum Payload (CN: maks. last). Siden siger ikke eksplicit stående; placeringen følger samme tolkning som Unitrees to lastfelter."
+    advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 6
     enhed: m/s
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Uden operator. Unitree B2 skriver > 6 m/s for samme tal - Y1 er altså IKKE over B2 på dette felt."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -76,6 +80,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Producentens etiket er Maximum Climbing Height (CN: maks. klatrehøjde). HVERKEN EN ELLER CN siger, om det er et enkelt trin eller en kontinuerlig trappe - her hjælper den kinesiske side ikke, i modsætning til Lite3. Placeringen i forhindring_enkelt er en tolkning, valgt så tallet IKKE kan forurene den sammenligning, der skal bruge det kontinuerlige felt."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse:
     vaerdi: IP67
@@ -87,18 +92,21 @@ felter:
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Står i brødtekst, ikke i tabellen."
+    advarsel_klasse: "gyldighed"
   temp_maks:
     vaerdi: 55
     enhed: C
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Står i brødtekst, ikke i tabellen."
+    advarsel_klasse: "gyldighed"
   batteri_wh:
     vaerdi: 2400
     enhed: Wh
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Producenten trykker 45Ah (2400Wh), Voltage 54V. 45 x 54 = 2430 Wh, ikke 2400 - en afvigelse på 30 Wh (1,2 %). Vi gengiver det trykte tal og noterer uoverensstemmelsen. Bemærk: hverken Y1's eller Unitree B2's Wh-tal passer til deres eget Ah x V."
+    advarsel_klasse: "gyldighed"
   driftstid:
     vaerdi: 4
     enhed: t
@@ -107,6 +115,7 @@ felter:
     kilde: https://www.magiclab.top/en/dog-y
     hentet: 2026-08-19
     advarsel: "Producenten skriver 4-6h ( >4 h continuous walking with 20 kg load ). Her bruges tallet med lastbetingelse. Ordret identisk med Unitree B2's formulering, ned til operatoren."
+    advarsel_klasse: "uddybning"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

@@ -28,6 +28,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"Weight: 60 kg / 132 lbs\" i databladets specifikationsblok. Ingen angivelse af med/uden batteri."
+    advarsel_klasse: "gyldighed"
   laengde: ikke_oplyst
   bredde: ikke_oplyst
   hoejde:
@@ -39,6 +40,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"Height: 620 mm / 24.4 in\"."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 22
@@ -49,6 +51,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"Payload: 22 kg / 48.5 lbs\" - databladet skelner ikke mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning (samme princip som Boston Dynamics Spot m.fl.)."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 12
@@ -59,6 +62,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"Speed: 12 km/h / 7.5 mph\"."
+    advarsel_klasse: "uddybning"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
@@ -68,6 +72,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"Step Height: 15 cm / 5.9 in\" - databladet skelner ikke selv mellem enkelt forhindring og kontinuerlig trappe. Klassificeret som trappetrin_kontinuerlig ud fra ordlyden (\"step height\", ental) og størrelsesordenen (15 cm ligger på niveau med andre robotters kontinuerlige trappetal i dette katalog, fx Unitree B2's 20-25 cm, ikke deres enkelt-forhindringstal på 40-80 cm) - vores fortolkning, ikke en producentmærkning."
+    advarsel_klasse: "gyldighed"
   ip_klasse: ikke_oplyst
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
@@ -80,6 +85,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"Battery Life (h): 6\" - ingen lastbetingelse oplyst, selvom et separat 22 kg-payloadtal findes i samme dokument (regel 8: gætter ikke på koblingen)."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -116,4 +122,5 @@ felter:
     kilde: https://neura-robotics.com/product/quadruped-reservation/
     hentet: 2026-08-25
     advarsel: "\"Estimated price/unit: 50,000 € (excluding taxes and shipping)\". Separat \"Reservation fee: 100€ per unit\" er et depositum, der modregnes i slutprisen (\"fully refundable and will be applied toward your final purchase price\") - ikke medregnet i de 50.000 EUR. Vejledende/estimeret pris, ikke en bindende salgspris - producentens eget ord er \"Estimated\"."
+    advarsel_klasse: "gyldighed"
   ce_oplyst: ikke_oplyst

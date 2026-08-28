@@ -24,6 +24,7 @@ felter:
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Producenten skriver 8.9 +/- 0.5kg. Toleranceområdet er producentens og må ikke reduceres til 8,9 kg."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 562
     enhed: mm
@@ -40,18 +41,21 @@ felter:
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Producenten oplyser også mål i LIGGENDE stilling: 603 x 339 x 300 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har alligevel ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Producenten skriver 12 frihedsgrader i alt, 3 pr. ben."
+    advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 1
     enhed: kg
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Producentens etiket er maks. last - udelt, ingen skelnen mellem gående og stående. Placeringen er en slutning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.6
@@ -59,6 +63,7 @@ felter:
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "Producentens etiket: maks. hastighed i FREMADRETNINGEN."
+    advarsel_klasse: "uddybning"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -80,6 +85,7 @@ felter:
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "4500 mAh, nominel spænding 21,6 V, ladegrænse 24,9 V. Krydstjek: 4,5 Ah x 21,6 V = 97,2 Wh - producentens eget tal går præcist op."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 90
     enhed: min
@@ -88,6 +94,7 @@ felter:
     kilde: https://www.mi.com/cyberdog2/specs
     hentet: 2026-08-19
     advarsel: "INGEN LASTBETINGELSE, MEN EN TILSTANDSBETINGELSE - og den er usædvanligt ærlig. Producentens fodnote: de 90 minutter er målt som en blanding af at ligge ned, stå, vise statiske positurer og gå stabilt på normalt underlag. Det er mere, end nogen anden producent i indsamlingen giver, og skemaet har ikke plads til det."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 90

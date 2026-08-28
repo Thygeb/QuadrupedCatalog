@@ -22,48 +22,56 @@ felter:
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Total Battery Weight\" (kinesisk \"整机电池重量\") - ordret \"helmaskine-batteri-vægt\", en sammenblandet etikette. Placeret som egenvægt (med batteri), fordi rækken står under \"Mechanical Parameters\" ved siden af målene, ikke under \"Electrical Parameters\". Ikke en tastefejl fra vores side - producentens egen etikette er tvetydig."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 800
     enhed: mm
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "\"Standing Dimensions: 800mm x 600mm x 540mm\" - producenten mærker ikke akserne. Brækkefølgen længde x bredde x højde er antaget efter sædvane, ikke bekræftet af kilden (samme usikkerhed som deep-robotics-x30)."
+    advarsel_klasse: "gyldighed"
   bredde:
     vaerdi: 600
     enhed: mm
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde. Akserne er ikke mærket i kilden."
+    advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 540
     enhed: mm
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "USIKKER TILDELING - se længde. Foldet mål er 1025 x 750 x 150 mm; skemaet har intet foldefelt."
+    advarsel_klasse: "gyldighed"
   frihedsgrader:
     vaerdi: 16
     enhed: DoF
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Producenten skriver \"High-Performance Motors: 16 units\", ikke \"Degrees of Freedom\". T1 er en hjul-ben-hybrid, så de 16 motorer dækker formentlig både ben-led og hjulnav - ikke nødvendigvis 16 rene bevægelsesfrihedsgrader. Samme fortolkning som Go2's motor-optælling."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 50
     enhed: kg
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Continuous Walking Load\"."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 100
     enhed: kg
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Standing Load\"."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 18
     enhed: km/h
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Moving Speed\" - et loft, ikke en vedvarende driftshastighed. Ingen operator tilføjet, da \"Max\" her er en etikette (jf. skillens sondring mellem etikette og operator)."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -71,18 +79,21 @@ felter:
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Kilden trykker tegnet U+2264 (<=) foran 45° under \"Slope Capability\" - et LOFT, samme mønster som X30's advarsel om samme tegn hos en anden producent."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 40
     enhed: cm
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Step Negotiation\": \"Forward climbing up/down 40cm steps\"."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Stair Climbing Capability\": \"Max step height 25cm\". Adskilt fra forhindring_enkelt, fordi kilden selv bruger to forskellige etiketter og to forskellige tal (25 cm vs. 40 cm) for de to begreber - modsat X30, hvor de stod som ét kombineret felt."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP68
     kilde: https://www.micbotics.com/list_13/96.html
@@ -104,6 +115,7 @@ felter:
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Kilden skriver \"Battery Capacity: 3.5/4.5 kwh, Supply Voltage 72V\" - to batteripakke-størrelser at vælge imellem, ikke et målt interval. Gemt som min/maks, fordi skemaet ikke har et \"to varianter\"-format for et enkeltstående tal."
+    advarsel_klasse: "gyldighed"
   driftstid:
     vaerdi: 12
     enhed: t
@@ -112,6 +124,7 @@ felter:
     kilde: https://www.micbotics.com/list_13/96.html
     hentet: 2026-08-24
     advarsel: "Etiket \"Max Endurance Time: <=12h\". Ingen lastbetingelse oplyst - kan derfor ikke sammenlignes direkte med en driftstid, der ER lastmærket."
+    advarsel_klasse: "gyldighed"
   hot_swap:
     vaerdi: ja
     kilde: https://www.micbotics.com/public/upload/file/20260416/1776308031204027.pdf

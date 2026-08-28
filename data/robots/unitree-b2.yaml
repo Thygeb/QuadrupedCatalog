@@ -24,6 +24,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Total weight (battery included) - vægten er MED batteri. AlienGos vægt er uden batteri; de to felter er ikke sammenlignelige uden den oplysning."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 1098
     enhed: mm
@@ -43,6 +44,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Foldet (Lying Prone) oplyses til ca. 880 x 460 x 330 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 40
@@ -57,6 +59,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Producenten skriver tegnet U+2265. To forskellige operatorer på samme side: > på gående last, >= på stående. B2-W skriver samme 120 kg helt uden operator."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 6
     enhed: m/s
@@ -64,6 +67,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Producentens fodnote [1]: realized in special configurations, in practice there is a speed limit for security purposes. Den driftsrelevante hastighed står ikke på siden."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -76,6 +80,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Siden skriver både Obstacle crossing: Max 40cm og Climb up and down stairs of 40cm in forward direction."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi_min: 20
     vaerdi_maks: 25
@@ -83,6 +88,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Interval bevaret. 20~25 cm er ikke 22,5 cm."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP67
     kilde: https://www.unitree.com/b2
@@ -103,6 +109,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Producentens eget regnestykke går ikke op: samme sætning skriver Battery capacity 45Ah(2250Wh), voltage 58V. 45 x 58 = 2610 Wh. Det trykte tal ligger 13,8 % under det beregnede (16,0 % med 2250 som nævner). Vi retter ikke - 2250 Wh er producentens tal."
+    advarsel_klasse: "gyldighed"
   driftstid:
     vaerdi: 4
     enhed: t
@@ -111,6 +118,7 @@ felter:
     kilde: https://www.unitree.com/b2
     hentet: 2026-08-19
     advarsel: "Tre driftstidstal på samme side: > 5 t uden last (> 20 km), > 4 t ved 20 kg (> 15 km) og Battery life 4-6h uden lastangivelse. Her bruges det eneste med lastbetingelse."
+    advarsel_klasse: "uddybning"
   hot_swap:
     vaerdi: ja
     kilde: https://www.unitree.com/b2

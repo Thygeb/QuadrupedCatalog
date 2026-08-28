@@ -26,6 +26,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "Med batteri."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 721
     enhed: mm
@@ -42,6 +43,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "Foldet 768 x 602 x 211 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 16
     enhed: DoF
@@ -60,6 +62,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "Højeste stående last i hele Unitree-programmet - på den næstletteste robot (ca. 25 kg egenvægt)."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi_min: 0
     vaerdi_maks: 3.7
@@ -67,6 +70,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "Spidsbelastning op til ca. 6 m/s."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: grader
@@ -81,6 +85,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "Parametertabellens Max Climb Height er et interval 0,4~0,8 m. Sidens nøgletalskort præsenterer den øvre ende alene som 80 cm steps, og brødteksten skriver obstacles up to 80 cm high. Intervallet er bevaret."
+    advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: cm
@@ -106,6 +111,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "15000 mAh. Wh står kun i brødteksten, ikke i tabellen."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 2
     enhed: t
@@ -114,6 +120,7 @@ felter:
     kilde: https://www.unitree.com/As2-W
     hentet: 2026-08-19
     advarsel: "Tabellen: > 2 t ved 16 kg, ca. 25 km; ca. 3 t uden last, ca. 30 km. Nøgletalskortet på samme side siger > 16 km belastet mod tabellens ca. 25 km - 56 % forskel, samme side, samme dag. Tabellen er brugt."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:

@@ -26,6 +26,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"整机重量（含电池）: 27 kg\" i L2-W's egen datablok - ingen \"约\" (cirka)-tegn."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 760
     enhed: mm
@@ -33,6 +34,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\"."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 450
     enhed: mm
@@ -46,12 +48,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "Krybende mål (\"趴地尺寸\") er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\". Samme fortolkning som L1/L2/M1."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 16
     enhed: kg
@@ -59,18 +63,21 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" i L2-W's egen datablok - samme tal som basisudgaven L2."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
     enhed: kg
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"极限静态150kg\" står inde i \"最大载荷\"-rækken i L2-W's egen datablok. Modsat basisudgaven L2 er dette IKKE krydsbekræftet af en separat marketingtekstlinje for netop L2-W - kun denne ene forekomst."
+    advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 3.7
     enhed: m/s
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"最大速度: 3.7 m/s\" i L2-W's egen datablok - højere end basisudgavens 3.2 m/s, som forventet for en hjuldrevet variant. En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 40
     enhed: "°"
@@ -83,6 +90,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "Etiket \"连续攀爬楼梯高度\" i L2-W's egen datablok - højere end basisudgavens 22cm."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP66
     kilde: https://www.genisomai.com/product-robot/L2
@@ -106,6 +114,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L2
     hentet: 2026-08-24
     advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" i L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1.5

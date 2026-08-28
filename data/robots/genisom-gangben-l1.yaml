@@ -22,6 +22,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"整机重量（含电池）: 15 kg\" - eksplicit \"含电池\" (inkl. batteri). RETTET VED SELV-TJEK: rækken har INTET \"约\" (cirka)-tegn foran vægten, i modsætning til målene lige ovenover i samme tabel, som ER markeret \"约\". Første udkast af denne post satte fejlagtigt operator \"~\" på vægten ud fra en antagelse om, at hele sektionen delte samme cirka-markering - rettet efter genlæsning af rå-JSON'en."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 630
     enhed: mm
@@ -29,6 +30,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"站立尺寸（长 x 宽 x 高）约 630 x 360 x 415 mm\" - akserne ER mærket eksplicit af producenten (长=længde, 宽=bredde, 高=højde), i modsætning til MicroRoboTechs to poster."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 360
     enhed: mm
@@ -42,12 +44,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "Krybende mål (\"趴地尺寸\") er ~670 x 425 x 145 mm; skemaet har intet felt til den tilstand."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"关节电机数量: 12个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\"/\"自由度\". Samme fortolkning som Unitree Go2 i denne samling."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 8
     enhed: kg
@@ -55,6 +59,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" - grænseværdi op til ca. 10 kg oplyst separat."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.7
@@ -62,12 +67,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"最大速度: 3.7 m/s\". En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, fordi \"最大速度\" er den etiket, der svarer til \"normal maksimal hastighed\" i resten af samlingen."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
     enhed: "°"
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"最大爬坡角度: 标准环境 30°，极限可达 40°\" (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt; grænseværdien 40° er noteret her, ikke skrevet ind som feltets værdi."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 16
@@ -75,6 +82,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde)."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP54
     kilde: https://www.genisomai.com/product-robot/L1
@@ -102,6 +110,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"续航时间: 1-2 h\", ingen lastbetingelse oplyst. Rækkevidde \"续航里程: 6 km\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1
@@ -109,6 +118,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1
     hentet: 2026-08-24
     advarsel: "\"充电时长: 1 h\"."
+    advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/L1

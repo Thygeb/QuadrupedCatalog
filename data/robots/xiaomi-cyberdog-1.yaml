@@ -21,6 +21,7 @@ felter:
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "Producentens etiket: 整机重量（含电池）- hele maskinen, batteri inklusive."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 771
     enhed: mm
@@ -37,18 +38,21 @@ felter:
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "Mål i LIGGENDE stilling (趴下) oplyses også: 807 x 406 x 206 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "Producenten skriver 整机12，单腿3 - 12 i alt, 3 pr. ben."
+    advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 3
     enhed: kg
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "Producentens etiket er 最大负载 - maks. last, udelt, uden skelnen mellem gående og stående. Placeringen i det gående felt er en slutning, præcis som på CyberDog 2."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.2
@@ -56,6 +60,7 @@ felter:
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "Producenten skriver MAX 3.2m/s. Fodnoten på samme side: det laboratoriemålte maksimum er 3,2 m/s, mens den maksimale SIKRE ganghastighed er 1,6 m/s. To tal på samme side, halvdelen af hinanden. Det trykte hovedtal er 3,2."
+    advarsel_klasse: "gyldighed"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -77,6 +82,7 @@ felter:
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "NOMINEL kapacitet: 5,6 Ah / 120,9 Wh ved 21,6 V. Krydstjek: 5,6 x 21,6 = 120,96 - producentens tal går op. Producenten oplyser OGSÅ en aftalt kapacitet på 5,2 Ah / 112,3 Wh. De to er 7,1 % fra hinanden, og det er producentens egen forskel, ikke en fejl."
+    advarsel_klasse: "gyldighed"
   driftstid:
     vaerdi: 1
     enhed: t
@@ -85,6 +91,7 @@ felter:
     kilde: https://www.mi.com/cyberdog/specs
     hentet: 2026-08-21
     advarsel: "INGEN LASTBETINGELSE, MEN EN TILSTANDSBETINGELSE. Producentens fodnote: den ene time er målt som en blanding af at ligge ned, rejse sig, vise statiske positurer og gå stabilt på normalt underlag. Skemaet har ikke plads til den slags betingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 160

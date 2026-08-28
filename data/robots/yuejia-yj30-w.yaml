@@ -28,12 +28,14 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "\"重量: 20kg\" i \"基础参数\"-tabellen."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 682
     enhed: mm
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "\"站立尺寸: 682×354×532mm\"."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 354
     enhed: mm
@@ -51,6 +53,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "Producenten skriver kun \"负载: 12kg\" uden gående/stående-skel (se topnote). Forsigtigt skøn, ikke en aflæsning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 5
@@ -58,12 +61,14 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "\"最大速度: 5m/s\" - højere end den gående YJ30's 3m/s, som forventet for en hjuldrevet variant."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30, samme forbehold som i YJ30's egen post."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 60
@@ -71,6 +76,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "\"攀爬台阶高度: 60cm\" - se topnoten om det delte kolonnenavn med basisudgaven YJ30 (20cm)."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP54
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
@@ -86,6 +92,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "\"续航: 1.5-2h\" i basisværdien. Samme celle nævner separat \"3.5~4h (Dual Battery)\" - ekstra tilbehørsafhængig konfiguration, ikke brugt som hovedværdi. Ingen lastbetingelse (kg) oplyst."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -112,4 +119,5 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html
     hentet: 2026-08-25
     advarsel: "\"￥88000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
+    advarsel_klasse: "uddybning"
   ce_oplyst: ikke_oplyst

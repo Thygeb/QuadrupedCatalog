@@ -35,6 +35,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"重量: 60kg\" - manualens side 9 (【S1工业大型】-tabellen)."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1100
     enhed: mm
@@ -42,6 +43,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"站立尺寸（长×宽×高）单位mm: 1100*450*700\"."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 450
     enhed: mm
@@ -62,6 +64,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"有效负载: 40kg\" - samme fortolkning som hos C1."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende:
     vaerdi: 120
     enhed: kg
@@ -69,6 +72,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"最大负载: 120kg\"."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi_min: 0
     vaerdi_maks: 4
@@ -77,6 +81,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"运动速度: 0-4m/s,（极限6m/s）\" - grænsehastigheden 6 m/s er en separat, højere grænseværdi, ikke brugt som hovedværdi."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -85,6 +90,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"可攀爬斜坡最大坡度: ±45°\"."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 40
     enhed: cm
@@ -92,6 +98,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"正向高度差40cm高台\", del af samme række som trappetrin_kontinuerlig - se topnoten. S1 er den eneste Galileo-model med begge klatrefelter udfyldt."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: cm
@@ -99,6 +106,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"25cm高连续台阶\", del af samme række som forhindring_enkelt - se topnoten."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP67
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
@@ -111,6 +119,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"-20℃~55℃（-40℃可定制）\" - -40℃ er en tilvalgsgrænse."
+    advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
@@ -124,6 +133,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"电池容量: 40Ah（2880Wh）\" - 72V nominel spænding, højere end C1/E1's 48V."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi_min: 5
     vaerdi_maks: 7.5
@@ -133,6 +143,7 @@ felter:
     hentet: 2026-08-25
     kildetype: sekundaer
     advarsel: "\"续航时间: 5h（20kg负载）～7.5h\" - laveste tal (5h) er eksplicit mærket ved 20kg last (regel 8); det øvre tal (7.5h) er formentlig uden/ved lettere last, ikke separat mærket. Separat \"续航里程: ＞20km\" er også oplyst."
+    advarsel_klasse: "gyldighed"
   hot_swap:
     vaerdi: ja
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf

@@ -35,6 +35,7 @@ felter:
     kilde: https://www.cvte.com/product/quadrupedrobot
     hentet: 2026-08-24
     advarsel: "\"稳定穿越35°陡坡\" med fodnote: \"基于自适应步态算法与电驱动关节的实验室测试结果，实际地形性能受环境复杂度影响\" (laboratorietestresultat; reel terrænydelse påvirkes af omgivelsernes kompleksitet)."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse:
@@ -42,12 +43,14 @@ felter:
     kilde: https://www.cvte.com/product/quadrupedrobot
     hentet: 2026-08-24
     advarsel: "\"IP66级防水防尘\"."
+    advarsel_klasse: "uddybning"
   temp_min:
     vaerdi: -20
     enhed: C
     kilde: https://www.cvte.com/product/quadrupedrobot
     hentet: 2026-08-24
     advarsel: "\"-20°C至55°C宽温作业\" med fodnote: \"指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (gælder batteri og kørnekomponenters normale arbejdsområde)."
+    advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: C
@@ -62,6 +65,7 @@ felter:
     kilde: https://www.cvte.com/product/quadrupedrobot
     hentet: 2026-08-24
     advarsel: "Producenten oplyser TRE punkter i én sætning: \"40kg负载＞5H，20kg负载＞8H，空载＞11H\". Skemaet har kun ét driftstidsfelt, så mellempunktet (20kg > 8H) er valgt som primær værdi; de to andre (40kg > 5H, 0kg/space > 11H) står her. Fodnote: \"在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal ved 25°C på fladt hardt underlag)."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:

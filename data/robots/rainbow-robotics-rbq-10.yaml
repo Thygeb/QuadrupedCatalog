@@ -28,6 +28,7 @@ felter:
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "Manualen præciserer: Weight (with battery)."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 98
     enhed: cm
@@ -49,12 +50,14 @@ felter:
     kilde: https://rainbowrobotics.github.io/RBQ/
     hentet: 2026-08-19
     advarsel: "UDLEDT, IKKE OPLYST SOM SPECIFIKATION. Strengen 12 joints findes kun i SDK-afsnittene (LegJointInfo, Joint position and velocity (12 joints), Claim ownership of all 12 joints) - en API-beskrivelse. Søgning på degrees of freedom giver 0 træf i hele manualen. Opdelingen 3 pr. ben følger af hardware-tabellens tre ledtyper. Tallet er højst sandsynligt rigtigt, men producenten oplyser det ikke som specifikation. Ledspecifikation: nominelt moment 40/40/50 Nm, maks. 104/104/140 Nm, maks. vinkelhastighed 14,4/14,4/11,15 rad/s."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 15
     enhed: kg
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "Producenten skriver Max Payload uden at skelne gående/stående. Manualen præciserer: Total mass of everything mounted on top of the robot. Placeringen er en slutning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 9
@@ -62,12 +65,14 @@ felter:
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "Specifikationstabellen: 9 km/h (up to 14 km/h in running mode). Resumeet ØVERST PÅ SAMME SIDE skriver Walking 6 km/h, running 14 km/h. 6 mod 9 km/t for gang. Specifikationstabellen er brugt som værdi; resumeet ført som modstrid. Ingen af de to kan afvises af os."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: procent
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "OPLYST I PROCENT, IKKE I GRADER. 45 % = 24,2 grader. Må ikke omregnes stiltiende - Spots +/-30 grader og RBQ-10's 45 % er ikke samme enhed. Sidehældning oplyses separat til 20 %."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 25
@@ -76,6 +81,7 @@ felter:
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "Producenten skriver Stairs and steps: up to 25 cm. Resumeet på samme side skriver step height 20 cm. 20 mod 25 cm. Specifikationstabellen er brugt; resumeet ført som modstrid."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP54
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
@@ -88,6 +94,7 @@ felter:
     kilde: https://rainbowrobotics.github.io/RBQ/
     hentet: 2026-08-19
     advarsel: "18 Ah (9 Ah x2), nominel spænding 50,4 V, batterivægt 6,2 kg (3,1 kg x2). Krydstjek: 18 x 50,4 = 907,2 Wh - producentens eget tal går op."
+    advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 2
     enhed: t
@@ -95,6 +102,7 @@ felter:
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
     hentet: 2026-08-19
     advarsel: "Producenten skriver 2 hours (up to 4 hours). Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap:
     vaerdi: ja
     kilde: https://rainbow-robotics.com/en/products/rbq-10/
@@ -106,6 +114,7 @@ felter:
     kilde: https://rainbowrobotics.github.io/RBQ/
     hentet: 2026-08-19
     advarsel: "1h (20 to 80%). Ladebetingelsen står I tallet - den eneste producent i indsamlingen, der gør det. Tallet er derfor IKKE en fuld opladning og kan ikke sammenlignes direkte med Spots 60 min eller ANYmals 3 t."
+    advarsel_klasse: "gyldighed"
   dockingstation:
     vaerdi: ja
     kilde: https://rainbow-robotics.com/en/products/rbq-10/

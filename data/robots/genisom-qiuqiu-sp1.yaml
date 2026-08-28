@@ -24,12 +24,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
     advarsel: "\"本体重量: ≤100 kg\"."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1190
     enhed: mm
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
     advarsel: "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\" - ingen \"约\" (cirka)-tegn, ingen operator sat."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 640
     enhed: mm
@@ -47,6 +49,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
     advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.2
@@ -59,6 +62,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
     advarsel: "\"最大爬坡角度: 35°\", bekræftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\"."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 23
@@ -66,6 +70,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
     advarsel: "\"攀爬能力: 23cm连续台阶\" (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet på siden - derfor er forhindring_enkelt ikke oplyst i stedet for at genbruge dette tal."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP66
     kilde: https://www.genisomai.com/product-robot/sp1
@@ -89,6 +94,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/sp1
     hentet: 2026-08-24
     advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal står direkte på denne række. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds på siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

@@ -30,6 +30,7 @@ felter:
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
     advarsel: "Producenten skriver over 30 kg of parcels, groceries, and food. Operatoren bevaret. Der skelnes ikke mellem gående og stående last."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 14
@@ -40,6 +41,7 @@ felter:
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
     advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/t = 8,699 mph, går op. Kilden er produktsiden alene."
+    advarsel_klasse: "uddybning"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -60,6 +62,7 @@ felter:
     kilde: https://www.rivr.ai/product
     hentet: 2026-08-19
     advarsel: "recharges in just 2-3 hours. Interval bevaret. Tankestregen i kilden er en en dash (U+2013)."
+    advarsel_klasse: "uddybning"
   dockingstation: ikke_oplyst
   lidar: ikke_oplyst
   kameraer: ikke_oplyst

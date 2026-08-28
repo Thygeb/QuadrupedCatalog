@@ -22,12 +22,14 @@ felter:
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"重量 82kg（含电池）\" - inkl. batteri."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1110
     enhed: mm
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"站立尺寸 1110mm*610mm*745mm\" - stående mål."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 610
     enhed: mm
@@ -39,6 +41,7 @@ felter:
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "Liggende mål også oplyst: 1130x755x320mm - se noter."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 80
@@ -47,30 +50,35 @@ felter:
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"工作负载 ≤80kg\"."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 200
     enhed: kg
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"最大站立负载 200kg\"."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 7
     enhed: m/s
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"最高速度 7 m/s（1）\" med producentens egen fodnote: \"（1）该数据来自实验环境下，实际应用中有所限速\" (tallet er fra laboratorieforsøg; reel anvendelse kan være hastighedsbegrænset)."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: grader
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "Etiket er \"最大越障角度\" (maks. forhindrings-/traverseringsvinkel), ikke blot en hældnings-/skråningsangivelse - noteret her, da hældning er det nærmeste skemafelt."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 90
     enhed: cm
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"最大越障攀爬高度 90cm\" (maks. enkelt forhindringshøjde)."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi_min: 20
     vaerdi_maks: 25
@@ -78,11 +86,13 @@ felter:
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"连续爬梯高度 20~25 cm\" (kontinuerlig trappekravlehøjde)."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP66
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "Se noten om en ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes."
+    advarsel_klasse: "gyldighed"
   temp_min:
     vaerdi: -20
     enhed: C
@@ -94,6 +104,7 @@ felter:
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"工作温度 -20℃~55℃\". Opbevaringstemperatur -20~60℃ er separat - se noter."
+    advarsel_klasse: "uddybning"
   batteri_wh: ikke_oplyst
   driftstid:
     vaerdi_min: 4
@@ -103,6 +114,7 @@ felter:
     kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
     hentet: 2026-08-24
     advarsel: "\"续航时间 4~8小时 (有负载/空载)\" (belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-værdi - vi gætter ikke, at det er de 80 kg fra 工作负载-feltet, så lastbetingelsen står ikke oplyst i stedet for at opfinde koblingen."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation:

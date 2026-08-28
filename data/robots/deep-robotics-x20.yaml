@@ -48,6 +48,7 @@ felter:
     kilde: https://www.deeprobotics.cn/robot/index/product.html
     hentet: 2026-08-19
     advarsel: "KUN den kinesiske side afgør feltet. CN-etiketten er kontinuerlig arbejdslast; EN-etiketten er Endurance - samme ord som siden bruger om driftstid længere nede. En læser af kun den engelske side kan ikke vide, at X20 bærer 20 kg."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 4
@@ -56,6 +57,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product.html
     hentet: 2026-08-19
     advarsel: "Producenten skriver 4M/S med versaler (tegn U+2265). X30 fra samme producent skriver samme felt med små bogstaver. Versaliseringen er ikke normaliseret."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
     enhed: grader
@@ -63,6 +65,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product.html
     hentet: 2026-08-19
     advarsel: "Tegn U+2265 - et GULV. X30 fra samme producent skriver <= 45 grader, altså et LOFT. Samme producent, samme felt, modsat ulighedstegn."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -71,6 +74,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket Step/Obstacle H slår de to felter sammen, som skemaet netop har adskilt. Værdien er lagt i det strengeste af de to; forhindring_enkelt står tom. Det er et valg, ikke en aflæsning."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP66
     kilde: https://deeprobotics.cn/en/index/product.html
@@ -86,6 +90,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product.html
     hentet: 2026-08-19
     advarsel: "Rækkevidde oplyses til 15 km. Skemaet har intet rækkeviddefelt."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

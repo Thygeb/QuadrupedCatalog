@@ -25,6 +25,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"整机重量（含电池）: 22 kg\" - eksplicit \"含电池\" (inkl. batteri). Rækken har intet \"约\" (cirka)-tegn."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 630
     enhed: mm
@@ -32,6 +33,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"站立尺寸（长x宽x高）约 630 × 430 × 485 mm\"."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 430
     enhed: mm
@@ -45,12 +47,14 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "Krybende mål (\"趴地尺寸\") er ~690 x 540 x 165 mm; skemaet har intet felt til den tilstand."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer). Derudover 4 hjulnavmotorer (\"高性能轮毂电机: 4 个\"), som ikke tæller med i dette DoF-tal - skemaet har intet separat hjulmotorfelt."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 10
     enhed: kg
@@ -58,6 +62,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"最大载荷 ≈ 10 kg（极限 ~12 kg）\" - grænseværdi op til ca. 12 kg oplyst separat."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3.7
@@ -65,24 +70,28 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"最大速度: 3.7 m/s\". En separat \"极限速度\" (grænsehastighed) på 5.5 m/s er også oplyst (marketingkortet skriver \">5.5m/s 极限奔跑速度\") - ikke brugt som hovedværdi, samme princip som L1/L2."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
     enhed: "°"
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"最大爬坡角度: 标准环境 30°，极限可达 40°\" (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt, samme princip som L1."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 65
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"65cm 最大越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2."
+    advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 16
     enhed: cm
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel."
+    advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: IP54
     kilde: https://www.genisomai.com/product-robot/L1-W
@@ -110,6 +119,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"续航时间: 1-2h\", ingen lastbetingelse oplyst - samme tal som L1. Rækkevidde \"续航里程: 9km\" er også oplyst (lavere end L1's 6km-tal er IKKE - L1-W's 9km er højere; skemaet har intet rækkeviddefelt)."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 1
@@ -117,6 +127,7 @@ felter:
     kilde: https://www.genisomai.com/product-robot/L1-W
     hentet: 2026-08-24
     advarsel: "\"充电时长: 1h\"."
+    advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: ja
     kilde: https://www.genisomai.com/product-robot/L1-W

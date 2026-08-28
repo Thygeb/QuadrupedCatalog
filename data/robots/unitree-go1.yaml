@@ -36,6 +36,7 @@ felter:
     kilde: https://www.unitree.com/go1
     hentet: 2026-08-19
     advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme grænsetilfælde som Go2."
+    advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 4
     enhed: kg
@@ -47,6 +48,7 @@ felter:
       Pro: "ca. 4 kg (grænse ca. 10 kg)"
       Edu: "ca. 6 kg (grænse ca. 10 kg)"
     advarsel: "Producenten skriver kun Load uden at skelne gående/stående. Placeringen er en slutning. Værdien er Air/Pro."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi_min: 0
@@ -59,6 +61,7 @@ felter:
       Pro: "0~3,5 m/s"
       Edu: "0~3,7 m/s (grænse ca. 5 m/s)"
     advarsel: "Værdien er Air-variantens."
+    advarsel_klasse: "gyldighed"
   haeldning: ikke_oplyst
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
@@ -125,4 +128,5 @@ felter:
       Pro: 3500
       Edu: "Contact Sales"
     advarsel: "Værdien er Air-variantens. Priser på producentens egen produktside, ikke shopsidens pladsholder."
+    advarsel_klasse: "gyldighed"
   ce_oplyst: ikke_oplyst
