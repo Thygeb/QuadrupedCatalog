@@ -381,6 +381,21 @@
   padding:9px 12px 10px;background:var(--panel-ro);
   border-left:2px solid var(--hegn);border-radius:0 var(--rund-lille) var(--rund-lille) 0;
   font-size:13.5px;line-height:1.5;color:var(--blaek2);max-width:80ch}
+
+/* D18: blokken har to slags, saa laeseren, der foelger et maerke ned i
+   feltlisten, kan se hvilken slags tekst der venter.
+   --------------------------------------------------------------------------
+   GYLDIGHED baerer --hegn i venstrekanten: SAMME polet som marken paa
+   feltnavnet lige ovenover. De to er ét tegn paa to skalaer — et lille
+   i etiketten, et stort i blokken — ikke to forskellige signaler.
+
+   UDDYBNING traeder tilbage: --linje (den rent dekorative haarstreg) og
+   ingen flade. Den forsvinder ikke, men den holder op med at ligne en
+   advarsel. Foer D18 saa de to ens ud, og alle 1.158 blokke pr. sprog hed
+   "Advarsel" — ogsaa de 303, der ikke advarer om noget. */
+.advarsel--gyldighed{border-left-color:var(--hegn)}
+.advarsel--uddybning{border-left-color:var(--linje);background:transparent;padding-left:10px}
+.advarsel--uddybning .advarsel-navn{color:var(--blaek3)}
 .feltnote{margin-top:6px;font-size:13.5px;line-height:1.5;color:var(--blaek3);max-width:80ch}
 .varianter{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
 .varianter dt{width:100%}

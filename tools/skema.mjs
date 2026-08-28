@@ -287,9 +287,55 @@ export function billedPlade(b) {
  *  `varianter` er skemaudvidelse 2: Go2's fire varianter er fire maskiner. */
 export const POST_NOEGLER = new Set([
   'vaerdi', 'min', 'maks', 'enhed', 'operator', 'kilde', 'hentet', 'kildetype',
-  'vaerdi_imperial', 'enhed_imperial', 'advarsel', 'note', 'raa',
+  'vaerdi_imperial', 'enhed_imperial', 'advarsel', 'advarsel_klasse', 'note', 'raa',
   'ved_last', 'valuta', 'varianter',
 ]);
+
+/**
+ * D18/L48 — er postens forbehold af den slags, der paavirker
+ * SAMMENLIGNELIGHEDEN? Kun de forbehold faar et synligt maerke.
+ *
+ * Dette er den ENE udledning. Fire flader spoerger om den (robotsidens
+ * noegletalsstribe, katalogkortet, producentsidens minikort og feltlisten),
+ * og fire haandskrevne kopier af `=== 'gyldighed'` ville divergere ved den
+ * femte aendring — praecis den fejl, kommentaren over feltVisning() advarer
+ * imod et andet sted i denne fil.
+ *
+ * Klassen er sat af et menneske, post for post (fund/FUND-d14-klassifikation.md,
+ * 562 forbehold): "gyldighed" = forbeholdet aendrer, hvad tallet kan
+ * sammenlignes med; "uddybning" = uddybende kontekst, ingen tvivl om selve
+ * tallet. Maalt 28. aug 2026: 259 gyldighed, 303 uddybning.
+ *
+ * KLASSEN KRAEVER ET FORBEHOLD. En klasse uden "advarsel:" er en form, der
+ * ikke kan vaere sand (validate.mjs R20 fejler paa den), men udledningen her
+ * gaetter ikke paa validatorens vegne: uden en tekst er der intet at maerke,
+ * og saa er svaret nej. Det er ogsaa det, der holder de 328 UKLASSIFICEREDE
+ * forbehold umaerkede — de har en tekst, men ingen dom, og en dom skal ikke
+ * opfindes af en skabelon (CLAUDE.md begraensning 6).
+ */
+export function erGyldighedsforbehold(post) {
+  return !!(post && typeof post === 'object'
+    && post.advarsel_klasse === 'gyldighed'
+    && typeof post.advarsel === 'string' && post.advarsel.trim() !== '');
+}
+
+/**
+ * Hvilken slags forbeholdsblok posten skal have. Returnerer null, naar der
+ * ikke er noget forbehold at tegne.
+ *
+ * "gyldighed" og ALT ANDET — det er med vilje kun to udfald, ikke tre.
+ * De 328 uklassificerede forbehold faar samme blok som de 303 uddybninger,
+ * fordi maerket paa feltnavnet ogsaa kun har to udfald: det staar der, eller
+ * det goer det ikke. Gav blokken de uklassificerede et TREDJE, staerkere ord
+ * ("Advarsel") uden et maerke ved siden af, ville de to tegn sige hver sin
+ * ting om samme felt — og det staerkeste ord ville sidde praecis paa de
+ * felter, ingen har bedoemt.
+ */
+export function forbeholdsArt(post) {
+  if (!post || typeof post !== 'object') return null;
+  if (typeof post.advarsel !== 'string' || post.advarsel.trim() === '') return null;
+  return post.advarsel_klasse === 'gyldighed' ? 'gyldighed' : 'uddybning';
+}
 
 /**
  * Noegler med to stavemaader. `vaerdi_min`/`vaerdi_maks` staar i 24 filer og
@@ -364,6 +410,20 @@ export const FILTER_FELTER = [
  * paa sammenligningssiden (L46 i STATUS.md, bekraeftet af JPK 27. aug 2026 -
  * beslutningen fra 24. aug staar ved magt) — de udelades her, saa de aldrig
  * kan naa klienten, ikke kun visuelt skjules med CSS.
+ *
+ * HELLER IKKE med: `advarsel_klasse` (D18/L48). Det er et VALG, ikke en
+ * forglemmelse, og det staar her, saa den naeste ikke "retter" det i
+ * tavshed. Gyldighedsmaerket er et herkomsttegn, og L46 afgjorde, at
+ * sammenligningssiden ikke baerer herkomsttegn: spor/sammenlign havde
+ * bygget og maalt det modsatte, og arbejdet blev KASSERET (taggen
+ * arkiv/d17-afvist). Et maerke for gyldighed er samme slags aendring paa
+ * samme flade og hoerer derfor til en beslutning fra JPK, ikke til et
+ * designspor.
+ *
+ * Prisen, hvis beslutningen en dag vendes, saa den er maalt og ikke
+ * gaettet: robots.json er 478,0 KiB og baerer 890 forbehold; en klasse
+ * paa hvert af dem koster ca. 19,1 KiB (+4,0 %) hos hver eneste
+ * katalogbesoegende.
  */
 export function feltVisning(navn, post) {
   const spec = FELTER[navn];

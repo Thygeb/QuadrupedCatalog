@@ -41,6 +41,7 @@ import { fileURLToPath } from 'node:url';
 import {
   FELTER, SPROG, tilstandAf, sorterAnvendelse,
   BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade, jaNejAf,
+  erGyldighedsforbehold, forbeholdsArt,
 } from '../skema.mjs';
 import { ENHEDER } from '../yaml.mjs';
 
@@ -1056,8 +1057,19 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
       }
       return ud;
     }
-    if (post.advarsel) {
-      ud += `<p class="advarsel"><span class="etiket">${esc(T.advarsel)}</span>${esc(post.advarsel)}</p>`;
+    // Samme form som robot.mjs' advarselBlok(). De to tegnede foer blokken
+    // forskelligt (span.etiket her, b.advarsel-navn dér), og kun robot.mjs'
+    // udgave naaede nogensinde dist: denne gren er kun naaelig gennem
+    // build.mjs' midlertidigRobotside(), som er en reserve for det tilfaelde,
+    // at tools/skabelon/robot.mjs mangler. Maalt 28. aug 2026: 0 forekomster
+    // af denne forms markup i dist. Den er ensrettet frem for slettet, saa en
+    // reserve, der en dag TRAEDER i kraft, ikke udsender en blok uden
+    // gyldighedsklasse og uden en CSS-regel, der passer paa den.
+    const art = forbeholdsArt(post);
+    if (art) {
+      ud += `<p class="advarsel advarsel--${art}"><b class="advarsel-navn">`
+        + `${esc(T[art === 'gyldighed' ? 'forbehold_navn' : 'note_navn'])}</b>`
+        + `<span>${esc(post.advarsel)}</span></p>`;
     }
     if (post.note) ud += `<p class="feltnote">${esc(post.note)}</p>`;
     if (post.varianter) {
@@ -1190,8 +1202,13 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     const celler = felter.map((f) => {
       const etiket = kompakt ? t('stribe_' + f.navn) : T['felt_' + f.navn];
       const vaerdi = felt(f.navn, f.post, { kilder, hvorhen, kunVaerdi: true, kompakt });
+      // D18 · ETIKET: maerket rider paa feltnavnet, aldrig paa vaerdien.
+      // 52,5 % af tallene paa kortet baerer et forbehold; et tegn paa hvert
+      // ANDET tal bliver tekstur, mens et tegn paa etiketraekken bliver en
+      // kolonne, og figurerne staar tilbage som en ren talkolonne.
+      const m = erGyldighedsforbehold(f.post) ? ' m-etiket' : '';
       return `<li${f.oplyst ? '' : ' class="hul"'}>${ikon(f.ikonnavn)}<span class="krop">`
-        + `<span class="etiket">${esc(etiket)}</span>${vaerdi}</span></li>`;
+        + `<span class="etiket${m}">${esc(etiket)}</span>${vaerdi}</span></li>`;
     }).join('\n');
 
     const klasse = kompakt ? 'stribe stribe--kompakt panel--ro' : 'stribe';

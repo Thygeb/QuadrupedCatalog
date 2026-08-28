@@ -150,6 +150,41 @@ a:hover{text-decoration-thickness:2.5px}
 }
 .etiket--blaek{color:var(--blaek)}
 
+/* --- Gyldighedsmaerket (D18 · C · ETIKET) ---------------------------------
+   Maerket rider paa FELTNAVNET, aldrig paa vaerdien. A · KANT blev fravalgt,
+   fordi den lagde indrykket paa selve talcellen og dermed skubbede de
+   maerkede tal ud af talkolonnen; feltlisten er et to-kolonne-gitter, hvor
+   vaerdikolonnen begynder paa samme x i hver raekke.
+
+   Det siger: "dette felts forbehold paavirker sammenligneligheden". Kun de
+   259 gyldigheds-forbehold faar det. De 303 uddybninger og de 328
+   uklassificerede faar det ikke — maerkes alle 890, betyder maerket intet.
+
+   INGEN NY FARVE: --hegn er den polet, systemet allerede kalder
+   "BETYDNINGSBAERENDE kant" (3,68 : hvid · 3,32 : bund, begge over WCAG
+   1.4.11's 3,0 for ikke-tekst). INGEN NY KULOER: --hegn er neutral graa, og
+   maerket er en STREG — en form, ikke et fyld — saa det baerer ikke farve
+   alene. INGEN NY GLYF: de fire datatilstande bruger allerede tre 9x9-marker,
+   og en femte lille figur kunne ikke skelnes fra dem. En streg kan.
+
+   2 px og HELT, aldrig stiplet: stiplet er hullets og den sekundaere kildes
+   sprog (.v-ikke, .kildemaerke--sek), og et tredje stiplet tegn ville smelte
+   sammen med dem. */
+.etiket.m-etiket{
+  color:var(--blaek);position:relative;padding-left:13px;
+}
+.etiket.m-etiket::before{
+  content:"";position:absolute;left:0;top:.12em;bottom:.12em;
+  width:2px;background:var(--hegn);
+}
+
+/* Paa det kompakte kort staar etiketten i en smal kanal ved siden af ikonet.
+   Med robotsidens indryk satte marken sig MELLEM ikon og navn og laeste som
+   et lodret streg-TEGN i teksten frem for som en mark. Her faar den luft nok
+   til at staa for sig selv. */
+.stribe--kompakt .etiket.m-etiket{padding-left:8px;margin-left:1px}
+.stribe--kompakt .etiket.m-etiket::before{top:.05em;bottom:.05em}
+
 /* Tal saettes i mono med tabulaere cifre, saa kolonner flugter. */
 .figur{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
@@ -524,6 +559,9 @@ a:hover{text-decoration-thickness:2.5px}
 @media (max-width:420px){
   .stribe--kompakt{gap:5px 8px}
   .stribe--kompakt > li{--kanal:12px;padding:6px 5px 6px;column-gap:4px;row-gap:2px}
+  /* Kanalspalten er 1 px smallere her (column-gap 5 -> 4), saa maerket
+     rykkes 1 px laengere ind for at holde samme luft til ikonet. */
+  .stribe--kompakt .etiket.m-etiket{padding-left:8px;margin-left:2px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}
@@ -893,6 +931,14 @@ a:hover{text-decoration-thickness:2.5px}
   align-items:baseline;padding:11px 0;border-top:1px solid var(--linje)}
 .raekke:first-child{border-top:0}
 .raekke dt{font-size:14.5px;font-weight:600;color:var(--blaek2)}
+/* Gyldighedsmaerket i feltlisten (D18). Her bliver maerkerne til en KOLONNE:
+   raekkerne staar under hinanden, marken staar i samme x i hver, og oejet
+   kan loebe den ned uden at laese. Feltnavnets farve gaar fra --blaek2 til
+   --blaek, saa den maerkede raekke ogsaa er lidt tungere end sine naboer.
+   Vaerdikolonnen roeres IKKE — det er hele forskellen paa C og A. */
+.raekke dt.m-etiket{position:relative;padding-left:12px;color:var(--blaek)}
+.raekke dt.m-etiket::before{content:"";position:absolute;left:0;top:.18em;bottom:.18em;
+  width:2px;background:var(--hegn)}
 .raekke .v{font-size:17px}
 
 .tabelrum{overflow-x:auto;border:1px solid var(--linje);border-radius:var(--rund);

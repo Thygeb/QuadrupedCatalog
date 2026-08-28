@@ -131,6 +131,8 @@
   "hentet": "Hentet",
   "foraeldet": "Hentet for over 12 måneder siden – kan være forkert nu.",
   "advarsel": "Advarsel",
+  "forbehold_navn": "Forbehold",
+  "note_navn": "Note",
   "kilder_titel": "Kilder",
   "kilder_forklaring": "Én linje pr. kilde, ikke pr. tal: en kilde har én hentedato. Bogstavet ved et tal peger på den linje, tallet kommer fra.",
   "kilde_primaer": "Producentens produktside.",

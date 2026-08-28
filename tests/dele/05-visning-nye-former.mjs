@@ -139,7 +139,7 @@ export default async function koer(ctx) {
   ok('katalogtabellen markerer, at feltet har varianter',
     /maerke--varianter/.test(katalog));
   ok('advarslen staar stadig ved siden af vaerdien',
-    side.indexOf('class="advarsel"') > side.indexOf('v-ikke'));
+    side.indexOf('class="advarsel advarsel--') > side.indexOf('v-ikke'));
   ok('de to noter staar som to punkter, ikke som én sammenkoedet linje',
     /<ul class="noter"><li>foerste note<\/li><li>anden note<\/li><\/ul>/.test(side));
 

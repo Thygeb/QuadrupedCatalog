@@ -112,7 +112,7 @@ export default async function koer(ctx) {
     operatorRegex('&gt;', '40', 'kg').test(
       fs.readFileSync(path.join(dist, 'da', 'robotter', 'unitree-b2', 'index.html'), 'utf8')));
   ok('advarslen staar ved siden af vaerdien paa detaljesiden',
-    /class="advarsel"/.test(spotDa) && spotDa.indexOf('class="advarsel"') > spotDa.indexOf('43,3 in'));
+    /class="advarsel advarsel--/.test(spotDa) && spotDa.indexOf('class="advarsel advarsel--') > spotDa.indexOf('43,3 in'));
   // Herkomsten (kilde+hentedato) staar ikke laengere gentaget ved hvert tal - den
   // staar ÉN gang pr. unik URL i en delt <ul class="kildeliste"> (class="dato"),
   // og hvert tal baerer kun en let overskrift-markoer (class="kildemaerke"), der

@@ -78,7 +78,24 @@
 import { skal, hjaelp, laesBillede, billedledHTML, billedLinjer } from './side.mjs';
 // Skrivebeskyttet import af skemaet. Feltlisten maa kun findes ét sted; en
 // haandskrevet kopi her ville divergere ved den fjerde aendring.
-import { FELTER, FELTNAVNE, GRUPPER, tilstandAf } from '../skema.mjs';
+import {
+  FELTER, FELTNAVNE, GRUPPER, tilstandAf, erGyldighedsforbehold, forbeholdsArt,
+} from '../skema.mjs';
+
+/**
+ * D18 · ETIKET — maerket rider paa FELTNAVNET, aldrig paa vaerdien.
+ *
+ * Klassen saettes paa etiketten, ikke paa cellen: feltlisten er et
+ * to-kolonne-gitter, hvor vaerdikolonnen begynder paa samme x i hver raekke,
+ * og et indryk paa selve talcellen ville skubbe de maerkede tal ud af
+ * talkolonnen. Det er praecis derfor A · KANT blev fravalgt.
+ */
+// Hedder IKKE `maerke`: baade vaerdi() og stribe() har allerede en lokal
+// `maerke` (kildebogstavet), og en skygge dér ville vaere svaer at se.
+const etiketMaerke = (post) => (erGyldighedsforbehold(post) ? ' m-etiket' : '');
+
+/** Samme udledning for feltlistens <dt>, som ikke har en klasse i forvejen. */
+const dtMaerke = (post) => (erGyldighedsforbehold(post) ? ' class="m-etiket"' : '');
 
 /* ------------------------------------------------------------------ hjaelp */
 
@@ -233,9 +250,19 @@ function forbehold(post, ctx) {
  * saa producentens egen formulering ikke bliver til vores.
  */
 export function advarselBlok(post, ctx) {
-  if (!post?.advarsel) return '';
-  return `<p class="advarsel"><b class="advarsel-navn">${esc(T(ctx.i18n, 'advarsel'))}</b>` +
-    `<span>${esc(post.advarsel)}</span></p>`;
+  const art = forbeholdsArt(post);
+  if (!art) return '';
+  // D18: blokkens venstrekant og maerket paa feltnavnet er ÉT tegn paa to
+  // skalaer. Gyldighed faar --hegn (samme polet som maerket); uddybning faar
+  // --linje og ingen flade, saa den traeder tilbage uden at forsvinde.
+  //
+  // Og den skal hedde noget forskelligt. Foer D18 hed alle 1.158 blokke pr.
+  // sprog "Advarsel" — ogsaa de 303 uddybninger, som ikke advarer om noget.
+  // Naar alt advarer, advarer intet; det er samme fejl som at maerke alle 562.
+  const navn = art === 'gyldighed' ? 'forbehold_navn' : 'note_navn';
+  return `<p class="advarsel advarsel--${art}"><b class="advarsel-navn">`
+    + `${esc(T(ctx.i18n, navn))}</b>`
+    + `<span>${esc(post.advarsel)}</span></p>`;
 }
 
 function noteBlok(post) {
@@ -288,6 +315,19 @@ export function vaerdi(navn, post, ctx, kilder) {
 
   let html;
   let hul = false;
+  // Saettes KUN af den gren, der sender hele `post` gennem side.mjs' tal().
+  // Den funktion udskriver selv lastbetingelsen (`ved_last`) i sit eget
+  // `fnote()`, saa et kald til forbehold() nedenfor ville tegne den ANDEN
+  // gang. Maalt paa main 28. aug 2026: 264 af 2.000 stribeceller bar
+  // <abbr class="forbehold--skjult"> to gange - samme tekst, samme celle.
+  // I dag siger en skaermlaeser forbeholdet dobbelt; naar gyldighedsmaerket
+  // (D18) bliver synligt, ville det ogsaa TEGNES dobbelt.
+  //
+  // Tekstgrenen nedenfor kalder ogsaa H.tal, men med en SYNTETISK post
+  // ({min,maks,enhed}) uden `ved_last` - dér udskriver tal() intet, og
+  // forbehold() er stadig den eneste udskriver. Derfor saettes flaget kun
+  // i den sidste gren, ikke ved ethvert H.tal-kald.
+  let talUdskrevForbehold = false;
   const t = tilstandAf(post.vaerdi);
   if (t) {
     // Tilstanden MED herkomst. Den ser ud som den bare tilstand — ellers ville
@@ -309,6 +349,7 @@ export function vaerdi(navn, post, ctx, kilder) {
     }
   } else {
     html = H.tal(post, { kompakt });
+    talUdskrevForbehold = true;
     // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
     // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
     // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,
@@ -319,7 +360,7 @@ export function vaerdi(navn, post, ctx, kilder) {
     }
   }
 
-  html += forbehold(post, ctx);
+  if (!talUdskrevForbehold) html += forbehold(post, ctx);
   const maerke = post.kilde ? (H.kildemaerke(post, kilder) || '') : '';
   return { html, hul, maerke };
 }
@@ -413,7 +454,7 @@ function stribe(ctx, kilder) {
     return {
       navn, ikon, hul,
       html: `<li${hul ? ' class="hul"' : ''}><svg class="ikon" aria-hidden="true"><use href="#${ikon}"/></svg><span class="krop">
-<span class="etiket">${esc(T(i18n, 'felt_' + navn))}</span>
+<span class="etiket${etiketMaerke(post)}">${esc(T(i18n, 'felt_' + navn))}</span>
 <span class="feltvaerdi">${html}${maerke}</span></span></li>`,
     };
   });
@@ -463,7 +504,7 @@ function stribe(ctx, kilder) {
     ? `<details class="stribe-under-fold">
 <summary>${esc(flet(T(i18n, 'noegletal_afvigelser'), { n: underFelter.length }))}</summary>
 <div class="stribe-under-krop">
-${underFelter.map(([navn, p]) => `<div class="stribe-under"><p class="etiket">${esc(T(i18n, 'felt_' + navn))}</p>` +
+${underFelter.map(([navn, p]) => `<div class="stribe-under"><p class="etiket${etiketMaerke(p)}">${esc(T(i18n, 'felt_' + navn))}</p>` +
     advarselBlok(p, ctx) + varianter(p, ctx) + `</div>`).join('\n')}
 </div>
 </details>`
@@ -503,7 +544,7 @@ ${under}
 function euBlok(ctx, kilder) {
   const { i18n, robot } = ctx;
   const raekker = EU_FELTER.map((navn) => `<div class="raekke">
-<dt>${esc(T(i18n, 'felt_' + navn))}</dt>
+<dt${dtMaerke(robot.felter?.[navn])}>${esc(T(i18n, 'felt_' + navn))}</dt>
 <dd>${feltKrop(navn, robot.felter?.[navn], ctx, kilder)}</dd>
 </div>`).join('\n');
 
@@ -667,7 +708,7 @@ function skema(ctx, kilder) {
     const navne = FELTNAVNE.filter((n) => FELTER[n].gruppe === g);
     if (!navne.length) return '';
     const raekker = navne.map((navn) => `<div class="raekke">
-<dt>${esc(T(i18n, 'felt_' + navn))}</dt>
+<dt${dtMaerke(robot.felter?.[navn])}>${esc(T(i18n, 'felt_' + navn))}</dt>
 <dd>${feltKrop(navn, robot.felter?.[navn], ctx, kilder)}</dd>
 </div>`).join('\n');
     return `<section class="skema-gruppe">

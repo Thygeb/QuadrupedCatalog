@@ -78,6 +78,11 @@ export default async function koer(ctx) {
   let kompakteCeller = 0;
   let synligeTegn = 0;
   let kunskaermIAlt = 0;
+  let stykkerMedForbehold = 0;
+  /* Et "stykke" = én vaerdikontekst: en stribecelle, en feltlisteraekke
+     eller et yderpunkt paa forsiden. Dokumentet skaeres ved hver kendt
+     kontekststart, saa et forbehold hoerer til praecis ét stykke. */
+  const STYKKE_START = /(?=<li[ >])|(?=<div class="raekke">)|(?=<div class="yderpunkt-krop">)/;
   let skjulteForbehold = 0;
   let forbeholdUdenTekst = 0;
   const tegnEksempler = [];
@@ -94,6 +99,9 @@ export default async function koer(ctx) {
   for (const sti of sider) {
     const html = fs.readFileSync(sti, 'utf8');
     kunskaermIAlt += (html.match(/class="kunskaerm"/g) || []).length;
+    for (const stykke of html.split(STYKKE_START)) {
+      if (stykke.includes('forbehold--skjult')) stykkerMedForbehold++;
+    }
 
     const f = flade(sti);
     const stribeListe = kompakteStriber(html);
@@ -155,9 +163,24 @@ export default async function koer(ctx) {
      knaekker af en ny robot, bliver slettet i stedet for laest. Tallene i
      parentes er MAALT 27. aug 2026 paa 77 robotter og staar der, saa et fald
      kan ses som et fald og ikke forveksles med en tom maaling. */
-  const KUNSKAERM_GULV = 2000;   // maalt: 2154
-  ok(`forbeholds- og skaermlaesertekst er ikke forsvundet: ${kunskaermIAlt} .kunskaerm i dist (gulv ${KUNSKAERM_GULV}, maalt 2154 den 27. aug 2026)`,
-    kunskaermIAlt >= KUNSKAERM_GULV, `fandt ${kunskaermIAlt}`);
+  /* VENDT 28. aug 2026 (spor/maerke-c). Testen taalte foer RAA
+     .kunskaerm-forekomster mod et gulv paa 2000 (maalt 2154 den 27. aug).
+     Det maal kan ikke skelne "tekst forsvandt" fra "dublet fjernet": af
+     de 2154 laa 396 i stykker, der udskrev det SAMME forbehold to gange,
+     fordi robot.mjs' vaerdi() lagde forbehold() oven paa side.mjs' tal(),
+     som allerede havde udskrevet lastbetingelsen. Da dubletterne
+     forsvandt, faldt raa-tallet til 1758 - uden at én eneste oplysning
+     gik tabt.
+
+     Nu taelles det, denne test hele tiden VILLE vaerne om: hvor mange
+     stykker der baerer mindst ét forbehold. Det tal var 940 baade FOER
+     og EFTER afdublingen, og netop derfor er det det rigtige maal - det
+     er ufoelsomt over for, hvor mange GANGE det samme forbehold tegnes,
+     og foelsomt over for, at ét forsvinder. Taber en aendring ét stykke,
+     fejler den her. */
+  const STYKKE_GULV = 940;   // maalt 28. aug 2026; raa .kunskaerm samme dag: 1758
+  ok(`forbeholdene er ikke forsvundet: ${stykkerMedForbehold} stykker baerer mindst ét forbehold (gulv ${STYKKE_GULV}, maalt 940 den 28. aug 2026; raa .kunskaerm: ${kunskaermIAlt})`,
+    stykkerMedForbehold >= STYKKE_GULV, `fandt ${stykkerMedForbehold}`);
 
   /* 3. Kildebogstaverne, pr. flade. Ikke alle kort KAN baere et maerke - et
      felt uden `kilde:` i YAML'en faar ingen, og det er den rigtige opfoersel
