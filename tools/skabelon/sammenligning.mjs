@@ -35,7 +35,7 @@
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc, lavKilder } from './side.mjs';
+import { esc } from './side.mjs';
 import { FELTER, FELTNAVNE, GRUPPER, NAEVNER, feltVisning } from '../skema.mjs';
 import { taethed } from '../validate.mjs';
 
@@ -78,7 +78,7 @@ const OPNAVN = {
  *  en lille sprogspecifik ordbog, assets/sammenligning.js bruger til at
  *  tegne cellerne (label pr. felt/gruppe, operator-tekst, tilstandstekst). */
 function dataBlok(ctx) {
-  const { robotter, i18n, d4, url } = ctx;
+  const { robotter, i18n, d4 } = ctx;
   const { T, t } = i18n;
 
   const robotterUd = robotter.map((r) => {
@@ -91,30 +91,10 @@ function dataBlok(ctx) {
     // title, robot.mjs allerede viser ("Producenten skrev: …") - genbrugt
     // moenster, ikke et nyt. Findes ingen omregning, er `_kildeform`
     // undefined, og feltet er urort (samme som paa robotsiden).
-    //
-    // Kildebogstavet (spor/sammenlign, punkt 1 - Å38's krydskontrolfund:
-    // "sammenligningssiden viser slet ingen kildebogstaver... den flade,
-    // hele siden er bygget for, er den eneste uden proveniens"): `lavKilder(r)`
-    // er den ENESTE funktion i hele generatoren, der regner et felts bogstav
-    // ud - samme kald som side.mjs' egen kildemaerke() og producent.mjs'
-    // kompaktStribe() allerede bruger (KRITIK-4 fund 2). Genbrugt her, IKKE
-    // gen-udregnet (L30/Å12-fælden: to kopier af samme regel skrider).
-    // `feltVisning()` baerer bevidst hverken kilde, hentet eller kildetype -
-    // se dens egen kommentar i skema.mjs ("Kilder skjules", CEO-beslutning
-    // 24. aug, BEGRUNDELSE.md) - saa bogstavet hentes her ved siden af, som
-    // et selvstaendigt slaa-op mod raadataen, praecis som `_kildeform` to
-    // linjer ovenfor. DENNE AENDRING STAAR I DIREKTE MODSTRID MED DEN
-    // BESLUTNING - se rapportens "Nye faelder og opdagelser", som flagger
-    // konflikten for orkestratoren FOER dette flettes.
-    const kilder = lavKilder(r);
     const felter = Object.fromEntries(FELTNAVNE.map((n) => {
-      const post = r.felter[n];
-      const vis = feltVisning(n, post);
-      const kildeform = post?._kildeform;
-      const udv = kildeform ? { ...vis, kildeform } : vis;
-      const k = kilder.for(post);
-      if (!k) return [n, udv];
-      return [n, { ...udv, k: k.bogstav, ...(k.sekundaer ? { sek: true } : {}) }];
+      const vis = feltVisning(n, r.felter[n]);
+      const kildeform = r.felter[n]?._kildeform;
+      return [n, kildeform ? { ...vis, kildeform } : vis];
     }));
     // "N af 30 felter" (skilt__nr i mockuppen): samme maalestok som
     // resten af sitets taethedstal - "oplyst" er alt, der ikke er hullet
@@ -124,11 +104,6 @@ function dataBlok(ctx) {
     return {
       slug: r.slug, navn: r.navn, producent: r.producent,
       producentland: r.producentland, status: r.status, taethedAntal, felter,
-      // hvorhen kildemaerket skal pege (punkt 2): robottens egen side baerer
-      // kildelisten (#kilde-<bogstav>), sammenligningssiden goer ikke - samme
-      // ankerregel som producent.mjs' kompaktStribe() bruger (KRITIK-4 fund 2).
-      // ÉN streng pr. robot, ikke gentaget pr. felt (punkt 3, sidevaegt).
-      href: url.robot(r.slug),
     };
   });
 
@@ -170,10 +145,6 @@ function dataBlok(ctx) {
       // Raa moenster med "{figur}" - klienten selv erstatter (sammenligning.js'
       // renderTal()), samme funktion som robot.mjs' flet() udfoerer server-side.
       kilde_original_form: T.kilde_original_form,
-      // De to titler kildemaerket viser (punkt 2) - samme noegler, samme
-      // tekst, som side.mjs' egen kildemaerke() bruger til title="...".
-      kilde_primaer: T.kilde_primaer,
-      kilde_sekundaer_forklaring: t('kilde_sek_forklaring'),
       vaegtklasse: {
         under_20: T.vaegtklasse_under_20,
         '20_40': T.vaegtklasse_20_40,
@@ -227,29 +198,16 @@ ${felter}
 </fieldset>`;
 }
 
-/** Tegnforklaringen: fire tilstande + reglen om ingen vinder-markering, plus
- *  (spor/sammenlign, punkt 2) de to kildemaerke-raekker.
- *
- *  RETTET (spor/sammenlign, 27. aug 2026): denne funktion undlod tidligere de
- *  to kildemaerke-raekker med begrundelsen "kilder er skjult paa denne side
- *  (BEGRUNDELSE.md 'Kilder skjules') - en forklaring paa et maerke, der
- *  aldrig staar paa siden, ville vaere en forklaring uden genstand." Den
- *  praemis er nu invalideret AF DENNE SAMME AENDRING: dataBlok() sender
- *  bogstavet med, og assets/sammenligning.js tegner det i tabellen (Å38's
- *  krydskontrolfund). Raekkerne tilfoejes derfor, samme HTML-moenster og
- *  samme i18n-noegler som side.mjs' egen tegnforklaring() bruger - IKKE en ny
- *  formulering. **BEMAERK (se rapportens "Nye faelder"): selve praemissen om
- *  at kilder SKAL vaere skjult her staar som en dateret CEO-beslutning i
- *  skema.mjs' feltVisning()-kommentar (24. aug) - denne aendring overskriver
- *  den beslutning, den er ikke bekraeftet ophaevet af JPK.**
- *
+/** Tegnforklaringen: fire tilstande + reglen om ingen vinder-markering.
  *  Genbruger den SAMME dl/raekke-form som hjaelp.tegnforklaring() (side.mjs,
  *  ".tegnforklaring .raekker") i stedet for at opfinde et nyt layout - ingen
- *  ny CSS-komponent til selve strukturen, kun raekkerne selv er andre. De
- *  fire foerste tilstandsraekker her genbruger de samme i18n-noegler,
- *  tegnforklaringen selv bruger; de to sidste (kilde) er kopieret ord for ord
- *  fra side.mjs' tegnforklaring(); den syvende (vinder) er sammenligningens
- *  egen. */
+ *  ny CSS-komponent til selve strukturen, kun raekkerne selv er andre.
+ *  IKKE hjaelp.tegnforklaring() direkte: den viser ogsaa de to
+ *  kildemaerke-raekker (bogstav/sekundaer), og kilder er skjult paa denne
+ *  side (BEGRUNDELSE.md "Kilder skjules") - en forklaring paa et maerke,
+ *  der aldrig staar paa siden, ville vaere en forklaring uden genstand. De
+ *  fire tilstandsraekker her genbruger de samme i18n-noegler,
+ *  tegnforklaringen selv bruger; den femte er sammenligningens egen. */
 function legendeHTML(t, T) {
   const raekke = (v, tekst) => `<div class="raekke"><dt>${v}</dt><dd>${esc(tekst)}</dd></div>`;
   return `<section class="sektion tegnforklaring" aria-labelledby="h-tegn">
@@ -257,8 +215,6 @@ function legendeHTML(t, T) {
 <dl class="raekker">
 ${raekke('<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>', T.tegnforklaring_oplyst)}
 ${raekke('<span class="v v-tal v-nul"><b class="num">0</b></span>', T.tilstand_nul_forklaring)}
-${raekke('<span class="v v-tal"><b class="num">14</b><span class="enhed">kg</span><a class="kildemaerke" href="#h-tegn" tabindex="-1">A</a></span>', t('kilde_maerke_forklaring'))}
-${raekke('<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</span><a class="kildemaerke kildemaerke--sek" href="#h-tegn" tabindex="-1">B</a></span>', t('kilde_sek_forklaring'))}
 ${raekke(`<span class="v v-nej"><i class="mrk"></i>${esc(T.tilstand_nej)}</span>`, T.tilstand_nej_forklaring)}
 ${raekke(`<span class="v v-ikke"><i class="mrk"></i>${esc(T.tilstand_ikke_oplyst)}</span>`, T.tilstand_ikke_oplyst_forklaring)}
 ${raekke(`<span class="v v-vinder-tegn" aria-hidden="true">—</span><span class="kunskaerm">${esc(t('sammenligning_legende_vinder_titel'))}</span>`,
