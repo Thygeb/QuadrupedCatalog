@@ -27,6 +27,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Med batteri (含电池)."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1100
     enhed: mm
@@ -46,6 +47,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Sammenfoldet ca. 930 x 450 x 370 mm. Skemaet har ingen felter til foldemål."
+    advarsel_klasse: "uddybning"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 80
@@ -53,24 +55,28 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producentens egen etiket er GÅENDE last, maks. 80 kg. Producenten oplyser selv de to laster som to felter - anden uafhængige bekræftelse (efter Unitree) af, at nyttelast SKAL være to felter. Forholdet er her næsten det dobbelte."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
     enhed: kg
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producentens egen etiket er STÅENDE last, maks. 150 kg."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 4
     enhed: m/s
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producenten skriver maks. 4 m/s."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 40
     enhed: grader
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Etiket: klatrehældningsvinkel, maks. 40 grader."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 30
@@ -78,6 +84,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producentens etiket bruger tegnet for TRIN/TRAPPE, maks. 30 cm. Lagt i det kontinuerlige felt på samme grundlag som DEEP Robotics X30. Siden siger ikke eksplicit kontinuerlig - det er en konservativ placering, ikke en aflæsning."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP54
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
@@ -88,6 +95,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "-25 C mod Weilan AlphaDog C500's 0 C: to kinesiske producenter, samme dag, og den ene kan arbejde i dansk vinter, mens den anden ikke må stå i et koldt skur. Det er filteret nedre driftstemperatur, der gør sit arbejde."
+    advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 50
     enhed: C
@@ -106,6 +114,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "PRODUCENTEN LEVERER SELV LASTBETINGELSEN - den eneste post i indsamlingen, hvor det sker. Ordret: > 5 t kontinuerlig gang UDEN last, og > 2,5 t i drift MED nyttelast. Men kg-tallet for den belastede tilstand står ikke; betingelsen er kvalitativ. Her bruges det belastede tal."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid:
     vaerdi: 3
@@ -114,6 +123,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Ladetiden gælder ladestanderen (tilvalg): fuld opladning <= 3 t."
+    advarsel_klasse: "gyldighed"
   dockingstation:
     vaerdi: ja
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/

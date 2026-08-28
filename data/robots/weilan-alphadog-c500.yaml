@@ -28,12 +28,14 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producenten skriver 24Kg. Det siges ikke, om batteriet er med."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 76
     enhed: cm
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producentens etiket: Size (Standing Pose) 76 cm x 40 cm x 45 cm."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 40
     enhed: cm
@@ -56,6 +58,7 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producenten skriver Payload Capacity: Up to 3 kg som ET UDELT TAL og skelner ikke mellem gående og stående last. Placeringen er en slutning, ikke en aflæsning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 1.5
@@ -64,6 +67,7 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "TO HASTIGHEDSTAL I SAMME TABEL: Speed: Up to 1.5 m/s og Max. Safe Speed: 3.0m/s. Her bruges driftshastigheden. Operatoren up to betyder <=, ikke =."
+    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 20
     enhed: grader
@@ -71,6 +75,7 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producenten skriver Gradeability Max.20 grader - et LOFT. Laveste hældningstal i hele indsamlingen."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig: ikke_oplyst
   ip_klasse: ikke_oplyst
@@ -86,6 +91,7 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to temperaturer."
+    advarsel_klasse: "uddybning"
   batteri_wh:
     vaerdi: ikke_oplyst
     kilde: https://www.weilan.com/en/en/alphadogc.html
@@ -99,6 +105,7 @@ felter:
     kilde: https://www.weilan.com/en/en/alphadogc.html
     hentet: 2026-08-19
     advarsel: "FIRE UDHOLDENHEDSTAL, ALLE UDEN LASTBETINGELSE: Average Up to 5.7h, Continuous Walking Up to 3.3h, Standing Up to 8h, Standby Mode Up to 18h. Her bruges den kontinuerlige gang - den eneste, der svarer til de øvrige posters driftstid."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

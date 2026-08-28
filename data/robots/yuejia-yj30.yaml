@@ -31,12 +31,14 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "\"重量: 17.5kg\" i \"基础参数\"-tabellen. Ingen \"约\"(cirka)-markering, ingen angivelse af med/uden batteri."
+    advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 682
     enhed: mm
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "\"站立尺寸: 682×354×462m\" - kildens egen enhedsangivelse mangler et \"m\" (se topnote). Akserne (længde først) er eksplicit mærket af producenten i kolonneoverskriften \"站立尺寸\"."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 354
     enhed: mm
@@ -48,6 +50,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "Se topnoten om det manglende \"m\" i kildens \"462m\"."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende:
     vaerdi: 10
@@ -55,6 +58,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gående eller stående last - samme situation som Unitree Go2 (se topnote). Placeringen under gående last er et forsigtigt skøn ud fra størrelsesordenen, IKKE en aflæsning."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende: ikke_oplyst
   hastighed:
     vaerdi: 3
@@ -62,12 +66,14 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "\"最大速度: 3m/s\" - ét tal, ikke et interval."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "Fra den sammenlagte kolonne \"爬坡角度/DOF\" - se topnoten. 50° er hældningsvinklen, ikke DOF."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -75,6 +81,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "\"攀爬台阶高度: 20cm\" (klatre-trappetrinshøjde) - \"台阶\" betyder trin/trappe, tolket som den kontinuerlige trappeklatring, ikke en enkeltstående forhindring."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP54
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
@@ -90,6 +97,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "\"续航: 1.5-2h\" i basisværdien. Samme celle nævner separat \"3h (Dual Battery)\" - en ekstra tilbehørsafhængig konfiguration med et andet batterisetup, ikke brugt som hovedværdi (se topnote). Ingen lastbetingelse (kg) er oplyst for nogen af de to tal."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -112,4 +120,5 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
     hentet: 2026-08-25
     advarsel: "\"￥78000.00\" ved siden af en \"立即购买\" (køb nu)-knap på producentens egen side."
+    advarsel_klasse: "uddybning"
   ce_oplyst: ikke_oplyst

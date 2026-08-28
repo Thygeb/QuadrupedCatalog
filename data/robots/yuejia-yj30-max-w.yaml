@@ -28,12 +28,14 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"重量: 55kg\" i \"基础参数\"-tabellen."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 896
     enhed: mm
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"站立尺寸: 896x635×625mm\"."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 635
     enhed: mm
@@ -51,24 +53,28 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"动态负载: 35kg\" (dynamisk/gående last) - eksplicit navngivet felt."
+    advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 55
     enhed: kg
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"静态负载: 55kg\" (statisk/stående last) - eksplicit navngivet felt."
+    advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 5
     enhed: m/s
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"速度: 5m/s\" - højere end YJ30Max's 3m/s, som forventet for en hjuldrevet variant."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding."
+    advarsel_klasse: "uddybning"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 80
@@ -76,6 +82,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"攀爬台阶高度: 80cm\" - se topnoten om det delte kolonnenavn med basisudgaven YJ30Max (30cm)."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP67
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
@@ -91,6 +98,7 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"续航: 3.5-4.5h\". Ingen lastbetingelse (kg) oplyst."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
@@ -117,4 +125,5 @@ felter:
     kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
     hentet: 2026-08-25
     advarsel: "\"￥358000.00\" ved siden af en \"立即购买\" (køb nu)-knap - kataloget højeste Yuejia-pris."
+    advarsel_klasse: "uddybning"
   ce_oplyst: ikke_oplyst

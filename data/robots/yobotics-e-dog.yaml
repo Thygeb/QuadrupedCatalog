@@ -26,6 +26,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "15 kg +/- 0,5 kg."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 680
     enhed: mm
@@ -33,6 +34,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producenten skriver 680x330x380mm (+/-10mm). Tolerancen gælder alle tre mål."
+    advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 330
     enhed: mm
@@ -40,6 +42,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Tolerance +/- 10 mm."
+    advarsel_klasse: "uddybning"
   hoejde:
     vaerdi: 380
     enhed: mm
@@ -47,24 +50,28 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Tolerance +/- 10 mm."
+    advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: DoF
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Spidsmoment pr. led oplyses til 48 Nm."
+    advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 3
     enhed: kg
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "PRODUCENTEN OPLYSER TRE LASTTAL: maks. statisk 8 kg, maks. dynamisk 5 kg og dynamisk I DRIFT 3 kg. Her er drifts-tallet brugt, fordi det svarer til det, de øvrige poster kalder gående last. De to andre tal har ingen felt i skemaet."
+    advarsel_klasse: "gyldighed"
   nyttelast_staaende:
     vaerdi: 8
     enhed: kg
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producentens etiket er maks. STATISK lastevne. Statisk og stående er ikke det samme ord; placeringen er en tolkning, ikke en aflæsning."
+    advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 12
     enhed: km/t
@@ -72,6 +79,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producenten skriver maks. hastighed >= 12 km/t. Bemærk enheden: km/t, ikke m/s som søsterposten Y20."
+    advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 35
     enhed: grader
@@ -86,6 +94,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producentens etiket bruger tegnene for TRAPPEKLATRINGSHØJDE, >= 16 cm. Lagt i det kontinuerlige felt på samme grundlag som Y20 og X30."
+    advarsel_klasse: "uddybning"
   ip_klasse: ikke_oplyst
   temp_min: ikke_oplyst
   temp_maks: ikke_oplyst
@@ -98,6 +107,7 @@ felter:
     kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
     hentet: 2026-08-19
     advarsel: "Producenten skriver driftstid ikke under 1,5 time. Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
