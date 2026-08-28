@@ -756,7 +756,30 @@
      nth-child(2n+1) og faar ingen venstrekant. */
   .robot-noegletal .stribe--fem > li:last-child{grid-column:span 2}
   .robot-noegletal .stribe > li{padding:14px 13px 13px;gap:10px}
-  .robot-noegletal .stribe .v{font-size:23px}
+  /* FIGUREN staar paa 23px - og KUN figuren. Den gamle regel her ramte `.v`
+     bredt (0,0,3,0) og slog dermed system.css' `.stribe .v-ikke,.stribe
+     .v-billede{font-size:13px}` (0,0,2,0), som er de fire datatilstandes egen
+     skala. Resultatet var, at "ikke oplyst" fik NOEJAGTIG samme sats som et
+     oplyst tal - men KUN fra 1180 px op, hvor denne @media begynder. Maalt
+     foer rettelsen: forholdet hul:tal var 0,45 ved 390-1179 px og præcis 1,00
+     fra 1180. Det er samme specificitetsfejl, DESIGN.md's changelog
+     24. aug 2026 beskriver som rettet - genindfoert her paa desktop alene,
+     hvilket er grunden til at ingen af de eksisterende maalinger fangede den:
+     de blev taget ved 390 og 1024.
+
+     Haard begraensning 5 er ikke en skoenhedsregel: "ikke oplyst", "nej" og
+     "0" SKAL se forskellige ud. `0` er en figur (`.v-tal.v-nul`) og bliver
+     derfor staaende paa 23px; de fire ikke-figurer holdes ude med :not(),
+     saa de falder tilbage paa deres egen sats i system.css (13px for
+     v-ikke/v-billede, 18px for v-nej/v-ja).
+
+     :not() frem for at skrive `.v-tal` direkte: maalt paa de 77 byggede
+     robotsider baerer panelet i dag 310 `.v-tal`, 49 `.v-ikke` og 1 `.v-nej`
+     og INGEN bar `.v` - men et felt med tekstvaerdi (`.v-tekst`) eller liste
+     (`.v-liste`) kan lande her, saa snart skemaet aendrer sig, og skal saa
+     stadig arve figurens sats. Undtagelsen navngiver derfor de fire
+     tilstande, ikke det ene tilfaelde, vi ville beholde. */
+  .robot-noegletal .stribe .v:not(.v-ikke,.v-billede,.v-nej,.v-ja){font-size:23px}
   .robot-noegletal .stribe .krop > .v{min-height:26px}
 }
 
