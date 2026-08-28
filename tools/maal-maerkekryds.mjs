@@ -1,9 +1,18 @@
+/**
+ * maal-maerkekryds.mjs — maerker siden PRAECIS de felter, dataen doemmer?
+ *
+ *   node tools/maal-maerkekryds.mjs
+ *
+ * Maalt 28. aug 2026: 77 robotter, 2.310 feltposter, 259 dt-maerker,
+ * 0 afvigelser. Var D18 bygget forkert, ville tallet vaere 562 (begge
+ * klasser maerket) eller 0 (klassen naar aldrig skabelonerne).
+ */
 /* Efterproevning felt for felt: for HVER robot sammenlignes de felter, YAML'en
    klassificerer som "gyldighed", med de feltnavne, robotsidens feltliste
    faktisk maerker. Ikke en stikproeve - alle 77. */
 import fs from 'node:fs';
-import { parseYaml } from '../tools/yaml.mjs';
-import { normaliserRobot, erGyldighedsforbehold } from '../tools/skema.mjs';
+import { parseYaml } from './yaml.mjs';
+import { normaliserRobot, erGyldighedsforbehold } from './skema.mjs';
 
 const i18n = JSON.parse(fs.readFileSync('data/i18n/da.json', 'utf8'));
 let robotter = 0, felterTjekt = 0, fejl = 0, maerkerIAlt = 0;

@@ -1,3 +1,18 @@
+/**
+ * maal-forbehold.mjs — er et forbehold tegnet én gang, eller flere?
+ *
+ *   node tools/maal-forbehold.mjs [dist]
+ *
+ * Svarer paa det, et raat antal ikke kan: hvor mange STYKKER baerer et
+ * forbehold, og hvor mange af dem tegner det samme forbehold to gange.
+ * Et fald i "stykker med mindst ét" er tabt information; et fald i
+ * "overskydende" er fjernede dubletter. De to maa aldrig forveksles - det
+ * var praecis den forveksling, der gjorde gulvet i
+ * tests/dele/20-aflaesningslinje.mjs foraeldet (D18, 28. aug 2026).
+ *
+ * Maalt 28. aug 2026: 940 stykker, 0 overskydende. Foer afdublingen:
+ * samme 940 stykker, men 396 overskydende.
+ */
 // Fordeling af forbehold--skjult PR. VAERDIKONTEKST, uden regex-matching af
 // balancerede elementer: dokumentet skaeres ved hver kendt kontekststart
 // (<li ...> for striben, <div class="raekke"> for feltlisten), og hvert
