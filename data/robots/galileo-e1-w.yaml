@@ -7,12 +7,12 @@ status: i_produktion
 anvendelse:
   vaerdi: [sikkerhed_overvaagning, forsvar_beredskab, inspektion]
   citat:
-    - "机场/车站/社区等公共场所安保巡逻"
-    - "地震/废墟/河堤等灾害应急救援侦查搜索"
-    - "边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察"
-    - "工厂/园区/港口等场景安防巡检"
-    - "高风险工业设备智能巡检与数据采集"
-    - "工业有毒及重点区域的智能巡检"
+    - "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+    - "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+    - "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+    - "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+    - "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+    - "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
   kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
   hentet: 2026-08-25
   kildetype: sekundaer
@@ -154,20 +154,20 @@ felter:
     kildetype: sekundaer
     advarsel: "\"自主充电功能: 支持\" kombineret med den delte funktionssides ladepile-docking."
   lidar:
-    vaerdi: "探测距离40m (LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst)"
+    vaerdi: "LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst (探测距离40m)"
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
   kameraer: ikke_oplyst
   compute:
-    vaerdi: "X86或国产ARM低功耗高性能CPU (X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, høj ydeevne)"
+    vaerdi: "X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, høj ydeevne (X86或国产ARM低功耗高性能CPU)"
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
   ros2: ikke_oplyst
   sdk_sprog: ikke_oplyst
   autonominiveau:
-    vaerdi: "自主充电功能: 支持 (autonom opladning, understøttet); 语音交互: 选配 (stemmeinteraktion, tilvalg)"
+    vaerdi: "Autonom opladning, understøttet (自主充电功能: 支持); stemmeinteraktion, tilvalg (语音交互: 选配)"
     kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
     hentet: 2026-08-25
     kildetype: sekundaer
