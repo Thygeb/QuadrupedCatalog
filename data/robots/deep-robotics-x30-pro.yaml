@@ -27,6 +27,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Med batteri (battery included)."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1000
     enhed: mm
@@ -38,12 +39,14 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at mærke akserne, og X20-siden bruger en anden rækkefølge. Den trykte rækkefølge er fulgt bogstaveligt. Bredde og højde kan være byttet om."
+    advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 470
     enhed: mm
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "USIKKER TILDELING - se bredde."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende: ikke_oplyst
   nyttelast_staaende: ikke_oplyst
@@ -60,6 +63,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Tegn U+2264 - et loft, ikke en præstation."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -68,6 +72,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Kombineret etiket Step/Obstacle H, lagt i det strengeste felt."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP67
     kilde: https://deeprobotics.cn/en/index/product3.html
@@ -91,6 +96,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Rækkevidde >= 10 km. Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst

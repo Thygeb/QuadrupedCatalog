@@ -27,6 +27,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Med batteri (battery included)."
+    advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1000
     enhed: mm
@@ -38,12 +39,14 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "USIKKER TILDELING. Producenten trykker 1000*695*470(mm) uden at mærke akserne. Samme producents X20-side trykker 950mm*470mm*700mm, hvor 700 mm efter alt at dømme er højden - altså en anden rækkefølge. Her er den trykte rækkefølge fulgt bogstaveligt (2. tal = bredde, 3. tal = højde). Bredde og højde kan være byttet om. Ikke afgjort ud fra kilden."
+    advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 470
     enhed: mm
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "USIKKER TILDELING - se bredde. Den trykte rækkefølge er fulgt bogstaveligt."
+    advarsel_klasse: "gyldighed"
   frihedsgrader: ikke_oplyst
   nyttelast_gaaende: ikke_oplyst
   nyttelast_staaende: ikke_oplyst
@@ -60,6 +63,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Tegn U+2264 - et LOFT. X20 fra samme producent skriver >= 30 grader, altså et GULV. Samme producent, samme felt, modsat ulighedstegn. En normaliserende importør retter det stiltiende; det skal han ikke."
+    advarsel_klasse: "gyldighed"
   forhindring_enkelt: ikke_oplyst
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -68,6 +72,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Kombineret etiket Step/Obstacle H. Lagt i det strengeste af de to felter; forhindring_enkelt står tom. Den kinesiske etiket skriver eksplicit trin, hvilket berettiger den strenge placering."
+    advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: IP67
     kilde: https://deeprobotics.cn/en/index/product3.html
@@ -91,6 +96,7 @@ felter:
     kilde: https://deeprobotics.cn/en/index/product3.html
     hentet: 2026-08-19
     advarsel: "Rækkevidde >= 10 km. Ingen lastbetingelse."
+    advarsel_klasse: "gyldighed"
   hot_swap: ikke_oplyst
   ladetid: ikke_oplyst
   dockingstation: ikke_oplyst
