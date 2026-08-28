@@ -172,6 +172,10 @@ function byggFeltpostVaerdi(f) {
     kort.hentet = f.hentet ?? undefined;
     kort.kildetype = f.kildetype ?? undefined;
     kort.advarsel = f.advarsel ?? undefined;
+    // R20/L48/D14 (spor/dbklasse): søsterfeltet til advarsel. Samme
+    // form-betingelse som advarsel selv — kun de fem former, der kan baere
+    // et forbehold, kan baere dets klasse.
+    kort.advarsel_klasse = f.advarsel_klasse ?? undefined;
   }
   if (f.ved_last) {
     // Tre virkelige former, alle fundet i data/robots/ (25. aug 2026, ikke
@@ -301,7 +305,8 @@ function omdanFeltpostFraDb(row) {
     vaerdi_tekst: row.vaerdi_tekst, vaerdi_bool: row.vaerdi_bool, vaerdi_liste: row.vaerdi_liste,
     enhed: row.enhed, enhed_imperial: row.enhed_imperial, vaerdi_imperial: row.vaerdi_imperial,
     operator: row.operator, kilde: row.kilde, hentet: row.hentet, kildetype: row.kildetype,
-    advarsel: row.advarsel, note: row.note, raa: row.raa, valuta: row.valuta,
+    advarsel: row.advarsel, advarsel_klasse: row.advarsel_klasse,
+    note: row.note, raa: row.raa, valuta: row.valuta,
   };
   // ved_last_* er tre kolonner paa hver raekke (kun ikke-null for driftstid,
   // jf. db/skema.sql's feltposter_ved_last_kun_paa_driftstid) — genopbyg kun
@@ -531,4 +536,4 @@ if (erHoved) {
   });
 }
 
-export { byggRobotDoc, skrivRobotYaml, fraDb };
+export { byggRobotDoc, skrivRobotYaml, fraDb, byggFeltpostVaerdi, omdanFeltpostFraDb };

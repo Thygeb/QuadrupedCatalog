@@ -87,6 +87,70 @@ function tjekEnumDrift() {
   }
 }
 
+/* ------------------------------------------------------------------------
+ * VAGT 2 (spor/dbklasse, punkt 3): "advarsel_klasse" var en RIGTIG, brugt
+ * noegle i 562 feltposter i data/robots/*.yaml, uden at NOGEN af de fem
+ * kopisteder i denne fil og db/eksporter.mjs vidste, den fandtes —
+ * klassificerFeltpost droppede den ind i kanonisk.json, byggSeedSql droppede
+ * den ud af seed.sql, og --til-db ville have droppet den ud af den levende
+ * database. Ingen af de tre fejlede: en glemt noegle er tavs, ikke en fejl.
+ *
+ * FELTPOST_NOEGLER_KENDT er den ENE liste, denne fil selv haevder at kende —
+ * de noegler, klassificerFeltpost() rent faktisk laeser (direkte-kopi-
+ * noeglerne i "faelles"/tilstand_med_herkomst ovenfor) PLUS de strukturelle
+ * noegler ("vaerdi", "min", "maks", "ved_last", "varianter"), som ikke
+ * kopieres 1:1 til en kolonne af samme navn, men haandteres af deres egen
+ * kode-gren (form-afgoerelsen, klassificerVedLast, varianter-passet).
+ * "vaerdi_min"/"vaerdi_maks" staar IKKE her — normaliserRobot() (tools/
+ * skema.mjs's POST_NOEGLE_ALIAS) omdoeber dem til "min"/"maks" FOeR denne
+ * fil nogensinde ser dem, saa den normaliserede form, vagten scanner
+ * (samme facon som klassificerFeltpost selv laeser), bruger kun maalnavnet.
+ *
+ * DENNE LISTE ER STADIG HAANDSKREVET — samme svaghed som
+ * FELTNAVN_ENUM_I_SKEMA_SQL ovenfor (Postgres/denne fil kan ikke laese
+ * "hvilke noegler bruger klassificerFeltpost" ud af koden selv uden et
+ * AST-vaerktoej, som projektets nul-afhaengigheder-regel forbyder). Vagten
+ * her loeser derfor IKKE "opdager automatisk enhver kodeaendring" — den
+ * loeser den SNAEVRERE, men reelle fejl, der ramte advarsel_klasse: en
+ * noegle, DATA rent faktisk bruger, som INGEN liste her kender noget til.
+ * Ret denne liste, naar en ny feltpost-noegle tages i brug — vagten fejler
+ * proev paa proev, indtil det sker, saa det ikke kan glemmes tavst igen.
+ * ------------------------------------------------------------------------ */
+const FELTPOST_NOEGLER_KENDT = new Set([
+  // direkte kopieret ind i "faelles" / tilstand_med_herkomst ovenfor:
+  'enhed', 'enhed_imperial', 'vaerdi_imperial', 'operator',
+  'kilde', 'hentet', 'kildetype', 'advarsel', 'advarsel_klasse',
+  'note', 'raa', 'valuta',
+  // strukturelle noegler, haandteret af deres egen kode-gren (ikke "faelles"):
+  'vaerdi', 'min', 'maks', 'ved_last', 'varianter',
+]);
+
+/**
+ * Scanner ALLE feltposter i `dataMappe` (normaliseret, samme form
+ * klassificerFeltpost selv laeser — se FELTPOST_NOEGLER_KENDT's kommentar)
+ * og finder noegler, INGEN kopisted her kender noget til. Ren funktion:
+ * intet netvaerk, kun filsystem — koeres derfor uden .env i tests og fejler
+ * HOEJLYDT fra main() foer noget som helst migreres.
+ *
+ * Returnerer en Map<noegle, string[]> ("slug.feltnavn"-lokationer). Tom Map
+ * = alt kendt.
+ */
+function tjekFeltpostNoeglerKendt(dataMappe) {
+  const ukendte = new Map();
+  for (const fil of findFiler(dataMappe)) {
+    const doc = normaliserRobot(parseYaml(fs.readFileSync(fil, 'utf8'), fil));
+    for (const [feltnavn, post] of Object.entries(doc.felter ?? {})) {
+      if (!erKort(post)) continue; // bare_tilstand er en ren streng — ingen noegler at tjekke
+      for (const n of Object.keys(post)) {
+        if (FELTPOST_NOEGLER_KENDT.has(n)) continue;
+        if (!ukendte.has(n)) ukendte.set(n, []);
+        ukendte.get(n).push(`${doc.slug ?? path.basename(fil)}.${feltnavn}`);
+      }
+    }
+  }
+  return ukendte;
+}
+
 /* -------------------------------------------------------------- hjaelp */
 
 const erKort = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -123,13 +187,15 @@ function klassificerFeltpost(feltnavn, post, spec) {
       form: 'tilstand_med_herkomst', tilstand: tilstandVaerdi,
       kilde: post.kilde ?? null, hentet: post.hentet ?? null,
       kildetype: post.kildetype ?? null, advarsel: post.advarsel ?? null,
+      advarsel_klasse: post.advarsel_klasse ?? null,
     };
   } else {
     const faelles = {
       enhed: post.enhed ?? null, enhed_imperial: post.enhed_imperial ?? null,
       vaerdi_imperial: post.vaerdi_imperial ?? null, operator: post.operator ?? null,
       kilde: post.kilde ?? null, hentet: post.hentet ?? null, kildetype: post.kildetype ?? null,
-      advarsel: post.advarsel ?? null, note: post.note ?? null, raa: post.raa ?? null,
+      advarsel: post.advarsel ?? null, advarsel_klasse: post.advarsel_klasse ?? null,
+      note: post.note ?? null, raa: post.raa ?? null,
       valuta: post.valuta ?? null,
     };
 
@@ -285,13 +351,13 @@ function byggSeedSql(robotter) {
         `${sqlStr(f.vaerdi_tekst ?? null)}, ${sqlBool(f.vaerdi_bool ?? null)}, ${sqlTextArray(f.vaerdi_liste ?? null)}, ` +
         `${sqlStr(f.enhed ?? null)}, ${sqlStr(f.enhed_imperial ?? null)}, ${sqlNum(f.vaerdi_imperial ?? null)}, ` +
         `${sqlEnum(f.operator ?? null)}, ${sqlStr(f.kilde ?? null)}, ${sqlDate(f.hentet ?? null)}, ${sqlEnum(f.kildetype ?? null)}, ` +
-        `${sqlStr(f.advarsel ?? null)}, ${sqlStr(f.note ?? null)}, ${sqlStr(f.raa ?? null)}, ${sqlStr(f.valuta ?? null)}, ` +
+        `${sqlStr(f.advarsel ?? null)}, ${sqlStr(f.advarsel_klasse ?? null)}, ${sqlStr(f.note ?? null)}, ${sqlStr(f.raa ?? null)}, ${sqlStr(f.valuta ?? null)}, ` +
         `${sqlEnum(f.ved_last?.tilstand ?? null)}, ${sqlNum(f.ved_last?.vaerdi ?? null)}, ${sqlStr(f.ved_last?.enhed ?? null)})`);
     }
   }
   ud.push('insert into feltposter (robot_id, feltnavn, form, tilstand, vaerdi_tal, min, maks, vaerdi_tekst, ' +
     'vaerdi_bool, vaerdi_liste, enhed, enhed_imperial, vaerdi_imperial, operator, kilde, hentet, kildetype, ' +
-    'advarsel, note, raa, valuta, ved_last_tilstand, ved_last_vaerdi, ved_last_enhed) values\n' +
+    'advarsel, advarsel_klasse, note, raa, valuta, ved_last_tilstand, ved_last_vaerdi, ved_last_enhed) values\n' +
     feltRaekker.join(',\n') + ';\n');
 
   const variantRaekker = [];
@@ -343,6 +409,30 @@ function byggSeedSql(robotter) {
 
   ud.push('commit;');
   return ud.join('\n');
+}
+
+/**
+ * Bygger ÉN feltpost-raekke i det JSON-format, --til-db's POST mod
+ * PostgREST bruger (db/skema.sql's feltposter-kolonner, samme facon som
+ * byggSeedSql's SQL-raekke ovenfor, men som et almindeligt objekt i stedet
+ * for en SQL-tekststreng). Udtrukket til sin egen funktion (spor/dbklasse,
+ * punkt 3), saa den kan efterproeves UDEN netvaerk — tilDb() kaldte den
+ * tidligere som en inline objektliteral midt i en async funktion, hvor et
+ * testscript ikke kunne naa den uden ogsaa at kalde fetch().
+ */
+function byggFeltpostRaekkeTilDb(f, feltnavn, robotId) {
+  return {
+    robot_id: robotId, feltnavn, form: f.form, tilstand: f.tilstand ?? null,
+    vaerdi_tal: f.vaerdi_tal ?? null, min: f.min ?? null, maks: f.maks ?? null,
+    vaerdi_tekst: f.vaerdi_tekst ?? null, vaerdi_bool: f.vaerdi_bool ?? null,
+    vaerdi_liste: f.vaerdi_liste ?? null, enhed: f.enhed ?? null, enhed_imperial: f.enhed_imperial ?? null,
+    vaerdi_imperial: f.vaerdi_imperial ?? null, operator: f.operator ?? null, kilde: f.kilde ?? null,
+    hentet: f.hentet ?? null, kildetype: f.kildetype ?? null, advarsel: f.advarsel ?? null,
+    advarsel_klasse: f.advarsel_klasse ?? null,
+    note: f.note ?? null, raa: f.raa ?? null, valuta: f.valuta ?? null,
+    ved_last_tilstand: f.ved_last?.tilstand ?? null, ved_last_vaerdi: f.ved_last?.vaerdi ?? null,
+    ved_last_enhed: f.ved_last?.enhed ?? null,
+  };
 }
 
 /* ------------------------------------------------------- --til-db (stub) */
@@ -715,18 +805,7 @@ async function tilDb(robotter, argv = []) {
   for (const r of robotter) {
     const robotId = slugTilId.get(r.slug);
     for (const feltnavn of FELTNAVNE) {
-      const f = r.felter[feltnavn];
-      feltRaekker.push({
-        robot_id: robotId, feltnavn, form: f.form, tilstand: f.tilstand ?? null,
-        vaerdi_tal: f.vaerdi_tal ?? null, min: f.min ?? null, maks: f.maks ?? null,
-        vaerdi_tekst: f.vaerdi_tekst ?? null, vaerdi_bool: f.vaerdi_bool ?? null,
-        vaerdi_liste: f.vaerdi_liste ?? null, enhed: f.enhed ?? null, enhed_imperial: f.enhed_imperial ?? null,
-        vaerdi_imperial: f.vaerdi_imperial ?? null, operator: f.operator ?? null, kilde: f.kilde ?? null,
-        hentet: f.hentet ?? null, kildetype: f.kildetype ?? null, advarsel: f.advarsel ?? null,
-        note: f.note ?? null, raa: f.raa ?? null, valuta: f.valuta ?? null,
-        ved_last_tilstand: f.ved_last?.tilstand ?? null, ved_last_vaerdi: f.ved_last?.vaerdi ?? null,
-        ved_last_enhed: f.ved_last?.enhed ?? null,
-      });
+      feltRaekker.push(byggFeltpostRaekkeTilDb(r.felter[feltnavn], feltnavn, robotId));
     }
   }
   await post('feltposter', feltRaekker);
@@ -796,6 +875,20 @@ async function main(argv) {
   tjekEnumDrift();
 
   const dataMappe = path.join(ROD, 'data/robots');
+
+  const ukendteNoegler = tjekFeltpostNoeglerKendt(dataMappe);
+  if (ukendteNoegler.size) {
+    console.error('VAGT 2: fandt feltpost-noegle(r), INGEN kopisted i db/migrer.mjs/db/eksporter.mjs kender:');
+    for (const [noegle, steder] of ukendteNoegler) {
+      console.error(`  "${noegle}" — ${steder.length} forekomst(er), fx ${steder.slice(0, 3).join(', ')}`);
+    }
+    console.error('Foej noeglen til FELTPOST_NOEGLER_KENDT OG til de faktiske kopisteder ' +
+      '(klassificerFeltpost/byggSeedSql/byggFeltpostRaekkeTilDb her, omdanFeltpostFraDb/byggFeltpostVaerdi i ' +
+      'db/eksporter.mjs) foer migrering fortsaetter — ellers forsvinder noeglens data tavst, praecis som ' +
+      'advarsel_klasse gjorde (spor/dbklasse).');
+    return 1;
+  }
+
   console.log(`Validerer ${findFiler(dataMappe).length} fil(er) foer migrering ...`);
   if (validerMain([`--data=${dataMappe}`]) !== 0) {
     console.error('\nMigrering stoppet: validatoren fandt fejl. Ingen DB-filer skrevet.');
@@ -834,4 +927,5 @@ if (erHoved) {
 export {
   klassificerRobot, klassificerFeltpost, tjekEnumDrift, FELTNAVN_ENUM_I_SKEMA_SQL,
   sammenlignDbMedYaml, afgoerVagt,
+  byggSeedSql, byggFeltpostRaekkeTilDb, tjekFeltpostNoeglerKendt, FELTPOST_NOEGLER_KENDT,
 };
