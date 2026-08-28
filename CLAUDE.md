@@ -612,6 +612,24 @@ skærmbilleder, kortantal, højdespring, beskæring, overløb, sidehøjde.
 `impeccable critique`s overlay-trin kan derfor ikke køres, og det skal
 rapporteres som fallback-signal, aldrig påstås udført.
 
+**Impeccables detektor (`detect.mjs`) kører STILLE DEGRADERET på denne maskine —
+målt 28. aug 2026, og den degraderede kørsel er en falsk blank attest.** Fire
+parser-moduler (`htmlparser2`, `css-select`, `css-tree`, `domutils`) findes
+ingen steder på disken, og detektoren fejler da ikke — den *dæmpes*: **exit 0,
+tom liste, én linje på stderr** om DEGRADED. Enhver, der piper stdout eller kun
+ser exit-koden, får "ren side". Målt på en kontrolside med bevidst slop
+(gradient-tekst, glød, eyebrow-chip, 9px tekst): degraderet fandt **2** af 13
+fund, og **nul** CSS-afhængige regler — al kontrastmåling inklusive.
+
+**Løsningen, brugt af Assessment B samme dag:** installér de fire pakker i
+sessionens scratchpad og omdiriger KUN de fire bare specifiers med en
+`module.registerHooks`-resolve-hook (~12 linjer), så skill-mappen aldrig røres.
+Kør derefter detektoren gennem hooken. Valider ALTID motoren mod et kendt
+svar (kontrolsiden), før dens tal bruges — det er samme regel som for ethvert
+nyt måleapparat. To øvrige detektor-forbehold fra samme kørsel: dens tal
+svarer til **én** viewport (mobil-kaskaden, ikke 1440), og den tæller noder,
+ikke årsager — 793 af 852 fund på vores side var to CSS-erklæringer.
+
 Den skriver JSON med kortantal, højdespring inden for en række, spildt lodret
 plads, beskårne billeder, vandret overløb og sidehøjde — tal, der kan citeres
 direkte i et fund uden mellemregning. Serveren skal køre:
