@@ -161,6 +161,9 @@ function initEventListeners() {
     renderCompareMatrix();
   });
 
+  document.getElementById('btn-workspace-export-csv').addEventListener('click', exportWorkspaceToCSV);
+  document.getElementById('btn-workspace-print').addEventListener('click', () => window.print());
+
   document.getElementById('btn-workspace-share').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       const toast = document.getElementById('workspace-toast');
@@ -168,6 +171,7 @@ function initEventListeners() {
       setTimeout(() => toast.classList.add('hidden'), 2500);
     });
   });
+
 
   // Replacement dropdowns
   [1, 2, 3, 4].forEach(slotNum => {
@@ -823,5 +827,37 @@ function escapeHtml(str) {
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   })[m]);
 }
+
+function exportWorkspaceToCSV() {
+  const activeRobots = compareSlots.map(slug => slug ? allRobots.find(r => r.slug === slug) : null).filter(Boolean);
+  if (activeRobots.length === 0) {
+    alert('Vælg mindst 1 robot til analyse-eksport.');
+    return;
+  }
+
+  const headers = ['Specifikation / Metric', ...activeRobots.map(r => `"${r.producent} ${r.navn}"`)];
+  const rows = [
+    ['Egenvægt (Weight)', ...activeRobots.map(r => r.vaegt.vaerdi ? `${r.vaegt.vaerdi} kg` : 'Not disclosed')],
+    ['Maks. Nyttelast (Payload)', ...activeRobots.map(r => r.nyttelast.vaerdi ? `${r.nyttelast.vaerdi} kg` : 'Not disclosed')],
+    ['Maks. Hastighed (Speed)', ...activeRobots.map(r => r.hastighed.vaerdi ? `${r.hastighed.vaerdi} km/h` : 'Not disclosed')],
+    ['Opgivet Driftstid', ...activeRobots.map(r => r.driftstid.vaerdi ? `${r.driftstid.vaerdi} timer` : 'Not disclosed')],
+    ['Kapslingsklasse (IP)', ...activeRobots.map(r => r.ip_klasse.vaerdi || 'Not disclosed')],
+    ['ROS 2 Driver Support', ...activeRobots.map(r => r.ros2.vaerdi === 'ja' ? 'Ja (Native)' : 'Not documented')],
+    ['CE-mærkning (EU)', ...activeRobots.map(r => r.ce_oplyst.vaerdi === 'ja' ? 'Deklareret' : 'Not documented')],
+    ['LiDAR Sensorik', ...activeRobots.map(r => r.lidar.vaerdi || 'Optional payload')]
+  ];
+
+  const csvContent = 'data:text/csv;charset=utf-8,' +
+    [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', 'decision-workspace-analysis.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 
 

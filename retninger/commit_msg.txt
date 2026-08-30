@@ -1,0 +1,6 @@
+﻿5D Impeccable Suites: clarify, adapt, export, harden & telemetry
+
+- B2B CSV Export Engine: Eksporter sammenligninger som RFC 4180 CSV regneark paa tvaers af prototyper
+- Print / PDF Renderer: @media print stylesheets til ren teknisk dossier udskrift uden navigationselementer
+- Best-in-Class Highlights: Automatisk 🏆 Best fremhaevelse af foerende metrikker i sammenligningsmatricen
+- Tooltip & Defensivt UI: Tooltips paa tekniske fagtermer og CLS-sikrede billedcontainere

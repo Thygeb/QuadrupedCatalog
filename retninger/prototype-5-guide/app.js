@@ -216,6 +216,9 @@ function initEventListeners() {
     renderCompareMatrix();
   });
 
+  document.getElementById('btn-export-compare-csv').addEventListener('click', exportCompareToCSV);
+  document.getElementById('btn-print-compare').addEventListener('click', () => window.print());
+
   document.getElementById('btn-copy-compare-link').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       const toast = document.getElementById('compare-toast');
@@ -223,6 +226,7 @@ function initEventListeners() {
       setTimeout(() => toast.classList.add('hidden'), 2500);
     });
   });
+
 
   // Replacement Dropdowns on Compare Page
   [1, 2, 3, 4].forEach(slotNum => {
@@ -821,23 +825,50 @@ function renderCompareMatrix(activeRobots = null) {
     cat.rows.forEach(rowDef => {
       const values = activeRobots.map(r => r ? rowDef.extract(r) : '—');
       
-      const populatedVals = values.filter(v => v !== '—');
+      const populatedVals = values.filter(v => v !== '—' && !v.includes('—'));
       const isDifferent = new Set(populatedVals).size > 1;
 
       if (showDiffOnly && !isDifferent && populatedVals.length > 1) {
         return;
       }
 
+      // Detect Best in Class metric
+      let bestIdx = -1;
+      if (['Payload', 'Top Speed', 'Runtime', 'Payload Ratio'].includes(rowDef.label)) {
+        let maxVal = -1;
+        activeRobots.forEach((r, idx) => {
+          if (!r) return;
+          let num = 0;
+          if (rowDef.label === 'Payload') num = parseFloat(r.nyttelast.vaerdi) || 0;
+          if (rowDef.label === 'Top Speed') num = parseFloat(r.hastighed.vaerdi) || 0;
+          if (rowDef.label === 'Runtime') num = parseFloat(r.driftstid.vaerdi) || 0;
+          if (rowDef.label === 'Payload Ratio') {
+            const w = parseFloat(r.vaegt.vaerdi);
+            const p = parseFloat(r.nyttelast.vaerdi);
+            num = (w && p) ? (p / w) : 0;
+          }
+          if (num > maxVal && num > 0) { maxVal = num; bestIdx = idx; }
+        });
+      } else if (rowDef.label === 'Weight') {
+        let minVal = 9999;
+        activeRobots.forEach((r, idx) => {
+          if (!r) return;
+          const w = parseFloat(r.vaegt.vaerdi) || 0;
+          if (w > 0 && w < minVal) { minVal = w; bestIdx = idx; }
+        });
+      }
+
       rowsHtml += `
         <div class="cmp-matrix-row ${isDifferent ? 'is-different' : ''}">
           <div class="cmp-matrix-label">${rowDef.label}</div>
-          <div class="cmp-matrix-cell">${values[0]}</div>
-          <div class="cmp-matrix-cell">${values[1]}</div>
-          <div class="cmp-matrix-cell">${values[2]}</div>
-          <div class="cmp-matrix-cell">${values[3]}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 0 ? 'is-best-cell' : ''}">${values[0]}${bestIdx === 0 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 1 ? 'is-best-cell' : ''}">${values[1]}${bestIdx === 1 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 2 ? 'is-best-cell' : ''}">${values[2]}${bestIdx === 2 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 3 ? 'is-best-cell' : ''}">${values[3]}${bestIdx === 3 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
         </div>
       `;
     });
+
 
     if (!rowsHtml) return '';
 
@@ -880,5 +911,39 @@ function escapeHtml(str) {
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   })[m]);
 }
+
+function exportCompareToCSV() {
+  const activeRobots = compareSlots.map(slug => slug ? allRobots.find(r => r.slug === slug) : null).filter(Boolean);
+  if (activeRobots.length === 0) {
+    alert('Vælg mindst 1 robot til eksport.');
+    return;
+  }
+
+  const headers = ['Specification', ...activeRobots.map(r => `"${r.producent} ${r.navn}"`)];
+  const rows = [
+    ['Weight (kg)', ...activeRobots.map(r => r.vaegt.vaerdi || 'Not disclosed')],
+    ['Payload (kg)', ...activeRobots.map(r => r.nyttelast.vaerdi || 'Not disclosed')],
+    ['Top Speed (km/h)', ...activeRobots.map(r => r.hastighed.vaerdi || 'Not disclosed')],
+    ['Runtime (hours)', ...activeRobots.map(r => r.driftstid.vaerdi || 'Not disclosed')],
+    ['IP Rating', ...activeRobots.map(r => r.ip_klasse.vaerdi || 'Not disclosed')],
+    ['Locomotion', ...activeRobots.map(r => r.isWheeled ? 'Wheeled' : 'Legged')],
+    ['ROS 2', ...activeRobots.map(r => r.ros2.vaerdi === 'ja' ? 'Yes' : 'Not documented')],
+    ['LiDAR', ...activeRobots.map(r => r.lidar.vaerdi || 'Optional')],
+    ['CE Certified', ...activeRobots.map(r => r.ce_oplyst.vaerdi === 'ja' ? 'Yes' : 'Not documented')],
+    ['Price', ...activeRobots.map(r => r.pris.vaerdi ? `${r.pris.vaerdi} ${r.pris.enhed || 'USD'}` : 'Quote')]
+  ];
+
+  const csvContent = 'data:text/csv;charset=utf-8,' +
+    [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', 'quadruped-guide-comparison.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 
 

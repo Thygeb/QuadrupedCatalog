@@ -1265,3 +1265,89 @@ body {
 }
 
 .hidden { display: none !important; }
+/* Tooltip system styles */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #f8fafc;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: normal;
+  width: max-content;
+  max-width: 220px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 500;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Touch targets >= 44px */
+.cap-chip, .guide-nav-item, .guide-btn-solid, .guide-btn-outline, .btn-card-compare {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CSV export button */
+.btn-export-csv {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.btn-export-csv:hover {
+  background: var(--bg-hover);
+  border-color: var(--brand-primary);
+}
+
+/* Print Stylesheet for Clean PDF Reports */
+@media print {
+  .guide-header, .guide-search-container, .guide-advanced-bar,
+  .guide-compare-tray, .compare-controls-bar, .btn-breadcrumb-link,
+  .profile-actions-row, .card-bottom-actions, .slot-select-wrap,
+  .guide-theme-btn, .dark-global-header, .intel-header {
+    display: none !important;
+  }
+  
+  body, .guide-profile-layout, .guide-compare-layout, .dossier-layout, .workspace-layout {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  .profile-hero-card, .dossier-hero-card, .compare-matrix-card, .workspace-matrix-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}

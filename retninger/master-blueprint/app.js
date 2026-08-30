@@ -192,6 +192,9 @@ function initEventListeners() {
     renderCompareMatrix();
   });
 
+  document.getElementById('btn-master-export-csv').addEventListener('click', exportMasterToCSV);
+  document.getElementById('btn-master-print').addEventListener('click', () => window.print());
+
   document.getElementById('btn-share-comp-url').addEventListener('click', () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       const toast = document.getElementById('comp-copied-toast');
@@ -199,6 +202,7 @@ function initEventListeners() {
       setTimeout(() => toast.classList.add('hidden'), 2500);
     });
   });
+
 
   // Dropdown replacement selectors
   [1, 2, 3, 4].forEach(slotNum => {
@@ -863,5 +867,37 @@ function escapeHtml(str) {
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   })[m]);
 }
+
+function exportMasterToCSV() {
+  const activeRobots = compareSlots.map(slug => slug ? allRobots.find(r => r.slug === slug) : null).filter(Boolean);
+  if (activeRobots.length === 0) {
+    alert('Vælg mindst 1 robot til sammenlignings-eksport.');
+    return;
+  }
+
+  const headers = ['Specifikation', ...activeRobots.map(r => `"${r.producent} ${r.navn}"`)];
+  const rows = [
+    ['Egenvægt (Weight)', ...activeRobots.map(r => r.vaegt.vaerdi ? `${r.vaegt.vaerdi} kg` : 'Not disclosed')],
+    ['Maks. Nyttelast (Payload)', ...activeRobots.map(r => r.nyttelast.vaerdi ? `${r.nyttelast.vaerdi} kg` : 'Not disclosed')],
+    ['Maks. Hastighed (Speed)', ...activeRobots.map(r => r.hastighed.vaerdi ? `${r.hastighed.vaerdi} km/h` : 'Not disclosed')],
+    ['Opgivet Driftstid', ...activeRobots.map(r => r.driftstid.vaerdi ? `${r.driftstid.vaerdi} timer` : 'Not disclosed')],
+    ['Kapslingsklasse (IP)', ...activeRobots.map(r => r.ip_klasse.vaerdi || 'Not disclosed')],
+    ['Mobilitetsform', ...activeRobots.map(r => r.isWheeled ? 'Hjulbenet (Wheeled)' : 'Gående')],
+    ['ROS 2 Driver Support', ...activeRobots.map(r => r.ros2.vaerdi === 'ja' ? 'Ja' : 'Ikke oplyst')],
+    ['CE-mærkning (EU)', ...activeRobots.map(r => r.ce_oplyst.vaerdi === 'ja' ? 'Deklareret' : 'Ikke oplyst')]
+  ];
+
+  const csvContent = 'data:text/csv;charset=utf-8,' +
+    [headers.join(','), ...rows.map(r => r.map(c => `"${c}"`).join(','))].join('\n');
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', 'master-blueprint-comparison.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 
 
