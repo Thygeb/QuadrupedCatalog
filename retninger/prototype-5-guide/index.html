@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="da" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadruped Guide // The Open Quadruped Robot Directory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       GLOBAL GUIDE HEADER (HUMANOID.GUIDE STYLE)
+       ========================================================================= -->
+  <header class="guide-header">
+    <div class="guide-header-inner">
+      <a href="#" class="guide-brand" id="nav-brand-home">
+        <span class="guide-logo-symbol">🐕</span>
+        <div class="guide-brand-text">
+          <span class="guide-brand-name">QUADRUPED<span class="dot-guide">.GUIDE</span></span>
+          <span class="guide-brand-sub">THE OPEN ROBOT DIRECTORY</span>
+        </div>
+      </a>
+
+      <nav class="guide-nav-menu">
+        <button class="guide-nav-item active" id="tab-btn-directory">Robots</button>
+        <button class="guide-nav-item" id="tab-btn-compare">
+          Compare <span class="guide-badge-count" id="nav-compare-count">0</span>
+        </button>
+        <button class="guide-nav-link" id="nav-capabilities">Capabilities</button>
+        <button class="guide-nav-link" id="nav-manufacturers">Manufacturers</button>
+      </nav>
+
+      <div class="guide-header-right">
+        <div class="guide-counter-pill">
+          <span class="live-dot"></span>
+          <span id="header-stat-text">77 robots · Updated 2026</span>
+        </div>
+        <button id="theme-toggle" class="guide-theme-btn" title="Skift tema">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: DIRECTORY / FORSIDE (HUMANOID.GUIDE STYLE)
+       ========================================================================= -->
+  <section id="view-directory" class="page-view active">
+    
+    <!-- DIRECTORY HERO -->
+    <div class="guide-hero-area">
+      <div class="guide-hero-inner">
+        <div class="guide-hero-titles">
+          <h1 class="guide-h1">Quadruped Robot Guide</h1>
+          <p class="guide-hero-lead">The independent directory of 77 quadruped robots. Browse and benchmark by capabilities, locomotion, payload, and autonomy.</p>
+        </div>
+
+        <!-- INSTANT SEARCH BAR -->
+        <div class="guide-search-container">
+          <div class="guide-search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="guide-instant-search" placeholder="Search 77 robots by name, manufacturer, capability, country...">
+            <button id="btn-search-clear" class="search-clear-x hidden">✕</button>
+          </div>
+
+          <!-- 10 CAPABILITY FILTER CHIPS (HUMANOID.GUIDE INSPIRED) -->
+          <div class="guide-capability-chips" id="capability-chips-bar">
+            <button class="cap-chip" data-cap="run">🏃 Run</button>
+            <button class="cap-chip" data-cap="stairs">🪜 Stairs</button>
+            <button class="cap-chip" data-cap="climb">🧗 Climb / Slope</button>
+            <button class="cap-chip" data-cap="rough">🌲 Rough Terrain</button>
+            <button class="cap-chip" data-cap="wheeled">🛞 Wheeled</button>
+            <button class="cap-chip" data-cap="ip67">🛡️ IP67+ Sealed</button>
+            <button class="cap-chip" data-cap="lidar">👁️ LiDAR SLAM</button>
+            <button class="cap-chip" data-cap="ros2">💻 ROS 2 Native</button>
+            <button class="cap-chip" data-cap="ce">🇪🇺 CE Certified</button>
+            <button class="cap-chip" data-cap="heavy">🏋️ Payload &ge; 20kg</button>
+          </div>
+        </div>
+
+        <!-- ADVANCED FILTERS ROW (COLLAPSIBLE / QUICK CONTROLS) -->
+        <div class="guide-advanced-bar">
+          <div class="adv-filter-controls">
+            <!-- MANUFACTURER SELECT -->
+            <div class="adv-control-item">
+              <label>Manufacturer:</label>
+              <select id="adv-filter-vendor" class="guide-select">
+                <option value="all">All Manufacturers</option>
+              </select>
+            </div>
+
+            <!-- PAYLOAD FILTER -->
+            <div class="adv-control-item">
+              <label>Min Payload:</label>
+              <select id="adv-filter-payload" class="guide-select">
+                <option value="0">Any Payload</option>
+                <option value="5">&ge; 5 kg</option>
+                <option value="15">&ge; 15 kg</option>
+                <option value="25">&ge; 25 kg</option>
+              </select>
+            </div>
+
+            <!-- WEIGHT FILTER -->
+            <div class="adv-control-item">
+              <label>Max Weight:</label>
+              <select id="adv-filter-weight" class="guide-select">
+                <option value="100">Any Weight</option>
+                <option value="15">&le; 15 kg (Light)</option>
+                <option value="35">&le; 35 kg (Mid)</option>
+                <option value="60">&le; 60 kg (Heavy)</option>
+              </select>
+            </div>
+
+            <!-- SORT -->
+            <div class="adv-control-item">
+              <label>Sort by:</label>
+              <select id="adv-sort-select" class="guide-select">
+                <option value="density-desc">Data Density (%)</option>
+                <option value="payload-desc">Payload (Heaviest)</option>
+                <option value="weight-asc">Weight (Lightest)</option>
+                <option value="speed-desc">Speed (Fastest)</option>
+                <option value="name-asc">Name (A &rarr; Z)</option>
+              </select>
+            </div>
+
+            <button id="btn-reset-directory-filters" class="guide-reset-btn">Reset</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DIRECTORY RESULTS GRID SECTION -->
+    <div class="guide-directory-body">
+      <div class="guide-directory-inner">
+        
+        <div class="directory-meta-strip">
+          <span class="found-text" id="dir-found-count">77 robots</span>
+          <div class="active-tags-strip" id="dir-active-tags"></div>
+        </div>
+
+        <!-- COMPACT ENCYCLOPEDIA ROBOT GRID -->
+        <div class="guide-cards-grid" id="guide-cards-grid">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div id="dir-empty-state" class="dir-empty-panel hidden">
+          <div class="empty-icon">🔍</div>
+          <h3>No quadruped robots match your criteria</h3>
+          <p>Try clearing active capability chips or resetting the search query.</p>
+          <button id="btn-empty-reset" class="guide-btn-solid">Reset All Filters</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STICKY BOTTOM COMPARE TRAY -->
+    <div id="guide-compare-tray" class="guide-compare-tray hidden">
+      <div class="tray-container">
+        <div class="tray-info-block">
+          <span class="tray-counter" id="tray-count-pill">0 / 4</span>
+          <div>
+            <strong>Compare Tray</strong>
+            <span class="tray-sub">Select up to 4 quadrupeds</span>
+          </div>
+        </div>
+
+        <div class="tray-models-chips" id="tray-models-chips"></div>
+
+        <div class="tray-actions-block">
+          <button id="btn-tray-clear" class="tray-btn-subtle">Clear</button>
+          <button id="btn-tray-launch" class="tray-btn-primary">Compare Selected &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================================
+       VIEW 2: ROBOT PROFILE / ENCYCLOPEDIA ENTRY (HUMANOID.GUIDE STYLE)
+       ========================================================================= -->
+  <section id="view-robot" class="page-view">
+    <div class="guide-profile-layout">
+      
+      <!-- BREADCRUMB -->
+      <div class="guide-breadcrumb">
+        <button id="btn-profile-back" class="btn-breadcrumb-link">&larr; Quadruped Directory</button>
+        <span class="slash">/</span>
+        <span id="profile-bc-vendor">Manufacturer</span>
+        <span class="slash">/</span>
+        <span id="profile-bc-model" class="active-node">Model Profile</span>
+      </div>
+
+      <!-- HERO / DATABASE ENTRY OVERVIEW -->
+      <div class="profile-hero-card">
+        <div class="profile-media-box" id="profile-media-box"></div>
+
+        <div class="profile-meta-box">
+          <div class="profile-vendor-line">
+            <span class="vendor-link" id="profile-vendor-name">MANUFACTURER</span>
+            <span class="country-tag" id="profile-vendor-country">(Country)</span>
+            <span class="status-pill" id="profile-status-pill">In Production</span>
+          </div>
+
+          <h1 class="profile-model-h1" id="profile-model-title">Model Name</h1>
+          <p class="profile-summary-p" id="profile-summary-text">Teknisk encyklopædi-post over industriel firbenet robotplatform.</p>
+
+          <div class="profile-price-box">
+            <span class="price-val" id="profile-price-val">Price on request</span>
+            <span class="price-type" id="profile-price-type">B2B Quote</span>
+          </div>
+
+          <div class="profile-actions-row">
+            <button id="btn-profile-add-compare" class="guide-btn-solid">+ Add to Compare</button>
+            <button id="btn-profile-open-compare" class="guide-btn-outline">Open Compare &rarr;</button>
+          </div>
+
+          <!-- PROVENANCE BOX -->
+          <div class="profile-provenance-box" id="profile-provenance-box">
+            <strong>Data Source &amp; Verification:</strong><br>
+            Indsamlet og verificeret fra producentens officielle tekniske datablad (K1 Aug 2026). Specifikationstæthed: <strong>85%</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY SPECS STRIP (6 PROMINENT DATA NUMBERS) -->
+      <div class="profile-key-strip" id="profile-key-strip">
+        <!-- 6 big numbers -->
+      </div>
+
+      <!-- CAPABILITIES GRID (HUMANOID.GUIDE CAPABILITY MATRIX) -->
+      <div class="profile-cap-section">
+        <h2 class="section-h2">Verified Capabilities</h2>
+        <div class="cap-badge-grid" id="profile-cap-badge-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- DETAILED TECHNICAL SPECIFICATIONS -->
+      <div class="profile-tech-specs-section">
+        <h2 class="section-h2">Technical Specifications</h2>
+        <div class="specs-tables-wrap" id="profile-specs-tables-wrap">
+          <!-- Structured spec categories -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 3: COMPARE / SIDE-BY-SIDE (HUMANOID.GUIDE STYLE)
+       ========================================================================= -->
+  <section id="view-compare" class="page-view">
+    <div class="guide-compare-layout">
+      
+      <!-- HEADER -->
+      <div class="compare-top-header">
+        <div>
+          <button id="btn-compare-back" class="btn-breadcrumb-link">&larr; Quadruped Directory</button>
+          <h1 class="compare-h1">Compare Quadruped Robots</h1>
+          <span class="compare-subtitle">Side-by-side teknisk benchmark og capability matching.</span>
+        </div>
+
+        <div class="compare-controls-bar">
+          <label class="guide-toggle-label">
+            <input type="checkbox" id="toggle-cmp-diff-only">
+            <span class="guide-toggle-switch"></span>
+            <span>Show differences only</span>
+          </label>
+
+          <button id="btn-copy-compare-link" class="guide-btn-outline">
+            <span>🔗</span> Share Comparison
+          </button>
+        </div>
+      </div>
+
+      <!-- TOAST NOTIFICATION -->
+      <div id="compare-toast" class="compare-toast hidden">✓ Comparison link copied to clipboard!</div>
+
+      <!-- COMPARE MATRIX WRAPPER -->
+      <div class="compare-matrix-card">
+        
+        <!-- STICKY MODEL HEADER -->
+        <div class="cmp-sticky-header" id="cmp-sticky-header">
+          <div class="cmp-cell-header spec-title-cell">
+            <span class="spec-col-h">Capabilities &amp; Specs</span>
+          </div>
+
+          <!-- 4 SLOTS -->
+          <div class="cmp-cell-header model-slot" id="cmp-slot-1">
+            <div class="slot-select-wrap">
+              <select class="cmp-replace-dropdown" data-slot="1" id="cmp-dropdown-1"></select>
+              <button class="slot-del-btn" data-slot="1">✕</button>
+            </div>
+            <div class="slot-photo" id="cmp-photo-1"></div>
+            <div class="slot-info" id="cmp-info-1"></div>
+          </div>
+
+          <div class="cmp-cell-header model-slot" id="cmp-slot-2">
+            <div class="slot-select-wrap">
+              <select class="cmp-replace-dropdown" data-slot="2" id="cmp-dropdown-2"></select>
+              <button class="slot-del-btn" data-slot="2">✕</button>
+            </div>
+            <div class="slot-photo" id="cmp-photo-2"></div>
+            <div class="slot-info" id="cmp-info-2"></div>
+          </div>
+
+          <div class="cmp-cell-header model-slot" id="cmp-slot-3">
+            <div class="slot-select-wrap">
+              <select class="cmp-replace-dropdown" data-slot="3" id="cmp-dropdown-3"></select>
+              <button class="slot-del-btn" data-slot="3">✕</button>
+            </div>
+            <div class="slot-photo" id="cmp-photo-3"></div>
+            <div class="slot-info" id="cmp-info-3"></div>
+          </div>
+
+          <div class="cmp-cell-header model-slot" id="cmp-slot-4">
+            <div class="slot-select-wrap">
+              <select class="cmp-replace-dropdown" data-slot="4" id="cmp-dropdown-4"></select>
+              <button class="slot-del-btn" data-slot="4">✕</button>
+            </div>
+            <div class="slot-photo" id="cmp-photo-4"></div>
+            <div class="slot-info" id="cmp-info-4"></div>
+          </div>
+        </div>
+
+        <!-- MATRIX BODY (CAPABILITIES + HARDWARE SPECS) -->
+        <div class="cmp-matrix-body" id="cmp-matrix-body">
+          <!-- Rendered by app.js -->
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA & LOGIC SCRIPTS -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

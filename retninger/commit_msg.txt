@@ -1,0 +1,8 @@
+﻿Tilføj 5 uafhængige prototype-retninger i retninger/
+
+- prototype-1-apple: Apple Studio visuel explorer og 3-way compare
+- prototype-2-terminal: Robotics telemetry, flight deck og 2D scatter matrix
+- prototype-3-komplet: 3-view B2B wireframe MVP med 280px sidebar, 55/45 hero og 4-way compare
+- master-blueprint: Komplet autoritativ B2B research portal med 17 foldbare filtre og sticky header
+- prototype-4-intelligence: Intelligence platform med mission builder, capability bars og decision workspace
+- prototype-5-guide: Quadruped Guide baseret 100% på Humanoid.guide designreferencen

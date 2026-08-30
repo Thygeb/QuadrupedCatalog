@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="da" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadruped Catalog // Explore, Compare &amp; Benchmark Robots</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. MØRK TOPNAVIGATION (DARK GLOBAL HEADER)
+       ========================================================================= -->
+  <header class="dark-global-header">
+    <div class="header-inner">
+      <a href="#" class="brand-block" id="nav-brand-btn">
+        <span class="brand-logo-mark">⬡</span>
+        <div class="brand-names">
+          <span class="brand-main">QUADRUPED CATALOG</span>
+          <span class="brand-sub">B2B ROBOTICS RESEARCH INTERFACE</span>
+        </div>
+      </a>
+
+      <nav class="dark-nav-menu">
+        <button class="nav-btn active" id="tab-btn-catalog">Robots (Katalog)</button>
+        <button class="nav-btn" id="tab-btn-compare">
+          Compare (Sammenlign) <span class="nav-badge" id="nav-compare-count">0</span>
+        </button>
+        <button class="nav-btn-link" id="nav-use-cases">Use Cases</button>
+        <button class="nav-btn-link" id="nav-manufacturers">Manufacturers</button>
+        <button class="nav-btn-link" id="nav-resources">Resources</button>
+      </nav>
+
+      <div class="dark-header-meta">
+        <div class="live-status-pill">
+          <span class="status-dot"></span>
+          <span>77 robots · 25 manufacturers · Verified 2026</span>
+        </div>
+        <button id="theme-toggle" class="dark-icon-btn" title="Skift tema">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: KATALOG — "EXPLORE ROBOTS"
+       ========================================================================= -->
+  <section id="view-catalog" class="page-view active">
+    
+    <!-- 2. INTROSEKTION & 3. STOR SØGESEKTION -->
+    <div class="catalog-discovery-hero">
+      <div class="discovery-hero-inner">
+        <div class="intro-headline-group">
+          <h1 class="hero-h1">Explore Quadruped Robots</h1>
+          <p class="hero-subtext">Desktop-first discovery og teknisk benchmark. Reducér 77 modeller til en præcis shortlist på få minutter.</p>
+        </div>
+
+        <!-- STOR SØGEBAR -->
+        <div class="hero-search-wrapper">
+          <div class="hero-search-input-box">
+            <span class="search-glyph">🔍</span>
+            <input type="text" id="hero-search-input" placeholder="Search robots, manufacturers, capabilities (f.eks. 'Spot', 'IP67', 'Unitree', 'Offshore')...">
+            <button id="hero-search-clear" class="search-clear-btn hidden">✕</button>
+          </div>
+
+          <!-- HURTIGE CONSTRAINT KNAPPER -->
+          <div class="quick-constraints-row">
+            <span class="constraints-label">Hurtige constraints:</span>
+            <button class="constraint-btn" data-quick="heavy">Payload ≥ 20 kg</button>
+            <button class="constraint-btn" data-quick="ip67">IP67+ Sealed</button>
+            <button class="constraint-btn" data-quick="wheeled">🛞 Wheeled (Hjul)</button>
+            <button class="constraint-btn" data-quick="ros2">ROS 2 Driver</button>
+            <button class="constraint-btn" data-quick="ce">CE Certified</button>
+            <button class="constraint-btn" data-quick="light">Light &lt; 15 kg</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. HOVEDOMRÅDE: STICKY FILTER-SIDEBAR + RESULTATER -->
+    <div class="catalog-main-layout">
+      
+      <!-- VENSTRE: STICKY FILTERPANEL (17 GRUPPER, FOLDBART) -->
+      <aside class="sticky-filter-panel">
+        <div class="panel-top">
+          <h3>Filtre</h3>
+          <button id="btn-sidebar-reset" class="btn-link-reset">Clear all</button>
+        </div>
+
+        <div class="filter-groups-accordion">
+          
+          <!-- 1. MANUFACTURER -->
+          <details class="filter-accordion-item" open>
+            <summary class="accordion-summary">Manufacturer (Producent)</summary>
+            <div class="accordion-body">
+              <div class="vendor-filter-scroll" id="sidebar-vendor-list"></div>
+            </div>
+          </details>
+
+          <!-- 2. TERRAIN & MOBILITY -->
+          <details class="filter-accordion-item" open>
+            <summary class="accordion-summary">Terrain &amp; Mobility</summary>
+            <div class="accordion-body">
+              <label class="filter-cb"><input type="checkbox" name="f-mobility" value="walking" checked><span>Gående Quadruped</span></label>
+              <label class="filter-cb"><input type="checkbox" name="f-mobility" value="wheeled" checked><span>🛞 Hjulbenet (Wheeled Hybrid)</span></label>
+            </div>
+          </details>
+
+          <!-- 3. PAYLOAD (NYTTELAST) -->
+          <details class="filter-accordion-item" open>
+            <summary class="accordion-summary">Payload (Nyttelast) <span class="summary-val" id="val-payload-filter">≥ 0 kg</span></summary>
+            <div class="accordion-body">
+              <input type="range" id="filter-slider-payload" min="0" max="40" step="5" value="0" class="t-slider">
+            </div>
+          </details>
+
+          <!-- 4. ROBOT WEIGHT (EGENVÆGT) -->
+          <details class="filter-accordion-item" open>
+            <summary class="accordion-summary">Robot Weight (Egenvægt) <span class="summary-val" id="val-weight-filter">≤ 100 kg</span></summary>
+            <div class="accordion-body">
+              <input type="range" id="filter-slider-weight" min="10" max="100" step="5" value="100" class="t-slider">
+            </div>
+          </details>
+
+          <!-- 5. IP RATING -->
+          <details class="filter-accordion-item" open>
+            <summary class="accordion-summary">IP Rating &amp; Environment</summary>
+            <div class="accordion-body">
+              <label class="filter-cb"><input type="checkbox" id="f-check-ip67"><span>IP67+ Vandtæt &amp; Forseglet</span></label>
+              <label class="filter-cb"><input type="checkbox" id="f-check-outdoor"><span>Udendørs / Barskt terræn</span></label>
+            </div>
+          </details>
+
+          <!-- 6. SOFTWARE & REGULERING (ROS2, CE) -->
+          <details class="filter-accordion-item" open>
+            <summary class="accordion-summary">Software &amp; Standards</summary>
+            <div class="accordion-body">
+              <label class="filter-cb"><input type="checkbox" id="f-check-ros2"><span>ROS 2 Native Support</span></label>
+              <label class="filter-cb"><input type="checkbox" id="f-check-ce"><span>CE-mærkning Oplyst (EU)</span></label>
+            </div>
+          </details>
+
+          <!-- 7. RUNTIME & BATTERY -->
+          <details class="filter-accordion-item">
+            <summary class="accordion-summary">Runtime (Driftstid)</summary>
+            <div class="accordion-body">
+              <label class="filter-cb"><input type="checkbox" id="f-check-runtime-2h"><span>≥ 2 timer drift</span></label>
+              <label class="filter-cb"><input type="checkbox" id="f-check-hotswap"><span>Hot-swap batteri</span></label>
+            </div>
+          </details>
+
+          <!-- 8. SPEED, AUTONOMY, LEAD TIME -->
+          <details class="filter-accordion-item">
+            <summary class="accordion-summary">Autonomy &amp; Lead Time</summary>
+            <div class="accordion-body">
+              <label class="filter-cb"><input type="checkbox" id="f-check-lidar"><span>Integreret LiDAR Sensor</span></label>
+              <label class="filter-cb"><input type="checkbox" id="f-check-in-prod"><span>I aktiv serieproduktion</span></label>
+            </div>
+          </details>
+
+        </div>
+      </aside>
+
+      <!-- HØJRE: RESULTATOMRÅDE MED TOOLBAR & GRID -->
+      <main class="catalog-results-main">
+        
+        <!-- 5. RESULTAT-HEADER -->
+        <div class="results-header-bar">
+          <div class="results-meta-left">
+            <span class="found-count-text" id="catalog-found-count">77 robots found</span>
+            <div class="active-filter-chips-wrap" id="catalog-active-chips"></div>
+          </div>
+
+          <div class="results-sort-right">
+            <label for="sort-select-catalog">Sort by:</label>
+            <select id="sort-select-catalog" class="select-sort">
+              <option value="density-desc">Specifikationstæthed (%)</option>
+              <option value="weight-asc">Egenvægt (Lavest først)</option>
+              <option value="weight-desc">Egenvægt (Tungest først)</option>
+              <option value="payload-desc">Maks. Nyttelast (Mest bærende)</option>
+              <option value="speed-desc">Maks. Hastighed (Hurtigst)</option>
+              <option value="name-asc">Modelnavn (A &rarr; Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 6. ROBOT-GRID (3 KORT PR. RÆKKE) -->
+        <div class="catalog-cards-grid" id="catalog-cards-grid">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div id="catalog-no-results" class="empty-state-panel hidden">
+          <div class="empty-icon">🔍</div>
+          <h3>Ingen robotter matcher dine kriterier</h3>
+          <p>Prøv at fjerne aktive filtre eller søge efter en anden producent eller egenskab.</p>
+          <button id="btn-empty-clear-all" class="btn-dark-primary">Reset all filters</button>
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- 7. COMPARE TRAY (STICKY BUNDBAR) -->
+    <div id="sticky-compare-tray" class="sticky-compare-tray hidden">
+      <div class="tray-inner">
+        <div class="tray-counter-block">
+          <span class="tray-badge" id="tray-selected-count">0 of 4</span>
+          <div class="tray-label-group">
+            <strong>Compare tray</strong>
+            <span>Vælg 2 til 4 modeller</span>
+          </div>
+        </div>
+
+        <div class="tray-models-slots" id="tray-models-slots">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="tray-btn-actions">
+          <button id="btn-tray-clear-all" class="btn-tray-ghost">Clear</button>
+          <button id="btn-tray-launch-compare" class="btn-tray-action">Compare now &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================================
+       VIEW 2: PRODUKTSIDE — "ROBOT PROFILE"
+       ========================================================================= -->
+  <section id="view-product" class="page-view">
+    <div class="product-page-layout">
+      
+      <!-- 2. BREADCRUMB -->
+      <div class="page-breadcrumb">
+        <button id="btn-bc-back" class="bc-back-btn">&larr; Explore Robots</button>
+        <span class="bc-sep">/</span>
+        <span id="bc-vendor-name">Manufacturer</span>
+        <span class="bc-sep">/</span>
+        <span id="bc-robot-name" class="bc-active">Model</span>
+      </div>
+
+      <!-- 3. HERO (60/40 SPLIT) -->
+      <div class="product-hero-container">
+        <div class="hero-left-media" id="product-media-stage">
+          <!-- Product image / blueprints -->
+        </div>
+
+        <div class="hero-right-details">
+          <div class="hero-eyebrow">
+            <span class="vendor-pill" id="hero-vendor-origin">Manufacturer (Country)</span>
+            <span class="lifecycle-tag" id="hero-lifecycle-tag">I serieproduktion</span>
+          </div>
+
+          <h1 class="hero-model-title" id="hero-robot-h1">Robot Model</h1>
+          <p class="hero-positioning" id="hero-positioning-text">Avanceret firbenet robotplatform til industriel inspektion og autonom drift.</p>
+
+          <div class="hero-price-availability">
+            <div class="price-display-box">
+              <span class="price-figure" id="hero-price-figure">Price on request</span>
+              <span class="price-disclaimer" id="hero-price-disclaimer">Vejledende fabriks-quote</span>
+            </div>
+            <div class="availability-box">
+              <span class="avail-dot"></span>
+              <span id="hero-lead-time">Standard leveringstid: 4-8 uger</span>
+            </div>
+          </div>
+
+          <div class="hero-action-buttons">
+            <button id="btn-hero-add-compare" class="btn-b2b-primary">+ Add to comparison</button>
+            <button id="btn-hero-open-compare" class="btn-b2b-secondary">Open Compare &rarr;</button>
+          </div>
+
+          <!-- PROVENANCE AUDIT SUMMARY -->
+          <div class="provenance-audit-box" id="hero-provenance-audit">
+            <strong>Data Verification &amp; Provenance:</strong><br>
+            Verificeret mod fabrikantens officielle datablad (K1 Aug 2026). Specifikationstæthed: <strong id="hero-density-score">85%</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. KEY SPECIFICATIONS STRIP (6 STORE QUICK-SCAN FELTER) -->
+      <div class="key-specifications-strip" id="product-key-specs-strip">
+        <!-- 6 big numbers rendered by JS -->
+      </div>
+
+      <!-- 5. STICKY IN-PAGE NAVIGATION -->
+      <nav class="sticky-product-nav">
+        <a href="#sec-overview" class="p-nav-link active">Overview</a>
+        <a href="#sec-performance" class="p-nav-link">Performance</a>
+        <a href="#sec-environment" class="p-nav-link">Environment</a>
+        <a href="#sec-sensors" class="p-nav-link">Sensors</a>
+        <a href="#sec-autonomy" class="p-nav-link">Autonomy</a>
+        <a href="#sec-software" class="p-nav-link">Software &amp; ROS 2</a>
+        <a href="#sec-commercial" class="p-nav-link">Commercial &amp; Sources</a>
+      </nav>
+
+      <!-- 6-14. STRUCTURED SPECIFICATION SECTIONS -->
+      <div class="product-structured-sections" id="product-spec-sections-list">
+        <!-- Categorized Spec Panels populated by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 3: SAMMENLIGNING — "COMPARE ROBOTS"
+       ========================================================================= -->
+  <section id="view-compare" class="page-view">
+    <div class="compare-page-layout">
+      
+      <!-- 2. COMPARISON HEADER & CONTROLS -->
+      <div class="comparison-header-bar">
+        <div class="comp-title-block">
+          <button id="btn-comp-back-to-catalog" class="bc-back-btn">&larr; Explore Robots</button>
+          <h1 class="comp-h1">Compare Quadruped Robots</h1>
+          <span class="comp-subtext">Side-by-side teknisk benchmark af op til 4 modeller.</span>
+        </div>
+
+        <div class="comp-actions-block">
+          <label class="diff-toggle-control">
+            <input type="checkbox" id="comp-toggle-diff-only">
+            <span class="toggle-track"></span>
+            <span class="toggle-text">Show differences only</span>
+          </label>
+
+          <button id="btn-share-comp-url" class="btn-b2b-secondary">
+            <span>🔗</span> Share comparison
+          </button>
+        </div>
+      </div>
+
+      <!-- LINK COPIED TOAST -->
+      <div id="comp-copied-toast" class="toast-notification hidden">✓ Comparison link copied to clipboard!</div>
+
+      <!-- 3. STICKY MODEL-HEADER & MATRIX -->
+      <div class="compare-matrix-container">
+        
+        <!-- STICKY HEADER WITH UP TO 4 MODEL SLOTS -->
+        <div class="compare-sticky-header-row" id="compare-sticky-header">
+          <div class="comp-header-cell spec-label-cell">
+            <span class="spec-col-title">Specification / Model</span>
+          </div>
+
+          <!-- 4 SLOTS (3 ACTIVE BY DEFAULT + 1 EXPANDABLE) -->
+          <div class="comp-header-cell model-slot-cell" id="slot-card-1">
+            <div class="slot-controls">
+              <select class="model-replace-select" data-slot="1" id="select-replace-1"></select>
+              <button class="slot-remove-btn" data-slot="1">✕</button>
+            </div>
+            <div class="slot-thumb" id="slot-thumb-1"></div>
+            <div class="slot-model-info" id="slot-info-1"></div>
+          </div>
+
+          <div class="comp-header-cell model-slot-cell" id="slot-card-2">
+            <div class="slot-controls">
+              <select class="model-replace-select" data-slot="2" id="select-replace-2"></select>
+              <button class="slot-remove-btn" data-slot="2">✕</button>
+            </div>
+            <div class="slot-thumb" id="slot-thumb-2"></div>
+            <div class="slot-model-info" id="slot-info-2"></div>
+          </div>
+
+          <div class="comp-header-cell model-slot-cell" id="slot-card-3">
+            <div class="slot-controls">
+              <select class="model-replace-select" data-slot="3" id="select-replace-3"></select>
+              <button class="slot-remove-btn" data-slot="3">✕</button>
+            </div>
+            <div class="slot-thumb" id="slot-thumb-3"></div>
+            <div class="slot-model-info" id="slot-info-3"></div>
+          </div>
+
+          <div class="comp-header-cell model-slot-cell" id="slot-card-4">
+            <div class="slot-controls">
+              <select class="model-replace-select" data-slot="4" id="select-replace-4"></select>
+              <button class="slot-remove-btn" data-slot="4">✕</button>
+            </div>
+            <div class="slot-thumb" id="slot-thumb-4"></div>
+            <div class="slot-model-info" id="slot-info-4"></div>
+          </div>
+        </div>
+
+        <!-- 5-14. GROUPED SPECIFICATION MATRIX SECTIONS -->
+        <div class="compare-matrix-sections-body" id="compare-matrix-sections-body">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCRIPTS & DATA -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

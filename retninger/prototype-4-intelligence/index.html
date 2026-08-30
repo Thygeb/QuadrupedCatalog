@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html lang="da" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadruped Intelligence Platform // Decision Support &amp; Technical Dossier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       GLOBAL INTELLIGENCE TOPBAR
+       ========================================================================= -->
+  <header class="intel-header">
+    <div class="intel-header-inner">
+      <a href="#" class="brand-group" id="nav-brand-home">
+        <span class="brand-sigil">◈</span>
+        <div>
+          <span class="brand-title">QUADRUPED INTELLIGENCE</span>
+          <span class="brand-subtitle">DECISION SUPPORT &amp; TECHNICAL BENCHMARK</span>
+        </div>
+      </a>
+
+      <nav class="intel-nav-links">
+        <button class="intel-nav-tab active" id="tab-btn-discover">
+          <span class="tab-icon">🎯</span> Discover (Mission Builder)
+        </button>
+        <button class="intel-nav-tab" id="tab-btn-compare">
+          <span class="tab-icon">⚖️</span> Compare (Decision Workspace) <span class="cmp-counter" id="nav-cmp-count">0</span>
+        </button>
+        <button class="intel-nav-link-btn" id="nav-use-cases">Use Cases</button>
+        <button class="intel-nav-link-btn" id="nav-manufacturers">Manufacturers</button>
+      </nav>
+
+      <div class="intel-header-tools">
+        <div class="engine-badge">
+          <span class="pulse-dot"></span>
+          <span>77 Quadrupeds · Deterministic Matching</span>
+        </div>
+        <button id="theme-toggle-btn" class="intel-icon-btn" title="Skift tema">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: DISCOVER — FIND THE QUADRUPED BUILT FOR YOUR MISSION
+       ========================================================================= -->
+  <section id="view-discover" class="page-view active">
+    
+    <!-- DISCOVERY HERO -->
+    <div class="intel-hero-banner">
+      <div class="hero-content-constrain">
+        <div class="hero-badge-tag">MISSION-FIRST DISCOVERY ENGINE</div>
+        <h1 class="hero-headline">Find the quadruped built for your mission.</h1>
+        <p class="hero-subline">Start med dine krav. Systemet evaluerer 77 robotter på tværs af mobilitet, nyttelast, autonomi, sensorik og industriel readiness.</p>
+      </div>
+    </div>
+
+    <!-- MISSION BUILDER PANEL ("WHAT DO YOU NEED?") -->
+    <div class="mission-builder-section">
+      <div class="builder-card">
+        <div class="builder-card-header">
+          <div class="builder-title-block">
+            <span class="builder-step-num">STEP 1</span>
+            <h2>Mission Requirements Builder</h2>
+          </div>
+          <button id="btn-reset-mission" class="btn-builder-reset">Reset requirements</button>
+        </div>
+
+        <div class="builder-grid-inputs">
+          
+          <!-- REQUIREMENT 1: ENVIRONMENT -->
+          <div class="req-box">
+            <label class="req-label">1. Where will the robot operate?</label>
+            <div class="req-button-group" id="group-env">
+              <button class="req-btn active" data-env="all">All Environments</button>
+              <button class="req-btn" data-env="indoor">Indoor (Lab/Warehouse)</button>
+              <button class="req-btn" data-env="outdoor">Outdoor / Rough Terrain</button>
+              <button class="req-btn" data-env="industrial">Industrial / IP67 Sealed</button>
+              <button class="req-btn" data-env="wheeled">🛞 Wheeled (Flat/Asphalt)</button>
+            </div>
+          </div>
+
+          <!-- REQUIREMENT 2: PAYLOAD CAPACITY -->
+          <div class="req-box">
+            <div class="req-label-row">
+              <label class="req-label">2. What does it need to carry?</label>
+              <span class="slider-display" id="disp-payload-val">≥ 0 kg (Any)</span>
+            </div>
+            <input type="range" id="slider-req-payload" min="0" max="40" step="5" value="0" class="intel-slider">
+            <div class="slider-ticks">
+              <span>0 kg (Light sensor)</span>
+              <span>10 kg</span>
+              <span>20 kg (Heavy arm)</span>
+              <span>40+ kg</span>
+            </div>
+          </div>
+
+          <!-- REQUIREMENT 3: AUTONOMY & SOFTWARE -->
+          <div class="req-box">
+            <label class="req-label">3. Required Autonomy &amp; Integration</label>
+            <div class="req-button-group" id="group-autonomy">
+              <button class="req-btn active" data-autonomy="any">Standard / Any</button>
+              <button class="req-btn" data-autonomy="ros2">ROS 2 Native Driver</button>
+              <button class="req-btn" data-autonomy="lidar">Integrated LiDAR SLAM</button>
+              <button class="req-btn" data-autonomy="ce">CE Certified (EU)</button>
+            </div>
+          </div>
+
+          <!-- REQUIREMENT 4: WHAT MATTERS MOST -->
+          <div class="req-box">
+            <label class="req-label">4. What matters most? (Primary Priority)</label>
+            <div class="priority-chips-group" id="group-priority">
+              <button class="p-chip active" data-priority="balanced">⚖️ Balanced Benchmark</button>
+              <button class="p-chip" data-priority="payload">🏋️ Maksimal Nyttelast</button>
+              <button class="p-chip" data-priority="runtime">🔋 Lang Driftstid</button>
+              <button class="p-chip" data-priority="speed">⚡ Høj Topfart</button>
+              <button class="p-chip" data-priority="weight">🪶 Lav Egenvægt (&lt;15kg)</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- MATCHED RESULTS AREA -->
+    <div class="intel-results-wrapper">
+      <div class="results-meta-header">
+        <div>
+          <h2 class="matched-title" id="matched-count-text">77 robots match your requirements</h2>
+          <span class="matched-sub">Sorteret efter deterministisk requirement match-score.</span>
+        </div>
+
+        <div class="results-controls">
+          <label for="sort-intel-results">Sort by:</label>
+          <select id="sort-intel-results" class="intel-select">
+            <option value="match-desc">Match Score (%)</option>
+            <option value="payload-desc">Payload (Tungest bærende)</option>
+            <option value="weight-asc">Egenvægt (Lavest først)</option>
+            <option value="speed-desc">Topfart (Hurtigst)</option>
+            <option value="name-asc">Modelnavn (A &rarr; Z)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- INTELLIGENCE CARDS GRID -->
+      <div class="intel-cards-grid" id="intel-cards-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+
+    <!-- STICKY DECISION TRAY (BOTTOM DRAWER) -->
+    <div id="decision-tray" class="decision-tray hidden">
+      <div class="tray-constrain">
+        <div class="tray-left-counter">
+          <span class="tray-count-pill" id="tray-selected-badge">0 of 4</span>
+          <div>
+            <strong>Decision Workspace Tray</strong>
+            <span class="tray-hint">Vælg 2-4 modeller til side-by-side analyse</span>
+          </div>
+        </div>
+
+        <div class="tray-slots-strip" id="tray-slots-strip"></div>
+
+        <div class="tray-actions">
+          <button id="btn-tray-clear" class="btn-tray-subtle">Clear</button>
+          <button id="btn-tray-launch" class="btn-tray-prime">Launch Decision Workspace &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================================
+       VIEW 2: PROFILE — TEKNISK DOSSIER
+       ========================================================================= -->
+  <section id="view-profile" class="page-view">
+    <div class="dossier-layout">
+      
+      <!-- BREADCRUMB -->
+      <div class="dossier-breadcrumb">
+        <button id="btn-dossier-back" class="btn-back-link">&larr; Discover Engine</button>
+        <span class="bc-slash">/</span>
+        <span id="dossier-bc-vendor">Manufacturer</span>
+        <span class="bc-slash">/</span>
+        <span id="dossier-bc-model" class="bc-current">Model Dossier</span>
+      </div>
+
+      <!-- 55/45 HERO SPLIT -->
+      <div class="dossier-hero-card">
+        <div class="dossier-left-visual" id="dossier-media-container">
+          <!-- Robot image / blueprint -->
+        </div>
+
+        <div class="dossier-right-info">
+          <div class="dossier-meta-top">
+            <span class="dossier-vendor-pill" id="dossier-vendor-country">MANUFACTURER (COUNTRY)</span>
+            <span class="dossier-status-pill" id="dossier-status-badge">Available</span>
+          </div>
+
+          <h1 class="dossier-h1-title" id="dossier-robot-title">Model Name</h1>
+          <p class="dossier-positioning-desc" id="dossier-positioning-desc">Autonom industriel quadruped platform til inspektion i komplekse miljøer.</p>
+
+          <div class="dossier-price-row">
+            <div>
+              <span class="dossier-price-val" id="dossier-price-val">Price on request</span>
+              <span class="dossier-price-label">Vejledende fabrikspris (Quote)</span>
+            </div>
+            <div class="dossier-match-pill" id="dossier-match-score">95% Mission Match</div>
+          </div>
+
+          <div class="dossier-action-cta-row">
+            <button id="btn-dossier-add-compare" class="btn-intel-primary">+ Add to comparison</button>
+            <button id="btn-dossier-open-compare" class="btn-intel-secondary">Open Compare &rarr;</button>
+          </div>
+
+          <!-- DATA PROVENANCE AUDIT BOX -->
+          <div class="dossier-provenance-box" id="dossier-provenance-box">
+            <strong>Data Integrity &amp; Provenance:</strong><br>
+            Verificeret direkte mod producentens officielle datablad (K1 Aug 2026). Specifikationstæthed: <strong>85%</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFORMANCE PANEL (6 STORE NØGLETAL) -->
+      <div class="dossier-performance-strip" id="dossier-performance-strip">
+        <!-- 6 big numbers -->
+      </div>
+
+      <!-- STRUCTURED TECHNICAL DOSSIER SECTIONS -->
+      <div class="dossier-sections-list" id="dossier-sections-list">
+        <!-- Mobility, Perception, Autonomy, Integration, Provenance -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 3: COMPARE — DECISION WORKSPACE
+       ========================================================================= -->
+  <section id="view-compare" class="page-view">
+    <div class="workspace-layout">
+      
+      <!-- HEADER & CONTROLS -->
+      <div class="workspace-header-bar">
+        <div>
+          <button id="btn-workspace-back" class="btn-back-link">&larr; Discover Engine</button>
+          <h1 class="workspace-h1">Robot Comparison &amp; Decision Workspace</h1>
+          <span class="workspace-subtext">Side-by-side teknisk analyse med objektiv difference detection.</span>
+        </div>
+
+        <div class="workspace-controls-block">
+          <label class="workspace-diff-toggle">
+            <input type="checkbox" id="toggle-workspace-diff">
+            <span class="w-toggle-track"></span>
+            <span class="w-toggle-text">Show differences only</span>
+          </label>
+
+          <button id="btn-workspace-share" class="btn-intel-secondary">
+            <span>🔗</span> Share analysis
+          </button>
+        </div>
+      </div>
+
+      <!-- TOAST NOTIFICATION -->
+      <div id="workspace-toast" class="workspace-toast hidden">✓ Analysis link copied to clipboard!</div>
+
+      <!-- DECISION SUMMARY BOX (NEUTRAL FACTUAL HIGHLIGHTS) -->
+      <div class="decision-summary-card" id="decision-summary-card">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- 4-SLOT COMPARISON MATRIX CONTAINER -->
+      <div class="workspace-matrix-card">
+        
+        <!-- STICKY 4-SLOT MODEL HEADER -->
+        <div class="workspace-sticky-header" id="workspace-sticky-header">
+          <div class="matrix-cell-header spec-col-cell">
+            <span class="spec-col-lbl">Mission-Critical Specs</span>
+          </div>
+
+          <!-- 4 SLOTS -->
+          <div class="matrix-cell-header model-col-cell" id="w-slot-1">
+            <div class="w-slot-actions">
+              <select class="w-replace-select" data-slot="1" id="w-select-1"></select>
+              <button class="w-slot-remove" data-slot="1">✕</button>
+            </div>
+            <div class="w-slot-thumb" id="w-thumb-1"></div>
+            <div class="w-slot-info" id="w-info-1"></div>
+          </div>
+
+          <div class="matrix-cell-header model-col-cell" id="w-slot-2">
+            <div class="w-slot-actions">
+              <select class="w-replace-select" data-slot="2" id="w-select-2"></select>
+              <button class="w-slot-remove" data-slot="2">✕</button>
+            </div>
+            <div class="w-slot-thumb" id="w-thumb-2"></div>
+            <div class="w-slot-info" id="w-info-2"></div>
+          </div>
+
+          <div class="matrix-cell-header model-col-cell" id="w-slot-3">
+            <div class="w-slot-actions">
+              <select class="w-replace-select" data-slot="3" id="w-select-3"></select>
+              <button class="w-slot-remove" data-slot="3">✕</button>
+            </div>
+            <div class="w-slot-thumb" id="w-thumb-3"></div>
+            <div class="w-slot-info" id="w-info-3"></div>
+          </div>
+
+          <div class="matrix-cell-header model-col-cell" id="w-slot-4">
+            <div class="w-slot-actions">
+              <select class="w-replace-select" data-slot="4" id="w-select-4"></select>
+              <button class="w-slot-remove" data-slot="4">✕</button>
+            </div>
+            <div class="w-slot-thumb" id="w-thumb-4"></div>
+            <div class="w-slot-info" id="w-info-4"></div>
+          </div>
+        </div>
+
+        <!-- 2-TIER MATRIX BODY -->
+        <div class="workspace-matrix-body" id="workspace-matrix-body">
+          <!-- Tier 1 (Mission-Critical) + Tier 2 (Full Technical Dossier) -->
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA & SCRIPTS -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
