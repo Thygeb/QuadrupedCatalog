@@ -405,7 +405,7 @@ function renderActiveFilterChips() {
   container.innerHTML = chips.map((c, i) => `
     <span class="chip-active">
       ${escapeHtml(c.label)}
-      <span class="remove-chip" data-idx="${i}">✕</span>
+      <span class="remove-chip" data-idx="${i}"></span>
     </span>
   `).join('');
 
@@ -453,7 +453,7 @@ function renderCatalogGrid() {
         <div class="card-media-stage">
           ${mediaHtml}
           <div class="card-stage-tags">
-            ${r.isWheeled ? '<span class="pill-tag wheel">🛞 Wheeled</span>' : ''}
+            ${r.isWheeled ? '<span class="pill-tag wheel"> Wheeled</span>' : ''}
             ${r.ce_oplyst.vaerdi === 'ja' ? '<span class="pill-tag ce">CE</span>' : ''}
             ${r.ros2.vaerdi === 'ja' ? '<span class="pill-tag ros2">ROS 2</span>' : ''}
           </div>
@@ -545,7 +545,7 @@ function updateCompareTray() {
     return `
       <div class="tray-model-pill">
         <span>${escapeHtml(r.navn)}</span>
-        <span class="rem" data-slug="${r.slug}">✕</span>
+        <span class="rem" data-slug="${r.slug}"></span>
       </div>
     `;
   }).join('');
@@ -620,10 +620,10 @@ function openProductProfile(slug) {
   // Action Buttons
   const addBtn = document.getElementById('btn-hero-add-compare');
   const isSelected = compareSlots.includes(r.slug);
-  addBtn.textContent = isSelected ? '✓ Added to comparison' : '+ Add to comparison';
+  addBtn.textContent = isSelected ? ' Added to comparison' : '+ Add to comparison';
   addBtn.onclick = () => {
     toggleCompareSlot(r.slug);
-    addBtn.textContent = compareSlots.includes(r.slug) ? '✓ Added to comparison' : '+ Add to comparison';
+    addBtn.textContent = compareSlots.includes(r.slug) ? ' Added to comparison' : '+ Add to comparison';
   };
 
   document.getElementById('btn-hero-open-compare').onclick = () => {
@@ -649,7 +649,7 @@ function renderStructuredSpecSections(r) {
         { label: 'Maks. Hastighed (Speed)', val: r.hastighed.vaerdi ? `${r.hastighed.vaerdi} km/h` : '— Not disclosed by manufacturer' },
         { label: 'Frihedsgrader (DoF)', val: r.dof.vaerdi ? `${r.dof.vaerdi} DoF` : '12 DoF standard' },
         { label: 'Maks. Hældning (Slope)', val: '30° – 45° (Standard terrænkategori)' },
-        { label: 'Mobilitetstype', val: r.isWheeled ? '🛞 Hjulbenet (Wheeled Hybrid)' : 'Gående Quadruped' }
+        { label: 'Mobilitetstype', val: r.isWheeled ? ' Hjulbenet (Wheeled Hybrid)' : 'Gående Quadruped' }
       ]
     },
     {
@@ -764,8 +764,9 @@ function renderCompareMatrix(activeRobots = null) {
           const p = parseFloat(r.nyttelast.vaerdi);
           return (w && p) ? `${(p / w).toFixed(2)}×` : '<span class="missing-data-text">— Not disclosed</span>';
         }},
-        { label: 'Mobilitetstype', extract: r => r.isWheeled ? '🛞 Wheeled Hybrid' : 'Gående Quadruped' },
+        { label: 'Mobilitetstype', extract: r => r.isWheeled ? 'Wheeled Hybrid' : 'Gående Quadruped' },
         { label: 'Frihedsgrader (DoF)', extract: r => r.dof.vaerdi ? `${r.dof.vaerdi} DoF` : '12 DoF' }
+
       ]
     },
     {

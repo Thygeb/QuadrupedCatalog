@@ -441,7 +441,7 @@ function renderActiveTags() {
   container.innerHTML = tags.map((t, idx) => `
     <span class="guide-active-tag">
       ${escapeHtml(t.label)}
-      <span data-idx="${idx}">✕</span>
+      <span data-idx="${idx}"></span>
     </span>
   `).join('');
 
@@ -517,10 +517,10 @@ function renderDirectoryCards() {
         </div>
 
         <div class="card-caps-tags">
-          ${r.isWheeled ? '<span class="card-cap-pill wheel">🛞 Wheeled</span>' : '<span class="card-cap-pill">🐕 Legged</span>'}
-          ${r.ip_klasse.vaerdi ? `<span class="card-cap-pill ip">🛡️ ${r.ip_klasse.vaerdi}</span>` : ''}
-          ${r.ros2.vaerdi === 'ja' ? '<span class="card-cap-pill ros">💻 ROS 2</span>' : ''}
-          ${r.lidar.vaerdi && r.lidar.vaerdi !== 'nej' ? '<span class="card-cap-pill">👁️ LiDAR</span>' : ''}
+          ${r.isWheeled ? '<span class="card-cap-pill wheel">Wheeled</span>' : '<span class="card-cap-pill">Legged</span>'}
+          ${r.ip_klasse.vaerdi ? `<span class="card-cap-pill ip">${r.ip_klasse.vaerdi}</span>` : ''}
+          ${r.ros2.vaerdi === 'ja' ? '<span class="card-cap-pill ros">ROS 2</span>' : ''}
+          ${r.lidar.vaerdi && r.lidar.vaerdi !== 'nej' ? '<span class="card-cap-pill">LiDAR</span>' : ''}
         </div>
 
         <div class="card-bottom-actions">
@@ -590,7 +590,7 @@ function updateCompareTray() {
     return `
       <div class="tray-chip">
         <span>${escapeHtml(r.navn)}</span>
-        <span class="del-x" data-slug="${r.slug}">✕</span>
+        <span class="del-x" data-slug="${r.slug}"></span>
       </div>
     `;
   }).join('');
@@ -630,11 +630,11 @@ function openRobotProfile(slug) {
   const speedVal = parseFloat(r.hastighed.vaerdi) || 0;
   const weightVal = parseFloat(r.vaegt.vaerdi) || 0;
   let benchmarkPills = '';
-  if (payloadVal >= 20) benchmarkPills += '<span class="benchmark-pill top">🏅 Top 10% Payload</span> ';
-  else if (payloadVal >= 10) benchmarkPills += '<span class="benchmark-pill mid">📊 Above Avg Payload</span> ';
-  if (speedVal >= 3.5) benchmarkPills += '<span class="benchmark-pill top">⚡ Top 15% Speed</span> ';
-  if (weightVal > 0 && weightVal <= 15) benchmarkPills += '<span class="benchmark-pill light">🪶 Ultra-Lightweight</span> ';
-  if (r.ros2.vaerdi === 'ja') benchmarkPills += '<span class="benchmark-pill ros">💻 ROS 2 Native</span> ';
+  if (payloadVal >= 20) benchmarkPills += '<span class="benchmark-pill top">Top 10% Payload</span> ';
+  else if (payloadVal >= 10) benchmarkPills += '<span class="benchmark-pill mid">Above Avg Payload</span> ';
+  if (speedVal >= 3.5) benchmarkPills += '<span class="benchmark-pill top">Top 15% Speed</span> ';
+  if (weightVal > 0 && weightVal <= 15) benchmarkPills += '<span class="benchmark-pill light">Ultra-Lightweight</span> ';
+  if (r.ros2.vaerdi === 'ja') benchmarkPills += '<span class="benchmark-pill ros">ROS 2 Native</span> ';
 
   document.getElementById('profile-provenance-box').innerHTML = `
     <div style="margin-bottom: 6px;">${benchmarkPills}</div>
@@ -674,14 +674,14 @@ function openRobotProfile(slug) {
   // Action CTAs
   const addBtn = document.getElementById('btn-profile-add-compare');
   const isSelected = compareSlots.includes(r.slug);
-  addBtn.textContent = isSelected ? '✓ Added to Compare' : '+ Add to Compare';
+  addBtn.textContent = isSelected ? 'Added to Compare' : 'Add to Compare';
   addBtn.onclick = () => {
     toggleCompareSlot(r.slug);
-    addBtn.textContent = compareSlots.includes(r.slug) ? '✓ Added to Compare' : '+ Add to Compare';
+    addBtn.textContent = compareSlots.includes(r.slug) ? 'Added to Compare' : 'Add to Compare';
   };
 
   const rivalsBtn = document.getElementById('btn-profile-open-compare');
-  rivalsBtn.textContent = '⚖️ Compare with 3 Competitors &rarr;';
+  rivalsBtn.textContent = 'Compare with 3 Competitors &rarr;';
   rivalsBtn.onclick = () => {
     const rivals = findDirectCompetitors(r);
     compareSlots = [r.slug, rivals[0]?.slug || null, rivals[1]?.slug || null, rivals[2]?.slug || null];
@@ -717,15 +717,15 @@ function renderProfileCapabilities(r) {
   const container = document.getElementById('profile-cap-badge-grid');
 
   const capabilities = [
-    { title: 'Dynamic Running', icon: '🏃', state: (parseFloat(r.hastighed.vaerdi) || 0) >= 3.0 ? 'Supported' : 'Standard trot' },
-    { title: 'Stair Climbing', icon: '🪜', state: 'Supported (Up to 25cm)' },
-    { title: 'Slope / Incline', icon: '🧗', state: 'Supported (30°–45°)' },
-    { title: 'Rough Terrain', icon: '🌲', state: r.ip_klasse.vaerdi ? 'All-Terrain Sealed' : 'Standard dry' },
-    { title: 'Wheeled Hybrid', icon: '🛞', state: r.isWheeled ? 'Wheeled Locomotion' : 'Legged only' },
-    { title: 'Ingress Protection', icon: '🛡️', state: r.ip_klasse.vaerdi ? `${r.ip_klasse.vaerdi} Certified` : 'Not IP-rated' },
-    { title: 'LiDAR Autonomy', icon: '👁️', state: r.lidar.vaerdi ? 'Integrated LiDAR' : 'Payload add-on' },
-    { title: 'ROS 2 Driver', icon: '💻', state: r.ros2.vaerdi === 'ja' ? 'Native ROS 2 Driver' : 'Not documented' },
-    { title: 'CE Declaration', icon: '🇪🇺', state: r.ce_oplyst.vaerdi === 'ja' ? 'EU CE Declared' : 'Not documented' }
+    { title: 'Dynamic Running', icon: '•', state: (parseFloat(r.hastighed.vaerdi) || 0) >= 3.0 ? 'Supported' : 'Standard trot' },
+    { title: 'Stair Climbing', icon: '•', state: 'Supported (Up to 25cm)' },
+    { title: 'Slope / Incline', icon: '•', state: 'Supported (30°–45°)' },
+    { title: 'Rough Terrain', icon: '•', state: r.ip_klasse.vaerdi ? 'All-Terrain Sealed' : 'Standard dry' },
+    { title: 'Wheeled Hybrid', icon: '•', state: r.isWheeled ? 'Wheeled Locomotion' : 'Legged only' },
+    { title: 'Ingress Protection', icon: '•', state: r.ip_klasse.vaerdi ? `${r.ip_klasse.vaerdi} Certified` : 'Not IP-rated' },
+    { title: 'LiDAR Autonomy', icon: '•', state: r.lidar.vaerdi ? 'Integrated LiDAR' : 'Payload add-on' },
+    { title: 'ROS 2 Driver', icon: '•', state: r.ros2.vaerdi === 'ja' ? 'Native ROS 2 Driver' : 'Not documented' },
+    { title: 'CE Declaration', icon: '•', state: r.ce_oplyst.vaerdi === 'ja' ? 'EU CE Declared' : 'Not documented' }
   ];
 
   container.innerHTML = capabilities.map(c => `
@@ -750,7 +750,7 @@ function renderProfileTechSpecs(r) {
         { key: 'Payload (Nyttelast)', val: r.nyttelast.vaerdi ? `${r.nyttelast.vaerdi} kg` : '— Not disclosed by manufacturer' },
         { key: 'Top Speed (Hastighed)', val: r.hastighed.vaerdi ? `${r.hastighed.vaerdi} km/h` : '— Not disclosed by manufacturer' },
         { key: 'Degrees of Freedom (DoF)', val: r.dof.vaerdi ? `${r.dof.vaerdi} DoF` : '12 DoF' },
-        { key: 'Locomotion Type', val: r.isWheeled ? '🛞 Wheeled Quadruped' : 'Legged Quadruped' }
+        { key: 'Locomotion Type', val: r.isWheeled ? ' Wheeled Quadruped' : 'Legged Quadruped' }
       ]
     },
     {
@@ -861,7 +861,7 @@ function renderCompareMatrix(activeRobots = null) {
     {
       title: 'Capabilities & Software',
       rows: [
-        { label: 'Locomotion', extract: r => r.isWheeled ? '🛞 Wheeled' : 'Legged' },
+        { label: 'Locomotion', extract: r => r.isWheeled ? 'Wheeled' : 'Legged' },
         { label: 'LiDAR Sensor', extract: r => r.lidar.vaerdi || 'Optional payload' },
         { label: 'ROS 2 Driver', extract: r => r.ros2.vaerdi === 'ja' ? 'Yes (Native)' : '<span class="missing-indicator">— Not documented</span>' },
         { label: 'CE Certified', extract: r => r.ce_oplyst.vaerdi === 'ja' ? 'Declared' : '<span class="missing-indicator">— Not documented</span>' }
@@ -911,13 +911,14 @@ function renderCompareMatrix(activeRobots = null) {
       rowsHtml += `
         <div class="cmp-matrix-row ${isDifferent ? 'is-different' : ''}">
           <div class="cmp-matrix-label">${rowDef.label}</div>
-          <div class="cmp-matrix-cell ${bestIdx === 0 ? 'is-best-cell' : ''}">${values[0]}${bestIdx === 0 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
-          <div class="cmp-matrix-cell ${bestIdx === 1 ? 'is-best-cell' : ''}">${values[1]}${bestIdx === 1 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
-          <div class="cmp-matrix-cell ${bestIdx === 2 ? 'is-best-cell' : ''}">${values[2]}${bestIdx === 2 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
-          <div class="cmp-matrix-cell ${bestIdx === 3 ? 'is-best-cell' : ''}">${values[3]}${bestIdx === 3 ? ' <span class="best-metric-badge">🏆 Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 0 ? 'is-best-cell' : ''}">${values[0]}${bestIdx === 0 ? ' <span class="best-metric-badge">Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 1 ? 'is-best-cell' : ''}">${values[1]}${bestIdx === 1 ? ' <span class="best-metric-badge">Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 2 ? 'is-best-cell' : ''}">${values[2]}${bestIdx === 2 ? ' <span class="best-metric-badge">Best</span>' : ''}</div>
+          <div class="cmp-matrix-cell ${bestIdx === 3 ? 'is-best-cell' : ''}">${values[3]}${bestIdx === 3 ? ' <span class="best-metric-badge">Best</span>' : ''}</div>
         </div>
       `;
     });
+
 
 
     if (!rowsHtml) return '';

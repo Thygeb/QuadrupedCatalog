@@ -327,16 +327,17 @@ function evaluateRequirements() {
     const capAutonomy = (r.lidar.vaerdi ? 40 : 15) + (r.ros2.vaerdi === 'ja' ? 45 : 15) + (r.dof.vaerdi ? 10 : 0);
     const capRuntime = Math.max(20, Math.min(100, Math.round((d / 3.0) * 100)));
 
-    // 5. Compute Match Reasons / Key Advantages
+    // 5. Compute Match Reasons / Key Advantages (Clean Professional Text)
     const reasons = [];
-    if (p >= 20) reasons.push('🏋️ Heavy Payload');
-    if (ip.includes('67') || ip.includes('68')) reasons.push('🛡️ IP67 Sealed');
-    if (r.ros2.vaerdi === 'ja') reasons.push('💻 ROS 2 Native');
-    if (r.isWheeled) reasons.push('🛞 Wheeled Hybrid');
-    if (s >= 3.5) reasons.push('⚡ High Speed');
-    if (d >= 2.5) reasons.push('🔋 Long Runtime');
+    if (p >= 20) reasons.push('Heavy Payload');
+    if (ip.includes('67') || ip.includes('68')) reasons.push('IP67 Sealed');
+    if (r.ros2.vaerdi === 'ja') reasons.push('ROS 2 Native');
+    if (r.isWheeled) reasons.push('Wheeled Hybrid');
+    if (s >= 3.5) reasons.push('High Speed');
+    if (d >= 2.5) reasons.push('Long Runtime');
 
     score = Math.max(42, Math.min(98, Math.round(score)));
+
 
     return {
       ...r,
@@ -432,7 +433,7 @@ function renderIntelligenceCards() {
 
         <div class="card-action-bar">
           <button class="btn-card-compare ${isSelected ? 'added' : ''}" data-slug="${r.slug}">
-            ${isSelected ? '✓ In Compare' : '+ Add to Compare'}
+            ${isSelected ? ' In Compare' : '+ Add to Compare'}
           </button>
           <button class="btn-card-dossier" data-slug="${r.slug}">
             View Technical Dossier &rarr;
@@ -496,7 +497,7 @@ function updateDecisionTray() {
     return `
       <div class="tray-model-chip">
         <span>${escapeHtml(r.navn)}</span>
-        <span class="remove-slot" data-slug="${r.slug}">✕</span>
+        <span class="remove-slot" data-slug="${r.slug}"></span>
       </div>
     `;
   }).join('');
@@ -573,10 +574,10 @@ function openTechnicalDossier(slug) {
   // Actions
   const addBtn = document.getElementById('btn-dossier-add-compare');
   const isSelected = compareSlots.includes(r.slug);
-  addBtn.textContent = isSelected ? '✓ In Comparison' : '+ Add to comparison';
+  addBtn.textContent = isSelected ? ' In Comparison' : '+ Add to comparison';
   addBtn.onclick = () => {
     toggleCompareSlot(r.slug);
-    addBtn.textContent = compareSlots.includes(r.slug) ? '✓ In Comparison' : '+ Add to comparison';
+    addBtn.textContent = compareSlots.includes(r.slug) ? ' In Comparison' : '+ Add to comparison';
   };
 
   document.getElementById('btn-dossier-open-compare').onclick = () => {
@@ -599,7 +600,7 @@ function renderDossierTechnicalSections(r) {
         { label: 'Egenvægt (Weight)', val: r.vaegt.vaerdi ? `${r.vaegt.vaerdi} kg` : '— Not disclosed by manufacturer' },
         { label: 'Maks. Nyttelast (Payload)', val: r.nyttelast.vaerdi ? `${r.nyttelast.vaerdi} kg` : '— Not disclosed by manufacturer' },
         { label: 'Frihedsgrader (DoF)', val: r.dof.vaerdi ? `${r.dof.vaerdi} DoF` : '12 DoF Standard' },
-        { label: 'Mobilitetsform', val: r.isWheeled ? '🛞 Hjulbenet (Wheeled Hybrid)' : 'Gående Quadruped' },
+        { label: 'Mobilitetsform', val: r.isWheeled ? ' Hjulbenet (Wheeled Hybrid)' : 'Gående Quadruped' },
         { label: 'Kapslingsklasse (IP)', val: r.ip_klasse.vaerdi || '— Not disclosed' }
       ]
     },
@@ -750,7 +751,7 @@ function renderCompareMatrix(activeRobots = null) {
     {
       title: 'Tier 2 — Full Technical & Mechanical Dossier',
       rows: [
-        { label: 'Mobilitetsform', extract: r => r.isWheeled ? '🛞 Wheeled Hybrid' : 'Gående Quadruped' },
+        { label: 'Mobilitetsform', extract: r => r.isWheeled ? ' Wheeled Hybrid' : 'Gående Quadruped' },
         { label: 'Frihedsgrader (DoF)', extract: r => r.dof.vaerdi ? `${r.dof.vaerdi} DoF` : '12 DoF' },
         { label: 'Batterikapacitet', extract: r => r.batteri.vaerdi ? `${r.batteri.vaerdi} Wh` : '<span class="missing-data-text">— Not disclosed</span>' },
         { label: 'LiDAR Sensorik', extract: r => r.lidar.vaerdi || 'Optional payload' },

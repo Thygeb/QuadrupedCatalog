@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="da">
 <head>
   <meta charset="UTF-8">
@@ -33,7 +33,7 @@
           <span class="stat-tag"><strong>77</strong> robotter</span>
           <span class="stat-tag highlight"><strong>100%</strong> verificeret</span>
         </div>
-        <button id="theme-toggle" class="btn-theme" title="Skift mørk/lys tilstand">🌓</button>
+        <button id="theme-toggle" class="btn-theme" title="Skift mørk/lys tilstand">Theme</button>
         <div class="lang-pill">
           <span class="active">DA</span>
           <span>EN</span>
@@ -58,21 +58,22 @@
         <!-- SEARCH & CHIPS -->
         <div class="apple-search-card">
           <div class="search-row">
-            <span class="search-lens">🔍</span>
+            <span class="search-lens">Search</span>
             <input type="text" id="search-input" placeholder="Søg efter robot, producent (f.eks. Spot, Unitree, ANYmal), sensor eller land...">
-            <button id="clear-search" class="btn-clear hidden">✕</button>
+            <button id="clear-search" class="btn-clear hidden"></button>
           </div>
 
           <div class="filter-chips-row">
             <span class="chips-title">Hurtigfiltre:</span>
             <button class="apple-chip active" data-filter="all">Alle (77)</button>
-            <button class="apple-chip" data-filter="wheeled">🛞 Med hjul (Wheeled)</button>
-            <button class="apple-chip" data-filter="heavy">🏋️ Nyttelast &ge; 20 kg</button>
-            <button class="apple-chip" data-filter="light">⚡ Letvægt &lt; 15 kg</button>
-            <button class="apple-chip" data-filter="ip67">🛡️ IP67+ Vandtæt</button>
-            <button class="apple-chip" data-filter="ros2">💻 ROS 2 / Open SDK</button>
-            <button class="apple-chip" data-filter="ce">🇪🇺 CE Oplyst</button>
+            <button class="apple-chip" data-filter="wheeled">Med hjul (Wheeled)</button>
+            <button class="apple-chip" data-filter="heavy">Nyttelast &ge; 20 kg</button>
+            <button class="apple-chip" data-filter="light">Letvægt &lt; 15 kg</button>
+            <button class="apple-chip" data-filter="ip67">IP67+ Vandtæt</button>
+            <button class="apple-chip" data-filter="ros2">ROS 2 / Open SDK</button>
+            <button class="apple-chip" data-filter="ce">CE Oplyst</button>
           </div>
+
         </div>
       </div>
     </section>
@@ -98,7 +99,7 @@
 
           <div class="layout-toggle">
             <button id="btn-grid-layout" class="layout-btn active" title="Kortvisning">⊞ Kort</button>
-            <button id="btn-table-layout" class="layout-btn" title="Matrix-visning">☰ Matrix</button>
+            <button id="btn-table-layout" class="layout-btn" title="Matrix-visning"> Matrix</button>
           </div>
         </div>
       </div>
@@ -140,7 +141,7 @@
 
       <!-- EMPTY STATE -->
       <div id="catalog-empty" class="apple-empty-state hidden">
-        <div class="empty-glyph">🔎</div>
+        <div class="empty-glyph"></div>
         <h3>Ingen robotter matcher søgningen</h3>
         <p>Prøv at nulstille filtre eller søgeord.</p>
         <button id="btn-reset-catalog" class="apple-btn-primary">Nulstil alle filtre</button>
@@ -164,7 +165,7 @@
           </div>
           <div class="share-box">
             <button id="btn-copy-compare-link" class="apple-btn-secondary" title="Kopiér direkte link">
-              🔗 Del denne sammenligning
+               Del denne sammenligning
             </button>
             <span id="copied-toast" class="toast hidden">Kopieret til udklipsholder!</span>
           </div>
@@ -185,7 +186,7 @@
               <select class="model-picker-select" id="select-slot-1" data-slot="1">
                 <!-- Options populated by JS -->
               </select>
-              <button class="btn-remove-slot" data-slot="1" title="Fjern model">✕</button>
+              <button class="btn-remove-slot" data-slot="1" title="Fjern model"></button>
             </div>
             <div class="col-hero-media" id="media-slot-1"></div>
             <div class="col-hero-info" id="info-slot-1"></div>
@@ -197,7 +198,7 @@
               <select class="model-picker-select" id="select-slot-2" data-slot="2">
                 <!-- Options populated by JS -->
               </select>
-              <button class="btn-remove-slot" data-slot="2" title="Fjern model">✕</button>
+              <button class="btn-remove-slot" data-slot="2" title="Fjern model"></button>
             </div>
             <div class="col-hero-media" id="media-slot-2"></div>
             <div class="col-hero-info" id="info-slot-2"></div>
@@ -209,7 +210,7 @@
               <select class="model-picker-select" id="select-slot-3" data-slot="3">
                 <!-- Options populated by JS -->
               </select>
-              <button class="btn-remove-slot" data-slot="3" title="Fjern model">✕</button>
+              <button class="btn-remove-slot" data-slot="3" title="Fjern model"></button>
             </div>
             <div class="col-hero-media" id="media-slot-3"></div>
             <div class="col-hero-info" id="info-slot-3"></div>

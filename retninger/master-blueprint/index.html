@@ -39,7 +39,7 @@
           <span class="status-dot"></span>
           <span>77 robots · 25 manufacturers · Verified 2026</span>
         </div>
-        <button id="theme-toggle" class="dark-icon-btn" title="Skift tema">🌓</button>
+        <button id="theme-toggle" class="dark-icon-btn" title="Skift tema">Theme</button>
       </div>
     </div>
   </header>
@@ -60,17 +60,18 @@
         <!-- STOR SØGEBAR -->
         <div class="hero-search-wrapper">
           <div class="hero-search-input-box">
-            <span class="search-glyph">🔍</span>
+            <span class="search-glyph">Search</span>
             <input type="text" id="hero-search-input" placeholder="Search robots, manufacturers, capabilities (f.eks. 'Spot', 'IP67', 'Unitree', 'Offshore')...">
-            <button id="hero-search-clear" class="search-clear-btn hidden">✕</button>
+            <button id="hero-search-clear" class="search-clear-btn hidden"></button>
           </div>
+
 
           <!-- HURTIGE CONSTRAINT KNAPPER -->
           <div class="quick-constraints-row">
             <span class="constraints-label">Hurtige constraints:</span>
             <button class="constraint-btn" data-quick="heavy">Payload ≥ 20 kg</button>
             <button class="constraint-btn" data-quick="ip67">IP67+ Sealed</button>
-            <button class="constraint-btn" data-quick="wheeled">🛞 Wheeled (Hjul)</button>
+            <button class="constraint-btn" data-quick="wheeled">Wheeled (Hjul)</button>
             <button class="constraint-btn" data-quick="ros2">ROS 2 Driver</button>
             <button class="constraint-btn" data-quick="ce">CE Certified</button>
             <button class="constraint-btn" data-quick="light">Light &lt; 15 kg</button>
@@ -104,9 +105,10 @@
             <summary class="accordion-summary">Terrain &amp; Mobility</summary>
             <div class="accordion-body">
               <label class="filter-cb"><input type="checkbox" name="f-mobility" value="walking" checked><span>Gående Quadruped</span></label>
-              <label class="filter-cb"><input type="checkbox" name="f-mobility" value="wheeled" checked><span>🛞 Hjulbenet (Wheeled Hybrid)</span></label>
+              <label class="filter-cb"><input type="checkbox" name="f-mobility" value="wheeled" checked><span>Hjulbenet (Wheeled Hybrid)</span></label>
             </div>
           </details>
+
 
           <!-- 3. PAYLOAD (NYTTELAST) -->
           <details class="filter-accordion-item" open>
@@ -193,7 +195,7 @@
 
         <!-- EMPTY STATE -->
         <div id="catalog-no-results" class="empty-state-panel hidden">
-          <div class="empty-icon">🔍</div>
+          <div class="empty-icon"></div>
           <h3>Ingen robotter matcher dine kriterier</h3>
           <p>Prøv at fjerne aktive filtre eller søge efter en anden producent eller egenskab.</p>
           <button id="btn-empty-clear-all" class="btn-dark-primary">Reset all filters</button>
@@ -327,22 +329,23 @@
           </label>
 
           <button id="btn-master-export-csv" class="btn-export-csv" title="Download som CSV">
-            <span>📥</span> Export CSV
+            Export CSV
           </button>
 
           <button id="btn-master-print" class="btn-b2b-secondary" title="Print eller gem som PDF">
-            <span>🖨️</span> Print / PDF
+            Print / PDF
           </button>
 
           <button id="btn-share-comp-url" class="btn-b2b-secondary">
-            <span>🔗</span> Share comparison
+            Share comparison
           </button>
         </div>
       </div>
 
 
+
       <!-- LINK COPIED TOAST -->
-      <div id="comp-copied-toast" class="toast-notification hidden">✓ Comparison link copied to clipboard!</div>
+      <div id="comp-copied-toast" class="toast-notification hidden"> Comparison link copied to clipboard!</div>
 
       <!-- 3. STICKY MODEL-HEADER & MATRIX -->
       <div class="compare-matrix-container">
@@ -357,7 +360,7 @@
           <div class="comp-header-cell model-slot-cell" id="slot-card-1">
             <div class="slot-controls">
               <select class="model-replace-select" data-slot="1" id="select-replace-1"></select>
-              <button class="slot-remove-btn" data-slot="1">✕</button>
+              <button class="slot-remove-btn" data-slot="1"></button>
             </div>
             <div class="slot-thumb" id="slot-thumb-1"></div>
             <div class="slot-model-info" id="slot-info-1"></div>
@@ -366,7 +369,7 @@
           <div class="comp-header-cell model-slot-cell" id="slot-card-2">
             <div class="slot-controls">
               <select class="model-replace-select" data-slot="2" id="select-replace-2"></select>
-              <button class="slot-remove-btn" data-slot="2">✕</button>
+              <button class="slot-remove-btn" data-slot="2"></button>
             </div>
             <div class="slot-thumb" id="slot-thumb-2"></div>
             <div class="slot-model-info" id="slot-info-2"></div>
@@ -375,7 +378,7 @@
           <div class="comp-header-cell model-slot-cell" id="slot-card-3">
             <div class="slot-controls">
               <select class="model-replace-select" data-slot="3" id="select-replace-3"></select>
-              <button class="slot-remove-btn" data-slot="3">✕</button>
+              <button class="slot-remove-btn" data-slot="3"></button>
             </div>
             <div class="slot-thumb" id="slot-thumb-3"></div>
             <div class="slot-model-info" id="slot-info-3"></div>
@@ -384,7 +387,7 @@
           <div class="comp-header-cell model-slot-cell" id="slot-card-4">
             <div class="slot-controls">
               <select class="model-replace-select" data-slot="4" id="select-replace-4"></select>
-              <button class="slot-remove-btn" data-slot="4">✕</button>
+              <button class="slot-remove-btn" data-slot="4"></button>
             </div>
             <div class="slot-thumb" id="slot-thumb-4"></div>
             <div class="slot-model-info" id="slot-info-4"></div>

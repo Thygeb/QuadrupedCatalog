@@ -411,9 +411,10 @@ function renderCards() {
         <div class="card-photo-stage">
           ${getRobotMediaHtml(r)}
           <div class="card-stage-badges">
-            ${r.isWheeled ? '<span class="stage-badge wheeled">🛞 Hjulben</span>' : ''}
+            ${r.isWheeled ? '<span class="stage-badge wheeled">Hjulben</span>' : ''}
             ${r.ce_oplyst.vaerdi === 'ja' ? '<span class="stage-badge ce">CE</span>' : ''}
           </div>
+
         </div>
 
         <div class="card-readout-strip">
@@ -437,7 +438,7 @@ function renderCards() {
 
         <div class="card-action-bar">
           <button class="btn-card-compare ${isSelected ? 'added' : ''}" data-slug="${r.slug}">
-            ${isSelected ? '✓ Valgt' : '+ Sammenlign'}
+            ${isSelected ? ' Valgt' : '+ Sammenlign'}
           </button>
           <button class="btn-card-specs" data-slug="${r.slug}">
             Se specifikationer &rarr;
@@ -477,7 +478,7 @@ function renderMatrix() {
           <span style="font-size: 11px; color: var(--apple-blue);">${escapeHtml(r.producent)}</span>
         </td>
         <td class="col-country">${escapeHtml(r.producentland)}</td>
-        <td class="col-type">${r.isWheeled ? '🛞 Hjul' : 'Gående'}</td>
+        <td class="col-type">${r.isWheeled ? ' Hjul' : 'Gående'}</td>
         <td class="col-num">${r.vaegt.vaerdi ? r.vaegt.vaerdi + ' kg' : '-'}</td>
         <td class="col-num">${r.nyttelast.vaerdi ? r.nyttelast.vaerdi + ' kg' : '-'}</td>
         <td class="col-num">${r.hastighed.vaerdi ? r.hastighed.vaerdi + ' km/h' : '-'}</td>
@@ -544,7 +545,7 @@ function updateFloatingBar() {
     return `
       <div class="floating-slot-item">
         <span>${escapeHtml(r.navn)}</span>
-        <span class="slot-remove" data-slug="${r.slug}">✕</span>
+        <span class="slot-remove" data-slug="${r.slug}"></span>
       </div>
     `;
   }).join('');
@@ -607,38 +608,39 @@ function renderQuickHighlights(robots) {
     return `
       <div class="highlight-column-card">
         <div class="hl-metric-box">
-          <div class="hl-glyph">⚖️</div>
+          <div class="hl-glyph">●</div>
           <div class="hl-big-num">${r.vaegt.vaerdi ? r.vaegt.vaerdi + ' kg' : 'Ikke oplyst'}</div>
-          <div class="hl-label">${r.isWheeled ? '🛞 Hjulbenet Hybrid' : 'Gående Quadruped'}</div>
+          <div class="hl-label">${r.isWheeled ? 'Hjulbenet Hybrid' : 'Gående Quadruped'}</div>
         </div>
 
         <div class="hl-metric-box">
-          <div class="hl-glyph">🏋️</div>
+          <div class="hl-glyph">●</div>
           <div class="hl-big-num">${r.nyttelast.vaerdi ? r.nyttelast.vaerdi + ' kg' : 'Ikke oplyst'}</div>
           <div class="hl-label">Maks. Nyttelast (Forhold: ${ratio})</div>
         </div>
 
         <div class="hl-metric-box">
-          <div class="hl-glyph">⚡</div>
+          <div class="hl-glyph">●</div>
           <div class="hl-big-num">${r.hastighed.vaerdi ? r.hastighed.vaerdi + ' km/h' : 'Ikke oplyst'}</div>
           <div class="hl-label">Maksimal Hastighed</div>
         </div>
 
         <div class="hl-metric-box">
-          <div class="hl-glyph">🔋</div>
+          <div class="hl-glyph">●</div>
           <div class="hl-big-num">${r.driftstid.vaerdi ? r.driftstid.vaerdi + ' t' : (r.batteri.vaerdi ? r.batteri.vaerdi + ' Wh' : 'Ikke oplyst')}</div>
           <div class="hl-label">Driftstid (${r.batteri.vaerdi ? r.batteri.vaerdi + ' Wh' : 'Kapacitet uvis'})</div>
         </div>
 
         <div class="hl-metric-box">
-          <div class="hl-glyph">🛡️</div>
+          <div class="hl-glyph">●</div>
           <div class="hl-big-num">${r.ip_klasse.vaerdi || 'Ingen IP'}</div>
-          <div class="hl-label">${r.ce_oplyst.vaerdi === 'ja' ? '🇪🇺 CE Oplyst af Fabrikant' : 'CE Ikke dokumenteret'}</div>
+          <div class="hl-label">${r.ce_oplyst.vaerdi === 'ja' ? 'CE Oplyst af Fabrikant' : 'CE Ikke dokumenteret'}</div>
         </div>
       </div>
     `;
   }).join('');
 }
+
 
 function renderDeepSpecs(robots) {
   const container = document.getElementById('deep-specs-body');
@@ -735,7 +737,7 @@ function openSpecsView(slug) {
 
   document.getElementById('specs-badges-row').innerHTML = `
     <span class="stage-badge">${r.status || 'I produktion'}</span>
-    ${r.isWheeled ? '<span class="stage-badge wheeled">🛞 Hjulbenet</span>' : '<span class="stage-badge">Gående</span>'}
+    ${r.isWheeled ? '<span class="stage-badge wheeled"> Hjulbenet</span>' : '<span class="stage-badge">Gående</span>'}
     ${r.ce_oplyst.vaerdi === 'ja' ? '<span class="stage-badge ce">CE Oplyst</span>' : ''}
   `;
 
@@ -764,10 +766,10 @@ function openSpecsView(slug) {
 
   const addCompBtn = document.getElementById('btn-specs-add-compare');
   const isSelected = compareSlots.includes(r.slug);
-  addCompBtn.textContent = isSelected ? '✓ Tilføjet til Sammenligner' : '+ Tilføj til Sammenligner';
+  addCompBtn.textContent = isSelected ? ' Tilføjet til Sammenligner' : '+ Tilføj til Sammenligner';
   addCompBtn.onclick = () => {
     toggleCompareSlot(r.slug);
-    addCompBtn.textContent = compareSlots.includes(r.slug) ? '✓ Tilføjet til Sammenligner' : '+ Tilføj til Sammenligner';
+    addCompBtn.textContent = compareSlots.includes(r.slug) ? ' Tilføjet til Sammenligner' : '+ Tilføj til Sammenligner';
   };
 
   document.getElementById('btn-specs-open-compare-direct').onclick = () => {

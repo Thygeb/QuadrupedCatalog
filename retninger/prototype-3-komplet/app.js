@@ -364,7 +364,7 @@ function renderActiveChips() {
   container.innerHTML = chips.map((c, i) => `
     <span class="active-chip" data-idx="${i}">
       ${escapeHtml(c.label)}
-      <span class="active-chip-remove">✕</span>
+      <span class="active-chip-remove"></span>
     </span>
   `).join('');
 
@@ -408,7 +408,7 @@ function renderCatalogGrid() {
         <div class="card-stage">
           ${mediaHtml}
           <div class="card-badges">
-            ${r.isWheeled ? '<span class="badge-tag wheel">🛞 Hjul</span>' : ''}
+            ${r.isWheeled ? '<span class="badge-tag wheel"> Hjul</span>' : ''}
             ${r.ce_oplyst.vaerdi === 'ja' ? '<span class="badge-tag ce">CE</span>' : ''}
             ${r.ros2.vaerdi === 'ja' ? '<span class="badge-tag ros2">ROS 2</span>' : ''}
           </div>
@@ -435,7 +435,7 @@ function renderCatalogGrid() {
 
         <div class="card-bottom-actions">
           <button class="btn-card-compare-toggle ${isSelected ? 'added' : ''}" data-slug="${r.slug}">
-            ${isSelected ? '✓ Valgt' : '+ Sammenlign'}
+            ${isSelected ? ' Valgt' : '+ Sammenlign'}
           </button>
           <button class="btn-card-details" data-slug="${r.slug}">
             Se Specifikationer &rarr;
@@ -499,7 +499,7 @@ function updateCompareTray() {
     return `
       <div class="tray-slot-chip">
         <span>${escapeHtml(r.navn)}</span>
-        <span class="remove" data-slug="${r.slug}">✕</span>
+        <span class="remove" data-slug="${r.slug}"></span>
       </div>
     `;
   }).join('');
@@ -529,9 +529,9 @@ function openProductPage(slug) {
   document.getElementById('product-price-type').textContent = r.pris.vaerdi ? 'Vejledende fabrikspris' : 'B2B leverandørpris';
 
   document.getElementById('product-badges-row').innerHTML = `
-    ${r.isWheeled ? '<span class="badge-tag wheel">🛞 Hjulbenet (Hybrid)</span>' : '<span class="badge-tag">Gående Quadruped</span>'}
+    ${r.isWheeled ? '<span class="badge-tag wheel"> Hjulbenet (Hybrid)</span>' : '<span class="badge-tag">Gående Quadruped</span>'}
     ${r.ce_oplyst.vaerdi === 'ja' ? '<span class="badge-tag ce">🇪🇺 CE Oplyst</span>' : ''}
-    ${r.ros2.vaerdi === 'ja' ? '<span class="badge-tag ros2">💻 ROS 2 Native</span>' : ''}
+    ${r.ros2.vaerdi === 'ja' ? '<span class="badge-tag ros2"> ROS 2 Native</span>' : ''}
   `;
 
   const wVal = parseFloat(r.vaegt.vaerdi) || null;
@@ -572,10 +572,10 @@ function openProductPage(slug) {
 
   const addBtn = document.getElementById('btn-product-add-compare');
   const isSelected = compareSlots.includes(r.slug);
-  addBtn.textContent = isSelected ? '✓ Tilføjet til Sammenligning' : '+ Føj til Sammenligning';
+  addBtn.textContent = isSelected ? ' Tilføjet til Sammenligning' : '+ Føj til Sammenligning';
   addBtn.onclick = () => {
     toggleCompareSlot(r.slug);
-    addBtn.textContent = compareSlots.includes(r.slug) ? '✓ Tilføjet til Sammenligning' : '+ Føj til Sammenligning';
+    addBtn.textContent = compareSlots.includes(r.slug) ? ' Tilføjet til Sammenligning' : '+ Føj til Sammenligning';
   };
 
   document.getElementById('btn-product-open-compare').onclick = () => {
@@ -707,7 +707,7 @@ function renderCompareMatrix(activeRobots = null) {
           return (w && p) ? `${(p / w).toFixed(2)}×` : '— Ikke oplyst';
         }},
         { label: 'Maks. Hastighed', extract: r => r.hastighed.vaerdi ? `${r.hastighed.vaerdi} km/h` : '— Ikke oplyst' },
-        { label: 'Mobilitetstype', extract: r => r.isWheeled ? '🛞 Hjulbenet Hybrid' : 'Gående Quadruped' },
+        { label: 'Mobilitetstype', extract: r => r.isWheeled ? ' Hjulbenet Hybrid' : 'Gående Quadruped' },
         { label: 'Frihedsgrader (DoF)', extract: r => r.dof.vaerdi ? `${r.dof.vaerdi} DoF` : '12 DoF' },
         { label: 'Kapslingsklasse (IP)', extract: r => r.ip_klasse.vaerdi || '— Ikke oplyst' }
       ]

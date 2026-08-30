@@ -17,7 +17,7 @@
   <header class="guide-header">
     <div class="guide-header-inner">
       <a href="#" class="guide-brand" id="nav-brand-home">
-        <span class="guide-logo-symbol">🐕</span>
+        <span class="guide-logo-symbol">◈</span>
         <div class="guide-brand-text">
           <span class="guide-brand-name">QUADRUPED<span class="dot-guide">.GUIDE</span></span>
           <span class="guide-brand-sub">THE OPEN ROBOT DIRECTORY</span>
@@ -38,7 +38,7 @@
           <span class="live-dot"></span>
           <span id="header-stat-text">77 robots · Updated 2026</span>
         </div>
-        <button id="theme-toggle" class="guide-theme-btn" title="Skift tema">🌓</button>
+        <button id="theme-toggle" class="guide-theme-btn" title="Skift tema">Theme</button>
       </div>
     </div>
   </header>
@@ -59,25 +59,26 @@
         <!-- INSTANT SEARCH BAR -->
         <div class="guide-search-container">
           <div class="guide-search-bar">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon">Search</span>
             <input type="text" id="guide-instant-search" placeholder="Search 77 robots by name, manufacturer, capability, country...">
-            <button id="btn-search-clear" class="search-clear-x hidden">✕</button>
+            <button id="btn-search-clear" class="search-clear-x hidden"></button>
           </div>
 
           <!-- 10 CAPABILITY FILTER CHIPS (HUMANOID.GUIDE INSPIRED) -->
           <div class="guide-capability-chips" id="capability-chips-bar">
-            <button class="cap-chip" data-cap="run">🏃 Run</button>
-            <button class="cap-chip" data-cap="stairs">🪜 Stairs</button>
-            <button class="cap-chip" data-cap="climb">🧗 Climb / Slope</button>
-            <button class="cap-chip" data-cap="rough">🌲 Rough Terrain</button>
-            <button class="cap-chip" data-cap="wheeled">🛞 Wheeled</button>
-            <button class="cap-chip" data-cap="ip67">🛡️ IP67+ Sealed</button>
-            <button class="cap-chip" data-cap="lidar">👁️ LiDAR SLAM</button>
-            <button class="cap-chip" data-cap="ros2">💻 ROS 2 Native</button>
-            <button class="cap-chip" data-cap="ce">🇪🇺 CE Certified</button>
-            <button class="cap-chip" data-cap="heavy">🏋️ Payload &ge; 20kg</button>
+            <button class="cap-chip" data-cap="run">Run</button>
+            <button class="cap-chip" data-cap="stairs">Stairs</button>
+            <button class="cap-chip" data-cap="climb">Climb / Slope</button>
+            <button class="cap-chip" data-cap="rough">Rough Terrain</button>
+            <button class="cap-chip" data-cap="wheeled">Wheeled</button>
+            <button class="cap-chip" data-cap="ip67">IP67+ Sealed</button>
+            <button class="cap-chip" data-cap="lidar">LiDAR SLAM</button>
+            <button class="cap-chip" data-cap="ros2">ROS 2 Native</button>
+            <button class="cap-chip" data-cap="ce">CE Certified</button>
+            <button class="cap-chip" data-cap="heavy">Payload &ge; 20kg</button>
           </div>
         </div>
+
 
         <!-- ADVANCED FILTERS ROW (COLLAPSIBLE / QUICK CONTROLS) -->
         <div class="guide-advanced-bar">
@@ -147,11 +148,12 @@
 
         <!-- EMPTY STATE -->
         <div id="dir-empty-state" class="dir-empty-panel hidden">
-          <div class="empty-icon">🔍</div>
+          <div class="empty-icon">[!]</div>
           <h3>No quadruped robots match your criteria</h3>
           <p>Try clearing active capability chips or resetting the search query.</p>
           <button id="btn-empty-reset" class="guide-btn-solid">Reset All Filters</button>
         </div>
+
 
       </div>
     </div>
@@ -271,22 +273,23 @@
           </label>
 
           <button id="btn-export-compare-csv" class="btn-export-csv" title="Download som CSV-regneark">
-            <span>📥</span> Export CSV
+            Export CSV
           </button>
 
           <button id="btn-print-compare" class="guide-btn-outline" title="Print eller gem som PDF">
-            <span>🖨️</span> Print / PDF
+            Print / PDF
           </button>
 
           <button id="btn-copy-compare-link" class="guide-btn-outline">
-            <span>🔗</span> Share Comparison
+            Share Comparison
           </button>
         </div>
       </div>
 
 
+
       <!-- TOAST NOTIFICATION -->
-      <div id="compare-toast" class="compare-toast hidden">✓ Comparison link copied to clipboard!</div>
+      <div id="compare-toast" class="compare-toast hidden"> Comparison link copied to clipboard!</div>
 
       <!-- COMPARE MATRIX WRAPPER -->
       <div class="compare-matrix-card">
@@ -301,7 +304,7 @@
           <div class="cmp-cell-header model-slot" id="cmp-slot-1">
             <div class="slot-select-wrap">
               <select class="cmp-replace-dropdown" data-slot="1" id="cmp-dropdown-1"></select>
-              <button class="slot-del-btn" data-slot="1">✕</button>
+              <button class="slot-del-btn" data-slot="1"></button>
             </div>
             <div class="slot-photo" id="cmp-photo-1"></div>
             <div class="slot-info" id="cmp-info-1"></div>
@@ -310,7 +313,7 @@
           <div class="cmp-cell-header model-slot" id="cmp-slot-2">
             <div class="slot-select-wrap">
               <select class="cmp-replace-dropdown" data-slot="2" id="cmp-dropdown-2"></select>
-              <button class="slot-del-btn" data-slot="2">✕</button>
+              <button class="slot-del-btn" data-slot="2"></button>
             </div>
             <div class="slot-photo" id="cmp-photo-2"></div>
             <div class="slot-info" id="cmp-info-2"></div>
@@ -319,7 +322,7 @@
           <div class="cmp-cell-header model-slot" id="cmp-slot-3">
             <div class="slot-select-wrap">
               <select class="cmp-replace-dropdown" data-slot="3" id="cmp-dropdown-3"></select>
-              <button class="slot-del-btn" data-slot="3">✕</button>
+              <button class="slot-del-btn" data-slot="3"></button>
             </div>
             <div class="slot-photo" id="cmp-photo-3"></div>
             <div class="slot-info" id="cmp-info-3"></div>
@@ -328,7 +331,7 @@
           <div class="cmp-cell-header model-slot" id="cmp-slot-4">
             <div class="slot-select-wrap">
               <select class="cmp-replace-dropdown" data-slot="4" id="cmp-dropdown-4"></select>
-              <button class="slot-del-btn" data-slot="4">✕</button>
+              <button class="slot-del-btn" data-slot="4"></button>
             </div>
             <div class="slot-photo" id="cmp-photo-4"></div>
             <div class="slot-info" id="cmp-info-4"></div>

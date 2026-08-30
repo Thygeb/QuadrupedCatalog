@@ -392,7 +392,7 @@ function renderMatrix() {
         <td class="col-pinned col-vendor">${escapeHtml(r.producent)}</td>
         <td class="col-origin">${escapeHtml(r.producentland)}</td>
         <td class="col-type">
-          ${r.isWheeled ? '<span class="tag-pill wheel">🛞 Hjul</span>' : 'Gående'}
+          ${r.isWheeled ? '<span class="tag-pill wheel"> Hjul</span>' : 'Gående'}
         </td>
         <td class="col-num data-bar-cell">
           <div class="data-bar-fill" style="width: ${wBarWidth}%;"></div>
@@ -465,7 +465,7 @@ function inspectRobot(slug) {
       <div class="hud-robot-name">${escapeHtml(r.navn)}</div>
       <div class="hud-vendor-origin">${escapeHtml(r.producent)} · ${escapeHtml(r.producentland)}</div>
       <div style="display: flex; justify-content: center; gap: 6px;">
-        <span class="tag-pill ${r.isWheeled ? 'wheel' : 'yes'}">${r.isWheeled ? '🛞 Hjulbenet' : 'Gående Quadruped'}</span>
+        <span class="tag-pill ${r.isWheeled ? 'wheel' : 'yes'}">${r.isWheeled ? ' Hjulbenet' : 'Gående Quadruped'}</span>
         <span class="tag-pill yes">${r.status || 'I produktion'}</span>
         ${r.ce_oplyst.vaerdi === 'ja' ? '<span class="tag-pill yes">🇪🇺 CE</span>' : ''}
       </div>
