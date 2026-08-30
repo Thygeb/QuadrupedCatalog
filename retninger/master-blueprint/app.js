@@ -57,11 +57,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
     initVendorCheckboxes();
     initEventListeners();
+    initKeyboardShortcuts();
     initUrlState();
   } catch (err) {
     console.error('Telemetri/Data indlæsningsfejl:', err);
   }
 });
+
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
+      e.preventDefault();
+      switchView('catalog');
+      const input = document.getElementById('search-robots-catalog');
+      input.focus();
+      input.select();
+    } else if (e.key === 'Escape') {
+      const searchInput = document.getElementById('search-robots-catalog');
+      if (document.activeElement === searchInput) {
+        searchInput.value = '';
+        applyFilters();
+        searchInput.blur();
+      }
+    }
+  });
+}
+
 
 function initTheme() {
   const saved = localStorage.getItem('qc-master-theme') || 'light';

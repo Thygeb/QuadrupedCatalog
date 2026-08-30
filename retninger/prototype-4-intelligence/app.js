@@ -323,11 +323,21 @@ function evaluateRequirements() {
     const capAutonomy = (r.lidar.vaerdi ? 40 : 15) + (r.ros2.vaerdi === 'ja' ? 45 : 15) + (r.dof.vaerdi ? 10 : 0);
     const capRuntime = Math.max(20, Math.min(100, Math.round((d / 3.0) * 100)));
 
+    // 5. Compute Match Reasons / Key Advantages
+    const reasons = [];
+    if (p >= 20) reasons.push('🏋️ Heavy Payload');
+    if (ip.includes('67') || ip.includes('68')) reasons.push('🛡️ IP67 Sealed');
+    if (r.ros2.vaerdi === 'ja') reasons.push('💻 ROS 2 Native');
+    if (r.isWheeled) reasons.push('🛞 Wheeled Hybrid');
+    if (s >= 3.5) reasons.push('⚡ High Speed');
+    if (d >= 2.5) reasons.push('🔋 Long Runtime');
+
     score = Math.max(42, Math.min(98, Math.round(score)));
 
     return {
       ...r,
       matchScore: score,
+      matchReasons: reasons.slice(0, 3),
       caps: {
         payload: capPayload,
         terrain: Math.min(100, capTerrain),
@@ -338,6 +348,7 @@ function evaluateRequirements() {
   });
 
   applySorting();
+
   renderIntelligenceCards();
 }
 
@@ -383,7 +394,12 @@ function renderIntelligenceCards() {
           ${mediaHtml}
         </div>
 
+        <div class="card-reasons-strip">
+          ${r.matchReasons.map(rs => `<span class="reason-pill">${escapeHtml(rs)}</span>`).join('')}
+        </div>
+
         <div class="card-capabilities-bars">
+
           <div class="cap-row">
             <span class="cap-lbl">Payload</span>
             <div class="cap-track"><div class="cap-fill" style="width: ${r.caps.payload}%;"></div></div>

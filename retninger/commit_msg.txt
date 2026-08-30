@@ -1,0 +1,5 @@
+﻿Avancerede interaktive funktioner og intelligent sammenligning på tværs af prototyper
+
+- prototype-5-guide: Dynamiske capability badge tællere (fx Run (42), Wheeled (14)), tastaturgenveje (/ og Esc) og "Compare with 3 Competitors" smart matcher
+- prototype-4-intelligence: Dynamiske match reasons pills på kort (fx Heavy Payload, IP67 Sealed, ROS 2 Native)
+- master-blueprint: Tastaturgenveje og forbedret søgehåndtering

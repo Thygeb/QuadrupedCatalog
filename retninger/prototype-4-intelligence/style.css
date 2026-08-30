@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    QUADRUPED INTELLIGENCE PLATFORM // 5D IMPECCABLE DESIGN SYSTEM
    ========================================================================== */
 
@@ -552,7 +552,29 @@ body {
   object-fit: contain;
 }
 
+.card-reasons-strip {
+  padding: 8px 16px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 38px;
+  align-items: center;
+}
+
+.reason-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
 /* CAPABILITY BARS (D1 & D3) */
+
 .card-capabilities-bars {
   padding: 14px 16px;
   background: var(--bg-subtle);

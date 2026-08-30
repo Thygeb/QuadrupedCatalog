@@ -56,12 +56,63 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     initTheme();
     initManufacturerDropdown();
+    updateCapabilityCounts();
     initEventListeners();
+    initKeyboardShortcuts();
     initUrlState();
   } catch (err) {
     console.error('Fejl ved indlæsning af Guide data:', err);
   }
 });
+
+function updateCapabilityCounts() {
+  const counts = {
+    run: allRobots.filter(r => (parseFloat(r.hastighed.vaerdi) || 0) >= 2.5).length,
+    stairs: allRobots.length,
+    climb: allRobots.filter(r => !r.isWheeled).length,
+    rough: allRobots.filter(r => {
+      const ip = String(r.ip_klasse.vaerdi || '');
+      return ip.includes('54') || ip.includes('67') || ip.includes('68');
+    }).length,
+    wheeled: allRobots.filter(r => r.isWheeled).length,
+    ip67: allRobots.filter(r => {
+      const ip = String(r.ip_klasse.vaerdi || '');
+      return ip.includes('67') || ip.includes('68');
+    }).length,
+    lidar: allRobots.filter(r => r.lidar.vaerdi && r.lidar.vaerdi !== 'nej').length,
+    ros2: allRobots.filter(r => r.ros2.vaerdi === 'ja' || r.ros2.vaerdi === true).length,
+    ce: allRobots.filter(r => r.ce_oplyst.vaerdi === 'ja' || r.ce_oplyst.vaerdi === true).length,
+    heavy: allRobots.filter(r => (parseFloat(r.nyttelast.vaerdi) || 0) >= 20).length
+  };
+
+  document.querySelectorAll('.cap-chip').forEach(chip => {
+    const cap = chip.getAttribute('data-cap');
+    const label = chip.textContent.split('(')[0].trim();
+    if (counts[cap] !== undefined) {
+      chip.innerHTML = `${label} <span class="chip-count-pill">${counts[cap]}</span>`;
+    }
+  });
+}
+
+function initKeyboardShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
+      e.preventDefault();
+      switchView('directory');
+      const input = document.getElementById('guide-instant-search');
+      input.focus();
+      input.select();
+    } else if (e.key === 'Escape') {
+      const searchInput = document.getElementById('guide-instant-search');
+      if (document.activeElement === searchInput) {
+        searchInput.value = '';
+        applyDirectoryFilters();
+        searchInput.blur();
+      }
+    }
+  });
+}
+
 
 function initTheme() {
   const saved = localStorage.getItem('qg-theme') || 'light';
@@ -575,10 +626,14 @@ function openRobotProfile(slug) {
     addBtn.textContent = compareSlots.includes(r.slug) ? '✓ Added to Compare' : '+ Add to Compare';
   };
 
-  document.getElementById('btn-profile-open-compare').onclick = () => {
-    if (!compareSlots.includes(r.slug)) compareSlots[0] = r.slug;
+  const rivalsBtn = document.getElementById('btn-profile-open-compare');
+  rivalsBtn.textContent = '⚖️ Compare with 3 Competitors &rarr;';
+  rivalsBtn.onclick = () => {
+    const rivals = findDirectCompetitors(r);
+    compareSlots = [r.slug, rivals[0]?.slug || null, rivals[1]?.slug || null, rivals[2]?.slug || null];
     switchView('compare');
   };
+
 
   renderProfileCapabilities(r);
   renderProfileTechSpecs(r);
@@ -586,7 +641,25 @@ function openRobotProfile(slug) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function findDirectCompetitors(targetRobot) {
+  const targetWeight = parseFloat(targetRobot.vaegt.vaerdi) || 30;
+  const targetPayload = parseFloat(targetRobot.nyttelast.vaerdi) || 10;
+  
+  return allRobots
+    .filter(r => r.slug !== targetRobot.slug)
+    .map(r => {
+      const w = parseFloat(r.vaegt.vaerdi) || 30;
+      const p = parseFloat(r.nyttelast.vaerdi) || 10;
+      const diff = Math.abs(w - targetWeight) + Math.abs(p - targetPayload) * 1.5;
+      return { robot: r, diff };
+    })
+    .sort((a, b) => a.diff - b.diff)
+    .slice(0, 3)
+    .map(x => x.robot);
+}
+
 function renderProfileCapabilities(r) {
+
   const container = document.getElementById('profile-cap-badge-grid');
 
   const capabilities = [
