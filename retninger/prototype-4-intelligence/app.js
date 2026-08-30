@@ -87,8 +87,19 @@ function initEventListeners() {
     switchView('discover');
   });
 
+  document.getElementById('nav-use-cases').addEventListener('click', () => {
+    switchView('discover');
+    document.querySelector('.mission-builder-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('nav-manufacturers').addEventListener('click', () => {
+    switchView('discover');
+    document.getElementById('intel-cards-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   document.getElementById('btn-dossier-back').addEventListener('click', () => switchView('discover'));
   document.getElementById('btn-workspace-back').addEventListener('click', () => switchView('discover'));
+
 
   // Mission Builder Input Groups
   document.querySelectorAll('#group-env .req-btn').forEach(btn => {

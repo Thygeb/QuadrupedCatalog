@@ -1,6 +1,6 @@
 ﻿/* ==========================================================================
-   QUADRUPED.GUIDE // THE OPEN ROBOT DIRECTORY
-   DESIGN REFERENCE: HUMANOID.GUIDE
+   QUADRUPED.GUIDE // 5D IMPECCABLE DESIGN SYSTEM
+   DESIGN REFERENCE: HUMANOID.GUIDE (POLISHED)
    ========================================================================== */
 
 :root {
@@ -38,7 +38,7 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
-  --shadow-tray: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-tray: 0 -4px 20px rgba(0, 0, 0, 0.12);
   
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -47,17 +47,17 @@
 }
 
 [data-theme="dark"] {
-  --bg-page: #0b0f17;
-  --bg-surface: #111827;
-  --bg-subtle: #1f2937;
-  --bg-card-stage: #0f172a;
-  --bg-hover: #374151;
+  --bg-page: #080c14;
+  --bg-surface: #0f172a;
+  --bg-subtle: #1e293b;
+  --bg-card-stage: #0b1120;
+  --bg-hover: #334155;
   
-  --guide-header-bg: #111827;
-  --guide-header-border: #1f2937;
+  --guide-header-bg: #0f172a;
+  --guide-header-border: #1e293b;
   --guide-header-text: #f8fafc;
   
-  --border-color: #1f2937;
+  --border-color: #1e293b;
   --border-focus: #38bdf8;
   
   --text-main: #f8fafc;
@@ -83,8 +83,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
 /* ==========================================================================
-   GLOBAL HEADER (HUMANOID.GUIDE STYLE)
+   D1 & D2: GLOBAL HEADER & NAV
    ========================================================================== */
 .guide-header {
   background: var(--guide-header-bg);
@@ -92,10 +97,11 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(12px);
 }
 
 .guide-header-inner {
-  max-width: 1300px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 24px;
   height: 64px;
@@ -154,7 +160,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .guide-nav-item:hover, .guide-nav-link:hover {
@@ -201,6 +207,7 @@ body {
   height: 7px;
   background: var(--color-green);
   border-radius: 50%;
+  box-shadow: 0 0 6px var(--color-green);
 }
 
 .guide-theme-btn {
@@ -210,7 +217,9 @@ body {
   padding: 6px 10px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
+.guide-theme-btn:hover { background: var(--bg-hover); }
 
 /* ==========================================================================
    PAGE VIEWS & ROUTER
@@ -224,11 +233,11 @@ body {
 .guide-hero-area {
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
-  padding: 40px 0 24px;
+  padding: 36px 0 24px;
 }
 
 .guide-hero-inner {
-  max-width: 1300px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
@@ -237,13 +246,13 @@ body {
 }
 
 .guide-h1 {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 800;
   letter-spacing: -0.8px;
 }
 
 .guide-hero-lead {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-muted);
   margin-top: 4px;
   max-width: 800px;
@@ -264,7 +273,7 @@ body {
   border: 2px solid var(--border-color);
   border-radius: var(--radius-xl);
   padding: 0 18px;
-  transition: all 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .guide-search-bar:focus-within {
@@ -286,7 +295,7 @@ body {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 500;
-  padding: 14px 0;
+  padding: 13px 0;
   outline: none;
   color: var(--text-main);
 }
@@ -316,16 +325,20 @@ body {
   padding: 6px 14px;
   border-radius: 20px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
 }
 
-.cap-chip:hover { background: var(--bg-hover); }
+.cap-chip:hover { 
+  background: var(--bg-hover);
+  transform: translateY(-1px);
+}
 
 .cap-chip.active {
   background: var(--text-main);
   color: #fff;
   border-color: var(--text-main);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ADVANCED CONTROLS ROW */
@@ -361,7 +374,9 @@ body {
   border-radius: var(--radius-sm);
   outline: none;
   cursor: pointer;
+  transition: border-color 0.15s ease;
 }
+.guide-select:focus { border-color: var(--brand-primary); }
 
 .guide-reset-btn {
   background: transparent;
@@ -378,9 +393,9 @@ body {
    DIRECTORY RESULTS & CARDS GRID
    ========================================================================== */
 .guide-directory-body {
-  max-width: 1300px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 24px 24px 80px;
+  padding: 24px 24px 90px;
 }
 
 .directory-meta-strip {
@@ -414,11 +429,19 @@ body {
 }
 .guide-active-tag span { cursor: pointer; }
 
-/* CARDS GRID (3-4 COLUMNS) */
+/* CARDS GRID (RESPONSIVE D4) */
 .guide-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+}
+
+@media (max-width: 1080px) {
+  .guide-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .guide-cards-grid { grid-template-columns: 1fr; }
 }
 
 .guide-card {
@@ -428,7 +451,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
 }
 
 .guide-card:hover {
@@ -480,7 +503,7 @@ body {
   object-fit: contain;
 }
 
-/* 4 METRICS STRIP */
+/* 4 METRICS STRIP (D3 TABULAR) */
 .card-spec-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -505,6 +528,7 @@ body {
 
 .s-val {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
   font-weight: 700;
   color: var(--text-main);
@@ -565,7 +589,7 @@ body {
 .btn-open-profile:hover { text-decoration: underline; }
 
 /* ==========================================================================
-   STICKY COMPARE TRAY
+   STICKY COMPARE TRAY (D2 ANIMATION)
    ========================================================================== */
 .guide-compare-tray {
   position: fixed;
@@ -577,10 +601,11 @@ body {
   box-shadow: var(--shadow-tray);
   padding: 12px 24px;
   z-index: 200;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
 }
 
 .tray-container {
-  max-width: 1300px;
+  max-width: 1320px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -598,6 +623,7 @@ body {
   background: var(--brand-primary);
   color: #fff;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
   font-weight: 800;
   padding: 4px 10px;
@@ -643,6 +669,7 @@ body {
   padding: 8px 18px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 .tray-btn-primary:hover { background: var(--brand-primary-hover); }
 
@@ -694,6 +721,10 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-columns: 55% 45%;
+}
+
+@media (max-width: 860px) {
+  .profile-hero-card { grid-template-columns: 1fr; }
 }
 
 .profile-media-box {
@@ -766,6 +797,7 @@ body {
 
 .price-val {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 18px;
   font-weight: 800;
 }
@@ -786,6 +818,7 @@ body {
   padding: 10px 18px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 .guide-btn-solid:hover { background: var(--brand-primary-hover); }
 
@@ -821,6 +854,10 @@ body {
   border-radius: var(--radius-lg);
 }
 
+@media (max-width: 860px) {
+  .profile-key-strip { grid-template-columns: repeat(3, 1fr); }
+}
+
 .p-key-cell {
   display: flex;
   flex-direction: column;
@@ -835,6 +872,7 @@ body {
 
 .pk-val {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 18px;
   font-weight: 800;
   color: var(--text-main);
@@ -852,6 +890,10 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
+}
+
+@media (max-width: 860px) {
+  .cap-badge-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .cap-badge-item {
@@ -902,14 +944,14 @@ body {
 .spec-row-entry:last-child { border-bottom: none; }
 
 .r-label { font-weight: 600; color: var(--text-muted); }
-.r-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-main); }
+.r-val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 700; color: var(--text-main); }
 .r-provenance { font-size: 11px; color: var(--text-dim); text-align: right; }
 
 /* ==========================================================================
    VIEW 3: COMPARE / SIDE-BY-SIDE
    ========================================================================== */
 .guide-compare-layout {
-  max-width: 1300px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 24px;
   display: flex;
@@ -1081,6 +1123,7 @@ body {
 .cmp-matrix-cell {
   padding: 10px 16px;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
   font-weight: 600;
   text-align: center;

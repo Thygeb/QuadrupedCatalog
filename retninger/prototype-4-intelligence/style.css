@@ -1,5 +1,5 @@
 ﻿/* ==========================================================================
-   QUADRUPED INTELLIGENCE PLATFORM // DESIGN SYSTEM & STYLESHEET
+   QUADRUPED INTELLIGENCE PLATFORM // 5D IMPECCABLE DESIGN SYSTEM
    ========================================================================== */
 
 :root {
@@ -78,6 +78,11 @@ body {
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
 }
 
 /* ==========================================================================
@@ -315,6 +320,10 @@ body {
   gap: 24px;
 }
 
+@media (max-width: 768px) {
+  .builder-grid-inputs { grid-template-columns: 1fr; }
+}
+
 .req-box {
   display: flex;
   flex-direction: column;
@@ -335,6 +344,7 @@ body {
 
 .slider-display {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
   font-weight: 700;
   color: var(--brand-primary);
@@ -356,7 +366,7 @@ body {
   padding: 8px 14px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .req-btn:hover { background: var(--bg-hover); }
@@ -364,7 +374,7 @@ body {
 .req-btn.active {
   background: var(--dark-header-bg);
   color: #fff;
-  border-color: var(--dark-header-bg);
+  border-color: var(--brand-cyan);
 }
 
 .intel-slider {
@@ -456,11 +466,19 @@ body {
   outline: none;
 }
 
-/* CARDS GRID */
+/* CARDS GRID (RESPONSIVE D4) */
 .intel-cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+
+@media (max-width: 1080px) {
+  .intel-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .intel-cards-grid { grid-template-columns: 1fr; }
 }
 
 .intel-card {
@@ -470,7 +488,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease;
   position: relative;
 }
 
@@ -509,6 +527,7 @@ body {
   background: var(--color-green-bg);
   color: var(--color-green);
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
   font-weight: 800;
   padding: 4px 8px;
@@ -533,7 +552,7 @@ body {
   object-fit: contain;
 }
 
-/* CAPABILITY BARS */
+/* CAPABILITY BARS (D1 & D3) */
 .card-capabilities-bars {
   padding: 14px 16px;
   background: var(--bg-subtle);
@@ -566,12 +585,14 @@ body {
 
 .cap-fill {
   height: 100%;
-  background: var(--brand-primary);
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-cyan));
   border-radius: 3px;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cap-val-num {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 11px;
   font-weight: 700;
   text-align: right;
@@ -608,6 +629,7 @@ body {
   padding: 6px 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 .btn-card-compare.added {
   background: var(--brand-primary);
@@ -659,6 +681,7 @@ body {
   background: var(--brand-primary);
   color: #fff;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
   font-weight: 800;
   padding: 4px 10px;
@@ -705,6 +728,7 @@ body {
   padding: 8px 18px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 .btn-tray-prime:hover { background: var(--brand-primary-hover); }
 
@@ -756,6 +780,10 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-columns: 55% 45%;
+}
+
+@media (max-width: 860px) {
+  .dossier-hero-card { grid-template-columns: 1fr; }
 }
 
 .dossier-left-visual {
@@ -825,6 +853,7 @@ body {
 
 .dossier-price-val {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 20px;
   font-weight: 800;
   display: block;
@@ -835,6 +864,7 @@ body {
   background: var(--color-green-bg);
   color: var(--color-green);
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 12px;
   font-weight: 800;
   padding: 4px 10px;
@@ -856,6 +886,7 @@ body {
   padding: 10px 18px;
   border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 .btn-intel-primary:hover { background: var(--brand-primary-hover); }
 
@@ -891,6 +922,10 @@ body {
   border-radius: var(--radius-lg);
 }
 
+@media (max-width: 860px) {
+  .dossier-performance-strip { grid-template-columns: repeat(3, 1fr); }
+}
+
 .dossier-perf-cell {
   display: flex;
   flex-direction: column;
@@ -905,6 +940,7 @@ body {
 
 .perf-val {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 18px;
   font-weight: 800;
   color: var(--text-main);
@@ -945,7 +981,7 @@ body {
 .dossier-spec-row:last-child { border-bottom: none; }
 
 .d-key { font-weight: 600; color: var(--text-muted); }
-.d-val { font-family: var(--font-mono); font-weight: 700; color: var(--text-main); }
+.d-val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 700; color: var(--text-main); }
 .d-source { font-size: 11px; color: var(--text-dim); text-align: right; }
 
 /* ==========================================================================
@@ -1042,6 +1078,10 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+}
+
+@media (max-width: 860px) {
+  .summary-highlights-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .summary-highlight-item {
@@ -1171,6 +1211,7 @@ body {
 .matrix-row-val {
   padding: 10px 16px;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: 13px;
   font-weight: 600;
   text-align: center;

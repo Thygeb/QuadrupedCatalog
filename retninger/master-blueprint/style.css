@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    QUADRUPED CATALOG // MASTER BLUEPRINT DESIGN SYSTEM
    ========================================================================== */
 
@@ -79,6 +79,12 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
 
 /* ==========================================================================
    1. MØRK TOPNAVIGATION (DARK GLOBAL HEADER)
@@ -516,6 +522,15 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
+
+@media (max-width: 1100px) {
+  .catalog-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .catalog-cards-grid { grid-template-columns: 1fr; }
+}
+
 
 .card-item {
   background: var(--bg-surface);

@@ -91,8 +91,21 @@ function initEventListeners() {
     switchView('directory');
   });
 
+  document.getElementById('nav-capabilities').addEventListener('click', () => {
+    switchView('directory');
+    document.getElementById('capability-chips-bar').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  document.getElementById('nav-manufacturers').addEventListener('click', () => {
+    switchView('directory');
+    const vSelect = document.getElementById('adv-filter-vendor');
+    vSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    vSelect.focus();
+  });
+
   document.getElementById('btn-profile-back').addEventListener('click', () => switchView('directory'));
   document.getElementById('btn-compare-back').addEventListener('click', () => switchView('directory'));
+
 
   // Instant Search Input
   const searchInput = document.getElementById('guide-instant-search');
