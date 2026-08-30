@@ -1,7 +1,0 @@
-﻿Gennemfør 5D Impeccable Scan og poleringspas på de 4 hovedprototyper
-
-- D1 Hierarki & Densitet: Forbedret capability chips med micro-badges og gradient-fills
-- D2 Micro-Interactions: Jævne 150ms bezier-transitioner, tray animationer og active states
-- D3 Tabular Præcision: Tilføjet font-variant-numeric: tabular-nums på tværs af alle måletal og matricer
-- D4 Responsivitet: Tilføjet responsive grid breakpoints (3 -> 2 -> 1 kolonne) på tværs af skærmstørrelser
-- D5 Tilgængelighed & Kontrast: Tilføjet synlige :focus-visible ringe og verificeret mørkt/lyst tema
