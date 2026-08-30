@@ -1,0 +1,6 @@
+﻿5-Iteration Loop: URL State Sync, Best-in-Class Matrix, Benchmark Badges & Defensive CLS
+
+- Deep URL State Synchronization: Tovejs synkronisering af sogetekst, capability chips, sortering og modeller i ?q=, ?cap= og ?models=
+- Best-in-Class Detection: Automatisk 🏆 Best fremhaevelse af foerende metrikker i sammenligningsmatricen
+- Telemetry Benchmark Badges: Dynamiske percentil-badges paa produktsiden (Top 10% Payload, Top 15% Speed, Ultra-Lightweight)
+- Smart Competitor Matcher: 1-kliks sammenligning med de 3 naermeste markedskonkurrenter

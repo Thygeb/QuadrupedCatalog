@@ -264,6 +264,31 @@ function initUrlState() {
   const view = params.get('view');
   const robot = params.get('robot');
   const modelsParam = params.get('models');
+  const qParam = params.get('q');
+  const capParam = params.get('cap');
+  const vendorParam = params.get('vendor');
+  const sortParam = params.get('sort');
+
+  if (qParam) {
+    document.getElementById('guide-instant-search').value = qParam;
+    document.getElementById('btn-search-clear').classList.remove('hidden');
+  }
+
+  if (capParam) {
+    activeCapFilter = capParam;
+    document.querySelectorAll('.cap-chip').forEach(c => {
+      if (c.getAttribute('data-cap') === capParam) c.classList.add('active');
+    });
+  }
+
+  if (vendorParam && document.querySelector(`#adv-filter-vendor option[value="${vendorParam}"]`)) {
+    document.getElementById('adv-filter-vendor').value = vendorParam;
+  }
+
+  if (sortParam) {
+    currentSort = sortParam;
+    document.getElementById('adv-sort-select').value = sortParam;
+  }
 
   if (modelsParam) {
     const slugs = modelsParam.split(',');
@@ -283,6 +308,7 @@ function initUrlState() {
     switchView('directory');
   }
 }
+
 function updateUrl() {
   const activeView = document.querySelector('.page-view.active')?.id;
   const params = new URLSearchParams();
@@ -295,11 +321,20 @@ function updateUrl() {
     const curRobot = document.getElementById('view-robot').getAttribute('data-robot-slug');
     params.set('view', 'robot');
     if (curRobot) params.set('robot', curRobot);
+  } else {
+    // Directory state sync
+    const q = document.getElementById('guide-instant-search')?.value.trim();
+    if (q) params.set('q', q);
+    if (activeCapFilter) params.set('cap', activeCapFilter);
+    const v = document.getElementById('adv-filter-vendor')?.value;
+    if (v && v !== 'all') params.set('vendor', v);
+    if (currentSort && currentSort !== 'density-desc') params.set('sort', currentSort);
   }
 
   const query = params.toString() ? `?${params.toString()}` : window.location.pathname;
   window.history.replaceState({}, '', query);
 }
+
 
 function switchView(viewName) {
   document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
@@ -372,7 +407,9 @@ function applyDirectoryFilters() {
   applySorting();
   renderDirectoryCards();
   renderActiveTags();
+  updateUrl();
 }
+
 
 function applySorting() {
   filteredRobots.sort((a, b) => {
@@ -588,10 +625,23 @@ function openRobotProfile(slug) {
   const priceStr = r.pris.vaerdi ? `${r.pris.vaerdi} ${r.pris.enhed || 'USD'}` : 'Price on request';
   document.getElementById('profile-price-val').textContent = priceStr;
 
+  // Dynamic Telemetry Benchmark Pills
+  const payloadVal = parseFloat(r.nyttelast.vaerdi) || 0;
+  const speedVal = parseFloat(r.hastighed.vaerdi) || 0;
+  const weightVal = parseFloat(r.vaegt.vaerdi) || 0;
+  let benchmarkPills = '';
+  if (payloadVal >= 20) benchmarkPills += '<span class="benchmark-pill top">🏅 Top 10% Payload</span> ';
+  else if (payloadVal >= 10) benchmarkPills += '<span class="benchmark-pill mid">📊 Above Avg Payload</span> ';
+  if (speedVal >= 3.5) benchmarkPills += '<span class="benchmark-pill top">⚡ Top 15% Speed</span> ';
+  if (weightVal > 0 && weightVal <= 15) benchmarkPills += '<span class="benchmark-pill light">🪶 Ultra-Lightweight</span> ';
+  if (r.ros2.vaerdi === 'ja') benchmarkPills += '<span class="benchmark-pill ros">💻 ROS 2 Native</span> ';
+
   document.getElementById('profile-provenance-box').innerHTML = `
+    <div style="margin-bottom: 6px;">${benchmarkPills}</div>
     <strong>Data Source &amp; Verification:</strong><br>
     Indsamlet og verificeret fra producentens officielle tekniske datablad (${escapeHtml(r.producentland)}). Kontrolmærke <strong>K1 (Aug 2026)</strong>. Specifikationstæthed: <strong>${r.density}%</strong>.
   `;
+
 
   // 6 Key Specs
   document.getElementById('profile-key-strip').innerHTML = `

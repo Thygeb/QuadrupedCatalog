@@ -859,11 +859,24 @@ body {
 .profile-provenance-box {
   background: var(--bg-subtle);
   border-left: 3px solid var(--brand-primary);
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
   font-size: 11px;
   color: var(--text-muted);
 }
+
+.benchmark-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.benchmark-pill.top { background: var(--color-green-bg); color: var(--color-green); }
+.benchmark-pill.mid { background: var(--color-blue-bg); color: var(--brand-primary); }
+.benchmark-pill.light { background: var(--color-amber-bg); color: var(--color-amber); }
+.benchmark-pill.ros { background: var(--color-purple-bg); color: #818cf8; }
+
 
 /* 6 KEY SPECS STRIP */
 .profile-key-strip {
