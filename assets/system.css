@@ -258,8 +258,20 @@ a:hover{text-decoration-thickness:2.5px}
    sektionshoved og kortnavn 8. Trinnene er nu store nok til at ses uden at
    sammenligne to overskrifter ved siden af hinanden.
    Ved 1440 px: 76 / 46 / 34 / 19 / 17 / 15 / 13 / 11,5 — forhold 1,65, 1,35,
-   1,79, 1,12, 1,13, 1,15, 1,13. Gulvet paa 10,5 px er uroert. */
-.t-hero{font-size:clamp(33px,6.2vw,76px);line-height:.98;letter-spacing:-.035em;font-weight:800}
+   1,79, 1,12, 1,13, 1,15, 1,13. Gulvet paa 10,5 px er uroert.
+
+   VAEGTEN ER 700, IKKE 800 (rettet 31. aug 2026, spor/kort). Saira Semi
+   Condensed selvhostes i 400/500/600/700 (afsnit 1) — 800 findes ikke i
+   filerne, saa browseren SYNTETISERER den ved at fortykke 700'eren, og
+   stregen bliver ujaevn i netop de store grader, hero'en bruger. Maalt paa
+   forsiden foer rettelsen: computed font-weight 800, mens document.fonts
+   kun rummer 400/500/600/700 — ingen 800-fil at ramme.
+
+   Det her var den FJERDE forekomst af samme fejl. Robotsidens skilt
+   (.typeskilt .robot-navn h1) og rodens sprogvaelger var allerede rettet hver
+   for sig, med hver sin kopi af begrundelsen; .t-hero stod tilbage og ramte
+   206 sider. Rettet paa skalaen i stedet for paa den femte flade. */
+.t-hero{font-size:clamp(33px,6.2vw,76px);line-height:.98;letter-spacing:-.035em;font-weight:700}
 .t-h1{font-size:clamp(27px,3.6vw,46px);letter-spacing:-.03em}
 .t-h2{font-size:clamp(23px,2.8vw,34px);letter-spacing:-.026em}
 .t-h3{font-size:19px;letter-spacing:-.014em}
@@ -1213,6 +1225,39 @@ a.daek__sprogkode::after{
    Strammet til r2 (8px) her, to trin under r4 - maalt noedvendigt for at
    naa densitetskravet ved 390 px (spor/instrument2, punkt 2), se rapporten. */
 @media (max-width:679px){.gitter{grid-template-columns:1fr;gap:var(--r2)}}
+
+/* --- FRITSTAAENDE KORTGITTER (spor/kort, 31. aug 2026) -------------------
+   Forsidens "Fra kataloget" og producentsidernes modelliste bruger katalogets
+   kortgitter (.net i generator.css), saa kortet har ÉN kilde og ikke tre
+   haandkopier. Men katalogets to gitterbunde passer ingen af dem:
+
+   `.net` laegger linjefarven i BUNDEN og lader kortene staa som huller i den.
+   Det giver haarstregerne mellem kortene gratis - men kun naar raekkerne gaar
+   op, som katalogets 77 goer.
+
+   `.net--seneste` maler bunden med panelfarven i stedet. Det virker paa
+   katalogets aabning, fordi den ligger PAA en panelflade, saa en tom celle
+   forsvinder ind i baggrunden.
+
+   MAALT paa forsiden 31. aug 2026, og det var her, jeg tog fejl foerste gang:
+   forsiden har 6 kort i 5 spalter ved 1440 px = 4 tomme celler, og gitteret
+   ligger paa sidens graa bund (rgb 232,235,237), ikke paa en panelflade. Med
+   `.net--seneste` blev de fire celler til ét naesten-hvidt felt (rgb
+   250,251,251) paa 1070 px - det modsatte af usynligt. Skaermbilledet viste
+   det; ingen af maaletallene (overloeb, hoejdespring, beskaering) kunne.
+
+   Derfor en tredje bund: INGEN. Gitteret er gennemsigtigt, og hvert kort
+   baerer selv sin haarstreg. En tom celle viser da sidens egen bund og er
+   dermed faktisk usynlig - uanset hvor mange kort raekken har, og uanset hvad
+   fladen under gitteret er malet med. Det er ogsaa den eneste af de tre, der
+   holder for producentsiderne, hvor modelantallet gaar fra 1 til 13.
+
+   Specificiteten er ikke tilfaeldig: generator.css indlaeses EFTER system.css,
+   saa `.net{background:var(--linje)}` (0,1,0) ville vinde over en regel med
+   samme vaegt her. `.net.net--fritstaaende` er (0,2,0), og kort-reglen
+   (0,3,0) slaar `.net .kort{box-shadow:none}` (0,2,0). */
+.net.net--fritstaaende{background:transparent;box-shadow:none}
+.net.net--fritstaaende .kort{box-shadow:0 0 0 1px var(--linje)}
 
 /* Forsidens smagsproeve "Fra kataloget" viser SEKS kort. auto-fill ovenfor
    giver praecis fem spalter ved 1440 (250*5 + 16*4 = 1314 <= 1352, seks ville

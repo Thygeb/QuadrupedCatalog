@@ -59,8 +59,20 @@ export default async function koer(ctx) {
     const i18n = JSON.parse(fs.readFileSync(i18nPad, 'utf8'));
     const legendeTekst = i18n.kort_legende;
 
+    /* Fotoloeftets egen saetning (spor/kort, 31. aug 2026). Den er ordret den
+       foerste halvdel af kort_legende OG hele kort_legende_foto, og det er
+       netop derfor, den kan taelles paa tvaers af flader, der bruger hver sin
+       noegle: kataloget trykker den lange, forsiden og producentsiderne den
+       korte, og loeftet om fotografiets ophav staar begge steder. */
+    const fotoSaetning = i18n.kort_legende_foto;
+
     ok(`27.1.${sprog}: kort_legende findes og er en ikke-tom streng`,
       typeof legendeTekst === 'string' && legendeTekst.length > 0);
+
+    ok(`27.1b.${sprog}: kort_legende_foto er ordret starten paa kort_legende`,
+      typeof fotoSaetning === 'string' && fotoSaetning.length > 0
+        && typeof legendeTekst === 'string' && legendeTekst.startsWith(fotoSaetning),
+      `foto: ${JSON.stringify(fotoSaetning)}`);
 
     /* --- 3. Ordlyden: knyttet til kortene, ikke til "hvert/alle tal" ----- */
     ok(`27.2.${sprog}: legenden loever ikke bredere end kortene ("hvert/alle tal")`,
@@ -97,7 +109,7 @@ export default async function koer(ctx) {
         `kort_legende: ${JSON.stringify(term1)}, kilde_maerke_forklaring: ${JSON.stringify(term2)}`);
     }
 
-    if (!fs.existsSync(dist) || typeof legendeTekst !== 'string') {
+    if (!fs.existsSync(dist) || typeof legendeTekst !== 'string' || typeof fotoSaetning !== 'string') {
       ok(`27.4.${sprog}: der ER bygget sider at maale paa`, false,
         'uden dist/ eller uden en gyldig legende-streng beviser de foelgende vagter ingenting');
       continue;
@@ -118,11 +130,22 @@ export default async function koer(ctx) {
         if (e.isDirectory()) { gaa(p); continue; }
         if (!e.name.endsWith('.html')) continue;
         const html = fs.readFileSync(p, 'utf8');
-        if (synligTekst(html).includes(legendeTekst)) fundet++;
+        if (synligTekst(html).includes(fotoSaetning)) fundet++;
       }
     })(path.join(dist, sprog));
 
-    ok(`27.5.${sprog}: legenden staar paa forside + katalogliste + hver producentside (${forventet})`,
+    /* TAELLER FOTOSAETNINGEN, ikke hele kort_legende (spor/kort, 31. aug 2026).
+       Foer i dag trykte alle tre kortflader den samme lange streng. Nu viser
+       ingen af kortene tal, saa saetningen "Kortenes tal baerer kildemaerker"
+       passer kun der, hvor den endnu ikke er ryddet op (kataloget - se
+       rapportens fund). Forsiden og producentsiderne trykker kort_legende_foto.
+
+       Kravet er det samme og maales stadig paa alle 27 flader: viser en side
+       fabrikantfotos paa kort, skal den sige, hvis ophav de fotos er. Havde
+       vagten fortsat maalt hele kort_legende, ville den vaere faldet til 1 og
+       have set ud som et brud paa kildeloeftet - men loeftet, den vogter, er
+       fotoets, og det staar uaendret paa alle 27. */
+    ok(`27.5.${sprog}: fotoloeftet staar paa forside + katalogliste + hver producentside (${forventet})`,
       fundet === forventet,
       `forventet ${forventet} (2 + ${antalProducenter} producenter), fandt ${fundet}`);
 

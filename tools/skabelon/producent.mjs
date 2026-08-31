@@ -58,9 +58,9 @@
  */
 
 import { skal, hjaelp } from './side.mjs';
-import { tilstandAf, erGyldighedsforbehold } from '../skema.mjs';
+import { tilstandAf } from '../skema.mjs';
 import {
-  esc, T, TD, flet, sti, kraevHjaelp, vaerdi, billedled,
+  esc, T, TD, flet, sti, kraevHjaelp,
 } from './robot.mjs';
 
 /** EU-feltet/felterne, skemaet baerer. L32 (24. aug 2026) fjernede tre af de
@@ -69,17 +69,13 @@ import {
  *  nedenfor slaar op i den frem for at haardkode 'ce_oplyst' to steder. */
 const EU_FELTER = ['ce_oplyst'];
 
-/** Kortets tre tal. Samme tre som designsystemets kompakte stribe, valgt paa
- *  udfyldningsgrad (vaegt 37 af 46, nyttelast 36, driftstid 36).
- *  ADVARSEL: katalog.mjs har den samme liste. Aendres den ét sted, ser
- *  laeseren ét saet tal paa katalogsiden og et andet her (system.html, knaek 5).
- *  Listen hoerer hjemme i side.mjs, saa snart den findes. */
-const KORT_FELTER = [
-  ['egenvaegt', 'i-vaegt'],
-  ['nyttelast_gaaende', 'i-nyttelast'],
-  ['hastighed', 'i-fart'],
-  ['driftstid', 'i-driftstid'],
-];
+/* KORT_FELTER er vaek (spor/kort, 31. aug 2026). Listen var producentkortets
+   fire tal, og dens egen kommentar bar advarslen: "katalog.mjs har den samme
+   liste. Aendres den ét sted, ser laeseren ét saet tal paa katalogsiden og et
+   andet her." Den advarsel er nu indfriet paa den eneste maade, der holder -
+   ikke ved at synkronisere to lister, men ved at kortet holder op med at vise
+   tal. TYPESKILT-kortet er billede, producent og produktnavn; tallene bor paa
+   robotsiden, hvor de har plads til deres enheder og kildemaerker. */
 
 /* ------------------------------------------------------------------ hjaelp */
 
@@ -219,84 +215,37 @@ function euSaetning(ctx, modeller) {
 
 /* ---------------------------------------------------------------- kortene */
 
-/** Kortets kompakte stribe: tre celler, samme regel som striben paa robotsiden
- *  — cellen bliver staaende, ogsaa naar den er tom.
- *
- *  RETTET (spor/instrument2, punkt 1 - efterfoelgende rettelse fra
- *  orkestratoren, 26. aug 2026): denne funktion havde sin EGEN "nul oplyste
- *  tal"-prosagren, en tredje haandkopi af den samme fejl, der blev rettet i
- *  side.mjs' stribe(). Katalogsiden (side.mjs) fik dengang IKKE en tilsvarende
- *  prosagren for sit kompakte kort, fordi den kun findes for kompakt:false
- *  (robotsidens store stribe). Denne funktion har intet kompakt:false-sidestykke
- *  - den bruges KUN til det kompakte producentkort - saa prosagrenen skal vaek
- *  helt, ikke betinges. Maalt FOER rettelsen: 8 filer (4 producenter x 2 sprog)
- *  viste "stribe--intet" i stedet for de faste celler; katalog og forside gav 0.
- *
- *  RETTET (spor/proveniens, KRITIK-4 fund 2, 27. aug 2026): vaerdi()s eget
- *  returnerede `maerke` bruges IKKE laengere. Det kaldte H.kildemaerke(post,
- *  kilder) UDEN et hvorhen — fint paa robotsidens egen stribe, hvor kildelisten
- *  staar paa samme side, men her ville det give href="#kilde-A": et anker uden
- *  et maal, fordi producentsiden ikke selv har en kildeliste. Mærket regnes
- *  derfor ud herfra med et rigtigt `hvorhen`: samme sti(ctx,'robot',m.slug),
- *  som allerede bruges til kortets eget navnelink to linjer laengere nede, og
- *  samme H.kildemaerke(post, kilder, hvorhen)-kald som side.mjs' kort() og
- *  forside.mjs bruger til at pege paa robottens egen #kilde-<bogstav>. */
-function kompaktStribe(ctx, m) {
-  const kilder = ctx.__kilder?.get(m.slug) ?? [];
-  const hvorhen = sti(ctx, 'robot', m.slug);
-  const celler = KORT_FELTER.map(([navn, ikon]) => {
-    const post = m.felter?.[navn];
-    const { html, hul } = vaerdi(navn, post, { ...ctx, robot: m, __kompakt: true }, kilder);
-    const maerke = ctx.__H.kildemaerke(post, kilder, hvorhen) || '';
-    return {
-      hul,
-      // D18 · ETIKET. Minikortet er den SAMME .stribe--kompakt som katalog-
-      // kortet; uden maerket her ville én komponent opfoere sig forskelligt
-      // paa to sider, og laeseren ville se et forbehold forsvinde ved at gaa
-      // fra kataloget ind paa producenten.
-      html: `<li${hul ? ' class="hul"' : ''}><svg class="ikon" aria-hidden="true"><use href="#${ikon}"/></svg><span class="krop">
-<span class="etiket${erGyldighedsforbehold(post) ? ' m-etiket' : ''}">${esc(T(ctx.i18n, 'felt_' + navn))}</span>
-${html}${maerke}</span></li>`,
-    };
-  });
-  return `<ul class="stribe stribe--kompakt panel--ro">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
-}
+/* kompaktStribe() og anvendelseMaerker() er vaek (spor/kort, 31. aug 2026).
 
-/* Samme BEM-modifikator som robot.mjs' egen anvendelseMaerker() og side.mjs'
-   anvendelse().maerker() (fund/FUND-detalje.md, opgave 4c): tre parallelle
-   implementeringer af samme maerke, saa alle tre skal baere det samme
-   "anvendelse__maerke--<vaerdi>"-hook, ikke kun to af dem. */
-function anvendelseMaerker(ctx, m) {
-  const { i18n } = ctx;
-  const a = ctx.__H.anvendelse(m) ?? {};
-  const vaerdier = (Array.isArray(a.vaerdi) ? a.vaerdi : [a.vaerdi]).filter(Boolean);
-  if (!vaerdier.length) return '';
-  return `<ul class="maerker">` + vaerdier.map((v) => {
-    const t = tilstandAf(v);
-    return t
-      ? `<li class="maerke maerke--tom anvendelse__maerke--${esc(t)}">${esc(TD(i18n, 'tilstand_' + t, v))}</li>`
-      : `<li class="maerke anvendelse__maerke--${esc(v)}">${esc(TD(i18n, 'anvendelse_' + v, v))}</li>`;
-  }).join('') + `</ul>`;
-}
+   De var producentkortets fire tal og dets anvendelsesmaerker - og hver af dem
+   var en HAANDKOPI af noget, der ogsaa fandtes i side.mjs og robot.mjs. Begge
+   funktioners egne kommentarer var i praksis fejlrapporter om netop den kopi:
+   kompaktStribe() havde sin egen "nul oplyste tal"-prosagren, som gav 8 filer
+   et andet udseende end katalog og forside (spor/instrument2), og siden sit
+   eget kildemaerke uden `hvorhen`, som gav ankre uden maal (KRITIK-4 fund 2).
+   anvendelseMaerker() bar noten om "tre parallelle implementeringer af samme
+   maerke".
 
+   TYPESKILT-kortet fjerner grundlaget for begge fejl frem for at rette dem en
+   tredje gang: kortet viser billede, producent og produktnavn, saa der er
+   hverken tal at fejlformatere eller maerker at holde synkroniseret. Tallene,
+   deres enheder og deres kildemaerker staar paa robotsiden. */
+
+/** Modelkortet. Ét kald til den FAELLES kort() i side.mjs - ikke en fjerde
+ *  haandkopi. `op` er den samme sti, robot.mjs' opAf() ville have regnet:
+ *  producentsider ligger i <sprog>/producenter/<slug>/, altsaa tre niveauer
+ *  nede (maalt paa den byggede side: ../../../billeder/...).
+ *
+ *  `billedeKilde` er producentsidens eget opslag i ctx.billeder. Det SKAL
+ *  vinde over robottens eget felt - ellers viser minikortet et andet billede
+ *  end det, siden har valgt. Det var praecis den overskrivning, billedled()
+ *  lavede via ctx.billede, og den er baaret med over. */
 function modelkort(ctx, m) {
-  const { i18n } = ctx;
-  const billede = ctx.billeder?.[m.slug] ?? m.billede ?? null;
-  const kortCtx = { ...ctx, robot: m, billede };
-  return `<li><article class="kort">
-${billedled(kortCtx, { stor: false })}
-<div class="kort-krop">
-<div class="kort-hoved">
-<p class="kort-ophav">` +
-    (m.producentland ? `<span class="land">${esc(TD(i18n, 'land_' + m.producentland, m.producentland))}</span>` : '') +
-    (m.status ? `<span class="status status--${esc(m.status)}">${esc(TD(i18n, 'status_' + m.status, m.status))}</span>` : '') +
-    `</p>
-<h3 class="kort-navn"><a href="${esc(sti(ctx, 'robot', m.slug))}">${esc(m.navn ?? m.slug)}</a></h3>
-</div>
-${kompaktStribe(ctx, m)}
-${anvendelseMaerker(ctx, m)}
-</div>
-</article></li>`;
+  return ctx.__H.kort(m, {
+    op: ctx?.url?.op || '../../../',
+    href: sti(ctx, 'robot', m.slug),
+    billedeKilde: ctx.billeder?.[m.slug] ?? m.billede ?? null,
+  });
 }
 
 function modelafsnit(ctx, modeller) {
@@ -311,10 +260,10 @@ function modelafsnit(ctx, modeller) {
 <div class="sektion-hoved">
 <h2 class="t-h2" id="modeller-h">${esc(modelTal(i18n, modeller.length))}</h2>
 </div>
-<p class="t-lille kort-legende">${esc(T(i18n, 'kort_legende'))}</p>
-<ul class="gitter">
+<p class="t-lille kort-legende">${esc(T(i18n, 'kort_legende_foto'))}</p>
+<div class="net net--fritstaaende">
 ${modeller.map((m) => modelkort(ctx, m)).join('\n')}
-</ul>
+</div>
 </section>`;
 }
 

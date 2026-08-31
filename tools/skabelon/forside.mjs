@@ -336,6 +336,30 @@ ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
     + `${esc(t('forside_afslutning_knap'))}${hjaelp.ikon('i-pil')}</a></p>
 </section>`;
 
+  /* Gitteret er katalogets EGET (.net), ikke forsidens gamle .gitter: kortet er
+     nu den samme komponent paa begge flader, og en anden ramme om det ville
+     genstarte netop den divergens, spor/kort blev sat i verden for at lukke.
+
+     Varianten .net--fritstaaende er ikke pynt, og den er RETTET én gang: det
+     flade .net laegger linjefarven i bunden og lader kortene staa som huller i
+     den - smukt, naar raekkerne gaar op, som katalogets 77 goer. Forsidens
+     smagsproeve er seks kort, og seks gaar ikke op i fem spalter ved 1440 px.
+
+     Foerste forsoeg var .net--seneste (katalogets aabningsgitter). Maalt paa
+     den byggede side: de fire tomme celler blev ét naesten-hvidt felt paa
+     1070 px paa sidens graa bund - fordi den variant maler bunden med
+     panelfarven, hvilket kun forsvinder, naar gitteret ligger PAA en
+     panelflade, som katalogets aabning goer. Se noten i system.css.
+
+     .net--fritstaaende har ingen bund overhovedet: hvert kort baerer selv sin
+     haarstreg, og en tom celle viser sidens egen bund. Det er den eneste af de
+     tre, der ogsaa holder paa producentsiderne, hvor modelantallet gaar fra
+     1 til 13.
+
+     Legenden er kort_legende_foto, ikke kort_legende: den lange siger "Kortenes
+     tal baerer kildemaerker", og TYPESKILT-kortet viser ingen tal. Kildeloeftet
+     er ikke svaekket - tallene og deres maerker staar paa robotsiden - men en
+     saetning om maerker paa et kort uden tal ville vaere forkert. */
   const smagsproeveSektion = udvalg.length ? `<div class="katalog-flade">
 <div class="rum">
 <section class="sektion" aria-labelledby="h-udvalg">
@@ -344,8 +368,8 @@ ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 <h2 class="t-h2" id="h-udvalg">${esc(t('forside_udvalg_titel'))}</h2>
 </div>
 <p class="t-lille udvalg-regel">${esc(tf('forside_udvalg_regel', { n: udvalg.length, m: NAEVNER }))}</p>
-<p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
-<div class="gitter gitter--udvalg">
+<p class="t-lille kort-legende">${esc(t('kort_legende_foto'))}</p>
+<div class="net net--fritstaaende">
 ${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
 </div>
 <p class="udvalg-videre"><a class="videre videre--stille" href="robotter/">`

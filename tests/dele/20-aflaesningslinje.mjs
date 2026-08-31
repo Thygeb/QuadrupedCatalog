@@ -87,6 +87,21 @@ export default async function koer(ctx) {
   let forbeholdUdenTekst = 0;
   const tegnEksempler = [];
   const tomEksempler = [];
+  /* HELE SIDEN, ikke kun de kompakte celler (spor/kort, 31. aug 2026).
+     De to krav nedenfor - "et forbehold saetter aldrig et synligt tegn" og
+     "hvert skjult forbehold baerer sin tekst begge steder" - blev foer maalt
+     inde i kortenes stribeceller. Kortene viser ikke laengere tal, saa den
+     maaling ville vaere 0 af 0: et krav, der ikke proever noget.
+
+     Kravene er uaendrede; de maales nu, hvor forbeholdene faktisk staar.
+     Maalt samme dag: 264 af 272 stykker med forbehold ligger paa robotsiderne,
+     og det tal er UROERT af dette spor. Det er den brede maaling, ikke den
+     smalle, der svarer paa "gik en oplysning tabt?". */
+  let sideSynligeTegn = 0;
+  let sideSkjulteForbehold = 0;
+  let sideForbeholdUdenTekst = 0;
+  const sideTegnEksempler = [];
+  const sideTomEksempler = [];
   /* Pr. FLADE, ikke i ét tal. Et samlet gennemsnit skjuler praecis den fejl,
      der findes nedenfor: to flader baerer kildemaerker, den tredje slet ingen,
      og summen ser bare "lav" ud. */
@@ -111,6 +126,35 @@ export default async function koer(ctx) {
   for (const sti of sider) {
     const html = fs.readFileSync(sti, 'utf8');
     kunskaermIAlt += (html.match(/class="kunskaerm"/g) || []).length;
+
+    /* Samme to kontroller som i stribecellerne nedenfor, men paa hele siden.
+       `.op` undtages af samme grund som der: operatoren er en DEL af tallet
+       (regel 4), ikke et forbehold. */
+    if (/class="forbehold forbehold--tegn"/.test(html)) {
+      sideSynligeTegn++;
+      if (sideTegnEksempler.length < 3) sideTegnEksempler.push(path.basename(path.dirname(sti)));
+    }
+    for (const t of html.match(/<span aria-hidden="true">([^<]*)<\/span>/g) || []) {
+      if (/class="op"/.test(t)) continue;
+      const indhold = t.replace(/<[^>]*>/g, '').trim();
+      if (indhold === '*' || indhold === '†' || indhold === '‡') {
+        sideSynligeTegn++;
+        if (sideTegnEksempler.length < 3) {
+          sideTegnEksempler.push(`${path.basename(path.dirname(sti))}: ${indhold}`);
+        }
+      }
+    }
+    for (const m of html.matchAll(/<abbr class="forbehold--skjult"([^>]*)>([\s\S]*?)<\/abbr>/g)) {
+      sideSkjulteForbehold++;
+      const harTitle = /title="[^"]+"/.test(m[1]);
+      const harSkaerm = /<span class="kunskaerm">[^<]+<\/span>/.test(m[2]);
+      if (!harTitle || !harSkaerm) {
+        sideForbeholdUdenTekst++;
+        if (sideTomEksempler.length < 3) {
+          sideTomEksempler.push(`${path.basename(path.dirname(sti))} (title:${harTitle} kunskaerm:${harSkaerm})`);
+        }
+      }
+    }
     for (const stykke of html.split(STYKKE_START)) {
       if (stykke.includes('forbehold--skjult')) {
         stykkerMedForbehold++;
@@ -166,13 +210,22 @@ export default async function koer(ctx) {
     }
   }
 
-  ok(`intet synligt forbeholds-tegn i nogen kompakt celle (0 af ${kompakteCeller} celler)`,
-    kompakteCeller > 0 && synligeTegn === 0,
-    synligeTegn ? `${synligeTegn} fundet, fx: ${tegnEksempler.join(', ')}` : '');
+  /* De to krav maales nu paa HELE sitet (se noten ved taellerne). Den gamle,
+     smalle udgave stod paa kompakteCeller > 0, og den betingelse kan ingen
+     kortflade opfylde laengere - den ville have vaeret 0 af 0. */
+  ok(`intet synligt forbeholds-tegn nogen steder paa sitet (0 af ${sideSkjulteForbehold} forbehold)`,
+    sideSkjulteForbehold > 0 && sideSynligeTegn === 0,
+    sideSynligeTegn ? `${sideSynligeTegn} fundet, fx: ${sideTegnEksempler.join(', ')}` : '');
 
-  ok(`hvert skjult forbehold baerer sin tekst i BAADE title og .kunskaerm (${skjulteForbehold} forbehold, 0 uden)`,
-    skjulteForbehold > 0 && forbeholdUdenTekst === 0,
-    forbeholdUdenTekst ? `${forbeholdUdenTekst} uden tekst, fx: ${tomEksempler.join(', ')}` : '');
+  ok(`hvert skjult forbehold baerer sin tekst i BAADE title og .kunskaerm (${sideSkjulteForbehold} forbehold, 0 uden)`,
+    sideSkjulteForbehold > 0 && sideForbeholdUdenTekst === 0,
+    sideForbeholdUdenTekst ? `${sideForbeholdUdenTekst} uden tekst, fx: ${sideTomEksempler.join(', ')}` : '');
+
+  /* Kortfladerne har ingen kompakte celler mere - vagten holder dem fast paa
+     det, saa striben ikke sniger sig tilbage uden en beslutning. */
+  ok(`ingen kompakte stribeceller paa nogen flade (fandt ${kompakteCeller})`,
+    kompakteCeller === 0 && synligeTegn === 0 && skjulteForbehold === 0,
+    `celler ${kompakteCeller}, tegn ${synligeTegn}, forbehold ${skjulteForbehold}`);
 
   /* Nedre graenser, ikke faste tal - kataloget vokser, og en test, der
      knaekker af en ny robot, bliver slettet i stedet for laest. Tallene i
@@ -214,7 +267,27 @@ export default async function koer(ctx) {
      Derfor et gulv PR. FLADE i stedet for ét samlet. Det er strengere: det
      gamle tal kunne bestaas, selv om én flade tabte alt, saa laenge en anden
      voksede. Det nye kan det ikke. */
-  const FLADEGULV = { forside: 54, producent: 132, robotside: 264 };
+  /* VENDT IGEN 31. aug 2026 (spor/kort), og gulvene er igen MAALT, ikke gaettet.
+
+     Forsiden og producentsiderne har nu ogsaa TYPESKILT-kortet, saa de to
+     sidste kortstriber forsvandt - og med dem de forbehold, der hoerte til
+     kortenes tal. Maalt foer og efter:
+       forside    54 -> 8    (de 46, der laa i seks kort x to sprog)
+       producent 132 -> 0    (alle laa i minikortenes striber)
+       robotside 264 -> 264  UROERT
+       katalogindeks 0 -> 0
+       i alt     450 -> 272
+
+     Den linje, der afgoer, at det er et FLYT og ikke et TAB, er robotsidens:
+     264 foer, 264 efter. Hvert forbehold, der hoerer til et vist tal, staar
+     stadig ved sit tal. Det, der forsvandt, hoerte til tal, som ingen flade
+     viser mere - og et forbehold uden en vaerdi at staa ved er ikke en
+     oplysning, der gik tabt.
+
+     Forsidens 8 er ikke en rest af kortene: de ligger i yderpunkt-sektionen,
+     som viser rigtige vaerdier og derfor stadig skal baere sine forbehold.
+     Derfor har den stadig et gulv - falder den til 0, er noget gaaet i stykker. */
+  const FLADEGULV = { forside: 8, robotside: 264 };
   for (const [navn, gulv] of Object.entries(FLADEGULV)) {
     ok(`forbeholdene staar stadig paa ${navn} (${forbeholdPrFlade[navn]} stykker, gulv ${gulv}, maalt 31. aug 2026)`,
       forbeholdPrFlade[navn] >= gulv, `fandt ${forbeholdPrFlade[navn]}`);
@@ -222,12 +295,13 @@ export default async function koer(ctx) {
   ok(`forbeholdene er ikke forsvundet: ${stykkerMedForbehold} stykker baerer mindst ét forbehold (raa .kunskaerm: ${kunskaermIAlt})`,
     stykkerMedForbehold >= Object.values(FLADEGULV).reduce((a, b) => a + b, 0),
     `fandt ${stykkerMedForbehold}`);
-  /* Katalogindekset skal have NUL - ikke fordi nul er godt, men fordi det er
-     den besluttede tilstand, og en dag hvor striben er tilbage, skal denne
-     linje tvinge nogen til at laese noten ovenfor. */
-  ok('katalogindekset baerer ingen forbehold (det viser ingen tal, L56 punkt 7)',
-    forbeholdPrFlade.katalogindeks === 0,
-    `fandt ${forbeholdPrFlade.katalogindeks}`);
+  /* De to kortflader skal have NUL - ikke fordi nul er godt, men fordi det er
+     den besluttede tilstand, og en dag hvor striben er tilbage, skal disse
+     linjer tvinge nogen til at laese noten ovenfor. */
+  for (const navn of ['katalogindeks', 'producent']) {
+    ok(`${navn} baerer ingen forbehold (kortet viser ingen tal)`,
+      forbeholdPrFlade[navn] === 0, `fandt ${forbeholdPrFlade[navn]}`);
+  }
 
   /* 3. Kildebogstaverne, pr. flade. Ikke alle kort KAN baere et maerke - et
      felt uden `kilde:` i YAML'en faar ingen, og det er den rigtige opfoersel
@@ -242,22 +316,33 @@ export default async function koer(ctx) {
      IKKE svaekket paa den flade: kortets TAL er vaek, og et kildemaerke uden
      et tal at pege paa er meningsloest. De to flader, der stadig viser tal
      paa kort, maales uaendret. */
-  ok('katalog: kortene har ingen striber at baere kildebogstaver paa (L56 punkt 7)',
-    striber.katalog === 0,
-    `fandt ${striber.katalog} striber paa katalogsiderne`);
-  for (const [navn, gulv, maalt] of [['forside', 0.35, '8 af 12']]) {
-    ok(`${navn}: kortene baerer kildebogstaver (${medKilde[navn]} af ${striber[navn]} striber, gulv ${gulv * 100} %, maalt ${maalt} den 27. aug 2026)`,
-      striber[navn] > 0 && medKilde[navn] / striber[navn] >= gulv,
-      `${medKilde[navn]}/${striber[navn]}`);
+  /* ALLE TRE kortflader er nu ude af brøken (spor/kort, 31. aug 2026). Noten
+     ovenfor gjaldt kataloget; den gaelder nu ordret for forsiden og
+     producentsiderne ogsaa, af samme grund: kortenes TAL er vaek, og et
+     kildemaerke uden et tal at pege paa er meningsloest.
+
+     Kildeloeftet er ikke svaekket, og det er vaerd at sige, hvor det saa
+     bevises: 22-kildetjek.mjs og 27-kildeloefte.mjs vogter selve loeftet, og
+     bygget fejler stadig, hvis et talfelt mangler enhed eller kilde (maalt
+     samme dag: 1110 tal med kilde, 0 uden). Tallene og deres bogstaver staar
+     paa robotsiden, hvor de har plads til baade enhed og maerke. */
+  for (const navn of ['katalog', 'forside', 'producent']) {
+    ok(`${navn}: kortene har ingen striber at baere kildebogstaver paa`,
+      striber[navn] === 0,
+      `fandt ${striber[navn]} striber paa ${navn}-fladen`);
   }
 
-  /* Rettet (spor/proveniens, KRITIK-4 fund 2, 27. aug 2026): kompaktStribe()
-     i producent.mjs regner nu maerket ud selv, via H.kildemaerke(post, kilder,
-     hvorhen) med hvorhen = sti(ctx,'robot', m.slug) - samme anker-mekanisme
-     som katalog- og forsidekortene bruger til at pege paa robottens egen
-     #kilde-<bogstav>. Samme gulv som de to flader ovenfor, ikke 100 %: et
-     kort uden kildebelagt tal blandt sine fire felter faar ret ingen maerke. */
-  ok(`producentsidernes minikort baerer kildebogstaver (${medKilde.producent} af ${striber.producent} striber, gulv 35 %, maalt 142 af 154 den 27. aug 2026)`,
-    striber.producent > 0 && medKilde.producent / striber.producent >= 0.35,
-    `${medKilde.producent}/${striber.producent} striber har et kildemaerke, ${legendePaaProducent} producentsider trykker kort_legende`);
+  /* Her stod vagten for producentsidernes minikort-kildebogstaver (142 af 154,
+     gulv 35 %). Den er gaaet ind i loekken ovenfor som `striber.producent === 0`:
+     kompaktStribe() i producent.mjs findes ikke laengere.
+
+     Historikken, som ikke skal gaa tabt med funktionen: den regnede maerket ud
+     med et rigtigt `hvorhen` (sti(ctx,'robot',m.slug)), fordi et maerke uden
+     det gav href="#kilde-A" - et anker uden maal, da producentsiden ikke selv
+     har en kildeliste (KRITIK-4 fund 2, spor/proveniens). Den faelde kan ikke
+     komme igen paa denne flade, saa laenge fladen ikke tegner kildemaerker. */
+  ok('ingen af de tre kortflader tegner kildemaerker (der er ingen tal at pege paa)',
+    medKilde.katalog === 0 && medKilde.forside === 0 && medKilde.producent === 0,
+    `katalog ${medKilde.katalog}, forside ${medKilde.forside}, producent ${medKilde.producent}`
+    + ` · ${legendePaaProducent} producentsider trykker kort_legende`);
 }

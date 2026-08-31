@@ -157,6 +157,7 @@
   "kort_kilder_flere": "Kortets tal kommer fra {n} kilder – se mærkerne",
   "kort_kilder_ingen": "Ingen af kortets tal har en kilde i datafilen.",
   "kort_legende": "Fotos på kortene er producenternes egne. Kortenes tal bærer kildemærker – et hævet bogstav peger på hvilken kilde tallet kommer fra.",
+  "kort_legende_foto": "Fotos på kortene er producenternes egne.",
   "kort_invitation": "Se robotten",
 
   "ved_last": "ved last",

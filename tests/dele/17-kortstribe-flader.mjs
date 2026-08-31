@@ -1,75 +1,94 @@
 /**
- * tests/dele/17-kortstribe-flader.mjs — spor/legende, punkt 3.
+ * tests/dele/17-kortstribe-flader.mjs — Aa28-vagten, omskrevet af spor/kort
+ * 31. aug 2026.
  *
- * Vagt mod, at katalogsiden (/robotter/), forsiden (/) og producentsiderne
- * (/producenter/<slug>/) skrider fra hinanden igen, saadan som de gjorde ved
- * Aa28: producentkortets KORT_FELTER (tools/skabelon/producent.mjs) manglede
- * 'hastighed', mens katalog/forsidens STRIBE (tools/skabelon/side.mjs) havde
- * fire felter. Fejlen blev kun fundet ved at bygge og kigge - ingen anden test
- * daekkede den. Denne del paastaar det samme om alle tre flader, paa begge
- * sprog, i stedet for at antage det.
+ * FORMAALET ER UAENDRET: katalogsiden (/robotter/), forsiden (/) og
+ * producentsiderne (/producenter/<slug>/) maa ikke skride fra hinanden.
+ * Det skete ved Aa28 (producentkortets KORT_FELTER manglede 'hastighed',
+ * mens katalog/forsidens STRIBE havde fire felter), og det skete igen
+ * 31. aug, da katalogsporet gav sit kort TYPESKILT-grammatikken uden at de
+ * to andre flader fulgte med: samme robot, to udseender, afhaengigt af
+ * hvilken side man moedte den paa. Begge gange blev det fundet ved at bygge
+ * og kigge - ingen test daekkede det.
  *
- * Bygger sit eget dist i sin egen undermappe af ctx.tmp (dist-legende-vagt),
- * jf. tests/LAESMIG.md.
+ * HVAD DER BLEV MAALT FOER: de kompakte stribers feltorden, sammenlignet via
+ * ikonets href (#i-vaegt ...), fordi etiket-TEKSTEN bevidst var forskellig
+ * mellem fladerne (stribe_*-noeglerne mod felt_*-noeglerne) og en
+ * tekstsammenligning derfor ville give permanent falsk roedt.
  *
- * VIGTIG PRAECISERING af "sammenlign etiketterne i orden" (briefets ordlyd):
- * etiket-TEKSTEN er bevidst forskellig mellem katalog/forside og
- * producentkortet. Katalog/forside bruger i18n-noeglerne 'stribe_<felt>'
- * ("Vaegt", "Nyttelast", "Fart", "Driftstid" - korte kortlabels), mens
- * producentkortet bruger 'felt_<felt>' ("Egenvaegt", "Nyttelast, gaaende",
- * "Maks. hastighed", "Driftstid" - de lange feltnavne). Det er en tidligere
- * gennemgaaet og godkendt forskel i ORDLYD (se fund/FUND-i18n.md, punkt 3:
- * "stribe_egenvaegt beholdt som Weight ... felt_egenvaegt kalder ... Weight"),
- * ikke en fejl i FELT eller RAEKKEFOELGE. En bogstavelig tekstsammenligning
- * paa tvaers af de to noeglesaet ville derfor give et FALSK roedt resultat
- * hver eneste gang, uden at feltrækkefølgen faktisk var forkert - stik imod
- * briefets eget krav om, at ingen tredje post maa staa paa Fejlede-linjen.
+ * HVORFOR DET IKKE KAN MAALES LAENGERE: ingen af de tre flader har en kompakt
+ * stribe. Alle tre viser nu TYPESKILT-kortet - billede, producent,
+ * produktnavn og et statusstempel, naar status ikke er "i produktion".
+ * Vagten er derfor vendt til at sammenligne KORTETS GRAMMATIK i stedet for
+ * stribens felter. Det er ikke en svaekkelse: den gamle udgave kunne kun se
+ * uenighed inde i striben, mens den nye ser uenighed i hele kortet - og den
+ * daekker nu ALLE TRE flader, hvor den gamle havde maattet lade kataloget
+ * falde ud (det havde ingen stribe at sammenligne).
  *
- * Denne test sammenligner derfor FELTIDENTITETEN saadan som den utvetydigt
- * staar i selve den byggede HTML: ikonets href (<use href="#i-vaegt">...>) -
- * den samme streng, som baade STRIBE og KORT_FELTER bruger som deres andet
- * array-element. To kort med samme ikon-raekkefoelge viser praecis de samme
- * fire felter i praecis den samme raekkefoelge, uanset hvilken etiket-tekst
- * der staar ved siden af. Etiket-teksten laeses stadig ud og bruges - til at
- * bekraefte at hver celle rent faktisk HAR en etiket (ikke en tom stribe--intet-
- * prosaboks), og til at logge, hvad der faktisk blev fundet.
+ * Etiket-fælden fra den gamle udgave gaelder stadig og er grunden til, at
+ * intet herunder sammenligner synlig tekst paa tvaers af flader: fladerne
+ * skriver producentnavn og produktnavn ud fra de samme data, men sproget og
+ * stien er forskellig. Sammenligningen sker derfor paa STRUKTUR (hvilke
+ * klasser kortet baerer) og paa IDENTITET (robottens slug fra linket).
+ *
+ * Bygger sit eget dist i sin egen undermappe af ctx.tmp, jf. tests/LAESMIG.md.
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-/** Traekker samtlige kompakte striber (.stribe--kompakt) ud af én HTML-side.
- *  Én post pr. fundet <ul class="stribe stribe--kompakt ...">...</ul>. */
-function traekStriber(html) {
-  const resultater = [];
+/** Robottens slug ud af et kortlink. Fladerne har hver sin dybde:
+ *  katalog "unitree-go2/", forside "robotter/unitree-go2/",
+ *  producent "../../robotter/unitree-go2/". Sidste ikke-tomme led er slug'en. */
+function slugAf(href) {
+  const led = href.split('/').filter((s) => s && s !== '..' && s !== '.');
+  return led.length ? led[led.length - 1] : null;
+}
+
+/** Alle TYPESKILT-kort paa én side. Ét objekt pr. <article class="kort...">. */
+function traekKort(html) {
+  const ud = [];
   let fra = 0;
   for (;;) {
-    const s = html.indexOf('<ul class="stribe stribe--kompakt', fra);
+    const s = html.indexOf('<article class="kort', fra);
     if (s < 0) break;
-    const slut = html.indexOf('</ul>', s);
-    const blok = html.slice(s, slut < 0 ? html.length : slut);
-    fra = (slut < 0 ? html.length : slut) + 5;
+    const e = html.indexOf('</article>', s);
+    const blok = html.slice(s, e < 0 ? html.length : e);
+    fra = (e < 0 ? html.length : e) + 10;
 
-    const lier = [...blok.matchAll(/<li( class="hul")?>([\s\S]*?)<\/li>/g)]
-      .map((m) => ({ hul: !!m[1], indhold: m[2] }));
-    const ikoner = [...blok.matchAll(/<use href="#([^"]+)"/g)].map((m) => m[1]);
-    const etiketter = [...blok.matchAll(/<span class="etiket">([^<]*)<\/span>/g)].map((m) => m[1]);
-
-    resultater.push({
-      antalLi: lier.length,
-      lier,
-      ikoner,
-      etiketter,
-      harStribeIntet: /stribe--intet/.test(blok),
+    const aabning = blok.slice(0, blok.indexOf('>') + 1);
+    const link = blok.match(/<h3 class="kort__navn"><a href="([^"]*)"/);
+    ud.push({
+      // Ordret `<article class="kort">` er resultatgitterets kort. Varianter
+      // (fx katalogets kort--seneste) har deres egen aabning og taelles for sig.
+      ordret: aabning === '<article class="kort">',
+      aabning,
+      slug: link ? slugAf(link[1]) : null,
+      harTekstblok: /<div class="kort__tekst">/.test(blok),
+      harProd: /<p class="kort__prod">/.test(blok),
+      harNavn: /<h3 class="kort__navn"><a href=/.test(blok),
+      harStempel: /<span class="kort__mrk">/.test(blok),
+      // BILLEDLEDDET, ikke <img>. Kortet har tre billedtilstande, og kun de to
+      // foerste er et fotografi: rigtigt foto, fri plade - og MAALEPLADEN, som
+      // tegnes for en robot uden brugbar optagelse (i dag xiaomi-cyberdog-1,
+      // 76 af 77 filer har et billede). Maalepladen er ikke et hul, den er en
+      // egen tilstand med laengde x hoejde og en .kunskaerm-forklaring, saa et
+      // krav om <img> ville have doemt den korrekte tilstand som en fejl.
+      // Det, vagten skal sikre, er at pladsen ALDRIG er tom.
+      harBillede: /class="billedled/.test(blok),
+      harFoto: /<picture|<img /.test(blok),
+      // Det, der IKKE maa vaere tilbage fra det gamle kort.
+      harStribe: /<ul class="stribe/.test(blok),
+      harGammelKrop: /class="kort-krop"|class="kort-ophav"|class="kort-navn"|class="kort-invit"/.test(blok),
     });
   }
-  return resultater;
+  return ud;
 }
 
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
 
-  console.log('\n17. spor/legende: kompakt-stribens kontrakt er den samme paa alle tre flader (Aa28-vagt)');
+  console.log('\n17. Aa28-vagten: TYPESKILT-kortet er den SAMME komponent paa alle tre flader');
 
   const udMappe = path.join(tmp, 'dist-legende-vagt');
   fs.rmSync(udMappe, { recursive: true, force: true });
@@ -85,99 +104,93 @@ export default async function koer(ctx) {
   }
 
   for (const sprog of ['da', 'en']) {
-    /* ------------------------------------------------------------ katalog */
     const katalogHtml = laes(`${sprog}/robotter/index.html`);
     ok(`${sprog}/robotter/: katalogsiden blev bygget`, katalogHtml !== null);
-    const katalogStriber = katalogHtml ? traekStriber(katalogHtml) : [];
-
-    /* ------------------------------------------------------------ forside */
     const forsideHtml = laes(`${sprog}/index.html`);
     ok(`${sprog}/: forsiden blev bygget`, forsideHtml !== null);
-    const forsideStriber = forsideHtml ? traekStriber(forsideHtml) : [];
 
-    /* --------------------------------------------------------- producenter */
     const producentRod = path.join(udMappe, sprog, 'producenter');
-    let producentStriber = [];
+    let producentKort = [];
+    let producentSider = 0;
     if (fs.existsSync(producentRod)) {
       for (const m of fs.readdirSync(producentRod, { withFileTypes: true })) {
         if (!m.isDirectory()) continue;
         const f = path.join(producentRod, m.name, 'index.html');
         if (!fs.existsSync(f)) continue;
-        producentStriber = producentStriber.concat(traekStriber(fs.readFileSync(f, 'utf8')));
+        producentSider++;
+        producentKort = producentKort.concat(traekKort(fs.readFileSync(f, 'utf8')));
       }
     }
-    ok(`${sprog}/producenter/: mindst én producentside med kompakte striber fundet`,
-      producentStriber.length > 0, `fandt ${producentStriber.length} striber`);
 
-    /* KATALOGET ER UDE AF FLADELISTEN pr. 31. aug 2026 (spor/katalog, L56
-       punkt 7): katalogkortet viser billede + producent + produktnavn og har
-       ingen stribe, saa der er ingen striber at holde op mod de to andre
-       flader. Sammenligningen mellem forside og producentsider - som er hele
-       pointen med denne fil - staar uaendret.
-
-       Vagten nedenfor er ikke pynt: den er det, der faar filen til at FEJLE,
-       hvis striben sniger sig tilbage paa katalogkortet uden en beslutning. */
-    ok(`${sprog}/robotter/: katalogkortet har ingen kompakt stribe (L56 punkt 7)`,
-      katalogStriber.length === 0,
-      `fandt ${katalogStriber.length} striber paa katalogsiden`);
+    const katalogKort = katalogHtml ? traekKort(katalogHtml) : [];
+    const forsideKort = forsideHtml ? traekKort(forsideHtml) : [];
 
     const flader = [
-      ['forside', forsideStriber],
-      ['producent', producentStriber],
+      ['katalog', katalogKort],
+      ['forside', forsideKort],
+      ['producent', producentKort],
     ];
 
-    /* ------------------------------------------- paastand 1: fire <li>, ALDRIG
-       stribe--intet paa et kompakt kort (den prosagren hoerer kun til robot-
-       sidens fulde, ikke-kompakte stribe - se 16-instrumentkort.mjs). */
-    for (const [navn, striber] of flader) {
-      const forkerte = striber.filter((s) => s.antalLi !== 4);
-      const fordeling = striber.reduce((acc, s) => {
-        acc[s.antalLi] = (acc[s.antalLi] || 0) + 1;
-        return acc;
-      }, {});
-      ok(`${sprog}/${navn}: alle ${striber.length} kompakte striber har praecis 4 <li> (0 undtagelser)`,
-        striber.length > 0 && forkerte.length === 0,
-        `fordeling: ${JSON.stringify(fordeling)}`);
+    ok(`${sprog}/producenter/: der blev fundet producentsider med kort (${producentSider} sider, ${producentKort.length} kort)`,
+      producentSider > 0 && producentKort.length > 0);
 
-      ok(`${sprog}/${navn}: ingen "stribe--intet" paa et kompakt kort`,
-        !striber.some((s) => s.harStribeIntet));
+    /* --- paastand 1: alle tre flader HAR kort. Uden det led ville hver eneste
+       paastand nedenfor vaere sand om en tom liste. */
+    for (const [navn, kort] of flader) {
+      ok(`${sprog}/${navn}: der er kort at maale paa (${kort.length})`, kort.length > 0);
     }
 
-    /* ------------------------------------------- paastand 2: samme feltorden
-       paa alle tre flader - sammenlignet via ikon-href (feltidentiteten), se
-       forklaringen i filens hoved-kommentar. */
-    const ikkeTomme = flader.filter(([, striber]) => striber.length > 0);
-    if (ikkeTomme.length > 0) {
-      const [refNavn, refStriber] = ikkeTomme[0];
-      const refOrden = JSON.stringify(refStriber[0].ikoner);
-      const refUenige = refStriber.filter((s) => JSON.stringify(s.ikoner) !== refOrden);
-      ok(`${sprog}/${refNavn}: alle ${refStriber.length} kort er internt enige om feltordenen (${refStriber[0].ikoner.join(' -> ')})`,
-        refUenige.length === 0, `${refUenige.length} kort afveg internt`);
-
-      for (const [navn, striber] of ikkeTomme.slice(1)) {
-        const uenige = striber.filter((s) => JSON.stringify(s.ikoner) !== refOrden);
-        ok(`${sprog}: ${navn}s feltorden matcher ${refNavn}s (${refStriber[0].ikoner.join(' -> ')})`,
-          uenige.length === 0,
-          uenige.length ? `${uenige.length} kort afveg, foerste: ${JSON.stringify(uenige[0].ikoner)}` : '');
-      }
+    /* --- paastand 2: TYPESKILT-grammatikken, ens paa alle tre flader.
+       Billede + producent + produktnavn i en .kort__tekst-blok. */
+    for (const [navn, kort] of flader) {
+      const mangler = kort.filter((k) => !(k.harTekstblok && k.harProd && k.harNavn && k.harBillede));
+      const udenFoto = kort.filter((k) => !k.harFoto).length;
+      ok(`${sprog}/${navn}: alle ${kort.length} kort har billedled + .kort__prod + .kort__navn i .kort__tekst (${udenFoto} paa maaleplade)`,
+        kort.length > 0 && mangler.length === 0,
+        mangler.length ? `${mangler.length} kort afveg, foerste: ${mangler[0].slug ?? mangler[0].aabning}` : '');
     }
 
-    /* ------------------------------------------- paastand 3: tomme celler er
-       den stiplede "ikke oplyst"-tilstand (v-ikke), ikke en tom celle og ikke
-       et bogstaveligt 0 (haard begraensning 5). */
-    const alleHulLier = flader.flatMap(([navn, striber]) => striber
-      .flatMap((s) => s.lier.filter((l) => l.hul).map((l) => ({ navn, l }))));
-    ok(`${sprog}: mindst én "hul"-celle fundet paa tvaers af fladerne (bekraefter at paastanden nedenfor proever noget reelt)`,
-      alleHulLier.length > 0, `fandt ${alleHulLier.length}`);
+    /* --- paastand 3: intet af det gamle kort er tilbage nogen steder.
+       Det er den direkte vagt mod, at en flade falder tilbage - og mod at en
+       NY flade bygges paa den gamle kopi. */
+    for (const [navn, kort] of flader) {
+      const gamle = kort.filter((k) => k.harStribe || k.harGammelKrop);
+      ok(`${sprog}/${navn}: intet kort baerer den gamle stribe eller kort-krop/-ophav/-navn/-invit`,
+        gamle.length === 0,
+        gamle.length ? `${gamle.length} kort baerer gammel markup` : '');
+    }
 
-    const forkerteHuller = alleHulLier.filter(({ l }) => {
-      const harVIkke = /class="v v-ikke"/.test(l.indhold);
-      const erBogstaveligtNul = /<b class="num">\s*0\s*<\/b>/.test(l.indhold);
-      const erTom = l.indhold.replace(/<[^>]+>/g, '').trim() === '';
-      return !harVIkke || erBogstaveligtNul || erTom;
-    });
-    ok(`${sprog}: samtlige ${alleHulLier.length} "hul"-celler viser den stiplede v-ikke-tilstand (ikke tom, ikke et bogstaveligt 0)`,
-      forkerteHuller.length === 0, `${forkerteHuller.length} celler afveg`);
+    /* --- paastand 4: statusstemplet foelger den SAMME regel paa alle flader.
+       Det er den skarpeste drift-vagt, vi kan stille i dag: stemplet er den
+       eneste forskel, kortet baerer, saa hvis to flader er uenige om, HVILKE
+       robotter der stemples, er de skredet fra hinanden.
+
+       Sammenligningen sker pr. slug, ikke pr. position: fladerne viser ikke
+       de samme robotter (forsiden viser seks, kataloget alle 77), saa kun
+       faellesmaengden kan sammenlignes. */
+    const stempletPrFlade = new Map();
+    for (const [navn, kort] of flader) {
+      const m = new Map();
+      for (const k of kort) if (k.slug) m.set(k.slug, k.harStempel);
+      stempletPrFlade.set(navn, m);
+    }
+    const katalogStempel = stempletPrFlade.get('katalog');
+    for (const navn of ['forside', 'producent']) {
+      const m = stempletPrFlade.get(navn);
+      const faelles = [...m.keys()].filter((s) => katalogStempel.has(s));
+      const uenige = faelles.filter((s) => m.get(s) !== katalogStempel.get(s));
+      ok(`${sprog}: ${navn} og katalog er enige om statusstemplet paa alle ${faelles.length} faelles robotter`,
+        faelles.length > 0 && uenige.length === 0,
+        uenige.length ? `uenige om: ${uenige.slice(0, 3).join(', ')}` : '');
+    }
+
+    /* --- paastand 5: stemplet er ikke bare konsistent, det SIDDER der ogsaa.
+       Uden den her ville paastand 4 vaere sand, hvis ingen flade stemplede
+       noget som helst. */
+    const stemplede = katalogKort.filter((k) => k.harStempel).length;
+    ok(`${sprog}/katalog: nogle kort baerer et statusstempel (${stemplede} af ${katalogKort.length})`,
+      stemplede > 0 && stemplede < katalogKort.length,
+      'stemplet laegges kun paa, naar status ikke er "i produktion" - 0 eller alle ville betyde, at reglen ikke virker');
   }
 
   fs.rmSync(udMappe, { recursive: true, force: true });

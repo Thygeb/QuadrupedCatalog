@@ -1372,50 +1372,66 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
 
   /* --- 9. robotkortet ---------------------------------------------------- */
 
-  /**
-   * Kortet har ingen doer ud af sitet: ingen pris, ingen knap, ingen stjerner
-   * og ingen "featured". Navnet staar UNDER billedet, ikke paa det.
-   */
-  /**
-   * op  = stien tilbage til dist/ (til billeder og aktiver)
-   * til = stien til robotmapperne fra den side, kortet staar paa
+  /* --- TYPESKILT-KORTET ---------------------------------------------------
+     Kortet har ingen doer ud af sitet: ingen pris, ingen knap, ingen stjerner
+     og ingen "featured". Navnet staar UNDER billedet, ikke paa det.
+
+     ÉN funktion til BEGGE flader (spor/kort, 31. aug 2026). Foer i dag fandtes
+     kortet i tre haandkopier - her, i producent.mjs og i katalog.mjs - og det
+     var derfor, fladerne kunne skride fra hinanden: da katalogsporet gav sit
+     kort TYPESKILT-grammatikken, fulgte de to andre ikke med, og den samme
+     robot havde to udseender afhaengigt af hvilken side man moedte den paa.
+
+     Katalogkommentaren (katalog.mjs:605) begrundede dengang adskillelsen med,
+     at denne funktion "deles med forsiden og producentsiderne, som ikke er
+     bygget om i dette spor, og som stadig skal have striben, landet og
+     anvendelsesmaerkerne" - en faelles funktion ville vaere "en kontakt med to
+     stillinger". Den begrundelse var TIDSBESTEMT, ikke principiel: nu ER de to
+     flader bygget om, de vil have praecis det samme kort, og kontakten har
+     derfor kun én stilling. Det, der er tilbage, er rene parametre - hvor
+     billederne ligger, hvor linket peger hen - ikke to opfoersler.
+
+     Katalog.mjs beholder sin egen kopi, fordi filen er uden for dette spors
+     ejerskab. Den er ordret den samme grammatik; naar et spor ejer begge filer,
+     kan den kalde herind og de tre kopier bliver til én.
+
+     Statusstemplet laegges KUN paa, naar status ikke er "i produktion":
+     forskellen er den eneste, kortet skal kunne baere (MANIFEST Layouttesen).
+
+     op           = stien tilbage til dist/ (til billeder og aktiver)
+     til          = stien til robotmapperne fra den side, kortet staar paa
+     href         = hele linkmaalet, naar kaldet selv kender det (producent-
+                    siden regner det med sti(ctx,'robot',slug)). Vinder over `til`.
+     billedeKilde = producentsidens opslag i ctx.billeder, som skal vinde over
+                    robottens eget felt. Uden den ville minikortet vise et andet
+                    billede end det, producentsiden har valgt.
    */
   function kort(robot, {
-    op = '', til = '', kilder = null, eager = false,
+    op = '', til = '', href = null, eager = false, billedeKilde = null,
   } = {}) {
-    const k = kilder ?? lavKilder(robot);
-    const hvorhen = `${til}${robot.slug}/`;
-    const a = anvendelse(robot);
-    const antalKilder = k.antal;
-
-    // Designsystemets regel: bogstaverne staar paa kortet KUN naar posten har
-    // mere end én kilde.
-    const stribeKilder = antalKilder > 1 ? k : null;
-
-    // Hover-/fokus-signalet (spor/indgang, punkt 3, 26. aug 2026): kortets
-    // eneste hover-effekt var foer dette scale(1.024) paa fotografiet - 2,4 %,
-    // maalt usynligt. Teksten er rent dekorativ (aria-hidden): kortets navn
-    // baerer allerede det rigtige link (::after daekker hele kortet), saa
-    // invitationen skal ikke laeses to gange af en skaermlaeser. `.kort-billed`
-    // er en almindelig wrapper omkring billede() - selve billedet/pladen/den
-    // tomme flade er urort, saa alle tre billedtilstande faar signalet uden
-    // at nogen af dem er aendret.
-    return `<article class="kort">
-<div class="kort-billed">
-${billede(robot, op, { eager })}
-<span class="kort-invit" aria-hidden="true">${esc(t('kort_invitation'))}${ikon('i-pil', 'ikon ikon--lille')}</span>
-</div>
-<div class="kort-krop">
-<div class="kort-hoved">
-<p class="kort-ophav"><span class="prod">${esc(robot.producent)}</span>`
-      + `<span class="land">${esc(land(robot.producentland))}</span>`
-      + `<span class="status status--${attr(robot.status)}">${esc(T['status_' + robot.status])}</span></p>
-<h3 class="kort-navn"><a href="${attr(hvorhen)}">${esc(robot.navn)}</a></h3>
-</div>
-${stribe(robot, { kompakt: true, kilder: stribeKilder, hvorhen })}
-${a.maerker()}
-</div>
-</article>`;
+    const hvorhen = href ?? `${til}${robot.slug}/`;
+    // T['status_...'] slaar fejl, hvis en post mangler status. Alle 77 har den
+    // i dag (maalt), men producentsidens modeller naar herind ad en anden vej
+    // end forsidens, saa stemplet springes over frem for at stanse "undefined".
+    const stempelTekst = robot.status ? T['status_' + robot.status] : null;
+    const stempel = (!robot.status || robot.status === 'i_produktion' || !stempelTekst)
+      ? ''
+      : `<span class="kort__mrk">${esc(stempelTekst)}</span>`;
+    const emne = billedeKilde ? { ...robot, billede: billedeKilde } : robot;
+    // Linket ligger paa NAVNET, ikke om hele kortet: skaermlaeseren skal
+    // annoncere "Go2", ikke hele kortets indhold. `.kort__navn a::after`
+    // daekker kortet, saa hele fladen alligevel er klikbar.
+    //
+    // AABNINGSTAGGEN ER ORDRET `<article class="kort">`. tools/build.mjs:88
+    // taeller netop den streng og paastaar (linje 297), at forsiden viser
+    // noejagtigt seks kort - hverken et style- eller et data-attribut maa
+    // derfor ind foran klassen.
+    return `<article class="kort">`
+      + `${stempel}${billede(emne, op, { eager })}`
+      + `<div class="kort__tekst">`
+      + `<p class="kort__prod">${esc(robot.producent)}</p>`
+      + `<h3 class="kort__navn"><a href="${attr(hvorhen)}">${esc(robot.navn ?? robot.slug)}</a></h3>`
+      + `</div></article>`;
   }
 
   /* --- 10. tegnforklaringen ---------------------------------------------- */
