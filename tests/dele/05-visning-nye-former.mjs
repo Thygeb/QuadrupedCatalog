@@ -92,9 +92,17 @@ export default async function koer(ctx) {
   const katalog = fs.readFileSync(path.join(ud, 'da', 'robotter', 'index.html'), 'utf8');
 
   // Fortegnet er det, der gaar galt, hvis "nej" bliver laest som en sand streng.
-  // Derfor laeses de to felters egne <dd>-blokke, ikke bare siden som helhed.
+  // Derfor laeses de to felters egne vaerdiceller, ikke bare siden som helhed.
+  //
+  // OPDATERET (spor/robot, 31. aug 2026): skemaet er ikke laengere en <dl> bag
+  // <details>, men comp'ens AABNE tabel - feltnavnet staar i <th scope="row">
+  // og vaerdien i <td class="skema-v">. REGLEN er uaendret og proeves uaendret
+  // nedenfor: "nej" skal vises som nej og maa ikke kollapse til ja. Kun
+  // udtraekket foelger med markup'en. <th> kan baere D18's m-etiket-klasse,
+  // derfor [^>]* foer ">".
   const feltBlok = (etiket) => (side.match(
-    new RegExp(`<dt>${etiket.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}</dt>\\s*<dd>([\\s\\S]*?)</dd>`)) || [])[1] ?? '';
+    new RegExp(`<th scope="row" role="rowheader"[^>]*>${etiket.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}</th>`
+      + `<td class="skema-v"[^>]*>([\\s\\S]*?)</td>`)) || [])[1] ?? '';
   const ros2Blok = feltBlok('ROS 2');
   const hotBlok = feltBlok('Hot-swap af batteri');
   // Klassenavnene "vaerdi--ja/nej" og glyfferne ✓/✗ er den gamle navngivning
@@ -160,12 +168,22 @@ export default async function koer(ctx) {
     json.robotter[0].vaegtklasse === 'ikke_oplyst',
     JSON.stringify(json.robotter[0].vaegtklasse));
   // Etiketten er ikke laengere en BEM-klasse ("vaegtklasse--X") - den staar som
-  // lokaliseret tekst i <p class="t-mikro vaegtklasse">. Teksten er UDLEDT af
-  // data/i18n/da.json (samme kilde, koden selv laeser), ikke skrevet i haanden -
-  // aendrer ordlyden sig, foelger proeven med.
+  // lokaliseret tekst. Teksten er UDLEDT af data/i18n/da.json (samme kilde,
+  // koden selv laeser), ikke skrevet i haanden - aendrer ordlyden sig, foelger
+  // proeven med.
+  //
+  // OPDATERET (spor/robot, 31. aug 2026): TYPESKILT-formen samler status,
+  // vaegtklasse og anvendelse i ÉN maerkelinje under robotnavnet, saa etiketten
+  // staar i <li class="maerke maerke--vaegt …> i stedet for i sin egen
+  // <p class="t-mikro vaegtklasse">. REGLEN er uaendret - vaegtklassen skal
+  // staa paa selve siden og ikke kun i indekset - og skaerpet ét sted: den
+  // uoplyste klasse skal ogsaa BAERE den tomme tilstands form (maerke--tom),
+  // saa haard begraensning 5 ikke kan tabes ved en senere omskrivning.
   const da = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', 'da.json'), 'utf8'));
+  const vaegtChip = (side.match(/<li class="maerke maerke--vaegt[\s\S]*?<\/li>/) || [''])[0];
   ok('vaegtklassen staar ogsaa paa siden, saa den ikke kun findes i indekset',
     Boolean(da.vaegtklasse_ikke_oplyst)
-    && side.includes(`class="t-mikro vaegtklasse">${da.vaegtklasse_ikke_oplyst}<`),
+    && vaegtChip.includes(da.vaegtklasse_ikke_oplyst)
+    && vaegtChip.includes('maerke--tom'),
     da.vaegtklasse_ikke_oplyst ? 'fandt ikke etiketten i markup' : 'vaegtklasse_ikke_oplyst mangler i da.json');
 }

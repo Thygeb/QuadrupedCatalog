@@ -529,7 +529,10 @@ export function vaerdi(navn, post, ctx, kilder) {
  */
 function omregningsMaerke(imp, ctx) {
   const { i18n } = ctx;
-  if (imp.egen) return '';
+  // Producentens eget tal: intet synligt maerke (se ovenfor), men en
+  // skaermlaeser skal ikke skulle regne fravaeret ud af en forklaringslinje
+  // langt oppe paa siden.
+  if (imp.egen) return `<span class="kunskaerm">${esc(T(i18n, 'imperial_forklaring'))}</span>`;
   const forklaring = flet(T(i18n, 'enhed_omregnet_forklaring'), { figur: imp.kildeform });
   return `<span class="omregnet" title="${esc(forklaring)}">`
     + `<span aria-hidden="true">${esc(T(i18n, 'enhed_omregnet'))}</span>`
@@ -614,7 +617,16 @@ export function billedfod(ctx) {
     `</figcaption>`;
 }
 
-/* ------------------------------------------------------------- afsnittene */
+/* ------------------------------------------------------------- afsnittene
+ *
+ * SEKTIONSOVERSKRIFTERNE er stansede etiketter, ikke display-overskrifter.
+ * De stod paa `.t-h2` (34 px ved 1440) fra ORBIT-verdenen, mens
+ * noegletalshovedet allerede brugte `.etiket` (11,5 px) - to grammatikker paa
+ * samme side. TYPESKILT vaelger den ene: paa en stanset plade er ETIKETTEN
+ * lille og VAERDIEN stor, saa "EU" holdt op med at vaere sidens naeststoerste
+ * tekst, og robotnavnet staar alene i toppen af skalaen. Comp'ens robotside
+ * saetter sin `.skema__navn` paa netop 11 px af samme grund.
+ */
 
 /** Noegletalsstriben. Cellen bliver staaende, ogsaa naar den er tom. */
 function stribe(ctx, kilder) {
@@ -722,7 +734,7 @@ function euBlok(ctx, kilder) {
 
   return `<section class="sektion eu-blok" aria-labelledby="eu-h">
 <div class="sektion-hoved">
-<h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2>
+<h2 class="etiket etiket--blaek" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2>
 </div>
 <div class="eu-krop">
 <svg class="ikon eu-ikon" aria-hidden="true"><use href="#i-ce"/></svg>
@@ -752,7 +764,7 @@ function produktside(ctx, kilder) {
 <p class="t-mikro produktside-url">${esc(valgt.url)}</p>`
     : `<p class="t-lille">${esc(T(i18n, 'produktside_ingen'))}</p>`;
   return `<section class="sektion produktside" aria-labelledby="produktside-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="produktside-h">${esc(T(i18n, 'produktside_titel'))}</h2></div>
+<div class="sektion-hoved"><h2 class="etiket etiket--blaek" id="produktside-h">${esc(T(i18n, 'produktside_titel'))}</h2></div>
 <p class="t-broed maal">${esc(T(i18n, 'produktside_forklaring'))}</p>
 ${krop}
 </section>`;
@@ -834,7 +846,7 @@ ${citater.map((c) => `<p>${esc(c)}</p>`).join('\n')}
   const forklaringNoegle = a.arvet_fra ? 'anvendelse_forklaring_arvet' : 'anvendelse_forklaring';
 
   return `<section class="sektion anvendelse" aria-labelledby="anvendelse-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="anvendelse-h">${esc(T(i18n, 'anvendelse_titel'))}</h2></div>
+<div class="sektion-hoved"><h2 class="etiket etiket--blaek" id="anvendelse-h">${esc(T(i18n, 'anvendelse_titel'))}</h2></div>
 ${citatDel}
 ${arvet}
 ${kildeDel}
@@ -916,7 +928,7 @@ function skiltLinje(ctx) {
   const t = raa === true ? 'ja' : raa === false ? 'nej' : (tilstandAf(raa) ?? 'ikke_oplyst');
   const tom = t === 'ikke_oplyst';
   punkter.push(`<li class="maerke maerke--ce${tom ? ' maerke--tom' : ''}">`
-    + `${tilstandsMaerke(t)}<span class="maerke__navn">${esc(T(i18n, 'felt_ce_oplyst'))}</span>`
+    + `${tilstandsMaerke(t)}<span class="maerke__navn">${esc(T(i18n, 'felt_ce_oplyst'))}:</span>`
     + `${esc(t === 'ja' ? T(i18n, 'ja') : TD(i18n, 'tilstand_' + t, t))}</li>`);
 
   return `<ul class="maerker skiltlinje">${punkter.join('')}</ul>`;
@@ -936,8 +948,8 @@ function skema(ctx, kilder) {
   const kroppe = GRUPPER.map((g) => {
     const navne = FELTNAVNE.filter((n) => FELTER[n].gruppe === g);
     if (!navne.length) return '';
-    return `<tbody class="skema-gruppe">
-<tr class="skema-gruppenavn"><th scope="rowgroup" colspan="3">${esc(T(i18n, 'gruppe_' + g))}</th></tr>
+    return `<tbody class="skema-gruppe" role="rowgroup">
+<tr class="skema-gruppenavn" role="row"><th scope="rowgroup" colspan="3" role="rowheader">${esc(T(i18n, 'gruppe_' + g))}</th></tr>
 ${navne.map((navn) => skemaRaekke(navn, robot.felter?.[navn], ctx, kilder)).join('\n')}
 </tbody>`;
   }).filter(Boolean).join('\n');
@@ -957,17 +969,15 @@ ${navne.map((navn) => skemaRaekke(navn, robot.felter?.[navn], ctx, kilder)).join
 ${enhedsskifter(ctx)}
 </div>
 ${enhedsnote(ctx)}
-<div class="skema-rulle">
-<table class="skema-tabel" aria-labelledby="skema-h">
-<caption class="skema-tabel__kap">${esc(T(i18n, 'skema_tabel_forklaring'))}</caption>
-<thead><tr>
-<th scope="col">${esc(T(i18n, 'skema_kolonne_felt'))}</th>
-<th scope="col">${esc(T(i18n, 'skema_kolonne_vaerdi'))}</th>
-<th scope="col">${esc(T(i18n, 'skema_kolonne_kilde'))}</th>
+<table class="skema-tabel" role="table" aria-labelledby="skema-h">
+<caption class="skema-tabel__kap" role="caption">${esc(T(i18n, 'skema_tabel_forklaring'))}</caption>
+<thead role="rowgroup"><tr role="row">
+<th scope="col" role="columnheader">${esc(T(i18n, 'skema_kolonne_felt'))}</th>
+<th scope="col" role="columnheader">${esc(T(i18n, 'skema_kolonne_vaerdi'))}</th>
+<th scope="col" role="columnheader">${esc(T(i18n, 'skema_kolonne_kilde'))}</th>
 </tr></thead>
 ${kroppe}
 </table>
-</div>
 <p class="t-mikro maal">${esc(T(i18n, 'sammenlign_advarsel'))}</p>
 </section>`;
 }
@@ -989,10 +999,15 @@ function skemaRaekke(navn, post, ctx, kilder) {
   const { i18n } = ctx;
   const { html, hul, maerke } = vaerdi(navn, post, ctx, kilder);
   const noter = advarselBlok(post, ctx) + noteBlok(post) + varianter(post, ctx);
-  return `<tr${hul ? ' class="uoplyst"' : ''}>`
-    + `<th scope="row"${dtMaerke(post)}>${esc(T(i18n, 'felt_' + navn))}</th>`
-    + `<td class="skema-v">${html}</td>`
-    + `<td class="skema-k">${maerke}${noter}</td></tr>`;
+  // De eksplicitte role-attributter er ikke stoej. Ved 720 px og derunder
+  // saettes tabellens dele til display:block (comp'ens mobilform), og en
+  // browser afleder da IKKE laengere tabelrollerne af elementnavnene - raekker
+  // og celler ville forsvinde ud af tilgaengelighedstraeet uden en synlig
+  // fejl nogen steder. Rollerne skrevet paa holder semantikken i begge former.
+  return `<tr${hul ? ' class="uoplyst"' : ''} role="row">`
+    + `<th scope="row" role="rowheader"${dtMaerke(post)}>${esc(T(i18n, 'felt_' + navn))}</th>`
+    + `<td class="skema-v" role="cell">${html}</td>`
+    + `<td class="skema-k" role="cell">${maerke}${noter}</td></tr>`;
 }
 
 /* ------------------------------------------------------- enhedsomskifteren */
@@ -1042,7 +1057,7 @@ function kildeliste(ctx, kilder) {
   const { i18n } = ctx;
   if (!kilder.length) {
     return `<section class="sektion kilder" id="kilder" aria-labelledby="kilder-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="kilder-h">${esc(T(i18n, 'kilder_titel'))}</h2></div>
+<div class="sektion-hoved"><h2 class="etiket etiket--blaek" id="kilder-h">${esc(T(i18n, 'kilder_titel'))}</h2></div>
 <p class="t-lille">${esc(T(i18n, 'kilde_ingen'))}</p>
 </section>`;
   }
@@ -1070,7 +1085,7 @@ function kildeliste(ctx, kilder) {
   }).join('\n');
 
   return `<section class="sektion kilder" id="kilder" aria-labelledby="kilder-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="kilder-h">${esc(T(i18n, 'kilder_titel'))}</h2></div>
+<div class="sektion-hoved"><h2 class="etiket etiket--blaek" id="kilder-h">${esc(T(i18n, 'kilder_titel'))}</h2></div>
 <ul class="kildeliste">
 ${punkter}
 </ul>
@@ -1085,7 +1100,7 @@ function noterBlok(ctx) {
     ? `<ul class="noter">${robot.noter.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>`
     : `<p class="t-broed maal">${esc(robot.noter)}</p>`;
   return `<section class="sektion noter-blok" aria-labelledby="noter-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="noter-h">${esc(T(i18n, 'noter'))}</h2></div>
+<div class="sektion-hoved"><h2 class="etiket etiket--blaek" id="noter-h">${esc(T(i18n, 'noter'))}</h2></div>
 ${krop}
 </section>`;
 }
