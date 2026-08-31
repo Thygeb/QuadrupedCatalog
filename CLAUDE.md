@@ -586,31 +586,40 @@ node C:/Praktik/websites/maalevaerktoej/flade-skud.mjs <url> <bredde> <udfil.png
 er vejen til at *se* en flade, ikke kun måle den — brugt af orkestratoren
 28. aug 2026 til at se katalogsiden med egne øjne midt i en kritik.
 
-**Playwright-MCP'en fejler, og det er IKKE et netværksproblem — rodårsagen er
-målt 28. aug 2026.** `plugin:playwright:playwright` melder `CONNECTION_CLOSED`
-ved hver sessionsstart, og **Reconnect giver nøjagtig samme besked**, fordi
-knappen gentager den fejlende kommando. Pluginnets `.mcp.json` siger:
+**Den styrbare browser VIRKER — via projektets egen MCP-server, rettet og
+efterprøvet 31. aug 2026.** Projektets `.mcp.json` definerer en
+`playwright`-server, der starter `node.exe` direkte på
+`C:\Praktik\websites\maalevaerktoej\node_modules\@playwright\mcp\cli.js`
+(v0.0.79, installeret i måleværktøjets mappe — stadig uden for repoet).
+Efterprøvet med et rigtigt kald: `browser_navigate` svarede med et
+sidesnapshot. Klik, hover, tastaturnavigation og script-injektion er
+tilgængelige som `mcp__playwright__*`-værktøjer, og `impeccable critique`s
+overlay-trin kan køres. Her stod tidligere *"du mister KUN den styrbare
+browser"* — det gælder ikke længere. MCP-servere registreres ved
+sessionsstart: mangler værktøjerne, er sessionen startet før rettelsen —
+genstart, i stedet for at rapportere fallback.
 
-```json
-{ "playwright": { "command": "npx", "args": ["@playwright/mcp@latest"] } }
-```
-
+**Pluginnets egen server (`plugin:playwright:playwright`) fejler STADIG med
+`CONNECTION_CLOSED` ved hver sessionsstart — det er forventet støj, jag den
+ikke.** Rodårsagen er målt 28. aug 2026 og uændret: pluginnets `.mcp.json`
+siger `{ "command": "npx", "args": ["@playwright/mcp@latest"] }`, og
 `C:\Program Files\nodejs\npx` **uden endelse er en bash-shellscript**
-(`#!/usr/bin/env bash`), og Windows' CreateProcess kan ikke udføre den. Målt
-med `spawn(cmd, [...], {shell:false})`: `npx` → **ENOENT**, mens `npx.cmd`
-findes ved siden af. Serveren dør altså i samme øjeblik, den startes.
+(`#!/usr/bin/env bash`), som Windows' CreateProcess ikke kan udføre —
+`spawn('npx', ..., {shell:false})` → **ENOENT**. Serveren dør i samme
+øjeblik, den startes, og **Reconnect gentager nøjagtig samme kommando**.
+Pluginfilen kan ikke rettes varigt (overskrives ved plugin-opdatering);
+projektserveren er erstatningen.
 
-**To hypoteser blev modbevist undervejs, og de er værd at kende, så de ikke
-prøves igen:** (1) *"npx er ikke på PATH"* — den er ikke i Git Bash, men det
-siger intet om den proces, Claude Code selv spawner. (2) *"pakken er ikke
-hentet"* — `npx @playwright/mcp@latest --help` hentede den og svarede exit 0,
-og Reconnect fejlede alligevel bagefter.
-
-**Konsekvensen for et spor: du mister KUN den styrbare browser** — klik, hover,
-tastaturnavigation og script-injektion. Alt måleligt virker: gengivelse,
-skærmbilleder, kortantal, højdespring, beskæring, overløb, sidehøjde.
-`impeccable critique`s overlay-trin kan derfor ikke køres, og det skal
-rapporteres som fallback-signal, aldrig påstås udført.
+**Fire hypoteser er modbevist undervejs — prøv dem ikke igen:**
+(1) *"npx er ikke på PATH"* — ikke i Git Bash, men det siger intet om den
+proces, Claude Code selv spawner. (2) *"pakken er ikke hentet"* —
+`npx @playwright/mcp@latest --help` svarede exit 0, og Reconnect fejlede
+alligevel. (3) *"skift til npx.cmd"* — målt 31. aug: `.cmd`-filer uden
+`shell:true` giver **EINVAL** under Node 24 (værnet efter CVE-2024-27980).
+(4) *"start via cmd /c npx"* — hviler på to PATH-antagelser (System32 og
+nodejs), og npx genstarter selv `node` via PATH; begge faldt under måling.
+Derfor den valgte form: fuld sti til `node.exe` + fuld sti til `cli.js`,
+nul PATH-afhængigheder.
 
 **Impeccables detektor (`detect.mjs`) kører STILLE DEGRADERET på denne maskine —
 målt 28. aug 2026, og den degraderede kørsel er en falsk blank attest.** Fire
