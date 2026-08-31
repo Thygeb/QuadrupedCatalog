@@ -560,3 +560,385 @@ p{margin:0}
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
     transition-duration:.001ms !important}
 }
+
+/* ==========================================================================
+   13. SAMMENLIGNINGSSIDEN — tre plader i den samme jig
+   spor/samlcomp, 31. aug 2026. Tilfoejet, intet ovenfor er aendret.
+
+   Klassenavnene er bevidst nye og ikke genbrugte: .tabel (§11) baerer et
+   mobil-sammenbrud (display:block paa table/tr/th/td), der ville OPLOESE
+   sammenligningsmatricen — og med den tabelsemantikken fra Aa54. Matricen
+   hedder derfor .matrix og ruller vandret i stedet for at bryde op.
+   ========================================================================== */
+
+/* 13a. Tegnbaandet — ALTID synligt, ingen foldemekanik.
+   JPK har meldt to gange, og de trak i hver sin retning: kassen var for stor
+   (185 px paa 1440 / 531 paa 390), og siden: "Vis den hele tiden."
+   Pladsen vindes derfor paa KOMPRIMERING, ikke paa at skjule: de fire
+   i18n-forklaringer deler ordret forstavelsen "Producenten oplyser", som nu
+   staar én gang som baandets lead. Hvert maerke baerer kun sin egen
+   fortsaettelse — og generatoren faelder bygget, hvis lead + rest ikke giver
+   den oprindelige streng tegn for tegn.                                     */
+.tegnbaand{
+  border-bottom:1px solid var(--rille);
+  padding:8px var(--r5) 9px;
+}
+/* Leadet er FOERSTE celle i raekken, ikke en linje ovenover: det sparer en
+   hel tekstlinje, og saetningen loeber vandret gennem baandet. */
+/* Leadets egen linjeafstand er strammet, fordi den — ikke teksten — satte
+   hele baandets hoejde: maalt 33 px mod tilstandscellernes 24. */
+.tegnbaand__lead{padding-right:var(--r3);min-width:0}
+.tegnbaand__navn{
+  display:block;font-size:10.5px;font-weight:700;letter-spacing:.15em;
+  line-height:1.1;text-transform:uppercase;color:var(--gunmetal);margin-bottom:1px;
+}
+/* Forstavelsen er saetningens begyndelse, ikke en etiket — derfor manualens
+   skrift, som resten af forklaringen. */
+.tegnbaand__stam{
+  display:block;font-family:var(--manual);font-size:11.5px;line-height:1.25;
+  color:var(--stoev-blaek);
+}
+/* Leadet plus fire tilstande paa én raekke. Hver tilstand baerer sit maerke OG
+   sin egen fortsaettelse af saetningen — aldrig kun et navn. */
+/* Spalterne er UENS med vilje, og bredderne er maalt frem, ikke gaettet:
+   "nul"-forklaringen er den laengste (den baerer to saetninger, fordi
+   forskellen paa et maalt nul og et tomt felt er sidens vigtigste skelnen),
+   mens "nej" og "ikke oplyst" er korte. Lige spalter tvang nul til to linjer
+   og satte dermed hele baandets hoejde: maalt 36 px mod de oevriges 24. */
+.tegnbaand__raekke{
+  display:grid;
+  grid-template-columns:minmax(0,.84fr) minmax(0,.78fr) minmax(0,1.42fr) minmax(0,.98fr) minmax(0,.98fr);
+  gap:0;align-items:baseline;
+}
+.tegn{
+  display:flex;align-items:baseline;gap:8px;min-width:0;
+  padding:0 var(--r3);border-left:1px dashed var(--rille);
+}
+.tegn:first-child{border-left:0;padding-left:0}
+.tegn__mrk{flex:none}
+.tegn__tekst{
+  font-family:var(--manual);font-size:11.5px;line-height:1.35;
+  color:var(--blaek-2);text-wrap:pretty;min-width:0;
+}
+.stempler__vaegt{color:var(--gunmetal)}
+
+/* Den redaktionelle position, ude af laesenoeglen og nede ved den oevrige
+   forklarende tekst. Den er en truffet beslutning (haard begraensning 6),
+   ikke en note der kan spares vaek — den flyttes, den fjernes ikke.         */
+.vinderregel{
+  font-family:var(--manual);font-size:12.5px;line-height:1.6;color:var(--blaek-2);
+  max-width:78ch;margin-top:var(--r4);padding-left:var(--r3);
+  border-left:2px solid var(--rille);text-wrap:pretty;
+}
+.vinderregel__navn{
+  display:block;font-family:var(--plade);font-size:10px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--stoev-blaek);
+}
+
+/* 13a2. Robotbilledet i pladehovedet — et maerkatfoto, ikke et hero.
+   Hoejden er bundet, fordi hovedet OGSAA er betjeningen og skal blive ved
+   med at klaebe: et hoejt billede ville gOEre den klaebende raekke til en
+   skaerm i sig selv paa 390.                                                */
+.skiltehoved__top{display:flex;align-items:flex-start;gap:var(--r3);min-width:0}
+.skiltehoved__id{display:block;min-width:0}
+.fotofelt{
+  flex:none;width:74px;height:56px;
+  display:grid;place-items:center;overflow:hidden;
+  background:var(--eloxgraa);border-radius:2px;
+}
+.fotofelt img{width:100%;height:100%;object-fit:contain;padding:3px}
+/* Manglende foto: den stiplede ikke-oplyst-plade, samme sprog som ethvert
+   andet uoplyst felt — saa det ikke kan laeses som en indlaesningsfejl.
+   Maalt: 76 af 77 robotter har foto, saa tilfaeldet er sjaeldent, men det
+   findes, og en tom kasse ville se ud som en fejl netop dér.               */
+.fotofelt--uoplyst{
+  background:transparent;border:1px dashed var(--stoevgraa);
+  color:var(--stoevgraa);align-content:center;gap:3px;
+}
+.fotofelt--uoplyst svg{margin:0 auto;display:block}
+.fotofelt__ord{
+  font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--stoevgraa);text-align:center;line-height:1.2;
+}
+.fotoophav{
+  font-family:var(--manual);font-size:11.5px;line-height:1.55;
+  color:var(--stoev-blaek);max-width:78ch;margin-top:var(--r4);text-wrap:pretty;
+}
+
+/* 13b. Matricen ------------------------------------------------------------
+   Vandret rulning frem for opbrud: en <table>, hvis display aendres, mister
+   sin rolle i tilgaengelighedstraeet — praecis den faelde, Aa54 allerede
+   maatte lappe med eksplicitte ARIA-roller. Her bevares elementerne, og
+   raekkehovedet klaeber til venstre kant i stedet.                          */
+.matrixsektion{padding:var(--r6) 0 var(--r7)}
+/* MAALT 31. aug 2026, og det er ikke en detalje: saetter man overflow-x:auto
+   her, tvinger browseren overflow-y fra visible til auto — og saa bliver
+   .matrix-rulle den klaebende jigraekkes rullebeholder i STEDET for
+   viewporten. Hovedet klaeber da til en kasse, der ikke ruller lodret, og
+   klaeber altsaa aldrig: maalt til top:-938px ved raekke 21, mens
+   skaermbilledet saa helt rigtigt ud. Beholderen ruller derfor kun paa de
+   bredder, hvor den skal (13e), og er visible resten af tiden.            */
+.matrix-rulle{
+  /* position:relative er IKKE kosmetik. Matricen baerer 95 .kun-skaerm-spans
+     (forbeholdenes skaermlaesertekst), og .kun-skaerm er position:absolute.
+     Uden en positioneret forfader loeses de mod det initiale blokelement og
+     lander i deres statiske position — op til x=590 paa en 375 px skaerm.
+     Maalt 31. aug 2026: 214 px vandret SIDEoverloeb, mens body.scrollWidth
+     samtidig sagde 375 og intet synligt element laa uden for kanten.
+     To uafhaengige prOEver pegede samme sted: skjul spanne'ne -> 0, gOEr
+     rulleren til blokelement -> 0.                                        */
+  position:relative;
+  overflow:visible;
+  background:var(--kridt);border-radius:3px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+.matrix{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}
+.matrix__caption{
+  /* Navnene staar synligt i kolonnehovederne lige nedenunder; en synlig
+     caption ville vaere en dublet. Samme begrundelse som den kOErende sides. */
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* Jigraekken: kolonnehovedet KLAEBER. Paa den kOErende side ruller
+   robotnavnene vaek, og raekke 25 laeses uden at vide hvilken spalte er hvem. */
+.jigraekke th,.jigraekke td{
+  position:sticky;top:0;z-index:30;
+  background:var(--gunmetal);color:var(--eloxgraa);
+  text-align:left;vertical-align:bottom;
+  padding:var(--r4) var(--r3);
+}
+.hjoerne{
+  position:sticky;left:0;z-index:31;
+  width:224px;min-width:224px;
+}
+.hjoerne__ord{
+  display:block;font-size:12px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--eloxgraa);margin-bottom:4px;
+}
+.hjoerne__note{
+  display:block;font-family:var(--manual);font-size:11px;line-height:1.4;
+  color:var(--stoevgraa);max-width:22ch;
+}
+.skiltehoved{border-left:1px solid var(--blaek-2)}
+.skiltehoved__nr{
+  display:block;font-size:9.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--stoevgraa);margin-bottom:5px;
+}
+.skiltehoved__navn{
+  display:block;font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.1;
+  color:var(--eloxgraa);
+}
+.skiltehoved__prod{
+  display:block;font-size:10.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--stoevgraa);margin-top:4px;
+}
+.skiltehoved__fod{
+  display:flex;align-items:baseline;gap:var(--r3);flex-wrap:wrap;
+  margin-top:10px;padding-top:9px;border-top:1px solid var(--blaek-2);
+}
+.skiltehoved__taethed{font-size:11.5px;font-weight:500;color:var(--stoevgraa)}
+.skiltehoved__skift{
+  margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--eloxgraa);text-decoration:none;
+  padding:3px 7px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek-2);
+}
+.skiltehoved__skift:hover{background:var(--afmaerkningsgul);color:var(--gunmetal);box-shadow:none}
+.skiltehoved__skift svg{display:block}
+
+/* Gruppetitlen: én <tbody> pr. gruppe, scope="rowgroup" */
+.gruppe__titel{
+  position:sticky;left:0;
+  text-align:left;padding:var(--r5) var(--r3) 8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--stoev-blaek);background:var(--kridt);
+}
+.gruppe:first-of-type .gruppe__titel{padding-top:var(--r4)}
+
+/* Feltraekken */
+.felt-raekke > *{border-top:1px solid var(--rille)}
+.feltnavn{
+  position:sticky;left:0;z-index:10;
+  width:224px;min-width:224px;
+  text-align:left;vertical-align:top;font-weight:500;
+  padding:11px var(--r3);background:var(--kridt);
+  box-shadow:1px 0 0 var(--rille);
+}
+.feltnavn__ord{display:block;font-size:13.5px;color:var(--blaek-2);line-height:1.3}
+/* Svarmaerket: ét felt pr. plade, i spaltens egen raekkefoelge. Fyldt = pladen
+   svarer, stiplet = pladen tier. Det er en TAELLING, ikke en score — samme
+   maalestok som sidens "N af 30 felter oplyst", vendt 90 grader. */
+.svar{display:flex;gap:3px;margin-top:6px;color:var(--gunmetal)}
+.svar__m{display:block;line-height:0}
+.svar__m--tavs{color:var(--stoevgraa)}
+.celle{
+  vertical-align:top;padding:11px var(--r3);
+  border-left:1px solid var(--rille);
+}
+/* Raekker, hvor ALLE plader tier: hele raekken traeder tilbage. Vaerdierne
+   staar der stadig, med deres eget stiplede maerke — hullet er ikke skjult,
+   det er blot holdt op med at konkurrere med de raekker, der baerer tal. */
+.felt-raekke--tavs .feltnavn__ord{color:var(--stoev-blaek)}
+.felt-raekke--tavs .feltnavn{
+  box-shadow:1px 0 0 var(--rille);
+  border-left:2px dashed var(--stoevgraa);padding-left:calc(var(--r3) - 2px);
+}
+
+/* 13c. Vaerdierne ---------------------------------------------------------
+   Tallet i PLADENS skrift, producentens prosa i MANUALENS. Ikke pynt: paa
+   et typeskilt er tallene stanset, saetningerne staar i manualen — og netop
+   den todeling holder en 223-tegns tekstvaerdi fra at saette raekkehoejden
+   for to spalter, der baerer ét tal hver.                                   */
+.v{display:inline-flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.v-tal{font-weight:600;font-variant-numeric:tabular-nums;color:var(--gunmetal)}
+.v-tal .num{font-size:16.5px;font-weight:600;letter-spacing:-.005em}
+.op{font-size:12.5px;font-weight:500;color:var(--blaek-2)}
+.enhed{font-size:11.5px;font-weight:500;color:var(--blaek-2);letter-spacing:.02em}
+.enhed--klaebet{margin-left:-4px}
+.v-nul .num{
+  /* Et maalt nul er et svar. Den udfyldte prik-ramme skiller det fra hullet. */
+  box-shadow:inset 0 0 0 1px var(--gunmetal);border-radius:2px;padding:0 7px;
+}
+.v-ja,.v-nej,.v-billede{
+  align-items:center;
+  box-shadow:inset 0 0 0 1px var(--gunmetal);border-radius:2px;padding:2px 9px;
+  font-size:12.5px;font-weight:600;color:var(--gunmetal);
+}
+.v-ikke{
+  align-items:center;
+  border:1px dashed var(--stoevgraa);border-radius:2px;padding:2px 9px;
+  font-size:12.5px;font-weight:500;color:var(--stoev-blaek);
+}
+.v svg{flex:none;display:block}
+.v-prosa{
+  display:block;font-family:var(--manual);font-size:12.5px;line-height:1.5;
+  font-weight:400;color:var(--blaek-2);max-width:46ch;text-wrap:pretty;
+}
+/* Forbeholdet baeres, men vises ikke (JPK 27. aug 2026 — samme interim som
+   side.mjs' fnote()). Teksten staar i title og for skaermlaesere. */
+.forbehold-skjult{border:0;text-decoration:none}
+
+.matrix__fod{
+  font-family:var(--manual);font-size:12.5px;line-height:1.6;color:var(--blaek-2);
+  max-width:78ch;margin-top:var(--r4);text-wrap:pretty;
+}
+.matrix__fod b{font-weight:600;color:var(--gunmetal)}
+
+/* 13d. Vaelgeren: alle 77, men de koster ikke foerste skaerm ------------- */
+.udtraek-saml{
+  margin-top:var(--r5);background:var(--kridt);border-radius:3px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+.udtraek-saml__top{
+  padding:var(--r4) var(--r5);
+  font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  border-bottom:1px solid var(--rille);
+}
+.udtraek-saml__krop{padding:var(--r5)}
+.udtraek-saml__note{
+  font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--blaek-2);
+  max-width:64ch;margin-bottom:var(--r4);
+}
+.sog{display:flex;flex-direction:column;gap:6px;max-width:340px;margin-bottom:var(--r4)}
+.sog__etiket{
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stoev-blaek);
+}
+.sog input{
+  font:inherit;font-family:var(--plade);font-size:14px;
+  padding:8px var(--r3);border:0;border-radius:2px;
+  background:var(--eloxgraa);color:var(--gunmetal);
+  box-shadow:inset 0 0 0 1px var(--rille);
+}
+.sog input:hover{box-shadow:inset 0 0 0 1px var(--gunmetal)}
+.vaelgernet{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px 0}
+.vc{display:block;min-width:0}
+.vc__felt{position:absolute;opacity:0;width:1px;height:1px}
+.vc__mrk{
+  display:flex;align-items:baseline;gap:9px;cursor:pointer;
+  padding:6px 9px;border-radius:2px;
+  font-size:13.5px;font-weight:500;
+}
+.vc__mrk::before{
+  content:"";flex:none;width:13px;height:13px;border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--gunmetal);background:var(--kridt);
+  align-self:center;
+}
+.vc__mrk:hover{background:var(--eloxgraa)}
+.vc__felt:checked + .vc__mrk{background:var(--afmaerkningsgul)}
+.vc__felt:checked + .vc__mrk::before{
+  background:var(--gunmetal);
+  box-shadow:inset 0 0 0 1px var(--gunmetal), inset 0 0 0 3px var(--afmaerkningsgul);
+}
+.vc__felt:focus-visible + .vc__mrk{
+  outline:2px solid var(--gunmetal);outline-offset:1px;
+  box-shadow:0 0 0 4px var(--afmaerkningsgul);
+}
+.vc__prod{
+  margin-left:auto;font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--stoev-blaek);text-align:right;
+}
+.vc__felt:checked + .vc__mrk .vc__prod{color:var(--gunmetal)}
+
+.uden-js{
+  margin-top:var(--r4);padding:var(--r3) var(--r4);
+  border:1px dashed var(--stoevgraa);border-radius:2px;
+  font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--stoev-blaek);
+}
+.uden-js a{color:var(--gunmetal)}
+
+/* 13e. Smalle skaerme ------------------------------------------------------
+   Matricen brydes IKKE op (det ville koste tabelrollen). Den ruller vandret,
+   og raekkehovedet klaeber til venstre kant, saa feltnavnet altid er synligt. */
+@media (max-width:1100px){
+  .tegnbaand__raekke{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 0}
+  .tegn:nth-child(2n+1){border-left:0;padding-left:0}
+}
+
+/* Under 820 px kan de fire spalter ikke staa uden at knuse tallene. Her — og
+   KUN her — bliver beholderen en vandret ruller. Prisen er, at jigraekken
+   holder op med at klaebe til toppen (se .matrix-rulle ovenfor); til gengaeld
+   virker den anden klaebning, raekkehovedet mod venstre kant, og det er den,
+   der baerer mest paa en smal skaerm: feltnavnet skal staa fast, mens man
+   ruller hen over spalterne. Matricen brydes ALDRIG op i blokke — det ville
+   koste tabelrollen, som Aa54 netop lappede. */
+@media (max-width:820px){
+  .matrix-rulle{overflow-x:auto;overscroll-behavior-x:contain}
+  .matrix{min-width:640px}
+}
+
+@media (max-width:720px){
+  .matrixsektion{padding:var(--r5) 0 var(--r6)}
+  .tegnbaand{padding:5px var(--r4) 6px}
+  /* Chippene i baandet strammes en anelse paa smal skaerm — de saetter
+     raekkehoejden, naar hver tilstand faar sin egen linje. Gaelder KUN
+     legendens chips, ikke matricens celler. */
+  .tegnbaand .v-nej,.tegnbaand .v-ikke,.tegnbaand .v-ja{padding:1px 7px}
+  /* Paa 390 er der ikke bredde til fem spalter med prosa. Ét spor, men
+     stadig ALT synligt: fire raekker a én linje, maerket til venstre.
+     Leadet saettes INLINE her — som to blokke kostede det en hel ekstra
+     linje (maalt 33 px mod 16). */
+  .tegnbaand__raekke{grid-template-columns:1fr;gap:2px}
+  .tegn,.tegn:nth-child(2n+1){border-left:0;padding:0}
+  .tegn__tekst{font-size:11px}
+  .tegnbaand__lead{padding-right:0}
+  .tegnbaand__navn{display:inline;margin-right:6px}
+  .tegnbaand__stam{display:inline;font-size:11px}
+  .matrix{font-size:13px}
+  .hjoerne,.feltnavn{width:150px;min-width:150px}
+  /* Maerkatfotoet krymper med hovedet, saa den klaebende raekke ikke aeder
+     skaermen paa 390. */
+  .fotofelt{width:52px;height:40px}
+  .fotofelt__ord{font-size:7px}
+  .skiltehoved__top{gap:10px}
+  .hjoerne__note{display:none}
+  .jigraekke th,.jigraekke td{padding:var(--r3) 10px}
+  .skiltehoved__navn{font-size:15px}
+  .skiltehoved__fod{display:block}
+  .skiltehoved__skift{margin-top:6px}
+  .v-tal .num{font-size:15px}
+  .udtraek-saml > summary{padding:var(--r3) var(--r4)}
+  .udtraek-saml__krop{padding:var(--r4)}
+  .vaelgernet{grid-template-columns:1fr}
+}
