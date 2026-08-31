@@ -17,23 +17,64 @@
    ========================================================================== */
 
 /* --- 1. Skrift ------------------------------------------------------------
-   Arvet fontstrategi: Manrope + JetBrains Mono, LOKALE filer. assets/fonts/
-   er tom lige nu (maalt 21.08.2026: 0 woff2-filer). Derfor:
-     1) local()  — bruger en installeret Manrope, hvis maskinen har en
-     2) url()    — bruger filen, saa snart den lander i assets/fonts/
-     3) stakken  — falder tilbage paa systemets grotesk, hvis ingen af delene
-   Der kaldes ALDRIG en fontserver. */
+   TYPESKILT-fundament (spor/fundament, 31. aug 2026, L54/L57). Erstatter den
+   gamle Manrope/JetBrains Mono-strategi, som ALDRIG selvhostede noget (maalt
+   21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer dette spor - kun
+   local()+en ikke-eksisterende url() og et fallback til systemskrift).
+   Saira Semi Condensed ("Pladen": etiketter, tal, navigation, se --mono
+   nedenfor) og Literata ("Manualen": prosa - endnu ikke koblet paa noget
+   token; det er runde 2's arbejde). Kilde: retninger/nyverden/skrift/ og
+   typeskilt.css. Begge snit er SIL OFL 1.1, fri til selvhosting. 10 filer,
+   latin + latin-ext hver, unicode-range delt som i comp'en. */
 @font-face{
-  font-family:"Manrope lokal";
-  src:local("Manrope"),local("Manrope Regular"),
-      url("fonts/Manrope-variable.woff2") format("woff2-variations");
-  font-weight:200 800; font-display:swap; font-style:normal;
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:400;font-display:swap;
+  src:url("fonts/saira-400-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
-  font-family:"JetBrains Mono lokal";
-  src:local("JetBrains Mono"),local("JetBrainsMono-Regular"),
-      url("fonts/JetBrainsMono-variable.woff2") format("woff2-variations");
-  font-weight:100 800; font-display:swap; font-style:normal;
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:400;font-display:swap;
+  src:url("fonts/saira-400-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:500;font-display:swap;
+  src:url("fonts/saira-500-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:500;font-display:swap;
+  src:url("fonts/saira-500-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:600;font-display:swap;
+  src:url("fonts/saira-600-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:600;font-display:swap;
+  src:url("fonts/saira-600-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:700;font-display:swap;
+  src:url("fonts/saira-700-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:700;font-display:swap;
+  src:url("fonts/saira-700-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"Literata";font-style:normal;font-weight:400 600;font-display:swap;
+  src:url("fonts/literata-var-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Literata";font-style:normal;font-weight:400 600;font-display:swap;
+  src:url("fonts/literata-var-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
 /* --- 2. Poletter ---------------------------------------------------------- */
