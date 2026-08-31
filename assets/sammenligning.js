@@ -216,7 +216,13 @@
         + '</span>'
         + '</th>';
     }).join('');
-    return '<thead class="specimen-hoved" role="rowgroup" style="--n:' + n + '">'
+    // `--n` (antal valgte) blev sat her, saa CSS'en kunne bygge et
+    // grid-template med N spalter. Den er FJERNET sammen med grid-formen
+    // 31. aug 2026: matricen er en rigtig tabel igen, og en tabel taeller
+    // selv sine spalter. Ingen CSS-regel laeser var(--n) laengere (maalt: 0
+    // forekomster i baade generator.css og system.css), og et attribut,
+    // ingen bruger, er en paastand om kode der ikke findes.
+    return '<thead class="specimen-hoved" role="rowgroup">'
       + '<tr class="specimen-hoved__raekke" role="row">'
       + '<td class="specimen-hoved__hjoerne" role="cell">'
       + '<span class="saml-hjoerne__ord">' + esc(DATA.tekst.alle_felter) + '</span>'
@@ -311,7 +317,7 @@
         // er ikke skjult, det er blot holdt op med at konkurrere med de
         // raekker, der baerer tal. Det er tavsheden selv, der er fundet.
         var tavsRaekke = svar.svarer === 0 ? ' saml-raekke--tavs' : '';
-        return '<tr class="saml-raekke' + tavsRaekke + '" role="row" style="--n:' + n + '">'
+        return '<tr class="saml-raekke' + tavsRaekke + '" role="row">'
           + '<th scope="row" role="rowheader" class="saml-raekke__navn">'
           + '<span class="saml-raekke__ord">' + esc(DATA.feltNavne[feltNavn]) + '</span>'
           + svar.html + '</th>' + celler + '</tr>';
@@ -319,7 +325,7 @@
       // Én <tbody> pr. gruppe. Gruppetitlen er scope="rowgroup" - den
       // gaelder netop de raekker, der foelger i DENNE tbody, hvilket er
       // praecis det, HTML'ens rowgroup-scope betyder.
-      return '<tbody class="saml-gruppe" role="rowgroup" style="--n:' + n + '">'
+      return '<tbody class="saml-gruppe" role="rowgroup">'
         + '<tr class="saml-gruppe__titelraekke" role="row">'
         + '<th scope="rowgroup" role="rowheader" colspan="' + spalter + '" class="saml-gruppe__titel">'
         + esc(g.titel) + '</th></tr>'
