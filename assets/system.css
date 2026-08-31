@@ -106,10 +106,28 @@ b,strong{font-weight:700}
 
 /* Browserfladerne baerer ogsaa designet. */
 ::selection{background:var(--accent);color:#FFFFFF}
-:root{caret-color:var(--accent)}
+/* accent-color er den sidste utegnede browserflade. VAER PRAECIS OM, HVAD DEN
+   GOER: maalt 28. aug 2026 tegner browseren i dag NUL kontroller selv - alle
+   220 afkrydsningsfelter og radioer i bygget (214 checkbox, 6 radio) staar
+   1x1 px med opacity:0, fordi chippen ER etiketten, og der findes hverken
+   <progress>, <select> eller type="range" paa nogen side. Erklaeringen
+   flytter altsaa ingen pixel i dag. Den staar her, fordi den ellers foerst
+   bliver opdaget den dag, nogen tilfoejer en kontrol, der TEGNES - og saa i
+   form af et blaat felt, ingen har valgt. En flade, man ikke har tegnet,
+   baerer stadig designet. */
+:root{caret-color:var(--accent);accent-color:var(--accent)}
 a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
 a:hover{text-decoration-thickness:2.5px}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+/* Fokusringen paa et element uden egen radius. 2 px stod her og var paa
+   ingen skala: en hedge mellem hard kant og systemets 6. Maalt paa fire
+   sider: hvert eneste element, den rammer, er gennemsigtigt (prosalink,
+   kildemaerke, .url, summary), saa kun ringens FORM skifter — og med 6 px
+   hoerer den til samme familie som chippens ring (6) og knappens (8) i
+   stedet for at vaere den ene, der er naesten-firkantet.
+   Springlinket beholder sin egen form: `.spring` staar senere i filen med
+   samme specificitet og vinder — maalt ved fokus: "0px 0px 8px". */
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;
+  border-radius:var(--rund-lille)}
 ::-webkit-scrollbar{width:12px;height:12px}
 ::-webkit-scrollbar-track{background:var(--bund)}
 ::-webkit-scrollbar-thumb{background:var(--hegn);border:3px solid var(--bund);border-radius:99px}
@@ -208,19 +226,69 @@ a:hover{text-decoration-thickness:2.5px}
   text-transform:uppercase;color:var(--blaek3);
   border:1px dashed var(--hegn);border-radius:var(--rund-lille);padding:1px 7px 2px;
   align-self:flex-start;margin-top:2px}
-.baand nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:2px}
+/* ÉT SPOR, ALDRIG TO RAEKKER. Reglen staar her og ikke inde i brudpunktet,
+   fordi braekket ikke hoerer til én bredde: maalt 28. aug 2026 stod baandet
+   paa 160 px og TO raekker fra 320 px helt op til ca. 500 px, og foerst ved
+   600 px paa én. `overflow-x:auto` er inert dér, hvor laenkerne har plads —
+   den koster ingenting paa de bredder, hvor der intet er at rulle. Den
+   fulde begrundelse staar ved brudpunktet nedenfor. */
+.baand nav{margin-left:auto;display:flex;flex-wrap:nowrap;gap:2px;
+  overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;
+  scroll-padding-inline:var(--r9)}
+.baand nav::-webkit-scrollbar{display:none}
+.baand nav a{flex:0 0 auto}
+/* TO TING, ET RULLESPOR KOSTER, HVIS INGEN MAALER DEM. Begge er fundet ved
+   at foere tastaturet gennem baandet 28. aug 2026, ikke ved at se paa det.
+
+   1. `scroll-padding-inline`. Blink ruller KUN et fokuseret element frem,
+      naar det ligger HELT uden for rulleporten - 17 px synligt regnes som
+      synligt nok. Maalt: en tastaturbruger, der naaede "In English" ved
+      390 px, fik den staaende paa 17 af 76 px, og sporet blev paa
+      scrollLeft 0. Bekraeftet ved kontrolforsoeg: samme spor med laenken
+      HELT uden for rullede 217 af 217 px. Rullefyldet skubber laenken ud af
+      den "optimale visningszone", saa browseren beslutter at rulle.
+      96 px er MAALT, ikke valgt: 48 px afsloerede stadig kun 94 af 111 px
+      paa "Producenter" ved 421 px; 96 px afsloerer alle fem laenker helt
+      ved 320, 390, 421 og 480 px, og 128 px goer ikke mere.
+
+   2. `outline-offset:-3px`. `overflow-x:auto` klipper ogsaa fokusringen -
+      OGSAA ved 1440 px, hvor der intet er at rulle, for en overflow-boks
+      klipper uanset om den ruller. Ringen tegnes derfor INDE i laenken.
+      Uden det staar den yderste laenkes ring uden for klipkassen og
+      forsvinder helt paa den side, den vender ud mod. */
+.baand nav a:focus-visible{outline-offset:-3px}
 .baand nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
   font-size:15px;font-weight:600;text-decoration:none;color:var(--blaek2);
   border-radius:var(--rund-ind)}
 .baand nav a:hover{background:var(--panel-ro);color:var(--blaek)}
 .baand nav a[aria-current]{color:var(--accent);background:var(--accent-ro)}
-/* Under 420 px (systemets eget kompakt-brudpunkt, jf. §11 nedenfor) er de
-   fire navigationslaenke tilsammen bredere end skaermen og braekker over to
+/* Under 420 px (systemets eget kompakt-brudpunkt, jf. §11 nedenfor) er
+   navigationslaenkene tilsammen bredere end skaermen og braekker over to
    raekker i stedet for én — maalt at koste en hel ekstra 44 px-raekke paa
    robotsidens foerste skaermhoejde (fund/FUND-detalje.md, opgave 1). Mindre
-   vandret luft, ikke en mindre trykflade: min-height holder 44 px. */
+   vandret luft, ikke en mindre trykflade: min-height holder 44 px.
+
+   DEN RETTELSE HOLDT IKKE, OG GRUNDEN STAAR I SAETNINGEN OVENFOR: den blev
+   regnet paa FIRE laenker. Sprogskifteren "In English" kom til bagefter, og
+   med den er summen 429 px mod 358 px raadighed ved 390 px — baandet stod
+   paa 160 px og TO raekker fra 320 helt op til 480, mens DESIGN.md's
+   changelog paastod én. Maalt 28. aug 2026, fem bredder.
+
+   Mindre luft raekker ikke laengere: for at presse 429 px ind paa 358 skulle
+   graden ned paa 12 px, og det er at betale for én raekke med laeselighed.
+   Baandet bliver derfor ét SPOR, der kan rulles vandret — alle fem laenker
+   beholdt, 44 px trykflade beholdt, 14 px grad beholdt. Affordancen er, at
+   den femte laenke er SKAARET, ikke skjult: den rager synligt ind i sporet,
+   og et snit paa et element er den eneste maade, en vandret liste kan sige
+   "der er mere" uden at bruge en raekke paa at sige det.
+
+   Rullepanelet selv er slaaet fra i sporet: en 12 px bred bjaelke under en
+   44 px raekke ville vaere en fjerdedel af baandet. Sporet er ikke en
+   tastaturfaelde — laenkerne er selv fokuserbare, og browseren ruller
+   sporet hen til den laenke, der faar fokus. */
 @media (max-width:420px){
-  .baand nav a{padding:0 10px;font-size:14px}
+  .baand nav a{padding:0 8px;font-size:14px}
+  .baand nav{width:100%;margin-left:0}
 }
 
 /* --- 8. De fire datatilstande --------------------------------------------- */
@@ -232,9 +300,19 @@ a:hover{text-decoration-thickness:2.5px}
 
 /* TAL — den eneste tilstand med stor, fed, moerk figur. */
 .v-tal{color:var(--blaek)}
-.v-tal .op{font-size:.72em;font-weight:500;color:var(--blaek3);letter-spacing:0}
+/* GRADERNE HAR ET GULV, praecis som kildemaerket (afsnit 9). Samme sygdom,
+   samme kur: en em-andel af en foraelder, der selv kan skrumpe, ender under
+   det, en skaerm kan saette et bogstav paa. Maalt 28. aug 2026 paa kataloget
+   FOER gulvet: .enhed ned til 5,70 px og .op ned til 6,00 px ved 390 px,
+   6,46/6,80 px ved 1440 — mens den samme .enhed staar paa 8,40 px i cellen
+   ved siden af. Det er ikke en grad, det er en fejl i kaskaden.
+   max() goer gulvet uafhaengigt af arven og lader graden vokse med figuren
+   dér, hvor figuren er stor: paa forsidens store tal staar enheden stadig paa
+   .56em, saa rangordenen — enheden markant mindre end tallet — er uroert dér,
+   hvor der ER en figur at vaere mindre end. */
+.v-tal .op{font-size:max(8px,.72em);font-weight:500;color:var(--blaek3);letter-spacing:0}
 .v-tal .num{font-size:1em;font-weight:700;letter-spacing:-.02em}
-.v-tal .enhed{font-size:.56em;font-weight:500;color:var(--blaek2);letter-spacing:.02em}
+.v-tal .enhed{font-size:max(8px,.56em);font-weight:500;color:var(--blaek2);letter-spacing:.02em}
 
 /* NUL — ET TAL. Saettes praecis som ethvert andet tal, saa det aldrig kan
    forveksles med et hul. Faar ingen daempning, ingen stiplet kant. */
@@ -356,7 +434,15 @@ a:hover{text-decoration-thickness:2.5px}
 /* Sekundaer kilde (L21): producentens eget domaene, men ikke produktsiden —
    datablad, manual, JS-bundle. SKAL kunne ses som noget andet. Samme sprog
    som hullet: stiplet hegn. */
-.kildemaerke--sek{color:var(--blaek3);border:1px dashed var(--hegn);border-radius:3px;
+/* RADIUS 0, IKKE 6, og det er set og ikke regnet. Maerket er 12,9 x 11,0 px.
+   Ved 6 px moedes hjoernerne naesten: browseren skalerer dem til 5,5 px, de
+   stiplede streger bliver til buer, og maerket laeser som en prik — den
+   "runde klump", skalaen skulle forhindre. Ved 0 px staar de fire streger
+   som en KLAMME om bogstavet, dashet lander paa lige stykker, og formen er
+   den samme som det primaere `.kildemaerke`, der ogsaa staar paa 0.
+   Forskellen mellem primaer og sekundaer skal baeres af det stiplede hegn,
+   ikke af hjoernerne. */
+.kildemaerke--sek{color:var(--blaek3);border:1px dashed var(--hegn);border-radius:0;
   padding:0 3px 1px}
 
 /* Kildelisten. Staar under striben paa robotsiden og som én linje paa kortet. */
@@ -365,8 +451,11 @@ a:hover{text-decoration-thickness:2.5px}
 .kildeliste li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;
   font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--blaek3)}
 .kildeliste .bogstav{font-weight:700;color:var(--accent);align-self:start}
+/* Samme maerke, samme sprog: 0, ikke 3. Kassen er 17,2 x 21,8 px og taaler
+   godt nok 6 px uden at blive rund, men den er den SAMME oplysning som
+   `.kildemaerke--sek` — to former for ét maerke er en form for oevrigt. */
 .kildeliste .sek .bogstav{color:var(--blaek3);border:1px dashed var(--hegn);
-  border-radius:3px;padding:0 4px 1px;justify-self:start}
+  border-radius:0;padding:0 4px 1px;justify-self:start}
 .kildeliste .hvad{color:var(--blaek2)}
 .kildeliste .url{overflow-wrap:anywhere}
 .kildeliste .dato{color:var(--blaek3)}
@@ -559,13 +648,16 @@ a:hover{text-decoration-thickness:2.5px}
    1750/1440: 0 vaerdier skyder ud over cellen, og alle 261 vaerdiblokke har
    NOEJAGTIG samme hoejde. Kildebogstavet skifter aldrig grad - det er
    signaturen og skal staa ens paa hver eneste celle. */
+/* Hvert trin baerer gulvet med sig (max(8px,…)). Uden det arver enheden og
+   operatoren trinnets skrump OVEN PAA foraeldrens - to multiplikationer, som
+   ingen af de to erklaeringer kan se hver for sig. */
 .stribe--kompakt .v-tal--lang{gap:.15em}
 .stribe--kompakt .v-tal--lang .num{font-size:.80em;letter-spacing:-.045em}
-.stribe--kompakt .v-tal--lang .enhed{font-size:.5em}
+.stribe--kompakt .v-tal--lang .enhed{font-size:max(8px,.5em)}
 .stribe--kompakt .v-tal--xlang{gap:.12em}
 .stribe--kompakt .v-tal--xlang .num{font-size:.70em;letter-spacing:-.05em}
-.stribe--kompakt .v-tal--xlang .enhed{font-size:.46em}
-.stribe--kompakt .v-tal--xlang .op{font-size:.5em}
+.stribe--kompakt .v-tal--xlang .enhed{font-size:max(8px,.46em)}
+.stribe--kompakt .v-tal--xlang .op{font-size:max(8px,.5em)}
 /* Fjerde trin: kun sproget udloeser det. Fem af de seks operatorer er TEGN
    (≥ ≤ > < ±), men 'cirka' er et ord - "ca." paa dansk, "approx." paa
    engelsk. Maalt paa katalogsiden: dansk naar 14 tegn i den laengste vaerdi,
@@ -574,8 +666,8 @@ a:hover{text-decoration-thickness:2.5px}
    (3 engelske, 1 dansk). */
 .stribe--kompakt .v-tal--xxlang{gap:.1em}
 .stribe--kompakt .v-tal--xxlang .num{font-size:.56em;letter-spacing:-.055em}
-.stribe--kompakt .v-tal--xxlang .enhed{font-size:.38em}
-.stribe--kompakt .v-tal--xxlang .op{font-size:.4em}
+.stribe--kompakt .v-tal--xxlang .enhed{font-size:max(8px,.38em)}
+.stribe--kompakt .v-tal--xxlang .op{font-size:max(8px,.4em)}
 
 /* Kildebogstavet er sidens signatur og skal kunne LAESES. Her stod indtil
    28. aug 2026 undtagelsen `.stribe--kompakt .v-tal > .kildemaerke{.47em}`
@@ -605,6 +697,24 @@ a:hover{text-decoration-thickness:2.5px}
   .stribe--kompakt .v{font-size:15px}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}
+
+  /* LAENGDESTIGEN FALDER TIL ÉT TRIN HER, og det er en maaling, ikke en smag.
+     Stigen blev bygget mod den TRANGE celle: 91 px indre bredde ved 1440 px,
+     hvor den bredeste vaerdiblok maaler 84 px — 7 px luft. Under 420 px er
+     den samme celle 147 px bred (132 px ved 360 px), mens den bredeste blok
+     maaler 75 px: 72 px luft. Stigen komprimerede altsaa dér, hvor der var
+     mest plads, og skubbede enhed og operator under 8 px for at spare en
+     plads, ingen manglede. Alle tre trin saettes derfor paa --lang's grad;
+     maalt efter rettelsen ved 390 px: bredeste blok 107 px i en 147 px celle
+     (40 px luft), 0 overskud, uaendret cellehoejde. */
+  .stribe--kompakt .v-tal--xlang,
+  .stribe--kompakt .v-tal--xxlang{gap:.15em}
+  .stribe--kompakt .v-tal--xlang .num,
+  .stribe--kompakt .v-tal--xxlang .num{font-size:.80em;letter-spacing:-.045em}
+  .stribe--kompakt .v-tal--xlang .enhed,
+  .stribe--kompakt .v-tal--xxlang .enhed{font-size:max(8px,.5em)}
+  .stribe--kompakt .v-tal--xlang .op,
+  .stribe--kompakt .v-tal--xxlang .op{font-size:max(8px,.6em)}
 }
 /* Vaerdien maa hellere ombryde end skubbe cellen ud af sit spor. break-word
    (ikke anywhere) proever et mellemrum foerst — "ikke oplyst" bryder til to
@@ -772,8 +882,12 @@ a:hover{text-decoration-thickness:2.5px}
 }
 .intetfoto::before{content:"";position:absolute;inset:10px;
   border:1px dashed var(--hegn);border-radius:var(--rund-ind)}
+/* Her 6 og ikke 0: pladen er 52 x 52 px og sidder INDE i den stiplede ramme
+   `.intetfoto::before`, som staar paa 8. En hard firkant inden i en rundet
+   ramme laeser som to systemer; 6 inden i 8 laeser som ét. Tokenets egen
+   beskrivelse er "chip, hul, maerke" — pladen er et hul. */
 .intetfoto .plade{width:52px;height:52px;flex:none;border:2px dashed var(--hegn);
-  border-radius:3px;
+  border-radius:var(--rund-lille);
   background:repeating-linear-gradient(135deg,transparent 0 7px,var(--hegn) 7px 8px)}
 .intetfoto .hoved{font-size:13.5px;font-weight:700;letter-spacing:.02em;color:var(--blaek)}
 .intetfoto .grund{font-size:13px;line-height:1.45;color:var(--blaek2);max-width:32ch}

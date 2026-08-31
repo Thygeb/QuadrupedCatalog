@@ -465,12 +465,22 @@
 .stribe--kompakt .krop > .feltvaerdi{min-height:23px}
 
 /* robot.mjs' EGEN varianter() (feltKrop, forskellig fra flet dt/dd-formen
-   ovenfor) pakker hvert par i sit eget .variant-chip. Mere specifik end
+   ovenfor) pakker hvert par i sin egen kasse. Mere specifik end
    ".varianter dt/dd" ovenfor (tre klasser slaar to), saa de to sameksisterer
-   uden at det ene bryder det andet. */
+   uden at det ene bryder det andet.
+
+   CHIPPEN ER BLEVET EN TAP. Her stod samme flade+ramme+radius som
+   `.variantnavn` og `.maerke` — 57 af dem paa Go2-siden alene — og de laeste
+   som et gitter af knapper. Men i MODSAETNING til `.variantnavn` laver
+   kassen her et rigtigt stykke arbejde: den holder navn og vaerdi sammen,
+   saa "AIR ca. 7 kg" ikke smelter ind i "PRO ca. 8 kg". Formen kan altsaa
+   ikke bare fjernes, kun skiftes ud med den mindst mulige, der stadig
+   grupperer: én 1 px streg til venstre. Aaben paa tre sider, ingen flade,
+   ingen radius — den kan ikke laeses som en trykflade, og den er stadig et
+   utvetydigt skel mellem to par. */
 .varianter .variant{display:flex;align-items:baseline;gap:7px;
-  border:1px solid var(--linje);border-radius:var(--rund-lille);
-  background:var(--panel-ro);padding:3px 9px 4px}
+  border:0;border-left:1px solid var(--linje);border-radius:0;
+  background:none;padding:1px 0 2px 9px}
 .varianter .variant dt{width:auto;font-family:var(--mono);font-size:10.5px;font-weight:500;
   letter-spacing:.1em;text-transform:uppercase;color:var(--blaek3)}
 .varianter .variant dd{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;
@@ -849,10 +859,26 @@
 .vaegtklasse{margin:0}
 .robot-navn .maerker{margin-top:2px}
 
-.robot-varianter{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:0}
+/* VARIANTNAVNENE ER DATA, IKKE KNAPPER. Her stod flade + ramme + radius —
+   den grammatik, kataloget bruger paa sine KLIKBARE filterchips, og samme
+   container som `.maerke` lige ovenover. Maalt 28. aug 2026 paa
+   /da/robotter/unitree-go2/: `.variantnavn` og `.maerke` delte flade
+   (#F7F8FA), ramme (1px solid #E3E5E9) og radius (6px) tegn for tegn, saa
+   fire doede <span> stod paa raekke under to andre bokse og lignede et
+   saet, man kunne slaa til og fra.
+
+   En raekke korte, ens boksede ord er tag-vaelgerens signatur, uanset hvor
+   praecist de rammer filterchippens maal. Grebet er derfor ikke at variere
+   boksen, men at FJERNE den: navnene saettes som sidens egne VAERDIER —
+   mono, fuld blaek, vaegt 700, samme sats som `.variant dd` — og luften
+   mellem dem goer resten (gab 10 -> 14 px, fordi ordene ikke laengere har
+   en ramme til at holde dem fra hinanden). Oplysningen er uaendret; formen
+   kan ikke laengere forveksles med noget, man trykker paa. Faerre streger,
+   jf. L40. */
+.robot-varianter{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin:0}
 .robot-varianter .etiket{display:inline;flex:none}
-.variantnavn{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek2);
-  border:1px solid var(--linje);border-radius:var(--rund-lille);padding:2px 8px 3px;background:var(--panel-ro)}
+.variantnavn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--blaek);
+  letter-spacing:.02em;white-space:nowrap}
 
 /* --- 9b. Advarsler/varianter under nøgletalsstriben, foldet (opgave 1) -----
    Fem stribefelter kan hver bære en advarsel- eller variantboks. Åbnet som
