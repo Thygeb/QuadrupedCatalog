@@ -18,7 +18,7 @@
 
 /* --- 1. Skrift ------------------------------------------------------------
    TYPESKILT-fundament (spor/fundament, 31. aug 2026, L54/L57). Erstatter den
-   gamle Manrope/JetBrains Mono-strategi, som ALDRIG selvhostede noget (maalt
+   gamle Manrope-og-skrivemaskineskrift-strategi, som ALDRIG selvhostede noget (maalt
    21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer dette spor - kun
    local()+en ikke-eksisterende url() og et fallback til systemskrift).
    Saira Semi Condensed ("Pladen": etiketter, tal, navigation, se --mono
@@ -141,11 +141,24 @@
                                  (fx 3.6's SVG-maerker), der ikke skal gaette
                                  sig til, at --blaek3 er den rigtige */
 
-  /* Skrift */
+  /* Skrift. --sans er UROERT i dette spor - runde 2 kobler kroppens
+     tekstroller til Saira/Literata; her selvhostes fontene kun (3.1) og
+     --mono repeges (3.4), fordi det er det ENESTE skriftskifte, briefet
+     beder om. "Manrope lokal" har intet @font-face-modstykke laengere
+     (fjernet i 3.1) og falder derfor bare videre i stakken - det er en
+     gyldig, uskadt CSS-tilstand, ikke en fejl. */
   --sans:"Manrope lokal",Manrope,"Segoe UI Variable Text","Segoe UI",
          system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  --mono:"JetBrains Mono lokal","JetBrains Mono","Cascadia Mono",Consolas,
-         "SFMono-Regular","DejaVu Sans Mono","Liberation Mono",monospace;
+  /* --mono: MANIFEST §"Hvorfor ingen skrivemaskineskrift" - paa et rigtigt
+     typeskilt staar tallene i SAMME skrift som etiketterne. Tokenet
+     beholdes (17 brugssteder i system.css alene, og
+     tests/dele/31-pudsning.mjs:141-142 kraever ordret
+     font-family:var(--mono)), men peges nu paa Saira i stedet for en
+     fastbredde-stak. Tabulartal loeser justeringen - se
+     font-variant-numeric:tabular-nums paa body nedenfor, som daekker ALLE
+     --mono-brugssteder paa én gang uden at opsoege dem enkeltvis. */
+  --mono:"SairaSemiCondensed",ui-sans-serif,system-ui,-apple-system,
+         "Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
 
   /* Rum. Ottetalsskala. */
   --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px;
@@ -180,6 +193,10 @@ body{
   font-family:var(--sans);font-size:17px;line-height:1.55;
   font-weight:400;letter-spacing:-.006em;
   -webkit-font-smoothing:antialiased;
+  /* 3.4: daekker alle var(--mono)-brugssteder paa én gang, jf. kommentaren
+     ved --mono i :root. Arves ned gennem hele siden (font-variant-numeric
+     er en nedarvet egenskab), saa intet af de 17 brugssteder skal roeres. */
+  font-variant-numeric:tabular-nums;
 }
 h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.08;letter-spacing:-.022em;text-wrap:balance}
 p,dl,dd,dt,ul,ol,figure,blockquote{margin:0}
