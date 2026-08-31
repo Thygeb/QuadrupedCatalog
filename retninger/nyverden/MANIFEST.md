@@ -278,8 +278,31 @@ node C:/Praktik/websites/maalevaerktoej/maal.mjs \
 | Spildt lodret plads | 0 px | 0 px |
 | Sidehøjde | 2.832 px | 5.370 px |
 
-**Værnet:** `git diff main..spor/nyverden --name-only -- assets tools data tests`
-→ **0 filer**. Sporet har ikke rørt data, værktøjer, tests eller assets.
+### Værnet — og hvorfor kommandoen skal have tre punktummer
+
+```
+git diff main...spor/nyverden --name-only -- assets tools data tests
+```
+
+→ **0 filer.** Sporet har ikke rørt data, værktøjer, tests eller assets. I alt
+rører grenen 15 filer, alle under `retninger/nyverden/`.
+
+**Med *to* punktummer giver samme kommando 94 filer — og det er ikke sporets
+skyld.** `main` flyttede sig undervejs: `spor/datafelter` blev flettet ind og
+ændrede 94 robotfiler (`foerste_udgivelse` og et `fremdrift`-identitetsfelt).
+To-punktumsformen `main..gren` sammenligner de to grenspidser og viser derfor
+*mainsfremdrift* oven i sporets egen. Tre-punktumsformen `main...gren` måler fra
+flettepunktet (`dc9f62d`) og viser kun, hvad sporet selv har lavet.
+
+Det er samme fælde som et hårdkodet forventet tal: et acceptkriterium, hvis
+betydning ændrer sig, når verden omkring det bevæger sig. Kontroltjekket, der
+afgør sagen uafhængigt af begge former:
+
+```
+git log --oneline main..spor/nyverden --name-only -- assets tools data tests
+```
+
+→ tomt. Ingen af sporets commits nævner en eneste fil under de fire stier.
 
 ---
 
