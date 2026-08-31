@@ -315,6 +315,21 @@ a:hover{text-decoration-thickness:2.5px}
 .streg{border:0;border-top:1px solid var(--linje);margin:0}
 .streg--kraftig{border-top-color:var(--blaek);border-top-width:2px}
 
+/* TYPESKILT-primitiv (3.5, spor/fundament): den stansede kant. 2px radius,
+   1px indfaeldet kant i --linje (=rille), hvid lyskant foroven (--stans).
+   Materiale, ikke skeuomorf teater - MANIFEST §Layouttesen: "Ingen
+   slagskygge findes paa siden". Kilde: retninger/nyverden/typeskilt.css
+   .stans, tilpasset til systemets EGNE tokens (var(--linje) i stedet for
+   comp'ens loesrevne var(--rille), som ikke findes her). Genbrugelig paa
+   ethvert kort/felt, runde 2 bygger. Navngivet UDEN et parallelt
+   "pladen"-primitiv: .plade findes allerede (linje ~920, .intetfoto .plade
+   - en 52px dashed ikon-plads), og at genbruge navnet til noget andet
+   ville have skabt to modstridende betydninger af samme klasse. */
+.stans{
+  border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
+}
+
 /* --- 6. Baandet oeverst --------------------------------------------------- */
 /* L18: neutral pladsholder. Intet logo, intet ordmaerke — Aa1 er ikke afgjort. */
 .baand{background:var(--panel);border-bottom:1px solid var(--linje);position:relative;z-index:5}
