@@ -86,8 +86,8 @@ export default async function koer(ctx) {
     const forside = fs.readFileSync(path.join(udMappe, sprog, 'index.html'), 'utf8');
     const forsideKort = traekKort(forside);
 
-    ok(`${sprog}/: forsidens smagsproeve staar i .net net--seneste`,
-      /<div class="net net--seneste">/.test(forside),
+    ok(`${sprog}/: forsidens smagsproeve staar i .net net--fritstaaende`,
+      /<div class="net net--fritstaaende">/.test(forside),
       'det flade .net ville tegne den sidste, ufyldte raekke som graa klodser');
 
     ok(`${sprog}/: forsiden har kort, og alle har en slug at pege paa (${forsideKort.length})`,
@@ -106,11 +106,11 @@ export default async function koer(ctx) {
         if (!fs.existsSync(f)) continue;
         producentSider++;
         const html = fs.readFileSync(f, 'utf8');
-        if (!/<div class="net net--seneste">/.test(html)) sidUdenNet.push(m.name);
+        if (!/<div class="net net--fritstaaende">/.test(html)) sidUdenNet.push(m.name);
         producentKort = producentKort.concat(traekKort(html));
       }
     }
-    ok(`${sprog}/producenter/: alle ${producentSider} modellister staar i .net net--seneste`,
+    ok(`${sprog}/producenter/: alle ${producentSider} modellister staar i .net net--fritstaaende`,
       producentSider > 0 && sidUdenNet.length === 0,
       sidUdenNet.length ? `uden: ${sidUdenNet.slice(0, 3).join(', ')}` : '');
 

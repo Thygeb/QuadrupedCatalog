@@ -86,7 +86,7 @@ export default async function koer(ctx) {
     invitAntalDa === 0 && invitAntalEn === 0,
     `fandt ${invitAntalDa} paa /da/ og ${invitAntalEn} paa /en/`);
   for (const [sprog, html, antal] of [['da', forsideDa, forsideKortDa], ['en', forsideEn, forsideKortEn]]) {
-    const iNet = /<div class="net net--seneste">/.test(html);
+    const iNet = /<div class="net net--fritstaaende">/.test(html);
     const navnelink = (html.match(/class="kort__navn"><a href=/g) || []).length;
     ok(`5c: /${sprog}/ har ${antal} kort i .net, hver med et .kort__navn-link at tegne signalet paa (${navnelink})`,
       antal > 0 && iNet && navnelink === antal,

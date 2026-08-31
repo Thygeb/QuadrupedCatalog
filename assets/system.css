@@ -1226,6 +1226,39 @@ a.daek__sprogkode::after{
    naa densitetskravet ved 390 px (spor/instrument2, punkt 2), se rapporten. */
 @media (max-width:679px){.gitter{grid-template-columns:1fr;gap:var(--r2)}}
 
+/* --- FRITSTAAENDE KORTGITTER (spor/kort, 31. aug 2026) -------------------
+   Forsidens "Fra kataloget" og producentsidernes modelliste bruger katalogets
+   kortgitter (.net i generator.css), saa kortet har ÉN kilde og ikke tre
+   haandkopier. Men katalogets to gitterbunde passer ingen af dem:
+
+   `.net` laegger linjefarven i BUNDEN og lader kortene staa som huller i den.
+   Det giver haarstregerne mellem kortene gratis - men kun naar raekkerne gaar
+   op, som katalogets 77 goer.
+
+   `.net--seneste` maler bunden med panelfarven i stedet. Det virker paa
+   katalogets aabning, fordi den ligger PAA en panelflade, saa en tom celle
+   forsvinder ind i baggrunden.
+
+   MAALT paa forsiden 31. aug 2026, og det var her, jeg tog fejl foerste gang:
+   forsiden har 6 kort i 5 spalter ved 1440 px = 4 tomme celler, og gitteret
+   ligger paa sidens graa bund (rgb 232,235,237), ikke paa en panelflade. Med
+   `.net--seneste` blev de fire celler til ét naesten-hvidt felt (rgb
+   250,251,251) paa 1070 px - det modsatte af usynligt. Skaermbilledet viste
+   det; ingen af maaletallene (overloeb, hoejdespring, beskaering) kunne.
+
+   Derfor en tredje bund: INGEN. Gitteret er gennemsigtigt, og hvert kort
+   baerer selv sin haarstreg. En tom celle viser da sidens egen bund og er
+   dermed faktisk usynlig - uanset hvor mange kort raekken har, og uanset hvad
+   fladen under gitteret er malet med. Det er ogsaa den eneste af de tre, der
+   holder for producentsiderne, hvor modelantallet gaar fra 1 til 13.
+
+   Specificiteten er ikke tilfaeldig: generator.css indlaeses EFTER system.css,
+   saa `.net{background:var(--linje)}` (0,1,0) ville vinde over en regel med
+   samme vaegt her. `.net.net--fritstaaende` er (0,2,0), og kort-reglen
+   (0,3,0) slaar `.net .kort{box-shadow:none}` (0,2,0). */
+.net.net--fritstaaende{background:transparent;box-shadow:none}
+.net.net--fritstaaende .kort{box-shadow:0 0 0 1px var(--linje)}
+
 /* Forsidens smagsproeve "Fra kataloget" viser SEKS kort. auto-fill ovenfor
    giver praecis fem spalter ved 1440 (250*5 + 16*4 = 1314 <= 1352, seks ville
    kraeve 1580), saa raekke 2 stod med ét kort og fire tomme pladser ved siden
