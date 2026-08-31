@@ -513,6 +513,12 @@ ${x.anvendelse.vaerdi.map((a) => `<span class="mrk">${esc(t('anvendelse_' + a))}
 <div class="bjaelke"><i style="width:${pct}%"></i></div>
 <p>${esc(t('taethed_forklaring'))} Her: <b>${oplyste} af ${naevner}</b> felter udfyldt.</p>
 </div>
+<div class="kildeliste">
+<h2 class="skema__navn" style="padding:0 0 4px">Kilder</h2>
+<ol>
+${x.kilder.map((k) => `<li><span class="kilde-bogstav">${esc(k.bogstav)}</span><a href="${esc(k.url)}">${esc(k.url)}</a> — hentet ${esc(k.hentet)}</li>`).join('\n')}
+</ol>
+</div>
 </div>
 
 <p class="post__ophav">Foto: ${esc(x.producent)}. Gengivet fra <a href="${esc(x.kilder[0].url)}">producentens produktside</a>, hentet ${esc(x.kilder[0].hentet)}.</p>
@@ -520,18 +526,12 @@ ${x.anvendelse.vaerdi.map((a) => `<span class="mrk">${esc(t('anvendelse_' + a))}
 <div class="skema">
 <h2 class="skema__navn">Specifikationer</h2>
 <table class="tabel">
-<caption>Bogstavet peger på kilden nederst. Felter uden tal er stiplede: producenten oplyser dem ikke — det er ikke det samme som nul, og ikke det samme som nej.</caption>
+<caption>Bogstavet peger på kilden øverst til højre. Felter uden tal er stiplede: producenten oplyser dem ikke — det er ikke det samme som nul, og ikke det samme som nej.</caption>
 <thead><tr><th>Felt</th><th>Værdi</th><th>Kilde og forbehold</th></tr></thead>
 ${raekker}
 </table>
 </div>
 
-<div class="kildeliste">
-<h2 class="skema__navn" style="padding:0 0 4px">Kilder</h2>
-<ol>
-${x.kilder.map((k) => `<li><span class="kilde-bogstav">${esc(k.bogstav)}</span><a href="${esc(k.url)}">${esc(k.url)}</a> — hentet ${esc(k.hentet)}</li>`).join('\n')}
-</ol>
-</div>
 
 </article>
 </div>
