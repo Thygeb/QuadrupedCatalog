@@ -137,7 +137,7 @@ export default async function koer(ctx) {
     fs.mkdirSync(s1Data, { recursive: true });
     fs.writeFileSync(path.join(s1Data, 'proeve-fabrikant.yaml'),
       `slug: proeve-fabrikant\nnavn: Proeve Fabrikant\nproducent: P\nproducentland: Kina\n`
-      + `status: i_produktion\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: fabrikant\n`
+      + `status: i_produktion\nfremdrift: ben\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: fabrikant\n`
       + `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`, 'utf8');
     const s1 = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
       `--data=${s1Data}`, `--ud=${path.join(tmp, 'dist-s1')}`],
@@ -180,7 +180,7 @@ export default async function koer(ctx) {
     fs.mkdirSync(m, { recursive: true });
     fs.writeFileSync(path.join(m, 'proeve-delt.yaml'),
       `slug: proeve-delt\nnavn: Proeve Delt\nproducent: P\nproducentland: Kina\n`
-      + `status: i_produktion\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n`
+      + `status: i_produktion\nfremdrift: ben\nbillede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n`
       + `  kilde: https://example.com/a\n  hentet: 2026-08-19\n  delt_med: findes-ikke\n`
       + `felter:\n  egenvaegt: ikke_oplyst\n`, 'utf8');
     const r = koerValidator([`--data=${m}`]);

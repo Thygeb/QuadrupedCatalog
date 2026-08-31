@@ -18,6 +18,7 @@ navn: Proeve
 producent: Proeveproducent
 producentland: Kina
 status: i_produktion
+fremdrift: ben
 felter:
 `;
 
@@ -27,6 +28,7 @@ navn: Proeve
 producent: Proeveproducent
 producentland: Kina
 status: i_produktion
+fremdrift: ben
 `;
 
 /** Hvert tilfaelde: [navn, forventet regelkode, felter-blok]. */
@@ -121,66 +123,66 @@ const ITUSLAAEDE_HOVED = [
   ['producent mangler', 'R1',
     `slug: NAVN\nnavn: Proeve\nproducentland: Kina\nstatus: i_produktion\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['variantnavn paa et felt, som ikke staar paa robottens variantliste', 'R15',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `varianter: [Basic, Pro]\nfelter:\n  egenvaegt:\n    vaerdi: 12\n    enhed: kg\n` +
     `    kilde: https://example.com/a\n    hentet: 2026-08-19\n    varianter:\n      Basic: 12\n      Prox: 13\n`],
   ['variantlisten er ikke en liste', 'R15',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `varianter: Basic\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['noter er hverken tekst eller liste af tekst', 'R1',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `noter: 42\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 
   // R16 - anvendelse. Feltet er bygget for IKKE at kunne baere vores mening.
   // Hvert tilfaelde nedenfor er en maade at snige en redaktionel kategori ind paa.
   ['anvendelse med kategori, men uden citat', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
     `felter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse med kategori og citat, men uden kilde', 'R6',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  hentet: 2026-08-19\n` +
     `felter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse med kategori og citat, men uden hentedato', 'R7',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
     `felter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse med en kategori uden for det tilladte saet', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: landbrug\n  citat: "Agriculture"\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse ikke_oplyst, men med et citat alligevel', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: ikke_oplyst\n  citat: "ser industriel ud"\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse med tomt citat', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: ""\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse med samme kategori to gange', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: [industri, industri]\n  citat: "Robot - Industry"\n` +
     `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['ukendt noegle i anvendelsesposten', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citaat: "Robot - Industry"\n  citat: "Robot - Industry"\n` +
     `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse som bar tekst, der ikke er en tilstand', 'R16',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse: industri\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 
   // R17 - arv (L23). De tre tilfaelde her kan afgoeres i filen selv; resten
   // kraever moderen og staar i denne fils afsnit 2c.
   ['arvet_fra peger paa robotten selv', 'R17',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\n  arvet_fra: NAVN\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['arvet_fra staar sammen med ikke_oplyst - der er ingen kategori at arve', 'R17',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: ikke_oplyst\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
     `  arvet_fra: en-anden\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['arvet_fra er ikke moderens slug som tekst', 'R17',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\n  arvet_fra: 42\nfelter:\n  egenvaegt: ikke_oplyst\n`],
 
@@ -274,7 +276,7 @@ const GYLDIGE = [
 /** Gyldige tilfaelde med eget hoved - varianter kraever topnoeglen. */
 const GYLDIGE_HOVED = [
   ['varianter paa et felt, med variantnavnene paa robotten',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `producentby: Poznan\nvarianter: [Basic, Venture, "A2-W PRO"]\nnoter:\n  - "en note"\n  - "og en til"\n` +
     `felter:\n  nyttelast_gaaende:\n    vaerdi: 5\n    enhed: kg\n    kilde: https://example.com/a\n` +
     `    hentet: 2026-08-19\n    varianter:\n      Basic: 5\n      Venture: 4.5\n      A2-W PRO: "IP56-IP67"\n`],
@@ -283,29 +285,29 @@ const GYLDIGE_HOVED = [
   // R16-tilfaeldene kun, at validatoren siger nej til alt, hvad der hedder
   // "anvendelse".
   ['anvendelse med én kategori og ét citat',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: industri\n  citat: "Robot - Industry"\n  kilde: https://example.com/a\n` +
     `  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse med flere kategorier og flere citater',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: [industri, inspektion]\n  citat:\n    - "Robot - Industry"\n` +
     `    - "for industrial patrol inspection"\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
     `  kildetype: primaer\n  note: "Producentens egen navigation."\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse ikke_oplyst MED kilde - vi kiggede, producenten sagde intet',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: ikke_oplyst\n  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
     `  note: "GENNEMLAEST, INTET FUNDET."\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['anvendelse som bar tilstand uden kort',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse: ikke_oplyst\nfelter:\n  egenvaegt: ikke_oplyst\n`],
   ['robot helt uden anvendelse - feltet er valgfrit, ikke paakraevet',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `felter:\n  egenvaegt: ikke_oplyst\n`],
 
   // L22 - den syvende kategori. Uden det her tilfaelde ville "landbrug"-tilfaeldet
   // ovenfor lige saa godt kunne bevise, at listen slet ikke var udvidet.
   ['sikkerhed_overvaagning er en gyldig anvendelse (L22)',
-    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n` +
+    `slug: NAVN\nnavn: Proeve\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n` +
     `anvendelse:\n  vaerdi: [inspektion, sikkerhed_overvaagning]\n` +
     `  citat: "ideal for security, inspection, and advanced applications."\n` +
     `  kilde: https://example.com/a\n  hentet: 2026-08-19\nfelter:\n  egenvaegt: ikke_oplyst\n`],
@@ -386,7 +388,7 @@ export default async function koer(ctx) {
   console.log('\n2c. R17 — arv af anvendelse paa tvaers af filer (L23)');
   {
     const hoved = (slug, navn) =>
-      `slug: ${slug}\nnavn: ${navn}\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n`;
+      `slug: ${slug}\nnavn: ${navn}\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n`;
     const MOR = hoved('mor', 'Mor')
       + `anvendelse:\n  vaerdi: [industri, inspektion]\n  citat:\n    - "Robot - Industry"\n`
       + `    - "for industrial inspection"\n  kilde: https://example.com/mor\n  hentet: 2026-08-19\n`

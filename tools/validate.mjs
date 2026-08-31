@@ -31,7 +31,7 @@ import {
   ENHEDER, TYPE_ENHEDER, IMPERIALE, tilBasis, decimaler, ORD_OPERATOR, ORD_MAASKE,
 } from './yaml.mjs';
 import {
-  FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER,
+  FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER, FREMDRIFT_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
   ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER, sorterAnvendelse,
   BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER,
@@ -966,6 +966,12 @@ export function tjekRobot(doc, fil) {
     FEJL('R1', 'status', `${JSON.stringify(doc.status)} er ikke en gyldig status. ` +
       `Gyldige: ${STATUS_VAERDIER.join(' | ')}` +
       (typeof doc.status === 'string' && doc.status.includes(' ')
+        ? ' (skriv den med understreg, ikke mellemrum)' : ''));
+  }
+  if (doc.fremdrift !== undefined && !FREMDRIFT_VAERDIER.includes(doc.fremdrift)) {
+    FEJL('R1', 'fremdrift', `${JSON.stringify(doc.fremdrift)} er ikke en gyldig fremdrift. ` +
+      `Gyldige: ${FREMDRIFT_VAERDIER.join(' | ')}` +
+      (typeof doc.fremdrift === 'string' && doc.fremdrift.includes(' ')
         ? ' (skriv den med understreg, ikke mellemrum)' : ''));
   }
   const forventetSlug = path.basename(fil).replace(/\.ya?ml$/, '');

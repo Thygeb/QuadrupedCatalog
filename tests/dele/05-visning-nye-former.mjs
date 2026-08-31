@@ -24,6 +24,7 @@ export default async function koer(ctx) {
     'producentland: Kina',
     'producentby: Shenzhen',
     'status: i_produktion',
+    'fremdrift: ben',
     'varianter: [AIR, PRO]',
     'noter:',
     '  - "foerste note"',

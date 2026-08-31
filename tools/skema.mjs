@@ -64,7 +64,7 @@ export const FELTNAVNE = Object.keys(FELTER);
 export const GRUPPER = ['fysik', 'energi', 'sensorik', 'nyttelast', 'kommercielt', 'eu'];
 
 /** Identitet. Skrives af os og taeller ikke i taetheden. */
-export const IDENTITET_PAAKRAEVET = ['slug', 'navn', 'producent', 'producentland', 'status'];
+export const IDENTITET_PAAKRAEVET = ['slug', 'navn', 'producent', 'producentland', 'status', 'fremdrift'];
 export const IDENTITET_VALGFRI = [
   'foerste_udgivelse', 'forgaenger', 'noter',
   // Producentens by. Sammen med producentland er den svaret paa "hvor staar de
@@ -84,6 +84,19 @@ export const IDENTITET_VALGFRI = [
   'anvendelse',
 ];
 export const STATUS_VAERDIER = ['i_produktion', 'annonceret', 'udgaaet', 'demonstrator'];
+
+/**
+ * Fremdrift — IDENTITETSFELT (spor/datafelter, 31. aug 2026), skrevet af os
+ * som `status`, ikke af producenten som et FELTER-tal. Derfor her, ikke i
+ * FELTER: skulle den ind i FELTER, ville den taelle i specifikationstaetheden,
+ * og en robots benart aendrer ikke, hvor aabent producenten har oplyst sine
+ * specifikationer. Samme begrundelse som `status` og `producentland`.
+ *
+ * To vaerdier, ikke tre: en robot enten gaar udelukkende paa ben, eller den
+ * har mindst ét hjuldrevet segment ved siden af benene (typisk "-w"-varianter
+ * som Unitree Go2-W). Ingen robot i kataloget er ren hjulplatform uden ben.
+ */
+export const FREMDRIFT_VAERDIER = ['ben', 'ben_hjul'];
 
 /**
  * De fire tilstande, der aldrig maa kollapse (CLAUDE.md begraensning 5, regel 10).

@@ -20,7 +20,7 @@ export default async function koer(ctx) {
   const dataMappe = path.join(tmp, 'klasse-data');
   fs.mkdirSync(dataMappe, { recursive: true });
   const hoved = (slug, navn) =>
-    `slug: ${slug}\nnavn: ${navn}\nproducent: P\nproducentland: Kina\nstatus: i_produktion\n`;
+    `slug: ${slug}\nnavn: ${navn}\nproducent: P\nproducentland: Kina\nstatus: i_produktion\nfremdrift: ben\n`;
   const vaegt = (slug, navn, felt) => [slug,
     hoved(slug, navn) + `felter:\n${felt}`];
 
