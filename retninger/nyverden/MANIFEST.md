@@ -317,4 +317,159 @@ git log --oneline main..spor/nyverden --name-only -- assets tools data tests
   sorterer.
 - **Certificeringsgruppen er en ærlig pladsholder.** Der findes ingen data:
   CE er oplyst på 4 af 77 robotter.
-- **Producentsiden og sammenligningssiden** er ikke tegnet i denne verden.
+- **Producentsiden** er ikke tegnet i denne verden. Sammenligningssiden er —
+  se afsnittet nedenfor (tilføjet 31. aug 2026 af `spor/samlcomp`).
+
+---
+
+# Sammenligningssiden — tre plader i den samme jig
+
+Filerne: [`sammenligning.html`](sammenligning.html) · [`byg-samlcomp.mjs`](byg-samlcomp.mjs) ·
+skærmbilleder: `skud-sammenligning-1440.png`, `skud-sammenligning-390.png`, og
+`skud-sammenligning-foer-1440.png` (den **kørende** side, til sammenligning).
+
+**Comp, ikke implementering.** Den kørende side er urørt.
+
+## Tesen
+
+På kataloget **er** filtret pladen. Her ligger **tre** plader i den samme jig og
+læses på tværs. Det, læseren finder, er ikke en vinder — sidens egen
+tegnforklaring afviser udtrykkeligt vindermarkering, og det er en truffet
+beslutning bundet til hård begrænsning 6. Det, man finder, er **hvor pladerne
+svarer, og hvor de tier sammen.**
+
+Målt på den viste jig: **18 af 30 felter er oplyst af alle tre**, og **3 felter
+(ROS 2, SDK-sprog, CE oplyst) er tavse hos alle tre.** På de tre er en
+sammenligning en illusion, og fladen siger det frem for at lade tre ens tomme
+felter ligne et resultat.
+
+## De to ting, der IKKE er rørt
+
+| | Kørende side (målt i browser) | Compen (målt i browser) |
+|---|---|---|
+| `<table>` | 1 | **1** |
+| `<caption>` | 1 | **1** |
+| `th[scope="col"]` | 3 | **3** |
+| `th[scope="row"]` | 30 | **30** |
+| `th[scope="rowgroup"]` | 6 | **6** |
+| `<td>` | 91 | **91** |
+| Kildebogstaver | 0 | **0** |
+
+Tabelsemantikken (Å54/Å58) og fraværet af kildebogstaver (L46) er begge
+**assertions i generatoren** — 1-6 og 7 — så et senere spor ikke kan rulle dem
+tilbage ved et uheld. Bemærk målefælden: et `grep` efter `<table>` i den
+**byggede** side giver 0, fordi matricen tegnes klientside. Mål i en browser.
+
+Compen behøver ikke den kørende sides eksplicitte ARIA-roller
+(`role="table"`/`"rowgroup"`/…): de er der, fordi CSS'en lægger `display:grid`
+oven på tabelelementerne og dermed fjerner deres rolle. Her forbliver
+`display` **table** (målt), og rollerne er de native.
+
+## De tre valg, JPK skal dømme
+
+1. **Kolonnehovedet klæber — og er samtidig betjeningen.** På den kørende side
+   ruller robotnavnene væk, så række 25 læses uden at vide hvilken spalte der er
+   hvem; og de 77 afkrydsningsfelter ligger et helt andet sted end resultatet.
+   Her er hovedet både kolonneoverskrift og "Skift plade".
+2. **Tegnforklaringen presset fra en hel første skærm til ét bånd.** Samme fem
+   udsagn, samme i18n-nøgler — inklusive "ingen vinder markeret".
+3. **Svarmærket i hvert rækkehoved:** ét felt pr. plade, fyldt = svarer, stiplet
+   = tier. En **tælling** i samme målestok som sidens egen "N af 30 felter
+   oplyst", vendt 90 grader. Ingen vurdering, ingen rangering.
+
+Dertil: **tallet står i pladens skrift (Saira), producentens prosa i manualens
+(Literata).** Det er direkte anvendt manifest — og det løser en målt layoutfejl:
+MOVENEW P1's `autonominiveau` er 223 tegn og sætter rækkehøjden for to spalter,
+der bærer ét tal hver.
+
+## To fælder, der kun kunne findes ved at måle
+
+Begge så rigtige ud på et skærmbillede.
+
+1. **`overflow-x:auto` tvinger `overflow-y` fra `visible` til `auto`.** Rulleren
+   blev dermed den klæbende rækkes rullebeholder i stedet for viewporten, og
+   `top:0` trådte aldrig i kraft — målt til **top:−938 px ved række 21**.
+   Beholderen ruller nu kun under 820 px. **Prisen, taget med vilje:** under
+   820 px klæber hovedet ikke, men rækkehovedet klæber mod venstre kant, og det
+   er den, der bærer mest på en smal skærm (målt: 297 px vandret rulning,
+   feltnavnets `left` står fast).
+2. **214 px vandret sideoverløb på 390**, mens `body.scrollWidth` sagde 375 og
+   **intet synligt element** lå uden for kanten. Årsag: matricen bærer 95
+   `.kun-skaerm`-spans, som er `position:absolute`; uden en positioneret
+   forfader løses de mod det initiale blokelement. Rettet med
+   `position:relative` på rulleren.
+
+## Sådan er compen bygget
+
+`byg-samlcomp.mjs` genererer siden af `dist/robots.json`, `data/i18n/da.json` og
+`tools/skema.mjs` (feltrækkefølge, gruppetilhør og nævneren **importeres**, så
+et håndskrevet 30 aldrig kan divergere fra et udledt — L30/D7). Den bærer
+**14 assertions**.
+
+**De tre plader er udledt, ikke valgt:** højeste specifikationstæthed, højst én
+pr. producent, alfabetisk på slug ved lige tæthed — samme regel som den kørende
+sides `standardvalg()`. Reglen er gengivet, og assertion 8-9 efterprøver, at
+gengivelsen giver samme svar. Resultatet er de samme tre robotter, den kørende
+side viser: MOVENEW P1 (24/30) · Gangben L2 (23/30) · S1 (22/30).
+
+```
+node retninger/nyverden/byg-samlcomp.mjs     # 14 ok, 0 brud
+```
+
+## Målinger
+
+| Måling | 1440 | 390 |
+|---|---|---|
+| **Vandret overløb** | **0** | **0** |
+| Spildt lodret plads | 0 px | 0 px |
+| Sidehøjde, compen | 3.130 px | 4.023 px |
+| Sidehøjde, den kørende side | 4.014 px | 9.569 px |
+| Jigrækken klæber | ja (top 0 ved række 21) | nej, med vilje |
+| Rækkehovedet klæber venstre | — | ja |
+
+## Hvad compen ikke svarer på
+
+- **Filtreringen er ikke bygget.** Afkrydsningerne i udtrækket kan klikkes, men
+  intet skifter pladerne. Derfor stemplet *Comp · ét pladevalg*.
+- **Engelsk udgave er ikke tegnet.**
+## Forbehold 1 — sidevægten, hvis formen bygges (Å43)
+
+Formen **kan** bygges inden for loftet, men ikke uden videre.
+
+Compens matrix fylder **64.781 bytes**. Den kørende side er 369.777 bytes, og
+Å43's loft på +15 % giver et råderum på 55.467 bytes.
+
+| Hvis matricen server-renderes … | Vægt | Inden for +15 %? |
+|---|---|---|
+| som compen gør det nu | +17,5 % | **nej** (9.314 bytes over) |
+| med forbeholdet båret **én** gang | +14,3 % | ja |
+| uden forbehold i den server-renderede kopi | +11,2 % | ja |
+
+Grunden er målt: **54 forbehold fylder 23.488 bytes = 36 % af matricen**, og de
+står **to** gange — i `title` og i `.kun-skaerm`. Den dublering er arvet fra den
+kørende sides `fnote()` og er den første knap at dreje på.
+
+Værd at kende: den inline JSON-blok er i dag **332.641 bytes = 90 % af siden**,
+så en implementering, der server-renderer standardtrioen, kan til gengæld
+udelade netop de tre robotter af blokken. Det er ikke regnet igennem her.
+
+## Forbehold 2 — skriften dækker ikke denne flades indhold
+
+Målt mod de erklærede `unicode-range`-blokke i `typeskilt.css` (apparatet er
+efterprøvet mod et kendt svar: `A` og `å` DÆKKET, CJK IKKE DÆKKET):
+
+| Tegn | Saira | Literata | Står på fladen |
+|---|---|---|---|
+| `≥` U+2265 | **ikke dækket** | **ikke dækket** | 1 gang (`operator_mindst`, prisfeltet) |
+| CJK | **ikke dækket** | **ikke dækket** | **331 tegn i 37 celler** |
+| `−` `°` `±` `–` `·` | dækket | dækket | — |
+
+Manifestet kendte `≥`-hullet, men behandlede det som et **chipnavn**, der kunne
+skrives om (afvigelse 6). Det kan det ikke her: tegnet kommer fra
+`data/i18n/da.json`s `operator_mindst` og lander på ethvert felt med
+`>=`-operator. Og CJK-hullet er nyt — katalogcompen viste aldrig feltværdier,
+så producenternes egen kinesiske tekst nåede aldrig en flade i denne verden før.
+
+**Begge falder tilbage til systemskrift.** Det er ikke et byggestop, men det er
+en beslutning, JPK skal tage bevidst: enten accepteres to skriftsnit i samme
+celle, eller også skal fontstrategien udvides, før denne flade bygges.
