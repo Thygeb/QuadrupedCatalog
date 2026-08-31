@@ -206,7 +206,7 @@ function byggFeltpostVaerdi(f) {
 function byggRobotDoc(r) {
   const doc = {
     slug: r.slug, navn: r.navn, producent: r.producent, producentland: r.producentland,
-    producentby: r.producentby ?? undefined, status: r.status,
+    producentby: r.producentby ?? undefined, status: r.status, fremdrift: r.fremdrift,
     foerste_udgivelse: r.foerste_udgivelse ?? undefined,
     forgaenger: r.forgaenger ?? undefined,
     varianter: r.varianter ?? undefined,
@@ -252,7 +252,7 @@ function skrivRobotYaml(doc) {
   // raekkefoelge robotdata-skillen selv anbefaler (identitet foerst, saa
   // anvendelse/billede, saa felter til sidst).
   const topRaekkefoelge = [
-    'slug', 'navn', 'producent', 'producentland', 'producentby', 'status',
+    'slug', 'navn', 'producent', 'producentland', 'producentby', 'status', 'fremdrift',
     'foerste_udgivelse', 'forgaenger', 'varianter', 'noter', 'anvendelse', 'billede',
   ];
   const top = {};
@@ -358,7 +358,7 @@ function omdanRobotFraDb(raa, idTilSlug) {
 
   return {
     slug: raa.slug, navn: raa.navn, producent: raa.producent, producentland: raa.producentland,
-    producentby: raa.producentby, status: raa.status, foerste_udgivelse: raa.foerste_udgivelse,
+    producentby: raa.producentby, status: raa.status, fremdrift: raa.fremdrift, foerste_udgivelse: raa.foerste_udgivelse,
     forgaenger: raa.forgaenger_robot_id ? idTilSlug.get(raa.forgaenger_robot_id) : null,
     varianter: raa.varianter, noter: raa.noter,
     felter, anvendelse, billede,
@@ -536,4 +536,4 @@ if (erHoved) {
   });
 }
 
-export { byggRobotDoc, skrivRobotYaml, fraDb, byggFeltpostVaerdi, omdanFeltpostFraDb };
+export { byggRobotDoc, skrivRobotYaml, fraDb, byggFeltpostVaerdi, omdanFeltpostFraDb, omdanRobotFraDb };

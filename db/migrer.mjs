@@ -303,7 +303,7 @@ function klassificerRobot(doc) {
 
   return {
     slug: doc.slug, navn: doc.navn, producent: doc.producent, producentland: doc.producentland,
-    producentby: doc.producentby ?? null, status: doc.status,
+    producentby: doc.producentby ?? null, status: doc.status, fremdrift: doc.fremdrift,
     foerste_udgivelse: doc.foerste_udgivelse ?? null, forgaenger: doc.forgaenger ?? null,
     varianter: doc.varianter ?? null, noter: doc.noter ?? null,
     felter, anvendelse, billede,
@@ -328,9 +328,9 @@ function byggSeedSql(robotter) {
   ud.push(`-- Kilde: data/robots/*.yaml, ${robotter.length} filer. Koer db/skema.sql foerst.\n`);
   ud.push('begin;\n');
 
-  ud.push('insert into robotter (slug, navn, producent, producentland, producentby, status, foerste_udgivelse, varianter, noter) values');
+  ud.push('insert into robotter (slug, navn, producent, producentland, producentby, status, fremdrift, foerste_udgivelse, varianter, noter) values');
   ud.push(robotter.map((r) => `  (${sqlStr(r.slug)}, ${sqlStr(r.navn)}, ${sqlStr(r.producent)}, ` +
-    `${sqlStr(r.producentland)}, ${sqlStr(r.producentby)}, ${sqlEnum(r.status)}, ${sqlNum(r.foerste_udgivelse)}, ` +
+    `${sqlStr(r.producentland)}, ${sqlStr(r.producentby)}, ${sqlEnum(r.status)}, ${sqlStr(r.fremdrift)}, ${sqlNum(r.foerste_udgivelse)}, ` +
     `${sqlTextArray(r.varianter)}, ${sqlJsonb(r.noter)})`).join(',\n') + ';\n');
 
   // forgaenger_robot_id saettes i et andet trin, fordi den peger PAA robotter
@@ -783,7 +783,7 @@ async function tilDb(robotter, argv = []) {
   // *_robot_id og kan foerst skrives, naar dette opslag findes.
   const indsatte = await post('robotter', robotter.map((r) => ({
     slug: r.slug, navn: r.navn, producent: r.producent, producentland: r.producentland,
-    producentby: r.producentby, status: r.status, foerste_udgivelse: r.foerste_udgivelse,
+    producentby: r.producentby, status: r.status, fremdrift: r.fremdrift, foerste_udgivelse: r.foerste_udgivelse,
     varianter: r.varianter, noter: r.noter,
   })), { repraesentation: true });
   const slugTilId = new Map(indsatte.map((r) => [r.slug, r.id]));
