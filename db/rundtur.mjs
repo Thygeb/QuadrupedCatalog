@@ -38,6 +38,18 @@
  * Ingen npm-afhaengigheder — child_process.execFileSync mod den samme
  * node-binaer, denne proces selv koerer under (process.execPath), saa
  * scriptet virker uanset PATH.
+ *
+ * GENERISK OVER FOR NYE IDENTITETSFELTER (spor/dbfelter, 31. aug 2026):
+ * koerSammenligning() nedenfor naevner ALDRIG et bestemt feltnavn — dybtLig()
+ * sammenligner de faktiske noeglesaet, normaliserRobot(parseYaml(x)) giver,
+ * uanset hvilke topnoegler robotten har. Da "fremdrift" (nyt IDENTITET_
+ * PAAKRAEVET-felt, tools/validate.mjs:67) blev tilfoejet gennem db/skema.sql,
+ * db/migrer.mjs og db/eksporter.mjs, kraevede DENNE fil derfor INGEN
+ * kodeaendring for at daekke det — det var allerede daekket. Efterproevet
+ * EFTER rettelsen: "node db/rundtur.mjs" -> RUNDTUR BESTAAET, 77/77 dybt lig
+ * (samme mekanisme, der ville have fanget en manglende fremdrift-noegle i
+ * den eksporterede YAML som en uenighed i noeglesaettet, jf. dybtLig's egen
+ * kommentar om "noeglesaet {...} vs {...}").
  */
 
 import fs from 'node:fs';
