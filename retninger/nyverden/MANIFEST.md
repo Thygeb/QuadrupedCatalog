@@ -422,7 +422,7 @@ node retninger/nyverden/byg-samlcomp.mjs     # 14 ok, 0 brud
 |---|---|---|
 | **Vandret overløb** | **0** | **0** |
 | Spildt lodret plads | 0 px | 0 px |
-| Sidehøjde, compen | 3.130 px | 4.023 px |
+| Sidehøjde, compen | 3.132 px | 3.791 px |
 | Sidehøjde, den kørende side | 4.014 px | 9.569 px |
 | Jigrækken klæber | ja (top 0 ved række 21) | nej, med vilje |
 | Rækkehovedet klæber venstre | — | ja |
@@ -432,18 +432,63 @@ node retninger/nyverden/byg-samlcomp.mjs     # 14 ok, 0 brud
 - **Filtreringen er ikke bygget.** Afkrydsningerne i udtrækket kan klikkes, men
   intet skifter pladerne. Derfor stemplet *Comp · ét pladevalg*.
 - **Engelsk udgave er ikke tegnet.**
+
+---
+
+## Revision efter JPK's dom, 31. aug 2026
+
+To punkter, begge målt før og efter.
+
+**1. Robotbilledet var der ikke.** JPK: *"billede mangler af selve robotten"*.
+Målt: både compen og den kørende side havde **0** billeder — fladen har aldrig
+vist den robot, man sammenligner. Hver plade har nu et **mærkatfoto** i
+kolonnehovedet, ikke et hero: hovedet er samtidig betjeningen og skal blive ved
+med at klæbe. **76 af 77** robotter har et fabrikantfoto; den ene uden får den
+**stiplede ikke-oplyst-plade** — samme sprog som ethvert andet uoplyst felt, så
+den ikke kan læses som en indlæsningsfejl. Det tilfælde rammer aldrig compens
+egen jig (alle tre tætteste poster har foto), så det er fotograferet særskilt i
+`skud-manglende-foto-1440.png`, lavet med
+`node retninger/nyverden/byg-samlcomp.mjs --demo-manglende-foto`.
+
+Ophavet står på siden med producent og hentedato, regnet af robottens egen
+kildeliste. Fabrikantfotos er tilladt (L37) — aldrig uden kilde. Ingen
+AI-genererede billeder (hård begrænsning 4).
+
+**2. "Sådan læses tallene" var for stor.** JPK: *"Er kassen nødvendig??"*
+Forklaringen er nødvendig — `0`, `nej` og `ikke oplyst` er ikke selvforklarende,
+og forskellen er præcis den, siden findes for at vise (hård begrænsning 5). Men
+kassen kostede en halv første skærm. Den er nu **ét bånd, der kan foldes ud**
+med `<details>` (virker uden JavaScript). **"Ingen vinder markeret" er flyttet
+ud** til bunden: de fire andre forklarer notation, den femte er en redaktionel
+position — den flyttes, den fjernes ikke.
+
+| Målt | før | efter |
+|---|---|---|
+| Billeder i matricen | 0 | **3** (alle indlæst; `naturalWidth` 4096 · 640 · 783) |
+| Legendens højde, 1440 | 185 px | **44 px** |
+| Legendens højde, 390 | 531 px | **106 px** |
+| Y for første datarække, 1440 | 749 px | **609 px** |
+| Y for første datarække, 390 | 1.234 px | **841 px** |
+
+**Implementeringsnote, ikke løst her:** fotoerne er fuldstørrelse. MOVENEW P1's
+fil er **329 KB og 4.096 px bred**, vist i et felt på 74 px. En rigtig
+implementering skal have en miniature-variant; compen bruger de filer, der
+findes.
+
 ## Forbehold 1 — sidevægten, hvis formen bygges (Å43)
 
 Formen **kan** bygges inden for loftet, men ikke uden videre.
 
-Compens matrix fylder **64.781 bytes**. Den kørende side er 369.777 bytes, og
-Å43's loft på +15 % giver et råderum på 55.467 bytes.
+Compens matrix fylder **65.661 bytes** (64.781 før billederne; de tre `<img>`
+koster 880 bytes — selve billedfilerne er separate og indgår ikke i
+HTML-vægten). Den kørende side er 369.777 bytes, og Å43's loft på +15 % giver et
+råderum på 55.467 bytes.
 
 | Hvis matricen server-renderes … | Vægt | Inden for +15 %? |
 |---|---|---|
-| som compen gør det nu | +17,5 % | **nej** (9.314 bytes over) |
-| med forbeholdet båret **én** gang | +14,3 % | ja |
-| uden forbehold i den server-renderede kopi | +11,2 % | ja |
+| som compen gør det nu | +17,8 % | **nej** (10.194 bytes over) |
+| med forbeholdet båret **én** gang | +14,6 % | ja |
+| uden forbehold i den server-renderede kopi | +11,4 % | ja |
 
 Grunden er målt: **54 forbehold fylder 23.488 bytes = 36 % af matricen**, og de
 står **to** gange — i `title` og i `.kun-skaerm`. Den dublering er arvet fra den

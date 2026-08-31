@@ -46,7 +46,9 @@ const fladt = {};
 const t = (n, res) => (fladt[n] !== undefined ? fladt[n] : (res !== undefined ? res : n));
 
 const brud = [];
+let antalPaastande = 0;
 const paastand = (ok, besked) => {
+  antalPaastande++;
   if (!ok) { brud.push(besked); console.error('BRUD: ' + besked); process.exitCode = 1; }
   else console.log('  ok  ' + besked);
 };
@@ -64,6 +66,19 @@ const erOplyst = (f) => !!f && f.tilstand !== 'ikke_oplyst';
    samme svar som den maalte, kOErende side.                                */
 const taethedAf = (r) => FELTNAVNE.filter((n) => erOplyst(r.alle_felter[n])).length;
 
+/* Fabrikanternes egne produktfotos. Tilladt paa en publiceret side siden L37,
+   men ALDRIG uden ophav — se fotoOphavHTML() nedenfor. Ingen AI-genererede
+   billeder (haard begraensning 4): filerne her er hentet fra producenternes
+   egne sider, de samme, katalogsiden og robotsiden bruger.
+   Mappen er gitignoreret; mangler den, staar hver plade med den stiplede
+   ikke-oplyst-plade i stedet for et tomt hul.                                */
+const FOTOMAPPE = path.join(ROD, 'assets', 'fotos', 'fabrikant');
+const FOTO = {};
+if (fs.existsSync(FOTOMAPPE)) {
+  for (const f of fs.readdirSync(FOTOMAPPE)) FOTO[f.replace(/\.[^.]+$/, '')] = f;
+}
+const MED_FOTO = R.filter((r) => FOTO[r.slug]).length;
+
 function jiggen() {
   const med = R.map((r) => ({ r, tal: taethedAf(r) }));
   med.sort((a, b) => b.tal - a.tal || String(a.r.slug).localeCompare(String(b.r.slug)));
@@ -77,7 +92,22 @@ function jiggen() {
   }
   return valgt;
 }
-const TRE = jiggen();
+/* Demonstrationstilstand, KUN til at fotografere det manglende-foto-tilfaelde.
+   Compens egen jig rammer det aldrig: alle tre taetteste poster HAR foto, saa
+   den tomme plade ville ellers vaere formgivet uden at nogen kunne se den.
+   Flaget bytter tredje plade ud med den ene robot af 77, der mangler foto, og
+   skriver til et andet filnavn — sammenligning.html roeres ikke.
+   Koer: node retninger/nyverden/byg-samlcomp.mjs --demo-manglende-foto        */
+const DEMO = process.argv.includes('--demo-manglende-foto');
+const UDFIL = DEMO ? 'sammenligning-demo-uden-foto.html' : 'sammenligning.html';
+
+const TRE = (() => {
+  const j = jiggen();
+  if (!DEMO) return j;
+  const uden = R.find((r) => !FOTO[r.slug]);
+  if (!uden) throw new Error('--demo-manglende-foto: alle 77 robotter har foto, intet at vise');
+  return [j[0], j[1], uden];
+})();
 const N = TRE.length;
 
 /* --- 2. Svartaellingen pr. raekke ----------------------------------------
@@ -227,27 +257,111 @@ Kataloget sælger ikke robotter og har ingen forhandleraftale med nogen fabrikan
 </body>
 </html>`;
 
+/* 5a0. Robotbilledet i pladehovedet.
+   JPK, 31. aug 2026: "billede mangler af selve robotten". Maalt: baade compen
+   og den kOErende side havde 0 — fladen har aldrig vist robotten, man
+   sammenligner. Billedet er derfor NYT paa denne flade, ikke genindfoert.
+
+   Det er bevidst et MAERKATFOTO, ikke et hero: hovedet er samtidig
+   betjeningen og skal blive ved med at klaebe. Et hoejt billede ville gOEre
+   den klaebende raekke til en skaerm i sig selv paa 390.
+
+   DET MANGLENDE TILFAELDE er formgivet, ikke overladt til en tom kasse:
+   76 af 77 robotter har foto, og den ene uden faar den stiplede
+   ikke-oplyst-plade — samme sprog som ethvert andet uoplyst felt paa siden,
+   saa det ikke kan forveksles med et billede, der ikke blev indlaest.       */
+function fotoFeltHTML(r) {
+  const fil = FOTO[r.slug];
+  if (!fil) {
+    return `<span class="fotofelt fotofelt--uoplyst">
+${M.uoplyst}
+<span class="fotofelt__ord">foto ${esc(t('tilstand_ikke_oplyst'))}</span>
+</span>`;
+  }
+  const alt = `${r.producent} ${r.navn} — fabrikantens eget produktfoto`;
+  return `<span class="fotofelt">
+<img src="../../assets/fotos/fabrikant/${esc(fil)}" alt="${esc(alt)}" width="120" height="90" loading="lazy" decoding="async">
+</span>`;
+}
+
+/* Ophavet. Fabrikantfotos er tilladt (L37), men aldrig uden kilde — samme
+   loefte som resten af sitet. Producentnavn og hentedato er REGNET af
+   robottens egen kildeliste, ikke skrevet.                                  */
+function fotoOphavHTML() {
+  const med = TRE.filter((r) => FOTO[r.slug]);
+  if (!med.length) return '';
+  const dele = med.map((r) => `${esc(r.producent)} (hentet ${esc(r.kilder[0].hentet)})`).join(' · ');
+  const mangler = TRE.filter((r) => !FOTO[r.slug]);
+  return `<p class="fotoophav">Fotos: ${dele}. Fabrikanternes egne produktfotos, gengivet med kilde.
+${mangler.length ? `${esc(mangler.map((r) => r.navn).join(', '))} har intet foto hos producenten — pladsen står stiplet, ikke tom. ` : ''}
+Dækning i kataloget: ${komma(MED_FOTO)} af ${komma(R.length)} robotter har et fabrikantfoto.</p>`;
+}
+
 /* 5a. Tegnforklaringen — presset til ÉT baand.
    Paa den kOErende side fylder den 5 raekker og hele foerste skaerm, foer
    laeseren ser et eneste tal (maalt: skud-nuvaerende-saml.png). De samme fem
    udsagn staar her, med de samme i18n-noegler, paa én stribe. Udsagnet om
    at der IKKE markeres en vinder staar med — det er en truffet beslutning
    (haard begraensning 6), ikke en note der kan spares vaek.                  */
+/* JPK, 31. aug 2026: "Er 'Saadan laeses tallene'-kassen noedvendig??"
+   Svaret er ja til FORKLARINGEN, nej til kassen. "0", "nej" og "ikke oplyst"
+   er ikke selvforklarende — forskellen mellem "producenten skriver 0" og
+   "producenten siger intet" er praecis den, hele siden findes for at vise
+   (haard begraensning 5). Men den fyldte 185 px paa 1440 og 531 px paa 390.
+
+   Loesningen er et <details>: baandet med de fire maerker er ALTID synligt,
+   og den fulde forklaring foldes ud. Det virker uden JavaScript — samme krav
+   som resten af projektet, og samme element, vaelgeren nedenfor bruger.
+
+   "Ingen vinder markeret" er FLYTTET UD (JPK's punkt 2): de fire andre
+   forklarer notation, den femte er en redaktionel position. Den staar nu i
+   bunden ved siden af den oevrige forklarende tekst, se vinderHTML().       */
 function tegnHTML() {
-  const post = (mrk, ord, forklaring) =>
-    `<div class="tegn"><span class="tegn__mrk">${mrk}</span>`
-    + `<span class="tegn__ord">${esc(ord)}</span>`
-    + `<span class="tegn__tekst">${esc(forklaring)}</span></div>`;
-  return `<section class="tegnbaand" aria-labelledby="h-tegn">
-<h2 class="tegnbaand__navn" id="h-tegn">${esc(t('tegnforklaring_titel'))}</h2>
-<div class="tegnbaand__net">
-${post('<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>', 'tal', t('tegnforklaring_oplyst'))}
-${post('<span class="v v-tal v-nul"><b class="num">0</b></span>', t('tilstand_nul'), t('tilstand_nul_forklaring'))}
-${post(`<span class="v v-nej">${M.nej}${esc(t('tilstand_nej'))}</span>`, t('tilstand_nej'), t('tilstand_nej_forklaring'))}
-${post(`<span class="v v-ikke">${M.uoplyst}${esc(t('tilstand_ikke_oplyst'))}</span>`, t('tilstand_ikke_oplyst'), t('tilstand_ikke_oplyst_forklaring'))}
-${post('<span class="tegn__streg" aria-hidden="true">—</span>', t('sammenligning_legende_vinder_titel'), t('sammenligning_legende_vinder_forklaring'))}
+  /* Etiketten saettes KUN, naar selve maerket ikke allerede baerer ordet.
+     "nej"-chippen og "ikke oplyst"-chippen skriver deres eget navn, saa en
+     etiket ved siden af gav "nej NEJ" og "ikke oplyst IKKE OPLYST" — maalt
+     paa skaermbilledet, ikke gaettet. Tal og nul viser en FIGUR (33,8 kg / 0)
+     og har derfor brug for et ord.                                          */
+  const mrk = (tegn, ord) =>
+    `<span class="tegn"><span class="tegn__mrk">${tegn}</span>`
+    + (ord ? `<span class="tegn__ord">${esc(ord)}</span>` : '') + `</span>`;
+  const post = (tegn, ord, forklaring) =>
+    `<div class="tegnpost"><span class="tegnpost__mrk">${tegn}</span>`
+    + `<span class="tegnpost__ord">${esc(ord)}</span>`
+    + `<span class="tegnpost__tekst">${esc(forklaring)}</span></div>`;
+
+  const TAL = '<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>';
+  const NUL = '<span class="v v-tal v-nul"><b class="num">0</b></span>';
+  const NEJ = `<span class="v v-nej">${M.nej}${esc(t('tilstand_nej'))}</span>`;
+  const UO = `<span class="v v-ikke">${M.uoplyst}${esc(t('tilstand_ikke_oplyst'))}</span>`;
+
+  return `<details class="tegn-udtraek">
+<summary class="tegnbaand">
+<span class="tegnbaand__navn">${esc(t('tegnforklaring_titel'))}</span>
+<span class="tegnbaand__raekke">
+${mrk(TAL, 'tal')}
+${mrk(NUL, t('tilstand_nul'))}
+${mrk(NEJ, null)}
+${mrk(UO, null)}
+</span>
+<span class="tegnbaand__haandtag">${M.ned}</span>
+</summary>
+<div class="tegnbaand__krop">
+${post(TAL, 'tal', t('tegnforklaring_oplyst'))}
+${post(NUL, t('tilstand_nul'), t('tilstand_nul_forklaring'))}
+${post(NEJ, t('tilstand_nej'), t('tilstand_nej_forklaring'))}
+${post(UO, t('tilstand_ikke_oplyst'), t('tilstand_ikke_oplyst_forklaring'))}
 </div>
-</section>`;
+</details>`;
+}
+
+/* Den redaktionelle position, flyttet ud af laesenoeglen. Den staar stadig
+   paa siden — den er en truffet beslutning bundet til haard begraensning 6,
+   ikke en note der kan spares vaek.                                         */
+function vinderHTML() {
+  return `<p class="vinderregel">
+<span class="vinderregel__navn">${esc(t('sammenligning_legende_vinder_titel'))}</span>
+${esc(t('sammenligning_legende_vinder_forklaring'))}</p>`;
 }
 
 /* 5c. Matricen.
@@ -268,9 +382,14 @@ function matrixHTML() {
     // og navnene ruller vaek, saa raekke 25 laeses uden kolonne. Her klaeber
     // hovedet, jf. .jigraekke th i typeskilt.css.
     return `<th scope="col" class="skiltehoved">
+<span class="skiltehoved__top">
+${fotoFeltHTML(r)}
+<span class="skiltehoved__id">
 <span class="skiltehoved__nr">Plade ${i + 1}</span>
 <span class="skiltehoved__navn">${esc(r.navn)}</span>
 <span class="skiltehoved__prod">${esc(r.producent)}</span>
+</span>
+</span>
 <span class="skiltehoved__fod">
 <span class="skiltehoved__taethed">${esc(String(t('skema_taeller')).replace('{a}', komma(antal)).replace('{b}', komma(NAEVNER)))}</span>
 <a class="skiltehoved__skift" href="#vaelger">Skift<span class="kun-skaerm"> plade ${i + 1}: ${esc(r.navn)}</span>${M.ned}</a>
@@ -396,9 +515,13 @@ ${tegnHTML()}
 <section class="matrixsektion" id="matrix" tabindex="-1">
 <div class="ramme">
 ${matrixHTML()}
-<p class="matrix__fod">Alle ${komma(NAEVNER)} felter fra skemaet står her, i samme rækkefølge som på robotsiden —
+<div class="matrix__fod">
+<p>Alle ${komma(NAEVNER)} felter fra skemaet står her, i samme rækkefølge som på robotsiden —
 også de ${komma(ANTAL_TAVSE)}, hvor ingen af de ${komma(N)} producenter siger noget.
 Et tomt felt er ikke et nul: de tre tilstande har hver sit mærke.</p>
+${vinderHTML()}
+${fotoOphavHTML()}
+</div>
 ${vaelgerHTML()}
 <noscript>
 <p class="uden-js">${esc(t('sammenligning_uden_js_noscript'))} <a href="katalog.html">${esc(t('sammenligning_uden_js_link'))}</a></p>
@@ -411,8 +534,9 @@ ${bund}`;
 
 /* --- 7. Skriv og efterproev --------------------------------------------- */
 const HTML = side();
-fs.writeFileSync(path.join(HER, 'sammenligning.html'), HTML, 'utf8');
-console.log('\nSKREVET: sammenligning.html (' + komma(Buffer.byteLength(HTML, 'utf8')) + ' bytes)\n');
+fs.writeFileSync(path.join(HER, UDFIL), HTML, 'utf8');
+console.log('\nSKREVET: ' + UDFIL + ' (' + komma(Buffer.byteLength(HTML, 'utf8')) + ' bytes)'
+  + (DEMO ? '  [DEMO: tredje plade byttet til en robot UDEN foto]' : '') + '\n');
 
 const tael = (re) => (HTML.match(re) || []).length;
 
@@ -429,8 +553,13 @@ paastand(tael(/kilde-bogstav|kildemaerke|kilde-maerke/g) === 0,
 console.log('\nSELVTJEK — data er regnet, ikke skrevet:');
 paastand(new Set(TRE.map((r) => r.producent)).size === N,
   `jiggens ${N} plader har ${N} forskellige producenter (reglen "højst én pr. producent")`);
-paastand(TRE.every((r) => taethedAf(r) >= 22),
-  `jiggen er de taetteste poster: ${TRE.map((r) => r.navn + ' ' + taethedAf(r)).join(' · ')} af ${NAEVNER}`);
+// Taethedsreglen gaelder den RIGTIGE jig. Demotilstanden bytter med vilje
+// tredje plade ud med den ene robot uden foto, saa reglen er sat ud dér —
+// og det skrives, i stedet for at lade et forventet BRUD staa og stoeje.
+paastand(DEMO || TRE.every((r) => taethedAf(r) >= 22),
+  DEMO
+    ? `taethedsreglen er sat ud i demotilstand (tredje plade er valgt paa manglende foto, ikke paa taethed)`
+    : `jiggen er de taetteste poster: ${TRE.map((r) => r.navn + ' ' + taethedAf(r)).join(' · ')} af ${NAEVNER}`);
 {
   const sum = [0, 1, 2, 3].map((k) => FELTNAVNE.filter((n) => svarFor(n).filter(Boolean).length === k).length);
   paastand(sum.reduce((a, b) => a + b, 0) === NAEVNER,
@@ -447,10 +576,44 @@ paastand(GRUPPER.every((g) => fladt['gruppe_' + g] !== undefined),
   `alle ${GRUPPER.length} gruppetitler kommer fra data/i18n/da.json`);
 paastand(tael(/class="vc__felt"/g) === R.length,
   `vaelgeren baerer alle ${R.length} robotter (målt ${tael(/class="vc__felt"/g)})`);
-paastand(!/font-family:[^;]*mono/i.test(HTML) && tael(/<img\b/g) === 0,
-  `ingen monospace og ingen billeder paa fladen (manifestets skriftregel; ingen alt-tekst at mangle)`);
+paastand(!/font-family:[^;]*mono/i.test(HTML), `ingen monospace (manifestets skriftregel)`);
+
+console.log('\nSELVTJEK — robotbillederne (JPK 31. aug 2026):');
+{
+  const medFoto = TRE.filter((r) => FOTO[r.slug]);
+  paastand(tael(/<img\b/g) === medFoto.length,
+    `ét <img> pr. plade MED foto: ${tael(/<img\b/g)} (af ${N} plader; ${MED_FOTO} af ${R.length} robotter i kataloget har foto)`);
+  paastand(tael(/<img\b/g) === 0 || tael(/<img[^>]*\salt="[^"]+"/g) === tael(/<img\b/g),
+    `alle ${tael(/<img\b/g)} billeder har en ikke-tom alt-tekst`);
+  paastand(medFoto.every((r) => fs.existsSync(path.join(FOTOMAPPE, FOTO[r.slug]))),
+    `alle ${medFoto.length} billedfiler findes paa disken (ellers ville pladen staa tom paa siden)`);
+  paastand(tael(/class="fotofelt fotofelt--uoplyst"/g) === N - medFoto.length,
+    `manglende foto tegnes som stiplet ikke-oplyst-plade, aldrig som tomt hul (${N - medFoto.length} i denne jig)`);
+  paastand(medFoto.length === 0 || /class="fotoophav"/.test(HTML),
+    `ophavet staar paa siden — fabrikantfoto er tilladt (L37), men aldrig uden kilde`);
+  paastand(medFoto.every((r) => HTML.includes(r.kilder[0].hentet)),
+    `hver foto-producent staar med sin hentedato, regnet af robottens egen kildeliste`);
+}
+{
+  // Skaer selve legende-elementet ud og se, at reglen IKKE ligger i det.
+  // Foerste udgave af denne assertion sammenlignede blot dokumentraekkefoelge
+  // ("krop ... vinderregel") og var derfor sand uanset hvor reglen laa —
+  // den maalte ingenting. Nu skaeres blokken ud og efterproeves.
+  const a = HTML.indexOf('<details class="tegn-udtraek">');
+  const b = HTML.indexOf('</details>', a);
+  const legendeblok = HTML.slice(a, b);
+  paastand(a !== -1 && b !== -1 && tael(/class="vinderregel"/g) === 1
+    && !legendeblok.includes('vinderregel'),
+    `"ingen vinder markeret" staar PRAECIS én gang og UDEN FOR laesenoeglen (legendeblok ${komma(b - a)} tegn)`);
+  paastand(legendeblok.includes('tegnbaand__raekke') && legendeblok.includes('tegnbaand__krop'),
+    `laesenoeglen er ét synligt baand med en udfoldelig krop (<details>, virker uden JavaScript)`);
+}
 
 console.log('\nJIGGEN: ' + TRE.map((r, i) => `${i + 1}. ${r.producent} ${r.navn} (${taethedAf(r)}/${NAEVNER})`).join(' | '));
 console.log('SAMMENLIGNELIGE FELTER: ' + ANTAL_SAMMENLIGNELIGE + ' af ' + NAEVNER
   + ' · felter hvor ALLE ' + N + ' tier: ' + ANTAL_TAVSE);
-console.log(brud.length ? `\n${brud.length} BRUD` : `\nAlle ${14} assertions bestaaet, 0 brud`);
+// Tallet TAELLES, det skrives ikke. Et haandskrevet antal ved siden af et
+// udledt divergerer, foerste gang en assertion tilfoejes (L30/D7).
+console.log(brud.length
+  ? `\n${brud.length} BRUD af ${antalPaastande} assertions`
+  : `\nAlle ${antalPaastande} assertions bestaaet, 0 brud`);

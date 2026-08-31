@@ -571,31 +571,97 @@ p{margin:0}
    hedder derfor .matrix og ruller vandret i stedet for at bryde op.
    ========================================================================== */
 
-/* 13a. Tegnbaandet — de fem udsagn, den kOErende side bruger en hel skaerm paa */
-.tegnbaand{padding:var(--r4) var(--r5) var(--r5);border-bottom:1px solid var(--rille)}
+/* 13a. Tegnbaandet — ét baand, der kan foldes ud.
+   JPK 31. aug 2026: forklaringen er noedvendig, kassen var for stor (maalt
+   185 px paa 1440 og 531 px paa 390, foer matricen begyndte). Baandet er
+   altid synligt; den fulde forklaring foldes ud med <details>, som virker
+   uden JavaScript. "Ingen vinder markeret" er flyttet ud til .vinderregel:
+   de fire her forklarer notation, den femte er en holdning.                 */
+.tegn-udtraek{border-bottom:1px solid var(--rille)}
+.tegnbaand{
+  display:flex;align-items:center;gap:var(--r4);flex-wrap:wrap;
+  padding:10px var(--r5);cursor:pointer;list-style:none;
+}
+.tegnbaand::-webkit-details-marker{display:none}
+.tegnbaand:hover{background:var(--eloxgraa)}
+.tegn-udtraek > summary:focus-visible{
+  outline:2px solid var(--gunmetal);outline-offset:-2px;
+  box-shadow:inset 0 0 0 5px var(--afmaerkningsgul);
+}
 .tegnbaand__navn{
-  margin:0 0 var(--r3);font-size:11px;font-weight:700;letter-spacing:.17em;
-  text-transform:uppercase;color:var(--gunmetal);
-  display:flex;align-items:baseline;gap:9px;
+  font-size:10.5px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--stoev-blaek);white-space:nowrap;
 }
-.tegnbaand__navn::after{content:"";flex:1;height:1px;background:var(--rille)}
-.tegnbaand__net{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;
-}
-.tegn{padding:0 var(--r4) 0 0;border-right:1px dashed var(--rille);min-width:0}
-.tegn:last-child{border-right:0;padding-right:0}
-.tegn + .tegn{padding-left:var(--r4)}
-.tegn__mrk{display:block;margin-bottom:6px;min-height:20px}
+.tegnbaand__raekke{display:flex;align-items:center;gap:var(--r4);flex-wrap:wrap;min-width:0}
+.tegn{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 .tegn__ord{
+  font-size:10px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--stoev-blaek);
+}
+.tegnbaand__haandtag{
+  margin-left:auto;display:grid;place-items:center;width:22px;height:22px;flex:none;
+  border-radius:2px;box-shadow:inset 0 0 0 1px var(--rille);color:var(--blaek-2);
+}
+.tegn-udtraek[open] .tegnbaand__haandtag svg{transform:rotate(180deg)}
+.tegnbaand__krop{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  padding:0 var(--r5) var(--r5);
+}
+.tegnpost{padding:0 var(--r4);border-left:1px dashed var(--rille);min-width:0}
+.tegnpost:first-child{border-left:0;padding-left:0}
+.tegnpost__mrk{display:block;margin-bottom:6px;min-height:20px}
+.tegnpost__ord{
   display:block;font-size:10px;font-weight:700;letter-spacing:.14em;
   text-transform:uppercase;color:var(--stoev-blaek);margin-bottom:3px;
 }
-.tegn__tekst{
+.tegnpost__tekst{
   display:block;font-family:var(--manual);font-size:12px;line-height:1.45;
   color:var(--blaek-2);text-wrap:pretty;
 }
-.tegn__streg{font-size:19px;font-weight:700;color:var(--stoevgraa);line-height:1}
 .stempler__vaegt{color:var(--gunmetal)}
+
+/* Den redaktionelle position, ude af laesenoeglen og nede ved den oevrige
+   forklarende tekst. Den er en truffet beslutning (haard begraensning 6),
+   ikke en note der kan spares vaek — den flyttes, den fjernes ikke.         */
+.vinderregel{
+  font-family:var(--manual);font-size:12.5px;line-height:1.6;color:var(--blaek-2);
+  max-width:78ch;margin-top:var(--r4);padding-left:var(--r3);
+  border-left:2px solid var(--rille);text-wrap:pretty;
+}
+.vinderregel__navn{
+  display:block;font-family:var(--plade);font-size:10px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--stoev-blaek);
+}
+
+/* 13a2. Robotbilledet i pladehovedet — et maerkatfoto, ikke et hero.
+   Hoejden er bundet, fordi hovedet OGSAA er betjeningen og skal blive ved
+   med at klaebe: et hoejt billede ville gOEre den klaebende raekke til en
+   skaerm i sig selv paa 390.                                                */
+.skiltehoved__top{display:flex;align-items:flex-start;gap:var(--r3);min-width:0}
+.skiltehoved__id{display:block;min-width:0}
+.fotofelt{
+  flex:none;width:74px;height:56px;
+  display:grid;place-items:center;overflow:hidden;
+  background:var(--eloxgraa);border-radius:2px;
+}
+.fotofelt img{width:100%;height:100%;object-fit:contain;padding:3px}
+/* Manglende foto: den stiplede ikke-oplyst-plade, samme sprog som ethvert
+   andet uoplyst felt — saa det ikke kan laeses som en indlaesningsfejl.
+   Maalt: 76 af 77 robotter har foto, saa tilfaeldet er sjaeldent, men det
+   findes, og en tom kasse ville se ud som en fejl netop dér.               */
+.fotofelt--uoplyst{
+  background:transparent;border:1px dashed var(--stoevgraa);
+  color:var(--stoevgraa);align-content:center;gap:3px;
+}
+.fotofelt--uoplyst svg{margin:0 auto;display:block}
+.fotofelt__ord{
+  font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--stoevgraa);text-align:center;line-height:1.2;
+}
+.fotoophav{
+  font-family:var(--manual);font-size:11.5px;line-height:1.55;
+  color:var(--stoev-blaek);max-width:78ch;margin-top:var(--r4);text-wrap:pretty;
+}
 
 /* 13b. Matricen ------------------------------------------------------------
    Vandret rulning frem for opbrud: en <table>, hvis display aendres, mister
@@ -831,11 +897,8 @@ p{margin:0}
    Matricen brydes IKKE op (det ville koste tabelrollen). Den ruller vandret,
    og raekkehovedet klaeber til venstre kant, saa feltnavnet altid er synligt. */
 @media (max-width:1100px){
-  .tegnbaand__net{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--r4) 0}
-  .tegn{border-right:0;padding-right:var(--r4)}
-  .tegn:nth-child(2n){padding-left:var(--r4);border-left:1px dashed var(--rille);padding-right:0}
-  .tegn + .tegn{padding-left:0}
-  .tegn:nth-child(2n){padding-left:var(--r4)}
+  .tegnbaand__krop{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--r4) 0}
+  .tegnpost:nth-child(2n+1){border-left:0;padding-left:0}
 }
 
 /* Under 820 px kan de fire spalter ikke staa uden at knuse tallene. Her — og
@@ -852,12 +915,18 @@ p{margin:0}
 
 @media (max-width:720px){
   .matrixsektion{padding:var(--r5) 0 var(--r6)}
-  .tegnbaand{padding:var(--r4)}
-  .tegnbaand__net{grid-template-columns:1fr;gap:var(--r3)}
-  .tegn,.tegn:nth-child(2n){border:0;padding:0 0 var(--r3);border-bottom:1px dashed var(--rille)}
-  .tegn:last-child{border-bottom:0;padding-bottom:0}
+  .tegnbaand{padding:10px var(--r4);gap:var(--r3)}
+  .tegnbaand__raekke{gap:var(--r3) var(--r4)}
+  .tegnbaand__krop{grid-template-columns:1fr;gap:var(--r3);padding:0 var(--r4) var(--r4)}
+  .tegnpost{border-left:0;padding:0 0 var(--r3);border-bottom:1px dashed var(--rille)}
+  .tegnpost:last-child{border-bottom:0;padding-bottom:0}
   .matrix{font-size:13px}
   .hjoerne,.feltnavn{width:150px;min-width:150px}
+  /* Maerkatfotoet krymper med hovedet, saa den klaebende raekke ikke aeder
+     skaermen paa 390. */
+  .fotofelt{width:52px;height:40px}
+  .fotofelt__ord{font-size:7px}
+  .skiltehoved__top{gap:10px}
   .hjoerne__note{display:none}
   .jigraekke th,.jigraekke td{padding:var(--r3) 10px}
   .skiltehoved__navn{font-size:15px}
