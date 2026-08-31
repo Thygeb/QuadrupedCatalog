@@ -166,7 +166,17 @@ create table robotter (
   producentland       text not null,
   producentby         text,                          -- IDENTITET_VALGFRI, 46/62 udfyldt (formscan)
   status              status_enum not null,
-  foerste_udgivelse   integer,                        -- IDENTITET_VALGFRI, kun et aarstal (3/62: 2017/2021/2025)
+  -- FREMDRIFT (spor/dbfelter, 31. aug 2026): nyt PAAKRAEVET identitetsfelt
+  -- (IDENTITET_PAAKRAEVET, tools/validate.mjs:67 — "ben" | "ben_hjul",
+  -- FREMDRIFT_VAERDIER paa tools/validate.mjs:99). text + CHECK, IKKE et nyt
+  -- enum: samme begrundelse som feltposter.advarsel_klasse ovenfor (§3) —
+  -- to lukkede vaerdier, der staar UDEN for tools/skema.mjs's FELTNAVNE (saa
+  -- de udloeser ikke den mekaniske FELTNAVN_ENUM_I_SKEMA_SQL-driftvagt), og
+  -- en CHECK kraever ingen ALTER TYPE ... ADD VALUE-koreografi, hvis en
+  -- tredje fremdriftsform nogensinde tilfoejes. Udfyldt 77/77 i dag: 53 ben
+  -- / 24 ben_hjul (formscan, spor/datafelter).
+  fremdrift           text not null check (fremdrift in ('ben', 'ben_hjul')),
+  foerste_udgivelse   integer,                        -- IDENTITET_VALGFRI, kun et aarstal (45/77 i dag, maalt 31. aug 2026 — var 3/62 ved skrivning)
   forgaenger_robot_id bigint references robotter(id), -- IDENTITET_VALGFRI "forgaenger:", 1/62 i dag
   varianter           text[],                          -- IDENTITET_VALGFRI topnoegle, liste af variantnavne (R15), 7/62
   noter               jsonb,                           -- streng ELLER liste af strenge (noterListe=59, noterString=0 i dag,
