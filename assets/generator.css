@@ -504,10 +504,56 @@
 /* --- 8b. SAMMENLIGNINGSSIDEN (spor/lysbyg, kontrakt:
    prototype/retning-lys/sammenligning.html + BEGRUNDELSE.md) --------------- */
 
-/* Tegnforklaringens femte tegn - "ingen vinder markeret". Samme skala som
-   de fire andre tegn i .v (system.css §8), men det er ikke en datatilstand,
-   saa det bruger ikke .v-selv - kun etikettens font. */
-.v-vinder-tegn{font-family:var(--mono);font-size:15px;color:var(--blaek3)}
+/* --- 8b-I. PLADEHOVEDET OG LAESENOEGLEN (spor/samlbyg, 31. aug 2026) ------
+   Kontrakt: retninger/nyverden/sammenligning.html, godkendt af JPK efter to
+   feedbackrunder. Ingen nye poletter - hver vaerdi herunder er system.css'
+   egen, og manifestets navne staar i parentes, saa kortet mellem compen og
+   designsystemet kan efterproeves: --bund (eloxgraa), --blaek (gunmetal),
+   --accent (afmaerkningsgul), --hegn (stoevgraa), --panel (kridt),
+   --linje (rille), --mono (Saira = "pladen"), --manual (Literata). */
+
+/* Titel + stempelblok side om side, som paa katalogsidens typeskilt.
+   `flex-direction:row` SKAL staa eksplicit: elementet baerer ogsaa
+   `.katalog-hoved` (afsnit 6), som saetter `flex-direction:column`. Uden
+   overstyringen arvede pladen kolonneretningen, og `space-between` kom til at
+   virke paa den LODRETTE akse - maalt 31. aug 2026 til et tomt hul paa ca.
+   220 px mellem leden og stemplerne, fordi .saml-plade__ord's `flex:1 1`
+   voksede nedad. To klasser paa samme element, hvor kun den ene saetter
+   retningen, er den klassiske maade at faa to regler til at ophaeve
+   hinanden paa. */
+.saml-plade{display:flex;flex-direction:row;align-items:flex-start;
+  justify-content:space-between;gap:var(--r5);flex-wrap:wrap}
+.saml-plade__ord{min-width:0;flex:1 1 34ch}
+.saml-plade .stempler{align-self:flex-start;justify-items:end}
+
+/* LAESENOEGLEN SOM BAAND. Ét vandret baand, aldrig en fold: noeglen til at
+   laese tallene maa ikke ligge bag et klik paa en side, der KUN handler om
+   at laese tal. Leadet ("Producenten oplyser …") er FOERSTE celle i raekken,
+   ikke en linje ovenover - det sparer en hel tekstlinje, og saetningen
+   loeber vandret gennem baandet i stedet for at blive gentaget fire gange. */
+.saml-noegle{margin-top:var(--r5);padding:10px var(--r4) 11px;
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
+/* Spalterne er UENS med vilje: "nul"-forklaringen baerer to saetninger
+   (forskellen paa et maalt nul og et tomt felt er sidens vigtigste skelnen),
+   mens "nej" og "ikke oplyst" er korte. Lige spalter tvang nul-teksten til
+   to linjer og satte dermed hele baandets hoejde. */
+.saml-noegle__raekke{display:grid;
+  grid-template-columns:minmax(0,.84fr) minmax(0,.78fr) minmax(0,1.42fr) minmax(0,.98fr) minmax(0,.98fr);
+  align-items:baseline}
+.saml-noegle__lead{padding-right:var(--r3);min-width:0;margin:0}
+.saml-noegle__navn{display:block;font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:.15em;line-height:1.1;text-transform:uppercase;color:var(--blaek);
+  margin-bottom:1px}
+/* Forstavelsen er saetningens begyndelse, ikke en etiket - derfor manualens
+   skrift, som resten af forklaringen. */
+.saml-noegle__stam{display:block;font-family:var(--manual);font-size:11.5px;
+  line-height:1.25;color:var(--stoev-blaek)}
+.saml-tegn{display:flex;align-items:baseline;gap:8px;min-width:0;
+  padding:0 var(--r3);border-left:1px dashed var(--linje)}
+.saml-tegn:first-of-type{border-left:0;padding-left:0}
+.saml-tegn__mrk{flex:none}
+.saml-tegn__tekst{font-family:var(--manual);font-size:11.5px;line-height:1.35;
+  color:var(--blaek2);text-wrap:pretty;min-width:0}
 
 /* Vaelgeren genbruger .facet/.filtre (system.css §13) uaendret - kun en
    loft-hoejde, saa 62 afkrydsningsfelter ikke skubber tabellen langt ned. */
@@ -521,27 +567,44 @@
   background:var(--accent-ro);border-radius:var(--rund-ind);color:var(--blaek)}
 .sammenligning-status[hidden]{display:none}
 
-/* Specimen-raekken: de valgte robotter side om side, foer laeseren ser et
-   eneste tal (BEGRUNDELSE.md, signaturelement). --n saettes af
-   assets/sammenligning.js (2 eller 3 valgte) - samme "dynamisk vaerdi via
-   CSS-variabel"-moenster som maalepladens --bw/--bh (system.css). */
-.specimen-hoved{display:grid;grid-template-columns:180px repeat(var(--n,3),minmax(0,1fr));
-  gap:var(--r4);margin-top:var(--r5)}
-/* spor/enheder, punkt 2: tabellen (30 raekker i seks grupper, ca. 1200 px
-   lodret) rummer robotnavnene KUN i specimen-hovedet. Ved raekken
-   "Autonominiveau" er hovedet rullet ud af billedet, og de tre kolonner kan
-   ikke skelnes. Klaebende, saa navnene bliver i billedet, saa laenge
-   tabellen goer det - kun paa bredder, hvor hovedet reelt ER en raekke (se
-   900 px-graensen nedenfor: under den stakker mobiloverstyringen specimen-
-   kortene i ÉT fuldbredt kort pr. robot, og et klaebende sådant ville daekke
-   det meste af skaermen). En gennemsigtig baggrund ville lade raekkerne
-   nedenunder skinne igennem, naar de ruller under - designsystemets
-   panelfarve (--panel), samme moenster som .baand (system.css) bruger til
-   topbaandet, ikke en haardkodet hvid. */
-@media (min-width:901px){
-  .specimen-hoved{position:sticky;top:0;z-index:5;background:var(--panel);
-    padding:10px 0;border-bottom:1px solid var(--linje)}
-}
+/* --- 8b-II. JIGGEN: MATRICEN SOM RIGTIG TABEL ----------------------------
+   VENDT 31. aug 2026 (spor/samlbyg). Foer laa der display:block/grid ovenpaa
+   tabelelementerne, saa gitteret kunne staa som mockuppens .saml-*. Compen
+   kraever i stedet, at kolonnehovedet KLAEBER og at raekkehovedet klaeber til
+   venstre kant - og position:sticky paa et tabelelement virker kun, naar
+   elementet faktisk har sin tabel-display. Vi giver derfor displayen tilbage
+   og lader tabellen vaere en tabel. ARIA-rollerne i sammenligning.js staar
+   uroerte: de skader ikke, naar displayen er rigtig, og de var det eneste
+   vaern, mens den ikke var.
+
+   MAALT 31. aug 2026, og det er ikke en detalje: saetter man overflow-x:auto
+   paa rullebeholderen, tvinger browseren overflow-y fra visible til auto - og
+   saa bliver beholderen den klaebende raekkes rullebeholder i STEDET for
+   viewporten. Hovedet klaeber da til en kasse, der ikke ruller lodret, og
+   klaeber altsaa aldrig. Compen maalte top:-938px ved raekke 21, MENS
+   skaermbilledet saa helt rigtigt ud. Beholderen ruller derfor kun paa de
+   bredder, hvor den skal (se 820 px-graensen), og er visible resten af tiden. */
+.saml-rulle{position:relative;overflow:visible;margin-top:var(--r5);
+  background:var(--panel);border-radius:var(--rund-ind);
+  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans)}
+
+/* JIGRAEKKEN: kolonnehovedet klaeber. Foer rullede robotnavnene vaek, og
+   raekke 25 blev laest uden at vide, hvilken spalte der var hvem.
+   Gunmetal-fladen er ikke pynt: den skiller betjeningen fra dataene og giver
+   det klaebende hoved en ugennemsigtig bund, saa raekkerne ikke skinner
+   igennem, naar de ruller under. --bund paa --blaek maaler 12,72:1. */
+.specimen-hoved{background:var(--blaek)}
+.specimen-hoved th,.specimen-hoved td{
+  position:sticky;top:0;z-index:30;
+  background:var(--blaek);color:var(--bund);
+  text-align:left;vertical-align:bottom;padding:var(--r4) var(--r3)}
+/* Hjoernet klaeber i BEGGE retninger og skal derfor ligge over baade
+   jigraekken og de klaebende raekkehoveder. */
+.specimen-hoved__hjoerne{left:0;z-index:31;width:224px;min-width:224px}
+.saml-hjoerne__ord{display:block;font-family:var(--mono);font-size:12px;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--bund);margin-bottom:4px}
+.saml-hjoerne__note{display:block;font-family:var(--manual);font-size:11px;line-height:1.4;
+  color:var(--paafod2);max-width:22ch}
 /* Specimen-kortet er nu et <th scope="col"> (Aa54). Det arver dermed
    system.css §14's `thead th{font-family:mono;font-size:11.5px;
    font-weight:500;letter-spacing:.13em;text-transform:uppercase;
@@ -551,15 +614,41 @@
    VERSALT i mono og ikke kunne ombrydes, og kortet ville faa 12/16px
    luft, det aldrig har haft. `font:inherit` henter hele skriftsaettet
    tilbage fra dokumentet, praecis som da kortet var et <div>. */
-.specimen{background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
-  box-shadow:var(--skygge);overflow:hidden;
-  padding:0;font:inherit;color:inherit;letter-spacing:inherit;
+.specimen{border-left:1px solid var(--blaek2);
+  font:inherit;color:inherit;letter-spacing:inherit;
   text-transform:none;white-space:normal}
-.specimen__label{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
-  padding:10px 12px;background:var(--panel-ro);border-bottom:1px solid var(--linje)}
-.specimen__navn{font-size:15px;font-weight:700;color:var(--blaek)}
-.specimen__taethed{font-size:12px;color:var(--accent)}
-.specimen__meta{padding:8px 12px 10px;font-size:12.5px;color:var(--blaek3)}
+/* Hoejden er BUNDET, fordi hovedet OGSAA er betjeningen og skal blive ved med
+   at klaebe: et hoejt billede ville gOEre den klaebende raekke til en skaerm i
+   sig selv paa 390. `contain` og ikke `cover` - chippen skal kun sige HVILKEN
+   maskine spalten er, og der er intet at vinde ved at skaere poter af. */
+.specimen__top{display:flex;align-items:flex-start;gap:var(--r3);min-width:0}
+.specimen__id{display:block;min-width:0}
+.saml-fotofelt{flex:none;width:74px;height:56px;display:grid;place-items:center;
+  overflow:hidden;background:var(--bund);border-radius:2px}
+.saml-fotofelt picture{display:block;width:100%;height:100%}
+.saml-fotofelt img{width:100%;height:100%;object-fit:contain;padding:3px}
+/* Manglende foto: den stiplede ikke-oplyst-plade, samme sprog som ethvert
+   andet uoplyst felt - saa det ikke kan laeses som en indlaesningsfejl.
+   Maalt: 76 af 77 robotter har foto, saa tilfaeldet er sjaeldent, men det
+   findes, og en tom kasse ville se ud som en fejl netop dér. */
+.saml-fotofelt--uoplyst{background:transparent;border:1px dashed var(--hegn);
+  align-content:center;padding:2px}
+.saml-fotofelt__ord{font-size:8px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--paafod2);text-align:center;line-height:1.2}
+.specimen__navn{display:block;font-size:19px;font-weight:700;letter-spacing:-.01em;
+  line-height:1.1;color:var(--bund)}
+.specimen__meta{display:block;font-size:10.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--paafod2);margin-top:4px;padding:0}
+.specimen__fod{display:flex;align-items:baseline;gap:var(--r3);flex-wrap:wrap;
+  margin-top:10px;padding-top:9px;border-top:1px solid var(--blaek2)}
+.specimen__taethed{font-size:11.5px;font-weight:500;color:var(--paafod2)}
+/* Betjeningen, dér hvor man opdager, at man kigger paa den forkerte maskine. */
+.specimen__skift{margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--bund);text-decoration:none;
+  padding:3px 7px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek2)}
+.specimen__skift:hover{background:var(--accent);color:var(--blaek);box-shadow:none}
+.specimen__skift:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* Felttabellen. Aa54: en RIGTIG <table>, men med display:block/grid ovenpaa,
    saa gitteret staar som foer - en subgrid-lignende raekke (200px etiket +
@@ -576,7 +665,8 @@
      thead th{...}                                     -> .specimen ovenfor
    min-width:620px er den farligste af dem: paa en telefon ville den give
    vandret overloeb, hvor der foer ingen var. */
-.saml-matrix{display:block;width:auto;min-width:0;font-size:inherit}
+.saml-matrix{width:100%;min-width:0;font-size:14px;
+  border-collapse:separate;border-spacing:0}
 /* Nulstiller §14's th,td{border-top:1px} paa PRAECIS de celler, der ellers
    ville faa en streg, de aldrig har haft. Raekkens og gruppens egne streger
    sidder paa <tr> og <tbody>, ikke paa cellerne.
@@ -592,39 +682,118 @@
 .saml-raekke > th,.saml-raekke > td,
 .saml-gruppe__titelraekke > th,
 .specimen-hoved__hjoerne{border-top:0}
-/* Hovedets <tr> er display:contents, saa hjoernet og specimen-kortene bliver
-   gitterceller i <thead>s eget grid - noejagtig samme boksetrae som da
-   hovedet var ét <div> med fire boern. */
-.specimen-hoved__raekke{display:contents}
-.specimen-hoved__hjoerne{padding:0}
-.saml-gruppe{display:block;border-top:2px solid var(--blaek)}
-/* :first-of-type, IKKE :first-child - tabellens foerste barn er <caption>.
-   margin-top er den, .saml-tabel bar, foer den blev til seks <tbody>. */
-.saml-gruppe:first-of-type{border-top:0;margin-top:var(--r6)}
-.saml-gruppe__titelraekke{display:block}
-.saml-gruppe__titel{display:block;padding:var(--r5) 0 10px;font-family:var(--mono);font-size:13px;
-  font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--blaek)}
-.saml-raekke{display:grid;grid-template-columns:200px repeat(var(--n,3),minmax(0,1fr));
-  border-top:1px solid var(--linje)}
-.saml-raekke__navn{padding:14px 14px 14px 0;font-size:14.5px;font-weight:500;
-  color:var(--blaek2);display:flex;align-items:center}
-.saml-raekke__celle{padding:14px;display:flex;align-items:center;
+/* Gruppetitlen: én <tbody> pr. gruppe, scope="rowgroup". Klaeber til venstre
+   kant sammen med raekkehovederne, saa den ikke forsvinder under vandret
+   rulning paa smalle skaerme. */
+.saml-gruppe__titel{position:sticky;left:0;
+  text-align:left;padding:var(--r5) var(--r3) 8px;
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--stoev-blaek);background:var(--panel)}
+.saml-gruppe:first-of-type .saml-gruppe__titel{padding-top:var(--r4)}
+
+/* Feltraekken. Raekkehovedet klaeber til VENSTRE kant: paa en smal skaerm
+   ruller man hen over spalterne, og feltnavnet skal staa fast - ellers ved
+   man ikke, hvad tallet under fingeren er et tal FOR. */
+.saml-raekke > *{border-top:1px solid var(--linje)}
+.saml-raekke__navn{position:sticky;left:0;z-index:10;
+  width:224px;min-width:224px;
+  text-align:left;vertical-align:top;font-weight:500;
+  padding:11px var(--r3);background:var(--panel);
+  box-shadow:1px 0 0 var(--linje)}
+.saml-raekke__ord{display:block;font-size:13.5px;color:var(--blaek2);line-height:1.3}
+
+/* SVARMAERKET - signaturen sammen med jiggen. Ét felt pr. plade, i spaltens
+   egen raekkefoelge: fyldt = pladen svarer, stiplet = pladen tier. Det er en
+   TAELLING, ikke en score - samme maalestok som sidens "N af 30 felter
+   oplyst", vendt 90 grader. Firkanten er nOEjagtig den, sidens egen .mrk
+   bruger til datatilstandene (system.css §8), saa det er samme sprog, ikke
+   et nyt. Tegnet i CSS og ikke som SVG: 30 raekker x 3 plader = 90 maerker
+   pr. tegning, og inline-SVG kostede ~200 byte stykket. */
+.saml-svar{display:flex;gap:3px;margin-top:6px}
+.saml-svar__m{display:block;width:8px;height:8px;background:var(--blaek);
+  border-radius:2px}
+.saml-svar__m--tavs{background:transparent;border:1px dashed var(--hegn)}
+
+.saml-raekke__celle{vertical-align:top;padding:11px var(--r3);
   border-left:1px solid var(--linje);min-width:0}
 .saml-raekke__celle .v{font-size:16px}
+/* Raekker, hvor ALLE plader tier: hele raekken traeder tilbage. Vaerdierne
+   staar der stadig med deres eget stiplede maerke - hullet er ikke skjult,
+   det er blot holdt op med at konkurrere med de raekker, der baerer tal.
+   Tavsheden er selve fundet, ikke en mangel der skal gemmes. */
+.saml-raekke--tavs .saml-raekke__ord{color:var(--stoev-blaek)}
+.saml-raekke--tavs .saml-raekke__navn{
+  border-left:2px dashed var(--hegn);padding-left:calc(var(--r3) - 2px)}
 
-@media (max-width:900px){
-  .specimen-hoved{grid-template-columns:1fr;gap:var(--r3)}
-  /* Hjoernecellen. Var `.specimen-hoved > div:first-child`, men hjoernet er
-     nu et <td> inde i en <tr> - vaelgeren gaar paa DOM-traeet, ikke paa
-     boksetraeet, saa `>` ramte ingenting efter Aa54. Egen klasse i stedet. */
-  .specimen-hoved__hjoerne{display:none}
-  .saml-raekke{grid-template-columns:1fr;row-gap:8px;padding:14px 0}
-  .saml-raekke__navn{padding:0;font-weight:700;color:var(--blaek)}
-  .saml-raekke__celle{border-left:2px solid var(--linje);padding:2px 0 2px 14px;
-    display:flex;flex-direction:column;gap:3px}
-  .saml-raekke__celle::before{content:attr(data-robot);font-family:var(--mono);
-    font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--blaek3)}
+/* --- 8b-III. MATRICENS FOD OG VAELGEREN ---------------------------------- */
+
+.saml-fod{margin-top:var(--r4)}
+/* Den redaktionelle position, ude af laesenoeglen og nede ved matricen, hvor
+   en laeser leder efter den vindercelle, der ikke findes. Den er en truffet
+   beslutning (haard begraensning 6), ikke en note der kan spares vaek - den
+   flyttes, den fjernes ikke. */
+.saml-vinderregel{font-family:var(--manual);font-size:12.5px;line-height:1.6;
+  color:var(--blaek2);max-width:78ch;margin:0;padding-left:var(--r3);
+  border-left:2px solid var(--linje);text-wrap:pretty}
+.saml-vinderregel__navn{display:block;font-family:var(--mono);font-size:10px;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stoev-blaek)}
+.saml-fotoophav{font-family:var(--manual);font-size:11.5px;line-height:1.55;
+  color:var(--stoev-blaek);max-width:78ch;margin:var(--r3) 0 0;padding:0 var(--r3) var(--r3);
+  text-wrap:pretty}
+
+/* Vaelgeren: alle 77, men de koster ikke foerste skaerm - den staar UNDER
+   matricen, og kolonnehovedernes "Vaelg robotter" springer herned. */
+.saml-udtraek{margin-top:var(--r5);background:var(--panel);border-radius:var(--rund-ind);
+  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
+  scroll-margin-top:var(--r4)}
+.saml-udtraek__top{margin:0;padding:var(--r4) var(--r5);font-family:var(--mono);
+  font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blaek);border-bottom:1px solid var(--linje)}
+.saml-udtraek__krop{padding:var(--r5)}
+
+/* --- 8b-IV. SMALLE SKAERME ----------------------------------------------
+   Matricen brydes ALDRIG op i blokke - det ville koste tabelrollen, som Aa54
+   netop lappede. Den ruller vandret i stedet, og raekkehovedet klaeber til
+   venstre kant, saa feltnavnet altid er synligt. */
+@media (max-width:1100px){
+  .saml-noegle__raekke{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 0}
+  .saml-tegn:nth-child(2n+1){border-left:0;padding-left:0}
+}
+
+/* Under 820 px kan de fire spalter ikke staa uden at knuse tallene. Her - og
+   KUN her - bliver beholderen en vandret ruller. Prisen er, at jigraekken
+   holder op med at klaebe til toppen (se .saml-rulle ovenfor); til gengaeld
+   virker den anden klaebning, raekkehovedet mod venstre kant, og det er den,
+   der baerer mest paa en smal skaerm. */
+@media (max-width:820px){
+  .saml-rulle{overflow-x:auto;overscroll-behavior-x:contain}
+  .saml-matrix{min-width:640px}
+}
+
+@media (max-width:720px){
+  .saml-noegle{padding:7px var(--r3) 8px}
+  /* Paa 390 er der ikke bredde til fem spalter med prosa. Ét spor, men
+     stadig ALT synligt: fire raekker a én linje. Leadet saettes INLINE her -
+     som to blokke kostede det en hel ekstra linje. */
+  .saml-noegle__raekke{grid-template-columns:1fr;gap:2px}
+  .saml-tegn,.saml-tegn:nth-child(2n+1){border-left:0;padding:0}
+  .saml-tegn__tekst{font-size:11px}
+  .saml-noegle__lead{padding-right:0}
+  .saml-noegle__navn{display:inline;margin-right:6px}
+  .saml-noegle__stam{display:inline;font-size:11px}
+  .saml-matrix{font-size:13px}
+  .specimen-hoved__hjoerne,.saml-raekke__navn{width:150px;min-width:150px}
+  /* Maerkatfotoet krymper med hovedet, saa den klaebende raekke ikke aeder
+     skaermen paa 390. */
+  .saml-fotofelt{width:52px;height:40px}
+  .saml-fotofelt__ord{font-size:7px}
+  .specimen__top{gap:10px}
+  .saml-hjoerne__note{display:none}
+  .specimen-hoved th,.specimen-hoved td{padding:var(--r3) 10px}
+  .specimen__navn{font-size:15px}
+  .specimen__fod{display:block}
+  .specimen__skift{margin-top:6px}
+  .saml-udtraek__krop{padding:var(--r4)}
 }
 
 /* =============================================================================

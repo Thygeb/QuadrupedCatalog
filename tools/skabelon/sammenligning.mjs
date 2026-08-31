@@ -35,7 +35,7 @@
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc } from './side.mjs';
+import { esc, laesBillede, billedAlternativer } from './side.mjs';
 import { FELTER, FELTNAVNE, GRUPPER, NAEVNER, feltVisning } from '../skema.mjs';
 import { taethed } from '../validate.mjs';
 
@@ -73,6 +73,43 @@ const OPNAVN = {
   '>': 'mereend', '>=': 'mindst', '<': 'mindreend', '<=': 'hoejst', '~': 'cirka', '±': 'pm',
 };
 
+/**
+ * Robotfotoet, som kolonnehovedet skal kunne tegne KLIENTSIDE.
+ *
+ * HVORFOR DET NU LIGGER I JSON'EN, NAAR DET FOER VAR EN DOKUMENTERET
+ * UDELADELSE (fund/FUND-lysbyg.md): compen saetter fotoet i selve
+ * kolonnehovedet, fordi hovedet OGSAA er betjeningen - man skal kunne se
+ * HVILKEN maskine en spalte er, mens man ruller. Det argument fandtes ikke,
+ * da hovedet kun var tekst.
+ *
+ * PRISEN ER MAALT, IKKE GAETTET: hele posten er stier og én alt-tekst, ingen
+ * markup. 77 poster koster 8,6 KB i den byggede side (maalt) - mod de
+ * ~120 KB, indlejret <picture>-markup for alle 77 ville have kostet.
+ * Stierne er FULDE (op + 'billeder/'), saa klienten ikke skal kende sin egen
+ * dybde i mappetraeet - samme grund som url-opslagene i build.mjs' grund().
+ *
+ * `alt` kommer fra hjaelp.billedTekst()s egen alt-vej, saa fotoet i matricen
+ * beskrives med NOEJAGTIGT samme saetning som paa robotsiden og i kataloget -
+ * ikke en tredje formulering, ingen ny i18n-noegle.
+ *
+ * Null betyder "ingen brugbar optagelse" - en aerlig tilstand, ikke en fejl.
+ * Maalt: 76 af 77 robotter har et foto, saa tilfaeldet er sjaeldent, men det
+ * findes, og klienten tegner da den stiplede ikke-oplyst-plade i stedet for
+ * en tom kasse, der ville se ud som en indlaesningsfejl.
+ */
+function fotoPost(robot, ctx) {
+  const b = laesBillede(robot);
+  if (!b) return null;
+  const sti = (f) => `${ctx.url.op}billeder/${f}`;
+  return {
+    src: sti(b.fil),
+    kilder: billedAlternativer(b.fil).map(([f, type]) => [sti(f), type]),
+    alt: ctx.hjaelp.billedTekst(robot, b).alt,
+    ophav: b.ophav || null,
+    hentet: b.hentet || null,
+  };
+}
+
 /** Den inline JSON-blok, klienten laeser. Ét objekt pr. robot: identitet +
  *  alle 30 felters visningsform (skema.mjs' feltVisning — sprogneutral) +
  *  en lille sprogspecifik ordbog, assets/sammenligning.js bruger til at
@@ -104,6 +141,7 @@ function dataBlok(ctx) {
     return {
       slug: r.slug, navn: r.navn, producent: r.producent,
       producentland: r.producentland, status: r.status, taethedAntal, felter,
+      foto: fotoPost(r, ctx),
     };
   });
 
@@ -148,6 +186,29 @@ function dataBlok(ctx) {
       // at blive til en tom caption, ingen opdager.
       tabel_caption: t('sammenligning_tabel_caption'),
       taethed_skabelon: T.skema_taeller,
+      /* --- spor/samlbyg: jigraekken og svarmaerket ------------------------
+         ALLE syv strenge herunder er EKSISTERENDE noegler, genbrugt. Sporet
+         maatte ikke roere data/i18n/*.json (spor/topbar ejer dem), saa hvor
+         compen havde en ny formulering, er den naermeste eksisterende noegle
+         valgt frem for at opfinde en streng. De steder, hvor ingen noegle
+         passede, er feltet UDELADT og fOErt som eftersleb i sporets rapport -
+         aldrig fyldt med en dansk streng skrevet i skabelonen, som saa ville
+         staa uoversat paa den engelske side. */
+      // Kolonnehovedets betjening. Compen skrev "Skift plade"; den naermeste
+      // eksisterende noegle er vaelgerens egen overskrift, og den er ogsaa
+      // aerligere: linket springer netop DERHEN.
+      vaelg_titel: T.sammenligning_vaelg_titel,
+      // Svarmaerkets skaermlaesertekst, fx "2 af 3 oplyst". `noegletal_taeller`
+      // og ikke `skema_taeller`: sidstnaevnte siger "... felter oplyst", og her
+      // taelles PLADER, ikke felter. Den generiske form passer praecis.
+      svar_taeller: T.noegletal_taeller,
+      // Hjoernecellen over feltnavnene.
+      alle_felter: T.alle_felter,
+      felter_naevner: t('taethed_naevner'),
+      // Fotokreditten under matricen.
+      foto_ophav: T.billede_uden_tilladelse,
+      hentet: T.hentet,
+      billede_intet: T.billede_intet,
       // Raa moenster med "{figur}" - klienten selv erstatter (sammenligning.js'
       // renderTal()), samme funktion som robot.mjs' flet() udfoerer server-side.
       kilde_original_form: T.kilde_original_form,
@@ -204,30 +265,126 @@ ${felter}
 </fieldset>`;
 }
 
-/** Tegnforklaringen: fire tilstande + reglen om ingen vinder-markering.
- *  Genbruger den SAMME dl/raekke-form som hjaelp.tegnforklaring() (side.mjs,
- *  ".tegnforklaring .raekker") i stedet for at opfinde et nyt layout - ingen
- *  ny CSS-komponent til selve strukturen, kun raekkerne selv er andre.
- *  IKKE hjaelp.tegnforklaring() direkte: den viser ogsaa de to
- *  kildemaerke-raekker (bogstav/sekundaer), og kilder er skjult paa denne
- *  side (L46 i STATUS.md, bekraeftet af JPK 27. aug 2026 - beslutningen fra
- *  24. aug staar ved magt) - en forklaring paa et maerke, der aldrig staar
- *  paa siden, ville vaere en forklaring uden genstand. De
- *  fire tilstandsraekker her genbruger de samme i18n-noegler,
- *  tegnforklaringen selv bruger; den femte er sammenligningens egen. */
+/**
+ * Laesenoeglen som ÉT ALTID-SYNLIGT BAAND (spor/samlbyg, kontrakt:
+ * retninger/nyverden/sammenligning.html, godkendt af JPK 31. aug 2026).
+ *
+ * INGEN <details>, INGEN fold. JPK var udtrykkelig: noeglen til at laese
+ * tallene maa ikke ligge bag et klik paa den side, hvis hele opgave er at
+ * laese tal. Her stod foer en `.tegnforklaring`-dl med fem raekker under
+ * hinanden; den kostede en halv skaerm og skubbede matricen ned.
+ *
+ * SAETNINGEN LOEBER VANDRET GENNEM BAANDET. De fire i18n-forklaringer deler
+ * ordret forstavelsen "Producenten oplyser", som nu staar én gang som lead;
+ * hvert maerke baerer kun sin egen fortsaettelse. Forstavelsen er UDLEDT af
+ * faellesForstavelse() - se dens egen kommentar for hvorfor.
+ *
+ * VAERNET: giver udledningen mindre end to ord, er der ingen faelles
+ * forstavelse at loefte ud, og baandet falder tilbage til de FULDE
+ * saetninger uden lead. Et halvt ord som lead ville vaere vaerre end intet.
+ *
+ * Vinderreglen staar IKKE her (den var foer femte raekke). Den er en
+ * redaktionel position, ikke et tegn man slaar op - den hoerer ved matricens
+ * fod, se matrixFodHTML().
+ *
+ * Kildemaerker er stadig ude (L46, bekraeftet af JPK 27. aug 2026): en
+ * forklaring paa et maerke, der aldrig staar paa fladen, er uden genstand.
+ */
 function legendeHTML(t, T) {
-  const raekke = (v, tekst) => `<div class="raekke"><dt>${v}</dt><dd>${esc(tekst)}</dd></div>`;
-  return `<section class="sektion tegnforklaring" aria-labelledby="h-tegn">
-<div class="sektion-hoved"><h2 class="t-h2" id="h-tegn">${esc(t('tegnforklaring_titel'))}</h2></div>
-<dl class="raekker">
-${raekke('<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>', T.tegnforklaring_oplyst)}
-${raekke('<span class="v v-tal v-nul"><b class="num">0</b></span>', T.tilstand_nul_forklaring)}
-${raekke(`<span class="v v-nej"><i class="mrk"></i>${esc(T.tilstand_nej)}</span>`, T.tilstand_nej_forklaring)}
-${raekke(`<span class="v v-ikke"><i class="mrk"></i>${esc(T.tilstand_ikke_oplyst)}</span>`, T.tilstand_ikke_oplyst_forklaring)}
-${raekke(`<span class="v v-vinder-tegn" aria-hidden="true">—</span><span class="kunskaerm">${esc(t('sammenligning_legende_vinder_titel'))}</span>`,
-    t('sammenligning_legende_vinder_forklaring'))}
-</dl>
+  const fulde = [
+    T.tegnforklaring_oplyst,
+    T.tilstand_nul_forklaring,
+    T.tilstand_nej_forklaring,
+    T.tilstand_ikke_oplyst_forklaring,
+  ];
+  const lead = faellesForstavelse(fulde);
+  const brugLead = lead.trim().split(/\s+/).filter(Boolean).length >= 2;
+  const rest = (s) => (brugLead
+    ? String(s).slice(lead.length).replace(/^[,\s]+/, '').replace(/\s*\.\s*$/, '')
+    : String(s));
+  const tegn = (mrk, s) => `<span class="saml-tegn"><span class="saml-tegn__mrk">${mrk}</span>`
+    + `<span class="saml-tegn__tekst">${esc(rest(s))}</span></span>`;
+
+  return `<section class="saml-noegle" aria-labelledby="h-tegn">
+<div class="saml-noegle__raekke">
+<p class="saml-noegle__lead">
+<span class="saml-noegle__navn" id="h-tegn">${esc(t('tegnforklaring_titel'))}</span>
+${brugLead ? `<span class="saml-noegle__stam">${esc(lead.trim())} …</span>` : ''}
+</p>
+${tegn('<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>', T.tegnforklaring_oplyst)}
+${tegn('<span class="v v-tal v-nul"><b class="num">0</b></span>', T.tilstand_nul_forklaring)}
+${tegn(`<span class="v v-nej"><i class="mrk"></i>${esc(T.tilstand_nej)}</span>`, T.tilstand_nej_forklaring)}
+${tegn(`<span class="v v-ikke"><i class="mrk"></i>${esc(T.tilstand_ikke_oplyst)}</span>`, T.tilstand_ikke_oplyst_forklaring)}
+</div>
 </section>`;
+}
+
+/**
+ * Den laengste faelles forstavelse, tegn for tegn. Loefter "Producenten
+ * oplyser" ("The manufacturer states " paa engelsk) ud af de fire
+ * tilstandsforklaringer, saa den kan staa ÉN gang som baandets lead i
+ * stedet for fire gange i fire saetninger. UDLEDT, ikke skrevet: ingen ny
+ * i18n-noegle, og en oversaettelse med en anden formulering faar
+ * automatisk sit eget lead.
+ */
+function faellesForstavelse(strenge) {
+  if (!strenge.length) return '';
+  const f = String(strenge[0]);
+  let i = 0;
+  while (i < f.length && strenge.every((s) => String(s)[i] === f[i])) i++;
+  return f.slice(0, i);
+}
+
+/**
+ * Stempelblokken - samme form og samme i18n-noegler som katalogsidens
+ * typeskilt (tools/skabelon/katalog.mjs' `stempler`), saa de to plader
+ * laeses som samme serie. `QUAD-${n}` er IKKE opfundet her: den streng er
+ * katalogsidens etablerede typebetegnelse, genbrugt ordret.
+ *
+ * "Udgave" er den seneste hentedato i hele kataloget - et MAALT tal, udledt
+ * af data, ikke en byggedato. Samme udledning som katalog.mjs.
+ */
+function stempelblokHTML(ctx) {
+  const { robotter, i18n, hjaelp } = ctx;
+  const { t } = i18n;
+  const datoer = [];
+  for (const r of robotter) {
+    if (r.billede?.hentet) datoer.push(r.billede.hentet);
+    if (r.anvendelse?.hentet) datoer.push(r.anvendelse.hentet);
+    for (const p of Object.values(r.felter ?? {})) {
+      if (p && typeof p === 'object' && typeof p.hentet === 'string') datoer.push(p.hentet);
+    }
+  }
+  const udgave = datoer.length ? datoer.sort()[datoer.length - 1] : '';
+  const stempler = [
+    [t('stempel_type'), `QUAD-${robotter.length}`],
+    [t('stempel_udgave'), udgave],
+    [t('stempel_poster'), hjaelp.nformat(robotter.length)],
+    [t('stempel_felter'), hjaelp.nformat(NAEVNER)],
+  ];
+  return `<dl class="stempler">
+${stempler.map(([n, v]) => `<div class="stempel"><dt>${esc(n)}</dt><dd>${esc(v)}</dd></div>`).join('\n')}
+</dl>`;
+}
+
+/**
+ * Matricens fod: vinderreglen. Den er en TRUFFET BESLUTNING (haard
+ * begraensning 6 - ingen redaktionel score uden offentliggjort metode), ikke
+ * en note der kan spares vaek, saa den staar med sit eget navn og sin egen
+ * ramme - men NEDE ved matricen, hvor en laeser leder efter den vindercelle,
+ * der ikke findes. Foer stod den som femte raekke i tegnforklaringen, hvor
+ * den blev laest som endnu et tegn blandt tegnene.
+ *
+ * Fotokreditten staar IKKE her: hvilke fotos der vises, afhaenger af hvilke
+ * robotter laeseren har valgt, saa den linje tegnes klientside sammen med
+ * tabellen (assets/sammenligning.js' fotoophavHTML()).
+ */
+function matrixFodHTML(t) {
+  return `<div class="saml-fod">
+<p class="saml-vinderregel">
+<span class="saml-vinderregel__navn">${esc(t('sammenligning_legende_vinder_titel'))}</span>
+${esc(t('sammenligning_legende_vinder_forklaring'))}</p>
+</div>`;
 }
 
 /** Uden JS: en flad, alfabetisk liste med links - aldrig en tom side. */
@@ -251,12 +408,25 @@ export function render(ctx) {
   const dataJSON = JSON.stringify(data)
     .replace(/</g, '\\u003c').replace(/-->/g, '--\\u003e'); // saa </script> i data aldrig kan lukke blokken
 
+  /* RAEKKEFOELGEN ER VENDT (spor/samlbyg, compens form): matricen staar nu
+     FOER vaelgeren. Foer laa 77 afkrydsningsfelter mellem laeseren og det,
+     siden handler om - man skulle forbi hele kataloget for at se en
+     sammenligning, der allerede var tegnet med standardtrioen. Vaelgeren er
+     betjening, ikke indhold, saa den hoerer under resultatet; kolonnehovedets
+     "Vaelg robotter"-link springer ned til den (#saml-vaelger), og hovedet
+     klaeber, saa linket altid er inden for raekkevidde.
+
+     `.sammenligning-app` er STADIG hidden indtil JS - kun rykket rundt.
+     Laesenoeglen og fallback-listen staar uden for den og virker uden JS. */
   return `<div class="rum">
 <p class="retur"><a href="${attr(url.katalog)}">${esc(T.til_katalog)}</a></p>
 
-<div class="katalog-hoved">
+<div class="katalog-hoved saml-plade">
+<div class="saml-plade__ord">
 <h1 class="t-h1">${esc(T.sammenligning_titel)}</h1>
 <p class="t-broed maal">${esc(T.sammenligning_lede)}</p>
+</div>
+${stempelblokHTML(ctx)}
 </div>
 
 ${legendeHTML(t, T)}
@@ -265,13 +435,17 @@ ${legendeHTML(t, T)}
 <h2 class="t-h2 kunskaerm" id="h-sammenligning">${esc(T.sammenligning_vaelg_titel)}</h2>
 
 <div class="sammenligning-app" data-sammenligning hidden>
-<div class="sektion-hoved">
-<span class="etiket">${esc(T.sammenligning_vaelg_titel)}</span>
-</div>
-<p class="t-lille sektion-note">${esc(T.sammenligning_vaelg_forklaring)}</p>
-${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenligning_soeg_etiket, T.sammenligning_soeg_pladsholder)}
 <p class="t-lille sammenligning-status" data-saml-status role="status" aria-live="polite" hidden></p>
-<div data-saml-resultat></div>
+<div class="saml-rulle" data-saml-resultat></div>
+${matrixFodHTML(t)}
+
+<div class="saml-udtraek" id="saml-vaelger">
+<p class="saml-udtraek__top">${esc(T.sammenligning_vaelg_titel)}</p>
+<div class="saml-udtraek__krop">
+<p class="t-lille sektion-note">${esc(T.sammenligning_vaelg_forklaring)} ${esc(t('sammenligning_maks'))}</p>
+${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenligning_soeg_etiket, T.sammenligning_soeg_pladsholder)}
+</div>
+</div>
 </div>
 
 <div data-sammenligning-fallback-wrap>
