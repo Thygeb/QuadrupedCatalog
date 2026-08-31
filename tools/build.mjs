@@ -537,10 +537,12 @@ async function main(argv) {
      afsnit om CSS, der boer flyttes til system.css, naar spor/topbar slipper
      filen - den ejer den lige nu, saa reglerne kan ikke lægges der endnu.
 
-     TALLENE ER REGNET, ikke tastet (haard begraensning 2, L30/D7): poster og
-     lande af `robotter`, TAL MED KILDE af taelKilder() - samme funktion, som
-     byggets logudskrift bruger - og UDGAVE af den nyeste hentedato i data.
-     Et haardkodet "77" ville vaere forkert, foerste gang kataloget vokser. */
+     TALLENE ER REGNET, ikke tastet (haard begraensning 2, L30/D7): POSTER og
+     LANDE af `robotter`, TAL MED KILDE af taelKilder() - samme funktion, som
+     byggets logudskrift bruger - og NYESTE KILDE af den seneste hentedato paa
+     et felt. Et haardkodet "77" ville vaere forkert, foerste gang kataloget
+     vokser. tests/dele/39-rod.mjs:39.2 vogter det ved at bygge mod
+     proevedatasaettets 3 robotter: et tastet 77 ville staa sort paa hvidt. */
   const rodLande = new Set(robotter.map((r) => r.producentland).filter(Boolean));
   /* NYESTE KILDE = den seneste hentedato paa et FELT. Tre valg, som alle tre
      kunne vaere gaaet galt, og som derfor staar skrevet:
