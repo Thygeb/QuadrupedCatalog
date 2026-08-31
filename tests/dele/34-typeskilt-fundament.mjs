@@ -158,8 +158,40 @@ export default async function koer(ctx) {
     // Vagt mod 3.7's MIDLERTIDIGE maalepunkter (Nyheder/Services/Om os):
     // de blev indsat lokalt for at maale navigationshoejden og skal vaere
     // fjernet igen foer commit. Falder denne, er reverten ikke fuldstaendig.
+    //
+    // INDSNAEVRET 31. aug 2026 (spor/topbar) fra HELE filen til NAV-ARRAYET.
+    // Vagten laeste ogsaa kommentarer, og L58 - beslutningen om at de tre
+    // punkter laegges TIL de bestaaende, naar deres sider findes - skal kunne
+    // NAVNGIVE dem dér, hvor nav-arrayet staar. En beslutning, der ikke maa
+    // skrives ned ved siden af den kode, den styrer, bliver skrevet ned et
+    // sted, ingen laeser.
+    //
+    // FOERSTE FORSOEG VAR AT STRIPPE KOMMENTARER, OG DET VAR FORKERT. Maalt:
+    // `s.replace(/\/\*[\s\S]*?\*\//g,'')` fjernede 41.272 af side.mjs' 78.112
+    // tegn - over halvdelen, nav-arrayet inklusive. Filen har 82 `/*` og 81
+    // `*/`, altsaa en ubalanceret aabner inde i en streng eller et
+    // regex-literal, og den forskyder hver eneste parring efter sig. Vagten
+    // ville have staaet GROEN paa et indsat `nav.push(['nyheder/','Nyheder'])`
+    // - en stille afvaebning af sig selv. En regex er ikke en parser.
+    //
+    // Den her form har ingen parsing at tage fejl af: arrayliteralen fra
+    // `const nav = [` til dens `];`, plus enhver linje i filen med et
+    // `nav.push(`. Bredden over KODE er dermed stoerre end foer, ikke mindre.
+    //
+    // Den ADFAERDSMAESSIGE vagt mod den samme fare - en navigationslaenke til
+    // en side, der ikke er bygget - er 37.7, som slaar hver enkelt laenke op
+    // i dist. Den fanger ogsaa det tilfaelde, denne vagt aldrig kunne se:
+    // et fjerde punkt med et helt andet navn.
+    const start = sideMjs.indexOf('const nav = [');
+    const arrayLit = start < 0 ? '' : sideMjs.slice(start, sideMjs.indexOf('];', start) + 2);
+    const pushLinjer = sideMjs.split('\n').filter((l) => /\bnav\.push\(/.test(l)).join('\n');
+    const navKode = `${arrayLit}\n${pushLinjer}`;
+    ok('34.28b: nav-arrayet blev overhovedet fundet i side.mjs',
+      start >= 0 && arrayLit.includes('nav_forside') && pushLinjer.includes('nav.push('),
+      'uden arrayet maaler 34.28 en tom streng og staar groen uanset hvad');
     ok('34.28: nav-arrayet i side.mjs baerer STADIG kun de tre faste punkter '
       + '+ det betingede producent-punkt (3.7s midlertidige maalepunkter er fjernet)',
-      !/Nyheder|Services|Om os/.test(sideMjs), 'fandt spor af 3.7s midlertidige maalepunkter');
+      !/Nyheder|Services|Om os/.test(navKode),
+      `fandt spor af 3.7s midlertidige maalepunkter i nav-koden: ${navKode}`);
   }
 }

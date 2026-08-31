@@ -81,25 +81,42 @@ export default async function koer(ctx) {
     /\.filtre input\{position:absolute;width:1px;height:1px;opacity:0\}/.test(sys),
     'holder den ikke, tegner browseren felterne, og accent-color bliver synlig');
 
-  /* --- 3. Nav-baandet paa ÉN raekke ------------------------------------- */
+  /* --- 3. Navigationen paa ÉN raekke ------------------------------------ */
   // Reglen staar UDEN FOR brudpunktet med vilje: braekket laa fra 320 px op
   // til ca. 500 px, ikke kun under 420.
-  ok('31.9: nav-baandet er ét spor, ikke to raekker',
-    /\.baand nav\{[^}]*flex-wrap:nowrap/.test(sys)
-      && /\.baand nav\{[^}]*overflow-x:auto/.test(sys),
-    'med flex-wrap:wrap braekker fem laenker over to 44 px-raekker');
+  //
+  // OMSKREVET 31. aug 2026 (spor/topbar), IKKE slettet: `.baand` er erstattet
+  // af TYPESKILT-daekket `.daek` efter comp'en retninger/nyverden. Alle fire
+  // garantier er de samme - ét rullespor, rullefyld, fokusring inde i
+  // laenken, 44 px trykflade - kun selektorerne peger et nyt sted hen.
+  // Sporet og listen er nu TO elementer (<nav class="daek__nav"> med et <ul>
+  // indeni), fordi comp'ens navigation er en liste og ikke bare laenker;
+  // rullebeholderen er derfor <nav>, og flex-raekken er <ul>. Vagt 31.9 ser
+  // efter begge halvdele hver for sig - falder én af dem vaek, braekker
+  // laenkerne over to raekker igen.
+  ok('31.9: navigationen er ét spor, ikke to raekker',
+    /\.daek__nav>ul\{[^}]*flex-wrap:nowrap/.test(sys)
+      && /\.daek__nav\{[^}]*overflow-x:auto/.test(sys),
+    'med flex-wrap:wrap braekker laenkerne over to 44 px-raekker');
   // De to ting, et rullespor koster, hvis ingen maaler dem. Begge er
   // tastaturfejl, ikke udseendefejl - og begge er usynlige paa et skud.
   ok('31.10: rullesporet har rullefyld, saa fokus afsloerer hele laenken',
-    /\.baand nav\{[^}]*scroll-padding-inline:/.test(sys),
+    /\.daek__nav\{[^}]*scroll-padding-inline:/.test(sys),
     'uden det bliver en delvist synlig laenke staaende - Blink ruller kun '
       + 'et element frem, der ligger HELT uden for rulleporten');
   ok('31.11: fokusringen tegnes inde i laenken, saa overflow ikke klipper den',
-    /\.baand nav a:focus-visible\{outline-offset:-3px\}/.test(sys),
+    /\.daek__nav a:focus-visible\{outline-offset:-3px\}/.test(sys),
     'en overflow-boks klipper ogsaa ved 1440, hvor der intet er at rulle');
   ok('31.12: trykfladen er stadig 44 px',
-    /\.baand nav a\{[^}]*min-height:44px/.test(sys),
+    /\.daek__nav a\{[^}]*min-height:44px/.test(sys),
     'én raekke maa ikke koebes for en mindre trykflade');
+  // Selektorerne ovenfor kan kun holde, saa laenge INGEN regel er blevet
+  // staaende paa det gamle navn. En efterladt `.baand`-regel ville betyde,
+  // at daekket blev bygget ved siden af det gamle baand frem for i stedet -
+  // og saa maaler 31.9-31.12 en komponent, ingen side laenger bruger.
+  ok('31.12b: ingen .baand-regel er blevet staaende',
+    !/^\s*\.baand[\s.,:[{>]/m.test(sys.replace(/\/\*[\s\S]*?\*\//g, '')),
+    'det gamle baand og det nye daek maa ikke leve side om side');
 
   /* --- 4. Radius-skalaen ------------------------------------------------ */
   // Skalaen er 0/2/6/8/12 (--rund-lille/--rund-ind/--rund) plus 99px-pillen,
