@@ -25,9 +25,8 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-topbar",
       "C:/Praktik/websites/udstilling-wt-samlbyg",
-      "C:/Praktik/websites/udstilling-wt-rod"
+      "C:/Praktik/websites/udstilling-wt-kort"
     ]
   },
   "hooks": {
