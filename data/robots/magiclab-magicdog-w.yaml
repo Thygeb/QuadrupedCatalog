@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Suzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
+foerste_udgivelse: 2025
 noter:
   - "HJEMBYEN ER SUZHOU, IKKE WUJIANG: producentens globale site skriver direkte \"Founded in 2024 and headquartered in Suzhou\" og gentager \"Founded in Suzhou, China\". Strengen \"Wujiang\", som posten tidligere bår ved siden af Suzhou, findes 0 gange i selskabets gemte sider."
   - "TO PRODUCENTSITES, DER MODSIGER HINANDEN - og her vender operatorerne. magiclab.top skriver hastighed 0-3 m/s og hældning <= 40 grader; magiclabglobal.com skriver >= 3.0 m/s og >= 40 grader for samme robot, samme sprog, samme dag. Det ene er et loft, det andet et gulv. Kilden her er magiclab.top; det globale sites tal står i advarslerne."
