@@ -560,3 +560,283 @@ p{margin:0}
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
     transition-duration:.001ms !important}
 }
+
+/* ==========================================================================
+   13. SAMMENLIGNINGSSIDEN — tre plader i den samme jig
+   spor/samlcomp, 31. aug 2026. Tilfoejet, intet ovenfor er aendret.
+
+   Klassenavnene er bevidst nye og ikke genbrugte: .tabel (§11) baerer et
+   mobil-sammenbrud (display:block paa table/tr/th/td), der ville OPLOESE
+   sammenligningsmatricen — og med den tabelsemantikken fra Aa54. Matricen
+   hedder derfor .matrix og ruller vandret i stedet for at bryde op.
+   ========================================================================== */
+
+/* 13a. Tegnbaandet — de fem udsagn, den kOErende side bruger en hel skaerm paa */
+.tegnbaand{padding:var(--r4) var(--r5) var(--r5);border-bottom:1px solid var(--rille)}
+.tegnbaand__navn{
+  margin:0 0 var(--r3);font-size:11px;font-weight:700;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--gunmetal);
+  display:flex;align-items:baseline;gap:9px;
+}
+.tegnbaand__navn::after{content:"";flex:1;height:1px;background:var(--rille)}
+.tegnbaand__net{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;
+}
+.tegn{padding:0 var(--r4) 0 0;border-right:1px dashed var(--rille);min-width:0}
+.tegn:last-child{border-right:0;padding-right:0}
+.tegn + .tegn{padding-left:var(--r4)}
+.tegn__mrk{display:block;margin-bottom:6px;min-height:20px}
+.tegn__ord{
+  display:block;font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--stoev-blaek);margin-bottom:3px;
+}
+.tegn__tekst{
+  display:block;font-family:var(--manual);font-size:12px;line-height:1.45;
+  color:var(--blaek-2);text-wrap:pretty;
+}
+.tegn__streg{font-size:19px;font-weight:700;color:var(--stoevgraa);line-height:1}
+.stempler__vaegt{color:var(--gunmetal)}
+
+/* 13b. Matricen ------------------------------------------------------------
+   Vandret rulning frem for opbrud: en <table>, hvis display aendres, mister
+   sin rolle i tilgaengelighedstraeet — praecis den faelde, Aa54 allerede
+   maatte lappe med eksplicitte ARIA-roller. Her bevares elementerne, og
+   raekkehovedet klaeber til venstre kant i stedet.                          */
+.matrixsektion{padding:var(--r6) 0 var(--r7)}
+.matrix-rulle{
+  overflow-x:auto;overscroll-behavior-x:contain;
+  background:var(--kridt);border-radius:3px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+.matrix{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;min-width:760px}
+.matrix__caption{
+  /* Navnene staar synligt i kolonnehovederne lige nedenunder; en synlig
+     caption ville vaere en dublet. Samme begrundelse som den kOErende sides. */
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* Jigraekken: kolonnehovedet KLAEBER. Paa den kOErende side ruller
+   robotnavnene vaek, og raekke 25 laeses uden at vide hvilken spalte er hvem. */
+.jigraekke th,.jigraekke td{
+  position:sticky;top:0;z-index:30;
+  background:var(--gunmetal);color:var(--eloxgraa);
+  text-align:left;vertical-align:bottom;
+  padding:var(--r4) var(--r3);
+}
+.hjoerne{
+  position:sticky;left:0;z-index:31;
+  width:224px;min-width:224px;
+}
+.hjoerne__ord{
+  display:block;font-size:12px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--eloxgraa);margin-bottom:4px;
+}
+.hjoerne__note{
+  display:block;font-family:var(--manual);font-size:11px;line-height:1.4;
+  color:var(--stoevgraa);max-width:22ch;
+}
+.skiltehoved{border-left:1px solid var(--blaek-2)}
+.skiltehoved__nr{
+  display:block;font-size:9.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--stoevgraa);margin-bottom:5px;
+}
+.skiltehoved__navn{
+  display:block;font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.1;
+  color:var(--eloxgraa);
+}
+.skiltehoved__prod{
+  display:block;font-size:10.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--stoevgraa);margin-top:4px;
+}
+.skiltehoved__fod{
+  display:flex;align-items:baseline;gap:var(--r3);flex-wrap:wrap;
+  margin-top:10px;padding-top:9px;border-top:1px solid var(--blaek-2);
+}
+.skiltehoved__taethed{font-size:11.5px;font-weight:500;color:var(--stoevgraa)}
+.skiltehoved__skift{
+  margin-left:auto;display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--eloxgraa);text-decoration:none;
+  padding:3px 7px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek-2);
+}
+.skiltehoved__skift:hover{background:var(--afmaerkningsgul);color:var(--gunmetal);box-shadow:none}
+.skiltehoved__skift svg{display:block}
+
+/* Gruppetitlen: én <tbody> pr. gruppe, scope="rowgroup" */
+.gruppe__titel{
+  position:sticky;left:0;
+  text-align:left;padding:var(--r5) var(--r3) 8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--stoev-blaek);background:var(--kridt);
+}
+.gruppe:first-of-type .gruppe__titel{padding-top:var(--r4)}
+
+/* Feltraekken */
+.felt-raekke > *{border-top:1px solid var(--rille)}
+.feltnavn{
+  position:sticky;left:0;z-index:10;
+  width:224px;min-width:224px;
+  text-align:left;vertical-align:top;font-weight:500;
+  padding:11px var(--r3);background:var(--kridt);
+  box-shadow:1px 0 0 var(--rille);
+}
+.feltnavn__ord{display:block;font-size:13.5px;color:var(--blaek-2);line-height:1.3}
+/* Svarmaerket: ét felt pr. plade, i spaltens egen raekkefoelge. Fyldt = pladen
+   svarer, stiplet = pladen tier. Det er en TAELLING, ikke en score — samme
+   maalestok som sidens "N af 30 felter oplyst", vendt 90 grader. */
+.svar{display:flex;gap:3px;margin-top:6px;color:var(--gunmetal)}
+.svar__m{display:block;line-height:0}
+.svar__m--tavs{color:var(--stoevgraa)}
+.celle{
+  vertical-align:top;padding:11px var(--r3);
+  border-left:1px solid var(--rille);
+}
+/* Raekker, hvor ALLE plader tier: hele raekken traeder tilbage. Vaerdierne
+   staar der stadig, med deres eget stiplede maerke — hullet er ikke skjult,
+   det er blot holdt op med at konkurrere med de raekker, der baerer tal. */
+.felt-raekke--tavs .feltnavn__ord{color:var(--stoev-blaek)}
+.felt-raekke--tavs .feltnavn{
+  box-shadow:1px 0 0 var(--rille);
+  border-left:2px dashed var(--stoevgraa);padding-left:calc(var(--r3) - 2px);
+}
+
+/* 13c. Vaerdierne ---------------------------------------------------------
+   Tallet i PLADENS skrift, producentens prosa i MANUALENS. Ikke pynt: paa
+   et typeskilt er tallene stanset, saetningerne staar i manualen — og netop
+   den todeling holder en 223-tegns tekstvaerdi fra at saette raekkehoejden
+   for to spalter, der baerer ét tal hver.                                   */
+.v{display:inline-flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.v-tal{font-weight:600;font-variant-numeric:tabular-nums;color:var(--gunmetal)}
+.v-tal .num{font-size:16.5px;font-weight:600;letter-spacing:-.005em}
+.op{font-size:12.5px;font-weight:500;color:var(--blaek-2)}
+.enhed{font-size:11.5px;font-weight:500;color:var(--blaek-2);letter-spacing:.02em}
+.enhed--klaebet{margin-left:-4px}
+.v-nul .num{
+  /* Et maalt nul er et svar. Den udfyldte prik-ramme skiller det fra hullet. */
+  box-shadow:inset 0 0 0 1px var(--gunmetal);border-radius:2px;padding:0 7px;
+}
+.v-ja,.v-nej,.v-billede{
+  align-items:center;
+  box-shadow:inset 0 0 0 1px var(--gunmetal);border-radius:2px;padding:2px 9px;
+  font-size:12.5px;font-weight:600;color:var(--gunmetal);
+}
+.v-ikke{
+  align-items:center;
+  border:1px dashed var(--stoevgraa);border-radius:2px;padding:2px 9px;
+  font-size:12.5px;font-weight:500;color:var(--stoev-blaek);
+}
+.v svg{flex:none;display:block}
+.v-prosa{
+  display:block;font-family:var(--manual);font-size:12.5px;line-height:1.5;
+  font-weight:400;color:var(--blaek-2);max-width:46ch;text-wrap:pretty;
+}
+/* Forbeholdet baeres, men vises ikke (JPK 27. aug 2026 — samme interim som
+   side.mjs' fnote()). Teksten staar i title og for skaermlaesere. */
+.forbehold-skjult{border:0;text-decoration:none}
+
+.matrix__fod{
+  font-family:var(--manual);font-size:12.5px;line-height:1.6;color:var(--blaek-2);
+  max-width:78ch;margin-top:var(--r4);text-wrap:pretty;
+}
+.matrix__fod b{font-weight:600;color:var(--gunmetal)}
+
+/* 13d. Vaelgeren: alle 77, men de koster ikke foerste skaerm ------------- */
+.udtraek-saml{
+  margin-top:var(--r5);background:var(--kridt);border-radius:3px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+.udtraek-saml > summary{
+  display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;
+  padding:var(--r4) var(--r5);
+  font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+}
+.udtraek-saml > summary::-webkit-details-marker{display:none}
+.udtraek-saml > summary .haandtag{
+  margin-left:auto;display:grid;place-items:center;width:22px;height:22px;
+  border-radius:2px;box-shadow:inset 0 0 0 1px var(--gunmetal);
+}
+.udtraek-saml[open] > summary{border-bottom:1px solid var(--rille)}
+.udtraek-saml[open] > summary .haandtag svg{transform:rotate(180deg)}
+.udtraek-saml__krop{padding:var(--r5)}
+.udtraek-saml__note{
+  font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--blaek-2);
+  max-width:64ch;margin-bottom:var(--r4);
+}
+.sog{display:flex;flex-direction:column;gap:6px;max-width:340px;margin-bottom:var(--r4)}
+.sog__etiket{
+  font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stoev-blaek);
+}
+.sog input{
+  font:inherit;font-family:var(--plade);font-size:14px;
+  padding:8px var(--r3);border:0;border-radius:2px;
+  background:var(--eloxgraa);color:var(--gunmetal);
+  box-shadow:inset 0 0 0 1px var(--rille);
+}
+.sog input:hover{box-shadow:inset 0 0 0 1px var(--gunmetal)}
+.vaelgernet{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px 0}
+.vc{display:block;min-width:0}
+.vc__felt{position:absolute;opacity:0;width:1px;height:1px}
+.vc__mrk{
+  display:flex;align-items:baseline;gap:9px;cursor:pointer;
+  padding:6px 9px;border-radius:2px;
+  font-size:13.5px;font-weight:500;
+}
+.vc__mrk::before{
+  content:"";flex:none;width:13px;height:13px;border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--gunmetal);background:var(--kridt);
+  align-self:center;
+}
+.vc__mrk:hover{background:var(--eloxgraa)}
+.vc__felt:checked + .vc__mrk{background:var(--afmaerkningsgul)}
+.vc__felt:checked + .vc__mrk::before{
+  background:var(--gunmetal);
+  box-shadow:inset 0 0 0 1px var(--gunmetal), inset 0 0 0 3px var(--afmaerkningsgul);
+}
+.vc__felt:focus-visible + .vc__mrk{
+  outline:2px solid var(--gunmetal);outline-offset:1px;
+  box-shadow:0 0 0 4px var(--afmaerkningsgul);
+}
+.vc__prod{
+  margin-left:auto;font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--stoev-blaek);text-align:right;
+}
+.vc__felt:checked + .vc__mrk .vc__prod{color:var(--gunmetal)}
+
+.uden-js{
+  margin-top:var(--r4);padding:var(--r3) var(--r4);
+  border:1px dashed var(--stoevgraa);border-radius:2px;
+  font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--stoev-blaek);
+}
+.uden-js a{color:var(--gunmetal)}
+
+/* 13e. Smalle skaerme ------------------------------------------------------
+   Matricen brydes IKKE op (det ville koste tabelrollen). Den ruller vandret,
+   og raekkehovedet klaeber til venstre kant, saa feltnavnet altid er synligt. */
+@media (max-width:1100px){
+  .tegnbaand__net{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--r4) 0}
+  .tegn{border-right:0;padding-right:var(--r4)}
+  .tegn:nth-child(2n){padding-left:var(--r4);border-left:1px dashed var(--rille);padding-right:0}
+  .tegn + .tegn{padding-left:0}
+  .tegn:nth-child(2n){padding-left:var(--r4)}
+}
+
+@media (max-width:720px){
+  .matrixsektion{padding:var(--r5) 0 var(--r6)}
+  .tegnbaand{padding:var(--r4)}
+  .tegnbaand__net{grid-template-columns:1fr;gap:var(--r3)}
+  .tegn,.tegn:nth-child(2n){border:0;padding:0 0 var(--r3);border-bottom:1px dashed var(--rille)}
+  .tegn:last-child{border-bottom:0;padding-bottom:0}
+  .matrix{min-width:640px;font-size:13px}
+  .hjoerne,.feltnavn{width:150px;min-width:150px}
+  .hjoerne__note{display:none}
+  .jigraekke th,.jigraekke td{padding:var(--r3) 10px}
+  .skiltehoved__navn{font-size:15px}
+  .skiltehoved__fod{display:block}
+  .skiltehoved__skift{margin-top:6px}
+  .v-tal .num{font-size:15px}
+  .udtraek-saml > summary{padding:var(--r3) var(--r4)}
+  .udtraek-saml__krop{padding:var(--r4)}
+  .vaelgernet{grid-template-columns:1fr}
+}
