@@ -25,7 +25,7 @@
  *   ctx.sprog 'da' | 'en'
  *   ctx.url   { dybde, sti, op }   sti er uden sprogpraefiks, fx 'robotter/'
  *
- * Skallen (<head>, baand, skip-link, hreflang, fod) skrives af
+ * Skallen (<head>, daekket oeverst, skip-link, hreflang, fod) skrives af
  * skal() her i filen. En skabelon skriver KUN indholdet af <main>.
  *
  * ============================================================================
@@ -1480,8 +1480,21 @@ export const hjaelp = new Proxy({}, {
 /* ------------------------------------------------------------------ skallen */
 
 /**
- * Sideskallen. Alt uden for <main>: <head>, hreflang, skip-link, baandet
+ * Sideskallen. Alt uden for <main>: <head>, hreflang, skip-link, daekket
  * oeverst og sidefoden.
+ *
+ * Daekket er bygget efter comp'en retninger/nyverden/katalog.html (spor/topbar,
+ * 31. aug 2026) og erstatter `.baand`. De fire steder, comp'en bevidst ikke er
+ * fulgt, staar i assets/system.css afsnit 6 - de hoerer til CSS'en, ikke her.
+ *
+ * MENUENS INDHOLD er IKKE comp'ens. Comp'en viser fire punkter (Oversigt,
+ * Nyheder, Services, Om os); L58 besluttede, at de tre nye laegges TIL de
+ * bestaaende, ikke i stedet for - en udtoemmende laesning ville goere 54 sider
+ * (sammenligning 2 + producenter 52) uopnaaelige fra navigationen. Nyheder,
+ * Services og Om os er endnu ikke bygget som sider, og en laenke til en side,
+ * der ikke findes, ville med rette blive fanget af tools/linktjek.mjs. Raekken
+ * er derfor comp'ens FORM med den nuvaerende menus INDHOLD, og den vokser til
+ * syv punkter den dag de tre sider findes - rullesporet baerer dem allerede.
  */
 export function skal({
   sprogkode, T, t, titel, beskrivelse, sti, main, aktiv,
@@ -1499,6 +1512,29 @@ export function skal({
     ['sammenligning/', T.nav_sammenligning],
   ];
   if (harProducenter) nav.push(['producenter/', t('nav_producenter')]);
+
+  /* Sprogskifteren. Comp'en (retninger/nyverden/katalog.html) viser DA / EN
+     som to koder med en skraastreg imellem, ikke ét "In English"-link. Formen
+     er bygget over SPROG og ikke over to haardkodede sprog, saa et tredje
+     sprog foejer sig selv ind - det er hele grunden til, at sprogene ligger i
+     en liste og ikke i en attribut med to stillinger (CLAUDE.md, Sprog).
+
+     Koden udledes af sprogkoden selv (ISO 639-1, versaler). Den er derfor
+     IKKE en oversat streng: "DA" hedder DA paa engelsk, og en ny sprogfil
+     skal ikke huske at tilfoeje sin egen kode.
+
+     Det aktuelle sprog er et <span>, ikke et link til siden selv. Et selvlink
+     ville koste et tabstop paa hver af sidens sider uden at foere nogen
+     steder hen. `aria-current="true"` frem for "page": "page" staar allerede
+     paa den aktive navigationslaenke, og to "current page" i samme <header>
+     ville sige det samme om to forskellige ting. */
+  const sprogSkifter = SPROG.map((s) => {
+    const kode = esc(s.toUpperCase());
+    return s === sprogkode
+      ? `<span class="daek__sprogkode" aria-current="true" lang="${attr(s)}">${kode}</span>`
+      : `<a class="daek__sprogkode" href="${attr(`${op}${s}/${sti}`)}"`
+        + ` hreflang="${attr(s)}" lang="${attr(s)}">${kode}</a>`;
+  }).join('<span class="daek__skil" aria-hidden="true">/</span>');
 
   // Kontrakten siger "HTML-streng for <main>". De to laesninger - indholdet AF
   // main, og main-elementet selv - findes begge i praksis (robot.mjs og
@@ -1523,17 +1559,19 @@ ${stil ? `<style>\n${stil}\n</style>` : ''}
 <body>
 <a class="spring" href="#hoved">${esc(t('spring_til_indhold'))}</a>
 ${SPRITE}
-<header class="baand">
-<div class="rum">
-<div class="baand-navn">
-<span class="titel">${esc(T.sted_navn)}</span>
-<span class="midlertidig">${esc(t('sted_navn_midlertidig'))}</span>
+<header class="daek">
+<div class="daek__ramme rum">
+<div class="daek__mark">
+<a class="daek__navn" href="${attr(`${op}${sprogkode}/`)}">${esc(T.sted_navn)}</a>
+<span class="daek__stempel">${esc(t('sted_navn_midlertidig'))}</span>
 </div>
-<nav aria-label="${attr(T.nav_katalog)}">
-${nav.map(([href, tekst]) => `<a href="${attr(op + sprogkode + '/' + href)}"`
-    + `${aktiv === href ? ' aria-current="page"' : ''}>${esc(tekst)}</a>`).join('\n')}
-<a href="${attr(`${op}${andet}/${sti}`)}" hreflang="${attr(andet)}" lang="${attr(andet)}">${esc(T.andet_sprog)}</a>
+<nav class="daek__nav" aria-label="${attr(t('nav_etiket'))}">
+<ul>
+${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"`
+    + `${aktiv === href ? ' aria-current="page"' : ''}>${esc(tekst)}</a></li>`).join('\n')}
+</ul>
 </nav>
+<p class="daek__sprog"><span class="kunskaerm">${esc(t('sprog_etiket'))}</span>${sprogSkifter}</p>
 </div>
 </header>
 ${kropp}
