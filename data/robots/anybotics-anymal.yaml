@@ -5,6 +5,7 @@ producentland: "Schweiz"
 producentby: "Zuerich"
 status: "i_produktion"
 fremdrift: "ben"
+foerste_udgivelse: 2021
 noter:
   - "ANYbotics AG, Hagenholzstrasse 83a, 8050 Zuerich. Kontor også i San Francisco. Schweiz er ikke EU."
   - "Et komplet datablad findes, men kun bag en formular (https://www.anybotics.com/anymal-specifications-sheet/). Ikke hentet."
