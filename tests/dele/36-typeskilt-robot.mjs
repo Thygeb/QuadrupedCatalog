@@ -231,6 +231,17 @@ export default async function koer(ctx) {
     /<table class="skema-tabel"/.test(spotDa)
     && (spotDa.match(/<th scope="col" role="columnheader">/g) || []).length === 3);
 
+  // Faelden, den aabne tabel kostede 31. aug 2026: system.css' BARE
+  // `table{…min-width:620px…}` (afsnit 14, skrevet til sammenligningsmatricen)
+  // rammer enhver tabel paa sitet. Maalt ved 390 px foer nulstillingen:
+  // computed min-width 620px, body.scrollWidth 636 - 246 px vandret overloeb
+  // paa hver eneste robotside, uden at nogen regel saa forkert ud.
+  // generator.css:644 nulstiller den samme faelde for `.saml-matrix`; den
+  // maa ikke skulle opdages en tredje gang.
+  ok('36.24b: skematabellen nulstiller den globale table{min-width:620px}',
+    /\.typeskilt \.skema-tabel\{[^}]*min-width:0/.test(sys),
+    'uden min-width:0 giver hver robotside 246 px vandret overloeb ved 390');
+
   /* --- 5. De tre tilstande maa stadig se forskellige ud ------------------ */
 
   // Haard begraensning 5. Skiltets maerkelinje er sidens FOERSTE moede med

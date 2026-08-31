@@ -1462,7 +1462,16 @@ td .v{font-size:15px}
 .typeskilt .skema-taeller{
   font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3);margin-right:auto;
 }
-.typeskilt .skema-tabel{width:100%;border-collapse:collapse;font-size:14px}
+/* `min-width:0` er IKKE pynt. system.css' bare `table{…min-width:620px…}`
+   (afsnit 14) er skrevet til sammenligningsmatricen og rammer ENHVER tabel
+   paa sitet. Maalt 31. aug 2026 ved 390 px, foer denne linje: skematabellens
+   computed min-width var 620px, body.scrollWidth 636 — altsaa 246 px vandret
+   overloeb paa hver eneste robotside, uden at nogen regel saa forkert ud.
+   generator.css:644 nulstiller den samme faelde for `.saml-matrix` med
+   praecis samme begrundelse ("paa en telefon ville den give…"), saa fælden
+   er kendt — den var bare ikke skrevet ned et sted, en ny tabel ville
+   snuble over den. Nu er den det to steder. */
+.typeskilt .skema-tabel{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
 .typeskilt .skema-tabel__kap{
   text-align:left;padding:0 0 var(--r4);max-width:86ch;
   font-size:12.5px;line-height:1.55;color:var(--blaek2);
