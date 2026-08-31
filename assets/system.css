@@ -17,57 +17,148 @@
    ========================================================================== */
 
 /* --- 1. Skrift ------------------------------------------------------------
-   Arvet fontstrategi: Manrope + JetBrains Mono, LOKALE filer. assets/fonts/
-   er tom lige nu (maalt 21.08.2026: 0 woff2-filer). Derfor:
-     1) local()  — bruger en installeret Manrope, hvis maskinen har en
-     2) url()    — bruger filen, saa snart den lander i assets/fonts/
-     3) stakken  — falder tilbage paa systemets grotesk, hvis ingen af delene
-   Der kaldes ALDRIG en fontserver. */
+   TYPESKILT-fundament (spor/fundament, 31. aug 2026, L54/L57). Erstatter den
+   gamle Manrope-og-skrivemaskineskrift-strategi, som ALDRIG selvhostede noget (maalt
+   21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer dette spor - kun
+   local()+en ikke-eksisterende url() og et fallback til systemskrift).
+   Saira Semi Condensed ("Pladen": etiketter, tal, navigation, se --mono
+   nedenfor) og Literata ("Manualen": prosa - endnu ikke koblet paa noget
+   token; det er runde 2's arbejde). Kilde: retninger/nyverden/skrift/ og
+   typeskilt.css. Begge snit er SIL OFL 1.1, fri til selvhosting. 10 filer,
+   latin + latin-ext hver, unicode-range delt som i comp'en. */
 @font-face{
-  font-family:"Manrope lokal";
-  src:local("Manrope"),local("Manrope Regular"),
-      url("fonts/Manrope-variable.woff2") format("woff2-variations");
-  font-weight:200 800; font-display:swap; font-style:normal;
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:400;font-display:swap;
+  src:url("fonts/saira-400-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 @font-face{
-  font-family:"JetBrains Mono lokal";
-  src:local("JetBrains Mono"),local("JetBrainsMono-Regular"),
-      url("fonts/JetBrainsMono-variable.woff2") format("woff2-variations");
-  font-weight:100 800; font-display:swap; font-style:normal;
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:400;font-display:swap;
+  src:url("fonts/saira-400-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:500;font-display:swap;
+  src:url("fonts/saira-500-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:500;font-display:swap;
+  src:url("fonts/saira-500-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:600;font-display:swap;
+  src:url("fonts/saira-600-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:600;font-display:swap;
+  src:url("fonts/saira-600-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:700;font-display:swap;
+  src:url("fonts/saira-700-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"SairaSemiCondensed";font-style:normal;font-weight:700;font-display:swap;
+  src:url("fonts/saira-700-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:"Literata";font-style:normal;font-weight:400 600;font-display:swap;
+  src:url("fonts/literata-var-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:"Literata";font-style:normal;font-weight:400 600;font-display:swap;
+  src:url("fonts/literata-var-latin-ext.woff2") format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
 /* --- 2. Poletter ---------------------------------------------------------- */
 :root{
-  /* Flader. ORBIT-lys: lys graa bund, hvide afrundede paneler. */
-  --bund:#F2F3F5;
-  --panel:#FFFFFF;
-  --panel-ro:#F7F8FA;        /* roligt indfelt inde i et hvidt panel */
-  --tom:#EDEFF2;             /* fyldet bag "ikke oplyst" */
+  /* Flader. TYPESKILT (spor/fundament, L54/L57): eloxeret plade, ikke
+     ORBIT-lysets bloede panel. VAERDIERNE ER NYE, NAVNENE ER DE GAMLE - jf.
+     briefets 3.3: ingen test matcher en hex-farve, kun ÉT sted matcher et
+     token-navn (tests/dele/31-pudsning.mjs:141-142), saa navnene bevares,
+     og hele siden skifter farve uden at noget knaekker. Kortlaegningen fra
+     MANIFEST.md's ni navngivne roller (ikke otte - se rapporten) til de
+     14 gamle tokens, dér hvor rollen var entydig:
+       --bund/--tom/--panel-ro/--accent-ro -> eloxgraa (pladen selv, og de
+         receded/rolige flader ORBIT ikke havde et TYPESKILT-modstykke til -
+         se dommen nedenfor)
+       --panel -> kridt (kortflade)   --blaek/--fod -> gunmetal (blaekket)
+       --blaek2 -> blaek-2            --blaek3 -> stoev-blaek (samme rolle
+         som "ikke oplyst"-teksten allerede havde: .v-ikke, .status--udgaaet)
+       --accent -> afmaerkningsgul    --linje -> rille
+       --hegn/--paafod2 -> stoevgraa  --paafod -> eloxgraa (lys tekst paa moerk bund) */
+  --bund:#E8EBED;
+  --panel:#FAFBFB;
+  --panel-ro:#E8EBED;        /* DOM: TYPESKILT har ingen "rolig flade INDE i
+                                 kridt-panelet" - de faa steder, comp'en gaar
+                                 dybere end kridt, bruger eloxgraa (fx
+                                 .kort__billedled). Mindst risikable valg,
+                                 ikke en ny farve opfundet til lejligheden. */
+  --tom:#E8EBED;             /* fyldet bag "ikke oplyst" - TYPESKILT har INGEN
+                                 fyld her (.rk--uoplyst .rk__boks{background:
+                                 transparent}), saa eloxgraa (= --bund) er den
+                                 naermeste "usynlige" flade uden at opfinde en */
 
-  /* Blaek. Maalt mod BEGGE flader, ikke kun hvid. */
-  --blaek:#14161A;           /* 18,11 : hvid   16,31 : bund */
-  --blaek2:#4A515C;          /*  8,01 : hvid    7,21 : bund */
-  --blaek3:#5A626E;          /*  6,16 : hvid    5,55 : bund */
+  /* Blaek. Rollerne er MAALT i MANIFEST.md §Paletten, ikke skoennet her. */
+  --blaek:#22262A;           /* gunmetal - 12,72 : eloxgraa (maalt i manifestet) */
+  --blaek2:#545C63;          /* blaek-2 - 5,68 : eloxgraa */
+  --blaek3:#5F686F;          /* stoev-blaek - 4,74 : eloxgraa. --blaek3 bruges i
+                                 dag praecis der, "ikke oplyst" allerede staar
+                                 (.v-ikke, .status--udgaaet), saa rollen matcher */
 
-  /* CEO'ens forslag #6B7280 er MAALT til 4,35 : bund og faldt paa AA.
-     --blaek3 er den naermeste toning, der klarer begge flader. */
+  /* DOM: ingen test og intet i MANIFEST binder --accent-ro til en vaerdi.
+     TYPESKILT har ingen "rolig gul flade i hvile" - .valg--standard bruger
+     transparent+kontur, ikke en gul tone. At give --accent-ro en gul tint
+     ville bryde "gult bruges ALDRIG dekorativt" paa alle ni steder, den
+     bruges (4 i system.css, 5 i generator.css), foer runde 2 har rettet
+     brugsstederne. Saettes derfor til eloxgraa - samme dom som --panel-ro. */
+  --accent:#F2C400;          /* afmaerkningsgul - 9,19 (gunmetal PAA gul) */
+  --accent-ro:#E8EBED;
 
-  --accent:#0D5C86;          /*  7,26 : hvid    6,54 : bund. Hvid paa den: 7,26 */
-  --accent-ro:#E7F0F6;       /* accentens rolige flade, fx valgt filter i hvile */
+  --linje:#C6CCD1;           /* rille - "rillen mellem stansede felter. Haarstreger." */
+  --hegn:#9AA3A9;            /* stoevgraa - KUN kontur. 2,14 : eloxgraa, maa
+                                 ALDRIG baere tekst (se --paafod2 og --blaek3,
+                                 som IKKE er stoevgraa, praecis derfor). */
 
-  --linje:#E3E5E9;           /* haarfin skillelinje. Rent dekorativ. */
-  --hegn:#7C8695;            /* BETYDNINGSBAERENDE kant: 3,68 : hvid  3,32 : bund
-                                3,20 : tomfelt. Stiplet hul, inputkant, ikon-hul. */
+  --fod:#22262A;             /* gunmetal ogsaa som moerk flade - "strimlens bund"
+                                 i typeskilt.css er samme farve som blaekket */
+  --paafod:#E8EBED;          /* eloxgraa - lys tekst paa gunmetal-bund */
+  --paafod2:#9AA3A9;         /* stoevgraa - 5,94 : gunmetal (MANIFEST: paa
+                                 strimlens gunmetalbund BRUGES stoevgraa frit
+                                 til tekst - modsat paa eloxgraa, se --hegn) */
 
-  --fod:#14161A;             /* moerk flade: sidefod */
-  --paafod:#E6E9EE;          /* 14,88 paa --fod */
-  --paafod2:#B9C0CA;         /*  9,88 paa --fod */
+  /* Nye TYPESKILT-roller uden et gammelt modstykke (briefets eksempler). */
+  --stans:#FFFFFF;           /* lyskanten i en stansning, 1px indfaeldet */
+  --stoev-blaek:#5F686F;     /* samme vaerdi som --blaek3 - se ovenfor. Ny,
+                                 tydeligt navngivet token til KOMMENDE kode
+                                 (fx 3.6's SVG-maerker), der ikke skal gaette
+                                 sig til, at --blaek3 er den rigtige */
 
-  /* Skrift */
+  /* Skrift. --sans er UROERT i dette spor - runde 2 kobler kroppens
+     tekstroller til Saira/Literata; her selvhostes fontene kun (3.1) og
+     --mono repeges (3.4), fordi det er det ENESTE skriftskifte, briefet
+     beder om. "Manrope lokal" har intet @font-face-modstykke laengere
+     (fjernet i 3.1) og falder derfor bare videre i stakken - det er en
+     gyldig, uskadt CSS-tilstand, ikke en fejl. */
   --sans:"Manrope lokal",Manrope,"Segoe UI Variable Text","Segoe UI",
          system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  --mono:"JetBrains Mono lokal","JetBrains Mono","Cascadia Mono",Consolas,
-         "SFMono-Regular","DejaVu Sans Mono","Liberation Mono",monospace;
+  /* --mono: MANIFEST §"Hvorfor ingen skrivemaskineskrift" - paa et rigtigt
+     typeskilt staar tallene i SAMME skrift som etiketterne. Tokenet
+     beholdes (17 brugssteder i system.css alene, og
+     tests/dele/31-pudsning.mjs:141-142 kraever ordret
+     font-family:var(--mono)), men peges nu paa Saira i stedet for en
+     fastbredde-stak. Tabulartal loeser justeringen - se
+     font-variant-numeric:tabular-nums paa body nedenfor, som daekker ALLE
+     --mono-brugssteder paa én gang uden at opsoege dem enkeltvis. */
+  --mono:"SairaSemiCondensed",ui-sans-serif,system-ui,-apple-system,
+         "Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
 
   /* Rum. Ottetalsskala. */
   --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px;
@@ -80,9 +171,14 @@
   --rund-ind:8px;                  /* indfelt inde i et panel */
   --rund-lille:6px;                /* chip, hul, maerke */
 
-  /* Dybde. Forskydning OG bloed sloering — aldrig en farvet glorie. */
-  --skygge:0 1px 2px rgba(20,22,26,.045), 0 10px 28px -18px rgba(20,22,26,.20);
-  --skygge-loeft:0 2px 4px rgba(20,22,26,.055), 0 18px 40px -20px rgba(20,22,26,.26);
+  /* Dybde. TYPESKILT §Layouttesen: "Ingen slagskygge findes paa siden" -
+     materiale, ikke skeuomorf teater. Tokenerne bevares (11 brugssteder:
+     5 i system.css, 6 i generator.css - se rapporten), men saettes til
+     none, saa hvert brugssted holder op med at tegne skygge uden at skulle
+     opsoeges enkeltvis. Runde 2 kan fjerne tokenerne helt, naar ingen
+     brugssteder er tilbage at bryde. */
+  --skygge:none;
+  --skygge-loeft:none;
 
   /* Bevaegelse. Eksponentiel udgang fra en allerede synlig tilstand. */
   --slyng:cubic-bezier(.16,1,.3,1);
@@ -97,6 +193,10 @@ body{
   font-family:var(--sans);font-size:17px;line-height:1.55;
   font-weight:400;letter-spacing:-.006em;
   -webkit-font-smoothing:antialiased;
+  /* 3.4: daekker alle var(--mono)-brugssteder paa én gang, jf. kommentaren
+     ved --mono i :root. Arves ned gennem hele siden (font-variant-numeric
+     er en nedarvet egenskab), saa intet af de 17 brugssteder skal roeres. */
+  font-variant-numeric:tabular-nums;
 }
 h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.08;letter-spacing:-.022em;text-wrap:balance}
 p,dl,dd,dt,ul,ol,figure,blockquote{margin:0}
@@ -214,6 +314,21 @@ a:hover{text-decoration-thickness:2.5px}
 .panel--ro{background:var(--panel-ro);box-shadow:none}
 .streg{border:0;border-top:1px solid var(--linje);margin:0}
 .streg--kraftig{border-top-color:var(--blaek);border-top-width:2px}
+
+/* TYPESKILT-primitiv (3.5, spor/fundament): den stansede kant. 2px radius,
+   1px indfaeldet kant i --linje (=rille), hvid lyskant foroven (--stans).
+   Materiale, ikke skeuomorf teater - MANIFEST §Layouttesen: "Ingen
+   slagskygge findes paa siden". Kilde: retninger/nyverden/typeskilt.css
+   .stans, tilpasset til systemets EGNE tokens (var(--linje) i stedet for
+   comp'ens loesrevne var(--rille), som ikke findes her). Genbrugelig paa
+   ethvert kort/felt, runde 2 bygger. Navngivet UDEN et parallelt
+   "pladen"-primitiv: .plade findes allerede (linje ~920, .intetfoto .plade
+   - en 52px dashed ikon-plads), og at genbruge navnet til noget andet
+   ville have skabt to modstridende betydninger af samme klasse. */
+.stans{
+  border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
+}
 
 /* --- 6. Baandet oeverst --------------------------------------------------- */
 /* L18: neutral pladsholder. Intet logo, intet ordmaerke — Aa1 er ikke afgjort. */

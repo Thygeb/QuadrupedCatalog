@@ -488,6 +488,19 @@ export const SPRITE = `<svg width="0" height="0" style="position:absolute" aria-
 <symbol id="i-ce" viewBox="0 0 24 24"><path d="M6 2.9h7.3L18 7.7v13.4H6z"/><path d="M13.3 2.9v4.8H18"/><path d="M9 13.1h6"/><path d="M9 16.5h4"/></symbol>
 <symbol id="i-hul" viewBox="0 0 24 24"><path d="M4.4 4.4h15.2v15.2H4.4z" stroke-dasharray="3.2 3.2"/></symbol>
 <symbol id="i-pil" viewBox="0 0 24 24"><path d="M4 12h15"/><path d="M13.4 6.4 19 12l-5.6 5.6"/></symbol>
+<!-- Tre-tilstandsmaerkerne (3.6, spor/fundament, L54/L57 / MANIFEST §"Tre-
+     tilstandsreglen, tegnet"). Ingen unicode-glyffer, ingen emoji. Delte
+     .ikon-standarden (fill:none, stroke:currentColor) daekker konturerne;
+     de to fyldte former (i-ja, i-nul's prik) saetter fill/stroke direkte
+     paa elementet, saa de vinder over den nedarvede fill:none uden at
+     roere .ikon-klassen. Farven ("fuldt blaek" / "stoev-blaek") er IKKE
+     hardkodet her - den kommer fra brugsstedets color, som i alle de
+     andre symbolerne. Samme 4,4/15,2-kvadrat som i-hul, saa de fire
+     maerker og den eksisterende "ikke oplyst"-firkant deler stoerrelse. -->
+<symbol id="i-ja" viewBox="0 0 24 24"><path d="M4.4 4.4h15.2v15.2H4.4z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-nej" viewBox="0 0 24 24"><path d="M4.4 4.4h15.2v15.2H4.4z"/><path d="M5.8 5.8 18.2 18.2"/></symbol>
+<symbol id="i-nul" viewBox="0 0 24 24"><path d="M4.4 4.4h15.2v15.2H4.4z"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-ioplyst" viewBox="0 0 24 24"><path d="M4.4 4.4h15.2v15.2H4.4z" stroke-dasharray="3.2 3.2"/></symbol>
 </svg>`;
 
 export const ikon = (navn, klasse = 'ikon') =>

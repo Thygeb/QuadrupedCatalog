@@ -102,11 +102,14 @@ export default async function koer(ctx) {
     'én raekke maa ikke koebes for en mindre trykflade');
 
   /* --- 4. Radius-skalaen ------------------------------------------------ */
-  // Skalaen er 0/6/8/12 (--rund-lille/--rund-ind/--rund) plus 99px-pillen,
-  // som er "fuldt afrundet ende" og ikke et trin. Alt andet er drift: en
-  // 3 px radius er hverken en kant eller et hjoerne, og den opstaar, fordi
-  // nogen skoennede i stedet for at vaelge fra skalaen.
-  const LOVLIG = new Set(['0', '0px', '6px', '8px', '12px', '99px', '50%']);
+  // Skalaen er 0/2/6/8/12 (--rund-lille/--rund-ind/--rund) plus 99px-pillen,
+  // som er "fuldt afrundet ende" og ikke et trin. 2px kom ind med
+  // spor/fundament (TYPESKILT, L54/L57, briefets 3.5): "det stansede
+  // udtryk - 2 px radius og 1 px indfaeldet kant" er retningens BEVIDSTE
+  // aestetiske risiko (MANIFEST §Layouttesen), ikke drift - modsat en 3 px
+  // radius, som stadig er hverken en kant eller et hjoerne og stadig
+  // opstaar, fordi nogen skoennede i stedet for at vaelge fra skalaen.
+  const LOVLIG = new Set(['0', '0px', '2px', '6px', '8px', '12px', '99px', '50%']);
   const drift = [];
   for (const [fil, css] of [['system.css', sys], ['generator.css', gen]]) {
     for (const m of css.matchAll(/border-radius:([^;}]+)/g)) {
@@ -116,7 +119,7 @@ export default async function koer(ctx) {
       }
     }
   }
-  ok('31.13: ingen radius uden for skalaen 0/6/8/12 (+ 99px-pillen)',
+  ok('31.13: ingen radius uden for skalaen 0/2/6/8/12 (+ 99px-pillen)',
     drift.length === 0, `uden for skalaen: ${drift.join(', ')}`);
   // De to smaa kildemaerker skal blive ved med at vaere KLAMMER. Ved 6 px
   // moedes hjoernerne paa en 11 px hoej kasse og maerket bliver en prik.
