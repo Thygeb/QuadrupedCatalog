@@ -1272,3 +1272,269 @@ td .v{font-size:15px}
 .fod .haard{color:#FFFFFF;font-size:15px;font-weight:700;letter-spacing:-.012em}
 .fod a{color:var(--paafod)}
 .fod :focus-visible{outline-color:var(--paafod)}
+
+/* =============================================================================
+   16. TYPESKILTET PAA ROBOTSIDEN (spor/robot, 31. aug 2026 — L57/L60)
+
+   Alt herunder er TILFOEJET. Ingen eksisterende regel i denne fil er aendret:
+   hver regel er praefikset med `.typeskilt`, som robot.mjs saetter paa
+   <article class="robotside typeskilt">. Der er to grunde, og kun den ene er
+   ordentlighed:
+
+     1. assets/generator.css indlaeses EFTER denne fil (side.mjs:1519-1520), saa
+        en regel med SAMME specificitet dér vinder uanset hvad der staar her.
+        `.typeskilt`-praefikset loefter hver regel til 0,2,0 mod generator.css'
+        0,1,0 paa `.robot-top`, `.skema` og `.robot-noegletal` — og goer dermed
+        raekkefoelgen ligegyldig i stedet for at kaempe med den.
+     2. `spor/katalog` arbejder i generator.css lige nu. Ingen linje her
+        roerer den fil.
+
+   Roller og toner er MANIFEST.md's, laest gennem poletterne i afsnit 2:
+   --bund eloxgraa (pladen), --panel kridt (kortfladen), --blaek gunmetal
+   (blaekket), --linje rille (haarstregen), --hegn stoevgraa (KUN kontur,
+   2,14:1 — maa aldrig baere tekst), --blaek3 stoev-blaek (teksten i "ikke
+   oplyst", 4,74:1), --accent afmaerkningsgul (KUN markering).
+   Radius holder sig til skalaen 0/2/6/8/12 + 99px-pillen, som
+   tests/dele/31-pudsning.mjs vogter; 2 px er typeskiltets stansning.
+   ========================================================================== */
+
+/* --- 16a. Hovedet: NAVNET OVER BILLEDET -----------------------------------
+   JPK 31. aug 2026: overskriften skal enten staa over billedet eller laengst
+   til hoejre. Valgt: OVER (mulighed a) — se begrundelsen i robot.mjs' top().
+   Gitteret er derfor to raekker, hvor foerste raekke spaender begge spalter:
+
+       "navn navn"
+       "foto tal"
+
+   Under 900 px stakkes alle tre, og navnet er STADIG foerst — det er hele
+   forskellen fra foer, hvor <h1> laa paa top=464 px ved 390, altsaa under
+   fotografiet og dets billedtekst. */
+.typeskilt .robot-top{
+  display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--r5);align-items:start;padding-top:var(--r2);
+}
+@media (min-width:900px){
+  .typeskilt .robot-top{
+    grid-template-columns:minmax(0,1.06fr) minmax(300px,1fr);
+    grid-template-areas:"navn navn" "foto tal";
+    column-gap:var(--r6);row-gap:var(--r5);
+  }
+  .typeskilt .robot-navn{grid-area:navn}
+  .typeskilt .robot-foto{grid-area:foto}
+  .typeskilt .robot-noegletal{grid-area:tal}
+}
+/* Gitterets egen row-gap styrer afstanden. generator.css' margin-top paa
+   striben ville laegge sig oven i den — den var sat, dengang striben laa
+   som soeskende under hovedet. */
+.typeskilt .robot-noegletal{min-width:0;margin-top:0}
+
+/* Skiltets hoved: pladen har navnet stanset foerst og stoerst. */
+.typeskilt .robot-navn{
+  display:flex;flex-direction:column;align-items:flex-start;gap:var(--r3);
+  padding-bottom:var(--r4);border-bottom:1px solid var(--linje);
+}
+/* Vaegten er 700, ikke .t-hero's 800. Saira Semi Condensed selvhostes i
+   400/500/600/700 (afsnit 1) — 800 findes ikke i filerne, saa browseren
+   SYNTETISERER den ved at fortykke 700'eren. En syntetisk fed er praecis den
+   slags, et stanset skilt ikke har: stregen bliver ujaevn i store grader.
+   Comp'ens .post__navn staar ogsaa paa 700. */
+.typeskilt .robot-navn h1{
+  margin:0;font-weight:700;line-height:.94;letter-spacing:-.032em;
+  font-size:clamp(40px,7.2vw,84px);text-wrap:balance;
+}
+/* Producent, land og aar som stanset hovedlinje, ikke som broedtekst. */
+.typeskilt .robot-navn .kort-ophav{gap:5px 12px}
+.typeskilt .robot-navn .kort-ophav .prod,
+.typeskilt .robot-navn .kort-ophav .land,
+.typeskilt .robot-navn .kort-ophav .aar{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--blaek3);
+}
+.typeskilt .robot-navn .kort-ophav .land::before,
+.typeskilt .robot-navn .kort-ophav .aar::before{content:"\00B7";margin-right:12px}
+.typeskilt .robot-navn .kort-ophav a.prod{color:var(--blaek2)}
+.typeskilt .robot-navn .kort-ophav a.prod:hover{color:var(--blaek)}
+.typeskilt .robot-videre{margin:0}
+
+/* --- 16b. Maerkelinjen: ÉN raekke stansede maerker -------------------------
+   Grammatikken er comp'ens `.mrk`: versaler, 2 px stansning, 1 px rille.
+   Rammen (ikke en box-shadow) baerer BEGGE former, saa et stiplet
+   "ikke oplyst"-maerke har noejagtig samme ydre maal som et heltrukket —
+   ellers ville de tre tilstande ogsaa skille sig ved STOERRELSE, og en
+   forskel, ingen har valgt, er svaerere at laese end ingen forskel. */
+.typeskilt .skiltlinje{gap:8px;margin-top:2px}
+.typeskilt .maerke{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--blaek2);
+  background:none;border:1px solid var(--linje);border-radius:2px;padding:5px 10px;
+}
+/* "I produktion" er den ene forskel, kortet og skiltet skal kunne baere, og
+   den faar derfor den fyldte plade. Alle andre statusser staar som kontur —
+   en udgaaet model er ikke en advarsel, den er en oplysning. */
+.typeskilt .maerke--drift{background:var(--blaek);border-color:var(--blaek);color:var(--paafod)}
+.typeskilt .maerke--tom{
+  background:none;border:1px dashed var(--hegn);
+  color:var(--blaek3);font-weight:500;font-size:11px;
+}
+/* 16b-2. Stansningen, ikke det bloede panel. Fotorammen og noegletalspladen
+   arvede --rund (12 px) fra den gamle ORBIT-verden; TYPESKILT'ets radius er
+   2 px ("det stansede udtryk", MANIFEST §Layouttesen), og skalaen i
+   tests/dele/31-pudsning.mjs tillader netop 0/2/6/8/12 + 99px-pillen.
+   Selektorerne er lange med vilje: generator.css' egne regler er 0,3,0
+   (`.billedled--stor:not(.billedled--maal) picture`), saa der skal 0,4,0 til
+   for at vinde uden at roere den fil. */
+.typeskilt .robot-foto .billedled--stor{border-radius:2px}
+.typeskilt .robot-foto .billedled--stor:not(.billedled--maal) picture{border-radius:0}
+.typeskilt .robot-foto .billedled--stor .intetfoto{border-radius:2px}
+/* `.stribe` har overflow:hidden, saa cellernes hjoerner klippes af hylsteret
+   selv — kun beholderens radius skal saettes. */
+.typeskilt .robot-noegletal .stribe{border-radius:2px}
+
+.typeskilt .maerke__mrk{width:10px;height:10px;flex:none;color:var(--blaek3);display:block}
+.typeskilt .maerke--drift .maerke__mrk{color:var(--paafod2)}
+.typeskilt .maerke__navn{color:var(--blaek3);font-weight:500}
+
+/* --- 16c. Enhedsomskifteren (L60) -----------------------------------------
+   Uden JavaScript. `.enhedsskift__boks` er en rigtig afkrydsning som foerste
+   barn af <article>; alt indhold ligger i SOESKENDE efter den, saa
+   `:checked ~ * .x` naar hver eneste figur paa siden. Etiketten kan derfor
+   staa hvor som helst — den staar to steder (noegletalshovedet og skemaets
+   hoved), fordi flere <label for=…> til samme kontrol er gyldig HTML og
+   sidens tal staar to steder.
+
+   Boksen selv er .kunskaerm (1x1 px, clip-path) og altsaa stadig i
+   tabuleringsraekkefoelgen; fokusringen tegnes paa etiketten i stedet, saa
+   den ses dér, hvor kontrollen ser ud til at vaere. */
+.enhedsskift{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--blaek3);white-space:nowrap;
+  padding:6px 12px;min-height:44px;
+  border:1px solid var(--linje);border-radius:2px;background:var(--panel);
+}
+.enhedsskift:hover{color:var(--blaek);border-color:var(--hegn)}
+.enhedsskift__spor{
+  position:relative;display:block;flex:none;width:30px;height:14px;
+  border:1px solid var(--hegn);border-radius:99px;background:var(--bund);
+}
+.enhedsskift__knop{
+  position:absolute;top:1px;left:1px;width:10px;height:10px;
+  border-radius:99px;background:var(--blaek3);
+}
+/* Gult er markering og intet andet (MANIFEST §Paletten): den valgte
+   tilstand er praecis ét af de fire steder, kuloeren maa optraede. */
+.typeskilt .enhedsskift__boks:checked ~ * .enhedsskift{color:var(--blaek);border-color:var(--blaek)}
+.typeskilt .enhedsskift__boks:checked ~ * .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
+.typeskilt .enhedsskift__boks:checked ~ * .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
+.typeskilt .enhedsskift__boks:focus-visible ~ * .enhedsskift{
+  outline:3px solid var(--accent);outline-offset:3px;border-radius:2px;
+}
+
+/* Selve skiftet. `display:contents` er valgt frem for inline/block, fordi
+   wrapperen saa slet ingen kasse har: den METRISKE visning tegnes noejagtig
+   som foer dette spor, og acceptkriteriet "metrisk uroert" er dermed en
+   egenskab ved formen frem for noget, der skal maales frem hver gang. */
+.enhedsvis{display:contents}
+.enhedsvis--imperial{display:none}
+.typeskilt .enhedsskift__boks:checked ~ * .enhedsvis--metrisk{display:none}
+.typeskilt .enhedsskift__boks:checked ~ * .enhedsvis--imperial{display:contents}
+
+/* Maerket paa VORES omregning. Stiplet ramme — samme sprog som "ikke
+   oplyst": begge siger "her staar ikke et tal, producenten har oplyst".
+   9 px er over skriftgulvet paa 8 px (tests/dele/31-pudsning.mjs). */
+.omregnet{
+  display:inline-block;margin-left:7px;vertical-align:1px;
+  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--blaek3);
+  border:1px dashed var(--hegn);border-radius:2px;padding:1px 5px;
+}
+.enhedsnote{display:none}
+.typeskilt .enhedsskift__boks:checked ~ * .enhedsnote{display:block;margin:0 0 var(--r4)}
+
+/* --- 16d. Skemaet: AABEN tabel, ikke en sammenklapning --------------------
+   Tre kolonner som paa comp'ens robotside: felt / vaerdi / kilde og
+   forbehold. Sidens 890 forbehold laa foldet bag <details>; briefets punkt
+   5.5 siger, at et redesign ikke maa gemme dem for at faa et renere layout.
+   generator.css' §9f tegner stadig den gamle sammenklapning — de regler
+   rammer ikke laengere noget paa robotsiden, og de overskrives her, hvor de
+   ellers ville slaa igennem. */
+.typeskilt .skema{
+  margin-top:0;padding-top:var(--r7);background:none;border:0;border-radius:0;
+  border-top:1px solid var(--linje);
+}
+.typeskilt .skema__hoved{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3) var(--r5);
+  padding-bottom:var(--r4);
+}
+.typeskilt .skema__hoved h2{flex:0 0 auto}
+.typeskilt .skema-taeller{
+  font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3);margin-right:auto;
+}
+/* `min-width:0` er IKKE pynt. system.css' bare `table{…min-width:620px…}`
+   (afsnit 14) er skrevet til sammenligningsmatricen og rammer ENHVER tabel
+   paa sitet. Maalt 31. aug 2026 ved 390 px, foer denne linje: skematabellens
+   computed min-width var 620px, body.scrollWidth 636 — altsaa 246 px vandret
+   overloeb paa hver eneste robotside, uden at nogen regel saa forkert ud.
+   generator.css:644 nulstiller den samme faelde for `.saml-matrix` med
+   praecis samme begrundelse ("paa en telefon ville den give…"), saa fælden
+   er kendt — den var bare ikke skrevet ned et sted, en ny tabel ville
+   snuble over den. Nu er den det to steder. */
+.typeskilt .skema-tabel{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+.typeskilt .skema-tabel__kap{
+  text-align:left;padding:0 0 var(--r4);max-width:86ch;
+  font-size:12.5px;line-height:1.55;color:var(--blaek2);
+}
+.typeskilt .skema-tabel th,.typeskilt .skema-tabel td{
+  text-align:left;padding:10px 14px;border-top:1px solid var(--linje);vertical-align:baseline;
+}
+.typeskilt .skema-tabel th:first-child,.typeskilt .skema-tabel td:first-child{padding-left:0}
+.typeskilt .skema-tabel td:last-child{padding-right:0}
+.typeskilt .skema-tabel thead th{
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--blaek3);
+  padding-top:0;padding-bottom:8px;border-top:0;
+}
+.typeskilt .skema-gruppenavn th{
+  padding-top:30px;border-top:0;
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--blaek3);
+}
+.typeskilt .skema-tabel tbody th[scope="row"]{width:24%;font-weight:500;color:var(--blaek2)}
+.typeskilt .skema-v{width:26%;font-weight:600;overflow-wrap:anywhere}
+.typeskilt .skema-k{width:50%;font-size:12.5px;line-height:1.55;color:var(--blaek2)}
+.typeskilt .skema-tabel tr.uoplyst th[scope="row"]{color:var(--blaek3)}
+/* Kildebogstavet i tredje kolonne: comp'ens stansede firkant. Ankeret er
+   UROERT — det er stadig side.mjs' kildemaerke() med href="#kilde-<bogstav>",
+   saa maerket og kildelistens id'er ikke kan skride fra hinanden. */
+.typeskilt .skema-k .kildemaerke{
+  display:inline-grid;place-items:center;width:17px;height:17px;
+  margin:0 8px 0 0;padding:0;vertical-align:1px;top:0;
+  font-size:10px;font-weight:700;line-height:1;text-decoration:none;
+  background:var(--blaek);color:var(--paafod);border:0;border-radius:2px;
+}
+.typeskilt .skema-k .kildemaerke--sek{
+  background:none;color:var(--blaek2);border:1px dashed var(--hegn);border-radius:0;
+}
+.typeskilt .skema-k .advarsel,.typeskilt .skema-k .feltnote,
+.typeskilt .skema-k .varianter{margin-top:6px}
+
+/* --- 16e. Under 720 px: tabellen bliver til stablede blokke ---------------
+   Comp'ens mobilform. Tabelrollerne staar skrevet paa elementerne i
+   robot.mjs, saa display:block ikke tavst tager raekker og celler ud af
+   tilgaengelighedstraeet. */
+@media (max-width:720px){
+  .typeskilt .skema-tabel,.typeskilt .skema-tabel tbody,.typeskilt .skema-tabel tr,
+  .typeskilt .skema-tabel th,.typeskilt .skema-tabel td{display:block;width:auto}
+  .typeskilt .skema-tabel thead{display:none}
+  .typeskilt .skema-tabel tr{border-top:1px solid var(--linje);padding:var(--r3) 0}
+  .typeskilt .skema-tabel th,.typeskilt .skema-tabel td{border-top:0;padding:1px 0}
+  .typeskilt .skema-tabel tbody th[scope="row"]{
+    width:auto;font-family:var(--mono);font-size:11px;font-weight:700;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--blaek3);
+  }
+  .typeskilt .skema-v{width:auto;font-size:16px;padding-top:3px}
+  .typeskilt .skema-k{width:auto;padding-top:6px}
+  .typeskilt .skema-gruppenavn{padding-top:var(--r5)}
+  .typeskilt .skema-gruppenavn th{padding-top:0}
+}
