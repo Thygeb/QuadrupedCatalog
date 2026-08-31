@@ -1,172 +1,180 @@
-slug: unitree-a2
-navn: A2
-producent: Unitree Robotics
-producentland: Kina
-status: i_produktion
+slug: "unitree-a2"
+navn: "A2"
+producent: "Unitree Robotics"
+producentland: "Kina"
+status: "i_produktion"
+varianter:
+  - "A2"
+  - "A2-PRO"
+noter:
+  - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene står på de pågældende felter."
 anvendelse:
-  vaerdi: industri
+  vaerdi: "industri"
   citat:
     - "Robot - Industry"
     - "Robothund - industriniveau (机器狗 - 行业级)"
-  kilde: https://www.unitree.com/
-  hentet: 2026-08-19
+  kilde: "https://www.unitree.com/"
+  hentet: "2026-08-19"
   note: "Producentens egen produktnavigation, gruppen A2 står i."
-varianter: [A2, A2-PRO]
 billede:
-  fil: fotos/fabrikant/unitree-a2.jpg
-  ophav: fabrikant
-  kilde: https://www.unitree.com/A2
-  hentet: 2026-08-19
-noter:
-  - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene står på de pågældende felter."
+  fil: "fotos/fabrikant/unitree-a2.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.unitree.com/A2"
+  hentet: "2026-08-19"
 felter:
   egenvaegt:
     vaerdi: 42
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Med batteri. Producenten oplyser også ca. 35 kg uden batteri - batteriet vejer altså ca. 7 kg. A2 er en af få modeller, der oplyser begge."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 820
-    enhed: mm
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 440
-    enhed: mm
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 570
-    enhed: mm
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Foldet 720 x 550 x 220 mm. Skemaet har ingen felter til foldemål."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "DoF"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   nyttelast_gaaende:
     vaerdi: 25
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Producenten tilføjer ideelt ca. 35 kg."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 100
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   hastighed:
-    vaerdi_min: 0
-    vaerdi_maks: 3.7
-    enhed: m/s
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    min: 0
+    maks: 3.7
+    enhed: "m/s"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Driftsområde 0-3,7 m/s; producenten angiver desuden op til ca. 5 m/s som spidsbelastning."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
-    enhed: grader
+    enhed: "°"
     operator: "~"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   forhindring_enkelt:
-    vaerdi_min: 0.5
-    vaerdi_maks: 1
-    enhed: m
+    min: 0.5
+    maks: 1
+    enhed: "m"
     operator: "~"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Producentens etiket er Max Climb Height, opgivet som interval ca. 0,5~1 m."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 30
-    enhed: cm
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Etiket: Stair Climbing Capability, Max Step Height."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP56
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    vaerdi: "IP56"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     varianter:
-      A2: IP56
+      A2: "IP56"
       A2-PRO: "IP56-IP67 (kernekomponenter IP67)"
   temp_min:
     vaerdi: -20
-    enhed: C
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   temp_maks:
     vaerdi: 55
-    enhed: C
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   batteri_wh:
     vaerdi: 453.6
-    enhed: Wh
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    enhed: "Wh"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbeltbatteri 907,2 Wh (18000 mAh). Begge producentens egne regnestykker går præcist op."
     advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 3
-    enhed: t
+    enhed: "t"
     operator: ">"
-    ved_last: { vaerdi: 25, enhed: kg }
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Producenten oplyser også > 5 t uden last (ca. 20 km). Her bruges tallet med lastbetingelse (ca. 12,5 km)."
     advarsel_klasse: "uddybning"
+    ved_last:
+      vaerdi: 25
+      enhed: "kg"
   hot_swap:
-    vaerdi: ja
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Dual slots, dual batteries - markedsføres som hot-swap."
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "A2: LiDAR x1. A2-PRO: LiDAR x2. Type uden model - tæller ikke under D4's foreløbige regel."
   kameraer:
     vaerdi: "HD-kamera x1"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   compute:
     vaerdi: "8-kernet CPU + Intel Core i7; tilvalg udvidelsesdok"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
-  ros2: ikke_oplyst
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
+  ros2: "ikke_oplyst"
   sdk_sprog:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Siden skriver Secondary Development: Supported, men nævner ingen sprog."
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "12 V / 24 V / BAT"
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Spænding oplyst, watt ikke."
   dataporte:
-    vaerdi: ["RS485 x2", "CAN x2", "Gigabit Ethernet x2", "USB 3.0 Type-C x4"]
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    vaerdi:
+      - "RS485 x2"
+      - "CAN x2"
+      - "Gigabit Ethernet x2"
+      - "USB 3.0 Type-C x4"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
   pris:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A2
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A2"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Contact Sales. Shopsiden viser pladsholderen 100.000 USD med teksten Contact us for the real price - samme beløb som B2."
-  ce_oplyst: ikke_oplyst
+  ce_oplyst: "ikke_oplyst"

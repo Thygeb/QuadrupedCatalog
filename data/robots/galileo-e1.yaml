@@ -1,11 +1,18 @@
-slug: galileo-e1
-navn: E1
-producent: Galileo (Tianjin)
-producentland: Kina
-producentby: Tianjin
-status: i_produktion
+slug: "galileo-e1"
+navn: "E1"
+producent: "Galileo (Tianjin)"
+producentland: "Kina"
+producentby: "Tianjin"
+status: "i_produktion"
+noter:
+  - "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver \"30cm高连续台阶\" -> trappetrin_kontinuerlig. E1-W's tilsvarende række skriver \"正向高度差1m高台\" -> forhindring_enkelt på E1-W's egen post - samme mønster som C1/C1-W."
+  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" har intet kg-tal."
+  - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 anvendelse:
-  vaerdi: [sikkerhed_overvaagning, forsvar_beredskab, inspektion]
+  vaerdi:
+    - "sikkerhed_overvaagning"
+    - "forsvar_beredskab"
+    - "inspektion"
   citat:
     - "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
     - "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
@@ -13,174 +20,173 @@ anvendelse:
     - "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
     - "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
     - "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
-  kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-  hentet: 2026-08-25
-  kildetype: sekundaer
+  kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+  hentet: "2026-08-25"
+  kildetype: "sekundaer"
   note: "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra."
-noter:
-  - "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver \"30cm高连续台阶\" -> trappetrin_kontinuerlig. E1-W's tilsvarende række skriver \"正向高度差1m高台\" -> forhindring_enkelt på E1-W's egen post - samme mønster som C1/C1-W."
-  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" har intet kg-tal."
-  - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 billede:
-  fil: fotos/fabrikant/galileo-e1.jpg
-  ophav: fabrikant
-  kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/galileo-e1.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+  hentet: "2026-08-26"
   alt: "Galileo (Tianjin) firbenet robot, staaende udgave, produktfoto fra virksomhedens PDF-produktmanual"
   note: "Delt foto: PDF-manualens produktgalleri viser samme kropsudgave (uden top-sensor-modul) for både C1 og E1 - manualen skelner ikke mellem dem i billedvalget. S1 har et synligt ekstra sensor-modul på ryggen og får derfor sit eget foto (se galileo-s1.yaml)."
 felter:
   egenvaegt:
     vaerdi: 44
-    enhed: kg
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "kg"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"重量: 44kg\" - manualens side 8 (【E1工业中型】-tabellen)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1000
-    enhed: mm
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "mm"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"站立尺寸（长×宽×高）单位mm: 1000*420*710\"."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 420
-    enhed: mm
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "mm"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
   hoejde:
     vaerdi: 710
-    enhed: mm
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
-  frihedsgrader: ikke_oplyst
+    enhed: "mm"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 20
-    enhed: kg
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "kg"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"有效负载: 20kg\" - samme fortolkning som hos C1."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende:
     vaerdi: 85
-    enhed: kg
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "kg"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"最大负载: 85kg\"."
     advarsel_klasse: "uddybning"
   hastighed:
-    vaerdi_min: 0
-    vaerdi_maks: 4
-    enhed: m/s
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    min: 0
+    maks: 4
+    enhed: "m/s"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"运动速度: 0～4m/s（极限4.95m/s）\" - grænsehastigheden 4.95 m/s er en separat, højere grænseværdi, ikke brugt som hovedværdien (samme princip som Genisom L2's \"极限速度\")."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
     operator: "±"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"可攀爬斜坡最大坡度: ±45°\"."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 30
-    enhed: cm
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "cm"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"可攀爬高度: 30cm高连续台阶\" - se topnoten om tildelingen af de to værdiblokke."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    vaerdi: "IP67"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
   temp_min:
     vaerdi: -20
     enhed: "°C"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"-20℃~55℃（-40℃可定制）\" - -40℃ er en tilvalgsgrænse."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
   batteri_wh:
     vaerdi: 1200
-    enhed: Wh
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    enhed: "Wh"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"电池容量: 25Ah（1200Wh）\" - 48V nominel spænding."
     advarsel_klasse: "uddybning"
   driftstid:
-    vaerdi_min: 2
-    vaerdi_maks: 4
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    min: 2
+    maks: 4
+    enhed: "t"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"续航时间: 2h～4h\" - ingen lastbetingelse. Separat \"续航里程: ＞15km\" er også oplyst."
     advarsel_klasse: "gyldighed"
+    ved_last: "ikke_oplyst"
   hot_swap:
-    vaerdi: ja
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    vaerdi: true
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "Fra den delte funktionsside (side 6), samme kilde som hos C1."
-  ladetid: ikke_oplyst
+  ladetid: "ikke_oplyst"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    vaerdi: true
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"自主充电功能: 支持\" kombineret med den delte funktionssides ladepile-docking."
   lidar:
     vaerdi: "LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst (探测距离40m)"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
-  kameraer: ikke_oplyst
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
+  kameraer: "ikke_oplyst"
   compute:
     vaerdi: "X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, høj ydeevne (X86或国产ARM低功耗高性能CPU)"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "Autonom opladning, understøttet (自主充电功能: 支持); stemmeinteraktion, tilvalg (语音交互: 选配)"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
-  monteringsinterface: ikke_oplyst
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "5V；12V；48V (eksterne strømudtag, watttal ikke oplyst)"
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"外接电源接口: 5V；12V；48V\" - se topnoten: værdien optrådte kun ÉN gang i det udtrukne tekstlag for E1/E1-W-siden, tildelt begge modeller ud fra C1/C1-W-parrets præcedens (identisk værdi på begge varianter der)."
   dataporte:
-    vaerdi: ["Ethernet", "USB", "TypeC"]
-    kilde: https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf
-    hentet: 2026-08-25
-    kildetype: sekundaer
+    vaerdi:
+      - "Ethernet"
+      - "USB"
+      - "TypeC"
+    kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
+    hentet: "2026-08-25"
+    kildetype: "sekundaer"
     advarsel: "\"外接通讯接口: Ethernet; USB; TypeC（接口可按需拓展）\" - TypeC erstatter C1/C1-W-parrets RS485. \"接口可按需拓展\" (interfaces kan udvides efter behov) er ikke en fjerde port, kun en note om fleksibilitet."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

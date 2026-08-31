@@ -1,154 +1,160 @@
-slug: astrall-dynamics-hypertron-t01
-navn: Hypertron-T01
-producent: Astrall Dynamics
-producentland: Kina
-producentby: Shenzhen
-status: annonceret
+slug: "astrall-dynamics-hypertron-t01"
+navn: "Hypertron-T01"
+producent: "Astrall Dynamics"
+producentland: "Kina"
+producentby: "Shenzhen"
+status: "annonceret"
 anvendelse:
-  vaerdi: [industri, forsvar_beredskab, sikkerhed_overvaagning]
+  vaerdi:
+    - "industri"
+    - "forsvar_beredskab"
+    - "sikkerhed_overvaagning"
   citat: "电力能源、消防应急、园区厂区、建筑管廊、矿井轨道、石油化工、警务安防、水利水务 (menupunkterne under \"行业应用\" paa forsiden og produktsiden)"
-  kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-  hentet: 2026-08-24
+  kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+  hentet: "2026-08-24"
   note: "Mapning af de otte menupunkter til de syv tilladte værdier: 电力能源 (elkraft/energi), 建筑管廊 (bygge/forsyningstunneler), 矿井轨道 (mine/skinner) og 水利水务 (vandforsyning) er alle industrielle infrastruktursektorer -> industri. 消防应急 (brand/beredskab) -> forsvar og beredskab. 园区厂区 (industripark-/fabriksområde-patrulje - siden skriver selv \"360°全方位监测\", helområde-overvågning) og 警务安防 (politi/sikkerhed) -> sikkerhed og overvågning. 石油化工 (petrokemi) -> industri. Ingen af de otte er oversat til logistik, inspektion, forskning og udvikling eller forbruger og uddannelse."
 billede:
-  fil: fotos/fabrikant/astrall-dynamics-hypertron-t01.png
-  ophav: fabrikant
-  kilde: https://www.astralldynamics.com/
-  hentet: 2026-08-24
+  fil: "fotos/fabrikant/astrall-dynamics-hypertron-t01.png"
+  ophav: "fabrikant"
+  kilde: "https://www.astralldynamics.com/"
+  hentet: "2026-08-24"
 felter:
   egenvaegt:
     vaerdi: 82
-    enhed: kg
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"重量 82kg（含电池）\" - inkl. batteri."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1110
-    enhed: mm
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"站立尺寸 1110mm*610mm*745mm\" - stående mål."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 610
-    enhed: mm
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
   hoejde:
     vaerdi: 745
-    enhed: mm
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "Liggende mål også oplyst: 1130x755x320mm - se noter."
     advarsel_klasse: "uddybning"
-  frihedsgrader: ikke_oplyst
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 80
-    enhed: kg
+    enhed: "kg"
     operator: "<="
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"工作负载 ≤80kg\"."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 200
-    enhed: kg
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"最大站立负载 200kg\"."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 7
-    enhed: m/s
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "m/s"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"最高速度 7 m/s（1）\" med producentens egen fodnote: \"（1）该数据来自实验环境下，实际应用中有所限速\" (tallet er fra laboratorieforsøg; reel anvendelse kan være hastighedsbegrænset)."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
-    enhed: grader
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "°"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "Etiket er \"最大越障角度\" (maks. forhindrings-/traverseringsvinkel), ikke blot en hældnings-/skråningsangivelse - noteret her, da hældning er det nærmeste skemafelt."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 90
-    enhed: cm
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"最大越障攀爬高度 90cm\" (maks. enkelt forhindringshøjde)."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
-    vaerdi_min: 20
-    vaerdi_maks: 25
-    enhed: cm
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    min: 20
+    maks: 25
+    enhed: "cm"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"连续爬梯高度 20~25 cm\" (kontinuerlig trappekravlehøjde)."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP66
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    vaerdi: "IP66"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "Se noten om en ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes."
     advarsel_klasse: "gyldighed"
   temp_min:
     vaerdi: -20
-    enhed: C
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "°C"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
   temp_maks:
     vaerdi: 55
-    enhed: C
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    enhed: "°C"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"工作温度 -20℃~55℃\". Opbevaringstemperatur -20~60℃ er separat - se noter."
     advarsel_klasse: "uddybning"
-  batteri_wh: ikke_oplyst
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 4
-    vaerdi_maks: 8
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    min: 4
+    maks: 8
+    enhed: "t"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"续航时间 4~8小时 (有负载/空载)\" (belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-værdi - vi gætter ikke, at det er de 80 kg fra 工作负载-feltet, så lastbetingelsen står ikke oplyst i stedet for at opfinde koblingen."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    vaerdi: true
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "Under 消防应急-fanen: \"全自主 高精度自主导航、全自主充电\" (fuldautonom: højpræcisions-selvnavigation, fuldautonom opladning). Ordet \"docking\"/\"充电桩\" står ikke ordret - \"全自主充电\" er tolket som en ladestation/dockingfunktion. Står i produktsidens brancheafsnit, ikke i selve 产品参数-tabellen."
   lidar:
     vaerdi: "2x mekanisk LiDAR, 192 linjer, rækkevidde ca. 30m ± 10%, punktsky op til 1.720.000 pts/s (dobbelt-echo) / 860.000 pts/s (enkelt-echo), synsfelt 360°x90°, 10 Hz opdatering"
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"激光雷达 数量/检测距离: 2 台 / 30m ± 10%; 扫描线数/点云密度: 192线 / 1,720,000pts/s（双回波模式），860,000pts/s（单回波模式）; 视角/帧率: 360°*90° / 10 Hz\"."
   kameraer:
     vaerdi: "1x dybdekamera, 1280x800, 30 fps, arbejdsområde 0,01-20m, dim. 90x25x25mm"
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"深度相机 数量/尺寸: 1 个 / 90*25*25 mm; 分辨率/帧率: 1280*800 / 30 fps; 工作范围: 0.01-20m\"."
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "\"我们利用高精度激光雷达构建实时构建高程图，使机器狗能'读懂'地形，从而在复杂环境中实现厘米级自主导航、稳定越障与自适应运动\" (centimeter-præcis autonom navigation, stabil forhindringsforcering og adaptiv bevægelse via realtids højdekort fra LiDAR). Sprogets sproglige klasse (SAE/ISO-niveau) er ikke oplyst - kun en kvalitativ beskrivelse."
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
-  monteringsinterface: ikke_oplyst
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "Port 1: 12V, ≤20A, ≤240W. Port 2: 20-48V, ≤10A, ≤480W."
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\"."
   dataporte:
-    vaerdi: ["RS485 x2", "CAN x2", "Ethernet x2"]
-    kilde: https://www.astralldynamics.com/project-Hypertron-T01.html
-    hentet: 2026-08-24
+    vaerdi:
+      - "RS485 x2"
+      - "CAN x2"
+      - "Ethernet x2"
+    kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
+    hentet: "2026-08-24"
     advarsel: "\"外部通讯 RS485*2, CAN*2, 以太网口*2\"."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

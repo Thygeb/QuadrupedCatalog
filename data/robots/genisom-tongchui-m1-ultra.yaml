@@ -1,176 +1,191 @@
-slug: genisom-tongchui-m1-ultra
-navn: Tongchui M1 Ultra
-producent: GENISOM AI
-producentland: Kina
-producentby: Beijing / Suzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [forsvar_beredskab, inspektion, sikkerhed_overvaagning, logistik]
-  citat: ["Skovbrandbekæmpelse (森林消防)", "Petrokemisk brandbekæmpelse (石化消防)", "Elkraftinspektion (电力巡检)", "Områdepatrulje (园区巡逻)", "Logistiktransport (物流运输)"]
-  kilde: https://www.genisomai.com/product-robot/M1
-  hentet: 2026-08-25
-  note: "Samme kilde-sektion som genisom-tongchui-m1-pro.yaml og basisudgaven (\"下一个应用场景，它已提前就位\") - den samme primærkilde for alle tre varianter, IKKE arvet_fra. Se genisom-tongchui-m1-pro.yaml for den fulde begrundelse for hvorfor arvet_fra ikke bruges her."
+slug: "genisom-tongchui-m1-ultra"
+navn: "Tongchui M1 Ultra"
+producent: "GENISOM AI"
+producentland: "Kina"
+producentby: "Beijing / Suzhou"
+status: "i_produktion"
 noter:
   - "SAMME FYSISKE MÅL SOM M1 PRO, IKKE BASISUDGAVEN: stående mål 930×480×595mm og krybende mål 930×630×210mm - identisk med M1 Pro, 10mm højere end basisudgavens 585/200mm. Vægt 41kg identisk på tværs af alle tre varianter."
   - "KAMERAOPSTILLING ER HELT FORSKELLIG FRA BASISUDGAVEN OG M1 PRO, IKKE BLOT EN TILFØJELSE: M1 Ultra's sensor-sektion skriver \"相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像\" (4x fiskeøjekamera + 2x fremadrettet stereokamera, rundtomsynsbilleddannelse) og \"相机像索: 鱼眼300万，双目200万\" (fiskeøje 3MP, stereo 2MP) - erstatter (ikke supplerer) basisudgavens/M1 Pro's \"广角相机 x 2, 800万 x 2\" (2x bredvinkelkamera, 8MP hver). Sidens brødtekst bekræfter: \"四路鱼眼、前向双目相机 / 铜锤M1 Ultra 支持720° 全景感知，进一步提升深度感知与复杂环境识别能力。\" (Firevejs fiskeøje, fremadrettet stereokamera - Tongchui M1 Ultra understøtter 720° panoramaopfattelse, forbedrer yderligere dybdeopfattelse og kompleks miljøgenkendelse). M1 Ultra's egen funktionsliste tilføjer desuden det eksplicitte punkt \"720° 3D 环视感知系统: 支持\" (720° 3D rundtomsyn-opfattelsessystem, understøttet) - IKKE til stede på hverken basisudgaven eller M1 Pro."
   - "\"自主导航\" (SELVSTÆNDIG NAVIGATION) MANGLER HELT I M1 ULTRAS EGEN FUNKTIONSLISTE - EN GENUIN UDELADELSE, IKKE EN ANTAGELSE. Basisudgaven nævner det som tilvalg (\"选配：智航Pro版\"), M1 Pro nævner det som standard (\"智航Pro版\", uden \"选配\"), men M1 Ultras egen funktionsliste (id 508, 11 punkter i alt: AI强化学习运控, 基础动作, 特技动作, 实时图像传输, OTA升级, 二次开发, 目标追踪, 720°3D环视感知系统, 智能避障, 语音对讲, 录音广播) INDEHOLDER INGEN \"自主导航\"-række overhovedet. Dette er dokumenteret som fundet i kilden, ikke antaget at være en udeladelse eller fejl fra vores side - kan lige så godt være en reel produktforskel (fx at M1 Ultras sensorpakke erstatter den navngivne \"智航Pro\"-navigationsfunktion med noget andet) som en redaktionel forglemmelse på producentens egen side. autonominiveau-feltet nedenfor gengiver kun det, listen faktisk indeholder."
+anvendelse:
+  vaerdi:
+    - "forsvar_beredskab"
+    - "inspektion"
+    - "sikkerhed_overvaagning"
+    - "logistik"
+  citat:
+    - "Skovbrandbekæmpelse (森林消防)"
+    - "Petrokemisk brandbekæmpelse (石化消防)"
+    - "Elkraftinspektion (电力巡检)"
+    - "Områdepatrulje (园区巡逻)"
+    - "Logistiktransport (物流运输)"
+  kilde: "https://www.genisomai.com/product-robot/M1"
+  hentet: "2026-08-25"
+  note: "Samme kilde-sektion som genisom-tongchui-m1-pro.yaml og basisudgaven (\"下一个应用场景，它已提前就位\") - den samme primærkilde for alle tre varianter, IKKE arvet_fra. Se genisom-tongchui-m1-pro.yaml for den fulde begrundelse for hvorfor arvet_fra ikke bruges her."
 billede:
-  fil: fotos/fabrikant/genisom-tongchui-m1-ultra.webp
-  ophav: fabrikant
-  kilde: https://www.genisomai.com/product-robot/M1
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/genisom-tongchui-m1-ultra.webp"
+  ophav: "fabrikant"
+  kilde: "https://www.genisomai.com/product-robot/M1"
+  hentet: "2026-08-26"
   alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
   note: "Delt foto med genisom-tongchui-m1.yaml og genisom-tongchui-m1-pro.yaml: M1 Ultra findes kun som fane-skift på M1's egen side, selvom den fysisk har en anden kameraopstilling (720 grader rundtomsyn) end de to andre - producentens side viser ikke desto mindre samme produktfoto for hele familien."
 felter:
   egenvaegt:
     vaerdi: 41
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"整机重量（含电池）: 41 kg\" i M1 Ultras egen specifikationstabel (id 504) - identisk med basisudgaven og M1 Pro. MODSIGES af sidens sidebredde marketingkort (\"约 30kg\"), samme selvmodsigelse som M1 Pro. Ikke rettet stiltiende."
     advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 930
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
   bredde:
     vaerdi: 480
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
   hoejde:
     vaerdi: 595
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm\" - identisk med M1 Pro, 10mm højere end basisudgavens 585mm. Krybende mål (\"趴地尺寸\"): 930 x 630 x 210 mm; skemaet har intet felt til den tilstand."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "DoF"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"关节电机数量: 12 个\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 30
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"最大载荷: 30 kg\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 6
-    enhed: m/s
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "m/s"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"最大速度: 6 m/s\" - identisk med basisudgaven og M1 Pro. Separat \"极限速度\" (grænsehastighed) 8 m/s er også oplyst, ikke brugt som hovedværdi."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"最大爬坡角度: 45°\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"80cm 垂直越障高度\" fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Ultras egen JSON-blok. Samme kilde og forbehold som basisudgaven/M1 Pro."
     advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 25
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"连续攀爬楼梯高度: 25 cm\" i M1 Ultras EGEN datablok (id 505) - identisk med basisudgaven og M1 Pro, direkte fra fanen selv."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    vaerdi: "IP67"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
   temp_min:
     vaerdi: -20
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "Samme forbehold som temp_min."
     advarsel_klasse: "uddybning"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "Tilbehørsliste oplyser \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" - identisk med basisudgaven og M1 Pro. Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9)."
   driftstid:
-    vaerdi_min: 3.5
-    vaerdi_maks: 5
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    min: 3.5
+    maks: 5
+    enhed: "t"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Rækkevidde \"续航里程: 空载 29 km；满载 18 km\" er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
+    ved_last: "ikke_oplyst"
   hot_swap:
-    vaerdi: ja
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    vaerdi: true
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" i M1 Ultras egen tilbehørsliste - identisk med basisudgaven og M1 Pro."
   ladetid:
     vaerdi: 2
-    enhed: t
+    enhed: "t"
     operator: "<"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"充电时长: ＜ 2 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    vaerdi: true
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "Tilbehørsliste: \"充电座: 标配\" (standardudstyr). Separat \"充电桩: 选配\" (tilvalgt ladestation) er også oplyst - samme to-niveau-mønster som basisudgaven og M1 Pro."
   lidar:
     vaerdi: "3D LiDAR (type og model ikke oplyst)"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"3D激光雷达: 支持\" i M1 Ultras egen sensor-sektion - identisk med basisudgaven og M1 Pro, hverken linjetal, model eller producent oplyst."
   kameraer:
     vaerdi: "4x fiskeøjekamera + 2x fremadrettet stereokamera til rundtomsynsbilleddannelse (环视成像); fiskeøje 3 MP, stereo 2 MP"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像\" og \"相机像索: 鱼眼300万，双目200万\" i M1 Ultras egen sensor-sektion - HELT FORSKELLIG opstilling fra basisudgavens/M1 Pro's \"广角相机 x 2, 800万 x 2\". Se topnoten. Sensor-sektionen har også \"超声波传感器: 支持\" (ultralydssensor, samme som M1 Pro) ud over IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor."
   compute:
     vaerdi: "6-kernet CPU, 128 TOPS"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"基础算力: 6核高性能CPU（128TOPS）\" i M1 Ultras egen datablok - DIFFERER fra basisudgavens/M1 Pro's \"8 核高性能 CPU （100TOPS）\" (færre kerner, højere TOPS). Se topnoten."
-  ros2: ikke_oplyst
+  ros2: "ikke_oplyst"
   sdk_sprog:
-    vaerdi: ikke_oplyst
-    kilde: https://github.com/zsibot/genisom_robot_sdk
-    hentet: 2026-08-24
+    vaerdi: "ikke_oplyst"
+    kilde: "https://github.com/zsibot/genisom_robot_sdk"
+    hentet: "2026-08-24"
     advarsel: "IKKE GENUNDERSØGT I DENNE SESSION - se topnoten. Overført fra basisudgavens konklusion, IKKE en frisk måling for netop M1 Ultra."
   autonominiveau:
     vaerdi: "AI强化学习运控 (标配); 基础动作 (踏步/滑行/匍匐等姿态, 前后左右直线移动, 原地旋转, 膝关节姿态变换, 支持砂石路/柏油路/草地/沙地/森林地面/建筑废墟等路面); 特技动作 (爬高墙/过挡鼠板/过窄墙/扭一扭等); 实时图像传输; OTA升级; 二次开发支持; 目标追踪 (UWB跟随；激光视觉跟随); 720° 3D 环视感知系统 (支持); 智能避障; 语音对讲 (支持); 录音广播 (支持)"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "Fra M1 Ultras egen funktionsliste (id 508), 11 punkter i alt. BEMÆRK: INGEN eksplicit \"自主导航\"-række i denne liste, modsat basisudgaven (tilvalg) og M1 Pro (standard) - se topnoten. Ikke antaget tilføjet."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
   dataporte:
-    vaerdi: ["Gigabit netvaerksport x2", "USB 3.0 x2", "RS232 x1", "RS485 x1", "SBUS x2", "PPS x1"]
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-25
+    vaerdi:
+      - "Gigabit netvaerksport x2"
+      - "USB 3.0 x2"
+      - "RS232 x1"
+      - "RS485 x1"
+      - "SBUS x2"
+      - "PPS x1"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-25"
     advarsel: "\"功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat \"15 大标准硬件接口全开放\" - IKKE brugt som feltværdi."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

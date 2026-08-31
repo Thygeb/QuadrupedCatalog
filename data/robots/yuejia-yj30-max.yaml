@@ -1,126 +1,130 @@
-slug: yuejia-yj30-max
-navn: YJ30Max
-producent: Yuejia Lingdong
-producentland: Kina
-producentby: Shenzhen
-status: i_produktion
+slug: "yuejia-yj30-max"
+navn: "YJ30Max"
+producent: "Yuejia Lingdong"
+producentland: "Kina"
+producentby: "Shenzhen"
+status: "i_produktion"
+noter:
+  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\"-tabellen."
 anvendelse:
-  vaerdi: [inspektion, sikkerhed_overvaagning, forsvar_beredskab, industri]
+  vaerdi:
+    - "inspektion"
+    - "sikkerhed_overvaagning"
+    - "forsvar_beredskab"
+    - "industri"
   citat:
     - "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。"
     - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
     - "Politipatrulje (警用巡逻)"
-  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-  hentet: 2026-08-25
+  kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+  hentet: "2026-08-25"
   note: "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
-noter:
-  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
-  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\"-tabellen."
 billede:
-  fil: fotos/fabrikant/yuejia-yj30-max.png
-  ophav: fabrikant
-  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/yuejia-yj30-max.png"
+  ophav: "fabrikant"
+  kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+  hentet: "2026-08-26"
   alt: "Yuejia Lingdong YJ30Max, gaaende firbenet robot, feltfoto ved en el-transformerstation"
 felter:
   egenvaegt:
     vaerdi: 45
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"重量: 45kg\" i \"基础参数\"-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 896
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"站立尺寸: 896x635x530mm\"."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 635
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
   hoejde:
     vaerdi: 530
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
-  frihedsgrader: ikke_oplyst
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 30
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"动态负载: 30kg\" (dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 50
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"静态负载: 50kg\" (statisk/stående last) - eksplicit navngivet felt."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 3
-    enhed: m/s
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "m/s"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"速度: 3m/s\" - ét tal, ikke et interval."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding (se topnote)."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 30
-    enhed: cm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "cm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"攀爬台阶高度: 30cm\"."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+    vaerdi: "IP67"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 3
-    vaerdi_maks: 4
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    min: 3
+    maks: 4
+    enhed: "t"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"续航: 3-4h\". Ingen lastbetingelse (kg) oplyst."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "WIFI (有/ja); 4G&5G (有/ja); 图传/billedtransmission (有/ja); 语音/stemme (有/ja); 导航/navigation (有/ja)"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "Fem ja/nej-rækker fra \"基础参数\"-tabellen - én række færre end YJ30's tabel (intet \"跟随\"/følge-punkt her)."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
   pris:
     vaerdi: 288000
-    enhed: CNY
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html
-    hentet: 2026-08-25
+    enhed: "CNY"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
+    hentet: "2026-08-25"
     advarsel: "\"￥288000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
     advarsel_klasse: "uddybning"
-  ce_oplyst: ikke_oplyst
+  ce_oplyst: "ikke_oplyst"

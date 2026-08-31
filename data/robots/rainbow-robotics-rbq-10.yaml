@@ -1,172 +1,179 @@
-slug: rainbow-robotics-rbq-10
-navn: RBQ-10
-producent: Rainbow Robotics
-producentland: Sydkorea
-producentby: Sejong-si
-status: i_produktion
+slug: "rainbow-robotics-rbq-10"
+navn: "RBQ-10"
+producent: "Rainbow Robotics"
+producentland: "Sydkorea"
+producentby: "Sejong-si"
+status: "i_produktion"
+noter:
+  - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON, som firmaet undertiden tilskrives: strengen \"Daejeon\" findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og områdenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger."
+  - "RAINBOW ROBOTICS UDGIVER HELE BRUGERMANUALEN OFFENTLIGT som en statisk side - inklusive batteridata, ledmomenter, IMU-specifikationer og monteringsinterface. Ingen formular, intet login. Det er derfor posten er indsamlingens tætteste vestlige/asiatiske post, og det giver en test, kataloget kan bruge: publicerer producenten sin brugermanual åbent, ja/nej."
 anvendelse:
-  vaerdi: [forskning_udvikling, inspektion, sikkerhed_overvaagning]
+  vaerdi:
+    - "forskning_udvikling"
+    - "inspektion"
+    - "sikkerhed_overvaagning"
   citat:
     - "Research Platform"
     - "Based on dynamics-based gait control and AI gait technology, it provides walking stability and mobility outdoors, while supporting sensor and system expansion for field applications such as patrol, inspection, and observation."
     - "PTZ cameras, thermal imaging, lighting, speakers, and other modules can be combined according to mission purpose and environment, supporting scenarios such as surveillance, inspection, and observation."
-  kilde: https://rainbow-robotics.com/en/products/rbq-10/
-  hentet: 2026-08-19
+  kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+  hentet: "2026-08-19"
   note: "\"Research Platform\" er en etikette på selve produktet, ved siden af \"Outdoor Walking\" og \"AI Gait\". L22: \"patrol\" og \"surveillance\" er omsat til sikkerhed og overvågning; tredje citat er produktsidens egen modulbeskrivelse. Producentens brancheliste for hele firmaet nævner også Defense & Security og Logistics, men den er ikke skrevet om RBQ-10 og er ikke brugt."
 billede:
-  fil: fotos/fabrikant/rainbow-robotics-rbq-10.png
-  ophav: fabrikant
-  kilde: https://rainbow-robotics.com/en/products/rbq-10/
-  hentet: 2026-08-19
-noter:
-  - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON, som firmaet undertiden tilskrives: strengen \"Daejeon\" findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og områdenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger."
-  - "RAINBOW ROBOTICS UDGIVER HELE BRUGERMANUALEN OFFENTLIGT som en statisk side - inklusive batteridata, ledmomenter, IMU-specifikationer og monteringsinterface. Ingen formular, intet login. Det er derfor posten er indsamlingens tætteste vestlige/asiatiske post, og det giver en test, kataloget kan bruge: publicerer producenten sin brugermanual åbent, ja/nej."
+  fil: "fotos/fabrikant/rainbow-robotics-rbq-10.png"
+  ophav: "fabrikant"
+  kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+  hentet: "2026-08-19"
 felter:
   egenvaegt:
     vaerdi: 42
-    enhed: kg
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Manualen præciserer: Weight (with battery)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 98
-    enhed: cm
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 43
-    enhed: cm
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 62
-    enhed: cm
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://rainbowrobotics.github.io/RBQ/
-    hentet: 2026-08-19
+    enhed: "DoF"
+    kilde: "https://rainbowrobotics.github.io/RBQ/"
+    hentet: "2026-08-19"
     advarsel: "UDLEDT, IKKE OPLYST SOM SPECIFIKATION. Strengen 12 joints findes kun i SDK-afsnittene (LegJointInfo, Joint position and velocity (12 joints), Claim ownership of all 12 joints) - en API-beskrivelse. Søgning på degrees of freedom giver 0 træf i hele manualen. Opdelingen 3 pr. ben følger af hardware-tabellens tre ledtyper. Tallet er højst sandsynligt rigtigt, men producenten oplyser det ikke som specifikation. Ledspecifikation: nominelt moment 40/40/50 Nm, maks. 104/104/140 Nm, maks. vinkelhastighed 14,4/14,4/11,15 rad/s."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 15
-    enhed: kg
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Max Payload uden at skelne gående/stående. Manualen præciserer: Total mass of everything mounted on top of the robot. Placeringen er en slutning."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 9
-    enhed: km/h
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "km/h"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Specifikationstabellen: 9 km/h (up to 14 km/h in running mode). Resumeet ØVERST PÅ SAMME SIDE skriver Walking 6 km/h, running 14 km/h. 6 mod 9 km/h for gang. Specifikationstabellen er brugt som værdi; resumeet ført som modstrid. Ingen af de to kan afvises af os."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
-    enhed: procent
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "%"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "OPLYST I PROCENT, IKKE I GRADER. 45 % = 24,2 grader. Må ikke omregnes stiltiende - Spots +/-30 grader og RBQ-10's 45 % er ikke samme enhed. Sidehældning oplyses separat til 20 %."
     advarsel_klasse: "gyldighed"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 25
-    enhed: cm
+    enhed: "cm"
     operator: "<="
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Stairs and steps: up to 25 cm. Resumeet på samme side skriver step height 20 cm. 20 mod 25 cm. Specifikationstabellen er brugt; resumeet ført som modstrid."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP54
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
+    vaerdi: "IP54"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
   batteri_wh:
     vaerdi: 907
-    enhed: Wh
-    kilde: https://rainbowrobotics.github.io/RBQ/
-    hentet: 2026-08-19
+    enhed: "Wh"
+    kilde: "https://rainbowrobotics.github.io/RBQ/"
+    hentet: "2026-08-19"
     advarsel: "18 Ah (9 Ah x2), nominel spænding 50,4 V, batterivægt 6,2 kg (3,1 kg x2). Krydstjek: 18 x 50,4 = 907,2 Wh - producentens eget tal går op."
     advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 2
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    enhed: "t"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver 2 hours (up to 4 hours). Ingen lastbetingelse."
     advarsel_klasse: "gyldighed"
+    ved_last: "ikke_oplyst"
   hot_swap:
-    vaerdi: ja
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Swappable / Separate charging / Automatic charging support. To batterier i basiskonfigurationen."
   ladetid:
     vaerdi: 1
-    enhed: t
-    kilde: https://rainbowrobotics.github.io/RBQ/
-    hentet: 2026-08-19
+    enhed: "t"
+    kilde: "https://rainbowrobotics.github.io/RBQ/"
+    hentet: "2026-08-19"
     advarsel: "1h (20 to 80%). Ladebetingelsen står I tallet - den eneste producent i indsamlingen, der gør det. Tallet er derfor IKKE en fuld opladning og kan ikke sammenlignes direkte med Spots 60 min eller ANYmals 3 t."
     advarsel_klasse: "gyldighed"
   dockingstation:
-    vaerdi: ja
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Wireless Charging Station (tilvalg), automatisk opladning, ArUco-markørdokning inden for 5 m."
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "3D LiDAR (optional) - type uden model, og VALGFRI, ikke basis. Tæller ikke under D4."
   kameraer:
     vaerdi: "IMU; (RGB + dybde) x2; dybde x4; tilvalg PTZ-kamera og termokamera"
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "KONFLIKT om PTZ-tilvalget: produktsiden skriver 4K PTZ camera, manualen skriver 2 MP 32x zoom PTZ camera. 4K er ca. 8,3 MP, så de to kan ikke begge passe. Tilvalg, ikke basis - men det ryger ind i en tabelkolonne, hvis vi ikke passer på."
   compute:
-    vaerdi: ikke_oplyst
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Ikke i specifikationstabellen."
   ros2:
-    vaerdi: ja
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "ROS 2, DDS integration; SDK-siden hedder ROS 2 Humble integration. VERSIONEN ER NAVNGIVET - enestående i hele indsamlingen."
   sdk_sprog:
-    vaerdi: ["C/C++", "ROS 2"]
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi:
+      - "C/C++"
+      - "ROS 2"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "RBQ SDK (C/C++) og RBQ SDK (ROS2). API-niveauer LV0 (ledniveau) og LV1 (gang og positur)."
   autonominiveau:
     vaerdi: "Patruljering ad forud definerede ruter; forhindringsundgåelse; autonom dokning ved lav batteristand; simulering før udrulning"
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
   monteringsinterface:
     vaerdi: "Top rail (slot) + spring nuts"
-    kilde: https://rainbowrobotics.github.io/RBQ/
-    hentet: 2026-08-19
+    kilde: "https://rainbowrobotics.github.io/RBQ/"
+    hentet: "2026-08-19"
     advarsel: "Med udtrykkelig advarsel fra producenten om ikke at overskride 15 kg."
   stroem_ud:
     vaerdi: "54 V; 12 V"
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Volt oplyst, watt ikke - samme halve felt som Ghost Vision 60."
   dataporte:
-    vaerdi: ["CAN (1 kanal)", "Gigabit LAN x3"]
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi:
+      - "CAN (1 kanal)"
+      - "Gigabit LAN x3"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "Radio: WiFi / LTE (tilvalg)."
-  pris: ikke_oplyst
+  pris: "ikke_oplyst"
   ce_oplyst:
-    vaerdi: ikke_oplyst
-    kilde: https://rainbow-robotics.com/en/products/rbq-10/
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
+    hentet: "2026-08-19"
     advarsel: "IKKE EFTERPRØVET TIL BUNDS: CE er ikke negativkontrolleret lige så grundigt som for andre poster i kataloget."

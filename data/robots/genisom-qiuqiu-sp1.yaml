@@ -1,115 +1,119 @@
-slug: genisom-qiuqiu-sp1
-navn: Qiuqiu SP1
-producent: GENISOM AI
-producentland: Kina
-producentby: Beijing / Suzhou
-status: i_produktion
+slug: "genisom-qiuqiu-sp1"
+navn: "Qiuqiu SP1"
+producent: "GENISOM AI"
+producentland: "Kina"
+producentby: "Beijing / Suzhou"
+status: "i_produktion"
 anvendelse:
-  vaerdi: [industri, inspektion]
-  citat: ["GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人)", "Autonom inspektion, dataoverførsel, nul personalerisiko (自主巡检 数据回传 人员零涉险)"]
-  kilde: https://www.genisomai.com/product-robot/sp1
-  hentet: 2026-08-24
+  vaerdi:
+    - "industri"
+    - "inspektion"
+  citat:
+    - "GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人)"
+    - "Autonom inspektion, dataoverførsel, nul personalerisiko (自主巡检 数据回传 人员零涉险)"
+  kilde: "https://www.genisomai.com/product-robot/sp1"
+  hentet: "2026-08-24"
   note: "Egen oversættelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverførsel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"næste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLÆGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlæg), 化工储罐区 (kemisk lagertankområde), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte sæt, så de er IKKE brugt som citat/værdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (højrisiko-industrimiljø) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion)."
 billede:
-  fil: fotos/fabrikant/genisom-qiuqiu-sp1.webp
-  ophav: fabrikant
-  kilde: https://www.genisomai.com/product-robot/sp1
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/genisom-qiuqiu-sp1.webp"
+  ophav: "fabrikant"
+  kilde: "https://www.genisomai.com/product-robot/sp1"
+  hentet: "2026-08-26"
   alt: "GENISOM Qiuqiu SP1, eksplosionssikret hjulbenet inspektionsrobot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 100
-    enhed: kg
+    enhed: "kg"
     operator: "<="
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "\"本体重量: ≤100 kg\"."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1190
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\" - ingen \"约\" (cirka)-tegn, ingen operator sat."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 640
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
   hoejde:
     vaerdi: 925
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
-  frihedsgrader: ikke_oplyst
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 50
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
     advarsel_klasse: "uddybning"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 1.2
-    enhed: m/s
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    enhed: "m/s"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
   haeldning:
     vaerdi: 35
     enhed: "°"
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "\"最大爬坡角度: 35°\", bekræftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\"."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 23
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "\"攀爬能力: 23cm连续台阶\" (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet på siden - derfor er forhindring_enkelt ikke oplyst i stedet for at genbruge dette tal."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP66
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    vaerdi: "IP66"
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
   temp_min:
     vaerdi: -20
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
-  batteri_wh: ikke_oplyst
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
+  batteri_wh: "ikke_oplyst"
   driftstid:
     vaerdi: 4
-    enhed: t
+    enhed: "t"
     operator: ">="
-    ved_last: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "\"续航时间: ≥4 h\" i den strukturerede tabel. Marketingkortet knytter samme tal til \"满载\" (fuld last): \"4 h 满载续航 持续作业\" - men INTET kg-tal står direkte på denne række. Et separat \"50 kg 持续行走负载\"-tal findes andetsteds på siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "AI强化学习运控 (支持); 自主导航 (支持); 智能避障 (支持); 二次开发支持; SLAM/IMU/AI-beslutningsfusion (\"融合 SLAM、IMU 与 AI 决策，自主规划、实时避障，现场信息同步回传\" - fusion af SLAM, IMU og AI-beslutning, autonom planlægning, realtidsundvigelse, on-site dataoverførsel i realtid)"
-    kilde: https://www.genisomai.com/product-robot/sp1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/sp1"
+    hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

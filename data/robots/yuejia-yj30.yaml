@@ -1,124 +1,128 @@
-slug: yuejia-yj30
-navn: YJ30
-producent: Yuejia Lingdong
-producentland: Kina
-producentby: Shenzhen
-status: i_produktion
-anvendelse:
-  vaerdi: [inspektion, sikkerhed_overvaagning, forskning_udvikling, forsvar_beredskab]
-  citat:
-    - "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。"
-    - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
-    - "Politipatrulje (警用巡逻)"
-  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-  hentet: 2026-08-25
-  note: "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: 教学科研 (undervisning/forskning) -> forskning og udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
+slug: "yuejia-yj30"
+navn: "YJ30"
+producent: "Yuejia Lingdong"
+producentland: "Kina"
+producentby: "Shenzhen"
+status: "i_produktion"
 noter:
   - "STANDMÅL-TYPO I KILDEN: rækken skriver \"682×354×462m\" - manglende \"m\" i \"mm\", i modsætning til alle øvrige rækker i samme tabel (fx YJ30W's \"682×354×532mm\"), inkl. i den engelsksprogede sideversion (samme typo gentaget der: \"682 × 354 × 462m\"). Vurderet som en kildeside-tastefejl, ikke en enhed på meter - 462 m højde ville være absurd for en firbenet robot på 17,5 kg. Enheden er sat til mm."
   - "MERGED KOLONNEOVERSKRIFT \"爬坡角度/DOF\": tabellens rå HTML har headeren \"爬坡角度/DOF\" (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal."
   - "DUAL-BATTERY-DRIFTSTID IKKE BRUGT SOM HOVEDVÆRDI: tabellen viser \"1.5-2h\" i selve driftstid-rækken, og separat i samme celle (linjeskift) \"3h (Dual Battery)\" - en tilbehørsafhængig udvidet konfiguration. Hovedværdien er 1,5-2 timer; dual-battery-tallet 3h står i advarsel, ikke i værdi/maks."
   - "LIDAR IKKE UDFYLDT: produktfeature-teksten nævner \"多模态感知矩阵：激光视觉协同\" (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve \"基础参数\"-tabellen (den strukturerede specifikationstabel) har INGEN lidar-række overhovedet. Feltet er derfor ikke oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's håndtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
+anvendelse:
+  vaerdi:
+    - "inspektion"
+    - "sikkerhed_overvaagning"
+    - "forskning_udvikling"
+    - "forsvar_beredskab"
+  citat:
+    - "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。"
+    - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+    - "Politipatrulje (警用巡逻)"
+  kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+  hentet: "2026-08-25"
+  note: "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: 教学科研 (undervisning/forskning) -> forskning og udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
 billede:
-  fil: fotos/fabrikant/yuejia-yj30.png
-  ophav: fabrikant
-  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/yuejia-yj30.png"
+  ophav: "fabrikant"
+  kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+  hentet: "2026-08-26"
   alt: "Yuejia Lingdong YJ30, gaaende firbenet robot uden hjul, studiofoto paa lys baggrund"
 felter:
   egenvaegt:
     vaerdi: 17.5
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "\"重量: 17.5kg\" i \"基础参数\"-tabellen. Ingen \"约\"(cirka)-markering, ingen angivelse af med/uden batteri."
     advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 682
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "\"站立尺寸: 682×354×462m\" - kildens egen enhedsangivelse mangler et \"m\" (se topnote). Akserne (længde først) er eksplicit mærket af producenten i kolonneoverskriften \"站立尺寸\"."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 354
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
   hoejde:
     vaerdi: 462
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "Se topnoten om det manglende \"m\" i kildens \"462m\"."
     advarsel_klasse: "gyldighed"
-  frihedsgrader: ikke_oplyst
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 10
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gående eller stående last - samme situation som Unitree Go2 (se topnote). Placeringen under gående last er et forsigtigt skøn ud fra størrelsesordenen, IKKE en aflæsning."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3
-    enhed: m/s
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "m/s"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "\"最大速度: 3m/s\" - ét tal, ikke et interval."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "Fra den sammenlagte kolonne \"爬坡角度/DOF\" - se topnoten. 50° er hældningsvinklen, ikke DOF."
     advarsel_klasse: "gyldighed"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 20
-    enhed: cm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "cm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "\"攀爬台阶高度: 20cm\" (klatre-trappetrinshøjde) - \"台阶\" betyder trin/trappe, tolket som den kontinuerlige trappeklatring, ikke en enkeltstående forhindring."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP54
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+    vaerdi: "IP54"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 1.5
-    vaerdi_maks: 2
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    min: 1.5
+    maks: 2
+    enhed: "t"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "\"续航: 1.5-2h\" i basisværdien. Samme celle nævner separat \"3h (Dual Battery)\" - en ekstra tilbehørsafhængig konfiguration med et andet batterisetup, ikke brugt som hovedværdi (se topnote). Ingen lastbetingelse (kg) er oplyst for nogen af de to tal."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "WIFI (有/ja); 4G/5G (有/ja); 图传/billedtransmission (有/ja); 语音识别/stemmegenkendelse (有/ja); 跟随/autonom følgning (有/ja); 导航/navigation (有/ja)"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "Seks ja/nej-rækker fra \"基础参数\"-tabellen, alle sat til \"有\" (ja) for YJ30. Kvalitativ liste, ikke et niveau på en skala."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
   pris:
     vaerdi: 78000
-    enhed: CNY
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html
-    hentet: 2026-08-25
+    enhed: "CNY"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
+    hentet: "2026-08-25"
     advarsel: "\"￥78000.00\" ved siden af en \"立即购买\" (køb nu)-knap på producentens egen side."
     advarsel_klasse: "uddybning"
-  ce_oplyst: ikke_oplyst
+  ce_oplyst: "ikke_oplyst"

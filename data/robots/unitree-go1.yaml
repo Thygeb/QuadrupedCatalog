@@ -1,132 +1,138 @@
-slug: unitree-go1
-navn: Go1
-producent: Unitree Robotics
-producentland: Kina
-status: i_produktion
+slug: "unitree-go1"
+navn: "Go1"
+producent: "Unitree Robotics"
+producentland: "Kina"
+status: "i_produktion"
+varianter:
+  - "Air"
+  - "Pro"
+  - "Edu"
 anvendelse:
-  vaerdi: [forbruger_uddannelse, forskning_udvikling]
+  vaerdi:
+    - "forbruger_uddannelse"
+    - "forskning_udvikling"
   citat:
     - "Robot - Consumer/Education"
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
-  kilde: https://www.unitree.com/
-  hentet: 2026-08-19
+  kilde: "https://www.unitree.com/"
+  hentet: "2026-08-19"
   note: "Producentens egen produktnavigation, gruppen Go1 står i."
-varianter: [Air, Pro, Edu]
 billede:
-  fil: fotos/fabrikant/unitree-go1.jpg
-  ophav: fabrikant
-  kilde: https://www.unitree.com/go1
-  hentet: 2026-08-19
+  fil: "fotos/fabrikant/unitree-go1.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.unitree.com/go1"
+  hentet: "2026-08-19"
 felter:
   egenvaegt:
     vaerdi: 12
-    enhed: kg
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
+    enhed: "kg"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
   hoejde:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Stående mål er ikke oplyst. Kun foldemålet 0,588 x 0,22 x 0,29 m er trykt, og skemaet har ingen felter til foldemål."
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    enhed: "DoF"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme grænsetilfælde som Go2."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 4
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
-    varianter:
-      Air: "ca. 4 kg (grænse ca. 10 kg)"
-      Pro: "ca. 4 kg (grænse ca. 10 kg)"
-      Edu: "ca. 6 kg (grænse ca. 10 kg)"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver kun Load uden at skelne gående/stående. Placeringen er en slutning. Værdien er Air/Pro."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
-  hastighed:
-    vaerdi_min: 0
-    vaerdi_maks: 2.5
-    enhed: m/s
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
     varianter:
-      Air: "0~2,5 m/s"
-      Pro: "0~3,5 m/s"
-      Edu: "0~3,7 m/s (grænse ca. 5 m/s)"
+      Air: "ca. 4 kg (grænse ca. 10 kg)"
+      Edu: "ca. 6 kg (grænse ca. 10 kg)"
+      Pro: "ca. 4 kg (grænse ca. 10 kg)"
+  nyttelast_staaende: "ikke_oplyst"
+  hastighed:
+    min: 0
+    maks: 2.5
+    enhed: "m/s"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Værdien er Air-variantens."
     advarsel_klasse: "gyldighed"
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
+    varianter:
+      Air: "0~2,5 m/s"
+      Edu: "0~3,7 m/s (grænse ca. 5 m/s)"
+      Pro: "0~3,5 m/s"
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Siden skriver kun Battery: 1 piece - hverken mAh, V eller Wh."
   driftstid:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Intet tal på siden. Long Endurance står som overskrift uden værdi."
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Radar: 2D eller 3D, tilvalg - type uden model."
   kameraer:
     vaerdi: "1 par fiskeøje-binokulært dybdekamera"
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
+    advarsel: "Værdien er Air-variantens."
     varianter:
       Air: "1 par"
-      Pro: "5 par"
       Edu: "5 par"
-    advarsel: "Værdien er Air-variantens."
+      Pro: "5 par"
   compute:
     vaerdi: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
+    advarsel: "Værdien er Air-variantens."
     varianter:
       Air: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
-      Pro: "3x samme"
       Edu: "2 Jetson Nano + (1 Nano eller 1 NX)"
-    advarsel: "Værdien er Air-variantens."
-  ros2: ikke_oplyst
+      Pro: "3x samme"
+  ros2: "ikke_oplyst"
   sdk_sprog:
-    vaerdi: ["Python"]
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
-    varianter:
-      Air: ikke_oplyst
-      Pro: ikke_oplyst
-      Edu: Python
+    vaerdi:
+      - "Python"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Kun Edu: Python Programming Interface. Værdien gælder Edu."
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
+    varianter:
+      Air: "ikke_oplyst"
+      Edu: "Python"
+      Pro: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
   pris:
     vaerdi: 2700
-    enhed: USD
-    kilde: https://www.unitree.com/go1
-    hentet: 2026-08-19
-    varianter:
-      Air: 2700
-      Pro: 3500
-      Edu: "Contact Sales"
+    enhed: "USD"
+    kilde: "https://www.unitree.com/go1"
+    hentet: "2026-08-19"
     advarsel: "Værdien er Air-variantens. Priser på producentens egen produktside, ikke shopsidens pladsholder."
     advarsel_klasse: "gyldighed"
-  ce_oplyst: ikke_oplyst
+    varianter:
+      Air: 2700
+      Edu: "Contact Sales"
+      Pro: 3500
+  ce_oplyst: "ikke_oplyst"

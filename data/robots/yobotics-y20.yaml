@@ -1,145 +1,149 @@
-slug: yobotics-y20
-navn: Y20
-producent: Shandong Youbaote Intelligent Robot
-producentland: Kina
-producentby: Jinan
-status: i_produktion
-anvendelse:
-  vaerdi: [forskning_udvikling, forbruger_uddannelse]
-  citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
-  kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-  hentet: 2026-08-19
-  note: "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10."
+slug: "yobotics-y20"
+navn: "Y20"
+producent: "Shandong Youbaote Intelligent Robot"
+producentland: "Kina"
+producentby: "Jinan"
+status: "i_produktion"
 noter:
   - "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser."
   - "ÅBENT PUNKT, IKKE LØST: overskrifterne og beskrivelserne på producentens egen side er uenige om modelnavnene. Overskriften Y20 står over en beskrivelse, der handler om Y30 (og Y10 over en Y5-beskrivelse, e-Dog over en Y15-beskrivelse). Tre ud af tre stemmer ikke. Overskriften er brugt som modelnavn. Posten kan ikke låses, før nogen har spurgt producenten, hvilket navn der gælder."
   - "Specifikationerne står i tabeller på den engelske side, men selve tabellerne er på kinesisk. Markup'en bærer x:str-attributter - tabellerne er indsat fra Excel."
+anvendelse:
+  vaerdi:
+    - "forskning_udvikling"
+    - "forbruger_uddannelse"
+  citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+  kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+  hentet: "2026-08-19"
+  note: "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10."
 billede:
-  fil: fotos/fabrikant/yobotics-y20.png
-  ophav: fabrikant
-  kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-  hentet: 2026-08-25
+  fil: "fotos/fabrikant/yobotics-y20.png"
+  ophav: "fabrikant"
+  kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+  hentet: "2026-08-25"
 felter:
   egenvaegt:
     vaerdi: 60
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Med batteri (含电池)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1100
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 475
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 610
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Sammenfoldet ca. 930 x 450 x 370 mm. Skemaet har ingen felter til foldemål."
     advarsel_klasse: "uddybning"
-  frihedsgrader: ikke_oplyst
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 80
-    enhed: kg
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Producentens egen etiket er GÅENDE last, maks. 80 kg. Producenten oplyser selv de to laster som to felter - anden uafhængige bekræftelse (efter Unitree) af, at nyttelast SKAL være to felter. Forholdet er her næsten det dobbelte."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
-    enhed: kg
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Producentens egen etiket er STÅENDE last, maks. 150 kg."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 4
-    enhed: m/s
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "m/s"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver maks. 4 m/s."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 40
-    enhed: grader
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "°"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Etiket: klatrehældningsvinkel, maks. 40 grader."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 30
-    enhed: cm
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Producentens etiket bruger tegnet for TRIN/TRAPPE, maks. 30 cm. Lagt i det kontinuerlige felt på samme grundlag som DEEP Robotics X30. Siden siger ikke eksplicit kontinuerlig - det er en konservativ placering, ikke en aflæsning."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP54
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    vaerdi: "IP54"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
   temp_min:
     vaerdi: -25
-    enhed: C
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "-25 C mod Weilan AlphaDog C500's 0 C: to kinesiske producenter, samme dag, og den ene kan arbejde i dansk vinter, mens den anden ikke må stå i et koldt skur. Det er filteret nedre driftstemperatur, der gør sit arbejde."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 50
-    enhed: C
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "25 Ah uden spænding. Wh kan ikke udledes og udledes ikke."
   driftstid:
     vaerdi: 2.5
-    enhed: t
+    enhed: "t"
     operator: ">"
-    ved_last: { vaerdi: ikke_oplyst, enhed: kg }
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "PRODUCENTEN LEVERER SELV LASTBETINGELSEN - den eneste post i indsamlingen, hvor det sker. Ordret: > 5 t kontinuerlig gang UDEN last, og > 2,5 t i drift MED nyttelast. Men kg-tallet for den belastede tilstand står ikke; betingelsen er kvalitativ. Her bruges det belastede tal."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
+    ved_last:
+      vaerdi: "ikke_oplyst"
+      enhed: "kg"
+  hot_swap: "ikke_oplyst"
   ladetid:
     vaerdi: 3
-    enhed: t
+    enhed: "t"
     operator: "<="
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Ladetiden gælder ladestanderen (tilvalg): fuld opladning <= 3 t."
     advarsel_klasse: "gyldighed"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
     advarsel: "Ladestander, tilvalg."
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
   compute:
     vaerdi: "Upboard x1: Intel Atom x5-Z8350, op til 1,92 GHz"
-    kilde: https://www.yobotics.cn/en/product/quadruped_robot_series/
-    hentet: 2026-08-19
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+    kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
+    hentet: "2026-08-19"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

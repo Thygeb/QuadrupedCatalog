@@ -1,111 +1,113 @@
-slug: deep-robotics-x20
-navn: Jueying X20
-producent: DEEP Robotics
-producentland: Kina
-producentby: Hangzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [industri, inspektion]
-  citat: "The X20 quadruped robot solution is for industrial patrol inspection under extreme working conditions."
-  kilde: https://deeprobotics.cn/en/index/product.html
-  hentet: 2026-08-19
-  note: "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 \"行业应用\"."
-billede:
-  fil: fotos/fabrikant/deep-robotics-x20.jpg
-  ophav: fabrikant
-  kilde: https://www.deeprobotics.cn/en/wap/product.html
-  hentet: 2026-08-24
-  alt: "DEEP Robotics X20, hvidt studiofoto/render fra siden af"
+slug: "deep-robotics-x20"
+navn: "Jueying X20"
+producent: "DEEP Robotics"
+producentland: "Kina"
+producentby: "Hangzhou"
+status: "i_produktion"
 noter:
   - "Producentens fulde navn: Hangzhou Yunshenchu Technology. Serier: Jueying og Lynx."
   - "STATUS KAN IKKE UDFYLDES FRA KILDEN. Produktsiden lever på begge sprog, men er afkoblet fra navigationen: linket er udkommenteret i både header og footer på EN og CN. Kun det kinesiske forsidegitter linker den stadig. Producenten har ikke erklæret modellen udgået. i_produktion er derfor et valg, ikke en aflæsning."
   - "Producentens eget forbehold, EN: All parameters are laboratory data, operating in real environment may have differences. CN: officielle testdata. De to formuleringer er ikke lige stærke."
+anvendelse:
+  vaerdi:
+    - "industri"
+    - "inspektion"
+  citat: "The X20 quadruped robot solution is for industrial patrol inspection under extreme working conditions."
+  kilde: "https://deeprobotics.cn/en/index/product.html"
+  hentet: "2026-08-19"
+  note: "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 \"行业应用\"."
+billede:
+  fil: "fotos/fabrikant/deep-robotics-x20.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.deeprobotics.cn/en/wap/product.html"
+  hentet: "2026-08-24"
+  alt: "DEEP Robotics X20, hvidt studiofoto/render fra siden af"
 felter:
   egenvaegt:
     vaerdi: 53
-    enhed: kg
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
   laengde:
     vaerdi: 950
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 470
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 700
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
-  frihedsgrader: ikke_oplyst
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 20
-    enhed: kg
-    kilde: https://www.deeprobotics.cn/robot/index/product.html
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.deeprobotics.cn/robot/index/product.html"
+    hentet: "2026-08-19"
     advarsel: "KUN den kinesiske side afgør feltet. CN-etiketten er kontinuerlig arbejdslast; EN-etiketten er Endurance - samme ord som siden bruger om driftstid længere nede. En læser af kun den engelske side kan ikke vide, at X20 bærer 20 kg."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 4
-    enhed: m/s
+    enhed: "m/s"
     operator: ">="
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver 4M/S med versaler (tegn U+2265). X30 fra samme producent skriver samme felt med små bogstaver. Versaliseringen er ikke normaliseret."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
-    enhed: grader
+    enhed: "°"
     operator: ">="
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
     advarsel: "Tegn U+2265 - et GULV. X30 fra samme producent skriver <= 45 grader, altså et LOFT. Samme producent, samme felt, modsat ulighedstegn."
     advarsel_klasse: "gyldighed"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 20
-    enhed: cm
+    enhed: "cm"
     operator: ">="
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
     advarsel: "Producentens etiket Step/Obstacle H slår de to felter sammen, som skemaet netop har adskilt. Værdien er lagt i det strengeste af de to; forhindring_enkelt står tom. Det er et valg, ikke en aflæsning."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP66
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+    vaerdi: "IP66"
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 2
-    vaerdi_maks: 4
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://deeprobotics.cn/en/index/product.html
-    hentet: 2026-08-19
+    min: 2
+    maks: 4
+    enhed: "t"
+    kilde: "https://deeprobotics.cn/en/index/product.html"
+    hentet: "2026-08-19"
     advarsel: "Rækkevidde oplyses til 15 km. Skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
   dataporte:
-    vaerdi: nej
-    kilde: https://www.deeprobotics.cn/robot/index/product.html
-    hentet: 2026-08-19
+    vaerdi: "nej"
+    kilde: "https://www.deeprobotics.cn/robot/index/product.html"
+    hentet: "2026-08-19"
     advarsel: "CN skriver eksternt interface: INGEN. EN skriver Interface: / - som enhver importør læser som ikke oplyst. Producenten har svaret NEJ. Regel 10 fanget i naturen, og igen afgør den kinesiske side feltet."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

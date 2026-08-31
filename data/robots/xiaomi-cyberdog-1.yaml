@@ -1,142 +1,144 @@
-slug: xiaomi-cyberdog-1
-navn: CyberDog
-producent: Xiaomi
-producentland: Kina
-status: i_produktion
-anvendelse:
-  vaerdi: ikke_oplyst
-  kilde: https://www.mi.com/cyberdog/specs
-  hentet: 2026-08-21
-  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot (仿生四足机器人) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2."
+slug: "xiaomi-cyberdog-1"
+navn: "CyberDog"
+producent: "Xiaomi"
+producentland: "Kina"
+status: "i_produktion"
 foerste_udgivelse: 2021
 noter:
   - "SAMME FÆLDE SOM CYBERDOG 2, SAMME LØSNING. Specifikationssiden leverer et tomt indholdselement; hele arket ligger som ren tekst i en JavaScript-bundle, som siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog/specs.5406502c.js (hentet 2026-08-21). Primærkilde: producentens egen server, producentens eget indhold."
   - "STATUS ER EN KATALOGBESLUTNING PÅ MÅLT LIGHED, IKKE EN ERKLÆRING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 på mi.com: HTTP-status på produktsiden (200 mod 200), købsknappen køb nu (立即购买, 2 forekomster mod 2), læg-i-kurv-knappen læg i kurv (加入购物车, 0 forekomster mod 0), udsolgt-markering udsolgt (已售罄, 0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altså INGEN målbar forskel på producentens side mellem den model, vi fører som i produktion, og den her. Det eneste argument for udgået er, at der findes en efterfølger med et højere generationsnummer - og det er vores slutning, ikke Xiaomis ord."
   - "INGEN LIDAR I SENSORLISTEN. Producenten opremser tolv sensorer, og en LiDAR er ikke blandt dem. Det er IKKE ført som nej, fordi listen ikke er erklæret udtømmende. Til sammenligning navngiver CyberDog 2 en YDLIDAR TG30. Se advarslen på lidar-feltet."
   - "DYBDEKAMERAET ER ET ANDET END PÅ CYBERDOG 2: her Intel RealSense D450, der D430."
+anvendelse:
+  vaerdi: "ikke_oplyst"
+  kilde: "https://www.mi.com/cyberdog/specs"
+  hentet: "2026-08-21"
+  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot (仿生四足机器人) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2."
 felter:
   egenvaegt:
     vaerdi: 14
-    enhed: kg
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "kg"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producentens etiket: 整机重量（含电池）- hele maskinen, batteri inklusive."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 771
-    enhed: mm
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "mm"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
   bredde:
     vaerdi: 355
-    enhed: mm
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "mm"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
   hoejde:
     vaerdi: 400
-    enhed: mm
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "mm"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Mål i LIGGENDE stilling (趴下) oplyses også: 807 x 406 x 206 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har ingen felter til foldemål."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "DoF"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producenten skriver i alt 12, 3 pr. ben (整机12，单腿3)."
     advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 3
-    enhed: kg
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "kg"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producentens etiket er maks. last (最大负载), udelt, uden skelnen mellem gående og stående. Placeringen i det gående felt er en slutning, præcis som på CyberDog 2."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3.2
-    enhed: m/s
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "m/s"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producenten skriver MAX 3.2m/s. Fodnoten på samme side: det laboratoriemålte maksimum er 3,2 m/s, mens den maksimale SIKRE ganghastighed er 1,6 m/s. To tal på samme side, halvdelen af hinanden. Det trykte hovedtal er 3,2."
     advarsel_klasse: "gyldighed"
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
   temp_min:
     vaerdi: 0
-    enhed: C
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "°C"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "0 grader er en oplyst nedre grænse, ikke et manglende tal. For udendørs dansk vinterdrift er den en diskvalifikator."
   temp_maks:
     vaerdi: 40
-    enhed: C
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "°C"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
   batteri_wh:
     vaerdi: 120.9
-    enhed: Wh
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    enhed: "Wh"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "NOMINEL kapacitet: 5,6 Ah / 120,9 Wh ved 21,6 V. Krydstjek: 5,6 x 21,6 = 120,96 - producentens tal går op. Producenten oplyser OGSÅ en aftalt kapacitet på 5,2 Ah / 112,3 Wh. De to er 7,1 % fra hinanden, og det er producentens egen forskel, ikke en fejl."
     advarsel_klasse: "gyldighed"
   driftstid:
     vaerdi: 1
-    enhed: t
+    enhed: "t"
     operator: "~"
-    ved_last: ikke_oplyst
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "INGEN LASTBETINGELSE, MEN EN TILSTANDSBETINGELSE. Producentens fodnote: den ene time er målt som en blanding af at ligge ned, rejse sig, vise statiske positurer og gå stabilt på normalt underlag. Skemaet har ikke plads til den slags betingelse."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
   ladetid:
     vaerdi: 160
-    enhed: min
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
-  dockingstation: ikke_oplyst
+    enhed: "min"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
+  dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "INGEN LIDAR NÆVNT. Producentens sensorliste har tolv punkter og ingen af dem er en LiDAR: RealSense D450-dybdekamera, AI-interaktionskamera, binokulært ultravidvinkelkamera, TOF-sensor, lyssensor, ultralydssensor, inertimåleenhed, GPS-modul, magnetometer, optisk flowsensor (光流计), 6MIC-ringarray og berøringssensor. Feltet er ikke ført som nej, fordi producenten ikke erklærer listen udtømmende - men fraværet er selv en oplysning."
   kameraer:
     vaerdi: "Intel RealSense D450 (dybde) x1; AI-interaktionskamera 13 MP x1; binokulært ultravidvinkelkamera 2 MP"
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
   compute:
     vaerdi: "6-kernet NVIDIA Carmel ARM v8.2 64-bit CPU; 384-kernet NVIDIA Volta GPU med 48 Tensor Cores; 8 GB 128-bit LPDDR4x; 16 GB eMMC 5.1; 128 GB SSD"
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
   ros2:
-    vaerdi: ja
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    vaerdi: true
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producenten skriver Ubuntu 18.04+ROS 2. Versionen af ROS 2 er ikke navngivet."
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
-    vaerdi: ikke_oplyst
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producenten oplyser strømforsyningen AD100: ind 100-240 V 50/60 Hz 1,6 A, ud 20 V 5 A maks. Det er strøm IND til robotten, ikke strøm UD til en nyttelast. Type-C-porten mærket udvidelsesport til perifert udstyr (外设扩展口) har ingen oplyst effekt."
   dataporte:
-    vaerdi: ["HDMI x1", "USB Type-C x3"]
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    vaerdi:
+      - "HDMI x1"
+      - "USB Type-C x3"
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "Producenten opdeler de tre Type-C-porte efter funktion: hurtigopladning, download og udvidelsesport til perifert udstyr. Trådløst: Wi-Fi IEEE 802.11 a/b/n/g/ac og Bluetooth 4.2 - en ældre Bluetooth end CyberDog 2's 5.0."
   pris:
-    vaerdi: ikke_oplyst
-    kilde: https://www.mi.com/cyberdog
-    hentet: 2026-08-21
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.mi.com/cyberdog"
+    hentet: "2026-08-21"
     advarsel: "Sidens egen produkt-JSON siger price 0, market_price 0 og is_enable false for produkt-id 14815. Et price 0 for et produkt med is_enable false betyder INGEN PRIS SAT, ikke koster nul. Præcis samme billede som CyberDog 2."
   ce_oplyst:
-    vaerdi: nej
-    kilde: https://www.mi.com/cyberdog/specs
-    hentet: 2026-08-21
+    vaerdi: false
+    kilde: "https://www.mi.com/cyberdog/specs"
+    hentet: "2026-08-21"
     advarsel: "DOKUMENTERET NEJ, ikke et hul. Producenten opregner sine standarder, og CE er ikke iblandt dem: batteri GB31241 og UN38.3, strømforsyning GB 17625.1-2012, GB 4943.1-2011 og GB/T 9254-2008. Kun kinesiske GB-standarder plus FN-transportreglen. Samme situation som CyberDog 2."

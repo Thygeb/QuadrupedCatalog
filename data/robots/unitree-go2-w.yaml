@@ -1,118 +1,120 @@
-slug: unitree-go2-w
-navn: Go2-W
-producent: Unitree Robotics
-producentland: Kina
-status: i_produktion
+slug: "unitree-go2-w"
+navn: "Go2-W"
+producent: "Unitree Robotics"
+producentland: "Kina"
+status: "i_produktion"
 anvendelse:
-  vaerdi: [forbruger_uddannelse, forskning_udvikling]
+  vaerdi:
+    - "forbruger_uddannelse"
+    - "forskning_udvikling"
   citat:
     - "Robot - Consumer/Education"
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
-  kilde: https://www.unitree.com/
-  hentet: 2026-08-19
-  arvet_fra: unitree-go2
+  kilde: "https://www.unitree.com/"
+  hentet: "2026-08-19"
+  arvet_fra: "unitree-go2"
   note: "ARVET (L23). Go2-W står ikke i produktnavigationen, og dens egen side https://www.unitree.com/go2-w er gennemlæst 2026-08-19 og siger kun \"Driving All Terrain\" og \"Go2 New Model Transformative Newborn\". Citatet er Go2's, og koblingen Go2-W = Go2 i hjulet udgave er vores slutning, ikke producentens."
 billede:
-  fil: fotos/fabrikant/unitree-go2-w.png
-  ophav: fabrikant
-  kilde: https://www.unitree.com/go2-w
-  hentet: 2026-08-25
+  fil: "fotos/fabrikant/unitree-go2-w.png"
+  ophav: "fabrikant"
+  kilde: "https://www.unitree.com/go2-w"
+  hentet: "2026-08-25"
 felter:
   egenvaegt:
     vaerdi: 18
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   laengde:
     vaerdi: 70
-    enhed: cm
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 43
-    enhed: cm
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 50
-    enhed: cm
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   frihedsgrader:
     vaerdi: 16
-    enhed: DoF
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    enhed: "DoF"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
     advarsel: "Siden skriver 16 ledmotorer, ikke Degrees of Freedom. Samme grænsetilfælde som Go2."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 8
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver kun Payload (maks. ca. 12 kg) uden at skelne gående/stående. Placeringen er en slutning, ikke en aflæsning."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
-    vaerdi_min: 0
-    vaerdi_maks: 2.5
-    enhed: m/s
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    min: 0
+    maks: 2.5
+    enhed: "m/s"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   haeldning:
     vaerdi: 35
-    enhed: grader
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    enhed: "°"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   forhindring_enkelt:
     vaerdi: 70
-    enhed: cm
+    enhed: "cm"
     operator: "<"
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Max Climb Drop Height < 70cm (fuldbreddetegn). Operatoren er en ØVRE GRÆNSE, ikke en præstation: < 70 betyder ikke over 70, ikke 70. Uden operatoren ser Go2-W ud til at klare 75 % mere end B2's 40 cm."
     advarsel_klasse: "gyldighed"
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
     advarsel: "15000 mAh, 33,6 V. Wh er ikke trykt og udledes ikke."
   driftstid:
-    vaerdi_min: 1.5
-    vaerdi_maks: 3
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    min: 1.5
+    maks: 3
+    enhed: "t"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
     advarsel: "Uden lastbetingelse - ikke sammenlignelig med B2's og A2's driftstider."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
     advarsel: "Super-wide-angle 3D LIDAR - type uden model, selv om Go2's side navngiver L2 for hvad der efter alt at dømme er samme enhed."
   kameraer:
     vaerdi: "HD vidvinkel"
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
   compute:
     vaerdi: "8-kernet CPU; udvidelsesmodul NVIDIA Orin NX m.fl."
-    kilde: https://www.unitree.com/go2-w
-    hentet: 2026-08-19
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+    kilde: "https://www.unitree.com/go2-w"
+    hentet: "2026-08-19"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

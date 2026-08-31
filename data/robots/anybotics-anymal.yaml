@@ -1,107 +1,109 @@
-slug: anybotics-anymal
-navn: ANYmal (Generation D)
-producent: ANYbotics
-producentland: Schweiz
-producentby: Zuerich
-status: i_produktion
-anvendelse:
-  vaerdi: [inspektion, industri]
-  citat:
-    - "ANYmal - Autonomous Robotic Inspection Solution - ANYbotic"
-    - "Purpose-built for intricate industrial plants."
-  kilde: https://www.anybotics.com/robotics/anymal/
-  hentet: 2026-08-19
-  note: "Første citat er sidens egen titel."
-billede:
-  fil: fotos/fabrikant/anybotics-anymal.jpg
-  ophav: fabrikant
-  kilde: https://www.anybotics.com/robotics/anymal/
-  hentet: 2026-08-19
+slug: "anybotics-anymal"
+navn: "ANYmal (Generation D)"
+producent: "ANYbotics"
+producentland: "Schweiz"
+producentby: "Zuerich"
+status: "i_produktion"
 noter:
   - "ANYbotics AG, Hagenholzstrasse 83a, 8050 Zuerich. Kontor også i San Francisco. Schweiz er ikke EU."
   - "Et komplet datablad findes, men kun bag en formular (https://www.anybotics.com/anymal-specifications-sheet/). Ikke hentet."
+anvendelse:
+  vaerdi:
+    - "inspektion"
+    - "industri"
+  citat:
+    - "ANYmal - Autonomous Robotic Inspection Solution - ANYbotic"
+    - "Purpose-built for intricate industrial plants."
+  kilde: "https://www.anybotics.com/robotics/anymal/"
+  hentet: "2026-08-19"
+  note: "Første citat er sidens egen titel."
+billede:
+  fil: "fotos/fabrikant/anybotics-anymal.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.anybotics.com/robotics/anymal/"
+  hentet: "2026-08-19"
 felter:
-  egenvaegt: ikke_oplyst
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
-  hoejde: ikke_oplyst
-  frihedsgrader: ikke_oplyst
+  egenvaegt: "ikke_oplyst"
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
+  hoejde: "ikke_oplyst"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 10
-    enhed: kg
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver an additional 10 kg payload og skelner ikke mellem gående og stående last. Placeringen her er vores tolkning, ikke en aflæsning. Ordet additional er producentens."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 0.75
-    enhed: m/s
+    enhed: "m/s"
+    enhed_imperial: "ft/s"
     vaerdi_imperial: 2.46
-    enhed_imperial: ft/s
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Etiketten er Normal walking speed, IKKE maksimum. Tallet er derfor ikke sammenligneligt med de øvrige posters makstal. Metrisk/imperialt krydstjek går op."
     advarsel_klasse: "gyldighed"
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+    vaerdi: "IP67"
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
     vaerdi: 90
-    enhed: min
-    ved_last: ikke_oplyst
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    enhed: "min"
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Samme side skriver også Walking range (90 - 120 min) per charge. To tal, samme side. Samme grafik oplyser rækkevidde 2 km (1.24 mi), som skemaet ikke har et felt til."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
   ladetid:
     vaerdi: 180
-    enhed: min
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    enhed: "min"
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Producenten oplyser to ladetider: 100 min for 70% quick charge og 3 h for full charge. Her bruges den fulde opladning; hurtigopladningen kan ikke sammenlignes med andres fulde ladetider."
     advarsel_klasse: "uddybning"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Automatic docking; flere dockingstationer kan sættes op langs ruten."
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Siden oplyser 360-graders Lidar - type uden model. Tæller ikke under D4's foreløbige regel."
   kameraer:
     vaerdi: "6 dybdekameraer + 2 optiske teleoperationskameraer; zoomkamera 20x optisk; termokamera; ultralydsmikrofon 0-384 kHz; spotlys maks. 3790 lm; pan-tilt-enhed +/- 90 grader vertikalt, +/- 165 grader horisontalt"
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver 3790Im med stort I - næsten sikkert 3790 lm (lumen). Sidens -40 til 550 grader C er termokameraets måleområde, IKKE robottens driftstemperatur; let at forveksle ved maskinel udtrækning."
   compute:
     vaerdi: "2x Intel Core i7; 8th gen. Intel 6-core processors"
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Producentens egne to formuleringer om samme enhed."
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "Autonome inspektionsmissioner; AI-based mobility and autonomy; automatisk docking ved lav batteristand"
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Kvalitativt, ikke et niveau på en skala."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
   ce_oplyst:
-    vaerdi: ja
-    kilde: https://www.anybotics.com/robotics/anymal/
-    hentet: 2026-08-19
+    vaerdi: true
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver FCC, CE and Anatel compliant. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklæring."

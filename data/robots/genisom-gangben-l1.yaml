@@ -1,153 +1,158 @@
-slug: genisom-gangben-l1
-navn: Gangben L1
-producent: GENISOM AI
-producentland: Kina
-producentby: Beijing / Suzhou
-status: i_produktion
+slug: "genisom-gangben-l1"
+navn: "Gangben L1"
+producent: "GENISOM AI"
+producentland: "Kina"
+producentby: "Beijing / Suzhou"
+status: "i_produktion"
 anvendelse:
-  vaerdi: [inspektion, forsvar_beredskab, sikkerhed_overvaagning, forskning_udvikling]
+  vaerdi:
+    - "inspektion"
+    - "forsvar_beredskab"
+    - "sikkerhed_overvaagning"
+    - "forskning_udvikling"
   citat: "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。)"
-  kilde: https://www.genisomai.com/product-robot/L1
-  hentet: 2026-08-24
+  kilde: "https://www.genisomai.com/product-robot/L1"
+  hentet: "2026-08-24"
   note: "Egen oversættelse: \"Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse.\" 电力巡检 -> inspektion; 应急救援 -> forsvar og beredskab; 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling (uddannelsesdelen af 科研教育 har intet præcist svar i værdisættet ud over forbruger og uddannelse, som ikke er brugt her, da konteksten er faglig forskning, ikke forbrugerprodukt)."
 billede:
-  fil: fotos/fabrikant/genisom-gangben-l1.webp
-  ophav: fabrikant
-  kilde: https://www.genisomai.com/product-robot/L1
-  hentet: 2026-08-24
+  fil: "fotos/fabrikant/genisom-gangben-l1.webp"
+  ophav: "fabrikant"
+  kilde: "https://www.genisomai.com/product-robot/L1"
+  hentet: "2026-08-24"
 felter:
   egenvaegt:
     vaerdi: 15
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"整机重量（含电池）: 15 kg\" - eksplicit \"含电池\" (inkl. batteri). RETTET VED SELV-TJEK: rækken har INTET \"约\" (cirka)-tegn foran vægten, i modsætning til målene lige ovenover i samme tabel, som ER markeret \"约\". Første udkast af denne post satte fejlagtigt operator \"~\" på vægten ud fra en antagelse om, at hele sektionen delte samme cirka-markering - rettet efter genlæsning af rå-JSON'en."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 630
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"站立尺寸（长 x 宽 x 高）约 630 x 360 x 415 mm\" - akserne ER mærket eksplicit af producenten (长=længde, 宽=bredde, 高=højde), i modsætning til MicroRoboTechs to poster."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 360
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
   hoejde:
     vaerdi: 415
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "Krybende mål (\"趴地尺寸\") er ~670 x 425 x 145 mm; skemaet har intet felt til den tilstand."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    enhed: "DoF"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"关节电机数量: 12个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\"/\"自由度\". Samme fortolkning som Unitree Go2 i denne samling."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 8
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" - grænseværdi op til ca. 10 kg oplyst separat."
     advarsel_klasse: "uddybning"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3.7
-    enhed: m/s
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    enhed: "m/s"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"最大速度: 3.7 m/s\". En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, fordi \"最大速度\" er den etiket, der svarer til \"normal maksimal hastighed\" i resten af samlingen."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
     enhed: "°"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"最大爬坡角度: 标准环境 30°，极限可达 40°\" (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt; grænseværdien 40° er noteret her, ikke skrevet ind som feltets værdi."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 16
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde)."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP54
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    vaerdi: "IP54"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
   temp_min:
     vaerdi: 0
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
   temp_maks:
     vaerdi: 40
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "Tilbehørsliste oplyser \"电池\": \"标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V\" (nominel kapacitet 5 Ah, mærkekapacitet 4,6 Ah, spænding 43,2 V). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9 - MagicLab-posten er beviset på, at producentens eget udregnede Wh-tal ikke altid stemmer med Ah x V)."
   driftstid:
-    vaerdi_min: 1
-    vaerdi_maks: 2
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    min: 1
+    maks: 2
+    enhed: "t"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"续航时间: 1-2 h\", ingen lastbetingelse oplyst. Rækkevidde \"续航里程: 6 km\" er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
   ladetid:
     vaerdi: 1
-    enhed: t
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    enhed: "t"
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"充电时长: 1 h\"."
     advarsel_klasse: "uddybning"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    vaerdi: true
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "Tilbehørsliste: \"充电座: 标配\" (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter IKKE autonom hjemkørsel/selvgenopladning - det ord står ikke på L1's side (modsat L2's eksplicitte \"自主回充功能\")."
-  lidar: ikke_oplyst
+  lidar: "ikke_oplyst"
   kameraer:
     vaerdi: "Bredvinkelkamera, 8 MP (800万像素), DFOV 122° / HFOV 111° / VFOV 70°"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
   compute:
     vaerdi: "8-kernet CPU"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel."
-  ros2: ikke_oplyst
+  ros2: "ikke_oplyst"
   sdk_sprog:
-    vaerdi: ["C++"]
-    kilde: https://github.com/zsibot/genisom_L1_sdk
-    hentet: 2026-08-24
-    kildetype: sekundaer
+    vaerdi:
+      - "C++"
+    kilde: "https://github.com/zsibot/genisom_L1_sdk"
+    hentet: "2026-08-24"
+    kildetype: "sekundaer"
     advarsel: "Kilde er producentens egen GitHub-organisation (zsibot = GENISOM AI), repoet \"genisom_L1_sdk\", eksplicit navngivet officiel L1-SDK. README: \"基于 C++20 开发\" (C++20). Ikke produktsiden selv, derfor kildetype: sekundær efter den nye regel."
   autonominiveau:
     vaerdi: "AI强化学习运控 (标配, AI-forstærkningslæring bevægelsesstyring); 目标识别与追踪 (målgenkendelse og -sporing); OTA升级; 二次开发支持 (understøtter videreudvikling)"
-    kilde: https://www.genisomai.com/product-robot/L1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1"
+    hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

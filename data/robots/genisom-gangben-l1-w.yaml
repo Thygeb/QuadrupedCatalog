@@ -1,162 +1,172 @@
-slug: genisom-gangben-l1-w
-navn: Gangben L1-W
-producent: GENISOM AI
-producentland: Kina
-producentby: Beijing / Suzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [forsvar_beredskab, forskning_udvikling, sikkerhed_overvaagning]
-  citat: ["Rekognoscering og eftersøgningsredning (侦查搜救)", "Akut brandbekæmpelse (应急消防)", "Forskning og uddannelse (科研教育)", "Sikkerhedspatrulje (安防巡逻)"]
-  kilde: https://www.genisomai.com/product-robot/L1-W
-  hentet: 2026-08-24
-  note: "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på L1-W's egen produktside - fire selvstændige citater, ikke arvet fra L1. Egen oversættelse: 侦查搜救 (rekognoscering/eftersøgning-redning) -> forsvar og beredskab; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab (samme kategori som 侦查搜救, to citater); 科研教育 -> forskning og udvikling; 安防巡逻 -> sikkerhed og overvågning."
+slug: "genisom-gangben-l1-w"
+navn: "Gangben L1-W"
+producent: "GENISOM AI"
+producentland: "Kina"
+producentby: "Beijing / Suzhou"
+status: "i_produktion"
 noter:
   - "IKKE EN DUBLET AF L1/L2: L1-W har egen produktside, eget navn, egne mål (630x430x485mm mod L1's 630x360x415mm) og en fjerde hjulmotor-gruppe, L1 ikke har. Klart en selvstændig variant, ikke L1 under et andet navn."
+anvendelse:
+  vaerdi:
+    - "forsvar_beredskab"
+    - "forskning_udvikling"
+    - "sikkerhed_overvaagning"
+  citat:
+    - "Rekognoscering og eftersøgningsredning (侦查搜救)"
+    - "Akut brandbekæmpelse (应急消防)"
+    - "Forskning og uddannelse (科研教育)"
+    - "Sikkerhedspatrulje (安防巡逻)"
+  kilde: "https://www.genisomai.com/product-robot/L1-W"
+  hentet: "2026-08-24"
+  note: "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på L1-W's egen produktside - fire selvstændige citater, ikke arvet fra L1. Egen oversættelse: 侦查搜救 (rekognoscering/eftersøgning-redning) -> forsvar og beredskab; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab (samme kategori som 侦查搜救, to citater); 科研教育 -> forskning og udvikling; 安防巡逻 -> sikkerhed og overvågning."
 billede:
-  fil: fotos/fabrikant/genisom-gangben-l1-w.webp
-  ophav: fabrikant
-  kilde: https://www.genisomai.com/product-robot/L1-W
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/genisom-gangben-l1-w.webp"
+  ophav: "fabrikant"
+  kilde: "https://www.genisomai.com/product-robot/L1-W"
+  hentet: "2026-08-26"
   alt: "GENISOM Gangben L1-W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 22
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"整机重量（含电池）: 22 kg\" - eksplicit \"含电池\" (inkl. batteri). Rækken har intet \"约\" (cirka)-tegn."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 630
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"站立尺寸（长x宽x高）约 630 × 430 × 485 mm\"."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 430
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
   hoejde:
     vaerdi: 485
-    enhed: mm
+    enhed: "mm"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "Krybende mål (\"趴地尺寸\") er ~690 x 540 x 165 mm; skemaet har intet felt til den tilstand."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    enhed: "DoF"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer). Derudover 4 hjulnavmotorer (\"高性能轮毂电机: 4 个\"), som ikke tæller med i dette DoF-tal - skemaet har intet separat hjulmotorfelt."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 10
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"最大载荷 ≈ 10 kg（极限 ~12 kg）\" - grænseværdi op til ca. 12 kg oplyst separat."
     advarsel_klasse: "uddybning"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3.7
-    enhed: m/s
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    enhed: "m/s"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"最大速度: 3.7 m/s\". En separat \"极限速度\" (grænsehastighed) på 5.5 m/s er også oplyst (marketingkortet skriver \">5.5m/s 极限奔跑速度\") - ikke brugt som hovedværdi, samme princip som L1/L2."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
     enhed: "°"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"最大爬坡角度: 标准环境 30°，极限可达 40°\" (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt, samme princip som L1."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 65
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"65cm 最大越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 16
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP54
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    vaerdi: "IP54"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
   temp_min:
     vaerdi: 0
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
   temp_maks:
     vaerdi: 40
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "Tilbehørsliste oplyser \"电池\": \"标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V\" (nominel kapacitet 5 Ah, mærkekapacitet 4,6 Ah, spænding 43,2 V) - samme tal som L1. Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9)."
   driftstid:
-    vaerdi_min: 1
-    vaerdi_maks: 2
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    min: 1
+    maks: 2
+    enhed: "t"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"续航时间: 1-2h\", ingen lastbetingelse oplyst - samme tal som L1. Rækkevidde \"续航里程: 9km\" er også oplyst (lavere end L1's 6km-tal er IKKE - L1-W's 9km er højere; skemaet har intet rækkeviddefelt)."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
   ladetid:
     vaerdi: 1
-    enhed: t
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    enhed: "t"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"充电时长: 1h\"."
     advarsel_klasse: "uddybning"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    vaerdi: true
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "Tilbehørsliste: \"充电座: 标配\" (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter ikke autonom hjemkørsel/selvgenopladning."
-  lidar: ikke_oplyst
+  lidar: "ikke_oplyst"
   kameraer:
     vaerdi: "Bredvinkelkamera, 8 MP (800万像素), DFOV 122° / HFOV 111° / VFOV 70°"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "Samme kameraspecifikation som L1 - kun IMU og bredvinkelkameraet står i den strukturerede sensor-sektion, ingen lidar-række."
   compute:
     vaerdi: "8-kernet CPU"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er også oplyst i samme sektion; skemaet har intet effektfelt."
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "AI强化学习运控 (标配); 目标识别与追踪; 基础动作 (站立/卧倒/阻尼/俯仰身形/高低身形/水平转身); 特技动作 (向前跳/向上跳/双腿站立/后空翻/打招呼等); 二次开发支持; OTA升级; 实时图像传输"
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
   dataporte:
-    vaerdi: ["Ethernet", "USB 3.0/2.0", "24V/12V stroem"]
-    kilde: https://www.genisomai.com/product-robot/L1-W
-    hentet: 2026-08-24
+    vaerdi:
+      - "Ethernet"
+      - "USB 3.0/2.0"
+      - "24V/12V stroem"
+    kilde: "https://www.genisomai.com/product-robot/L1-W"
+    hentet: "2026-08-24"
     advarsel: "\"开放 Ethernet、USB 3.0/2.0、24V/12V 电源等 7 大标准硬件接口\" - producenten hævder 7 interfacetyper i alt, men \"等\" (\"osv.\") gør listen ikke-udtømmende; kun disse tre kategorier er navngivet eksplicit."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

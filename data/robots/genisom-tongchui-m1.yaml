@@ -1,178 +1,193 @@
-slug: genisom-tongchui-m1
-navn: Tongchui M1
-producent: GENISOM AI
-producentland: Kina
-producentby: Beijing / Suzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [forsvar_beredskab, inspektion, sikkerhed_overvaagning, logistik]
-  citat: ["Skovbrandbekæmpelse (森林消防)", "Petrokemisk brandbekæmpelse (石化消防)", "Elkraftinspektion (电力巡检)", "Områdepatrulje (园区巡逻)", "Logistiktransport (物流运输)"]
-  kilde: https://www.genisomai.com/product-robot/M1
-  hentet: 2026-08-24
-  note: "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Egen oversættelse: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab (samme kategori, to citater); 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik."
+slug: "genisom-tongchui-m1"
+navn: "Tongchui M1"
+producent: "GENISOM AI"
+producentland: "Kina"
+producentby: "Beijing / Suzhou"
+status: "i_produktion"
 noter:
   - "META-DESCRIPTIONS \"16个自由度\" MODSIGES AF DEN STRUKTUREREDE SPECIFIKATIONSTABEL, IKKE LØST STILTIENDE: metabeskrivelsen påstår 16 frihedsgrader, men den strukturerede tabel (samme side) skriver eksplicit \"关节电机数量: 12 个\" - samme mønster som L1/L2 (ledmotor-antal, ikke eksplicit \"frihedsgrader\"). 12 er brugt som feltværdi, fordi det står i den strukturerede tabel; 16-tallet fra metabeskrivelsen er IKKE brugt, og uoverensstemmelsen er noteret her i stedet for at blive rettet stiltiende."
   - "VÆGT-UOVERENSSTEMMELSE PÅ SAMME SIDE, IKKE LØST STILTIENDE: se advarslen på egenvægt nedenfor - marketingteksten påstår \"næsten 1:1 negativt/positivt last-egenvægt-forhold\" ud fra en \"~30kg\"-vægt, mens den strukturerede tabel siger 41 kg."
   - "KONKURRENCE- OG MARATHON-PÅSTANDE, CITERET MEN IKKE EFTERPRØVET UD OVER PRODUCENTENS EGEN SIDE: \"2026北京亦庄机器人勇士挑战赛，铜锤M1 自主导航项目全场唯一完赛，并斩获四足机器人大类自主导航第一、奖项数第一、总分第一、速度第一\" (2026 Beijing Yizhuang Robot Warrior-udfordringen - M1 var det eneste hold, der gennemførte den autonome navigationsdisciplin, og vandt førstepladsen i autonom navigation, flest priser, højeste totalscore og hurtigst i firbenet-kategorien). Samt: \"全球首次由自主跟随机器人陪人类完成马拉松赛事... 铜锤M1作为全球首个自主跟随的机器人\"关门兔\"完成半马陪跑任务\" (første gang globalt en autonomt følgende robot fuldførte et marathon sammen med et menneske - M1 fungerede som verdens første autonomt følgende \"sweep hare\" på en halvmaraton). Ingen af de to hører til i de 30 skemafelter - noteret her som producentcitat, ikke som et efterprøvet tredjepartsfaktum."
+anvendelse:
+  vaerdi:
+    - "forsvar_beredskab"
+    - "inspektion"
+    - "sikkerhed_overvaagning"
+    - "logistik"
+  citat:
+    - "Skovbrandbekæmpelse (森林消防)"
+    - "Petrokemisk brandbekæmpelse (石化消防)"
+    - "Elkraftinspektion (电力巡检)"
+    - "Områdepatrulje (园区巡逻)"
+    - "Logistiktransport (物流运输)"
+  kilde: "https://www.genisomai.com/product-robot/M1"
+  hentet: "2026-08-24"
+  note: "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Egen oversættelse: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab (samme kategori, to citater); 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik."
 billede:
-  fil: fotos/fabrikant/genisom-tongchui-m1.webp
-  ophav: fabrikant
-  kilde: https://www.genisomai.com/product-robot/M1
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/genisom-tongchui-m1.webp"
+  ophav: "fabrikant"
+  kilde: "https://www.genisomai.com/product-robot/M1"
+  hentet: "2026-08-26"
   alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
   note: "Delt foto: M1's produktside viser samme model på tværs af M1/M1 Pro/M1 Ultra-fanebladet (kun ét kort-thumbnail-billede fundet for hele familien) - Pro og Ultra får samme foto (se genisom-tongchui-m1-pro.yaml og genisom-tongchui-m1-ultra.yaml)."
 felter:
   egenvaegt:
     vaerdi: 41
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"整机重量（含电池）: 41 kg\" i den strukturerede specifikationstabel - ingen \"约\" (cirka)-markering. MODSIGES af sidens eget marketingkort: \"约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，在四足机器人行业内首次实现近 1:1 负载自重比\" (ca. 30kg egenvægt, ca. 30kg vedvarende last, næsten 1:1-forhold). De to tal (41kg vs. 30kg) er den samme robots egenvægt på den SAMME side og står i modstrid. Regel 9: rettes ikke stiltiende. Den strukturerede tabel er brugt som feltværdi, fordi den er den mest specifikke kilde (samme princip som resten af GENISOM-posterne), men uoverensstemmelsen er ikke bortforklaret."
     advarsel_klasse: "gyldighed"
   laengde:
     vaerdi: 930
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"站立尺寸（长 × 宽 × 高）: 930 × 480 × 585 mm\" - INGEN \"约\" (cirka)-tegn i denne række, modsat L1/L2's tilsvarende mål. Ingen operator sat, jf. regel 4 (opfind aldrig et forbehold, producenten ikke skrev)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 480
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
   hoejde:
     vaerdi: 585
-    enhed: mm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "mm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Krybende mål (\"趴地尺寸\") er 930 x 630 x 200 mm; skemaet har intet felt til den tilstand."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "DoF"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"关节电机数量: 12 个\" i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende \"16个自由度\"-påstand, som IKKE er brugt her."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 30
-    enhed: kg
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"最大载荷: 30 kg\". Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 6
-    enhed: m/s
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "m/s"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"最大速度: 6 m/s\". En separat \"极限速度\" (grænsehastighed) på 8 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1/L2/L1-W."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 45
     enhed: "°"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"最大爬坡角度: 45°\", bekræftet af marketingkortets \"45° 极限爬坡角度\" - ingen separat standard/grænse-splittelse her, modsat L1/L1-W."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"80cm 垂直越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
-    enhed: cm
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    enhed: "cm"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel, bekræftet af marketingkortets \"25cm 持续攀爬台阶\"."
     advarsel_klasse: "uddybning"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    vaerdi: "IP67"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
   temp_min:
     vaerdi: -20
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" - basisspecifikationen (-20~55°C) er brugt; den bredere -40~80°C er kun en tilvalgt batteriversion, ikke standard."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
     enhed: "°C"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Samme forbehold som temp_min: -40~80°C er en tilvalgt \"宽温电池版本\" (bredtemperatur-batteriversion), ikke basiskonfigurationen."
     advarsel_klasse: "uddybning"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Tilbehørsliste oplyser \"电池\": \"54 V，9.35 Ah × 2；双电池，热插拔\" (54V, 2x 9,35 Ah, dobbelt batteri, hot-swap). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9)."
   driftstid:
-    vaerdi_min: 3.5
-    vaerdi_maks: 5
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    min: 3.5
+    maks: 5
+    enhed: "t"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" (5t tomgang / 3,5t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte til denne række - derfor er lastbetingelsen ikke oplyst, selvom et separat \"最大载荷: 30 kg\" står andetsteds på siden. Rækkevidde \"续航里程: 空载 29 km；满载 18 km\" er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
+    ved_last: "ikke_oplyst"
   hot_swap:
-    vaerdi: ja
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    vaerdi: true
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Bekræftet to steder på samme side: marketingkortet \"双电池 热插拔\" og tilbehørslisten \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\"."
   ladetid:
     vaerdi: 2
-    enhed: t
+    enhed: "t"
     operator: "<"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"充电时长: ＜ 2 h\"."
     advarsel_klasse: "uddybning"
   dockingstation:
-    vaerdi: ja
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    vaerdi: true
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Tilbehørsliste: \"充电座: 标配\" (ladesokkel, standardudstyr). Marketingteksten nævner separat \"可选配智能充电桩，支持低电量自主返回充电\" (tilvalgt intelligent ladestation med autonom hjemkørsel ved lav ladning) - kun tilvalgt, ikke standard. Samme to-niveau-mønster som L1/L2's dockingstation."
   lidar:
     vaerdi: "3D LiDAR (type og model ikke oplyst)"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"3D激光雷达: 支持\" i den strukturerede sensor-sektion - bekræfter tilstedeværelse, men hverken linjetal, model eller producent er oplyst (modsat L2-W Ultra, der navngiver \"96线激光雷达\")."
   kameraer:
     vaerdi: "2x bredvinkelkamera, 8 MP hver, DFOV 122° / HFOV 111° / VFOV 70°"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°\" og \"相机像索: 800万 x 2\". Sensor-sektionen nævner også \"深度相机\" (dybdekamera) og \"RTK定位模块\" (RTK-positioneringsmodul) uden yderligere specifikation - skemaet har intet dedikeret felt til nogen af de to."
   compute:
     vaerdi: "8-kernet CPU, 100 TOPS"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\"."
-  ros2: ikke_oplyst
+  ros2: "ikke_oplyst"
   sdk_sprog:
-    vaerdi: ikke_oplyst
-    kilde: https://github.com/zsibot/genisom_robot_sdk
-    hentet: 2026-08-24
+    vaerdi: "ikke_oplyst"
+    kilde: "https://github.com/zsibot/genisom_robot_sdk"
+    hentet: "2026-08-24"
     advarsel: "UNDERSØGT, MEN IKKE SAT. GENISOM AI's GitHub-organisation (zsibot) har et repo \"genisom_robot_sdk\" (README: \"Programming Language: C++\", Ubuntu 22.04/CMake/GCC/Boost), men repoet har INGEN GitHub-beskrivelse, der binder det til et specifikt produktnavn (modsat \"genisom_L1_sdk\", som eksplicit hedder \"Official SDK for Genisom L1 Series robots\"). Hverken \"M1\" eller \"铜锤\" står i den udtrukne README-tekst. At bruge repoet til M1 ville være samme slags navnesammenfald-uden-bevis, som blev fanget og afvist på L2's ros2-felt i forrige runde - derfor ikke oplyst i stedet for et gæt."
   autonominiveau:
     vaerdi: "AI强化学习运控 (标配); 基础动作 (踏步/滑行/匍匐等姿态, 前后左右直线移动, 原地旋转, 膝关节姿态变换, 支持砂石路/柏油路/草地/沙地/森林地面/建筑废墟等路面); 特技动作 (爬高墙/过挡鼠板/过窄墙/扭一扭等); 实时图像传输; OTA升级; 二次开发支持; 自主导航 (选配: 智航Pro版, 建图/定位/导航/避障); 智能避障"
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala. Selvstændig navigation står eksplicit som TILVALG (\"选配\"), ikke standard."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
   dataporte:
-    vaerdi: ["Gigabit netvaerksport x2", "USB 3.0 x2", "RS232 x1", "RS485 x1", "SBUS x2", "PPS x1"]
-    kilde: https://www.genisomai.com/product-robot/M1
-    hentet: 2026-08-24
+    vaerdi:
+      - "Gigabit netvaerksport x2"
+      - "USB 3.0 x2"
+      - "RS232 x1"
+      - "RS485 x1"
+      - "SBUS x2"
+      - "PPS x1"
+    kilde: "https://www.genisomai.com/product-robot/M1"
+    hentet: "2026-08-24"
     advarsel: "\"功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1\" fra den strukturerede specifikationstabel (2+2+1+1+2+1 = 9 navngivne porte i alt). Marketingteksten påstår separat \"15 大标准硬件接口全开放\" (15 standardinterfaces i alt) - et højere, ikke-specificeret tal, som IKKE er brugt som feltværdi. De 9 navngivne porte er brugt, fordi de er den eneste itemiserede kilde; 15-tallet er noteret som en uafklaret uoverensstemmelse, ikke rettet stiltiende."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

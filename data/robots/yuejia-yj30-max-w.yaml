@@ -1,129 +1,134 @@
-slug: yuejia-yj30-max-w
-navn: YJ30W MAX
-producent: Yuejia Lingdong
-producentland: Kina
-producentby: Shenzhen
-status: i_produktion
+slug: "yuejia-yj30-max-w"
+navn: "YJ30W MAX"
+producent: "Yuejia Lingdong"
+producentland: "Kina"
+producentby: "Shenzhen"
+status: "i_produktion"
+noter:
+  - "MULTISPEKTRAL SENSORPAKKE (kameraer): identisk tekst med YJ30 W - se dens post for den fulde citation."
 anvendelse:
-  vaerdi: [inspektion, sikkerhed_overvaagning, forsvar_beredskab, industri, forskning_udvikling]
+  vaerdi:
+    - "inspektion"
+    - "sikkerhed_overvaagning"
+    - "forsvar_beredskab"
+    - "industri"
+    - "forskning_udvikling"
   citat:
     - "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
     - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
     - "Politipatrulje (警用巡逻)"
-  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-  hentet: 2026-08-25
+  kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+  hentet: "2026-08-25"
   note: "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversættelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. \"仓储\" (lager) er af samme grund som der IKKE talt med som en selvstændig logistik-kategori."
-noter:
-  - "MULTISPEKTRAL SENSORPAKKE (kameraer): identisk tekst med YJ30 W - se dens post for den fulde citation."
 billede:
-  fil: fotos/fabrikant/yuejia-yj30-max-w.png
-  ophav: fabrikant
-  kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/yuejia-yj30-max-w.png"
+  ophav: "fabrikant"
+  kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+  hentet: "2026-08-26"
   alt: "Yuejia Lingdong YJ30W MAX, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
 felter:
   egenvaegt:
     vaerdi: 55
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"重量: 55kg\" i \"基础参数\"-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 896
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"站立尺寸: 896x635×625mm\"."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 635
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
   hoejde:
     vaerdi: 625
-    enhed: mm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
-  frihedsgrader: ikke_oplyst
+    enhed: "mm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 35
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"动态负载: 35kg\" (dynamisk/gående last) - eksplicit navngivet felt."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 55
-    enhed: kg
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "kg"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"静态负载: 55kg\" (statisk/stående last) - eksplicit navngivet felt."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 5
-    enhed: m/s
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "m/s"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"速度: 5m/s\" - højere end YJ30Max's 3m/s, som forventet for en hjuldrevet variant."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 80
-    enhed: cm
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "cm"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"攀爬台阶高度: 80cm\" - se topnoten om det delte kolonnenavn med basisudgaven YJ30Max (30cm)."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+    vaerdi: "IP67"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 3.5
-    vaerdi_maks: 4.5
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    min: 3.5
+    maks: 4.5
+    enhed: "t"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"续航: 3.5-4.5h\". Ingen lastbetingelse (kg) oplyst."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
   kameraer:
     vaerdi: "红外热成像 (infrarød varmesøgning); højfølsom UV-lysgenkendelse; synligt-lys røg-/ildgenkendelse (三重探测技术: infrared thermal imaging + UV detection + visible-light smoke/fire recognition)"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" - identisk tekst med YJ30 W's post. Ingen modelbetegnelse eller opløsning oplyst."
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "WIFI (有/ja); 4G&5G (有/ja); 图传/billedtransmission (有/ja); 语音/stemme (有/ja); 导航/navigation (有/ja); WiFi6 og Bluetooth 5.2 kompatibel (兼容WiFi6、蓝牙5.2); realtids fuldskærms-temperaturmåling og zoneovervågning (实时全屏测温、自定义区域温度监测)"
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "Kombinerer \"基础参数\"-tabellens fem ja/nej-rækker (samme mønster som YJ30Max, intet \"跟随\"-punkt) med produktbeskrivelsens ekstra kommunikations- og datånalysefunktioner."
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
   pris:
     vaerdi: 358000
-    enhed: CNY
-    kilde: https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html
-    hentet: 2026-08-25
+    enhed: "CNY"
+    kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
+    hentet: "2026-08-25"
     advarsel: "\"￥358000.00\" ved siden af en \"立即购买\" (køb nu)-knap - kataloget højeste Yuejia-pris."
     advarsel_klasse: "uddybning"
-  ce_oplyst: ikke_oplyst
+  ce_oplyst: "ikke_oplyst"

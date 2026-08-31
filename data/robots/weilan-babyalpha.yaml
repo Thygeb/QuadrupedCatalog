@@ -1,52 +1,52 @@
-slug: weilan-babyalpha
-navn: BabyAlpha
-producent: WEILAN
-producentland: Kina
-producentby: Nanjing
-status: i_produktion
-anvendelse:
-  vaerdi: forbruger_uddannelse
-  citat: "AI-powered Family Companion"
-  kilde: https://www.weilan.com/en/en/babyAlpha.html
-  hentet: 2026-08-19
-  note: "Samme side, synlig tekst: \"a source of family entertainment that doubles as a home security guard\". Producenten placerer den selv i hjemmet."
-billede:
-  fil: fotos/fabrikant/weilan-babyalpha.jpg
-  ophav: fabrikant
-  kilde: https://www.weilan.com/en/en/babyAlpha.html
-  hentet: 2026-08-19
+slug: "weilan-babyalpha"
+navn: "BabyAlpha"
+producent: "WEILAN"
+producentland: "Kina"
+producentby: "Nanjing"
+status: "i_produktion"
 noter:
   - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsføring: ingen vægt, ingen mål, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
   - "Siden har en BUY NOW-knap, men INGEN PRIS."
   - "Weilan har tre nul-poster (E300, E400L, BabyAlpha) og en post på 35 % (AlphaDog C500/C501). Den eneste model, der oplyser noget, er udviklerversionen af legetøjet."
+anvendelse:
+  vaerdi: "forbruger_uddannelse"
+  citat: "AI-powered Family Companion"
+  kilde: "https://www.weilan.com/en/en/babyAlpha.html"
+  hentet: "2026-08-19"
+  note: "Samme side, synlig tekst: \"a source of family entertainment that doubles as a home security guard\". Producenten placerer den selv i hjemmet."
+billede:
+  fil: "fotos/fabrikant/weilan-babyalpha.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.weilan.com/en/en/babyAlpha.html"
+  hentet: "2026-08-19"
 felter:
-  egenvaegt: ikke_oplyst
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
-  hoejde: ikke_oplyst
-  frihedsgrader: ikke_oplyst
-  nyttelast_gaaende: ikke_oplyst
-  nyttelast_staaende: ikke_oplyst
-  hastighed: ikke_oplyst
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
-  driftstid: ikke_oplyst
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  egenvaegt: "ikke_oplyst"
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
+  hoejde: "ikke_oplyst"
+  frihedsgrader: "ikke_oplyst"
+  nyttelast_gaaende: "ikke_oplyst"
+  nyttelast_staaende: "ikke_oplyst"
+  hastighed: "ikke_oplyst"
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
+  driftstid: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

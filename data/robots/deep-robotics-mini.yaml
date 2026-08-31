@@ -1,105 +1,108 @@
-slug: deep-robotics-mini
-navn: Jueying Mini
-producent: DEEP Robotics
-producentland: Kina
-producentby: Hangzhou
-status: i_produktion
-anvendelse:
-  vaerdi: ikke_oplyst
-  kilde: https://deeprobotics.cn/en/index/product2.html
-  hentet: 2026-08-19
-  note: "GENNEMLÆST, INTET FUNDET. Mini står heller ikke i producentens kinesiske produktpanel, hvor Lite3, X20 og X30 hver får en anvendelsesetikette. Sidens egen tekst handler om teknologi (\"deep learning\", \"visual perception\"), ikke om hvem robotten er til."
+slug: "deep-robotics-mini"
+navn: "Jueying Mini"
+producent: "DEEP Robotics"
+producentland: "Kina"
+producentby: "Hangzhou"
+status: "i_produktion"
 noter:
   - "Ældre side, stadig online, afkoblet fra både den engelske og den kinesiske navigation. Status kan ikke udfyldes fra kilden - i_produktion er et valg, ikke en aflæsning."
   - "Batterifeltet er indsamlingens tydeligste gevinst ved at læse kilden på originalsproget: den engelske side har en enhedsfejl, den kinesiske har det rigtige tal."
+anvendelse:
+  vaerdi: "ikke_oplyst"
+  kilde: "https://deeprobotics.cn/en/index/product2.html"
+  hentet: "2026-08-19"
+  note: "GENNEMLÆST, INTET FUNDET. Mini står heller ikke i producentens kinesiske produktpanel, hvor Lite3, X20 og X30 hver får en anvendelsesetikette. Sidens egen tekst handler om teknologi (\"deep learning\", \"visual perception\"), ikke om hvem robotten er til."
 billede:
-  fil: fotos/fabrikant/deep-robotics-mini.png
-  ophav: fabrikant
-  kilde: https://deeprobotics.cn/en/index/product2.html
-  hentet: 2026-08-25
+  fil: "fotos/fabrikant/deep-robotics-mini.png"
+  ophav: "fabrikant"
+  kilde: "https://deeprobotics.cn/en/index/product2.html"
+  hentet: "2026-08-25"
 felter:
   egenvaegt:
     vaerdi: 23
-    enhed: kg
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
   laengde:
     vaerdi: 700
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 400
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 500
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
-  frihedsgrader: ikke_oplyst
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 10
-    enhed: kg
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "Producentens etiket er Max.load uden at skelne gående/stående. Placeringen er en slutning."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3.3
-    enhed: m/s
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    enhed: "m/s"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "Hastighed og hældning står i EN række, adskilt af et fuldbredde-semikolon (U+FF1B): 3.3m/s; 30 grader. En parser, der læser rækken som ET felt, får noget vrøvl."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 30
-    enhed: grader
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    enhed: "°"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "Står i samme række som hastigheden - se hastighed."
     advarsel_klasse: "gyldighed"
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
   batteri_wh:
     vaerdi: 620
-    enhed: Wh
-    kilde: https://www.deeprobotics.cn/robot/index/product2.html
-    hentet: 2026-08-19
+    enhed: "Wh"
+    kilde: "https://www.deeprobotics.cn/robot/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "KUN den kinesiske side er brugbar. Den engelske side trykker Battery capacity 10kg - kilogram i et energifelt, sandsynligvis Max.load 10kg kopieret ind i den forkerte række. Det korrekte tal findes kun ved at læse originalsproget, ikke den engelske oversættelse."
     advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 40
-    enhed: min
-    ved_last: ikke_oplyst
-    kilde: https://www.deeprobotics.cn/robot/index/product2.html
-    hentet: 2026-08-19
+    enhed: "min"
+    kilde: "https://www.deeprobotics.cn/robot/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "PRODUCENTEN MÆRKER SELV TALLET SOM TVIVLSOMT. Den kinesiske tabel skriver 40min efterfulgt af tegnene for tvivlsomt, afventer verifikation. Det står KUN på kinesisk og er usynligt for enhver, der læser engelsk."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
   compute:
     vaerdi: "Perception processor: Intel Core i7; CPU: NVIDIA Jetson Xavier NX"
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "Producenten staver NIVIDIA. Stavefejlen er producentens egen; vi gengiver navnet rigtigt her og noterer fejlen. Bemærk fordelingen: perception processor er en Intel i7, mens rækken kaldet CPU er en Jetson."
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
   dataporte:
-    vaerdi: ["WiFi", "USB", "Bluetooth"]
-    kilde: https://deeprobotics.cn/en/index/product2.html
-    hentet: 2026-08-19
+    vaerdi:
+      - "WiFi"
+      - "USB"
+      - "Bluetooth"
+    kilde: "https://deeprobotics.cn/en/index/product2.html"
+    hentet: "2026-08-19"
     advarsel: "WiFi og Bluetooth er forbindelser, ikke fysiske porte. Feltet er talt som udfyldt, fordi producenten selv fører dem som interfaceliste."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

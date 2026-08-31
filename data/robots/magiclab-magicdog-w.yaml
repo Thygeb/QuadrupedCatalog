@@ -1,137 +1,139 @@
-slug: magiclab-magicdog-w
-navn: MagicDog-W
-producent: MagicLab
-producentland: Kina
-producentby: Suzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [forskning_udvikling, inspektion]
-  citat: "MagicDog-W is suitable for research, demonstrations, patrol, surveying and expandable mobile applications."
-  kilde: https://www.magiclabglobal.com/products/magicdog-w/
-  hentet: 2026-08-19
-  note: "Producentens kinesiske og engelske produktsider på magiclab.top kalder den kun \"MagicLab Quadruped Wheeled Robot\" - en form, ikke en anvendelse."
-billede:
-  fil: fotos/fabrikant/magiclab-magicdog-w.png
-  ophav: fabrikant
-  kilde: https://www.magiclabglobal.com/products/magicdog-w/
-  hentet: 2026-08-19
+slug: "magiclab-magicdog-w"
+navn: "MagicDog-W"
+producent: "MagicLab"
+producentland: "Kina"
+producentby: "Suzhou"
+status: "i_produktion"
 noter:
   - "HJEMBYEN ER SUZHOU, IKKE WUJIANG: producentens globale site skriver direkte \"Founded in 2024 and headquartered in Suzhou\" og gentager \"Founded in Suzhou, China\". Strengen \"Wujiang\", som posten tidligere bår ved siden af Suzhou, findes 0 gange i selskabets gemte sider."
   - "TO PRODUCENTSITES, DER MODSIGER HINANDEN - og her vender operatorerne. magiclab.top skriver hastighed 0-3 m/s og hældning <= 40 grader; magiclabglobal.com skriver >= 3.0 m/s og >= 40 grader for samme robot, samme sprog, samme dag. Det ene er et loft, det andet et gulv. Kilden her er magiclab.top; det globale sites tal står i advarslerne."
+anvendelse:
+  vaerdi:
+    - "forskning_udvikling"
+    - "inspektion"
+  citat: "MagicDog-W is suitable for research, demonstrations, patrol, surveying and expandable mobile applications."
+  kilde: "https://www.magiclabglobal.com/products/magicdog-w/"
+  hentet: "2026-08-19"
+  note: "Producentens kinesiske og engelske produktsider på magiclab.top kalder den kun \"MagicLab Quadruped Wheeled Robot\" - en form, ikke en anvendelse."
+billede:
+  fil: "fotos/fabrikant/magiclab-magicdog-w.png"
+  ophav: "fabrikant"
+  kilde: "https://www.magiclabglobal.com/products/magicdog-w/"
+  hentet: "2026-08-19"
 felter:
   egenvaegt:
     vaerdi: 22.5
-    enhed: kg
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "MED batteri (with battery) - modsat MagicDog, som samme producent oplyser uden batteri."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 670
-    enhed: mm
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 350
-    enhed: mm
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 650
-    enhed: mm
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Liggende (Prone) 720 x 500 x 290 mm. Skemaet har ingen felter til foldemål."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 17
-    enhed: DoF
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "DoF"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver 16+1 (Head Motor) - altså MOTORANTAL, ikke ordet frihedsgrader. 17 er summen af producentens eget udtryk. Hovedets rotation oplyses til >= 100 grader (EN skriver tegnet U+2265, CN skriver ASCII >=)."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 10
-    enhed: kg
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Maximum 10 kg uden at skelne gående/stående. Placeringen er en slutning."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
-    vaerdi_min: 0
-    vaerdi_maks: 3
-    enhed: m/s
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    min: 0
+    maks: 3
+    enhed: "m/s"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "magiclabglobal.com skriver i stedet >= 3.0m/s for samme robot. 0-3 m/s (op til 3) og >= 3 m/s (mindst 3) er ikke en afrunding fra hinanden - det er modsatte påstande."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 40
-    enhed: grader
+    enhed: "°"
     operator: "<="
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "magiclabglobal.com skriver >= 40 grader for samme robot, samme sprog, samme dag. Det ene er et loft, det andet et gulv. Begge er producentens egne."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt:
-    vaerdi: ikke_oplyst
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "TRE ETIKETTER, TRE BETYDNINGER, ET TAL - og derfor står feltet tomt. EN: Minimum obstacle clearance height < 60 cm. CN: minimum hindringsUNDVIGELSES-afstandshøjde < 60 cm - altså sensorik, ikke forcering. magiclabglobal.com: Climbs and Drops: Up to 60cm. Havde den engelske etiket været taget for pålydende, ville 60 cm være landet her, og MagicDog-W ville slå Lynx S10 på en disciplin, den ikke er dokumenteret for. Bemærk også, at operatoren < gør den engelske etiket selvmodsigende: et MINIMUM, der er MINDRE END noget."
   trappetrin_kontinuerlig:
-    vaerdi: ikke_oplyst
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Se forhindring_enkelt - de 60 cm kan ikke placeres i noget af de to trinfelter."
-  ip_klasse: ikke_oplyst
+  ip_klasse: "ikke_oplyst"
   temp_min:
     vaerdi: -5
-    enhed: C
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
   temp_maks:
     vaerdi: 40
-    enhed: C
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Kun Capacity: 8200 mAh, Rated Voltage: 29.6 V. Ingen Wh. Vi regner ikke. Samme batteri som MagicDog, hvor producenten trykker en forkert Wh-lignende værdi - det er de to måder at miste feltet på."
   driftstid:
-    vaerdi_min: 2
-    vaerdi_maks: 4
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    min: 2
+    maks: 4
+    enhed: "t"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Standby oplyses til op til 8 timer (målt)."
     advarsel_klasse: "uddybning"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.magiclab.top/en/dog-w
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.magiclab.top/en/dog-w"
+    hentet: "2026-08-19"
     advarsel: "Type uden model - tæller ikke under D4."
-  kameraer: ikke_oplyst
+  kameraer: "ikke_oplyst"
   compute:
     vaerdi: "6 TOPS onboard; standardmonteret højtydende beregningsmodul (157 TOPS)"
-    kilde: https://www.magiclab.top/dog-w
-    hentet: 2026-08-19
+    kilde: "https://www.magiclab.top/dog-w"
+    hentet: "2026-08-19"
     advarsel: "TALLET 157 TOPS STÅR KUN PÅ KINESISK. Den engelske side skriver blot Standard High-Performance Computing Accelerator Module uden tal. Samme modul som i Y1. CN-siden kræver cookien i18n_redirected=zh - URL'en alene reproducerer ikke hentningen."
   ros2:
-    vaerdi: ikke_oplyst
-    kilde: https://support.magiclab.top/docs/dog_w/about
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://support.magiclab.top/docs/dog_w/about"
+    hentet: "2026-08-19"
     advarsel: "Producentens egen udviklerdokumentation for MagicDog-W HAR ROS2 med samme struktur som MagicDogs. Feltet er ikke udfyldt, fordi D1 er åben. Dokumentationen er kun på kinesisk."
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

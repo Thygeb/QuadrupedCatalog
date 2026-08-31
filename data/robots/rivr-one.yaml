@@ -1,77 +1,77 @@
-slug: rivr-one
-navn: RIVR ONE
-producent: RIVR
-producentland: Schweiz
-status: i_produktion
-anvendelse:
-  vaerdi: logistik
-  citat: "Our delivery robot is designed to seamlessly navigate the last mile and the critical last 100 yards right to the doorstep, ensuring secure deliveries while integrating into your existing infrastructure."
-  kilde: https://www.rivr.ai/product
-  hentet: 2026-08-19
-  note: "Producentens navigation deler i Parcel Delivery, Grocery Delivery og \"Instant food and convenience store delivery\" - tre former for det samme."
-billede:
-  fil: fotos/fabrikant/rivr-one.jpg
-  ophav: fabrikant
-  kilde: https://www.rivr.ai/product
-  hentet: 2026-08-19
+slug: "rivr-one"
+navn: "RIVR ONE"
+producent: "RIVR"
+producentland: "Schweiz"
+status: "i_produktion"
 noter:
   - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
   - "Robotten sælges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkøbere, ikke til ingeniører. Kun 3 af 31 felter er oplyst: ingen vægt, ingen mål, ingen IP-klasse, ingen batteristørrelse, ingen frihedsgrader. Negativsøgt på tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste træf er de 30 kg nedenfor."
+anvendelse:
+  vaerdi: "logistik"
+  citat: "Our delivery robot is designed to seamlessly navigate the last mile and the critical last 100 yards right to the doorstep, ensuring secure deliveries while integrating into your existing infrastructure."
+  kilde: "https://www.rivr.ai/product"
+  hentet: "2026-08-19"
+  note: "Producentens navigation deler i Parcel Delivery, Grocery Delivery og \"Instant food and convenience store delivery\" - tre former for det samme."
+billede:
+  fil: "fotos/fabrikant/rivr-one.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.rivr.ai/product"
+  hentet: "2026-08-19"
 felter:
-  egenvaegt: ikke_oplyst
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
-  hoejde: ikke_oplyst
-  frihedsgrader: ikke_oplyst
+  egenvaegt: "ikke_oplyst"
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
+  hoejde: "ikke_oplyst"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 30
-    enhed: kg
+    enhed: "kg"
     operator: ">"
-    kilde: https://www.rivr.ai/product
-    hentet: 2026-08-19
+    kilde: "https://www.rivr.ai/product"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver over 30 kg of parcels, groceries, and food. Operatoren bevaret. Der skelnes ikke mellem gående og stående last."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 14
-    enhed: km/h
-    operator: "<="
+    enhed: "km/h"
+    enhed_imperial: "mph"
     vaerdi_imperial: 8.7
-    enhed_imperial: mph
-    kilde: https://www.rivr.ai/product
-    hentet: 2026-08-19
+    operator: "<="
+    kilde: "https://www.rivr.ai/product"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/h = 8,699 mph, går op. Kilden er produktsiden alene."
     advarsel_klasse: "uddybning"
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi: ikke_oplyst
-    kilde: https://www.rivr.ai/product
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.rivr.ai/product"
+    hentet: "2026-08-19"
     advarsel: "Producenten oplyser rækkevidde (over 30 km), ikke tid. Vi regner ikke baglæns - se noten."
-  hot_swap: ikke_oplyst
+  hot_swap: "ikke_oplyst"
   ladetid:
-    vaerdi_min: 2
-    vaerdi_maks: 3
-    enhed: t
-    kilde: https://www.rivr.ai/product
-    hentet: 2026-08-19
+    min: 2
+    maks: 3
+    enhed: "t"
+    kilde: "https://www.rivr.ai/product"
+    hentet: "2026-08-19"
     advarsel: "recharges in just 2-3 hours. Interval bevaret. Tankestregen i kilden er en en dash (U+2013)."
     advarsel_klasse: "uddybning"
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

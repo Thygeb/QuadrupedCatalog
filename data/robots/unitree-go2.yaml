@@ -1,184 +1,190 @@
-slug: unitree-go2
-navn: Go2
-producent: Unitree Robotics
-producentland: Kina
-status: i_produktion
+slug: "unitree-go2"
+navn: "Go2"
+producent: "Unitree Robotics"
+producentland: "Kina"
+status: "i_produktion"
+varianter:
+  - "AIR"
+  - "PRO"
+  - "X"
+  - "EDU"
 anvendelse:
-  vaerdi: [forbruger_uddannelse, forskning_udvikling]
+  vaerdi:
+    - "forbruger_uddannelse"
+    - "forskning_udvikling"
   citat:
     - "Robot - Consumer/Education"
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
-  kilde: https://www.unitree.com/
-  hentet: 2026-08-19
+  kilde: "https://www.unitree.com/"
+  hentet: "2026-08-19"
   note: "Producentens egen produktnavigation, gruppen Go2 står i."
-varianter: [AIR, PRO, X, EDU]
 billede:
-  fil: fotos/fabrikant/unitree-go2.jpg
-  ophav: fabrikant
-  kilde: https://www.unitree.com/go2
-  hentet: 2026-08-25
+  fil: "fotos/fabrikant/unitree-go2.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.unitree.com/go2"
+  hentet: "2026-08-25"
 felter:
   egenvaegt:
     vaerdi: 15
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Med batteri."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 70
-    enhed: cm
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 31
-    enhed: cm
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 40
-    enhed: cm
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Foldet 76 x 31 x 20 cm. Skemaet har ingen felter til foldemål."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
-    enhed: DoF
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    enhed: "DoF"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Siden skriver ikke Degrees of Freedom, men Aluminum knee joint motor 12 set. Talt med, fordi AlienGos egen side bruger overskriften Degrees of Freedom (number of motors) og dermed sætter lighedstegn. Regner man strengere, er feltet ikke oplyst."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 7
-    enhed: kg
+    enhed: "kg"
     operator: "~"
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
-    varianter:
-      AIR: "ca. 7 kg (maks. ca. 10 kg)"
-      PRO: "ca. 8 kg (maks. ca. 10 kg)"
-      X: "ca. 8 kg (maks. ca. 12 kg)"
-      EDU: "ca. 8 kg (maks. ca. 12 kg)"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver kun Payload og siger ikke, om det er gående eller stående last. Placeringen under gående last er en konservativ slutning ud fra størrelsesordenen, IKKE en aflæsning. Værdien er AIR-variantens."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+    varianter:
+      AIR: "ca. 7 kg (maks. ca. 10 kg)"
+      EDU: "ca. 8 kg (maks. ca. 12 kg)"
+      PRO: "ca. 8 kg (maks. ca. 10 kg)"
+      X: "ca. 8 kg (maks. ca. 12 kg)"
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
-    vaerdi_min: 0
-    vaerdi_maks: 2.5
-    enhed: m/s
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    min: 0
+    maks: 2.5
+    enhed: "m/s"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
+    advarsel: "Værdien er AIR-variantens."
+    advarsel_klasse: "gyldighed"
     varianter:
       AIR: "0~2,5 m/s"
+      EDU: "0~3,7 m/s (maks. ca. 5 m/s)"
       PRO: "0~3,5 m/s"
       X: "0~3,7 m/s (maks. ca. 5 m/s)"
-      EDU: "0~3,7 m/s (maks. ca. 5 m/s)"
-    advarsel: "Værdien er AIR-variantens."
-    advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 30
-    enhed: grader
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
-    varianter:
-      AIR: 30
-      PRO: 40
-      X: 40
-      EDU: 40
+    enhed: "°"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Værdien er AIR-variantens."
     advarsel_klasse: "gyldighed"
+    varianter:
+      AIR: 30
+      EDU: 40
+      PRO: 40
+      X: 40
   forhindring_enkelt:
     vaerdi: 15
-    enhed: cm
+    enhed: "cm"
     operator: "~"
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
-    varianter:
-      AIR: "ca. 15 cm"
-      PRO: "ca. 16 cm"
-      X: "ca. 16 cm"
-      EDU: "ca. 16 cm"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Producenten oplyser ET trinfelt uden at sige, om det er en enkelt forhindring eller kontinuerlig trappe. Placeringen her er et valg. Værdien er AIR-variantens."
     advarsel_klasse: "gyldighed"
-  trappetrin_kontinuerlig: ikke_oplyst
+    varianter:
+      AIR: "ca. 15 cm"
+      EDU: "ca. 16 cm"
+      PRO: "ca. 16 cm"
+      X: "ca. 16 cm"
+  trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Ingen IP-klasse på hele siden. Alle fire Unitree-consumermodeller (Go2, Go2-W, Go1, A1) mangler både IP-klasse og driftstemperatur; industrimodellerne har begge dele."
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
   batteri_wh:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "8000 mAh, 28~33,6 V (EDU: 15000 mAh). Wh er ikke trykt, og vi regner ikke Wh ud af mAh og volt - B2 er beviset på, at producentens eget Wh-tal ikke altid er produktet."
   driftstid:
-    vaerdi_min: 1
-    vaerdi_maks: 2
-    enhed: t
+    min: 1
+    maks: 2
+    enhed: "t"
     operator: "~"
-    ved_last: ikke_oplyst
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
-    varianter:
-      AIR: "ca. 1-2 t"
-      PRO: "ca. 1-2 t"
-      X: "ca. 1-2 t"
-      EDU: "ca. 2-4 t"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Uden lastbetingelse. Tallet kan derfor ikke stå i samme kolonne som B2's og A2's driftstider. Værdien er AIR/PRO/X."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation:
-    vaerdi: nej
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    ved_last: "ikke_oplyst"
     varianter:
-      AIR: nej
-      PRO: nej
-      X: ja
-      EDU: ja
+      AIR: "ca. 1-2 t"
+      EDU: "ca. 2-4 t"
+      PRO: "ca. 1-2 t"
+      X: "ca. 1-2 t"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation:
+    vaerdi: false
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Værdien er AIR/PRO."
+    varianter:
+      AIR: "nej"
+      EDU: "ja"
+      PRO: "nej"
+      X: "ja"
   lidar:
     vaerdi: "4D LiDAR L2"
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "En af kun to Unitree-sider, der navngiver en LiDAR-model. Go2-W bærer efter alt at dømme samme enhed, men navngiver den ikke."
   kameraer:
     vaerdi: "HD vidvinkel"
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     varianter:
       EDU: "HD vidvinkel + dybdekamera"
   compute:
     vaerdi: "8-kernet CPU"
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
+    advarsel: "Værdien er PRO/X."
     varianter:
-      AIR: ikke_oplyst
+      AIR: "ikke_oplyst"
+      EDU: "8-kernet CPU + NVIDIA Orin, 40-100 TOPS"
       PRO: "8-kernet CPU"
       X: "8-kernet CPU"
-      EDU: "8-kernet CPU + NVIDIA Orin, 40-100 TOPS"
-    advarsel: "Værdien er PRO/X."
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
   pris:
     vaerdi: 1600
-    enhed: USD
-    kilde: https://www.unitree.com/go2
-    hentet: 2026-08-19
-    varianter:
-      AIR: 1600
-      PRO: 2800
-      X: 4500
-      EDU: "Contact your sales expert"
+    enhed: "USD"
+    kilde: "https://www.unitree.com/go2"
+    hentet: "2026-08-19"
     advarsel: "Producentens egen produktside trykker rigtige priser - en af kun to Unitree-modeller, der gør det. Producenten skriver Price (Tax and freight excluded): for en dansk køber er tallet ikke slutprisen. Værdien er AIR-variantens."
     advarsel_klasse: "gyldighed"
-  ce_oplyst: ikke_oplyst
+    varianter:
+      AIR: 1600
+      EDU: "Contact your sales expert"
+      PRO: 2800
+      X: 4500
+  ce_oplyst: "ikke_oplyst"

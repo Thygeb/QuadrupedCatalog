@@ -1,52 +1,52 @@
-slug: weilan-alphadog-e400l
-navn: AlphaDog E400L
-producent: WEILAN
-producentland: Kina
-producentby: Nanjing
-status: i_produktion
-anvendelse:
-  vaerdi: ikke_oplyst
-  kilde: https://www.weilan.com/en/en/alphadoge.html
-  hentet: 2026-08-19
-  note: "Se noten på E300: E-seriens positionering ligger inde i en HTML-kommentar og bruges ikke."
-billede:
-  fil: fotos/fabrikant/weilan-alphadog-e400l.jpg
-  ophav: fabrikant
-  kilde: https://www.weilan.com/en/en/alphadoge.html
-  hentet: 2026-08-19
+slug: "weilan-alphadog-e400l"
+navn: "AlphaDog E400L"
+producent: "WEILAN"
+producentland: "Kina"
+producentby: "Nanjing"
+status: "i_produktion"
 noter:
   - "NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden består udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige på siden overhovedet; de står på producentens katalogside sammen med underteksten Enterprise Version Available."
   - "SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Målt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altså 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller."
   - "INTET AF DET ER FØRT IND SOM DATA, OG DET BØR INGEN GØRE. Kontrolleret: siden indeholder ingen innerHTML, ingen COMMENT_NODE og ingen kode, der genindsætter blokken. En browser viser intet af det. At hente tal ud af en tilbagetrukket blok ville være at udgive noget, producenten har taget ned, med producentens navn på."
   - "Forskellen betyder noget for en indkøber: det er ikke en producent, der aldrig har oplyst noget. Det er en producent, der HAR oplyst det og derefter skjult det."
+anvendelse:
+  vaerdi: "ikke_oplyst"
+  kilde: "https://www.weilan.com/en/en/alphadoge.html"
+  hentet: "2026-08-19"
+  note: "Se noten på E300: E-seriens positionering ligger inde i en HTML-kommentar og bruges ikke."
+billede:
+  fil: "fotos/fabrikant/weilan-alphadog-e400l.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.weilan.com/en/en/alphadoge.html"
+  hentet: "2026-08-19"
 felter:
-  egenvaegt: ikke_oplyst
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
-  hoejde: ikke_oplyst
-  frihedsgrader: ikke_oplyst
-  nyttelast_gaaende: ikke_oplyst
-  nyttelast_staaende: ikke_oplyst
-  hastighed: ikke_oplyst
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
-  driftstid: ikke_oplyst
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+  egenvaegt: "ikke_oplyst"
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
+  hoejde: "ikke_oplyst"
+  frihedsgrader: "ikke_oplyst"
+  nyttelast_gaaende: "ikke_oplyst"
+  nyttelast_staaende: "ikke_oplyst"
+  hastighed: "ikke_oplyst"
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
+  driftstid: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

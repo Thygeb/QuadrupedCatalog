@@ -1,99 +1,104 @@
-slug: unitree-a1
-navn: A1
-producent: Unitree Robotics
-producentland: Kina
-status: i_produktion
+slug: "unitree-a1"
+navn: "A1"
+producent: "Unitree Robotics"
+producentland: "Kina"
+status: "i_produktion"
 anvendelse:
-  vaerdi: [forbruger_uddannelse, forskning_udvikling]
+  vaerdi:
+    - "forbruger_uddannelse"
+    - "forskning_udvikling"
   citat:
     - "Robot - Consumer/Education"
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
-  kilde: https://www.unitree.com/
-  hentet: 2026-08-19
+  kilde: "https://www.unitree.com/"
+  hentet: "2026-08-19"
   note: "Producentens egen produktnavigation, gruppen A1 står i. Den engelske og den kinesiske navigation navngiver gruppen forskelligt: EN \"Consumer/Education\", CN \"forbrugerniveau / videnskabelig forskning\". Begge er producentens."
 billede:
-  fil: fotos/fabrikant/unitree-a1.png
-  ophav: fabrikant
-  kilde: https://www.unitree.com/
-  hentet: 2026-08-19
+  fil: "fotos/fabrikant/unitree-a1.png"
+  ophav: "fabrikant"
+  kilde: "https://www.unitree.com/"
+  hentet: "2026-08-19"
 felter:
   egenvaegt:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "Negativkontrolleret: ordet Weight står ikke ET sted på siden."
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
-  hoejde: ikke_oplyst
-  frihedsgrader: ikke_oplyst
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
+  hoejde: "ikke_oplyst"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 5
-    enhed: kg
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Effective Load uden at skelne gående/stående. Placeringen er en slutning."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3.3
-    enhed: m/s
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    enhed: "m/s"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver 3.3 m/s (11.88 km/h) som maximum continuous running speed. Krydstjek: 3,3 m/s = 11,88 km/h, går op."
     advarsel_klasse: "uddybning"
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "Siden skriver, at foden er vand- og støvtæt, uden klasse."
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 1
-    vaerdi_maks: 2.5
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    min: 1
+    maks: 2.5
+    enhed: "t"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "Uden lastbetingelse."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "High-precision Lidar, tilvalg - uden model."
   kameraer:
     vaerdi: "RealSense-dybdekamera (0,3-10 m, 1080p, fejl < 2 % inden for 2 m)"
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
   compute:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "dual master control uden model."
-  ros2: ikke_oplyst
+  ros2: "ikke_oplyst"
   sdk_sprog:
-    vaerdi: ikke_oplyst
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "up level, bottom level real-time API - uden sprog."
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "5 V; 12 V; 19 V ud (24 V ind)"
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
     advarsel: "Spænding oplyst, watt ikke. 24 V er strøm IND og hører ikke i dette felt."
   dataporte:
-    vaerdi: ["HDMI x2", "Ethernet x2", "USB x4"]
-    kilde: https://www.unitree.com/A1
-    hentet: 2026-08-19
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+    vaerdi:
+      - "HDMI x2"
+      - "Ethernet x2"
+      - "USB x4"
+    kilde: "https://www.unitree.com/A1"
+    hentet: "2026-08-19"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

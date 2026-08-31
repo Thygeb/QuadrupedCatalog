@@ -1,141 +1,147 @@
-slug: deep-robotics-lite3
-navn: Jueying Lite3
-producent: DEEP Robotics
-producentland: Kina
-producentby: Hangzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [forbruger_uddannelse, forskning_udvikling]
-  citat: "Uddannelse og videnskabelig forskning (教育科研)"
-  kilde: https://www.deeprobotics.cn/robot/index/product1.html
-  hentet: 2026-08-19
-  note: "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får \"教育科研\" (uddannelse og videnskabelig forskning), X20 og X30 får \"行业应用\" (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
-varianter: [Basic, Venture, Pro, LIDAR]
-billede:
-  fil: fotos/fabrikant/deep-robotics-lite3.jpg
-  ophav: fabrikant
-  kilde: https://www.deeprobotics.cn/en/wap/product1.html
-  hentet: 2026-08-24
-  alt: "DEEP Robotics Lite3, hvidt studiofoto/render fra siden af"
+slug: "deep-robotics-lite3"
+navn: "Jueying Lite3"
+producent: "DEEP Robotics"
+producentland: "Kina"
+producentby: "Hangzhou"
+status: "i_produktion"
+varianter:
+  - "Basic"
+  - "Venture"
+  - "Pro"
+  - "LIDAR"
 noter:
   - "Fire varianter i faneblade på samme produktside. Nyttelasten falder, når udstyret stiger: 5 - 4,5 - 4 - 2,5 kg. Producenten trækker sensorvægten fra nyttelasten. På det felt, der filtreres mest på, er de fire varianter fire forskellige robotter med en spredning på faktor 2."
   - "Ingen hastighed, ingen IP-klasse, ingen driftstemperatur, ingen batterikapacitet og ingen frihedsgrader på nogen variant, på noget sprog."
+anvendelse:
+  vaerdi:
+    - "forbruger_uddannelse"
+    - "forskning_udvikling"
+  citat: "Uddannelse og videnskabelig forskning (教育科研)"
+  kilde: "https://www.deeprobotics.cn/robot/index/product1.html"
+  hentet: "2026-08-19"
+  note: "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får \"教育科研\" (uddannelse og videnskabelig forskning), X20 og X30 får \"行业应用\" (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
+billede:
+  fil: "fotos/fabrikant/deep-robotics-lite3.jpg"
+  ophav: "fabrikant"
+  kilde: "https://www.deeprobotics.cn/en/wap/product1.html"
+  hentet: "2026-08-24"
+  alt: "DEEP Robotics Lite3, hvidt studiofoto/render fra siden af"
 felter:
   egenvaegt:
     vaerdi: 12
-    enhed: kg
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
-    varianter:
-      Basic: 12
-      Venture: 12.2
-      Pro: 12.9
-      LIDAR: 13.5
+    enhed: "kg"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Med batteri. Værdien er Basic-variantens."
     advarsel_klasse: "gyldighed"
+    varianter:
+      Basic: 12
+      LIDAR: 13.5
+      Pro: 12.9
+      Venture: 12.2
   laengde:
     vaerdi: 610
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 370
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
   hoejde:
     vaerdi: 406
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
-    varianter:
-      Basic: 406
-      Venture: 445
-      Pro: 450
-      LIDAR: 496
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Højden stiger med sensorpakken. Værdien er Basic-variantens."
     advarsel_klasse: "gyldighed"
-  frihedsgrader: ikke_oplyst
+    varianter:
+      Basic: 406
+      LIDAR: 496
+      Pro: 450
+      Venture: 445
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 5
-    enhed: kg
-    kilde: https://www.deeprobotics.cn/robot/index/product1.html
-    hentet: 2026-08-19
-    varianter:
-      Basic: 5
-      Venture: 4.5
-      Pro: 4
-      LIDAR: 2.5
+    enhed: "kg"
+    kilde: "https://www.deeprobotics.cn/robot/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Den kinesiske etiket er KONTINUERLIG gående last; den engelske skriver blot Walking Load. Værdien er Basic-variantens."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
-  hastighed: ikke_oplyst
+    varianter:
+      Basic: 5
+      LIDAR: 2.5
+      Pro: 4
+      Venture: 4.5
+  nyttelast_staaende: "ikke_oplyst"
+  hastighed: "ikke_oplyst"
   haeldning:
     vaerdi: 40
-    enhed: grader
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
+    enhed: "°"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Ens for alle fire varianter."
     advarsel_klasse: "uddybning"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 18
-    enhed: cm
-    kilde: https://www.deeprobotics.cn/robot/index/product1.html
-    hentet: 2026-08-19
+    enhed: "cm"
+    kilde: "https://www.deeprobotics.cn/robot/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "KUN den kinesiske side afgør, hvilket felt tallet hører i. CN-etiketten er kontinuerlig trappehøjde; EN-etiketten er bare ordet Stair. Læser man kun engelsk, kan tallet lige så godt lande i forhindring_enkelt - og så sammenlignes en kontinuerlig trappehøjde med andre robotters enkelttrin, som er 2-4 gange større."
     advarsel_klasse: "gyldighed"
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 1.5
-    vaerdi_maks: 2
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
-    varianter:
-      Basic: "1,5-2 t, 5 km"
-      Venture: "1,5-2 t, 4 km"
-      Pro: "1,5-2 t, 3,4 km"
-      LIDAR: "1,5-2 t, 2,7 km"
+    min: 1.5
+    maks: 2
+    enhed: "t"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Ingen lastbetingelse. Rækkevidden falder med udstyret; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+    ved_last: "ikke_oplyst"
+    varianter:
+      Basic: "1,5-2 t, 5 km"
+      LIDAR: "1,5-2 t, 2,7 km"
+      Pro: "1,5-2 t, 3,4 km"
+      Venture: "1,5-2 t, 4 km"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "stopper for forhindring; følger person"
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
+    advarsel: "Kvalitativt. Værdien er Basic-variantens."
     varianter:
       Basic: "stopper for forhindring; følger"
-      Venture: "+ fremadrettet undvigelse"
-      Pro: "+ fremadrettet undvigelse"
       LIDAR: "+ Auto Navigation"
-    advarsel: "Kvalitativt. Værdien er Basic-variantens."
-  monteringsinterface: ikke_oplyst
+      Pro: "+ fremadrettet undvigelse"
+      Venture: "+ fremadrettet undvigelse"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
-    vaerdi: ikke_oplyst
-    kilde: https://deeprobotics.cn/en/index/product1.html
-    hentet: 2026-08-19
+    vaerdi: "ikke_oplyst"
+    kilde: "https://deeprobotics.cn/en/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Siden oplyser External Power Input (24V/12V/5V). Det er strøm IND, ikke ud. Det gamle udkast talte det som strøm ud - samme fejl som 72V power input på Lynx M20."
   dataporte:
-    vaerdi: nej
-    kilde: https://www.deeprobotics.cn/robot/index/product1.html
-    hentet: 2026-08-19
-    varianter:
-      Basic: nej
-      Venture: "Ethernet x2"
-      Pro: "USB 3.0; HDMI; Ethernet"
-      LIDAR: "USB 3.0; HDMI; Ethernet"
+    vaerdi: "nej"
+    kilde: "https://www.deeprobotics.cn/robot/index/product1.html"
+    hentet: "2026-08-19"
     advarsel: "Basic-kolonnen har eksplicit INGEN (CN) / (EN). Det er et NEJ, ikke ikke oplyst. Værdien er Basic-variantens."
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+    varianter:
+      Basic: "nej"
+      LIDAR: "USB 3.0; HDMI; Ethernet"
+      Pro: "USB 3.0; HDMI; Ethernet"
+      Venture: "Ethernet x2"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

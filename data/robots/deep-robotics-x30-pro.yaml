@@ -1,120 +1,127 @@
-slug: deep-robotics-x30-pro
-navn: Jueying X30 Pro
-producent: DEEP Robotics
-producentland: Kina
-producentby: Hangzhou
-status: i_produktion
-anvendelse:
-  vaerdi: [industri, inspektion, sikkerhed_overvaagning]
-  citat: "X30 quadruped robot, a flagship product designed to meet core industry needs in multiple fields including inspection, investigation, security, surveying and mapping."
-  kilde: https://deeprobotics.cn/en/index/product3.html
-  hentet: 2026-08-19
-  arvet_fra: deep-robotics-x30
-  note: "ARVET (L23). X30 Pro har ingen egen produktside; den står som en variant på X30-siden, og sætningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er dækket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed og overvågning."
+slug: "deep-robotics-x30-pro"
+navn: "Jueying X30 Pro"
+producent: "DEEP Robotics"
+producentland: "Kina"
+producentby: "Hangzhou"
+status: "i_produktion"
 noter:
   - "Står som egen kolonne på X30's produktside. Afviger fra X30 på tre felter: vægt, det midterste mål og portlisten. Alt andet er tegn for tegn ens."
+anvendelse:
+  vaerdi:
+    - "industri"
+    - "inspektion"
+    - "sikkerhed_overvaagning"
+  citat: "X30 quadruped robot, a flagship product designed to meet core industry needs in multiple fields including inspection, investigation, security, surveying and mapping."
+  kilde: "https://deeprobotics.cn/en/index/product3.html"
+  hentet: "2026-08-19"
+  arvet_fra: "deep-robotics-x30"
+  note: "ARVET (L23). X30 Pro har ingen egen produktside; den står som en variant på X30-siden, og sætningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er dækket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed og overvågning."
 billede:
-  fil: fotos/fabrikant/deep-robotics-x30-pro.jpg
-  ophav: fabrikant
-  kilde: https://deeprobotics.cn/en/index/product3.html
-  hentet: 2026-08-19
+  fil: "fotos/fabrikant/deep-robotics-x30-pro.jpg"
+  ophav: "fabrikant"
+  kilde: "https://deeprobotics.cn/en/index/product3.html"
+  hentet: "2026-08-19"
   alt: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
   note: "Samme billede bruges af producenten på både X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
 felter:
   egenvaegt:
     vaerdi: 59
-    enhed: kg
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    enhed: "kg"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "Med batteri (battery included)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1000
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
   bredde:
     vaerdi: 715
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at mærke akserne, og X20-siden bruger en anden rækkefølge. Den trykte rækkefølge er fulgt bogstaveligt. Bredde og højde kan være byttet om."
     advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 470
-    enhed: mm
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    enhed: "mm"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "USIKKER TILDELING - se bredde."
     advarsel_klasse: "gyldighed"
-  frihedsgrader: ikke_oplyst
-  nyttelast_gaaende: ikke_oplyst
-  nyttelast_staaende: ikke_oplyst
+  frihedsgrader: "ikke_oplyst"
+  nyttelast_gaaende: "ikke_oplyst"
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 4
-    enhed: m/s
+    enhed: "m/s"
     operator: ">="
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
   haeldning:
     vaerdi: 45
-    enhed: grader
+    enhed: "°"
     operator: "<="
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "Tegn U+2264 - et loft, ikke en præstation."
     advarsel_klasse: "gyldighed"
-  forhindring_enkelt: ikke_oplyst
+  forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 20
-    enhed: cm
+    enhed: "cm"
     operator: ">="
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "Kombineret etiket Step/Obstacle H, lagt i det strengeste felt."
     advarsel_klasse: "gyldighed"
   ip_klasse:
-    vaerdi: IP67
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    vaerdi: "IP67"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
   temp_min:
     vaerdi: -20
-    enhed: C
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    enhed: "°C"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
   temp_maks:
     vaerdi: 55
-    enhed: C
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
-  batteri_wh: ikke_oplyst
+    enhed: "°C"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
+  batteri_wh: "ikke_oplyst"
   driftstid:
-    vaerdi_min: 2.5
-    vaerdi_maks: 4
-    enhed: t
-    ved_last: ikke_oplyst
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    min: 2.5
+    maks: 4
+    enhed: "t"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "Rækkevidde >= 10 km. Ingen lastbetingelse."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
-  autonominiveau: ikke_oplyst
-  monteringsinterface: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
+  autonominiveau: "ikke_oplyst"
+  monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "5 V; 12 V; 24 V"
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
     advarsel: "Producenten skriver Output power supply (5V 12V 24V). Watt ikke oplyst. X30 uden Pro oplyser i stedet 72 V BAT - de to varianter har forskellig udgangsspænding."
   dataporte:
-    vaerdi: ["USB 2.0", "USB 3.0", "Ethernet", "WiFi"]
-    kilde: https://deeprobotics.cn/en/index/product3.html
-    hentet: 2026-08-19
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+    vaerdi:
+      - "USB 2.0"
+      - "USB 3.0"
+      - "Ethernet"
+      - "WiFi"
+    kilde: "https://deeprobotics.cn/en/index/product3.html"
+    hentet: "2026-08-19"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"

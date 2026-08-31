@@ -1,86 +1,89 @@
-slug: bhairav-robotics-shvana
-navn: Shvana
-producent: Bhairav Robotics
-producentland: Indien
-producentby: Kakinada, Andhra Pradesh
-status: annonceret
-anvendelse:
-  vaerdi: [forsvar_beredskab, industri, inspektion]
-  citat:
-    - "Defence & Homeland Security: Shvana can be effectively used by various divisions of armed forces for: Strategic area monitoring | Border patrol & surveillance | Tactical situations | Explosive detection | Search and rescue operations. Shvana also offers the possibility of carrying EW (electronic warfare) payloads, munitions etc., with advanced target tracking software and image recognition capabilities."
-    - "Industrial Environments: ... Confined area entry | Hazardous/Corrosive environment inspection | Routine field checks – detecting leaks, abnormal sound, etc | Detecting hotspots | Handling radioactive waste | Fire fighting"
-  kilde: https://bhairavrobotics.com/shvana-robot/
-  hentet: 2026-08-24
-  note: "\"Defence & Homeland Security\" med bevæbnings-/ammunitionsomtale ('munitions', 'EW payloads') -> forsvar og beredskab (IKKE sikkerhed og overvågning - L22 indførte netop den kategori for at skille civil patrulje/overvågning fra militærplatforme, og Shvana er eksplicit \"Bharat's first ARMED quadruped\" for væbnede styrker). \"Industrial Environments\" med \"Hazardous/Corrosive environment inspection\", \"Routine field checks - detecting leaks\" m.fl. -> industri + inspektion."
+slug: "bhairav-robotics-shvana"
+navn: "Shvana"
+producent: "Bhairav Robotics"
+producentland: "Indien"
+producentby: "Kakinada, Andhra Pradesh"
+status: "annonceret"
 noter:
   - "STATUS-VURDERING, IKKE ENTYDIG FRA PRODUCENTEN SELV: Shvana-siden præsenterer robotten med et konkret \"Features\"-specark (samme opbygning som et sælgende produkt), men bruger intetsteds ord som \"available now\", \"in production\", \"order\" eller lignende - eneste handlingsopfordring er \"For more details, email info@bhairavrobotics.com\". Ingen kundecase, ingen leveret enhed nævnt (i modsætning til Keybotic Keypers case study). Sættes derfor til status: annonceret, ikke i_produktion."
   - "COMPUTE BEVIDST IKKE SAT TIL EN VÆRDI: \"Thanks to... onboard computational power, Shvana can quickly adapt\" nævner \"onboard computational power\" uden noget chip-navn, kerneantal eller TOPS-tal. Teksten bærer ingen målbar oplysning ud over at der findes en computer ombord - ikke oplyst er derfor mere ærligt end at gengive en indholdsløs sætning som et \"felt\"."
   - "INGEN DIMENSIONER, IP-KLASSE, TEMPERATUR, BATTERI-Wh, LADETID, DOCKINGSTATION, HOT-SWAP, ROS2, SDK-SPROG, HÆLDNING, FORHINDRINGSHØJDE ELLER PRIS FUNDET NOGEN STEDER PÅ PRODUCENTENS SITE (shvana-robot/, forside, careers, kontakt-side delvist utilgængelig). Alle disse felter står ikke oplyst uden yderligere note, da der intet var at citere - hverken tal, kvalitativ tekst eller modsigelse."
+anvendelse:
+  vaerdi:
+    - "forsvar_beredskab"
+    - "industri"
+    - "inspektion"
+  citat:
+    - "Defence & Homeland Security: Shvana can be effectively used by various divisions of armed forces for: Strategic area monitoring | Border patrol & surveillance | Tactical situations | Explosive detection | Search and rescue operations. Shvana also offers the possibility of carrying EW (electronic warfare) payloads, munitions etc., with advanced target tracking software and image recognition capabilities."
+    - "Industrial Environments: ... Confined area entry | Hazardous/Corrosive environment inspection | Routine field checks – detecting leaks, abnormal sound, etc | Detecting hotspots | Handling radioactive waste | Fire fighting"
+  kilde: "https://bhairavrobotics.com/shvana-robot/"
+  hentet: "2026-08-24"
+  note: "\"Defence & Homeland Security\" med bevæbnings-/ammunitionsomtale ('munitions', 'EW payloads') -> forsvar og beredskab (IKKE sikkerhed og overvågning - L22 indførte netop den kategori for at skille civil patrulje/overvågning fra militærplatforme, og Shvana er eksplicit \"Bharat's first ARMED quadruped\" for væbnede styrker). \"Industrial Environments\" med \"Hazardous/Corrosive environment inspection\", \"Routine field checks - detecting leaks\" m.fl. -> industri + inspektion."
 billede:
-  fil: fotos/fabrikant/bhairav-robotics-shvana.png
-  ophav: fabrikant
-  kilde: https://bhairavrobotics.com/wp-content/uploads/sites/197/2025/08/Shvana-page-pic1.png
-  hentet: 2026-08-26
+  fil: "fotos/fabrikant/bhairav-robotics-shvana.png"
+  ophav: "fabrikant"
+  kilde: "https://bhairavrobotics.com/wp-content/uploads/sites/197/2025/08/Shvana-page-pic1.png"
+  hentet: "2026-08-26"
   alt: "Bhairav Robotics Shvana, staaende firbenet robot, studiofoto paa sort baggrund"
 felter:
   egenvaegt:
     vaerdi: 25
-    enhed: kg
-    kilde: https://bhairavrobotics.com/shvana-robot/
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://bhairavrobotics.com/shvana-robot/"
+    hentet: "2026-08-24"
     advarsel: "\"Weight: 25 kg (minus payload)\" - se topnote: eksplicit UDEN nyttelast."
     advarsel_klasse: "uddybning"
-  laengde: ikke_oplyst
-  bredde: ikke_oplyst
-  hoejde: ikke_oplyst
-  frihedsgrader: ikke_oplyst
+  laengde: "ikke_oplyst"
+  bredde: "ikke_oplyst"
+  hoejde: "ikke_oplyst"
+  frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 10
-    enhed: kg
-    kilde: https://bhairavrobotics.com/shvana-robot/
-    hentet: 2026-08-24
+    enhed: "kg"
+    kilde: "https://bhairavrobotics.com/shvana-robot/"
+    hentet: "2026-08-24"
     advarsel: "\"Payload: 10 kg\" - se topnote om placering som gående, ikke stående."
     advarsel_klasse: "gyldighed"
-  nyttelast_staaende: ikke_oplyst
+  nyttelast_staaende: "ikke_oplyst"
   hastighed:
     min: 2
     maks: 5
-    enhed: m/s
+    enhed: "m/s"
     operator: "~"
-    kilde: https://bhairavrobotics.com/shvana-robot/
-    hentet: 2026-08-24
+    kilde: "https://bhairavrobotics.com/shvana-robot/"
+    hentet: "2026-08-24"
     advarsel: "\"Speed: ~2-5 m/sec\" - producentens eget tilde-forbehold bevaret som operator på hele intervallet."
     advarsel_klasse: "uddybning"
-  haeldning: ikke_oplyst
-  forhindring_enkelt: ikke_oplyst
-  trappetrin_kontinuerlig: ikke_oplyst
-  ip_klasse: ikke_oplyst
-  temp_min: ikke_oplyst
-  temp_maks: ikke_oplyst
-  batteri_wh: ikke_oplyst
+  haeldning: "ikke_oplyst"
+  forhindring_enkelt: "ikke_oplyst"
+  trappetrin_kontinuerlig: "ikke_oplyst"
+  ip_klasse: "ikke_oplyst"
+  temp_min: "ikke_oplyst"
+  temp_maks: "ikke_oplyst"
+  batteri_wh: "ikke_oplyst"
   driftstid:
     vaerdi: 120
-    enhed: min
+    enhed: "min"
     operator: "~"
-    ved_last: ikke_oplyst
-    kilde: https://bhairavrobotics.com/shvana-robot/
-    hentet: 2026-08-24
+    kilde: "https://bhairavrobotics.com/shvana-robot/"
+    hentet: "2026-08-24"
     advarsel: "\"Endurance: ~120 mins\" - ingen lastbetingelse knyttet til dette tal. Det separate \"Payload: 10 kg\" står som sit eget punkt i samme liste, IKKE eksplicit bundet til driftstidstallet - vi antager derfor ikke en sammenhæng, regel 8."
     advarsel_klasse: "gyldighed"
-  hot_swap: ikke_oplyst
-  ladetid: ikke_oplyst
-  dockingstation: ikke_oplyst
-  lidar: ikke_oplyst
-  kameraer: ikke_oplyst
-  compute: ikke_oplyst
-  ros2: ikke_oplyst
-  sdk_sprog: ikke_oplyst
+    ved_last: "ikke_oplyst"
+  hot_swap: "ikke_oplyst"
+  ladetid: "ikke_oplyst"
+  dockingstation: "ikke_oplyst"
+  lidar: "ikke_oplyst"
+  kameraer: "ikke_oplyst"
+  compute: "ikke_oplyst"
+  ros2: "ikke_oplyst"
+  sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "Reinforcement learning-baseret styring med onboard beregningskraft, der lader Shvana hurtigt tilpasse sig nye omgivelser (\"Thanks to the reinforcement learning algorithms and onboard computational power, Shvana can quickly adapt to new surroundings\"). Ingen eksplicit navngivet autonominiveau-skala eller SLAM-detalje oplyst."
-    kilde: https://bhairavrobotics.com/shvana-robot/
-    hentet: 2026-08-24
-  monteringsinterface: ikke_oplyst
-  stroem_ud: ikke_oplyst
-  dataporte: ikke_oplyst
-  pris: ikke_oplyst
-  ce_oplyst: ikke_oplyst
+    kilde: "https://bhairavrobotics.com/shvana-robot/"
+    hentet: "2026-08-24"
+  monteringsinterface: "ikke_oplyst"
+  stroem_ud: "ikke_oplyst"
+  dataporte: "ikke_oplyst"
+  pris: "ikke_oplyst"
+  ce_oplyst: "ikke_oplyst"
