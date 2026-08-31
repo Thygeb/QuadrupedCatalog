@@ -76,15 +76,14 @@ const VK = [
 ];
 const VK_UO = { k: 'ikke_oplyst', navn: t('vaegtklasse_ikke_oplyst'), n: vkM.get('ikke_oplyst') || 0, kort: ['IKKE', 'OPLYST'] };
 
-// Højdespaend pr. vægtklasse — SIGNATUREN
+// Højdespaend pr. vægtklasse — IKKE længere signaturen (JPK's dom, 31. aug 2026,
+// droppede højdelinealens tegning). Regnes stadig, kun til byggets eget logudskrift.
 for (const kl of [...VK, VK_UO]) {
   const h = R.filter((x) => x.vaegtklasse === kl.k).map((x) => iCm(felt(x, 'hoejde'))).filter((v) => v != null);
   kl.maalt = h.length;
   kl.min = h.length ? Math.min(...h) : null;
   kl.maks = h.length ? Math.max(...h) : null;
 }
-const H_MAALT = [...VK, VK_UO].reduce((s, k) => s + k.maalt, 0);
-const H_TOP = Math.max(...VK.map((k) => k.maks));
 
 // IP-klasse
 const ipM = new Map();
@@ -181,39 +180,6 @@ const facet = (navn, o, note, krop) => `<fieldset class="facet facet--s${o.s}${o
 ${krop}
 </fieldset>`;
 
-/* 6a. SIGNATUREN: højdelinealen ------------------------------------------ */
-function lineal() {
-  const B = 400, H = 216, GRUND = 166, TOP_CM = 100, SK = 1.32;
-  const y = (cm) => GRUND - cm * SK;
-  const kol0 = 46, kolB = 76, spring = 92;
-  const kx = (i) => kol0 + i * spring;
-  let s = `<svg class="lineal" viewBox="0 0 ${B} ${H}" role="img" aria-labelledby="lineal-t lineal-b">
-<title id="lineal-t">Højden pr. vægtklasse i fælles målestok</title>
-<desc id="lineal-b">${VK.map((k) => `${k.navn}: målt højde ${komma(k.min, 0)} til ${komma(k.maks, 0)} centimeter på ${k.maalt} af ${k.n} robotter.`).join(' ')} ${VK_UO.navn}: ingen af de ${VK_UO.n} robotter oplyser en højde, og gruppen kan derfor ikke tegnes i målestok.</desc>`;
-  for (const cm of [0, 25, 50, 75, 100]) {
-    const yy = y(cm).toFixed(1);
-    s += `<line x1="40" y1="${yy}" x2="${B - 2}" y2="${yy}" stroke="${cm === 0 ? '#22262A' : '#C6CCD1'}" stroke-width="${cm === 0 ? 1.5 : 1}"${cm === 0 ? '' : ' stroke-dasharray="1 3"'}/>`;
-    s += `<text class="lineal__akse" x="34" y="${(y(cm) + 3.4).toFixed(1)}" text-anchor="end">${cm}</text>`;
-  }
-  s += `<text class="lineal__akse" x="34" y="${(y(TOP_CM) - 9).toFixed(1)}" text-anchor="end">CM</text>`;
-  VK.forEach((k, i) => {
-    const x = kx(i), yTop = y(k.maks), h = y(k.min) - y(k.maks);
-    s += `<rect x="${x}" y="${yTop.toFixed(1)}" width="${kolB}" height="${Math.max(h, 2).toFixed(1)}" rx="2" fill="#22262A"/>`;
-    s += `<text class="lineal__spand" x="${x + kolB / 2}" y="${(yTop - 6).toFixed(1)}" text-anchor="middle">${komma(k.min, 0)}–${komma(k.maks, 0)} cm</text>`;
-    s += `<text class="lineal__navn" x="${x + kolB / 2}" y="${GRUND + 15}" text-anchor="middle">${k.kort[0]}</text>`;
-    s += `<text class="lineal__navn" x="${x + kolB / 2}" y="${GRUND + 26}" text-anchor="middle">${k.kort[1]}</text>`;
-    s += `<text class="lineal__spand" x="${x + kolB / 2}" y="${GRUND + 40}" text-anchor="middle">${k.maalt} af ${k.n} målt</text>`;
-  });
-  const x3 = kx(3), yTop3 = y(TOP_CM);
-  s += `<rect x="${x3}" y="${yTop3.toFixed(1)}" width="${kolB}" height="${(GRUND - yTop3).toFixed(1)}" rx="2" fill="none" stroke="#9AA3A9" stroke-width="1.3" stroke-dasharray="4 3.5"/>`;
-  s += `<text class="lineal__ukendt" x="${x3 + kolB / 2}" y="${(GRUND - (GRUND - yTop3) / 2 + 3).toFixed(1)}" text-anchor="middle">UKENDT</text>`;
-  s += `<text class="lineal__navn" x="${x3 + kolB / 2}" y="${GRUND + 15}" text-anchor="middle" fill="#5F686F">${VK_UO.kort[0]}</text>`;
-  s += `<text class="lineal__navn" x="${x3 + kolB / 2}" y="${GRUND + 26}" text-anchor="middle" fill="#5F686F">${VK_UO.kort[1]}</text>`;
-  s += `<text class="lineal__spand lineal__spand--uoplyst" x="${x3 + kolB / 2}" y="${GRUND + 40}" text-anchor="middle">0 af ${VK_UO.n} målt</text>`;
-  s += `</svg>`;
-  return s;
-}
-
 /* --- 7. Katalogsiden ------------------------------------------------------ */
 const KONTRAKT = `<!--
 TYPESKILTET — retningskontrakt, spor/nyverden, 31. aug 2026
@@ -233,8 +199,9 @@ STORY: Læseren ser at feltet er måleligt, at 27 af 77 ikke oplyser IP-klasse, 
 
 FIRST VIEWPORT: Pladen fylder foldet. Typeskiltets hoved øverst med TYPE/UDGAVE/
 POSTER/TAL MED KILDE stanset til højre; derunder den klæbende strimmel med de
-aktive valg og tælleren i gult; derunder facetlaget i fire stansede felter, hvor
-VÆGTKLASSE bærer højdelinealen.
+aktive valg og tælleren i gult; derunder facetlaget i fire stansede felter.
+Højdelinealen (vægtklasse) og tæthedsmåleren på robotsiden er droppet ved
+JPK's dom, 31. aug 2026 — se MANIFEST.md.
 
 FORM: Typeskilt/maskinskilt. Pinnet af briefet (L54–L56), ikke rullet frem.
 
@@ -363,11 +330,7 @@ Hvert tal har en kilde og en hentedato. Felter, producenten ikke oplyser, er tæ
 
 ${facet(t('filter_anvendelse'), { s: 3 }, 'flerværdi', anvRk)}
 
-${facet(t('filter_vaegt'), { s: 4 }, 'målestok', `${lineal()}
-<p class="fod">Højden er målt på de <b>${H_MAALT} af ${R.length}</b> robotter, der oplyser den.
-Klasserne overlapper: en robot på ${VK[1].navn.toLowerCase()} kan være højere end en på ${VK[2].navn.toLowerCase()}.
-Gruppen uden oplyst vægt kan slet ikke tegnes — derfor står den stiplet og tom.</p>
-${vkRk}`)}
+${facet(t('filter_vaegt'), { s: 4 }, null, vkRk)}
 
 ${facet('Egenskaber', { s: 5, slut: true }, 'ja · nej · ikke oplyst', `${chipsHtml}
 <p class="fod">Hver linje summer til ${R.length}. Af de ${CHIPS[2].nej} robotter, der <b>ikke</b> arbejder i frost,
@@ -465,9 +428,6 @@ function vaerdi(f) {
 function robotside() {
   const x = SPOT;
   const f = foto(x.slug);
-  const oplyste = Object.keys(x.alle_felter).filter((k) => erOplyst(x.alle_felter[k])).length;
-  const naevner = D.naevnere[0];
-  const pct = x.taethed[String(naevner)];
 
   const raekker = GRUPPER.map(([navn, felter]) => {
     const rk = felter.map((k) => {
@@ -508,11 +468,6 @@ ${x.anvendelse.vaerdi.map((a) => `<span class="mrk">${esc(t('anvendelse_' + a))}
 <span class="mrk mrk--uoplyst">${esc(t('felt_ce_oplyst'))}: ${esc(t('tilstand_ikke_oplyst', 'ikke oplyst'))}</span>
 </p>
 
-<div class="taethedsplade">
-<p class="taethedsplade__top"><span class="taethedsplade__tal">${pct} %</span><span class="taethedsplade__ord">${esc(t('taethed_titel'))}</span></p>
-<div class="bjaelke"><i style="width:${pct}%"></i></div>
-<p>${esc(t('taethed_forklaring'))} Her: <b>${oplyste} af ${naevner}</b> felter udfyldt.</p>
-</div>
 <div class="kildeliste">
 <h2 class="skema__navn" style="padding:0 0 4px">Kilder</h2>
 <ol>
@@ -550,8 +505,10 @@ paastand(ST.reduce((s, k) => s + k.n, 0) === R.length, `status summer til ${R.le
 paastand(LA.reduce((s, k) => s + k.n, 0) === R.length, `land summer til ${R.length}`);
 paastand(IP.reduce((s, k) => s + k.n, 0) + IP_NEJ + IP_UO === R.length, `IP-klasse summer til ${R.length}`);
 for (const c of CHIPS) paastand(c.sum === R.length, `chip "${c.navn}" summer til ${R.length} (${c.ja}/${c.nej}/${c.uo})`);
-paastand(H_MAALT === R.filter((x) => iCm(felt(x, 'hoejde')) != null).length, `højdelinealens ${H_MAALT} målte højder er alle målte højder`);
-paastand(VK_UO.maalt === 0, `gruppen "${VK_UO.navn}" har 0 målte højder og kan ikke tegnes i målestok`);
+// De to assertions om højdelinealens tegning (målte højder / "kan tegnes i
+// målestok") er fjernet her — JPK's dom 31. aug 2026 droppede selve tegningen,
+// og der er derfor intet visuelt at bevise integriteten af. Sænker IKKE noget
+// facetsum- eller billedkrav; kun assertions bundet til den droppede grafik.
 
 const navne = new Set(TRUFNE.map((x) => x.navn));
 paastand(navne.size >= 20, `katalog-compen viser ${navne.size} forskellige robotnavne (krævet: 20)`);

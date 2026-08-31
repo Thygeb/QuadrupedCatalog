@@ -104,10 +104,26 @@ skrivemaskineskrift ville kun tilføje en pose.
 
 ---
 
-## Signaturelementet: **højdelinealen**
+## Signaturelementet: **typeskilt-pladen**
 
-Vægtklasse-facetten er ikke en liste med tal. Den er en **måltro tegning i én
-fælles målestok**, tegnet af de højder, producenterne faktisk oplyser:
+**Ved JPK's dom, 31. aug 2026, er to blokke droppet:** højdelinealen i denne
+facet, og tæthedsmåleren på robotsiden (den store procentblok under robotnavnet,
+der havde titlen "Specifikationstæthed"). Signaturen er derfor ikke længere en
+tegning i én facet — den er selve **stempelblokken** i pladens hoved: TYPE ·
+UDGAVE · POSTER · OPLYSTE FELTER, stanset til højre, med afmærkningsgul som
+eneste markering (se *Paletten* ovenfor). Vægtklasse-facetten består som fire
+afkrydsningsfelter — Under 20 kg (18) · 20–40 kg (19) · Over 40 kg (29) · Vægt
+ikke oplyst (11), sidstnævnte fortsat i stiplet ikke-oplyst-stil — i samme
+tre-tilstandsstil som resten af pladen, uden en særskilt grafik. Tætheden
+består som **begreb**: se *Hvad compen ikke svarer på* — sorteringsmenuen i
+denne comp har aldrig haft en "Specifikationstæthed"-mulighed (listen er
+Alfabetisk · Lanceringsdato · Pris · Nyttelast · Hastighed), så der er intet
+at røre der som følge af drop'et.
+
+### Hvad der blev droppet, til referencen
+
+Højdelinealen tegnede vægtklassernes højdespænd i én fælles målestok, af de
+højder producenterne faktisk oplyser:
 
 | Gruppe | Målt | Højdespænd |
 |---|---|---|
@@ -116,34 +132,16 @@ fælles målestok**, tegnet af de højder, producenterne faktisk oplyser:
 | Over 40 kg | 28 af 29 | 47–93 cm |
 | Vægt ikke oplyst | **0 af 11** | **kan ikke tegnes** |
 
-**Skalaen ER informationen.** To ting bliver synlige, som en talkolonne skjuler:
+Pointen — at klasserne overlapper, og at gruppen "vægt ikke oplyst" slet ikke
+kan tegnes i målestok — var rigtig, men er nu et faktum uden en tegning. Tallene
+regnes fortsat i `byg-comp.mjs` (til byggets eget logudskrift), men de to
+assertions, der bevidste tegningens integritet, er fjernet sammen med selve
+tegningen, se *Sådan er compen bygget*.
 
-1. **Klasserne overlapper.** 20–40 kg spænder 45–65 cm; over 40 kg begynder ved
-   47 cm. En robot på 20–40 kg kan altså være **højere** end en på over 40 kg.
-   Vægtklasse forudsiger ikke størrelse.
-2. **Den fjerde gruppe kan ikke tegnes.** Ingen af de 11 robotter uden oplyst
-   vægt oplyser en højde. Gruppen står som en stiplet, ufyldt kontur over hele
-   aksen med ordet UKENDT — ikke fordi det er en stilkonvention, men fordi det er
-   sandt.
-
-Det er signaturelementets pointe: **signaturen og hård begrænsning 5 er den samme
-gestus.** Tre-tilstandsreglen er ikke pålagt designet udefra; den er en fysisk
-egenskab ved datasættet, og tegningen kan ikke undgå at vise den.
-
-### Afvigelse: silhuetterne findes ikke
-
-Hypotesen bad om facetten tegnet med **de måltro silhuetter fra
-`assets/silhuetter/`**. Den mappe indeholder **nul** silhuetter — kun `LÆSMIG.md`
-og `_proeve-kaede.svg`, som mappens egen fil udtrykkeligt siger *ikke* er en
-katalogsilhuet. LÆSMIG tilføjer, at hele silhuet-vejen *"forudsætter Å3, som ikke
-er besluttet endnu"*. Jeg kan heller ikke tegne dem: værnet forbyder enhver
-ændring i `assets/`.
-
-Højdelinealen holder hypotesens kerne uden at opfinde en form — og den er
-**ærligere** end silhuetter ville have været. LÆSMIG-regel 4 siger, at en silhuet
-skal være *"en gengivelse af måltal, ikke af et produkt"* og *"se ud som en
-teknisk tegning"*. En dimensionstegning **er** det, uden omvejen over en tegnet
-krop, som ingen kilde belægger.
+Silhuetterne fra `assets/silhuetter/` blev heller aldrig brugt her — mappen har
+stadig **0** silhuetter, og værnet forbyder enhver ændring i `assets/`. Det
+argument står uændret; det er blot ikke længere relevant, fordi ingen grafik
+erstatter linealen.
 
 ---
 
@@ -184,7 +182,7 @@ noget helt andet end de 58, der tier. Og af de 10, der ikke arbejder i frost, ha
 **1440:** pladen fylder første skærm. Typeskiltets hoved øverst (TYPE · UDGAVE ·
 POSTER · OPLYSTE FELTER stanset til højre), derunder den **klæbende strimmel** med
 aktive valg, tæller og Nulstil, derunder facetlaget i et **12-kolonners gitter**:
-Anvendelse 3, Vægtklasse 4 (signaturen skal have plads), Egenskaber 5 — og
+Anvendelse 3, Vægtklasse 4, Egenskaber 5 — og
 nederst IP-klasse, Status, Land og den reserverede certificeringsgruppe med 3 hver.
 Resultatet begynder ved foldkanten, så læseren ser, at der er mere.
 
@@ -229,8 +227,10 @@ i frost" 46 oplyser, "Lader selv" 31, "Hot-swap" 19.
 `byg-comp.mjs` genererer begge sider af `dist/robots.json` og henter etiketterne
 fra `data/i18n/da.json`. **Ikke af bekvemmelighed, men fordi hård begrænsning 2
 kræver det:** når hvert tal og hvert navn er *regnet*, kan der ikke stå et
-opfundet tal på siden. Generatoren bærer 14 assertions — facetsummer,
-højdedækning, navneantal, billeddækning — og fejler, hvis én ikke holder.
+opfundet tal på siden. Generatoren bærer **12 assertions** — facetsummer,
+navneantal, billeddækning, "ikke oplyst"-optælling — og fejler, hvis én ikke
+holder. (Var 14 før JPK's dom 31. aug 2026: de to assertions, der bevidste
+højdelinealens tegning, udgik sammen med tegningen selv.)
 
 ```
 node retninger/nyverden/byg-comp.mjs     # fra worktree-roden
@@ -261,7 +261,7 @@ node tools/build.mjs           # 213 sider · 1110 tal med kilde · 0 uden
 node tests/koer.mjs            # 608 bestået · 0 fejlet
 
 # Compens egne selvtjek
-node retninger/nyverden/byg-comp.mjs      # 14 ok, 0 brud
+node retninger/nyverden/byg-comp.mjs      # 12 ok, 0 brud
 
 # Browsermåling (server på egen port 8140 fra worktree-roden)
 node C:/Praktik/websites/maalevaerktoej/maal.mjs \
