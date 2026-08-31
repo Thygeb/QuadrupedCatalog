@@ -4,6 +4,8 @@ producent: "WEILAN"
 producentland: "Kina"
 producentby: "Nanjing"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2024
 noter:
   - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsføring: ingen vægt, ingen mål, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
   - "Siden har en BUY NOW-knap, men INGEN PRIS."

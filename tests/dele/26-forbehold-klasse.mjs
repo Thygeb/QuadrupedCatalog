@@ -23,6 +23,7 @@ navn: Proeve
 producent: Proeveproducent
 producentland: Kina
 status: i_produktion
+fremdrift: ben
 felter:
 `;
 

@@ -3,6 +3,8 @@ navn: "A2"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2025
 varianter:
   - "A2"
   - "A2-PRO"

@@ -4,6 +4,7 @@ producent: "Ghost Robotics"
 producentland: "USA"
 producentby: "ikke_oplyst"
 status: "udgaaet"
+fremdrift: "ben"
 noter:
   - "PRODUCENTEN OMTALER IKKE LÆNGERE MODELLEN. https://www.ghostrobotics.io/spirit-40 svarer HTTP 404, og navigationen på producentens forside indeholder præcis ET produktlink: /vision-60. Målt 2026-08-19."
   - "INGEN FELTER INDSAMLET. Der findes specifikationer hos forhandlere og i tredjepartsdatabaser; de er bevidst ikke hentet, fordi de ikke kan dateres mod producenten og ville give posten en falsk friskhed."

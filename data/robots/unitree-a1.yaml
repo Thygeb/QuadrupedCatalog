@@ -3,6 +3,8 @@ navn: "A1"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2020
 anvendelse:
   vaerdi:
     - "forbruger_uddannelse"

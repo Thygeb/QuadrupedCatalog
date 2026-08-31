@@ -4,6 +4,7 @@ producent: "DEEP Robotics"
 producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "Står som egen kolonne på X30's produktside. Afviger fra X30 på tre felter: vægt, det midterste mål og portlisten. Alt andet er tegn for tegn ens."
 anvendelse:

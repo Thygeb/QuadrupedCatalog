@@ -4,6 +4,8 @@ producent: "Boston Dynamics"
 producentland: "USA"
 producentby: "ikke_oplyst"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2020
 noter:
   - "HJEMBY ER IKKE OPLYST: strengen \"Waltham\", som ofte tilskrives producenten, findes 0 gange i producentens egen produktside og datablad. Ingen af de to kilder oplyser en adresse eller by."
   - "Majoritetsejet af Hyundai Motor Group (Sydkorea). Noteret fordi producentland bliver tvetydigt."

@@ -4,6 +4,7 @@ producent: "Yuejia Lingdong"
 producentland: "Kina"
 producentby: "Shenzhen"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "MULTISPEKTRAL SENSORPAKKE (kameraer) ER EKSPLICIT HER, MODSAT YJ30/YJ30Max: produktteksten nævner tre navngivne detektionsteknologier specifikt til denne (og YJ30W MAX's) brandinspektionsvariant - se feltet kameraer."
 anvendelse:

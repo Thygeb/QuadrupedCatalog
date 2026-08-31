@@ -26,6 +26,21 @@ export default async function koer(ctx) {
   ok('skemaet har 30 feltnoegler', skema.FELTNAVNE.length === 30,
     `fandt ${skema.FELTNAVNE.length}`);
 
+  // 1b. spor/datafelter (31. aug 2026): "fremdrift" blev tilfoejet som
+  // IDENTITETSFELT (skrevet af os, som "status"), ikke som et FELTER-felt.
+  // Uden denne paastand kunne en fremtidig aendring flytte fremdrift over i
+  // FELTER uden at noget fejlede paa selve feltnavnet - kun "30 feltnoegler"
+  // ovenfor ville brydes, og fejlbeskeden ville ikke sige HVORFOR. Beviser
+  // begge halvdele af graensen direkte: identitetslisten VOKSEDE (fremdrift
+  // staar der), naevneren gjorde IKKE (den taeller stadig kun FELTER).
+  ok('fremdrift staar i IDENTITET_PAAKRAEVET (paakraevet identitetsfelt, som status)',
+    skema.IDENTITET_PAAKRAEVET.includes('fremdrift'),
+    `IDENTITET_PAAKRAEVET=${JSON.stringify(skema.IDENTITET_PAAKRAEVET)}`);
+  ok('fremdrift staar IKKE i FELTNAVNE - den maa ikke taelle i specifikationstaetheden',
+    !skema.FELTNAVNE.includes('fremdrift'));
+  ok('naevneren er stadig 30, efter fremdrift blev tilfoejet til identiteten',
+    skema.NAEVNER === 30, `NAEVNER=${skema.NAEVNER}`);
+
   // 2. Naevneren er UDLEDT. Hardkodes den igen, sprinter den her.
   ok('naevneren er skemaets feltantal, ikke et haandskrevet tal',
     skema.NAEVNER === skema.FELTNAVNE.length,

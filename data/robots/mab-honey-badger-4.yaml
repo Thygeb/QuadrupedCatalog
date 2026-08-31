@@ -4,6 +4,8 @@ producent: "MAB Robotics"
 producentland: "Polen"
 producentby: "Poznan"
 status: "udgaaet"
+fremdrift: "ben"
+foerste_udgivelse: 2024
 noter:
   - "PRODUCENTEN ERKLÆRER SELV MODELLEN UDGÅET, ordret (inklusive producentens egen stavefejl): With the launch of the new version, sales of the Honey Badger 4.0 have officialy come to an end. Og: Don't worry, we'll support your existing HB4.0 robot during the warranty period."
   - "Generationsskiftet går den forkerte vej på to felter: 5.0 er tungere (17 mod 12 kg) og har lavere tæthedsklasse (IP66 mod up to IP67), mens nyttelasten stiger (5 mod 4 kg) og driftstemperaturen udvides (0-45 mod 0-40 C)."

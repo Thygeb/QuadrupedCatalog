@@ -3,6 +3,7 @@ navn: Spot
 producent: Boston Dynamics
 producentland: USA
 status: i_produktion
+fremdrift: ben
 noter: >-
   EKSEMPELPOST. Tallene er transskriberet fra repoets egen DATAMODEL.md
   (maalt 19. aug 2026), ikke hentet paa ny og ikke efterproevet felt for felt.

@@ -4,6 +4,8 @@ producent: "DEEP Robotics"
 producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2020
 noter:
   - "Ældre side, stadig online, afkoblet fra både den engelske og den kinesiske navigation. Status kan ikke udfyldes fra kilden - i_produktion er et valg, ikke en aflæsning."
   - "Batterifeltet er indsamlingens tydeligste gevinst ved at læse kilden på originalsproget: den engelske side har en enhedsfejl, den kinesiske har det rigtige tal."

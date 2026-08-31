@@ -4,6 +4,8 @@ producent: "NEURA Robotics"
 producentland: "Tyskland"
 producentby: "Metzingen"
 status: "annonceret"
+fremdrift: "ben"
+foerste_udgivelse: 2026
 anvendelse:
   vaerdi:
     - "inspektion"

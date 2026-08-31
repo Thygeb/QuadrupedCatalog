@@ -4,6 +4,7 @@ producent: "Galileo (Tianjin)"
 producentland: "Kina"
 producentby: "Tianjin"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "REELT PRODUKT, IKKE KUN RENDERING: manualen har fulde tekniske specifikationstabeller med tal og enheder for alle seks modeller, ikke kun marketingtekst - samme standard som resten af kataloget."
   - "HOT_SWAP FRA DEN DELTE FUNKTIONSSIDE (side 6), IKKE FRA C1's EGEN TABEL: manualens fælles funktionsbeskrivelse (før variant-opdelingen) skriver \"智能仿生四足机器人采用'自主充电+手动换电'双模能源管理系统...同时配备模块化热插拔电池仓，支持数秒完成电池更换\" (dual-mode: autonom opladning + manuel batteriskift; modulært hot-swap-batterirum, batteriskift på få sekunder). Dette er IKKE gentaget i C1's egen tekniske parametertabel (som kun har en \"自主充电功能: 支持\"-række, ingen hot-swap-række) - samme forsigtighedsprincip som anvendelse-feltet: citeret uafhængigt fra familiesiden, ikke fra en model-specifik tabelrække."

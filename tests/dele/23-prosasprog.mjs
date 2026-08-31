@@ -25,6 +25,7 @@ navn: Proeve
 producent: Proeveproducent
 producentland: Kina
 status: i_produktion
+fremdrift: ben
 `;
 
 // Samme udvalg som ORD-listen i translit.mjs (en delmængde, ikke hele listen -

@@ -4,6 +4,8 @@ producent: "MicroRoboTech"
 producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
+fremdrift: "ben_hjul"
+foerste_udgivelse: 2025
 noter:
   - "PRODUCENTEN HAR SKIFTET NAVN/DOMÆNE. Domænet CEO'ens opgave og pressen bruger (microrobotech.com) omdirigerer 301 til micbotics.com. Hele det nuværende site bruger brandnavnet \"Micbot\"/\"MICBOT\" (meta-keywords, sidens titel-tags \"...-MICBOT\", navigationslogo) - IKKE \"MicroRoboTech\". Det juridiske firmanavn er fortsat 杭州具微科技有限公司 (Hangzhou Juwei Technology), som 36Kr's projektside oversætter til \"MicroRoboTech\" (https://pitchhub.36kr.com/project/3401143382263687, hentet 2026-08-24). Producent-feltet her bevarer CEO'ens navngivning \"MicroRoboTech\", men det forbrugervendte brand at lede efter i fremtiden er \"Micbot\"."
   - "Datasheet-tabellen er identisk på engelsk (micbotics.com) og kinesisk (micbotics.cn) site - alle 25+ rækker krydstjekket ordret, 0 afvigelser. Den engelske version er derfor brugt direkte som kilde uden oversættelsesrisiko for selve tallene."

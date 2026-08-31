@@ -4,6 +4,8 @@ producent: "DEEP Robotics"
 producentland: "Kina"
 producentby: "Hangzhou"
 status: "annonceret"
+fremdrift: "ben"
+foerste_udgivelse: 2026
 noter:
   - "Lanceringsside, ikke et datablad. Ingen specifikationstabel på noget af sprogene. Alle fem tal står i løbende brødtekst - de er sværere at datere og lettere at ændre uden spor end tal i en tabel."
 anvendelse:

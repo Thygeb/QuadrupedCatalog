@@ -4,6 +4,8 @@ producent: "MagicLab"
 producentland: "Kina"
 producentby: "Suzhou"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2025
 noter:
   - "HJEMBYEN ER SUZHOU, IKKE WUJIANG: producentens globale site skriver direkte \"Founded in 2024 and headquartered in Suzhou\" og gentager \"Founded in Suzhou, China\". Strengen \"Wujiang\", som posten tidligere bår ved siden af Suzhou, findes 0 gange i selskabets gemte sider."
   - "Eneste MagicLab-model, hvor alle tre producentkilder (magiclab.top EN, magiclab.top CN og magiclabglobal.com) er indbyrdes konsistente. EN og CN er enige om hvert eneste tal."

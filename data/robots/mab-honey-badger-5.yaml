@@ -4,6 +4,7 @@ producent: "MAB Robotics"
 producentland: "Polen"
 producentby: "Poznan"
 status: "i_produktion"
+fremdrift: "ben"
 forgaenger: "mab-honey-badger-4"
 noter:
   - "EU-PRODUCENT - den eneste i hele indsamlingen. MAB Robotics Sp. z o.o., ul. Za Cytadela 108, Poznan. VAT PL7822870297."

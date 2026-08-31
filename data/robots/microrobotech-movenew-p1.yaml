@@ -4,6 +4,7 @@ producent: "MicroRoboTech"
 producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "Tabellens rækkefølge er forvirrende: \"Max Climbing Ability: 800 mm\" står lige før \"Step Negotiation: 45°\" og \"Slope Capability: >45°\" - dvs. to rækker med samme talværdi (45°) under to forskellige etiketter, og en meget stor 800 mm-værdi under en etikette (\"Climbing Ability\"), man normalt ville forvente var en vinkel. Ikke rettet stiltiende - se advarsler på forhindring_enkelt og hældning."
 anvendelse:

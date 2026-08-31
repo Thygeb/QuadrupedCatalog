@@ -4,6 +4,8 @@ producent: "Rainbow Robotics"
 producentland: "Sydkorea"
 producentby: "Sejong-si"
 status: "i_produktion"
+fremdrift: "ben"
+foerste_udgivelse: 2024
 noter:
   - "HJEMBYEN ER SEJONG-SI, IKKE DAEJEON, som firmaet undertiden tilskrives: strengen \"Daejeon\" findes 0 gange i seks gemte producentfiler. Producentens egen sidefod skriver (30141) 8, Jipyeongjungang 3-ro, Jipyeon-dong, Sejong-si, Republic of Korea, tlf. +82-44-860-9600. Postnummer 30141 og områdenummer 044 er begge Sejong. Firmaet udsprang af KAIST i Daejeon, men det er ikke, hvad kilden siger."
   - "RAINBOW ROBOTICS UDGIVER HELE BRUGERMANUALEN OFFENTLIGT som en statisk side - inklusive batteridata, ledmomenter, IMU-specifikationer og monteringsinterface. Ingen formular, intet login. Det er derfor posten er indsamlingens tætteste vestlige/asiatiske post, og det giver en test, kataloget kan bruge: publicerer producenten sin brugermanual åbent, ja/nej."

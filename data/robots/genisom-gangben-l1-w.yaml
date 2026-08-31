@@ -4,6 +4,7 @@ producent: "GENISOM AI"
 producentland: "Kina"
 producentby: "Beijing / Suzhou"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "IKKE EN DUBLET AF L1/L2: L1-W har egen produktside, eget navn, egne mål (630x430x485mm mod L1's 630x360x415mm) og en fjerde hjulmotor-gruppe, L1 ikke har. Klart en selvstændig variant, ikke L1 under et andet navn."
 anvendelse:
