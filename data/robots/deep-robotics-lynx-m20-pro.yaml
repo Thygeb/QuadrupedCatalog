@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
+foerste_udgivelse: 2025
 noter:
   - "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlægningen er læst i sidens egen JavaScript, ikke gættet."
   - "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhøjder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekræftelse på, at de to felter skal være adskilt."

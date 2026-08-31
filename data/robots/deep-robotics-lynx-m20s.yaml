@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
+foerste_udgivelse: 2026
 noter:
   - "Tredje faneblad på M20-siden. Samme mål og vægt som M20, men markant højere tal på næsten alt andet - det er en anden robot, ikke en udstyrsvariant."
 anvendelse:

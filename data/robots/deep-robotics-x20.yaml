@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
 fremdrift: "ben"
+foerste_udgivelse: 2021
 noter:
   - "Producentens fulde navn: Hangzhou Yunshenchu Technology. Serier: Jueying og Lynx."
   - "STATUS KAN IKKE UDFYLDES FRA KILDEN. Produktsiden lever på begge sprog, men er afkoblet fra navigationen: linket er udkommenteret i både header og footer på EN og CN. Kun det kinesiske forsidegitter linker den stadig. Producenten har ikke erklæret modellen udgået. i_produktion er derfor et valg, ikke en aflæsning."

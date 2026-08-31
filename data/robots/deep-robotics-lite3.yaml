@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
 fremdrift: "ben"
+foerste_udgivelse: 2023
 varianter:
   - "Basic"
   - "Venture"
