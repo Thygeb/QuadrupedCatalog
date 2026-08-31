@@ -512,11 +512,19 @@
    --accent (afmaerkningsgul), --hegn (stoevgraa), --panel (kridt),
    --linje (rille), --mono (Saira = "pladen"), --manual (Literata). */
 
-/* Titel + stempelblok side om side, som paa katalogsidens typeskilt. */
-.saml-plade{display:flex;align-items:flex-start;justify-content:space-between;
-  gap:var(--r5);flex-wrap:wrap}
+/* Titel + stempelblok side om side, som paa katalogsidens typeskilt.
+   `flex-direction:row` SKAL staa eksplicit: elementet baerer ogsaa
+   `.katalog-hoved` (afsnit 6), som saetter `flex-direction:column`. Uden
+   overstyringen arvede pladen kolonneretningen, og `space-between` kom til at
+   virke paa den LODRETTE akse - maalt 31. aug 2026 til et tomt hul paa ca.
+   220 px mellem leden og stemplerne, fordi .saml-plade__ord's `flex:1 1`
+   voksede nedad. To klasser paa samme element, hvor kun den ene saetter
+   retningen, er den klassiske maade at faa to regler til at ophaeve
+   hinanden paa. */
+.saml-plade{display:flex;flex-direction:row;align-items:flex-start;
+  justify-content:space-between;gap:var(--r5);flex-wrap:wrap}
 .saml-plade__ord{min-width:0;flex:1 1 34ch}
-.saml-plade .stempler{align-self:start;justify-items:end}
+.saml-plade .stempler{align-self:flex-start;justify-items:end}
 
 /* LAESENOEGLEN SOM BAAND. Ét vandret baand, aldrig en fold: noeglen til at
    laese tallene maa ikke ligge bag et klik paa en side, der KUN handler om
