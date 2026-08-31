@@ -417,18 +417,28 @@ a:hover{text-decoration-thickness:2.5px}
 .daek__navn:hover{color:var(--blaek2)}
 
 /* "midlertidigt navn" er ikke pynt: navn og domaene er en AABEN beslutning
-   (PRODUCT.md, Brand Commitments). Den gamle form var en stiplet ramme - og
-   stiplet er i dette designsystem "ikke oplyst"-tilstandens eget sprog
-   (.v-ikke, .kildemaerke--sek). To betydninger paa ét tegn er en, ingen kan
-   laese. Formen her er comp'ens egen maade at stemple noget foreloebigt paa
-   (.comp-stempel i typeskilt.css): et stanset maerke i den ENESTE kuloer,
-   siden har. Gul paa gunmetal er 9,19:1, maalt i paletten. Den er meningen
-   at vaere svaer at overse - en aaben beslutning, der ser paen ud, bliver
-   ikke truffet. */
+   (PRODUCT.md, Brand Commitments), og den skal kunne ses. Elementet baerer
+   derfor ogsaa `.stans` - systemets egen stansede kant fra spor/fundament -
+   saa maerket er et INDFAELDET FELT paa pladen, ikke en ny form.
+
+   TO FORMER ER FRAVALGT, og begge af en grund:
+
+   Den gamle var en STIPLET ramme. Stiplet er i dette designsystem
+   "ikke oplyst"-tilstandens eget sprog (.v-ikke, .kildemaerke--sek), og to
+   betydninger paa ét tegn er en, ingen kan laese.
+
+   Den anden var comp'ens .comp-stempel: gul flade, gunmetal tekst. Den blev
+   bygget foerst og saa ved siden af comp'en - og comp'ens daek er
+   MONOKROMT. Gult optraeder foerst laengere nede, hvor det betyder "her".
+   Et permanent gult felt i chromen paa alle 213 sider bruger sidens ENESTE
+   kuloer paa noget, der aldrig skifter, og saa holder gult op med at
+   betyde noget dér, hvor det skal. Maerket er derfor sat i den neutrale
+   register: --blaek3 er 4,74:1 mod pladen (maalt i paletten), altsaa over
+   4,5 for 10 px tekst. Vil JPK have det hoejere, er den gule flade to
+   linjer herfra - det er en beslutning, ikke en mangel. */
 .daek__stempel{
-  font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--blaek);background:var(--accent);padding:3px 8px;border-radius:2px;
-  white-space:nowrap;
+  font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blaek3);padding:2px 7px;white-space:nowrap;
 }
 
 .daek__nav{
@@ -482,9 +492,19 @@ a.daek__sprogkode::after{
    Navigationen faar sin egen raekke - præcis som comp'ens eget brudpunkt
    goer det ved 720 px - og bliver dér ét spor, der kan rulles. ÉT SPOR,
    ALDRIG TO RAEKKER: `flex-wrap:nowrap` paa listen staar UDEN FOR
-   brudpunktet, fordi braekket ikke hoerer til én bredde. */
+   brudpunktet, fordi braekket ikke hoerer til én bredde.
+
+   STEMPLET STABLES UNDER ORDMAERKET, og det er en MAALING, ikke en smagssag.
+   Med stemplet paa ordmaerkets linje er `.daek__mark` 306 px bred; sammen med
+   sprogskifterens 62 px og 24 px mellemrum er det 392 px mod 343 px
+   raadighed ved 390 px. Flex braekker derfor sprogskifteren ned paa sin EGEN
+   raekke, hvor den staar alene til hoejre med en tom halvdel ved siden af sig
+   - tre raekker og 114 px daek, maalt. Stablet er `.daek__mark` 168 px bred,
+   sprogskifteren kommer op paa foerste raekke, og daekket er to raekker og
+   110 px. Fire px er ikke pointen; den tomme raekke er. */
 @media (max-width:420px){
   .daek__ramme{flex-wrap:wrap}
+  .daek__mark{flex-direction:column;align-items:flex-start}
   .daek__nav{width:100%;margin-left:0;order:3}
   .daek__sprog{margin-left:auto}
   .daek__nav>ul{gap:var(--r4)}

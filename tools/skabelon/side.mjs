@@ -1563,7 +1563,7 @@ ${SPRITE}
 <div class="daek__ramme rum">
 <div class="daek__mark">
 <a class="daek__navn" href="${attr(`${op}${sprogkode}/`)}">${esc(T.sted_navn)}</a>
-<span class="daek__stempel">${esc(t('sted_navn_midlertidig'))}</span>
+<span class="daek__stempel stans">${esc(t('sted_navn_midlertidig'))}</span>
 </div>
 <nav class="daek__nav" aria-label="${attr(t('nav_etiket'))}">
 <ul>
