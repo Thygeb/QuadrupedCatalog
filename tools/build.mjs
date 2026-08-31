@@ -63,6 +63,28 @@ function paastaa(betingelse, besked) {
   if (!betingelse) throw new Error(`BYGFEJL: ${besked}`);
 }
 
+/* Taeller tal med og uden kilde paa tvaers af kataloget. Ligger som funktion,
+   fordi tallet nu skal bruges TO steder: i byggets logudskrift til sidst, og
+   paa sprogvaelgeren, som stanser "TAL MED KILDE" i sit hoved. To kopier af
+   loekken ville vaere den samme faelde som Aa12's regex-duplikering - de
+   divergerer ved den tredje redigering, og saa staar der ét tal paa siden og
+   et andet i loggen, uden at nogen test kan se forskel. Haard begraensning 2
+   kraever, at sidens tal er REGNET; den kraever ogsaa, at det er regnet ét sted. */
+function taelKilder(robotter) {
+  let medKilde = 0; let udenKilde = 0; let sekundaere = 0;
+  for (const r of robotter) {
+    for (const n of FELTNAVNE) {
+      const p = r.felter[n];
+      if (p === undefined) continue;
+      const erTilstand = typeof p === 'string' || tilstandAf(p.vaerdi);
+      if (erTilstand) continue;            // et hul er ikke et tal
+      if (typeof p === 'object' && p.kilde) { medKilde++; if (p.kildetype === 'sekundaer') sekundaere++; }
+      else udenKilde++;
+    }
+  }
+  return { medKilde, udenKilde, sekundaere };
+}
+
 const taelKort = (html) => (html.match(/<article class="kort">/g) || []).length;
 
 /** Skabeloner, en anden agent ejer. Findes de ikke endnu, siger bygget det. */
@@ -491,7 +513,71 @@ async function main(argv) {
       `${slugs.join(', ')} peger paa assets/${fil}, men filen naaede ikke dist/billeder/${fil}.`);
   }
 
-  /* --- sprogvaelger paa roden --- */
+  const { medKilde, udenKilde, sekundaere } = taelKilder(robotter);
+
+  /* --- sprogvaelger paa roden ---------------------------------------------
+     TYPESKILT (L57/L59). Roden var indtil 31. aug 2026 den ENESTE flade, intet
+     redesignspor havde roert, fordi den ikke bruger en skabelon - JPK aabnede
+     den og sagde med rette "det er jo den gamle side". Tre maalte defekter laa
+     i den gamle blok, og alle tre er aarsagen til, at den saa gammel ud:
+
+       1. `.t-hero` arver --sans = "Manrope lokal", som INGEN @font-face har
+          siden spor/fundament. Overskriften faldt derfor tilbage til Segoe UI:
+          roden stod bogstaveligt i en anden skrift end de 212 andre sider.
+          Maalt i browseren: font-family = "Manrope lokal", Manrope, Segoe UI...
+       2. `.t-hero` er font-weight:800, som Saira ikke har en fil til - samme
+          syntetiske fedme, robotsiden allerede er rettet for (16b ovenfor).
+       3. `<main class="rum hero">` satte begge klasser paa SAMME element, men
+          generator.css' regel er `.hero .rum{padding-block:...}` - en
+          EFTERKOMMER-selektor. Den ramte aldrig, saa siden laa klistret op i
+          hjoernet uden en eneste pixels luft foroven.
+
+     Blokken er derfor selvbaerende: den bruger hverken .rum, .hero eller
+     .t-hero, men saetter sin egen form i et inline <style>. Se rapportens
+     afsnit om CSS, der boer flyttes til system.css, naar spor/topbar slipper
+     filen - den ejer den lige nu, saa reglerne kan ikke lægges der endnu.
+
+     TALLENE ER REGNET, ikke tastet (haard begraensning 2, L30/D7): poster og
+     lande af `robotter`, TAL MED KILDE af taelKilder() - samme funktion, som
+     byggets logudskrift bruger - og UDGAVE af den nyeste hentedato i data.
+     Et haardkodet "77" ville vaere forkert, foerste gang kataloget vokser. */
+  const rodLande = new Set(robotter.map((r) => r.producentland).filter(Boolean));
+  /* NYESTE KILDE = den seneste hentedato paa et FELT. Tre valg, som alle tre
+     kunne vaere gaaet galt, og som derfor staar skrevet:
+
+     1. Ikke byggedatoen. Den ville skifte ved hvert byg (ikke-deterministisk
+        output, stoejende diff) og desuden love en friskhed, data ikke har.
+     2. Kun felter, ikke billeder. Maalt 31. aug 2026: de nyeste datoer i
+        repoet er 22 stk. 2026-08-26, og de ligger ALLE i `billede:`-blokke;
+        seneste dato paa et felt er 2026-08-25. "Kilde" betyder gennem hele
+        projektet et TALS kilde (kildemaerker, "1110 tal med kilde"), saa
+        stemplet daekker samme population som stemplet lige under det.
+     3. Etiketten siger "Nyeste kilde", ikke "Udgave". "Udgave 2026-08-25"
+        kan laeses som "hele vaerket er fra den dato"; det er falsk, for
+        kilderne er hentet over et spand. "Nyeste" siger praecis, hvad
+        tallet er - den ene yderste dato - og lover intet om resten. */
+  let rodUdgave = '';
+  for (const r of robotter) {
+    for (const n of FELTNAVNE) {
+      const p = r.felter[n];
+      if (p && typeof p === 'object' && typeof p.hentet === 'string' && p.hentet > rodUdgave) rodUdgave = p.hentet;
+    }
+  }
+  paastaa(rodLande.size > 0 && rodUdgave !== '',
+    'sprogvaelgeren kunne ikke regne lande eller udgavedato - den maa aldrig stanse et tomt felt.');
+
+  // Sproglinjerne staar i ét array, saa de to celler er bygget af SAMME kode.
+  // Det er ikke en bekvemmelighed: se rapportens punkt om ligevaerdighed - en
+  // primaer/sekundaer-knap (den gamle .videre + .videre--stille) gjorde engelsk
+  // til andenrangs paa den ene flade, hvor sprogvalget skal vaere ligevaerdigt.
+  const RODSPROG = [
+    { kode: 'da', navn: 'Dansk', linje: 'Opslagsværk med kilde og dato på hvert tal.', handling: 'Åbn kataloget' },
+    { kode: 'en', navn: 'English', linje: 'Reference work with a source and a date on every number.', handling: 'Open the catalogue' },
+  ];
+  paastaa(RODSPROG.length === SPROG.length && RODSPROG.every((s) => SPROG.includes(s.kode)),
+    `sprogvaelgeren tegner ${RODSPROG.length} celle(r), men bygget har ${SPROG.length} sprog `
+    + `(${SPROG.join(', ')}). Et nyt sprog skal ogsaa faa en vej ind fra roden.`);
+
   skrivFil(path.join(ud, 'index.html'), `<!doctype html>
 <html lang="da">
 <head>
@@ -503,12 +589,84 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
 <link rel="alternate" hreflang="x-default" href="da/">
 <link rel="stylesheet" href="system.css">
 <link rel="stylesheet" href="generator.css">
+<style>
+/* Sprogvaelgerens egen form. Midlertidigt inline: assets/system.css ejes af
+   spor/topbar i skrivende stund. Radius holdes paa skalaen 0/2/6/8/12
+   (tests/dele/31-pudsning.mjs), skriftgulvet paa 8px, og vaegten naar aldrig
+   800 - de tre vaern, briefet satte. */
+.rod{min-height:100dvh;display:grid;place-items:center;padding:var(--r5) var(--kant);box-sizing:border-box}
+.rod__plade{width:100%;max-width:880px;background:var(--panel);border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);overflow:hidden}
+/* Hovedet: navnet stanset til venstre, maerkepladen til hoejre - comp'ens
+   .plade__hoved-grammatik (retninger/nyverden/typeskilt.css 5a). */
+.rod__hoved{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--r5);
+  align-items:start;padding:var(--r5);border-bottom:1px solid var(--linje)}
+.rod__navne{margin:0;min-width:0}
+.rod__navn{display:block;font-family:var(--mono);font-weight:700;
+  font-size:clamp(26px,3.4vw,44px);line-height:1.02;letter-spacing:-.018em;
+  text-transform:uppercase;color:var(--blaek);text-wrap:balance}
+/* Andet sprogs navn i samme graad og vaegt - kun rillen skiller dem. Ingen af
+   de to sprog maa se ud som en undertitel til det andet. */
+.rod__navn + .rod__navn{margin-top:6px;padding-top:6px;border-top:1px solid var(--linje)}
+.rod__stempler{display:grid;grid-template-columns:auto auto;gap:3px var(--r4);margin:0;align-self:start}
+.rod__stempler dt{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--blaek3);white-space:nowrap}
+.rod__stempler dd{margin:0;font-family:var(--mono);font-size:13.5px;font-weight:600;
+  text-align:right;color:var(--blaek);font-variant-numeric:tabular-nums}
+/* De to veje ind. Samme bredde, samme vaegt, samme alt - kun ordene skifter. */
+.rod__veje{display:grid;grid-template-columns:1fr 1fr}
+.rod__vej{display:grid;align-content:start;gap:var(--r2);padding:var(--r5);
+  text-decoration:none;color:var(--blaek);border-left:3px solid transparent;min-width:0}
+.rod__vej + .rod__vej{box-shadow:inset 1px 0 0 var(--linje)}
+.rod__kode{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--blaek3)}
+.rod__sprog{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1.05;letter-spacing:-.01em}
+.rod__linje{font-family:var(--manual);font-size:14px;line-height:1.5;color:var(--blaek2);margin:0}
+.rod__handling{display:inline-flex;align-items:center;gap:8px;margin-top:var(--r2);
+  font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.rod__pil{width:15px;height:15px;flex:none}
+/* Afmaerkningsgul er KUN markering (MANIFEST §Paletten): den stansede kant
+   viser, hvilken vej der er valgt - den pynter ingen steder. */
+.rod__vej:hover{background:var(--bund);border-left-color:var(--accent)}
+.rod__vej:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;background:var(--bund)}
+.rod__vej:hover .rod__pil,.rod__vej:focus-visible .rod__pil{transform:translateX(3px)}
+.rod__pil{transition:transform .12s ease-out}
+@media (prefers-reduced-motion:reduce){.rod__pil{transition:none}}
+@media (max-width:720px){
+  .rod__hoved{grid-template-columns:1fr;gap:var(--r4);padding:var(--r4)}
+  .rod__stempler{justify-items:start;grid-template-columns:auto auto;justify-content:start;gap:2px var(--r3)}
+  .rod__stempler dd{text-align:left}
+  .rod__veje{grid-template-columns:1fr}
+  .rod__vej{padding:var(--r4)}
+  .rod__vej + .rod__vej{box-shadow:inset 0 1px 0 var(--linje)}
+}
+</style>
 </head>
 <body>
-<main class="rum hero" id="hoved">
-<h1 class="t-hero">Firbenede robotter</h1>
-<p class="t-broed maal">Quadruped robots — et opslagsvaerk med kilde og dato paa hvert tal.</p>
-<p class="hero-videre"><a class="videre" href="da/">Dansk</a> <a class="videre videre--stille" href="en/">English</a></p>
+<main class="rod" id="hoved">
+<div class="rod__plade">
+<div class="rod__hoved">
+<h1 class="rod__navne">
+<span class="rod__navn" lang="da">Firbenede robotter</span>
+<span class="rod__navn" lang="en">Quadruped robots</span>
+</h1>
+<dl class="rod__stempler">
+<dt>Type</dt><dd>QUAD-${robotter.length}</dd>
+<dt>Nyeste kilde</dt><dd>${esc(rodUdgave)}</dd>
+<dt>Poster</dt><dd>${robotter.length}</dd>
+<dt>Lande</dt><dd>${rodLande.size}</dd>
+<dt>Tal med kilde</dt><dd>${medKilde}</dd>
+</dl>
+</div>
+<div class="rod__veje">
+${RODSPROG.map((s) => `<a class="rod__vej" href="${s.kode}/" hreflang="${s.kode}" lang="${s.kode}">
+<span class="rod__kode">${esc(s.kode)}</span>
+<span class="rod__sprog">${esc(s.navn)}</span>
+<span class="rod__linje">${esc(s.linje)}</span>
+<span class="rod__handling">${esc(s.handling)}<svg class="rod__pil" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/></svg></span>
+</a>`).join('\n')}
+</div>
+</div>
 </main>
 </body>
 </html>
@@ -550,18 +708,6 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
     const s = fs.readFileSync(f, 'utf8');
     tommePlader += (s.match(/class="intetfoto"/g) || []).length;
     picture += (s.match(/<picture>/g) || []).length;
-  }
-
-  let medKilde = 0; let udenKilde = 0; let sekundaere = 0;
-  for (const r of robotter) {
-    for (const n of FELTNAVNE) {
-      const p = r.felter[n];
-      if (p === undefined) continue;
-      const erTilstand = typeof p === 'string' || tilstandAf(p.vaerdi);
-      if (erTilstand) continue;            // et hul er ikke et tal
-      if (typeof p === 'object' && p.kilde) { medKilde++; if (p.kildetype === 'sekundaer') sekundaere++; }
-      else udenKilde++;
-    }
   }
 
   if (manglendeLande.size) {
