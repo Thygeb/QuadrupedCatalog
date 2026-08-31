@@ -563,8 +563,32 @@ async function main(argv) {
       if (p && typeof p === 'object' && typeof p.hentet === 'string' && p.hentet > rodUdgave) rodUdgave = p.hentet;
     }
   }
-  paastaa(rodLande.size > 0 && rodUdgave !== '',
-    'sprogvaelgeren kunne ikke regne lande eller udgavedato - den maa aldrig stanse et tomt felt.');
+  /* Et stempel uden en vaerdi stanses IKKE. Foerste udgave af blokken faldt
+     her: den havde en paastaa(), der kraevede baade lande og en dato, og den
+     faeldede bygget med exit 1 paa tests/dele/03-billedkaede.mjs' S1-datasaet
+     - én robot, hvis eneste felt er `egenvaegt: ikke_oplyst`. Et saadant
+     datasaet har ingen `hentet` paa et FELT (kun paa `billede:`, som med
+     vilje ikke taelles), saa rodUdgave var tom, og paastanden kastede.
+     Mekanismen kort: bygget faldt, fordi assertionen kraevede et tal, data
+     ikke behoever at have - ikke fordi data var forkert.
+     Rettelsen er ogsaa den rigtige efter haard begraensning 5: et tomt
+     stempel ville staa som "0" eller som en blank, og hverken "0" eller
+     blank er sandt om noget, ingen har oplyst. Raekken udelades. */
+  /* Dansk tusindtalsseparator er punktum: 1110 -> "1.110". Skrevet i haanden
+     frem for toLocaleString('da-DK'), fordi generatoren er afhaengighedsfri og
+     ikke skal afhaenge af, at Node er bygget med fuld ICU - et miljoeskifte
+     ville ellers kunne aendre sidens tekst uden at nogen roerte koden.
+     TYPE-stemplet ("QUAD-77") er droppet: det bar SAMME tal som POSTER, og en
+     plade, hvis hele tese er at hvert tal er et selvstaendigt maalt faktum,
+     maa ikke stanse det samme tal to gange. */
+  const rodTal = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  const rodStempler = [
+    ['Poster', rodTal(robotter.length)],
+    ['Lande', rodLande.size > 0 ? rodTal(rodLande.size) : null],
+    ['Tal med kilde', medKilde > 0 ? rodTal(medKilde) : null],
+    ['Nyeste kilde', rodUdgave || null],
+  ].filter(([, v]) => v !== null);
 
   // Sproglinjerne staar i ét array, saa de to celler er bygget af SAMME kode.
   // Det er ikke en bekvemmelighed: se rapportens punkt om ligevaerdighed - en
@@ -606,8 +630,12 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
   font-size:clamp(26px,3.4vw,44px);line-height:1.02;letter-spacing:-.018em;
   text-transform:uppercase;color:var(--blaek);text-wrap:balance}
 /* Andet sprogs navn i samme graad og vaegt - kun rillen skiller dem. Ingen af
-   de to sprog maa se ud som en undertitel til det andet. */
-.rod__navn + .rod__navn{margin-top:6px;padding-top:6px;border-top:1px solid var(--linje)}
+   de to sprog maa se ud som en undertitel til det andet.
+   width:fit-content, saa rillen slutter ved teksten. Uden den spaendte den
+   over hele hovedkolonnen og laeste som en tilfaeldig streg, der skilte
+   titlen fra ingenting - set paa skaermbilledet ved baade 1440 og 390. */
+.rod__navn{width:fit-content;max-width:100%}
+.rod__navn + .rod__navn{margin-top:7px;padding-top:7px;border-top:1px solid var(--linje)}
 .rod__stempler{display:grid;grid-template-columns:auto auto;gap:3px var(--r4);margin:0;align-self:start}
 .rod__stempler dt{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.13em;
   text-transform:uppercase;color:var(--blaek3);white-space:nowrap}
@@ -651,11 +679,7 @@ ${SPROG.map((s) => `<link rel="alternate" hreflang="${s}" href="${s}/">`).join('
 <span class="rod__navn" lang="en">Quadruped robots</span>
 </h1>
 <dl class="rod__stempler">
-<dt>Type</dt><dd>QUAD-${robotter.length}</dd>
-<dt>Nyeste kilde</dt><dd>${esc(rodUdgave)}</dd>
-<dt>Poster</dt><dd>${robotter.length}</dd>
-<dt>Lande</dt><dd>${rodLande.size}</dd>
-<dt>Tal med kilde</dt><dd>${medKilde}</dd>
+${rodStempler.map(([n, v]) => `<dt>${esc(n)}</dt><dd>${esc(String(v))}</dd>`).join('\n')}
 </dl>
 </div>
 <div class="rod__veje">
