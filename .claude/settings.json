@@ -26,7 +26,8 @@
     ],
     "additionalDirectories": [
       "C:/Praktik/websites/udstilling-wt-samlcomp",
-      "C:/Praktik/websites/udstilling-wt-katalog"
+      "C:/Praktik/websites/udstilling-wt-katalog",
+      "C:/Praktik/websites/udstilling-wt-robot"
     ]
   },
   "hooks": {

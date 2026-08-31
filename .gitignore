@@ -52,3 +52,6 @@ prototype/retning-lys/_ref/
 # kun lokalt i worktreen. Gaelder enhver fremtidig retnings-mappe med samme
 # moenster, ikke kun denne ene.
 retninger/*/billeder/**
+
+# Playwright-MCP skriver artefakter i repo-roden (fundet af spor/samlcomp 31. aug 2026)
+.playwright-mcp/
