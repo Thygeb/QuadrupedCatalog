@@ -96,11 +96,26 @@ export default async function koer(ctx) {
   const medKilde = { katalog: 0, forside: 0, producent: 0 };
   let legendePaaProducent = 0;
 
+  /* Forbeholdene taelles ogsaa PR. FLADE (spor/katalog, 31. aug 2026). Se den
+     lange note ved gulvet nedenfor: ét samlet tal kan ikke skelne "en flade
+     mistede med vilje sine tal" fra "en oplysning forsvandt et tilfaeldigt
+     sted", og det var praecis den skelnen, der skulle bruges den dag. */
+  const bred = (sti) => (sti.includes(`${path.sep}producenter${path.sep}`) ? 'producent'
+    : path.basename(path.dirname(sti)) === 'robotter' ? 'katalogindeks'
+      : sti.includes(`${path.sep}robotter${path.sep}`) ? 'robotside'
+        : sti.includes('sammenligning') ? 'sammenligning' : 'forside');
+  const forbeholdPrFlade = {
+    forside: 0, producent: 0, robotside: 0, katalogindeks: 0, sammenligning: 0,
+  };
+
   for (const sti of sider) {
     const html = fs.readFileSync(sti, 'utf8');
     kunskaermIAlt += (html.match(/class="kunskaerm"/g) || []).length;
     for (const stykke of html.split(STYKKE_START)) {
-      if (stykke.includes('forbehold--skjult')) stykkerMedForbehold++;
+      if (stykke.includes('forbehold--skjult')) {
+        stykkerMedForbehold++;
+        forbeholdPrFlade[bred(sti)]++;
+      }
     }
 
     const f = flade(sti);
@@ -178,16 +193,59 @@ export default async function koer(ctx) {
      er ufoelsomt over for, hvor mange GANGE det samme forbehold tegnes,
      og foelsomt over for, at ét forsvinder. Taber en aendring ét stykke,
      fejler den her. */
-  const STYKKE_GULV = 940;   // maalt 28. aug 2026; raa .kunskaerm samme dag: 1758
-  ok(`forbeholdene er ikke forsvundet: ${stykkerMedForbehold} stykker baerer mindst ét forbehold (gulv ${STYKKE_GULV}, maalt 940 den 28. aug 2026; raa .kunskaerm: ${kunskaermIAlt})`,
-    stykkerMedForbehold >= STYKKE_GULV, `fandt ${stykkerMedForbehold}`);
+  /* VENDT IGEN 31. aug 2026 (spor/katalog, L56 punkt 7), og denne gang blev
+     vagten STRAMMET, ikke slaekket.
+
+     Det samlede gulv paa 940 kunne ikke overleve, at katalogkortet mistede
+     sine tal: JPK besluttede samme dag, at kortet viser billede + producent +
+     produktnavn og intet andet, saa katalogsidens 490 stykker (2 sprog x 77
+     kort x den kompakte stribes celler) forsvandt MED DE TAL, de hoerte til.
+     Et forbehold uden en vaerdi at staa ved er ikke en oplysning, der gik
+     tabt - det er en oplysning, der ikke laengere vises noget sted.
+
+     MAALT, saa faldet kan skelnes fra et tab (31. aug 2026):
+       forside 54 · producent 132 · robotside 264 · katalogindeks 0 = 450
+     Faldet 940 -> 450 er praecis 490, og alle 490 laa paa katalogindekset.
+     Kontrollen, der afgoer det uafhaengigt af tallene: sporet aendrede ÉN
+     skabelon, tools/skabelon/katalog.mjs. side.mjs - som tegner striben og
+     dermed hvert eneste forbehold paa de tre oevrige flader - er uroert
+     (`git diff --stat 0e5ef6e -- tools/` viser kun katalog.mjs).
+
+     Derfor et gulv PR. FLADE i stedet for ét samlet. Det er strengere: det
+     gamle tal kunne bestaas, selv om én flade tabte alt, saa laenge en anden
+     voksede. Det nye kan det ikke. */
+  const FLADEGULV = { forside: 54, producent: 132, robotside: 264 };
+  for (const [navn, gulv] of Object.entries(FLADEGULV)) {
+    ok(`forbeholdene staar stadig paa ${navn} (${forbeholdPrFlade[navn]} stykker, gulv ${gulv}, maalt 31. aug 2026)`,
+      forbeholdPrFlade[navn] >= gulv, `fandt ${forbeholdPrFlade[navn]}`);
+  }
+  ok(`forbeholdene er ikke forsvundet: ${stykkerMedForbehold} stykker baerer mindst ét forbehold (raa .kunskaerm: ${kunskaermIAlt})`,
+    stykkerMedForbehold >= Object.values(FLADEGULV).reduce((a, b) => a + b, 0),
+    `fandt ${stykkerMedForbehold}`);
+  /* Katalogindekset skal have NUL - ikke fordi nul er godt, men fordi det er
+     den besluttede tilstand, og en dag hvor striben er tilbage, skal denne
+     linje tvinge nogen til at laese noten ovenfor. */
+  ok('katalogindekset baerer ingen forbehold (det viser ingen tal, L56 punkt 7)',
+    forbeholdPrFlade.katalogindeks === 0,
+    `fandt ${forbeholdPrFlade.katalogindeks}`);
 
   /* 3. Kildebogstaverne, pr. flade. Ikke alle kort KAN baere et maerke - et
      felt uden `kilde:` i YAML'en faar ingen, og det er den rigtige opfoersel
      (et hul uden kilde er en anden oplysning end et hul med). Derfor et
      gulv, ikke et krav om 100 %: maalt 27. aug 2026 laa katalog paa 76 af
      154 og forsiden paa 8 af 12. */
-  for (const [navn, gulv, maalt] of [['katalog', 0.35, '76 af 154'], ['forside', 0.35, '8 af 12']]) {
+  /* KATALOGET ER UDE af denne loekke pr. 31. aug 2026 (spor/katalog, L56
+     punkt 7): katalogkortet viser billede + producent + produktnavn og har
+     ingen stribe, saa der er hverken striber eller kildebogstaver at maale -
+     forholdet ville vaere 0/0, og en brøk med nul i naevneren er ikke et
+     bestaaet krav, den er en maaling, der ikke fandt sted. Kildeloeftet er
+     IKKE svaekket paa den flade: kortets TAL er vaek, og et kildemaerke uden
+     et tal at pege paa er meningsloest. De to flader, der stadig viser tal
+     paa kort, maales uaendret. */
+  ok('katalog: kortene har ingen striber at baere kildebogstaver paa (L56 punkt 7)',
+    striber.katalog === 0,
+    `fandt ${striber.katalog} striber paa katalogsiderne`);
+  for (const [navn, gulv, maalt] of [['forside', 0.35, '8 af 12']]) {
     ok(`${navn}: kortene baerer kildebogstaver (${medKilde[navn]} af ${striber[navn]} striber, gulv ${gulv * 100} %, maalt ${maalt} den 27. aug 2026)`,
       striber[navn] > 0 && medKilde[navn] / striber[navn] >= gulv,
       `${medKilde[navn]}/${striber[navn]}`);

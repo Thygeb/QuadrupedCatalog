@@ -57,17 +57,28 @@ export default async function koer(ctx) {
     !/id="h-afslutning"[\s\S]*?<\/section>/.test(forsideDa)
     || !/<picture>/.test(forsideDa.match(/id="h-afslutning"[\s\S]*?<\/section>/)[0]));
 
-  // --- 5c: hover-/fokussignalet findes i den byggede markup og CSS, begge sprog. ---
+  /* --- 5c: hover-/fokussignalet findes i den byggede markup og CSS. ---
+     VENDT 31. aug 2026 (spor/katalog, L56 punkt 7). Vagten laeste
+     KATALOGSIDEN, hvis kort nu er billede + producent + produktnavn og intet
+     andet - `.kort-invit` ("Se robotten →") hoerer til det gamle kort og staar
+     stadig paa forsidens og producentsidernes kort, som ikke er bygget om.
+     Vagten laeser derfor forsiden; katalogets EGET hover-/fokussignal faar sin
+     egen vagt nedenfor, saa kravet "et kort skal vise, at det kan klikkes"
+     stadig er daekket paa begge slags flader. */
   const katalogDa = fs.readFileSync(path.join(indgangDist, 'da', 'robotter', 'index.html'), 'utf8');
-  const katalogEn = fs.readFileSync(path.join(indgangDist, 'en', 'robotter', 'index.html'), 'utf8');
-  const kortAntalDa = (katalogDa.match(/class="kort"/g) || []).length;
-  const kortAntalEn = (katalogEn.match(/class="kort"/g) || []).length;
-  const invitAntalDa = (katalogDa.match(/class="kort-invit"/g) || []).length;
-  const invitAntalEn = (katalogEn.match(/class="kort-invit"/g) || []).length;
-  ok(`5c: hvert korts hover-invitation staar paa /da/robotter/ (${invitAntalDa} af ${kortAntalDa} kort)`,
-    invitAntalDa === kortAntalDa && kortAntalDa > 0);
-  ok(`5c: hvert korts hover-invitation staar paa /en/robotter/ (${invitAntalEn} af ${kortAntalEn} kort)`,
-    invitAntalEn === kortAntalEn && kortAntalEn > 0);
+  const forsideKortDa = (forsideDa.match(/class="kort"/g) || []).length;
+  const forsideKortEn = (forsideEn.match(/class="kort"/g) || []).length;
+  const invitAntalDa = (forsideDa.match(/class="kort-invit"/g) || []).length;
+  const invitAntalEn = (forsideEn.match(/class="kort-invit"/g) || []).length;
+  ok(`5c: hvert korts hover-invitation staar paa /da/ (${invitAntalDa} af ${forsideKortDa} kort)`,
+    invitAntalDa === forsideKortDa && forsideKortDa > 0);
+  ok(`5c: hvert korts hover-invitation staar paa /en/ (${invitAntalEn} af ${forsideKortEn} kort)`,
+    invitAntalEn === forsideKortEn && forsideKortEn > 0);
+  const generatorCss5c = fs.readFileSync(path.join(indgangDist, 'generator.css'), 'utf8');
+  ok('5c: katalogkortet har sit eget hover- OG fokussignal (understregning + fokusramme)',
+    /\.net \.kort:hover \.kort__navn a\{border-bottom-color/.test(generatorCss5c)
+      && /\.net \.kort:focus-within\{outline/.test(generatorCss5c),
+    'uden et af de to kan et katalogkort ikke ses som klikbart - hverken med mus eller tastatur');
   const systemCss = fs.readFileSync(path.join(indgangDist, 'system.css'), 'utf8');
   ok('5c: CSS-en gemmer signalet bag :hover OG :focus-within (samme regel som fotografiets scale)',
     /\.kort:hover \.kort-invit,\.kort:focus-within \.kort-invit\{opacity:1\}/.test(systemCss));

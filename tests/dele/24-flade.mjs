@@ -113,18 +113,35 @@ export default async function koer(ctx) {
     const html = fs.readFileSync(p, 'utf8');
     const idsPaaSiden = new Set([...html.matchAll(/id="([^"]+)"/g)].map((m) => m[1]));
 
-    const iNav = html.indexOf('class="tommelindeks"');
-    const nav = iNav === -1 ? '' : html.slice(iNav, html.indexOf('</nav>', iNav));
-    const ankre = [...nav.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]);
+    /* VENDT 31. aug 2026 (spor/katalog, L54/L57/L56).
+       TOMMELINDEKSET er fjernet sammen med vaegtklasse-salene: det sprang til
+       `#h-<vaegtklasse>`, og de overskrifter findes ikke mere, fordi
+       vaegtklassen nu er en facet (se tools/skabelon/katalog.mjs' filhoved).
+       Et indeks over fire ankre uden maal ville vaere fire doede links.
 
-    ok(`24.7.${sprog}: tommelindekset baerer mindst tre springankre`, ankre.length >= 3,
-      `fandt ${ankre.length}`);
-    const doede = ankre.filter((a) => !idsPaaSiden.has(a));
-    ok(`24.8.${sprog}: hvert anker rammer et id paa samme side`, doede.length === 0,
-      `doede: ${doede.join(', ')}`);
+       Vagt 24.8 var den vaerdifulde af de to - "intet anker peger i tomme
+       luft" - og den er derfor IKKE droppet, men UDVIDET: den gaelder nu
+       hvert eneste interne anker paa siden, ikke kun indeksets fire. Det er
+       en strengere test end den, den erstatter. */
+    const alleAnkre = [...html.matchAll(/href="#([^"]+)"/g)].map((m) => m[1])
+      .filter((a) => a !== '' && a !== 'alle');
+    ok(`24.7.${sprog}: katalogsiden har interne ankre at vogte`, alleAnkre.length > 0,
+      `fandt ${alleAnkre.length}`);
+    const doede = [...new Set(alleAnkre)].filter((a) => !idsPaaSiden.has(a));
+    ok(`24.8.${sprog}: hvert internt anker paa siden rammer et id paa samme side`,
+      doede.length === 0, `doede: ${doede.join(', ')}`);
 
+    /* L56 punkt 3 gjorde de tre valg til FEM: alfabetisk (standard),
+       lanceringsdato, pris, nyttelast, hastighed. Vagten er stadig et
+       LIGHEDSKRAV og ikke et minimum - en sjette mulighed skal ikke kunne
+       snige sig ind uden en beslutning, og det er netop saadan en Skill Score
+       ville komme. */
     const valg = [...html.matchAll(/id="sort-([a-z]+)"/g)].map((m) => m[1]);
-    ok(`24.9.${sprog}: sorteringen har tre valg`, valg.length === 3, `fandt ${valg.join(', ')}`);
+    ok(`24.9.${sprog}: sorteringen har fem valg (L56 punkt 3)`, valg.length === 5,
+      `fandt ${valg.join(', ')}`);
+    ok(`24.9b.${sprog}: alfabetisk er standardvalget`,
+      /<input type="radio"[^>]*id="sort-alfa"[^>]*checked>/.test(html),
+      'L56 punkt 3: alfabetisk er STANDARD, og standarden er DOM-raekkefoelgen');
     // Sorteringen skal virke UDEN JavaScript: valgene skal vaere rigtige
     // formularfelter, ikke knapper, et script skal taende.
     ok(`24.10.${sprog}: sorteringsvalgene er radioknapper (virker uden JS)`,

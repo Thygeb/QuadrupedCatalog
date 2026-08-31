@@ -63,18 +63,27 @@ export default async function koer(ctx) {
     const html = fs.readFileSync(p, 'utf8');
     const stil = genereretStil(html);
 
-    /* --- 1. Hver statisk taeller erklaerer sit omfang -------------------- */
-    // `.antal` staar ved facetterne og i tommelindekset; `.sal__antal` ved
-    // salene. Tallene er UDLEDT af siden selv, ikke skrevet i haanden her:
-    // kataloget vokser, og en haardkodet 30'er ville vaere forkert i morgen.
+    /* --- 1. Hver statisk taeller erklaerer sit omfang --------------------
+       VENDT 31. aug 2026 (spor/katalog): salene og tommelindekset er vaek, saa
+       `.sal__antal` findes ikke mere. De taellere, der ER tilbage, er
+       facetternes `.antal`, egenskabschippenes `.antal--chip`, strimlens store
+       taeller og resultatets overskrift - og KRAVET er uaendret: hver eneste
+       af dem skal baere praecis ét omfangsmaerke, fordi hver eneste af dem er
+       regnet ved byggetiden over hele kataloget.
+
+       Tallene er UDLEDT af siden selv, ikke skrevet i haanden her: kataloget
+       vokser, og en haardkodet 30'er ville vaere forkert i morgen. */
     const facetTaellere = (html.match(/<span class="antal">/g) || []).length;
-    const salTaellere = (html.match(/<span class="sal__antal figur"/g) || []).length;
+    const chipTaellere = (html.match(/<span class="antal antal--chip">/g) || []).length;
+    const hovedTaellere = (html.match(/<p class="taeller">/g) || []).length
+      + (html.match(/<h2 class="resultat__titel"/g) || []).length;
     const medMaerke = (html.match(/<span class="taeller-omfang" data-omfang hidden>/g) || []).length;
-    ok(`30.1 ${rel}: der ER taellere at vogte`, facetTaellere > 0 && salTaellere > 0,
-      `facet/tommel ${facetTaellere}, sal ${salTaellere}`);
+    ok(`30.1 ${rel}: der ER taellere at vogte`,
+      facetTaellere > 0 && chipTaellere > 0 && hovedTaellere === 2,
+      `facet ${facetTaellere}, chip ${chipTaellere}, hoved ${hovedTaellere}`);
     ok(`30.2 ${rel}: hver taeller baerer praecis ét omfangsmaerke`,
-      medMaerke === facetTaellere + salTaellere,
-      `${medMaerke} maerker mod ${facetTaellere + salTaellere} taellere`);
+      medMaerke === facetTaellere + chipTaellere + hovedTaellere,
+      `${medMaerke} maerker mod ${facetTaellere + chipTaellere + hovedTaellere} taellere`);
 
     /* --- 2. Maerket staar hidden i hvile -------------------------------- */
     // Uden dette ville "41 af 77" staa altid - ogsaa i hvile, hvor taelleren
@@ -83,31 +92,47 @@ export default async function koer(ctx) {
       medMaerke > 0 && !/<span class="taeller-omfang" data-omfang>/.test(html),
       'et maerke uden hidden ville staa i enhver tilstand');
 
-    /* --- 3. De genererede tomhedsregler --------------------------------- */
-    // Antallet UDLEDES: sale x facetter x 2 tilstande (:checked og :target).
-    const sale = new Set([...html.matchAll(/<div class="sal" data-sal="([^"]+)"/g)].map((m) => m[1]));
-    const facetter = new Set([...html.matchAll(/<input type="checkbox" class="f-([a-z]+)"/g)].map((m) => m[1]));
-    const tomhedsregler = (stil.match(/\[data-sal="[^"]+"\]\{display:none\}/g) || []).length;
-    ok(`30.4 ${rel}: sale og facetter fundet`, sale.size > 0 && facetter.size > 0,
-      `${sale.size} sale, ${facetter.size} facetter`);
-    ok(`30.5 ${rel}: én tomhedsregel pr. sal x facet x tilstand`,
-      tomhedsregler === sale.size * facetter.size * 2,
-      `${tomhedsregler} regler mod forventet ${sale.size * facetter.size * 2}`);
-    // Reglen skal baere sin :not(:has(:is(...)))-form. Uden :not-leddet ville
-    // den skjule en sal, saa snart facetten blev brugt - ogsaa naar salen HAR
-    // kort, hvilket er vaerre end fejlen, den retter.
-    ok(`30.6 ${rel}: tomhedsreglerne er betingede, ikke ubetingede`,
-      /:not\(:has\(:is\(#f-/.test(stil),
-      'uden :not(:has(:is(...))) ville enhver brug af facetten tomme salen');
+    /* --- 3. De genererede filterregler -----------------------------------
+       VENDT 31. aug 2026 (spor/katalog). TOMHEDSREGLERNE ER VAEK, fordi det
+       problem, de loeste, er vaek: de skjulte en sals overskrift og tal, naar
+       et filter tommede salen, og der er ingen sale mere. Reglen kunne ikke
+       overleve L56 punkt 3 (alfabetisk standardsortering) - se katalog.mjs'
+       filhoved.
 
-    /* --- 4. Alle fire dele af en sal baerer data-sal --------------------- */
-    for (const s of sale) {
-      const dele = (html.match(new RegExp(`data-sal="${s}"`, 'g')) || []).length;
-      // hoved + gitter + indekspost = 3; forklaringen findes kun paa den sal,
-      // der har én, saa 3 eller 4 er begge rigtige - men aldrig faerre.
-      ok(`30.7 ${rel} sal "${s}": hoved, gitter og indekspost er maerket`,
-        dele >= 3, `kun ${dele} elementer baerer data-sal="${s}"`);
-    }
+       Det, der SKAL vogtes i stedet, er den mekanik, filtrene faktisk hviler
+       paa nu, og som skal blive ved med at virke UDEN JavaScript: ét lag pr.
+       facet med skjul-alle + vis-de-valgte, og egenskabschippenes modsatte
+       form. Tallene udledes af siden selv. */
+    const facetter = new Set([...html.matchAll(/class="rk__felt f-([a-z]+)"/g)].map((m) => m[1]));
+    const skjulRegler = (stil.match(/\.styr:has\(\.f-[a-z]+:(checked|target)\) \.lag-[a-z]+/g) || []).length;
+    const visRegler = (stil.match(/\.lag-[a-z]+\[data-[a-z]+~="[^"]+"\]/g) || []).length;
+    ok(`30.4 ${rel}: facetterne er fundet`, facetter.size >= 5,
+      `${facetter.size} facetter: ${[...facetter].join(', ')}`);
+    // To skjul-regler pr. facet (:checked og :target), og mindst én vis-regel
+    // pr. facetvaerdi - ellers kunne et filter slukke kort uden at kunne
+    // taende dem igen.
+    ok(`30.5 ${rel}: hver facet har baade skjul- og vis-regler`,
+      skjulRegler === facetter.size * 2 && visRegler >= facetter.size * 2,
+      `${skjulRegler} skjul (forventet ${facetter.size * 2}), ${visRegler} vis`);
+    /* Egenskabschippene gaar den MODSATTE vej: ren HIDE med :not(), saa flere
+       chips lagrer sig som OG. Uden :not()-formen ville to chips udvide
+       udvalget i stedet for at indsnaevre det - og "gaar paa trapper ELLER
+       arbejder i frost" er ikke det, en chipraekke lover. */
+    ok(`30.6 ${rel}: egenskabschippene skjuler med :not(), saa de virker som OG`,
+      /\.styr:has\(#f-eg-[a-z]+:checked\) \.lag-eg:not\(\[data-eg~="[a-z]+"\]\)/.test(stil),
+      'uden :not()-formen ville to chips udvide udvalget i stedet for at indsnaevre det');
+
+    /* --- 4. Standardtilstanden staar i HTML, ikke i JavaScript -----------
+       L56 punkt 5: udgaaede skjult, i produktion + annoncerede vist. Den er
+       sat med `checked`-attributter, saa den gaelder ogsaa uden JavaScript -
+       og saa <button type="reset"> kan foere tilbage til den. */
+    const statusChecked = (html.match(/id="f-status-(i_produktion|annonceret)"[^>]*checked/g) || []).length;
+    ok(`30.7 ${rel}: status-standarden staar som checked i HTML (L56 punkt 5)`,
+      statusChecked === 2 && !/id="f-status-udgaaet"[^>]*checked/.test(html),
+      `${statusChecked} af 2 forvalgte, og udgaaet maa ikke vaere krydset af`);
+    ok(`30.7b ${rel}: NULSTIL er en reset-knap, saa standarden kan naas uden JavaScript`,
+      /<button class="nulstil" type="reset"/.test(html),
+      'et link til #alle kan kun rydde :target, ikke afkrydsningerne');
 
     /* --- 5. Nul-tilstanden ---------------------------------------------- */
     ok(`30.8 ${rel}: nul-tilstanden har baade soege- og filterbegrundelse`,

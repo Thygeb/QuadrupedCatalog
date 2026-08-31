@@ -137,8 +137,17 @@ export default async function koer(ctx) {
   // Naar post.varianter er sat, faar den kompakte stribes .v-spann nu
   // klassen "maerke--varianter" (og en forklarende title), uden at aendre
   // selve figuren, katalogkortet viser.
-  ok('katalogtabellen markerer, at feltet har varianter',
-    /maerke--varianter/.test(katalog));
+  // VENDT 31. aug 2026 (spor/katalog, L56 punkt 7): markeringen sidder i den
+  // KOMPAKTE STRIBE, og katalogkortet har ikke laengere en stribe - det viser
+  // billede + producent + produktnavn og intet andet. Striben, og dermed
+  // variantmarkeringen, staar uaendret paa forsidens kort. Vagten laeser
+  // derfor forsiden; ellers ville den maale en flade, hvor figuren med vilje
+  // ikke findes.
+  const forsideVar = fs.readFileSync(path.join(ud, 'da', 'index.html'), 'utf8');
+  ok('den kompakte stribe markerer, at feltet har varianter',
+    /maerke--varianter/.test(forsideVar));
+  ok('katalogkortet baerer ingen variantmarkering (det har ingen stribe, L56 punkt 7)',
+    !/maerke--varianter/.test(katalog));
   ok('advarslen staar stadig ved siden af vaerdien',
     side.indexOf('class="advarsel advarsel--') > side.indexOf('v-ikke'));
   ok('de to noter staar som to punkter, ikke som én sammenkoedet linje',
