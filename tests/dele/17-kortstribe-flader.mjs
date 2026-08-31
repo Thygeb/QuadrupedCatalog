@@ -109,8 +109,19 @@ export default async function koer(ctx) {
     ok(`${sprog}/producenter/: mindst én producentside med kompakte striber fundet`,
       producentStriber.length > 0, `fandt ${producentStriber.length} striber`);
 
+    /* KATALOGET ER UDE AF FLADELISTEN pr. 31. aug 2026 (spor/katalog, L56
+       punkt 7): katalogkortet viser billede + producent + produktnavn og har
+       ingen stribe, saa der er ingen striber at holde op mod de to andre
+       flader. Sammenligningen mellem forside og producentsider - som er hele
+       pointen med denne fil - staar uaendret.
+
+       Vagten nedenfor er ikke pynt: den er det, der faar filen til at FEJLE,
+       hvis striben sniger sig tilbage paa katalogkortet uden en beslutning. */
+    ok(`${sprog}/robotter/: katalogkortet har ingen kompakt stribe (L56 punkt 7)`,
+      katalogStriber.length === 0,
+      `fandt ${katalogStriber.length} striber paa katalogsiden`);
+
     const flader = [
-      ['katalog', katalogStriber],
       ['forside', forsideStriber],
       ['producent', producentStriber],
     ];

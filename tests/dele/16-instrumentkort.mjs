@@ -50,16 +50,42 @@ export default async function koer(ctx) {
     b.status === 0, (b.stdout || b.stderr || '').trim().split('\n').slice(-3).join(' / '));
 
   /* ------------------------------------------------------ punkt 1: kortet
-     Aflaesningslinjen - alle katalogkort viser altid fire faste pladser,
-     ogsaa en robot uden ét oplyst noegletal (den stiplede "ikke oplyst"-
-     tilstand ER pointen, ikke en prosaboks). */
+     Aflaesningslinjen - kortet viser altid fire faste pladser, ogsaa for en
+     robot uden ét oplyst noegletal (den stiplede "ikke oplyst"-tilstand ER
+     pointen, ikke en prosaboks).
+
+     VENDT 31. aug 2026 (spor/katalog, L56 punkt 7). Vagten laeste
+     KATALOGSIDEN, og katalogkortet har ikke laengere en stribe: JPK besluttede
+     samme dag, at katalogets kort viser billede + producent + produktnavn og
+     intet andet (MANIFEST "Layouttesen": "Kortet viser billede, producent og
+     produktnavn - intet andet").
+
+     Reglen er ikke droppet, den er FLYTTET til de flader, der stadig har det
+     gamle kort: forsidens "Fra kataloget" og producentsiderne bruger fortsat
+     hjaelp.kort() med striben. Vagten laeser dem nu - og en NY vagt nedenfor
+     holder katalogkortet fast paa sin nye form, saa striben ikke kan snige sig
+     tilbage uden en beslutning. */
+  for (const sprog of ['da', 'en']) {
+    const html = laesFil(`${sprog}/index.html`);
+    ok(`${sprog}/: forsiden blev bygget`, html !== null);
+    if (!html) continue;
+    const { antalKort, taelling } = taelStribeLi(html);
+    ok(`${sprog}: alle forsidens katalogkort har praecis 4 <li> i .stribe (0 i "intet"-grenen)`,
+      antalKort > 0 && !taelling.intet && Object.keys(taelling).length === 1
+        && taelling['4'] === antalKort,
+      `fandt: ${JSON.stringify(taelling)} over ${antalKort} kort`);
+  }
+
+  /* Katalogkortets NYE form (L56 punkt 7). Den skal kunne fejle, hvis nogen
+     rullede beslutningen tilbage - derfor baade "ingen stribe" og "der ER
+     kort at maale paa", saa vagten ikke bliver sand af en tom side. */
   for (const sprog of ['da', 'en']) {
     const html = laesFil(`${sprog}/robotter/index.html`);
     ok(`${sprog}/robotter/: katalogsiden blev bygget`, html !== null);
     if (!html) continue;
     const { antalKort, taelling } = taelStribeLi(html);
-    ok(`${sprog}: alle katalogkort har praecis 4 <li> i .stribe (0 i "intet"-grenen)`,
-      !taelling.intet && Object.keys(taelling).length === 1 && taelling['4'] === antalKort,
+    ok(`${sprog}: katalogkortet baerer INGEN stribe (L56 punkt 7: billede + producent + navn)`,
+      antalKort > 0 && taelling.intet === antalKort,
       `fandt: ${JSON.stringify(taelling)} over ${antalKort} kort`);
   }
 

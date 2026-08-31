@@ -207,22 +207,20 @@
    instrument skal have. `display:contents` paa fieldsettet lader legend og
    .filtre blive gitterets egne felter, saa hverken markup eller
    fieldset/legend-semantikken aendres. */
-.facetter{display:grid;grid-template-columns:max-content minmax(0,1fr);
-  gap:10px 20px;align-items:baseline;margin-top:var(--r5)}
-.facet{border:0;margin:0;padding:0;min-width:0;display:contents}
-.facet legend{padding:0;margin:0;grid-column:1;justify-self:start}
-.facet .filtre{grid-column:2}
+/* Katalogets egne facetter tegnes af TYPESKILT-afsnittet nederst i denne fil
+   (afsnit 20). Den gamle to-spaltede panelform gik ud med salene 31. aug
+   2026: facetterne er nu stansede felter i et 12-kolonners gitter, ikke en
+   liste med etiketspalte.
 
-/* Paa telefonen koster etiketspalten mere, end den er vaerd. Maalt ved 390:
-   "PRODUCENTLAND" tager ca. 140 af de 390 px, saa chipperne fik under 230 px
-   og faldt ned til én pr. raekke - panelet blev 1430 px hoejt. Derfor én
-   spalte under 700 px: etiketten over sine vaerdier, som den stod foer. */
-@media (max-width:700px){
-  .facetter{grid-template-columns:minmax(0,1fr);gap:0}
-  .facet legend{grid-column:1;margin-top:var(--r3)}
-  .facet .filtre{grid-column:1;margin-top:8px}
-}
-.facet-hjaelp{margin-top:var(--r4);max-width:86ch}
+   MEN `.facet` ER IKKE KATALOGETS ALENE. Sammenligningssiden bruger
+   `class="facet sammenligning-vaelger"`, og den er ikke bygget om i dette
+   spor. Grundreglen bliver derfor staaende praecis som foer - det er den, den
+   flade regner med - og katalogets nye form er scopet under `.facetter__net`
+   i afsnit 20. Uden den opdeling fik sammenligningssidens vaelger 24 px
+   polstring og to haarstreger, den aldrig har bedt om. Samme fejl som
+   `.kort`, fanget samme dag. */
+.facet{border:0;margin:0;padding:0;min-width:0;display:contents}
+.facet legend{padding:0;margin:0}
 .facet-ryd{margin-top:var(--r3)}
 
 /* --- L44: sorteringskontrollen og tommelindekset -------------------------
@@ -234,40 +232,16 @@
    Chipformen er den SAMME som .filtre (system.css afsnit 13), ikke en ny:
    to betjeningsflader, der goer beslaegtede ting, skal ikke se ud som to
    systemer. Kun tilstanden er anderledes - en radio er et enten-eller. */
-.katalog-sortering{border:0;margin:0;padding:0;min-width:0}
-.katalog-sortering > legend{padding:0;margin:0 0 6px}
-.sortervalg{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.sortervalg input{position:absolute;width:1px;height:1px;opacity:0}
-.sortervalg label{
-  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
-  cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
-  background:var(--panel);border:1px solid transparent;border-radius:var(--rund-ind);
-}
-.sortervalg label:hover{background:var(--accent-ro);color:var(--blaek)}
-.sortervalg input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
-.sortervalg input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
-.sortering-hjaelp{margin-top:var(--r2);max-width:86ch}
+/* Sorteringskontrollen tegnes nu af TYPESKILT-afsnittet (§20) som en stanset
+   raekke i resultathovedet. Den er stadig RADIOKNAPPER og ikke en <select>:
+   compen tegner en rullemenu, men en <select> kan ikke drive `order` uden
+   JavaScript, og sorteringen skal virke uden - samme loefte som filtrene.
 
-/* Tommelindekset. Katalogsiden er maalt til 10.652 px ved 1440 og 37.551 px
-   ved 390 - det er den flade, grebet findes for. Baandet staar lige over
-   listen, hvor et spring giver mening, ikke oeverst blandt filtrene. */
-.tommelindeks{margin-top:var(--r6);padding-top:var(--r4);border-top:1px solid var(--linje)}
-.tommelindeks > .etiket{display:block;margin-bottom:var(--r2)}
-.tommelindeks__liste{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
-.tommelindeks__liste a{
-  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
-  font-size:15px;font-weight:600;color:var(--blaek2);text-decoration:none;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind);
-}
-.tommelindeks__liste a:hover{background:var(--accent-ro);color:var(--blaek);border-color:var(--accent-ro)}
-.tommelindeks__liste a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-/* Taelleren saettes som sidens andre tal: mono med tabulaere cifre, saa 10 og
-   29 fylder det samme og raekken ikke vibrerer. */
-.tommelindeks__liste .antal{font-family:var(--mono);font-size:12px;font-weight:500;
-  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
-/* Springer man til en sal, skal man kunne SE, at man landede rigtigt, og
-   overskriften maa ikke gemme sig under den klaebende sidetop. */
-.sal__titel{scroll-margin-top:var(--r8)}
+   TOMMELINDEKSET ER FJERNET sammen med salene (31. aug 2026). Det sprang til
+   `#h-<vaegtklasse>`, og de overskrifter findes ikke mere; vaegtklassen er en
+   facet. Et indeks over fire ankre, der ikke laengere har maal, ville vaere
+   fire doede links - linktjek.mjs ville fange dem, og laeseren ville falde i
+   dem foerst. */
 
 /* :target giver de samme to tilstande som :checked, saa et filterlink fra
    forsiden ogsaa SES som valgt. Hullet ("ikke oplyst", system.css afsnit 13)
@@ -331,12 +305,15 @@
 .filtre input:not(:checked) + label.facet-tom{opacity:.5}
 .filtre input:not(:checked) + label.facet-tom .antal{color:var(--blaek3)}
 
-@supports selector(:has(*)){
-  .styr:not([data-levende]):has(.facetter input:checked) [data-omfang],
-  .styr:not([data-levende]):has(.facetter input:target) [data-omfang]{display:inline}
-  .styr:not([data-levende]):has(.facetter input:checked) [data-omfang-note],
-  .styr:not([data-levende]):has(.facetter input:target) [data-omfang-note]{display:block}
-}
+/* Betingelsen "der ER filtreret" GENERERES nu pr. side i katalog.mjs' hovedStil
+   (§5e) og stod her indtil 31. aug 2026 som én bred regel.
+   Den kunne ikke blive: status-facetten har en STANDARDTILSTAND (L56 punkt 5 -
+   udgaaede skjult), saa to af dens felter er krydset af i hvile. Reglen
+   `:has(.facetter input:checked)` ville derfor vaere sand med det samme, og
+   hvert eneste omfangsmaerke ("af 77") ville staa paa siden, FOER laeseren
+   havde roert noget - praecis den stoej, maerkerne blev indfoert for at undgaa.
+   Den genererede udgave spoerger i stedet pr. facet, og for status spoerger
+   den, om markeringen AFVIGER fra standarden. */
 
 /* --- 3. Katalogets og sektionernes tekstled ------------------------------- */
 .katalog-hoved{padding-block:var(--r7) 0;display:flex;flex-direction:column;gap:var(--r3)}
@@ -367,57 +344,15 @@
 .afslutning-saetning{margin-top:var(--r3)}
 .afslutning-knap{margin-top:var(--r5)}
 
-/* --- 2b. Katalogets vaegtklasse-sale (spor/lysbyg, kontrakt:
-   prototype/retning-lys/katalog.html) ---------------------------------------
-   Museumssalens rumnummer: romertallet ER salens plads i den faste
-   raekkefoelge (I-IV, tools/skabelon/katalog.mjs' ROMERTAL), ikke et
-   pyntetal. `.sal__antal` er en AEGTE optaelling - samme `.figur`-sprog
-   (mono, tabulaere cifre) som ethvert andet tal paa siden, ikke en saerlig
-   type. `.gitter + .sal` rammer enhver sal EFTER den foerste (adskiller
-   grupperne med systemets hoeje luft), mens den foerste sal beholder
-   afstanden fra facetterne ovenfor. */
-/* Strammet 64px -> 48px (r8 -> r7) som led i INSTRUMENT-tætheden (spor/
-   instrument2, punkt 2, 26. aug 2026): fire salgrupper i traek, en r8-luft
-   pr. overgang var systemets "hoejeste ende", brugt til at adskille hele
-   SEKTIONER (system.css §14) - salene er en underinddeling af ÉN sektion
-   (kataloget), ikke fire selvstaendige sektioner, og r7 er stadig tydeligt
-   mere luft end et enkelt gitter-raekkespring (r5). */
-.gitter + .sal{margin-top:var(--r7)}
-.sal{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--r3) var(--r4);margin-bottom:var(--r2)}
-/* Endnu ét trin taettere under 679 px (spor/instrument2, punkt 2): fire
-   sal-overgange plus fire sal-hoveder vejer relativt mere paa en lang,
-   enkeltspaltet mobilside end paa en bred, fem-spalters 1440px-side, hvor
-   maalingen allerede holder kravet uden denne regel (se rapportens tal). */
-@media (max-width:679px){
-  .gitter + .sal{margin-top:var(--r6)}
-  .sal{margin-bottom:var(--r1)}
-}
-.sal__nr{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--hegn)}
-.sal__titel{margin:0}
-.sal__antal{font-size:13px;color:var(--blaek3);margin-left:auto}
-.sal__forklaring{margin-bottom:var(--r3);max-width:60ch}
+/* VAEGTKLASSE-SALENE ER FJERNET 31. aug 2026 (spor/katalog, L54/L57).
+   Reglerne for `.sal`, `.sal__nr`, `.sal__titel`, `.sal__antal`,
+   `.sal__forklaring` og `.gitter + .sal` er gaaet med dem: der findes ikke
+   længere et element paa nogen side, de kan ramme.
 
-/* Sorteringsetiketten (spor/lysbyg): katalogsiden sorterer altid efter
-   vaegt, stigende (samme regel forsiden brugte foer denne aendring, se
-   forside_ordning) - etiketten siger det, den er ikke en knap for
-   alternative sorteringer, systemet ikke bygger endnu (se fund/FUND-lysbyg.md).
-
-   FORANKRET 27. aug 2026: `margin-left:auto` skoed etiketten helt ud til
-   hoejre kant, saa den ved 1440 stod ca. 200 px fra det soegefelt, den hoerer
-   sammen med, uden noget imellem sig - den svaevede. Nu staar den lige efter
-   feltet (soegefeltet har faaet et loft paa sit maal, saa parret bliver ved
-   hinanden), og VAERDIEN saettes i mono: det er en aflaest tilstand, ikke
-   prosa, og sidens andre aflaeste tilstande staar i mono. */
-.katalog-sortering{display:flex;flex-direction:column;gap:4px}
-.katalog-sortering .etiket{margin:0}
-.katalog-sortering__vaerdi{font-family:var(--mono);font-size:14px;font-weight:500;
-  color:var(--blaek);letter-spacing:-.01em}
-.styr .gitter{margin-top:var(--r6)}
-/* Lidt mere luft-margen ved 390 px (spor/instrument2, punkt 2): densitets-
-   kravet passerede med kun 84px margen ved foerste maaling - dette trin
-   koeber sikkerhedsafstand uden at aendre 1440px-visningen, som allerede
-   holdt kravet med god margen. */
-@media (max-width:679px){.styr .gitter{margin-top:var(--r4)}}
+   Hvorfor salene faldt, staar i tools/skabelon/katalog.mjs' filhoved. Kort:
+   L56 punkt 3 gjorde ALFABETISK til standardsortering, og en gruppering efter
+   vaegt ville tvinge vaegtordenen igennem foerst, uanset hvad laeseren vaelger.
+   Vaegtklassen er nu en facet med fire afkrydsningsfelter. */
 .tegnforklaring .raekker{margin-top:var(--r4);max-width:96ch}
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
 
@@ -1081,4 +1016,391 @@
   .stribe-under-fold,.stribe-under-fold > *{display:block !important}
   .kort,.panel,.stribe,.eu-blok .eu-krop{box-shadow:none}
   .kilder .url{text-decoration:none;color:var(--blaek)}
+}
+
+/* =============================================================================
+   20. KATALOGSIDEN SOM TYPESKILT (spor/katalog, 31. aug 2026, L54/L57)
+   -----------------------------------------------------------------------------
+   Retningskontrakt: retninger/nyverden/katalog.html + MANIFEST.md.
+
+   Tesen: filtret er ikke et sidepanel. Det er pladen, kataloget er boltet paa.
+   Derfor ligger det som en fuldbredde, stanset plade - ikke i en venstreskinne.
+
+   OVERSAT, IKKE KOPIERET. Compens egen typeskilt.css har sine egne
+   :root-variable; her bruges systemets tokens, som spor/fundament allerede
+   satte til de samme vaerdier (system.css §2). To steder afviger vi bevidst
+   fra compens tal:
+
+   1. RADIUS. Compen skriver 3px paa .plade__krop og 1px paa maaleren. Begge
+      ligger uden for skalaen 0/2/6/8/12 + 99px, som tests/dele/31-pudsning.mjs
+      haandhaever - og 3px er praecis den slags tal, der opstaar, naar nogen
+      skoenner i stedet for at vaelge fra skalaen. Her staar 2px: typeskiltets
+      stansning, samme trin som primitiven `.stans`.
+   2. SORTERINGEN er radioknapper, ikke <select>. En <select> kan ikke drive
+      `order` uden JavaScript. Se 20i.
+
+   Alt kortarbejde er scopet under `.net`. `.kort` deles med forsiden og
+   producentsiderne, som IKKE er bygget om i dette spor; en uscopet regel her
+   ville bygge de to andre flader om ved et uheld.
+   ========================================================================== */
+
+/* --- 20a. Fladen ---------------------------------------------------------- */
+/* Pladens skrift er Saira (var(--mono) - se system.css' note om navnet):
+   paa et typeskilt staar etiketter OG tal i samme snit. Prosaen er Literata. */
+.aabning,.plade,.resultat{font-family:var(--mono);letter-spacing:0}
+.aabning__under,.plade__under,.aabning__note,.reserveret__note,
+.sorter__note,.facet-omfang,.chip-fod{font-family:var(--manual)}
+
+/* Den stansede plade. `.stans` (system.css) giver 2px radius og den
+   indfaeldede 1px kant med hvid lyskant; her kommer kun fladen og
+   overflow-klipningen til, saa de indre haarstreger stopper ved kanten. */
+.aabning__krop,.plade__krop{background:var(--panel);overflow:hidden}
+
+/* --- 20b. Aabningen: de seneste modeller ---------------------------------
+   JPK's tillaeg 31. aug 2026. Sat af ROBOTTER, ikke af en paastand - svaret
+   paa D20. Aarstallet er stemplet som et stort tal i pladens hoejre side,
+   samme greb som stempelblokken paa filterpladen nedenfor. */
+.aabning{padding-top:var(--r5)}
+.aabning__hoved{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--r5);align-items:start;
+  padding:var(--r5) var(--r5) var(--r4);
+  border-bottom:1px solid var(--linje);
+}
+.aabning__titel{
+  margin:0;font-size:clamp(28px,3.3vw,44px);font-weight:700;line-height:1.02;
+  letter-spacing:-.02em;text-transform:uppercase;text-wrap:balance;max-width:16ch;
+}
+.aabning__under{margin-top:10px;font-size:15px;line-height:1.5;color:var(--blaek2);max-width:64ch}
+.aarstempel{display:grid;justify-items:end;gap:2px;align-self:start;text-align:right;margin:0}
+.aarstempel__tal{
+  font-size:clamp(34px,4vw,52px);font-weight:700;line-height:1;letter-spacing:-.03em;
+  color:var(--blaek);font-variant-numeric:tabular-nums;
+  padding-bottom:5px;border-bottom:3px solid var(--accent);
+}
+.aarstempel__ord{
+  font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stoev-blaek);
+}
+/* Kvalifikationen staar HER, hvor udvalget vises - ikke i en fodnote.
+   De uden aarstal maa aldrig komme til at se gamle ud: "ikke oplyst" er en
+   tavshed, ikke en aargang (haard begraensning 5). */
+.aabning__baand{padding:var(--r4) var(--r5);border-bottom:1px solid var(--linje)}
+.aabning__flok{
+  margin:0;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blaek);
+}
+.aabning__note{margin-top:6px;font-size:13px;line-height:1.5;color:var(--stoev-blaek);max-width:78ch}
+
+/* --- 20c. Typeskiltets hoved --------------------------------------------- */
+.plade{padding-top:var(--r6)}
+.plade__hoved{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--r5);align-items:start;
+  padding:var(--r5) var(--r5) var(--r4);
+  border-bottom:1px solid var(--linje);
+}
+.plade__titel{
+  margin:0;font-size:clamp(20px,2.1vw,27px);font-weight:700;line-height:1.06;
+  letter-spacing:-.014em;text-transform:uppercase;text-wrap:balance;
+}
+.plade__under{margin-top:9px;font-size:14px;line-height:1.5;color:var(--blaek2);max-width:62ch}
+/* Stempelblokken ER signaturen (MANIFEST "Signaturelementet"): TYPE · UDGAVE ·
+   POSTER · OPLYSTE FELTER, stanset til hoejre. */
+.stempler{display:grid;grid-template-columns:auto auto;gap:3px var(--r4);margin:0}
+.stempel{display:contents}
+.stempler dt{
+  font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--stoev-blaek);grid-column:1;
+}
+.stempler dd{margin:0;font-size:13.5px;font-weight:600;text-align:right;
+  letter-spacing:.02em;grid-column:2;font-variant-numeric:tabular-nums}
+
+/* --- 20d. Strimlen: den klaebende etage ----------------------------------- */
+.strimmel{
+  position:sticky;top:0;z-index:40;
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3);
+  padding:var(--r3) var(--r5);
+  background:var(--fod);color:var(--paafod);
+}
+.strimmel__mrk{
+  font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--paafod2);margin-right:2px;
+}
+.valgliste{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0;min-width:0}
+/* Hver mulig markering har sin egen <li>. De staar skjult og taendes af de
+   genererede regler i katalog.mjs (5c) - byggetidsviden i stedet for en
+   taelling, CSS ikke kan lave. */
+.valg{
+  display:none;align-items:center;gap:8px;
+  background:var(--accent);color:var(--blaek);
+  padding:4px 5px 4px 10px;border-radius:2px;
+  font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+}
+/* Status vender modsat: chippen fortaeller, hvad der er SKJULT, og er derfor
+   ikke en markering i gult, men en kontur paa den moerke bund. */
+.valg--standard{background:transparent;color:var(--paafod);
+  box-shadow:inset 0 0 0 1px var(--stoev-blaek)}
+.valg__navn{min-width:0}
+.valg__fjern{
+  display:grid;place-items:center;width:18px;height:18px;flex:none;
+  background:rgba(34,38,42,.14);color:inherit;border-radius:2px;cursor:pointer;
+}
+.valg--standard .valg__fjern{background:rgba(232,235,237,.12)}
+.valg__fjern:hover{background:var(--blaek);color:var(--accent)}
+.valg--standard .valg__fjern:hover{background:var(--bund);color:var(--blaek)}
+.valg__kryds{display:block}
+
+.taeller{margin-left:auto;display:flex;align-items:baseline;gap:9px;padding-left:var(--r4)}
+.taeller__tal{
+  font-size:25px;font-weight:700;letter-spacing:-.01em;line-height:1;
+  color:var(--accent);font-variant-numeric:tabular-nums;
+  padding-bottom:5px;border-bottom:3px solid var(--accent);
+  animation:stempl .32s var(--slyng) both;
+}
+.taeller__af{font-size:12.5px;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--paafod2)}
+/* Det ENESTE autoreret oejeblik paa siden (MANIFEST "Layouttesen"): taelleren
+   stempler, naar tallet skifter. */
+@keyframes stempl{from{opacity:.35;letter-spacing:.06em}to{opacity:1;letter-spacing:-.01em}}
+.taeller .taeller-omfang{color:var(--paafod2)}
+/* type="reset" er hele mekanikken: den stiller formularen tilbage til sine
+   `checked`-attributter - altsaa til L56's standardtilstand, udgaaede skjult -
+   UDEN JavaScript. Et link til #alle kunne kun rydde :target. */
+.nulstil{
+  background:transparent;border:0;color:var(--paafod);cursor:pointer;
+  font:inherit;font-family:var(--mono);font-size:12px;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;
+  padding:8px 12px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--stoev-blaek);
+}
+.nulstil:hover{background:var(--bund);color:var(--blaek);box-shadow:none}
+
+/* --- 20e. Facetlaget: 12 kolonner ---------------------------------------- */
+.udtraek{border:0;margin:0;padding:0}
+.udtraek > .udtraek__greb{display:none}
+.facetter__net{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}
+/* `display:block` er IKKE overfloedig: grundreglen ovenfor (afsnit 2) saetter
+   `.facet{display:contents}` for sammenligningssidens skyld, og den ville
+   ellers gaelde her ogsaa - saa ville hverken polstringen, haarstregerne
+   eller grid-column-spaendene nedenfor blive tegnet, fordi et
+   display:contents-element ikke selv har en kasse. */
+.facetter__net .facet{
+  display:block;
+  border:0;margin:0;min-width:0;padding:var(--r5);
+  border-right:1px solid var(--linje);
+  border-bottom:1px solid var(--linje);
+}
+.facetter__net .facet--s3{grid-column:span 3}
+.facetter__net .facet--s4{grid-column:span 4}
+.facetter__net .facet--s5{grid-column:span 5}
+.facetter__net .facet--raekkeslut{border-right:0}
+.facetter__net .facet--sidste-raekke{border-bottom:0}
+.facet__navn{
+  padding:0;margin:0 0 var(--r4);float:none;
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--blaek);display:flex;align-items:baseline;gap:9px;width:100%;
+}
+.facet__navn::after{content:"";flex:1;height:1px;background:var(--linje)}
+.facet__tal{font-size:10.5px;font-weight:600;letter-spacing:.08em;
+  color:var(--stoev-blaek);text-transform:none}
+
+/* --- 20f. Raekken: den stansede afkrydsning ------------------------------
+   Fire tilstande, fire forskellige maerker (haard begraensning 5). Maerkerne
+   er spritens i-ja / i-nej / i-nul / i-ioplyst - SVG, ingen unicode-glyffer.
+   `.rk__tegn` faar konturstandarden, som .ikon-klassen ellers ville have givet. */
+.rk{display:block}
+.rk__felt{position:absolute;opacity:0;width:1px;height:1px}
+.rk__mrk{display:flex;align-items:center;gap:10px;padding:5.5px 7px;margin:0 -7px;
+  border-radius:2px;cursor:pointer}
+.rk__mrk:hover{background:var(--bund)}
+.rk__felt:focus-visible + .rk__mrk{outline:2px solid var(--blaek);outline-offset:1px}
+.rk__boks{
+  flex:none;width:15px;height:15px;border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--blaek);background:var(--panel);
+  display:grid;place-items:center;
+}
+.rk__tegn{width:11px;height:11px;display:block;opacity:0;
+  fill:none;stroke:currentColor;stroke-width:1.8;color:var(--blaek)}
+.rk__felt:checked + .rk__mrk .rk__boks,
+.rk__felt:target + .rk__mrk .rk__boks{background:var(--accent)}
+.rk__felt:checked + .rk__mrk .rk__tegn,
+.rk__felt:target + .rk__mrk .rk__tegn{opacity:1}
+.rk__navn{flex:1;font-size:14px;font-weight:500;min-width:0}
+.rk .antal{font-size:13px;font-weight:600;color:var(--blaek2);flex:none;
+  font-variant-numeric:tabular-nums}
+
+/* Tilstand IKKE OPLYST: stiplet kontur, ingen fyld, ALTID sidst, adskilt af en
+   stiplet linje. Teksten staar i stoev-blaek (4,74:1) - aldrig i stoevgraa,
+   som er maalt til 2,14:1 og kun maa tegne konturer. */
+.rk--uoplyst{margin-top:9px;padding-top:9px;border-top:1px dashed var(--hegn)}
+.rk--uoplyst .rk__boks{background:transparent;box-shadow:none;
+  border:1px dashed var(--hegn)}
+.rk--uoplyst .rk__navn,.rk--uoplyst .antal{color:var(--stoev-blaek)}
+.rk--uoplyst .rk__felt:checked + .rk__mrk .rk__boks,
+.rk--uoplyst .rk__felt:target + .rk__mrk .rk__boks{background:transparent;
+  border:1px dashed var(--blaek)}
+/* Tilstand NEJ: kontur med skraastreg, fuldt blaek - et svar, ikke et hul. */
+.rk--nej .rk__tegn{opacity:1}
+
+/* --- 20g. Egenskabschippene ---------------------------------------------- */
+.chip{display:block;margin-bottom:9px}
+.chip__felt{position:absolute;opacity:0;width:1px;height:1px}
+.chip__krop{
+  display:block;cursor:pointer;padding:11px var(--r3) 10px;
+  border-radius:2px;background:var(--panel);
+  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
+}
+.chip__krop:hover{box-shadow:inset 0 0 0 1px var(--blaek)}
+.chip__felt:checked + .chip__krop,
+.chip__felt:target + .chip__krop{background:var(--accent);box-shadow:inset 0 0 0 1px var(--blaek)}
+.chip__felt:focus-visible + .chip__krop{outline:2px solid var(--blaek);outline-offset:2px}
+.chip__navn{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px}
+.deling{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:12px}
+.d{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-weight:600}
+.d__tegn{width:11px;height:11px;flex:none;display:block;
+  fill:none;stroke:currentColor;stroke-width:1.7}
+.d__tal{font-variant-numeric:tabular-nums}
+.d--ja,.d--nul{color:var(--blaek)}
+.d--nej{color:var(--blaek2)}
+.d--uoplyst{color:var(--stoev-blaek)}
+.chip__felt:checked + .chip__krop .d{color:var(--blaek)}
+.d__ord{font-weight:500}
+.antal--chip{font-size:11px;color:var(--stoev-blaek)}
+.chip-fod{font-size:12.5px;line-height:1.5;color:var(--blaek2);margin:var(--r3) 0 0;max-width:46ch}
+
+/* --- 20h. Den reserverede certificeringsgruppe ---------------------------
+   Pladsen bygges, ikke facetten (L55 punkt 1). En stiplet ramme siger det
+   samme som et stiplet "ikke oplyst"-maerke: her er et svar, vi ikke har. */
+.reserveret{border:1px dashed var(--hegn);border-radius:2px;padding:var(--r4) var(--r3)}
+.reserveret__ord{font-size:13px;font-weight:600;color:var(--stoev-blaek);margin-bottom:5px}
+.reserveret__note{font-size:12.5px;line-height:1.5;color:var(--stoev-blaek)}
+
+/* --- 20i. Resultatet ------------------------------------------------------ */
+.resultat{padding:var(--r6) 0 var(--r7)}
+.resultat__hoved{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--r3) var(--r4);
+  padding-bottom:var(--r4);margin-bottom:var(--r5);
+  border-bottom:2px solid var(--blaek);
+}
+.resultat__titel{margin:0;font-size:13px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase}
+.sorter{border:0;margin:0 0 0 auto;padding:0;min-width:0;display:flex;
+  align-items:baseline;flex-wrap:wrap;gap:10px}
+.sorter__etiket{padding:0;font-size:11px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--stoev-blaek)}
+.sortervalg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sortervalg input{position:absolute;width:1px;height:1px;opacity:0}
+.sortervalg label{
+  display:inline-flex;align-items:center;padding:6px 10px;cursor:pointer;
+  font-size:12.5px;font-weight:600;color:var(--blaek2);background:var(--panel);
+  border-radius:2px;box-shadow:inset 0 0 0 1px var(--linje);
+}
+.sortervalg label:hover{box-shadow:inset 0 0 0 1px var(--blaek);color:var(--blaek)}
+.sortervalg input:checked + label{background:var(--accent);color:var(--blaek);
+  box-shadow:inset 0 0 0 1px var(--blaek)}
+.sortervalg input:focus-visible + label{outline:2px solid var(--blaek);outline-offset:2px}
+.sorter__note{display:none;margin:0 0 var(--r4);font-size:12.5px;line-height:1.5;
+  color:var(--blaek2);max-width:70ch}
+
+/* --- 20j. Kortgitteret ---------------------------------------------------
+   1px gab paa en linjefarvet bund giver haarstregerne MELLEM kortene uden en
+   eneste border - og uden dobbeltstreger, hvor to kort moedes. */
+.net{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));
+  gap:1px;background:var(--linje);box-shadow:0 0 0 1px var(--linje);
+}
+/* AABNINGENS gitter kan ikke bruge samme greb som resultatets. Resultatet har
+   77 kort og fylder sine raekker; aabningen har praecis saa mange, som det
+   seneste aar rummer (i dag 9), og en raekke, der ikke gaar op, efterlader en
+   TOM CELLE - som med linjefarven i bunden blev tegnet som en graa klods.
+   Maalt ved 1440: 5 kort pr. raekke, 9 kort, én synlig graa celle.
+   Her baerer kortene derfor selv haarstregen, og bunden er pladen: en tom
+   celle bliver usynlig, som en tom celle skal vaere. */
+.net--seneste{background:var(--panel);box-shadow:none}
+.net--seneste .kort{box-shadow:0 0 0 1px var(--linje)}
+/* Scopet under .net: `.kort` deles med forsiden og producentsiderne. */
+.net .kort{
+  display:flex;flex-direction:column;background:var(--panel);
+  border:0;border-radius:0;box-shadow:none;position:relative;overflow:hidden;
+}
+.net .kort:hover{background:#FFFFFF}
+.net .kort:focus-within{outline:2px solid var(--blaek);outline-offset:-2px}
+.net .billedled{
+  aspect-ratio:4/3;background:var(--bund);display:grid;place-items:center;
+  overflow:hidden;border-bottom:1px solid var(--linje);border-radius:0;
+}
+.net .billedled img{width:100%;height:100%;object-fit:contain;padding:var(--r3)}
+.kort__tekst{padding:var(--r3) var(--r4) var(--r4);display:flex;flex-direction:column;gap:3px}
+.kort__prod{
+  margin:0;font-size:10.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--stoev-blaek);
+}
+.kort__navn{margin:0;font-size:17px;font-weight:600;letter-spacing:-.005em;line-height:1.2}
+.kort__navn a{color:var(--blaek);text-decoration:none;
+  border-bottom:2px solid transparent}
+.kort__navn a::after{content:"";position:absolute;inset:0;z-index:1}
+.net .kort:hover .kort__navn a{border-bottom-color:var(--blaek)}
+/* Statusstemplet lægges KUN paa, naar status ikke er "i produktion" - den
+   forskel er den eneste, kortet skal kunne baere (MANIFEST "Layouttesen"). */
+.kort__mrk{
+  position:absolute;top:0;left:0;z-index:2;
+  font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  padding:4px 9px;background:var(--blaek);color:var(--paafod);
+}
+/* Det aerlige savn-maerke: staar KUN under den sortering, det handler om
+   (reglerne genereres i katalog.mjs 5d). "Uoplyste ligger sidst med aerlig
+   maerkning" - uden maerket ville de bare ligge sidst, og laeseren ville tro,
+   de var de billigste eller de langsomste. */
+.kort__savn{
+  display:none;margin-top:5px;font-size:10.5px;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--stoev-blaek);
+}
+.kort__savn::before{
+  content:"";display:inline-block;width:8px;height:8px;margin-right:6px;
+  border:1px dashed var(--hegn);vertical-align:0;
+}
+
+/* --- 20k. 1100 px: gitteret halveres ------------------------------------- */
+@media (max-width:1100px){
+  .facetter__net .facet--s3,.facetter__net .facet--s4,.facetter__net .facet--s5{grid-column:span 6}
+  .facetter__net .facet{border-right:1px solid var(--linje)}
+  .facetter__net .facet:nth-of-type(2n){border-right:0}
+  .facetter__net .facet--raekkeslut{border-right:0}
+}
+
+/* --- 20l. 720 px: facetlaget bliver et udtraekspanel, strimlen bestaar ----
+   MANIFEST "Layouttesen": facetlaget bliver et udtraekspanel med haandtag;
+   strimlen bestaar og bliver liggende oeverst med taeller og valg. */
+@media (max-width:720px){
+  .aabning__hoved,.plade__hoved{grid-template-columns:1fr;padding:var(--r4)}
+  .aabning__titel{font-size:27px;max-width:none}
+  .aarstempel{justify-items:start;text-align:left;padding-top:var(--r3);
+    border-top:1px solid var(--linje);width:100%}
+  .aabning__baand{padding:var(--r4)}
+
+  .strimmel{padding:10px var(--r4);gap:9px}
+  .taeller{margin-left:0;width:100%;padding-left:0;order:-1;
+    border-bottom:1px solid var(--stoev-blaek);padding-bottom:9px;margin-bottom:2px}
+  .taeller__tal{font-size:22px}
+  .nulstil{margin-left:auto}
+
+  .udtraek > .udtraek__greb{
+    display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;
+    padding:13px var(--r4);min-height:44px;
+    font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+    border-bottom:1px solid var(--linje);
+  }
+  .udtraek > .udtraek__greb::-webkit-details-marker{display:none}
+  .haandtag{margin-left:auto;display:grid;place-items:center;width:24px;height:24px;
+    border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek)}
+  .haandtag__tegn{width:13px;height:13px;fill:none;stroke:currentColor;
+    stroke-width:1.8;transform:rotate(90deg)}
+  .udtraek[open] > .udtraek__greb .haandtag__tegn{transform:rotate(-90deg)}
+  .facetter__net .facet{border-right:0;padding:var(--r4)}
+  .facetter__net .facet--s3,.facetter__net .facet--s4,.facetter__net .facet--s5{grid-column:1 / -1}
+
+  .resultat{padding:var(--r5) 0 var(--r6)}
+  .net{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kort__navn{font-size:15px}
+  .kort__tekst{padding:10px var(--r3) var(--r3)}
 }

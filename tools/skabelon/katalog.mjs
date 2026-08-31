@@ -1,17 +1,42 @@
 /**
- * tools/skabelon/katalog.mjs — katalogsiden: alle robotter, ét kort hver.
+ * tools/skabelon/katalog.mjs — katalogsiden som TYPESKILTET.
  *
- * Filtrene virker UDEN JavaScript. De er almindelige afkrydsningsfelter, og
- * selve filtreringen sker i CSS med :has() og et lag pr. facet:
+ * OMBYGGET 31. aug 2026 (spor/katalog, L54/L57): retningskontrakten er
+ * `retninger/nyverden/katalog.html`. Formen er en stanset plade - typeskiltets
+ * hoved, den klaebende strimmel, facetlaget i et 12-kolonners gitter - og
+ * derunder ét fladt gitter af kort.
+ *
+ * HVAD DER FORSVANDT, OG HVORFOR DET IKKE ER EN TILBAGERULNING:
+ * Vaegtklasse-SALENE (romertal I-IV, tommelindeks, tomhedsregler pr. sal) er
+ * vaek. De var spor/lysbygs gruppering, og de kan ikke overleve L56 punkt 3:
+ * sorteringen er nu ALFABETISK som standard, og en gruppering efter vaegt
+ * ville tvinge vaegtordenen igennem foerst, uanset hvad laeseren vaelger.
+ * Vaegtklassen er i stedet en FACET (fire afkrydsningsfelter), praecis som
+ * compen og MANIFEST.md tegner den. Med salene forsvinder ogsaa hele klassen
+ * af fejl, de genererede tomhedsregler fandtes for at daempe: der er ingen
+ * gruppeoverskrift tilbage, der kan staa over et tomt gitter.
+ *
+ * FILTRENE VIRKER UDEN JAVASCRIPT. Uaendret mekanik, ét lag pr. facet:
  *
  *   .styr:has(.f-anv:checked) .lag-anv            { display:none }      skjul alle
  *   .styr:has(#f-anv-industri:checked)
  *        .lag-anv[data-anv~="industri"]           { display:contents }  vis igen
  *
  * Den anden regel vinder, fordi :has() arver sit mest specifikke argument, og
- * et id slaar en klasse. Resultatet er ELLER inden for en facet (flere
- * afkrydsninger udvider udvalget) og OG paa tvaers af facetter (hver facet har
- * sit eget lag, og et lag skjult af facet A kan ikke vises igen af facet B).
+ * et id slaar en klasse. Resultatet er ELLER inden for en facet og OG paa
+ * tvaers af facetter (hver facet har sit eget lag, og et lag skjult af facet A
+ * kan ikke vises igen af facet B).
+ *
+ * EGENSKABSCHIPPENE GAAR DEN MODSATTE VEJ, og det er med vilje. En capability
+ * er en uafhaengig betingelse: "gaar paa trapper" OG "arbejder i frost" skal
+ * indsnaevre, ikke udvide. Derfor har de fem chips ÉT faelles lag og en ren
+ * HIDE-regel hver:
+ *
+ *   .styr:has(#f-eg-trapper:checked) .lag-eg:not([data-eg~="trapper"]){display:none}
+ *
+ * Hver afkrydsning skjuler selvstaendigt, saa flere chips lagrer sig oven paa
+ * hinanden som OG - uden et show-led, der kunne genoplive et kort, en anden
+ * chip har skjult. Det sparer samtidig fire lag pr. kort.
  *
  * Lagene er `display:contents`, saa de ikke selv bliver gitterceller. Et skjult
  * kort efterlader derfor intet tomt felt i gitteret.
@@ -19,50 +44,59 @@
  * Uden :has()-stoette sker der ingenting: alle kort staar. Det er den rigtige
  * vej at fejle - kataloget er stadig helt.
  *
- * :target gaar den samme vej, saa forsidens filterlinks
- * (robotter/#f-anv-industri) saetter et filter uden JavaScript.
- *
- * OMBYGGET 25. aug 2026 (spor/lysbyg, retning LYS): kataloget er nu sitets
- * fulde browsested (se tools/skabelon/forside.mjs' ARKITEKTURAENDRING-note
- * — forsiden viser kun en smagsproeve). Kortene grupperes i FIRE
- * "sale" (prototype/retning-lys/katalog.html, BEGRUNDELSE.md): romertal
- * I-IV over vaegtklasserne, samme graenser som L27 allerede satte
- * (hjaelp.VAEGTKLASSER/hjaelp.vaegtklasse). Grupperingen aendrer INTET ved
- * selve filtermekanikken ovenfor: hvert kort staar stadig indpakket i det
- * samme lag pr. facet, blot fordelt paa fire mindre gitre i stedet for ét
- * langt. :has()-reglerne i hovedStil() nedenfor kender ikke til sale-
- * inddelingen og virker uaendret paa tvaers af dem.
- *
- * Sal-antallet er en AEGTE OPTAELLING (liste.length pr. vaegtklasse), ikke
- * et tal skrevet i haanden - det AENDRER sig, naar kataloget vokser (i dag
- * 14/17/21/10 over 62 robotter, maalt 25.08.2026; se
- * tools/skabelon/side.mjs' vaegtklasse()). Sal IV ("vaegt ikke oplyst")
- * staar sidst og aabent, med samme forklaringstekst forsiden allerede
- * brugte foer denne aendring (`vaegtklasse_ikke_oplyst_forklaring`).
+ * :target gaar den samme vej, saa et filterlink (robotter/#f-anv-industri)
+ * saetter et filter uden JavaScript.
  *
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc, centralVaerdi } from './side.mjs';
+import { esc } from './side.mjs';
 import { tilstandAf } from '../skema.mjs';
-/* Specifikationstaetheden hentes fra validate.mjs' egen taethed() - IKKE
-   regnet efter i haanden her. Et haandregnet taethedstal ved siden af det
-   udledte er praecis D7/L30-faelden, CLAUDE.md advarer imod: de to ville
-   skride fra hinanden, saa snart naevneren aendrer sig. validate.mjs koerer
-   ikke noget ved import (den er vagtet af `erHoved`), og build.mjs
-   importerer den allerede. */
-import { taethed } from '../validate.mjs';
 
 const attr = esc;
 
-/** Romertal I-IV, udledt af VAEGTKLASSERs faste raekkefoelge (index+1) -
- *  ikke skrevet ud pr. robot eller pr. antal. Der er altid praecis fire
- *  vaegtklasser (hjaelp.VAEGTKLASSER), saa listen er en konstant af samme
- *  art som selve klasseinddelingen, ikke et haandtal, der kan skride. */
-const ROMERTAL = ['I', 'II', 'III', 'IV'];
-
 /** Et vaerdinavn, der kan staa i et id og i en attributvaelger. */
 const nogle = (v) => String(v).toLowerCase().replace(/[^a-z0-9_]+/g, '-');
+
+/* ==========================================================================
+   1. AFLAESNING AF ET FELT
+   ========================================================================== */
+
+/**
+ * Feltets tre-tilstand plus dets tal, laest ÉT sted.
+ *
+ * Formerne i data (maalt 31. aug 2026 over alle 77 poster):
+ *   felter.x mangler                     -> ikke oplyst
+ *   felter.x = "ikke oplyst" (streng)    -> ikke oplyst
+ *   felter.x.vaerdi = "ikke oplyst"      -> ikke oplyst
+ *   felter.x.vaerdi = true/false         -> ja / nej   (dockingstation, hot_swap)
+ *   felter.x.vaerdi = tal                -> tal
+ *   felter.x.min/.maks                   -> tal (midtpunktet)
+ *
+ * Returnerer { slags, tal, enhed }, hvor slags er 'ja' | 'nej' | 'tal' |
+ * 'ikke_oplyst'. 'nul' er IKKE en egen slags her: et maalt nul er et TAL, og
+ * det er netop pointen i haard begraensning 5 - det skal kunne regnes med.
+ */
+function laesFelt(robot, navn) {
+  const p = robot.felter?.[navn];
+  if (p === undefined || p === null) return { slags: 'ikke_oplyst' };
+  if (typeof p === 'string') return { slags: tilstandAf(p) === 'nej' ? 'nej' : 'ikke_oplyst' };
+  const v = p.vaerdi;
+  if (typeof v === 'boolean') return { slags: v ? 'ja' : 'nej' };
+  if (typeof v === 'string') {
+    const t = tilstandAf(v);
+    if (t === 'nej') return { slags: 'nej' };
+    if (t) return { slags: 'ikke_oplyst' };
+    if (v === 'ja') return { slags: 'ja' };
+    return { slags: 'ikke_oplyst' };
+  }
+  const tal = p.min !== undefined ? (p.min + p.maks) / 2 : v;
+  if (typeof tal !== 'number' || !Number.isFinite(tal)) return { slags: 'ikke_oplyst' };
+  return { slags: 'tal', tal, enhed: p.enhed };
+}
+
+/** Er feltet oplyst overhovedet (uanset om svaret er ja, nej eller et tal)? */
+const erOplyst = (robot, navn) => laesFelt(robot, navn).slags !== 'ikke_oplyst';
 
 function ipVaerdi(robot) {
   const p = robot.felter?.ip_klasse;
@@ -73,7 +107,69 @@ function ipVaerdi(robot) {
   return String(p.vaerdi);
 }
 
-/** Facetterne. Raekkefoelgen her er ogsaa lagenes raekkefoelge i HTML. */
+/* ==========================================================================
+   2. EGENSKABSCHIPPENE (L55 punkt 2)
+   ========================================================================== */
+
+/**
+ * De fem godkendte capability-chips. Hver er AFLEDT af et eksisterende felt -
+ * intet nyt skemafelt, intet opfundet tal - og hver baerer sin taerskel i
+ * ETIKETTEN, saa "ja" ikke er en redaktionel dom, laeseren ikke kan efterproeve.
+ *
+ * `praed` afgoer ja/nej for et TAL. Er feltet et rent ja/nej (boolsk), bruges
+ * boolen selv, og `praed` roeres ikke.
+ *
+ * Taersklerne er compens, efterproevet mod data 31. aug 2026 (se rapporten):
+ * 42/0/35 · 57/8/12 · 36/10/31 · 31/3/43 · 19/0/58. Hver linje summer til 77,
+ * og kapabiliteter() KASTER, hvis en ikke goer.
+ */
+const KAPABILITETER = [
+  { navn: 'trapper', felt: 'trappetrin_kontinuerlig', praed: () => true },
+  { navn: 'baerer', felt: 'nyttelast_gaaende', praed: (v) => v >= 5 },
+  { navn: 'frost', felt: 'temp_min', praed: (v) => v <= -10 },
+  { navn: 'lader', felt: 'dockingstation', praed: () => true },
+  { navn: 'hotswap', felt: 'hot_swap', praed: () => true },
+];
+
+/** Tre-tilstanden for én kapabilitet paa én robot. */
+function kapabilitet(robot, k) {
+  const f = laesFelt(robot, k.felt);
+  if (f.slags === 'ikke_oplyst') return 'ikke_oplyst';
+  if (f.slags === 'ja') return 'ja';
+  if (f.slags === 'nej') return 'nej';
+  return k.praed(f.tal) ? 'ja' : 'nej';
+}
+
+/**
+ * Chippenes optaellinger, med den kontrol L55 kraever: hver linje SKAL summe
+ * til antallet af robotter. Kaster, hvis en ikke goer - en chip, der taber en
+ * robot mellem tre tilstande, er praecis den slags stille fejl, haard
+ * begraensning 5 findes for at forhindre.
+ */
+function kapabiliteter(robotter) {
+  return KAPABILITETER.map((k) => {
+    const c = { ja: 0, nej: 0, ikke_oplyst: 0 };
+    for (const r of robotter) c[kapabilitet(r, k)] += 1;
+    const sum = c.ja + c.nej + c.ikke_oplyst;
+    if (sum !== robotter.length) {
+      throw new Error(`katalog.mjs: egenskabschippen "${k.navn}" summer til ${sum}, `
+        + `ikke ${robotter.length} (ja ${c.ja}, nej ${c.nej}, ikke oplyst ${c.ikke_oplyst})`);
+    }
+    return { ...k, ...c, sum };
+  });
+}
+
+/* ==========================================================================
+   3. FACETTERNE
+   ========================================================================== */
+
+/**
+ * De fem listefacetter. Raekkefoelgen her er ogsaa lagenes raekkefoelge i HTML.
+ *
+ * `ce` UDGIK 31. aug 2026 (L55 punkt 3): den kunne kun udvaelge 2 af 77 og
+ * opsluges i den kommende certificerings-facet, som staar reserveret og tom.
+ * `status` kom til som fuld facet (L55 punkt 5).
+ */
 function facetter(robotter, hjaelp, i18n) {
   const { T, t } = i18n;
   const tilstandsnavn = (v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst
@@ -88,12 +184,7 @@ function facetter(robotter, hjaelp, i18n) {
     },
     {
       // L50: en robot med et vaegtspaend, der daekker flere klasser, skal
-      // matche i dem ALLE. vaerdier() returnerer derfor SAETTET fra
-      // hjaelp.vaegtklasser() (flertal), ikke det enkelte hjaelp.vaegtklasse()
-      // - samme mekanik som 'anv'-facetten ovenfor allerede bruger til flere
-      // vaerdier pr. robot. antal-taellingen laengere nede (linje ~117) og
-      // CSS'ens data-vaegt~="..."-medlemskabstest (hovedStil) kraever ingen
-      // aendring: de virker allerede paa en vaerdiliste, ikke ét tal.
+      // matche i dem ALLE - derfor vaegtklasser() (flertal), ikke vaegtklasse().
       navn: 'vaegt',
       etiket: t('filter_vaegt'),
       vaerdier: (r) => hjaelp.vaegtklasser(r),
@@ -107,16 +198,23 @@ function facetter(robotter, hjaelp, i18n) {
       tekst: tilstandsnavn,
     },
     {
+      /* STATUS er den ENESTE facet med en standardtilstand (L56 punkt 5):
+         udgaaede skjult, i produktion + annoncerede vist. Den saettes med
+         almindelige `checked`-attributter i HTML, saa den virker uden
+         JavaScript og kan nulstilles af en <button type="reset">. */
+      navn: 'status',
+      etiket: t('filter_status'),
+      mrk: t('filter_status_mrk'),
+      vaerdier: (r) => [r.status],
+      tekst: (v) => T['status_' + v],
+      orden: ['i_produktion', 'annonceret', 'udgaaet'],
+      standard: new Set(['i_produktion', 'annonceret']),
+    },
+    {
       navn: 'land',
       etiket: t('filter_land'),
       vaerdier: (r) => [r.producentland],
       tekst: (v) => hjaelp.land(v),
-    },
-    {
-      navn: 'ce',
-      etiket: t('filter_ce'),
-      vaerdier: (r) => [hjaelp.ceTilstand(r)],
-      tekst: (v) => (v === 'ja' ? T.ja : v === 'nej' ? T.nej : T.tilstand_ikke_oplyst),
     },
   ].map((f) => {
     const antal = new Map();
@@ -134,11 +232,98 @@ function facetter(robotter, hjaelp, i18n) {
   });
 }
 
-/** Den genererede filter-CSS. Kaldes af bygget og lægges i <head>. */
+/* ==========================================================================
+   4. SORTERINGEN (L56 punkt 3)
+   ========================================================================== */
+
+/**
+ * Fem sorteringer, ingen Skill Score (haard begraensning 6 - og posten staar
+ * paa "Kom ikke igen med disse"). Alfabetisk er STANDARD og har med vilje
+ * INGEN CSS-regel: den ER DOM-raekkefoelgen, saa standardvisningen har visuel
+ * orden = DOM-orden = taborden.
+ *
+ * RETNINGEN STAAR I ETIKETTEN. "Pris" alene skjuler et valg, laeseren ikke kan
+ * se; "Pris, laveste foerst" kan efterproeves med det samme.
+ *
+ * PRISEN ER GRUPPERET EFTER VALUTA, ikke omregnet. Skemaet siger det selv
+ * (tools/skema.mjs): CNY/USD/EUR kan kun omregnes med en kurs, og en kurs er
+ * et tal, vi ville have opfundet - haard begraensning 2. Maalt 31. aug 2026:
+ * 11 af 77 oplyser pris, fordelt CNY 6 · USD 4 · EUR 1. Derfor sorteres der
+ * inden for hver valuta, valutaerne staar i fast alfabetisk orden, og
+ * kontrollen baerer en note, der siger praecis det.
+ */
+const SORTERINGER = [
+  { navn: 'alfa', noegle: 'katalog_sortering_alfabetisk', standard: true },
+  {
+    navn: 'dato',
+    noegle: 'katalog_sortering_dato',
+    savn: 'savn_dato',
+    tal: (r) => (typeof r.foerste_udgivelse === 'number' ? r.foerste_udgivelse : null),
+    faldende: true,
+  },
+  {
+    navn: 'pris',
+    noegle: 'katalog_sortering_pris',
+    savn: 'savn_pris',
+    note: 'sortering_pris_note',
+    tal: (r) => { const f = laesFelt(r, 'pris'); return f.slags === 'tal' ? f.tal : null; },
+    gruppe: (r) => (r.felter?.pris?.enhed ?? ''),
+  },
+  {
+    navn: 'nyttelast',
+    noegle: 'katalog_sortering_nyttelast',
+    savn: 'savn_nyttelast',
+    tal: (r) => { const f = laesFelt(r, 'nyttelast_gaaende'); return f.slags === 'tal' ? f.tal : null; },
+    faldende: true,
+  },
+  {
+    navn: 'hastighed',
+    noegle: 'katalog_sortering_hastighed',
+    savn: 'savn_hastighed',
+    tal: (r) => { const f = laesFelt(r, 'hastighed'); return f.slags === 'tal' ? f.tal : null; },
+    faldende: true,
+  },
+];
+
+/**
+ * Rangtal 1..N for én sortering. De OPLYSTE foerst i deres egen orden, de
+ * UOPLYSTE sidst i alfabetisk orden - L56: "uoplyste ligger sidst med aerlig
+ * maerkning". Maerkningen selv er `savn`-maerket paa kortet.
+ */
+function rangFor(robotter, s, sprog) {
+  const navn = (r) => String(r.navn).localeCompare(String(r.navn), sprog);
+  const alfabetisk = (a, b) => String(a.navn).localeCompare(String(b.navn), sprog);
+  void navn;
+  const med = [];
+  const uden = [];
+  for (const r of robotter) (s.tal(r) === null ? uden : med).push(r);
+  med.sort((a, b) => {
+    if (s.gruppe) {
+      const g = String(s.gruppe(a)).localeCompare(String(s.gruppe(b)));
+      if (g) return g;
+    }
+    const d = s.tal(a) - s.tal(b);
+    if (d) return s.faldende ? -d : d;
+    return alfabetisk(a, b);
+  });
+  uden.sort(alfabetisk);
+  const rang = new Map();
+  [...med, ...uden].forEach((r, i) => rang.set(r.slug, i + 1));
+  return rang;
+}
+
+/* ==========================================================================
+   5. DEN GENEREREDE FILTER-CSS
+   ========================================================================== */
+
+/** Kaldes af bygget og lægges i sidens inline <style>. */
 export function hovedStil(ctx) {
   const { robotter, hjaelp, i18n } = ctx;
   const F = facetter(robotter, hjaelp, i18n);
+  const K = kapabiliteter(robotter);
   const linjer = [];
+
+  /* 5a. Listefacetterne: skjul-alle + vis-de-valgte. */
   for (const f of F) {
     linjer.push(`.styr:has(.f-${f.navn}:checked) .lag-${f.navn},`);
     linjer.push(`.styr:has(.f-${f.navn}:target) .lag-${f.navn}{display:none}`);
@@ -148,316 +333,458 @@ export function hovedStil(ctx) {
       linjer.push(`.styr:has(#${id}:target) .lag-${f.navn}[data-${f.navn}~="${v}"]{display:contents}`);
     }
   }
-  /* L44: sorteringen. TO regler i alt - ikke én pr. robot - fordi `order`
-     tager en var(), og hvert kort baerer selv sine rangtal (se render()).
-     Samme :has()-mekanik og samme @supports-vagt som filtrene, saa den
-     fejler samme vej: uden :has()-stoette sker der ingenting, og kortene
-     staar i vaegtorden. Det er den rigtige vej at fejle - kataloget er helt.
 
-     `vaegt` har ingen regel med vilje: den ER DOM-raekkefoelgen (`sorteret` i
-     render()), saa standardvisningen har visuel orden = DOM-orden = taborden.
-     Kun de to valgte alternativer flytter noget. */
-  const sortering = [
-    '.styr:has(#sort-taethed:checked) .kort{order:var(--o-taethed)}',
-    '.styr:has(#sort-alfa:checked) .kort{order:var(--o-alfa)}',
-  ];
+  /* 5b. Egenskabschippene: ren HIDE, saa flere chips lagrer sig som OG.
+     Se filhovedets note - det er den eneste facetgruppe, der virker saadan,
+     fordi en capability er en uafhaengig betingelse og ikke en vaerdiliste. */
+  const chipRegler = [];
+  for (const k of K) {
+    const id = `f-eg-${k.navn}`;
+    chipRegler.push(`.styr:has(#${id}:checked) .lag-eg:not([data-eg~="${k.navn}"]),`);
+    chipRegler.push(`.styr:has(#${id}:target) .lag-eg:not([data-eg~="${k.navn}"]){display:none}`);
+  }
 
-  /* --- TOMME SALE, SKJULT I REN CSS (P0, 28. aug 2026) --------------------
-     Problemet: naar et filter tommer en hel vaegtklasse, blev salens
-     overskrift, romertal og taelling staaende over et tomt gitter. Maalt paa
-     `#f-land-tyskland` ved 1440: 1 synligt kort, og 3 sale med overskrift og
-     tal over nul kort - inklusive saetningen "De staar her, ikke skjult i
-     bunden af en anden klasse" over et tomt felt.
-
-     Den naerliggende konklusion er, at det KUN kan loeses med JavaScript,
-     fordi :has() ikke kan se computed display paa et kort, en anden regel har
-     skjult. Det er rigtigt - men det er ikke det spoergsmaal, der skal
-     stilles. Vi behoever ikke spoerge DOM'en, om salen blev tom: vi ved ved
-     byggetiden, hvilke vaerdier hver sal indeholder.
-
-     Reglen pr. (sal, facet) bliver derfor:
-
-       "facetten er i brug, OG ingen af de vaerdier, salen faktisk
-        indeholder, er valgt"  ->  salen kan ikke have et eneste kort
-
-     som i CSS er
-       .styr:has(.f-land:checked):not(:has(:is(#f-land-kina,...):checked))
-         [data-sal="under_20"]{display:none}
-
-     hvor :is()-listen er praecis de landevaerdier, sal I indeholder. Det
-     haandterer ELLER inden for facetten korrekt: er baade Kina og Tyskland
-     krydset af, og salen har kinesiske robotter, saa fanger :is() den, og
-     salen bliver staaende.
-
-     REGLEN ER SUND, MEN IKKE KOMPLET, og det skal staa her, saa den naeste
-     laeser ikke tror, den daekker mere end den goer. Den skjuler aldrig en
-     sal, der HAR kort (ingen falske positive). Men den ser kun ÉN facet ad
-     gangen, saa en tomhed, der foerst opstaar paa TVAERS af to facetter,
-     fanger den ikke: har en sal én tysk robot til forskning og én kinesisk
-     til industri, og laeseren vaelger "Tyskland + industri", er salen tom
-     uden at nogen enkelt facet gjorde den tom. Den fulde betingelse ville
-     kraeve én regel pr. kombination (5 facetter, 30 vaerdier), og det er ikke
-     en stilart, det er en eksplosion.
-
-     Det udestaaende tilfaelde daekkes to andre steder: JavaScript skjuler
-     enhver tom sal praecist (katalog.js), og UDEN JavaScript staar
-     omfangsmaerkerne og noten over salene, saa intet tal lyver - salen
-     staar da med en overskrift og en SAND taelling ("18 robotter i
-     kataloget"), ikke med et tal om et udvalg, den ikke beskriver.
-
-     `[data-sal]` rammer alle fire dele af salen paa én gang: indeksposten i
-     tommelindekset, hovedet, forklaringen og gitteret. Indeksposten SKAL med
-     - ellers ville tommelindekset tilbyde et spring til et anker, der er
-     skjult. */
-  const tommeSale = [];
-  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
-  for (const r of robotter) efterKlasse.get(hjaelp.vaegtklasse(r))?.push(r);
-  for (const klasse of hjaelp.VAEGTKLASSER) {
-    const iSalen = efterKlasse.get(klasse) ?? [];
-    if (!iSalen.length) continue;
-    for (const f of F) {
-      // De vaerdier i denne facet, som salen FAKTISK indeholder.
-      const tilstede = new Set();
-      for (const r of iSalen) for (const v of f.vaerdier(r)) tilstede.add(v);
-      const ider = f.liste.filter((v) => tilstede.has(v))
-        .map((v) => `#f-${f.navn}-${nogle(v)}`);
-      const maal = `[data-sal="${klasse}"]`;
-      for (const tilstand of ['checked', 'target']) {
-        const brug = `.styr:has(.f-${f.navn}:${tilstand})`;
-        // Tom :is()-liste er ugyldig CSS. Indeholder salen ingen af
-        // facettens vaerdier overhovedet, tommer ENHVER markering den.
-        tommeSale.push(ider.length
-          ? `${brug}:not(:has(:is(${ider.join(',')}):${tilstand})) ${maal}{display:none}`
-          : `${brug} ${maal}{display:none}`);
-      }
+  /* 5c. Strimlens chips. Hver mulig markering har sin egen <li>, som staar
+     skjult og taendes af sin egen regel. Det er den samme byggetidsviden, der
+     baerer filtrene: vi ved, hvilke vaerdier der findes, saa "hvad er valgt"
+     kan tegnes uden at kunne taelle. */
+  const valgRegler = [];
+  for (const f of F) {
+    if (f.standard) continue; // status haandteres som UDELUKKELSE nedenfor
+    for (const v of f.liste) {
+      const id = `f-${f.navn}-${nogle(v)}`;
+      valgRegler.push(`.styr:has(#${id}:checked) [data-valg="${id}"],`);
+      valgRegler.push(`.styr:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
     }
   }
+  for (const k of K) {
+    const id = `f-eg-${k.navn}`;
+    valgRegler.push(`.styr:has(#${id}:checked) [data-valg="${id}"],`);
+    valgRegler.push(`.styr:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
+  }
+  /* Status vender modsat: chippen fortaeller, hvad der er SKJULT. I hvile er
+     "Udgaaede skjult (3)" derfor den ene chip, der staar - praecis som compen. */
+  const status = F.find((f) => f.navn === 'status');
+  for (const v of status.liste) {
+    const id = `f-status-${nogle(v)}`;
+    valgRegler.push(`.styr:not(:has(#${id}:checked)) [data-valg="skjult-${nogle(v)}"]{display:inline-flex}`);
+  }
+
+  /* 5d. Sorteringen. To ting pr. sortering: kortenes orden og det aerlige
+     savn-maerke paa dem, der ikke oplyser feltet. Alfabetisk har ingen regel -
+     den er DOM-ordenen. */
+  const sortering = [];
+  for (const s of SORTERINGER) {
+    if (s.standard) continue;
+    sortering.push(`.styr:has(#sort-${s.navn}:checked) .kort{order:var(--o-${s.navn})}`);
+    sortering.push(`.styr:has(#sort-${s.navn}:checked) .kort__savn--${s.navn}{display:block}`);
+    if (s.note) sortering.push(`.styr:has(#sort-${s.navn}:checked) [data-note="${s.navn}"]{display:block}`);
+  }
+
+  /* 5e. Omfangsmaerkerne. De taendes, naar der FAKTISK er filtreret - og kun
+     uden JavaScript (`:not([data-levende])`), fordi JavaScript regner tallene
+     om og goer forbeholdet usandt. Se render()s note om maerkerne.
+
+     Status kraever sin egen betingelse: dens felter er krydset af i hvile, saa
+     "er der filtreret" betyder her "afviger fra standarden". */
+  const filtreret = [];
+  for (const f of F) {
+    if (f.standard) continue;
+    filtreret.push(`.styr:not([data-levende]):has(.f-${f.navn}:checked)`);
+    filtreret.push(`.styr:not([data-levende]):has(.f-${f.navn}:target)`);
+  }
+  filtreret.push('.styr:not([data-levende]):has(.f-eg:checked)');
+  filtreret.push('.styr:not([data-levende]):has(.f-eg:target)');
+  for (const v of status.liste) {
+    const id = `f-status-${nogle(v)}`;
+    filtreret.push(status.standard.has(v)
+      // en standard-afkrydset vaerdi, der er slaaet FRA, er en filtrering
+      ? `.styr:not([data-levende]):not(:has(#${id}:checked))`
+      // en ikke-standard vaerdi, der er slaaet TIL, er ogsaa en filtrering
+      : `.styr:not([data-levende]):has(#${id}:checked)`);
+  }
+  const omfang = `${filtreret.map((s) => `${s} [data-omfang]`).join(',\n')}{display:inline}\n`
+    + `${filtreret.map((s) => `${s} [data-omfang-note]`).join(',\n')}{display:block}`;
 
   return `/* Filtrene. Genereret af tools/skabelon/katalog.mjs - én regel pr. vaerdi. */
 @supports selector(:has(*)){
 ${linjer.join('\n')}
 
-/* Sorteringen (L44). */
+/* Egenskabschippene (OG, ikke ELLER - se filhovedet). */
+${chipRegler.join('\n')}
+
+/* Strimlens valgte chips. */
+${valgRegler.join('\n')}
+
+/* Sorteringen (L56 punkt 3). */
 ${sortering.join('\n')}
 
-/* Sale, som det valgte filter beviseligt tommer (P0). Se hovedStil()s note. */
-${tommeSale.join('\n')}
+/* Taellernes omfangsmaerker, naar der er filtreret UDEN JavaScript. */
+${omfang}
 }`;
 }
+
+/* ==========================================================================
+   6. SIDEN
+   ========================================================================== */
 
 export function render(ctx) {
   const { robotter, i18n, sprog, hjaelp } = ctx;
   const { T, t, tf } = i18n;
   const F = facetter(robotter, hjaelp, i18n);
+  const K = kapabiliteter(robotter);
+  const status = F.find((f) => f.navn === 'status');
 
-  const klasseOrden = (r) => hjaelp.VAEGTKLASSER.indexOf(hjaelp.vaegtklasse(r));
-  const vaegt = (r) => {
-    const p = r.felter?.egenvaegt;
-    if (!p || typeof p === 'string' || typeof p.vaerdi === 'string') return Infinity;
-    const v = centralVaerdi(p);
-    return typeof v === 'number' ? (p.enhed === 'g' ? v / 1000 : v) : Infinity;
-  };
-  const sorteret = [...robotter].sort((a, b) => klasseOrden(a) - klasseOrden(b)
-    || vaegt(a) - vaegt(b) || String(a.navn).localeCompare(String(b.navn), sprog));
+  const alle = robotter.length;
 
-  /* --- L44: SORTERINGENS RANGTAL ------------------------------------------
-     Sorteringen sker i CSS med `order` paa gitterets celler, saa den virker
-     UDEN JavaScript - samme krav og samme fejlvej som filtrene ovenfor.
-     Hvert kort baerer sine rangtal som CSS-variable; to genererede regler
-     (se hovedStil) skifter mellem dem. Det er to regler i alt, ikke én pr.
-     robot, fordi var() kan staa i `order`.
+  /* --- SORTERINGENS RANGTAL ------------------------------------------------
+     DOM-raekkefoelgen er ALFABETISK, fordi alfabetisk er standardsorteringen
+     (L56 punkt 3) - saa standardvisningen har visuel orden = DOM-orden =
+     taborden, og den sortering behoever ingen CSS-regel. De fire oevrige faar
+     hver sit rangtal pr. kort og én `order`-regel hver (se hovedStil). */
+  const sorteret = [...robotter]
+    .sort((a, b) => String(a.navn).localeCompare(String(b.navn), sprog));
+  const rang = new Map(SORTERINGER.filter((s) => !s.standard)
+    .map((s) => [s.navn, rangFor(robotter, s, sprog)]));
 
-     `order` virker inden for ÉN gridbeholder. Kataloget har fire - én pr.
-     sal/vaegtklasse (spor/lysbyg's struktur, som ikke roeres her) - saa
-     sorteringen ordner kortene INDEN FOR hver vaegtklasse. Salene selv
-     staar altid i samme raekkefoelge. Det staar ordret i
-     katalog_sortering_forklaring, saa kontrollen ikke lover mere end den goer.
+  /* --- OMFANGSMAERKET ------------------------------------------------------
+     Hver statisk taeller faar en efterstilling, der siger HVAD den taeller.
+     Den staar `hidden` i hvile og vises kun, naar et filter er slaaet til OG
+     JavaScript ikke koerer (reglerne genereres i hovedStil §5e).
 
-     Rangtallene regnes GLOBALT (1..N) og ikke pr. sal. Det er ligegyldigt
-     for resultatet - `order` sammenligner kun celler i samme beholder, og en
-     global, monoton raekke bevarer den indbyrdes orden inden i hver sal -
-     og det holder bogfoeringen paa ét sted. */
-  const naevner = ctx.naevnere?.[0];
-  const rang = (liste) => new Map(liste.map((r, i) => [r.slug, i + 1]));
-
-  // Taethed: flest udfyldte felter FOERST. Uafgjort afgoeres af navnet, saa
-  // raekkefoelgen er stabil mellem to byg af samme data.
-  const rangTaethed = rang([...robotter].sort((a, b) => {
-    const ta = taethed(a, naevner, ctx.d4).udfyldt;
-    const tb = taethed(b, naevner, ctx.d4).udfyldt;
-    return tb - ta || String(a.navn).localeCompare(String(b.navn), sprog);
-  }));
-  const rangAlfa = rang([...robotter]
-    .sort((a, b) => String(a.navn).localeCompare(String(b.navn), sprog)));
-
-  /* --- OMFANGSMAERKET (P0, 28. aug 2026) ---------------------------------
-     Hver statisk taeller paa siden faar en lille efterstilling, der siger
-     HVAD den taeller. Den staar `hidden` i hvile og vises kun, naar et filter
-     er slaaet til OG JavaScript ikke koerer (reglerne i generator.css §2b).
-
-     Hvorfor overhovedet: tallene er regnet ved BYGGETIDEN over hele
-     kataloget. Uden JavaScript kan de ikke regnes om, naar laeseren filtrerer
-     - :has() kan taende og slukke kort, men kan ikke taelle dem. Et tal, der
-     staar uaendret ved siden af et udvalg, det ikke laengere beskriver, er en
-     paastand uden daekning; sidens positionering nr. 1 er, at hvert tal har
-     en kilde. "18" bliver derfor til "18 af 77", og "18 robotter" til
-     "18 robotter i kataloget" - sandt i enhver filtertilstand.
+     Hvorfor overhovedet: tallene er regnet ved BYGGETIDEN over hele kataloget.
+     Uden JavaScript kan de ikke regnes om, naar laeseren filtrerer - :has()
+     kan taende og slukke kort, men kan ikke taelle dem. Et tal, der staar
+     uaendret ved siden af et udvalg, det ikke laengere beskriver, er en
+     paastand uden daekning; sidens positionering nr. 1 er, at hvert tal har en
+     kilde. "41" bliver derfor til "41 af 77", og "74 robotter" til "74
+     robotter i standardvisningen" - sandt i enhver filtertilstand.
 
      Teksten staar i HTML og ikke i CSS' content: den skal oversaettes gennem
      de samme sprogfiler som alt andet, kunne markeres og kopieres, og kunne
      ses af de tests, der laeser byggets synlige tekst. */
-  const alle = robotter.length;
   const omfangAlle = `<span class="taeller-omfang" data-omfang hidden> ${esc(tf('taeller_af_alle', { n: alle }))}</span>`;
-  const omfangKatalog = `<span class="taeller-omfang" data-omfang hidden> ${esc(t('taeller_i_kataloget'))}</span>`;
+  const omfangStandard = `<span class="taeller-omfang" data-omfang hidden> ${esc(t('taeller_standardvisning'))}</span>`;
 
-  /* Salens taelling boejes. Den var hidtil altid flertal ("1 robotter"), fordi
-     den kun blev skrevet ved byggetiden, hvor ingen sal har ét kort. Naar
-     JavaScript regner den om ved hvert filterklik, bliver ental den normale
-     tilstand og ikke et kantstilfaelde - saa formen skal findes, og den skal
-     findes ÉT sted, som baade bygget og browseren laeser. `data-*`-parret
-     nedenfor er det sted: sprogfilerne ejer ordene, katalog.js kopierer dem
-     aldrig. */
-  const antalKort = (n) => (n === 1 ? t('antal_kort_en') : tf('antal_kort', { n }));
+  /* --- STANDARDVISNINGEN --------------------------------------------------
+     Hvor mange kort staar der, FOER laeseren roerer noget? Status-facetten er
+     krydset af paa i produktion + annonceret, saa svaret er ikke 77. Det
+     regnes her i stedet for at blive skrevet i haanden - tallet aendrer sig,
+     saa snart en robot skifter status. */
+  const iStandard = robotter.filter((r) => status.standard.has(r.status)).length;
 
-  /* --- filterfelterne --- */
-  const grupper = F.map((f) => `<fieldset class="facet">
-<legend class="etiket">${esc(f.etiket)}</legend>
-<div class="filtre">
-${f.liste.map((v) => {
+  /* --- TYPESKILTETS STEMPLER ----------------------------------------------
+     Fire stansede felter. Alle FIRE er udledt af data - ingen af dem er
+     skrevet i haanden, og ingen af dem er en dato fra byggeuret (som ville
+     goere to byg af samme data forskellige).
+
+     "Udgave" er den seneste hentedato i hele kataloget: den siger, hvor frisk
+     materialet er, og den er den eneste dato paa siden, der ikke tilhoerer en
+     enkelt robot. */
+  const datoer = [];
+  for (const r of robotter) {
+    if (r.billede?.hentet) datoer.push(r.billede.hentet);
+    if (r.anvendelse?.hentet) datoer.push(r.anvendelse.hentet);
+    for (const p of Object.values(r.felter ?? {})) {
+      if (p && typeof p === 'object' && typeof p.hentet === 'string') datoer.push(p.hentet);
+    }
+  }
+  const udgave = datoer.length ? datoer.sort()[datoer.length - 1] : '';
+  const oplysteFelter = robotter.reduce((sum, r) => sum
+    + Object.keys(r.felter ?? {}).filter((n) => erOplyst(r, n)).length, 0);
+  const lande = new Set(robotter.map((r) => r.producentland)).size;
+
+  const stempler = [
+    [t('stempel_type'), `QUAD-${alle}`],
+    [t('stempel_udgave'), udgave],
+    [t('stempel_poster'), hjaelp.nformat(alle)],
+    [t('stempel_felter'), hjaelp.nformat(oplysteFelter)],
+  ];
+
+  /* --- STRIMLENS CHIPS ----------------------------------------------------
+     Én <li> pr. mulig markering, skjult i hvile, taendt af sin egen regel
+     (hovedStil §5c). Krydset er en <label>, ikke en <button>: en label kan
+     slaa afkrydsningsfeltet fra UDEN JavaScript, hvilket en knap ikke kan. */
+  const kryds = `<svg class="valg__kryds" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true">`
+    + `<path d="M1.4 1.4 7.6 7.6M7.6 1.4 1.4 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+  const valgChip = (id, tekst, ekstra = '') => `<li class="valg${ekstra}" data-valg="${attr(id)}">`
+    + `<span class="valg__navn">${esc(tekst)}</span>`
+    + `<label class="valg__fjern" for="${attr(id)}">${kryds}`
+    + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: tekst }))}</span></label></li>`;
+
+  const valgListe = [];
+  for (const f of F) {
+    if (f.standard) continue;
+    for (const v of f.liste) valgListe.push(valgChip(`f-${f.navn}-${nogle(v)}`, f.tekst(v)));
+  }
+  for (const k of K) valgListe.push(valgChip(`f-eg-${k.navn}`, t('eg_' + k.navn)));
+  // Status vender modsat: chippen siger, hvad der er SKJULT.
+  for (const v of status.liste) {
+    const n = status.antal.get(v) ?? 0;
+    valgListe.push(`<li class="valg valg--standard" data-valg="skjult-${attr(nogle(v))}">`
+      + `<span class="valg__navn">${esc(tf('valg_skjult', { navn: status.tekst(v), n }))}</span>`
+      + `<label class="valg__fjern" for="f-status-${attr(nogle(v))}">${kryds}`
+      + `<span class="kunskaerm">${esc(tf('valg_vis', { navn: status.tekst(v) }))}</span></label></li>`);
+  }
+
+  /* --- FACETGRUPPERNE ----------------------------------------------------- */
+  const raekke = (f, v) => {
     const id = `f-${f.navn}-${nogle(v)}`;
-    return `<input type="checkbox" class="f-${attr(f.navn)}" id="${attr(id)}" name="${attr(f.navn)}" value="${attr(v)}">`
-      + `<label for="${attr(id)}">${esc(f.tekst(v))}`
-      + `<span class="antal"><span class="antal__tal">${esc(String(f.antal.get(v)))}</span>${omfangAlle}</span></label>`;
-  }).join('\n')}
-</div>
-</fieldset>`).join('\n');
+    const valgt = f.standard?.has(v) ? ' checked' : '';
+    // "ikke oplyst" og "nej" er EGNE tilstande med egne maerker, aldrig et hul.
+    const stand = v === 'ikke_oplyst' ? ' rk--uoplyst' : v === 'nej' ? ' rk--nej' : '';
+    return `<div class="rk${stand}">`
+      + `<input class="rk__felt f-${attr(f.navn)}" type="checkbox" id="${attr(id)}"`
+      + ` name="${attr(f.navn)}" value="${attr(v)}"${valgt}>`
+      + `<label class="rk__mrk" for="${attr(id)}">`
+      + `<span class="rk__boks" aria-hidden="true">${hjaelp.ikon(v === 'ikke_oplyst' ? 'i-ioplyst' : v === 'nej' ? 'i-nej' : 'i-ja', 'rk__tegn')}</span>`
+      + `<span class="rk__navn">${esc(f.tekst(v))}</span>`
+      + `<span class="antal"><span class="antal__tal">${esc(String(f.antal.get(v)))}</span>${omfangAlle}</span>`
+      + `</label></div>`;
+  };
 
-  /* --- kortet indpakket i ét lag pr. facet - uaendret pr.-kort mekanik,
-     kaldes nu pr. vaegtklassegruppe (se sale-loekken nedenfor) i stedet for
-     ét langt kald over hele `sorteret`. --- */
-  // Loebende taeller paa tvaers af ALLE sale (vaegtklasser), ikke nulstillet
-  // pr. sal - de foerste EAGER_KORT_ANTAL kort paa SIDEN (uanset hvilken sal
-  // de staar i) er dem, en besoegende ser foer scroll (spor/billedramme,
-  // 26. aug 2026: maalt til 4 med maalevaerktoej/_agent-raekke.mjs).
+  const facetBlok = (f, bredde, klasser = '') => `<fieldset class="facet facet--s${bredde}${klasser}">
+<legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
+${f.liste.map((v) => raekke(f, v)).join('\n')}
+</fieldset>`;
+
+  /* Egenskabsgruppen. Chippen er ÉT afkrydsningsfelt ("vis kun dem, der kan
+     det"), men alle TRE tilstande staar som tal ved siden af - haard
+     begraensning 5. Laeseren kan derfor se, hvad et kryds vil koste, FOER
+     klikket: 35 robotter siger ikke noget om trapper, og de forsvinder. */
+  const tegn = { ja: 'i-ja', nej: 'i-nej', nul: 'i-nul', ikke_oplyst: 'i-ioplyst' };
+  const delTal = (slags, n, ord) => `<span class="d d--${slags === 'ikke_oplyst' ? 'uoplyst' : slags}">`
+    + `${hjaelp.ikon(tegn[slags], 'd__tegn')}<span class="d__tal">${esc(String(n))}</span>`
+    + `<span class="d__ord">${esc(ord)}</span></span>`;
+
+  const chipsHtml = K.map((k) => `<div class="chip">
+<input class="chip__felt f-eg" type="checkbox" id="f-eg-${attr(k.navn)}" name="eg" value="${attr(k.navn)}">
+<label class="chip__krop" for="f-eg-${attr(k.navn)}">
+<span class="chip__navn">${esc(t('eg_' + k.navn))}</span>
+<span class="deling">${delTal('ja', k.ja, T.ja)}`
+    // Et taelleligt NUL er ikke det samme som et manglende svar: 0 robotter
+    // afviser hot-swap, og det maerke skal derfor vaere nul-maerket.
+    + `${delTal(k.nej === 0 ? 'nul' : 'nej', k.nej, T.nej)}`
+    + `${delTal('ikke_oplyst', k.ikke_oplyst, T.tilstand_ikke_oplyst)}`
+    + `<span class="antal antal--chip">${omfangAlle}</span></span>
+</label>
+</div>`).join('\n');
+
+  const frostNul = robotter.filter((r) => {
+    const p = r.felter?.temp_min;
+    return p && typeof p === 'object' && p.vaerdi === 0;
+  }).length;
+  const frost = K.find((k) => k.navn === 'frost');
+
+  /* --- FACETLAGET --------------------------------------------------------- */
+  const anv = F.find((f) => f.navn === 'anv');
+  const vaegt = F.find((f) => f.navn === 'vaegt');
+  const ip = F.find((f) => f.navn === 'ip');
+  const land = F.find((f) => f.navn === 'land');
+
+  const facetNet = `<div class="facetter__net">
+${facetBlok(anv, 3)}
+${facetBlok(vaegt, 4)}
+<fieldset class="facet facet--s5 facet--raekkeslut">
+<legend class="facet__navn">${esc(t('filter_egenskaber'))}<span class="facet__tal">${esc(t('filter_egenskaber_mrk'))}</span></legend>
+${chipsHtml}
+<p class="chip-fod">${esc(tf('eg_fod', { n: alle, m: frost.nej, k: frostNul }))}</p>
+</fieldset>
+${facetBlok(ip, 3, ' facet--sidste-raekke')}
+${facetBlok(status, 3, ' facet--sidste-raekke')}
+${facetBlok(land, 3, ' facet--sidste-raekke')}
+<fieldset class="facet facet--s3 facet--raekkeslut facet--sidste-raekke">
+<legend class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></legend>
+<div class="reserveret">
+<p class="reserveret__ord">${esc(t('filter_certificering_ord'))}</p>
+<p class="reserveret__note">${esc(tf('filter_certificering_note', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ja').length, m: alle }))}</p>
+</div>
+</fieldset>
+</div>`;
+
+  /* --- KORTET -------------------------------------------------------------
+     L56 punkt 7: billede + producent + produktnavn, intet andet. Katalogets
+     kort er BEVIDST ikke hjaelp.kort(): den deles med forsiden og
+     producentsiderne, som ikke er bygget om i dette spor, og som stadig skal
+     have striben, landet og anvendelsesmaerkerne. En faelles funktion, der
+     skulle kunne begge, ville vaere en kontakt med to stillinger - og det er
+     praecis den konstruktion, sprogreglen i CLAUDE.md forbyder et andet sted.
+
+     Statusstemplet lægges KUN paa, naar status ikke er "i produktion":
+     forskellen er den eneste, kortet skal kunne baere (MANIFEST §Layouttesen). */
   let kortIndeks = 0;
-  const kortHTML = (r) => {
+
+  /**
+   * Selve kortet. `variant` giver aabningens kort en EGEN klasse, og det er
+   * ikke kosmetik: tools/build.mjs:66 taeller `<article class="kort">` ordret
+   * og paastaar (linje 295), at kataloget har praecis én pr. datafil. Ville
+   * aabningens ni kort baere den samme ordrette streng, ville bygget fejle med
+   * 86 mod 77 - og den paastand har ret: det er RESULTATGITTERET, der skal
+   * have ét kort pr. robot. Varianten holder derfor taellingen aerlig i stedet
+   * for at slaa den fra.
+   */
+  const kortHTML = (r, { variant = '', savn = '' } = {}) => {
+    const eager = kortIndeks < hjaelp.EAGER_KORT_ANTAL;
+    kortIndeks += 1;
+    const stempel = r.status === 'i_produktion' ? ''
+      : `<span class="kort__mrk">${esc(T['status_' + r.status])}</span>`;
+    // Linket ligger paa NAVNET, ikke om hele kortet: skaermlaeseren skal
+    // annoncere "Go2", ikke hele kortets indhold. `.kort__navn a::after`
+    // daekker kortet, saa hele fladen alligevel er klikbar.
+    //
+    // ÅBNINGSTAGGEN ER ORDRET `<article class="kort">` for resultatgitteret.
+    // tools/build.mjs:66 taeller netop den streng, saa hverken et style- eller
+    // et data-attribut maa ind foran klassen. Rangtallene staar derfor paa det
+    // yderste lag og ARVES ned (CSS-variable nedarves) - samme greb som foer
+    // ombygningen.
+    return `<article class="kort${variant}">`
+      + `${stempel}${hjaelp.billede(r, '../../', { eager })}`
+      + `<div class="kort__tekst">`
+      + `<p class="kort__prod">${esc(r.producent)}</p>`
+      + `<h3 class="kort__navn"><a href="${attr(r.slug)}/">${esc(r.navn)}</a></h3>`
+      + `${savn}</div></article>`;
+  };
+
+  /** Resultatgitterets kort: indpakket i ét lag pr. facet. */
+  const lagKortHTML = (r) => {
     const sogetekst = [
       r.navn, r.producent, r.producentland, hjaelp.land(r.producentland),
       ipVaerdi(r), t('vaegtklasse_' + hjaelp.vaegtklasse(r)),
       ...hjaelp.anvendelse(r).vaerdier.map((v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst : t('anvendelse_' + v))),
     ].join(' ').toLowerCase();
 
+    const ordner = SORTERINGER.filter((s) => !s.standard)
+      .map((s) => `--o-${s.navn}:${rang.get(s.navn).get(r.slug)}`).join(';');
+    // Det aerlige savn-maerke: kun for de sorteringer, robotten IKKE oplyser.
+    const savn = SORTERINGER.filter((s) => !s.standard && s.tal(r) === null)
+      .map((s) => `<span class="kort__savn kort__savn--${s.navn}">${esc(t(s.savn))}</span>`).join('');
+
+    // Ét lag pr. listefacet, plus ÉT faelles lag til alle fem egenskabschips.
+    const egVaerdier = K.filter((k) => kapabilitet(r, k) === 'ja').map((k) => k.navn).join(' ');
     const aabne = F.map((f, i) => {
       const vaerdier = f.vaerdier(r).join(' ');
-      // Rangtallene staar paa det YDERSTE lag og arves ned til .kort, som er
-      // gitterets egentlige celle (lagene er display:contents). Ét sted at
-      // skrive dem, uanset hvor mange facetlag der ligger imellem.
       const ekstra = i === 0
-        ? ` data-sog="${attr(sogetekst)}"`
-          + ` style="--o-taethed:${rangTaethed.get(r.slug)};--o-alfa:${rangAlfa.get(r.slug)}"`
+        ? ` data-sog="${attr(sogetekst)}" style="${attr(ordner)}"`
         : '';
       return `<div class="lag lag-${attr(f.navn)}" data-${attr(f.navn)}="${attr(vaerdier)}"${ekstra}>`;
-    }).join('');
-    const eager = kortIndeks < hjaelp.EAGER_KORT_ANTAL;
-    kortIndeks += 1;
-    return `${aabne}\n${hjaelp.kort(r, { op: '../../', til: '', eager })}\n${'</div>'.repeat(F.length)}`;
+    }).join('') + `<div class="lag lag-eg" data-eg="${attr(egVaerdier)}">`;
+    return `${aabne}\n${kortHTML(r, { savn })}\n${'</div>'.repeat(F.length + 1)}`;
   };
 
-  /* --- SALENE. Fire vaegtklassegrupper, romertal I-IV, hver med sin egen
-     AEGTE optaelling (liste.length) - se filhovedets note. `sorteret` er
-     allerede ordnet efter klasse foerst (klasseOrden), saa en simpel
-     partition efter vaegtklasse bevarer den eksisterende vaegtorden inden
-     for hver sal, uden at sortere igen. */
-  const efterKlasse = new Map(hjaelp.VAEGTKLASSER.map((k) => [k, []]));
-  for (const r of sorteret) efterKlasse.get(hjaelp.vaegtklasse(r)).push(r);
+  /* --- AABNINGEN: DE SENESTE MODELLER -------------------------------------
+     JPK's tillaeg 31. aug 2026. Compen har INGEN aabning, saa formen er
+     fortolket - men den er fortolket inden for typeskiltet: en stanset plade,
+     aarstallet stemplet som et stort tal, resten i pladens egen skrift.
 
-  /* `data-sal` paa ALLE en sals dele - indeksposten, hovedet, forklaringen og
-     gitteret. Salen er fire soeskende i DOM'en, ikke ét element (og maa blive
-     ved med at vaere det: `.gitter + .sal`s luftregel i generator.css laeser
-     netop den soeskenderaekke). Ét faelles attribut giver alligevel ÉN
-     vaelger, der tager hele salen med - baade for de genererede
-     tomhedsregler nedenfor og for JavaScript. */
-  const saleHTML = hjaelp.VAEGTKLASSER.map((klasse, i) => {
-    const liste = efterKlasse.get(klasse);
-    if (!liste.length) return '';
-    const forklaring = klasse === 'ikke_oplyst' ? t('vaegtklasse_ikke_oplyst_forklaring') : '';
-    const s = attr(klasse);
-    return `<div class="sal" data-sal="${s}">
-<span class="sal__nr" aria-hidden="true">${esc(ROMERTAL[i])}</span>
-<h2 class="t-h3 sal__titel" id="h-${attr(klasse)}">${esc(t('vaegtklasse_' + klasse))}</h2>
-<span class="sal__antal figur" data-antal-flere="${attr(t('antal_kort'))}" data-antal-en="${attr(t('antal_kort_en'))}"><span class="antal__tal">${esc(antalKort(liste.length))}</span>${omfangKatalog}</span>
+     DEN ER SAT AF ROBOTTER, IKKE AF EN PAASTAND, og det er svaret paa D20
+     ("skal katalogsiden aabne med robotterne i stedet for betjeningen?").
+     Et hero-baand af ren tekst ville have skubbet det foerste robotkort
+     LAENGERE ned; dette traekker det op til sidens foerste skaerm.
+
+     AERLIGHEDEN ER SELVE OPGAVEN HER. 45 af 77 oplyser et udgivelsesaar,
+     32 goer ikke. De 32 maa aldrig komme til at se GAMLE ud: "ikke oplyst" er
+     ikke en daarlig aargang, det er en tavshed (haard begraensning 5). Derfor
+     staar kvalifikationen i selve blokken - ikke i en fodnote - og udvalget
+     praesenteres som "udgivet i <aar>", et faktum, og ikke som "de nyeste
+     robotter", en rangordning de 32 ikke har faaet lov at deltage i. */
+  const medAar = robotter.filter((r) => typeof r.foerste_udgivelse === 'number');
+  const senesteAar = medAar.length ? Math.max(...medAar.map((r) => r.foerste_udgivelse)) : null;
+  const seneste = medAar.filter((r) => r.foerste_udgivelse === senesteAar)
+    .sort((a, b) => String(a.navn).localeCompare(String(b.navn), sprog));
+
+  const aabning = senesteAar === null ? '' : `<section class="aabning" aria-labelledby="aabning-titel">
+<div class="aabning__krop stans">
+<div class="aabning__hoved">
+<div class="aabning__ord">
+<h1 class="aabning__titel" id="aabning-titel">${esc(T.katalog_titel)}</h1>
+<p class="aabning__under">${esc(tf('katalog_plade_under', { n: alle, l: lande }))}</p>
 </div>
-${forklaring ? `<p class="t-lille sal__forklaring" data-sal="${s}">${esc(forklaring)}</p>` : ''}
-<div class="gitter" data-sal="${s}">
-${liste.map(kortHTML).join('\n')}
-</div>`;
-  }).join('\n');
+<p class="aarstempel">
+<span class="aarstempel__tal">${esc(String(senesteAar))}</span>
+<span class="aarstempel__ord">${esc(t('seneste_aar_ord'))}</span>
+</p>
+</div>
+<div class="aabning__baand">
+<h2 class="aabning__flok">${esc(tf('seneste_antal', { n: seneste.length, aar: senesteAar }))}</h2>
+<p class="aabning__note">${esc(tf('seneste_note', { m: medAar.length, i: alle, u: alle - medAar.length }))}</p>
+</div>
+<div class="net net--seneste">
+${seneste.map((r) => kortHTML(r, { variant: ' kort--seneste' })).join('\n')}
+</div>
+</div>
+</section>`;
 
-  /* --- L44: TOMMELINDEKSET ------------------------------------------------
-     Rene HTML-ankre, ingen JavaScript. Maalene er salenes egne <h2 id="h-...">,
-     som allerede fandtes - indekset opfinder ingen nye id'er.
-
-     KUN sale med mindst ét kort kommer med. saleHTML springer en tom
-     vaegtklasse over (`if (!liste.length) return ''`), saa et anker til den
-     ville pege paa et id, der ikke bliver skrevet - et doedt internt link,
-     som linktjek.mjs ville fange. Filtret her er derfor ikke pynt: det er
-     den samme betingelse som salens egen, laest fra den samme Map. */
-  const indeksPoster = hjaelp.VAEGTKLASSER
-    .map((klasse) => ({ klasse, liste: efterKlasse.get(klasse) }))
-    .filter((p) => p.liste.length);
-
-  const tommelindeks = indeksPoster.length ? `<nav class="tommelindeks" aria-labelledby="tommel-h">
-<h2 class="etiket" id="tommel-h">${esc(t('tommelindeks_titel'))}</h2>
-<ul class="tommelindeks__liste">
-${indeksPoster.map(({ klasse, liste }) => `<li data-sal="${attr(klasse)}"><a href="#h-${attr(klasse)}">`
-    + `${esc(t('vaegtklasse_' + klasse))}`
-    + `<span class="antal"><span class="antal__tal">${esc(String(liste.length))}</span>${omfangAlle}</span></a></li>`).join('\n')}
-</ul>
-</nav>` : '';
-
-  /* --- EU-pointen. Staar én gang, ikke paa hvert kort. --- */
-  const udenCe = robotter.filter((r) => hjaelp.ceTilstand(r) === 'ikke_oplyst').length;
+  /* --- SORTERINGSKONTROLLEN ------------------------------------------------
+     Radioknapper, ikke <select>. Compen tegner en <select>, men en <select>
+     kan ikke drive `order` uden JavaScript, og sorteringen skal virke uden -
+     samme loefte som filtrene (tests/dele/24-flade.mjs vogter det). Formen er
+     derfor en stanset raekke, ikke en rullemenu; det er den eneste bevidste
+     afvigelse fra compens facon paa denne flade. */
+  const sortervalg = SORTERINGER.map((s, i) => `<input type="radio" class="f-sort" id="sort-${attr(s.navn)}"`
+    + ` name="sort" value="${attr(s.navn)}"${i === 0 ? ' checked' : ''}>`
+    + `<label for="sort-${attr(s.navn)}">${esc(t(s.noegle))}</label>`).join('\n');
+  const sorterNoter = SORTERINGER.filter((s) => s.note)
+    .map((s) => `<p class="t-mikro sorter__note" data-note="${attr(s.navn)}">${esc(t(s.note))}</p>`).join('\n');
 
   return `<div class="rum">
-<div class="katalog-hoved">
-<h1 class="t-h1">${esc(T.katalog_titel)}</h1>
-<p class="t-broed maal">${esc(tf('forside_lede', { n: robotter.length, p: new Set(robotter.map((r) => r.producent)).size }))}</p>
+${aabning}
+<form class="styr" id="styr" action="#alle" method="get">
+
+<section class="plade" aria-labelledby="plade-titel">
+<div class="plade__krop stans">
+
+<div class="plade__hoved">
+<div class="plade__ord">
+<h2 class="plade__titel" id="plade-titel">${esc(t('plade_filtrer'))}</h2>
+<p class="plade__under">${esc(t('filter_uden_js'))}</p>
+</div>
+<dl class="stempler">
+${stempler.map(([n, v]) => `<div class="stempel"><dt>${esc(n)}</dt><dd>${esc(v)}</dd></div>`).join('\n')}
+</dl>
 </div>
 
-<form class="styr" id="styr" action="#alle" method="get">
-<div class="styring">
+<div class="strimmel">
+<span class="strimmel__mrk">${esc(t('strimmel_valgt'))}</span>
+<ul class="valgliste">
+${valgListe.join('\n')}
+</ul>
+<p class="taeller">
+<span class="taeller__tal">${esc(hjaelp.nformat(iStandard))}</span>
+<span class="taeller__af">${esc(tf('taeller_af_alle', { n: alle }))}</span>
+${omfangStandard}
+</p>
+<button class="nulstil" type="reset" data-nulstil>${esc(t('filter_nulstil'))}</button>
+</div>
+
+<details class="udtraek" open>
+<summary class="udtraek__greb">${esc(t('filter_udtraek'))}<span class="haandtag" aria-hidden="true">${hjaelp.ikon('i-pil', 'haandtag__tegn')}</span></summary>
 <div class="sog" data-sog="katalog" hidden>
 <label class="etiket" for="sog-katalog">${esc(t('katalog_soeg_etiket'))}</label>
 <input id="sog-katalog" name="s" type="search" autocomplete="off"
  placeholder="${attr(t('katalog_soeg_pladsholder'))}">
 </div>
-<fieldset class="katalog-sortering">
-<legend class="etiket">${esc(t('katalog_sortering_etiket'))}</legend>
+${facetNet}
+<p class="t-mikro facet-omfang" data-omfang-note hidden>${esc(t('filter_omfang_statisk'))}</p>
+</details>
+
+</div>
+</section>
+
+<section class="resultat" aria-labelledby="resultat-titel">
+<div class="resultat__hoved">
+<h2 class="resultat__titel" id="resultat-titel" data-antal-flere="${attr(t('antal_kort'))}" data-antal-en="${attr(t('antal_kort_en'))}">
+<span class="antal__tal">${esc(iStandard === 1 ? t('antal_kort_en') : tf('antal_kort', { n: iStandard }))}</span>${omfangStandard}
+</h2>
+<fieldset class="sorter">
+<legend class="sorter__etiket">${esc(t('katalog_sortering_etiket'))}</legend>
 <div class="sortervalg">
-${[['vaegt', 'katalog_sortering_vaegt'],
-    ['taethed', 'katalog_sortering_taethed'],
-    ['alfa', 'katalog_sortering_alfabetisk']]
-    .map(([navn, noegle], i) => `<input type="radio" class="f-sort" id="sort-${attr(navn)}" name="sort"`
-      + ` value="${attr(navn)}"${i === 0 ? ' checked' : ''}>`
-      + `<label for="sort-${attr(navn)}">${esc(t(noegle))}</label>`).join('\n')}
+${sortervalg}
 </div>
 </fieldset>
 </div>
-<p class="t-mikro sortering-hjaelp">${esc(t('katalog_sortering_forklaring'))}</p>
-
-<div class="facetter">
-${grupper}
-</div>
-<p class="t-mikro facet-hjaelp">${esc(t('filter_uden_js'))}</p>
-<p class="facet-ryd"><a class="videre videre--stille" data-ryd href="#alle">${esc(t('filter_vis_alle'))}</a></p>
-<p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
-
-${tommelindeks}
-
-<p class="t-mikro facet-omfang" data-omfang-note hidden>${esc(t('filter_omfang_statisk'))}</p>
-
-<div id="alle">
-${saleHTML}
+${sorterNoter}
+<div class="net" id="alle">
+${sorteret.map(lagKortHTML).join('\n')}
 </div>
 
 <p class="tomt" data-tomt hidden role="status">
@@ -465,9 +792,11 @@ ${saleHTML}
 <span data-tomt-grund="filter" hidden>${esc(t('filter_ingen_traef'))}</span>
 <a class="videre videre--stille tomt__ryd" data-ryd href="#alle">${esc(t('filter_vis_alle'))}</a>
 </p>
+</section>
 </form>
 
-<p class="t-lille sektion-note">${esc(tf('eu_pointe', { n: udenCe, m: robotter.length }))}</p>
+<p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
+<p class="t-lille sektion-note">${esc(tf('eu_pointe', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ikke_oplyst').length, m: alle }))}</p>
 ${hjaelp.tegnforklaring()}
 </div>`;
 }
