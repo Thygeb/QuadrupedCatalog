@@ -4,6 +4,7 @@ producent: "Pudu Robotics"
 producentland: "Kina"
 producentby: "Shenzhen"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 anvendelse:
   vaerdi:
     - "industri"

@@ -3,6 +3,7 @@ navn: "CyberDog 2"
 producent: "Xiaomi"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "SPECIFIKATIONERNE ER TEKST, IKKE BILLEDER - men de står ikke i sidens HTML. Parametersidens indholdselement er tomt ved levering (75 bytes, kun en indlæsningssnurre); hele specifikationsarket ligger som ren tekst i den JavaScript-bundle, siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog2/specs.74df51bf.js (gemt, 200, 109.869 bytes). Det regnes som primærkilde: producentens egen server, producentens eget indhold, og den tekst en besøgende faktisk får vist."
 anvendelse:

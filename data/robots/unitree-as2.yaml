@@ -3,6 +3,7 @@ navn: "As2"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
 varianter:
   - "AIR"
   - "PRO"

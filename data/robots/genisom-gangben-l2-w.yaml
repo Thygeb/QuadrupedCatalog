@@ -4,6 +4,7 @@ producent: "GENISOM AI"
 producentland: "Kina"
 producentby: "Beijing / Suzhou"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri, 86 TOPS) ER BEVIDST IKKE BRUGT HER: L2-sidens fremhævede hero-marketingkort (\"70cm 垂直越障高度\", \"756Wh 大容量电池\", \"高达 86 TOPS 算力平台\") står EN gang for hele siden, før fanebladene, og er ikke gentaget i L2-W's egen JSON-blok. De matcher L2 (basisudgavens) egne tal nøjagtigt - men uden en eksplicit gentagelse i L2-W's egen datablok kan de ikke sikkert tilskrives netop denne variant. forhindring_enkelt, batteri_wh og compute's TOPS-tal står derfor ikke oplyst/uden TOPS-tal her, i modsætning til den eksisterende L2-post, som bruger dem for basisudgaven."
 anvendelse:

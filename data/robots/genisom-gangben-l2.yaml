@@ -4,6 +4,7 @@ producent: "GENISOM AI"
 producentland: "Kina"
 producentby: "Beijing / Suzhou"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "SENSOR-UOVERENSSTEMMELSE, IKKE LØST STILTIENDE: L2's markedsføringstekst (samme side) skriver \"支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位\" (understøtter automatisk kortlægning og ruteplanlægning, kombineret med LiDAR og GNSS for centimeterpræcis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og \"双目相机\" (stereokamera) under \"传感器\" for basismodellen L2 - INGEN lidar-række. En lidar-række (\"3D激光雷达: 工业级96线激光雷达*2\") findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder på samme side modsiger hinanden, og det rettes ikke stiltiende."
 anvendelse:

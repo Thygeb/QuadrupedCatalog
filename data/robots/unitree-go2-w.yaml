@@ -3,6 +3,7 @@ navn: "Go2-W"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 anvendelse:
   vaerdi:
     - "forbruger_uddannelse"

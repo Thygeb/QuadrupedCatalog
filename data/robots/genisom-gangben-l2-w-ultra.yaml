@@ -4,6 +4,7 @@ producent: "GENISOM AI"
 producentland: "Kina"
 producentby: "Beijing / Suzhou"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "INGEN SELVSTÆNDIG URL: samme forbehold som L2-W - findes udelukkende som fane-skift på L2's egen side (https://www.genisomai.com/product-robot/L2, techParamsData.datas[2], classname \"钢镚 L2-W Ultra\", id 1250)."
   - "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri) ER BEVIDST IKKE BRUGT HER: samme forbehold som L2-W - hero-marketingkortets tal står en gang for hele siden og er ikke gentaget i L2-W Ultra's egen datablok, derfor ikke tilskrevet denne variant specifikt."

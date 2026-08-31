@@ -3,6 +3,7 @@ navn: "Go1"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
 varianter:
   - "Air"
   - "Pro"

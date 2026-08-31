@@ -4,6 +4,7 @@ producent: "Yuejia Lingdong"
 producentland: "Kina"
 producentby: "Shenzhen"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
   - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\"-tabellen."

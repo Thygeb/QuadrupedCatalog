@@ -4,6 +4,7 @@ producent: "Ghost Robotics"
 producentland: "USA"
 producentby: "ikke_oplyst"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "HJEMBY ER IKKE OPLYST: strengen \"Philadelphia\", som ofte tilskrives producenten, findes 0 gange i producentens forside, produktside og datablad. Sidefoden har kun Get In Touch, og databladet har e-mail og domæne, ingen adresse."
   - "Databladet (SPECSHEET V3.3, 2024) downloades direkte fra produktsiden, men ligger på producentens Webflow-CDN, ikke på deres eget domæne. URL'en kan dø."

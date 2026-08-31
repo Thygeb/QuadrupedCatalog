@@ -4,6 +4,7 @@ producent: "GENISOM AI"
 producentland: "Kina"
 producentby: "Beijing / Suzhou"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "AUTONOM NAVIGATION ER STANDARD, IKKE TILVALG, PÅ M1 PRO: basisudgavens funktionsliste skriver \"自主导航: 选配：智航Pro版\" (selvstændig navigation: TILVALG). M1 Pro's egen funktionsliste for SAMME punkt skriver blot \"自主导航: 智航Pro版\" - UDEN \"选配\" (tilvalg)-præfikset. Læst som en reel forskel, ikke en udeladelse: M1 Pro leveres med selvstændig navigation som standardfunktion."
 anvendelse:

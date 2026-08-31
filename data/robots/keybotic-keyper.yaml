@@ -4,6 +4,7 @@ producent: "Keybotic"
 producentland: "Spanien"
 producentby: "Barcelona"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "PRIS: ROBOT-AS-A-SERVICE, INGEN FAST PRIS. FAQ: \"How much does it cost to hire a Keyper? With our Robot as a Service (RaaS) employment model, you can hire your own Keyper and start automating your inspections with no initial investment - the final costs will be adjusted based on each customer's specific needs with different software applications. Of course, purchase options are also available.\" Der findes intet listetal at indsætte - feltet står ikke oplyst, ikke 0 eller nej, fordi producenten aktivt sælger/udlejer robotten, blot uden offentliggjort prisliste."
   - "INSPECTION HEAD ER ET UNDERMODUL, IKKE HELE ROBOTTENS FRIHEDSGRADER: \"Pan range: -150º/150º\" og \"Tilt range: -55º/45º\" står under overskriften \"Inspection Head\" (et separat 4kg hoved-modul med zoom-/termisk kamera, ultralydsmikrofon, projektør og højttalere) og beskriver KUN dette moduls pan/tilt-bevægelse - ikke robottens samlede antal frihedsgrader/led. frihedsgrader står derfor ikke oplyst, ikke 2."

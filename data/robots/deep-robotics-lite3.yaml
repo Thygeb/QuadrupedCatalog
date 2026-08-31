@@ -4,6 +4,7 @@ producent: "DEEP Robotics"
 producentland: "Kina"
 producentby: "Hangzhou"
 status: "i_produktion"
+fremdrift: "ben"
 varianter:
   - "Basic"
   - "Venture"

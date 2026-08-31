@@ -4,6 +4,7 @@ producent: "Pudu Robotics"
 producentland: "Kina"
 producentby: "Shenzhen"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "Vigtig uoverensstemmelse fundet ved felt-for-felt-efterprøvning: Den generelle markedsføringstekst (samme ordlyd på officiel side og webbutik) skriver \"Easily handles 25 cm steps, 30° climbs, and 45° descents\" - men den variant-specifikke sammenligningstabel på webbutikken skriver noget andet for D5 alene: \"D5: 25° ascent, 45° descent\" og \"Maximum Step Height D5: 30 cm\". Markedsføringstekstens 30°/25cm er faktisk D5-W's tabelværdier (30° ascent, 25 cm step), ikke D5's. Felterne hældning og trappetrin_kontinuerlig herunder bruger tabellen, IKKE markedsføringsteksten - se advarsel på hvert felt."
   - "Fodnote 5 på den officielle produktside: \"PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request.\" Den fremhævede markedsføringstekst (\"Dual 192-line* spherical LiDARs\") beskriver altså en betalt opgradering, ikke standardkonfigurationen."

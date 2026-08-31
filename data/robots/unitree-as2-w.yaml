@@ -3,6 +3,7 @@ navn: "As2-W"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 varianter:
   - "X"
   - "EDU"

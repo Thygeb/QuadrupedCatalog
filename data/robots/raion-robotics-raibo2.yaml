@@ -4,6 +4,7 @@ producent: "Raion Robotics"
 producentland: "Sydkorea"
 producentby: "Daejeon"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "SPØRGSMÅLET VAR, OM DEN OVERHOVEDET ER ET PRODUKT. SVARET ER JA. RAIBO2 er udviklet i KAIST RaiLab (prof. Jemin Hwangbo) og kommercialiseret af udspringervirksomheden Raion Robotics Inc. (라이온로보틱스), Daejeon, med kontor i Seoul. Produktsiden https://raionrobotics.com/en/product/Raibo2 svarede HTTP 200 den 2026-08-21 og har en salgssektion: For product purchases, demo requests, quotations, PoC projects, and business partnerships, contact our sales team. Posten er derfor oprettet - men under Raion Robotics, ikke under KAIST."
   - "PRODUCENTEN OFFENTLIGGØR INGEN SPECIFIKATIONSTABEL FOR ROBOTTEN. Produktsiden har præcis én tabel, og den hører til AKTUATOREN: Peak Torque 100 Nm, Rated Voltage 48 V, Max Speed 195.8 rpm, Rated Current 14.1 A, Weight 1.8 kg. FÆLDEN ER Weight 1.8 kg - det er én motormodul, ikke robotten. Ingen af de fem tal er ført ind som robotdata."

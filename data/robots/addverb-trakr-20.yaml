@@ -4,6 +4,7 @@ producent: "Addverb"
 producentland: "Indien"
 producentby: "Noida"
 status: "i_produktion"
+fremdrift: "ben"
 anvendelse:
   vaerdi:
     - "sikkerhed_overvaagning"

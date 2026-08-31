@@ -4,6 +4,7 @@ producent: "Galileo (Tianjin)"
 producentland: "Kina"
 producentby: "Tianjin"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "S1 ER DEN ENESTE GALILEO-MODEL MED BEGGE KLATREFELTER UDFYLDT: tabellen skriver \"可攀爬高度: 25cm高连续台阶,正向高度差40cm高台\" - BÅDE en kontinuerlig-trappe-værdi OG en platform-højde-værdi i samme række, i modsætning til C1/E1 (kun trappetrin_kontinuerlig) og C1-W/E1-W (kun forhindring_enkelt). Begge felter er derfor udfyldt her: trappetrin_kontinuerlig=25cm, forhindring_enkelt=40cm."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."

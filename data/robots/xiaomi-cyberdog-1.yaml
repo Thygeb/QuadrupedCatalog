@@ -3,6 +3,7 @@ navn: "CyberDog"
 producent: "Xiaomi"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
 foerste_udgivelse: 2021
 noter:
   - "SAMME FÆLDE SOM CYBERDOG 2, SAMME LØSNING. Specifikationssiden leverer et tomt indholdselement; hele arket ligger som ren tekst i en JavaScript-bundle, som siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog/specs.5406502c.js (hentet 2026-08-21). Primærkilde: producentens egen server, producentens eget indhold."

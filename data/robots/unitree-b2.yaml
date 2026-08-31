@@ -3,6 +3,7 @@ navn: "B2"
 producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
+fremdrift: "ben"
 anvendelse:
   vaerdi: "industri"
   citat:

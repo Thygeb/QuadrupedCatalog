@@ -4,6 +4,7 @@ producent: "NEURA Robotics"
 producentland: "Tyskland"
 producentby: "Metzingen"
 status: "annonceret"
+fremdrift: "ben"
 anvendelse:
   vaerdi:
     - "inspektion"

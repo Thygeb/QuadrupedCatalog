@@ -4,6 +4,7 @@ producent: "Galileo (Tianjin)"
 producentland: "Kina"
 producentby: "Tianjin"
 status: "i_produktion"
+fremdrift: "ben_hjul"
 noter:
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 anvendelse:

@@ -4,6 +4,7 @@ producent: "Yuejia Lingdong"
 producentland: "Kina"
 producentby: "Shenzhen"
 status: "i_produktion"
+fremdrift: "ben"
 noter:
   - "STANDMÅL-TYPO I KILDEN: rækken skriver \"682×354×462m\" - manglende \"m\" i \"mm\", i modsætning til alle øvrige rækker i samme tabel (fx YJ30W's \"682×354×532mm\"), inkl. i den engelsksprogede sideversion (samme typo gentaget der: \"682 × 354 × 462m\"). Vurderet som en kildeside-tastefejl, ikke en enhed på meter - 462 m højde ville være absurd for en firbenet robot på 17,5 kg. Enheden er sat til mm."
   - "MERGED KOLONNEOVERSKRIFT \"爬坡角度/DOF\": tabellens rå HTML har headeren \"爬坡角度/DOF\" (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal."

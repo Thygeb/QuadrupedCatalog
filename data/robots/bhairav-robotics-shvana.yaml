@@ -4,6 +4,7 @@ producent: "Bhairav Robotics"
 producentland: "Indien"
 producentby: "Kakinada, Andhra Pradesh"
 status: "annonceret"
+fremdrift: "ben"
 noter:
   - "STATUS-VURDERING, IKKE ENTYDIG FRA PRODUCENTEN SELV: Shvana-siden præsenterer robotten med et konkret \"Features\"-specark (samme opbygning som et sælgende produkt), men bruger intetsteds ord som \"available now\", \"in production\", \"order\" eller lignende - eneste handlingsopfordring er \"For more details, email info@bhairavrobotics.com\". Ingen kundecase, ingen leveret enhed nævnt (i modsætning til Keybotic Keypers case study). Sættes derfor til status: annonceret, ikke i_produktion."
   - "COMPUTE BEVIDST IKKE SAT TIL EN VÆRDI: \"Thanks to... onboard computational power, Shvana can quickly adapt\" nævner \"onboard computational power\" uden noget chip-navn, kerneantal eller TOPS-tal. Teksten bærer ingen målbar oplysning ud over at der findes en computer ombord - ikke oplyst er derfor mere ærligt end at gengive en indholdsløs sætning som et \"felt\"."
