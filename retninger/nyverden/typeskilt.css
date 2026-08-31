@@ -198,17 +198,22 @@ p{margin:0}
 
 /* 5c. Facetlaget */
 .facetter{border:0;margin:0;padding:0;min-width:0}
+/* 12 kolonner, saa signaturen kan faa 4 og chippene 5. En firdeling gav
+   hoejdelinealen en fjerdedel af bredden, og den blev til en lille sort
+   firkant — signaturen skal have plads nok til at vaere signaturen. */
 .facetter__net{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
 }
 .facet{
   border:0;margin:0;min-width:0;
-  padding:var(--r5) var(--r5) var(--r5);
+  padding:var(--r5);
   border-right:1px solid var(--rille);
   border-bottom:1px solid var(--rille);
 }
-.facet--bred{grid-column:span 2}
-.facet:nth-child(4n),.facet--bred{border-right:0}
+.facet--s3{grid-column:span 3}
+.facet--s4{grid-column:span 4}
+.facet--s5{grid-column:span 5}
+.facet--raekkeslut{border-right:0}
 .facet--sidste-raekke{border-bottom:0}
 .facet__navn{
   padding:0;margin:0 0 var(--r4);float:none;
@@ -267,10 +272,11 @@ p{margin:0}
 /* --- 6. SIGNATUREN: hoejdelinealen --------------------------------------- */
 .lineal{margin:0 0 var(--r3);display:block;width:100%;height:auto}
 .lineal text{font-family:var(--plade);font-variant-numeric:tabular-nums}
-.lineal__akse{font-size:8.5px;font-weight:500;fill:var(--stoev-blaek);letter-spacing:.04em}
-.lineal__navn{font-size:8.5px;font-weight:700;fill:var(--gunmetal);letter-spacing:.1em}
-.lineal__spand{font-size:8.5px;font-weight:600;fill:var(--blaek-2);letter-spacing:.02em}
+.lineal__akse{font-size:10px;font-weight:500;fill:var(--stoev-blaek);letter-spacing:.04em}
+.lineal__navn{font-size:10.5px;font-weight:700;fill:var(--gunmetal);letter-spacing:.09em}
+.lineal__spand{font-size:10.5px;font-weight:600;fill:var(--blaek-2);letter-spacing:.01em}
 .lineal__spand--uoplyst{fill:var(--stoev-blaek)}
+.lineal__ukendt{font-size:10.5px;font-weight:700;fill:var(--stoevgraa);letter-spacing:.16em}
 .fod{
   font-family:var(--manual);font-size:12.5px;line-height:1.5;
   color:var(--blaek-2);margin:var(--r3) 0 var(--r4);max-width:44ch;
@@ -482,10 +488,10 @@ p{margin:0}
 .udtraek > summary{display:none}
 
 @media (max-width:1100px){
-  .facetter__net{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .facet--bred{grid-column:span 2;border-right:0}
-  .facet:nth-child(2n){border-right:0}
+  .facet--s3,.facet--s4,.facet--s5{grid-column:span 6}
   .facet{border-right:1px solid var(--rille)}
+  .facet:nth-of-type(2n){border-right:0}
+  .facet--raekkeslut{border-right:0}
   .post{grid-template-columns:1fr}
   .post__billede,.post__ophav{border-right:0}
 }
@@ -522,9 +528,8 @@ p{margin:0}
     border-radius:2px;box-shadow:inset 0 0 0 1px var(--gunmetal);
   }
   .udtraek[open] > summary .haandtag svg{transform:rotate(45deg)}
-  .facetter__net{grid-template-columns:1fr}
   .facet{border-right:0;padding:var(--r4)}
-  .facet--bred{grid-column:span 1}
+  .facet--s3,.facet--s4,.facet--s5{grid-column:1 / -1}
   .chips{grid-template-columns:1fr}
 
   .resultat{padding:var(--r5) 0 var(--r6)}

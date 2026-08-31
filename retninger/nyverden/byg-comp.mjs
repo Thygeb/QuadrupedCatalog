@@ -14,6 +14,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+// Laeses KUN — tools/ aendres aldrig af dette spor.
+import { parseYaml } from '../../tools/yaml.mjs';
 
 const HER = path.dirname(fileURLToPath(import.meta.url));
 const ROD = path.resolve(HER, '..', '..');
@@ -174,43 +176,40 @@ const raekke = (id, navn, antal, o = {}) => {
 </div>`;
 };
 
-const facet = (navn, note, krop, o = {}) => `<fieldset class="facet${o.bred ? ' facet--bred' : ''}${o.sidst ? ' facet--sidste-raekke' : ''}">
+const facet = (navn, o, note, krop) => `<fieldset class="facet facet--s${o.s}${o.slut ? ' facet--raekkeslut' : ''}${o.sidst ? ' facet--sidste-raekke' : ''}">
 <legend class="facet__navn">${esc(navn)}${note ? `<span class="facet__tal">${esc(note)}</span>` : ''}</legend>
 ${krop}
 </fieldset>`;
 
 /* 6a. SIGNATUREN: højdelinealen ------------------------------------------ */
 function lineal() {
-  const B = 300, H = 200, GRUND = 158, TOP_CM = 100, SK = 1.28;
+  const B = 400, H = 216, GRUND = 166, TOP_CM = 100, SK = 1.32;
   const y = (cm) => GRUND - cm * SK;
-  const kolB = 50, kol0 = 46, mel = 14;
-  const kx = (i) => kol0 + i * (kolB + mel);
+  const kol0 = 46, kolB = 76, spring = 92;
+  const kx = (i) => kol0 + i * spring;
   let s = `<svg class="lineal" viewBox="0 0 ${B} ${H}" role="img" aria-labelledby="lineal-t lineal-b">
 <title id="lineal-t">Højden pr. vægtklasse i fælles målestok</title>
 <desc id="lineal-b">${VK.map((k) => `${k.navn}: målt højde ${komma(k.min, 0)} til ${komma(k.maks, 0)} centimeter på ${k.maalt} af ${k.n} robotter.`).join(' ')} ${VK_UO.navn}: ingen af de ${VK_UO.n} robotter oplyser en højde, og gruppen kan derfor ikke tegnes i målestok.</desc>`;
-  // akse
   for (const cm of [0, 25, 50, 75, 100]) {
-    s += `<line x1="30" y1="${y(cm).toFixed(1)}" x2="${B - 4}" y2="${y(cm).toFixed(1)}" stroke="${cm === 0 ? '#22262A' : '#C6CCD1'}" stroke-width="${cm === 0 ? 1.4 : 1}"${cm === 0 ? '' : ' stroke-dasharray="1 3"'}/>`;
-    s += `<text class="lineal__akse" x="25" y="${(y(cm) + 3).toFixed(1)}" text-anchor="end">${cm}</text>`;
+    const yy = y(cm).toFixed(1);
+    s += `<line x1="40" y1="${yy}" x2="${B - 2}" y2="${yy}" stroke="${cm === 0 ? '#22262A' : '#C6CCD1'}" stroke-width="${cm === 0 ? 1.5 : 1}"${cm === 0 ? '' : ' stroke-dasharray="1 3"'}/>`;
+    s += `<text class="lineal__akse" x="34" y="${(y(cm) + 3.4).toFixed(1)}" text-anchor="end">${cm}</text>`;
   }
-  s += `<text class="lineal__akse" x="25" y="${(y(TOP_CM) - 8).toFixed(1)}" text-anchor="end">CM</text>`;
-  // de tre klasser, tegnet i målestok
+  s += `<text class="lineal__akse" x="34" y="${(y(TOP_CM) - 9).toFixed(1)}" text-anchor="end">CM</text>`;
   VK.forEach((k, i) => {
     const x = kx(i), yTop = y(k.maks), h = y(k.min) - y(k.maks);
-    const valgt = false;
-    s += `<rect x="${x}" y="${yTop.toFixed(1)}" width="${kolB}" height="${Math.max(h, 2).toFixed(1)}" rx="1.5" fill="${valgt ? '#F2C400' : '#22262A'}"/>`;
-    s += `<text class="lineal__spand" x="${x + kolB / 2}" y="${(yTop - 5).toFixed(1)}" text-anchor="middle">${komma(k.min, 0)}–${komma(k.maks, 0)}</text>`;
-    s += `<text class="lineal__navn" x="${x + kolB / 2}" y="${GRUND + 13}" text-anchor="middle">${k.kort[0]}</text>`;
-    s += `<text class="lineal__navn" x="${x + kolB / 2}" y="${GRUND + 23}" text-anchor="middle">${k.kort[1]}</text>`;
-    s += `<text class="lineal__spand" x="${x + kolB / 2}" y="${GRUND + 36}" text-anchor="middle">${k.maalt} af ${k.n} målt</text>`;
+    s += `<rect x="${x}" y="${yTop.toFixed(1)}" width="${kolB}" height="${Math.max(h, 2).toFixed(1)}" rx="2" fill="#22262A"/>`;
+    s += `<text class="lineal__spand" x="${x + kolB / 2}" y="${(yTop - 6).toFixed(1)}" text-anchor="middle">${komma(k.min, 0)}–${komma(k.maks, 0)} cm</text>`;
+    s += `<text class="lineal__navn" x="${x + kolB / 2}" y="${GRUND + 15}" text-anchor="middle">${k.kort[0]}</text>`;
+    s += `<text class="lineal__navn" x="${x + kolB / 2}" y="${GRUND + 26}" text-anchor="middle">${k.kort[1]}</text>`;
+    s += `<text class="lineal__spand" x="${x + kolB / 2}" y="${GRUND + 40}" text-anchor="middle">${k.maalt} af ${k.n} målt</text>`;
   });
-  // gruppen der IKKE kan tegnes: stiplet, ufyldt, spaender hele aksen
-  const x3 = kx(3);
-  s += `<rect x="${x3}" y="${y(TOP_CM).toFixed(1)}" width="${kolB}" height="${(GRUND - y(TOP_CM)).toFixed(1)}" rx="1.5" fill="none" stroke="#9AA3A9" stroke-width="1.2" stroke-dasharray="3.5 3"/>`;
-  s += `<text class="lineal__spand lineal__spand--uoplyst" x="${x3 + kolB / 2}" y="${(y(TOP_CM) - 5).toFixed(1)}" text-anchor="middle">?</text>`;
-  s += `<text class="lineal__navn" x="${x3 + kolB / 2}" y="${GRUND + 13}" text-anchor="middle" fill="#5F686F">${VK_UO.kort[0]}</text>`;
-  s += `<text class="lineal__navn" x="${x3 + kolB / 2}" y="${GRUND + 23}" text-anchor="middle" fill="#5F686F">${VK_UO.kort[1]}</text>`;
-  s += `<text class="lineal__spand lineal__spand--uoplyst" x="${x3 + kolB / 2}" y="${GRUND + 36}" text-anchor="middle">0 af ${VK_UO.n} målt</text>`;
+  const x3 = kx(3), yTop3 = y(TOP_CM);
+  s += `<rect x="${x3}" y="${yTop3.toFixed(1)}" width="${kolB}" height="${(GRUND - yTop3).toFixed(1)}" rx="2" fill="none" stroke="#9AA3A9" stroke-width="1.3" stroke-dasharray="4 3.5"/>`;
+  s += `<text class="lineal__ukendt" x="${x3 + kolB / 2}" y="${(GRUND - (GRUND - yTop3) / 2 + 3).toFixed(1)}" text-anchor="middle">UKENDT</text>`;
+  s += `<text class="lineal__navn" x="${x3 + kolB / 2}" y="${GRUND + 15}" text-anchor="middle" fill="#5F686F">${VK_UO.kort[0]}</text>`;
+  s += `<text class="lineal__navn" x="${x3 + kolB / 2}" y="${GRUND + 26}" text-anchor="middle" fill="#5F686F">${VK_UO.kort[1]}</text>`;
+  s += `<text class="lineal__spand lineal__spand--uoplyst" x="${x3 + kolB / 2}" y="${GRUND + 40}" text-anchor="middle">0 af ${VK_UO.n} målt</text>`;
   s += `</svg>`;
   return s;
 }
@@ -362,30 +361,30 @@ Hvert tal har en kilde og en hentedato. Felter, producenten ikke oplyser, er tæ
 <form class="facetter">
 <div class="facetter__net">
 
-${facet(t('filter_anvendelse'), 'flerværdi', anvRk)}
+${facet(t('filter_anvendelse'), { s: 3 }, 'flerværdi', anvRk)}
 
-${facet(t('filter_vaegt'), 'målestok', `${lineal()}
+${facet(t('filter_vaegt'), { s: 4 }, 'målestok', `${lineal()}
 <p class="fod">Højden er målt på de <b>${H_MAALT} af ${R.length}</b> robotter, der oplyser den.
 Klasserne overlapper: en robot på ${VK[1].navn.toLowerCase()} kan være højere end en på ${VK[2].navn.toLowerCase()}.
 Gruppen uden oplyst vægt kan slet ikke tegnes — derfor står den stiplet og tom.</p>
 ${vkRk}`)}
 
-${facet('Egenskaber', 'ja · nej · ikke oplyst', `${chipsHtml}
+${facet('Egenskaber', { s: 5, slut: true }, 'ja · nej · ikke oplyst', `${chipsHtml}
 <p class="fod">Hver linje summer til ${R.length}. Af de ${CHIPS[2].nej} robotter, der <b>ikke</b> arbejder i frost,
 har <b>${FROST_NUL}</b> en målt nedre grænse på præcis 0 °C — et målt nul, ikke et manglende svar.</p>`, { bred: true })}
 
-${facet(t('felt_ip_klasse'), null, ipRk, { sidst: true })}
+${facet(t('felt_ip_klasse'), { s: 3, sidst: true }, null, ipRk)}
 
-${facet(t('filter_status'), 'standard: udgåede skjult', stRk, { sidst: true })}
+${facet(t('filter_status'), { s: 3, sidst: true }, 'standard: udgåede skjult', stRk)}
 
-${facet('Land', null, laRk, { sidst: true })}
+${facet('Land', { s: 3, sidst: true }, null, laRk)}
 
-${facet('Certificeringer', 'reserveret', `<div class="reserveret">
+${facet('Certificeringer', { s: 3, sidst: true, slut: true }, 'reserveret', `<div class="reserveret">
 <p class="reserveret__ord">Certificeringer — indsamles</p>
 <p class="reserveret__note">Pladsen står tom, fordi feltet ikke er indsamlet endnu.
 CE er oplyst på ${R.filter((x) => erOplyst(felt(x, 'ce_oplyst'))).length} af ${R.length} robotter.
 Facetten åbner, når der er data at filtrere på — ikke før.</p>
-</div>`, { sidst: true })}
+</div>`)}
 
 </div>
 </form>
@@ -422,6 +421,23 @@ ${bund}`;
 /* --- 8. Robotsiden -------------------------------------------------------- */
 const SPOT = R.find((x) => x.slug === 'boston-dynamics-spot');
 
+/* Kildebogstav PR. FELT. Foerste udgave stemplede "A" paa hvert eneste felt.
+   Det var en paastand, jeg ikke kunne belaegge: dist/robots.json baerer ikke
+   kilden pr. felt, kun en liste over robottens kilder. YAML'en goer — og for
+   Spot peger fx laengde paa databladet (B), ikke produktsiden (A). Bogstavet
+   udledes derfor af YAML'ens kilde-URL, og felter uden match faar INTET
+   bogstav i stedet for et gaet. */
+const SPOT_YAML = parseYaml(
+  fs.readFileSync(path.join(ROD, 'data', 'robots', 'boston-dynamics-spot.yaml'), 'utf8'),
+  'boston-dynamics-spot.yaml'
+);
+const URL_TIL_BOGSTAV = new Map(SPOT.kilder.map((k) => [k.url, k.bogstav]));
+const bogstavFor = (nøgle) => {
+  const f = SPOT_YAML.felter[nøgle];
+  if (!f || typeof f !== 'object' || !f.kilde) return null;
+  return URL_TIL_BOGSTAV.get(f.kilde) || null;
+};
+
 const GRUPPER = [
   ['Mål og vægt', ['egenvaegt', 'laengde', 'bredde', 'hoejde', 'frihedsgrader']],
   ['Bevægelse', ['hastighed', 'haeldning', 'forhindring_enkelt', 'trappetrin_kontinuerlig']],
@@ -435,11 +451,14 @@ function vaerdi(f) {
   if (!erOplyst(f)) return `<span class="uo">${M.uoplyst}${esc(t('tilstand_ikke_oplyst', 'ikke oplyst'))}</span>`;
   if (f.tilstand === 'nej') return `<span class="nejv">${M.nej}nej</span>`;
   if (f.tilstand === 'ja') return `<span class="nejv">${M.ja}ja</span>`;
-  if (f.tilstand === 'nul') return `0${f.enhed ? ' ' + esc(f.enhed) : ''}`;
+  // NBSP mellem tal og enhed (33,8 kg) er SI-typografi og skal blive.
+  // Undtagelsen er gradtegnet for en VINKEL: 30°, uden mellemrum. °C beholder sit.
+  const enh = (e) => (!e ? '' : e === '°' ? esc(e) : ' ' + esc(e));
+  if (f.tilstand === 'nul') return `0${enh(f.enhed)}`;
   if (f.tilstand === 'tekst') return esc(f.tekst);
-  const op = f.operator ? esc(f.operator) + ' ' : '';
-  if (f.vaerdi != null) return op + esc(komma(f.vaerdi, Number.isInteger(f.vaerdi) ? 0 : 1)) + (f.enhed ? ' ' + esc(f.enhed) : '');
-  if (f.min != null && f.maks != null) return `${komma(f.min)}–${komma(f.maks)}${f.enhed ? ' ' + esc(f.enhed) : ''}`;
+  const op = f.operator ? esc(f.operator) : '';
+  if (f.vaerdi != null) return op + esc(komma(f.vaerdi, Number.isInteger(f.vaerdi) ? 0 : 1)) + enh(f.enhed);
+  if (f.min != null && f.maks != null) return `${komma(f.min)}–${komma(f.maks)}${enh(f.enhed)}`;
   return esc(String(f.vaerdi));
 }
 
@@ -460,7 +479,7 @@ function robotside() {
 <td class="v">${vaerdi(fe)}</td>
 <td class="k">${uo
         ? (fe.forbehold ? `<span class="forbehold">${esc(fe.forbehold)}</span>` : '')
-        : `<span class="kilde-bogstav">A</span>${fe.forbehold ? `<span class="forbehold">${esc(fe.forbehold)}</span>` : ''}`}</td>
+        : `${bogstavFor(k) ? `<span class="kilde-bogstav">${bogstavFor(k)}</span>` : ''}${fe.forbehold ? `<span class="forbehold">${esc(fe.forbehold)}</span>` : ''}`}</td>
 </tr>`;
     }).join('\n');
     return `<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">${esc(navn)}</th></tr>
