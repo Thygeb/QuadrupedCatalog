@@ -4,6 +4,7 @@ producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
 fremdrift: "ben"
+foerste_udgivelse: 2023
 varianter:
   - "AIR"
   - "PRO"

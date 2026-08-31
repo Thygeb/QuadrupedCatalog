@@ -4,6 +4,7 @@ producent: "Unitree Robotics"
 producentland: "Kina"
 status: "i_produktion"
 fremdrift: "ben_hjul"
+foerste_udgivelse: 2025
 anvendelse:
   vaerdi:
     - "forbruger_uddannelse"
