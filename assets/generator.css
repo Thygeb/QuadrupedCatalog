@@ -208,10 +208,19 @@
    .filtre blive gitterets egne felter, saa hverken markup eller
    fieldset/legend-semantikken aendres. */
 /* Katalogets egne facetter tegnes af TYPESKILT-afsnittet nederst i denne fil
-   (§20). Den gamle to-spaltede panelform gik ud med salene 31. aug 2026:
-   facetterne er nu stansede felter i et 12-kolonners gitter, ikke en liste
-   med etiketspalte. `.filtre` staar uroert - sammenligningssiden bruger den
-   stadig, og den er ikke bygget om i dette spor. */
+   (afsnit 20). Den gamle to-spaltede panelform gik ud med salene 31. aug
+   2026: facetterne er nu stansede felter i et 12-kolonners gitter, ikke en
+   liste med etiketspalte.
+
+   MEN `.facet` ER IKKE KATALOGETS ALENE. Sammenligningssiden bruger
+   `class="facet sammenligning-vaelger"`, og den er ikke bygget om i dette
+   spor. Grundreglen bliver derfor staaende praecis som foer - det er den, den
+   flade regner med - og katalogets nye form er scopet under `.facetter__net`
+   i afsnit 20. Uden den opdeling fik sammenligningssidens vaelger 24 px
+   polstring og to haarstreger, den aldrig har bedt om. Samme fejl som
+   `.kort`, fanget samme dag. */
+.facet{border:0;margin:0;padding:0;min-width:0;display:contents}
+.facet legend{padding:0;margin:0}
 .facet-ryd{margin-top:var(--r3)}
 
 /* --- L44: sorteringskontrollen og tommelindekset -------------------------
@@ -1170,16 +1179,22 @@
 .udtraek{border:0;margin:0;padding:0}
 .udtraek > .udtraek__greb{display:none}
 .facetter__net{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}
-.facet{
+/* `display:block` er IKKE overfloedig: grundreglen ovenfor (afsnit 2) saetter
+   `.facet{display:contents}` for sammenligningssidens skyld, og den ville
+   ellers gaelde her ogsaa - saa ville hverken polstringen, haarstregerne
+   eller grid-column-spaendene nedenfor blive tegnet, fordi et
+   display:contents-element ikke selv har en kasse. */
+.facetter__net .facet{
+  display:block;
   border:0;margin:0;min-width:0;padding:var(--r5);
   border-right:1px solid var(--linje);
   border-bottom:1px solid var(--linje);
 }
-.facet--s3{grid-column:span 3}
-.facet--s4{grid-column:span 4}
-.facet--s5{grid-column:span 5}
-.facet--raekkeslut{border-right:0}
-.facet--sidste-raekke{border-bottom:0}
+.facetter__net .facet--s3{grid-column:span 3}
+.facetter__net .facet--s4{grid-column:span 4}
+.facetter__net .facet--s5{grid-column:span 5}
+.facetter__net .facet--raekkeslut{border-right:0}
+.facetter__net .facet--sidste-raekke{border-bottom:0}
 .facet__navn{
   padding:0;margin:0 0 var(--r4);float:none;
   font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
@@ -1347,10 +1362,10 @@
 
 /* --- 20k. 1100 px: gitteret halveres ------------------------------------- */
 @media (max-width:1100px){
-  .facet--s3,.facet--s4,.facet--s5{grid-column:span 6}
-  .facet{border-right:1px solid var(--linje)}
-  .facet:nth-of-type(2n){border-right:0}
-  .facet--raekkeslut{border-right:0}
+  .facetter__net .facet--s3,.facetter__net .facet--s4,.facetter__net .facet--s5{grid-column:span 6}
+  .facetter__net .facet{border-right:1px solid var(--linje)}
+  .facetter__net .facet:nth-of-type(2n){border-right:0}
+  .facetter__net .facet--raekkeslut{border-right:0}
 }
 
 /* --- 20l. 720 px: facetlaget bliver et udtraekspanel, strimlen bestaar ----
@@ -1381,8 +1396,8 @@
   .haandtag__tegn{width:13px;height:13px;fill:none;stroke:currentColor;
     stroke-width:1.8;transform:rotate(90deg)}
   .udtraek[open] > .udtraek__greb .haandtag__tegn{transform:rotate(-90deg)}
-  .facet{border-right:0;padding:var(--r4)}
-  .facet--s3,.facet--s4,.facet--s5{grid-column:1 / -1}
+  .facetter__net .facet{border-right:0;padding:var(--r4)}
+  .facetter__net .facet--s3,.facetter__net .facet--s4,.facetter__net .facet--s5{grid-column:1 / -1}
 
   .resultat{padding:var(--r5) 0 var(--r6)}
   .net{grid-template-columns:repeat(2,minmax(0,1fr))}
