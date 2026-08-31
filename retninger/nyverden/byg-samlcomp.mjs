@@ -257,6 +257,35 @@ Kataloget sælger ikke robotter og har ingen forhandleraftale med nogen fabrikan
 </body>
 </html>`;
 
+/* Den faelles forstavelse i de fire tilstandsforklaringer — MAALT, ikke
+   skrevet af. Skaeres ved sidste ordgraense, saa leadet ikke ender midt i et
+   ord. Bruges af tegnHTML() til at skrive "Producenten oplyser" én gang i
+   stedet for fire.                                                          */
+const FORKL = {
+  tal: t('tegnforklaring_oplyst'),
+  nul: t('tilstand_nul_forklaring'),
+  nej: t('tilstand_nej_forklaring'),
+  uoplyst: t('tilstand_ikke_oplyst_forklaring'),
+};
+const LEAD = (() => {
+  const s = Object.values(FORKL);
+  let i = 0;
+  while (i < s[0].length && s.every((x) => x[i] === s[0][i])) i++;
+  const raa = s[0].slice(0, i);
+  // Skaer KUN tilbage til sidste ordgraense, hvis forstavelsen ender midt i et
+  // ord. Foerste udgave skar altid, og "Producenten oplyser" blev derved til
+  // "Producenten" — et helt ord smidt vaek, fordi forstavelsen tilfaeldigvis
+  // allerede sluttede paa en ordgraense. Maalt: 11 tegn i stedet for 19.
+  const slutterPaaOrdgraense = s.every((x) => i >= x.length || /[^\p{L}]/u.test(x[i]));
+  const skaaret = slutterPaaOrdgraense ? raa : raa.slice(0, Math.max(raa.lastIndexOf(' '), 0));
+  return skaaret.replace(/[,\s]+$/, '');
+})();
+/* Det, der staar tilbage efter leadet — raat (til assertionen) og til visning
+   (uden indledende komma/mellemrum og uden det afsluttende punktum, fordi
+   saetningen fortsaetter fra leadet).                                        */
+const restRaa = (s) => s.slice(LEAD.length);
+const restVis = (s) => restRaa(s).replace(/^[,\s]+/, '').replace(/\.$/, '');
+
 /* 5a0. Robotbilledet i pladehovedet.
    JPK, 31. aug 2026: "billede mangler af selve robotten". Maalt: baade compen
    og den kOErende side havde 0 — fladen har aldrig vist robotten, man
@@ -297,62 +326,50 @@ ${mangler.length ? `${esc(mangler.map((r) => r.navn).join(', '))} har intet foto
 Dækning i kataloget: ${komma(MED_FOTO)} af ${komma(R.length)} robotter har et fabrikantfoto.</p>`;
 }
 
-/* 5a. Tegnforklaringen — presset til ÉT baand.
-   Paa den kOErende side fylder den 5 raekker og hele foerste skaerm, foer
-   laeseren ser et eneste tal (maalt: skud-nuvaerende-saml.png). De samme fem
-   udsagn staar her, med de samme i18n-noegler, paa én stribe. Udsagnet om
-   at der IKKE markeres en vinder staar med — det er en truffet beslutning
-   (haard begraensning 6), ikke en note der kan spares vaek.                  */
-/* JPK, 31. aug 2026: "Er 'Saadan laeses tallene'-kassen noedvendig??"
-   Svaret er ja til FORKLARINGEN, nej til kassen. "0", "nej" og "ikke oplyst"
-   er ikke selvforklarende — forskellen mellem "producenten skriver 0" og
-   "producenten siger intet" er praecis den, hele siden findes for at vise
-   (haard begraensning 5). Men den fyldte 185 px paa 1440 og 531 px paa 390.
+/* 5a. Tegnforklaringen — ALTID synlig, ingen foldemekanik.
+   JPK har meldt to gange, og de trak i hver sin retning:
+     1) "Er kassen noedvendig??" — den fyldte 185 px paa 1440 / 531 paa 390.
+     2) "Denne skal ikke vaere en fold sammen. Vis den hele tiden."
+   Den forkerte loesning er at folde <details>'ens skjulte krop permanent ud:
+   saa er vi tilbage ved den store kasse, og melding 1 er rullet tilbage.
 
-   Loesningen er et <details>: baandet med de fire maerker er ALTID synligt,
-   og den fulde forklaring foldes ud. Det virker uden JavaScript — samme krav
-   som resten af projektet, og samme element, vaelgeren nedenfor bruger.
-
-   "Ingen vinder markeret" er FLYTTET UD (JPK's punkt 2): de fire andre
-   forklarer notation, den femte er en redaktionel position. Den staar nu i
-   bunden ved siden af den oevrige forklarende tekst, se vinderHTML().       */
+   LOESNINGEN ER KOMPRIMERING, IKKE SKJUL. De fire i18n-forklaringer deler
+   ordret den samme forstavelse:
+     "Producenten oplyser et tal med enhed."
+     "Producenten oplyser vaerdien nul. Det er et maalt tal, ikke et tomt felt."
+     "Producenten oplyser, at robotten ikke har dette."
+     "Producenten oplyser intet om dette felt."
+   Forstavelsen skrives EEN gang som baandets lead, og hvert maerke baerer kun
+   sin egen fortsaettelse. Ingenting er omskrevet: LEAD er den maalte laengste
+   faelles forstavelse, og resten er det, der staar tilbage — assertionen
+   nedenfor efterproever, at LEAD + rest giver den oprindelige i18n-streng
+   tegn for tegn. Betydningen er altsaa i behold, kun gentagelsen er vaek.  */
 function tegnHTML() {
-  /* Etiketten saettes KUN, naar selve maerket ikke allerede baerer ordet.
-     "nej"-chippen og "ikke oplyst"-chippen skriver deres eget navn, saa en
-     etiket ved siden af gav "nej NEJ" og "ikke oplyst IKKE OPLYST" — maalt
-     paa skaermbilledet, ikke gaettet. Tal og nul viser en FIGUR (33,8 kg / 0)
-     og har derfor brug for et ord.                                          */
-  const mrk = (tegn, ord) =>
-    `<span class="tegn"><span class="tegn__mrk">${tegn}</span>`
-    + (ord ? `<span class="tegn__ord">${esc(ord)}</span>` : '') + `</span>`;
-  const post = (tegn, ord, forklaring) =>
-    `<div class="tegnpost"><span class="tegnpost__mrk">${tegn}</span>`
-    + `<span class="tegnpost__ord">${esc(ord)}</span>`
-    + `<span class="tegnpost__tekst">${esc(forklaring)}</span></div>`;
-
   const TAL = '<span class="v v-tal"><b class="num">33,8</b><span class="enhed">kg</span></span>';
   const NUL = '<span class="v v-tal v-nul"><b class="num">0</b></span>';
   const NEJ = `<span class="v v-nej">${M.nej}${esc(t('tilstand_nej'))}</span>`;
   const UO = `<span class="v v-ikke">${M.uoplyst}${esc(t('tilstand_ikke_oplyst'))}</span>`;
 
-  return `<details class="tegn-udtraek">
-<summary class="tegnbaand">
-<span class="tegnbaand__navn">${esc(t('tegnforklaring_titel'))}</span>
-<span class="tegnbaand__raekke">
-${mrk(TAL, 'tal')}
-${mrk(NUL, t('tilstand_nul'))}
-${mrk(NEJ, null)}
-${mrk(UO, null)}
-</span>
-<span class="tegnbaand__haandtag">${M.ned}</span>
-</summary>
-<div class="tegnbaand__krop">
-${post(TAL, 'tal', t('tegnforklaring_oplyst'))}
-${post(NUL, t('tilstand_nul'), t('tilstand_nul_forklaring'))}
-${post(NEJ, t('tilstand_nej'), t('tilstand_nej_forklaring'))}
-${post(UO, t('tilstand_ikke_oplyst'), t('tilstand_ikke_oplyst_forklaring'))}
+  const post = (tegn, tekst) =>
+    `<span class="tegn"><span class="tegn__mrk">${tegn}</span>`
+    + `<span class="tegn__tekst">${esc(tekst)}</span></span>`;
+
+  /* Leadet er FOERSTE celle i den samme raekke, ikke en linje ovenover.
+     Det sparer en hel tekstlinje (maalt: 81 -> 55 px paa 1440), og
+     saetningen kommer til at loebe vandret gennem baandet, som den skal
+     laeses: "Producenten oplyser … et tal med enhed / … vaerdien nul / …". */
+  return `<section class="tegnbaand" aria-labelledby="h-tegn">
+<div class="tegnbaand__raekke">
+<p class="tegnbaand__lead">
+<span class="tegnbaand__navn" id="h-tegn">${esc(t('tegnforklaring_titel'))}</span>
+<span class="tegnbaand__stam">${esc(LEAD)} …</span>
+</p>
+${post(TAL, restVis(FORKL.tal))}
+${post(NUL, restVis(FORKL.nul))}
+${post(NEJ, restVis(FORKL.nej))}
+${post(UO, restVis(FORKL.uoplyst))}
 </div>
-</details>`;
+</section>`;
 }
 
 /* Den redaktionelle position, flyttet ud af laesenoeglen. Den staar stadig
@@ -447,8 +464,14 @@ function vaelgerHTML() {
 <input class="vc__felt" type="checkbox" id="v-${esc(r.slug)}" value="${esc(r.slug)}"${valgte.has(r.slug) ? ' checked' : ''}>
 <label class="vc__mrk" for="v-${esc(r.slug)}">${esc(r.navn)}<span class="vc__prod">${esc(r.producent)}</span></label>
 </span>`).join('\n');
-  return `<details class="udtraek-saml" id="vaelger">
-<summary>${esc(t('sammenligning_vaelg_titel'))} — ${komma(R.length)} modeller<span class="haandtag">${M.ned}</span></summary>
+  /* Ogsaa vaelgeren stod i et <details>. JPK's acceptkriterium taeller
+     <details>/<summary> i HELE filen, ikke kun i legenden, saa den foldes
+     ud her med. Det koster ikke noget af det, melding 1 vandt: vaelgeren
+     staar UNDER matricen, saa den flytter hverken legendens hoejde eller
+     y for foerste datalinje — kun sidens samlede hoejde. Se rapporten for
+     det maalte tal, saa fravalget kan omgoeres bevidst.                    */
+  return `<section class="udtraek-saml" id="vaelger" aria-labelledby="h-vaelger">
+<p class="udtraek-saml__top" id="h-vaelger">${esc(t('sammenligning_vaelg_titel'))} — ${komma(R.length)} modeller</p>
 <div class="udtraek-saml__krop">
 <p class="udtraek-saml__note">${esc(t('sammenligning_vaelg_forklaring'))} ${esc(t('sammenligning_maks'))}</p>
 <div class="sog">
@@ -459,7 +482,7 @@ function vaelgerHTML() {
 ${chips}
 </div>
 </div>
-</details>`;
+</section>`;
 }
 
 /* --- 6. Siden ------------------------------------------------------------ */
@@ -594,19 +617,36 @@ console.log('\nSELVTJEK — robotbillederne (JPK 31. aug 2026):');
   paastand(medFoto.every((r) => HTML.includes(r.kilder[0].hentet)),
     `hver foto-producent staar med sin hentedato, regnet af robottens egen kildeliste`);
 }
+console.log('\nSELVTJEK — laesenoeglen staar fremme (JPK 31. aug 2026, 2. melding):');
 {
-  // Skaer selve legende-elementet ud og se, at reglen IKKE ligger i det.
-  // Foerste udgave af denne assertion sammenlignede blot dokumentraekkefoelge
-  // ("krop ... vinderregel") og var derfor sand uanset hvor reglen laa —
-  // den maalte ingenting. Nu skaeres blokken ud og efterproeves.
-  const a = HTML.indexOf('<details class="tegn-udtraek">');
-  const b = HTML.indexOf('</details>', a);
+  const a = HTML.indexOf('<section class="tegnbaand"');
+  const b = HTML.indexOf('</section>', a);
   const legendeblok = HTML.slice(a, b);
+  paastand(tael(/<details\b|<summary\b/g) === 0,
+    `INGEN foldemekanik nogen steder paa siden: <details>/<summary> = ${tael(/<details\b|<summary\b/g)}`);
   paastand(a !== -1 && b !== -1 && tael(/class="vinderregel"/g) === 1
     && !legendeblok.includes('vinderregel'),
     `"ingen vinder markeret" staar PRAECIS én gang og UDEN FOR laesenoeglen (legendeblok ${komma(b - a)} tegn)`);
-  paastand(legendeblok.includes('tegnbaand__raekke') && legendeblok.includes('tegnbaand__krop'),
-    `laesenoeglen er ét synligt baand med en udfoldelig krop (<details>, virker uden JavaScript)`);
+  // aria-hidden paa et dekorativt SVG er KORREKT og skal ikke fanges her —
+  // foerste udgave af regexen ramte netop det og gav falsk brud. Der ledes
+  // efter hidden-ATTRIBUTTEN og efter display:none.
+  paastand(!/\shidden[=\s>]/.test(legendeblok) && !/display:\s*none/.test(legendeblok),
+    `intet i laesenoeglen er skjult — ingen hidden-attribut, ingen display:none `
+    + `(${(legendeblok.match(/aria-hidden/g) || []).length} aria-hidden paa dekorative SVG'er, som skal vaere der)`);
+
+  // Komprimeringen skal vaere TABSFRI: lead + rest skal give i18n-strengen
+  // tegn for tegn. Uden denne assertion kunne en "stramning" tavst fjerne
+  // betydning, og det er praecis det, JPK har forbudt.
+  const kilder = Object.entries(FORKL);
+  paastand(kilder.every(([, s]) => LEAD + restRaa(s) === s),
+    `komprimeringen er tabsfri: LEAD + rest === i18n-strengen for alle ${kilder.length} tilstande`);
+  paastand(LEAD.split(' ').length >= 2,
+    `den faelles forstavelse er MAALT, ikke skrevet: "${LEAD}" (${LEAD.length} tegn, sparet ${komma(LEAD.length * (kilder.length - 1))} tegn)`);
+  paastand(new Set(kilder.map(([, s]) => restVis(s))).size === kilder.length
+    && kilder.every(([, s]) => restVis(s).length > 0),
+    `alle ${kilder.length} tilstande har en EGEN, ikke-tom forklaring — ikke bare et navn`);
+  paastand(kilder.every(([, s]) => legendeblok.includes(esc(restVis(s)))),
+    `alle ${kilder.length} forklaringer staar ordret i det synlige baand`);
 }
 
 console.log('\nJIGGEN: ' + TRE.map((r, i) => `${i + 1}. ${r.producent} ${r.navn} (${taethedAf(r)}/${NAEVNER})`).join(' | '));

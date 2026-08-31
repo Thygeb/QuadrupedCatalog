@@ -571,52 +571,54 @@ p{margin:0}
    hedder derfor .matrix og ruller vandret i stedet for at bryde op.
    ========================================================================== */
 
-/* 13a. Tegnbaandet — ét baand, der kan foldes ud.
-   JPK 31. aug 2026: forklaringen er noedvendig, kassen var for stor (maalt
-   185 px paa 1440 og 531 px paa 390, foer matricen begyndte). Baandet er
-   altid synligt; den fulde forklaring foldes ud med <details>, som virker
-   uden JavaScript. "Ingen vinder markeret" er flyttet ud til .vinderregel:
-   de fire her forklarer notation, den femte er en holdning.                 */
-.tegn-udtraek{border-bottom:1px solid var(--rille)}
+/* 13a. Tegnbaandet — ALTID synligt, ingen foldemekanik.
+   JPK har meldt to gange, og de trak i hver sin retning: kassen var for stor
+   (185 px paa 1440 / 531 paa 390), og siden: "Vis den hele tiden."
+   Pladsen vindes derfor paa KOMPRIMERING, ikke paa at skjule: de fire
+   i18n-forklaringer deler ordret forstavelsen "Producenten oplyser", som nu
+   staar én gang som baandets lead. Hvert maerke baerer kun sin egen
+   fortsaettelse — og generatoren faelder bygget, hvis lead + rest ikke giver
+   den oprindelige streng tegn for tegn.                                     */
 .tegnbaand{
-  display:flex;align-items:center;gap:var(--r4);flex-wrap:wrap;
-  padding:10px var(--r5);cursor:pointer;list-style:none;
+  border-bottom:1px solid var(--rille);
+  padding:8px var(--r5) 9px;
 }
-.tegnbaand::-webkit-details-marker{display:none}
-.tegnbaand:hover{background:var(--eloxgraa)}
-.tegn-udtraek > summary:focus-visible{
-  outline:2px solid var(--gunmetal);outline-offset:-2px;
-  box-shadow:inset 0 0 0 5px var(--afmaerkningsgul);
-}
+/* Leadet er FOERSTE celle i raekken, ikke en linje ovenover: det sparer en
+   hel tekstlinje, og saetningen loeber vandret gennem baandet. */
+/* Leadets egen linjeafstand er strammet, fordi den — ikke teksten — satte
+   hele baandets hoejde: maalt 33 px mod tilstandscellernes 24. */
+.tegnbaand__lead{padding-right:var(--r3);min-width:0}
 .tegnbaand__navn{
-  font-size:10.5px;font-weight:700;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--stoev-blaek);white-space:nowrap;
+  display:block;font-size:10.5px;font-weight:700;letter-spacing:.15em;
+  line-height:1.1;text-transform:uppercase;color:var(--gunmetal);margin-bottom:1px;
 }
-.tegnbaand__raekke{display:flex;align-items:center;gap:var(--r4);flex-wrap:wrap;min-width:0}
-.tegn{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-.tegn__ord{
-  font-size:10px;font-weight:600;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--stoev-blaek);
+/* Forstavelsen er saetningens begyndelse, ikke en etiket — derfor manualens
+   skrift, som resten af forklaringen. */
+.tegnbaand__stam{
+  display:block;font-family:var(--manual);font-size:11.5px;line-height:1.25;
+  color:var(--stoev-blaek);
 }
-.tegnbaand__haandtag{
-  margin-left:auto;display:grid;place-items:center;width:22px;height:22px;flex:none;
-  border-radius:2px;box-shadow:inset 0 0 0 1px var(--rille);color:var(--blaek-2);
+/* Leadet plus fire tilstande paa én raekke. Hver tilstand baerer sit maerke OG
+   sin egen fortsaettelse af saetningen — aldrig kun et navn. */
+/* Spalterne er UENS med vilje, og bredderne er maalt frem, ikke gaettet:
+   "nul"-forklaringen er den laengste (den baerer to saetninger, fordi
+   forskellen paa et maalt nul og et tomt felt er sidens vigtigste skelnen),
+   mens "nej" og "ikke oplyst" er korte. Lige spalter tvang nul til to linjer
+   og satte dermed hele baandets hoejde: maalt 36 px mod de oevriges 24. */
+.tegnbaand__raekke{
+  display:grid;
+  grid-template-columns:minmax(0,.84fr) minmax(0,.78fr) minmax(0,1.42fr) minmax(0,.98fr) minmax(0,.98fr);
+  gap:0;align-items:baseline;
 }
-.tegn-udtraek[open] .tegnbaand__haandtag svg{transform:rotate(180deg)}
-.tegnbaand__krop{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  padding:0 var(--r5) var(--r5);
+.tegn{
+  display:flex;align-items:baseline;gap:8px;min-width:0;
+  padding:0 var(--r3);border-left:1px dashed var(--rille);
 }
-.tegnpost{padding:0 var(--r4);border-left:1px dashed var(--rille);min-width:0}
-.tegnpost:first-child{border-left:0;padding-left:0}
-.tegnpost__mrk{display:block;margin-bottom:6px;min-height:20px}
-.tegnpost__ord{
-  display:block;font-size:10px;font-weight:700;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--stoev-blaek);margin-bottom:3px;
-}
-.tegnpost__tekst{
-  display:block;font-family:var(--manual);font-size:12px;line-height:1.45;
-  color:var(--blaek-2);text-wrap:pretty;
+.tegn:first-child{border-left:0;padding-left:0}
+.tegn__mrk{flex:none}
+.tegn__tekst{
+  font-family:var(--manual);font-size:11.5px;line-height:1.35;
+  color:var(--blaek-2);text-wrap:pretty;min-width:0;
 }
 .stempler__vaegt{color:var(--gunmetal)}
 
@@ -828,18 +830,11 @@ p{margin:0}
   margin-top:var(--r5);background:var(--kridt);border-radius:3px;
   box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
 }
-.udtraek-saml > summary{
-  display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;
+.udtraek-saml__top{
   padding:var(--r4) var(--r5);
   font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  border-bottom:1px solid var(--rille);
 }
-.udtraek-saml > summary::-webkit-details-marker{display:none}
-.udtraek-saml > summary .haandtag{
-  margin-left:auto;display:grid;place-items:center;width:22px;height:22px;
-  border-radius:2px;box-shadow:inset 0 0 0 1px var(--gunmetal);
-}
-.udtraek-saml[open] > summary{border-bottom:1px solid var(--rille)}
-.udtraek-saml[open] > summary .haandtag svg{transform:rotate(180deg)}
 .udtraek-saml__krop{padding:var(--r5)}
 .udtraek-saml__note{
   font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--blaek-2);
@@ -897,8 +892,8 @@ p{margin:0}
    Matricen brydes IKKE op (det ville koste tabelrollen). Den ruller vandret,
    og raekkehovedet klaeber til venstre kant, saa feltnavnet altid er synligt. */
 @media (max-width:1100px){
-  .tegnbaand__krop{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--r4) 0}
-  .tegnpost:nth-child(2n+1){border-left:0;padding-left:0}
+  .tegnbaand__raekke{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 0}
+  .tegn:nth-child(2n+1){border-left:0;padding-left:0}
 }
 
 /* Under 820 px kan de fire spalter ikke staa uden at knuse tallene. Her — og
@@ -915,11 +910,21 @@ p{margin:0}
 
 @media (max-width:720px){
   .matrixsektion{padding:var(--r5) 0 var(--r6)}
-  .tegnbaand{padding:10px var(--r4);gap:var(--r3)}
-  .tegnbaand__raekke{gap:var(--r3) var(--r4)}
-  .tegnbaand__krop{grid-template-columns:1fr;gap:var(--r3);padding:0 var(--r4) var(--r4)}
-  .tegnpost{border-left:0;padding:0 0 var(--r3);border-bottom:1px dashed var(--rille)}
-  .tegnpost:last-child{border-bottom:0;padding-bottom:0}
+  .tegnbaand{padding:5px var(--r4) 6px}
+  /* Chippene i baandet strammes en anelse paa smal skaerm — de saetter
+     raekkehoejden, naar hver tilstand faar sin egen linje. Gaelder KUN
+     legendens chips, ikke matricens celler. */
+  .tegnbaand .v-nej,.tegnbaand .v-ikke,.tegnbaand .v-ja{padding:1px 7px}
+  /* Paa 390 er der ikke bredde til fem spalter med prosa. Ét spor, men
+     stadig ALT synligt: fire raekker a én linje, maerket til venstre.
+     Leadet saettes INLINE her — som to blokke kostede det en hel ekstra
+     linje (maalt 33 px mod 16). */
+  .tegnbaand__raekke{grid-template-columns:1fr;gap:2px}
+  .tegn,.tegn:nth-child(2n+1){border-left:0;padding:0}
+  .tegn__tekst{font-size:11px}
+  .tegnbaand__lead{padding-right:0}
+  .tegnbaand__navn{display:inline;margin-right:6px}
+  .tegnbaand__stam{display:inline;font-size:11px}
   .matrix{font-size:13px}
   .hjoerne,.feltnavn{width:150px;min-width:150px}
   /* Maerkatfotoet krymper med hovedet, saa den klaebende raekke ikke aeder

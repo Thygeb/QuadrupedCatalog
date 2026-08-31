@@ -457,8 +457,7 @@ AI-genererede billeder (hård begrænsning 4).
 **2. "Sådan læses tallene" var for stor.** JPK: *"Er kassen nødvendig??"*
 Forklaringen er nødvendig — `0`, `nej` og `ikke oplyst` er ikke selvforklarende,
 og forskellen er præcis den, siden findes for at vise (hård begrænsning 5). Men
-kassen kostede en halv første skærm. Den er nu **ét bånd, der kan foldes ud**
-med `<details>` (virker uden JavaScript). **"Ingen vinder markeret" er flyttet
+kassen kostede en halv første skærm. **"Ingen vinder markeret" er flyttet
 ud** til bunden: de fire andre forklarer notation, den femte er en redaktionel
 position — den flyttes, den fjernes ikke.
 
@@ -469,6 +468,46 @@ position — den flyttes, den fjernes ikke.
 | Legendens højde, 390 | 531 px | **106 px** |
 | Y for første datarække, 1440 | 749 px | **609 px** |
 | Y for første datarække, 390 | 1.234 px | **841 px** |
+
+### Anden runde: læsenøglen skal stå fremme
+
+JPK: *"Denne skal ikke være en fold sammen. Vis den hele tiden."* De to
+meldinger trak i hver sin retning — den første sagde *for stor*, den anden
+*intet må være skjult*. **Den forkerte løsning var at folde `<details>`'ens
+krop permanent ud**; så var kassen tilbage.
+
+**Pladsen vindes på komprimering, ikke på skjul.** De fire i18n-forklaringer
+deler ordret forstavelsen **"Producenten oplyser"** — målt som længste fælles
+forstavelse, ikke skrevet af. Den står nu **én gang** som båndets lead, og hvert
+mærke bærer kun sin egen fortsættelse. Båndet læses vandret som én sætning:
+
+> **Sådan læses tallene** · Producenten oplyser … | `33,8 kg` et tal med enhed ·
+> `0` værdien nul. Det er et målt tal, ikke et tomt felt · `⊘ nej` at robotten
+> ikke har dette · `ikke oplyst` intet om dette felt
+
+Generatoren fælder bygget, hvis `LEAD + rest` ikke giver den oprindelige
+i18n-streng tegn for tegn — komprimeringen kan altså ikke tavst tabe betydning.
+
+| Målt | revision | nu | loft (+25 %) |
+|---|---|---|---|
+| Legendens højde, 1440 | 44 px | **53 px** | 55 px |
+| Legendens højde, 390 | 106 px | **131 px** | 132,5 px |
+| Y for første datarække, 1440 | 609 px | **618 px** | 761 px |
+| Y for første datarække, 390 | 841 px | **866 px** | 1.051 px |
+| `<details>`/`<summary>` på siden | 2 | **0** | 0 |
+
+Spalterne i båndet er **uens med vilje**, og bredderne er målt frem: `nul`-
+forklaringen bærer to sætninger (forskellen på et målt nul og et tomt felt er
+sidens vigtigste skelnen), mens `nej` og `ikke oplyst` er korte. Lige spalter
+tvang `nul` til to linjer og satte dermed hele båndets højde — målt 36 px mod de
+øvriges 24.
+
+**Vælgeren mistede også sin fold** — acceptkriteriet tæller `<details>` i hele
+filen, ikke kun i legenden. Den står under matricen, så den flytter hverken
+legendens højde eller y for første datarække, men den forlænger siden:
+**390: 3.791 → 6.505 px**, **1440: 3.132 → 3.863 px**. Skal de 77
+afkrydsningsfelter foldes sammen igen, er det den pris, der spares. Det er
+JPK's valg, ikke et sporet har truffet stiltiende.
 
 **Implementeringsnote, ikke løst her:** fotoerne er fuldstørrelse. MOVENEW P1's
 fil er **329 KB og 4.096 px bred**, vist i et felt på 74 px. En rigtig
