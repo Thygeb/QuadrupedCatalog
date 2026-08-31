@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Beijing / Suzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
+foerste_udgivelse: 2026
 noter:
   - "META-DESCRIPTIONS \"16个自由度\" MODSIGES AF DEN STRUKTUREREDE SPECIFIKATIONSTABEL, IKKE LØST STILTIENDE: metabeskrivelsen påstår 16 frihedsgrader, men den strukturerede tabel (samme side) skriver eksplicit \"关节电机数量: 12 个\" - samme mønster som L1/L2 (ledmotor-antal, ikke eksplicit \"frihedsgrader\"). 12 er brugt som feltværdi, fordi det står i den strukturerede tabel; 16-tallet fra metabeskrivelsen er IKKE brugt, og uoverensstemmelsen er noteret her i stedet for at blive rettet stiltiende."
   - "VÆGT-UOVERENSSTEMMELSE PÅ SAMME SIDE, IKKE LØST STILTIENDE: se advarslen på egenvægt nedenfor - marketingteksten påstår \"næsten 1:1 negativt/positivt last-egenvægt-forhold\" ud fra en \"~30kg\"-vægt, mens den strukturerede tabel siger 41 kg."
