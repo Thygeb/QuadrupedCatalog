@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuadrupedCatalog — Apple-inspireret Opslagsværk &amp; Sammenligner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       GLOBAL NAVIGATION (APPLE-STYLE)
+       ========================================================================= -->
+  <header class="apple-nav">
+    <div class="nav-container">
+      <a href="#view-catalog" class="nav-brand" id="nav-brand-btn">
+        <span class="nav-logo">QC</span>
+        <span class="nav-title">QuadrupedCatalog</span>
+      </a>
+
+      <nav class="nav-links">
+        <button class="nav-tab active" id="tab-btn-catalog">Oversigt (80)</button>
+        <button class="nav-tab" id="tab-btn-compare">
+          Sammenlign <span class="nav-badge" id="nav-compare-count">3</span>
+        </button>
+      </nav>
+
+      <div class="nav-right">
+        <div class="nav-stats">
+          <span class="stat-tag"><strong>77</strong> robotter</span>
+          <span class="stat-tag highlight"><strong>100%</strong> verificeret</span>
+        </div>
+        <button id="theme-toggle" class="btn-theme" title="Skift mørk/lys tilstand">Theme</button>
+        <div class="lang-pill">
+          <span class="active">DA</span>
+          <span>EN</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       VIEW 1: CATALOG / EXPLORER GRID
+       ========================================================================= -->
+  <div id="view-catalog" class="page-view active">
+    
+    <!-- HERO / FILTER SECTION -->
+    <section class="catalog-hero">
+      <div class="hero-container">
+        <div class="hero-title-group">
+          <h1>Verdens firbenede robotter.</h1>
+          <p class="hero-sub">Sammenlign specifikationer, beregnede nøgletal og regulatorisk status. Hvert tal har en verificeret kilde.</p>
+        </div>
+
+        <!-- SEARCH & CHIPS -->
+        <div class="apple-search-card">
+          <div class="search-row">
+            <span class="search-lens">Search</span>
+            <input type="text" id="search-input" placeholder="Søg efter robot, producent (f.eks. Spot, Unitree, ANYmal), sensor eller land...">
+            <button id="clear-search" class="btn-clear hidden"></button>
+          </div>
+
+          <div class="filter-chips-row">
+            <span class="chips-title">Hurtigfiltre:</span>
+            <button class="apple-chip active" data-filter="all">Alle (77)</button>
+            <button class="apple-chip" data-filter="wheeled">Med hjul (Wheeled)</button>
+            <button class="apple-chip" data-filter="heavy">Nyttelast &ge; 20 kg</button>
+            <button class="apple-chip" data-filter="light">Letvægt &lt; 15 kg</button>
+            <button class="apple-chip" data-filter="ip67">IP67+ Vandtæt</button>
+            <button class="apple-chip" data-filter="ros2">ROS 2 / Open SDK</button>
+            <button class="apple-chip" data-filter="ce">CE Oplyst</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLBAR -->
+    <section class="catalog-subbar">
+      <div class="subbar-container">
+        <div class="subbar-left">
+          <span id="catalog-count-label" class="count-label">Viser 77 robotter</span>
+        </div>
+        <div class="subbar-right">
+          <div class="select-wrapper">
+            <label for="catalog-sort">Sortér:</label>
+            <select id="catalog-sort">
+              <option value="density-desc">Specifikationstæthed (Højeste)</option>
+              <option value="weight-asc">Vægt (Lavest først)</option>
+              <option value="weight-desc">Vægt (Tungest først)</option>
+              <option value="payload-desc">Nyttelast (Mest bærende)</option>
+              <option value="speed-desc">Maks. Fart (Hurtigst)</option>
+              <option value="name-asc">Modelnavn (A &rarr; Å)</option>
+            </select>
+          </div>
+
+          <div class="layout-toggle">
+            <button id="btn-grid-layout" class="layout-btn active" title="Kortvisning">⊞ Kort</button>
+            <button id="btn-table-layout" class="layout-btn" title="Matrix-visning"> Matrix</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRID & TABLE CONTAINER -->
+    <main class="catalog-main-wrap">
+      <!-- CARD GRID -->
+      <div id="cards-grid" class="apple-cards-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- MATRIX TABLE (COMPACT VIEW) -->
+      <div id="matrix-table-wrap" class="matrix-table-wrap hidden">
+        <table class="apple-matrix-table">
+          <thead>
+            <tr>
+              <th class="col-check">Vælg</th>
+              <th class="col-name">Robot &amp; Producent</th>
+              <th class="col-country">Land</th>
+              <th class="col-type">Type</th>
+              <th class="col-num">Egenvægt</th>
+              <th class="col-num">Nyttelast</th>
+              <th class="col-num">Maks. Fart</th>
+              <th class="col-num">Batteri</th>
+              <th class="col-num">Driftstid</th>
+              <th class="col-tag">IP</th>
+              <th class="col-tag">ROS 2</th>
+              <th class="col-tag">CE</th>
+              <th class="col-density">Tæthed</th>
+              <th class="col-act">Handling</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-tbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="catalog-empty" class="apple-empty-state hidden">
+        <div class="empty-glyph"></div>
+        <h3>Ingen robotter matcher søgningen</h3>
+        <p>Prøv at nulstille filtre eller søgeord.</p>
+        <button id="btn-reset-catalog" class="apple-btn-primary">Nulstil alle filtre</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 2: DEDICATED APPLE 3-WAY COMPARE (DELBAR URL)
+       ========================================================================= -->
+  <div id="view-compare" class="page-view">
+    <div class="compare-page-header">
+      <div class="compare-header-container">
+        <button class="back-to-catalog-btn" id="btn-back-to-catalog">
+          &larr; Tilbage til oversigten
+        </button>
+        <div class="compare-title-row">
+          <div>
+            <h1>Sammenlign firbenede robotter.</h1>
+            <p class="compare-lead">Vælg op til 3 modeller side-om-side. Forskelle og specifikationer opstillet felt for felt.</p>
+          </div>
+          <div class="share-box">
+            <button id="btn-copy-compare-link" class="apple-btn-secondary" title="Kopiér direkte link">
+               Del denne sammenligning
+            </button>
+            <span id="copied-toast" class="toast hidden">Kopieret til udklipsholder!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STICKY 3-COLUMN HEADER & SPEC MATRIX -->
+    <div class="compare-layout-container">
+      
+      <!-- TOP 3-COLUMN SELECTOR & HERO CARDS -->
+      <div class="compare-sticky-wrapper" id="compare-sticky-header">
+        <div class="compare-grid-3col">
+          
+          <!-- SLOT 1 -->
+          <div class="compare-hero-col" id="col-slot-1">
+            <div class="col-top-controls">
+              <select class="model-picker-select" id="select-slot-1" data-slot="1">
+                <!-- Options populated by JS -->
+              </select>
+              <button class="btn-remove-slot" data-slot="1" title="Fjern model"></button>
+            </div>
+            <div class="col-hero-media" id="media-slot-1"></div>
+            <div class="col-hero-info" id="info-slot-1"></div>
+          </div>
+
+          <!-- SLOT 2 -->
+          <div class="compare-hero-col" id="col-slot-2">
+            <div class="col-top-controls">
+              <select class="model-picker-select" id="select-slot-2" data-slot="2">
+                <!-- Options populated by JS -->
+              </select>
+              <button class="btn-remove-slot" data-slot="2" title="Fjern model"></button>
+            </div>
+            <div class="col-hero-media" id="media-slot-2"></div>
+            <div class="col-hero-info" id="info-slot-2"></div>
+          </div>
+
+          <!-- SLOT 3 -->
+          <div class="compare-hero-col" id="col-slot-3">
+            <div class="col-top-controls">
+              <select class="model-picker-select" id="select-slot-3" data-slot="3">
+                <!-- Options populated by JS -->
+              </select>
+              <button class="btn-remove-slot" data-slot="3" title="Fjern model"></button>
+            </div>
+            <div class="col-hero-media" id="media-slot-3"></div>
+            <div class="col-hero-info" id="info-slot-3"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5 GRAPHIC QUICK HIGHLIGHTS (APPLE STYLE) -->
+      <section class="compare-highlights-section">
+        <h2 class="section-divider-title">Hovedegenskaber &amp; Nøgletal</h2>
+        <div class="highlights-grid-3col" id="highlights-body">
+          <!-- Rendered by JS -->
+        </div>
+      </section>
+
+      <!-- DEEP SPECIFICATION SECTIONS -->
+      <section class="compare-specs-section" id="deep-specs-body">
+        <!-- Rendered by JS: 
+             1. Fysik & Mobilitet
+             2. Energi & Opladning
+             3. Sensorik & Autonomi
+             4. Nyttelast & Interfaces
+             5. Kommercielt & EU 
+        -->
+      </section>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 3: SINGLE ROBOT TECH-SPECS COCKPIT
+       ========================================================================= -->
+  <div id="view-specs" class="page-view">
+    <div class="specs-page-container">
+      <button class="back-to-catalog-btn" id="btn-specs-back">
+        &larr; Tilbage til oversigten
+      </button>
+
+      <!-- ROBOT HERO -->
+      <div class="robot-hero-dashboard">
+        <div class="robot-hero-left">
+          <div class="robot-hero-image-box" id="specs-hero-img"></div>
+          <div class="robot-hero-provenance" id="specs-provenance-box"></div>
+        </div>
+
+        <div class="robot-hero-right">
+          <div class="robot-manuf-eyebrow" id="specs-manuf-label">Boston Dynamics · USA</div>
+          <h1 class="robot-title" id="specs-name-label">Spot</h1>
+          <div class="robot-badge-row" id="specs-badges-row"></div>
+
+          <!-- 4 GIANT KEY METRICS CALLOUTS -->
+          <div class="giant-metrics-grid" id="specs-giant-metrics">
+            <!-- 4 Metrics Rendered by JS -->
+          </div>
+
+          <div class="specs-quick-actions">
+            <button id="btn-specs-add-compare" class="apple-btn-primary">
+              + Tilføj til Sammenligner
+            </button>
+            <button id="btn-specs-open-compare-direct" class="apple-btn-secondary">
+              Sammenlign med alternativer &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FULL SPECIFICATION ACCORDION / CATEGORIES -->
+      <div class="robot-full-specs-list" id="specs-sections-list">
+        <!-- Full Spec Sections Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       FLOATING APPLE COMPARE DRAWER (BOTTOM BAR)
+       ========================================================================= -->
+  <div id="floating-compare-bar" class="apple-floating-bar hidden">
+    <div class="floating-bar-inner">
+      <div class="floating-left">
+        <span class="floating-count-badge" id="floating-badge">2/3</span>
+        <span class="floating-title">Valgte modeller til sammenligning:</span>
+        <div class="floating-slots-list" id="floating-slots">
+          <!-- Slots rendered by JS -->
+        </div>
+      </div>
+
+      <div class="floating-right">
+        <button id="btn-floating-clear" class="btn-ghost">Ryd</button>
+        <button id="btn-floating-launch" class="apple-btn-primary">
+          Sammenlign nu &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INLINE TOOLTIP CONTAINER -->
+  <div id="apple-tooltip" class="apple-tooltip hidden"></div>
+
+  <!-- DATA & APP SCRIPTS -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

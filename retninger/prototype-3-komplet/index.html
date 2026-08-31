@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<html lang="da" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadruped Catalog — Uafhængigt Opslagsværk &amp; Sammenligner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       GLOBAL HEADER
+       ========================================================================= -->
+  <header class="global-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" id="nav-brand-btn">
+        <span class="brand-icon">⬢</span>
+        <div class="brand-text">
+          <span class="brand-title">QUADRUPED CATALOG</span>
+          <span class="brand-subtitle">UAFHÆNGIGT INGENIØR-OPSLAGSVÆRK</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <button class="nav-link active" id="tab-btn-catalog">Katalog</button>
+        <button class="nav-link" id="tab-btn-compare">
+          Sammenlign <span class="nav-counter" id="nav-compare-count">0</span>
+        </button>
+      </nav>
+
+      <div class="header-tools">
+        <div class="header-status-badge">
+          <span class="pulse-dot"></span>
+          <span>77 Modeller · Aug 2026</span>
+        </div>
+        <button id="theme-toggle-btn" class="icon-btn" title="Skift tema"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       PAGE VIEW 1: KATALOG-OVERSIGT
+       ========================================================================= -->
+  <section id="view-catalog" class="page-view active">
+    
+    <!-- PAGE HERO & DISCOVERY -->
+    <div class="catalog-hero-bar">
+      <div class="catalog-hero-inner">
+        <div class="catalog-title-group">
+          <h1 class="page-h1">Markedets Firbenede Robotter</h1>
+          <p class="page-lead">77 verificerede modeller fra 25 producenter. Filtrér på tekniske krav og sammenlign 1:1.</p>
+        </div>
+
+        <!-- QUICK CONSTRAINT CHIPS -->
+        <div class="quick-chips-row">
+          <span class="quick-chips-label">Hurtige filtre:</span>
+          <button class="filter-chip" data-quick="wheeled"> Med Hjul</button>
+          <button class="filter-chip" data-quick="heavy">️ Nyttelast ≥ 20 kg</button>
+          <button class="filter-chip" data-quick="light"> Letvægt &lt; 15 kg</button>
+          <button class="filter-chip" data-quick="ip67">️ IP67+ Vandtæt</button>
+          <button class="filter-chip" data-quick="ros2"> ROS 2</button>
+          <button class="filter-chip" data-quick="ce">🇪🇺 CE Mærket</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN TWO-COLUMN WORKSPACE (SIDEBAR + GRID) -->
+    <div class="catalog-workspace">
+      
+      <!-- STICKY FILTER SIDEBAR (280px) -->
+      <aside class="filter-sidebar">
+        <div class="sidebar-header">
+          <h3>Filtre</h3>
+          <button id="btn-reset-filters" class="btn-text-reset">Nulstil alle</button>
+        </div>
+
+        <div class="sidebar-scroll">
+          
+          <!-- SØGNING -->
+          <div class="filter-group">
+            <label class="filter-group-title" for="sidebar-search">Søg i katalog</label>
+            <div class="search-input-box">
+              <span class="search-icon"></span>
+              <input type="text" id="sidebar-search" placeholder="Model, producent, land...">
+            </div>
+          </div>
+
+          <!-- MOBILITETSTYPE -->
+          <div class="filter-group">
+            <label class="filter-group-title">Mobilitetstype</label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="f-type" value="walking" checked>
+              <span>Gående Quadruped</span>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="f-type" value="wheeled" checked>
+              <span> Hjulbenet Hybrid</span>
+            </label>
+          </div>
+
+          <!-- NYTTELAST SLIDER -->
+          <div class="filter-group">
+            <div class="filter-slider-header">
+              <label class="filter-group-title">Min. Nyttelast</label>
+              <span class="slider-val" id="val-payload-min">0 kg</span>
+            </div>
+            <input type="range" id="slider-payload" min="0" max="40" step="5" value="0" class="range-slider">
+          </div>
+
+          <!-- EGENVÆGT SLIDER -->
+          <div class="filter-group">
+            <div class="filter-slider-header">
+              <label class="filter-group-title">Maks. Egenvægt</label>
+              <span class="slider-val" id="val-weight-max">100 kg</span>
+            </div>
+            <input type="range" id="slider-weight" min="10" max="100" step="5" value="100" class="range-slider">
+          </div>
+
+          <!-- GODKENDELSER & STANDARDER -->
+          <div class="filter-group">
+            <label class="filter-group-title">Standarder &amp; Miljø</label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="check-ip67">
+              <span>IP67+ Forseglet (Støv/Regn)</span>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="check-ce">
+              <span>CE-mærkning Oplyst (EU)</span>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" id="check-ros2">
+              <span>ROS 2 Understøttelse</span>
+            </label>
+          </div>
+
+          <!-- PRODUCENTER (MULTI-SELECT) -->
+          <div class="filter-group">
+            <label class="filter-group-title">Producenter</label>
+            <div class="vendor-list-scroll" id="vendor-checkboxes-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- RESULTS AREA -->
+      <main class="catalog-results-area">
+        
+        <!-- TOOLBAR -->
+        <div class="results-toolbar">
+          <div class="toolbar-left">
+            <span class="result-count-text" id="catalog-count-label">Viser 77 robotter</span>
+            <div class="active-filter-chips-list" id="active-chips-list">
+              <!-- Active chips -->
+            </div>
+          </div>
+
+          <div class="toolbar-right">
+            <div class="sort-box">
+              <label for="catalog-sort">Sortér:</label>
+              <select id="catalog-sort">
+                <option value="density-desc">Specifikationstæthed (%)</option>
+                <option value="weight-asc">Egenvægt (Lavest først)</option>
+                <option value="weight-desc">Egenvægt (Tungest først)</option>
+                <option value="payload-desc">Maks. Nyttelast (Mest bærende)</option>
+                <option value="speed-desc">Maks. Hastighed (Hurtigst)</option>
+                <option value="name-asc">Modelnavn (A &rarr; Z)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-COLUMN ROBOT GRID -->
+        <div class="robot-cards-grid" id="robot-cards-grid">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div id="catalog-empty-state" class="empty-state-box hidden">
+          <div class="empty-glyph"></div>
+          <h3>Ingen robotter matcher dine filtre</h3>
+          <p>Prøv at nulstille filtrene eller fjerne specifikke begrænsninger.</p>
+          <button id="btn-empty-reset" class="btn-primary">Nulstil alle filtre</button>
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- STICKY COMPARE TRAY (BOTTOM DRAWER) -->
+    <div id="compare-tray" class="compare-tray hidden">
+      <div class="tray-container">
+        <div class="tray-info">
+          <span class="tray-count-badge" id="tray-count-badge">0/4</span>
+          <div class="tray-text">
+            <strong>Sammenligningsbakke</strong>
+            <span>Vælg op til 4 modeller</span>
+          </div>
+        </div>
+
+        <div class="tray-slots" id="tray-slots-list">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="tray-actions">
+          <button id="btn-tray-clear" class="btn-secondary">Ryd</button>
+          <button id="btn-tray-launch" class="btn-primary">Sammenlign Nu &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================================
+       PAGE VIEW 2: PRODUKTSIDE (ENKELT ROBOT)
+       ========================================================================= -->
+  <section id="view-product" class="page-view">
+    <div class="product-page-container">
+      
+      <!-- BREADCRUMB -->
+      <div class="product-breadcrumb">
+        <button id="btn-product-back" class="btn-back">&larr; Tilbage til katalog</button>
+        <span class="breadcrumb-sep">/</span>
+        <span id="product-bc-vendor">Producent</span>
+        <span class="breadcrumb-sep">/</span>
+        <span id="product-bc-model" class="bc-current">Model</span>
+      </div>
+
+      <!-- HERO SECTION (55 / 45 SPLIT) -->
+      <div class="product-hero-card">
+        <div class="product-hero-media" id="product-hero-media">
+          <!-- Photo or Blueprint rendered by JS -->
+        </div>
+
+        <div class="product-hero-info">
+          <div class="product-meta-header">
+            <span class="vendor-tag" id="product-vendor-tag">Producent (Land)</span>
+            <span class="status-pill" id="product-status-pill">I produktion</span>
+          </div>
+          
+          <h1 class="product-h1" id="product-h1-name">Robot Model</h1>
+          
+          <div class="product-price-row">
+            <span class="price-val" id="product-price-val">Vejledende pris</span>
+            <span class="price-type" id="product-price-type">Quote / Fabrikspris</span>
+          </div>
+
+          <div class="product-badges-row" id="product-badges-row">
+            <!-- Badges rendered by JS -->
+          </div>
+
+          <!-- KEY-SPEC STRIP (6 NØGLETAL) -->
+          <div class="product-key-spec-strip" id="product-key-spec-strip">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div class="product-cta-bar">
+            <button id="btn-product-add-compare" class="btn-primary">+ Føj til sammenligning</button>
+            <button id="btn-product-open-compare" class="btn-secondary">Åbn Sammenligner &rarr;</button>
+          </div>
+
+          <div class="product-provenance-notice" id="product-provenance-box">
+            <!-- Provenance rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- STRUCTURED SPECIFICATION SECTIONS -->
+      <div class="product-specs-wrapper" id="product-specs-wrapper">
+        <!-- Rendered by JS: Fysik, Energi, Sensorik, Kommercielt -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PAGE VIEW 3: SAMMENLIGNER (2-4 MODELLER SIDE-OM-SIDE)
+       ========================================================================= -->
+  <section id="view-compare" class="page-view">
+    <div class="compare-page-container">
+      
+      <!-- COMPARE TOP TOOLBAR -->
+      <div class="compare-toolbar">
+        <div class="compare-title-group">
+          <button id="btn-compare-back" class="btn-back">&larr; Tilbage til katalog</button>
+          <h1 class="compare-h1">Sammenlign Robotter</h1>
+          <span class="compare-count-tag" id="compare-active-count-tag">3 modeller valgt</span>
+        </div>
+
+        <div class="compare-controls">
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-diff-only">
+            <span class="slider-switch"></span>
+            <span class="toggle-label">Vis kun forskelle</span>
+          </label>
+          
+          <button id="btn-copy-compare-url" class="btn-secondary">
+            <span></span> Del denne sammenligning
+          </button>
+        </div>
+      </div>
+
+      <!-- COPIED TOAST -->
+      <div id="toast-copied" class="toast-popup hidden"> Link kopieret til udklipsholder!</div>
+
+      <!-- THE 4-COLUMN COMPARISON MATRIX -->
+      <div class="compare-matrix-scroll" id="compare-matrix-wrap">
+        
+        <!-- STICKY HEADER ROW WITH 4 SLOTS -->
+        <div class="compare-sticky-header" id="compare-sticky-header">
+          <div class="compare-col-header first-col">
+            <span class="col-header-label">Specifikation / Model</span>
+          </div>
+
+          <!-- SLOTS 1 TO 4 -->
+          <div class="compare-col-header" id="cmp-col-1">
+            <div class="cmp-slot-top">
+              <select class="cmp-model-select" data-slot="1" id="cmp-select-1"></select>
+              <button class="btn-remove-cmp-slot" data-slot="1"></button>
+            </div>
+            <div class="cmp-thumb-box" id="cmp-thumb-1"></div>
+            <div class="cmp-name-box" id="cmp-name-1"></div>
+          </div>
+
+          <div class="compare-col-header" id="cmp-col-2">
+            <div class="cmp-slot-top">
+              <select class="cmp-model-select" data-slot="2" id="cmp-select-2"></select>
+              <button class="btn-remove-cmp-slot" data-slot="2"></button>
+            </div>
+            <div class="cmp-thumb-box" id="cmp-thumb-2"></div>
+            <div class="cmp-name-box" id="cmp-name-2"></div>
+          </div>
+
+          <div class="compare-col-header" id="cmp-col-3">
+            <div class="cmp-slot-top">
+              <select class="cmp-model-select" data-slot="3" id="cmp-select-3"></select>
+              <button class="btn-remove-cmp-slot" data-slot="3"></button>
+            </div>
+            <div class="cmp-thumb-box" id="cmp-thumb-3"></div>
+            <div class="cmp-name-box" id="cmp-name-3"></div>
+          </div>
+
+          <div class="compare-col-header" id="cmp-col-4">
+            <div class="cmp-slot-top">
+              <select class="cmp-model-select" data-slot="4" id="cmp-select-4"></select>
+              <button class="btn-remove-cmp-slot" data-slot="4"></button>
+            </div>
+            <div class="cmp-thumb-box" id="cmp-thumb-4"></div>
+            <div class="cmp-name-box" id="cmp-name-4"></div>
+          </div>
+        </div>
+
+        <!-- MATRIX BODY SECTIONS -->
+        <div class="compare-matrix-body" id="compare-matrix-body">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA & LOGIC -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
