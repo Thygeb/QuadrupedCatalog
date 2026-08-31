@@ -64,21 +64,46 @@ export default async function koer(ctx) {
      stadig paa forsidens og producentsidernes kort, som ikke er bygget om.
      Vagten laeser derfor forsiden; katalogets EGET hover-/fokussignal faar sin
      egen vagt nedenfor, saa kravet "et kort skal vise, at det kan klikkes"
-     stadig er daekket paa begge slags flader. */
+     stadig er daekket paa begge slags flader.
+
+     VENDT IGEN 31. aug 2026 (spor/kort): forsiden har nu ogsaa TYPESKILT-
+     kortet, saa `.kort-invit` findes ingen steder - der er ikke laengere "to
+     slags flader", der er én komponent. Kravet staar uaendret: et kort skal
+     vise, at det kan klikkes, baade med mus og med tastatur. Beviset er bare
+     flyttet fra en tekstindsats i markup'en til den CSS-regel, der nu
+     daekker ALLE kort - og den maales i forvejen nedenfor mod generator.css.
+
+     Vagten her beviser derfor det led, CSS-reglen haenger paa: at forsidens
+     kort faktisk ligger i `.net` og faktisk har et `.kort__navn a` at tegne
+     understregningen paa. Uden det led ville CSS-vagten nedenfor vaere sand
+     om en regel, der ikke ramte noget. */
   const katalogDa = fs.readFileSync(path.join(indgangDist, 'da', 'robotter', 'index.html'), 'utf8');
   const forsideKortDa = (forsideDa.match(/class="kort"/g) || []).length;
   const forsideKortEn = (forsideEn.match(/class="kort"/g) || []).length;
   const invitAntalDa = (forsideDa.match(/class="kort-invit"/g) || []).length;
   const invitAntalEn = (forsideEn.match(/class="kort-invit"/g) || []).length;
-  ok(`5c: hvert korts hover-invitation staar paa /da/ (${invitAntalDa} af ${forsideKortDa} kort)`,
-    invitAntalDa === forsideKortDa && forsideKortDa > 0);
-  ok(`5c: hvert korts hover-invitation staar paa /en/ (${invitAntalEn} af ${forsideKortEn} kort)`,
-    invitAntalEn === forsideKortEn && forsideKortEn > 0);
+  ok('5c: det gamle `.kort-invit`-baand er vaek fra forsiden (begge sprog)',
+    invitAntalDa === 0 && invitAntalEn === 0,
+    `fandt ${invitAntalDa} paa /da/ og ${invitAntalEn} paa /en/`);
+  for (const [sprog, html, antal] of [['da', forsideDa, forsideKortDa], ['en', forsideEn, forsideKortEn]]) {
+    const iNet = /<div class="net net--seneste">/.test(html);
+    const navnelink = (html.match(/class="kort__navn"><a href=/g) || []).length;
+    ok(`5c: /${sprog}/ har ${antal} kort i .net, hver med et .kort__navn-link at tegne signalet paa (${navnelink})`,
+      antal > 0 && iNet && navnelink === antal,
+      `kort ${antal}, .net ${iNet}, navnelinks ${navnelink}`);
+  }
   const generatorCss5c = fs.readFileSync(path.join(indgangDist, 'generator.css'), 'utf8');
   ok('5c: katalogkortet har sit eget hover- OG fokussignal (understregning + fokusramme)',
     /\.net \.kort:hover \.kort__navn a\{border-bottom-color/.test(generatorCss5c)
       && /\.net \.kort:focus-within\{outline/.test(generatorCss5c),
     'uden et af de to kan et katalogkort ikke ses som klikbart - hverken med mus eller tastatur');
+  /* De to naeste vagter maaler DOED CSS pr. 31. aug 2026 (spor/kort).
+     `.kort-invit` rendres ingen steder mere - vagten lige ovenfor kraever
+     ligefrem, at den ikke goer - men reglerne staar stadig i system.css, fordi
+     oprydningen rammer tre andre testfiler (16, 30, 31), som ogsaa haevder
+     gammel kort-CSS. Fjernes reglerne, skal disse to vagter fjernes SAMMEN med
+     dem; de er ikke et krav om, at baandet kommer tilbage. Maalt: 0 forekomster
+     af class="kort-invit" i hele dist/. */
   const systemCss = fs.readFileSync(path.join(indgangDist, 'system.css'), 'utf8');
   ok('5c: CSS-en gemmer signalet bag :hover OG :focus-within (samme regel som fotografiets scale)',
     /\.kort:hover \.kort-invit,\.kort:focus-within \.kort-invit\{opacity:1\}/.test(systemCss));

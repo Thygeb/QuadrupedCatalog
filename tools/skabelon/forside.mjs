@@ -336,6 +336,23 @@ ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
     + `${esc(t('forside_afslutning_knap'))}${hjaelp.ikon('i-pil')}</a></p>
 </section>`;
 
+  /* Gitteret er katalogets EGET (.net), ikke forsidens gamle .gitter: kortet er
+     nu den samme komponent paa begge flader, og en anden ramme om det ville
+     genstarte netop den divergens, spor/kort blev sat i verden for at lukke.
+
+     Varianten .net--seneste er ikke pynt. Det flade .net laegger linjefarven i
+     BUNDEN og lader kortene staa som huller i den - smukt, naar raekkerne gaar
+     op, som katalogets 77 goer. Forsidens smagsproeve er seks kort, og seks gaar
+     ikke op i fem spalter ved 1440 px: den sidste raekke ville tegne fire tomme
+     graa klodser. .net--seneste vender det om - pladen er bunden, og hvert kort
+     baerer selv sin haarstreg - saa en tom celle bliver usynlig, som en tom
+     celle skal vaere. Samme grund som katalogets aabningsgitter (generator.css
+     linje 1312).
+
+     Legenden er kort_legende_foto, ikke kort_legende: den lange siger "Kortenes
+     tal baerer kildemaerker", og TYPESKILT-kortet viser ingen tal. Kildeloeftet
+     er ikke svaekket - tallene og deres maerker staar paa robotsiden - men en
+     saetning om maerker paa et kort uden tal ville vaere forkert. */
   const smagsproeveSektion = udvalg.length ? `<div class="katalog-flade">
 <div class="rum">
 <section class="sektion" aria-labelledby="h-udvalg">
@@ -344,8 +361,8 @@ ${yp.map((x) => yderpunktHTML(x, { hjaelp, t })).join('\n')}
 <h2 class="t-h2" id="h-udvalg">${esc(t('forside_udvalg_titel'))}</h2>
 </div>
 <p class="t-lille udvalg-regel">${esc(tf('forside_udvalg_regel', { n: udvalg.length, m: NAEVNER }))}</p>
-<p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
-<div class="gitter gitter--udvalg">
+<p class="t-lille kort-legende">${esc(t('kort_legende_foto'))}</p>
+<div class="net net--seneste">
 ${udvalg.map((r) => hjaelp.kort(r, { op: '../', til: 'robotter/' })).join('\n')}
 </div>
 <p class="udvalg-videre"><a class="videre videre--stille" href="robotter/">`

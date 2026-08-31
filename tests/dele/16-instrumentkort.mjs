@@ -64,15 +64,30 @@ export default async function koer(ctx) {
      gamle kort: forsidens "Fra kataloget" og producentsiderne bruger fortsat
      hjaelp.kort() med striben. Vagten laeser dem nu - og en NY vagt nedenfor
      holder katalogkortet fast paa sin nye form, saa striben ikke kan snige sig
-     tilbage uden en beslutning. */
+     tilbage uden en beslutning.
+
+     VENDT IGEN 31. aug 2026 (spor/kort): forsiden og producentsiderne har nu
+     ogsaa TYPESKILT-kortet. Der er ingen tredje flade at flytte reglen til -
+     ingen kort nogen steder viser laengere fire talpladser.
+
+     "Fire faste pladser" var en regel om KORTET, og kortet viser ikke laengere
+     tal. Den underliggende regel - at et manglende tal skal SES som sin egen
+     tilstand og ikke som en tom plads (haard begraensning 5) - er ikke droppet
+     og bevises uaendret to andre steder, som begge er groenne:
+       · 04-byg-struktur.mjs: alle fire markoerer (v-ikke/v-nej/v-billede/v-nul)
+         staar i katalogets tegnforklaring
+       · 05-visning-nye-former.mjs: robotsiden viser v-ikke, v-nej OG v-nul paa
+         den samme side, saa de tre kan ses at vaere forskellige
+     Denne vagt vendes derfor til at holde forsiden fast paa den nye form, saa
+     striben ikke sniger sig tilbage uden en beslutning - praecis som vagten
+     nedenfor goer for kataloget. */
   for (const sprog of ['da', 'en']) {
     const html = laesFil(`${sprog}/index.html`);
     ok(`${sprog}/: forsiden blev bygget`, html !== null);
     if (!html) continue;
     const { antalKort, taelling } = taelStribeLi(html);
-    ok(`${sprog}: alle forsidens katalogkort har praecis 4 <li> i .stribe (0 i "intet"-grenen)`,
-      antalKort > 0 && !taelling.intet && Object.keys(taelling).length === 1
-        && taelling['4'] === antalKort,
+    ok(`${sprog}: forsidens TYPESKILT-kort har ingen stribe (alle ${antalKort} kort i "intet"-grenen)`,
+      antalKort > 0 && taelling.intet === antalKort && Object.keys(taelling).length === 1,
       `fandt: ${JSON.stringify(taelling)} over ${antalKort} kort`);
   }
 

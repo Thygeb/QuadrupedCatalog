@@ -151,9 +151,22 @@ export default async function koer(ctx) {
   // variantmarkeringen, staar uaendret paa forsidens kort. Vagten laeser
   // derfor forsiden; ellers ville den maale en flade, hvor figuren med vilje
   // ikke findes.
+  //
+  // VENDT IGEN 31. aug 2026 (spor/kort): nu har FORSIDEN og producentsiderne
+  // ogsaa faaet TYPESKILT-kortet, saa der findes ikke laengere en kompakt
+  // stribe nogen steder - og dermed intet kort at haenge markeringen paa.
+  //
+  // Kravet er IKKE saenket, og det er vaerd at skrive hvorfor, for vendingen
+  // ligner en slettet assertion: "et felt med varianter skal kunne ses"
+  // bevises af vagten femten linjer laengere oppe, som laeser ROBOTSIDEN og
+  // kraever baade navn og vaerdi (>AIR<, >PRO<, >2,5<). Den er den STAERKE
+  // visning; kortets maerke var et hint ved siden af en talcelle. Maalt paa
+  // det rigtige datasaet 31. aug 2026: 7 robotfiler har varianter, og deres
+  // robotsider baerer alle class="varianter". Det, der forsvandt, er hintet -
+  // ikke oplysningen.
   const forsideVar = fs.readFileSync(path.join(ud, 'da', 'index.html'), 'utf8');
-  ok('den kompakte stribe markerer, at feltet har varianter',
-    /maerke--varianter/.test(forsideVar));
+  ok('forsidens TYPESKILT-kort baerer ingen variantmarkering (det har ingen stribe)',
+    !/maerke--varianter/.test(forsideVar));
   ok('katalogkortet baerer ingen variantmarkering (det har ingen stribe, L56 punkt 7)',
     !/maerke--varianter/.test(katalog));
   ok('advarslen staar stadig ved siden af vaerdien',
