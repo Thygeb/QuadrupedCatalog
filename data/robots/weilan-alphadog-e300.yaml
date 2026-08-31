@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Nanjing"
 status: "i_produktion"
 fremdrift: "ben"
+foerste_udgivelse: 2021
 noter:
   - "NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden består udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige på siden overhovedet; de står på producentens katalogside sammen med underteksten Enterprise Version Available."
   - "SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Målt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altså 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller."
