@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Boston Dynamics Spot — TYPESKILTET (comp)</title>
+<link rel="stylesheet" href="typeskilt.css">
+</head>
+<body>
+<!--
+TYPESKILTET — retningskontrakt, spor/nyverden, 31. aug 2026
+
+THESIS: Filtret er ikke et sidepanel. Det er typeskiltet — den stansede plade
+enhver industrimaskine bærer, med hvad den er, hvad den tåler, og hvad der IKKE
+står på den. Afviser SaaS-filterskuffen med bløde pill-chips langs venstre kant.
+
+OWN-WORLD: Eloxgrå #E8EBED plade, gunmetal #22262A stanset blæk, afmærkningsgul
+#F2C400 KUN som markering, støvgrå #9AA3A9 stiplet kontur for ikke oplyst, kridt
+#FAFBFB kortflade. Saira Semi Condensed som pladens skrift, Literata som manualens.
+Ingen monospace, ingen gradient, intet glas, ingen slagskygge — kun 1 px indfældet
+kant og 2 px radius.
+
+STORY: Læseren ser at feltet er måleligt, at 27 af 77 ikke oplyser IP-klasse, og at
+"ikke oplyst" er et tælleligt svar — og snævrer 77 ind til 21.
+
+FIRST VIEWPORT: Pladen fylder foldet. Typeskiltets hoved øverst med TYPE/UDGAVE/
+POSTER/TAL MED KILDE stanset til højre; derunder den klæbende strimmel med de
+aktive valg og tælleren i gult; derunder facetlaget i fire stansede felter, hvor
+VÆGTKLASSE bærer højdelinealen.
+
+FORM: Typeskilt/maskinskilt. Pinnet af briefet (L54–L56), ikke rullet frem.
+
+FINISH: comp, ikke implementering. Leverancen er retningen, ikke en bygget side.
+-->
+<a class="spring-til" href="#resultat">Spring til resultatet</a>
+<header class="daek">
+<div class="daek__ramme">
+<a class="daek__navn" href="katalog.html">Firbenede robotter</a>
+<ul class="daek__nav">
+<li><a href="katalog.html" aria-current="page">Oversigt</a></li>
+<li><a href="#">Nyheder</a></li>
+<li><a href="#">Services</a></li>
+<li><a href="#">Om os</a></li>
+</ul>
+<p class="sprog"><a href="#" aria-current="true" hreflang="da">DA</a><span>/</span><a href="#" hreflang="en">EN</a></p>
+</div>
+</header>
+<main>
+<div class="ramme">
+<a class="retur" href="katalog.html"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M7 1.5 2.5 5.5 7 9.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Tilbage til kataloget</a>
+
+<article class="post">
+
+<div class="post__billede">
+<img src="../../assets/fotos/fabrikant/boston-dynamics-spot.jpg" alt="Boston Dynamics Spot — fabrikantens eget produktfoto" width="640" height="480">
+</div>
+
+<div class="post__hoved">
+<p class="post__prod">Boston Dynamics · USA</p>
+<h1 class="post__navn">Spot</h1>
+<p class="post__linje">
+<span class="mrk mrk--drift">I produktion</span>
+<span class="mrk">20–40 kg</span>
+<span class="mrk">Industri</span>
+<span class="mrk">Inspektion</span>
+<span class="mrk mrk--uoplyst">CE oplyst: ikke oplyst</span>
+</p>
+
+<div class="taethedsplade">
+<p class="taethedsplade__top"><span class="taethedsplade__tal">67 %</span><span class="taethedsplade__ord">Specifikationstæthed</span></p>
+<div class="bjaelke"><i style="width:67%"></i></div>
+<p>Hvor mange af skemaets felter producenten selv oplyser. Det måler producentens åbenhed, ikke robottens kvalitet. Her: <b>21 af 30</b> felter udfyldt.</p>
+</div>
+</div>
+
+<p class="post__ophav">Foto: Boston Dynamics. Gengivet fra <a href="https://bostondynamics.com/products/spot/">producentens produktside</a>, hentet 2026-08-19.</p>
+
+<div class="skema">
+<h2 class="skema__navn">Specifikationer</h2>
+<table class="tabel">
+<caption>Bogstavet peger på kilden nederst. Felter uden tal er stiplede: producenten oplyser dem ikke — det er ikke det samme som nul, og ikke det samme som nej.</caption>
+<thead><tr><th>Felt</th><th>Værdi</th><th>Kilde og forbehold</th></tr></thead>
+<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">Mål og vægt</th></tr>
+<tr>
+<th scope="row">Egenvægt</th>
+<td class="v">33,8 kg</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Producentens eget datablad oplyser 32,7 kg (72,1 lbs) - https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf. Begge tal er internt konsistente metrisk/imperialt; ingen af dem kan afvises. Forskellen er 1,1 kg.</span></td>
+</tr>
+<tr>
+<th scope="row">Længde</th>
+<td class="v">110 cm</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Produktsiden skriver 110mm (43.3 in) - faktor 10 fra sit eget imperiale tal. Databladet skriver 1100 mm (43.3 in). Vi retter ikke produktsiden; vi bruger databladet og noterer modstriden.</span></td>
+</tr>
+<tr>
+<th scope="row">Bredde</th>
+<td class="v">50 cm</td>
+<td class="k"><span class="kilde-bogstav">A</span></td>
+</tr>
+<tr>
+<th scope="row">Højde</th>
+<td class="v">61 cm</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Fire højder oplyses: siddende 191 mm, standard gående 610 mm, maks. 700 mm, min. 520 mm. Her bruges standard gående.</span></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">Frihedsgrader</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr></tbody>
+<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">Bevægelse</th></tr>
+<tr>
+<th scope="row">Maks. hastighed</th>
+<td class="v">5,8 km/h</td>
+<td class="k"><span class="kilde-bogstav">A</span></td>
+</tr>
+<tr>
+<th scope="row">Maks. hældning</th>
+<td class="v">± 30 °</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Fortegnet plus/minus er producentens egen skrivemåde.</span></td>
+</tr>
+<tr>
+<th scope="row">Enkelt forhindring</th>
+<td class="v">30 cm</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Producenten skriver Max Step Height uden at sige om det er en enkelt forhindring eller kontinuerlig trappegang. Placeringen her er konservativ. DATAMODEL.md F2 sammenlignede tallet med Unitrees kontinuerlige 20-25 cm; den sammenligning hviler på en tolkning, kilden ikke støtter.</span></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">Trappetrin, kontinuerligt</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr></tbody>
+<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">Nyttelast og udvidelser</th></tr>
+<tr>
+<th scope="row">Nyttelast, gående</th>
+<td class="v">14 kg</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Producenten skriver PAYLOAD MOUNTING / Max Weight og skelner IKKE mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning. Databladets brødtekst skriver samme tal som up to 14 kg (30 lbs) - 30 mod 30,9 lbs i samme dokument.</span></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">Nyttelast, stående</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr>
+<tr>
+<th scope="row">Monteringsinterface</th>
+<td class="v">M5 T-slot rails</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Monteringsfelt 850 mm (L) x 240 mm (B) x 270 mm (H).</span></td>
+</tr>
+<tr>
+<th scope="row">Strøm ud</th>
+<td class="v">ureguleret DC 35-58,8 V, 150 W pr. port</td>
+<td class="k"><span class="kilde-bogstav">A</span></td>
+</tr>
+<tr>
+<th scope="row">Dataporte</th>
+<td class="v">DB25 x2, Ethernet, WiFi 2,4/5 GHz b/g/n</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Strengen Gigabit findes ikke på produktsiden, og i databladet står den i Spot Dockens afsnit som passthrough to robot, ikke om selve robotten. Robottens egen CONNECTIVITY er WiFi + Ethernet uden hastighed.</span></td>
+</tr></tbody>
+<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">Miljø og strøm</th></tr>
+<tr>
+<th scope="row">IP-klasse</th>
+<td class="v">IP54</td>
+<td class="k"><span class="kilde-bogstav">A</span></td>
+</tr>
+<tr>
+<th scope="row">Driftstemperatur, nedre</th>
+<td class="v">-20 °C</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Databladet tilføjer: Robot must be powered on at a minimum temperature of 0 C.</span></td>
+</tr>
+<tr>
+<th scope="row">Driftstemperatur, øvre</th>
+<td class="v">55 °C</td>
+<td class="k"><span class="kilde-bogstav">A</span></td>
+</tr>
+<tr>
+<th scope="row">Batteri</th>
+<td class="v">564 Wh</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Batteriet vejer selv 5,2 kg (11,5 lbs).</span></td>
+</tr>
+<tr>
+<th scope="row">Driftstid</th>
+<td class="v">90 min</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Producentens fodnote: Runtime may vary depending on payloads and environmental factors. Standby oplyses til 180 min.</span></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">Hot-swap af batteri</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr>
+<tr>
+<th scope="row">Ladetid</th>
+<td class="v">60 min</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Databladets egen ladertabel siger noget andet: ved 25 C 50 min til 80 % og 2 t til 100 %; ved 35 C 2,5 t / 3,5 t. De 60 min er ikke betinget på produktsiden.</span></td>
+</tr>
+<tr>
+<th scope="row">Dockingstation</th>
+<td class="v"><span class="nejv"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor"/></svg>ja</span></td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Spot Dock, fuldt specificeret: 1140 x 414 x 403 mm, 22,9 kg, ind 90-277 VAC, ud 58 V ved 12 A, 0-35 C, cTUVus Certified to UL 1564 og CSA C22.2 No. 107.2. Dockens Gigabit Ethernet passthrough hører her, ikke i robottens dataporte.</span></td>
+</tr></tbody>
+<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">Sansning og software</th></tr>
+<tr class="uoplyst">
+<th scope="row">LiDAR</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr>
+<tr>
+<th scope="row">Kameraer</th>
+<td class="v">stereokameraer (antal og model ikke oplyst); vandret synsfelt 360 grader</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Strengen built-in stereo cameras står KUN i databladet (marketingprosa, ikke specifikationstabel); Horizontal Field of View 360 står på produktsiden. Terrain sensing: 360 grader, rækkevidde 4 m, lys &gt; 2 lux.</span></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">Onboard compute</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">ROS 2</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr>
+<tr>
+<th scope="row">SDK-sprog</th>
+<td class="v">Python</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Producenten skriver Flexible API and Python SDK.</span></td>
+</tr>
+<tr>
+<th scope="row">Autonominiveau</th>
+<td class="v">Manual &amp; Autonomous Operation; Object Avoidance; Stair &amp; Complex Terrain Navigation; autonome missioner startet fra dock</td>
+<td class="k"><span class="kilde-bogstav">A</span><span class="forbehold">Kvalitativt, ikke et niveau på en skala. De tre citerede strenge findes KUN i databladet - produktsiden støtter substansen i andre ord.</span></td>
+</tr></tbody>
+<tbody><tr><th scope="rowgroup" colspan="3" style="padding-top:22px;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5F686F">Marked</th></tr>
+<tr class="uoplyst">
+<th scope="row">Vejledende pris</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"></td>
+</tr>
+<tr class="uoplyst">
+<th scope="row">CE oplyst</th>
+<td class="v"><span class="uo"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>ikke oplyst</span></td>
+<td class="k"><span class="forbehold">Databladets afsnit hedder ordret Safety and Compliance, United States og nævner ISO 12100, IEC 60204-1, ISO 13850, FCC Part 15B, FCC Part 68, IEC 60825-1. Ingen CE, ingen EU-erklæring. Feltet er ikke oplyst - IKKE nej: databladet henviser til et Information for Use-dokument, vi ikke har åbnet.</span></td>
+</tr></tbody>
+</table>
+</div>
+
+<div class="kildeliste">
+<h2 class="skema__navn" style="padding:0 0 4px">Kilder</h2>
+<ol>
+<li><span class="kilde-bogstav">A</span><a href="https://bostondynamics.com/products/spot/">https://bostondynamics.com/products/spot/</a> — hentet 2026-08-19</li>
+<li><span class="kilde-bogstav">B</span><a href="https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf">https://bostondynamics.com/wp-content/uploads/2020/10/spot-specifications.pdf</a> — hentet 2026-08-19</li>
+</ol>
+</div>
+
+</article>
+</div>
+</main>
+<footer class="bund">
+<div class="ramme">
+<p>Udgivet af KeyResearch, Aarhus. Hvert tal på siden har en kilde og en hentedato.
+Kataloget sælger ikke robotter og har ingen forhandleraftale med nogen fabrikant.
+Fotografierne tilhører fabrikanterne og er gengivet med kilde.</p>
+</div>
+</footer>
+</body>
+</html>

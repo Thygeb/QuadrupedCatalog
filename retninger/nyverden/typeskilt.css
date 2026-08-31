@@ -1,0 +1,554 @@
+@charset "utf-8";
+/* ==========================================================================
+   TYPESKILTET — comp af katalogets nye visuelle verden
+   spor/nyverden · 31. aug 2026
+   Ingen genbrug fra retninger/instrument, /vitrine, /register, /prototype-*,
+   /maerke, /master-blueprint eller DESIGN.md. Alt herunder er skrevet forfra.
+   ========================================================================== */
+
+/* --- 1. Skrift ------------------------------------------------------------
+   Saira Semi Condensed = PLADEN (etiketter, tal, navigation).
+   Literata            = MANUALEN (prosa). Aldrig display.
+   Ingen monospace: paa et typeskilt er tallene stanset i etiketskriften.     */
+
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:400;font-display:swap;src:url(skrift/saira-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:400;font-display:swap;src:url(skrift/saira-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:500;font-display:swap;src:url(skrift/saira-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:500;font-display:swap;src:url(skrift/saira-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:600;font-display:swap;src:url(skrift/saira-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:600;font-display:swap;src:url(skrift/saira-600-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:700;font-display:swap;src:url(skrift/saira-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'SairaSemiCondensed';font-style:normal;font-weight:700;font-display:swap;src:url(skrift/saira-700-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Literata';font-style:normal;font-weight:400 600;font-display:swap;src:url(skrift/literata-var-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Literata';font-style:normal;font-weight:400 600;font-display:swap;src:url(skrift/literata-var-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+/* --- 2. Paletten ---------------------------------------------------------- */
+:root{
+  /* Bund og blaek */
+  --eloxgraa:#E8EBED;      /* pladen selv: anodiseret aluminium */
+  --gunmetal:#22262A;      /* blaekket: stanset tekst og tal */
+  --blaek-2:#545C63;       /* sekundaer tekst, tonet mod pladens blaagraa */
+  --kridt:#FAFBFB;         /* kortflade og indfaeldede felter */
+  --rille:#C6CCD1;         /* rillen mellem stansede felter */
+  --stans:#FFFFFF;         /* lyskanten i en stansning */
+  /* Markering — den ENESTE kulør paa siden */
+  --afmaerkningsgul:#F2C400;
+  /* Ikke oplyst — kontur og tekst er to forskellige toner, se MANIFEST */
+  --stoevgraa:#9AA3A9;     /* KUN kontur/streg. 2,1:1 — aldrig tekst */
+  --stoev-blaek:#5F686F;   /* teksttonen for ikke oplyst. 4,7:1 mod pladen */
+
+  --plade:'SairaSemiCondensed',ui-sans-serif,system-ui,sans-serif;
+  --manual:'Literata',Georgia,'Times New Roman',serif;
+
+  --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px; --r7:48px;
+}
+
+/* --- 3. Grundlag ---------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--eloxgraa);
+  color:var(--gunmetal);
+  font-family:var(--plade);
+  font-size:15px;
+  line-height:1.45;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+/* Browserflader: de dele vi ikke selv tegnede, baerer ogsaa verdenen */
+::selection{background:var(--afmaerkningsgul);color:var(--gunmetal)}
+:root{scrollbar-color:var(--stoevgraa) var(--eloxgraa);caret-color:var(--gunmetal)}
+:where(a,button,input,summary,select):focus-visible{
+  outline:2px solid var(--gunmetal);
+  outline-offset:2px;
+  box-shadow:0 0 0 4px var(--afmaerkningsgul);
+  border-radius:2px;
+}
+img{max-width:100%;display:block}
+p{margin:0}
+
+.spring-til{
+  position:absolute;left:var(--r3);top:-100px;z-index:60;
+  background:var(--afmaerkningsgul);color:var(--gunmetal);
+  padding:10px var(--r4);font-weight:600;font-size:13px;
+  letter-spacing:.09em;text-transform:uppercase;text-decoration:none;border-radius:2px;
+}
+.spring-til:focus{top:var(--r3)}
+
+.kun-skaerm{
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* Den stansede kant: 1 px indfaeldet, 2 px radius. Materiale, ikke teater. */
+.stans{
+  border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+
+.ramme{max-width:1320px;margin:0 auto;padding:0 var(--r5)}
+
+/* --- 4. Daekket: navigation ----------------------------------------------- */
+.daek{border-bottom:1px solid var(--rille)}
+.daek__ramme{
+  max-width:1320px;margin:0 auto;padding:var(--r4) var(--r5);
+  display:flex;align-items:baseline;gap:var(--r5);
+}
+.daek__navn{
+  font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;color:var(--gunmetal);white-space:nowrap;
+}
+.daek__nav{display:flex;gap:var(--r5);margin-left:auto;list-style:none;padding:0;margin-block:0}
+.daek__nav a{
+  color:var(--blaek-2);text-decoration:none;font-size:13.5px;font-weight:500;
+  letter-spacing:.05em;padding-bottom:3px;border-bottom:2px solid transparent;
+}
+.daek__nav a:hover{color:var(--gunmetal);border-bottom-color:var(--afmaerkningsgul)}
+.daek__nav a[aria-current]{color:var(--gunmetal);border-bottom-color:var(--gunmetal)}
+.sprog{display:flex;gap:0;align-items:baseline;font-size:12px;letter-spacing:.1em;font-weight:600}
+.sprog a{text-decoration:none;color:var(--stoev-blaek);padding:2px 6px}
+.sprog a[aria-current]{background:var(--gunmetal);color:var(--eloxgraa);border-radius:2px}
+.sprog span{color:var(--rille)}
+
+/* --- 5. PLADEN ------------------------------------------------------------
+   Filtret er ikke et sidepanel. Det er pladen, kataloget er boltet paa.      */
+.plade{padding-top:var(--r6)}
+.plade__krop{
+  background:var(--kridt);
+  border-radius:3px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+  overflow:hidden;
+}
+
+/* 5a. Typeskiltets hoved: hvad pladen sidder paa */
+.plade__hoved{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--r5);align-items:start;
+  padding:var(--r5) var(--r5) var(--r4);
+  border-bottom:1px solid var(--rille);
+}
+.plade__titel{
+  margin:0;font-size:clamp(26px,3.1vw,40px);font-weight:700;line-height:1.03;
+  letter-spacing:-.018em;text-transform:uppercase;text-wrap:balance;max-width:15ch;
+}
+.plade__under{
+  margin-top:10px;font-family:var(--manual);font-size:14.5px;line-height:1.5;
+  color:var(--blaek-2);max-width:62ch;
+}
+.stempelblok{display:grid;justify-items:end;gap:10px;align-self:start}
+.stempler{display:grid;grid-template-columns:auto auto;gap:3px var(--r4);margin:0}
+.stempler dt{
+  font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--stoev-blaek);
+}
+.stempler dd{margin:0;font-size:13.5px;font-weight:600;text-align:right;letter-spacing:.02em}
+.comp-stempel{
+  font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gunmetal);background:var(--afmaerkningsgul);
+  padding:3px 8px;border-radius:2px;
+}
+
+/* 5b. Strimlen — den klaebende etage */
+.strimmel{
+  position:sticky;top:0;z-index:40;
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3);
+  padding:var(--r3) var(--r5);
+  background:var(--gunmetal);color:var(--eloxgraa);
+}
+.strimmel__mrk{
+  font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stoevgraa);margin-right:2px;
+}
+.valgliste{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
+.valg{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--afmaerkningsgul);color:var(--gunmetal);
+  padding:4px 5px 4px 10px;border-radius:2px;
+  font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
+}
+.valg--standard{background:transparent;color:var(--eloxgraa);box-shadow:inset 0 0 0 1px var(--stoev-blaek)}
+.valg__fjern{
+  display:grid;place-items:center;width:17px;height:17px;
+  border:0;background:rgba(34,38,42,.14);color:inherit;
+  border-radius:2px;cursor:pointer;padding:0;
+}
+.valg--standard .valg__fjern{background:rgba(232,235,237,.12)}
+.valg__fjern:hover{background:var(--gunmetal);color:var(--afmaerkningsgul)}
+.valg--standard .valg__fjern:hover{background:var(--eloxgraa);color:var(--gunmetal)}
+
+.taeller{
+  margin-left:auto;display:flex;align-items:baseline;gap:9px;
+  padding-left:var(--r4);
+}
+.taeller__tal{
+  font-size:25px;font-weight:700;letter-spacing:-.01em;line-height:1;
+  color:var(--afmaerkningsgul);
+  padding-bottom:5px;border-bottom:3px solid var(--afmaerkningsgul);
+  animation:stempl .32s cubic-bezier(.16,1,.3,1) both;
+}
+.taeller__af{font-size:12.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--stoevgraa)}
+@keyframes stempl{from{opacity:.35;letter-spacing:.06em}to{opacity:1;letter-spacing:-.01em}}
+.nulstil{
+  background:transparent;border:0;color:var(--eloxgraa);cursor:pointer;
+  font:inherit;font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  padding:6px 10px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--stoev-blaek);
+}
+.nulstil:hover{background:var(--eloxgraa);color:var(--gunmetal);box-shadow:none}
+
+/* 5c. Facetlaget */
+.facetter{border:0;margin:0;padding:0;min-width:0}
+.facetter__net{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.facet{
+  border:0;margin:0;min-width:0;
+  padding:var(--r5) var(--r5) var(--r5);
+  border-right:1px solid var(--rille);
+  border-bottom:1px solid var(--rille);
+}
+.facet--bred{grid-column:span 2}
+.facet:nth-child(4n),.facet--bred{border-right:0}
+.facet--sidste-raekke{border-bottom:0}
+.facet__navn{
+  padding:0;margin:0 0 var(--r4);float:none;
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--gunmetal);
+  display:flex;align-items:baseline;gap:9px;width:100%;
+}
+.facet__navn::after{
+  content:"";flex:1;height:1px;background:var(--rille);
+}
+.facet__tal{font-size:10.5px;font-weight:600;letter-spacing:.08em;color:var(--stoev-blaek)}
+
+/* 5d. Raekken: den stansede afkrydsning ------------------------------------
+   Fire tilstande, fire forskellige maerker. Haard begraensning 5.           */
+.rk{display:block}
+.rk__felt{position:absolute;opacity:0;width:1px;height:1px}
+.rk__mrk{
+  display:flex;align-items:center;gap:10px;
+  padding:5.5px 7px;margin:0 -7px;border-radius:2px;
+  cursor:pointer;
+}
+.rk__mrk:hover{background:var(--eloxgraa)}
+.rk__felt:focus-visible + .rk__mrk{
+  outline:2px solid var(--gunmetal);outline-offset:1px;
+  box-shadow:0 0 0 4px var(--afmaerkningsgul);
+}
+.rk__boks{
+  flex:none;width:14px;height:14px;border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--gunmetal);
+  background:var(--kridt);
+  display:grid;place-items:center;
+}
+.rk__boks svg{width:10px;height:10px;display:block;opacity:0}
+.rk__felt:checked + .rk__mrk .rk__boks{background:var(--afmaerkningsgul);box-shadow:inset 0 0 0 1px var(--gunmetal)}
+.rk__felt:checked + .rk__mrk .rk__boks svg{opacity:1}
+.rk__navn{flex:1;font-size:14px;font-weight:500;letter-spacing:.005em;min-width:0}
+.rk__antal{font-size:13px;font-weight:600;color:var(--blaek-2);flex:none}
+
+/* Tilstand: IKKE OPLYST — stiplet kontur, ingen fyld, altid sidst */
+.rk--uoplyst{margin-top:9px;padding-top:9px;border-top:1px dashed var(--stoevgraa)}
+.rk--uoplyst .rk__boks{
+  background:transparent;box-shadow:none;
+  border:1px dashed var(--stoevgraa);width:14px;height:14px;
+}
+.rk--uoplyst .rk__navn,.rk--uoplyst .rk__antal{color:var(--stoev-blaek)}
+.rk--uoplyst .rk__felt:checked + .rk__mrk .rk__boks{
+  background:transparent;border:1px dashed var(--gunmetal);box-shadow:none;
+}
+.rk--uoplyst .rk__felt:checked + .rk__mrk .rk__boks svg{opacity:1}
+
+/* Tilstand: NEJ — kontur med skraastreg, fuldt blaek */
+.rk--nej .rk__boks{background:var(--kridt);box-shadow:inset 0 0 0 1px var(--gunmetal)}
+.rk--nej .rk__boks svg{opacity:1}
+.rk--nej .rk__felt:checked + .rk__mrk .rk__boks{background:var(--afmaerkningsgul)}
+
+/* --- 6. SIGNATUREN: hoejdelinealen --------------------------------------- */
+.lineal{margin:0 0 var(--r3);display:block;width:100%;height:auto}
+.lineal text{font-family:var(--plade);font-variant-numeric:tabular-nums}
+.lineal__akse{font-size:8.5px;font-weight:500;fill:var(--stoev-blaek);letter-spacing:.04em}
+.lineal__navn{font-size:8.5px;font-weight:700;fill:var(--gunmetal);letter-spacing:.1em}
+.lineal__spand{font-size:8.5px;font-weight:600;fill:var(--blaek-2);letter-spacing:.02em}
+.lineal__spand--uoplyst{fill:var(--stoev-blaek)}
+.fod{
+  font-family:var(--manual);font-size:12.5px;line-height:1.5;
+  color:var(--blaek-2);margin:var(--r3) 0 var(--r4);max-width:44ch;
+}
+.fod b{font-weight:600;color:var(--gunmetal)}
+
+/* --- 7. Egenskabschips ---------------------------------------------------- */
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:9px}
+.chip{display:block}
+.chip__felt{position:absolute;opacity:0;width:1px;height:1px}
+.chip__krop{
+  display:block;cursor:pointer;padding:11px var(--r3) 10px;
+  border-radius:2px;background:var(--kridt);
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+.chip__krop:hover{box-shadow:inset 0 0 0 1px var(--gunmetal)}
+.chip__felt:checked + .chip__krop{
+  background:var(--afmaerkningsgul);
+  box-shadow:inset 0 0 0 1px var(--gunmetal);
+}
+.chip__felt:focus-visible + .chip__krop{outline:2px solid var(--gunmetal);outline-offset:2px}
+.chip__navn{
+  display:block;font-size:13.5px;font-weight:600;letter-spacing:.01em;margin-bottom:7px;
+}
+.deling{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:12px}
+.d{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-weight:600}
+.d svg{flex:none;display:block}
+.d--ja{color:var(--gunmetal)}
+.d--nej{color:var(--blaek-2)}
+.d--nul{color:var(--gunmetal)}
+.d--uoplyst{color:var(--stoev-blaek)}
+.chip__felt:checked + .chip__krop .d--ja,
+.chip__felt:checked + .chip__krop .d--nej,
+.chip__felt:checked + .chip__krop .d--nul,
+.chip__felt:checked + .chip__krop .d--uoplyst{color:var(--gunmetal)}
+.d__ord{font-weight:500;letter-spacing:.02em}
+
+/* --- 8. Reserveret gruppe ------------------------------------------------- */
+.reserveret{
+  border:1px dashed var(--stoevgraa);border-radius:2px;
+  padding:var(--r4) var(--r3);background:transparent;
+}
+.reserveret__ord{
+  font-size:13px;font-weight:600;color:var(--stoev-blaek);
+  letter-spacing:.02em;margin-bottom:5px;
+}
+.reserveret__note{font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--stoev-blaek)}
+
+/* --- 9. Resultatet -------------------------------------------------------- */
+.resultat{padding:var(--r6) 0 var(--r7)}
+.resultat__hoved{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--r4);
+  padding-bottom:var(--r4);margin-bottom:var(--r5);
+  border-bottom:2px solid var(--gunmetal);
+}
+.resultat__titel{
+  margin:0;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+}
+.sorter{display:flex;align-items:baseline;gap:10px;margin-left:auto}
+.sorter label{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--stoev-blaek)}
+.sorter select{
+  font:inherit;font-size:13.5px;font-weight:600;font-family:var(--plade);
+  color:var(--gunmetal);background:var(--kridt);
+  border:0;border-radius:2px;padding:6px 10px;cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+}
+.sorter select:hover{box-shadow:inset 0 0 0 1px var(--gunmetal)}
+
+.net{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));
+  gap:1px;background:var(--rille);
+  box-shadow:0 0 0 1px var(--rille);
+}
+.kort{
+  display:flex;flex-direction:column;background:var(--kridt);
+  text-decoration:none;color:inherit;position:relative;
+}
+.kort:hover{background:#fff}
+.kort:hover .kort__navn{border-bottom-color:var(--gunmetal)}
+.kort:focus-visible{outline:2px solid var(--gunmetal);outline-offset:-2px;box-shadow:inset 0 0 0 5px var(--afmaerkningsgul)}
+.kort__billedled{
+  aspect-ratio:4/3;background:var(--eloxgraa);
+  display:grid;place-items:center;overflow:hidden;
+  border-bottom:1px solid var(--rille);
+}
+.kort__billedled img{width:100%;height:100%;object-fit:contain;padding:var(--r3)}
+.kort__tekst{padding:var(--r3) var(--r4) var(--r4);display:flex;flex-direction:column;gap:3px}
+.kort__prod{
+  font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--stoev-blaek);
+}
+.kort__navn{
+  font-size:17px;font-weight:600;letter-spacing:-.005em;line-height:1.2;
+  border-bottom:2px solid transparent;align-self:start;
+}
+.kort__mrk{
+  position:absolute;top:0;left:0;
+  font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  padding:4px 9px;background:var(--gunmetal);color:var(--eloxgraa);
+}
+
+/* --- 10. Fod -------------------------------------------------------------- */
+.bund{border-top:1px solid var(--rille);padding:var(--r5) 0 var(--r7)}
+.bund p{font-family:var(--manual);font-size:13px;line-height:1.6;color:var(--blaek-2);max-width:70ch}
+.bund a{color:var(--gunmetal)}
+
+/* --- 11. Robotsiden ------------------------------------------------------- */
+.retur{
+  display:inline-flex;align-items:center;gap:9px;margin:var(--r5) 0 var(--r4);
+  font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--blaek-2);text-decoration:none;
+}
+.retur:hover{color:var(--gunmetal)}
+.retur svg{display:block}
+
+.post{
+  display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);
+  gap:0;background:var(--kridt);border-radius:3px;
+  box-shadow:inset 0 0 0 1px var(--rille), inset 0 1px 0 var(--stans);
+  overflow:hidden;
+}
+.post__billede{
+  background:var(--eloxgraa);display:grid;place-items:center;padding:var(--r6);
+  border-right:1px solid var(--rille);min-height:340px;
+}
+.post__billede img{width:100%;height:auto;object-fit:contain;max-height:420px}
+.post__ophav{
+  grid-column:1;font-family:var(--manual);font-size:11.5px;line-height:1.5;
+  color:var(--stoev-blaek);padding:0 var(--r6) var(--r5);background:var(--eloxgraa);
+  border-right:1px solid var(--rille);
+}
+.post__ophav a{color:var(--blaek-2)}
+.post__hoved{padding:var(--r6) var(--r6) var(--r5)}
+.post__prod{
+  font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--stoev-blaek);margin-bottom:9px;
+}
+.post__navn{
+  margin:0;font-size:clamp(32px,3.6vw,46px);font-weight:700;line-height:1;
+  letter-spacing:-.024em;text-wrap:balance;
+}
+.post__linje{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--r4);
+}
+.mrk{
+  font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+  padding:5px 10px;border-radius:2px;
+  box-shadow:inset 0 0 0 1px var(--rille);color:var(--blaek-2);
+}
+.mrk--drift{background:var(--gunmetal);color:var(--eloxgraa);box-shadow:none}
+.mrk--uoplyst{border:1px dashed var(--stoevgraa);box-shadow:none;color:var(--stoev-blaek)}
+
+.taethedsplade{
+  margin:var(--r5) var(--r6) 0;padding:var(--r4);
+  background:var(--eloxgraa);border-radius:2px;
+}
+.taethedsplade__top{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.taethedsplade__tal{font-size:29px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.taethedsplade__ord{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--stoev-blaek)}
+.bjaelke{height:9px;background:var(--kridt);border-radius:1px;box-shadow:inset 0 0 0 1px var(--rille);overflow:hidden}
+.bjaelke i{display:block;height:100%;background:var(--gunmetal)}
+.taethedsplade p{font-family:var(--manual);font-size:12.5px;line-height:1.55;color:var(--blaek-2);margin-top:10px}
+
+.skema{grid-column:1 / -1;border-top:1px solid var(--rille)}
+.skema__navn{
+  padding:var(--r5) var(--r6) var(--r3);
+  font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+}
+.tabel{width:100%;border-collapse:collapse;font-size:14px}
+.tabel caption{text-align:left;padding:0 var(--r6) var(--r3);font-family:var(--manual);font-size:12.5px;color:var(--blaek-2)}
+.tabel th,.tabel td{text-align:left;padding:10px var(--r3);border-top:1px solid var(--rille);vertical-align:baseline}
+.tabel th:first-child,.tabel td:first-child{padding-left:var(--r6)}
+.tabel td:last-child{padding-right:var(--r6)}
+.tabel thead th{
+  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--stoev-blaek);padding-top:0;border-top:0;padding-bottom:8px;
+}
+.tabel tbody th{font-weight:500;color:var(--blaek-2);width:30%}
+.tabel td.v{font-weight:600;font-variant-numeric:tabular-nums;width:22%}
+.tabel td.k{width:48%;font-family:var(--manual);font-size:12.5px;line-height:1.55;color:var(--blaek-2)}
+.tabel tr.uoplyst th{color:var(--stoev-blaek)}
+.tabel tr.uoplyst td.v{
+  color:var(--stoev-blaek);font-weight:500;
+}
+.uo{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px dashed var(--stoevgraa);border-radius:2px;padding:2px 8px;
+  font-size:12.5px;font-weight:500;color:var(--stoev-blaek);
+}
+.nejv{
+  display:inline-flex;align-items:center;gap:7px;
+  box-shadow:inset 0 0 0 1px var(--gunmetal);border-radius:2px;padding:2px 8px;
+  font-size:12.5px;font-weight:600;color:var(--gunmetal);
+}
+.kilde-bogstav{
+  display:inline-grid;place-items:center;width:16px;height:16px;
+  background:var(--gunmetal);color:var(--eloxgraa);border-radius:2px;
+  font-size:10px;font-weight:700;margin-right:6px;vertical-align:1px;
+}
+.forbehold{display:block;margin-top:4px}
+
+.kildeliste{grid-column:1 / -1;border-top:1px solid var(--rille);padding:var(--r5) var(--r6) var(--r6)}
+.kildeliste ol{margin:var(--r3) 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.kildeliste li{font-family:var(--manual);font-size:12.5px;line-height:1.5;color:var(--blaek-2)}
+.kildeliste a{color:var(--gunmetal);word-break:break-word}
+
+/* --- 12. Mobil: facetlaget bliver et udtraekspanel, strimlen bestaar ------- */
+.udtraek{border:0;margin:0;padding:0}
+.udtraek > summary{display:none}
+
+@media (max-width:1100px){
+  .facetter__net{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facet--bred{grid-column:span 2;border-right:0}
+  .facet:nth-child(2n){border-right:0}
+  .facet{border-right:1px solid var(--rille)}
+  .post{grid-template-columns:1fr}
+  .post__billede,.post__ophav{border-right:0}
+}
+
+@media (max-width:720px){
+  .ramme{padding:0 var(--r4)}
+  .daek__ramme{padding:var(--r3) var(--r4);flex-wrap:wrap;gap:var(--r3) var(--r4)}
+  .daek__nav{width:100%;margin-left:0;gap:var(--r4);order:3;overflow-x:auto;padding-bottom:2px}
+  .sprog{margin-left:auto}
+
+  .plade{padding-top:var(--r4)}
+  .plade__hoved{grid-template-columns:1fr;padding:var(--r4)}
+  .plade__titel{font-size:27px;max-width:none}
+  .stempler{grid-template-columns:auto 1fr;width:100%;padding-top:var(--r3);border-top:1px solid var(--rille)}
+  .stempler dd{text-align:left}
+  .comp-stempel{justify-self:start}
+
+  .strimmel{padding:10px var(--r4);gap:9px}
+  .taeller{margin-left:0;width:100%;padding-left:0;order:-1;
+    border-bottom:1px solid var(--stoev-blaek);padding-bottom:9px;margin-bottom:2px}
+  .taeller__tal{font-size:22px}
+  .nulstil{margin-left:auto}
+
+  /* Udtraekspanelet */
+  .udtraek > summary{
+    display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none;
+    padding:13px var(--r4);
+    font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+    border-bottom:1px solid var(--rille);
+  }
+  .udtraek > summary::-webkit-details-marker{display:none}
+  .udtraek > summary .haandtag{
+    margin-left:auto;display:grid;place-items:center;width:22px;height:22px;
+    border-radius:2px;box-shadow:inset 0 0 0 1px var(--gunmetal);
+  }
+  .udtraek[open] > summary .haandtag svg{transform:rotate(45deg)}
+  .facetter__net{grid-template-columns:1fr}
+  .facet{border-right:0;padding:var(--r4)}
+  .facet--bred{grid-column:span 1}
+  .chips{grid-template-columns:1fr}
+
+  .resultat{padding:var(--r5) 0 var(--r6)}
+  .net{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kort__navn{font-size:15px}
+  .kort__tekst{padding:10px var(--r3) var(--r3)}
+
+  .post__hoved,.skema__navn,.kildeliste{padding-left:var(--r4);padding-right:var(--r4)}
+  .post__billede{padding:var(--r5);min-height:0}
+  .post__ophav{padding:0 var(--r4) var(--r4)}
+  .taethedsplade{margin:var(--r4) var(--r4) 0}
+  .tabel th:first-child,.tabel td:first-child{padding-left:var(--r4)}
+  .tabel td:last-child{padding-right:var(--r4)}
+  .tabel,.tabel tbody,.tabel tr,.tabel th,.tabel td{display:block;width:auto}
+  .tabel thead{display:none}
+  .tabel tr{border-top:1px solid var(--rille);padding:var(--r3) 0}
+  .tabel th,.tabel td{border-top:0;padding:1px var(--r4)}
+  .tabel tbody th{width:auto;font-size:11px;font-weight:700;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--stoev-blaek)}
+  .tabel td.v{width:auto;font-size:16px;padding-top:3px}
+  .tabel td.k{width:auto;padding-top:5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important}
+}

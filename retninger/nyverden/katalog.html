@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Katalog over firbenede robotter — TYPESKILTET (comp)</title>
+<link rel="stylesheet" href="typeskilt.css">
+</head>
+<body>
+<!--
+TYPESKILTET — retningskontrakt, spor/nyverden, 31. aug 2026
+
+THESIS: Filtret er ikke et sidepanel. Det er typeskiltet — den stansede plade
+enhver industrimaskine bærer, med hvad den er, hvad den tåler, og hvad der IKKE
+står på den. Afviser SaaS-filterskuffen med bløde pill-chips langs venstre kant.
+
+OWN-WORLD: Eloxgrå #E8EBED plade, gunmetal #22262A stanset blæk, afmærkningsgul
+#F2C400 KUN som markering, støvgrå #9AA3A9 stiplet kontur for ikke oplyst, kridt
+#FAFBFB kortflade. Saira Semi Condensed som pladens skrift, Literata som manualens.
+Ingen monospace, ingen gradient, intet glas, ingen slagskygge — kun 1 px indfældet
+kant og 2 px radius.
+
+STORY: Læseren ser at feltet er måleligt, at 27 af 77 ikke oplyser IP-klasse, og at
+"ikke oplyst" er et tælleligt svar — og snævrer 77 ind til 21.
+
+FIRST VIEWPORT: Pladen fylder foldet. Typeskiltets hoved øverst med TYPE/UDGAVE/
+POSTER/TAL MED KILDE stanset til højre; derunder den klæbende strimmel med de
+aktive valg og tælleren i gult; derunder facetlaget i fire stansede felter, hvor
+VÆGTKLASSE bærer højdelinealen.
+
+FORM: Typeskilt/maskinskilt. Pinnet af briefet (L54–L56), ikke rullet frem.
+
+FINISH: comp, ikke implementering. Leverancen er retningen, ikke en bygget side.
+-->
+<a class="spring-til" href="#resultat">Spring til resultatet</a>
+<header class="daek">
+<div class="daek__ramme">
+<a class="daek__navn" href="katalog.html">Firbenede robotter</a>
+<ul class="daek__nav">
+<li><a href="katalog.html" aria-current="page">Oversigt</a></li>
+<li><a href="#">Nyheder</a></li>
+<li><a href="#">Services</a></li>
+<li><a href="#">Om os</a></li>
+</ul>
+<p class="sprog"><a href="#" aria-current="true" hreflang="da">DA</a><span>/</span><a href="#" hreflang="en">EN</a></p>
+</div>
+</header>
+<main>
+<section class="plade" aria-labelledby="plade-titel">
+<div class="ramme">
+<div class="plade__krop">
+
+<div class="plade__hoved">
+<div>
+<h1 class="plade__titel" id="plade-titel">Katalog over firbenede robotter</h1>
+<p class="plade__under">77 robotter fra 8 lande.
+Hvert tal har en kilde og en hentedato. Felter, producenten ikke oplyser, er tællet med — de er ikke tomme, de er stiplede.</p>
+</div>
+<div class="stempelblok">
+<dl class="stempler">
+<dt>Type</dt><dd>QUAD-77</dd>
+<dt>Udgave</dt><dd>2026-08-31</dd>
+<dt>Poster</dt><dd>77</dd>
+<dt>Oplyste felter</dt><dd>1.116</dd>
+</dl>
+<p class="comp-stempel">Comp · én filtertilstand</p>
+</div>
+</div>
+
+<div class="strimmel">
+<span class="strimmel__mrk">Valgt</span>
+<ul class="valgliste">
+<li class="valg">Inspektion<button class="valg__fjern" type="button" aria-label="Fjern filteret Inspektion"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.4 1.4 7.6 7.6M7.6 1.4 1.4 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></li>
+<li class="valg">IP67<button class="valg__fjern" type="button" aria-label="Fjern filteret IP67"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.4 1.4 7.6 7.6M7.6 1.4 1.4 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></li>
+<li class="valg valg--standard">Udgåede skjult (3)<button class="valg__fjern" type="button" aria-label="Vis også udgåede modeller"><svg width="9" height="9" viewBox="0 0 9 9" aria-hidden="true"><path d="M1.4 1.4 7.6 7.6M7.6 1.4 1.4 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></li>
+</ul>
+<p class="taeller"><span class="taeller__tal">21</span><span class="taeller__af">af 77</span></p>
+<button class="nulstil" type="button">Nulstil</button>
+</div>
+
+<details class="udtraek" open>
+<summary>Filtre<span class="haandtag"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><path d="M5.5 1.8v7.4M1.8 5.5h7.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></summary>
+<form class="facetter">
+<div class="facetter__net">
+
+<fieldset class="facet">
+<legend class="facet__navn">Anvendelse<span class="facet__tal">flerværdi</span></legend>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-inspektion" checked>
+<label class="rk__mrk" for="anv-inspektion">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Inspektion</span>
+<span class="rk__antal">41</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-forskning_udvikling">
+<label class="rk__mrk" for="anv-forskning_udvikling">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Forskning og udvikling</span>
+<span class="rk__antal">34</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-sikkerhed_overvaagning">
+<label class="rk__mrk" for="anv-sikkerhed_overvaagning">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Sikkerhed og overvågning</span>
+<span class="rk__antal">33</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-industri">
+<label class="rk__mrk" for="anv-industri">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Industri</span>
+<span class="rk__antal">30</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-forsvar_beredskab">
+<label class="rk__mrk" for="anv-forsvar_beredskab">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Forsvar og beredskab</span>
+<span class="rk__antal">30</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-forbruger_uddannelse">
+<label class="rk__mrk" for="anv-forbruger_uddannelse">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Forbruger og uddannelse</span>
+<span class="rk__antal">18</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="anv-logistik">
+<label class="rk__mrk" for="anv-logistik">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Logistik</span>
+<span class="rk__antal">12</span>
+</label>
+</div>
+<div class="rk rk--uoplyst">
+<input class="rk__felt" type="checkbox" id="anv-uo">
+<label class="rk__mrk" for="anv-uo">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">ikke oplyst</span>
+<span class="rk__antal">8</span>
+</label>
+</div>
+</fieldset>
+
+<fieldset class="facet">
+<legend class="facet__navn">Vægtklasse<span class="facet__tal">målestok</span></legend>
+<svg class="lineal" viewBox="0 0 300 200" role="img" aria-labelledby="lineal-t lineal-b">
+<title id="lineal-t">Højden pr. vægtklasse i fælles målestok</title>
+<desc id="lineal-b">Under 20 kg: målt højde 28 til 56 centimeter på 16 af 18 robotter. 20–40 kg: målt højde 45 til 65 centimeter på 17 af 19 robotter. Over 40 kg: målt højde 47 til 93 centimeter på 28 af 29 robotter. Vægt ikke oplyst: ingen af de 11 robotter oplyser en højde, og gruppen kan derfor ikke tegnes i målestok.</desc><line x1="30" y1="158.0" x2="296" y2="158.0" stroke="#22262A" stroke-width="1.4"/><text class="lineal__akse" x="25" y="161.0" text-anchor="end">0</text><line x1="30" y1="126.0" x2="296" y2="126.0" stroke="#C6CCD1" stroke-width="1" stroke-dasharray="1 3"/><text class="lineal__akse" x="25" y="129.0" text-anchor="end">25</text><line x1="30" y1="94.0" x2="296" y2="94.0" stroke="#C6CCD1" stroke-width="1" stroke-dasharray="1 3"/><text class="lineal__akse" x="25" y="97.0" text-anchor="end">50</text><line x1="30" y1="62.0" x2="296" y2="62.0" stroke="#C6CCD1" stroke-width="1" stroke-dasharray="1 3"/><text class="lineal__akse" x="25" y="65.0" text-anchor="end">75</text><line x1="30" y1="30.0" x2="296" y2="30.0" stroke="#C6CCD1" stroke-width="1" stroke-dasharray="1 3"/><text class="lineal__akse" x="25" y="33.0" text-anchor="end">100</text><text class="lineal__akse" x="25" y="22.0" text-anchor="end">CM</text><rect x="46" y="86.3" width="50" height="35.8" rx="1.5" fill="#22262A"/><text class="lineal__spand" x="71" y="81.3" text-anchor="middle">28–56</text><text class="lineal__navn" x="71" y="171" text-anchor="middle">UNDER</text><text class="lineal__navn" x="71" y="181" text-anchor="middle">20 KG</text><text class="lineal__spand" x="71" y="194" text-anchor="middle">16 af 18 målt</text><rect x="110" y="74.8" width="50" height="25.6" rx="1.5" fill="#22262A"/><text class="lineal__spand" x="135" y="69.8" text-anchor="middle">45–65</text><text class="lineal__navn" x="135" y="171" text-anchor="middle">20–40</text><text class="lineal__navn" x="135" y="181" text-anchor="middle">KG</text><text class="lineal__spand" x="135" y="194" text-anchor="middle">17 af 19 målt</text><rect x="174" y="39.6" width="50" height="58.2" rx="1.5" fill="#22262A"/><text class="lineal__spand" x="199" y="34.6" text-anchor="middle">47–93</text><text class="lineal__navn" x="199" y="171" text-anchor="middle">OVER</text><text class="lineal__navn" x="199" y="181" text-anchor="middle">40 KG</text><text class="lineal__spand" x="199" y="194" text-anchor="middle">28 af 29 målt</text><rect x="238" y="30.0" width="50" height="128.0" rx="1.5" fill="none" stroke="#9AA3A9" stroke-width="1.2" stroke-dasharray="3.5 3"/><text class="lineal__spand lineal__spand--uoplyst" x="263" y="25.0" text-anchor="middle">?</text><text class="lineal__navn" x="263" y="171" text-anchor="middle" fill="#5F686F">IKKE</text><text class="lineal__navn" x="263" y="181" text-anchor="middle" fill="#5F686F">OPLYST</text><text class="lineal__spand lineal__spand--uoplyst" x="263" y="194" text-anchor="middle">0 af 11 målt</text></svg>
+<p class="fod">Højden er målt på de <b>61 af 77</b> robotter, der oplyser den.
+Klasserne overlapper: en robot på 20–40 kg kan være højere end en på over 40 kg.
+Gruppen uden oplyst vægt kan slet ikke tegnes — derfor står den stiplet og tom.</p>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="vk-under_20">
+<label class="rk__mrk" for="vk-under_20">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Under 20 kg</span>
+<span class="rk__antal">18</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="vk-20_40">
+<label class="rk__mrk" for="vk-20_40">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">20–40 kg</span>
+<span class="rk__antal">19</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="vk-over_40">
+<label class="rk__mrk" for="vk-over_40">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Over 40 kg</span>
+<span class="rk__antal">29</span>
+</label>
+</div>
+<div class="rk rk--uoplyst">
+<input class="rk__felt" type="checkbox" id="vk-uo">
+<label class="rk__mrk" for="vk-uo">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Vægt ikke oplyst</span>
+<span class="rk__antal">11</span>
+</label>
+</div>
+</fieldset>
+
+<fieldset class="facet facet--bred">
+<legend class="facet__navn">Egenskaber<span class="facet__tal">ja · nej · ikke oplyst</span></legend>
+<div class="chip">
+<input class="chip__felt" type="checkbox" id="eg-0">
+<label class="chip__krop" for="eg-0">
+<span class="chip__navn">Går på trapper</span>
+<span class="deling">
+<span class="d d--ja"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor"/></svg>42<span class="d__ord">ja</span></span>
+<span class="d d--nul"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="5.5" cy="5.5" r="1.7" fill="currentColor"/></svg>0<span class="d__ord">nej</span></span>
+<span class="d d--uoplyst"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>35<span class="d__ord">ikke oplyst</span></span>
+</span>
+</label>
+</div>
+<div class="chip">
+<input class="chip__felt" type="checkbox" id="eg-1">
+<label class="chip__krop" for="eg-1">
+<span class="chip__navn">Bærer fra 5 kg gående</span>
+<span class="deling">
+<span class="d d--ja"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor"/></svg>57<span class="d__ord">ja</span></span>
+<span class="d d--nej"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.2 7.8 7.8 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>8<span class="d__ord">nej</span></span>
+<span class="d d--uoplyst"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>12<span class="d__ord">ikke oplyst</span></span>
+</span>
+</label>
+</div>
+<div class="chip">
+<input class="chip__felt" type="checkbox" id="eg-2">
+<label class="chip__krop" for="eg-2">
+<span class="chip__navn">Arbejder i frost</span>
+<span class="deling">
+<span class="d d--ja"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor"/></svg>36<span class="d__ord">ja</span></span>
+<span class="d d--nej"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.2 7.8 7.8 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>10<span class="d__ord">nej</span></span>
+<span class="d d--uoplyst"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>31<span class="d__ord">ikke oplyst</span></span>
+</span>
+</label>
+</div>
+<div class="chip">
+<input class="chip__felt" type="checkbox" id="eg-3">
+<label class="chip__krop" for="eg-3">
+<span class="chip__navn">Lader selv</span>
+<span class="deling">
+<span class="d d--ja"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor"/></svg>31<span class="d__ord">ja</span></span>
+<span class="d d--nej"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.2 7.8 7.8 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>3<span class="d__ord">nej</span></span>
+<span class="d d--uoplyst"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>43<span class="d__ord">ikke oplyst</span></span>
+</span>
+</label>
+</div>
+<div class="chip">
+<input class="chip__felt" type="checkbox" id="eg-4">
+<label class="chip__krop" for="eg-4">
+<span class="chip__navn">Hot-swap-batteri</span>
+<span class="deling">
+<span class="d d--ja"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor"/></svg>19<span class="d__ord">ja</span></span>
+<span class="d d--nul"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="5.5" cy="5.5" r="1.7" fill="currentColor"/></svg>0<span class="d__ord">nej</span></span>
+<span class="d d--uoplyst"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2.4 1.9"/></svg>58<span class="d__ord">ikke oplyst</span></span>
+</span>
+</label>
+</div>
+<p class="fod">Hver linje summer til 77. Af de 10 robotter, der <b>ikke</b> arbejder i frost,
+har <b>8</b> en målt nedre grænse på præcis 0 °C — et målt nul, ikke et manglende svar.</p>
+</fieldset>
+
+<fieldset class="facet facet--sidste-raekke">
+<legend class="facet__navn">IP-klasse</legend>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="ip-IP54">
+<label class="rk__mrk" for="ip-IP54">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">IP54</span>
+<span class="rk__antal">9</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="ip-IP56">
+<label class="rk__mrk" for="ip-IP56">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">IP56</span>
+<span class="rk__antal">2</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="ip-IP66">
+<label class="rk__mrk" for="ip-IP66">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">IP66</span>
+<span class="rk__antal">11</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="ip-IP67" checked>
+<label class="rk__mrk" for="ip-IP67">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">IP67</span>
+<span class="rk__antal">25</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="ip-IP68">
+<label class="rk__mrk" for="ip-IP68">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">IP68</span>
+<span class="rk__antal">2</span>
+</label>
+</div>
+<div class="rk rk--nej">
+<input class="rk__felt" type="checkbox" id="ip-nej">
+<label class="rk__mrk" for="ip-nej">
+<span class="rk__boks"><svg width="11" height="11" viewBox="0 0 11 11" aria-hidden="true"><rect x="1.6" y="1.6" width="7.8" height="7.8" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3.2 7.8 7.8 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+<span class="rk__navn">Producenten oplyser: ingen IP-klasse</span>
+<span class="rk__antal">1</span>
+</label>
+</div>
+<div class="rk rk--uoplyst">
+<input class="rk__felt" type="checkbox" id="ip-uo">
+<label class="rk__mrk" for="ip-uo">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">ikke oplyst</span>
+<span class="rk__antal">27</span>
+</label>
+</div>
+</fieldset>
+
+<fieldset class="facet facet--sidste-raekke">
+<legend class="facet__navn">Status<span class="facet__tal">standard: udgåede skjult</span></legend>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="st-i_produktion" checked>
+<label class="rk__mrk" for="st-i_produktion">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">I produktion</span>
+<span class="rk__antal">68</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="st-annonceret" checked>
+<label class="rk__mrk" for="st-annonceret">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Annonceret</span>
+<span class="rk__antal">6</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="st-udgaaet">
+<label class="rk__mrk" for="st-udgaaet">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Udgået</span>
+<span class="rk__antal">3</span>
+</label>
+</div>
+</fieldset>
+
+<fieldset class="facet facet--sidste-raekke">
+<legend class="facet__navn">Land</legend>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Kina">
+<label class="rk__mrk" for="la-Kina">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Kina</span>
+<span class="rk__antal">62</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Indien">
+<label class="rk__mrk" for="la-Indien">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Indien</span>
+<span class="rk__antal">3</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Schweiz">
+<label class="rk__mrk" for="la-Schweiz">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Schweiz</span>
+<span class="rk__antal">3</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-USA">
+<label class="rk__mrk" for="la-USA">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">USA</span>
+<span class="rk__antal">3</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Polen">
+<label class="rk__mrk" for="la-Polen">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Polen</span>
+<span class="rk__antal">2</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Sydkorea">
+<label class="rk__mrk" for="la-Sydkorea">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Sydkorea</span>
+<span class="rk__antal">2</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Spanien">
+<label class="rk__mrk" for="la-Spanien">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Spanien</span>
+<span class="rk__antal">1</span>
+</label>
+</div>
+<div class="rk">
+<input class="rk__felt" type="checkbox" id="la-Tyskland">
+<label class="rk__mrk" for="la-Tyskland">
+<span class="rk__boks"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.3 5.1 3.9 7.7 8.7 2.1" fill="none" stroke="#22262A" stroke-width="1.9" stroke-linecap="square"/></svg></span>
+<span class="rk__navn">Tyskland</span>
+<span class="rk__antal">1</span>
+</label>
+</div>
+</fieldset>
+
+<fieldset class="facet facet--sidste-raekke">
+<legend class="facet__navn">Certificeringer<span class="facet__tal">reserveret</span></legend>
+<div class="reserveret">
+<p class="reserveret__ord">Certificeringer — indsamles</p>
+<p class="reserveret__note">Pladsen står tom, fordi feltet ikke er indsamlet endnu.
+CE er oplyst på 4 af 77 robotter.
+Facetten åbner, når der er data at filtrere på — ikke før.</p>
+</div>
+</fieldset>
+
+</div>
+</form>
+</details>
+
+</div>
+</div>
+</section>
+
+<section class="resultat" id="resultat" tabindex="-1">
+<div class="ramme">
+<div class="resultat__hoved">
+<h2 class="resultat__titel">21 robotter</h2>
+<div class="sorter">
+<label for="sorter">Sortering</label>
+<select id="sorter">
+<option selected>Alfabetisk</option>
+<option>Lanceringsdato</option>
+<option>Pris</option>
+<option>Nyttelast</option>
+<option>Hastighed</option>
+</select>
+</div>
+</div>
+<div class="net">
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/addverb-trakr-5.png" alt="Addverb Trakr 5 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Addverb</span>
+<span class="kort__navn">Trakr 5</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/anybotics-anymal.jpg" alt="ANYbotics ANYmal (Generation D) — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">ANYbotics</span>
+<span class="kort__navn">ANYmal (Generation D)</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+<span class="kort__mrk">Annonceret</span>
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/anybotics-anymal-x.jpg" alt="ANYbotics ANYmal X — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">ANYbotics</span>
+<span class="kort__navn">ANYmal X</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/deep-robotics-x30.jpg" alt="DEEP Robotics Jueying X30 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">DEEP Robotics</span>
+<span class="kort__navn">Jueying X30</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/deep-robotics-x30-pro.jpg" alt="DEEP Robotics Jueying X30 Pro — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">DEEP Robotics</span>
+<span class="kort__navn">Jueying X30 Pro</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/deep-robotics-lynx-m20s.jpg" alt="DEEP Robotics Lynx M20S — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">DEEP Robotics</span>
+<span class="kort__navn">Lynx M20S</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/galileo-c1.jpg" alt="Galileo (Tianjin) C1 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Galileo (Tianjin)</span>
+<span class="kort__navn">C1</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/galileo-c1-w.jpg" alt="Galileo (Tianjin) C1-W — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Galileo (Tianjin)</span>
+<span class="kort__navn">C1-W</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/galileo-e1.jpg" alt="Galileo (Tianjin) E1 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Galileo (Tianjin)</span>
+<span class="kort__navn">E1</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/galileo-e1-w.jpg" alt="Galileo (Tianjin) E1-W — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Galileo (Tianjin)</span>
+<span class="kort__navn">E1-W</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/galileo-s1.jpg" alt="Galileo (Tianjin) S1 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Galileo (Tianjin)</span>
+<span class="kort__navn">S1</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/galileo-s1-w.jpg" alt="Galileo (Tianjin) S1-W — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Galileo (Tianjin)</span>
+<span class="kort__navn">S1-W</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/genisom-tongchui-m1.webp" alt="GENISOM AI Tongchui M1 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">GENISOM AI</span>
+<span class="kort__navn">Tongchui M1</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/genisom-tongchui-m1-pro.webp" alt="GENISOM AI Tongchui M1 Pro — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">GENISOM AI</span>
+<span class="kort__navn">Tongchui M1 Pro</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/genisom-tongchui-m1-ultra.webp" alt="GENISOM AI Tongchui M1 Ultra — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">GENISOM AI</span>
+<span class="kort__navn">Tongchui M1 Ultra</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/magiclab-magicdog-y1.jpg" alt="MagicLab MagicDog Y1 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">MagicLab</span>
+<span class="kort__navn">MagicDog Y1</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/microrobotech-movenew-p1.jpg" alt="MicroRoboTech MOVENEW P1 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">MicroRoboTech</span>
+<span class="kort__navn">MOVENEW P1</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/pudu-d5.png" alt="Pudu Robotics PUDU D5 — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Pudu Robotics</span>
+<span class="kort__navn">PUDU D5</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/pudu-d5-w.jpg" alt="Pudu Robotics PUDU D5-W — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Pudu Robotics</span>
+<span class="kort__navn">PUDU D5-W</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/yuejia-yj30-max.png" alt="Yuejia Lingdong YJ30Max — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Yuejia Lingdong</span>
+<span class="kort__navn">YJ30Max</span>
+</span>
+</a>
+<a class="kort" href="robot-spot.html">
+
+<span class="kort__billedled"><img src="../../assets/fotos/fabrikant/yuejia-yj30-max-w.png" alt="Yuejia Lingdong YJ30W MAX — fabrikantens eget produktfoto" loading="lazy" width="320" height="240"></span>
+<span class="kort__tekst">
+<span class="kort__prod">Yuejia Lingdong</span>
+<span class="kort__navn">YJ30W MAX</span>
+</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="bund">
+<div class="ramme">
+<p>Udgivet af KeyResearch, Aarhus. Hvert tal på siden har en kilde og en hentedato.
+Kataloget sælger ikke robotter og har ingen forhandleraftale med nogen fabrikant.
+Fotografierne tilhører fabrikanterne og er gengivet med kilde.</p>
+</div>
+</footer>
+</body>
+</html>
