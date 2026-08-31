@@ -1,22 +1,25 @@
 /* katalog.js — soegning OG levende taellinger. FORBEDRER kun.
  *
- * ARBEJDSDELINGEN, som er hele pointen (P0, 28. aug 2026):
+ * ARBEJDSDELINGEN, som er hele pointen (P0, 28. aug 2026, uaendret af
+ * TYPESKILT-ombygningen 31. aug 2026):
  *
- *   UDEN JavaScript er siden SAND, men statisk. Filtrene virker (CSS,
- *   :has() og afkrydsningsfelter), tomme sale skjules saa langt som én
- *   facet kan bevise dem tomme (de genererede regler i katalog.mjs'
- *   hovedStil), og hver taeller siger selv, at den taeller hele kataloget
- *   ("18 af 77", "18 robotter i kataloget"). Intet tal paastaar at beskrive
- *   det viste udvalg.
+ *   UDEN JavaScript er siden SAND, men statisk. Filtrene virker (CSS, :has()
+ *   og afkrydsningsfelter), sorteringen virker (`order` paa gitterets celler),
+ *   og hver taeller siger selv, hvad den taeller ("41 af 77", "74 robotter i
+ *   standardvisningen"). Intet tal paastaar at beskrive det viste udvalg.
  *
- *   MED JavaScript bliver den PRAECIS. Taellerne regnes om ved hvert klik,
- *   enhver tom sal skjules - ogsaa den, ingen enkelt facet kan bevise tom -
- *   og en kombination uden traef faar en forklaring i stedet for en tom
- *   side. Forbeholdene forsvinder samtidig, fordi de er blevet usande:
+ *   MED JavaScript bliver den PRAECIS. Taellerne regnes om ved hvert klik, og
+ *   en kombination uden traef faar en forklaring i stedet for en tom side.
+ *   Forbeholdene forsvinder samtidig, fordi de er blevet usande:
  *   `data-levende` paa formularen slukker dem i CSS.
  *
  * Det er den raekkefoelge, loeftet i sidefoden kraever. JavaScript maa
  * forbedre sandheden; den maa aldrig vaere forudsaetningen for den.
+ *
+ * AENDRET 31. aug 2026 (spor/katalog): salene er vaek, saa `salDele`,
+ * `salTaellere` og `tommelTaellere` er vaek med dem. I stedet opdateres
+ * strimlens taeller og resultatets overskrift. Og `eg`-facetten regnes med OG
+ * i stedet for ELLER - se passer().
  *
  * Ingen cookies, ingen netvaerkskald, ingen tredjepart.
  */
@@ -43,14 +46,19 @@
   var form = document.getElementById('styr');
   if (!gitter || !input || !form) return;
 
+  /* `eg` er den ene facet, hvor flere markeringer INDSNAEVRER i stedet for at
+     udvide - en capability er en uafhaengig betingelse. CSS goer det samme med
+     rene HIDE-regler (se katalog.mjs' filhoved); navnet staar ÉT sted her, saa
+     de to ikke kan komme til at vaere uenige. */
+  var OG_FACET = 'eg';
+
   var lag = gitter.querySelectorAll('.lag[data-sog]');
   var tomt = document.querySelector('[data-tomt]');
   var tomtSoeg = document.querySelector('[data-tomt-grund="soeg"]');
   var tomtFilter = document.querySelector('[data-tomt-grund="filter"]');
-  var bokse = form.querySelectorAll('.filtre input[type=checkbox]');
-  var salDele = form.querySelectorAll('[data-sal]');
-  var salTaellere = form.querySelectorAll('.sal__antal');
-  var tommelTaellere = form.querySelectorAll('.tommelindeks__liste [data-sal] .antal__tal');
+  var bokse = form.querySelectorAll('.facetter__net input[type=checkbox]');
+  var hovedTaeller = form.querySelector('.taeller__tal');
+  var resultatTitel = form.querySelector('.resultat__titel');
 
   form.addEventListener('submit', function (e) { e.preventDefault(); });
 
@@ -64,7 +72,7 @@
   var kort = gitter.querySelectorAll('.kort');
   for (i = 0; i < kort.length; i++) {
     var k = kort[i];
-    var post = { el: k, v: {}, sog: '', sal: '' };
+    var post = { el: k, v: {}, sog: '' };
     var el = k.parentElement;
     while (el && el.classList && el.classList.contains('lag')) {
       for (var c = 0; c < el.classList.length; c++) {
@@ -77,13 +85,11 @@
       if (el.hasAttribute('data-sog')) post.sog = el.getAttribute('data-sog') || '';
       el = el.parentElement;
     }
-    var g = k.closest('.gitter');
-    post.sal = g ? (g.getAttribute('data-sal') || '') : '';
     poster.push(post);
   }
 
   /** Den aktuelle markering: afkrydsede felter PLUS det ene `:target`.
-   *  `:target` skal med, fordi forsidens filterlinks (robotter/#f-anv-industri)
+   *  `:target` skal med, fordi et filterlink (robotter/#f-anv-industri)
    *  saetter et filter UDEN at krydse noget af - CSS'en laeser begge, og en
    *  taelling, der kun laeste afkrydsningerne, ville vaere uenig med det, der
    *  faktisk staar paa skaermen. */
@@ -103,25 +109,55 @@
     return m;
   }
 
+  /** Filtrerer laeseren i forhold til STANDARDTILSTANDEN?
+   *  Status er krydset af i hvile (L56 punkt 5: udgaaede skjult), saa "er der
+   *  markeret noget" er ikke det samme som "har laeseren filtreret". Uden den
+   *  skelnen ville nul-tilstandens filterbegrundelse vaere sand fra start. */
   function nogenMarkering(m) {
-    for (var f in m) if (m[f].length) return true;
+    for (var b = 0; b < bokse.length; b++) {
+      if (bokse[b].checked !== bokse[b].defaultChecked) return true;
+    }
+    var h = location.hash ? location.hash.slice(1) : '';
+    if (h) {
+      var e = document.getElementById(h);
+      if (e && e.type === 'checkbox') return true;
+    }
     return false;
   }
 
   /** Passer posten paa markeringen? `spring` udelader ÉN facet, saa den samme
    *  funktion kan svare paa baade "vises den nu?" og "hvad ville denne facet
-   *  give?". */
+   *  give?".
+   *
+   *  OG_FACET kraever ALLE de markerede vaerdier; alle andre facetter kraever
+   *  MINDST ÉN. Det er den samme forskel, CSS'en har mellem sine to slags
+   *  regler. */
   function passer(post, m, spring) {
     for (var f in m) {
       if (f === spring || !m[f].length) continue;
       var mine = post.v[f] || [];
-      var traf = false;
-      for (var j = 0; j < m[f].length; j++) {
-        if (mine.indexOf(m[f][j]) !== -1) { traf = true; break; }
+      var j;
+      if (f === OG_FACET) {
+        for (j = 0; j < m[f].length; j++) {
+          if (mine.indexOf(m[f][j]) === -1) return false;
+        }
+      } else {
+        var traf = false;
+        for (j = 0; j < m[f].length; j++) {
+          if (mine.indexOf(m[f][j]) !== -1) { traf = true; break; }
+        }
+        if (!traf) return false;
       }
-      if (!traf) return false;
     }
     return true;
+  }
+
+  /** "{n} robotter" / "1 robot" fra sprogfilernes egne former. Ordene ejes af
+   *  data/i18n, ikke af denne fil - den kopierer dem aldrig. */
+  function boej(vaert, n) {
+    return n === 1
+      ? (vaert.getAttribute('data-antal-en') || String(n))
+      : (vaert.getAttribute('data-antal-flere') || '{n}').replace('{n}', String(n));
   }
 
   function opdater() {
@@ -130,12 +166,7 @@
     var filtrerer = nogenMarkering(m);
     var a;
 
-    /* 1. Fjern vores EGNE skjul foerst. Maalingen i trin 3 laeser den
-       faktiske geometri, og en sal, vi selv skjulte sidste gang, ville ellers
-       maale 0 kort og blive skjult for evigt. */
-    for (a = 0; a < salDele.length; a++) salDele[a].hidden = false;
-
-    /* 2. Soegningen - den ENESTE filtrering, JavaScript selv udfoerer.
+    /* 1. Soegningen - den ENESTE filtrering, JavaScript selv udfoerer.
        Facetterne haandteres af CSS, og det skal de blive ved med: laa de her,
        ville de forsvinde, naar JavaScript ikke koerer. */
     for (a = 0; a < lag.length; a++) {
@@ -144,46 +175,34 @@
       } else lag[a].setAttribute('hidden', '');
     }
 
-    /* 3. MAAL, hvad der staar paa skaermen. Bevidst en maaling og ikke en
+    /* 2. MAAL, hvad der staar paa skaermen. Bevidst en maaling og ikke en
        udregning: CSS ejer facetfiltreringen, og et JavaScript, der regnede
        den efter, ville vaere en ANDEN kilde til samme sandhed - to, der kan
        blive uenige. getClientRects() spoerger layoutet, ikke reglerne. */
     var synligeIalt = 0;
-    var perSal = {};
     for (a = 0; a < poster.length; a++) {
       if (poster[a].el.getClientRects().length === 0) continue;
       synligeIalt++;
-      perSal[poster[a].sal] = (perSal[poster[a].sal] || 0) + 1;
     }
 
-    /* 4. Salenes taellinger og de tomme sales forsvinden. `[data-sal]` daekker
-       alle fire dele: indeksposten, hovedet, forklaringen og gitteret. */
-    for (a = 0; a < salTaellere.length; a++) {
-      var blok = salTaellere[a].closest('[data-sal]');
-      var n = perSal[blok ? blok.getAttribute('data-sal') : ''] || 0;
-      var tal = salTaellere[a].querySelector('.antal__tal');
-      if (tal) {
-        tal.textContent = n === 1
-          ? (salTaellere[a].getAttribute('data-antal-en') || String(n))
-          : (salTaellere[a].getAttribute('data-antal-flere') || '{n}').replace('{n}', String(n));
-      }
-    }
-    for (a = 0; a < tommelTaellere.length; a++) {
-      var li = tommelTaellere[a].closest('[data-sal]');
-      tommelTaellere[a].textContent = String(perSal[li ? li.getAttribute('data-sal') : ''] || 0);
-    }
-    for (a = 0; a < salDele.length; a++) {
-      salDele[a].hidden = !(perSal[salDele[a].getAttribute('data-sal')] || 0);
+    /* 3. Strimlens taeller og resultatets overskrift. De to er sidens eneste
+       "hvor mange ser jeg nu"-tal, og de skal aldrig kunne staa forskelligt. */
+    if (hovedTaeller) hovedTaeller.textContent = String(synligeIalt);
+    if (resultatTitel) {
+      var rt = resultatTitel.querySelector('.antal__tal');
+      if (rt) rt.textContent = boej(resultatTitel, synligeIalt);
     }
 
-    /* 5. Facetternes taellere. Kontrakten er "saa mange ville staa her, hvis
+    /* 4. Facetternes taellere. Kontrakten er "saa mange ville staa her, hvis
        DENNE vaerdi (ogsaa) var valgt" - de oevrige facetters markering holdt
        fast. Det er den taelling, der forhindrer en blindgyde: staar der 0,
        skal laeseren kunne se det FOER klikket, ikke bagefter paa en tom side.
        Derfor `passer(..., spring: facetten selv)` og ikke en optaelling af de
        kort, der staar paa skaermen nu - de to er forskellige, saa snart
-       facetten selv er i brug, fordi flere krydser i samme gruppe UDVIDER
-       udvalget i stedet for at indsnaevre det. */
+       facetten selv er i brug.
+
+       OG_FACET springes IKKE over paa samme maade: dens chips indsnaevrer
+       hinanden, saa "hvis ogsaa denne" betyder "oven i de oevrige chips". */
     for (a = 0; a < bokse.length; a++) {
       var boks = bokse[a];
       var antal = 0;
@@ -191,7 +210,7 @@
         var po = poster[y];
         if (q && (po.sog || '').indexOf(q) === -1) continue;
         if ((po.v[boks.name] || []).indexOf(boks.value) === -1) continue;
-        if (!passer(po, m, boks.name)) continue;
+        if (!passer(po, m, boks.name === OG_FACET ? '' : boks.name)) continue;
         antal++;
       }
       var etiket = boks.nextElementSibling;
@@ -200,7 +219,7 @@
       if (etiket) etiket.classList.toggle('facet-tom', antal === 0);
     }
 
-    /* 6. Nul-tilstanden. Uden JavaScript kan den ikke naas fra filtrene -
+    /* 5. Nul-tilstanden. Uden JavaScript kan den ikke naas fra filtrene -
        CSS kan ikke taelle - og det var fejl nr. 9 i kritikken: den ene
        fejltilstand, siden HAR, var uopnaaelig fra den betjening, der oftest
        udloeser den. */
@@ -212,7 +231,7 @@
   }
 
   /* Flaget, der slukker de statiske forbehold i CSS. Saettes FOER foerste
-     opdater(), saa "18 af 77" aldrig naar at staa ved siden af et tal, der
+     opdater(), saa "af 77" aldrig naar at staa ved siden af et tal, der
      allerede er regnet om. */
   form.setAttribute('data-levende', '');
 
@@ -220,10 +239,14 @@
   for (i = 0; i < bokse.length; i++) bokse[i].addEventListener('change', opdater);
   window.addEventListener('hashchange', opdater);
 
-  /* "Vis alle igen" rydder ogsaa afkrydsningerne og soegefeltet. Uden
-     JavaScript rydder linket kun :target, og afkrydsningerne fjernes ved at
-     klikke dem af. Begge forekomster bindes - den i filterpanelet og den i
-     nul-tilstanden. */
+  /* NULSTIL er en <button type="reset">, saa den virker UDEN JavaScript: den
+     stiller formularen tilbage til dens `checked`-attributter, altsaa til
+     L56's standardtilstand. Browseren nulstiller FOERST efter haendelsen, saa
+     opdateringen maa vente et hak - ellers taeller vi den gamle tilstand. */
+  form.addEventListener('reset', function () { setTimeout(opdater, 0); });
+
+  /* "Vis alle igen" i nul-tilstanden rydder ALT, ogsaa status-standarden:
+     staar man i en blindgyde, skal vejen ud vise hele kataloget. */
   var ryd = document.querySelectorAll('[data-ryd]');
   for (i = 0; i < ryd.length; i++) {
     ryd[i].addEventListener('click', function () {
@@ -248,14 +271,8 @@
 
      Browseren udpeger altsaa foerst dokumentets maalelement - det, `:target`
      haenger paa - ved "complete". Denne fil indlaeses med `defer` og koerer
-     derfor FOER da. Trin 3 maaler geometrien, og en maaling taget dér ser en
-     UFILTRERET side: alle 77 kort staar. Taellerne blev saa sat til
-     18/19/29/11, hvilket er praecis de tal, de i forvejen stod paa - saa
-     fejlen var lydloes og lignede "JavaScript koerte ikke".
-
-     Bemaerk hvad det IKKE var: alle tre stilark var indlaest, og `.lag` stod
-     allerede paa display:contents ved "interactive". Det var ikke CSS, der
-     manglede - det var maalelementet.
+     derfor FOER da. Trin 2 maaler geometrien, og en maaling taget dér ser en
+     UFILTRERET side. Fejlen var lydloes og lignede "JavaScript koerte ikke".
 
      Det foerste kald bliver staaende: det taender soegningen fra ?s= og
      rydder op i tilstande uden `:target`, hvor maalingen ER gyldig med det

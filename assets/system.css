@@ -160,6 +160,15 @@
   --mono:"SairaSemiCondensed",ui-sans-serif,system-ui,-apple-system,
          "Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
 
+  /* --manual: MANUALEN. Literata blev selvhostet af spor/fundament (3.1,
+     @font-face ovenfor), men fik aldrig et token - fundamentets egen note
+     siger, at "runde 2 kobler kroppens tekstroller til Saira/Literata".
+     Dette ER den kobling, og den er TILFOEJET, ikke en aendring: ingen
+     eksisterende regel skifter skrift, fordi ingen brugte Literata foer nu.
+     Katalogsidens prosa (ledetekster, noter, forbehold) er det foerste
+     brugssted; MANIFEST "Skriftrollerne" saetter den ALDRIG som display. */
+  --manual:"Literata",Georgia,"Times New Roman",serif;
+
   /* Rum. Ottetalsskala. */
   --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px;
   --r7:48px; --r8:64px; --r9:96px;

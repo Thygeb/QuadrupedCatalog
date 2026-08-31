@@ -510,7 +510,7 @@ export function render(ctx) {
   const valgChip = (id, tekst, ekstra = '') => `<li class="valg${ekstra}" data-valg="${attr(id)}">`
     + `<span class="valg__navn">${esc(tekst)}</span>`
     + `<label class="valg__fjern" for="${attr(id)}">${kryds}`
-    + `<span class="kun-skaerm">${esc(tf('valg_fjern', { navn: tekst }))}</span></label></li>`;
+    + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: tekst }))}</span></label></li>`;
 
   const valgListe = [];
   for (const f of F) {
@@ -524,7 +524,7 @@ export function render(ctx) {
     valgListe.push(`<li class="valg valg--standard" data-valg="skjult-${attr(nogle(v))}">`
       + `<span class="valg__navn">${esc(tf('valg_skjult', { navn: status.tekst(v), n }))}</span>`
       + `<label class="valg__fjern" for="f-status-${attr(nogle(v))}">${kryds}`
-      + `<span class="kun-skaerm">${esc(tf('valg_vis', { navn: status.tekst(v) }))}</span></label></li>`);
+      + `<span class="kunskaerm">${esc(tf('valg_vis', { navn: status.tekst(v) }))}</span></label></li>`);
   }
 
   /* --- FACETGRUPPERNE ----------------------------------------------------- */
@@ -588,7 +588,7 @@ ${facetBlok(vaegt, 4)}
 <fieldset class="facet facet--s5 facet--raekkeslut">
 <legend class="facet__navn">${esc(t('filter_egenskaber'))}<span class="facet__tal">${esc(t('filter_egenskaber_mrk'))}</span></legend>
 ${chipsHtml}
-<p class="fod">${esc(tf('eg_fod', { n: alle, m: frost.nej, k: frostNul }))}</p>
+<p class="chip-fod">${esc(tf('eg_fod', { n: alle, m: frost.nej, k: frostNul }))}</p>
 </fieldset>
 ${facetBlok(ip, 3, ' facet--sidste-raekke')}
 ${facetBlok(status, 3, ' facet--sidste-raekke')}
@@ -772,7 +772,7 @@ ${facetNet}
 
 <section class="resultat" aria-labelledby="resultat-titel">
 <div class="resultat__hoved">
-<h2 class="resultat__titel" id="resultat-titel">
+<h2 class="resultat__titel" id="resultat-titel" data-antal-flere="${attr(t('antal_kort'))}" data-antal-en="${attr(t('antal_kort_en'))}">
 <span class="antal__tal">${esc(iStandard === 1 ? t('antal_kort_en') : tf('antal_kort', { n: iStandard }))}</span>${omfangStandard}
 </h2>
 <fieldset class="sorter">
