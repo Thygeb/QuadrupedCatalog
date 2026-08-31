@@ -4,6 +4,7 @@ producent: "RIVR"
 producentland: "Schweiz"
 status: "i_produktion"
 fremdrift: "ben_hjul"
+foerste_udgivelse: 2025
 noter:
   - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
   - "Robotten sælges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkøbere, ikke til ingeniører. Kun 3 af 31 felter er oplyst: ingen vægt, ingen mål, ingen IP-klasse, ingen batteristørrelse, ingen frihedsgrader. Negativsøgt på tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste træf er de 30 kg nedenfor."

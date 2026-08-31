@@ -5,6 +5,7 @@ producentland: "Kina"
 producentby: "Shenzhen"
 status: "annonceret"
 fremdrift: "ben"
+foerste_udgivelse: 2026
 anvendelse:
   vaerdi:
     - "industri"
