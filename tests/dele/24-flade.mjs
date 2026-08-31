@@ -97,9 +97,18 @@ export default async function koer(ctx) {
     // indexOf paa KLASSENAVNET, ikke split() paa sektions-id'et: skabelonen
     // skriver hvert id TO gange (aria-labelledby og id), saa split rammer det
     // tomme mellemstykke og giver 0 uanset hvad der staar paa siden.
-    const start = html.indexOf('class="sektion tegnforklaring"');
+    // TO FORMER, ÉT KRAV (vendt 31. aug 2026, spor/samlbyg). Kravet er
+    // uaendret: laesenoeglen skal STAA paa siden, altid synlig, aldrig bag en
+    // fold. Katalogsiden baerer den stadig som `.sektion tegnforklaring`;
+    // sammenligningssiden fik med compen (godkendt af JPK 31. aug) noeglen
+    // som ét vandret baand, `.saml-noegle`, fordi en dl med fem raekker
+    // kostede en halv skaerm paa netop den side, der kun handler om at laese
+    // tal. Assertionen er udvidet til at daekke begge former - ikke slettet:
+    // forsvinder noeglen helt, falder den stadig.
+    let start = html.indexOf('class="sektion tegnforklaring"');
+    if (start === -1) start = html.indexOf('class="saml-noegle"');
     const sektion = start === -1 ? '' : html.slice(start, html.indexOf('</section>', start));
-    ok(`24.5 ${rel}: tegnforklaringen findes`, start !== -1);
+    ok(`24.5 ${rel}: laesenoeglen findes (tegnforklaring eller saml-noegle)`, start !== -1);
     if (start !== -1) {
       ok(`24.6 ${rel}: foerste raekke kalder ikke en masse for "udfyldte felter"`,
         !/udfyldte felter|fields filled/i.test(synligTekst(sektion)));

@@ -155,18 +155,130 @@
      som kolonneoverskrift foran hver eneste vaerdi nedenunder.
      Hjoernecellen er et TOMT <td> (ikke et <th>): et <th> uden indhold
      ville taelle med som en kolonneoverskrift uden kolonne. */
+  /* Maerkatfotoet i kolonnehovedet. Data er stier + alt-tekst, sat af
+     sammenligning.mjs' fotoPost() - se dens kommentar for hvorfor der ikke
+     ligger faerdig markup i JSON'en.
+
+     `object-fit:contain` i CSS'en, ikke cover: chippen er 74x56, og et
+     produktfoto i et andet sideforhold ville faa poter og sensorer skaaret
+     af. Her er intet at vinde ved beskaering - fotoet skal kun sige HVILKEN
+     maskine spalten er.
+
+     Mangler fotoet, tegnes den stiplede ikke-oplyst-plade i stedet for en
+     tom kasse: en tom kasse ser ud som en indlaesningsfejl, og
+     "ingen brugbar optagelse" er en aerlig tilstand (maalt: 1 af 77). */
+  function fotofeltHTML(r) {
+    var f = r.foto;
+    if (!f) {
+      return '<span class="saml-fotofelt saml-fotofelt--uoplyst">'
+        + '<span class="saml-fotofelt__ord">' + esc(DATA.tekst.billede_intet) + '</span></span>';
+    }
+    var kilder = '';
+    for (var i = 0; i < (f.kilder || []).length; i++) {
+      kilder += '<source srcset="' + esc(f.kilder[i][0]) + '" type="' + esc(f.kilder[i][1]) + '">';
+    }
+    return '<span class="saml-fotofelt"><picture>' + kilder
+      + '<img src="' + esc(f.src) + '" alt="' + esc(f.alt || '') + '"'
+      + ' loading="lazy" decoding="async"></picture></span>';
+  }
+
+  /* Jigraekken (Aa54 uroert): tabellens <thead>, hvert kolonnehoved et
+     <th scope="col">. Robotnavnet er dermed det, en skaermlaeser laeser op
+     foran hver eneste vaerdi nedenunder.
+
+     NYT (spor/samlbyg, compens form): hovedet er OGSAA betjeningen. Foer
+     rullede robotnavnene vaek, og raekke 25 blev laest uden at vide, hvilken
+     spalte der var hvem; nu klaeber raekken (CSS: position:sticky), baerer
+     robottens foto, og hver spalte har sit eget "Vaelg robotter"-link ned
+     til vaelgeren. Skiftet sker altsaa DER, hvor man opdager, at man kigger
+     paa den forkerte maskine.
+
+     `.specimen`-klasserne er BEVIDST beholdt: tests/dele/29-tabelsemantik.mjs
+     laeser <span class="specimen__navn"> for at bevise, at captionen naevner
+     de robotter, der faktisk staar i tabellen. At doebe dem om ville have
+     braekket et krav, der maaler noget rigtigt.
+
+     Hjoernecellen er stadig et TOMT <td> hvad angaar tabelrollen (et <th>
+     uden kolonne ville taelle med som en kolonneoverskrift uden kolonne) -
+     men den baerer nu noeglen til svarmaerket, som ellers stod uforklaret. */
   function specimenHoved(robotter, n) {
     var celler = robotter.map(function (r) {
       return '<th scope="col" role="columnheader" class="specimen">'
-        + '<div class="specimen__label"><span class="specimen__navn">' + esc(r.navn) + '</span>'
-        + '<span class="specimen__taethed figur">' + esc(taethedTekst(r.taethedAntal)) + '</span></div>'
-        + '<p class="specimen__meta">' + esc(r.producent) + '</p>'
+        + '<span class="specimen__top">' + fotofeltHTML(r)
+        + '<span class="specimen__id">'
+        + '<span class="specimen__navn">' + esc(r.navn) + '</span>'
+        + '<span class="specimen__meta">' + esc(r.producent) + '</span>'
+        + '</span></span>'
+        + '<span class="specimen__fod">'
+        + '<span class="specimen__taethed figur">' + esc(taethedTekst(r.taethedAntal)) + '</span>'
+        + '<a class="specimen__skift" href="#saml-vaelger">' + esc(DATA.tekst.vaelg_titel)
+        + '<span class="kunskaerm"> — ' + esc(r.navn) + '</span></a>'
+        + '</span>'
         + '</th>';
     }).join('');
     return '<thead class="specimen-hoved" role="rowgroup" style="--n:' + n + '">'
       + '<tr class="specimen-hoved__raekke" role="row">'
-      + '<td class="specimen-hoved__hjoerne" role="cell"></td>' + celler
+      + '<td class="specimen-hoved__hjoerne" role="cell">'
+      + '<span class="saml-hjoerne__ord">' + esc(DATA.tekst.alle_felter) + '</span>'
+      + '<span class="saml-hjoerne__note">' + esc(feltNaevnerTekst()) + '</span>'
+      + '</td>' + celler
       + '</tr></thead>';
+  }
+
+  /** "Ud af skemaets 30 felter ..." - naevneren, hjoernecellen staar for. */
+  function feltNaevnerTekst() {
+    return String(DATA.tekst.felter_naevner || '').replace('{b}', FELT_ANTAL);
+  }
+
+  /* Svarmaerket: ét felt pr. plade, i spaltens egen raekkefoelge. Fyldt =
+     pladen svarer, stiplet = pladen tier. Det er en TAELLING, ikke en score -
+     samme maalestok som sidens "N af 30 felter oplyst", vendt 90 grader. Det
+     er derfor heller ikke en vindermarkering: det siger hvem der SVARER,
+     aldrig hvem der svarer BEDST (haard begraensning 6).
+
+     Maerkerne er tegnet i CSS, ikke som SVG. Ikke en smagssag: 30 raekker x 3
+     plader = 90 maerker pr. tegning, og compens inline-SVG kostede ~200 byte
+     stykket = ~18 KB i hver eneste opdatering af matricen. En tom <span> med
+     en klasse koster 40. Firkanten er desuden nOEjagtig den, sidens egen
+     .mrk allerede bruger til de fire datatilstande - samme sprog, ikke et
+     nyt.
+
+     aria-hidden paa selve maerkeraekken: den er en GRAFISK opsummering af
+     celler, skaermlaeseren alligevel laeser én for én lige nedenunder.
+     Taellingen staar i stedet som tekst i .kunskaerm ved siden af. */
+  function svarHTML(robotter, feltNavn) {
+    var svarer = 0;
+    var maerker = '';
+    for (var i = 0; i < robotter.length; i++) {
+      var f = robotter[i].felter[feltNavn];
+      var tavs = !f || f.tilstand === 'ikke_oplyst';
+      if (!tavs) svarer++;
+      maerker += '<span class="saml-svar__m' + (tavs ? ' saml-svar__m--tavs' : '') + '"></span>';
+    }
+    var taelling = String(DATA.tekst.svar_taeller || '')
+      .replace('{a}', svarer).replace('{b}', robotter.length);
+    return {
+      svarer: svarer,
+      html: '<span class="saml-svar" aria-hidden="true">' + maerker + '</span>'
+        + '<span class="kunskaerm">' + esc(taelling) + '</span>',
+    };
+  }
+
+  /* Fotokreditten. Staar UDEN FOR <table> (et <p> efter den), fordi den
+     handler om siden, ikke om en raekke eller en spalte - og fordi en
+     tekstblok inde i en tabel ville staa i en celle, den ikke hoerer til.
+     Kun de faktisk viste fotos krediteres, med producentnavn og hentedato,
+     saa linjen er sand for netop den trio, laeseren har valgt. */
+  function fotoophavHTML(robotter) {
+    var dele = [];
+    for (var i = 0; i < robotter.length; i++) {
+      var f = robotter[i].foto;
+      if (!f || f.ophav !== 'fabrikant') continue;
+      dele.push(robotter[i].producent + (f.hentet ? ' (' + DATA.tekst.hentet + ' ' + f.hentet + ')' : ''));
+    }
+    if (!dele.length) return '';
+    return '<p class="saml-fotoophav">' + esc(DATA.tekst.foto_ophav) + ' '
+      + esc(dele.join(' · ')) + '</p>';
   }
 
   function tabelHTML(slugs) {
@@ -186,13 +298,23 @@
         // maerke (CSS ::before), fordi kolonneoverskriften (specimen-raekken)
         // er langt vaek, naar tabellen staar i én spalte pr. robot. Det
         // maerke er stadig KUN visuelt - relationen baeres nu af scope="col".
+        var svar = svarHTML(robotter, feltNavn);
         var celler = robotter.map(function (r) {
-          return '<td class="saml-raekke__celle" role="cell" data-robot="' + esc(r.navn) + '">'
-            + renderFelt(r.felter[feltNavn]) + '</td>';
+          var f = r.felter[feltNavn];
+          var tavs = !f || f.tilstand === 'ikke_oplyst';
+          return '<td class="saml-raekke__celle' + (tavs ? ' saml-raekke__celle--tavs' : '')
+            + '" role="cell" data-robot="' + esc(r.navn) + '">'
+            + renderFelt(f) + '</td>';
         }).join('');
-        return '<tr class="saml-raekke" role="row" style="--n:' + n + '">'
+        // Raekker, hvor ALLE plader tier, traeder tilbage som helhed.
+        // Vaerdierne staar der stadig med deres eget stiplede maerke - hullet
+        // er ikke skjult, det er blot holdt op med at konkurrere med de
+        // raekker, der baerer tal. Det er tavsheden selv, der er fundet.
+        var tavsRaekke = svar.svarer === 0 ? ' saml-raekke--tavs' : '';
+        return '<tr class="saml-raekke' + tavsRaekke + '" role="row" style="--n:' + n + '">'
           + '<th scope="row" role="rowheader" class="saml-raekke__navn">'
-          + esc(DATA.feltNavne[feltNavn]) + '</th>' + celler + '</tr>';
+          + '<span class="saml-raekke__ord">' + esc(DATA.feltNavne[feltNavn]) + '</span>'
+          + svar.html + '</th>' + celler + '</tr>';
       }).join('');
       // Én <tbody> pr. gruppe. Gruppetitlen er scope="rowgroup" - den
       // gaelder netop de raekker, der foelger i DENNE tbody, hvilket er
@@ -215,7 +337,8 @@
     return '<table class="saml-matrix" role="table" aria-labelledby="' + CAPTION_ID + '">'
       + '<caption id="' + CAPTION_ID + '" class="kunskaerm">' + esc(caption) + '</caption>'
       + specimenHoved(robotter, n) + grupperHTML
-      + '</table>';
+      + '</table>'
+      + fotoophavHTML(robotter);
   }
 
   var vaelger = app.querySelector('[data-saml-vaelger]');

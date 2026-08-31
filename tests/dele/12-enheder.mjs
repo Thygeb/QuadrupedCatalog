@@ -87,9 +87,38 @@ export default async function koer(ctx) {
     prisEnheder.size >= 2, `fandt: ${[...prisEnheder].join(', ')}`);
 
   // --- K10: klaebende kolonnehoved staar i den byggede CSS. ---
+  //
+  // VENDT 31. aug 2026 (spor/samlbyg). Kravet er UAENDRET - kolonnehovedet
+  // skal klaebe, saa raekke 25 ikke laeses uden at vide, hvilken spalte der er
+  // hvem. MEKANISMEN er en anden: foer laa `position:sticky` paa <thead>
+  // (.specimen-hoved) selv, mens matricen var et CSS-grid ovenpaa
+  // tabelelementerne. Compen (godkendt af JPK 31. aug) giver tabellen sin
+  // rigtige display tilbage, og paa en NATIV tabel klaeber <thead> ikke -
+  // sticky virker paa cellerne. Reglen sidder derfor nu paa
+  // `.specimen-hoved th,.specimen-hoved td`.
+  //
+  // Assertionen er vendt om, ikke slettet: den beviser stadig, at hovedet
+  // klaeber, blot paa det element der faktisk baerer det. Efterproevet i
+  // browseren samme dag ved 1440x900: med raekke 21 rullet til midten
+  // (scrollY 1734) maalte kolonnehovedets getBoundingClientRect().top = 0.
+  // Var reglen faldet ud, ville tallet have vaeret ca. -1600.
   const builtCss = fs.readFileSync(path.join(udK9, 'generator.css'), 'utf8');
-  const harKlaebende = /\.specimen-hoved\{[^}]*position:sticky[^}]*top:0/.test(builtCss)
+  const paaCellerne = /\.specimen-hoved th,\s*\.specimen-hoved td\{[^}]*position:sticky[^}]*top:0/.test(builtCss);
+  const gammelPaaThead = /\.specimen-hoved\{[^}]*position:sticky[^}]*top:0/.test(builtCss)
     || /@media[^{]*\{\s*\.specimen-hoved\{[^}]*position:sticky/.test(builtCss);
-  ok('K10: .specimen-hoved har position:sticky;top:0 i den byggede generator.css',
-    harKlaebende);
+  ok('K10: kolonnehovedet klaeber - position:sticky;top:0 paa jigraekkens celler i den byggede generator.css',
+    paaCellerne || gammelPaaThead,
+    `paa cellerne: ${paaCellerne}, paa <thead> (gammel form): ${gammelPaaThead}`);
+
+  // Rullebeholderen maa IKKE selv vaere en lodret ruller paa brede skaerme.
+  // Saetter man overflow-x:auto uden for et media query, tvinger browseren
+  // overflow-y fra visible til auto, og saa klaeber hovedet til en kasse, der
+  // ikke ruller lodret - altsaa aldrig. Compen maalte top:-938px paa netop den
+  // fejl, MENS skaermbilledet saa helt rigtigt ud. Derfor et krav i CSS'en, og
+  // ikke kun en kommentar.
+  const rulleFri = /\.saml-rulle\{[^}]*overflow:visible/.test(builtCss);
+  const rulleKunISmal = /@media[^{]*max-width:820px[^{]*\{[^}]*\.saml-rulle\{[^}]*overflow-x:auto/.test(builtCss);
+  ok('K10b: .saml-rulle er overflow:visible som udgangspunkt og ruller kun under 820px',
+    rulleFri && rulleKunISmal,
+    `visible: ${rulleFri}, ruller kun i media query: ${rulleKunISmal}`);
 }
