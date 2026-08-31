@@ -104,7 +104,15 @@ export const esc = (s) => String(s)
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 /** Ikoner, siden bruger. Bygget kan bruge listen til at efterproeve spriten. */
-export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip', 'i-ce', 'i-hul', 'i-pil'];
+export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip', 'i-ce', 'i-hul', 'i-pil',
+  // De fire tre-tilstandsmaerker (spor/fundament, L54/L57). Skiltets
+  // maerkelinje bruger dem, saa "ja", "nej", "0" og "ikke oplyst" har hver
+  // sin FORM og ikke kun hver sin tone - haard begraensning 5.
+  'i-ja', 'i-nej', 'i-nul', 'i-ioplyst'];
+
+/** Omskifterens ene kontrol. Id'et staar to steder (input og hver <label
+ *  for=…>), saa det maa ikke skrives af i haanden nogen af stederne. */
+const ENHED_ID = 'enhedsskift';
 
 /** Stribens fem tal. CE er IKKE med: feltet er tomt paa 42 af 46, og en fast
  *  celle, der er et hul 42 gange, laerer ingen noget. CE faar sin egen blok. */
@@ -159,6 +167,121 @@ export function flet(streng, felter) {
 export function lokaltTal(n, sprog) {
   return new Intl.NumberFormat(sprog === 'da' ? 'da-DK' : 'en-GB',
     { maximumFractionDigits: 3 }).format(n);
+}
+
+/* ------------------------------------------------- metrisk <-> imperial (L60)
+ *
+ * JPK's valg 31. aug 2026: vi OMREGNER selv, og vi MAERKER det. Reglen har tre
+ * led, og raekkefoelgen mellem dem er hele pointen:
+ *
+ *   1. Oplyser producenten SELV et imperialt tal (`vaerdi_imperial`), vises
+ *      DERES. Aldrig vores regnestykke oven i en oplyst vaerdi. Grunden er
+ *      maalt og staar i validate.mjs' regel R9: Ghost Robotics oplyser 2,4 m/s
+ *      OG 4,9 mph, som afviger 9,6 %. De to tal er en selvstaendig oplysning om
+ *      producenten - overskrev vi det ene med vores omregning af det andet,
+ *      ville vi rette i en kilde.
+ *   2. Ellers omregner vi - og maerket "omregnet" staar synligt ved tallet, saa
+ *      forskellen paa "producenten skriver 74,5 lb" og "33,8 kg, omregnet til
+ *      74,5 lb" kan ses uden at klikke.
+ *   3. Kildemaerket foelger det METRISKE tal. En omregning har ingen
+ *      selvstaendig kilde; derfor staar bogstavet UDEN FOR begge skiftespan
+ *      (se feltKrop og skemaRaekke), saa det bliver staaende i begge tilstande
+ *      uden nogensinde at love, at nogen har oplyst det imperiale tal.
+ *
+ * MAALT paa datasaettet 31. aug 2026: 30 `vaerdi_imperial`-felter fordelt paa
+ * 7 af 77 robotter (anybotics-anymal, boston-dynamics-spot,
+ * ghost-robotics-vision-60, neura-quadruped, pudu-d5-w, pudu-d5, rivr-one).
+ * De oevrige ~730 omregnelige tal paa robotsiderne er vores.
+ */
+
+/** Enheder, der KAN omregnes. Alt andet staar uroert i begge tilstande.
+ *  ALDRIG paa listen (maalt i de byggede sider: 274 af 1.034 enhedsvisninger):
+ *  `min` (155) og `t` - tid er ens i begge systemer; `°` (52) - haeldning er
+ *  en vinkel; `DoF` (29) og `Wh` (25) - hverken laengde, vaegt eller
+ *  temperatur; `CNY`/`USD`/`EUR` (11) - en vekselkurs er et tal uden kilde,
+ *  der aendrer sig dagligt; `V` og `%` (2) - enhedsloese forhold.
+ *  mm/m/m-s staar med, selvom build.mjs' visningsPost() normaliserer dem vaek
+ *  paa de felter, der har en kanonisk visningsenhed - listen skal ikke skulle
+ *  aendres, hvis KANONISK_VISNINGSENHED goer det. */
+export const OMREGNING = {
+  kg: { enhed: 'lb', om: (v) => v * 2.2046226218 },
+  mm: { enhed: 'in', om: (v) => v / 25.4 },
+  cm: { enhed: 'in', om: (v) => v / 2.54 },
+  m: { enhed: 'ft', om: (v) => v * 3.280839895 },
+  '°C': { enhed: '°F', om: (v) => v * 9 / 5 + 32 },
+  'm/s': { enhed: 'mph', om: (v) => v * 2.2369362921 },
+  'km/h': { enhed: 'mph', om: (v) => v * 0.6213711922 },
+};
+
+/**
+ * Afrundingen, skrevet ud saa den kan efterproeves frem for at skulle gaettes:
+ * 0 decimaler fra 100 og op, 1 decimal fra 10 og op, ellers 2.
+ *
+ * Reglen er ikke valgt efter smag. Den er valgt, fordi den rammer
+ * producenternes EGEN afrunding i de tilfaelde, hvor vi har begge tal at holde
+ * den op imod: 33,8 kg -> 74,52 -> "74,5" (Boston Dynamics skriver 74.5 lb),
+ * 1100 mm -> 43,307 -> "43,3" (databladet skriver 43.3 in), 110 cm -> "43,3".
+ * En regel, der gav 74,52 eller 75, ville vaere synligt en anden slags tal end
+ * producentens.
+ */
+export function imperialTal(n, sprog) {
+  if (typeof n !== 'number' || !Number.isFinite(n)) return String(n);
+  const a = Math.abs(n);
+  const dec = a >= 100 ? 0 : a >= 10 ? 1 : 2;
+  return new Intl.NumberFormat(sprog === 'da' ? 'da-DK' : 'en-GB',
+    { maximumFractionDigits: dec }).format(n);
+}
+
+/**
+ * Den imperiale udgave af én post, eller `null` naar der ikke er nogen.
+ *
+ * Returnerer `{ post, egen, kildeform }`:
+ *   post       en SYNTETISK post til H.tal(). `ved_last` og `vaerdi_imperial`
+ *              er strippet med vilje: tal() udskriver dem selv, og de ville
+ *              derfor staa TO gange i den imperiale visning (én gang fra
+ *              det metriske span, én gang her). Lastbetingelsen skrives i
+ *              stedet paa af vaerdi() nedenfor, saa forbeholdet ikke
+ *              forsvinder, naar laeseren skifter enhed.
+ *   egen       true = producentens eget tal, false = vores omregning.
+ *   kildeform  det metriske udgangspunkt, "33,8 kg", til maerkets forklaring.
+ */
+export function imperialPost(post, sprog) {
+  if (!post || typeof post !== 'object') return null;
+  if (tilstandAf(post.vaerdi)) return null;
+  const { ved_last: _vl, vaerdi_imperial: _vi, enhed_imperial: _ei, _kildeform: _kf, ...rest } = post;
+
+  // 1. Producentens eget tal vinder - men kun naar det daekker HELE figuren.
+  //    Et interval har min/maks, og datasaettet har ingen min_imperial: et
+  //    enkelt vaerdi_imperial ved siden af et interval ville vaere en tredje,
+  //    uforklaret figur, saa dér omregner vi begge ender i stedet.
+  if (post.vaerdi_imperial !== undefined && post.min === undefined) {
+    return {
+      post: { ...rest, vaerdi: post.vaerdi_imperial, enhed: post.enhed_imperial ?? '' },
+      egen: true,
+      kildeform: `${lokaltTal(post.vaerdi, sprog)} ${post.enhed ?? ''}`.trim(),
+    };
+  }
+
+  const o = OMREGNING[post.enhed];
+  if (!o) return null;
+  const tal = (v) => (typeof v === 'number'
+    ? Number(imperialTal(v, 'en').replace(/,/g, '')) : v);
+  const har = (v) => typeof v === 'number' && Number.isFinite(v);
+
+  if (post.min !== undefined) {
+    if (!har(post.min) || !har(post.maks)) return null;
+    return {
+      post: { ...rest, min: tal(o.om(post.min)), maks: tal(o.om(post.maks)), enhed: o.enhed },
+      egen: false,
+      kildeform: `${lokaltTal(post.min, sprog)}–${lokaltTal(post.maks, sprog)} ${post.enhed}`,
+    };
+  }
+  if (!har(post.vaerdi)) return null;
+  return {
+    post: { ...rest, vaerdi: tal(o.om(post.vaerdi)), enhed: o.enhed },
+    egen: false,
+    kildeform: `${lokaltTal(post.vaerdi, sprog)} ${post.enhed}`,
+  };
 }
 
 /** Vaert uden www. Kilden skal kunne genkendes uden at hele URL'en staar. */
@@ -328,6 +451,10 @@ export function vaerdi(navn, post, ctx, kilder) {
   // forbehold() er stadig den eneste udskriver. Derfor saettes flaget kun
   // i den sidste gren, ikke ved ethvert H.tal-kald.
   let talUdskrevForbehold = false;
+  // Saettes kun af den gren, hvor figuren er et RIGTIGT tal med enhed - den
+  // eneste, en enhedsomregning giver mening for. Tekst, lister og de fire
+  // tilstande staar uroerte i begge tilstande af omskifteren.
+  let imperialtSpor = false;
   const t = tilstandAf(post.vaerdi);
   if (t) {
     // Tilstanden MED herkomst. Den ser ud som den bare tilstand — ellers ville
@@ -350,6 +477,7 @@ export function vaerdi(navn, post, ctx, kilder) {
   } else {
     html = H.tal(post, { kompakt });
     talUdskrevForbehold = true;
+    imperialtSpor = true;
     // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
     // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
     // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,
@@ -361,8 +489,51 @@ export function vaerdi(navn, post, ctx, kilder) {
   }
 
   if (!talUdskrevForbehold) html += forbehold(post, ctx);
+
+  // Enhedsomskifteren (L60). Begge figurer staar i HTML'en; CSS viser én ad
+  // gangen (`.enhedsvis{display:contents}`), saa den metriske visning tegnes
+  // NOEJAGTIG som foer dette spor - wrapperen har ingen kasse. Uden JavaScript
+  // staar den metriske tilstand tilbage, hvilket er standardtilstanden.
+  //
+  // Kildemaerket ligger UDEN FOR begge spans (det tilfoejes af kalderen), saa
+  // det ikke fordobles og aldrig kommer til at love, at nogen har oplyst
+  // vores omregning.
+  if (imperialtSpor && ctx.__enhedsskift) {
+    const imp = imperialPost(post, sprog);
+    if (imp) {
+      const impKrop = H.tal(imp.post, { kompakt }) + forbehold(post, ctx)
+        + omregningsMaerke(imp, ctx);
+      html = `<span class="enhedsvis enhedsvis--metrisk">${html}</span>`
+        + `<span class="enhedsvis enhedsvis--imperial">${impKrop}</span>`;
+    }
+  }
+
   const maerke = post.kilde ? (H.kildemaerke(post, kilder) || '') : '';
   return { html, hul, maerke };
+}
+
+/**
+ * Maerket, der skiller VORES omregning fra producentens eget imperiale tal.
+ *
+ * Kun vores omregninger baerer et synligt ord. Det er en maalt afvejning, ikke
+ * en smagssag: 30 af de ~760 omregnelige figurer paa robotsiderne er
+ * producentens egne, saa et maerke paa producentens tal ville staa 30 gange og
+ * et maerke paa vores 730 gange. Det sjaeldne skal ikke vaere det umaerkede -
+ * men det hyppige maa heller ikke druknes i etiketter, saa forklaringen af
+ * FRAVAERET staar i omskifterens egen forklaringslinje ("tal uden maerke er
+ * producentens egne"), hvor en laeser moeder den, foer tallene.
+ *
+ * Ordet - ikke et tegn. `≈` (U+2248) findes hverken i Sairas eller Literatas
+ * unicode-range og ville falde tilbage til systemskriften midt i en figur,
+ * praecis som `≥` goer paa "mindst"-felterne (MANIFEST §afvigelse 6).
+ */
+function omregningsMaerke(imp, ctx) {
+  const { i18n } = ctx;
+  if (imp.egen) return '';
+  const forklaring = flet(T(i18n, 'enhed_omregnet_forklaring'), { figur: imp.kildeform });
+  return `<span class="omregnet" title="${esc(forklaring)}">`
+    + `<span aria-hidden="true">${esc(T(i18n, 'enhed_omregnet'))}</span>`
+    + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
 }
 
 /** Vaerdi + kildemaerke + advarsel + note + varianter, som de staar i en raekke. */
@@ -515,6 +686,7 @@ ${underFelter.map(([navn, p]) => `<div class="stribe-under"><p class="etiket${et
 <div class="stribe-hoved">
 <h2 class="etiket etiket--blaek" id="noegletal-h">${esc(T(i18n, 'noegletal_titel'))}</h2>
 ${taeller}
+${enhedsskifter(ctx)}
 </div>
 ${krop}
 </div>
@@ -682,15 +854,72 @@ function anvendelseMaerker(ctx) {
   const { i18n } = ctx;
   const a = ctx.__H.anvendelse(ctx.robot) ?? {};
   const vaerdier = (Array.isArray(a.vaerdi) ? a.vaerdi : [a.vaerdi]).filter(Boolean);
-  if (!vaerdier.length) return '';
-  const punkter = vaerdier.map((v) => {
+  if (!vaerdier.length) return [];
+  return vaerdier.map((v) => {
     const t = tilstandAf(v);
     if (t) {
-      return `<li class="maerke maerke--tom anvendelse__maerke--${esc(t)}">${esc(TD(i18n, 'tilstand_' + t, v))}</li>`;
+      return `<li class="maerke maerke--tom anvendelse__maerke--${esc(t)}">`
+        + `${tilstandsMaerke(t)}${esc(TD(i18n, 'tilstand_' + t, v))}</li>`;
     }
     return `<li class="maerke anvendelse__maerke--${esc(v)}">${esc(TD(i18n, 'anvendelse_' + v, v))}</li>`;
-  }).join('');
-  return `<ul class="maerker">${punkter}</ul>`;
+  });
+}
+
+/**
+ * De fire tre-tilstandsmaerker som SVG (spor/fundament lagde dem i spriten:
+ * i-ja fyldt firkant, i-nej kontur med skraastreg, i-nul kontur med prik,
+ * i-ioplyst stiplet kontur). Haard begraensning 5 er ikke en skoenhedsregel:
+ * "ikke oplyst", "nej" og "0" SKAL kunne skelnes - og farve maa ikke vaere den
+ * eneste baerer, saa formen goer arbejdet ved siden af tonen.
+ */
+function tilstandsMaerke(t) {
+  const id = t === 'ja' ? 'i-ja' : t === 'nej' ? 'i-nej' : t === 'nul' ? 'i-nul' : 'i-ioplyst';
+  return `<svg class="maerke__mrk" aria-hidden="true"><use href="#${id}"/></svg>`;
+}
+
+/**
+ * Skiltets maerkelinje: ÉN raekke stansede maerker under robotnavnet, praecis
+ * som paa comp'ens typeskilt - status, vaegtklasse, producentens egne
+ * anvendelseskategorier og CE-oplysningen.
+ *
+ * CE staar med her OG i sin egen blok laengere nede. Det er ikke en
+ * dobbeltfoering ved et uheld: blokken baerer kilden og forklaringen, mens
+ * maerket her er sidens FOERSTE demonstration af, at "ikke oplyst" er et
+ * svar, man kan taelle - og det er den skelnen, hele kataloget hviler paa.
+ * Comp'en viser den samme dobbeltfoering ("CE oplyst: ikke oplyst" i linjen).
+ */
+function skiltLinje(ctx) {
+  const { i18n, robot } = ctx;
+  const punkter = [];
+
+  if (robot.status) {
+    const drift = robot.status === 'i_produktion';
+    punkter.push(`<li class="maerke maerke--status${drift ? ' maerke--drift' : ''}">`
+      + `${esc(TD(i18n, 'status_' + robot.status, robot.status))}</li>`);
+  }
+
+  const vk = ctx.__H.vaegtklasse ? ctx.__H.vaegtklasse(robot) : null;
+  const vkNoegle = typeof vk === 'string' ? vk : vk?.noegle;
+  const vkTekst = vkNoegle ? TD(i18n, 'vaegtklasse_' + vkNoegle, '') : '';
+  if (vkTekst) {
+    const tom = vkNoegle === 'ikke_oplyst';
+    punkter.push(`<li class="maerke maerke--vaegt${tom ? ' maerke--tom' : ''}">`
+      + `${tom ? tilstandsMaerke('ikke_oplyst') : ''}${esc(vkTekst)}</li>`);
+  }
+
+  punkter.push(...anvendelseMaerker(ctx));
+
+  // CE: de tre tilstande, tegnet forskelligt. `undefined` og "ikke oplyst" er
+  // det samme svar udadtil - producenten siger det ikke.
+  const ce = robot.felter?.ce_oplyst;
+  const raa = (ce && typeof ce === 'object') ? ce.vaerdi : ce;
+  const t = raa === true ? 'ja' : raa === false ? 'nej' : (tilstandAf(raa) ?? 'ikke_oplyst');
+  const tom = t === 'ikke_oplyst';
+  punkter.push(`<li class="maerke maerke--ce${tom ? ' maerke--tom' : ''}">`
+    + `${tilstandsMaerke(t)}<span class="maerke__navn">${esc(T(i18n, 'felt_ce_oplyst'))}</span>`
+    + `${esc(t === 'ja' ? T(i18n, 'ja') : TD(i18n, 'tilstand_' + t, t))}</li>`);
+
+  return `<ul class="maerker skiltlinje">${punkter.join('')}</ul>`;
 }
 
 /** Det fulde skema, sammenklappet. Tilgaengeligt uden JavaScript: <details>
@@ -704,29 +933,103 @@ function skema(ctx, kilder) {
     return tilstandAf(p.vaerdi) === null;
   }).length;
 
-  const grupper = GRUPPER.map((g) => {
+  const kroppe = GRUPPER.map((g) => {
     const navne = FELTNAVNE.filter((n) => FELTER[n].gruppe === g);
     if (!navne.length) return '';
-    const raekker = navne.map((navn) => `<div class="raekke">
-<dt${dtMaerke(robot.felter?.[navn])}>${esc(T(i18n, 'felt_' + navn))}</dt>
-<dd>${feltKrop(navn, robot.felter?.[navn], ctx, kilder)}</dd>
-</div>`).join('\n');
-    return `<section class="skema-gruppe">
-<h3 class="t-h3">${esc(T(i18n, 'gruppe_' + g))}</h3>
-<dl class="raekker">
-${raekker}
-</dl>
-</section>`;
-  }).join('\n');
+    return `<tbody class="skema-gruppe">
+<tr class="skema-gruppenavn"><th scope="rowgroup" colspan="3">${esc(T(i18n, 'gruppe_' + g))}</th></tr>
+${navne.map((navn) => skemaRaekke(navn, robot.felter?.[navn], ctx, kilder)).join('\n')}
+</tbody>`;
+  }).filter(Boolean).join('\n');
 
-  return `<details class="skema">
-<summary><span class="skema-titel">${esc(T(i18n, 'skema_titel'))}</span>
-<span class="skema-taeller figur">${esc(flet(T(i18n, 'skema_taeller'), { a: udfyldt, b: FELTNAVNE.length }))}</span></summary>
-<div class="skema-krop">
-${grupper}
-<p class="t-mikro">${esc(T(i18n, 'sammenlign_advarsel'))}</p>
+  // AABEN, ikke sammenklappet. Skemaet stod indtil nu bag <details>, saa
+  // sidens 890 forbehold - den ene ting, en producentside ikke har - laa
+  // foldet vaek som standard. Comp'ens robotside viser tabellen aaben med
+  // forbeholdene i tredje kolonne, og briefets punkt 5.5 er utvetydigt: et
+  // redesign, der gemmer forbeholdene for at faa et renere layout, fjerner
+  // grunden til, at siden findes. Taelleren bliver staaende som stempel i
+  // hovedet - den fortalte, hvad der laa indeni, og fortaeller nu, hvad
+  // laeseren kan se.
+  return `<section class="sektion skema" id="skema" aria-labelledby="skema-h">
+<div class="skema__hoved">
+<h2 class="etiket etiket--blaek" id="skema-h">${esc(T(i18n, 'skema_titel'))}</h2>
+<span class="skema-taeller figur">${esc(flet(T(i18n, 'skema_taeller'), { a: udfyldt, b: FELTNAVNE.length }))}</span>
+${enhedsskifter(ctx)}
 </div>
-</details>`;
+${enhedsnote(ctx)}
+<div class="skema-rulle">
+<table class="skema-tabel" aria-labelledby="skema-h">
+<caption class="skema-tabel__kap">${esc(T(i18n, 'skema_tabel_forklaring'))}</caption>
+<thead><tr>
+<th scope="col">${esc(T(i18n, 'skema_kolonne_felt'))}</th>
+<th scope="col">${esc(T(i18n, 'skema_kolonne_vaerdi'))}</th>
+<th scope="col">${esc(T(i18n, 'skema_kolonne_kilde'))}</th>
+</tr></thead>
+${kroppe}
+</table>
+</div>
+<p class="t-mikro maal">${esc(T(i18n, 'sammenlign_advarsel'))}</p>
+</section>`;
+}
+
+/**
+ * Én raekke i skemaets tabel. Tre celler, og fordelingen mellem dem er ikke
+ * kosmetisk:
+ *
+ *   <th>  feltnavnet, med gyldighedsmaerket paa ETIKETTEN (D18) - aldrig paa
+ *         vaerdien, som ville skubbe de maerkede tal ud af talkolonnen.
+ *   <td>  figuren alene. Ingen kilde, intet forbehold - saa kolonnen kan
+ *         laeses lodret som tal.
+ *   <td>  kilden og forbeholdene. Kildebogstavet er SAMME anker som overalt
+ *         ellers (side.mjs' kildemaerke() -> "#kilde-<bogstav>"); kun
+ *         satsen er comp'ens stansede firkant. Formen findes ét sted, saa
+ *         maerket og kildelistens id'er ikke kan skride fra hinanden.
+ */
+function skemaRaekke(navn, post, ctx, kilder) {
+  const { i18n } = ctx;
+  const { html, hul, maerke } = vaerdi(navn, post, ctx, kilder);
+  const noter = advarselBlok(post, ctx) + noteBlok(post) + varianter(post, ctx);
+  return `<tr${hul ? ' class="uoplyst"' : ''}>`
+    + `<th scope="row"${dtMaerke(post)}>${esc(T(i18n, 'felt_' + navn))}</th>`
+    + `<td class="skema-v">${html}</td>`
+    + `<td class="skema-k">${maerke}${noter}</td></tr>`;
+}
+
+/* ------------------------------------------------------- enhedsomskifteren */
+
+/**
+ * Har robotten overhovedet en figur, der kan skifte enhed? Ellers tegnes
+ * omskifteren ikke: en kontakt, der ikke aendrer noget, er et loefte om noget,
+ * siden ikke kan holde. Maalt 31. aug 2026: 77 af 77 robotter har mindst én.
+ */
+export function harOmregnelige(robot) {
+  for (const navn of FELTNAVNE) {
+    const p = robot?.felter?.[navn];
+    if (p && typeof p === 'object' && imperialPost(p, 'da')) return true;
+  }
+  return false;
+}
+
+/**
+ * Selve kontakten. Den er en RIGTIG afkrydsning (`<input type="checkbox">`),
+ * ikke en knap med JavaScript bag - siden virker uden JavaScript, og skiftet
+ * sker i CSS via `:checked ~ *`. Derfor ligger boksen som foerste barn af
+ * <article> (se render), mens etiketten kan staa hvor som helst: flere
+ * <label for="…"> til samme kontrol er gyldig HTML, og begge skifter.
+ */
+function enhedsskifter(ctx) {
+  if (!ctx.__enhedsskift) return '';
+  return `<label class="enhedsskift" for="${ENHED_ID}">`
+    + `<span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span>`
+    + `<span class="enhedsskift__ord">${esc(T(ctx.i18n, 'enhed_skift_etiket'))}</span></label>`;
+}
+
+/** Forklaringen af, hvad et UMAERKET imperialt tal betyder. Staar kun, naar
+ *  omskifteren er slaaet til (CSS) - i metrisk tilstand ville den forklare
+ *  noget, der ikke er paa skaermen. */
+function enhedsnote(ctx) {
+  if (!ctx.__enhedsskift) return '';
+  return `<p class="t-mikro maal enhedsnote">${esc(T(ctx.i18n, 'enhed_skift_forklaring'))}</p>`;
 }
 
 /**
@@ -797,36 +1100,50 @@ function top(ctx, kilder) {
     ? `<a class="prod" href="${esc(sti(ctx, 'producent', producentSlug))}">${esc(producentNavn)}</a>`
     : `<span class="prod">${esc(producentNavn)}</span>`;
 
-  const vk = ctx.__H.vaegtklasse ? ctx.__H.vaegtklasse(robot) : null;
-  const vkNoegle = typeof vk === 'string' ? vk : vk?.noegle;
-  // Vaegtklassen er kontekst, ikke en paastand. Mangler etiketten, staar der
-  // ingenting — en tom <p> ville vaere et hul, ingen havde valgt.
-  const vkTekst = vkNoegle ? TD(i18n, 'vaegtklasse_' + vkNoegle, '') : '';
-  const vkDel = vkTekst ? `<p class="t-mikro vaegtklasse">${esc(vkTekst)}</p>` : '';
-
+  // Vaegtklassen er kontekst, ikke en paastand - og den staar nu som ét maerke
+  // i skiltLinje() sammen med status og anvendelse i stedet for som sin egen
+  // stablede <p>. Mangler etiketten, staar der ingenting: et tomt maerke ville
+  // vaere et hul, ingen havde valgt.
   const varianterDel = Array.isArray(robot.varianter) && robot.varianter.length
     ? `<p class="t-lille robot-varianter"><span class="etiket">${esc(T(i18n, 'varianter'))}</span>` +
       robot.varianter.map((v) => `<span class="variantnavn">${esc(v)}</span>`).join('') +
       `</p><p class="t-mikro maal">${esc(T(i18n, 'varianter_forklaring'))}</p>`
     : '';
 
+  // TYPESKILT-formen, med JPK's praecisering af 31. aug 2026 (mulighed a):
+  // ROBOTNAVNET STAAR OVER BILLEDET, i fuld bredde over begge spalter.
+  //
+  // Comp'ens egen tegning satte navnet venstrestillet i hoejre spalte ved
+  // siden af fotoet. JPK afviste den mellemting - "overskriften skal enten
+  // vaere over eller laengst til hoejre" - og af de to valgte jeg (a) af to
+  // grunde, der begge kan maales:
+  //
+  //   1. (b) forsvinder ved 390. Naar spalterne falder sammen, er der ingen
+  //      hoejrekant at forankre navnet mod; hoejrestillet ville det bare vaere
+  //      hoejrestillet i fuld bredde, altsaa en tredje form, JPK ikke valgte.
+  //      (a) betyder det samme i begge bredder.
+  //   2. Maalt paa den gamle side ved 390 laa <h1> paa top=464 px, UNDER
+  //      fotoet - foerste tekstelement, laeseren moedte, var billedteksten.
+  //      Med navnet i foerste raekke laesses det foerst i BEGGE bredder, og
+  //      DOM-raekkefoelgen er den samme, en skaermlaeser moeder.
+  //
+  // Vaegtklasse og anvendelse er flyttet ind i maerkelinjen (skiltLinje), saa
+  // skiltet har ÉN raekke stansede maerker og ikke tre stablede smaastykker.
   return `<header class="robot-top">
+<div class="robot-navn">
+<p class="kort-ophav">${producentDel}` +
+    (robot.producentland ? `<span class="land">${esc(TD(i18n, 'land_' + robot.producentland, robot.producentland))}</span>` : '') +
+    (robot.foerste_udgivelse ? `<span class="figur aar">${esc(String(robot.foerste_udgivelse))}</span>` : '') +
+    `</p>
+<h1 class="t-hero">${esc(robot.navn ?? '')}</h1>
+${skiltLinje(ctx)}
+${varianterDel}
+${producentSlug ? `<p class="t-lille robot-videre"><a href="${esc(sti(ctx, 'producent', producentSlug))}">${esc(flet(T(i18n, 'til_producent'), { producent: producentNavn }))}</a></p>` : ''}
+</div>
 <figure class="robot-foto">
 ${billedled(ctx, { stor: true })}
 ${billedfod(ctx)}
 </figure>
-<div class="robot-navn">
-<p class="kort-ophav">${producentDel}` +
-    (robot.producentland ? `<span class="land">${esc(TD(i18n, 'land_' + robot.producentland, robot.producentland))}</span>` : '') +
-    (robot.status ? `<span class="status status--${esc(robot.status)}">${esc(TD(i18n, 'status_' + robot.status, robot.status))}</span>` : '') +
-    (robot.foerste_udgivelse ? `<span class="figur aar">${esc(String(robot.foerste_udgivelse))}</span>` : '') +
-    `</p>
-<h1 class="t-hero">${esc(robot.navn ?? '')}</h1>
-${vkDel}
-${anvendelseMaerker(ctx)}
-${varianterDel}
-${producentSlug ? `<p class="t-lille"><a href="${esc(sti(ctx, 'producent', producentSlug))}">${esc(flet(T(i18n, 'til_producent'), { producent: producentNavn }))}</a></p>` : ''}
-</div>
 <div class="robot-noegletal">
 ${stribe(ctx, kilder)}
 </div>
@@ -842,13 +1159,21 @@ export function render(ctx) {
   const { i18n, robot } = arbejde;
   if (!robot) throw new Error('skabelon/robot.mjs: ctx.robot mangler');
 
+  // Enhedsomskifteren taendes KUN paa robotsiden. Flaget laeses af vaerdi(),
+  // som ogsaa producent.mjs kalder - uden det ville producentsidens minikort
+  // baere skjult imperialt opslag uden en kontakt til at vise det.
+  arbejde.__enhedsskift = harOmregnelige(robot);
+
   const kilder = H.kilder(robot) ?? [];
 
   return `<main class="side" id="hoved">
 <div class="rum">
 <p class="retur"><a href="${esc(sti(arbejde, 'katalog'))}">${esc(T(i18n, 'til_katalog'))}</a></p>
 
-<article class="robotside">
+<article class="robotside typeskilt">
+${arbejde.__enhedsskift
+    ? `<input type="checkbox" id="${ENHED_ID}" class="kunskaerm enhedsskift__boks">`
+    : ''}
 ${top(arbejde, kilder)}
 ${euBlok(arbejde, kilder)}
 ${produktside(arbejde, kilder)}
