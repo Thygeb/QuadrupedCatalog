@@ -44,7 +44,12 @@ export default async function koer(ctx) {
      nu "3" - /sammenligning/ er en NY sidetype, tools/skabelon/sammenligning.mjs,
      bygget én gang pr. sprog uafhaengigt af robotantallet (klientside vaelger,
      se dens filhoved). Kravet er skaerpet, ikke sloejfet: formlen fanger stadig
-     enhver fremtidig sidetype-aendring, praecis som foer. */
+     enhver fremtidig sidetype-aendring, praecis som foer.
+     VENDT IGEN (spor/omos, 1. sep 2026, L61): leddet er nu "4" - /om/ er den
+     naeste NYE sidetype, tools/skabelon/om-os.mjs, ogsaa bygget én gang pr.
+     sprog uafhaengigt af robotantallet. Assertionen er RETTET, ikke slettet:
+     den beviser fortsat samme regel, nu med den nye sidetype talt med, og et
+     bortfald af Om-siden ville stadig faa den til at fejle. */
   const fixtureRobotter = lasRobotter(path.join(rod, 'tests', 'eksempel-robotter'));
   const fixtureProducenter = new Set(fixtureRobotter.map((rb) => rb.producent));
   // Samme gate som build.mjs L327 bruger for producenter/index.html - IKKE bare om
@@ -55,10 +60,11 @@ export default async function koer(ctx) {
   const producentModul = await import(
     `file://${path.join(rod, 'tools', 'skabelon', 'producent.mjs').replace(/\\/g, '/')}`).catch(() => null);
   const harProducentindeks = typeof producentModul?.renderIndeks === 'function';
-  const forventetSider = 1 + skema.SPROG.length * (3 + fixtureRobotter.length
+  const forventetSider = 1 + skema.SPROG.length * (4 + fixtureRobotter.length
     + (harProducentindeks ? 1 + fixtureProducenter.size : 0));
   ok(`${forventetSider} HTML-sider bygget, afledt af ${fixtureRobotter.length} robotter / `
-    + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog + sammenligningssiden (fandt ${sider.length})`,
+    + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog `
+    + `+ sammenligningssiden + Om os (fandt ${sider.length})`,
     sider.length === forventetSider);
 
   const katalogDa = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');

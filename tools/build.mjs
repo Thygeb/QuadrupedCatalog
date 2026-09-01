@@ -43,6 +43,7 @@ import {
 import * as forsideSkabelon from './skabelon/forside.mjs';
 import * as katalogSkabelon from './skabelon/katalog.mjs';
 import * as sammenligningSkabelon from './skabelon/sammenligning.mjs';
+import * as omOsSkabelon from './skabelon/om-os.mjs';
 
 const rod = process.cwd();
 const iDag = new Date().toISOString().slice(0, 10);
@@ -335,6 +336,24 @@ async function main(argv) {
         script: 'sammenligning.js', harProducenter,
         titel: `${T.sammenligning_titel} · ${T.sted_navn}`,
         beskrivelse: T.sammenligning_lede,
+        main: main0,
+      }));
+      sider++;
+    }
+
+    /* --- Om os (spor/omos, L61) ---------------------------------------------
+       Stien er `om/` paa BEGGE sprog. Maalt foer valget: de tre bestaaende
+       ruter bruger samme segment i dist/da og dist/en (robotter, sammenligning,
+       producenter — identiske lister), saa et oversat `about/` ville vaere den
+       foerste rute, der brood konventionen, og hreflang-parret ville skulle
+       regnes i stedet for at falde ud af `sti`. */
+    {
+      const ctx = grund('om/');
+      const main0 = omOsSkabelon.render(ctx);
+      skrivFil(path.join(ud, sprogkode, 'om', 'index.html'), skal({
+        sprogkode, T, t, sti: 'om/', aktiv: 'om/', harProducenter,
+        titel: `${T.om_titel} · ${T.sted_navn}`,
+        beskrivelse: T.om_beskrivelse,
         main: main0,
       }));
       sider++;

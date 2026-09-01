@@ -363,5 +363,48 @@
   "seneste_titel": "Seneste modeller",
   "seneste_aar_ord": "Seneste udgivelsesår",
   "seneste_antal": "{n} modeller udgivet i {aar}",
-  "seneste_note": "Udgivelsesår er oplyst for {m} af {i} modeller. De {u} øvrige oplyser intet årstal — og det siger intet om, hvor gamle de er."
+  "seneste_note": "Udgivelsesår er oplyst for {m} af {i} modeller. De {u} øvrige oplyser intet årstal — og det siger intet om, hvor gamle de er.",
+
+  "_om_os": "spor/omos: Om-siden (L61). Tallene i disse strenge er ALTID pladsholdere — {n}, {muligt}, {io} — og sættes ind af tools/skabelon/om-os.mjs ved bygningen. Skriv aldrig et tal her; se D7/L30. KeyResearchs ydelser må ikke beskrives, og der må ikke linkes til salgssiden.",
+  "om_nav": "Om os",
+  "om_etiket": "Om udgivelsen",
+  "om_titel": "Hvem tæller, og hvordan",
+  "om_beskrivelse": "Hvem udgiver kataloget over firbenede robotter, hvordan tallene indsamles og kildebelægges, og hvad siden ikke gør.",
+  "om_lede": "Kataloget beskriver {n} firbenede robotter fra {p} producenter i {l} lande. Det udgives af KeyResearch i Aarhus. Denne side siger, hvor tallene kommer fra, hvad de ikke dækker, og hvem der står bag.",
+
+  "om_regnskab_titel": "Alt, kataloget kan vide",
+  "om_regnskab_broed": "Skemaet har {felter} felter. Med {n} robotter i kataloget er der {muligt} mulige oplysninger. Hver eneste af dem er gjort op her, og de går op.",
+  "om_regnskab_oplyst": "Oplyst af producenten",
+  "om_regnskab_io": "Ikke oplyst",
+  "om_regnskab_ialt": "Mulige oplysninger i alt",
+  "om_regnskab_ligning": "{felter} felter × {n} robotter",
+  "om_regnskab_kilder": "{k} af de {o} oplyste felter bærer et kildemærke. {a} peger på producentens egen produktside, {b} på et datablad, en manual eller udviklerdokumentation på producentens eget domæne. De øvrige {r} er svaret nej, som ikke har et tal at kilde.",
+  "om_regnskab_note": "Hullerne tælles med. Et felt, producenten ikke udfylder, siger lige så meget om robotten som et tal — og det er derfor, det står på siden i stedet for at blive skjult.",
+
+  "om_metode_titel": "Sådan kommer et tal på siden",
+  "om_metode_1_titel": "Hentet",
+  "om_metode_1_broed": "Vi henter producentens egen side, datablad eller manual og gemmer filen som bevis, med adresse og hentedato.",
+  "om_metode_2_titel": "Skrevet",
+  "om_metode_2_broed": "Tallet føres ind i ét af skemaets {felter} felter med enhed og kilde. Står tallet ikke hos producenten, bliver feltet ikke oplyst. Det bliver aldrig et skøn.",
+  "om_metode_3_titel": "Efterprøvet",
+  "om_metode_3_broed": "Validatoren læser hele kataloget igen og standser bygget, hvis et tal mangler enhed, kilde eller dato. Passer producentens metriske og imperiale tal ikke sammen, retter vi aldrig stiltiende: enten standser bygget, eller også står uenigheden på siden ved siden af tallet.",
+  "om_metode_4_titel": "Bygget",
+  "om_metode_4_broed": "Siderne genereres på ny fra de samme filer, og bygget kører validatoren først hver gang. Det er derfor, der står {u} tal uden kilde på siden.",
+
+  "om_tilstande_titel": "De fire tilstande",
+  "om_tilstande_broed": "Et tal, et nul, et nej og et hul er fire forskellige ting. De ser forskellige ud med vilje, for det er dér, katalogsider lyver: et nul bliver til en tom celle, og en tom celle bliver til et nul. I dette katalog oplyser producenterne {nul} målte nul, og {nej} gange svarer de udtrykkeligt nej.",
+
+  "om_tilstande_noegle": "Nøglen nedenfor er katalogets egen. Det er ikke en tegning af mærkerne, men de samme mærker, robotsiderne selv sætter — derfor står der også en femte tilstand for det, der kun kan ses på et billede, og de to kildemærker A og B.",
+
+  "om_ikke_titel": "Hvad siden ikke gør",
+  "om_ikke_koeb": "Der er ingen købsknap, ingen betalte henvisningslinks og ingen prisforespørgsel i en katalogpost. Linkene til producenternes egne sider er kilder, ikke henvisninger vi får noget for.",
+  "om_ikke_spor": "Siden sætter ingen cookies, henter intet fra tredjepart og måler ikke, hvem der læser den. Den virker uden JavaScript.",
+  "om_ikke_score": "Der gives ingen karakter fra 1 til 5, ingen stjerner og ingen rangering. En sådan score ville være en redaktionel konklusion skrevet om til et tal, og den ville kræve en offentliggjort metode med acceptkriterier. Den metode findes ikke, og derfor gør scoren det heller ikke.",
+
+  "om_udgiver_titel": "Udgiver",
+  "om_udgiver_broed": "Kataloget udgives af KeyResearch i Aarhus. KeyResearch står som udgiver af opslagsværket. Ikke som afsender i den enkelte katalogpost, og ikke som part i noget salg.",
+  "om_udgiver_adresse": "Adresse",
+  "om_udgiver_telefon": "Telefon",
+  "om_udgiver_post": "E-post",
+  "om_udgiver_ret": "Er et tal forkert, eller har en producent opdateret et datablad, så skriv. En rettelse følges tilbage til kilden og får ny hentedato."
 }
