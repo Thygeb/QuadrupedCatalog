@@ -55,13 +55,14 @@
    2026: facetterne er nu stansede felter i et 12-kolonners gitter, ikke en
    liste med etiketspalte.
 
-   MEN `.facet` ER IKKE KATALOGETS ALENE. Sammenligningssiden bruger
-   `class="facet sammenligning-vaelger"`, og den er ikke bygget om i dette
-   spor. Grundreglen bliver derfor staaende praecis som foer - det er den, den
-   flade regner med - og katalogets nye form er scopet under `.facetter__net`
-   i afsnit 20. Uden den opdeling fik sammenligningssidens vaelger 24 px
-   polstring og to haarstreger, den aldrig har bedt om. Samme fejl som
-   `.kort`, fanget samme dag. */
+   MEN `.facet` ER IKKE KATALOGETS ALENE. Grundreglen bliver derfor staaende
+   praecis som foer - det er den, sammenligningssidens vaelger ogsaa regner
+   med - og katalogets nye form er scopet under `.facetter__net` i afsnit 20.
+   Uden den opdeling fik sammenligningssidens vaelger 24 px polstring og to
+   haarstreger, den aldrig har bedt om. Samme fejl som `.kort`, fanget samme
+   dag. (`.sammenligning-vaelger` selv er en fjernet, doed klasse -
+   spor/doedcss, 1. sep 2026 - markeringen "facet sammenligning-vaelger" i
+   markup findes ikke laengere.) */
 .facet{border:0;margin:0;padding:0;min-width:0;display:contents}
 .facet legend{padding:0;margin:0}
 .facet-ryd{margin-top:var(--r3)}
@@ -240,7 +241,6 @@
 .feltvaerdi{display:flex;flex-wrap:wrap;align-items:baseline;gap:.34em;min-width:0}
 .feltvaerdi > .forbehold{align-self:center}
 .stribe .krop > .feltvaerdi{min-height:30px;align-items:center}
-.stribe--kompakt .krop > .feltvaerdi{min-height:23px}
 
 /* robot.mjs' EGEN varianter() (feltKrop, forskellig fra flet dt/dd-formen
    ovenfor) pakker hvert par i sin egen kasse. Mere specifik end
@@ -398,10 +398,6 @@
 .saml-tegn__tekst{font-family:var(--manual);font-size:11.5px;line-height:1.35;
   color:var(--blaek2);text-wrap:pretty;min-width:0}
 
-/* Vaelgeren genbruger .facet/.filtre (system.css §13) uaendret - kun en
-   loft-hoejde, saa 62 afkrydsningsfelter ikke skubber tabellen langt ned. */
-.sammenligning-vaelger .filtre{max-height:260px;overflow-y:auto;
-  padding:2px;border:1px solid var(--linje);border-radius:var(--rund-ind)}
 /* Samme notits-form til to beskeder, der begge siger "det, du forventede,
    sker ikke her": JS-status'en (for faa/for mange valgte) og noscript-
    beskeden (punkt 3, Aa54). Ingen ny visuel familie - kun klassenavnet er
@@ -584,16 +580,6 @@
   color:var(--stoev-blaek);max-width:78ch;margin:var(--r3) 0 0;padding:0 var(--r3) var(--r3);
   text-wrap:pretty}
 
-/* Vaelgeren: alle 77, men de koster ikke foerste skaerm - den staar UNDER
-   matricen, og kolonnehovedernes "Vaelg robotter" springer herned. */
-.saml-udtraek{margin-top:var(--r5);background:var(--panel);border-radius:var(--rund-ind);
-  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
-  scroll-margin-top:var(--r4)}
-.saml-udtraek__top{margin:0;padding:var(--r4) var(--r5);font-family:var(--mono);
-  font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--blaek);border-bottom:1px solid var(--linje)}
-.saml-udtraek__krop{padding:var(--r5)}
-
 /* --- 8b-IV. SMALLE SKAERME ----------------------------------------------
    Matricen brydes ALDRIG op i blokke - det ville koste tabelrollen, som Aa54
    netop lappede. Den ruller vandret i stedet, og raekkehovedet klaeber til
@@ -636,8 +622,7 @@
   .specimen__navn{font-size:15px}
   .specimen__fod{display:block}
   .specimen__skift{margin-top:6px}
-  .saml-udtraek__krop{padding:var(--r4)}
-}
+  }
 
 /* =============================================================================
    9. SIDENS RAMME, ROBOTSIDEN OG PRODUCENTSIDEN
@@ -864,9 +849,6 @@
   .stribe--fem > li:nth-child(-n+2){border-top:0}
 }
 .stribe-hoved h2{margin:0}
-.stribe--intet-kort{border-radius:var(--rund-ind);padding:13px 14px 14px;gap:11px}
-.stribe--intet-kort .hoved{font-size:13.5px}
-.stribe--intet-kort p{font-size:13px}
 
 .advarsel-navn{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;color:var(--blaek);margin-bottom:3px}
@@ -876,18 +858,6 @@
 .v-liste code{font-family:var(--mono);font-size:12.5px;color:var(--blaek2);
   background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--rund-lille);
   padding:2px 7px 3px}
-
-/* --- 9c. EU-blokken paa robotsiden (adskilt fra kortets lille .eu-badge) --- */
-.eu-blok .eu-krop{display:flex;gap:var(--r4);align-items:flex-start;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund);
-  box-shadow:var(--skygge);padding:var(--r4) var(--r5) var(--r5)}
-.eu-blok .eu-krop > div{flex:1;min-width:0}
-.eu-ikon{color:var(--hegn);margin-top:4px;flex:none}
-.eu-forklaring{margin-top:var(--r3);max-width:76ch}
-@media (max-width:560px){
-  .eu-blok .eu-krop{padding:var(--r4);gap:var(--r3)}
-  .eu-ikon{display:none}
-}
 
 /* --- 9d. Døren ud til producenten ------------------------------------------ */
 .produktside .videre{margin-top:var(--r3)}
@@ -966,12 +936,7 @@
 .producent-fakta .figur{font-size:21px;font-weight:700}
 .producent-fakta .hjemsted{font-weight:600}
 
-.eu-tabel th[scope="row"] a{display:inline-block;min-height:24px;padding:8px 0;
-  color:var(--blaek);text-decoration-thickness:1.5px}
-.eu-tabel th[scope="row"] a:hover{color:var(--accent)}
-.eu-tabel td{white-space:nowrap}
 .sektion-hoved .tal{color:var(--blaek);font-weight:500}
-.eu-tom{margin-top:var(--r4)}
 
 .prodliste{display:flex;flex-direction:column;padding-top:var(--r2)}
 .prodliste li{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;
@@ -1184,18 +1149,12 @@
   padding:4px 5px 4px 10px;border-radius:2px;
   font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
 }
-/* Status vender modsat: chippen fortaeller, hvad der er SKJULT, og er derfor
-   ikke en markering i gult, men en kontur paa den moerke bund. */
-.valg--standard{background:transparent;color:var(--paafod);
-  box-shadow:inset 0 0 0 1px var(--stoev-blaek)}
 .valg__navn{min-width:0}
 .valg__fjern{
   display:grid;place-items:center;width:18px;height:18px;flex:none;
   background:rgba(34,38,42,.14);color:inherit;border-radius:2px;cursor:pointer;
 }
-.valg--standard .valg__fjern{background:rgba(232,235,237,.12)}
 .valg__fjern:hover{background:var(--blaek);color:var(--accent)}
-.valg--standard .valg__fjern:hover{background:var(--bund);color:var(--blaek)}
 .valg__kryds{display:block}
 
 .taeller{margin-left:auto;display:flex;align-items:baseline;gap:9px;padding-left:var(--r4)}
