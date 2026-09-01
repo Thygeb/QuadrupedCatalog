@@ -1,5 +1,5 @@
 /**
- * tests/dele/41-om-os.mjs — Om-siden (spor/omos, L61, 1. sep 2026).
+ * tests/dele/42-om-os.mjs — Om-siden (spor/omos, L61, 1. sep 2026).
  *
  * Om-siden er sitets eneste PROSAside, og den er derfor den eneste flade,
  * hvor de sædvanlige vagter ikke bider: der er ingen robotpost at validere,
@@ -56,7 +56,7 @@ export default async function koer(ctx) {
     rod, tmp, node, ok, skema, lasRobotter,
   } = ctx;
 
-  console.log('\n41. Om-siden (spor/omos, L61)');
+  console.log('\n42. Om-siden (spor/omos, L61)');
 
   const omOs = await import(`file://${path.join(rod, 'tools/skabelon/om-os.mjs').replace(/\\/g, '/')}`);
   const SPROG = skema.SPROG;
@@ -64,12 +64,12 @@ export default async function koer(ctx) {
   /* --- byg mod FIXTUREN, ikke mod det rigtige datasæt ---------------------
      Hele pointe 1 hviler på, at fixturens tal er ANDRE end produktionens.
      Er de en dag ens, holder prøven op med at bevise noget — derfor
-     kontrolleres forskellen udtrykkeligt nedenfor (41.3). */
+     kontrolleres forskellen udtrykkeligt nedenfor (42.3). */
   const dist = path.join(tmp, 'dist-om-os');
   const r = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
     `--data=${path.join(rod, 'tests', 'eksempel-robotter')}`, `--ud=${dist}`],
   { cwd: rod, encoding: 'utf8' });
-  ok('41.0: build.mjs giver exit 0', r.status === 0, (r.stderr || '').trim());
+  ok('42.0: build.mjs giver exit 0', r.status === 0, (r.stderr || '').trim());
 
   const fixtur = omOs.regnskab(lasRobotter(path.join(rod, 'tests', 'eksempel-robotter')));
   const aegte = omOs.regnskab(lasRobotter(path.join(rod, 'data', 'robots')));
@@ -78,10 +78,10 @@ export default async function koer(ctx) {
   const sider = {};
   for (const s of SPROG) {
     const f = path.join(dist, s, 'om', 'index.html');
-    ok(`41.1.${s}: dist/${s}/om/index.html findes`, fs.existsSync(f));
+    ok(`42.1.${s}: dist/${s}/om/index.html findes`, fs.existsSync(f));
     if (fs.existsSync(f)) sider[s] = fs.readFileSync(f, 'utf8');
   }
-  ok('41.1: Om-siden er bygget paa ALLE sprog, ikke kun ét',
+  ok('42.1: Om-siden er bygget paa ALLE sprog, ikke kun ét',
     Object.keys(sider).length === SPROG.length,
     `fandt ${Object.keys(sider).length} af ${SPROG.length}`);
 
@@ -97,10 +97,10 @@ export default async function koer(ctx) {
 
   /* --- 2. regnskabets to identiteter ------------------------------------- */
   for (const [navn, g] of [['fixtur', fixtur], ['det rigtige datasaet', aegte]]) {
-    ok(`41.2.a (${navn}): oplyst + ikke oplyst == felter x robotter`,
+    ok(`42.2.a (${navn}): oplyst + ikke oplyst == felter x robotter`,
       g.oplyst + g.io === g.muligt,
       `${g.oplyst} + ${g.io} = ${g.oplyst + g.io}, men ${g.felter} x ${g.robotter} = ${g.muligt}`);
-    ok(`41.2.b (${navn}): medKilde + udenKilde + tilstandssvar == oplyst`,
+    ok(`42.2.b (${navn}): medKilde + udenKilde + tilstandssvar == oplyst`,
       g.medKilde + g.udenKilde + g.restSvar === g.oplyst,
       `${g.medKilde} + ${g.udenKilde} + ${g.restSvar} = `
       + `${g.medKilde + g.udenKilde + g.restSvar}, men oplyst = ${g.oplyst}`);
@@ -109,10 +109,10 @@ export default async function koer(ctx) {
   /* --- 3. TALLENE ER UDLEDTE, IKKE SKREVNE -------------------------------
      Vagtens forudsaetning foerst: fixturen SKAL vise andre tal end
      produktionen, ellers beviser resten af punktet ingenting. */
-  ok('41.3.0: fixturen har et andet robottal end det rigtige datasaet',
+  ok('42.3.0: fixturen har et andet robottal end det rigtige datasaet',
     fixtur.robotter !== aegte.robotter,
     `begge har ${fixtur.robotter} - prøven kan ikke skelne udledt fra skrevet`);
-  ok('41.3.0b: fixturen har et andet antal mulige oplysninger',
+  ok('42.3.0b: fixturen har et andet antal mulige oplysninger',
     fixtur.muligt !== aegte.muligt, `begge har ${fixtur.muligt}`);
 
   for (const s of SPROG) {
@@ -124,18 +124,18 @@ export default async function koer(ctx) {
     const cifre = t.replace(/[.,  ](?=\d{3}\b)/g, '');
     const har = (n) => new RegExp(`(^|[^\\d])${n}([^\\d]|$)`).test(cifre);
 
-    ok(`41.3.${s}: siden viser fixturens robottal (${fixtur.robotter})`, har(fixtur.robotter));
-    ok(`41.3.${s}: siden viser fixturens mulige oplysninger (${fixtur.muligt})`, har(fixtur.muligt));
-    ok(`41.3.${s}: siden viser fixturens oplyste (${fixtur.oplyst})`, har(fixtur.oplyst));
-    ok(`41.3.${s}: siden viser fixturens ikke oplyste (${fixtur.io})`, har(fixtur.io));
-    ok(`41.3.${s}: siden viser fixturens producenttal (${fixtur.producenter})`, har(fixtur.producenter));
+    ok(`42.3.${s}: siden viser fixturens robottal (${fixtur.robotter})`, har(fixtur.robotter));
+    ok(`42.3.${s}: siden viser fixturens mulige oplysninger (${fixtur.muligt})`, har(fixtur.muligt));
+    ok(`42.3.${s}: siden viser fixturens oplyste (${fixtur.oplyst})`, har(fixtur.oplyst));
+    ok(`42.3.${s}: siden viser fixturens ikke oplyste (${fixtur.io})`, har(fixtur.io));
+    ok(`42.3.${s}: siden viser fixturens producenttal (${fixtur.producenter})`, har(fixtur.producenter));
 
     // Selve faelden: produktionens tal maa IKKE staa paa et fixturbyg.
-    ok(`41.3.${s}: siden viser IKKE det rigtige datasaets robottal (${aegte.robotter})`,
+    ok(`42.3.${s}: siden viser IKKE det rigtige datasaets robottal (${aegte.robotter})`,
       !har(aegte.robotter),
       `"${aegte.robotter}" staar paa en side bygget af ${fixtur.robotter} robotter `
       + '- et tal er skrevet i haanden i en i18n-noegle i stedet for udledt');
-    ok(`41.3.${s}: siden viser IKKE det rigtige datasaets mulige oplysninger (${aegte.muligt})`,
+    ok(`42.3.${s}: siden viser IKKE det rigtige datasaets mulige oplysninger (${aegte.muligt})`,
       !har(aegte.muligt), `"${aegte.muligt}" staar paa et fixturbyg`);
   }
 
@@ -149,7 +149,7 @@ export default async function koer(ctx) {
     const syndere = Object.entries(o)
       .filter(([k, v]) => k.startsWith('om_') && typeof v === 'string' && /\d{2,}/.test(v))
       .map(([k]) => k);
-    ok(`41.3b.${s}: ingen om_-noegle baerer et flercifret tal`,
+    ok(`42.3b.${s}: ingen om_-noegle baerer et flercifret tal`,
       syndere.length === 0, syndere.join(', '));
   }
 
@@ -158,12 +158,12 @@ export default async function koer(ctx) {
     if (!sider[s]) continue;
     const i18n = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', `${s}.json`), 'utf8'));
     const linje = i18n.ingen_forhandler;
-    ok(`41.4.${s}: "ingen forhandler"-linjen staar ORDRET i <main>`,
+    ok(`42.4.${s}: "ingen forhandler"-linjen staar ORDRET i <main>`,
       tekstAf(hovedAf(sider[s])).includes(linje),
       'PRODUCT.md linje 95-96 og 119-120 kraever den paa netop denne side');
     // Vagt paa selve maalingen: den skal ogsaa staa i foden, ellers maaler
     // proeven ovenfor noget andet, end den tror.
-    ok(`41.4b.${s}: linjen staar OGSAA i sidefoden (maalingens forudsaetning)`,
+    ok(`42.4b.${s}: linjen staar OGSAA i sidefoden (maalingens forudsaetning)`,
       tekstAf(sider[s].slice(sider[s].indexOf('</main>'))).includes(linje));
   }
 
@@ -177,7 +177,7 @@ export default async function koer(ctx) {
       }
     })(dist);
     const ramt = alle.filter((f) => fs.readFileSync(f, 'utf8').includes('10049385'));
-    ok('41.5: INCUBA a/s\' CVR 10049385 staar ingen steder i bygget',
+    ok('42.5: INCUBA a/s\' CVR 10049385 staar ingen steder i bygget',
       ramt.length === 0,
       `fundet i ${ramt.map((f) => path.relative(dist, f)).join(', ')} `
       + '- det er udlejerens nummer, ikke KeyResearchs (L61)');
@@ -187,11 +187,11 @@ export default async function koer(ctx) {
   for (const s of SPROG) {
     if (!sider[s]) continue;
     const ude = [...hovedAf(sider[s]).matchAll(/href="(https?:[^"]*)"/g)].map((m) => m[1]);
-    ok(`41.6.${s}: Om-siden har nul udgaaende http(s)-links`,
+    ok(`42.6.${s}: Om-siden har nul udgaaende http(s)-links`,
       ude.length === 0,
       `${ude.join(', ')} - L61 forbyder link til salgssiden`);
     // Kontakten skal derimod VAERE der, som mailto og tel.
-    ok(`41.6b.${s}: kontakten staar som mailto og tel`,
+    ok(`42.6b.${s}: kontakten staar som mailto og tel`,
       /href="mailto:/.test(hovedAf(sider[s])) && /href="tel:/.test(hovedAf(sider[s])));
   }
 
@@ -200,7 +200,7 @@ export default async function koer(ctx) {
     if (!sider[s]) continue;
     const t = tekstAf(hovedAf(sider[s])).toLowerCase();
     for (const ord of ['cvr', 'stiftet', 'grundlagt', 'founded', 'incorporated']) {
-      ok(`41.7.${s}: ordet "${ord}" staar ikke paa Om-siden`, !t.includes(ord),
+      ok(`42.7.${s}: ordet "${ord}" staar ikke paa Om-siden`, !t.includes(ord),
         'L61: CVR, stiftelsesaar og team udelades HELT - de markeres ikke som "ikke oplyst"');
     }
   }
@@ -209,7 +209,7 @@ export default async function koer(ctx) {
   for (const s of SPROG) {
     if (!sider[s]) continue;
     for (const andet of SPROG) {
-      ok(`41.8.${s}: hreflang peger paa ${andet}-udgaven af Om-siden`,
+      ok(`42.8.${s}: hreflang peger paa ${andet}-udgaven af Om-siden`,
         new RegExp(`hreflang="${andet}" href="[^"]*${andet}/om/"`).test(sider[s]));
     }
   }
@@ -226,10 +226,10 @@ export default async function koer(ctx) {
     // Rodsiden er en ren omdirigering uden skallen, som del 37 ogsaa undtager.
     const medSkal = alleSider.filter((f) => path.relative(dist, f).includes(path.sep));
     const uden = medSkal.filter((f) => !/<a href="[^"]*\/om\/"/.test(fs.readFileSync(f, 'utf8')));
-    ok('41.9: menupunktet "Om os" staar i daekket paa hver side med skal',
+    ok('42.9: menupunktet "Om os" staar i daekket paa hver side med skal',
       uden.length === 0,
       `mangler paa ${uden.slice(0, 3).map((f) => path.relative(dist, f)).join(', ')}`);
-    ok('41.9b: der ER sider at maale paa', medSkal.length > 0, `fandt ${medSkal.length}`);
+    ok('42.9b: der ER sider at maale paa', medSkal.length > 0, `fandt ${medSkal.length}`);
   }
 
   /* --- 10. de fire kontaktkendsgerninger, og ikke flere ------------------- */
@@ -237,7 +237,7 @@ export default async function koer(ctx) {
     if (!sider[s]) continue;
     const t = tekstAf(hovedAf(sider[s]));
     for (const fakta of ['KeyResearch', 'Incuba, Åbogade 15, Aarhus', '+45 22231116', 'jpk@keyresearch.dk']) {
-      ok(`41.10.${s}: "${fakta}" staar paa siden`, t.includes(fakta));
+      ok(`42.10.${s}: "${fakta}" staar paa siden`, t.includes(fakta));
     }
   }
 }
