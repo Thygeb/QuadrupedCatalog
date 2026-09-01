@@ -104,7 +104,21 @@ export default async function koer(ctx) {
        facet med skjul-alle + vis-de-valgte, og egenskabschippenes modsatte
        form. Tallene udledes af siden selv. */
     const facetter = new Set([...html.matchAll(/class="rk__felt f-([a-z]+)"/g)].map((m) => m[1]));
-    const skjulRegler = (stil.match(/\.styr:has\(\.f-[a-z]+:(checked|target)\) \.lag-[a-z]+/g) || []).length;
+    /* UDVIDET 1. sep 2026 (spor/filter, L65c/L66). Skjul-reglen findes nu i TO
+       former, og maalingen skal kende dem begge:
+
+         .styr:has(...)                              listefacetterne
+         .styr:not([data-levende]):has(...)          skalafacetterne
+
+       Den anden form er ikke en variant af den foerste - den er selve
+       kontrakten mellem sidens to oploesninger af det samme filter. Skalaerne
+       (nyttelast, pris) filtrerer i CSS, NAAR JavaScript ikke koerer, og
+       overlades til assets/katalog.js, naar det goer. Uden leddet filtrerede
+       begge paa én gang med hver sin graense.
+
+       Foer denne udvidelse taalte regexet kun den foerste form og talte 10 af
+       14 skjul-regler - altsaa roed, selvom hver facet HAVDE sine regler. */
+    const skjulRegler = (stil.match(/\.styr(?::not\(\[data-levende\]\))?:has\(\.f-[a-z]+:(checked|target)\) \.lag-[a-z]+/g) || []).length;
     const visRegler = (stil.match(/\.lag-[a-z]+\[data-[a-z]+~="[^"]+"\]/g) || []).length;
     ok(`30.4 ${rel}: facetterne er fundet`, facetter.size >= 5,
       `${facetter.size} facetter: ${[...facetter].join(', ')}`);
@@ -114,6 +128,27 @@ export default async function koer(ctx) {
     ok(`30.5 ${rel}: hver facet har baade skjul- og vis-regler`,
       skjulRegler === facetter.size * 2 && visRegler >= facetter.size * 2,
       `${skjulRegler} skjul (forventet ${facetter.size * 2}), ${visRegler} vis`);
+
+    /* DE TO OPLOESNINGER MAA IKKE FILTRERE SAMTIDIG (L65c).
+       Fjerner nogen `:not([data-levende])` fra en skalas regler, filtrerer
+       CSS'en paa den afkrydsede traerskel OG assets/katalog.js paa sliderens
+       stilling - to graenser paa én gang, og fejlen er tavs: siden viser
+       faerre kort end begge filtre hver for sig ville give. Derfor vogtes
+       leddet her, i begge retninger. */
+    const skalaNavne = [...html.matchAll(/data-skala="([a-z]+)"/g)].map((m) => m[1]);
+    ok(`30.5b ${rel}: skalafacetterne er fundet`, skalaNavne.length === 2,
+      `fandt ${skalaNavne.length}: ${skalaNavne.join(', ')}`);
+    for (const s of skalaNavne) {
+      ok(`30.5c ${rel}: skalaen "${s}" filtrerer KUN uden JavaScript`,
+        new RegExp(`\\.styr:not\\(\\[data-levende\\]\\):has\\(\\.f-${s}:checked\\) \\.lag-${s}`).test(stil)
+          && !new RegExp(`\\.styr:has\\(\\.f-${s}:checked\\)`).test(stil),
+        'uden :not([data-levende]) filtrerer CSS og slideren samtidig med hver sin graense');
+    }
+    for (const f of [...facetter].filter((n) => !skalaNavne.includes(n))) {
+      ok(`30.5d ${rel}: listefacetten "${f}" filtrerer OGSAA med JavaScript`,
+        new RegExp(`\\.styr:has\\(\\.f-${f}:checked\\) \\.lag-${f}`).test(stil),
+        'en listefacet har ingen JavaScript-udgave at overlade filtreringen til');
+    }
     /* Egenskabschippene gaar den MODSATTE vej: ren HIDE med :not(), saa flere
        chips lagrer sig som OG. Uden :not()-formen ville to chips udvide
        udvalget i stedet for at indsnaevre det - og "gaar paa trapper ELLER
@@ -166,8 +201,28 @@ export default async function koer(ctx) {
   ok('30.13: katalog.js lytter paa afkrydsningsfelterne',
     /bokse\[i\]\.addEventListener\('change', opdater\)/.test(js),
     'uden en change-lytter er taellerne doede, uanset hvad opdater() kan');
-  ok('30.14: katalog.js lytter paa hashchange (:target-filtre fra forsiden)',
-    /addEventListener\('hashchange', opdater\)/.test(js));
+  /* VENDT 1. sep 2026 (spor/filter). Lytteren var `('hashchange', opdater)`
+     og er nu en funktion, der goer TO ting - og begge er paakraevede:
+
+       fraTraerskler()  loefter en traerskel fra et filterlink
+                        (robotter/#f-nyttelast-20) ind i skalaen. Uden den
+                        taber netop de links deres filter i det oejeblik
+                        JavaScript indlaeser, fordi skalafacetternes CSS er
+                        slukket af `data-levende`.
+       opdater()        det, lytteren altid har gjort.
+
+     Paastanden er derfor skaerpet, ikke sloejfet: den kraever nu begge kald
+     inde i den samme lytter. Den gamle form ville bestaa med kun opdater(). */
+  /* MAALEAPPARATET, EFTERPROEVET FOER TALLET. Foerste udgave af denne
+     paastand var `...([\s\S]{0,160}?)\);` - en dovent afgraenset gruppe, der
+     stoppede ved lytterens FOERSTE `);`, altsaa midt inde i `fraTraerskler(`.
+     Den rapporterede en manglende opdater(), som stod der hele tiden. Derfor
+     et fast vindue i stedet for en afgraensning, regexet skal gaette sig til. */
+  const hashI = js.indexOf("addEventListener('hashchange'");
+  const hashLytter = hashI < 0 ? null : js.slice(hashI, hashI + 200);
+  ok('30.14: hashchange loefter traerskler ind i skalaen OG opdaterer',
+    !!hashLytter && /fraTraerskler\(\)/.test(hashLytter) && /opdater\(\)/.test(hashLytter),
+    hashLytter ? `lytteren goer: ${hashLytter.split('\n')[0].trim()}` : 'ingen hashchange-lytter fundet');
   ok('30.15: katalog.js maaler geometrien i stedet for at regne CSS efter',
     /getClientRects\(\)\.length/.test(js),
     'to kilder til samme sandhed kan blive uenige');

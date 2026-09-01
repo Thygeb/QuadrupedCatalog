@@ -50,6 +50,9 @@
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { esc } from './side.mjs';
 import { tilstandAf } from '../skema.mjs';
 
@@ -57,6 +60,74 @@ const attr = esc;
 
 /** Et vaerdinavn, der kan staa i et id og i en attributvaelger. */
 const nogle = (v) => String(v).toLowerCase().replace(/[^a-z0-9_]+/g, '-');
+
+/* ==========================================================================
+   0. VEKSELKURSEN (L66, JPK 1. sep 2026)
+   ==========================================================================
+
+   Kursen laeses HER og ikke i tools/build.mjs, og det er et ejerskabsvalg,
+   ikke et arkitektonisk: build.mjs tilhoerer et andet spor i denne runde.
+   Stien regnes ud fra modulets EGEN placering (import.meta.url) og ikke fra
+   process.cwd(), saa filen findes uanset hvor bygget startes fra.
+
+   HVORFOR EN KURS OVERHOVEDET MAA STAA PAA SIDEN. Her stod indtil i dag - i
+   tools/skema.mjs, i sorteringens note og i denne fils eget hoved - at en
+   vekselkurs var "et tal, vi selv havde fundet paa" (haard begraensning 2).
+   Den saetning forvekslede TO ting: et tal ingen har offentliggjort, og et
+   tal ingen havde slaaet op. ECB's daglige referencekurs er offentliggjort
+   med udgiver, URL og dato, praecis som en producents prisangivelse er det.
+   Den er derfor kildebelagt paa noejagtig samme maade som ethvert andet tal
+   paa siden - og den staar i data/kurser.json, ikke i denne kode, af samme
+   grund som robotternes tal staar i data/robots/.
+
+   REGNESTYKKET STAAR ÉT STED, og det er dette. ECB noterer alt som "enheder
+   pr. 1 euro", saa kursen fra en valuta til basisvalutaen er en division af
+   to tal, der begge kan slaas efter i kilden. */
+const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const KURSER = JSON.parse(fs.readFileSync(path.join(ROD, 'data', 'kurser.json'), 'utf8'));
+const BASISVALUTA = KURSER.basis;
+
+/**
+ * Kursen fra `valuta` til basisvalutaen, eller `null` naar kilden ikke
+ * daekker valutaen.
+ */
+function kursTilBasis(valuta) {
+  const fra = KURSER.per_euro?.[valuta];
+  const til = KURSER.per_euro?.[BASISVALUTA];
+  if (typeof fra !== 'number' || typeof til !== 'number' || !(fra > 0)) return null;
+  return til / fra;
+}
+
+/**
+ * En kurs skrevet ud, og den maa IKKE gaa gennem hjaelp.nformat().
+ *
+ * Den faelles formatering er `maximumFractionDigits: 3` (side.mjs:920), og
+ * ECB's CNY-kurs har FIRE decimaler: 7,7922 ville blive trykt "7,792". Et
+ * afkortet kurstal er ikke en afrunding af en maaling - det er en anden kurs
+ * end den, kilden offentliggjorde, staaende ved siden af et link til kilden,
+ * hvor enhver kan se at de to ikke stemmer. Derfor sin egen formatering med
+ * plads til det, filen faktisk indeholder.
+ */
+function kursFormat(n, sprogkode) {
+  return new Intl.NumberFormat(sprogkode === 'da' ? 'da-DK' : 'en-GB',
+    { maximumFractionDigits: 6 }).format(n);
+}
+
+/**
+ * Kildens egne kurser skrevet som "1 EUR = 1,1596 USD · 1 EUR = 7,7922 CNY".
+ *
+ * NOTATIONEN ER ECB'S EGEN, ikke vores omregnede. Det er med vilje: skriver
+ * siden "1 CNY = 0,148815 USD", staar der et tal, som ikke findes i kilden,
+ * og en laeser, der klikker linket, kan ikke genfinde det. Kildens to tal
+ * staar derfor som de staar, og divisionen imellem dem er beskrevet i
+ * data/kurser.json.
+ */
+function kursPar(i18n, sprogkode) {
+  return Object.entries(KURSER.per_euro)
+    .filter(([v]) => v !== 'EUR')
+    .map(([v, n]) => i18n.tf('pris_kurs_par', { tal: kursFormat(n, sprogkode), valuta: v }))
+    .join(' · ');
+}
 
 /* ==========================================================================
    1. AFLAESNING AF ET FELT
@@ -105,6 +176,58 @@ function ipVaerdi(robot) {
   const t0 = tilstandAf(p.vaerdi);
   if (t0) return t0;
   return String(p.vaerdi);
+}
+
+/**
+ * Robottens nyttelast som ÉT tal til skalaen, eller `null` naar den tier.
+ *
+ * ET SPAEND LAESES PAA SIT MAKSIMUM, ikke paa sit midtpunkt, og det er en
+ * bevidst afvigelse fra laesFelt(). Skalaen spoerger "kan den baere mindst N
+ * kg?", og en robot, producenten opgiver til 20-30 kg, KAN baere 28 - den
+ * skal derfor ikke falde ud ved 28, blot fordi midtpunktet er 25.
+ *
+ * Maalt 1. sep 2026: to robotter har spaend (pudu-d5 og pudu-d5-w, begge
+ * 20-30 kg), og de to laesninger giver samme svar ved alle fire trin
+ * (5/10/20/50). Forskellen kan altsaa KUN ses paa den glidende skala - hvilket
+ * er praecis derfor den skal skrives ud her og ikke opdages senere.
+ */
+function nyttelastTal(robot) {
+  const p = robot.felter?.nyttelast_gaaende;
+  const f = laesFelt(robot, 'nyttelast_gaaende');
+  if (f.slags !== 'tal') return null;
+  return (p && typeof p === 'object' && typeof p.maks === 'number') ? p.maks : f.tal;
+}
+
+/**
+ * Prisen omregnet til basisvalutaen (L66), eller `null` naar robotten ikke
+ * oplyser en pris.
+ *
+ * Returnerer `{ tal, valuta, kurs, omregnet }`, hvor `omregnet` er falsk for
+ * de priser, producenten SELV skrev i basisvalutaen - de er ikke omregnet af
+ * os og maa ikke baere et omregningsmaerke.
+ *
+ * KASTER paa en valuta, kilden ikke daekker. Det er med vilje det haarde
+ * udfald: alternativet er, at en ny pris i en ny valuta tavst falder ud af
+ * baade sortering og filter, og et tal, der forsvinder uden at nogen ser det,
+ * er praecis den fejl haard begraensning 5 findes for at forhindre. Beskeden
+ * siger, hvilken fil der skal have en linje mere.
+ */
+function prisIBasis(robot) {
+  const f = laesFelt(robot, 'pris');
+  if (f.slags !== 'tal') return null;
+  const valuta = robot.felter?.pris?.enhed;
+  const kurs = kursTilBasis(valuta);
+  if (kurs === null) {
+    throw new Error(`katalog.mjs: ${robot.slug} oplyser prisen i "${valuta}", som `
+      + `data/kurser.json ikke har en kurs for. Tilfoej valutaen dér med kilde og `
+      + `dato - prisen maa ikke falde tavst ud af sortering og filter.`);
+  }
+  return {
+    tal: Math.round(f.tal * kurs),
+    valuta,
+    kurs,
+    omregnet: valuta !== BASISVALUTA,
+  };
 }
 
 /* ==========================================================================
@@ -160,7 +283,149 @@ function kapabiliteter(robotter) {
 }
 
 /* ==========================================================================
-   3. FACETTERNE
+   3. SKALAERNE (L65c og L66, JPK 1. sep 2026)
+   ==========================================================================
+
+   TO FLADER AF SAMME SAG, og det er hele pointen. JPK bad om en GLIDENDE
+   slider til nyttelast - ikke trinvise radioknapper. Men en slider er et
+   JavaScript-objekt: uden scriptet er `<input type=range>` en kontrol, der
+   ikke goer noget. Ville sliderne vaere sidens eneste vej til at filtrere paa
+   nyttelast, ville P0 vaere brudt (se assets/katalog.js' filhoved: "JavaScript
+   maa forbedre sandheden; den maa aldrig vaere forudsaetningen for den").
+
+   Derfor bygges BEGGE, og de er ikke to mekanismer, men én i to oploesninger:
+
+     UDEN JavaScript  fire afkrydsningsfelter: "Mindst 5 kg", "Mindst 10 kg",
+                      "Mindst 20 kg", "Mindst 50 kg". Ren CSS, samme :has()-
+                      mekanik som alle andre facetter - ingen ny kode.
+     MED JavaScript   de fire felter viger for en skala, der kan staa hvor som
+                      helst mellem 0 og 200 kg. Trinnene bliver til RIDSER paa
+                      skalaen, saa laeseren kan se, hvor den grovere udgave
+                      ville have ligget.
+
+   TRAERSKELVAERDIER, IKKE BAAND, og det er den detalje, der faar de to
+   oploesninger til at moedes praecist. Et kort baerer ALLE de traerskler, det
+   opfylder: 30 kg giver data-nyttelast="5 10 20". Facetternes ELLER-grammatik
+   (hovedStil §6a) forener derfor to afkrydsninger til den LAVESTE traerskel -
+   ">=20 eller >=50" ER ">=20" - og det er sandt, ikke en tilnaermelse. Havde
+   trinnene i stedet vaeret disjunkte baand (5-9, 10-19, ...), ville sliderens
+   ene haandtag ikke kunne udtrykke det samme udvalg.
+
+   RETNINGEN FOELGER SPOERGSMAALET, ikke en skabelon. Nyttelast spoerges der
+   NEDEFRA ("kan den baere mindst 20 kg?"), pris spoerges der OVENFRA ("hvad
+   kan jeg faa for hoejst 15.000?"). Derfor ét haandtag hver og modsat vej -
+   ikke to generiske to-haandtags-intervaller, som ville koste et haandtag,
+   ingen bruger, paa hver af dem.
+
+   HAARD BEGRAENSNING 5 STAAR I SELVE FORMEN. De robotter, der ikke oplyser
+   feltet, faar vaerdien `ikke_oplyst` - en EGEN raekke med sit eget tal og sit
+   eget maerke (`rk--uoplyst`), i begge oploesninger. De falder aldrig tavst ud,
+   og de ser aldrig ud som om de baerer 0 kg eller koster 0. Raekken staar
+   UDEN FOR trinlisten, saa den ogsaa er der, naar slideren har overtaget. */
+const SKALAER = [
+  {
+    navn: 'nyttelast',
+    etiketNoegle: 'filter_nyttelast',
+    mrkNoegle: 'filter_nyttelast_mrk',
+    noteNoegle: 'filter_nyttelast_note',
+    enhed: 'kg',
+    retning: 'mindst',
+    // Traersklerne er compens og chippernes: 5 kg er NOEJAGTIG den graense,
+    // egenskabschippen `baerer` allerede bruger, saa de to kan ikke komme til
+    // at sige hver sit om samme robot. Maalt 1. sep 2026: 57/46/28/5 af de 65
+    // oplyste, plus 12 uden tal.
+    trin: [5, 10, 20, 50],
+    skridt: 1,
+    tal: nyttelastTal,
+  },
+  {
+    navn: 'pris',
+    etiketNoegle: 'filter_pris',
+    mrkNoegle: 'filter_pris_mrk',
+    noteNoegle: 'filter_pris_note',
+    enhed: BASISVALUTA,
+    retning: 'hoejst',
+    // Maalt 1. sep 2026 paa de 11 omregnede priser: 3/6/9 af 11, plus 66
+    // uden pris. Tallene er runde, fordi de er en BETJENING og ikke en
+    // maaling - selve optaellingen ved siden af dem regnes af data.
+    trin: [5000, 15000, 60000],
+    skridt: 500,
+    tal: (r) => prisIBasis(r)?.tal ?? null,
+  },
+];
+
+/**
+ * Én skala som et FACET-OBJEKT. Formen er med vilje den, facetter() allerede
+ * kender - `vaerdier`, `tekst`, `orden` - saa skalaen arver hele den
+ * eksisterende maskine gratis: optaellingen, CSS-reglerne (hovedStil §6a),
+ * strimlens chips (§6c) og omfangsmaerkerne (§6e). Der er ingen ny
+ * filtermekanik i dette spor overhovedet; der er en ny INDGANG til den, der
+ * var.
+ *
+ * `skala`-noeglen er det ene, der er nyt, og den baerer kun det, slideren og
+ * dens ridser skal bruge for at kunne tegnes.
+ */
+function skalaFacet(spec, robotter, hjaelp, i18n) {
+  const { T, t, tf } = i18n;
+  const tal = robotter.map(spec.tal).filter((v) => v !== null);
+  const hoejeste = tal.length ? Math.max(...tal) : 0;
+  // Rundes OP til et helt skridt. Ellers kan skalaens hoejeste stilling ikke
+  // naa den dyreste robot, og den ville staa filtreret vaek i hvile - en
+  // fejl, der kun ville vise sig paa den ene robot, der er yderst.
+  const stoerste = Math.max(spec.skridt, Math.ceil(hoejeste / spec.skridt) * spec.skridt);
+
+  return {
+    navn: spec.navn,
+    etiket: t(spec.etiketNoegle),
+    mrk: tf(spec.mrkNoegle, { n: tal.length, m: robotter.length }),
+    // Kursens vaerdier gives til ALLE skalaers noter, ogsaa nyttelastens, som
+    // ikke bruger dem. Prisen er lige nu den ene, der har brug for {basis},
+    // {dato} og {kurser} - men saetInd() lader en ukendt pladsholder staa
+    // ORDRET paa siden ("{dato}"), og en note, der en dag faar en linje mere,
+    // skal ikke kunne lande saadan. Overfloedige vaerdier koster ingenting;
+    // en manglende koster en synlig fejl i produktionen.
+    note: tf(spec.noteNoegle, {
+      n: tal.length,
+      u: robotter.length - tal.length,
+      basis: BASISVALUTA,
+      dato: hjaelp.dformat(KURSER.kilde.dato),
+      kurser: kursPar(i18n, i18n.sprogkode),
+    }),
+    skala: {
+      navn: spec.navn,
+      enhed: spec.enhed,
+      retning: spec.retning,
+      trin: spec.trin,
+      skridt: spec.skridt,
+      mindste: 0,
+      stoerste,
+      // Hvilestillingen er den, hvor skalaen IKKE filtrerer: bunden for et
+      // "mindst", toppen for et "hoejst".
+      hvile: spec.retning === 'mindst' ? 0 : stoerste,
+      oplyste: tal.length,
+      tal: spec.tal,
+    },
+    vaerdier: (r) => {
+      const v = spec.tal(r);
+      if (v === null) return ['ikke_oplyst'];
+      // En vaerdi, der ikke naar NOGEN traerskel (fx 1 kg), giver en tom
+      // liste. Det er rigtigt: robotten er oplyst, saa den hoerer ikke til i
+      // "ikke oplyst", og den opfylder ingen af de traerskler, der kan
+      // vaelges. Den staar i standardvisningen og forsvinder ved ethvert
+      // traerskelvalg - hvilket er sandt.
+      return spec.trin
+        .filter((n) => (spec.retning === 'mindst' ? v >= n : v <= n))
+        .map(String);
+    },
+    tekst: (v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst
+      : tf(spec.retning === 'mindst' ? 'skala_mindst' : 'skala_hoejst',
+        { n: hjaelp.nformat(Number(v)), enhed: spec.enhed })),
+    orden: [...spec.trin.map(String), 'ikke_oplyst'],
+  };
+}
+
+/* ==========================================================================
+   4. FACETTERNE
    ========================================================================== */
 
 /**
@@ -216,6 +481,10 @@ function facetter(robotter, hjaelp, i18n) {
       vaerdier: (r) => [r.producentland],
       tekst: (v) => hjaelp.land(v),
     },
+    // Skalaerne staar SIDST, fordi raekkefoelgen her ogsaa er lagenes
+    // raekkefoelge i HTML - og de to nye lag hoerer inderst, taettest paa
+    // kortet, hvor deres tal-attribut ogsaa skal staa.
+    ...SKALAER.map((s) => skalaFacet(s, robotter, hjaelp, i18n)),
   ].map((f) => {
     const antal = new Map();
     for (const r of robotter) {
@@ -233,7 +502,7 @@ function facetter(robotter, hjaelp, i18n) {
 }
 
 /* ==========================================================================
-   4. SORTERINGEN (L56 punkt 3)
+   5. SORTERINGEN (L56 punkt 3)
    ========================================================================== */
 
 /**
@@ -245,12 +514,24 @@ function facetter(robotter, hjaelp, i18n) {
  * RETNINGEN STAAR I ETIKETTEN. "Pris" alene skjuler et valg, laeseren ikke kan
  * se; "Pris, laveste foerst" kan efterproeves med det samme.
  *
- * PRISEN ER GRUPPERET EFTER VALUTA, ikke omregnet. Skemaet siger det selv
- * (tools/skema.mjs): CNY/USD/EUR kan kun omregnes med en kurs, og en kurs er
- * et tal, vi ville have opfundet - haard begraensning 2. Maalt 31. aug 2026:
- * 11 af 77 oplyser pris, fordelt CNY 6 · USD 4 · EUR 1. Derfor sorteres der
- * inden for hver valuta, valutaerne staar i fast alfabetisk orden, og
- * kontrollen baerer en note, der siger praecis det.
+ * PRISEN ER OMREGNET TIL ÉN VALUTA (L66, JPK 1. sep 2026). Her stod indtil i
+ * dag det modsatte: at priserne var GRUPPERET efter valuta, fordi "en kurs er
+ * et tal, vi ville have opfundet". Den saetning er nu forkert, og den blev
+ * ikke forkert af en holdningsaendring - JPK fik omkostningen forelagt og
+ * svarede "Ja - omregn til USD". Begrundelsen staar i data/kurser.json: en
+ * offentliggjort referencekurs er kildebelagt paa noejagtig samme maade som
+ * producentens egen prisangivelse.
+ *
+ * `gruppe` er derfor VAEK. Med den fandtes der ikke én raekkefoelge, men tre -
+ * CNY foerst, saa EUR, saa USD - og "laveste foerst" var kun sandt inden for
+ * hver bunke. Maalt 1. sep 2026: 11 af 77 oplyser pris (CNY 6 · USD 4 ·
+ * EUR 1), og efter omregningen ordnes de i ét forloeb fra 1.600 til 85.000
+ * USD.
+ *
+ * PRODUCENTENS EGET TAL SORTERES DER IKKE PAA, og det er den fine skelnen:
+ * `tal` (rangordningen) bruger det omregnede beloeb, mens `post` (det, kortet
+ * VISER) stadig er producentens egen post i producentens egen valuta. Vores
+ * omregning staar ved siden af, maerket som vores.
  */
 const SORTERINGER = [
   { navn: 'alfa', noegle: 'katalog_sortering_alfabetisk', standard: true },
@@ -279,8 +560,7 @@ const SORTERINGER = [
     note: 'sortering_pris_note',
     feltnoegle: 'felt_pris',
     post: (r) => r.felter?.pris,
-    tal: (r) => { const f = laesFelt(r, 'pris'); return f.slags === 'tal' ? f.tal : null; },
-    gruppe: (r) => (r.felter?.pris?.enhed ?? ''),
+    tal: (r) => prisIBasis(r)?.tal ?? null,
   },
   {
     navn: 'nyttelast',
@@ -336,7 +616,7 @@ function rangFor(robotter, s, sprog) {
 }
 
 /* ==========================================================================
-   5. DEN GENEREREDE FILTER-CSS
+   6. DEN GENEREREDE FILTER-CSS
    ========================================================================== */
 
 /** Kaldes af bygget og lægges i sidens inline <style>. */
@@ -346,18 +626,31 @@ export function hovedStil(ctx) {
   const K = kapabiliteter(robotter);
   const linjer = [];
 
-  /* 5a. Listefacetterne: skjul-alle + vis-de-valgte. */
+  /* 6a. Listefacetterne: skjul-alle + vis-de-valgte.
+
+     SKALAERNE FAAR ÉT LED MERE, `:not([data-levende])`, og det er den linje,
+     der holder de to oploesninger fra at filtrere OVEN PAA hinanden. Uden
+     JavaScript er disse regler skalaens eneste maskineri og virker som
+     enhver anden facet. Med JavaScript overtager assets/katalog.js hele
+     skalaen - baade traersklen og "ikke oplyst"-raekken - og da SKAL CSS'en
+     tie, ellers ville en afkrydsning fra fx et filterlink filtrere én gang i
+     CSS og én gang i JavaScript med to forskellige graenser.
+
+     Leddet saettes paa BEGGE regler (skjul og vis), saa deres indbyrdes
+     specificitet er uroert: vis-reglen vinder stadig, fordi den baerer et id.
+     Det er samme greb som omfangsmaerkerne i §6e allerede bruger. */
   for (const f of F) {
-    linjer.push(`.styr:has(.f-${f.navn}:checked) .lag-${f.navn},`);
-    linjer.push(`.styr:has(.f-${f.navn}:target) .lag-${f.navn}{display:none}`);
+    const kun = f.skala ? '.styr:not([data-levende])' : '.styr';
+    linjer.push(`${kun}:has(.f-${f.navn}:checked) .lag-${f.navn},`);
+    linjer.push(`${kun}:has(.f-${f.navn}:target) .lag-${f.navn}{display:none}`);
     for (const v of f.liste) {
       const id = `f-${f.navn}-${nogle(v)}`;
-      linjer.push(`.styr:has(#${id}:checked) .lag-${f.navn}[data-${f.navn}~="${v}"],`);
-      linjer.push(`.styr:has(#${id}:target) .lag-${f.navn}[data-${f.navn}~="${v}"]{display:contents}`);
+      linjer.push(`${kun}:has(#${id}:checked) .lag-${f.navn}[data-${f.navn}~="${v}"],`);
+      linjer.push(`${kun}:has(#${id}:target) .lag-${f.navn}[data-${f.navn}~="${v}"]{display:contents}`);
     }
   }
 
-  /* 5b. Egenskabschippene: ren HIDE, saa flere chips lagrer sig som OG.
+  /* 6b. Egenskabschippene: ren HIDE, saa flere chips lagrer sig som OG.
      Se filhovedets note - det er den eneste facetgruppe, der virker saadan,
      fordi en capability er en uafhaengig betingelse og ikke en vaerdiliste. */
   const chipRegler = [];
@@ -367,17 +660,21 @@ export function hovedStil(ctx) {
     chipRegler.push(`.styr:has(#${id}:target) .lag-eg:not([data-eg~="${k.navn}"]){display:none}`);
   }
 
-  /* 5c. Strimlens chips. Hver mulig markering har sin egen <li>, som staar
+  /* 6c. Strimlens chips. Hver mulig markering har sin egen <li>, som staar
      skjult og taendes af sin egen regel. Det er den samme byggetidsviden, der
      baerer filtrene: vi ved, hvilke vaerdier der findes, saa "hvad er valgt"
      kan tegnes uden at kunne taelle. */
   const valgRegler = [];
   for (const f of F) {
     if (f.standard) continue; // status haandteres som UDELUKKELSE nedenfor
+    // Samme begrundelse som §6a: naar JavaScript koerer, er skalaens tilstand
+    // sliderens og ikke afkrydsningsfelternes, og chippen tegnes derfor af
+    // assets/katalog.js med den vaerdi, laeseren faktisk har stillet paa.
+    const kun = f.skala ? '.styr:not([data-levende])' : '.styr';
     for (const v of f.liste) {
       const id = `f-${f.navn}-${nogle(v)}`;
-      valgRegler.push(`.styr:has(#${id}:checked) [data-valg="${id}"],`);
-      valgRegler.push(`.styr:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
+      valgRegler.push(`${kun}:has(#${id}:checked) [data-valg="${id}"],`);
+      valgRegler.push(`${kun}:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
     }
   }
   for (const k of K) {
@@ -393,7 +690,7 @@ export function hovedStil(ctx) {
     valgRegler.push(`.styr:not(:has(#${id}:checked)) [data-valg="skjult-${nogle(v)}"]{display:inline-flex}`);
   }
 
-  /* 5d. Sorteringen. To ting pr. sortering: kortenes orden og det aerlige
+  /* 6d. Sorteringen. To ting pr. sortering: kortenes orden og det aerlige
      savn-maerke paa dem, der ikke oplyser feltet. Alfabetisk har ingen regel -
      den er DOM-ordenen. */
   const sortering = [];
@@ -407,7 +704,7 @@ export function hovedStil(ctx) {
     if (s.note) sortering.push(`.styr:has(#sort-${s.navn}:checked) [data-note="${s.navn}"]{display:block}`);
   }
 
-  /* 5e. Omfangsmaerkerne. De taendes, naar der FAKTISK er filtreret - og kun
+  /* 6e. Omfangsmaerkerne. De taendes, naar der FAKTISK er filtreret - og kun
      uden JavaScript (`:not([data-levende])`), fordi JavaScript regner tallene
      om og goer forbeholdet usandt. Se render()s note om maerkerne.
 
@@ -451,7 +748,7 @@ ${omfang}
 }
 
 /* ==========================================================================
-   6. SIDEN
+   7. SIDEN
    ========================================================================== */
 
 export function render(ctx) {
@@ -478,7 +775,7 @@ export function render(ctx) {
   /* --- OMFANGSMAERKET ------------------------------------------------------
      Hver statisk taeller faar en efterstilling, der siger HVAD den taeller.
      Den staar `hidden` i hvile og vises kun, naar et filter er slaaet til OG
-     JavaScript ikke koerer (reglerne genereres i hovedStil §5e).
+     JavaScript ikke koerer (reglerne genereres i hovedStil §6e).
 
      Hvorfor overhovedet: tallene er regnet ved BYGGETIDEN over hele kataloget.
      Uden JavaScript kan de ikke regnes om, naar laeseren filtrerer - :has()
@@ -531,7 +828,7 @@ export function render(ctx) {
 
   /* --- STRIMLENS CHIPS ----------------------------------------------------
      Én <li> pr. mulig markering, skjult i hvile, taendt af sin egen regel
-     (hovedStil §5c). Krydset er en <label>, ikke en <button>: en label kan
+     (hovedStil §6c). Krydset er en <label>, ikke en <button>: en label kan
      slaa afkrydsningsfeltet fra UDEN JavaScript, hvilket en knap ikke kan. */
   const kryds = `<svg class="valg__kryds" width="9" height="9" viewBox="0 0 9 9" aria-hidden="true">`
     + `<path d="M1.4 1.4 7.6 7.6M7.6 1.4 1.4 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
@@ -546,6 +843,21 @@ export function render(ctx) {
     for (const v of f.liste) valgListe.push(valgChip(`f-${f.navn}-${nogle(v)}`, f.tekst(v)));
   }
   for (const k of K) valgListe.push(valgChip(`f-eg-${k.navn}`, t('eg_' + k.navn)));
+  /* SKALAERNES CHIP ER TOM I HTML OG FYLDES AF assets/katalog.js. De oevrige
+     chips kan tegnes ved byggetiden, fordi deres mulige vaerdier er en kort,
+     kendt liste; en skala har 101 stillinger, og en <li> pr. stilling ville
+     vaere 202 skjulte listeelementer i markuppen for at spare ét tekstkald.
+     Uden JavaScript staar skalaens tilstand i stedet paa traerskel-chippene
+     ovenfor, som er afkrydsningsfelter og derfor kan tegnes paa forhaand.
+     En <button> er forsvarlig her netop fordi elementet KUN findes under
+     JavaScript - modsat kryds-labelen ovenfor, der ogsaa skal virke uden. */
+  for (const f of F) {
+    if (!f.skala) continue;
+    valgListe.push(`<li class="valg valg--skala" data-valg-skala="${attr(f.navn)}" hidden>`
+      + `<span class="valg__navn" data-valg-skala-navn></span>`
+      + `<button class="valg__fjern" type="button" data-valg-skala-ryd="${attr(f.navn)}">${kryds}`
+      + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: f.etiket }))}</span></button></li>`);
+  }
   // Status vender modsat: chippen siger, hvad der er SKJULT.
   for (const v of status.liste) {
     const n = status.antal.get(v) ?? 0;
@@ -575,6 +887,83 @@ export function render(ctx) {
 <legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
 ${f.liste.map((v) => raekke(f, v)).join('\n')}
 </fieldset>`;
+
+  /* --- SKALABLOKKEN (L65c) -------------------------------------------------
+     Samme fieldset som enhver anden facet, med tre ting mere: en skala, dens
+     ridser, og en trinliste der viger for den.
+
+     SKALAEN ER IKKE-LINEAER, OG DET ER MAALT FREM, ikke valgt af smag. Paa en
+     lineaer akse fra 0 til 200 kg ville 60 af de 65 oplyste robotter ligge paa
+     de foerste 40 % af banen, og ridserne ved 5 og 10 kg ville staa 2,5 % fra
+     hinanden - ulaeselige ved enhver realistisk bredde. Aksen loeber derfor
+     gennem KNUDER (0, de fire traerskler, og datasaettets stoerste vaerdi), som
+     fordeles JAEVNT paa banen; mellem to knuder interpoleres der lineaert, saa
+     enhver mellemliggende vaerdi stadig kan stilles ind. Det er samme greb som
+     paa et manometer med sammentrykt topomraade - en aflaesning, ingen laeser
+     forveksler med en lineal, fordi ridserne staar der og siger hvad der er
+     hvor.
+
+     RIDSERNE ER TRAERSKLERNE. Det er ikke pynt: de er NOEJAGTIG de trin, den
+     JavaScript-frie udgave filtrerer i. Laeseren, der stiller skalaen paa 20,
+     staar paa den ridse, en anden laeser uden JavaScript ville have krydset af.
+     Strukturen siger altsaa noget sandt om indholdet i stedet for at
+     dekorere det.
+
+     KNUDERNE SENDES MED SOM DATA, ikke som en kopi af trin-listen i
+     assets/katalog.js. To lister, der skal vaere ens, driver fra hinanden ved
+     fjerde rettelse; her findes de kun ét sted (SKALAER) og skrives ud i
+     `data-skala-knuder`.
+
+     `hidden` PAA SKALAEN ER P0 I PRAKSIS. Et <input type=range> uden
+     JavaScript er en kontrol, der ikke goer noget - og en kontrol, der ikke
+     goer noget, er vaerre end ingen kontrol. assets/katalog.js fjerner
+     attributten; goer den det ikke, ser laeseren kun trinlisten, og den
+     virker. Samme moenster som soegefeltet og samlknappen. */
+  const skalaBlok = (f, bredde, klasser = '', noteHtml = null) => {
+    const s = f.skala;
+    const knuder = [...new Set([s.mindste, ...s.trin.filter((n) => n < s.stoerste), s.stoerste])]
+      .sort((a, b) => a - b);
+    const led = Math.max(1, knuder.length - 1);
+    const hvileTekst = t(s.retning === 'mindst' ? 'skala_hvile_mindst' : 'skala_hvile_hoejst');
+    const trinRaekker = f.liste.filter((v) => v !== 'ikke_oplyst');
+    const uoplyst = f.liste.filter((v) => v === 'ikke_oplyst');
+
+    const ridser = knuder.map((n, i) => `<span class="skala__ridse" style="left:${attr(String(Math.round((i / led) * 1e4) / 100))}%">`
+      + `<span class="skala__ridse-tal">${esc(hjaelp.nformat(n))}</span></span>`).join('');
+
+    return `<fieldset class="facet facet--s${bredde} facet--skala${klasser}">
+<legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
+
+<div class="skala" hidden
+ data-skala="${attr(s.navn)}"
+ data-skala-retning="${attr(s.retning)}"
+ data-skala-enhed="${attr(s.enhed)}"
+ data-skala-knuder="${attr(knuder.join(' '))}"
+ data-skala-afrund="${attr(String(s.skridt))}"
+ data-skala-hvile="${attr(String(s.hvile))}"
+ data-skala-hviletekst="${attr(hvileTekst)}"
+ data-skala-ord="${attr(t(s.retning === 'mindst' ? 'skala_ord_mindst' : 'skala_ord_hoejst'))}"
+ data-skala-traef-skabelon="${attr(t('skala_traef'))}">
+<p class="skala__aflaes">
+<span class="skala__ord" data-skala-visord>${esc(hvileTekst)}</span>
+<b class="skala__tal" data-skala-vistal></b>
+<span class="skala__enhed" data-skala-visenhed></span>
+</p>
+<input class="skala__greb" type="range" id="skala-${attr(s.navn)}"
+ min="0" max="100" step="1" value="${attr(String(s.retning === 'mindst' ? 0 : 100))}"
+ aria-label="${attr(f.etiket)}" aria-valuetext="${attr(hvileTekst)}">
+<p class="skala__ridser" aria-hidden="true">${ridser}</p>
+<p class="skala__traef" data-skala-traef role="status"></p>
+<p class="kunskaerm">${esc(t('skala_ridser'))}</p>
+</div>
+
+<div class="skala__trin">
+${trinRaekker.map((v) => raekke(f, v)).join('\n')}
+</div>
+${uoplyst.map((v) => raekke(f, v)).join('\n')}
+<p class="t-mikro skala__note">${noteHtml ?? esc(f.note)}</p>
+</fieldset>`;
+  };
 
   /* Egenskabsgruppen. Chippen er ÉT afkrydsningsfelt ("vis kun dem, der kan
      det"), men alle TRE tilstande staar som tal ved siden af - haard
@@ -609,7 +998,27 @@ ${f.liste.map((v) => raekke(f, v)).join('\n')}
   const vaegt = F.find((f) => f.navn === 'vaegt');
   const ip = F.find((f) => f.navn === 'ip');
   const land = F.find((f) => f.navn === 'land');
+  const nyttelast = F.find((f) => f.navn === 'nyttelast');
+  const pris = F.find((f) => f.navn === 'pris');
 
+  /* KURSENS KILDE STAAR SOM ET LINK, ikke som en paastand om en kilde.
+     Acceptkriteriet for L66 er, at kursens kilde og dato kan LAESES paa siden;
+     et link, laeseren kan foelge og selv slaa efter i, er den staerkeste form
+     for det. Det er samme greb som kildemaerket ved ethvert andet tal paa
+     siden (side.mjs:1263), og `rel` er den samme dér. */
+  const prisNoteHtml = `${esc(pris.note)} <a class="url" href="${attr(KURSER.kilde.url)}"`
+    + ` rel="nofollow noopener external">`
+    + `${esc(tf('kurs_kilde', {
+      udgiver: KURSER.kilde.udgiver,
+      navn: KURSER.kilde.navn,
+      dato: hjaelp.dformat(KURSER.kilde.dato),
+    }))}</a>`;
+
+  /* De to skalaer faar en RAEKKE FOR SIG SELV nederst, seks kolonner hver.
+     Ikke af pladshensyn: en skala er en vandret betjening, og klemt ned i tre
+     kolonner ved siden af en afkrydsningsliste ville dens bane vaere kortere
+     end dens egen aflaesning. `facet--sidste-raekke` flytter derfor HERNED fra
+     ip/status/land, som ikke laengere er nederst. */
   const facetNet = `<div class="facetter__net">
 ${facetBlok(anv, 3)}
 ${facetBlok(vaegt, 4)}
@@ -618,17 +1027,57 @@ ${facetBlok(vaegt, 4)}
 ${chipsHtml}
 <p class="chip-fod">${esc(tf('eg_fod', { n: alle, m: frost.nej, k: frostNul }))}</p>
 </fieldset>
-${facetBlok(ip, 3, ' facet--sidste-raekke')}
-${facetBlok(status, 3, ' facet--sidste-raekke')}
-${facetBlok(land, 3, ' facet--sidste-raekke')}
-<fieldset class="facet facet--s3 facet--raekkeslut facet--sidste-raekke">
+${facetBlok(ip, 3)}
+${facetBlok(status, 3)}
+${facetBlok(land, 3)}
+<fieldset class="facet facet--s3 facet--raekkeslut">
 <legend class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></legend>
 <div class="reserveret">
 <p class="reserveret__ord">${esc(t('filter_certificering_ord'))}</p>
 <p class="reserveret__note">${esc(tf('filter_certificering_note', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ja').length, m: alle }))}</p>
 </div>
 </fieldset>
+${skalaBlok(nyttelast, 6, ' facet--sidste-raekke')}
+${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
 </div>`;
+
+  /* --- DEN OMREGNEDE PRIS PAA KORTET (L66) --------------------------------
+     PRAECEDENSEN ER L60's IMPERIALE OMREGNING, og formen er med vilje den
+     samme (side.mjs' omregningsMaerke): producentens eget tal staar foerst og
+     uroert i producentens egen valuta, vores omregning staar ved siden af med
+     et synligt maerke, og hele forklaringen - kildefigur, kurs, dato - ligger
+     i `title` og i `.kunskaerm`, saa den er der for baade mus og skaermlaeser
+     uden at fylde i en 232 px celle.
+
+     TRE TING GOER MAERKET AERLIGT, og de er alle tre bevidste:
+       - `≈` foran tallet. Et lighedstegn ville paastaa, at 78.000 CNY ER
+         11.608 USD; det var det den 31. august og er det ikke i dag.
+       - ORDET "omregnet" ved siden af. Tegnet alene kan overses, og et
+         omregnet beloeb, der laeses som producentens, er praecis den
+         sammenblanding regel 3 forbyder.
+       - INTET MAERKE PAA DE FIRE USD-PRISER. Unitree og Pudu skriver selv i
+         USD; der er ingen omregning at maerke, og et maerke ville paastaa en
+         handling, vi ikke har foretaget.
+
+     Ingen "fra kun", ingen valutavaelger: haard begraensning 1. Det omregnede
+     tal er en OPLYSNING om et beloeb, producenten har trykt - ikke et tilbud,
+     og ikke en pris, siden staar inde for. */
+  const prisMaerke = (r) => {
+    const p = prisIBasis(r);
+    if (!p || !p.omregnet) return '';
+    const post = r.felter?.pris;
+    const kildefigur = `${hjaelp.nformat(post.vaerdi)} ${p.valuta}`;
+    const forklaring = tf('pris_omregnet_forklaring', {
+      figur: kildefigur,
+      basis: BASISVALUTA,
+      dato: hjaelp.dformat(KURSER.kilde.dato),
+      kurs: kursPar(i18n, sprog),
+    });
+    return `<span class="pris-om" title="${attr(forklaring)}">`
+      + `<span class="pris-om__tal" aria-hidden="true">≈ ${esc(hjaelp.nformat(p.tal))} ${esc(BASISVALUTA)}</span>`
+      + `<span class="pris-om__ord" aria-hidden="true">${esc(t('pris_omregnet'))}</span>`
+      + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
+  };
 
   /* --- KORTET -------------------------------------------------------------
      L56 punkt 7: billede + producent + produktnavn, intet andet. Katalogets
@@ -719,17 +1168,30 @@ ${facetBlok(land, 3, ' facet--sidste-raekke')}
         });
         return `<span class="kort__vaerdi kort__vaerdi--${s.navn}">`
           + `<span class="kort__vaerdi-mrk">${esc(t(s.feltnoegle))}</span>`
-          + `${figur}</span>`;
+          + `${figur}${s.navn === 'pris' ? prisMaerke(r) : ''}</span>`;
       }).join('');
 
     // Ét lag pr. listefacet, plus ÉT faelles lag til alle fem egenskabschips.
+    //
+    // SKALALAGENE BAERER ÉT ATTRIBUT MERE: robottens RAA tal (`data-*-tal`).
+    // Traersklerne i `data-nyttelast` er nok for CSS, men slideren kan staa
+    // hvor som helst mellem dem, og den skal kunne sammenligne mod det
+    // faktiske tal. Attributten udelades helt, naar robotten ikke oplyser
+    // feltet - et tomt attribut ville skulle skelnes fra "0", og det er
+    // noejagtig den sammenblanding, haard begraensning 5 forbyder. Fravaeret
+    // ER tilstanden, og assets/katalog.js laeser den som saadan.
     const egVaerdier = K.filter((k) => kapabilitet(r, k) === 'ja').map((k) => k.navn).join(' ');
     const aabne = F.map((f, i) => {
       const vaerdier = f.vaerdier(r).join(' ');
       const ekstra = i === 0
         ? ` data-sog="${attr(sogetekst)}" style="${attr(ordner)}"`
         : '';
-      return `<div class="lag lag-${attr(f.navn)}" data-${attr(f.navn)}="${attr(vaerdier)}"${ekstra}>`;
+      let raatal = '';
+      if (f.skala) {
+        const v = f.skala.tal(r);
+        if (v !== null) raatal = ` data-${attr(f.navn)}-tal="${attr(String(v))}"`;
+      }
+      return `<div class="lag lag-${attr(f.navn)}" data-${attr(f.navn)}="${attr(vaerdier)}"${raatal}${ekstra}>`;
     }).join('') + `<div class="lag lag-eg" data-eg="${attr(egVaerdier)}">`;
     // Vaerdien foerst, savnet derefter: de er gensidigt udelukkende pr.
     // sortering (én robot kan ikke baade oplyse og tie om samme felt), saa
@@ -790,8 +1252,19 @@ ${seneste.map((r) => kortHTML(r, { variant: ' kort--seneste' })).join('\n')}
   const sortervalg = SORTERINGER.map((s, i) => `<input type="radio" class="f-sort" id="sort-${attr(s.navn)}"`
     + ` name="sort" value="${attr(s.navn)}"${i === 0 ? ' checked' : ''}>`
     + `<label for="sort-${attr(s.navn)}">${esc(t(s.noegle))}</label>`).join('\n');
+  /* Sorteringens noter. Prisnoten er den eneste, der har vaerdier at indsaette
+     - kursens dato og antallet af omregnede priser - og de HENTES i stedet for
+     at staa i teksten: en dato skrevet ind i sprogfilen ville skulle rettes to
+     steder, hver gang kursen fornys, og det andet sted ville blive glemt.
+     Kildens navn og link staar i filterets prisnote, hvor der er plads til
+     dem; her staar kun datoen, saa laeseren kan se, hvor gammelt tallet er. */
+  const prisTal = robotter.filter((r) => prisIBasis(r) !== null).length;
+  const noteVaerdier = {
+    pris: { basis: BASISVALUTA, dato: hjaelp.dformat(KURSER.kilde.dato), n: prisTal },
+  };
   const sorterNoter = SORTERINGER.filter((s) => s.note)
-    .map((s) => `<p class="t-mikro sorter__note" data-note="${attr(s.navn)}">${esc(t(s.note))}</p>`).join('\n');
+    .map((s) => `<p class="t-mikro sorter__note" data-note="${attr(s.navn)}">`
+      + `${esc(noteVaerdier[s.navn] ? tf(s.note, noteVaerdier[s.navn]) : t(s.note))}</p>`).join('\n');
 
   return `<div class="rum">
 ${aabning}

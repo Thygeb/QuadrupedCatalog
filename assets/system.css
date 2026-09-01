@@ -1679,6 +1679,166 @@ td .v{font-size:15px}
   .typeskilt .skema-gruppenavn th{padding-top:0}
 }
 
+/* --- filterskala og pris (spor/filter) --------------------------------------
+   Skalaen til nyttelast (L65c) og prisen omregnet til USD (L66).
+
+   HVOR DEN LIGGER OG HVORFOR: fire spor deler system.css i denne runde, og et
+   flet i filens HALE kostede allerede en tabt klamme i dag. Blokken staar
+   derfor FOER spor/korts blok og roerer ingen eksisterende regel.
+
+   generator.css indlaeses EFTER system.css. Den kender ingen af klassenavnene
+   herunder (.skala*, .pris-om, .valg--skala) og har ingen .facet--s6, saa der
+   er intet at overskrive og ingen kaskadekamp at tabe.
+   -------------------------------------------------------------------------- */
+
+/* 1. SKALAENS PLADS I FACETGITTERET
+   Seks kolonner, fordi en skala er en VANDRET betjening: klemt ned i tre ville
+   dens bane vaere kortere end dens egen aflaesning. */
+.facetter__net .facet--s6{grid-column:span 6}
+
+/* 2. DE TO OPLOESNINGER, OG SKIFTET IMELLEM DEM (P0)
+   Skalaen staar `hidden` i HTML'en og taendes af assets/katalog.js.
+   Trinlisten gaar den modsatte vej: den staar altid, og SLUKKES foerst, naar
+   formularen har faaet `data-levende` - altsaa naar JavaScript rent faktisk
+   koerer og har overtaget filtreringen. Raekkefoelgen er med vilje den:
+   fejler scriptet halvvejs, staar trinnene tilbage, og filteret virker. */
+.skala[hidden]{display:none}
+.styr[data-levende] .skala__trin{display:none}
+
+.skala{margin:0 0 var(--r3)}
+
+/* 3. AFLAESNINGEN
+   Ordet, tallet og enheden paa én linje, tallet i pladens egen skrift og med
+   TABULAERE cifre: skalaen traekkes hen over 101 stillinger, og et tal, der
+   skifter bredde undervejs, faar hele linjen til at vippe. */
+.skala__aflaes{
+  display:flex;align-items:baseline;gap:6px;margin:0 0 6px;min-height:26px;
+}
+.skala__ord{
+  font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--blaek3);
+}
+.skala__tal{
+  font-family:var(--mono);font-size:22px;font-weight:700;line-height:1;
+  color:var(--blaek);font-variant-numeric:tabular-nums;
+}
+.skala__enhed{
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--blaek2);
+}
+
+/* 4. SELVE BANEN
+   `--f0`/`--f1` saettes af assets/katalog.js og er den DAEKKEDE del af banen i
+   procent. For "mindst" loeber den fra haandtaget og TIL HOEJRE, for "hoejst"
+   fra venstre og hen til haandtaget - saa den gule strimmel altid viser det
+   udsnit, filteret faktisk slipper igennem, og ikke bare hvor haandtaget er.
+   Uden JavaScript findes hverken banen eller variablene; standardvaerdierne
+   her er kun til, saa en halvt indlaest side ikke tegner en sort bane. */
+.skala__greb{
+  --f0:0%;--f1:100%;
+  -webkit-appearance:none;appearance:none;
+  display:block;width:100%;height:22px;margin:0;padding:0;
+  background:transparent;cursor:pointer;
+  /* Nulstillet med vilje: outline foelger elementets radius, og uden denne
+     linje tegnede fokusringen sig som en PILLE om banen (set paa
+     skaermbillede). TYPESKILT har ingen bloede kanter - heller ikke paa den
+     ene ting, der kun vises for tastaturet. */
+  border-radius:0;
+}
+.skala__greb:focus-visible{outline:2px solid var(--blaek);outline-offset:3px}
+
+/* Banen. Firkantet, to px, ingen radius - TYPESKILT har ingen bloede kanter. */
+.skala__greb::-webkit-slider-runnable-track{
+  height:2px;border:0;border-radius:0;
+  background:linear-gradient(to right,
+    var(--hegn) 0 var(--f0), var(--accent) var(--f0) var(--f1), var(--hegn) var(--f1) 100%);
+}
+.skala__greb::-moz-range-track{
+  height:2px;border:0;border-radius:0;
+  background:linear-gradient(to right,
+    var(--hegn) 0 var(--f0), var(--accent) var(--f0) var(--f1), var(--hegn) var(--f1) 100%);
+}
+
+/* Haandtaget er en STANSET KLODS, ikke en knap: et rektangel i gunmetal med
+   den indfaeldede lyskant, resten af pladen bruger. 13x22 er maalt mod
+   traerskelridserne nedenfor, saa klodsen daekker en ridse praecist, naar den
+   staar paa den. */
+.skala__greb::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:13px;height:22px;margin-top:-10px;
+  border:0;border-radius:0;background:var(--blaek);
+  box-shadow:inset 0 0 0 1px var(--stans);
+}
+.skala__greb::-moz-range-thumb{
+  width:13px;height:22px;
+  border:0;border-radius:0;background:var(--blaek);
+  box-shadow:inset 0 0 0 1px var(--stans);
+}
+
+/* 5. RIDSERNE
+   De ER traersklerne fra den JavaScript-frie udgave - ikke pynt, men den
+   grovere maalestok tegnet ind paa den fine. Aksen mellem dem er ikke-lineaer
+   (se katalog.mjs' skalaBlok), og ridserne er derfor jaevnt fordelt. */
+.skala__ridser{
+  position:relative;height:18px;margin:2px 0 0;
+}
+.skala__ridse{
+  position:absolute;top:0;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.skala__ridse::before{
+  content:"";width:1px;height:4px;background:var(--hegn);
+}
+.skala__ridse-tal{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  color:var(--stoev-blaek);font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+
+/* 6. TAELLINGEN UNDER SKALAEN
+   Siger hvad den taeller ("28 af 65 med oplyst tal"), praecis som sidens
+   oevrige statiske taellere goer. Naevneren er de OPLYSTE, ikke alle 77 - de
+   robotter, der tier, kan ikke vaere over eller under en graense. */
+.skala__traef{
+  margin:6px 0 0;font-size:12px;font-weight:600;color:var(--blaek2);
+  font-variant-numeric:tabular-nums;min-height:1em;
+}
+.skala__note{margin:8px 0 0;color:var(--blaek2)}
+.skala__note .url{color:var(--blaek2)}
+
+/* 7. STRIMLENS SKALA-CHIP
+   Findes kun under JavaScript (se katalog.mjs' valgListe), og arver alt af
+   .valg. Krydset er en <button> her og ikke en <label>, saa den skal have
+   knappens egen nulstilling. */
+.valg--skala[hidden]{display:none}
+.valg--skala .valg__fjern{
+  border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;
+}
+
+/* 8. DEN OMREGNEDE PRIS PAA KORTET (L66)
+   Samme grammatik som L60's imperiale omregningsmaerke: en daempet sidevaerdi,
+   der aldrig kan forveksles med producentens egen figur. Den staar paa EGEN
+   linje under prisen (.kort__vaerdi er allerede flex-wrap:wrap), fordi de to
+   tal ellers ville laeses som ét interval. */
+.pris-om{
+  flex:1 0 100%;display:flex;align-items:baseline;gap:5px;
+  font-variant-numeric:tabular-nums;
+}
+.pris-om__tal{
+  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--blaek2);
+}
+.pris-om__ord{
+  font-size:10px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--stoev-blaek);
+}
+
+/* 9. SMALLE SKAERME
+   Under 700 px falder facetgitteret i én kolonne (generator.css), og de to
+   skalaer foelger med. Ridsetallene er da det foerste, der bliver trangt:
+   200 og 85.000 staar i hver sin ende af en 320 px bane. */
+@media (max-width:700px){
+  .skala__ridse-tal{font-size:9px}
+  .skala__tal{font-size:20px}
+}
+
 /* --- kortets vaerdi og samlknap (spor/kort) ---------------------------------
    ÉN AFGRAENSET BLOK, SIDST I FILEN, fordi assets/system.css deles med
    spor/enhed. Ingen eksisterende regel er roert.
@@ -1690,7 +1850,8 @@ td .v{font-size:15px}
    generator.css indlaeses EFTER system.css, men den kender ingen af de fire
    klassenavne herunder, saa der er intet at overskrive.
 
-   Sorteringens vis-regler genereres i katalog.mjs (hovedStil, 5d) og staar i
+   Sorteringens vis-regler genereres i katalog.mjs (hovedStil, 6d - afsnittet
+   hed 5d, indtil spor/filter skoed en sektion ind foran) og staar i
    sidens inline <style> - altsaa efter begge filer. De vinder derfor over
    `display:none` herunder uden !important.
    -------------------------------------------------------------------------- */
