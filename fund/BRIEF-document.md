@@ -43,13 +43,24 @@ node fund/maal-doede-klasser.mjs
 wc -l DESIGN.md
 ```
 
-| Måling | Værdi | *(udfyldes ved afsendelse)* |
-|---|---|---|
-| validate | | |
-| build, sider | | |
-| tests | | |
-| ægte døde klasser | | forventes 0 efter `spor/doedcss` |
-| DESIGN.md, linjer | | var 870 den 1. sep |
+**Målt af mig på `003880f`, efter at `spor/doedcss` er flettet:**
+
+| Måling | Værdi |
+|---|---|
+| validate | 77 filer · 0 fejl · 1 advarsel |
+| build | 216 sider · 1111 tal med kilde, 0 uden |
+| tests | 1481 bestået · 0 fejlet *(kørt af mig på det flettede main)* |
+| linktjek | 0 døde interne links |
+| ægte døde klasser | **9** |
+| CSS-linjer | 3908 |
+| DESIGN.md, linjer | 870 |
+
+**Om de 9 døde klasser:** briefet til `spor/doedcss` forlangte 0, og sporet
+leverede 15 med begrundelse — fire huller i min egen definition, alle
+efterprøvet og alle holdt. Bagefter rettede jeg en fejl i målescriptet, som
+sporet havde fundet, og tallet faldt til 9. **De 9 er ikke dit ansvar. Rør
+dem ikke.** De er enten testlåste eller datastyrede; se fletbeskeden på
+`afb3b39` og `fund/FUND-doedcss.md`.
 
 **Afviger dine tal fra tabellen, så RAPPORTÉR afvigelsen. Det er en del af
 leverancen, ikke ulydighed.**
