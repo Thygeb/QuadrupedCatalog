@@ -135,6 +135,38 @@ En hypotese blev **afvist** undervejs: at skabelonens `kort__navn` og stilarkets
 
 ---
 
+## Tillæg samme dag: fem flader mere, JPK pegede på
+
+JPK sendte fem punkter og spurgte: *"Dette er alt kommet efter sonnet arbejde.
+Kan du bekræfte dette?"* **Det kan jeg ikke. Fire af fem er ældre end
+Sonnet-sporene, og den femte udfører hans egen beslutning fra i dag.**
+
+**Alle fem observationer er rigtige.** Det er kun tilskrivningen, målingen
+modsiger. De står her, fordi et fund uden en dateret oprindelse bliver
+tilskrevet det senest kørte spor, hver gang nogen kigger.
+
+| Punktet | Dommen | Oprindelse, målt med `git log -S` |
+|---|---|---|
+| *"Vælg robotter"-knappen har det gamle format* | **Rigtigt** | `.videre` er fra **21. aug** (f2d9aee), knap-primitiven fra FØR TYPESKILT. `spor/saml2` genbrugte den i dag. Katalogsiden bruger en anden klasse, `.nulstil` — **to knapgenerationer lever side om side** |
+| *Der burde være 3 knapper, én pr. robot* | **Nyt ønske, ikke en regression** | Én knap ER **L73** — JPK's egen beslutning i dag: *"Choose robots sender en tilbage til katalogsiden … også fjerne robotvælgeren nederst"*. Sporet gjorde præcis det |
+| *Kolonnerne skal være ens brede* | **Rigtigt** | Målt: **509 / 376 / 243 px**, spring **266 px**. `table-layout` er **aldrig sat nogen steder** i projektet, så tabellen kører på `auto` og bredden følger indholdet. Kolonnerne har **aldrig** været ens brede |
+| *Valg-baren er grim, kedelig og for bred* | **Rigtigt** | `.strimmel`, **31. aug** (d049725 + b144cce), TYPESKILT-arbejdet — efter L45 **Opus**, samme kilde som kortrammen ovenfor. Målt: **1352 × 59 px**, mørk `#22262A`, og i hvile bærer den kun `VALGT · 74 AF 77 · NULSTIL` |
+| *Fod-sætningen er pludselig dukket op* | **Malplaceret ja, ny nej** | `side.mjs:2086` udsender `taethed_forklaring` i **foden** på **107 sider**. Den har stået der siden **19. aug** (a81c327) — projektets ALLERFØRSTE pipeline-commit. **13 dage gammel.** Ingen test dækker den |
+
+**Fod-sætningen er den skarpeste af de fem, fordi den er en klassefejl:**
+*"Hvor mange af skemaets felter producenten selv oplyser. Det måler
+producentens åbenhed, ikke robottens kvalitet."* er en **forklaring på
+tæthedsmålet** (`24 af 33 felter oplyst`) — den hører ved tallet, ikke i foden
+ved siden af forhandler-forbeholdet. Sådan som den står nu, læses den som en
+udtalelse om sitet.
+
+**Hvorfor JPK ser den nu og ikke før:** L72 slettede forsiden og gjorde
+kataloget til sprogroden i dag. Han lander derfor på andre sider end før, og
+foden kommer i syne i en ny sammenhæng. **Det er værd at kende som mønster: en
+navigationsændring afslører gammelt indhold og får det til at ligne nyt.**
+
+---
+
 ## Genkør målingerne
 
 Serveren skal køre på 8080 fra projektroden. **Skriv det forventede tal, før du
