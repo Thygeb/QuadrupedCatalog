@@ -549,8 +549,11 @@ a.daek__sprogkode::after{
    forveksles med et hul. Faar ingen daempning, ingen stiplet kant. */
 .v-nul{color:var(--blaek)}
 
-/* NEJ — et SVAR. Versaler, spatieret, udfyldt firkant. Fuld blaek. */
-.v-nej{font-size:.62em;font-weight:700;text-transform:uppercase;letter-spacing:.13em;
+/* NEJ — et SVAR. Versaler, spatieret, udfyldt firkant. Fuld blaek.
+   FAST SATS (spor/samlvaelg): var .62em. Se noten ved .v-ikke nedenfor —
+   em'en lod satsen svinge med den arvede skrift, og 10,5 px er den vaerdi,
+   afsnit 14b allerede havde bestemt for netop denne tilstand. */
+.v-nej{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;
   color:var(--blaek)}
 .v-nej .mrk{width:9px;height:9px;background:var(--blaek);flex:none;align-self:center}
 
@@ -561,18 +564,86 @@ a.daek__sprogkode::after{
   background:var(--blaek);box-shadow:inset 0 0 0 2px var(--panel),inset 0 0 0 3px var(--blaek)}
 
 /* IKKE OPLYST — et HUL. Minuskler, lille, daempet flade, stiplet hegn.
-   Aldrig usynligt, aldrig lige saa stort som et tal. */
-.v-ikke{font-size:.46em;font-weight:500;letter-spacing:.01em;color:var(--blaek3);
-  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--rund-lille);
-  padding:3px 9px 4px;align-items:center}
+   Aldrig usynligt, aldrig lige saa stort som et tal.
+
+   FAST SATS OG OMREGNETS KASSE (spor/samlvaelg). JPK: "'NOT STATED' font og
+   kasse er for stort. Brug samme format som 'CONVERTED'."
+
+   AARSAGEN VAR `em`. Satsen var .46em og svingede derfor med den arvede
+   skrift, mens .omregnet (linje ~1660) er laast til 9 px. Maalt paa
+   /en/sammenligning/ foer aendringen:
+       .v-ikke i matricen   16 px      .omregnet   9 px
+       .v-ikke i laesenoeglen 7,82 px  (under sitets eget 8 px-gulv)
+   Samme chip stod altsaa i to stoerrelser med en faktor 2 imellem, paa
+   samme side. Kassen fulgte med: 3px 9px 4px og 6 px radius mod
+   .omregnets 1px 5px og 2 px.
+
+   KASSEN er nu .omregnets: samme padding, samme radius, samme stiplede
+   hegn. SATSEN er 11 px, ikke .omregnets 9 px - det er en bevidst afvigelse
+   fra en bogstavelig laesning af "samme format", og begrundelsen er, at
+   afsnit 14b allerede havde bestemt 11 px for netop denne tilstand i
+   .raekke/td, og holder et gulv paa 10,5 px. Katalogsiden og robotsiden
+   staar allerede i 11 px; 9 px ville have flyttet DEM i stedet, og et hul
+   er en VAERDI (det staar hvor et tal skulle staa), mens "omregnet" er en
+   fodnote paa et tal. Se den maalte tabel i commit-beskeden.
+
+   DEN BEVIDST BEVAREDE FORSKEL TIL .omregnet er det 9x9 px STIPLEDE
+   KVADRAT (.mrk nedenfor). Hvorfor netop det, og ikke vaegt eller farve:
+   det er STRUKTURELT, ikke typografisk, saa det overlever enhver
+   skriftstoerrelse, ethvert zoom og ethvert sprog, og det ses ogsaa af en
+   laeser, der ikke kan skelne 9 fra 11 px. Vigtigere: kvadratet er sitets
+   TRE-TILSTANDS-ALFABET - .v-nej har et FYLDT kvadrat, .v-ja et aabent med
+   fyldt kerne, .v-ikke et STIPLET. Sloejfede man det, ville haard
+   begraensning 5 briste mellem de tre tilstande indbyrdes, ikke bare mellem
+   "ikke oplyst" og "omregnet". Og .omregnet kan aldrig faa et: det er en
+   fodnote paa et tal, ikke et svar.
+   Sekundaert bevaret: minuskler (mod .omregnets versaler) og den daempede
+   flade (mod .omregnets gennemsigtige). */
+.v-ikke{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--blaek3);
+  background:var(--tom);border:1px dashed var(--hegn);border-radius:2px;
+  padding:1px 5px;align-items:center}
 .v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn);flex:none}
 
 /* KUN VIST PAA BILLEDE — fjerde tilstand. Halvt fyldt firkant, kursiveret
    ord, ingen daempet flade: oplysningen FINDES, den staar bare ikke skrevet. */
-.v-billede{font-size:.46em;font-weight:500;color:var(--blaek2);align-items:center}
+/* FAST SATS (spor/samlvaelg), samme aarsag og samme vaerdi som .v-ikke:
+   de to er samme familie og staar i 11 px i .raekke/td i forvejen. */
+.v-billede{font-size:11px;font-weight:500;color:var(--blaek2);align-items:center}
 .v-billede .ord{font-style:italic}
 .v-billede .mrk{width:9px;height:9px;flex:none;border:1px solid var(--blaek2);
   background:linear-gradient(90deg,var(--blaek2) 0 50%,transparent 50%)}
+
+/* --- tilstandene i sammenligningsmatricen (spor/samlvaelg) ----------------
+   Den faste sats ovenfor er ikke nok i matricen, og det er en kaskadesag,
+   ikke en smagssag. generator.css:719 saetter
+
+       .saml-raekke__celle .v{font-size:16px}
+
+   som er TO klasser (0,0,2,0) og dermed slaar baade tilstandenes egne regler
+   (0,0,1,0) OG afsnit 14b's `td .v-ikke{font-size:11px}` (0,0,1,1) - og
+   generator.css indlaeses EFTER system.css, saa selv et uafgjort ville tabe.
+   Alle fire tilstande arvede derfor 16 px: praecis samme sats som tallet.
+
+   MAALT paa /en/sammenligning/ foer rettelsen:
+       .v-tal 16 px (83 stk) · .v-ikke 16 px (21) · .v-ja 16 px (4)
+   Et hul, et ja og et maalt tal saa altsaa ud som tre lige tunge ting i
+   samme tabel. Det er haard begraensning 5's fejltilstand, ikke kun JPK's
+   "for stort" - og det er samme fejl, afsnit 14b beskriver og loeser ét lag
+   laengere nede, og som generator.css:947 allerede loeser paa robotsiden med
+   `:not(...)`.
+
+   Reglerne her genindsaetter 14b's EGNE vaerdier (11 px / 10,5 px) med
+   (0,0,2,1) - ét element mere end den generiske regel. Ingen nye tal er
+   opfundet, og .v-tal beholder sine 16 px, for VAERDIEN skal vaere stoerst.
+
+   .v-ja staar med, selv om den ikke var naevnt i mit filejerskab: den deler
+   basisregel og udseende med .v-nej, og at rette den ene og lade den anden
+   staa i 16 px ville have set ud som en fejl i stedet for en rettelse.
+   Kun matrix-satsen roeres - .v-ja's egen regel er uroert. */
+td.saml-raekke__celle .v-ikke,
+td.saml-raekke__celle .v-billede{font-size:11px}
+td.saml-raekke__celle .v-nej,
+td.saml-raekke__celle .v-ja{font-size:10.5px}
 
 /* Lastbetingelse og andre forbehold haenger paa vaerdien, ikke ved siden af. */
 .forbehold{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--blaek3);
