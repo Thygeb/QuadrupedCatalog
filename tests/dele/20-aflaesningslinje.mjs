@@ -295,13 +295,59 @@ export default async function koer(ctx) {
   ok(`forbeholdene er ikke forsvundet: ${stykkerMedForbehold} stykker baerer mindst ét forbehold (raa .kunskaerm: ${kunskaermIAlt})`,
     stykkerMedForbehold >= Object.values(FLADEGULV).reduce((a, b) => a + b, 0),
     `fandt ${stykkerMedForbehold}`);
-  /* De to kortflader skal have NUL - ikke fordi nul er godt, men fordi det er
-     den besluttede tilstand, og en dag hvor striben er tilbage, skal disse
-     linjer tvinge nogen til at laese noten ovenfor. */
-  for (const navn of ['katalogindeks', 'producent']) {
-    ok(`${navn} baerer ingen forbehold (kortet viser ingen tal)`,
-      forbeholdPrFlade[navn] === 0, `fandt ${forbeholdPrFlade[navn]}`);
+  /* Producentfladen skal have NUL - ikke fordi nul er godt, men fordi det er
+     den besluttede tilstand, og en dag hvor striben er tilbage, skal denne
+     linje tvinge nogen til at laese noten ovenfor. */
+  ok('producent baerer ingen forbehold (kortet viser ingen tal)',
+    forbeholdPrFlade.producent === 0, `fandt ${forbeholdPrFlade.producent}`);
+
+  /* KATALOGINDEKSET ER VENDT 1. sep 2026 (spor/kort). Linjen herover stod til
+     og med 31. aug ogsaa for katalogindekset og kraevede NUL. Den daekkede
+     dengang en sand tilstand - kortet viste ingen tal - og den gjorde praecis
+     sit arbejde: JPK besluttede 1. sep 2026, at det SORTEREDE felt skal staa
+     paa kortet, og testen tvang beslutningen frem i lyset i stedet for at
+     lade tallene komme tilbage ubemaerket.
+
+     KRAVET ER IKKE SAENKET, DET ER FLYTTET OG STRAMMET. Et gulv paa
+     `forbeholdPrFlade.katalogindeks` ville vaere en daarlig vagt: STYKKE_START
+     deler paa <li>, .raekke og .yderpunkt-krop, og katalogkortet er ingen af
+     dem - hele resten af siden er derfor ÉT stykke, saa tallet er 2 (ét pr.
+     sprog), uanset om 1 eller 185 vaerdier baerer et forbehold. Det maaler
+     ikke det, vi vil vaerne om.
+
+     Derfor taelles forbeholdene her INDE I .kort__vaerdi, hvor de hoerer til.
+     MAALT 1. sep 2026 paa 77 robotter x 2 sprog:
+       vaerdier 370 · med forbehold 258 · med kildemaerke 280
+     De 90 uden kildemaerke er de 45 udgivelsesaar x 2 sprog: `foerste_udgivelse`
+     er et bart tal i skemaet uden `kilde:`, saa der er intet at pege paa - og
+     et hul uden kilde skal netop ikke faa et maerke, det ikke har daekning for.
+     Gulvene er saat under de maalte tal, saa en ny robot ikke knaekker testen,
+     men et TAB goer. */
+  const vaerdiForbehold = { vaerdier: 0, medForbehold: 0, medMaerke: 0 };
+  for (const sti of sider.filter((f) => bred(f) === 'katalogindeks')) {
+    const html = fs.readFileSync(sti, 'utf8');
+    const kort = html.split('<article class="kort">').slice(1)
+      .map((x) => x.slice(0, x.indexOf('</article>')));
+    for (const x of kort) {
+      const idx = [...x.matchAll(/<span class="kort__vaerdi kort__vaerdi--(\w+)">/g)];
+      idx.forEach((m, i) => {
+        const start = m.index + m[0].length;
+        const savnStart = x.indexOf('<span class="kort__savn', start);
+        const slut = i + 1 < idx.length ? idx[i + 1].index
+          : (savnStart >= 0 ? savnStart : x.length);
+        const seg = x.slice(start, slut);
+        vaerdiForbehold.vaerdier++;
+        if (seg.includes('forbehold--skjult')) vaerdiForbehold.medForbehold++;
+        if (seg.includes('class="kildemaerke')) vaerdiForbehold.medMaerke++;
+      });
+    }
   }
+  ok(`katalogkortet viser igen tal: ${vaerdiForbehold.vaerdier} vaerdier i .kort__vaerdi (gulv 300, maalt 370 den 1. sep 2026)`,
+    vaerdiForbehold.vaerdier >= 300, `fandt ${vaerdiForbehold.vaerdier}`);
+  ok(`og tallene baerer deres forbehold med: ${vaerdiForbehold.medForbehold} af ${vaerdiForbehold.vaerdier} (gulv 200, maalt 258)`,
+    vaerdiForbehold.medForbehold >= 200, `fandt ${vaerdiForbehold.medForbehold}`);
+  ok(`og deres kildemaerke: ${vaerdiForbehold.medMaerke} af ${vaerdiForbehold.vaerdier} (gulv 240, maalt 280 - resten er udgivelsesaar uden kilde i skemaet)`,
+    vaerdiForbehold.medMaerke >= 240, `fandt ${vaerdiForbehold.medMaerke}`);
 
   /* 3. Kildebogstaverne, pr. flade. Ikke alle kort KAN baere et maerke - et
      felt uden `kilde:` i YAML'en faar ingen, og det er den rigtige opfoersel
