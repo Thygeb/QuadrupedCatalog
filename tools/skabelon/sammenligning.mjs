@@ -410,16 +410,26 @@ function faellesForstavelse(strenge) {
 }
 
 /**
- * Stempelblokken - samme form og samme i18n-noegler som katalogsidens
- * typeskilt (tools/skabelon/katalog.mjs' `stempler`), saa de to plader
- * laeses som samme serie. `QUAD-${n}` er IKKE opfundet her: den streng er
- * katalogsidens etablerede typebetegnelse, genbrugt ordret.
+ * Stempelblokken - kun UDGAVE.
  *
- * "Udgave" er den seneste hentedato i hele kataloget - et MAALT tal, udledt
- * af data, ikke en byggedato. Samme udledning som katalog.mjs.
+ * Fjernede FOER 27. sep 2026 (spor/tal, punkt 2): Type, Poster og Felter var
+ * genbrugt fra katalogsidens typeskilt (tools/skabelon/katalog.mjs'
+ * `stempler`) under de SAMME i18n-noegler - men "Felter" betød her
+ * NAEVNER (30, skemaets feltantal), mens den samme noegle `stempel_felter`
+ * andre steder paa sitet (katalogsiden, foer spor/katalog2; om-os' regnskab)
+ * betyder ANTAL OPLYSTE FELTVAERDIER (et tal i tusind-omraadet). Samme ord,
+ * to stoerrelsesordener - en fejlmaerkning, ikke en uenighed (maalt
+ * 1. sep 2026, spor/tal). Type og Poster (robotter.length) var ikke i sig
+ * selv forkerte, men stod i samme <dl> som Felter og var lige saa lette at
+ * laese forkert paa tvaers af siderne.
+ *
+ * Tilbage staar kun Udgave - den seneste hentedato i hele kataloget, et
+ * MAALT tal udledt af data, ikke en byggedato. Den bruger ingen delt
+ * i18n-noegle, der ogsaa betyder noget andet et andet sted, og kan derfor
+ * ikke fejlmaerkes paa samme maade.
  */
 function stempelblokHTML(ctx) {
-  const { robotter, i18n, hjaelp } = ctx;
+  const { robotter, i18n } = ctx;
   const { t } = i18n;
   const datoer = [];
   for (const r of robotter) {
@@ -431,10 +441,7 @@ function stempelblokHTML(ctx) {
   }
   const udgave = datoer.length ? datoer.sort()[datoer.length - 1] : '';
   const stempler = [
-    [t('stempel_type'), `QUAD-${robotter.length}`],
     [t('stempel_udgave'), udgave],
-    [t('stempel_poster'), hjaelp.nformat(robotter.length)],
-    [t('stempel_felter'), hjaelp.nformat(NAEVNER)],
   ];
   return `<dl class="stempler">
 ${stempler.map(([n, v]) => `<div class="stempel"><dt>${esc(n)}</dt><dd>${esc(v)}</dd></div>`).join('\n')}
