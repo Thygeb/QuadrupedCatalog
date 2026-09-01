@@ -695,10 +695,17 @@ export function hovedStil(ctx) {
     valgRegler.push(`.styr:has(#${id}:checked) [data-valg="${id}"],`);
     valgRegler.push(`.styr:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
   }
-  /* Status vender modsat: chippen fortaeller, hvad der er SKJULT. I hvile er
-     "Udgaaede skjult (3)" derfor den ene chip, der staar - praecis som compen. */
+  /* Status vender modsat: chippen fortaeller, hvad der er SKJULT - men KUN
+     for de vaerdier, standardtilstanden VISER (status.standard). For dem er
+     "unchecked" en aktiv AFVIGELSE fra standarden - et rigtigt valg. For
+     "udgaaet" (IKKE i standard) er "unchecked" derimod standarden selv -
+     ingen brugerhandling kan naa den tilstand, kun VAEK fra den. En chip
+     her ville altsaa vise noget, ingen har valgt (spor/valgbar, JPK 1. sep
+     2026: "baren skal KUN vise aktive filtre"). "74 af 77" forklares i
+     stedet af facet__tal i den (altid synlige) <summary> - se facetBlok(). */
   const status = F.find((f) => f.navn === 'status');
   for (const v of status.liste) {
+    if (!status.standard.has(v)) continue;
     const id = `f-status-${nogle(v)}`;
     valgRegler.push(`.styr:not(:has(#${id}:checked)) [data-valg="skjult-${nogle(v)}"]{display:inline-flex}`);
   }
@@ -879,10 +886,16 @@ export function render(ctx) {
       + `<button class="valg__fjern" type="button" data-valg-skala-ryd="${attr(f.navn)}">${kryds}`
       + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: f.etiket }))}</span></button></li>`);
   }
-  // Status vender modsat: chippen siger, hvad der er SKJULT.
+  // Status vender modsat: chippen siger, hvad der er SKJULT - men KUN for de
+  // vaerdier, standardtilstanden viser. Se hovedStil()s begrundelse: en
+  // vaerdi der er skjult SOM STANDARD (i dag "udgaaet") faar aldrig en chip
+  // her, for dens "unchecked" er aldrig et brugervalg. Klassen er derfor
+  // almindelig "valg" - naar chippen VISER sig, er den altid en aktiv
+  // afvigelse, ikke et stille standardmaerke (spor/valgbar, JPK 1. sep 2026).
   for (const v of status.liste) {
+    if (!status.standard.has(v)) continue;
     const n = status.antal.get(v) ?? 0;
-    valgListe.push(`<li class="valg valg--standard" data-valg="skjult-${attr(nogle(v))}">`
+    valgListe.push(`<li class="valg" data-valg="skjult-${attr(nogle(v))}">`
       + `<span class="valg__navn">${esc(tf('valg_skjult', { navn: status.tekst(v), n }))}</span>`
       + `<label class="valg__fjern" for="f-status-${attr(nogle(v))}">${kryds}`
       + `<span class="kunskaerm">${esc(tf('valg_vis', { navn: status.tekst(v) }))}</span></label></li>`);
