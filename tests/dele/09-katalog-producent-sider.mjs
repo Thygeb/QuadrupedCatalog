@@ -3,9 +3,10 @@
  * paa en indekstype:
  *  - spor/kort: katalogkortets fodnote og EU/CE-maerke er vaek, og forsidens
  *    CE-saetning staar stadig med to udledte tal (L32).
- *  - K11+K12: producentoversigten har tre kolonner (ikke land+antal klistret
- *    sammen), og dens beregnede fordelingssaetning matcher en uafhaengig
- *    optaelling af proevedatasaettet.
+ *  - K11+K12: producentoversigten har fire kolonner (ikke land+antal klistret
+ *    sammen) - tre til og med spor/prodindeks (1. sep 2026), som lagde
+ *    modelnavnene i en fjerde .prod-navne-celle - og dens beregnede
+ *    fordelingssaetning matcher en uafhaengig optaelling af proevedatasaettet.
  *
  * Bygger sin egen kopi af tests/eksempel-robotter, uafhaengigt af de andre
  * dele, saa denne fil kan koeres og laeses for sig.
@@ -55,7 +56,7 @@ export default async function koer(ctx) {
       ceMatch ? `fandt "${ceMatch[1]} af ${ceMatch[2]}"` : 'ingen eu-fund-tal fundet paa forsiden');
   }
 
-  console.log('\nK11 + K12. Producentoversigten: tre kolonner + beregnet fordelingssaetning');
+  console.log('\nK11 + K12. Producentoversigten: fire kolonner + beregnet fordelingssaetning');
   {
     // IKKE producent.mjs's egne hjaelpefunktioner (landefordeling/producentSaetning),
     // saa testen er en uafhaengig efterregning af det byggede resultat, ikke et
@@ -66,21 +67,27 @@ export default async function koer(ctx) {
     const prodIndeksDa = fs.readFileSync(path.join(dist, 'da', 'producenter', 'index.html'), 'utf8');
     const prodIndeksEn = fs.readFileSync(path.join(dist, 'en', 'producenter', 'index.html'), 'utf8');
 
-    // K11: tre adskilte celler pr. raekke - IKKE land og modeltal klistret
+    // K11: fire adskilte celler pr. raekke - IKKE land og modeltal klistret
     // sammen i én <dd>-streng ("Kina 13 modeller", saadan stod det foer punkt
-    // 1). Rulles aendringen tilbage til .raekker/.raekke, forsvinder <table>
-    // og <td> helt, og testen fejler paa antallet (0 != forventet).
+    // 1). Fjerde celle (.prod-navne) kom med spor/prodindeks, 1. sep 2026 -
+    // se tests/dele/49-producentindeks.mjs for selve modelkolonnens egne
+    // paastande (kilde, rekkefoelge, "ikke oplyst"). Rulles aendringen
+    // tilbage til .raekker/.raekke, forsvinder <table> og <td> helt, og
+    // testen fejler paa antallet (0 != forventet).
     const trIAlt = (prodIndeksDa.match(/<tr>/g) || []).length;
     const tdAntal = (prodIndeksDa.match(/<td[ >]/g) || []).length;
     const figurTdAntal = (prodIndeksDa.match(/<td class="figur">/g) || []).length;
+    const navneTdAntal = (prodIndeksDa.match(/<td class="prod-navne">/g) || []).length;
     const forventetRaekker = fixtureProducenter.size;
-    ok(`K11: producentoversigten har ${forventetRaekker} datarækker med tre <td> hver, `
-      + `modeltallet højrestillet med .figur `
-      + `(fandt ${trIAlt - 1}/${forventetRaekker} <tr>, ${tdAntal}/${forventetRaekker * 3} <td>, `
-      + `${figurTdAntal}/${forventetRaekker} <td class="figur">)`,
-      trIAlt - 1 === forventetRaekker && tdAntal === forventetRaekker * 3
-      && figurTdAntal === forventetRaekker
-      && /<th scope="col" class="figur">/.test(prodIndeksDa));
+    ok(`K11: producentoversigten har ${forventetRaekker} datarækker med fire <td> hver, `
+      + `modeltallet højrestillet med .figur, modelnavnene i en fjerde .prod-navne-celle `
+      + `(fandt ${trIAlt - 1}/${forventetRaekker} <tr>, ${tdAntal}/${forventetRaekker * 4} <td>, `
+      + `${figurTdAntal}/${forventetRaekker} <td class="figur">, `
+      + `${navneTdAntal}/${forventetRaekker} <td class="prod-navne">)`,
+      trIAlt - 1 === forventetRaekker && tdAntal === forventetRaekker * 4
+      && figurTdAntal === forventetRaekker && navneTdAntal === forventetRaekker
+      && /<th scope="col" class="figur">/.test(prodIndeksDa)
+      && /<th scope="col" class="prod-navne">/.test(prodIndeksDa));
 
     // K12: den beregnede fordelingssaetning baerer TAL, der matcher en
     // UAFHAENGIG optaelling af proevedatasaettet (Set af producentnavne pr.

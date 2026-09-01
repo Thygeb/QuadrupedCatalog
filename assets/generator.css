@@ -1167,6 +1167,41 @@
 .prod-tabel th:nth-child(2),.prod-tabel td:nth-child(2){width:20ch}
 .prod-tabel th:last-child,.prod-tabel td:last-child{width:12ch}
 
+/* --- producentindeks (spor/prodindeks) ---
+   Punkt 1, 1. sep 2026: JPK bad om en fjerde kolonne med modelnavnene efter
+   Antal (tools/skabelon/producent.mjs's hovedkommentar ved renderIndeks).
+   Den kolonne var kun markup i mellemtilstanden 685e888; her faar den sin
+   CSS. To ting fra 3-kolonne-aeraen ovenfor skal RETTES, ikke lades uroert:
+
+   - th:last-child/td:last-child{width:12ch} (linjen lige over) fulgte foer
+     .figur, fordi .figur DENGANG var sidste barn i DOM'en. Nu er .prod-navne
+     sidst, saa :last-child rammer DEN i stedet - ogsaa naar den er skjult
+     under 900px, for display:none flytter ikke DOM-positionen. .figur mister
+     dermed sin smalle bredde, og .prod-navne faar den forkert. Rettet ved at
+     give .figur sin egen eksplicitte bredde tilbage og .prod-navne fri
+     bredde, saa 390px-visningen bliver den, den var foer dette spor.
+   - .prod-tabel a{color:var(--accent)} (linje 1164) gaelder alle links i
+     tabellen, producentnavnet inklusive. For ni GENISOM AI-modellers navne i
+     traek ville accentfarven vaere for hoej vaegt paa hvert enkelt navn.
+     Kun cellen daempes til --blaek3; cellens EGNE links loefter sig til
+     fuld --blaek (ikke accent), saa kommaerne mellem navnene traeder
+     tilbage af sig selv uden at faa deres egen klasse (producent.mjs's
+     egen begrundelse, mellemtilstandens hovedkommentar).
+   - .figur's padding-right:0 (linje 1166) forudsatte, at .figur var sidste
+     kolonne - der var intet efter, som skulle skilles fra. Nu staar
+     .prod-navne lige efter, med samme 0-venstre-polstring som alle andre
+     celler (linje 1159's shorthand), saa tallet og det foerste modelnavn
+     ville staa klaebet sammen ("2Trakr 5") uden en eksplicit venstrepolstring
+     her - maalt paa det foerste skaermbillede, foer denne linje blev
+     tilfoejet. */
+.prod-tabel td.figur,.prod-tabel th.figur{width:12ch}
+.prod-tabel td.prod-navne,.prod-tabel th.prod-navne{width:auto;padding-left:var(--r4)}
+.prod-tabel td.prod-navne{color:var(--blaek3)}
+.prod-tabel td.prod-navne a{color:var(--blaek)}
+@media (max-width:899px){
+  .prod-tabel th.prod-navne,.prod-tabel td.prod-navne{display:none}
+}
+
 /* Den beregnede fordelingssaetning under overskriften (spor/producent, punkt
    2, 26. aug 2026) - samme brede maal som t-broed andre steder, saa linjen
    ikke straekker sig over hele .rum's 1440px og bliver svaer at laese. */

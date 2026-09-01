@@ -428,5 +428,7 @@
   "pris_omregnet_forklaring": "Our conversion of {figur} to {basis} at the European Central Bank reference rate for {dato}: {kurs}. The manufacturer does not state an amount in {basis} itself, so the conversion has no source of its own, and it was true only on that day.",
   "pris_kurs_par": "1 EUR = {tal} {valuta}",
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
-  "kurs_kilde": "Rate: {udgiver}, {navn}, {dato}."
+  "kurs_kilde": "Rate: {udgiver}, {navn}, {dato}.",
+
+  "prod_antal": "Count"
 }
