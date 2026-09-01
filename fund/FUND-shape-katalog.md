@@ -1,151 +1,342 @@
 # FUND-shape-katalog — designplan for katalogsiden
 
 **Spor:** `spor/shape` · **Dato:** 1. sep 2026 · **Skill:** `impeccable shape`, mode `Operate`
-**Type:** refinement, ikke redesign. D15's palette og skrifter og L40's INSTRUMENT-retning er låst
-og røres ikke af nogen post her.
+**Type:** refinement, ikke redesign.
 
-Alle tal i dette dokument er målt af sporet selv på `dist/` bygget fra `spor/shape` (main-HEAD
-`ddbf9ad`), serveret på port 8165, verificeret mod disken med md5 før første tal blev brugt.
-Målescripts ligger i sessionens scratchpad (`shape-geometri.mjs`, `shape-brug2.mjs`,
-`shape-skrift.mjs`) — uden for repoet, jf. løftet om en afhængighedsfri generator.
+Alle tal er målt af sporet selv på `dist/` bygget fra `spor/shape` (main-HEAD `ddbf9ad`), serveret
+på port 8165, verificeret mod disken med md5 før første tal blev brugt. Målescripts ligger i
+sessionens scratchpad (`shape-geometri.mjs`, `shape-brug2.mjs`, `shape-skrift.mjs`,
+`shape-type.mjs`) — uden for repoet, jf. løftet om en afhængighedsfri generator.
+
+> **Læs §1 først.** Opslaget i STATUS.md ændrede planen efter første udkast. Katalogsidens åbning
+> er ikke et frit designvalg — den er besluttet af JPK for to dage siden, låst af fem tests, og
+> dens egen accepterende måling er brudt. Det flytter §5 fra et byggeforslag til et beslutningsoplæg.
 
 ---
 
 ## 0. Grundmåling
 
 ```
-tools/validate.mjs   77 filer · 0 fejl · 1 advarsel   (advarslen er ghost-robotics-vision-60,
-                                                       R9-afvigelse — den lå der i forvejen)
+tools/validate.mjs   77 filer · 0 fejl · 1 advarsel  (ghost-robotics-vision-60, R9 — laa der i forvejen)
 tools/build.mjs      218 sider · 1110 tal med kilde, 0 uden
+tests/koer.mjs       1434 bestaaet, 0 fejlet
 ```
 
-**Afvigelse fra briefet:** briefet siger "213 byggede sider". Det faktiske tal er **218**.
-Ikke en fejl — kataloget er vokset. Nævnt her, fordi et hårdkodet sidetal i et fremtidigt
-acceptkriterium ville blive forkert igen ved næste robot.
+De 1434 er det tal, ethvert spor i §7 skal måle mod — og §7's Spor 1 er det eneste, der lovligt
+må ændre det, fordi det vender assertions om i stedet for at slette dem.
+
+**Afvigelse fra briefet:** briefet siger 213 sider. Faktisk **218**. Ikke en fejl — kataloget er
+vokset. Nævnt, fordi et hårdkodet sidetal i et fremtidigt acceptkriterium bliver forkert igen ved
+næste robot (D7/L30-fælden).
 
 ---
 
-## 1. Opgaven, den besøgende faktisk har
+## 1. Det, opslaget i STATUS.md ændrede
+
+CLAUDE.md's regel — *slå altid efter i Lukket-tabellen, før noget bygges, og afkort aldrig den
+søgning* — blev kørt som `grep -n -i "nyeste\|aabning\|seneste udgivelses\|net--seneste" STATUS.md`
+uden `head`. Den gav fire poster, og de omskriver planen.
+
+### 1.1 Briefets retningsangivelse er forældet
+
+Briefet siger *"D15 låste paletten og skrifterne"* og *"L40 valgte retningen INSTRUMENT"*.
+
+**Begge er omgjort.** Å61/**L54**, besluttet af JPK 31. aug 2026, ordret:
+*"HELE UI'ET REDESIGNES, og både D15 og L40 er omgjort … JPK fik D15 og L40 vist og valgte
+'alt falder — palette, skrifter, retning' … de gamle verdener (VITRINE/**INSTRUMENT**/REGISTER) er
+**anti-reference**, ikke genbrugsmateriale."*
+
+Den gældende retning er **TYPESKILT** (L57, godkendt 31. aug; Å90: *"hele sitet står i
+TYPESKILT-retningen"*). Manifestet er `retninger/nyverden/MANIFEST.md`.
+
+**Betydningen for planen er begrænset og skal siges præcist:** briefets *liste* over farver og
+skrifter er **rigtig** — Eloxgrå `#E8EBED`, Gunmetal `#22262A`, Afmærkningsgul `#F2C400`, Støvgrå
+`#9AA3A9`, Støv-blæk `#5F686F`, Saira Semi Condensed og Literata er nøjagtigt TYPESKILTs palette.
+Kun *attributionen* er forældet. Forbuddet mod at foreslå nye farver og skrifter står derfor
+uændret, og ingen post her rører dem. Men **"INSTRUMENT" må ikke citeres som retning i et
+byggebrief** — det er nu anti-reference, og en agent, der læser briefet ordret, bygger mod en
+verden, projektet har forladt.
+
+### 1.2 TYPESKILTs egen tese styrer filterblokken
+
+> *"**Filtret er ikke et sidepanel. Det er pladen, kataloget er boltet på.** … Derfor ligger
+> filtret som en fuldbredde plade **i første skærm**, ikke i en venstreskinne. Det er ikke et
+> redskab ved siden af indholdet; det **er** indholdet, indtil læseren har valgt."*
+> — `retninger/nyverden/MANIFEST.md`
+
+To ting følger:
+
+1. **Venstreskinnen er udelukket af retningen**, ikke kun af min måling. Det fravalg i §3 er
+   dermed ikke mit — det er truffet.
+2. **Pladen skal ligge i første skærm.** Målt i dag: filterpladen begynder ved **y = 858** (1440 px)
+   og **y = 1470** (390 px). Ved 390 px ligger den 1,7 skærmhøjder nede. **Retningens egen tese er
+   ikke opfyldt på den byggede side.**
+
+Retningen afviser desuden udtrykkeligt *"SaaS-filterskuffen med bløde pill-chips"*. Ethvert
+forslag om filterets form skal derfor formuleres i pladens sprog — stansede felter og riller — og
+ikke som chips i en skuffe. §3 er skrevet om efter det.
+
+### 1.3 Åbningssektionen er besluttet af JPK — to gange, inden for to dage
+
+| Post | Dato | Hvad JPK besluttede |
+|---|---|---|
+| **Å73** | 31. aug | *"**UDVIDET samme dag med en LANDING/HERO-SEKTION, bestilt af JPK:** øverst på katalogsiden, over filtret … med præsentation af de seneste modeller."* |
+| **L69** | 1. sep | *"h1 bliver **'Nyeste i kataloget'** (den navngiver i dag ikke sin egen sektion)"* — afgjort i popup |
+
+Sektionen er altså **ikke** et uovervejet levn. Den er bestilt, og dens overskrift er valgt
+personligt af JPK i går. **Et forslag om at fjerne den er et forslag om at omgøre en beslutning,
+der er to dage gammel** — præcis den dyreste fejl, CLAUDE.md advarer imod.
+
+Den er desuden **låst af fem tests**, som koder beslutningerne:
+
+| Test | Låser |
+|---|---|
+| `tests/dele/35-typeskilt-katalog.mjs:171` (35.18) | *"aabningen findes og er sat af robotkort"* — kræver `class="aabning__krop` med `<article class="kort kort--seneste">` |
+| 35.19 · 35.20 | åbningen skal sige, hvor mange der oplyser et årstal, og nævne de 32, der ikke gør |
+| `tests/dele/48-katalogets-flader.mjs:67-71` (48.1, 48.2) | `h1.aabning__titel` skal ordret være `i18n.katalog_seneste_titel` |
+
+Per projektreglen *"Ret assertions, slet dem ikke"* kan ingen af dem slettes — de skal vendes om,
+og det kræver en ny beslutning først.
+
+### 1.4 Men: D20 er ikke lukket, og dens egen måling er brudt
+
+Det er her opslaget bliver værdifuldt frem for blot begrænsende.
+
+**D20** (`STATUS.md:116`) er ordret mit spors spørgsmål:
+
+> **"skal katalogsiden åbne med robotterne i stedet for betjeningen?"**
+> Rejst af `impeccable critique` 28. aug 2026. **Målt grundlag: første `.kort` begynder ved
+> y = 993 px ved 1440×900 og y = 1820 px ved 390.**
+
+D20 blev **ikke besvaret**. Den blev udsat: *"OPSLUGT AF L54 … besvares af redesignets nye verden
+… de lukkes, når verdenen er valgt."* Og Å73 gav heroen en udtrykkelig betingelse:
+
+> *"sporet skal måle y-positionen for første robotkort før og efter ved 1440 og 390 —
+> **den var 993 px og 1820 px, da kritikken rejste sagen, og heroen må ikke gøre tallet værre**."*
+
+**Målt af mig i dag:**
+
+| | D20's grundlag (28. aug) | Betingelsen (Å73) | **Målt nu** | Ændring |
+|---|---:|---|---:|---:|
+| Første `.kort`, 1440 px | 993 px | må ikke blive værre | **1582 px** | **+589 px (+59 %)** |
+| Første `.kort`, 390 px | 1820 px | må ikke blive værre | **2908 px** | **+1088 px (+60 %)** |
+
+> **Heroen blev bestilt med én betingelse, og betingelsen er brudt i begge bredder.**
+
+Det er ikke en indvending mod JPK's beslutning. Det er beslutningens **eget** acceptkriterium,
+målt og fundet ikke-opfyldt. D20 er derfor de facto stadig åben, og §5 er skrevet som et
+beslutningsoplæg til JPK i stedet for et byggespor.
+
+**Én omstændighed forklarer, hvorfor netop denne del skred.** Å73 siger det selv:
+*"**Compen har INGEN aabning, saa formen er** … sporet fortolker her, hvor det ellers har en
+kontrakt."* Åbningen er det eneste element på fladen, som TYPESKILT aldrig tegnede. Alt andet blev
+bygget mod en comp; denne blev fortolket.
+
+### 1.5 En utilsigtet konflikt, jeg ikke kan afgøre
+
+D15 og L44 siger begge, at sorteringskontrollen skal være *"tæthed/vægt/alfabetisk — **aldrig
+'nyeste'**"*. Den byggede side har `<input value="dato">` = **"Udgivelsesår, nyeste først"**.
+
+L54 omgjorde D15 i sin helhed (*"alt falder"*), og JPK bestilte derefter selv en sektion om *"de
+seneste modeller"* — så "nyeste" er i praksis sanktioneret af den nyere og mere specifikke
+beslutning. Men **"aldrig nyeste" er aldrig udtrykkeligt trukket tilbage for sorteringskontrollen.**
+Jeg kan ikke afgøre, om det er en bevidst følge af L54 eller en overset rest. **Forelæg det for
+JPK sammen med §5** — det er ét spørgsmål, og det koster ingenting at stille.
+
+---
+
+## 2. Opgaven, den besøgende faktisk har
 
 ### De tre kandidater
 
 | | Opgave | Hvem, ifølge PRODUCT.md |
 |---|---|---|
-| **A** | Finde ÉN robot, hvis navn man kender | Teknisk indkøber (sekundær), ankommer fra en søgning på en model |
-| **B** | Indsnævre til et krav — nyttelast, IP-klasse, pris | Teknisk indkøber (sekundær), "skal kunne afvise mange modeller hurtigt" |
-| **C** | Orientere sig i feltet uden mål | Nysgerrig fagperson (**primær**), ankommer uden et modelnavn |
+| **A** | Finde ÉN robot, hvis navn man kender | Teknisk indkøber (sekundær) |
+| **B** | Indsnævre til et krav — nyttelast, IP, pris | Teknisk indkøber (sekundær) |
+| **C** | Orientere sig i feltet uden mål | Nysgerrig fagperson (**primær**, L31) |
 
-Den naive læsning er: C er den primære brugers opgave, altså vinder C. **Den læsning er forkert,
-og det er planens vigtigste enkeltbeslutning at sige hvorfor.**
+Den naive læsning er "C vinder, fordi C's persona er primær". Den er forkert, og det er planens
+vigtigste enkeltbeslutning at sige hvorfor.
 
 PRODUCT.md's succeskriterium for den primære læser er ikke "browse". Det er ordret: *"kan på få
 minutter få et retvisende billede af feltet — hvor mange producenter, hvilke typer robotter, hvad
-de kan"*. **Det er ikke en tredje flade. Det er det ufiltrerede gitter af 77 kort, set som det
-ligger.** C kræver altså ingen egen komponent overhovedet — den er fladens hviletilstand.
+de kan"*. **Det er ikke en tredje komponent. Det er det ufiltrerede gitter af 77 kort, set som det
+ligger.** C kræver ingen egen sektion — den er fladens hviletilstand.
+
+D20 formulerer den samme indsigt fra den anden side, og skarpere end jeg gjorde i første udkast:
+
+> *"fladen er bygget **Operate**, men **L31 gjorde den nysgerrige fagperson primær**, og hun
+> ankommer **Read** — uden modelnavn, **uden at kunne bruge ét eneste af de 30 filtre, før hun har
+> set, hvad feltet består af**."*
+
+Det er en dokumenteret konflikt med mit eget brief, som siger *"Fladens MODE er Operate"*. Begge
+er sande: fladen **er** Operate, og den primære besøgende **ankommer** Read. De to forliges ikke ved
+at vælge en mode, men ved at bemærke, at de peger samme vej: **hun skal se robotterne, før
+betjeningen kan bruges** — og robotterne er gitteret.
 
 ### Den valgte prioritet
 
 > **B er layoutets drivende opgave. C er fladens standardtilstand og kræver ingen egen sektion.
 > A løses af ét felt, ikke af et layout.**
 
-Begrundelsen er ikke en smagsdom om hvem der er vigtigst, men en strukturel forskel mellem de tre:
+- **B er den eneste af de tre, der kræver interaktion**, og derfor den eneste, hvor afstanden
+  mellem betjening og virkning er et layoutproblem. A og C er læseopgaver — de tåler afstand. B
+  går i stykker ved afstand, og den er i stykker i dag (§3).
+- **B er det, sitet er unikt bygget til.** 1.110 kildebelagte tal og "ikke oplyst" som filtrerbar
+  tilstand findes for B's skyld. PRODUCT.md: *"derfor skal 'ikke oplyst' være en synlig og
+  filtrerbar tilstand … uanset hvilken af de to læsere der ser den."*
+- **A er den billigste at indfri og den dårligst indfriede.** Søgefeltet ligger på y = 1069
+  (1440) og y = 1851 (390). Ét greb lukker A helt.
 
-- **B er den eneste, der kræver interaktion**, og derfor den eneste, hvor afstanden mellem
-  betjeningen og dens virkning er et layoutproblem. A og C er *læse*opgaver — de tåler afstand.
-  B går i stykker ved afstand, og den er i stykker i dag (målt i §2).
-- **B er det, sitet er unikt bygget til.** 1.110 kildebelagte tal og "ikke oplyst" som en
-  filtrerbar tilstand findes for B's skyld. PRODUCT.md's Operating Context siger det direkte:
-  *"derfor skal 'ikke oplyst' være en synlig og filtrerbar tilstand … uanset hvilken af de to
-  læsere der ser den"*.
-- **A er den billigste at indfri og den dårligst indfriede i dag.** Søgefeltet ligger på
-  y = 1069 (1440 px) og y = 1851 (390 px). Ét greb — flyt det over folden — lukker A helt.
+**Fravalgt:** C som layoutdriver (ville bevare en redaktionel indgang oven på kataloget — den
+findes allerede på `/da/`). A som layoutdriver (ville gøre fladen til et søgefelt med en liste
+under, og kaste de 1.110 tal væk).
 
-**Hvad prioriteten koster.** Den nysgerrige fagperson mister en kurateret "her er det nye"-indgang.
-Det er en reel pris, og den betales i §5, hvor funktionen genopstår som en sortering på ét gitter
-i stedet for et gitter nummer to.
-
-**Fravalgt:** C som layoutdriver (ville bevare en redaktionel forside oven på kataloget — den
-findes allerede på `/da/`, og en anden på `/da/robotter/` er den samme side to gange). A som
-layoutdriver (ville gøre fladen til et søgefelt med en liste under — det kaster de 1.110 tal væk,
-som er hele grunden til at siden findes).
+**Prisen ved prioriteten:** den nysgerrige fagperson mister en kurateret indgang. §5 betaler den
+tilbage — funktionen består, formen ændres.
 
 ---
 
-## 2. Det, målingerne viser — udgangspunktet
+## 3. Filterpladen — svaret på 109 px-spørgsmålet
 
-### 2.1 Den lodrette orden ved 1440 px
+### 3.1 Hvorfor "mindre polstring" og "større tekst" begge er forkerte svar
 
-| Landmark | y (top) | højde |
+Begge er rigtige isoleret set og løser ingenting: 24 → 16 px sparer 144 px af 326, og etiketten fra
+11 → 13 px æder det meste igen. Man ender med samme form, lidt strammere.
+
+**Formen er problemet.** En sammenfoldet filtergruppe er en **kontrol**, og den bærer ét ord. Sitet
+har allerede et kontrolsprog med målt højde: søgefeltet 44 px, `<summary>` 44 px, `.udtraek__greb`
+44 px. En kontrol med ét ord skal have en kontrols højde, ikke et korts. **109 px er et kort.**
+
+### 3.2 Men højden er ikke den dyre fejl
+
+| | `.facetter__net` | `section.resultat` begynder |
 |---|---:|---:|
-| `header.daek` | 0 | 61 |
-| `section.aabning` — "Nyeste i kataloget" | 61 | **797** |
-| `h1.aabning__titel` | 109 | 45 |
-| `.net--seneste` (9 kort) | 317 | 541 |
-| `section.plade` — "Filtrér kataloget" | 858 | **602** |
-| `.plade__hoved` (titel + brødtekst) | 890 | 121 |
-| `input#sog-katalog` — **søgefeltet** | 1090 | 44 |
-| `.facetter__net` (de ni celler) | 1134 | **326** |
-| `h2.resultat__titel` — "74 robotter …" | 1518 | **14** |
-| `.net` — **første katalogkort** | **1582** | 4094 |
+| Alle grupper lukkede | 326 px | y = 1460 |
+| **Én gruppe åbnet** ("Anvendelse") | **607 px** | **y = 1740** |
 
-### 2.2 Samme flade ved 390 px
+Cellen vokser fra 109 til **390 px**, og resultatet flytter **280 px længere ned** i samme øjeblik,
+den besøgende gør det, hun kom for. Tælleren — den eneste kvittering — er en **14 px høj, 99 px
+bred** overskrift, der efter åbningen står på y = 2046, mens filteret, der lige blev sat, står på
+y = 1610: **436 px fra hinanden, begge under folden.**
 
-| Landmark | y (top) |
-|---|---:|
-| `section.aabning` | 108 → 1470 (**1362 px høj**) |
-| `input#sog-katalog` | **1851** |
-| `.facetter__net` | 1895 (835 px høj) |
-| **første katalogkort** | **2908** |
+> **I Operate-mode er det fladens definerende fejl: betjening og virkning kan ikke ses samtidig.**
 
-**Det tal, planen hænger på:** på en 390 × 844-telefon skal den besøgende rulle **2908 px — 3,4
-skærmhøjder — før hun ser den første af de 77 robotter**, og **1851 px (2,2 skærmhøjder) før hun
-ser søgefeltet.** Ved 1440 px er tallene 1582 px og 1069 px.
+### 3.3 Forslag F1 — pladen beholder sine stansede felter, men de bliver felter, ikke kort
 
-### 2.3 Rettelser til briefets tal
+**Formuleret i TYPESKILTs eget sprog, ikke som en SaaS-filterskuffe (som retningen afviser).**
 
-Briefets målinger er efterprøvet. To skal justeres, én bekræftes helt:
+**Hvad der ændres.** De ni `<details>` holder op med at være celler i et 4-kolonners kortgitter og
+bliver **stansede felter på én række i pladen** — samme fuldbredde-plade, samme riller, samme
+gunmetal på elox. Hver `<summary>` beholder sine 44 px og sin `+`/`−`-markør. Panelet, den åbner,
+lægger sig som et **indfældet felt oven på pladen** — `position:absolute` i feltets egen kontekst —
+i stedet for at være et flow-element, der skubber kataloget væk.
 
-| Briefet siger | Målt her | Kommentar |
-|---|---|---|
-| Filterblokkens højde **326 px** | `.facetter__net` = **326 px** ✓ · men hele `section.plade` = **602 px** | 326 er kun cellegitteret. Overskrift (121) + søgefelt (65) + luft lægger 276 px oveni. Det er de 602, den besøgende betaler |
-| Celle 109 px × 9, polstring 24 px, summary 44 px, etiket 11 px / 1,87 px spor | **Bekræftet præcist**, alle fem tal | 7 celler på 109, 2 på 108 (nyttelast, pris) |
-| Kolonnegrænser `{334, 668, 1337}` m.fl. | Målt venstrekanter `{44, 382, 720, 1058}`, højrekanter `{382, 720, 1058, 1396}` | Samme fænomen, anden nulpunkt. Gitteret er 4 kolonner à 338 px, **gap 0** — cellerne støder direkte op til hinanden |
-| Rækkefølge: "filterblok → søgefelt" | **Søgefeltet ligger INDE i filterblokken**, mellem dens overskrift (y=890) og cellegitteret (y=1134) | Betyder noget for §5: søgefeltet kan flyttes ud uden at røre filtrene |
-| 89 forskellige padding-værdier, 81 rå px, 48 token-erklæringer | **110 unikke værdier · 221 erklæringer · 96 med `var(--rN)` (43 %) · 125 uden** | Højere, fordi jeg tæller begge stilark og medregner shorthand-kombinationer (`var(--r4) var(--r5)` tælles som én værdi). Metoden står i §7 |
-| 55 skriftstørrelser i stilarkene | På **denne flade, renderet**: **20 unikke ved 1440 px, 21 ved 390 px** | Fladens eget tal er det brugbare. Se §4 |
-| 213 byggede sider | **218** | Kataloget er vokset |
+Tre konsekvenser, et byggebrief skal bære:
 
-### 2.4 To fund, briefet ikke kendte
+1. `.plade__krop` har `overflow:hidden` (`assets/generator.css:1261`). **Et overlejrende panel
+   klippes af den.** Reglen skal ændres for filterbeholderen. `impeccable`s Operate-reference
+   nævner præcis den fælde ved navn: *"An absolutely positioned dropdown inside an overflow:hidden
+   ancestor gets clipped."*
+2. **P0 er urørt.** `<details>`/`<summary>` **er** den JavaScript-fri popover. Filtrering forbliver
+   ren CSS med `:has()`. Intet i forslaget gør en filtrering afhængig af JavaScript.
+3. Ved 390 px ombryder rækken til 3–4 rækker à 44 px (~150–190 px) mod dagens **835 px**.
 
-**FUND 1 — "Nyeste i kataloget" filtrerer aldrig med.** Målt ved at tælle synlige kort i
-`.net--seneste` og i `.net` hver for sig gennem tre tilstande:
+**Hvad det koster læseren, hvis vi ikke gør det.** Hun kan ikke se, om hendes afkrydsning virkede,
+uden at rulle — og hver ny afkrydsning flytter svaret længere væk, så det bliver værre, jo mere hun
+arbejder.
 
-| Tilstand | Kort i "Nyeste" | Kort i gitteret | Tælleren siger |
-|---|---:|---:|---|
-| Uden filter | **9** | 74 | "74 robotter i standardvisningen" |
-| `+ Inspektion` | **9** | 40 | "40 robotter i standardvisningen" |
-| Søgning `"spot"` | **9** | **1** | "1 robot i standardvisningen" |
+**Hvordan man måler, at det virkede.**
+```
+node <scratchpad>/shape-geometri.mjs http://localhost:<port>/da/robotter/ 1440
+```
+Færdig, når `facetter__net.h ≤ 96` med alt lukket (fra 326) **og** `resultat.top` er **uændret**,
+når én gruppe åbnes (i dag 1460 → 1740). **Det andet kriterium er det vigtige** — det første kan
+snydes med polstring alene.
+*Ekstra kriterium fra retningen (§1.2):* pladen skal begynde i første skærm — `plade.top < 844`
+ved 390 px (i dag **1470**). Det kriterium kan først opfyldes, når §5 er afgjort.
 
-Efter en søgning på "spot" viser fladens øverste 1470 px (390 px) **ni kort, hvoraf intet er et
-træf**, mens det ene rigtige træf — Boston Dynamics Spot — ligger på **y = 1863**. Skærmbilledet
-taget umiddelbart efter søgningen er visuelt **identisk** med skærmbilledet før: intet på folden
-antyder, at der er søgt. To kortgitre med samme kortdesign på samme side, hvor det ene adlyder
-filteret og det andet ikke gør, læses som en fejl — ikke som en redaktionel sektion.
+### 3.4 Forslag F2 — tælleren følger med
 
-*Kontrafaktisk:* adlød blokken filteret, ville tallet 9 falde i mindst én af de tre tilstande.
-Det gør det ikke i nogen af dem.
+**Hvad der ændres.** `h2.resultat__titel` bliver fladens ene tydelige kvittering og **klæber**,
+mens pladen er i brug.
 
-**FUND 2 — sektionen duplikerer en kontrol, der allerede findes.** Gitteret har i forvejen
-`<input type="radio" value="dato">` med etiketten **"Udgivelsesår, nyeste først"**. Hele den
-797 px høje åbning gør altså det samme som en radioknap 700 px længere nede — og gør det
-dårligere: den kan ikke slås fra, den ignorerer filteret, og den viser kun den *seneste årgang*
-i stedet for en ordning. Sektionens egen note indrømmer grundlaget:
-*"Udgivelsesår er oplyst for 45 af 77 modeller. De 32 øvrige oplyser intet årstal."*
-Fladen åbner på en akse, der mangler for **42 %** af kataloget.
+Mekanismen findes og er efterprøvet: `.klaebebar` (`position:fixed`, 50 px) blev målt i drift efter
+at have valgt to robotter — den viste `"As2 · As2-W  Åbn sammenligningen  Ryd udvalget"`. Den skal
+ikke opfindes, kun bære et tal mere. **L67 gav den til sammenligningsudvalget; at give den
+resultattallet er en udvidelse af en truffet beslutning — forelæg den, byg den ikke uspurgt.**
 
-**FUND 3 — `--sans` opløses til styresystemets skrift.** `--sans` er stadig
+**Hvad det koster læseren, hvis vi ikke gør det.** Kvitteringen for hendes eneste handling er
+usynlig 436 px væk.
+
+**Hvordan man måler.** Sæt et filter ved 1440 px: tælleren skal have `top i viewport < 900` uanset
+rulleposition. I dag `taellerY = 2046` absolut, ude af syne.
+
+### 3.5 Fravalgt: venstreskinnen
+
+Filtre i en klæbende venstrekolonne ville løse samvisningen strukturelt og er den mest oplagte
+Operate-form. **Fravalgt af retningen, ikke af mig:** TYPESKILTs tese siger ordret *"ikke i en
+venstreskinne"*. Dertil kommer to målte omkostninger: gitteret mister ~350 px bredde (5 kort­kolonner
+falder til 4 ved 1440 px), og mobilen kræver alligevel en anden form — man bygger to i stedet for én.
+
+---
+
+## 4. Typografisk hierarki på fladen
+
+### 4.1 Målt
+
+**20 unikke skriftgrader ved 1440 px, 21 ved 390 px** (briefets 55 er stilarkenes tal; fladens eget
+er det brugbare). Fordelingen er sagen:
+
+| Spænd | Trin | Noder |
+|---|---:|---|
+| 52 · 44 · 34 · 27 · 25 px | 5 | **1 node hver** — fem displaygrader, hver brugt præcis én gang |
+| 17 px | 1 | 97 |
+| **15 → 8 px** | **14** | 15 · 14,5 · 14 · 13,5 · 13 · 12,5 · 12 · 11,5 · 11 · 10,5 · 10 · 9,52 · 9,5 · 8 |
+
+**Fjorten grader på syv pixels.** 13,5 mod 13 mod 12,5 mod 12 kan ikke skelnes, så trinene bærer
+ingen betydning og koster kun sammenhæng. I den anden ende har hver overskrift sin egen størrelse.
+
+**Brud på projektets eget skriftgulv.** DESIGN.md: *"10,5 px er skriftgulvet i hele systemet."*
+Å60 melder desuden "skriftgulv 8 px" som flettet. Målt i dag: 10 px (3 noder), 9,52 px (`.enhed`),
+**9,5 px (92 noder** — `.kort__saml-ord "Sammenlign"`, `.kort__mrk "Annonceret"`**)** og **8 px**
+(`.kildemaerke` — kildebogstaverne A/B, `assets/system.css:725`). Gulvet står altså på 8, ikke 10,5.
+
+### 4.2 Forslag T1 — seks trin
+
+`impeccable`s Operate-reference: *"Tighter scale ratio. 1.125–1.2 between steps is typical."* Med 20
+grader er problemet dog antallet, ikke forholdet. Seks trin, forhold ~1,25, og **fem af de seks
+værdier findes allerede** — kun 21 er ny:
+
+| Trin | Rolle på katalogsiden | Erstatter |
+|---:|---|---|
+| **34** | Sidens ene `h1` | 52 · 44 · 34 |
+| **27** | Sektionsoverskrift (der er to) | 27 · 25 |
+| **21** | Tælleren — fladens kvittering (F2) | *ny* |
+| **17** | Kortnavn og brødtekst | 17 |
+| **13** | Metadata, prosa, tællinger | 15 · 14,5 · 14 · 13,5 · 13 · 12,5 |
+| **11** | Etiketter, versaler, kontrolnavne | 12 · 11,5 · 11 · 10,5 · 10 · 9,5 |
+
+**Én navngiven undtagelse:** `.kildemaerke` er en **superskrift**, ikke tekst i skalaen —
+`font-size:max(8px,.34em)`. Den forbliver en superskrift, men gulvet hæves fra 8 til **10 px**. At
+tvinge den ind i skalaen ville gøre et fodnotemærke lige så stort som etiketten, det hænger på.
+
+**Risiko, briefet skal kende:** 9,5 → 11 px gør `"SAMMENLIGN"` og `"ANNONCERET"` bredere på hvert
+kort (92 noder). Kortet er 269,6 px bredt ved 1440 og **178,5 px ved 390**. **Mål ombrydningen ved
+390 px, før trinnet lukkes** — det er dér, det knækker, hvis det knækker.
+
+**Hvad det koster læseren, hvis vi ikke gør det.** Skriftgraden holder op med at være et signal:
+hun kan ikke aflæse, hvad der er etiket og hvad der er værdi, og må læse ordene for at finde ud af
+det. På en flade med 1.110 tal er det forskellen på at skimme og at læse.
+
+**Hvordan man måler.** `shape-type.mjs`. Færdig, når den lister **≤ 7 grader** ved både 1440 og
+390 px (seks trin + superskriften), mod 20/21 i dag.
+
+### 4.3 Forslag T2 — luk skriftmigreringen
+
+**Målt (FUND, briefet ikke kendte).** `--sans` er stadig
 `"Manrope lokal", Manrope, "Segoe UI Variable Text", …`, og Manrope har intet `@font-face` mere.
-Målt med canvas-bredden af samme teststreng:
+Canvas-bredden af samme teststreng:
 
 | Kandidat | Bredde |
 |---|---:|
@@ -155,223 +346,108 @@ Målt med canvas-bredden af samme teststreng:
 | Literata | 233,31 |
 | system-ui | 226,54 |
 
-`document.fonts` indeholder præcis to familier: SairaSemiCondensed (400/500/600/700) og Literata.
-Alt på `--sans` — herunder `body` (17 px, 97 noder) og `.t-h2` (34 px, "Sådan læses tallene") —
-renderes altså i **styresystemets** skrift, ikke i en projektskrift, og ser derfor forskellig ud
-på macOS og Windows. Det er ikke et brud på D15 (D15 låser Saira og Literata, og begge er i drift);
-det er en **uafsluttet migrering**, som gør en Operate-flades vigtigste dyd — konsistens — afhængig
-af besøgendes styresystem.
+`document.fonts` indeholder præcis to familier: SairaSemiCondensed og Literata. **Alt på `--sans`
+— herunder `body` (17 px, 97 noder) og `.t-h2` (34 px, "Sådan læses tallene") — renderes i
+styresystemets skrift** og ser derfor anderledes ud på macOS end på Windows.
 
----
+Det er **ikke** et brud på TYPESKILT: begge retningens skrifter er i drift. Det er en **uafsluttet
+migrering** — `system.css:147` erkender den selv (*"'Manrope lokal' har intet @font-face-modstykke
+længere … falder derfor bare videre i stakken"*) og kalder den *"en gyldig, uskadt CSS-tilstand"*.
+Målingen siger noget andet: den er gyldig, men ikke uskadt, fordi den gør en Operate-flades
+vigtigste dyd — konsistens — afhængig af den besøgendes styresystem.
 
-## 3. Filterblokkens form — svaret på 109 px-spørgsmålet
-
-### Hvorfor "mindre polstring" og "større tekst" begge er forkerte svar
-
-Begge er rigtige isoleret set og løser ingenting: 24 px → 16 px sparer 144 px af 326, og etiketten
-fra 11 px → 13 px æder det meste igen. Man ender med den samme form, lidt strammere.
-
-**Formen er problemet.** En sammenfoldet filtergruppe er en **kontrol**. Den bærer ét ord. Sitet
-har allerede et kontrolsprog med en målt højde: søgefeltet er 44 px, `<summary>` er 44 px,
-`.udtraek__greb` er 44 px. En kontrol, der bærer ét ord, skal have **en kontrols højde**, ikke et
-korts. 109 px er et kort. Ni kort à 109 px for ni ord er en kortmetafor uden last — nøjagtigt som
-briefet formulerer det.
-
-Men det afgørende er ikke højden. Det er, at **det at åbne en gruppe skubber svaret længere væk**:
-
-| | `.facetter__net` | `section.resultat` starter |
-|---|---:|---:|
-| Alle grupper lukkede | 326 px | y = 1460 |
-| **Én gruppe åbnet** ("Anvendelse") | **607 px** | **y = 1740** |
-
-Cellen vokser fra 109 til **390 px**, og resultatet flytter **280 px længere ned** i samme
-øjeblik, den besøgende gør det, hun kom for. Og tælleren — den eneste kvittering for handlingen —
-er en **14 px høj, 99 px bred** overskrift, der efter åbningen står på y = 2046, mens det filter,
-der lige blev sat, står på y = 1610: **436 px fra hinanden, begge under folden.**
-
-> **I Operate-mode er det fladens definerende fejl: betjening og virkning kan ikke ses samtidig.**
-
-### Forslag F1 — filterlinjen (anbefalet)
-
-**Hvad der ændres.** De ni `<details>` holder op med at være celler i et 4-kolonners kortgitter og
-bliver **knapper på en ombrydende linje**. Hver `<summary>` beholder sine 44 px og sin
-`+`/`−`-markør; panelet, den åbner, lægger sig som et **overlejrende felt under knappen** —
-`position:absolute` i knappens egen kontekst — i stedet for at være et flow-element, der skubber.
-
-Tre konsekvenser, som et byggebrief skal bære:
-
-1. `.plade__krop` har i dag `overflow:hidden` (`assets/generator.css:1261`). **Et overlejrende
-   panel bliver klippet af den.** Reglen skal ændres for filterbeholderen. Det er ikke en
-   detalje — `impeccable`s Operate-reference nævner præcis denne fælde ved navn.
-2. **P0 er urørt.** `<details>`/`<summary>` er den JavaScript-fri popover. Filtrering forbliver
-   ren CSS med `:has()`. Intet i forslaget gør en filtrering afhængig af JavaScript.
-3. Ved 390 px er en linje af ni knapper stadig en linje — den ombryder til 3–4 rækker à 44 px
-   (~150–190 px) mod dagens 835 px.
-
-**Hvad det koster læseren, hvis vi ikke gør det.** Hun kan ikke se, om hendes afkrydsning virkede,
-uden at rulle — og hver ny afkrydsning flytter svaret længere væk, så det bliver værre, jo mere
-hun arbejder.
-
-**Sådan måles det.**
-```
-node <scratchpad>/shape-geometri.mjs http://localhost:<port>/da/robotter/ 1440
-```
-Færdig, når: `facetter__net.h ≤ 96` med alle grupper lukkede (fra 326), **og**
-`resultat.top` er **uændret**, når én gruppe åbnes (i dag: 1460 → 1740).
-Det andet kriterium er det vigtige — det første kan snydes med polstring alene.
-
-### Forslag F2 — tælleren følger med
-
-**Hvad der ændres.** `h2.resultat__titel` ("74 robotter i standardvisningen", i dag 14 px høj)
-bliver den ene tydelige kvittering på fladen og **klæber**, mens filterlinjen er i brug.
-
-Mekanismen findes allerede og er efterprøvet: `.klaebebar` (`position:fixed`, 50 px høj) blev
-målt i drift efter at have valgt to robotter — den viste `"As2 · As2-W  Åbn sammenligningen
-Ryd udvalget"`. Den skal ikke opfindes, den skal genbruges til et tal mere.
-
-**Hvad det koster læseren, hvis vi ikke gør det.** Kvitteringen for hendes eneste handling er
-usynlig 436 px væk.
-
-**Sådan måles det.** Sæt et filter ved 1440 px og mål: tælleren skal have
-`top i viewport < 900` uanset rulleposition. I dag: `taellerY = 2046` absolut, ude af syne.
-
-### Fravalgt: venstreskinnen
-
-Filtre i en klæbende venstrekolonne, resultater til højre, ville løse samvisningen *strukturelt* og
-er den mest oplagte Operate-form. **Fravalgt af to grunde:** den koster gitteret ~350 px bredde
-(5 kortkolonner falder til 4 på 1440 px), og den kræver alligevel en helt anden mobiludgave — så
-man bygger to former i stedet for én. F1 + F2 giver den samme samvisning med ét design.
-
----
-
-## 4. Typografisk hierarki på fladen
-
-### Målt
-
-**20 unikke skriftgrader ved 1440 px, 21 ved 390 px.** Fordelingen er det interessante:
-
-| Spænd | Trin | Noder |
-|---|---:|---|
-| 52, 44, 34, 27, 25 px | 5 | **1 node hver** — fem displaygrader, hver brugt præcis én gang |
-| 17 px | 1 | 97 |
-| **15 → 8 px** | **14** | 15 · 14,5 · 14 · 13,5 · 13 · 12,5 · 12 · 11,5 · 11 · 10,5 · 10 · 9,52 · 9,5 · 8 |
-
-**Fjorten grader på syv pixels.** 13,5 mod 13 mod 12,5 mod 12 er ikke et hierarki — læseren kan
-ikke se forskel, så trinene bærer ingen betydning og koster kun sammenhæng. Og i den anden ende
-har fem displaygrader én node hver: hver overskrift på fladen har sin egen størrelse.
-
-To brud på projektets egne skrevne regler:
-- **DESIGN.md siger: *"10,5 px er skriftgulvet i hele systemet."*** Målt: 10 px (3 noder),
-  9,52 px (`.enhed`, enhedssuffikser), 9,5 px (92 noder — `.kort__saml-ord "Sammenlign"`,
-  `.kort__mrk "Annonceret"`) og **8 px** (`.kildemaerke`, kildebogstaverne A/B).
-- 8 px bæres af **kildemærket** — det element, der bærer sidens kerneløfte om at hvert tal har
-  en kilde.
-
-### Forslag T1 — seks trin
-
-`impeccable`s Operate-reference: *"Tighter scale ratio. 1.125–1.2 between steps is typical."*
-Med 20 grader er problemet dog ikke forholdet, det er antallet. Seks trin, forhold ~1,25, og
-**fem af de seks værdier findes allerede på fladen** — kun 21 er ny:
-
-| Trin | Rolle på katalogsiden | Erstatter |
-|---:|---|---|
-| **34** | Sidens ene `h1` | 52, 44, 34 |
-| **27** | Sektionsoverskrift (der er to) | 27, 25 |
-| **21** | Tælleren — fladens ene kvittering (§3, F2) | *ny* |
-| **17** | Kortnavn og brødtekst | 17 |
-| **13** | Metadata, prosa, tællinger i filtre | 15 · 14,5 · 14 · 13,5 · 13 · 12,5 |
-| **11** | Etiketter, versaler, kontrolnavne | 12 · 11,5 · 11 · 10,5 · 10 · 9,5 |
-
-**Én navngiven undtagelse:** `.kildemaerke` er en **superskrift**, ikke tekst i skalaen —
-`font-size:max(8px,.34em)` (`assets/system.css:725`). Den skal blive en superskrift, men gulvet
-hæves fra 8 til **10 px**. At tvinge den op i skalaen ville gøre et fodnotemærke lige så stort
-som den etiket, det hænger på.
-
-**Risiko, et byggebrief skal kende:** 9,5 → 11 px gør `"SAMMENLIGN"` og `"ANNONCERET"` bredere på
-hvert kort (92 noder). Kortet er 269,6 px bredt ved 1440 px og 178,5 px ved 390 px. **Mål
-ombrydningen ved 390 px, før trinnet lukkes** — det er dér, det knækker, hvis det knækker.
-
-**Hvad det koster læseren, hvis vi ikke gør det.** Fjorten grader mellem 8 og 15 px betyder, at
-skriftgraden holder op med at være et signal: hun kan ikke aflæse, hvad der er en etiket, og hvad
-der er en værdi, og må læse ordene for at finde ud af det. På en flade med 1.110 tal er det
-forskellen på at skimme og at læse.
-
-**Sådan måles det.** Genkør `shape-type.mjs` (i scratchpad). Færdig, når den lister
-**≤ 7 grader** ved både 1440 og 390 px (seks trin + superskriften), mod 20/21 i dag.
-
-### Forslag T2 — luk skriftmigreringen
-
-**Hvad der ændres.** `--sans` peges på en projektskrift i stedet for at falde igennem til
-styresystemet (FUND 3). Dette er **ikke** et forslag om en ny skrift — D15's to skrifter er de
-eneste kandidater, og begge er allerede selvhostede. Det er et valg mellem to eksisterende:
-Saira til `body` (én familie, som Operate-referencen anbefaler) eller Literata, hvor prosaen
-allerede står. **Valget hører til orkestratorens bord, ikke sporets** — det er en
-identitetsbeslutning, ikke en oprydning.
+**Hvad der ændres.** `--sans` peges på en projektskrift. **Dette er ikke et forslag om en ny
+skrift** — kandidaterne er TYPESKILTs to, begge allerede selvhostede. Valget mellem Saira (én
+familie, som Operate-referencen anbefaler) og Literata (hvor prosaen allerede står) er en
+identitetsbeslutning og **hører til JPK, ikke til et spor**.
 
 **Hvad det koster læseren, hvis vi ikke gør det.** Hun ser en anden side end den, der blev
 designet, hvis hun ikke sidder på Windows.
 
-**Sådan måles det.** `shape-skrift.mjs`. Færdig, når `body`s `breddeSomDeklareret` er lig
+**Hvordan man måler.** `shape-skrift.mjs`. Færdig, når `body`s `breddeSomDeklareret` er lig
 `breddeSomSaira` (207,31) eller `breddeSomLiterata` (233,31) — i dag 223,81 = Segoe.
 
 ---
 
-## 5. Rækkefølgen på fladen
+## 5. Rækkefølgen på fladen — beslutningsoplæg, ikke byggespor
 
-### I dag
+### 5.1 Sådan ligger den i dag
 
-```
-header → h1 "Nyeste i kataloget" (797 px, filtrerer aldrig med)
-       → h2 "Filtrér kataloget" (602 px, heri søgefeltet på y=1090)
-       → h2 "74 robotter …" (14 px høj)
-       → gitteret (første kort y=1582)
-```
+| Landmark | y (1440) | y (390) |
+|---|---:|---:|
+| `h1` "Nyeste i kataloget" | 109 | 148 |
+| `section.aabning` slut | 858 | **1470** |
+| `input#sog-katalog` | **1069** | **1851** |
+| `.facetter__net` | 1134 | 1895 |
+| `h2` "74 robotter …" (14 px høj) | 1518 | 2754 |
+| **Første katalogkort** | **1582** | **2908** |
 
-`h1`'et er fladens største typografiske signal, og det navngiver **teaseren**, ikke kataloget.
-En skærmlæser annoncerer siden som "Nyeste i kataloget". Siden, der svarer på *hvilke firbenede
-robotter findes der*, hedder sig selv efter sin egen reklame.
+Ved 390 px skal den besøgende rulle **3,4 skærmhøjder** for at se den første af de 77 robotter, og
+**2,2 skærmhøjder** for at se søgefeltet.
 
-### Forslag R1 — åbningssektionen udgår
+### 5.2 De tre målte problemer
 
-**Hvad der ændres.** `section.aabning` fjernes som selvstændigt kortgitter.
-- `h1` bliver **"Kataloget"** (`katalog_titel` findes allerede i i18n-laget).
-- Sætningen *"77 robotter fra 8 lande. Hvert tal har en kilde og en hentedato…"* **bevares** og
-  flyttes op under `h1`. Det er præcis den orientering, PRODUCT.md lover den primære læser
-  ("hvor mange producenter, hvilke typer"), og den koster én linje i stedet for 797 px.
-- **Funktionen "nyeste" går ikke tabt.** Den findes allerede som
-  `<input value="dato">` — *"Udgivelsesår, nyeste først"*. Den bliver den eneste udgave, og den
-  bliver bedre: den kan slås fra, og den adlyder filteret.
-- `2026`-årstemplet (52 px, én node) forsvinder med sektionen.
+**P1 — åbningen filtrerer aldrig med.** Målt ved at tælle synlige kort i `.net--seneste` og `.net`
+hver for sig:
 
-**Hvad det koster læseren, hvis vi ikke gør det.** Hun ser ni robotter, der ikke er svar på det,
-hun spurgte om, hver eneste gang hun filtrerer eller søger — og hun kan ikke slippe af med dem.
+| Tilstand | "Nyeste" | Gitteret | Tælleren |
+|---|---:|---:|---|
+| Uden filter | **9** | 74 | "74 robotter i standardvisningen" |
+| `+ Inspektion` | **9** | 40 | "40 robotter …" |
+| Søgning `"spot"` | **9** | **1** | "1 robot …" |
 
-**Sådan måles det.** `shape-brug2.mjs`. Færdig, når `senesteSynlige` er **0 i alle tre
-tilstande** (i dag 9/9/9), og `shape-geometri.mjs` viser at **første katalogkort** er over folden:
-`< 900` ved 1440 px (i dag 1582) og `< 844` ved 390 px (i dag **2908**).
+Efter en søgning på "spot" er fladens fold **visuelt identisk** med før søgningen — ni kort, hvoraf
+intet er et træf — mens det ene rigtige træf ligger på **y = 1863**. To kortgitre med samme
+kortdesign, hvor det ene adlyder filteret og det andet ikke, læses som en fejl.
+*Kontrafaktisk:* adlød blokken filteret, ville 9 falde i mindst én tilstand. Det gør det i ingen.
 
-### Forslag R2 — søgefeltet ud af filterblokken og op
+**P2 — D20's betingelse er brudt.** Se §1.4: 993 → 1582 px (1440) og 1820 → **2908 px** (390).
 
-**Hvad der ændres.** `input#sog-katalog` flyttes ud af `section.plade` og placeres direkte under
-`h1` — over filterlinjen. Det er ét felt, det løser opgave A alene, og det er i dag begravet
-761 px (1440) / 1743 px (390) nede.
+**P3 — sektionen duplikerer en kontrol, der allerede findes.** `<input value="dato">` =
+*"Udgivelsesår, nyeste først"* står i sorteringen. Åbningen gør det samme 700 px højere oppe, og
+dårligere: den kan ikke slås fra, den ignorerer filteret, og den viser kun den seneste **årgang**
+frem for en ordning. Dens eget grundlag er tyndt, og noten siger det: *"Udgivelsesår er oplyst for
+45 af 77 modeller."* Fladen åbner på en akse, der mangler for **42 %** af kataloget.
 
-Rækkefølgen bliver:
+### 5.3 Tre veje, rangeret — JPK vælger
 
-```
-header → h1 "Kataloget" + én orienterende linje
-       → søgefelt          (opgave A)
-       → filterlinje       (opgave B, §3 F1)
-       → tælleren          (kvitteringen, §3 F2 — klæber)
-       → gitteret          (opgave C, fladens hviletilstand)
-```
+Alle tre bevarer JPK's hensigt fra Å73 (*kataloget åbner med robotter, ikke med betjening*). De
+adskiller sig i, hvad de koster, og hvad de rører ved.
 
-**Hvad det koster læseren, hvis vi ikke gør det.** Den besøgende, der kom med et modelnavn —
-den hyppigste ankomst for den sekundære læser ifølge PRODUCT.md — skal rulle to skærmhøjder
-på telefon for at finde det ene felt, hun havde brug for.
+> **Vej 1 — åbningen bliver gitterets egen første række (anbefalet).**
+> De ni kort holder op med at være et andet gitter og bliver **kataloget selv, sorteret nyest
+> først**. `h1` navngiver stadig det, man ser. Ét gitter, ét filter, én sandhed.
+> *Løser:* P1 (der er kun ét gitter at filtrere), P2 (første kort rykker over folden), P3 (ingen
+> duplikering).
+> *Koster:* tests 35.18–35.20 og 48.1–48.2 skal **vendes om**, ikke slettes. Rører L69's h1-ordlyd,
+> hvis "Nyeste i kataloget" ikke længere passer på hele kataloget — **det er spørgsmålet til JPK.**
 
-**Sådan måles det.** `shape-geometri.mjs`: `soegefelt.top < 500` ved 1440 px (i dag 1090) og
-`< 844` ved 390 px (i dag 1851).
+> **Vej 2 — åbningen bliver, men skrumper og adlyder filteret.**
+> Sektionen beholdes som en stribe, ikke et 541 px højt gitter — fx tre kort i én række, eller
+> navnene som tekst. Den kobles på samme `:has()`-kæde som gitteret, så den filtrerer med.
+> *Løser:* P1 og P2 delvist.
+> *Koster:* P3 består — duplikeringen af sorteringskontrollen bliver stående. Og en "nyeste"-stribe,
+> der filtreres væk til nul kort, skal have en tom tilstand, som ingen har designet.
+
+> **Vej 3 — intet ændres i rækkefølgen; kun §3 og §4 bygges.**
+> Fuldt gyldigt valg. **Skriv da D20's tal ind i STATUS.md som en accepteret omkostning**, så næste
+> læser ikke tror, betingelsen blev overholdt. Det er den eneste af de tre veje, der kræver en
+> handling *selv om* man vælger ikke at gøre noget.
+
+### 5.4 Forslag R2 — søgefeltet op (uafhængigt af de tre veje)
+
+**Hvad der ændres.** `input#sog-katalog` flyttes ud af `section.plade` og op under `h1`, over
+filterpladen. Bemærk til briefets faktatjek: **søgefeltet ligger i dag INDE i filterblokken**,
+mellem dens overskrift (y = 890) og cellegitteret (y = 1134) — ikke efter blokken, som briefet
+antager. Det gør flytningen billigere, ikke dyrere.
+
+**Hvad det koster læseren, hvis vi ikke gør det.** Den besøgende, der kom med et modelnavn — den
+hyppigste ankomst for den sekundære læser — skal rulle 2,2 skærmhøjder på telefon for at finde det
+ene felt, hun havde brug for.
+
+**Hvordan man måler.** `soegefelt.top < 500` ved 1440 (i dag 1069) og `< 844` ved 390 (i dag 1851).
+
+**Dette forslag er ikke spærret af nogen beslutning** og kan bygges uanset hvilken vej §5.3 tager.
 
 ---
 
@@ -380,138 +456,147 @@ på telefon for at finde det ene felt, hun havde brug for.
 Set på, målt, og bevaret med vilje. Uden dette afsnit kan man ikke se forskel på "overvejet og
 beholdt" og "ikke kigget på".
 
-| Bevares | Hvorfor — målt |
+| Bevares | Hvorfor — målt eller besluttet |
 |---|---|
-| **Palette og skrifter (D15)** | Låst. Ingen post her foreslår en farve eller en skriftfamilie. T2 vælger mellem de to skrifter, der allerede er i drift |
-| **INSTRUMENT-retningen (L40)** | Alle forslag går samme vej: færre streger, strammere gitter. Ingen glasmorfisme, grain, parallax eller inerti-scroll er foreslået noget sted |
-| **P0 — filtrering i ren CSS med `:has()`** | Efterprøvet: filtrering virker uden JavaScript, og `assets/katalog.js` tilføjer kun søgning og levende tællinger. **F1 rører den ikke** — `<details>` er den JS-fri popover |
-| **`.klaebebar`** | Målt i drift: `position:fixed`, 50 px, viste `"As2 · As2-W"` + "Åbn sammenligningen" + "Ryd udvalget" efter to valg. Det er fladens bedste Operate-affordance. F2 **genbruger** den, erstatter den ikke |
-| **Tællernes ordlyd** | "41 af 77", "74 robotter i standardvisningen" — hver tæller siger selv hvad den tæller. Målt korrekt gennem fire tilstande: 74 → 40 → 21 → 1. **Kun deres størrelse og placering ændres, aldrig deres ord** |
-| **Kortenes opbygning** | Navnet under billedet, producent over. `beskaaretOver25pct: 0` og `vandretOverloeb: 0` ved både 1440 og 390 px. Kortet er sundt |
-| **Sorteringens fem valg** | Alfabetisk, udgivelsesår, pris, nyttelast, hastighed — plus noten om ECB-kursen på prissorteringen. R1 gør "udgivelsesår" vigtigere, ikke anderledes |
-| **De tre datatilstande** (hård begrænsning 5) | Ikke rørt af nogen post. Skalaen i §4 ændrer grader, ikke flader eller mærker |
-| **Berøringsgulvet på 44 px** | `<summary>` er 44 px, søgefeltet er 44 px. F1 **bygger på** de 44 px — den skærer aldrig i dem |
+| **TYPESKILTs palette og skrifter** | Låst af L54/L57. Ingen post her foreslår en farve eller en skriftfamilie. T2 vælger mellem de to, der allerede er i drift |
+| **Filtret som fuldbredde plade** | Retningens egen tese. Venstreskinnen er fravalgt af den, ikke af mig (§3.5) |
+| **P0 — filtrering i ren CSS med `:has()`** | Efterprøvet: filtrering virker uden JavaScript; `katalog.js` tilføjer kun søgning og levende tællinger. **F1 rører den ikke** — `<details>` er den JS-fri popover |
+| **`.klaebebar`** | Målt i drift: `position:fixed`, 50 px, viste `"As2 · As2-W"` + "Åbn sammenligningen" + "Ryd udvalget" efter to valg. Fladens bedste Operate-affordance. F2 **genbruger** den |
+| **Tællernes ordlyd** | "41 af 77", "74 robotter i standardvisningen" — hver tæller siger selv, hvad den tæller. Målt korrekt gennem fire tilstande: 74 → 40 → 21 → 1. **Kun størrelse og placering ændres, aldrig ordene** |
+| **Kortenes opbygning** | Navn under billedet, producent over. `beskaaretOver25pct: 0`, `vandretOverloeb: 0` ved både 1440 og 390. Kortet er sundt |
+| **De fem sorteringsvalg** | Alfabetisk, udgivelsesår, pris, nyttelast, hastighed — plus noten om ECB-kursen. Vej 1 gør "udgivelsesår" vigtigere, ikke anderledes. (Men se §1.5) |
+| **De tre datatilstande** (hård begrænsning 5) | Ikke rørt af nogen post. T1 ændrer grader, ikke flader eller mærker |
+| **Berøringsgulvet 44 px** | `<summary>` 44 px, søgefelt 44 px. F1 **bygger på** de 44 px — skærer aldrig i dem |
 | **Al faktisk tekst** | Refinement, ikke redesign. Ingen post omskriver en påstand, et tal eller en kilde |
-| **`assets/filter.js`** | Død kode (74 linjer, indlæses af ingen — L50). Ligger uden for denne plans ærinde; nævnt så næste læser ikke tror, den blev overset |
+| **`assets/filter.js`** | Død kode (74 linjer, indlæses af ingen — L50). Uden for planens ærinde; nævnt, så næste læser ikke tror, den blev overset |
 
 ---
 
-## 7. Byggerækkefølge — fire spor med adskilt filejerskab
+## 7. Byggerækkefølge — tre spor plus ét beslutningspunkt
 
-Sporene er ordnet efter, hvad de betyder for den besøgendes opgave — ikke efter, hvor lette de er
-at bygge. **Ingen to spor ejer den samme fil.**
+Ordnet efter betydning for den besøgendes opgave, ikke efter byggelethed. **Ingen to spor ejer
+samme fil.**
 
-### Spor 1 — `orden` (R1 + R2) · størst virkning, mindst risiko
+### Beslutningspunkt B0 — før noget sendes
 
-Fjern åbningssektionen, flyt søgefeltet op, giv `h1` sidens rigtige navn.
+Ikke et spor. Tre spørgsmål til JPK, som §5 og §4.3 rejser:
+
+1. **Hvilken af §5.3's tre veje?** (D20's tal ligger på bordet: 993 → 1582 og 1820 → 2908.)
+2. **`--sans` → Saira eller Literata?** (§4.3)
+3. **Gælder "aldrig nyeste" (D15/L44) stadig for sorteringskontrollen?** (§1.5)
+
+Spor 1 kan ikke skrives som brief, før spørgsmål 1 er besvaret.
+
+### Spor 1 — `orden` · størst virkning, spærret af B0
 
 | Ejer | |
 |---|---|
-| `tools/skabelon/katalog.mjs` | sidens struktur (`aabning`-blokken bygges på linje 1327 ff.) |
-| `assets/generator.css` | **kun** `.aabning*`-reglerne (§ omkring linje 1254–1297) |
-| `data/i18n/da.json`, `en.json` | **kun** hvis en streng skal genbruges; ingen nye tekster |
+| `tools/skabelon/katalog.mjs` | sidens struktur (`aabning` bygges fra linje 1327) |
+| `assets/generator.css` | **kun** `.aabning*`-reglerne (~linje 1254–1297) |
+| `tests/dele/35-*`, `tests/dele/48-*` | **assertions vendes om, aldrig slettet** |
+| `data/i18n/da.json`, `en.json` | kun hvis en streng skal genbruges |
 
-**Færdig, når** `senesteSynlige` = 0 i alle tre tilstande, første katalogkort < 900 px (1440) og
-< 844 px (390), søgefelt < 500 px (1440) og < 844 px (390) — og `build.mjs` stadig giver
-0 fejl og 1110 tal med kilde.
+**Færdig, når** første katalogkort er `< 900` px (1440) og `< 844` px (390), `senesteSynlige` følger
+den valgte vej, build giver 0 fejl og 1110 tal med kilde, og tests er grønne **med omvendte
+assertions, ikke færre**.
 
-*Hvorfor først:* det er det eneste spor, der kan køres uden at nogen af de andre er færdige, og
-det fjerner 797 px, som ellers ville gøre alle de andres målinger sværere at læse.
+R2 (søgefeltet op) kan lægges i dette spor **eller** sendes alene, hvis B0 trækker ud — det er
+ikke spærret.
 
-### Spor 2 — `filterlinje` (F1 + F2) · fladens definerende fejl
-
-Ni celler bliver til en linje af kontroller med overlejrende paneler; tælleren klæber.
+### Spor 2 — `filterplade` (F1 + F2) · fladens definerende fejl
 
 | Ejer | |
 |---|---|
 | `assets/generator.css` | `.facet*`, `.facetter__net`, `.plade__krop` (**`overflow:hidden`, linje 1261**) |
-| `assets/system.css` | `summary.facet__navn`-blokken (linje ~1954–2035) |
-| `assets/katalog.js` | **kun** `.klaebebar`-afsnittet, hvis tælleren skal klæbe |
+| `assets/system.css` | `summary.facet__navn`-blokken (~linje 1954–2035) |
+| `assets/katalog.js` | **kun** `.klaebebar`-afsnittet, hvis F2 vælges |
 
-**Færdig, når** `facetter__net.h ≤ 96` med alt lukket, **og** `resultat.top` er uændret ved
-åbning af én gruppe (i dag 1460 → 1740), **og** filtrering stadig virker med JavaScript slået fra.
+**Færdig, når** `facetter__net.h ≤ 96` med alt lukket, **og** `resultat.top` er uændret ved åbning
+af én gruppe (i dag 1460 → 1740), **og** filtrering stadig virker med JavaScript slået fra.
 
-*Afhænger af Spor 1* — deler ikke filer med det, men måles lettere efter det.
+*Ikke spærret af B0* — kan sendes med det samme.
 
 ### Spor 3 — `skala` (T1) · fladens læsbarhed
-
-Tyve skriftgrader ned til seks plus én navngiven superskrift.
 
 | Ejer | |
 |---|---|
 | `assets/system.css` | typografireglerne — **ikke** `summary.facet__navn`-blokken (Spor 2 ejer den) |
-| `assets/generator.css` | `font-size` i `.kort*`, `.aabning*` udgår med Spor 1 |
+| `assets/generator.css` | `font-size` i `.kort*` |
 
 **Færdig, når** `shape-type.mjs` viser ≤ 7 grader ved både 1440 og 390 px, og `.kort__saml-ord`
 ikke ombryder ved 390 px.
 
-*Skal ligge EFTER Spor 2*, fordi begge rører `assets/system.css`. Kør dem aldrig samtidig.
+**Skal ligge EFTER Spor 2** — begge rører `assets/system.css`. Aldrig samtidig.
 
 ### Spor 4 — `rum` (rytmen) · oprydning, ikke oplevelse
 
 **Målt:** 110 unikke padding-værdier · 221 erklæringer · 96 (43 %) med `var(--rN)` · 125 uden ·
 72 unikke rå værdier.
-*Metode:* `grep -ohE "padding[a-z-]*:[^;}]+" assets/system.css assets/generator.css`, værdien
-efter kolon, mellemrum fjernet, shorthand talt som én værdi. Kør den kommando for at genskabe
-tallene.
+*Metode, så tallet kan genskabes:*
+`grep -ohE "padding[a-z-]*:[^;}]+" assets/system.css assets/generator.css`, værdien efter kolon,
+mellemrum fjernet, shorthand talt som **én** værdi. (Briefets 89/81/48 er lavere, fordi det
+formentlig tæller ét stilark eller kun enkeltværdier — metoden stod ikke i briefet, så jeg kan ikke
+afgøre hvilken.)
 
 **Forslag:** katalogsiden bruger **fire** af de ni trin — `--r2` (8), `--r4` (16), `--r5` (24),
-`--r7` (48). `--r1`/`--r3` er de deltrin, der producerer 8/9/12/13-driften; `--r6`/`--r8`/`--r9` er
+`--r7` (48). `--r1`/`--r3` er deltrinene, der producerer 8/9/12/13-driften; `--r6`/`--r8`/`--r9` er
 sidestørrelser, som en tæt Operate-flade ikke skal bruge — den 797 px høje åbning er præcis, hvad
 r8/r9-tænkning frembringer.
 
-| Ejer | `assets/generator.css` og `assets/system.css` — **kun** `padding`/`gap`/`margin` |
+| Ejer | `assets/generator.css` + `assets/system.css` — **kun** `padding`/`gap`/`margin` |
 
-**Færdig, når** 0 rå px-værdier står tilbage i katalogfladens egne selektorer, og
-`shape-geometri.mjs` giver samme sidehøjde ± 5 %.
+**Færdig, når** 0 rå px-værdier står i katalogfladens egne selektorer, og sidehøjden er uændret ± 5 %.
 
-*Sidst,* fordi det er det eneste spor, hvis gevinst er vedligeholdelse frem for oplevelse — og
-fordi de tre foregående flytter de tal, det skal rydde op i.
+*Sidst,* fordi gevinsten er vedligeholdelse frem for oplevelse, og fordi de tre foregående flytter
+de tal, det skal rydde op i.
 
-### Rækkefølgen samlet
+### Samlet
 
 ```
-Spor 1 orden  ──►  Spor 2 filterlinje  ──►  Spor 3 skala  ──►  Spor 4 rum
-(katalog.mjs +     (generator.css +         (system.css        (padding/gap
- .aabning-CSS)      system.css facet-blok    typografi)         i begge ark)
-                    + katalog.js)
+B0 (JPK: tre spoergsmaal)
+ │
+ ├─► Spor 1 orden      (katalog.mjs + .aabning-CSS + tests 35/48)   ← spaerret af B0
+ │
+ └─► Spor 2 filterplade ──► Spor 3 skala ──► Spor 4 rum
+     (generator.css +        (system.css      (padding/gap
+      system.css facet +      typografi)       i begge ark)
+      katalog.js)
 ```
 
-Spor 2 og 3 må aldrig køre parallelt: begge skriver i `assets/system.css`.
-Spor 1 kan køre parallelt med et hvilket som helst spor uden for kataloget.
+Spor 1 kan køre parallelt med Spor 2 (disjunkte filer). Spor 2 og 3 må **aldrig** køre parallelt.
+R2 kan sendes alene når som helst.
 
 ---
 
 ## 8. Smagssager — forslag uden en pris, jeg kan skrive
 
-Efter briefets regel: kan jeg ikke skrive, hvad det koster læseren, hører forslaget hjemme her og
-ikke ovenfor.
+Briefets regel: kan jeg ikke skrive, hvad det koster læseren, hører forslaget hjemme her.
 
 - **`.saml-taeller` og `.klaebebar` viser det samme samtidig.** Målt efter to valg: den statiske
-  siger *"2 valgt til sammenligning"*, den klæbende siger *"As2 · As2-W"*. To kvitteringer for
-  samme handling. Sandsynligvis er den statiske no-JS-udgaven, og så er dubletten korrekt og
-  bevidst — jeg kunne ikke afgøre det uden at læse mere JS, end sporet havde ærinde i.
-- **Gitterets `gap: 1px`.** Kortene støder næsten sammen. Det er formentlig INSTRUMENT-retningen
-  udført med vilje (færre streger, strammere gitter), og jeg har ingen måling, der siger, at det
-  skader nogen.
-- **Navigationen ombryder ikke ved 390 px** — "Om os" står delvis uden for skærmen i skærmbilledet,
-  men `vandretOverloeb` måler 0, så rækken ruller vandret som tiltænkt. Nævnt, fordi det ser ud
-  som en fejl på et skærmbillede og ikke er det.
+  siger *"2 valgt til sammenligning"*, den klæbende *"As2 · As2-W"*. Sandsynligvis er den statiske
+  no-JS-udgaven, og så er dubletten korrekt og bevidst — jeg kunne ikke afgøre det uden at læse mere
+  JS, end sporet havde ærinde i.
+- **Gitterets `gap: 1px`.** Kortene støder næsten sammen. Formentlig TYPESKILTs riller udført med
+  vilje; jeg har ingen måling, der siger, det skader nogen.
+- **Navigationen ved 390 px.** "Om os" står delvis uden for skærmen på skærmbilledet, men
+  `vandretOverloeb` måler **0** — rækken ruller vandret som tiltænkt. Nævnt, fordi det *ser* ud som
+  en fejl på et skud og ikke er det.
 
 ---
 
-## 9. Antagelser, jeg ikke kunne få bekræftet
+## 9. Antagelser og huller
 
-`impeccable shape`s Fase 1 er et interview. Der var ingen at spørge — sporet kører uden en
-menneskelig modpart. Skillens egen regel for den situation:
-*"When no human or structured answer mechanism exists, mark assumptions plainly, return the brief,
-and stop."* De antagelser, planen hviler på:
+`impeccable shape`s Fase 1 er et interview, og der var ingen at spørge. Skillens regel for den
+situation: *"When no human or structured answer mechanism exists, mark assumptions plainly, return
+the brief, and stop."*
 
-1. **At PRODUCT.md's "retvisende billede af feltet" opfyldes af det ufiltrerede gitter** og ikke
-   kræver en kurateret indgang. Det er §1's kernebeslutning, og den kan omgøres uden at rive
-   resten af planen ned — men så skal §5's R1 falde, og den bærer det største enkelttal (2908 px).
-2. **At "Nyeste i kataloget" ikke er en truffet beslutning, jeg ikke har fundet.** Jeg har ikke
-   gennemsøgt STATUS.md's Lukket-tabel for en post, der udtrykkeligt bestiller den sektion.
-   **Det skal slås op, før Spor 1 sendes** — det er præcis Å55-fælden.
-3. **At tælleren må klæbe.** L67 gav `.klaebebar` til sammenligningsudvalget. At give den et tal
-   mere er en udvidelse af en truffet beslutning, ikke en ny — men det er JPK's kald.
+1. **At PRODUCT.md's "retvisende billede af feltet" opfyldes af det ufiltrerede gitter.** Det er
+   §2's kernebeslutning. Den kan omgøres uden at rive resten ned — men så falder Vej 1 i §5.3.
+2. **At `.klaebebar` må bære et tal mere** (F2). L67 gav den til sammenligningsudvalget. En
+   udvidelse af en truffet beslutning er JPK's kald, ikke et spors — derfor står den i B0.
+3. **Ikke efterprøvet:** om `sort-dato` ("nyeste først") blev udtrykkeligt sanktioneret efter D15/L44.
+   Jeg fandt ingen post, der trækker "aldrig nyeste" tilbage, og ingen, der bekræfter den efter L54.
+   **Det er et hul i min søgning, ikke nødvendigvis i historikken.** Se §1.5.
+4. **Ikke målt:** kontrastforholdene i den nye skala. T1 ændrer kun grader, ikke farver, så
+   forholdene burde være urørte — men "burde" er ikke en måling, og en 9,5 → 11 px-hævning ændrer
+   fladeandelen, som projektet måler kontrast på.
