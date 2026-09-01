@@ -821,10 +821,11 @@ export function lavKilder(robot) {
  *  paa de felter, der har en kanonisk visningsenhed - listen skal ikke skulle
  *  aendres, hvis KANONISK_VISNINGSENHED goer det.
  *
- *  KOPIEN I BROWSEREN: assets/enhed.js baerer den SAMME tabel, fordi
- *  sammenligningssidens matrice tegnes klientside. To kopier divergerer, hvis
- *  ingen holder oeje - derfor haandhaever tests/dele/37-enhed-hukommelse.mjs,
- *  at de to tabeller er tegn for tegn ens. */
+ *  DER FINDES INGEN KOPI I BROWSEREN, og det er med vilje: assets/enhed.js
+ *  husker kun valget og roerer aldrig et tal. Skal sammenligningssidens
+ *  klienttegnede matrice en dag kunne skifte enhed, er det den beslutning,
+ *  der skal traeffes foerst - en tabel mere i en .js-fil er en anden kopi af
+ *  det samme regnestykke og skal i saa fald bindes til denne med en test. */
 export const OMREGNING = {
   kg: { enhed: 'lb', om: (v) => v * 2.2046226218 },
   mm: { enhed: 'in', om: (v) => v / 25.4 },
