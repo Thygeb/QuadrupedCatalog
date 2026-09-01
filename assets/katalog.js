@@ -96,6 +96,86 @@
     var samlSkabelon = samlTaeller ? samlTaeller.getAttribute('data-saml-skabelon') : '';
     var samlMaksTekst = samlTaeller ? samlTaeller.getAttribute('data-saml-maks-tekst') : '';
 
+    /* ====================================================================
+       KLAEBEBAR: en persistent bjaelke i bunden af skaermen (JPK 1. sep
+       2026, L67, punkt 6 - omgoer fravalget, der stod her indtil i dag).
+
+       ÉN DOM-KONSTRUKTION, ALDRIG SERVERRENDERET, og det er selve P0-
+       loesningen her: en `<div hidden>`, skabelonen skrev, ville staa i
+       markup'en paa hver eneste side, katalog.js henter (ogsaa forsiden) -
+       men denne fil bygger KUN elementet, naar den kan fylde det (naar
+       .saml-taeller findes, dvs. paa katalogsiden). Uden JavaScript findes
+       bjaelken derfor slet ikke - staerkere end `hidden`, som stadig ville
+       vaere et element i tilgaengelighedstraeet. Det er samme greb som
+       samlknappen (P0 i filhovedet), ét niveau strengere.
+
+       NAVNE, IKKE ANTAL (haard begraensning 1). Slug -> navn laeses af de
+       kort, der FAKTISK staar paa denne side - kataloget viser alle 77
+       (kun CSS-skjulte ved filtrering), saa opslaget lykkes for enhver
+       robot, der kan vaere valgt herfra. Ingen netvaerkskald: samme kilde,
+       samme DOM, samme princip som resten af filen.
+
+       TEKSTEN GENBRUGES, IKKE GENTAGES. "Åbn sammenligningen" og "Ryd
+       udvalget" staar ÉT sted i sprogfilerne (saml_gaa, saml_ryd) og laeses
+       her fra de elementer, skabelonen allerede skrev dem til
+       (.saml-taeller__gaa, samlRyd) - to kopier af samme streng ville
+       kunne drive fra hinanden ved naeste rettelse. Linket til
+       sammenligningssiden er af samme grund IKKE genberegnet her (en
+       haandregnet '../' ville vaere praecis den fejl, build.mjs' egen
+       advarsel gaelder) - det er samme `url.sammenligning`, katalog.mjs
+       allerede skrev til `.saml-taeller__gaa`. */
+    var samlNavne = {};
+    var klaebebar = null;
+    var klaebebarNavne = null;
+    var klaebebarGaa = null;
+    var klaebebarGaaHref = '';
+
+    if (samlTaeller) {
+      for (var sn = 0; sn < samlKnapper.length; sn++) {
+        var kortEl = samlKnapper[sn].parentElement;
+        while (kortEl && kortEl.classList && !kortEl.classList.contains('kort')) kortEl = kortEl.parentElement;
+        var navnEl = kortEl ? kortEl.querySelector('.kort__navn') : null;
+        var slugAttr = samlKnapper[sn].getAttribute('data-saml');
+        if (slugAttr && navnEl) samlNavne[slugAttr] = navnEl.textContent.trim();
+      }
+
+      var gaaLink = samlTaeller.querySelector('.saml-taeller__gaa');
+      klaebebarGaaHref = gaaLink ? gaaLink.getAttribute('href') : '';
+
+      klaebebar = document.createElement('div');
+      klaebebar.className = 'klaebebar';
+      klaebebar.setAttribute('hidden', '');
+      klaebebar.setAttribute('role', 'region');
+      klaebebar.setAttribute('aria-label', samlTaeller.getAttribute('data-klaebebar-etiket') || '');
+
+      klaebebarNavne = document.createElement('p');
+      klaebebarNavne.className = 'klaebebar__navne';
+
+      klaebebarGaa = document.createElement('a');
+      klaebebarGaa.className = 'klaebebar__gaa';
+      klaebebarGaa.textContent = gaaLink ? gaaLink.textContent : '';
+
+      var klaebebarRyd = document.createElement('button');
+      klaebebarRyd.type = 'button';
+      klaebebarRyd.className = 'klaebebar__ryd';
+      // samlRyd (knappen i strimlen) findes endnu ikke her - den bygges
+      // faa linjer laengere nede i filen - men elementet DEN sidder paa
+      // ER allerede i DOM'en (skabelonen skrev den), saa teksten kan laeses
+      // direkte uden at vente paa variablen.
+      var samlRydEl = document.querySelector('[data-saml-ryd]');
+      klaebebarRyd.textContent = samlRydEl ? samlRydEl.textContent : '';
+      klaebebarRyd.addEventListener('click', function () {
+        skrivUdvalg([]);
+        sigGraense('');
+        tegnSaml();
+      });
+
+      klaebebar.appendChild(klaebebarNavne);
+      klaebebar.appendChild(klaebebarGaa);
+      klaebebar.appendChild(klaebebarRyd);
+      document.body.appendChild(klaebebar);
+    }
+
     /* Lokalt lager kan KASTE, ikke bare vaere tomt: privat vindue, blokerede
        site-data, eller en browser der afviser skrivning naar kvoten er fuld.
        Hvert kald er derfor pakket ind, og en fejl giver et tomt udvalg -
@@ -143,6 +223,22 @@
         }
         if (samlTal) samlTal.textContent = String(valgt.length);
         if (samlOrd) samlOrd.textContent = samlSkabelon.replace('{n}', String(valgt.length));
+      }
+      if (klaebebar) {
+        if (valgt.length) {
+          var navne = [];
+          for (var vn = 0; vn < valgt.length; vn++) navne.push(samlNavne[valgt[vn]] || valgt[vn]);
+          // " · " er samme skilletegn, resten af siden bruger til korte
+          // opremsninger (fx kursparrene i katalog.mjs) - ikke et komma,
+          // som robotnavne med egne kommaer kunne blande sammen med.
+          klaebebarNavne.textContent = navne.join(' · ');
+          klaebebarGaa.setAttribute('href', klaebebarGaaHref || '#');
+          klaebebar.removeAttribute('hidden');
+        } else {
+          // Samme regel som samlTaeller: en tom bjaelke er ikke en
+          // oplysning, den er stoej. Forsvinder helt, naar udvalget goer.
+          klaebebar.setAttribute('hidden', '');
+        }
       }
     }
 
@@ -207,6 +303,15 @@
   var bokse = form.querySelectorAll('.facetter__net input[type=checkbox]');
   var hovedTaeller = form.querySelector('.taeller__tal');
   var resultatTitel = form.querySelector('.resultat__titel');
+
+  /* Filtergruppernes "mindst ét valgt"-maerke (JPK 1. sep 2026, punkt 4).
+     Uden JavaScript viser hver gruppe kun en TILSTEDEVAERELSE (CSS kan ikke
+     taelle - se katalog.mjs' facetAktivMrk()); denne del erstatter den med
+     det EKSAKTE tal. `[data-facetgruppe]` staar paa alle ni grupper, ogsaa
+     den reserverede certificeringsgruppe, som slet ingen afkrydsningsfelter
+     har og derfor aldrig faar et maerke at fylde (facetgruppeAntal() springer
+     den roligt over via `if (!mrk) continue`). */
+  var facetGrupper = form.querySelectorAll('[data-facetgruppe]');
 
   form.addEventListener('submit', function (e) { e.preventDefault(); });
 
@@ -378,6 +483,46 @@
   /** Filtrerer skalaen overhovedet? I hvilestillingen goer den ikke. */
   function skalaAktiv(s) {
     return s.retning === 'mindst' ? s.nu > s.mindste : s.nu < s.stoerste;
+  }
+
+  /**
+   * Facetgruppernes eksakte "N valgt"-tal (JPK 1. sep 2026, punkt 4).
+   * Erstatter CSS-udgavens tilstedevaerelsesmaerke (katalog.mjs'
+   * facetAktivMrk() -> [data-facet-aktiv]) med et tal i [data-facet-antal].
+   *
+   * TO TAELLEMAADER, praecis som resten af filen skelner mellem dem:
+   *   - En SKALA (nyttelast, pris) er ÉN kontrol, ikke en liste af
+   *     afkrydsninger, naar JavaScript koerer (se filhovedets afsnit om
+   *     SKALAERNE) - "antal valgt" kan der kun vaere 0 eller 1, alt efter om
+   *     grebet staar i hvile.
+   *   - Enhver anden gruppe taelles ved at gaa `bokse` igennem og summere de
+   *     afkrydsede felter med samme `name` som gruppen - samme kilde, `bokse`,
+   *     som §4's per-vaerdi-taellere allerede bruger, saa der er ingen anden
+   *     taelling at driver fra.
+   */
+  function facetgruppeAntal() {
+    for (var g = 0; g < facetGrupper.length; g++) {
+      var gruppe = facetGrupper[g];
+      var navn = gruppe.getAttribute('data-facetgruppe');
+      var mrk = gruppe.querySelector('[data-facet-antal]');
+      if (!navn || !mrk) continue;
+      var antal = 0;
+      if (erSkala(navn)) {
+        for (var si = 0; si < skalaer.length; si++) {
+          if (skalaer[si].navn === navn && skalaAktiv(skalaer[si])) antal = 1;
+        }
+      } else {
+        for (var b2 = 0; b2 < bokse.length; b2++) {
+          if (bokse[b2].name === navn && bokse[b2].checked) antal++;
+        }
+      }
+      if (antal > 0) {
+        mrk.textContent = nformat(antal);
+        mrk.removeAttribute('hidden');
+      } else {
+        mrk.setAttribute('hidden', '');
+      }
+    }
   }
 
   /** Slipper ét kort gennem ÉN skala? */
@@ -637,6 +782,12 @@
       if (felt) felt.textContent = String(antal);
       if (etiket) etiket.classList.toggle('facet-tom', antal === 0);
     }
+
+    /* 4b. Filtergruppernes eksakte "N valgt" (punkt 4) - se facetgruppeAntal()
+       for begrundelsen. Kaldes hver gang, ligesom §4 ovenfor: en gruppes
+       markering kan aendre sig ved ethvert klik, ikke kun ved klik i den
+       gruppe selv (nulstil, et filterlink, tilbage-navigation). */
+    facetgruppeAntal();
 
     /* 5. Nul-tilstanden. Uden JavaScript kan den ikke naas fra filtrene -
        CSS kan ikke taelle - og det var fejl nr. 9 i kritikken: den ene

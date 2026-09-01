@@ -166,9 +166,6 @@ function laesFelt(robot, navn) {
   return { slags: 'tal', tal, enhed: p.enhed };
 }
 
-/** Er feltet oplyst overhovedet (uanset om svaret er ja, nej eller et tal)? */
-const erOplyst = (robot, navn) => laesFelt(robot, navn).slags !== 'ikke_oplyst';
-
 function ipVaerdi(robot) {
   const p = robot.felter?.ip_klasse;
   if (p === undefined) return 'ikke_oplyst';
@@ -650,6 +647,22 @@ export function hovedStil(ctx) {
     }
   }
 
+  /* 6a2. FACETGRUPPENS "MINDST ÉT VALGT"-MAERKE (JPK 1. sep 2026, punkt 4).
+     Se facetBlok()s kommentar for den fulde begrundelse - dette er den
+     genererede halvdel. CSS kan ikke taelle, saa reglen her taender kun en
+     TILSTEDEVAERELSE ([data-facet-aktiv]) naar mindst ét afkrydsningsfelt i
+     gruppen er markeret; assets/katalog.js erstatter den med det praecise
+     tal, naar den kan. `:not([data-levende])` er den samme guard som §6a
+     bruger til skalaerne - naar JavaScript overtager en gruppe (i dag kun
+     de to skalaer), skal CSS'ens egen version tie, ellers kan de to komme
+     til at sige to forskellige ting om samme gruppe. */
+  const gruppeMrk = [];
+  for (const f of F) {
+    gruppeMrk.push(`.styr:not([data-levende]):has(.f-${f.navn}:checked) [data-facetgruppe="${f.navn}"] [data-facet-aktiv],`);
+    gruppeMrk.push(`.styr:not([data-levende]):has(.f-${f.navn}:target) [data-facetgruppe="${f.navn}"] [data-facet-aktiv]{display:inline}`);
+  }
+  gruppeMrk.push(`.styr:not([data-levende]):has(.f-eg:checked) [data-facetgruppe="eg"] [data-facet-aktiv]{display:inline}`);
+
   /* 6b. Egenskabschippene: ren HIDE, saa flere chips lagrer sig som OG.
      Se filhovedets note - det er den eneste facetgruppe, der virker saadan,
      fordi en capability er en uafhaengig betingelse og ikke en vaerdiliste. */
@@ -733,6 +746,9 @@ export function hovedStil(ctx) {
 @supports selector(:has(*)){
 ${linjer.join('\n')}
 
+/* Facetgruppernes "mindst ét valgt"-maerke (punkt 4). */
+${gruppeMrk.join('\n')}
+
 /* Egenskabschippene (OG, ikke ELLER - se filhovedet). */
 ${chipRegler.join('\n')}
 
@@ -798,14 +814,24 @@ export function render(ctx) {
      saa snart en robot skifter status. */
   const iStandard = robotter.filter((r) => status.standard.has(r.status)).length;
 
-  /* --- TYPESKILTETS STEMPLER ----------------------------------------------
-     Fire stansede felter. Alle FIRE er udledt af data - ingen af dem er
-     skrevet i haanden, og ingen af dem er en dato fra byggeuret (som ville
-     goere to byg af samme data forskellige).
+  /* --- TYPESKILTETS STEMPEL (JPK 1. sep 2026, punkt 2) ---------------------
+     STOD FOER SOM FIRE FELTER (Type, Udgave, Poster, Oplyste felter). JPK
+     spurgte ordret "Hvad er meningen med dette?", og det var et rigtigt
+     spoergsmaal: "Oplyste felter" stod her som 842, paa sammenligningssiden
+     som 30 og paa Om os som 1.116 - samme etiket, tre forskellige tal, ingen
+     forklaring paa hvorfor. Type (QUAD-77) og Poster (77) gentog blot
+     `alle`, som allerede staar i strimlens taeller og resultatoverskriften
+     nogle faa linjer laengere nede - en dublet af et tal, siden allerede
+     viser.
 
-     "Udgave" er den seneste hentedato i hele kataloget: den siger, hvor frisk
-     materialet er, og den er den eneste dato paa siden, der ikke tilhoerer en
-     enkelt robot. */
+     KUN UDGAVEN BLIVER TILBAGE. Det er den ene af de fire, der IKKE staar
+     andetsteds paa siden: den seneste hentedato i hele kataloget, dvs. hvor
+     FRISK materialet er. En dato alene laeser som en tilfaeldig detalje uden
+     et ord ved siden af, der siger hvad den er - derfor beholdes
+     `stempel_udgave` ("Udgave"/"Edition") som etiket. Ordet er sandt: det er
+     den udgave af datagrundlaget, siden er bygget af, og det er praecis det,
+     koden nedenfor regner (den seneste `hentet`-dato paa tvaers af alle
+     robotter). Ingen ny noegle noedvendig. */
   const datoer = [];
   for (const r of robotter) {
     if (r.billede?.hentet) datoer.push(r.billede.hentet);
@@ -815,15 +841,10 @@ export function render(ctx) {
     }
   }
   const udgave = datoer.length ? datoer.sort()[datoer.length - 1] : '';
-  const oplysteFelter = robotter.reduce((sum, r) => sum
-    + Object.keys(r.felter ?? {}).filter((n) => erOplyst(r, n)).length, 0);
   const lande = new Set(robotter.map((r) => r.producentland)).size;
 
   const stempler = [
-    [t('stempel_type'), `QUAD-${alle}`],
     [t('stempel_udgave'), udgave],
-    [t('stempel_poster'), hjaelp.nformat(alle)],
-    [t('stempel_felter'), hjaelp.nformat(oplysteFelter)],
   ];
 
   /* --- STRIMLENS CHIPS ----------------------------------------------------
@@ -883,10 +904,44 @@ export function render(ctx) {
       + `</label></div>`;
   };
 
-  const facetBlok = (f, bredde, klasser = '') => `<fieldset class="facet facet--s${bredde}${klasser}">
-<legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
+  /* --- GRUPPENS "MINDST ÉT VALGT"-MAERKE (JPK 1. sep 2026, punkt 4) --------
+     To spans, ALDRIG samme tekst paa samme tid:
+       - `data-facet-aktiv` er den JavaScript-frie udgave. CSS kan ikke
+         taelle, saa den er en TILSTEDEVAERELSE ("Valgt", genbruger
+         strimmel_valgt) og ikke et tal - sand, men ikke praecis, praecis som
+         briefets egen formulering. Regelen, der taender den, staar i
+         hovedStil() og laeser samme `.f-${navn}`-klasse som resten af
+         filtret. `:not([data-levende])` slukker den, saa snart JavaScript
+         overtager.
+       - `data-facet-antal` er den JavaScript kan fylde med det EKSAKTE tal
+         (assets/katalog.js' facetgruppeAntal()). Den staar `hidden`, indtil
+         scriptet saetter et tal - en tom taeller ville vaere en paastand
+         uden daekning.
+     Gruppens navn staar KUN på det omsluttende element (`data-facetgruppe`),
+     ikke gentaget paa hvert maerke - assets/katalog.js laeser det ÉN gang
+     pr. gruppe og finder sine to spans som efterkommere. */
+  const facetAktivMrk = () => `<span class="facet__aktiv" data-facet-aktiv hidden>${esc(t('strimmel_valgt'))}</span>`
+    + `<span class="facet__aktiv-tal" data-facet-antal hidden></span>`;
+
+  /* FACETGRUPPEN ER ET <details>/<summary> (JPK 1. sep 2026, punkt 4:
+     "Filter-felterne skal vaere collapsed som default"). `open` udelades
+     bevidst - collapsed ER standarden.
+
+     KLASSERNE STAAR UAENDRET (`facet facet--sN`), og det er ikke en
+     bekvemmelighed: generator.css:1356-1366 saetter display, polstring,
+     hairlines og grid-column-spaend paa NETOP disse klassenavne, uden at
+     spoerge om baereren er et <fieldset> eller et <details> - CSS kender
+     ikke til tags, kun klasser. Byttet fra <fieldset>+<legend> til
+     <details>+<summary> koster derfor ikke én linje i generator.css, som
+     dette spor alligevel ikke maa roere.
+
+     `data-facetgruppe` er kun til assets/katalog.js' opslag (facetgruppeAntal
+     finder sine to maerker som efterkommere af den) - hovedStil()s egne
+     :has()-regler bruger stadig `.f-${navn}`-klassen, uaendret af byttet. */
+  const facetBlok = (f, bredde, klasser = '') => `<details class="facet facet--s${bredde}${klasser}" data-facetgruppe="${attr(f.navn)}">
+<summary class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}${facetAktivMrk()}</summary>
 ${f.liste.map((v) => raekke(f, v)).join('\n')}
-</fieldset>`;
+</details>`;
 
   /* --- SKALABLOKKEN (L65c) -------------------------------------------------
      Samme fieldset som enhver anden facet, med tre ting mere: en skala, dens
@@ -931,8 +986,13 @@ ${f.liste.map((v) => raekke(f, v)).join('\n')}
     const ridser = knuder.map((n, i) => `<span class="skala__ridse" style="left:${attr(String(Math.round((i / led) * 1e4) / 100))}%">`
       + `<span class="skala__ridse-tal">${esc(hjaelp.nformat(n))}</span></span>`).join('');
 
-    return `<fieldset class="facet facet--s${bredde} facet--skala${klasser}">
-<legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
+    // Samme <details>/<summary>-bytte som facetBlok() - se dens kommentar.
+    // Skalaen er ogsaa collapsed som standard: JavaScript fjerner `hidden`
+    // fra selve skalaen (linjen ovenfor), ikke fra <details>-elementets
+    // `open`, saa en laeser uden JavaScript stadig skal folde gruppen ud for
+    // at naa trinlisten - konsekvent med alle otte andre grupper.
+    return `<details class="facet facet--s${bredde} facet--skala${klasser}" data-facetgruppe="${attr(s.navn)}">
+<summary class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}${facetAktivMrk()}</summary>
 
 <div class="skala" hidden
  data-skala="${attr(s.navn)}"
@@ -962,7 +1022,7 @@ ${trinRaekker.map((v) => raekke(f, v)).join('\n')}
 </div>
 ${uoplyst.map((v) => raekke(f, v)).join('\n')}
 <p class="t-mikro skala__note">${noteHtml ?? esc(f.note)}</p>
-</fieldset>`;
+</details>`;
   };
 
   /* Egenskabsgruppen. Chippen er ÉT afkrydsningsfelt ("vis kun dem, der kan
@@ -1018,25 +1078,56 @@ ${uoplyst.map((v) => raekke(f, v)).join('\n')}
      Ikke af pladshensyn: en skala er en vandret betjening, og klemt ned i tre
      kolonner ved siden af en afkrydsningsliste ville dens bane vaere kortere
      end dens egen aflaesning. `facet--sidste-raekke` flytter derfor HERNED fra
-     ip/status/land, som ikke laengere er nederst. */
+     ip/status/land, som ikke laengere er nederst.
+
+     SPAENDENE ER RETTET TIL EN GENTAGET GITTERRYTME (JPK 1. sep 2026,
+     PUNKT 4R). Foer denne rettelse brugte raekke 1 spaendene 3·4·5 (graenser
+     ved kolonne 3, 7, 12) mod raekke 2's 3·3·3·3 (graenser ved 3, 6, 9, 12)
+     og skalaraekkens 6·6 (graense ved 6, 12) - tre forskellige moenstre, der
+     ikke lagde lodret linje ned gennem fladen. JPK maalte det og navngav
+     aarsagen praecist: "kolonnegraenserne gentager sig ikke mellem
+     raekkerne", ikke bare "for meget".
+
+     LOESNINGEN: enhver graense, der forekommer NOGET sted i gitteret, skal
+     vaere et multiplum af 3 - saa den altid falder paa en linje, en af de
+     oevrige raekker OGSAA bruger. Vaegt gaar fra 4 til 3 kolonner (den har
+     kun fire faste vaegtklasser og trængte aldrig til den fjerde), og
+     Egenskaber gaar fra 5 til 6 (den baerer mest indhold - fem chips med
+     hver sin tre-delte "ja/nej/ikke oplyst"-taelling - og faar dermed den
+     bredde, den allerede havde mest brug for). Raekke 1 bliver 3·3·6
+     (graenser 3, 6, 12); raekke 2 er uaendret 3·3·3·3 (3, 6, 9, 12);
+     skalaraekken er uaendret 6·6 (6, 12) - JPK's egen tilladte undtagelse.
+     Alle tre raekkers graenser er nu en delmaengde af {3, 6, 9, 12}, saa
+     6 og 12 gaar igen i hver eneste raekke - den lodrette rytme, oejet
+     ledte efter. Maalt med Playwright ved 1440 px, se sporets rapport for
+     de faktiske x-koordinater foer/efter.
+
+     INGEN NY CSS-KLASSE NOEDVENDIG: `.facet--s3` og `.facet--s6` findes
+     begge allerede (generator.css §20e hhv. system.css's filterskala-blok)
+     - kun ARGUMENTERNE her aendrede sig, ikke generator.css, som denne
+     rettelse ikke maa roere (samtidigt spor ejer den filen). */
   const facetNet = `<div class="facetter__net">
 ${facetBlok(anv, 3)}
-${facetBlok(vaegt, 4)}
-<fieldset class="facet facet--s5 facet--raekkeslut">
-<legend class="facet__navn">${esc(t('filter_egenskaber'))}<span class="facet__tal">${esc(t('filter_egenskaber_mrk'))}</span></legend>
+${facetBlok(vaegt, 3)}
+<details class="facet facet--s6 facet--raekkeslut" data-facetgruppe="eg">
+<summary class="facet__navn">${esc(t('filter_egenskaber'))}<span class="facet__tal">${esc(t('filter_egenskaber_mrk'))}</span>${facetAktivMrk()}</summary>
 ${chipsHtml}
 <p class="chip-fod">${esc(tf('eg_fod', { n: alle, m: frost.nej, k: frostNul }))}</p>
-</fieldset>
+</details>
 ${facetBlok(ip, 3)}
 ${facetBlok(status, 3)}
 ${facetBlok(land, 3)}
-<fieldset class="facet facet--s3 facet--raekkeslut">
-<legend class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></legend>
+<!-- CERTIFICERING ER RESERVERET OG TOM: ingen afkrydsningsfelt findes endnu,
+     saa den faar hverken data-facetgruppe eller facetAktivMrk() - der er
+     intet at "vaere valgt". Den foldes stadig sammen som standard, for
+     konsistens med de otte oevrige grupper (JPK 1. sep 2026, punkt 4). -->
+<details class="facet facet--s3 facet--raekkeslut">
+<summary class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></summary>
 <div class="reserveret">
 <p class="reserveret__ord">${esc(t('filter_certificering_ord'))}</p>
 <p class="reserveret__note">${esc(tf('filter_certificering_note', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ja').length, m: alle }))}</p>
 </div>
-</fieldset>
+</details>
 ${skalaBlok(nyttelast, 6, ' facet--sidste-raekke')}
 ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
 </div>`;
@@ -1221,11 +1312,23 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
   const seneste = medAar.filter((r) => r.foerste_udgivelse === senesteAar)
     .sort((a, b) => String(a.navn).localeCompare(String(b.navn), sprog));
 
+  /* H1'ET ER SEKTIONENS EGEN OVERSKRIFT, IKKE SIDENS (JPK 1. sep 2026: "skal
+     ikke vaere 'All robots', men mere beskrivende for hvad der vises i den
+     sektion"). Det staar strukturelt korrekt allerede - <section
+     aria-labelledby="aabning-titel"> goer h1'et til navnet paa NETOP
+     aabningen, ikke paa hele siden - men teksten sagde noget andet end
+     strukturen lovede. `katalog_titel` ("Alle robotter") maa IKKE genbruges
+     her: build.mjs:322 bruger samme noegle til <title>, og producent.mjs:263
+     bruger den til modelafsnittets H2 - begge steder er "Alle robotter"
+     korrekt, og en aendret VAERDI ville have rettet dette h1 ved at
+     oedelaegge de to andre. Derfor sin egen noegle, sand om netop de
+     `seneste.length` kort, aabningen viser (maalt 1. sep 2026: 9 paa tvaers
+     af den seneste udgivelsesaargang). */
   const aabning = senesteAar === null ? '' : `<section class="aabning" aria-labelledby="aabning-titel">
 <div class="aabning__krop stans">
 <div class="aabning__hoved">
 <div class="aabning__ord">
-<h1 class="aabning__titel" id="aabning-titel">${esc(T.katalog_titel)}</h1>
+<h1 class="aabning__titel" id="aabning-titel">${esc(t('katalog_seneste_titel'))}</h1>
 <p class="aabning__under">${esc(tf('katalog_plade_under', { n: alle, l: lande }))}</p>
 </div>
 <p class="aarstempel">
@@ -1297,15 +1400,29 @@ ${omfangStandard}
 </div>
 
 <!-- SAMLTAELLEREN. Staar i strimlen, hvor sidens oevrige aktive valg allerede
-     staar, og ikke i et fastklaebet baand: et svaevende "N valgt" med en
-     fremad-knap er indkoebskurvens form (haard begraensning 1). Her er den en
-     chip blandt chips - og den forsvinder helt, naar udvalget er tomt.
-     Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript findes
-     hverken knapperne eller udvalget, saa en taeller ville vaere en paastand
-     om noget, laeseren ikke kan naa (P0). -->
+     staar - en chip blandt chips, som forsvinder helt, naar udvalget er
+     tomt. Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript
+     findes hverken knapperne eller udvalget, saa en taeller ville vaere en
+     paastand om noget, laeseren ikke kan naa (P0).
+
+     JPK OMGJORDE 1. sep 2026 (L67, punkt 6) det FRAVALG, der stod her indtil
+     i dag: "et svaevende 'N valgt' med en fremad-knap er indkoebskurvens
+     form". Bjaelken findes nu OGSAA - se assets/katalog.js' KLAEBEBAR-afsnit
+     - som en PERSISTENT paamindelse, mens laeseren scroller forbi denne
+     strimmel og ned gennem gitterets 77 kort. De to er ikke i konflikt:
+     denne chip er kontekstuel (staar kun, mens man ser filterpladen),
+     bjaelken er global (staar hele siden igennem). Haard begraensning 1
+     gaelder stadig begge - se katalog.js for hvordan bjaelken overholder
+     den (navne, ikke antal; intet ikon; ingen "fortsaet"-knap).
+
+     data-klaebebar-etiket baerer bjaelkens ARIA-navn; resten af dens tekst
+     (link og ryd) LAESER katalog.js fra klasserne saml-taeller__gaa/__ryd
+     herunder i stedet for at faa sin egen kopi - ét sted at oversaette
+     "Åbn sammenligningen"/"Ryd udvalget", ikke to. -->
 <p class="saml-taeller" data-saml-taeller hidden
  data-saml-skabelon="${attr(t('saml_taeller'))}"
- data-saml-maks-tekst="${attr(t('sammenligning_maks'))}">
+ data-saml-maks-tekst="${attr(t('sammenligning_maks'))}"
+ data-klaebebar-etiket="${attr(t('klaebebar_etiket'))}">
 <span class="saml-taeller__tal" data-saml-tal>0</span>
 <span data-saml-ord></span>
 <a class="saml-taeller__gaa" href="${attr(url.sammenligning)}">${esc(t('saml_gaa'))}</a>
