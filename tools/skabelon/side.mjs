@@ -1506,11 +1506,14 @@ export const hjaelp = new Proxy({}, {
  * MENUENS INDHOLD er IKKE comp'ens. Comp'en viser fire punkter (Oversigt,
  * Nyheder, Services, Om os); L58 besluttede, at de tre nye laegges TIL de
  * bestaaende, ikke i stedet for - en udtoemmende laesning ville goere 54 sider
- * (sammenligning 2 + producenter 52) uopnaaelige fra navigationen. Nyheder,
- * Services og Om os er endnu ikke bygget som sider, og en laenke til en side,
- * der ikke findes, ville med rette blive fanget af tools/linktjek.mjs. Raekken
- * er derfor comp'ens FORM med den nuvaerende menus INDHOLD, og den vokser til
- * syv punkter den dag de tre sider findes - rullesporet baerer dem allerede.
+ * (sammenligning 2 + producenter 52) uopnaaelige fra navigationen. En laenke
+ * til en side, der ikke findes, ville med rette blive fanget af
+ * tools/linktjek.mjs, saa et punkt lukkes foerst ind, naar dets side bygges.
+ *
+ * OM OS ER LUKKET IND 1. sep 2026 (spor/omos, L61): siden findes nu, og
+ * punktet staar sidst. Raekken er dermed FEM punkter. Nyheder og Services er
+ * fortsat ikke bygget og staar fortsat ikke i menuen; den vokser til syv den
+ * dag de findes - rullesporet baerer dem allerede.
  */
 export function skal({
   sprogkode, T, t, titel, beskrivelse, sti, main, aktiv,
@@ -1528,6 +1531,14 @@ export function skal({
     ['sammenligning/', T.nav_sammenligning],
   ];
   if (harProducenter) nav.push(['producenter/', t('nav_producenter')]);
+  // spor/omos (L61): Om os er bygget og staar SIDST — comp'ens egen plads for
+  // punktet, og den rigtige for en side om udgiveren frem for om robotterne.
+  // Noeglen hedder om_nav og ikke nav_om, fordi ALLE noegler fra dette spor
+  // baerer praefikset om_; det holder de nye linjer samlet i én blok i begge
+  // sprogfiler, saa en flettekonflikt kan loeses ved at tage begge sider.
+  // Kommentaren ovenfor om "de tre nye sider findes ikke endnu" gaelder
+  // herefter kun Nyheder og Services — raekken er nu fem punkter, ikke fire.
+  nav.push(['om/', t('om_nav')]);
 
   /* Sprogskifteren. Comp'en (retninger/nyverden/katalog.html) viser DA / EN
      som to koder med en skraastreg imellem, ikke ét "In English"-link. Formen

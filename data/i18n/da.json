@@ -372,7 +372,7 @@
   "om_regnskab_io": "Ikke oplyst",
   "om_regnskab_ialt": "Mulige oplysninger i alt",
   "om_regnskab_ligning": "{felter} felter × {n} robotter",
-  "om_regnskab_kilder": "{k} af de oplyste felter bærer et kildemærke. {a} peger på producentens egen produktside, {b} på et datablad, en manual eller udviklerdokumentation på producentens eget domæne. De øvrige {r} er svaret nej, som ikke har et tal at kilde.",
+  "om_regnskab_kilder": "{k} af de {o} oplyste felter bærer et kildemærke. {a} peger på producentens egen produktside, {b} på et datablad, en manual eller udviklerdokumentation på producentens eget domæne. De øvrige {r} er svaret nej, som ikke har et tal at kilde.",
   "om_regnskab_note": "Hullerne tælles med. Et felt, producenten ikke udfylder, siger lige så meget om robotten som et tal — og det er derfor, det står på siden i stedet for at blive skjult.",
 
   "om_metode_titel": "Sådan kommer et tal på siden",
@@ -387,6 +387,8 @@
 
   "om_tilstande_titel": "De fire tilstande",
   "om_tilstande_broed": "Et tal, et nul, et nej og et hul er fire forskellige ting. De ser forskellige ud med vilje, for det er dér, katalogsider lyver: et nul bliver til en tom celle, og en tom celle bliver til et nul. I dette katalog oplyser producenterne {nul} målte nul, og {nej} gange svarer de udtrykkeligt nej.",
+
+  "om_tilstande_noegle": "Nøglen nedenfor er katalogets egen. Det er ikke en tegning af mærkerne, men de samme mærker, robotsiderne selv sætter — derfor står der også en femte tilstand for det, der kun kan ses på et billede, og de to kildemærker A og B.",
 
   "om_ikke_titel": "Hvad siden ikke gør",
   "om_ikke_koeb": "Der er ingen købsknap, ingen henvisningslinks og ingen prisforespørgsel i en katalogpost.",

@@ -1678,3 +1678,149 @@ td .v{font-size:15px}
   .typeskilt .skema-gruppenavn{padding-top:var(--r5)}
   .typeskilt .skema-gruppenavn th{padding-top:0}
 }
+
+/* --- om os (spor/omos) -----------------------------------------------------
+   Om-siden (L61) er sitets ENESTE prosaside, og den eneste flade hvor
+   sammenhaengende tekst baerer. Alt herunder hoerer til den; ingen regel
+   ovenfor er roert.
+
+   MANIFESTETS PAR, VENDT OM. retninger/nyverden/MANIFEST.md kalder Saira
+   "pladen" og Literata "manualen" - de to tryksager en industrimaskine
+   faktisk kommer med. Paa alle andre sider FOERER pladen, og Literata er
+   henvist til noter paa 11-14 px (generator.css). Her foerer manualen: broed-
+   teksten er Literata i 18 px, og pladen braekker ind som stansede tal i
+   marginen. Det er sidens anden rytme, og den er hentet i retningen frem for
+   fundet paa. Literata saettes STADIG aldrig som display - hver eneste
+   overskrift her er Saira via .t-hero/.t-h2/.t-h3, som manifestet kraever.
+
+   INGEN NYE FARVER, INGEN NYE SKRIFTER. D15 laaste paletten og snittene;
+   hver eneste vaerdi herunder er en bestaaende polet. Ingen gradient, ingen
+   gloed, ingen glasmorfisme, ingen slagskygge - .stans er den samme stansede
+   kant, resten af sitet bruger (afsnit 5). */
+
+.om-hero{padding-top:var(--r8);padding-bottom:var(--r2)}
+.om-hero__ord{margin:var(--r2) 0 0;max-width:16ch}
+/* Ledet er manualens foerste saetning og saettes derfor i Literata med det
+   samme - ikke i .t-broed, som er Saira. 20px, fordi en serif paa samme
+   px-tal som en grotesk laeser mindre. */
+.om-lede{
+  font-family:var(--manual);font-size:20px;line-height:1.5;
+  color:var(--blaek2);max-width:54ch;margin:var(--r5) 0 0;
+  text-wrap:pretty;
+}
+
+.om-sektion{padding-top:var(--r8)}
+.om-sektion .sektion-hoved{margin-bottom:var(--r5)}
+
+/* Broedteksten. 62ch og ikke systemets 68ch (--maal): --maal er sat for
+   Saira, og Literata er bredere pr. tegn, saa 68ch ville give en laengere
+   linje i px end resten af sitet har. Maalt i Chromium ved 1440:
+   62ch Literata 18px = 636 px, 68ch Saira 17px = 629 px. */
+.om-broed{
+  font-family:var(--manual);font-size:18px;line-height:1.62;
+  color:var(--blaek);max-width:62ch;margin:0 0 var(--r4);
+  text-wrap:pretty;
+}
+.om-broed--bred{max-width:76ch}
+/* Afsnittet, der baerer sidens argument, staar i broedstoerrelse - ikke som
+   fodnote. Foerste udkast satte det i .t-lille 15px, og hierarkiet loej:
+   den vigtigste saetning paa siden var den mindste. --slut fjerner kun den
+   afsluttende margen, saa afsnittet ikke skubber sektionsluften. */
+.om-broed--slut{margin-bottom:0}
+
+/* LOEBET: prosaspor + margenspor. Pladen ligger i marginen som paa et
+   opslag i en manual, ikke som et kort under teksten. Under 900 px falder
+   den ned under prosaen - DOM-ordenen er allerede prosa foerst, saa der er
+   ingen order/-omrokering og dermed ingen forskel paa laese- og
+   skaermraekkefoelge. */
+.om-lob{display:grid;gap:var(--r7) var(--r7);align-items:start}
+@media (min-width:900px){
+  .om-lob{grid-template-columns:minmax(0,1fr) minmax(260px,var(--om-mark,340px))}
+}
+
+/* --- regnskabet: sidens signatur ------------------------------------------
+   Tre tal, der SKAL give hinanden. Det er den ene figur paa siden, hvor
+   pladen faar lov at foere, og derfor det ene sted tallene saettes stort. */
+.om-regnskab{background:var(--panel);padding:var(--r5);margin:0}
+.om-regnskab__raekke{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:var(--r2) var(--r4);padding:var(--r3) 0;border-top:1px solid var(--linje);
+}
+.om-regnskab__raekke:first-child{border-top:0;padding-top:0}
+.om-regnskab__raekke dt{
+  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--blaek2);
+}
+.om-regnskab__raekke dd{margin:0}
+.om-regnskab__raekke dd .figur{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1}
+/* Summen er regnestykkets facit og faar den kraftige streg, systemet
+   allerede bruger til "her slutter en optaelling" (.streg--kraftig). */
+.om-regnskab__raekke--sum{border-top:2px solid var(--blaek);margin-top:var(--r2);padding-top:var(--r4)}
+.om-regnskab__raekke--sum dt{color:var(--blaek)}
+.om-regnskab__raekke--sum dd .figur{font-size:38px}
+.om-regnskab__ligning{
+  margin-top:3px;font-size:10.5px;letter-spacing:.1em;color:var(--blaek3);
+  text-transform:none;font-weight:400;
+}
+
+/* --- metoden: fire trin i den raekkefoelge de sker i ----------------------- */
+.om-trinliste{
+  list-style:none;margin:0;padding:0;
+  display:grid;gap:var(--r6);
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+}
+.om-trin{display:grid;gap:var(--r3);align-content:start;
+  padding-top:var(--r4);border-top:2px solid var(--blaek)}
+/* Trinnummeret er stanset, ikke sat i en cirkel: en cirkel er
+   SaaS-punktopstillingens sprog, og TYPESKILT har ingen runde marker.
+   aria-hidden i markup'en - <ol> siger allerede raekkefoelgen til en
+   skaermlaeser, og "01" ville blive laest to gange. */
+.om-trin__nr{
+  font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--blaek3);
+  line-height:1;
+}
+.om-trin__titel{margin:0}
+.om-trin .om-broed{font-size:17px;margin:0;max-width:44ch}
+
+/* --- hvad siden ikke goer -------------------------------------------------
+   Den haarde linje er PRODUCT.md's krav (linje 95-96, 119-120) og staar som
+   afsnittets paastand, ikke som en fodnote. Gunmetalflade, samme rolle som
+   sidefodens .haard - dér staar den ogsaa, paa hver eneste side. */
+.om-haard{
+  background:var(--fod);color:#FFFFFF;margin:0 0 var(--r5);
+  padding:var(--r4) var(--r5);max-width:62ch;
+  font-family:var(--mono);font-size:19px;font-weight:600;line-height:1.4;
+  letter-spacing:-.012em;text-wrap:pretty;
+}
+.om-ikke{list-style:none;margin:0;padding:0;display:grid;gap:var(--r4)}
+.om-ikke > li{padding-left:var(--r4);border-left:2px solid var(--hegn)}
+.om-ikke > li:last-child{margin-bottom:0}
+.om-ikke .om-broed{margin:0}
+
+/* --- udgiveren ------------------------------------------------------------
+   Navn, by og kontakt. INTET om ydelser - L61, haard begraensning 1. */
+.om-kort{background:var(--panel);padding:var(--r5);margin:0;display:grid;gap:var(--r4)}
+.om-kort__raekke{display:grid;gap:3px}
+.om-kort__raekke dd{margin:0;font-size:16px;color:var(--blaek);line-height:1.45}
+.om-kort__navn{display:block;font-weight:700;letter-spacing:-.01em}
+.om-kort a{color:var(--blaek);text-underline-offset:3px}
+
+/* Tegnforklaringen er GENBRUGT fra katalogsiden (hjaelp.tegnforklaring()) og
+   baerer sin egen .sektion-luft. Her ligger den allerede inde i en sektion,
+   saa den luft nulstilles - ellers ville der staa to sektionsafstande
+   oven i hinanden. */
+.om-tegn .tegnforklaring{padding-top:var(--r5)}
+.om-tegn .tegnforklaring .sektion-hoved h2{font-size:19px;letter-spacing:-.014em}
+
+@media (max-width:679px){
+  .om-hero{padding-top:var(--r6)}
+  .om-hero__ord{max-width:none}
+  .om-lede{font-size:18px;margin-top:var(--r4)}
+  .om-sektion{padding-top:var(--r7)}
+  .om-broed{font-size:17px}
+  .om-regnskab,.om-kort{padding:var(--r4)}
+  .om-regnskab__raekke dd .figur{font-size:26px}
+  .om-regnskab__raekke--sum dd .figur{font-size:32px}
+  .om-haard{font-size:17px;padding:var(--r4)}
+  .om-trinliste{gap:var(--r5)}
+}

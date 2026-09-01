@@ -372,7 +372,7 @@
   "om_regnskab_io": "Not stated",
   "om_regnskab_ialt": "Possible pieces of information",
   "om_regnskab_ligning": "{felter} fields × {n} robots",
-  "om_regnskab_kilder": "{k} of the stated fields carry a source mark. {a} point to the manufacturer’s own product page, {b} to a datasheet, a manual or developer documentation on the manufacturer’s own domain. The remaining {r} are the answer no, which has no figure to source.",
+  "om_regnskab_kilder": "{k} of the {o} stated fields carry a source mark. {a} point to the manufacturer’s own product page, {b} to a datasheet, a manual or developer documentation on the manufacturer’s own domain. The remaining {r} are the answer no, which has no figure to source.",
   "om_regnskab_note": "The gaps are counted too. A field the manufacturer leaves empty says as much about the robot as a figure does — which is why it stands on the page instead of being hidden.",
 
   "om_metode_titel": "How a figure reaches the page",
@@ -387,6 +387,8 @@
 
   "om_tilstande_titel": "The four states",
   "om_tilstande_broed": "A figure, a zero, a no and a gap are four different things. They are made to look different on purpose, because that is where catalogue pages lie: a zero turns into an empty cell, and an empty cell turns into a zero. In this catalogue the manufacturers state {nul} measured zeros, and {nej} times they answer no outright.",
+
+  "om_tilstande_noegle": "The key below is the catalogue’s own. It is not a drawing of the marks but the very marks the robot pages set — which is why it also carries a fifth state, for what can only be seen in a photo, and the two source marks A and B.",
 
   "om_ikke_titel": "What this site does not do",
   "om_ikke_koeb": "There is no buy button, no referral links and no price enquiry form in a catalogue entry.",
