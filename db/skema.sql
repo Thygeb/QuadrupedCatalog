@@ -6,8 +6,10 @@
 -- via en offline model af de samme regler (se den fils kommentarer).
 --
 -- SANDHEDSKILDEN ER tools/skema.mjs, IKKE denne fil. Enum-værdierne herunder
--- (feltnavn_enum især) er en ØJEBLIKSAFLÆSNING af FELTNAVNE, taget 25. aug
--- 2026 (30 felter, se fund/FUND-db1.md's formscan). Postgres kan ikke læse en
+-- (feltnavn_enum især) er en ØJEBLIKSAFLÆSNING af FELTNAVNE, senest ajourført
+-- 1. sep 2026 (33 felter — spor/cert tilføjede fcc_oplyst/ul_oplyst/ccc_oplyst;
+-- den oprindelige aflæsning, 30 felter, blev taget 25. aug 2026, se
+-- fund/FUND-db1.md's formscan). Postgres kan ikke læse en
 -- ekstern .mjs-fil ved CREATE TYPE-tid, så listen er skrevet i hånden ÉN gang
 -- her og skal udvides mekanisk (ALTER TYPE ... ADD VALUE), hvis skema.mjs
 -- ændrer sig. db/migrer.mjs sammenligner sin egen kopi af listen mod
@@ -108,10 +110,16 @@ create type feltform_enum as enum (
   'bare_tilstand', 'tilstand_med_herkomst', 'tal', 'interval', 'tekst', 'bool', 'liste'
 );
 
--- De 30 feltnavne, skema.mjs's FELTNAVNE havde 25. aug 2026 (NAEVNER, jf.
--- L30/L32 i STATUS.md — nævneren udledes i koden af FELTNAVNE.length og må
--- ALDRIG skrives som et tal andre steder end her og i db/migrer.mjs's
+-- De 33 feltnavne, skema.mjs's FELTNAVNE havde 1. sep 2026 (NAEVNER, jf.
+-- L30/L32/spor/cert i STATUS.md — nævneren udledes i koden af FELTNAVNE.length
+-- og må ALDRIG skrives som et tal andre steder end her og i db/migrer.mjs's
 -- driftvagt mod skema.mjs. Se filens toptekst for hvordan de to holdes i sync).
+-- spor/cert (1. sep 2026): fcc_oplyst, ul_oplyst, ccc_oplyst tilføjet — tre
+-- regulatoriske jaNej-felter i samme form som ce_oplyst. Ingen robotdata
+-- skrevet i det spor: alle rækker migreret før dette har feltet som
+-- "ikke_oplyst" (db/migrer.mjs's klassificerRobot() default'er et
+-- fraværende FELTNAVNE-felt til 'ikke_oplyst', samme regel som
+-- feltVisning() i skema.mjs og felt() i side.mjs allerede fulgte).
 create type feltnavn_enum as enum (
   'egenvaegt', 'laengde', 'bredde', 'hoejde', 'frihedsgrader',
   'nyttelast_gaaende', 'nyttelast_staaende', 'hastighed', 'haeldning',
@@ -120,7 +128,7 @@ create type feltnavn_enum as enum (
   'lidar', 'kameraer', 'compute', 'ros2', 'sdk_sprog', 'autonominiveau',
   'monteringsinterface', 'stroem_ud', 'dataporte',
   'pris',
-  'ce_oplyst'
+  'ce_oplyst', 'fcc_oplyst', 'ul_oplyst', 'ccc_oplyst'
 );
 
 /* ============================================================

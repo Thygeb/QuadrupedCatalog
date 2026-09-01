@@ -36,7 +36,7 @@
  *      generisk, så en fremtidig side, der igen genbruger etiketten forkert,
  *      fanges her, uden at denne del selv skal opdateres.
  *   4. Samme vagt, specifikt mod netop DEN bug-klasse der skete: NAEVNER
- *      (skemaets rå feltantal, i dag 30) må ALDRIG stå under
+ *      (skemaets rå feltantal, i dag 33) må ALDRIG stå under
  *      `stempel_felter`-etiketten på en side, der viser mere end én robot —
  *      for så er det pr. definition ikke en optælling af oplyste
  *      feltværdier.
@@ -107,7 +107,7 @@ export default async function koer(ctx) {
     );
     const syntetisk = [
       { slug: 'test-alle-tilstede', producent: 'X', felter: alleIkkeOplyst },
-      { slug: 'test-alle-mangler', producent: 'Y', felter: {} }, // ingen af de 30 noegler staar i doc'et
+      { slug: 'test-alle-mangler', producent: 'Y', felter: {} }, // ingen af de 33 noegler staar i doc'et
     ];
 
     function regnskabOedelagt(robotter) {
@@ -127,9 +127,11 @@ export default async function koer(ctx) {
     const rigtig = omOs.regnskab(syntetisk);
     const oedelagt = regnskabOedelagt(syntetisk);
 
+    // spor/cert (1. sep 2026): 60 -> 66. Vendt, ikke slettet — 2 syntetiske
+    // robotter x skema.FELTNAVNE.length (30 -> 33 med fcc_/ul_/ccc_oplyst).
     ok('50.1/modbevis-forudsaetning: de syntetiske robotter rammer begge grene '
-      + '(én med alle 30 noegler tilstede som "ikke_oplyst", én med 0 noegler i doc\'et)',
-      rigtig.muligt === 60 && Object.keys(syntetisk[1].felter).length === 0);
+      + '(én med alle 33 noegler tilstede som "ikke_oplyst", én med 0 noegler i doc\'et)',
+      rigtig.muligt === 66 && Object.keys(syntetisk[1].felter).length === 0);
     ok('50.1/modbevis.a: DEN RIGTIGE regnskab() balancerer paa de syntetiske robotter',
       rigtig.oplyst + rigtig.io === rigtig.muligt,
       `${rigtig.oplyst} + ${rigtig.io} != ${rigtig.muligt}`);

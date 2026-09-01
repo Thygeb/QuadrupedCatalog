@@ -237,6 +237,9 @@
   "felt_dataporte": "Data ports",
   "felt_pris": "Indicative price",
   "felt_ce_oplyst": "CE stated",
+  "felt_fcc_oplyst": "FCC stated",
+  "felt_ul_oplyst": "UL stated",
+  "felt_ccc_oplyst": "CCC stated",
   "felt_foerste_udgivelse": "Release year",
 
   "anvendelse_titel": "Intended use, per the manufacturer",

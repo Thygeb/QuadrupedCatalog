@@ -39,7 +39,7 @@ To eksempler på, hvorfor den regel er nødvendig:
 
 - **Xiaomi CyberDog 2.** Specifikationerne står ikke i produktsidens HTML. De ligger i en
   JavaScript-fil, siden selv henter, og som browseren viser læseren. Læser man kun HTML'en,
-  ser posten tom ud. Læser man det, siden faktisk viser, står den med 17 af 30 felter.
+  ser posten tom ud. Læser man det, siden faktisk viser, står den med 17 af 33 felter.
   Katalogets midterste post har 13.
 - **Boston Dynamics Spot.** Databladet ligger som PDF på producentens eget domæne. Det er
   der, længdemålet er konsistent — se afsnittet om modstridende tal nedenfor.
@@ -145,13 +145,13 @@ flere gange under indsamlingen, så kontrollen er ikke teoretisk.
 
 Kataloget har ét tal, der stilles op på tværs af robotter:
 
-> **specifikationstæthed = udfyldte felter ÷ 30**
+> **specifikationstæthed = udfyldte felter ÷ 33**
 
-Nævneren er 30, fordi skemaet har 30 felter. Ikke 30 fordi vi synes, men fordi det er
+Nævneren er 33, fordi skemaet har 33 felter. Ikke 33 fordi vi synes, men fordi det er
 antallet af felter, generatoren faktisk tæller op, og antallet hver eneste datafil skriver.
 Tælleren og nævneren kommer fra den samme liste; det er hele pointen.
 
-De 30 felter er:
+De 33 felter er:
 
 - **Fysik (14):** egenvægt · længde · bredde · højde · frihedsgrader ·
   nyttelast gående · nyttelast stående · maks. hastighed · maks. hældning · enkelt forhindring ·
@@ -161,7 +161,10 @@ De 30 felter er:
   autonominiveau
 - **Nyttelast og udvidelser (3):** monteringsinterface · strøm ud · dataporte
 - **Kommercielt (1):** vejledende pris
-- **EU (1):** CE oplyst
+- **Regulatorisk (4):** CE oplyst · FCC oplyst · UL oplyst · CCC oplyst — feltet hedder
+  internt stadig gruppen "eu" (skemaets `gruppe: 'eu'`, uændret siden CE var den eneste),
+  men kun CE er en EU-mekanisme. FCC er amerikansk, UL er nordamerikansk, CCC ("3C") er
+  kinesisk. Gruppenavnet i koden er ikke rettet endnu — se rettelsesnoten nedenfor.
 
 Identitetsfelterne — navn, producent, land, status, årstal — skriver vi selv. De tæller ikke
 med, hverken i tælleren eller i nævneren. Det samme gælder **anvendelse**: den er
@@ -200,6 +203,17 @@ båret rundt på. Se rettelsesnoten nedenfor.
 > ændres ikke af samme grund som dengang: en konstant nævner flytter ingen robot i
 > forhold til nogen anden.
 
+> **Rettet 1. september 2026.** Her stod tidligere `÷ 30`. Tre regulatoriske jaNej-felter
+> er tilføjet i samme form som CE oplyst: FCC oplyst (USA), UL oplyst (Nordamerika) og
+> CCC oplyst (Kina, markedsnavn "3C"). Ingen robotdata er rettet i det spor — hård
+> begrænsning 2 forbyder at opfinde et tal for at lukke hullet — så samtlige robotter i
+> kataloget går automatisk fra "feltet findes ikke" til dokumenteret *ikke oplyst* på de
+> tre nye felter. Det er den forventede tilstand: "ikke oplyst" er det rigtige svar for
+> langt de fleste, ikke en mangel ved indsamlingen. Nævneren går fra 30 til 33, og alle
+> tæthedstal på siden falder med det — tredje niveauforskydning siden 21. august, denne
+> gang i den modsatte retning af L32's stigning ovenfor. Rækkefølgen ændres ikke, af
+> samme grund som begge gange før.
+
 ### Sådan tælles et felt som udfyldt
 
 1. Producenten oplyser en værdi for netop det felt på sin egen side eller i en kilde på sit
@@ -232,7 +246,7 @@ hvem der laver de bedste robotter.
 certificering i kataloget: `ATEX & IECEx certified up to Zone 1 IIB` — det papir, der afgør,
 om en maskine overhovedet må ind i et område med eksplosionsfare. Producentens
 specifikationsafsnit består til gengæld af én sætning: *"2026 ANYmal X specifications coming
-soon."* Tætheden er derfor **4 af 30 felter, 13 %**, og posten ligger i bunden af kataloget.
+soon."* Tætheden er derfor **4 af 33 felter, 12 %**, og posten ligger i bunden af kataloget.
 
 Sorterer du på tæthed, lander den robot, en dansk procesindustri kan bruge i et
 eksplosionsfarligt område, nederst. Tallet er ikke forkert. Det svarer bare på et andet
@@ -241,9 +255,11 @@ spørgsmål end "hvilken robot skal vi købe".
 Prisen er oplyst på 2 af 46. Det er ikke en mangel ved kataloget. Det er, hvad markedet
 offentliggør. Tre EU-felter — tilgængelig i EU, servicepunkt i EU og leveringstid — stod
 tomme hos **alle** poster i kataloget og er derfor fjernet fra skemaet (se rettelsesnoten
-under Specifikationstæthed ovenfor). CE oplyst er den eneste EU-oplysning, der er tilbage,
-og den vises stadig — to producenter oplyser den, to svarer et dokumenteret nej, resten
-skriver intet.
+under Specifikationstæthed ovenfor). CE oplyst er stadig den eneste **EU**-oplysning i
+skemaet — to producenter oplyser den, to svarer et dokumenteret nej, resten skriver intet.
+Siden 1. september 2026 (se rettelsesnoten) står tre regulatoriske søsterfelter ved siden
+af den: FCC oplyst, UL oplyst og CCC oplyst. De er ikke EU-mekanismer og forklares derfor
+ikke i dette afsnit, som specifikt handler om CE og EU-reglerne nedenfor.
 
 ---
 
