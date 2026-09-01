@@ -357,5 +357,46 @@
   "seneste_titel": "Latest models",
   "seneste_aar_ord": "Latest release year",
   "seneste_antal": "{n} models released in {aar}",
-  "seneste_note": "A release year is stated for {m} of {i} models. The other {u} state no year — and that says nothing about how old they are."
+  "seneste_note": "A release year is stated for {m} of {i} models. The other {u} state no year — and that says nothing about how old they are.",
+
+  "_om_os": "spor/omos: the About page (L61). Figures in these strings are ALWAYS placeholders — {n}, {muligt}, {io} — and are filled in by tools/skabelon/om-os.mjs at build time. Never write a number here; see D7/L30. KeyResearch's services must not be described, and there must be no link to the sales site.",
+  "om_nav": "About us",
+  "om_etiket": "About this publication",
+  "om_titel": "Who counts, and how",
+  "om_beskrivelse": "Who publishes the quadruped robot catalogue, how the figures are gathered and sourced, and what the site does not do.",
+  "om_lede": "The catalogue describes {n} quadruped robots from {p} manufacturers in {l} countries. It is published by KeyResearch in Aarhus, Denmark. This page says where the figures come from, what they do not cover, and who stands behind them.",
+
+  "om_regnskab_titel": "Everything the catalogue can know",
+  "om_regnskab_broed": "The schema has {felter} fields. With {n} robots in the catalogue there are {muligt} possible pieces of information. Every single one of them is accounted for here, and they add up.",
+  "om_regnskab_oplyst": "Stated by the manufacturer",
+  "om_regnskab_io": "Not stated",
+  "om_regnskab_ialt": "Possible pieces of information",
+  "om_regnskab_ligning": "{felter} fields × {n} robots",
+  "om_regnskab_kilder": "{k} of the stated fields carry a source mark. {a} point to the manufacturer’s own product page, {b} to a datasheet, a manual or developer documentation on the manufacturer’s own domain. The remaining {r} are the answer no, which has no figure to source.",
+  "om_regnskab_note": "The gaps are counted too. A field the manufacturer leaves empty says as much about the robot as a figure does — which is why it stands on the page instead of being hidden.",
+
+  "om_metode_titel": "How a figure reaches the page",
+  "om_metode_1_titel": "Fetched",
+  "om_metode_1_broed": "We fetch the manufacturer’s own page, datasheet or manual and keep the file as evidence, with its address and the date it was fetched.",
+  "om_metode_2_titel": "Recorded",
+  "om_metode_2_broed": "The figure goes into one of the schema’s {felter} fields with a unit and a source. If the manufacturer does not state it, the field becomes not stated. It never becomes an estimate.",
+  "om_metode_3_titel": "Checked",
+  "om_metode_3_broed": "The validator reads the whole catalogue again. If a figure is missing a unit, a source or a date — or if the manufacturer’s own metric and imperial numbers disagree — it stops the build.",
+  "om_metode_4_titel": "Built",
+  "om_metode_4_broed": "The pages are generated afresh from the same files. There is no way past the validator, and that is why the site carries {u} figures without a source.",
+
+  "om_tilstande_titel": "The four states",
+  "om_tilstande_broed": "A figure, a zero, a no and a gap are four different things. They are made to look different on purpose, because that is where catalogue pages lie: a zero turns into an empty cell, and an empty cell turns into a zero. In this catalogue the manufacturers state {nul} measured zeros, and {nej} times they answer no outright.",
+
+  "om_ikke_titel": "What this site does not do",
+  "om_ikke_koeb": "There is no buy button, no referral links and no price enquiry form in a catalogue entry.",
+  "om_ikke_spor": "The site sets no cookies, loads nothing from third parties and does not measure who reads it. It works without JavaScript.",
+  "om_ikke_score": "There is no rating from 1 to 5, no stars and no ranking. Such a score would be an editorial conclusion rewritten as a number, and it would require a published method with acceptance criteria. That method does not exist, so neither does the score.",
+
+  "om_udgiver_titel": "Publisher",
+  "om_udgiver_broed": "The catalogue is published by KeyResearch in Aarhus, Denmark. KeyResearch stands as the publisher of the reference work — not as the sender of an individual catalogue entry, and not as a party to any sale.",
+  "om_udgiver_adresse": "Address",
+  "om_udgiver_telefon": "Telephone",
+  "om_udgiver_post": "Email",
+  "om_udgiver_ret": "If a figure is wrong, or a manufacturer has updated a datasheet, write to us. A correction is traced back to the source and gets a new fetch date."
 }
