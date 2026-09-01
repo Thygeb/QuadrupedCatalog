@@ -1,9 +1,9 @@
 # BRIEF — spor/document (LED 1 af designplanen)
 
-**Status: SKREVET, IKKE SENDT.** Afventer at `spor/doedcss` er flettet. JPK gav
-1. sep 2026 stående tilladelse til at fyre det af selv, når forudsætningen er
-opfyldt. Grundmålingen i afsnit 1 udfyldes med FRISKE tal umiddelbart før
-afsendelse — ikke med tallene fra i dag.
+**Status: SENDT 1. sep 2026.** Forudsætningen er opfyldt: `spor/doedcss` er
+flettet som `afb3b39`, efterprøvet af orkestratoren, og worktreen er ryddet.
+JPK gav samme dag stående tilladelse til at sende led 1 af selv, når det skete.
+Grundmålingen i afsnit 1 er friske tal fra det flettede main.
 
 **Model: Sonnet.** Opgaven er en udtrækning fra kode med et efterprøvbart facit:
 hver token i frontmatter skal matche en værdi, der står i `assets/system.css`.
