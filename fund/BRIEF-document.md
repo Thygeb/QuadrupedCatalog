@@ -11,8 +11,7 @@ De steder, hvor der VILLE være skøn, er skåret væk af afsnit 3 — konflikte
 skal noteres, ikke afgøres. Fravalgt Opus, fordi leverancen er en beskrivelse
 af det bestående, ikke en dom.
 
-**Serverport og testnummer:** tildeles af `.claude/skills/parallelt/opsaet.mjs`
-ved oprettelsen. Skriv dem ind her, før sporet sendes.
+**Serverport: 8142. Testnummer: 58** (din nye testfil skal hedde `tests/dele/58-designmd.mjs`). Tildelt af `.claude/skills/parallelt/opsaet.mjs`
 
 **Rør ALDRIG** `c:\Praktik\websites\salg` eller `c:\Praktik\website`.
 
@@ -131,7 +130,7 @@ på familienavnet.
 ## 4. Filejerskab
 
 **Du ejer:** `DESIGN.md` · `fund/FUND-document.md` (din rapport) ·
-`tests/dele/<nr>-designmd.mjs` (ny, nummer tildelt ved oprettelsen).
+`tests/dele/58-designmd.mjs` (ny).
 
 **Du må LÆSE** alt i repoet. **Du må ikke ÆNDRE** stilark, skabeloner, data
 eller i18n. Bemærker du en fejl i dem, så skriv den i rapporten — ret den ikke.
