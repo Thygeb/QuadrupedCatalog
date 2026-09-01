@@ -1997,6 +1997,82 @@ td .v{font-size:15px}
   .vc__mrk{padding:11px 9px;min-height:44px}
 }
 
+/* --- topbar og sprogrod (spor/oversigt) -------------------------------------
+   PUNKT 2 (JPK, 1. sep 2026): "Burde Unit-vaelgeren ikke vaere en del af
+   topbaren?" Maalt foer sporet: kontakten stod ét sted paa robotsiden og et
+   ANDET sted paa sammenligningssiden - to forskellige adresser for samme
+   valg. Den her blok flytter den SYNLIGE etiket op i daekket (side.mjs),
+   saa den staar ét fast sted paa alle 213 sider.
+
+   DEN FYSISKE <input id="enhedsskift"> FLYTTER IKKE. Den staar stadig,
+   hvor tools/skabelon/robot.mjs og tools/skabelon/sammenligning.mjs skriver
+   den - de to filer er uden for dette spors filejerskab (CLAUDE.md,
+   DIT FILEJERSKAB). Kun <label class="enhedsskift" for="enhedsskift"> i
+   daekket er nyt, og flere <label for=...> til samme kontrol er allerede
+   sitets egen praksis (16c ovenfor: "den staar to steder"). Der tilfoejes
+   INGEN ny <input> - grep -c enhedsskift__boks er stadig 1 pr. side, ikke 2.
+
+   16c's `~`-soeskende-mekanik (.typeskilt/.sammenligning-app-praefikset)
+   rammer STADIG selve INDHOLDS-skiftet (.enhedsvis--imperial/--metrisk)
+   uaendret, fordi boksen ikke har flyttet sig - kun sin etiket. Den kan
+   derimod IKKE style DENNE nye etiket: `~` virker kun FREMAD i DOM'et, og
+   daekket staar FOER <main> paa hver side, saa etiketten ligger nu FOER
+   boksen, ikke efter. Loesningen er :has() - stadig ren CSS, stadig
+   P0-lovligt (JavaScript maa forbedre sandheden; den maa aldrig vaere
+   forudsaetningen for den). */
+.daek__enhed{display:none;margin:0}
+/* Vis KUN topbarens kontakt, naar siden faktisk HAR en #enhedsskift at
+   style paa - ellers ville katalog-, producent-, om- og 404-siderne vise
+   en kontakt, intet klik goer noget ved (der findes slet ingen boks der).
+   Robotsiden: boksen findes, naar robotten har omregnelige felter (uaendret
+   fra foer dette spor). Sammenligning: boksen findes i DOM'et fra foerste
+   byg, men ligger i en `hidden`-plade, indtil assets/sammenligning.js
+   fjerner attributten - :not([hidden]) holder derfor topbarens kontakt
+   usynlig lige saa laenge, den var det FOER dette spor (P0: ingen kontakt
+   er rigtigere end en doed kontakt, naar der ingen matrix er at skifte
+   paa). CSS-selektorer gen-evalueres automatisk, naar JS fjerner
+   attributten - ingen ny scriptkobling er noedvendig for det. */
+body:has(.robotside.typeskilt .enhedsskift__boks) .daek__enhed,
+body:has(.sammenligning-app:not([hidden]) .enhedsskift__boks) .daek__enhed{
+  display:flex;
+}
+/* Pillen genbruger 16c's ETABLEREDE udseende (samme tre klasser -
+   .enhedsskift/__spor/__knop). Flytningen er ikke en ny komponent, kun en
+   ny adresse for den samme; kun tallene er strammet til daekkets lavere
+   raekkehoejde. */
+.daek__enhed .enhedsskift{padding:5px 10px 5px 8px;min-height:36px;gap:8px}
+/* DE GAMLE IN-PAGE ETIKETTER SKJULES. Uden denne regel viser en robotside
+   OP TIL TRE synlige kontakter samtidig (topbaren + robot.mjs' to egne
+   enhedsskifter()-kald, 16c's kommentar: "den staar to steder") - praecis
+   det, punkt 2 skulle GOERE OP MED ("ÉN kontakt paa fast plads i stedet for
+   to forskellige steder"). Den fysiske <input> og dens SOESKENDE-kontekst
+   (16c's `~`-regel, som skifter selve tallene) er UROERT - kun de GAMLE
+   ETIKETTERS EGEN SYNLIGHED slaas fra. Samme regel daekker sammenligningens
+   JS-indsatte etiket (assets/sammenligning.js' enhedslinjeHTML(), en anden
+   fil uden for dette spors ejerskab) - den indsaettes som efterkommer af
+   .sammenligning-app, saa selektoren rammer den automatisk, uden en aendring
+   i JS'en. */
+.robotside.typeskilt .enhedsskift,
+.sammenligning-app .enhedsskift{display:none}
+/* Tilstand + fokusring paa DENNE etiket - :has() i stedet for `~`, jf.
+   forklaringen ovenfor. Samme farver og samme regel-tekst som 16c, saa de
+   to steder (boksens gamle soeskende-omgivelse og denne) ikke kan skride
+   fra hinanden i udseende, selvom mekanikken er forskellig. */
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift{color:var(--blaek);border-color:var(--blaek)}
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
+body:has(.enhedsskift__boks:focus-visible) .daek__enhed .enhedsskift{
+  outline:3px solid var(--accent);outline-offset:3px;border-radius:2px;
+}
+/* Under 420 px braekker daekket allerede (16-topbar-blokken, flex-wrap).
+   Kontakten faar samme hoejrestillede logik som sprogskifteren, naar den
+   selv staar paa foerste raekke - staar den paa sin egen (fordi pillen +
+   mark + sprog samlet er bredere end 343 px), samler auto-margenen den
+   stadig til hoejre i stedet for at flyde til venstre under mark. */
+@media (max-width:420px){
+  .daek__enhed{margin-left:auto}
+}
+
 /* --- kortets vaerdi og samlknap (spor/kort) ---------------------------------
    ÉN AFGRAENSET BLOK, SIDST I FILEN, fordi assets/system.css deles med
    spor/enhed. Ingen eksisterende regel er roert.

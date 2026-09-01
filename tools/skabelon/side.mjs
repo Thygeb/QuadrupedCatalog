@@ -1996,9 +1996,13 @@ export function skal({
   const op = '../'.repeat(dybde);
   const andet = sprogkode === 'da' ? 'en' : 'da';
   const alternativer = SPROG.map((s) => ({ sprog: s, href: `${op}${s}/${sti}` }));
+  // spor/oversigt (1. sep 2026, JPK: "HELE oversigt-siden skal vaek"):
+  // kataloget ER sprogroden nu - dets nav-punkt bruger href '' og der er
+  // intet separat forside-punkt laengere. T.nav_forside staar stadig i
+  // begge sprogfiler (uroert, ubrugt her - se STATUS.md/rapporten), men
+  // nav-arrayet selv har kun TRE faste punkter fra nu af, ikke fire.
   const nav = [
-    ['', T.nav_forside],
-    ['robotter/', T.nav_katalog],
+    ['', T.nav_katalog],
     // spor/lysbyg: sammenligningssiden foelger katalogsiden i navigationen,
     // samme raekkefoelge mockuppens baand havde (prototype/retning-lys/*.html).
     ['sammenligning/', T.nav_sammenligning],
@@ -2071,6 +2075,7 @@ ${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"
     + `${aktiv === href ? ' aria-current="page"' : ''}>${esc(tekst)}</a></li>`).join('\n')}
 </ul>
 </nav>
+<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord">${esc(t('enhed_skift_etiket'))}</span></label></p>
 <p class="daek__sprog"><span class="kunskaerm">${esc(t('sprog_etiket'))}</span>${sprogSkifter}</p>
 </div>
 </header>
