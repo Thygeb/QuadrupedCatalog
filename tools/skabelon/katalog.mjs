@@ -166,9 +166,6 @@ function laesFelt(robot, navn) {
   return { slags: 'tal', tal, enhed: p.enhed };
 }
 
-/** Er feltet oplyst overhovedet (uanset om svaret er ja, nej eller et tal)? */
-const erOplyst = (robot, navn) => laesFelt(robot, navn).slags !== 'ikke_oplyst';
-
 function ipVaerdi(robot) {
   const p = robot.felter?.ip_klasse;
   if (p === undefined) return 'ikke_oplyst';
@@ -798,14 +795,24 @@ export function render(ctx) {
      saa snart en robot skifter status. */
   const iStandard = robotter.filter((r) => status.standard.has(r.status)).length;
 
-  /* --- TYPESKILTETS STEMPLER ----------------------------------------------
-     Fire stansede felter. Alle FIRE er udledt af data - ingen af dem er
-     skrevet i haanden, og ingen af dem er en dato fra byggeuret (som ville
-     goere to byg af samme data forskellige).
+  /* --- TYPESKILTETS STEMPEL (JPK 1. sep 2026, punkt 2) ---------------------
+     STOD FOER SOM FIRE FELTER (Type, Udgave, Poster, Oplyste felter). JPK
+     spurgte ordret "Hvad er meningen med dette?", og det var et rigtigt
+     spoergsmaal: "Oplyste felter" stod her som 842, paa sammenligningssiden
+     som 30 og paa Om os som 1.116 - samme etiket, tre forskellige tal, ingen
+     forklaring paa hvorfor. Type (QUAD-77) og Poster (77) gentog blot
+     `alle`, som allerede staar i strimlens taeller og resultatoverskriften
+     nogle faa linjer laengere nede - en dublet af et tal, siden allerede
+     viser.
 
-     "Udgave" er den seneste hentedato i hele kataloget: den siger, hvor frisk
-     materialet er, og den er den eneste dato paa siden, der ikke tilhoerer en
-     enkelt robot. */
+     KUN UDGAVEN BLIVER TILBAGE. Det er den ene af de fire, der IKKE staar
+     andetsteds paa siden: den seneste hentedato i hele kataloget, dvs. hvor
+     FRISK materialet er. En dato alene laeser som en tilfaeldig detalje uden
+     et ord ved siden af, der siger hvad den er - derfor beholdes
+     `stempel_udgave` ("Udgave"/"Edition") som etiket. Ordet er sandt: det er
+     den udgave af datagrundlaget, siden er bygget af, og det er praecis det,
+     koden nedenfor regner (den seneste `hentet`-dato paa tvaers af alle
+     robotter). Ingen ny noegle noedvendig. */
   const datoer = [];
   for (const r of robotter) {
     if (r.billede?.hentet) datoer.push(r.billede.hentet);
@@ -815,15 +822,10 @@ export function render(ctx) {
     }
   }
   const udgave = datoer.length ? datoer.sort()[datoer.length - 1] : '';
-  const oplysteFelter = robotter.reduce((sum, r) => sum
-    + Object.keys(r.felter ?? {}).filter((n) => erOplyst(r, n)).length, 0);
   const lande = new Set(robotter.map((r) => r.producentland)).size;
 
   const stempler = [
-    [t('stempel_type'), `QUAD-${alle}`],
     [t('stempel_udgave'), udgave],
-    [t('stempel_poster'), hjaelp.nformat(alle)],
-    [t('stempel_felter'), hjaelp.nformat(oplysteFelter)],
   ];
 
   /* --- STRIMLENS CHIPS ----------------------------------------------------
