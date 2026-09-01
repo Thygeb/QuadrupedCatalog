@@ -316,6 +316,28 @@ function tjekAdvarselKlasse(sti, post) {
 }
 
 /**
+ * R21 — spor/cjkui, 1. sep 2026: "advarsel_ordlyd" er producentens ordrette,
+ * ikke-danske formulering, flyttet ud af "advarsel:" saa siden bliver ren
+ * for kinesiske tegn uden at kildebeviset gaar tabt — det flytter til
+ * datalaget i stedet for at forsvinde. Samme to krav som R20 stiller til
+ * "advarsel_klasse": feltet skal have et rigtigt indhold, og det kan ikke
+ * staa alene uden det forbehold, det er en ordlyd TIL.
+ */
+function tjekAdvarselOrdlyd(sti, post) {
+  const o = post.advarsel_ordlyd;
+  if (o === undefined) return;
+  if (typeof o !== 'string' || o.trim() === '') {
+    FEJL('R21', sti, `"advarsel_ordlyd" skal vaere en ikke-tom tekst — producentens ordrette ` +
+      `kildeformulering — fik ${JSON.stringify(o)}`);
+    return;
+  }
+  if (typeof post.advarsel !== 'string' || post.advarsel.trim() === '') {
+    FEJL('R21', sti, `"advarsel_ordlyd" staar uden "advarsel" — ordlyden hoerer til et forbehold, ` +
+      `laeseren ser, og uden det forbehold er der intet, den er en ordlyd til`);
+  }
+}
+
+/**
  * R15 — "varianter:" paa et felt (skemaudvidelse 2).
  * Go2's fire varianter er fire maskiner, ikke pynt: nyttelasten falder fra 5 til
  * 2,5 kg hen over Lite3's fire kolonner. Blokken skal derfor kunne staa — men
@@ -487,6 +509,7 @@ function tjekFelt(navn, vaerdi, spec, kendteVarianter) {
   tjekNoegler(sti, vaerdi);
   tjekVarianter(sti, vaerdi, kendteVarianter);
   tjekAdvarselKlasse(sti, vaerdi);   // R20 — foer typegrenen, gaelder alle former ens
+  tjekAdvarselOrdlyd(sti, vaerdi);   // R21 — samme grund, samme placering
 
   // Skemaudvidelse 1: tilstanden med herkomst. "Producenten svarer nej, her er
   // hvor det staar" er en anden oplysning end en bar "nej" — og en langt bedre.
@@ -577,6 +600,38 @@ function tjekAnvendelse(a, egenSlug) {
     if (!ANVENDELSE_NOEGLER.has(n)) {
       FEJL('R16', sti, `ukendt noegle "${n}" i anvendelsesposten. Tilladte: ` +
         `${[...ANVENDELSE_NOEGLER].join(', ')}`);
+    }
+  }
+
+  // R21 — spor/cjkui, 1. sep 2026: "citat_ordlyd"/"note_ordlyd" er
+  // producentens ordrette, ikke-danske formulering, flyttet ud af
+  // "citat"/"note" saa siden bliver ren for kinesiske tegn uden at
+  // kildebeviset gaar tabt. "citat_ordlyd" foelger "citat"s egen form: staar
+  // "citat" som en liste, skal "citat_ordlyd" vaere samme laengde liste,
+  // samme raekkefoelge ("" hvor det enkelte citat ikke havde en
+  // fremmedsproget ordlyd) — ellers kan ordlyden ikke fores tilbage til det
+  // rigtige citat.
+  if (a.note_ordlyd !== undefined) {
+    if (typeof a.note_ordlyd !== 'string' || a.note_ordlyd.trim() === '') {
+      FEJL('R21', sti, `"note_ordlyd" skal vaere en ikke-tom tekst — producentens ordrette ` +
+        `kildeformulering — fik ${JSON.stringify(a.note_ordlyd)}`);
+    } else if (typeof a.note !== 'string' || a.note.trim() === '') {
+      FEJL('R21', sti, `"note_ordlyd" staar uden "note" — ordlyden hoerer til en note, ` +
+        `laeseren ser, og uden den note er der intet, den er en ordlyd til`);
+    }
+  }
+  if (a.citat_ordlyd !== undefined) {
+    const citatErListe = Array.isArray(a.citat);
+    if (citatErListe) {
+      if (!Array.isArray(a.citat_ordlyd) || a.citat_ordlyd.length !== a.citat.length
+          || a.citat_ordlyd.some((x) => typeof x !== 'string')) {
+        FEJL('R21', sti, `"citat_ordlyd" skal vaere en liste af tekster med samme laengde som ` +
+          `"citat" (${a.citat.length}) — "" hvor citatet ikke havde en fremmedsproget ordlyd — ` +
+          `fik ${JSON.stringify(a.citat_ordlyd)}`);
+      }
+    } else if (typeof a.citat_ordlyd !== 'string' || a.citat_ordlyd.trim() === '') {
+      FEJL('R21', sti, `"citat_ordlyd" skal vaere en ikke-tom tekst — producentens ordrette ` +
+        `kildeformulering — fik ${JSON.stringify(a.citat_ordlyd)}`);
     }
   }
 
@@ -1036,6 +1091,23 @@ export function tjekRobot(doc, fil) {
     if (!ok) FEJL('R1', 'noter', `"noter" skal vaere en tekst eller en liste af tekster`);
     else if (typeof n === 'string') tjekInterntSprog('R19', 'noter', n);
     else n.forEach((tekst, i) => tjekInterntSprog('R19', `noter[${i}]`, tekst));
+  }
+  // R21 — spor/cjkui, 1. sep 2026: "noter_ordlyd" er en PARALLEL liste til
+  // "noter" (samme mekanik som anvendelse.citat_ordlyd ovenfor) — producentens
+  // ordrette, ikke-danske formulering for hver note, "" hvor den enkelte note
+  // ikke havde en. "noter" renderes ordret i robot.mjs' noterBlok(), saa den
+  // skal vaere ren dansk; ordlyden hoerer i soesterfeltet, som ingen skabelon
+  // laeser.
+  if (doc.noter_ordlyd !== undefined) {
+    const no = doc.noter_ordlyd;
+    const nListe = doc.noter === undefined ? [] : (Array.isArray(doc.noter) ? doc.noter : [doc.noter]);
+    if (!Array.isArray(no) || no.some((x) => typeof x !== 'string')) {
+      FEJL('R21', 'noter_ordlyd', `"noter_ordlyd" skal vaere en liste af tekster — "" hvor noten ` +
+        `ikke havde en fremmedsproget ordlyd — fik ${JSON.stringify(no)}`);
+    } else if (no.length !== nListe.length) {
+      FEJL('R21', 'noter_ordlyd', `"noter_ordlyd" har ${no.length} indgange, men "noter" har ` +
+        `${nListe.length} — de to skal foelges ad, position for position`);
+    }
   }
 
   // R16 — producentens egen anvendelsesinddeling. Ligger uden for "felter" med

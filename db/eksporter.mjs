@@ -176,6 +176,10 @@ function byggFeltpostVaerdi(f) {
     // form-betingelse som advarsel selv — kun de fem former, der kan baere
     // et forbehold, kan baere dets klasse.
     kort.advarsel_klasse = f.advarsel_klasse ?? undefined;
+    // R21 (spor/cjkui, 1. sep 2026): "advarsel_ordlyd" — samme form-
+    // betingelse som advarsel_klasse ovenfor, producentens ordrette
+    // kildeformulering, ingen skabelon laeser den.
+    kort.advarsel_ordlyd = f.advarsel_ordlyd ?? undefined;
   }
   if (f.ved_last) {
     // Tre virkelige former, alle fundet i data/robots/ (25. aug 2026, ikke
@@ -211,6 +215,8 @@ function byggRobotDoc(r) {
     forgaenger: r.forgaenger ?? undefined,
     varianter: r.varianter ?? undefined,
     noter: r.noter ?? undefined,
+    // noter_ordlyd — spor/cjkui, 1. sep 2026 (R21): soesterfeltet til noter.
+    noter_ordlyd: r.noter_ordlyd ?? undefined,
   };
 
   if (r.anvendelse) {
@@ -219,12 +225,16 @@ function byggRobotDoc(r) {
       doc.anvendelse = 'ikke_oplyst';
     } else {
       const kort = { vaerdi: a.er_ikke_oplyst ? 'ikke_oplyst' : a.vaerdi };
-      if (!a.er_ikke_oplyst) kort.citat = a.citat;
+      // citat_ordlyd foelger citat's egen er_ikke_oplyst-udeladelse (R21,
+      // spor/cjkui) — uden et citat er der intet at have en ordlyd til.
+      if (!a.er_ikke_oplyst) { kort.citat = a.citat; kort.citat_ordlyd = a.citat_ordlyd ?? undefined; }
       kort.kilde = a.kilde ?? undefined;
       kort.hentet = a.hentet ?? undefined;
       kort.kildetype = a.kildetype ?? undefined;
       kort.arvet_fra = a.arvet_fra ?? undefined;
       kort.note = a.note ?? undefined;
+      // note_ordlyd — spor/cjkui, 1. sep 2026 (R21): soesterfeltet til note.
+      kort.note_ordlyd = a.note_ordlyd ?? undefined;
       doc.anvendelse = kort;
     }
   }
@@ -253,7 +263,7 @@ function skrivRobotYaml(doc) {
   // anvendelse/billede, saa felter til sidst).
   const topRaekkefoelge = [
     'slug', 'navn', 'producent', 'producentland', 'producentby', 'status', 'fremdrift',
-    'foerste_udgivelse', 'forgaenger', 'varianter', 'noter', 'anvendelse', 'billede',
+    'foerste_udgivelse', 'forgaenger', 'varianter', 'noter', 'noter_ordlyd', 'anvendelse', 'billede',
   ];
   const top = {};
   for (const n of topRaekkefoelge) if (doc[n] !== undefined) top[n] = doc[n];
@@ -305,7 +315,7 @@ function omdanFeltpostFraDb(row) {
     vaerdi_tekst: row.vaerdi_tekst, vaerdi_bool: row.vaerdi_bool, vaerdi_liste: row.vaerdi_liste,
     enhed: row.enhed, enhed_imperial: row.enhed_imperial, vaerdi_imperial: row.vaerdi_imperial,
     operator: row.operator, kilde: row.kilde, hentet: row.hentet, kildetype: row.kildetype,
-    advarsel: row.advarsel, advarsel_klasse: row.advarsel_klasse,
+    advarsel: row.advarsel, advarsel_klasse: row.advarsel_klasse, advarsel_ordlyd: row.advarsel_ordlyd,
     note: row.note, raa: row.raa, valuta: row.valuta,
   };
   // ved_last_* er tre kolonner paa hver raekke (kun ikke-null for driftstid,
@@ -341,8 +351,8 @@ function omdanRobotFraDb(raa, idTilSlug) {
     const a = raa.anvendelse;
     anvendelse = {
       er_bar_streng: a.er_bar_streng, er_ikke_oplyst: a.er_ikke_oplyst,
-      vaerdi: a.vaerdi, citat: a.citat, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
-      arvet_fra: a.arvet_fra_robot_id ? idTilSlug.get(a.arvet_fra_robot_id) : null, note: a.note,
+      vaerdi: a.vaerdi, citat: a.citat, citat_ordlyd: a.citat_ordlyd, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
+      arvet_fra: a.arvet_fra_robot_id ? idTilSlug.get(a.arvet_fra_robot_id) : null, note: a.note, note_ordlyd: a.note_ordlyd,
     };
   }
 
@@ -360,7 +370,7 @@ function omdanRobotFraDb(raa, idTilSlug) {
     slug: raa.slug, navn: raa.navn, producent: raa.producent, producentland: raa.producentland,
     producentby: raa.producentby, status: raa.status, fremdrift: raa.fremdrift, foerste_udgivelse: raa.foerste_udgivelse,
     forgaenger: raa.forgaenger_robot_id ? idTilSlug.get(raa.forgaenger_robot_id) : null,
-    varianter: raa.varianter, noter: raa.noter,
+    varianter: raa.varianter, noter: raa.noter, noter_ordlyd: raa.noter_ordlyd,
     felter, anvendelse, billede,
   };
 }

@@ -7,21 +7,28 @@ fremdrift: "ben"
 foerste_udgivelse: 2021
 noter:
   - "SAMME FÆLDE SOM CYBERDOG 2, SAMME LØSNING. Specifikationssiden leverer et tomt indholdselement; hele arket ligger som ren tekst i en JavaScript-bundle, som siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog/specs.5406502c.js (hentet 2026-08-21). Primærkilde: producentens egen server, producentens eget indhold."
-  - "STATUS ER EN KATALOGBESLUTNING PÅ MÅLT LIGHED, IKKE EN ERKLÆRING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 på mi.com: HTTP-status på produktsiden (200 mod 200), købsknappen køb nu (立即购买, 2 forekomster mod 2), læg-i-kurv-knappen læg i kurv (加入购物车, 0 forekomster mod 0), udsolgt-markering udsolgt (已售罄, 0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altså INGEN målbar forskel på producentens side mellem den model, vi fører som i produktion, og den her. Det eneste argument for udgået er, at der findes en efterfølger med et højere generationsnummer - og det er vores slutning, ikke Xiaomis ord."
+  - "STATUS ER EN KATALOGBESLUTNING PÅ MÅLT LIGHED, IKKE EN ERKLÆRING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 på mi.com: HTTP-status på produktsiden (200 mod 200), købsknappen køb nu (, 2 forekomster mod 2), læg-i-kurv-knappen læg i kurv (, 0 forekomster mod 0), udsolgt-markering udsolgt (, 0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altså INGEN målbar forskel på producentens side mellem den model, vi fører som i produktion, og den her. Det eneste argument for udgået er, at der findes en efterfølger med et højere generationsnummer - og det er vores slutning, ikke Xiaomis ord."
   - "INGEN LIDAR I SENSORLISTEN. Producenten opremser tolv sensorer, og en LiDAR er ikke blandt dem. Det er IKKE ført som nej, fordi listen ikke er erklæret udtømmende. Til sammenligning navngiver CyberDog 2 en YDLIDAR TG30. Se advarslen på lidar-feltet."
   - "DYBDEKAMERAET ER ET ANDET END PÅ CYBERDOG 2: her Intel RealSense D450, der D430."
+noter_ordlyd:
+  - ""
+  - "STATUS ER EN KATALOGBESLUTNING PÅ MÅLT LIGHED, IKKE EN ERKLÆRING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 på mi.com: HTTP-status på produktsiden (200 mod 200), købsknappen køb nu (立即购买, 2 forekomster mod 2), læg-i-kurv-knappen læg i kurv (加入购物车, 0 forekomster mod 0), udsolgt-markering udsolgt (已售罄, 0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altså INGEN målbar forskel på producentens side mellem den model, vi fører som i produktion, og den her. Det eneste argument for udgået er, at der findes en efterfølger med et højere generationsnummer - og det er vores slutning, ikke Xiaomis ord."
+  - ""
+  - ""
 anvendelse:
   vaerdi: "ikke_oplyst"
   kilde: "https://www.mi.com/cyberdog/specs"
   hentet: "2026-08-21"
-  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot (仿生四足机器人) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2."
+  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2."
+  note_ordlyd: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot (仿生四足机器人) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2."
 felter:
   egenvaegt:
     vaerdi: 14
     enhed: "kg"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "Producentens etiket: 整机重量（含电池）(samlet vægt, inkl. batteri) - hele maskinen, batteri inklusive."
+    advarsel: "Producentens etiket: (samlet vægt, inkl. batteri) - hele maskinen, batteri inklusive."
+    advarsel_ordlyd: "Producentens etiket: 整机重量（含电池）(samlet vægt, inkl. batteri) - hele maskinen, batteri inklusive."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 771
@@ -38,21 +45,24 @@ felter:
     enhed: "mm"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "Mål i LIGGENDE stilling (趴下) oplyses også: 807 x 406 x 206 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har ingen felter til foldemål."
+    advarsel: "Mål i LIGGENDE stilling oplyses også: 807 x 406 x 206 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har ingen felter til foldemål."
+    advarsel_ordlyd: "Mål i LIGGENDE stilling (趴下) oplyses også: 807 x 406 x 206 mm. Det er en anden tilstand end sammenfoldet og er ikke sammenligneligt med Unitrees foldemål. Skemaet har ingen felter til foldemål."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "Producenten skriver i alt 12, 3 pr. ben (整机12，单腿3)."
+    advarsel: "Producenten skriver i alt 12, 3 pr. ben (123)."
+    advarsel_ordlyd: "Producenten skriver i alt 12, 3 pr. ben (整机12，单腿3)."
     advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 3
     enhed: "kg"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "Producentens etiket er maks. last (最大负载), udelt, uden skelnen mellem gående og stående. Placeringen i det gående felt er en slutning, præcis som på CyberDog 2."
+    advarsel: "Producentens etiket er maks. last, udelt, uden skelnen mellem gående og stående. Placeringen i det gående felt er en slutning, præcis som på CyberDog 2."
+    advarsel_ordlyd: "Producentens etiket er maks. last (最大负载), udelt, uden skelnen mellem gående og stående. Placeringen i det gående felt er en slutning, præcis som på CyberDog 2."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -104,7 +114,8 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "INGEN LIDAR NÆVNT. Producentens sensorliste har tolv punkter og ingen af dem er en LiDAR: RealSense D450-dybdekamera, AI-interaktionskamera, binokulært ultravidvinkelkamera, TOF-sensor, lyssensor, ultralydssensor, inertimåleenhed, GPS-modul, magnetometer, optisk flowsensor (光流计), 6MIC-ringarray og berøringssensor. Feltet er ikke ført som nej, fordi producenten ikke erklærer listen udtømmende - men fraværet er selv en oplysning."
+    advarsel: "INGEN LIDAR NÆVNT. Producentens sensorliste har tolv punkter og ingen af dem er en LiDAR: RealSense D450-dybdekamera, AI-interaktionskamera, binokulært ultravidvinkelkamera, TOF-sensor, lyssensor, ultralydssensor, inertimåleenhed, GPS-modul, magnetometer, optisk flowsensor, 6MIC-ringarray og berøringssensor. Feltet er ikke ført som nej, fordi producenten ikke erklærer listen udtømmende - men fraværet er selv en oplysning."
+    advarsel_ordlyd: "INGEN LIDAR NÆVNT. Producentens sensorliste har tolv punkter og ingen af dem er en LiDAR: RealSense D450-dybdekamera, AI-interaktionskamera, binokulært ultravidvinkelkamera, TOF-sensor, lyssensor, ultralydssensor, inertimåleenhed, GPS-modul, magnetometer, optisk flowsensor (光流计), 6MIC-ringarray og berøringssensor. Feltet er ikke ført som nej, fordi producenten ikke erklærer listen udtømmende - men fraværet er selv en oplysning."
   kameraer:
     vaerdi: "Intel RealSense D450 (dybde) x1; AI-interaktionskamera 13 MP x1; binokulært ultravidvinkelkamera 2 MP"
     kilde: "https://www.mi.com/cyberdog/specs"
@@ -125,7 +136,8 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "Producenten oplyser strømforsyningen AD100: ind 100-240 V 50/60 Hz 1,6 A, ud 20 V 5 A maks. Det er strøm IND til robotten, ikke strøm UD til en nyttelast. Type-C-porten mærket udvidelsesport til perifert udstyr (外设扩展口) har ingen oplyst effekt."
+    advarsel: "Producenten oplyser strømforsyningen AD100: ind 100-240 V 50/60 Hz 1,6 A, ud 20 V 5 A maks. Det er strøm IND til robotten, ikke strøm UD til en nyttelast. Type-C-porten mærket udvidelsesport til perifert udstyr har ingen oplyst effekt."
+    advarsel_ordlyd: "Producenten oplyser strømforsyningen AD100: ind 100-240 V 50/60 Hz 1,6 A, ud 20 V 5 A maks. Det er strøm IND til robotten, ikke strøm UD til en nyttelast. Type-C-porten mærket udvidelsesport til perifert udstyr (外设扩展口) har ingen oplyst effekt."
   dataporte:
     vaerdi:
       - "HDMI x1"

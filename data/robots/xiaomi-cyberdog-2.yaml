@@ -11,7 +11,8 @@ anvendelse:
   vaerdi: "ikke_oplyst"
   kilde: "https://www.mi.com/cyberdog2/specs"
   hentet: "2026-08-19"
-  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til."
+  note: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til."
+  note_ordlyd: "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til."
 billede:
   fil: "fotos/fabrikant/xiaomi-cyberdog-2.png"
   ophav: "fabrikant"

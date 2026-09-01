@@ -120,6 +120,11 @@ const FELTPOST_NOEGLER_KENDT = new Set([
   // direkte kopieret ind i "faelles" / tilstand_med_herkomst ovenfor:
   'enhed', 'enhed_imperial', 'vaerdi_imperial', 'operator',
   'kilde', 'hentet', 'kildetype', 'advarsel', 'advarsel_klasse',
+  // "advarsel_ordlyd" — spor/cjkui, 1. sep 2026 (R21): soesterfeltet til
+  // "advarsel", producentens ordrette kildeformulering. Samme kopisteder som
+  // advarsel_klasse (faelles-objektet ovenfor, byggSeedSql, byggFeltpostRaekkeTilDb
+  // her, samt byggFeltpostVaerdi/omdanFeltpostFraDb i db/eksporter.mjs).
+  'advarsel_ordlyd',
   'note', 'raa', 'valuta',
   // strukturelle noegler, haandteret af deres egen kode-gren (ikke "faelles"):
   'vaerdi', 'min', 'maks', 'ved_last', 'varianter',
@@ -187,7 +192,7 @@ function klassificerFeltpost(feltnavn, post, spec) {
       form: 'tilstand_med_herkomst', tilstand: tilstandVaerdi,
       kilde: post.kilde ?? null, hentet: post.hentet ?? null,
       kildetype: post.kildetype ?? null, advarsel: post.advarsel ?? null,
-      advarsel_klasse: post.advarsel_klasse ?? null,
+      advarsel_klasse: post.advarsel_klasse ?? null, advarsel_ordlyd: post.advarsel_ordlyd ?? null,
     };
   } else {
     const faelles = {
@@ -195,6 +200,7 @@ function klassificerFeltpost(feltnavn, post, spec) {
       vaerdi_imperial: post.vaerdi_imperial ?? null, operator: post.operator ?? null,
       kilde: post.kilde ?? null, hentet: post.hentet ?? null, kildetype: post.kildetype ?? null,
       advarsel: post.advarsel ?? null, advarsel_klasse: post.advarsel_klasse ?? null,
+      advarsel_ordlyd: post.advarsel_ordlyd ?? null,
       note: post.note ?? null, raa: post.raa ?? null,
       valuta: post.valuta ?? null,
     };
@@ -276,8 +282,8 @@ function klassificerRobot(doc) {
   if (doc.anvendelse !== undefined) {
     const a = doc.anvendelse;
     if (typeof a === 'string') {
-      anvendelse = { er_bar_streng: true, er_ikke_oplyst: true, vaerdi: null, citat: null,
-        kilde: null, hentet: null, kildetype: null, arvet_fra: null, note: null };
+      anvendelse = { er_bar_streng: true, er_ikke_oplyst: true, vaerdi: null, citat: null, citat_ordlyd: null,
+        kilde: null, hentet: null, kildetype: null, arvet_fra: null, note: null, note_ordlyd: null };
     } else {
       const erIkkeOplyst = (Array.isArray(a.vaerdi) ? a.vaerdi.length === 1 && tilstandAf(a.vaerdi[0]) === 'ikke_oplyst'
         : tilstandAf(a.vaerdi) === 'ikke_oplyst');
@@ -285,8 +291,15 @@ function klassificerRobot(doc) {
         er_bar_streng: false, er_ikke_oplyst: erIkkeOplyst,
         vaerdi: erIkkeOplyst ? null : (a.vaerdi ?? null),
         citat: erIkkeOplyst ? null : (a.citat ?? null),
+        // citat_ordlyd/note_ordlyd — spor/cjkui, 1. sep 2026 (R21): soester-
+        // felterne til citat/note, producentens ordrette kildeformulering.
+        // citat_ordlyd foelger citat's egen er_ikke_oplyst-nulstilling (uden
+        // et citat er der intet at have en ordlyd til); note_ordlyd foelger
+        // note's ubetingede kopi (note selv nulstilles heller ikke af
+        // er_ikke_oplyst ovenfor).
+        citat_ordlyd: erIkkeOplyst ? null : (a.citat_ordlyd ?? null),
         kilde: a.kilde ?? null, hentet: a.hentet ?? null, kildetype: a.kildetype ?? null,
-        arvet_fra: a.arvet_fra ?? null, note: a.note ?? null,
+        arvet_fra: a.arvet_fra ?? null, note: a.note ?? null, note_ordlyd: a.note_ordlyd ?? null,
       };
     }
   }
@@ -306,6 +319,9 @@ function klassificerRobot(doc) {
     producentby: doc.producentby ?? null, status: doc.status, fremdrift: doc.fremdrift,
     foerste_udgivelse: doc.foerste_udgivelse ?? null, forgaenger: doc.forgaenger ?? null,
     varianter: doc.varianter ?? null, noter: doc.noter ?? null,
+    // noter_ordlyd — spor/cjkui, 1. sep 2026 (R21): soesterfeltet til "noter",
+    // ALTID en liste (aldrig en bar streng, modsat "noter" selv).
+    noter_ordlyd: doc.noter_ordlyd ?? null,
     felter, anvendelse, billede,
   };
 }
@@ -328,10 +344,10 @@ function byggSeedSql(robotter) {
   ud.push(`-- Kilde: data/robots/*.yaml, ${robotter.length} filer. Koer db/skema.sql foerst.\n`);
   ud.push('begin;\n');
 
-  ud.push('insert into robotter (slug, navn, producent, producentland, producentby, status, fremdrift, foerste_udgivelse, varianter, noter) values');
+  ud.push('insert into robotter (slug, navn, producent, producentland, producentby, status, fremdrift, foerste_udgivelse, varianter, noter, noter_ordlyd) values');
   ud.push(robotter.map((r) => `  (${sqlStr(r.slug)}, ${sqlStr(r.navn)}, ${sqlStr(r.producent)}, ` +
     `${sqlStr(r.producentland)}, ${sqlStr(r.producentby)}, ${sqlEnum(r.status)}, ${sqlStr(r.fremdrift)}, ${sqlNum(r.foerste_udgivelse)}, ` +
-    `${sqlTextArray(r.varianter)}, ${sqlJsonb(r.noter)})`).join(',\n') + ';\n');
+    `${sqlTextArray(r.varianter)}, ${sqlJsonb(r.noter)}, ${sqlJsonb(r.noter_ordlyd)})`).join(',\n') + ';\n');
 
   // forgaenger_robot_id saettes i et andet trin, fordi den peger PAA robotter
   // og alle raekker skal findes, foer opslaget kan laves.
@@ -351,13 +367,14 @@ function byggSeedSql(robotter) {
         `${sqlStr(f.vaerdi_tekst ?? null)}, ${sqlBool(f.vaerdi_bool ?? null)}, ${sqlTextArray(f.vaerdi_liste ?? null)}, ` +
         `${sqlStr(f.enhed ?? null)}, ${sqlStr(f.enhed_imperial ?? null)}, ${sqlNum(f.vaerdi_imperial ?? null)}, ` +
         `${sqlEnum(f.operator ?? null)}, ${sqlStr(f.kilde ?? null)}, ${sqlDate(f.hentet ?? null)}, ${sqlEnum(f.kildetype ?? null)}, ` +
-        `${sqlStr(f.advarsel ?? null)}, ${sqlStr(f.advarsel_klasse ?? null)}, ${sqlStr(f.note ?? null)}, ${sqlStr(f.raa ?? null)}, ${sqlStr(f.valuta ?? null)}, ` +
+        `${sqlStr(f.advarsel ?? null)}, ${sqlStr(f.advarsel_klasse ?? null)}, ${sqlStr(f.advarsel_ordlyd ?? null)}, ` +
+        `${sqlStr(f.note ?? null)}, ${sqlStr(f.raa ?? null)}, ${sqlStr(f.valuta ?? null)}, ` +
         `${sqlEnum(f.ved_last?.tilstand ?? null)}, ${sqlNum(f.ved_last?.vaerdi ?? null)}, ${sqlStr(f.ved_last?.enhed ?? null)})`);
     }
   }
   ud.push('insert into feltposter (robot_id, feltnavn, form, tilstand, vaerdi_tal, min, maks, vaerdi_tekst, ' +
     'vaerdi_bool, vaerdi_liste, enhed, enhed_imperial, vaerdi_imperial, operator, kilde, hentet, kildetype, ' +
-    'advarsel, advarsel_klasse, note, raa, valuta, ved_last_tilstand, ved_last_vaerdi, ved_last_enhed) values\n' +
+    'advarsel, advarsel_klasse, advarsel_ordlyd, note, raa, valuta, ved_last_tilstand, ved_last_vaerdi, ved_last_enhed) values\n' +
     feltRaekker.join(',\n') + ';\n');
 
   const variantRaekker = [];
@@ -378,12 +395,12 @@ function byggSeedSql(robotter) {
   const anvRaekker = robotter.filter((r) => r.anvendelse).map((r) => {
     const a = r.anvendelse;
     return `  (${robotSlugRef(r.slug)}, ${sqlBool(a.er_bar_streng)}, ${sqlBool(a.er_ikke_oplyst)}, ` +
-      `${sqlJsonb(a.vaerdi)}, ${sqlJsonb(a.citat)}, ${sqlStr(a.kilde)}, ${sqlDate(a.hentet)}, ${sqlEnum(a.kildetype)}, ` +
-      `${a.arvet_fra ? robotSlugRef(a.arvet_fra) : 'null'}, ${sqlStr(a.note)})`;
+      `${sqlJsonb(a.vaerdi)}, ${sqlJsonb(a.citat)}, ${sqlJsonb(a.citat_ordlyd)}, ${sqlStr(a.kilde)}, ${sqlDate(a.hentet)}, ${sqlEnum(a.kildetype)}, ` +
+      `${a.arvet_fra ? robotSlugRef(a.arvet_fra) : 'null'}, ${sqlStr(a.note)}, ${sqlStr(a.note_ordlyd)})`;
   });
   if (anvRaekker.length) {
-    ud.push('insert into anvendelse (robot_id, er_bar_streng, er_ikke_oplyst, vaerdi, citat, kilde, hentet, ' +
-      'kildetype, arvet_fra_robot_id, note) values\n' + anvRaekker.join(',\n') + ';\n');
+    ud.push('insert into anvendelse (robot_id, er_bar_streng, er_ikke_oplyst, vaerdi, citat, citat_ordlyd, kilde, hentet, ' +
+      'kildetype, arvet_fra_robot_id, note, note_ordlyd) values\n' + anvRaekker.join(',\n') + ';\n');
   }
 
   const bilRaekker = robotter.filter((r) => r.billede).map((r) => {
@@ -428,7 +445,7 @@ function byggFeltpostRaekkeTilDb(f, feltnavn, robotId) {
     vaerdi_liste: f.vaerdi_liste ?? null, enhed: f.enhed ?? null, enhed_imperial: f.enhed_imperial ?? null,
     vaerdi_imperial: f.vaerdi_imperial ?? null, operator: f.operator ?? null, kilde: f.kilde ?? null,
     hentet: f.hentet ?? null, kildetype: f.kildetype ?? null, advarsel: f.advarsel ?? null,
-    advarsel_klasse: f.advarsel_klasse ?? null,
+    advarsel_klasse: f.advarsel_klasse ?? null, advarsel_ordlyd: f.advarsel_ordlyd ?? null,
     note: f.note ?? null, raa: f.raa ?? null, valuta: f.valuta ?? null,
     ved_last_tilstand: f.ved_last?.tilstand ?? null, ved_last_vaerdi: f.ved_last?.vaerdi ?? null,
     ved_last_enhed: f.ved_last?.enhed ?? null,
@@ -784,7 +801,7 @@ async function tilDb(robotter, argv = []) {
   const indsatte = await post('robotter', robotter.map((r) => ({
     slug: r.slug, navn: r.navn, producent: r.producent, producentland: r.producentland,
     producentby: r.producentby, status: r.status, fremdrift: r.fremdrift, foerste_udgivelse: r.foerste_udgivelse,
-    varianter: r.varianter, noter: r.noter,
+    varianter: r.varianter, noter: r.noter, noter_ordlyd: r.noter_ordlyd,
   })), { repraesentation: true });
   const slugTilId = new Map(indsatte.map((r) => [r.slug, r.id]));
   if (slugTilId.size !== robotter.length) {
@@ -830,8 +847,8 @@ async function tilDb(robotter, argv = []) {
     const a = r.anvendelse;
     return {
       robot_id: slugTilId.get(r.slug), er_bar_streng: a.er_bar_streng, er_ikke_oplyst: a.er_ikke_oplyst,
-      vaerdi: a.vaerdi, citat: a.citat, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
-      arvet_fra_robot_id: a.arvet_fra ? slugTilId.get(a.arvet_fra) : null, note: a.note,
+      vaerdi: a.vaerdi, citat: a.citat, citat_ordlyd: a.citat_ordlyd, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
+      arvet_fra_robot_id: a.arvet_fra ? slugTilId.get(a.arvet_fra) : null, note: a.note, note_ordlyd: a.note_ordlyd,
     };
   });
   await post('anvendelse', anvRaekker);
