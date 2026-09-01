@@ -75,7 +75,11 @@
  * fem her — CE er taget ud. Strengen skal skrives om, saa den ikke naevner et antal.
  */
 
-import { skal, hjaelp, laesBillede, billedledHTML, billedLinjer } from './side.mjs';
+// `imperialPost` importeres OGSAA lokalt: `export … from` videresender navnet
+// uden at binde det i denne fils scope, og harOmregnelige() nedenfor kalder det.
+import {
+  skal, hjaelp, laesBillede, billedledHTML, billedLinjer, imperialPost,
+} from './side.mjs';
 // Skrivebeskyttet import af skemaet. Feltlisten maa kun findes ét sted; en
 // haandskrevet kopi her ville divergere ved den fjerde aendring.
 import {
@@ -171,118 +175,24 @@ export function lokaltTal(n, sprog) {
 
 /* ------------------------------------------------- metrisk <-> imperial (L60)
  *
- * JPK's valg 31. aug 2026: vi OMREGNER selv, og vi MAERKER det. Reglen har tre
- * led, og raekkefoelgen mellem dem er hele pointen:
+ * DEFINITIONEN ER FLYTTET TIL side.mjs 1. sep 2026 (spor/enhed). JPK udvidede
+ * L60: enhedsvalget skal vaere gennemgaaende paa HELE websiden. Saa laenge
+ * omregningen laa her, kunne en anden sidetype kun faa den ved at kopiere den.
+ * `side.mjs`s `tal()` er nu det ene sted, en post bliver til et formateret tal,
+ * og den afgoer ogsaa enheden - saa enhver flade, der kalder `H.tal()`, arver
+ * valget uden at kende til det.
  *
- *   1. Oplyser producenten SELV et imperialt tal (`vaerdi_imperial`), vises
- *      DERES. Aldrig vores regnestykke oven i en oplyst vaerdi. Grunden er
- *      maalt og staar i validate.mjs' regel R9: Ghost Robotics oplyser 2,4 m/s
- *      OG 4,9 mph, som afviger 9,6 %. De to tal er en selvstaendig oplysning om
- *      producenten - overskrev vi det ene med vores omregning af det andet,
- *      ville vi rette i en kilde.
- *   2. Ellers omregner vi - og maerket "omregnet" staar synligt ved tallet, saa
- *      forskellen paa "producenten skriver 74,5 lb" og "33,8 kg, omregnet til
- *      74,5 lb" kan ses uden at klikke.
- *   3. Kildemaerket foelger det METRISKE tal. En omregning har ingen
- *      selvstaendig kilde; derfor staar bogstavet UDEN FOR begge skiftespan
- *      (se feltKrop og skemaRaekke), saa det bliver staaende i begge tilstande
- *      uden nogensinde at love, at nogen har oplyst det imperiale tal.
+ * Navnene re-eksporteres HERFRA, fordi tests/dele/36-typeskilt-robot.mjs og
+ * eventuelle andre kaldere importerer dem fra denne fil. Re-eksporten er en
+ * videresendelse, ikke en kopi: der er stadig kun ét regnestykke.
  *
- * MAALT paa datasaettet 31. aug 2026: 30 `vaerdi_imperial`-felter fordelt paa
- * 7 af 77 robotter (anybotics-anymal, boston-dynamics-spot,
- * ghost-robotics-vision-60, neura-quadruped, pudu-d5-w, pudu-d5, rivr-one).
- * De oevrige ~730 omregnelige tal paa robotsiderne er vores.
+ * Reglens tre led staar i side.mjs' egen kommentar. Det ene, der har en
+ * konsekvens HER, er nr. 3: kildemaerket foelger det METRISKE tal, og derfor
+ * saetter feltKrop() og skemaRaekke() bogstavet UDEN FOR begge skiftespan, saa
+ * det bliver staaende i begge tilstande uden nogensinde at love, at nogen har
+ * oplyst det imperiale tal.
  */
-
-/** Enheder, der KAN omregnes. Alt andet staar uroert i begge tilstande.
- *  ALDRIG paa listen (maalt i de byggede sider: 274 af 1.034 enhedsvisninger):
- *  `min` (155) og `t` - tid er ens i begge systemer; `°` (52) - haeldning er
- *  en vinkel; `DoF` (29) og `Wh` (25) - hverken laengde, vaegt eller
- *  temperatur; `CNY`/`USD`/`EUR` (11) - en vekselkurs er et tal uden kilde,
- *  der aendrer sig dagligt; `V` og `%` (2) - enhedsloese forhold.
- *  mm/m/m-s staar med, selvom build.mjs' visningsPost() normaliserer dem vaek
- *  paa de felter, der har en kanonisk visningsenhed - listen skal ikke skulle
- *  aendres, hvis KANONISK_VISNINGSENHED goer det. */
-export const OMREGNING = {
-  kg: { enhed: 'lb', om: (v) => v * 2.2046226218 },
-  mm: { enhed: 'in', om: (v) => v / 25.4 },
-  cm: { enhed: 'in', om: (v) => v / 2.54 },
-  m: { enhed: 'ft', om: (v) => v * 3.280839895 },
-  '°C': { enhed: '°F', om: (v) => v * 9 / 5 + 32 },
-  'm/s': { enhed: 'mph', om: (v) => v * 2.2369362921 },
-  'km/h': { enhed: 'mph', om: (v) => v * 0.6213711922 },
-};
-
-/**
- * Afrundingen, skrevet ud saa den kan efterproeves frem for at skulle gaettes:
- * 0 decimaler fra 100 og op, 1 decimal fra 10 og op, ellers 2.
- *
- * Reglen er ikke valgt efter smag. Den er valgt, fordi den rammer
- * producenternes EGEN afrunding i de tilfaelde, hvor vi har begge tal at holde
- * den op imod: 33,8 kg -> 74,52 -> "74,5" (Boston Dynamics skriver 74.5 lb),
- * 1100 mm -> 43,307 -> "43,3" (databladet skriver 43.3 in), 110 cm -> "43,3".
- * En regel, der gav 74,52 eller 75, ville vaere synligt en anden slags tal end
- * producentens.
- */
-export function imperialTal(n, sprog) {
-  if (typeof n !== 'number' || !Number.isFinite(n)) return String(n);
-  const a = Math.abs(n);
-  const dec = a >= 100 ? 0 : a >= 10 ? 1 : 2;
-  return new Intl.NumberFormat(sprog === 'da' ? 'da-DK' : 'en-GB',
-    { maximumFractionDigits: dec }).format(n);
-}
-
-/**
- * Den imperiale udgave af én post, eller `null` naar der ikke er nogen.
- *
- * Returnerer `{ post, egen, kildeform }`:
- *   post       en SYNTETISK post til H.tal(). `ved_last` og `vaerdi_imperial`
- *              er strippet med vilje: tal() udskriver dem selv, og de ville
- *              derfor staa TO gange i den imperiale visning (én gang fra
- *              det metriske span, én gang her). Lastbetingelsen skrives i
- *              stedet paa af vaerdi() nedenfor, saa forbeholdet ikke
- *              forsvinder, naar laeseren skifter enhed.
- *   egen       true = producentens eget tal, false = vores omregning.
- *   kildeform  det metriske udgangspunkt, "33,8 kg", til maerkets forklaring.
- */
-export function imperialPost(post, sprog) {
-  if (!post || typeof post !== 'object') return null;
-  if (tilstandAf(post.vaerdi)) return null;
-  const { ved_last: _vl, vaerdi_imperial: _vi, enhed_imperial: _ei, _kildeform: _kf, ...rest } = post;
-
-  // 1. Producentens eget tal vinder - men kun naar det daekker HELE figuren.
-  //    Et interval har min/maks, og datasaettet har ingen min_imperial: et
-  //    enkelt vaerdi_imperial ved siden af et interval ville vaere en tredje,
-  //    uforklaret figur, saa dér omregner vi begge ender i stedet.
-  if (post.vaerdi_imperial !== undefined && post.min === undefined) {
-    return {
-      post: { ...rest, vaerdi: post.vaerdi_imperial, enhed: post.enhed_imperial ?? '' },
-      egen: true,
-      kildeform: `${lokaltTal(post.vaerdi, sprog)} ${post.enhed ?? ''}`.trim(),
-    };
-  }
-
-  const o = OMREGNING[post.enhed];
-  if (!o) return null;
-  const tal = (v) => (typeof v === 'number'
-    ? Number(imperialTal(v, 'en').replace(/,/g, '')) : v);
-  const har = (v) => typeof v === 'number' && Number.isFinite(v);
-
-  if (post.min !== undefined) {
-    if (!har(post.min) || !har(post.maks)) return null;
-    return {
-      post: { ...rest, min: tal(o.om(post.min)), maks: tal(o.om(post.maks)), enhed: o.enhed },
-      egen: false,
-      kildeform: `${lokaltTal(post.min, sprog)}–${lokaltTal(post.maks, sprog)} ${post.enhed}`,
-    };
-  }
-  if (!har(post.vaerdi)) return null;
-  return {
-    post: { ...rest, vaerdi: tal(o.om(post.vaerdi)), enhed: o.enhed },
-    egen: false,
-    kildeform: `${lokaltTal(post.vaerdi, sprog)} ${post.enhed}`,
-  };
-}
+export { OMREGNING, imperialTal, imperialPost } from './side.mjs';
 
 /** Vaert uden www. Kilden skal kunne genkendes uden at hele URL'en staar. */
 export function vaert(url) {
@@ -451,10 +361,6 @@ export function vaerdi(navn, post, ctx, kilder) {
   // forbehold() er stadig den eneste udskriver. Derfor saettes flaget kun
   // i den sidste gren, ikke ved ethvert H.tal-kald.
   let talUdskrevForbehold = false;
-  // Saettes kun af den gren, hvor figuren er et RIGTIGT tal med enhed - den
-  // eneste, en enhedsomregning giver mening for. Tekst, lister og de fire
-  // tilstande staar uroerte i begge tilstande af omskifteren.
-  let imperialtSpor = false;
   const t = tilstandAf(post.vaerdi);
   if (t) {
     // Tilstanden MED herkomst. Den ser ud som den bare tilstand — ellers ville
@@ -475,68 +381,20 @@ export function vaerdi(navn, post, ctx, kilder) {
       html += ` ${H.tal({ min: post.min, maks: post.maks, enhed: post.enhed }, { kompakt })}`;
     }
   } else {
+    // ÉN linje, og den baerer nu tre ting, denne fil foer gjorde selv:
+    // figuren, producentens originale figur (`_kildeform`) og den imperiale
+    // tvilling med sit "omregnet"-maerke. Alle tre er flyttet ind i side.mjs'
+    // tal() (spor/enhed, 1. sep 2026), fordi den skal vaere den ENESTE vej fra
+    // en post til et formateret tal - ellers arver en ny flade hverken
+    // enhedsvalget eller originalformen uden at kopiere koden herfra.
     html = H.tal(post, { kompakt });
     talUdskrevForbehold = true;
-    imperialtSpor = true;
-    // spor/enheder: feltet er vist i en OMREGNET kanonisk enhed (skema.mjs'
-    // visningsPost, kaldt fra build.mjs) - producentens egen figur staar i
-    // en title, saa den ikke forsvinder. `_kildeform` staar KUN paa poster,
-    // der faktisk blev omregnet (fx Spots "1100 mm"); resten af felterne
-    // (og alle andre arter) gaar uroert gennem denne gren.
-    if (post._kildeform) {
-      html = `<span class="original-enhed" title="${esc(flet(T(i18n, 'kilde_original_form'), { figur: post._kildeform }))}">${html}</span>`;
-    }
   }
 
   if (!talUdskrevForbehold) html += forbehold(post, ctx);
 
-  // Enhedsomskifteren (L60). Begge figurer staar i HTML'en; CSS viser én ad
-  // gangen (`.enhedsvis{display:contents}`), saa den metriske visning tegnes
-  // NOEJAGTIG som foer dette spor - wrapperen har ingen kasse. Uden JavaScript
-  // staar den metriske tilstand tilbage, hvilket er standardtilstanden.
-  //
-  // Kildemaerket ligger UDEN FOR begge spans (det tilfoejes af kalderen), saa
-  // det ikke fordobles og aldrig kommer til at love, at nogen har oplyst
-  // vores omregning.
-  if (imperialtSpor && ctx.__enhedsskift) {
-    const imp = imperialPost(post, sprog);
-    if (imp) {
-      const impKrop = H.tal(imp.post, { kompakt }) + forbehold(post, ctx)
-        + omregningsMaerke(imp, ctx);
-      html = `<span class="enhedsvis enhedsvis--metrisk">${html}</span>`
-        + `<span class="enhedsvis enhedsvis--imperial">${impKrop}</span>`;
-    }
-  }
-
   const maerke = post.kilde ? (H.kildemaerke(post, kilder) || '') : '';
   return { html, hul, maerke };
-}
-
-/**
- * Maerket, der skiller VORES omregning fra producentens eget imperiale tal.
- *
- * Kun vores omregninger baerer et synligt ord. Det er en maalt afvejning, ikke
- * en smagssag: 30 af de ~760 omregnelige figurer paa robotsiderne er
- * producentens egne, saa et maerke paa producentens tal ville staa 30 gange og
- * et maerke paa vores 730 gange. Det sjaeldne skal ikke vaere det umaerkede -
- * men det hyppige maa heller ikke druknes i etiketter, saa forklaringen af
- * FRAVAERET staar i omskifterens egen forklaringslinje ("tal uden maerke er
- * producentens egne"), hvor en laeser moeder den, foer tallene.
- *
- * Ordet - ikke et tegn. `≈` (U+2248) findes hverken i Sairas eller Literatas
- * unicode-range og ville falde tilbage til systemskriften midt i en figur,
- * praecis som `≥` goer paa "mindst"-felterne (MANIFEST §afvigelse 6).
- */
-function omregningsMaerke(imp, ctx) {
-  const { i18n } = ctx;
-  // Producentens eget tal: intet synligt maerke (se ovenfor), men en
-  // skaermlaeser skal ikke skulle regne fravaeret ud af en forklaringslinje
-  // langt oppe paa siden.
-  if (imp.egen) return `<span class="kunskaerm">${esc(T(i18n, 'imperial_forklaring'))}</span>`;
-  const forklaring = flet(T(i18n, 'enhed_omregnet_forklaring'), { figur: imp.kildeform });
-  return `<span class="omregnet" title="${esc(forklaring)}">`
-    + `<span aria-hidden="true">${esc(T(i18n, 'enhed_omregnet'))}</span>`
-    + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
 }
 
 /** Vaerdi + kildemaerke + advarsel + note + varianter, som de staar i en raekke. */
@@ -1039,6 +897,33 @@ function enhedsskifter(ctx) {
     + `<span class="enhedsskift__ord">${esc(T(ctx.i18n, 'enhed_skift_etiket'))}</span></label>`;
 }
 
+/**
+ * HUKOMMELSEN (L60 udvidet, JPK 1. sep 2026): valget skal foelge laeseren fra
+ * side til side. Det er den ene ting, ren CSS ikke kan - en afkrydsning
+ * nulstilles ved hvert sideskift - og derfor den ene ting, denne <script> goer.
+ *
+ * P0 (assets/katalog.js:1-17) er ikke boejet her: "Uden JavaScript er siden
+ * SAND, men statisk. Med JavaScript bliver den PRAECIS." Uden JS virker
+ * omskifteren stadig paa DENNE side, for skiftet er `:checked ~ *` i CSS og
+ * intet andet; den husker bare ikke. JS tilfoejer UDELUKKENDE hukommelsen.
+ *
+ * HVORFOR IKKE `defer`, og hvorfor ikke i skallen: filen skal saette
+ * afkrydsningen, FOER browseren tegner tallene, ellers ser en laeser med
+ * imperialt valg siden blinke fra metrisk til imperial. `defer` koerer efter
+ * hele dokumentet er parset og garanterer netop det blink. Placeret her -
+ * umiddelbart efter kontakten og foer sidens indhold - er kontakten i DOM'en,
+ * og resten af siden er ikke tegnet endnu. Prisen er én blokerende, lokal
+ * anmodning paa ~1 KB; skallens `script`-parameter har kun én plads og er
+ * i forvejen optaget paa de sider, der har en app.
+ */
+function enhedsHukommelse(ctx) {
+  const op = ctx?.url?.op;
+  // Uden en kendt dybde skrives intet: en forkert sti ville give en 404 ved
+  // hvert sidevisning, og hukommelsen er en forbedring, ikke en forudsaetning.
+  if (typeof op !== 'string') return '';
+  return `<script src="${esc(op)}enhed.js"></script>`;
+}
+
 /** Forklaringen af, hvad et UMAERKET imperialt tal betyder. Staar kun, naar
  *  omskifteren er slaaet til (CSS) - i metrisk tilstand ville den forklare
  *  noget, der ikke er paa skaermen. */
@@ -1174,20 +1059,29 @@ export function render(ctx) {
   const { i18n, robot } = arbejde;
   if (!robot) throw new Error('skabelon/robot.mjs: ctx.robot mangler');
 
-  // Enhedsomskifteren taendes KUN paa robotsiden. Flaget laeses af vaerdi(),
-  // som ogsaa producent.mjs kalder - uden det ville producentsidens minikort
-  // baere skjult imperialt opslag uden en kontakt til at vise det.
+  // Enhedsomskifteren taendes KUN paa den flade, der ogsaa TEGNER kontakten.
+  // `ctx.__enhedsskift` styrer markup'en herinde (kontakten, etiketten,
+  // forklaringslinjen); `H.saetEnhedsskift()` styrer, om side.mjs' tal()
+  // skriver den imperiale tvilling ud. De to skal taendes sammen - en tvilling
+  // uden en kontakt er skjult tekst, ingen kan naa, og en kontakt uden
+  // tvillinger er et loefte, siden ikke kan holde.
+  //
+  // Flaget lukkes igen i `finally`. build.mjs bygger ÉN hjaelper pr. sprog og
+  // genbruger den til alle sidens sider (build.mjs:261), saa en klaebrig
+  // `true` ville laekke ind i den naeste katalog- eller producentside.
   arbejde.__enhedsskift = harOmregnelige(robot);
+  const gendanEnhed = H.saetEnhedsskift?.(arbejde.__enhedsskift) ?? (() => {});
 
-  const kilder = H.kilder(robot) ?? [];
+  try {
+    const kilder = H.kilder(robot) ?? [];
 
-  return `<main class="side" id="hoved">
+    return `<main class="side" id="hoved">
 <div class="rum">
 <p class="retur"><a href="${esc(sti(arbejde, 'katalog'))}">${esc(T(i18n, 'til_katalog'))}</a></p>
 
 <article class="robotside typeskilt">
 ${arbejde.__enhedsskift
-    ? `<input type="checkbox" id="${ENHED_ID}" class="kunskaerm enhedsskift__boks">`
+    ? `<input type="checkbox" id="${ENHED_ID}" class="kunskaerm enhedsskift__boks">\n${enhedsHukommelse(arbejde)}`
     : ''}
 ${top(arbejde, kilder)}
 ${euBlok(arbejde, kilder)}
@@ -1200,6 +1094,9 @@ ${kildeliste(arbejde, kilder)}
 </div>
 </main>
 `;
+  } finally {
+    gendanEnhed();
+  }
 }
 
 export default { render, IKONER, STRIBE_FELTER };
