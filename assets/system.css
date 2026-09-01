@@ -931,7 +931,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    flyttede sig 3,2 px, da align-items blev sat tilbage til baseline.
    Kun .v-tal: chipperne (v-ikke, v-ja, v-nej, v-billede) har et lille
    firkantmaerke, der SKAL staa midt i ordet, og de beholder derfor center. */
-.stribe .krop > .v-tal,.stribe--kompakt .krop > .v-tal{align-items:baseline}
+.stribe .krop > .v-tal{align-items:baseline}
 
 /* OPTISK TILPASNING, ikke en smagsdom. For hver af de 261 talceller blev den
    stoerste hele skriftgrad, der faktisk passer i cellen, maalt i browseren.
@@ -1036,8 +1036,8 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    Et tal er ALDRIG et sted, et linjeskift maa laegges - kun ordmellemrum
    (fx i "ikke oplyst") er det. Derfor tager .num sin egen regel HER, efter
    .v's brede regel, saa .num vinder ved specificitet: */
-.stribe .v,.stribe--kompakt .v{overflow-wrap:break-word}
-.stribe .num,.stribe--kompakt .num{overflow-wrap:normal;word-break:keep-all;white-space:nowrap}
+.stribe .v{overflow-wrap:break-word}
+.stribe .num{overflow-wrap:normal;word-break:keep-all;white-space:nowrap}
 
 /* --- 11. ROBOTKORTET ------------------------------------------------------ */
 /* Fotografiet fylder toppen. Navnet ligger UNDER billedet, ikke paa det.
