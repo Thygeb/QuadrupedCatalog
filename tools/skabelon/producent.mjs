@@ -417,6 +417,56 @@ function producentSaetning(ctx, alle) {
  *
  * Linket er `<slug>/` og ikke sti(ctx, 'producent', …): siden ligger selv i
  * producenter/, saa barnelinket kan ikke pege forkert, heller ikke uden ctx.url.
+ *
+ * ---------------------------------------------------------------------------
+ * MODELKOLONNEN (spor/prodindeks, 1. sep 2026)
+ *
+ * JPK, 1. sep: "masser af plads, saa modelnavne kunne fint staa efter antal
+ * til hoejre". Maalt paa den byggede side ved 1440 px: producentnavnene
+ * sluttede omkring 155 px, "Land" begyndte foerst omkring 1130 px — cirka
+ * 975 px tom midte, fordi tre kolonner blev strakt over hele bredden.
+ *
+ * KOLONNEORDENEN ER AENDRET, ikke bare udvidet: tallet er flyttet fra sidste
+ * plads ind FOER navnene, saa det staar klods op ad den raekke, det taeller.
+ * Det er svaret paa 13-og-1-problemet. Unitree har 13 modeller, ti
+ * producenter har 1. Med tallet som anker laeses begge raekker rigtigt:
+ * "13  A1, A2-W, …" er en optaelling, og "1  Spot" er en KOMPLET liste, ikke
+ * en raekke der mangler noget. Stod tallet 800 px vaek ude til hoejre, kunne
+ * laeseren ikke se forskel paa "én model" og "resten faldt ud".
+ *
+ * DER AFKORTES IKKE, og det er en MAALING, ikke en fornemmelse. Briefet
+ * formodede, at de 13 var det brede tilfaelde; det er de ikke. Maalt over
+ * alle 25 producenter er den laengste navneraekke GENISOM AI's NI modeller
+ * paa 131 tegn ("Gangben L2-W Ultra, Tongchui M1 Pro, …"), mens Unitrees 13
+ * kun fylder 73 tegn, fordi navnene er korte koder (A1, B2-W, Go2). Galileos
+ * seks fylder 28. Belastningen er altsaa TEGNLAENGDE, ikke modelantal — og
+ * 131 tegn er der plads til. En "+ 6 flere"-afkortning ville derfor tilfoeje
+ * en risiko for at se ud, som om en producent har faerre modeller, uden at
+ * loese noget. Vokser kataloget, saa en raekke bliver for lang, ombryder
+ * cellen; den lyver ikke.
+ *
+ * TALLET I "Antal" ER ALTID DET FULDE ANTAL og udledes af p.antal — samme
+ * kilde som foer — ALDRIG af navnelistens laengde. De to kan ikke komme fra
+ * hinanden, og skulle en fremtidig afkortning alligevel komme, kan den ikke
+ * naa tallet.
+ *
+ * REKKEFOELGEN er sorterModeller() (linje 126) — letteste foerst, ukendt
+ * vaegt sidst, samme akse som producentsiden og forsiden. Ikke en ny orden:
+ * to steder, der sorterer den samme modelraekke forskelligt, foeles som to
+ * forskellige kataloger.
+ *
+ * SEPARATOREN staar UDEN FOR <a>-teksten: et klikbart komma er en unoejagtig
+ * traefflade, og en skaermlaeser ville laese linkets navn med kommaet paa.
+ * Den behoever ingen egen klasse — cellen er sat i den daempede --blaek3, og
+ * kun linkene loefter sig til fuld --blaek, saa kommaerne traeder tilbage af
+ * sig selv.
+ *
+ * SMALLE SKAERME: kolonnen falder vaek under 900 px (assets/generator.css,
+ * blokken "producentindeks"). Begrundelsen er JPK's egen — anmodningen var
+ * "masser af plads", og den plads findes ikke ved 390 px. Markup'en bliver
+ * staaende, saa tabellen har fire rigtige <th scope="col"> uanset bredde;
+ * CSS skjuler den fjerde, og tabellen er ved 390 px praecis den, den var foer
+ * dette spor. Modellerne er stadig ét tryk vaek via producentens eget navn.
  */
 export function renderIndeks(ctx) {
   const H = ctx?.hjaelp ?? hjaelp;
@@ -435,14 +485,26 @@ export function renderIndeks(ctx) {
     const landDel = p.land
       ? esc(TD(i18n, 'land_' + p.land, p.land))
       : (typeof H?.tilstand === 'function' ? H.tilstand('ikke_oplyst', i18n) : '');
-    // Modelkolonnen viser TALLET alene — kolonnehovedet baerer allerede ordet
-    // "modeller" ("1 modeller" er ikke dansk, se producent_model_en, men her
-    // opstaar problemet slet ikke, fordi entalsformen aldrig skrives ud).
+    // Antalkolonnen viser TALLET alene. Det kommer fra p.antal og aldrig fra
+    // modelnavnenes laengde — se hovedkommentaren: de to maa ikke kunne
+    // udledes af hinanden.
     const antalDel = p.antal === null ? '' : esc(String(p.antal));
+    // Modelnavnene. Er listen der ikke (producenten kom uden robotter), staar
+    // cellen tom frem for at paastaa noget — tallet ved siden af baerer stadig
+    // sandheden om, hvor mange modeller producenten har.
+    const modeller = sorterModeller(
+      Array.isArray(p.modeller) ? p.modeller
+        : Array.isArray(p.robotter) ? p.robotter : [],
+    );
+    const navneDel = modeller
+      .filter((m) => m && m.slug)
+      .map((m) => `<a href="${esc(sti({ ...ctx, __fra: 'producent' }, 'robot', m.slug))}">${esc(m.navn ?? m.slug)}</a>`)
+      .join(', ');
     return `<tr>
 <td><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></td>
 <td>${landDel}</td>
 <td class="figur">${antalDel}</td>
+<td class="prod-navne">${navneDel}</td>
 </tr>`;
   }).join('\n');
 
@@ -461,7 +523,8 @@ ${producentSaetning(ctx, alle)}
 <tr>
 <th scope="col">${esc(T(i18n, 'tabel_producent'))}</th>
 <th scope="col">${esc(T(i18n, 'tabel_land'))}</th>
-<th scope="col" class="figur">${esc(T(i18n, 'tabel_modeller'))}</th>
+<th scope="col" class="figur">${esc(T(i18n, 'prod_antal'))}</th>
+<th scope="col" class="prod-navne">${esc(T(i18n, 'tabel_modeller'))}</th>
 </tr>
 </thead>
 <tbody>

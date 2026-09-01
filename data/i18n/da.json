@@ -428,5 +428,7 @@
   "pris_omregnet_forklaring": "Vores omregning af {figur} til {basis} med Den Europæiske Centralbanks referencekurs for {dato}: {kurs}. Producenten oplyser ikke selv et beløb i {basis}, så omregningen har ingen selvstændig kilde, og den var kun sand den dag.",
   "pris_kurs_par": "1 EUR = {tal} {valuta}",
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
-  "kurs_kilde": "Kurs: {udgiver}, {navn}, {dato}."
+  "kurs_kilde": "Kurs: {udgiver}, {navn}, {dato}.",
+
+  "prod_antal": "Antal"
 }
