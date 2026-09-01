@@ -65,7 +65,6 @@
    markup findes ikke laengere.) */
 .facet{border:0;margin:0;padding:0;min-width:0;display:contents}
 .facet legend{padding:0;margin:0}
-.facet-ryd{margin-top:var(--r3)}
 
 /* --- L44: sorteringskontrollen og tommelindekset -------------------------
    Begge er ren HTML. Sorteringen er radioknapper, som CSS'ens :has() laeser
@@ -164,20 +163,6 @@
 .sektion-note{margin-top:var(--r3);max-width:86ch}
 .sektion .gitter{margin-top:var(--r5)}
 
-/* --- 3b. KATALOGETS FLADE (JPK's tillaeg, 24. aug 2026): tonespring, ikke
-   en streg. --panel-ro (lidt lysere end --bund) signalerer "her begynder
-   kataloget" ved at skifte flade, ikke ved at traekke en linje — samme
-   flade, systemet allerede bruger til et roligt indfelt andre steder, saa
-   der er ingen ny farve. Fire gitre paa 12, 12, 13 og 9 kort i traek faar
-   luft nok (r8 mellem hver, system.css) til at laeses som adskilte grupper;
-   det foerste hoved staar taettere paa fladeskiftet, som selv er graensen. */
-.katalog-flade{background:var(--panel-ro);padding-bottom:var(--r8)}
-.katalog-flade > .rum > .sektion:first-child{padding-top:var(--r7)}
-/* Forsidens "Fra kataloget"-smagsproeve (spor/lysbyg): samme flade, samme
-   tonespring-regel som resten af kataloget - kun ÉT afsnit i stedet for
-   alle vaegtklasserne. */
-.udvalg-videre{text-align:center;margin-top:var(--r6)}
-
 /* --- 3c. FORSIDENS AFSLUTNING (spor/indgang, 26. aug 2026). Ganske
    almindelig .sektion, samme katalog-flade og samme r8-luft til "Fra
    kataloget" ovenfor - ingen ny centreret bloklayout, ingen ny flade.
@@ -185,7 +170,6 @@
    heller ikke centreret); en centreret afslutningsblok er netop den
    skabelon, impeccable's craft-floor navngiver som kategoriens
    standardsvar. */
-.afslutning-saetning{margin-top:var(--r3)}
 .afslutning-knap{margin-top:var(--r5)}
 
 /* VAEGTKLASSE-SALENE ER FJERNET 31. aug 2026 (spor/katalog, L54/L57).
@@ -298,23 +282,6 @@
    4/10/5 -> 2/7/3, font 12,5px -> 12px. Scopet til .kort saa robotsidens
    egen badge-raekke (stoerre, sidens hovedsag der) IKKE rammes. */
 .kort .maerke{font-size:12px;padding:2px 7px 3px}
-
-/* --- 7. Specifikationstaetheden ------------------------------------------- */
-.taethed{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
-  padding:14px 16px;background:var(--panel-ro);border:1px solid var(--linje);
-  border-radius:var(--rund-ind)}
-.taethed .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
-  font-size:19px;font-weight:700;color:var(--blaek)}
-.taethed .brok{font-family:var(--mono);font-size:12px;color:var(--blaek3)}
-
-/* --- 8. Robotsidens midlertidige skabelon --------------------------------- */
-.post{display:flex;flex-direction:column;gap:var(--r5);padding-block:var(--r7)}
-.post-meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-.post-meta .land{font-family:var(--mono);font-size:12.5px;color:var(--blaek3)}
-.gruppe{display:flex;flex-direction:column;gap:var(--r3)}
-.midlertidig-note{padding:12px 14px;background:var(--tom);
-  border:1px dashed var(--hegn);border-radius:var(--rund-ind);
-  font-size:13.5px;color:var(--blaek2)}
 
 /* Robotsidens store billedled. Klassen sættes af billedled({stor:true}) i
    robot.mjs, men stod uden regel her — dens eneste styling laa i den
@@ -481,13 +448,6 @@
 .specimen__fod{display:flex;align-items:baseline;gap:var(--r3);flex-wrap:wrap;
   margin-top:10px;padding-top:9px;border-top:1px solid var(--blaek2)}
 .specimen__taethed{font-size:11.5px;font-weight:500;color:var(--paafod2)}
-/* Betjeningen, dér hvor man opdager, at man kigger paa den forkerte maskine. */
-.specimen__skift{margin-left:auto;display:inline-flex;align-items:center;gap:5px;
-  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--bund);text-decoration:none;
-  padding:3px 7px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek2)}
-.specimen__skift:hover{background:var(--accent);color:var(--blaek);box-shadow:none}
-.specimen__skift:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* Felttabellen. Aa54: en RIGTIG <table>, men med display:block/grid ovenpaa,
    saa gitteret staar som foer - en subgrid-lignende raekke (200px etiket +
@@ -621,8 +581,7 @@
   .specimen-hoved th,.specimen-hoved td{padding:var(--r3) 10px}
   .specimen__navn{font-size:15px}
   .specimen__fod{display:block}
-  .specimen__skift{margin-top:6px}
-  }
+    }
 
 /* =============================================================================
    9. SIDENS RAMME, ROBOTSIDEN OG PRODUCENTSIDEN
@@ -788,7 +747,6 @@
 .robot-navn .kort-ophav{gap:6px 10px}
 .robot-navn h1{margin:0}
 .robot-navn .aar{font-size:12px;color:var(--blaek3)}
-.vaegtklasse{margin:0}
 .robot-navn .maerker{margin-top:2px}
 
 /* VARIANTNAVNENE ER DATA, IKKE KNAPPER. Her stod flade + ramme + radius —
@@ -896,18 +854,12 @@
 .skema[open] > summary{border-radius:var(--rund) var(--rund) 0 0;border-bottom:1px solid var(--linje)}
 .skema > summary:hover{background:var(--panel-ro)}
 .skema > summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.skema-titel{font-size:19px;font-weight:700;letter-spacing:-.014em;color:var(--blaek)}
 .skema-taeller{font-size:12.5px;font-weight:500;color:var(--blaek2)}
-.skema-krop{padding:var(--r4) var(--r5) var(--r5)}
 .skema-gruppe + .skema-gruppe{margin-top:var(--r5)}
 .skema-gruppe h3{padding-bottom:8px;border-bottom:1px solid var(--linje);margin-bottom:4px}
-.skema-krop .raekke{align-items:start}
-.skema-krop .raekke dd{min-width:0}
-.skema-krop > .t-mikro{margin-top:var(--r5);padding-top:var(--r3);border-top:1px solid var(--linje)}
 @media (max-width:560px){
   .skema > summary{padding:14px var(--r4)}
-  .skema-krop{padding:var(--r4)}
-  /* Kun paa disse to sider. .raekke er en delt komponent — en aendring af dens
+    /* Kun paa disse to sider. .raekke er en delt komponent — en aendring af dens
      ombrydning ville ogsaa ramme katalogsidens producentindeks. */
   .robotside .raekke,.producentside .raekke{grid-template-columns:minmax(0,1fr)}
 }
@@ -1197,8 +1149,6 @@
   border-bottom:1px solid var(--linje);
 }
 .facetter__net .facet--s3{grid-column:span 3}
-.facetter__net .facet--s4{grid-column:span 4}
-.facetter__net .facet--s5{grid-column:span 5}
 .facetter__net .facet--raekkeslut{border-right:0}
 .facetter__net .facet--sidste-raekke{border-bottom:0}
 .facet__navn{
