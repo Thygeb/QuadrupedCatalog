@@ -183,8 +183,21 @@ create table robotter (
                                                          -- men skal kunne vaere begge — se R1's noter-tjek). jsonb bevarer
                                                          -- den PRAECISE form (streng vs. 1-elements liste er IKKE det samme
                                                          -- for rundturstesten), saa formen roeres ikke som tal/enhed gaettes.
+  -- NOTER_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "noter".
+  -- JPK: "UI SKAL VAERE REN FOR kinesiske tegn" — producentens ordrette,
+  -- ikke-danske formulering flytter hertil fra "noter", som fra nu KUN
+  -- baerer den danske oversaettelse (robot.mjs' noterBlok() renderer den
+  -- ordret). ALTID en liste, ALDRIG en bar streng (modsat "noter" selv) —
+  -- en PARALLEL liste, samme laengde og raekkefoelge som "noter", "" hvor
+  -- den enkelte note ikke havde en fremmedsproget ordlyd (tools/validate.mjs's
+  -- R21). Den praecise laengde-parring haandhaeves IKKE her (samme afgraensning
+  -- som R15/feltpost_varianter ovenfor — kraever et element-for-element-tjek,
+  -- CHECK kan ikke sammenligne to jsonb-arrays elementvis uden en funktion) —
+  -- kun formen (skal vaere et array) er en DB-CHECK.
+  noter_ordlyd        jsonb,
   constraint robotter_forgaenger_ikke_selv check (forgaenger_robot_id is distinct from id),
-  constraint robotter_noter_form check (noter is null or jsonb_typeof(noter) in ('string', 'array'))
+  constraint robotter_noter_form check (noter is null or jsonb_typeof(noter) in ('string', 'array')),
+  constraint robotter_noter_ordlyd_form check (noter_ordlyd is null or jsonb_typeof(noter_ordlyd) = 'array')
 );
 create index robotter_forgaenger_idx on robotter (forgaenger_robot_id);
 create index robotter_producent_idx on robotter (producent);
@@ -246,6 +259,14 @@ create table feltposter (
   -- og uden ALTER TYPE ... ADD VALUE-koreografien, hvis en tredje klasse
   -- nogensinde tilfoejes.
   advarsel_klasse     text,
+  -- ADVARSEL_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til
+  -- "advarsel". Samme JPK-krav og samme mekanik som robotter.noter_ordlyd
+  -- ovenfor — producentens ordrette, ikke-danske kildeformulering, flyttet
+  -- ud af "advarsel" (som fra nu kun baerer den danske oversaettelse robot.mjs
+  -- rent faktisk viser laeseren). Text, ikke jsonb: "advarsel" selv er altid
+  -- en bar streng (aldrig en liste), saa der er ingen parallel-liste-form at
+  -- bevare her, i modsaetning til noter/citat.
+  advarsel_ordlyd     text,
   note                text,
   raa                 text,           -- 0 forekomster i dag (formscan), men et gyldigt POST_NOEGLER-felt
   valuta              text,           -- 0 forekomster i dag, samme grund
@@ -347,6 +368,15 @@ create table feltposter (
   -- samme ugyldige par uden om YAML-vejen.
   constraint feltposter_advarsel_klasse_kraever_advarsel check (
     advarsel_klasse is null or (advarsel is not null and btrim(advarsel) <> '')
+  ),
+
+  -- R21 (spor/cjkui): samme to krav, samme facon, for advarsel_ordlyd —
+  -- ikke-tom tekst, og kan ikke staa uden det forbehold, det er en ordlyd TIL.
+  constraint feltposter_advarsel_ordlyd_ikke_tom check (
+    advarsel_ordlyd is null or btrim(advarsel_ordlyd) <> ''
+  ),
+  constraint feltposter_advarsel_ordlyd_kraever_advarsel check (
+    advarsel_ordlyd is null or (advarsel is not null and btrim(advarsel) <> '')
   ),
 
   -- KUN_MED_TAL (den del af R4, der gaelder tilstandsposter): en tilstand
@@ -454,11 +484,25 @@ create table anvendelse (
   er_ikke_oplyst      boolean not null,
   vaerdi              jsonb,     -- kategori(er): streng ELLER liste (ANVENDELSE_VAERDIER), null naar ikke_oplyst
   citat               jsonb,     -- ordret citat: streng ELLER liste, PAAKRAEVET naar ikke er_ikke_oplyst (R16)
+  -- CITAT_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "citat",
+  -- samme mekanik som robotter.noter_ordlyd/feltposter.advarsel_ordlyd —
+  -- producentens ordrette, ikke-danske formulering, flyttet ud af "citat"
+  -- (som fra nu kun baerer den danske oversaettelse). Foelger citat's EGEN
+  -- form (streng ELLER liste, samme jsonb-begrundelse) — staar "citat" som en
+  -- liste, er "citat_ordlyd" samme laengde liste, "" hvor det enkelte citat
+  -- ikke havde en fremmedsproget ordlyd. Element-for-element-laengdeparring
+  -- mod "citat" er IKKE en DB-CHECK, samme afgraensning som noter_ordlyd
+  -- ovenfor — kun formen.
+  citat_ordlyd        jsonb,
   kilde               text,
   hentet              date,
   kildetype           kildetype_enum,
   arvet_fra_robot_id  bigint references robotter(id),  -- R17: moderens robot, IKKE robotten selv
   note                text,
+  -- NOTE_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "note"
+  -- (anvendelsens egen note, IKKE feltposternes) — samme mekanik og samme
+  -- begrundelse som ovenfor.
+  note_ordlyd         text,
 
   constraint anvendelse_ikke_arv_af_sig_selv check (arvet_fra_robot_id is distinct from robot_id),
   constraint anvendelse_kilde_er_url check (kilde is null or kilde ~ '^https?://'),
@@ -482,6 +526,19 @@ create table anvendelse (
   ),
   constraint anvendelse_citat_form check (
     citat is null or jsonb_typeof(citat) in ('string', 'array')
+  ),
+  -- R21 (spor/cjkui): citat_ordlyd foelger citat's egen form (streng ELLER
+  -- liste) — samme constraint-facon som citat selv.
+  constraint anvendelse_citat_ordlyd_form check (
+    citat_ordlyd is null or jsonb_typeof(citat_ordlyd) in ('string', 'array')
+  ),
+  -- R21: note_ordlyd er ikke-tom tekst og kan ikke staa uden den note, den
+  -- er en ordlyd til — samme to krav som feltposter_advarsel_ordlyd_* ovenfor.
+  constraint anvendelse_note_ordlyd_ikke_tom check (
+    note_ordlyd is null or btrim(note_ordlyd) <> ''
+  ),
+  constraint anvendelse_note_ordlyd_kraever_note check (
+    note_ordlyd is null or (note is not null and btrim(note) <> '')
   )
   -- Resten af R16 (er hver vaerdi i ANVENDELSE_VAERDIERs syv gyldige
   -- kategorier?) og HELE R17 (arv: har moderen selv en kategori? er den
