@@ -109,3 +109,10 @@ felter:
     kilde: "https://www.anybotics.com/robotics/anymal/"
     hentet: "2026-08-19"
     advarsel: "Producenten skriver FCC, CE and Anatel compliant. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklæring."
+  fcc_oplyst:
+    vaerdi: true
+    kilde: "https://www.anybotics.com/robotics/anymal/"
+    hentet: "2026-08-19"
+    advarsel: "Producenten skriver FCC, CE and Anatel compliant. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklaering."
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

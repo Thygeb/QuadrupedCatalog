@@ -135,3 +135,6 @@ felter:
     advarsel: "\"Estimated price/unit: 50,000 € (excluding taxes and shipping)\". Separat \"Reservation fee: 100€ per unit\" er et depositum, der modregnes i slutprisen (\"fully refundable and will be applied toward your final purchase price\") - ikke medregnet i de 50.000 EUR. Vejledende/estimeret pris, ikke en bindende salgspris - producentens eget ord er \"Estimated\"."
     advarsel_klasse: "gyldighed"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

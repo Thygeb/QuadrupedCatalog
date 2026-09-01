@@ -166,3 +166,6 @@ felter:
     advarsel: "Fra webbutikkens Shopify-produktdata (variant \"D5-W\": price 8500000, dvs. 85.000 USD i cent-enheder). 5.000 USD dyrere end D5."
     advarsel_klasse: "uddybning"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

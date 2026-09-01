@@ -118,3 +118,6 @@ felter:
     kilde: "https://www.mabrobotics.pl/honey-badger-5"
     hentet: "2026-08-19"
     advarsel: "Negativkontrolleret med ordgrænse: 0 træf på CE i 1,48 MB HTML. Positiv kontrol på ANYbotics-siden med samme udtryk gav 1 træf (FCC, CE and Anatel compliant), så søgemetoden virker. Se noten om, hvorfor et nej her ikke betyder det samme som et nej hos en amerikansk producent."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

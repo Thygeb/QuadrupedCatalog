@@ -69,6 +69,8 @@ const FELTNAVN_ENUM_I_SKEMA_SQL = [
   'monteringsinterface', 'stroem_ud', 'dataporte',
   'pris',
   'ce_oplyst',
+  // spor/cert (1. sep 2026): samme tre som tools/skema.mjs's FELTER.
+  'fcc_oplyst', 'ul_oplyst', 'ccc_oplyst',
 ];
 
 function tjekEnumDrift() {
@@ -269,12 +271,25 @@ function klassificerVedLast(vl) {
 }
 
 /** Klassificerer én robot (allerede parset + normaliseret) til den kanoniske,
- *  slug-noeglede form, db/kanonisk.json og db/seed.sql begge bygges af. */
+ *  slug-noeglede form, db/kanonisk.json og db/seed.sql begge bygges af.
+ *
+ *  Et FELTNAVNE-felt, der slet ikke staar i doc.felter, er "ikke_oplyst" —
+ *  IKKE en fejltilstand. Frem til spor/cert (1. sep 2026) holdt en kastet
+ *  fejl her, fordi datakonventionen hidtil ALTID skrev alle skemafelter
+ *  eksplicit i hver robots YAML (ogsaa som "ikke_oplyst"); det var en
+ *  tilfaeldighed ved dataindtastningen, ikke en regel validate.mjs haandhaever
+ *  (R2 fanger UKENDTE felter, ingen regel fanger et MANGLENDE kendt felt).
+ *  Da fcc_oplyst/ul_oplyst/ccc_oplyst blev tilfoejet til skemaet UDEN at
+ *  robotdata blev rettet (haard begraensning 2: intet tal opfindes for at
+ *  lukke hullet), blev antagelsen falsk. Resten af koden har altid vaeret
+ *  enig om absence = ikke_oplyst — feltVisning() (skema.mjs) returnerer
+ *  { tilstand: 'ikke_oplyst' } for post===undefined, side.mjs' felt()
+ *  samme, taelKilder() i build.mjs springer den bare over — saa denne
+ *  funktion foelger nu samme regel i stedet for at vaere den ene undtagelse. */
 function klassificerRobot(doc) {
   const felter = {};
   for (const feltnavn of FELTNAVNE) {
-    const post = doc.felter[feltnavn];
-    if (post === undefined) throw new Error(`${doc.slug}: felt "${feltnavn}" mangler efter validering — kan ikke ske`);
+    const post = doc.felter[feltnavn] ?? 'ikke_oplyst';
     felter[feltnavn] = klassificerFeltpost(feltnavn, post, FELTER[feltnavn]);
   }
 

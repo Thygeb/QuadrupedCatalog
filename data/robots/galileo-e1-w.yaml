@@ -218,3 +218,6 @@ felter:
     advarsel_ordlyd: "\"外接通讯接口: Ethernet; USB; TypeC（接口可按需拓展）\" (ekstern kommunikationsgrænseflade: Ethernet; USB; TypeC; interfaces kan udvides efter behov)."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

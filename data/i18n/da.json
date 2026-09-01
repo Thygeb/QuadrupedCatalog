@@ -237,6 +237,9 @@
   "felt_dataporte": "Dataporte",
   "felt_pris": "Vejledende pris",
   "felt_ce_oplyst": "CE oplyst",
+  "felt_fcc_oplyst": "FCC oplyst",
+  "felt_ul_oplyst": "UL oplyst",
+  "felt_ccc_oplyst": "CCC oplyst",
   "felt_foerste_udgivelse": "Udgivelsesår",
 
   "anvendelse_titel": "Anvendelse ifølge producenten",

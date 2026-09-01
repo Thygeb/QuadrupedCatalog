@@ -14,6 +14,10 @@
  * Proeve 4 er den dyre: CLAUDE.md begraensning 6 forbyder en rangering uden
  * OFFENTLIGGJORT metode. Siger koden 33 og `indhold/metode.md` 31, er metoden ikke
  * offentliggjort — den er bare skrevet ned et sted, der er holdt op med at passe.
+ *
+ * spor/cert (1. sep 2026): fcc_oplyst/ul_oplyst/ccc_oplyst tilfoejet til FELTER.
+ * Naevneren gaar 30 -> 33 (samme mekanik som L32's 33 -> 30, modsat retning).
+ * Assertionerne herunder er VENDT, ikke slettet — de beviser nu den nye vaerdi.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,13 +27,13 @@ export default async function koer(ctx) {
 
   console.log('\n3b. Naevneren (D7 / L30)');
 
-  ok('skemaet har 30 feltnoegler', skema.FELTNAVNE.length === 30,
+  ok('skemaet har 33 feltnoegler', skema.FELTNAVNE.length === 33,
     `fandt ${skema.FELTNAVNE.length}`);
 
   // 1b. spor/datafelter (31. aug 2026): "fremdrift" blev tilfoejet som
   // IDENTITETSFELT (skrevet af os, som "status"), ikke som et FELTER-felt.
   // Uden denne paastand kunne en fremtidig aendring flytte fremdrift over i
-  // FELTER uden at noget fejlede paa selve feltnavnet - kun "30 feltnoegler"
+  // FELTER uden at noget fejlede paa selve feltnavnet - kun "33 feltnoegler"
   // ovenfor ville brydes, og fejlbeskeden ville ikke sige HVORFOR. Beviser
   // begge halvdele af graensen direkte: identitetslisten VOKSEDE (fremdrift
   // staar der), naevneren gjorde IKKE (den taeller stadig kun FELTER).
@@ -38,8 +42,8 @@ export default async function koer(ctx) {
     `IDENTITET_PAAKRAEVET=${JSON.stringify(skema.IDENTITET_PAAKRAEVET)}`);
   ok('fremdrift staar IKKE i FELTNAVNE - den maa ikke taelle i specifikationstaetheden',
     !skema.FELTNAVNE.includes('fremdrift'));
-  ok('naevneren er stadig 30, efter fremdrift blev tilfoejet til identiteten',
-    skema.NAEVNER === 30, `NAEVNER=${skema.NAEVNER}`);
+  ok('naevneren er stadig 33, efter fremdrift blev tilfoejet til identiteten',
+    skema.NAEVNER === 33, `NAEVNER=${skema.NAEVNER}`);
 
   // 2. Naevneren er UDLEDT. Hardkodes den igen, sprinter den her.
   ok('naevneren er skemaets feltantal, ikke et haandskrevet tal',
@@ -69,11 +73,11 @@ export default async function koer(ctx) {
   //    derimod noget siden staar ved, og den skal matche koden.
   const gamle = metode.split('\n')
     .filter((l) => !/^\s*>/.test(l))
-    .flatMap((l) => [...l.matchAll(/÷ (?:29|31)\b|\b(?:af|of) (?:29|31) felter/g)].map((m) => m[0]));
-  ok('metode.md har ingen efterladte 29- eller 31-taellinger i broedteksten',
+    .flatMap((l) => [...l.matchAll(/÷ (?:29|30|31)\b|\b(?:af|of) (?:29|30|31) felter/g)].map((m) => m[0]));
+  ok('metode.md har ingen efterladte 29-, 30- eller 31-taellinger i broedteksten',
     gamle.length === 0, gamle.join(' · '));
 
-  // 6. Taelleren kan ikke overstige naevneren. Med 30/30 er 100 % loftet.
+  // 6. Taelleren kan ikke overstige naevneren. Med 33/33 er 100 % loftet.
   const val = await import(`file://${path.join(rod, 'tools', 'validate.mjs').replace(/\\/g, '/')}`);
   const dataMappe = path.join(rod, 'data', 'robots');
   const filer = fs.existsSync(dataMappe)

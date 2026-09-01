@@ -107,3 +107,6 @@ felter:
     kilde: "https://www.mabrobotics.pl/honey-badger"
     hentet: "2026-08-19"
     advarsel: "Negativkontrolleret med ordgrænse: 0 træf på CE i 1,55 MB HTML, og 0 på conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA og FCC."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

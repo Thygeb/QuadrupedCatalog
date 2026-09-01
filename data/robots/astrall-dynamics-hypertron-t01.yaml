@@ -177,3 +177,6 @@ felter:
     advarsel_ordlyd: "\"外部通讯 RS485*2, CAN*2, 以太网口*2\" (ekstern kommunikation: RS485×2, CAN×2, Ethernet×2)."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

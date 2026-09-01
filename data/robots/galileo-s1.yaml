@@ -225,3 +225,6 @@ felter:
     advarsel_ordlyd: "\"外接通讯接口: Ethernet; USB; RS485\" (ekstern kommunikationsgrænseflade) - identisk med C1/C1-W-parret."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

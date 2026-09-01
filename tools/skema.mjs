@@ -58,6 +58,21 @@ export const FELTER = {
   // er tilbage som den eneste EU-oplysning skemaet baerer, og gruppen 'eu'
   // lever videre alene paa den.
   ce_oplyst:               { gruppe: 'eu',          art: 'jaNej' },
+  // spor/cert (1. sep 2026): tre regulatoriske jaNej-felter tilfoejet i SAMME
+  // form som ce_oplyst — HAARD BEGRAENSNING 2/5 gaelder dem uaendret: "ikke
+  // oplyst" er det forventede svar for langt de fleste robotter, og et
+  // "nej" er en dokumenteret paastand, ikke en mangel. Gruppen 'eu' daekker
+  // fra nu regulatorisk/certificering bredt, ikke kun EU — CE er stadig den
+  // eneste af de fire, der faktisk ER en EU-mekanisme (se GRUPPER-kommentaren
+  // i metode.md, som navngiver denne uoverensstemmelse eksplicit).
+  fcc_oplyst:              { gruppe: 'eu',          art: 'jaNej' }, // USA, Federal Communications Commission
+  ul_oplyst:               { gruppe: 'eu',          art: 'jaNej' }, // Nordamerika, UL Solutions
+  // "ccc_oplyst", ikke "3c_oplyst": en noegle, der begynder med et ciffer, er
+  // ikke en gyldig JS-identifikator og ville kraeve citering ved hvert eneste
+  // objektopslag og regex-match paa tvaers af skema.mjs/validate.mjs/
+  // build.mjs/db-laget. "CCC" er certificeringens formelle navn (China
+  // Compulsory Certification); "3C" er markedsnavnet, IKKE en anden ordning.
+  ccc_oplyst:              { gruppe: 'eu',          art: 'jaNej' }, // Kina, China Compulsory Certification ("3C")
 };
 
 export const FELTNAVNE = Object.keys(FELTER);
@@ -394,10 +409,10 @@ export const POST_NOEGLE_ALIAS = { vaerdi_min: 'min', vaerdi_maks: 'maks' };
 
 /**
  * D7 — naevneren i specifikationstaetheden. LUKKET med L30 (21. aug 2026): den er
- * FELTNAVNE.length, i dag 30.
+ * FELTNAVNE.length, i dag 33.
  *
  * Den bliver UDLEDT og maa aldrig skrives som et tal igen. Det var praecis det, der
- * gik galt: `taethed()` har hele tiden talt taelleren op over FELTNAVNE (i dag 30
+ * gik galt: `taethed()` har hele tiden talt taelleren op over FELTNAVNE (i dag 33
  * noegler), mens naevneren stod som en haandskrevet konstant. To lister, ét
  * broekstreg — og de skred fra hinanden ved hver skemaaendring uden at noget fejlede.
  *
@@ -415,6 +430,14 @@ export const POST_NOEGLE_ALIAS = { vaerdi_min: 'min', vaerdi_maks: 'maks' };
  *       -> 30 og alle taethedstal stiger ~10 % som foelge (anden niveauforskydning
  *       paa en uge efter L30 — sammenlign aldrig et tal fra foer 24. aug 2026 med et
  *       nyt uden at regne om).
+ *   33  spor/cert (1. sep 2026): fcc_oplyst, ul_oplyst, ccc_oplyst tilfoejet — tre
+ *       regulatoriske jaNej-felter i samme form som ce_oplyst (HAARD BEGRAENSNING 2:
+ *       ingen data skrevet i dette spor, saa alle 77 robotter gaar automatisk fra
+ *       "feltet findes ikke" til "ikke_oplyst" paa de tre nye noegler — det er den
+ *       forventede og korrekte tilstand for langt de fleste). Naevneren gaar 30 -> 33
+ *       og alle taethedstal FALDER ~10 % som foelge (tallerens taeller er uaendret,
+ *       naevneren vokser — modsat retning af L32's stigning, sammenlign aldrig et tal
+ *       fra foer 1. sep 2026 med et nyt uden at regne om).
  *
  * Aendrer nogen FELTER, flytter naevneren med — og det ER det rigtige, fordi
  * taelleren allerede flytter med. Metodesiden maa saa rettes: tests/koer.mjs har en

@@ -213,3 +213,6 @@ felter:
     advarsel_ordlyd: "\"¥39999 起\" - \"起\" betyder \"fra\"/\"startende ved\": basiskonfigurationens pris, tilvalg (fx den valgfrie ladestation ovenfor) lægges oveni."
     advarsel_klasse: "gyldighed"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"
