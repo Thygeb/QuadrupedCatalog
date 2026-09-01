@@ -9,8 +9,11 @@ sessionens scratchpad (`shape-geometri.mjs`, `shape-brug2.mjs`, `shape-skrift.mj
 `shape-type.mjs`) — uden for repoet, jf. løftet om en afhængighedsfri generator.
 
 > **Læs §1 først.** Opslaget i STATUS.md ændrede planen efter første udkast. Katalogsidens åbning
-> er ikke et frit designvalg — den er besluttet af JPK for to dage siden, låst af fem tests, og
-> dens egen accepterende måling er brudt. Det flytter §5 fra et byggeforslag til et beslutningsoplæg.
+> er ikke et frit designvalg — den er bestilt af JPK for to dage siden og låst af fem tests. §1.4
+> bærer desuden en **rettelse af min egen måling**: jeg påstod først, at åbningens acceptkriterium
+> var brudt. Målt om med den rigtige målestok er det **opfyldt**, og overbevisende. Det flytter §5
+> fra et byggeforslag til et beslutningsoplæg — og fra "ryd op efter en fejl" til "her er den næste
+> beslutning, som den forrige gjorde synlig".
 
 ---
 
@@ -98,41 +101,65 @@ Den er desuden **låst af fem tests**, som koder beslutningerne:
 Per projektreglen *"Ret assertions, slet dem ikke"* kan ingen af dem slettes — de skal vendes om,
 og det kræver en ny beslutning først.
 
-### 1.4 Men: D20 er ikke lukket, og dens egen måling er brudt
-
-Det er her opslaget bliver værdifuldt frem for blot begrænsende.
+### 1.4 D20: betingelsen er OPFYLDT — og en rettelse af min egen første måling
 
 **D20** (`STATUS.md:116`) er ordret mit spors spørgsmål:
 
 > **"skal katalogsiden åbne med robotterne i stedet for betjeningen?"**
 > Rejst af `impeccable critique` 28. aug 2026. **Målt grundlag: første `.kort` begynder ved
-> y = 993 px ved 1440×900 og y = 1820 px ved 390.**
+> y = 993 px ved 1440×900 og y = 1820 px ved 390** — *"hhv. én og to fulde skærme af betjening før
+> den første genstand: **44 betjeningselementer**."*
 
-D20 blev **ikke besvaret**. Den blev udsat: *"OPSLUGT AF L54 … besvares af redesignets nye verden
-… de lukkes, når verdenen er valgt."* Og Å73 gav heroen en udtrykkelig betingelse:
+Å73 gav heroen en udtrykkelig betingelse: *"heroen må ikke gøre tallet værre."*
 
-> *"sporet skal måle y-positionen for første robotkort før og efter ved 1440 og 390 —
-> **den var 993 px og 1820 px, da kritikken rejste sagen, og heroen må ikke gøre tallet værre**."*
+**Rettelse af mit eget første udkast.** Jeg skrev først, at betingelsen var brudt — med tallene
+1582 px og 2908 px. **Det var forkert.** Jeg målte første kort i *hovedgitteret* og holdt det op
+mod D20's tal for *første kort på siden*. To forskellige størrelser, sammenlignet som om de var én.
+Det er nøjagtigt den fejl, projektets egen regel advarer imod: et måleapparat skal valideres mod et
+kendt svar, før dets tal bruges i et fund. Målt om, med D20's egen målestok:
 
-**Målt af mig i dag:**
+| D20's målestok | 28. aug | **Målt nu** | Ændring |
+|---|---:|---:|---:|
+| Første `.kort` på siden, 1440 px | 993 px | **317 px** | **−676 px** |
+| Første `.kort` på siden, 390 px | 1820 px | **500 px** | **−1320 px** |
+| Betjeningselementer før første kort | 44 | **8** (alle navlinks) | **−36** |
 
-| | D20's grundlag (28. aug) | Betingelsen (Å73) | **Målt nu** | Ændring |
-|---|---:|---|---:|---:|
-| Første `.kort`, 1440 px | 993 px | må ikke blive værre | **1582 px** | **+589 px (+59 %)** |
-| Første `.kort`, 390 px | 1820 px | må ikke blive værre | **2908 px** | **+1088 px (+60 %)** |
+> **Heroen opfyldte sin betingelse, og den gjorde det overbevisende.** Kataloget åbner i dag med
+> robotter i stedet for betjening, ved begge bredder. JPK's beslutning virkede efter hensigten.
 
-> **Heroen blev bestilt med én betingelse, og betingelsen er brudt i begge bredder.**
+Genkør med `node <scratchpad>/shape-d20.mjs http://localhost:<port>/da/robotter/ 1440` (og `390`).
+*Kontrafaktisk:* var heroen ikke der, ville `foersteKortPaaSiden` være lig
+`foersteKortIGitteret` — 1582 og 2908.
 
-Det er ikke en indvending mod JPK's beslutning. Det er beslutningens **eget** acceptkriterium,
-målt og fundet ikke-opfyldt. D20 er derfor de facto stadig åben, og §5 er skrevet som et
-beslutningsoplæg til JPK i stedet for et byggespor.
+### 1.5 Den omkostning, D20's målestok ikke kan se
 
-**Én omstændighed forklarer, hvorfor netop denne del skred.** Å73 siger det selv:
+Men målestokken måler "hvornår ser hun en robot", ikke "hvornår kan hun begynde at arbejde". Og
+der er dukket en omkostning op, som D20 ikke havde et tal for:
+
+| | 1440 px | 390 px |
+|---|---:|---:|
+| Første kort på siden (D20's tal) | 317 | 500 |
+| **Første kort i det filtrerbare katalog** | **1582** | **2908** |
+| Betjeningselementer før det filtrerbare katalog | **81** | 82 |
+
+*(De 81 tæller heroens egne kortlinks og sammenlign-knapper med — det er ikke 81 filtre. Tallet
+skal læses som "ting at komme forbi", ikke som betjeningsbyrde i D20's forstand.)*
+
+**De ni robotter, der nu møder hende først, er de eneste ni på siden, der ikke adlyder filteret**
+(målt i §5.2, P1). D20's spørgsmål havde to led — *se* feltet, og derefter kunne *handle* på det.
+Det første led er løst. Det andet er rykket længere væk, og løsningen på det første er grunden.
+
+> **Det er ikke en fejl i beslutningen. Det er den næste beslutning, som den første gjorde synlig.**
+
+Derfor er §5 skrevet som et beslutningsoplæg til JPK, ikke som et byggespor — og derfor er alle tre
+veje i §5.3 formet, så D20's gevinst (317 / 500 px) **bevares**.
+
+**Én omstændighed forklarer, hvorfor netop denne del blev svær.** Å73 siger det selv:
 *"**Compen har INGEN aabning, saa formen er** … sporet fortolker her, hvor det ellers har en
 kontrakt."* Åbningen er det eneste element på fladen, som TYPESKILT aldrig tegnede. Alt andet blev
 bygget mod en comp; denne blev fortolket.
 
-### 1.5 En utilsigtet konflikt, jeg ikke kan afgøre
+### 1.6 En utilsigtet konflikt, jeg ikke kan afgøre
 
 D15 og L44 siger begge, at sorteringskontrollen skal være *"tæthed/vægt/alfabetisk — **aldrig
 'nyeste'**"*. Den byggede side har `<input value="dato">` = **"Udgivelsesår, nyeste først"**.
@@ -380,10 +407,12 @@ designet, hvis hun ikke sidder på Windows.
 | `input#sog-katalog` | **1069** | **1851** |
 | `.facetter__net` | 1134 | 1895 |
 | `h2` "74 robotter …" (14 px høj) | 1518 | 2754 |
-| **Første katalogkort** | **1582** | **2908** |
+| **Første kort i det filtrerbare katalog** | **1582** | **2908** |
 
-Ved 390 px skal den besøgende rulle **3,4 skærmhøjder** for at se den første af de 77 robotter, og
-**2,2 skærmhøjder** for at se søgefeltet.
+Til sammenligning: **første kort på siden overhovedet** (heroens) ligger på **317 / 500** — det er
+D20's tal, og det er godt (§1.4). Rækkefølgens problem er ikke, hvornår hun ser en robot. Det er,
+hvornår hun når de robotter, hun kan *gøre noget ved*: **3,4 skærmhøjder** ved 390 px, og
+**2,2 skærmhøjder** før søgefeltet.
 
 ### 5.2 De tre målte problemer
 
@@ -401,7 +430,11 @@ intet er et træf — mens det ene rigtige træf ligger på **y = 1863**. To kor
 kortdesign, hvor det ene adlyder filteret og det andet ikke, læses som en fejl.
 *Kontrafaktisk:* adlød blokken filteret, ville 9 falde i mindst én tilstand. Det gør det i ingen.
 
-**P2 — D20's betingelse er brudt.** Se §1.4: 993 → 1582 px (1440) og 1820 → **2908 px** (390).
+**P2 — det filtrerbare katalog er rykket to skærme ned, mens D20's tal blev bedre.** Se §1.4–1.5.
+Heroen løste "hvornår ser hun en robot" (993 → 317 og 1820 → 500) og skabte samtidig afstanden til
+"hvornår kan hun handle" (1582 / **2908**). **Begge dele er sande på én gang**, og en plan, der kun
+nævner det ene, er ubrugelig: fjerner man heroen for at lukke P2, mister man den gevinst, JPK
+bestilte den for. Derfor er alle tre veje i §5.3 formet, så 317/500 bevares.
 
 **P3 — sektionen duplikerer en kontrol, der allerede findes.** `<input value="dato">` =
 *"Udgivelsesår, nyeste først"* står i sorteringen. Åbningen gør det samme 700 px højere oppe, og
@@ -411,28 +444,34 @@ frem for en ordning. Dens eget grundlag er tyndt, og noten siger det: *"Udgivels
 
 ### 5.3 Tre veje, rangeret — JPK vælger
 
-Alle tre bevarer JPK's hensigt fra Å73 (*kataloget åbner med robotter, ikke med betjening*). De
-adskiller sig i, hvad de koster, og hvad de rører ved.
+**Alle tre bevarer heroens gevinst: første kort på siden bliver ved med at ligge på ~317 / ~500 px.**
+Ingen af dem foreslår at fjerne åbningen. De adskiller sig i, hvad de koster, og hvad de rører ved.
 
-> **Vej 1 — åbningen bliver gitterets egen første række (anbefalet).**
-> De ni kort holder op med at være et andet gitter og bliver **kataloget selv, sorteret nyest
-> først**. `h1` navngiver stadig det, man ser. Ét gitter, ét filter, én sandhed.
-> *Løser:* P1 (der er kun ét gitter at filtrere), P2 (første kort rykker over folden), P3 (ingen
-> duplikering).
-> *Koster:* tests 35.18–35.20 og 48.1–48.2 skal **vendes om**, ikke slettes. Rører L69's h1-ordlyd,
-> hvis "Nyeste i kataloget" ikke længere passer på hele kataloget — **det er spørgsmålet til JPK.**
+> **Vej 1 — de ni kort bliver gitterets egen første række (anbefalet).**
+> Åbningen holder op med at være et *andet* gitter og bliver **kataloget selv, sorteret nyest
+> først** — samme kort, samme filterkæde, ét gitter. Fladen åbner stadig med robotter (D20 bevaret,
+> og faktisk bedre: de kort, hun ser først, er nu kort hun kan filtrere), og de 77 begynder dér,
+> hvor de ni gør.
+> *Løser:* P1 (der er kun ét gitter at filtrere), P2 (afstanden til det filtrerbare katalog
+> forsvinder, fordi de er samme ting), P3 (ingen duplikering).
+> *Koster:* tests 35.18–35.20 og 48.1–48.2 skal **vendes om**, ikke slettes. Og L69's h1-ordlyd
+> skal genbesøges: *"Nyeste i kataloget"* navngiver en sortering frem for en sektion, når sektionen
+> og kataloget er blevet ét. **Det er spørgsmålet til JPK**, og det er hans egen beslutning fra i går.
 
-> **Vej 2 — åbningen bliver, men skrumper og adlyder filteret.**
-> Sektionen beholdes som en stribe, ikke et 541 px højt gitter — fx tre kort i én række, eller
-> navnene som tekst. Den kobles på samme `:has()`-kæde som gitteret, så den filtrerer med.
-> *Løser:* P1 og P2 delvist.
+> **Vej 2 — åbningen bliver som egen sektion, men skrumper og adlyder filteret.**
+> Sektionen beholdes, men som en stribe frem for et 541 px højt gitter — fx tre kort i én række.
+> Den kobles på samme `:has()`-kæde som gitteret, så den filtrerer med.
+> *Løser:* P1 helt, P2 delvist.
 > *Koster:* P3 består — duplikeringen af sorteringskontrollen bliver stående. Og en "nyeste"-stribe,
-> der filtreres væk til nul kort, skal have en tom tilstand, som ingen har designet.
+> der filtreres ned til nul kort, kræver en tom tilstand, som ingen har designet. Det er ny
+> designgæld, ikke afviklet gæld.
 
-> **Vej 3 — intet ændres i rækkefølgen; kun §3 og §4 bygges.**
-> Fuldt gyldigt valg. **Skriv da D20's tal ind i STATUS.md som en accepteret omkostning**, så næste
-> læser ikke tror, betingelsen blev overholdt. Det er den eneste af de tre veje, der kræver en
-> handling *selv om* man vælger ikke at gøre noget.
+> **Vej 3 — rækkefølgen står; kun §3 og §4 bygges.**
+> Fuldt gyldigt valg — §3 og §4 er de to største enkeltløft og er ikke spærret af noget.
+> *Koster:* P1 består, og den er den, der ligner en fejl for en besøgende. **Skriv da P1 ind i
+> STATUS.md som en kendt og accepteret adfærd**, så næste agent ikke bruger en runde på at
+> "opdage" den igen. Det er den eneste vej, der kræver en handling, selv om man vælger ikke at
+> ændre noget.
 
 ### 5.4 Forslag R2 — søgefeltet op (uafhængigt af de tre veje)
 
@@ -481,11 +520,14 @@ samme fil.**
 
 Ikke et spor. Tre spørgsmål til JPK, som §5 og §4.3 rejser:
 
-1. **Hvilken af §5.3's tre veje?** (D20's tal ligger på bordet: 993 → 1582 og 1820 → 2908.)
-2. **`--sans` → Saira eller Literata?** (§4.3)
-3. **Gælder "aldrig nyeste" (D15/L44) stadig for sorteringskontrollen?** (§1.5)
+1. **Hvilken af §5.3's tre veje?** Tallene på bordet: heroen opfyldte D20 (993 → **317**,
+   1820 → **500**), og det filtrerbare katalog ligger på **1582 / 2908**. Vej 1 er den eneste, der
+   holder begge tal, og den koster L69's h1-ordlyd.
+2. **Må `.klaebebar` bære resultattallet?** (F2, §3.4 — en udvidelse af L67.)
+3. **`--sans` → Saira eller Literata?** (§4.3)
+4. **Gælder "aldrig nyeste" (D15/L44) stadig for sorteringskontrollen?** (§1.6)
 
-Spor 1 kan ikke skrives som brief, før spørgsmål 1 er besvaret.
+Spor 1 kan ikke skrives som brief, før spørgsmål 1 er besvaret. Spørgsmål 2 spærrer kun F2, ikke F1.
 
 ### Spor 1 — `orden` · størst virkning, spærret af B0
 
@@ -496,9 +538,14 @@ Spor 1 kan ikke skrives som brief, før spørgsmål 1 er besvaret.
 | `tests/dele/35-*`, `tests/dele/48-*` | **assertions vendes om, aldrig slettet** |
 | `data/i18n/da.json`, `en.json` | kun hvis en streng skal genbruges |
 
-**Færdig, når** første katalogkort er `< 900` px (1440) og `< 844` px (390), `senesteSynlige` følger
-den valgte vej, build giver 0 fejl og 1110 tal med kilde, og tests er grønne **med omvendte
-assertions, ikke færre**.
+**Færdig, når** alle fire holder samtidig — mål med `shape-d20.mjs` og `shape-brug2.mjs`:
+
+1. `foersteKortPaaSiden` **≤ 317** (1440) og **≤ 500** (390) — heroens gevinst må ikke tabes.
+2. `foersteKortIGitteret` **< 900** (1440) og **< 844** (390) — i dag 1582 / 2908.
+3. `senesteSynlige` falder, når der filtreres (i dag 9/9/9 gennem tre tilstande) — eller er 0,
+   hvis Vej 1 vælges og de ni er blevet til gitterets egen første række.
+4. `build.mjs` 0 fejl og 1110 tal med kilde; `tests/koer.mjs` grønt med **omvendte** assertions,
+   ikke færre. Antallet må gerne ændre sig fra 1434 — det må retningen på en assertion ikke.
 
 R2 (søgefeltet op) kan lægges i dette spor **eller** sendes alene, hvis B0 trækker ud — det er
 ikke spærret.
@@ -596,7 +643,17 @@ the brief, and stop."*
    udvidelse af en truffet beslutning er JPK's kald, ikke et spors — derfor står den i B0.
 3. **Ikke efterprøvet:** om `sort-dato` ("nyeste først") blev udtrykkeligt sanktioneret efter D15/L44.
    Jeg fandt ingen post, der trækker "aldrig nyeste" tilbage, og ingen, der bekræfter den efter L54.
-   **Det er et hul i min søgning, ikke nødvendigvis i historikken.** Se §1.5.
+   **Det er et hul i min søgning, ikke nødvendigvis i historikken.** Se §1.6.
 4. **Ikke målt:** kontrastforholdene i den nye skala. T1 ændrer kun grader, ikke farver, så
    forholdene burde være urørte — men "burde" er ikke en måling, og en 9,5 → 11 px-hævning ændrer
    fladeandelen, som projektet måler kontrast på.
+5. **Ikke efterprøvet:** om F1's overlejrende panel kan holde 44 px berøringsmål på alle ni grupper
+   ved 390 px, hvor pladen er 358 px bred. Nyttelast og pris er skalaer, ikke lister, og de er de
+   to, der har mindst plads. Det skal måles i sporet, ikke antages her.
+
+**Metodenote til den vigtigste rettelse.** §1.4's fejl — at sammenligne "første kort i gitteret"
+med D20's "første kort på siden" — blev fanget, fordi tallet så for godt ud til at være sandt:
+en 59 %-forværring på et punkt, et Opus-designspor havde fået som udtrykkelig betingelse, er
+usandsynligt. Det var værd at bruge én kørsel på at måle D20's egen størrelse, og resultatet vendte
+konklusionen 180 grader. **Havde jeg ikke gjort det, ville planens overskrift have været en
+anklage mod et spor, der gjorde sit arbejde rigtigt.**
