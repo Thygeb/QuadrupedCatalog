@@ -261,10 +261,23 @@ i stedet for at være et flow-element, der skubber kataloget væk.
 
 Tre konsekvenser, et byggebrief skal bære:
 
-1. `.plade__krop` har `overflow:hidden` (`assets/generator.css:1261`). **Et overlejrende panel
-   klippes af den.** Reglen skal ændres for filterbeholderen. `impeccable`s Operate-reference
-   nævner præcis den fælde ved navn: *"An absolutely positioned dropdown inside an overflow:hidden
-   ancestor gets clipped."*
+1. `.plade__krop` har `overflow:hidden` (`assets/generator.css:1261`), og **et overlejrende panel
+   klippes af den — målt, ikke udledt.** Jeg indsatte et absolut placeret prøvepanel i
+   "Anvendelse"-facetten og målte:
+
+   | | |
+   |---|---|
+   | Klippende forfædre i hele kæden | **1** — `.plade__krop stans`, `overflow: hidden` på begge akser |
+   | Prøvepanelets bund | 1618 px |
+   | `.plade__krop`s bund | 1460 px |
+   | Stikker udenfor | **158 px** |
+   | `elementFromPoint` 20 px under kanten | **"intet"** — panelet er usynligt dér |
+
+   Genkør: `node <scratchpad>/shape-klip.mjs http://localhost:<port>/da/robotter/`.
+   Reglen skal altså ændres for filterbeholderen, ellers er F1 uimplementerbar.
+   `impeccable`s Operate-reference nævner fælden ved navn: *"An absolutely positioned dropdown
+   inside an overflow:hidden ancestor gets clipped."* **Den gode nyhed er, at der kun er én
+   klipper** — rettelsen er ét sted, ikke en jagt op gennem træet.
 2. **P0 er urørt.** `<details>`/`<summary>` **er** den JavaScript-fri popover. Filtrering forbliver
    ren CSS med `:has()`. Intet i forslaget gør en filtrering afhængig af JavaScript.
 3. Ved 390 px ombryder rækken til 3–4 rækker à 44 px (~150–190 px) mod dagens **835 px**.
