@@ -1,10 +1,17 @@
-/* sammenligning.js — vaelger + felt-for-felt-tabel til /sammenligning/.
-   FORBEDRER kun: uden JS staar tegnforklaringen og en flad robotliste med
-   links (server-renderet i tools/skabelon/sammenligning.mjs). Med JS
-   erstattes den flade liste af en vaelger (afkrydsningsfelter, samme
-   .filtre-sprog som katalogets facetter) og en dynamisk felt-for-felt-
-   tabel - samme "skjult, indtil JS taender det"-idiom som katalog.js'
-   soegefelt.
+/* sammenligning.js — felt-for-felt-tabel til /sammenligning/.
+   FORBEDRER kun: uden JS staar tegnforklaringen, "Vaelg robotter"-linket til
+   kataloget og en flad robotliste med links (server-renderet i
+   tools/skabelon/sammenligning.mjs). Med JS erstattes den flade liste af en
+   dynamisk felt-for-felt-tabel - samme "skjult, indtil JS taender det"-
+   idiom som katalog.js' soegefelt.
+
+   SPOR/SAML2 (JPK 1. sep 2026): filen havde foer sin EGEN vaelger
+   (afkrydsningsfelter + soegefelt, samme .filtre-sprog som katalogets
+   facetter). Den er FJERNET - kataloget er nu det ene sted, man vaelger
+   robotter. Denne fil laeser stadig udvalget fra localStorage
+   (`SAML_NOEGLE`, delt med katalogets samlknapper), men SKRIVER det ikke
+   laengere: siden er ren visning, ikke betjening. Se `udvalgtSlugs()` og
+   `fraKataloget()` nedenfor for de to mekanismer, der traadte i stedet.
 
    Data laeses fra et <script type="application/json"> i selve dokumentet,
    ALDRIG med fetch() - se tools/skabelon/sammenligning.mjs' begrundelse:
@@ -293,10 +300,15 @@
         + '<span class="specimen__navn">' + esc(r.navn) + '</span>'
         + '<span class="specimen__meta">' + esc(r.producent) + '</span>'
         + '</span></span>'
+        // `.specimen__skift` ("Vaelg robotter", per kolonne, hoppede foer ned
+        // til den nu fjernede #saml-vaelger) er VAEK (spor/saml2). Der er
+        // ikke laengere et sted paa DENNE side at hoppe ned til - vaelgeren
+        // er flyttet til kataloget - saa et per-kolonne link ville pege paa
+        // netop den samme kataloghenvisning som sidens ÉNE knap allerede
+        // giver (den SSR'ede .afslutning-knap i sammenligning.mjs' render()).
+        // Tre identiske links til samme sted er stoej, ikke betjening.
         + '<span class="specimen__fod">'
         + '<span class="specimen__taethed figur">' + esc(taethedTekst(r.taethedAntal)) + '</span>'
-        + '<a class="specimen__skift" href="#saml-vaelger">' + esc(DATA.tekst.vaelg_titel)
-        + '<span class="kunskaerm"> — ' + esc(r.navn) + '</span></a>'
         + '</span>'
         + '</th>';
     }).join('');
@@ -485,15 +497,20 @@
       + fotoophavHTML(robotter);
   }
 
-  var vaelger = app.querySelector('[data-saml-vaelger]');
   var status = app.querySelector('[data-saml-status]');
   var resultat = app.querySelector('[data-saml-resultat]');
-  if (!vaelger || !status || !resultat) return;
-  var checkboxes = Array.prototype.slice.call(vaelger.querySelectorAll('input[type=checkbox]'));
-
-  function valgte() {
-    return checkboxes.filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
-  }
+  // Vinderreglens fodnote (matrixFodHTML() i sammenligning.mjs, "Ingen
+  // vinder markeret ...") staar STATISK i markup'en, uafhaengig af om
+  // matricen faktisk er bygget - den forklarer noget ved MATRICEN, og giver
+  // ingen mening naar der ingen matrix er (spor/saml2, Punkt 3: fundet ved
+  // en browsermaaling af "vaelg mindst 2"-tilstanden, hvor fodnoten stod
+  // alene i et stort tomrum, hvor vaelgeren foer fyldte pladsen). `opdater()`
+  // skjuler den derfor sammen med resultatet - ingen ny CSS-regel behoeves,
+  // `[hidden]{display:none}` er UA-standarden, og intet andet sted saetter
+  // `.saml-fod`s `display` (efterproevet: assets/generator.css:730 saetter
+  // kun `margin-top`).
+  var fod = app.querySelector('.saml-fod');
+  if (!status || !resultat) return;
 
   function visStatus(tekst) {
     status.hidden = false;
@@ -504,118 +521,110 @@
     status.textContent = '';
   }
 
-  /* Afkrydsningen foelger strimlen. Den er `.kunskaerm` (1x1 px) og derfor
-     stadig i tabuleringsraekkefoelgen - staar den tilbage, naar strimlen
-     udeblev, moeder en tastaturbruger en kontrol uden en synlig etikette og
-     uden nogen virkning. `hidden` tager den ud af baade traeet og
-     tabuleringsraekkefoelgen.
-
-     Den nulstilles IKKE til metrisk undervejs: laeserens valg er stadig
-     laeserens, ogsaa mens hun kigger paa tre robotter, det ikke rammer, og
-     det skal staa igen, naar hun vaelger en fjerde. Intet skifter i mellem-
-     tiden, fordi der ikke er noget at skifte. */
   function opdaterKontakt() {
     if (enhedsBoks) enhedsBoks.hidden = !sidsteOmregnelige;
   }
 
+  /* --- UDVALGET (spor/saml2, JPK 1. sep 2026, punkt 1+2) -------------------
+     Siden har IKKE laengere sin egen vaelger. Kataloget er nu det ENE sted,
+     man vaelger robotter (afkrydsning der, eller den klaebende bundbjaelke
+     et samtidigt spor bygger til kataloget) - denne side LAESER kun
+     `SAML_NOEGLE` fra localStorage og SKRIVER den aldrig. Foer skrev
+     `gemUdvalg()` tilbage ved hvert checkbox-`change`; det kald og den
+     lytter er vaek sammen med checkboxene, for der er intet `change` at
+     lytte paa mere - siden er nu ren visning, ikke betjening.
+
+     LAESERENS EGET VALG VINDER STADIG OVER STANDARDVALGET (uaendret regel,
+     kun flyttet hertil fra det tidligere "flet ind i checkboxene"-trin, se
+     git-historikken for den gamle udgave af denne funktion): findes et
+     gemt udvalg med mindst én KENDT robot, erstatter det standardvalget
+     HELT, ogsaa hvis det kun rummer én robot - saa vises "vaelg mindst 2",
+     hvilket er sandt og er praecis den tilstand, laeseren selv har lavet.
+     Er lageret tomt, ugyldigt, utilgaengeligt eller udelukkende fyldt med
+     ukendte/foraeldede slugs, bruges `DATA.standard` (de tre taettest
+     udfyldte robotter, én pr. producent - sammenligning.mjs' egen
+     standardvalg()) - noejagtig samme faldback som foer, kun laest direkte
+     i stedet for foerst krydset af i en DOM, der ikke findes laengere. */
+  var SAML_NOEGLE = 'quad-sammenligning';
+  function udvalgtSlugs() {
+    var kendte = {};
+    for (var i = 0; i < DATA.robotter.length; i++) kendte[DATA.robotter[i].slug] = true;
+    var brug = [];
+    try {
+      var raa = window.localStorage.getItem(SAML_NOEGLE);
+      if (raa) {
+        var gemt = JSON.parse(raa);
+        if (Object.prototype.toString.call(gemt) === '[object Array]') {
+          for (var j = 0; j < gemt.length && brug.length < DATA.maksAntal; j++) {
+            var v = gemt[j];
+            if (typeof v === 'string' && kendte[v] && brug.indexOf(v) < 0) brug.push(v);
+          }
+        }
+      }
+    } catch (e) { /* intet lager: standardvalget bruges */ }
+    return brug.length ? brug : DATA.standard;
+  }
+
   function opdater() {
-    var slugs = valgte();
+    var slugs = udvalgtSlugs();
     if (slugs.length < 2) {
       visStatus(DATA.tekst.for_faa);
       resultat.innerHTML = '';
       sidsteOmregnelige = 0;
+      if (fod) fod.hidden = true;
       opdaterKontakt();
       return;
     }
     skjulStatus();
     resultat.innerHTML = tabelHTML(slugs);
+    if (fod) fod.hidden = false;
     opdaterKontakt();
   }
 
-  /* --- UDVALGET FRA KATALOGETS SAMLKNAPPER (JPK 1. sep 2026, punkt 1) ------
-     JPK valgte lokalt lager frem for URL-parametre, netop for at et udvalg
-     kan samles paa tvaers af sider. Her er den anden ende af den ledning:
-     har laeseren afsat robotter i kataloget, er det DEM, siden aabner med.
+  /* --- "Vaelg robotter"-knappen (spor/saml2, punkt 2) ----------------------
+     Knappen er SSR'et som en RIGTIG <a href> til kataloget (tools/skabelon/
+     sammenligning.mjs' render(), `.afslutning-knap .videre--stille[data-
+     saml-knap]`) og virker allerede uden JS, jf. P0 ("uden JavaScript er
+     siden sand, med JavaScript bliver den praecis"). Denne funktion
+     FORBEDRER kun klikket: kommer laeseren netop fra kataloget
+     (`document.referrer`s pathname er kataloget), foerer klikket tilbage i
+     historikken i stedet for at navigere frem igen - saa katalogets
+     afkrydsede filtre genskabes af browseren selv (bfcache-
+     formularhukommelse) uden at denne side skal kende til, gemme eller
+     genopbygge et eneste filter. Kommer laeseren et andet sted fra (eller
+     referrer mangler/er blokeret af browseren), sker der INGENTING i denne
+     funktion - linket navigerer normalt til kataloget, praecis adfaerden
+     uden JS.
 
-     LAESERENS EGET VALG VINDER OVER STANDARDVALGET. Skabelonen krydser tre
-     robotter af paa forhaand (standardvalg() i sammenligning.mjs: de tre
-     taettest udfyldte fra hver sin producent), og det er et godt foerste
-     indtryk - men det er sidens gaet, ikke laeserens valg. Ligger der et
-     udvalg, erstatter det derfor standardvalget HELT, ogsaa hvis det kun
-     rummer én robot: saa staar der "vaelg mindst 2", hvilket er sandt og er
-     praecis den tilstand, laeseren selv har lavet. At fylde op til tre med
-     sidens egne gaet ville skjule, hvad laeseren faktisk havde afsat.
-
-     TOMT ELLER UTILGAENGELIGT LAGER AENDRER INTET: standardvalget staar, og
-     siden opfoerer sig noejagtig som foer. Det er ogsaa derfor hele blokken
-     kan kaste uden at koste noget - `catch` falder tilbage til status quo. */
-  var SAML_NOEGLE = 'quad-sammenligning';
-  try {
-    var raa = window.localStorage.getItem(SAML_NOEGLE);
-    if (raa) {
-      var gemt = JSON.parse(raa);
-      if (Object.prototype.toString.call(gemt) === '[object Array]' && gemt.length) {
-        /* Kun slugs, siden faktisk kender. Et gemt udvalg kan vaere aeldre end
-           kataloget: fjernes en robot, skal den droppes stille, ikke krydse
-           en boks af, der ikke findes. `maksAntal` klipper resten. */
-        var kendte = {};
-        checkboxes.forEach(function (c) { kendte[c.value] = true; });
-        var brug = [];
-        gemt.forEach(function (v) {
-          if (typeof v === 'string' && kendte[v] && brug.indexOf(v) < 0
-            && brug.length < DATA.maksAntal) brug.push(v);
-        });
-        if (brug.length) {
-          checkboxes.forEach(function (c) { c.checked = brug.indexOf(c.value) >= 0; });
-        }
-      }
-    }
-  } catch (e) { /* intet lager: standardvalget staar */ }
-
-  /* Ledningen gaar BEGGE VEJE. Fjerner laeseren en robot her, skal katalogets
-     taeller ikke blive staaende paa det gamle tal - saa var udvalget to
-     forskellige ting afhaengigt af, hvilken side man saa det fra.
-     Skrives kun ved `change`, aldrig ved indlaesning: sidens standardvalg er
-     sidens gaet, og et gaet maa ikke forvandles til laeserens valg, bare
-     fordi siden blev aabnet. */
-  function gemUdvalg() {
-    try { window.localStorage.setItem(SAML_NOEGLE, JSON.stringify(valgte())); }
-    catch (e) { /* intet lager: udvalget lever kun paa denne side */ }
+     Sammenligningen bruger to detached <a>-elementer i stedet for
+     `new URL()`: samme ES5-stil som resten af filen, og den loeser
+     relative href'er (fx "../robotter/") mod DOKUMENTETS base-URL uden at
+     kende sitets fulde origin. */
+  function fraKataloget(href) {
+    if (!document.referrer) return false;
+    try {
+      var maal = document.createElement('a');
+      maal.href = href;
+      var kilde = document.createElement('a');
+      kilde.href = document.referrer;
+      return kilde.protocol === maal.protocol && kilde.host === maal.host
+        && kilde.pathname === maal.pathname;
+    } catch (e) { return false; }
   }
-
-  checkboxes.forEach(function (c) {
-    c.addEventListener('change', function () {
-      if (valgte().length > DATA.maksAntal) {
-        c.checked = false;
-        visStatus(DATA.tekst.maks);
-        return;
-      }
-      gemUdvalg();
-      opdater();
-    });
-  });
-
-  /* Soegefeltet (punkt 3, spor/sammenlign): 77 chips uden soegning kraevede
-     visuel skimning af alle for at finde én model. Genbruger katalogsidens
-     moenster (assets/katalog.js' `soeg()`: lowercased substring-match paa et
-     `data-sog`-maerket lag, `hidden`-attributten alene styrer synlighed) -
-     tilpasset til denne sides ét-niveaus vaelger (ingen facetter at krydse,
-     kun navn+producent pr. chip, sat af tools/skabelon/sammenligning.mjs'
-     vaelgerHTML()). Ingen netvaerkskald, samme regel som resten af siden. */
-  var soegInput = app.querySelector('#saml-soeg');
-  var traeffere = Array.prototype.slice.call(vaelger.querySelectorAll('[data-sog]'));
-  if (soegInput && traeffere.length) {
-    soegInput.addEventListener('input', function () {
-      var q = soegInput.value.trim().toLowerCase();
-      traeffere.forEach(function (el) {
-        var traf = !q || el.getAttribute('data-sog').indexOf(q) !== -1;
-        el.hidden = !traf;
+  var valgKnapper = document.querySelectorAll('[data-saml-knap]');
+  for (var vi = 0; vi < valgKnapper.length; vi++) {
+    (function (el) {
+      el.addEventListener('click', function (e) {
+        if (fraKataloget(el.getAttribute('href'))) {
+          e.preventDefault();
+          window.history.back();
+        }
       });
-    });
+    }(valgKnapper[vi]));
   }
 
   /* Samme betjeningsflade, to udtryksformer: JS erstatter den statiske
-     fallback-liste med vaelgeren + tabellen i stedet for at vise begge. */
+     fallback-liste med den byggede tabel i stedet for at vise begge. */
   var fallback = document.querySelector('[data-sammenligning-fallback-wrap]');
   if (fallback) fallback.hidden = true;
   app.hidden = false;

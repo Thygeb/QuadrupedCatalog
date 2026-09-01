@@ -254,11 +254,12 @@ function dataBlok(ctx) {
          valgt frem for at opfinde en streng. De steder, hvor ingen noegle
          passede, er feltet UDELADT og fOErt som eftersleb i sporets rapport -
          aldrig fyldt med en dansk streng skrevet i skabelonen, som saa ville
-         staa uoversat paa den engelske side. */
-      // Kolonnehovedets betjening. Compen skrev "Skift plade"; den naermeste
-      // eksisterende noegle er vaelgerens egen overskrift, og den er ogsaa
-      // aerligere: linket springer netop DERHEN.
-      vaelg_titel: T.sammenligning_vaelg_titel,
+         staa uoversat paa den engelske side.
+         `vaelg_titel` (kolonnehovedets "Skift plade"-link) er FJERNET her
+         (spor/saml2, JPK 1. sep 2026): kolonnens eget "Vælg robotter"-link
+         er vaek sammen med hele vaelgeren - der er nu ÉN knap for hele
+         siden (den SSR'ede .afslutning-knap i render(), aldrig JSON-baaret),
+         saa klienten har ikke laengere brug for teksten via DATA.tekst. */
       // Svarmaerkets skaermlaesertekst, fx "2 af 3 oplyst". `noegletal_taeller`
       // og ikke `skema_taeller`: sidstnaevnte siger "... felter oplyst", og her
       // taelles PLADER, ikke felter. Den generiske form passer praecis.
@@ -293,50 +294,6 @@ function dataBlok(ctx) {
       },
     },
   };
-}
-
-/** Vaelgeren: ét afkrydsningsfelt pr. robot, samme `.filtre`-sprog som
- *  katalogets facetter (genbrugt CSS, ingen ny komponentfamilie). Legenden
- *  er `.kunskaerm` (skjult visuelt): sektion-hovedet lige ovenfor i render()
- *  viser samme etikette allerede synligt, og to synlige kopier af den
- *  samme etikette ville vaere stoej.
- *
- *  Punkt 3 (spor/sammenlign): 77 chips uden soegning kraevede visuel
- *  skimning af alle for at finde én model. Soegefeltet genbruger
- *  katalogsidens moenster (assets/katalog.js' `soeg()`: substring-match paa
- *  et `data-sog`-maerket lag, lowercased, ingen netvaerkskald) - hver chip
- *  paakes her i et `<span data-sog="...">`, samme idé som katalogets
- *  `.lag[data-sog]`, blot ét niveau (ingen facetter at krydse). Tilpasset:
- *  soegeteksten er "navn producent" (ikke katalogets fulde kort-tekst, som
- *  ogsaa baerer land/vaegtklasse/anvendelse - irrelevant her, jf. briefets
- *  krav om at matche paa robotnavn OG producentnavn). Feltet staar UDEN
- *  `hidden`: hele `.sammenligning-app` er allerede skjult, indtil
- *  sammenligning.js fjerner det - et andet lag `hidden` her ville vaere
- *  overfloedigt (samme logik som resten af app'en, ingen CSS-only-fallback
- *  for soegning, ligesom katalogets soegefelt heller ingen har). */
-function vaelgerHTML(robotter, standard, legendeTekst, sogEtiket, sogPladsholder) {
-  const std = new Set(standard);
-  const felter = [...robotter].sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'))
-    .map((r) => {
-      const sogetekst = `${r.navn} ${r.producent}`.toLowerCase();
-      return `<span class="vc" data-sog="${attr(sogetekst)}">`
-        + `<input type="checkbox" class="vc__felt f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
-        + `${std.has(r.slug) ? ' checked' : ''}>`
-        + `<label class="vc__mrk" for="saml-${attr(r.slug)}">${esc(r.navn)}`
-        + `<span class="vc__prod">${esc(r.producent)}</span></label>`
-        + `</span>`;
-    })
-    .join('\n');
-  return `<fieldset class="facet sammenligning-vaelger">
-<legend class="etiket kunskaerm">${esc(legendeTekst)}</legend>
-<div class="sog">
-<label class="etiket" for="saml-soeg">${esc(sogEtiket)}</label>
-<input id="saml-soeg" type="search" autocomplete="off" placeholder="${attr(sogPladsholder)}">
-</div>
-<div class="vaelgernet" data-saml-vaelger>
-${felter}
-</div>
-</fieldset>`;
 }
 
 /**
@@ -525,16 +482,49 @@ export function render(ctx) {
   const dataJSON = JSON.stringify(data)
     .replace(/</g, '\\u003c').replace(/-->/g, '--\\u003e'); // saa </script> i data aldrig kan lukke blokken
 
-  /* RAEKKEFOELGEN ER VENDT (spor/samlbyg, compens form): matricen staar nu
-     FOER vaelgeren. Foer laa 77 afkrydsningsfelter mellem laeseren og det,
-     siden handler om - man skulle forbi hele kataloget for at se en
-     sammenligning, der allerede var tegnet med standardtrioen. Vaelgeren er
-     betjening, ikke indhold, saa den hoerer under resultatet; kolonnehovedets
-     "Vaelg robotter"-link springer ned til den (#saml-vaelger), og hovedet
-     klaeber, saa linket altid er inden for raekkevidde.
+  /* SPOR/SAML2 (JPK 1. sep 2026, punkt 1+2): vaelgeren er FJERNET fra denne
+     side. Rationalet er JPK's eget: kataloget bliver det ENE sted, man
+     vaelger robotter (afkrydsning der, eller den klaebende bundbjaelke et
+     samtidigt spor bygger); denne side bliver ren visning. Udvalget deles
+     stadig via localStorage (SAML_NOEGLE, assets/sammenligning.js), kun
+     SKRIVES det ikke laengere fra denne side.
 
-     `.sammenligning-app` er STADIG hidden indtil JS - kun rykket rundt.
-     Laesenoeglen og fallback-listen staar uden for den og virker uden JS. */
+     Tilbage staar ÉN knap, "Vaelg robotter" (samme tekst, samme i18n-noegle,
+     som foer sad paa den skjulte h2 og paa kolonnehovedets "Skift plade"-
+     link) - en RIGTIG <a href> til kataloget, altid til stede, ALDRIG kun
+     skabt af JS (P0: uden JavaScript er siden sand, med JavaScript bliver
+     den praecis - et link, der kun virker med JS, bryder netop den regel).
+     assets/sammenligning.js laegger klik-adfaerden ovenpaa: kommer laeseren
+     fra kataloget (document.referrer), goer knappen `history.back()` i
+     stedet, saa katalogets afkrydsede filtre genskabes af browseren selv
+     (bfcache) - ingen tilstand at gemme, ingen ny mekanisme.
+
+     KNAPPENS FORM er `.videre.videre--stille` - IKKE en ny klasse, samme
+     tilbageholdne knap robot.mjs' "Om metoden"/produktside-link bruger,
+     valgt netop fordi siden IKKE er en salgskanal (haard begraensning 1).
+     Wrapperen `.afslutning-knap` (generator.css:345, margin-top:r5) er
+     GENBRUGT fra forsidens afslutningsblok - den er en generisk
+     margin-regel uden nogen kobling til forsiden specifikt, og den giver
+     PRAECIS den luft over knappen, kataloget/generator.css allerede
+     validerer andetsteds. INGEN ny CSS er tilfoejet for at opnaa dette
+     (filejerskabet forbyder at roere system.css/generator.css); begge
+     klasser eksisterede allerede og laante kun deres eksisterende regler.
+
+     STRUKTUREN BAGVED (`<div class="sektion">`) ER BEVIDST BEVARET, kun
+     klassen "sammenligning" er droppet fra den: `.sektion{padding-top:r8}`
+     er den ENESTE regel, den gamle `<section class="sektion sammenligning">`
+     traf (maalt: intet `.sammenligning`- eller `.sektion.sammenligning`-
+     selektor findes i hverken system.css eller generator.css), saa
+     fjernelsen af netop det ene klassenavn koster INGEN visuel aendring
+     for resten af blokken - kun grep'et efter "sektion sammenligning" (som
+     PUNKT 1's acceptkriterium laeser bogstaveligt) bliver 0. Sektionen er nu
+     en <div>, ikke et <section>, fordi dens gamle <h2 aria-labelledby> (der
+     gav den et tilgaengeligt navn) er vaek med vaelgeren - et unavngivet
+     <section> er intet landmark for en skaermlaeser alligevel, saa <div>
+     siger det samme uden at paastaa en semantik, der ikke er der.
+
+     `.sammenligning-app` er STADIG hidden indtil JS. Laesenoeglen, knappen
+     og fallback-listen staar uden for den og virker alle uden JS. */
   return `<div class="rum">
 <p class="retur"><a href="${attr(url.katalog)}">${esc(T.til_katalog)}</a></p>
 
@@ -548,22 +538,14 @@ ${stempelblokHTML(ctx)}
 
 ${legendeHTML(t, T)}
 
-<section class="sektion sammenligning" aria-labelledby="h-sammenligning">
-<h2 class="t-h2 kunskaerm" id="h-sammenligning">${esc(T.sammenligning_vaelg_titel)}</h2>
+<p class="afslutning-knap"><a class="videre videre--stille" href="${attr(url.katalog)}" data-saml-knap>${esc(T.sammenligning_vaelg_titel)}${ctx.hjaelp.ikon('i-pil')}</a></p>
 
+<div class="sektion">
 <div class="sammenligning-app" data-sammenligning hidden>
 ${enhedskontakt(ctx)}
 <p class="t-lille sammenligning-status" data-saml-status role="status" aria-live="polite" hidden></p>
 <div class="saml-rulle" data-saml-resultat></div>
 ${matrixFodHTML(t)}
-
-<div class="saml-udtraek" id="saml-vaelger">
-<p class="saml-udtraek__top">${esc(T.sammenligning_vaelg_titel)}</p>
-<div class="saml-udtraek__krop">
-<p class="t-lille sektion-note">${esc(T.sammenligning_vaelg_forklaring)} ${esc(t('sammenligning_maks'))}</p>
-${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenligning_soeg_etiket, T.sammenligning_soeg_pladsholder)}
-</div>
-</div>
 </div>
 
 <div data-sammenligning-fallback-wrap>
@@ -573,7 +555,7 @@ ${vaelgerHTML(robotter, data.standard, T.sammenligning_vaelg_titel, T.sammenlign
 <p class="t-lille sektion-note">${esc(T.sammenligning_uden_js_forklaring)}</p>
 ${fallbackHTML(robotter, ctx)}
 </div>
-</section>
+</div>
 </div>
 <script type="application/json" id="sammenligning-data">${dataJSON}</script>
 `;
