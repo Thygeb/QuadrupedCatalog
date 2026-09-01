@@ -326,3 +326,268 @@ fokusring, fordi `overflow-x:auto` ellers klipper den.
 med Om-siden, sammenligningssiden og producentsiderne, som ikke fandtes, da
 ORBIT-udgaven af denne fil blev skrevet. De fire, ORBIT-filen nævnte (1180, 680,
 679, 420), er stadig reelle brudpunkter, men er ikke længere den fulde liste.
+
+## Dybde
+
+Systemet er **fladt, punktum** — ikke "fladt i hvile" som ORBIT. Begge
+skyggetokens er sat til `none` i `:root`, med kildens egen begrundelse ordret:
+*"Ingen slagskygge findes på siden. Materiale, ikke skeuomorft teater."*
+Tokenerne (`--skygge`, `--skygge-loeft`) er bevidst bevaret som navne — 11
+brugssteder på tværs af begge stilark refererer dem stadig via `var()` — så
+en fremtidig beslutning om at genindføre skygge kan gøres ét sted, uden at
+opsøge hvert brugssted. I dag tegner ingen af dem noget.
+
+Dybde signaleres i stedet af **fladeskift og streger**: `.rille`
+(`--linje`) mellem kort i gitteret, en hårfin underkant under dækket, og
+`.stans`-primitivens indfældede lyskant (se *Former*). Hullet — "ikke
+oplyst", den stiplede kant — reagerer aldrig på hover eller fokus; det er
+ikke en tilstand, der kan "forbedres" ved at pege på den.
+
+## Former
+
+**To formsprog lever side om side i koden i dag, uden en fælles regel for
+hvornår hvert bruges** — se `## Konflikter`. Det ene er den gamle,
+tokeniserede treleddede skala (`--rund` 12px, `--rund-ind` 8px,
+`--rund-lille` 6px), brugt på paneler, kort, felter og chips. Det andet er
+TYPESKILTs **stansning**: en hårdkodet `border-radius:2px`, ikke bundet til
+noget token, som optræder **26 gange** på tværs af begge stilark (talt ved
+`grep -o "border-radius:2px"`) — `.stans`-primitiven selv, robotsidens
+store foto (`.robot-foto .billedled--stor`), og en række andre TYPESKILT-
+komponenter. Der findes desuden **4** hårdkodede `border-radius:99px`
+(pille/cirkel: scrollbar-håndtag, en lille prik-markør) — de konkurrerer
+ikke om samme rolle som de to andre og er ikke en del af konflikten.
+
+Kanten bærer stadig betydning, som i ORBIT:
+
+- **Fuldt optrukket, `linje`**: dekorativ skillelinje.
+- **Fuldt optrukket, `hegn`**: en kant, læseren skal kunne se — inputfeltets
+  ramme. **Målt af dette spor: `hegn` er i dag under WCAG 1.4.11's 3:1-krav
+  til meningsbærende ikke-tekst** (2,47 : panel, 2,14 : bund) — se
+  `## Konflikter`.
+- **Stiplet, `hegn`**: fravær — hullet, "ikke oplyst"-chippen, den
+  sekundære kilde.
+- **`.stans`-kanten**: 1px indfældet `linje`-kontur med en 1px `--stans`
+  (hvid) lyskant foroven — den stansede-metal-effekt, TYPESKILTs signatur.
+
+Firkanten på 9 × 9 px er stadig systemets datatilstands-alfabet: **udfyldt**
+(nej), **åben med fyldt kerne** (ja), **stiplet** (ikke oplyst), **halvt
+fyldt diagonalt** (kun vist på billede) — uændret fra ORBIT.
+
+## Komponenter
+
+### Dækket (topbaren)
+
+Ét bånd øverst på alle 213 sider, sat i `--mono` (Saira) — bevidst
+forskelligt fra sidens `--sans`-standard, se *Typografi*. Ingen egen
+baggrund; arver `--bund`, kun adskilt af en hårfin `linje`-underkant.
+Ordmærket bærer et **stiplet, midlertidigt navnemærke** (`.daek__stempel`),
+fordi sidens navn ikke er afgjort (Å1) — sat i neutral `blaek3`, ikke gult,
+fordi et permanent gult felt ville bruge sidens ENESTE accentfarve på noget,
+der aldrig skifter. Navigationen er et vandret rullespor; se *Layout* for
+de to målte tastaturfælder, det løser (`scroll-padding-inline`,
+indad-tegnet fokusring).
+
+### Kort (katalogets kort, `.net .kort`)
+
+Rækkefølgen er fast: **fotografi · producentnavn · robotnavn.** Ingen
+mørketalsstribe på selve kortet i dag — `.stribe--kompakt`, som ORBIT-filen
+beskrev udførligt som "fire celler, ikke fem", **renders 0 gange** i det
+byggede site (bekræftet: én af de 9 kendte, beskyttede døde CSS-klasser fra
+`spor/doedcss`, ikke denne agents ansvar at røre).
+
+- **Rammen:** `.net` sætter et 1px `linje`-farvet gitter-gap; kortene selv
+  har `border:0;border-radius:0;box-shadow:none` — den tokeniserede
+  kort-ramme (`--rund`, `--linje`, `--skygge`) findes i `.kort`s
+  **grundregel**, men `.net .kort` nulstiller den. To kort-rammer i to
+  filer — se `## Konflikter`.
+- **Billedledet:** se *Former* og `## Konflikter` — `.billedled` (16:10,
+  `cover`) mod `.net .billedled` (4:3, `contain`); den sidste vinder på
+  specificitet på katalogsiden.
+- **Navnet** står under billedet, i `--sans`-stakken (arvet, ikke sat
+  eksplicit), 17px/600. Navnets `::after` dækker hele kortet, ét klikmål.
+- **Statusstempel:** lægges kun på, når status ikke er "i produktion".
+
+### Filtre (kataloget)
+
+`.filtre`/`.chips`, checkboxes med skjult, men fokuserbar, input.
+
+- **Form:** 8px radius, mindst 44px høj.
+- **Hvile:** hvid flade mod sidens grå bund — kanten er fjernet med vilje
+  (30 chips med hver sin 1px ramme læste som streg-støj).
+- **Valgt:** accentfyldt flade, hvid tekst.
+- **"Ikke oplyst"-chippen** (hård begrænsning 5): dæmpet `tom`-flade,
+  stiplet `hegn`-kant, ingen fed vægt — samme hulsprog som `.v-ikke`.
+- **Tælleren** er et tal og sættes i mono med tabulære cifre.
+
+### Søgefeltet
+
+`.sog input`: 44px høj (sitets berøringsmål), 16px skrift (under det zoomer
+iOS Safari selv ved fokus), 9px lodret polstring — begge tal målt med
+`C:/Praktik/websites/maalevaerktoej/maal.mjs`, ikke regnet i hånden, ifølge
+kildens egen kommentar. Virker som et almindeligt formularfelt uden
+JavaScript; filtrene er links uanset.
+
+### Knapper
+
+**Kildens egen kommentar kalder `.videre` "den eneste knapform på sitet"** —
+det er ikke længere sandt i praksis, se `## Konflikter`.
+
+- **`.videre`** (primær): 46px høj, 8px radius, blæk-flade, hvid tekst,
+  hover skifter til accent. På 146 sider i alt (talt i `dist/`).
+- **`.videre--stille`**: samme kasse, gennemsigtig flade, accentfarvet
+  tekst — **som falder under WCAG 4,5:1** (1,38–1,60 : 1), se
+  `## Konflikter` — `hegn`-kant. På 144 af de 146 sider.
+- **`.nulstil`**: en anden, nyere knapklasse (katalogsidens
+  `<button type="reset">`), på 2 sider.
+- Plus mindst tre yderligere, siden-specifikke knap-lignende klasser
+  (fx `.valg__fjern`), hver brugt ét sted. Ikke navn-for-navn efterprøvet
+  af dette spor — se rapportens usikkerhedsafsnit.
+
+**Der findes ingen købsknap, ingen demoknap, ingen prisforespørgsel.**
+
+### Kildemærket
+
+Et hævet bogstav efter værdien, `--mono`, accentfarve (se kontrastfund i
+`## Konflikter`), `max(8px,.34em)`. Bærer et usynligt 24×24px `::before`
+for WCAG 2.5.8's berøringsmål uden at bogstavet selv vokser.
+**Sekundær kilde** (producentens domæne, ikke produktsiden) markeres med
+stiplet `hegn` i `blaek3` — hullets eget sprog.
+
+### De fire datatilstande
+
+Systemets kerne: "Ikke oplyst", "nej", "0" og "kun vist på billede" deler
+hverken skriftgrad, bogstavform, flade eller mærke.
+
+- **Tal** (`.v-tal`): stor, fed figur i mono. Operatoren foran i
+  `max(8px,.72em)`, enheden bagefter i `max(8px,.56em)`.
+- **Nul** (`.v-nul`): sættes præcis som ethvert andet tal.
+- **Nej** (`.v-nej`): **fast 10,5px** (ikke længere em-baseret — rettet i
+  `spor/samlvaelg`, fordi em-satsen svingede med arvet skrift), versaler,
+  0,13em spatiering, fuld blæk, udfyldt 9×9px firkant.
+- **Ja** (`.v-ja`): stadig em-baseret, `.62em`, samme vægt som nej, åben
+  firkant med fyldt kerne.
+- **Ikke oplyst** (`.v-ikke`): **fast 11px** (samme rettelse), minuskler,
+  `blaek3` på `tom`-flade, stiplet `hegn`-kant, 9×9px stiplet firkant.
+- **Kun vist på billede** (`.v-billede`): fast 11px, kursiveret ord, halvt
+  fyldt firkant, ingen dæmpet flade.
+
+**`.v-nej` og `.v-ikke`/`.v-billede` bruger i dag to forskellige
+satsmetoder** (fast px mod em) inden for samme fire-tilstandsfamilie — ikke
+en af de fire konflikter i briefet, men målt her.
+
+### Nøgletalsstriben (robotsiden)
+
+`.stribe--fem`, robotsidens egen fulde stribe: fem celler, `column-reverse`
+så figuren står øverst visuelt mens DOM-rækkefølgen er etiket-før-værdi
+(skærmlæserrækkefølge). Figur 29px i mono. Falder til tre spalter, så to,
+alt efter bredde. Brugt på 144 sider i dag. Katalogkortets tidligere
+kompakte udgave (`.stribe--kompakt`) er død, se *Kort* ovenfor.
+
+### Stansningen (`.stans`)
+
+TYPESKILTs egen primitiv: 2px radius, 1px indfældet `linje`-kontur, 1px
+hvid (`--stans`) lyskant foroven — den stansede-metal-effekt. Bæres i dag
+af det midlertidige navnemærke i dækket; genbrugelig på fremtidige
+komponenter.
+
+### Slettede komponenter — historisk
+
+Forsiden (`hero`, `yderpunkterne`, `EU-fundet`, `formålsfilteret`) er
+**slettet** (L72, 1. sep 2026, `spor/oversigt`). Den forrige udgave af
+denne fil brugte omkring 250 linjer på at beskrive dem som levende
+komponenter, inklusive et ændringslog tilbage til 24. aug 2026. Det er nu
+arkiv — se git-historikken for `DESIGN.md` før dette spor, eller
+`fund/FUND-kortramme.md` for en analyse af hvad der skete, da `.yderpunkt`s
+billedrettelse ikke fulgte med til `.net`-kortet.
+
+## Gør og lad være
+
+### Gør
+
+- **Gør** hullet lige så formgivet som tallet.
+- **Gør** hver ny tone målt mod BÅDE `panel` og `bund` med den faktiske WCAG-
+  formel — ikke kun genbrugt fra en kildekommentar skrevet til en anden
+  rolle (se `## Konflikter`, `--accent` som forgrund).
+- **Gør** tal i mono med tabulære cifre, og bevar operatoren.
+- **Gør** versaletiketten funktionel — den navngiver en datagruppe eller
+  en enhed.
+- **Gør** designændringer i `assets/*.css` og `tools/skabelon/*.mjs`.
+  `dist/` er genereret og overskrives ved næste byg.
+- **Gør** rummet fra ottetalsskalaen.
+- **Gør** hver betjeningsflade brugbar uden JavaScript, eller skjul den til
+  JS tænder den.
+
+### Lad være
+
+- **Lad være** med at give fravær farve.
+- **Lad være** med at sætte nul som et hul.
+- **Lad være** med at bruge versaletiketten som indholdstom optakt.
+- **Lad være** med at indføre en knapform, der fører ud af sitet. Ingen
+  købsknap, intet affiliate-link, ingen prisforespørgsel.
+- **Lad være** med at løfte, animere eller fremhæve et hul.
+- **Lad være** med at sætte en sætning i mono.
+- **Lad være** med at gå under 10,5px, heller ikke i den smalleste
+  ombrydning.
+- **Lad være** med at antage, at et token-navn (`--blaek3`, `--hegn`, …)
+  stadig bærer sin ORBIT-værdi. Værdierne er nye; kun navnene er gamle.
+- **Lad være** med at bruge `--accent` som tekstfarve mod en lys flade uden
+  at slå `## Konflikter` op først — den er kun målt sikker som baggrund.
+
+---
+
+## Konflikter
+
+**Disse punkter er MÅLT, ikke afgjort.** Designfrysen (L70, CLAUDE.md)
+gælder: retningen ligger hos led 2 (`extract`) og JPK. Intet nedenfor er en
+anbefaling.
+
+**1. Knappen — to generationer.** `.videre`/`.videre--stille` (146/144
+sider, talt i `dist/`) er ORBIT-æraens knapprimitiv, stadig i brug.
+`.nulstil` (2 sider) er en nyere, anden knapklasse. Plus mindst tre
+yderligere sidespecifikke knap-lignende klasser, hver brugt ét sted —
+navnene er ikke enkeltvis efterprøvet af dette spor. Kildens egen kommentar
+kalder `.videre` "den eneste knapform på sitet"; det stemmer ikke længere.
+
+**2. Billedrammen — to sideforhold.** `.billedled{aspect-ratio:16/10}` +
+`object-fit:cover` (system.css) mod `.net .billedled{aspect-ratio:4/3}` +
+`object-fit:contain` (generator.css) — den sidste vinder på specificitet på
+katalogsiden. To formater på samme primitiv i to filer, ingen har besluttet
+hvilket der gælder generelt. Uddybet i `fund/FUND-kortramme.md`.
+
+**3. Farvedubletter.** Flere tokennavne peger på samme værdi: **5 navne**
+på `#E8EBED` (`--bund`, `--tom`, `--panel-ro`, `--accent-ro`, `--paafod`),
+**2** på `#9AA3A9` (`--hegn`, `--paafod2`), **2** på `#22262A` (`--blaek`,
+`--fod`), **2** på `#5F686F` (`--blaek3`, `--stoev-blaek`). Alle tal
+genmålt af dette spor direkte i `:root`.
+
+**4. Den tredje skrift — en ufærdig migrering.** `--mono` (Saira) i **62**
+regler (ikke 67 — genmålt, se rapporten), `--manual` (Literata) i **8**,
+`--sans` (Manrope) i kun **3** eksplicitte regler — men fordi `body`,
+`h1`–`h4` og hver typografisk utility-klasse (`.t-hero` osv.) undlader at
+sætte deres egen `font-family`, ARVER de `--sans`. Manrope har **0**
+fontfiler i `assets/fonts/` og falder til systemskrift. Kildens egen
+kommentar erkender det: *"sidens [skrift] er stadig --sans"*, ventende på
+en "runde 2".
+
+**5. `--accent` som forgrund fejler WCAG AA (bekræfter L70, CLAUDE.md,
+genmålt uafhængigt her).** `accent` på `panel` = **1,60 : 1**, på `bund` =
+**1,38 : 1** — mod kravet på 4,5 : 1. Bruges alligevel som tekstfarve i
+`a{color:var(--accent)}` (ethvert link på sitet), `.kildemaerke` og
+`.videre--stille`. Sikker kun som BAGGRUND (`blaek`-tekst på `accent` =
+9,19 : 1, matcher kildens egen kommentar).
+
+**6. `--hegn` som betydningsbærende kant fejler WCAG 1.4.11.** 2,47 : 1 mod
+`panel`, 2,14 : 1 mod `bund` — under de 3,0 : 1, standarden kræver til
+meningsbærende ikke-tekst-elementer (inputkant, hul-markør). ORBIT-værdien
+klarede kravet (3,32–3,68 : 1, jf. den forrige filudgave); TYPESKILTs nye
+hex gjorde det ikke.
+
+**7. To formsprog for radius.** Den tokeniserede skala (`--rund` 12px,
+`--rund-ind` 8px, `--rund-lille` 6px) og en hårdkodet, ikke-tokeniseret
+TYPESKILT-stansning på 2px, brugt **26** gange på tværs af begge stilark.
+Ingen regel siger, hvilken en ny komponent skal vælge.
+
+**8. To kort-rammer i to filer.** `.kort`s grundregel (`system.css`) sætter
+`border:1px solid linje;border-radius:rund;box-shadow:skygge`. `.net .kort`
+(`generator.css`, katalogsiden) nulstiller alle tre til `0`/`none`. Samme
+klasse, to visuelle identiteter, afhængigt af hvilken side der spørger.
