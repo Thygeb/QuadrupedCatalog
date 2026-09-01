@@ -68,7 +68,38 @@ export default async function koer(ctx) {
   ok('47.1 build.mjs giver exit 0 (frisk byg til egen midlertidig mappe)',
     b.status === 0, (b.stdout || b.stderr || '').trim().split('\n').slice(-3).join(' / '));
 
-  /* ============================================================== PUNKT 1 */
+  /* ============================================================== PUNKT 1
+
+     VENDT AF ORKESTRATOREN VED FLET, 1. sep 2026.
+
+     Her stod otte paastande om, at sammenligningssidens robotvaelger bar
+     compens .vaelgernet-gitter med ét rigtigt afkrydsningsfelt pr. robot.
+     De var RIGTIGE, da de blev skrevet samme formiddag - vaelgeren havde
+     aldrig faaet sit tegnede design, og spor/samlvaelg byggede det.
+
+     JPK fjernede fladen samme eftermiddag (L73): vaelgeren er væk, og
+     udvalget sker nu paa katalogsiden, hvor L67s klaebende bundbjaelke bor.
+     Loesningen var altsaa ikke forkert - fladen blev en anden.
+
+     HVORFOR DE OTTE IKKE BARE STOD OG FEJLEDE: 47.3 var en port. Naar den
+     faldt, sprang  de syv naeste OVER. De fejlede
+     ikke - de forsvandt tavst, og filen holdt op med at maale dem uden at
+     nogen kunne se det paa taellingen. Det er vaerre end en roed test.
+
+     OG 47.10-47.14 VAR EN FALSK GROEN: de laeste .vaelgernet/.vc-reglerne i
+     system.css, som stadig staar. De er bevidst efterladt som doed kode,
+     fordi to samtidige spor bruger blokken som ankerpunkt for deres egne
+     indsaettelser i filen. Reglerne bestod altsaa proeven, mens den markup,
+     de skulle style, var vaek. En test, der vogter CSS uden markup, kan
+     staa groen for evigt uden at bevise noget.
+
+     TILBAGE STAAR ÉN PAASTAND, og den vender den oprindelige om: vaelgeren
+     SKAL vaere vaek. Den fulde daekning af den nye flade - knappen tilbage
+     til kataloget, enhedskontakten der overlever sektionens fjernelse -
+     ligger i tests/dele/55-sammenligning-uden-vaelger.mjs.
+
+     PUNKT 2 nedenfor er UROERT: tilstandenes sats har intet med vaelgeren
+     at goere og gaelder uaendret. */
 
   for (const sprog of ['da', 'en']) {
     const sti = path.join(udMappe, sprog, 'sammenligning', 'index.html');
@@ -76,65 +107,10 @@ export default async function koer(ctx) {
     ok(`47.2.${sprog} sammenligningssiden findes`, html !== null);
     if (!html) continue;
 
-    const blok = vaelgerBlok(html);
-    ok(`47.3.${sprog} vaelgeren baerer compens .vaelgernet (ikke katalogets .filtre)`,
-      blok !== null && !/class="filtre" data-saml-vaelger/.test(html));
-
-    if (!blok) continue;
-
-    /* Antallet er bundet til datasaettet, ikke til et haandskrevet tal:
-       én chip pr. robotfil. Kataloget maa vokse uden at denne test lyver. */
-    const antalRobotter = fs.readdirSync(path.join(rod, 'data', 'robots'))
-      .filter((f) => /\.ya?ml$/.test(f)).length;
-    const bokse = (blok.match(/<input type="checkbox"/g) || []).length;
-    ok(`47.4.${sprog} én afkrydsning pr. robotfil (${antalRobotter})`,
-      bokse === antalRobotter, `fandt ${bokse}`);
-
-    /* Teknikken, ikke bare udseendet: et RIGTIGT afkrydsningsfelt bevarer
-       tastatur og skaermlaeser. En chip bygget af <div> ville se ens ud og
-       vaere ubrugelig uden mus. */
-    ok(`47.5.${sprog} chippen er et rigtigt <input type="checkbox">, ikke en div-attrap`,
-      bokse > 0 && !/role="checkbox"/.test(blok));
-
-    const chips = (blok.match(/<span class="vc" data-sog="/g) || []).length;
-    ok(`47.6.${sprog} hver chip baerer data-sog (assets/sammenligning.js:606 soeger paa den)`,
-      chips === antalRobotter, `fandt ${chips}`);
-
-    ok(`47.7.${sprog} beholderen baerer data-saml-vaelger (assets/sammenligning.js:488)`,
-      /<div class="vaelgernet" data-saml-vaelger>/.test(blok));
-
-    ok(`47.8.${sprog} etiketten er en <label class="vc__mrk" for=...>, saa klik og fokus foelges ad`,
-      (blok.match(/<label class="vc__mrk" for="saml-/g) || []).length === antalRobotter);
-
-    /* f-saml er en KROG, ikke en stilklasse: tools/maal-klaebende-hoved.mjs:24
-       soeger paa `input.f-saml`. Fjernes den, doer maalevaerktoejet tavst. */
-    ok(`47.9.${sprog} f-saml er bevaret paa inputtet (tools/maal-klaebende-hoved.mjs:24)`,
-      (blok.match(/class="vc__felt f-saml"/g) || []).length === antalRobotter);
+    ok(`47.3.${sprog} robotvaelgeren er FJERNET fra sammenligningssiden (L73)`,
+      !/class="vaelgernet"/.test(html) && !/vc__felt/.test(html),
+      `udvalget sker paa katalogsiden; se tests/dele/55 for den nye flade`);
   }
-
-  /* Reglerne skal faktisk findes - punkt 1's egen fejl var netop, at
-     klassenavnene stod i markup uden en eneste regel bag sig. */
-  for (const sel of ['.vaelgernet', '.vc__felt', '.vc__mrk', '.vc__prod']) {
-    ok(`47.10 ${sel} har mindst én regel i system.css`,
-      new RegExp(`\\${sel}[{,:\\s]`).test(css));
-  }
-
-  /* DEN DYRESTE ENKELTLINJE I SPORET. Comp'ens .vc{display:block} er en
-     forfatterregel og slaar UA-arkets [hidden]{display:none}. Soegningen
-     skjuler chips med el.hidden, saa uden vaernet bliver alle 77 staaende.
-     Maalt modproeve i browseren: uden linjen gav "spot" 77 synlige, med den 1.
-     Fejlen ville have vaeret usynlig - fladen ser rigtig ud begge veje. */
-  ok('47.11 .vc[hidden] tvinges til display:none, ellers virker soegningen ikke',
-    /\.vc\[hidden\]\s*\{[^}]*display:\s*none/.test(css));
-
-  ok('47.12 vaelgeren er et gitter, ikke en flex-raekke (compens greb)',
-    /\.vaelgernet\s*\{[^}]*display:\s*grid/.test(css));
-
-  ok('47.13 afkrydsningsfeltet skjules uden at forsvinde for tastaturet',
-    /\.vc__felt\s*\{[^}]*opacity:\s*0/.test(css) && !/\.vc__felt\s*\{[^}]*display:\s*none/.test(css));
-
-  ok('47.14 der er en synlig fokusring paa :focus-visible',
-    /\.vc__felt:focus-visible\s*\+\s*\.vc__mrk\s*\{[^}]*outline:/.test(css));
 
   /* ============================================================== PUNKT 2 */
 

@@ -234,16 +234,36 @@ export default async function koer(ctx) {
   vm.createContext(sandbox);
   vm.runInContext(scriptSrc, sandbox, { filename: 'assets/sammenligning.js' });
 
-  const chips = domQueryAll(domRod, '[data-sog]');
+  /* 4d — VENDT AF ORKESTRATOREN VED FLET, 1. sep 2026.
+
+     Her stod to paastande om soegefeltet: at "Søg blandt robotterne" fandtes
+     i den byggede side, og at en soegning paa "gang" reducerede chippene til
+     Gangben-familien. Begge var rigtige, da de blev skrevet.
+
+     Soegefeltet hoerte til sammenligningssidens robotvaelger, og JPK fjernede
+     hele vaelgeren (L73): udvalget sker nu paa katalogsiden. Emnet findes
+     altsaa ikke laengere - paastandene er ikke saenket, de er blevet
+     genstandsloese.
+
+     DET, DER VAR VAERD AT BEVARE, ER APPARATET OMKRING DEM. Blokken ovenfor
+     bygger en DOM-shim og koerer den RIGTIGE assets/sammenligning.js igennem
+     den. Det er den eneste test i suiten, der beviser, at scriptet
+     overhovedet kan parses og eksekveres mod den byggede side - en
+     roegproeve, der ville have fanget en syntaksfejl eller et kald til et
+     element, der er forsvundet. Havde jeg slettet 4d helt, var det apparat
+     gaaet med.
+
+     De to paastande er derfor erstattet af to andre, der bruger samme
+     apparat: at scriptet koerer rent, og at soegefeltet FAKTISK er vaek.
+     Den fulde daekning af den nye flade ligger i
+     tests/dele/55-sammenligning-uden-vaelger.mjs. */
+
+  ok('4d: assets/sammenligning.js kan parses og koere mod den byggede side',
+    typeof sandbox === 'object' && sandbox !== null);
+
   const soegInput = domDocument.getElementById('saml-soeg');
-  ok('4d: soegefeltet ("Søg blandt robotterne") staar i den byggede side', !!soegInput);
-
-  const synligeFoer = chips.filter((c) => !c.hidden).length;
-  if (soegInput) { soegInput.value = 'gang'; soegInput.dispatchEvent('input'); }
-  const synligeEfter = chips.filter((c) => !c.hidden).length;
-
-  ok('4d: soegning paa "gang" reducerer chips til Gangben-familien '
-    + `(foer: ${synligeFoer}/${chips.length} synlige · efter: ${synligeEfter} synlige, alle matcher "gang")`,
-    !!soegInput && synligeFoer === chips.length && synligeEfter > 0 && synligeEfter < synligeFoer
-    && chips.filter((c) => !c.hidden).every((c) => (c.getAttribute('data-sog') || '').includes('gang')));
+  const chips = domQueryAll(domRod, '[data-sog]');
+  ok('4d: soegefeltet og vaelgerchippene er FJERNET med vaelgeren (L73) '
+    + `(fandt ${soegInput ? 1 : 0} soegefelt, ${chips.length} chips - begge skal vaere 0)`,
+    soegInput === null && chips.length === 0);
 }
