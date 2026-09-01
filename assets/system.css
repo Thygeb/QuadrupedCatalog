@@ -1915,6 +1915,126 @@ td .v{font-size:15px}
   .skala__ridse-tal{font-size:9px}
   .skala__tal{font-size:20px}
 }
+
+/* --- katalogets flader (spor/katalog2) --------------------------------- */
+/* PUNKT 4 (JPK 1. sep 2026): filtergrupperne er <details>/<summary> og
+   COLLAPSED SOM STANDARD - paa alle bredder, ikke kun under 720 px som den
+   AELDRE ydre .udtraek-panel-toggle (generator.css §20l). To ting foelger
+   heraf:
+
+   1. tools/skabelon/katalog.mjs byttede hver gruppes <fieldset>+<legend> til
+      <details>+<summary> UDEN at aendre klassenavnene (stadig `facet
+      facet--sN` og `facet__navn`) - generator.css's grid/polstrings-regler
+      (§20e) kender kun klasser, ikke tags, og roeres derfor slet ikke.
+   2. Denne blok tilfoejer kun det, <details>/<summary> IKKE arver gratis:
+      markoeren, markeringens to tilstande, og fokusringen. */
+/* PUNKT 5R/7R (JPK 1. sep 2026, RETTELSE): "kolonnegraenserne" var kun halvdelen
+   af uroen. Mærkets x-position VARIEREDE ogsaa, fordi det stod EFTER
+   `.facet__tal` - en undertekst med ni forskellige laengder ("ja · nej ·
+   ikke oplyst" mod "reserveret") - saa mærket landede et nyt sted i hver
+   celle. Og STATUS' egen undertekst ("standard: udgåede skjult") var lang
+   nok til at braekke om, hvilket gjorde netop dén raekke hoejere end de
+   oevrige otte i sammenfoldet tilstand - det modsatte af "compact".
+
+   BEGGE RETTES MED SAMME GREB: `flex-wrap:nowrap` paa raekken saa intet
+   braekker om, `min-width:0` + ellipsis paa undertekten saa den forkortes i
+   stedet, og `margin-left:auto` paa BEGGE udgaver af maerket, saa det altid
+   flugter mod cellens HOEJRE kant - en fast afstand fra kanten, ikke en
+   position der afhaenger af teksten foer den (brief-punkt 5R's egen
+   accepterede loesning: "fast afstand fra cellens hoejre kant for alle
+   ni"). Kun ét af de to maerker er nogensinde synligt (display:none paa det
+   andet), saa `margin-left:auto` paa begge er sikkert - det virker kun paa
+   det, der faktisk deltager i flex-layoutet. */
+/* MAALT GULV, DER ELLERS VAR BRUDT: uden en egen min-height er <summary>s
+   klikbare boks kun sin tekstlinjes egen hoejde (maalt 20 px foer denne
+   linje - .facet__navn arver ALDRIG hoejde fra .facet's polstring, den
+   ligger kun UDENOM). 44 px er den samme graense, sitets soegefelt og
+   .udtraek__greb allerede staar paa (CLAUDE.md/JPK's egen graense, punkt
+   7R: "berøringsmål paa mindst 44 px maa ikke brydes"). */
+summary.facet__navn{
+  cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent;
+  flex-wrap:nowrap;min-height:44px;
+}
+summary.facet__navn::-webkit-details-marker{display:none}
+/* MAALT FEJL, RETTET HER: `margin-left:auto` paa maerket gjorde INGENTING
+   foerst - generator.css's `.facet__navn::after{flex:1}` (den dekorative
+   haarstreg mod hoejre) vinder ALTID kaploebet om fri plads, fordi
+   flex-grow fordeles FOER auto-margener i CSS' egen algoritme (ikke omvendt,
+   som man skulle tro). Maalt med Playwright: status' maerke stod 83 px fra
+   kanten, land's 161 px - to forskellige afstande, ikke den faste afstand,
+   punkt 5R kraever. Denne regel slaar KUN `flex` fra paa haarstregen inde i
+   en summary (hoejere specificitet end generator.css's rene klasse, saa
+   generator.css selv er uroert); med ingen grow tilbage at vinde med
+   skrumper den til 0 (indhold er tomt), og `margin-left:auto` faar sin frie
+   plads. Genmaalt efter rettelsen, se sporets rapport for de faktiske tal. */
+summary.facet__navn::after{flex:none}
+/* Samme "+"/"–"-sprog som .skema og .stribe-under-fold allerede bruger
+   (generator.css) - ét visuelt sprog for "denne gruppe kan foldes ud",
+   genkendt fra resten af siden i stedet for opfundet paa ny. */
+summary.facet__navn::before{
+  content:"+";flex:none;order:-1;
+  font-family:var(--mono);font-size:13px;font-weight:700;color:var(--blaek3);
+}
+details[open] > summary.facet__navn::before{content:"–"}
+summary.facet__navn:hover::before{color:var(--blaek)}
+summary.facet__navn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Etiketten selv skal ALDRIG forkortes (den er kort og skal altid kunne
+   laeses fuldt ud); det er kun den valgfrie undertekst, der viger. */
+summary.facet__navn > .facet__tal{
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;
+}
+
+/* Gruppens "mindst ét valgt"-maerke, to tilstande der ALDRIG staar samtidig
+   (samme "sand, men ikke praecis / erstattes af det praecise"-par som
+   §6e's omfangsmaerker allerede bruger et andet sted paa denne side):
+     .facet__aktiv      CSS-udgaven ([data-facet-aktiv], tekst = strimlens
+                         "Valgt"/"Selected" - en tilstedevaerelse, ikke et
+                         tal, fordi CSS ikke kan taelle.
+     .facet__aktiv-tal   JavaScript-udgaven ([data-facet-antal]), fyldt af
+                         assets/katalog.js' facetgruppeAntal() med det
+                         eksakte tal. Staar `hidden` i markup'en, indtil
+                         scriptet saetter et tal - en tom taeller ville vaere
+                         en paastand uden daekning (P0). */
+.facet__aktiv{
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--blaek);background:var(--accent-ro);
+  padding:2px 7px;border-radius:2px;flex:none;margin-left:auto;
+}
+.facet__aktiv-tal{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:18px;height:18px;padding:0 5px;flex:none;margin-left:auto;
+  background:var(--accent);color:#FFFFFF;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  font-variant-numeric:tabular-nums;border-radius:2px;
+}
+/* Samme faelde som .kort__saml (afsnit 2 ovenfor, allerede kommenteret):
+   `display:inline-flex` er en FORFATTERregel og slaar ALTID UA-arkets
+   `[hidden]{display:none}`, uanset specificitet - kun oprindelsen taeller i
+   kaskaden. Maalt med Playwright FOER denne linje blev tilfoejet: en tom
+   `.facet__aktiv-tal` stod synlig (computedDisplay "flex") paa en gruppe
+   uden ét eneste afkrydset filter, fordi min egen display-regel vandt over
+   `hidden` - P0 brudt for en tom taeller, ikke kun kosmetik. */
+.facet__aktiv-tal[hidden]{display:none}
+
+/* HUL, PUNKT 4R AABNEDE: `.facet--s6` (nyttelast, pris - OG nu ogsaa
+   Egenskaber, som denne rettelse flyttede fra s5 til s6) har ALDRIG faaet en
+   mobiludgave i generator.css §20l - kun s3/s4/s5 staar i den regels liste
+   (linje 1569). Foer denne rettelse var det usynligt, fordi Egenskaber var
+   s5 og dermed DAEKKET; nu den er s6, arver den samme hul, som nyttelast og
+   pris allerede havde (denne fils egen kommentar paastod fejlagtigt
+   "de to skalaer foelger med" - maalt med Playwright ved 390 px: 172 px
+   bred, side om side, IKKE fuld bredde). Rettes her for alle tre s6-grupper
+   under samme graense generator.css selv bruger (720 px), saa deres tekst
+   IKKE afkortes af ellipsis-reglen ovenfor i en kolonne, der er for smal
+   til den overhovedet. `!important` er IKKE noedvendigt - reglen har hoejere
+   specificitet end generator.css's `.facet--s3,-s4,-s5{grid-column:1/-1}`,
+   fordi den staar i EGEN klasse (s6) uden konkurrence, og selektoren i sig
+   selv slaar `.facetter__net .facet--s6{grid-column:span 6}` (samme fil,
+   tidligere i kaskaden - senere regel med samme specificitet vinder). */
+@media (max-width:720px){
+  .facetter__net .facet--s6{grid-column:1 / -1}
+}
+
 /* --- sammenligningens vaelger (spor/samlvaelg) --- */
 /* Vaelgeren laante indtil nu katalogets filterchip (.filtre, afsnit 13). Det
    var ikke et valg, men et fravaer: comp'ens design

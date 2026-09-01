@@ -1078,25 +1078,56 @@ ${uoplyst.map((v) => raekke(f, v)).join('\n')}
      Ikke af pladshensyn: en skala er en vandret betjening, og klemt ned i tre
      kolonner ved siden af en afkrydsningsliste ville dens bane vaere kortere
      end dens egen aflaesning. `facet--sidste-raekke` flytter derfor HERNED fra
-     ip/status/land, som ikke laengere er nederst. */
+     ip/status/land, som ikke laengere er nederst.
+
+     SPAENDENE ER RETTET TIL EN GENTAGET GITTERRYTME (JPK 1. sep 2026,
+     PUNKT 4R). Foer denne rettelse brugte raekke 1 spaendene 3·4·5 (graenser
+     ved kolonne 3, 7, 12) mod raekke 2's 3·3·3·3 (graenser ved 3, 6, 9, 12)
+     og skalaraekkens 6·6 (graense ved 6, 12) - tre forskellige moenstre, der
+     ikke lagde lodret linje ned gennem fladen. JPK maalte det og navngav
+     aarsagen praecist: "kolonnegraenserne gentager sig ikke mellem
+     raekkerne", ikke bare "for meget".
+
+     LOESNINGEN: enhver graense, der forekommer NOGET sted i gitteret, skal
+     vaere et multiplum af 3 - saa den altid falder paa en linje, en af de
+     oevrige raekker OGSAA bruger. Vaegt gaar fra 4 til 3 kolonner (den har
+     kun fire faste vaegtklasser og trængte aldrig til den fjerde), og
+     Egenskaber gaar fra 5 til 6 (den baerer mest indhold - fem chips med
+     hver sin tre-delte "ja/nej/ikke oplyst"-taelling - og faar dermed den
+     bredde, den allerede havde mest brug for). Raekke 1 bliver 3·3·6
+     (graenser 3, 6, 12); raekke 2 er uaendret 3·3·3·3 (3, 6, 9, 12);
+     skalaraekken er uaendret 6·6 (6, 12) - JPK's egen tilladte undtagelse.
+     Alle tre raekkers graenser er nu en delmaengde af {3, 6, 9, 12}, saa
+     6 og 12 gaar igen i hver eneste raekke - den lodrette rytme, oejet
+     ledte efter. Maalt med Playwright ved 1440 px, se sporets rapport for
+     de faktiske x-koordinater foer/efter.
+
+     INGEN NY CSS-KLASSE NOEDVENDIG: `.facet--s3` og `.facet--s6` findes
+     begge allerede (generator.css §20e hhv. system.css's filterskala-blok)
+     - kun ARGUMENTERNE her aendrede sig, ikke generator.css, som denne
+     rettelse ikke maa roere (samtidigt spor ejer den filen). */
   const facetNet = `<div class="facetter__net">
 ${facetBlok(anv, 3)}
-${facetBlok(vaegt, 4)}
-<fieldset class="facet facet--s5 facet--raekkeslut">
-<legend class="facet__navn">${esc(t('filter_egenskaber'))}<span class="facet__tal">${esc(t('filter_egenskaber_mrk'))}</span></legend>
+${facetBlok(vaegt, 3)}
+<details class="facet facet--s6 facet--raekkeslut" data-facetgruppe="eg">
+<summary class="facet__navn">${esc(t('filter_egenskaber'))}<span class="facet__tal">${esc(t('filter_egenskaber_mrk'))}</span>${facetAktivMrk()}</summary>
 ${chipsHtml}
 <p class="chip-fod">${esc(tf('eg_fod', { n: alle, m: frost.nej, k: frostNul }))}</p>
-</fieldset>
+</details>
 ${facetBlok(ip, 3)}
 ${facetBlok(status, 3)}
 ${facetBlok(land, 3)}
-<fieldset class="facet facet--s3 facet--raekkeslut">
-<legend class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></legend>
+<!-- CERTIFICERING ER RESERVERET OG TOM: ingen afkrydsningsfelt findes endnu,
+     saa den faar hverken data-facetgruppe eller facetAktivMrk() - der er
+     intet at "vaere valgt". Den foldes stadig sammen som standard, for
+     konsistens med de otte oevrige grupper (JPK 1. sep 2026, punkt 4). -->
+<details class="facet facet--s3 facet--raekkeslut">
+<summary class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></summary>
 <div class="reserveret">
 <p class="reserveret__ord">${esc(t('filter_certificering_ord'))}</p>
 <p class="reserveret__note">${esc(tf('filter_certificering_note', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ja').length, m: alle }))}</p>
 </div>
-</fieldset>
+</details>
 ${skalaBlok(nyttelast, 6, ' facet--sidste-raekke')}
 ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
 </div>`;
