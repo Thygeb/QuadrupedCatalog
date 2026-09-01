@@ -63,6 +63,7 @@ export default async function koer(ctx) {
 
     const kat = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'index.html'), 'utf8');
     const side = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
+    const sideEn = fs.readFileSync(path.join(kaedeDist, 'en', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
     const tom = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-tom-plade', 'index.html'), 'utf8');
     const sideDelt = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-delt', 'index.html'), 'utf8');
 
@@ -114,30 +115,28 @@ export default async function koer(ctx) {
     // 7. alt-teksten. En silhuet SIGER, at den er en silhuet - en
     //    skaermlaeserbruger skal have samme oplysning som en seende.
     //
-    //    VENDT OM af spor/alt (1. sep 2026), IKKE en svaekkelse af paastanden -
-    //    se dette spors rapport for den fulde begrundelse. `billede.alt` er nu
-    //    et sprogkortlagt objekt ({da,en}), saa et nyt sprog er en noegle og
-    //    ikke et nyt felt (CLAUDE.md's arkitekturregel). side.mjs's EGEN
-    //    billedAlt() (katalog/producent/forside) laeser robot.billede.alt
-    //    direkte og vaelger den rette sprognoegle - efterproevet andetsteds i
-    //    dette spor (94 -> 0 danske ord paa engelske sider). ROBOT.MJS bar en
-    //    UAFHAENGIG, PARALLEL alt-mekanisme til robotsidens EGET store billede
-    //    (billedTekst() i robot.mjs:431-436, opdaget UNDER dette spor - stod
-    //    ikke i briefets filliste), som laeser `b.alt` fra den DELTE
-    //    laesBillede() (side.mjs:294-320). Den funktion er UDEN FOR dette
-    //    spors filejerskab (kun billedAlt()-regionen ~1500-1540), og
-    //    robot.mjs selv er eksplicit forbudt at roere. laesBillede()'s egen
-    //    `tekst()`-hjaelper forkaster alt, der ikke er en STRENG - den nulstiller
-    //    derfor sprogobjektet, FOER robot.mjs naar det, og robot.mjs falder
-    //    ned i sin egen fallback (samme fallback som en robot helt UDEN
-    //    alt-data altid har vist). Det er IKKE et sprogleak (ingen dansk tekst
-    //    paa /en/ laengere - se maalingen), kun en TABT DETALJE paa netop
-    //    ROBOTTENS EGEN side for de robotter, der har `alt:` udfyldt. Se
-    //    "Nye faelder og opdagelser" i rapporten for den anbefalede
-    //    et-linjes opfoelger i robot.mjs.
-    ok('robotsidens EGET billede (robot.mjs, uden for dette spors filejerskab) ' +
-      'kan ikke laese det sprogkortlagte alt-objekt og falder til silhuet-skabelonen',
-      /alt="M[^"]*ltro silhuet af Proeve Silhuet/.test(side));
+    //    VENDT TILBAGE af spor/alt-opfoelgeren (1. sep 2026) til at bevise
+    //    den NYE regel, efter at have staaet paa hovedet siden spor/alt
+    //    (samme dag): `billede.alt` er et sprogkortlagt objekt ({da,en}), saa
+    //    et nyt sprog er en noegle og ikke et nyt felt (CLAUDE.md's
+    //    arkitekturregel). side.mjs's `billedAlt()` (katalog/producent/
+    //    forside) laeser robot.billede.alt direkte og vaelger den rette
+    //    sprognoegle - efterproevet andetsteds i spor/alt (94 -> 0 danske ord
+    //    paa engelske sider). ROBOT.MJS's EGET store billede gik dengang
+    //    gennem en ANDEN vej, `laesBillede()` (side.mjs:294-325, nu i dette
+    //    spors filejerskab), hvis `tekst()`-hjaelper forkastede alt, der ikke
+    //    var en STRENG - den nulstillede derfor sprogobjektet, FOER robot.mjs
+    //    naaede det, og robotsidens EGET billede faldt ned i navnet alene
+    //    (eller silhuet-skabelonen). Rettelsen: `laesBillede()` tager nu en
+    //    `sprogkode`-option og vaelger selv den rette noegle, og robot.mjs's
+    //    `billedeAf()` sender `ctx.sprog` med. `en`-siden bevises separat
+    //    (sideEn) for at udelukke den forkerte fejl: at ETHVERT sprog nu
+    //    virker, ikke bare at dansk gjorde det ved et tilfaelde.
+    ok('robotsidens EGET billede (da) viser den fulde danske alt-tekst, ikke navnet/silhuetten',
+      side.includes('alt="Proevefigur i profil, tegnet 1 mm = 0,1 px"'));
+    ok('robotsidens EGET billede (en) viser den fulde engelske alt-tekst - IKKE dansk',
+      sideEn.includes('alt="Test figure in profile, drawn 1 mm = 0.1 px"')
+      && !sideEn.includes('Proevefigur i profil'));
     ok('uden egen alt-tekst siger silhuetten selv, at den er en silhuet',
       /alt="M[^"]*ltro silhuet af Proeve Delt/.test(kat));
 
