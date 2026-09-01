@@ -26,14 +26,14 @@ felter:
     enhed: "kg"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"重量 82kg（含电池）\" - inkl. batteri."
+    advarsel: "\"重量 82kg（含电池）\" (vægt 82kg, inkl. batteri) - inkl. batteri."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1110
     enhed: "mm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸 1110mm*610mm*745mm\" - stående mål."
+    advarsel: "\"站立尺寸 1110mm*610mm*745mm\" (stående mål) - stående mål."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 610
@@ -108,7 +108,7 @@ felter:
     enhed: "°C"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"工作温度 -20℃~55℃\". Opbevaringstemperatur -20~60℃ er separat - se noter."
+    advarsel: "\"工作温度 -20℃~55℃\" (driftstemperatur). Opbevaringstemperatur -20~60℃ er separat - se noter."
     advarsel_klasse: "uddybning"
   batteri_wh: "ikke_oplyst"
   driftstid:

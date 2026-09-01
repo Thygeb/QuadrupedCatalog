@@ -37,7 +37,7 @@ felter:
     enhed: "mm"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长×宽×高）672mm x 355mm x 432mm\" - stående mål."
+    advarsel: "\"站立尺寸（长×宽×高）672mm x 355mm x 432mm\" (stående mål, længde×bredde×højde) - stående mål."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 355
@@ -107,7 +107,7 @@ felter:
     enhed: "Wh"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "Trykt direkte som \"432Wh\" og bekræftet i FAQ som \"标配（10000mAh, 432Wh）\" - IKKE beregnet af os ud fra mAh og spænding."
+    advarsel: "Trykt direkte som \"432Wh\" og bekræftet i FAQ som \"标配（10000mAh, 432Wh）\" (standard: 10000mAh, 432Wh) - IKKE beregnet af os ud fra mAh og spænding."
     advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 3.5

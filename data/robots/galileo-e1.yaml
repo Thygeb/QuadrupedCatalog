@@ -6,8 +6,8 @@ producentby: "Tianjin"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver \"30cm高连续台阶\" -> trappetrin_kontinuerlig. E1-W's tilsvarende række skriver \"正向高度差1m高台\" -> forhindring_enkelt på E1-W's egen post - samme mønster som C1/C1-W."
-  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" har intet kg-tal."
+  - "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver \"30cm高连续台阶\" (30cm høj kontinuerlig trappe) -> trappetrin_kontinuerlig. E1-W's tilsvarende række skriver \"正向高度差1m高台\" (fremadrettet højdeforskel 1m platform) -> forhindring_enkelt på E1-W's egen post - samme mønster som C1/C1-W."
+  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" (driftstid) har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 anvendelse:
   vaerdi:

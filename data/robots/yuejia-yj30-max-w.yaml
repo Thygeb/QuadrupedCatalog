@@ -72,14 +72,14 @@ felter:
     enhed: "m/s"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
     hentet: "2026-08-25"
-    advarsel: "\"速度: 5m/s\" - højere end YJ30Max's 3m/s, som forventet for en hjuldrevet variant."
+    advarsel: "\"速度: 5m/s\" (hastighed) - højere end YJ30Max's 3m/s, som forventet for en hjuldrevet variant."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
     hentet: "2026-08-25"
-    advarsel: "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding."
+    advarsel: "\"爬坡角度: 50°\" (klatrevinkel) - egen kolonne uden DOF-sammenblanding."
     advarsel_klasse: "uddybning"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -113,7 +113,7 @@ felter:
     vaerdi: "Infrarød varmesøgning; højfølsom UV-lysgenkendelse; synligt-lys røg-/ildgenkendelse (tredobbelt detektionsteknologi: infrared thermal imaging + UV detection + visible-light smoke/fire recognition)"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html"
     hentet: "2026-08-25"
-    advarsel: "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" - identisk tekst med YJ30 W's post. Ingen modelbetegnelse eller opløsning oplyst."
+    advarsel: "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" (integreret tredobbelt detektionsteknologi: infrarød varmesøgning, højfølsom UV-lysgenkendelse, synligt-lys røg-/ildgenkendelse) - identisk tekst med YJ30 W's post. Ingen modelbetegnelse eller opløsning oplyst."
   compute: "ikke_oplyst"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"

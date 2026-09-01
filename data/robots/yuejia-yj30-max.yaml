@@ -6,8 +6,8 @@ producentby: "Shenzhen"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
-  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\"-tabellen."
+  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\" (grundparametre)-tabellen."
 anvendelse:
   vaerdi:
     - "inspektion"
@@ -72,7 +72,7 @@ felter:
     enhed: "m/s"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"速度: 3m/s\" - ét tal, ikke et interval."
+    advarsel: "\"速度: 3m/s\" (hastighed) - ét tal, ikke et interval."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50

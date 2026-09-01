@@ -6,7 +6,7 @@ producentby: "Tianjin"
 status: "i_produktion"
 fremdrift: "ben_hjul"
 noter:
-  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2.5h～5h\" har intet kg-tal."
+  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2.5h～5h\" (driftstid) har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1 - fra den delte funktionsside (side 6) hhv. kombinationen af tabelrække + funktionsside."
 anvendelse:
   vaerdi:

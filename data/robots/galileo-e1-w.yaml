@@ -7,7 +7,7 @@ status: "i_produktion"
 fremdrift: "ben_hjul"
 noter:
   - "TABEL-TERMINOLOGI FOR KLATREEVNE: \"可攀爬高度: 正向高度差1m高台\" -> forhindring_enkelt (100cm), IKKE trappetrin_kontinuerlig - samme mønster som C1-W."
-  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 1.5h～3h\" har intet kg-tal."
+  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 1.5h～3h\" (driftstid) har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
 anvendelse:
   vaerdi:

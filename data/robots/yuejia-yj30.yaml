@@ -70,14 +70,14 @@ felter:
     enhed: "m/s"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
     hentet: "2026-08-25"
-    advarsel: "\"最大速度: 3m/s\" - ét tal, ikke et interval."
+    advarsel: "\"最大速度: 3m/s\" (maks. hastighed) - ét tal, ikke et interval."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
     hentet: "2026-08-25"
-    advarsel: "Fra den sammenlagte kolonne \"爬坡角度/DOF\" - se topnoten. 50° er hældningsvinklen, ikke DOF."
+    advarsel: "Fra den sammenlagte kolonne \"爬坡角度/DOF\" (klatrevinkel/frihedsgrader) - se topnoten. 50° er hældningsvinklen, ikke DOF."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
