@@ -35,11 +35,18 @@
  * Kontrakten staar i side.mjs. Denne fil skriver kun indholdet af <main>.
  */
 
-import { esc, laesBillede, billedAlternativer } from './side.mjs';
+import { esc, laesBillede, billedAlternativer, imperialPost } from './side.mjs';
 import { FELTER, FELTNAVNE, GRUPPER, NAEVNER, feltVisning } from '../skema.mjs';
 import { taethed } from '../validate.mjs';
 
 const attr = esc;
+
+/** Kontaktens id. Den SAMME streng, robot.mjs bruger (ENHED_ID) og
+ *  assets/enhed.js slaar op med getElementById — hukommelsen paa tvaers af
+ *  sider er praecis den ene noegle. Aendres den ét sted, holder valget op med
+ *  at foelge laeseren, og INTET bliver rødt: derfor laaser
+ *  tests/dele/44-samlenhed.mjs de tre steder sammen. */
+const ENHED_ID = 'enhedsskift';
 
 /**
  * Standardtrioen (spor/sammenlign, punkt 1 — afloeser den haardkodede
@@ -110,6 +117,58 @@ function fotoPost(robot, ctx) {
   };
 }
 
+/* ==================================================== enhederne (L60 → K9)
+ *
+ * DEN AFGOERENDE ARKITEKTURBESLUTNING PAA DENNE SIDE, og den er en ANDEN end
+ * den, spor/enhed foreslog. Den foreslog en OMREGNINGSTABEL i browseren,
+ * bundet til side.mjs' `OMREGNING` med en test, fordi den maalte prisen ved
+ * at sende tallene med til +29,9 KB. Jeg maalte den om, 1. sep 2026, og fik
+ * et andet tal — se de tre veje, alle maalt paa den byggede da-side (381,0 KB):
+ *
+ *   fuld post pr. felt  +50,6 KB   (den form, +29,9 KB tilsyneladende gjaldt)
+ *   TABEL i browseren   + 1,3 KB
+ *   KUN FIGUREN pr. felt + 9,9 KB  ← valgt
+ *
+ * Den tredje vej var ikke maalt foer. Den koster 9,9 KB (2,6 % af siden) og
+ * betaler for noget, en tabel ikke kan: **browseren regner ikke.** Der er
+ * ingen kopi af `OMREGNING`, ingen kopi af `imperialTal()`s afrundingsregel
+ * (0 decimaler fra 100, 1 fra 10, ellers 2), og ingen kopi af regel 1.
+ * `imperialPost()` — SAMME funktion, robotsiden bruger — er ene om at
+ * bestemme, hvad der staar. To kopier kan ikke divergere, naar den ene ikke
+ * findes; en test, der holder to tabeller op mod hinanden, er en svagere
+ * garanti end slet ikke at have den anden tabel.
+ *
+ * DE TRE REGLER, arvet uroert fordi de haandhaeves af `imperialPost()` selv:
+ *   1. `vaerdi_imperial` (30 felter, 7 robotter) vinder over vores omregning.
+ *      `egen: 1` foeres med, saa klienten kan lade vaere med at saette
+ *      "omregnet"-maerket paa producentens eget tal.
+ *   2. Vores omregning maerkes synligt (assets/sammenligning.js' renderTal).
+ *   3. Kildemaerket foelger det metriske tal. Matricen har slet ingen
+ *      kildemaerker — men `kildeform`-wrapperen ("Producenten skrev: 1100 mm")
+ *      er af samme slags og saettes KUN paa den metriske tvilling, praecis som
+ *      side.mjs:1151 goer det med `!__imperial`.
+ *
+ * FAELDEN, DER KOSTEDE MEST AT FINDE: 565 felter er omregnelige, ikke 557.
+ * De otte, tallet manglede, er alle `temp_min: 0 °C` — og 0 °C er 32 °F, ikke
+ * 0 °F. En udgave, der kun daekkede `tilstand: 'tal'`, ville vise "0 °F" for
+ * otte robotter: et forkert tal, som oveni ville laese som nul-TILSTANDEN
+ * (haard begraensning 5). Derfor baerer `imp` sin egen nul-afgoerelse:
+ * `v-nul` hoerer til det METRISKE 0, aldrig til de 32 °F.
+ */
+function imperialFelt(post) {
+  const imp = imperialPost(post, 'da'); // sproget bruges kun til kildeform, som ikke sendes med
+  if (!imp) return null;
+  const p = imp.post;
+  const ud = p.min !== undefined
+    ? { min: p.min, maks: p.maks }
+    : { vaerdi: p.vaerdi };
+  ud.enhed = p.enhed || '';
+  // `egen` staar KUN naar den er sand: 30 af 565. En `0` paa de 535 oevrige
+  // ville koste mere end de 30 `1` sparer.
+  if (imp.egen) ud.egen = 1;
+  return ud;
+}
+
 /** Den inline JSON-blok, klienten laeser. Ét objekt pr. robot: identitet +
  *  alle 30 felters visningsform (skema.mjs' feltVisning — sprogneutral) +
  *  en lille sprogspecifik ordbog, assets/sammenligning.js bruger til at
@@ -131,7 +190,9 @@ function dataBlok(ctx) {
     const felter = Object.fromEntries(FELTNAVNE.map((n) => {
       const vis = feltVisning(n, r.felter[n]);
       const kildeform = r.felter[n]?._kildeform;
-      return [n, kildeform ? { ...vis, kildeform } : vis];
+      const ud = kildeform ? { ...vis, kildeform } : vis;
+      const imp = imperialFelt(r.felter[n]);
+      return [n, imp ? { ...ud, imp } : ud];
     }));
     // "N af 30 felter" (skilt__nr i mockuppen): samme maalestok som
     // resten af sitets taethedstal - "oplyst" er alt, der ikke er hullet
@@ -212,6 +273,18 @@ function dataBlok(ctx) {
       // Raa moenster med "{figur}" - klienten selv erstatter (sammenligning.js'
       // renderTal()), samme funktion som robot.mjs' flet() udfoerer server-side.
       kilde_original_form: T.kilde_original_form,
+      /* --- enhedsomskifteren (spor/samlenhed) ----------------------------
+         Fem EKSISTERENDE noegler, alle skrevet af L60 til robotsiden og
+         genbrugt ordret. Ingen ny i18n-noegle: spor/filter ejer begge
+         sprogfiler i dag, og en streng skrevet i skabelonen ville staa
+         dansk paa den engelske side. `enhed_omregnet_forklaring` og
+         `kilde_original_form` er raa moenstre med "{figur}", som klienten
+         selv udfylder — samme deling som resten af blokken her. */
+      enhed_skift_etiket: T.enhed_skift_etiket,
+      enhed_skift_forklaring: T.enhed_skift_forklaring,
+      enhed_omregnet: T.enhed_omregnet,
+      enhed_omregnet_forklaring: T.enhed_omregnet_forklaring,
+      imperial_forklaring: t('imperial_forklaring'),
       vaegtklasse: {
         under_20: T.vaegtklasse_under_20,
         '20_40': T.vaegtklasse_20_40,
@@ -387,6 +460,42 @@ ${esc(t('sammenligning_legende_vinder_forklaring'))}</p>
 </div>`;
 }
 
+/**
+ * Kontakten + hukommelsen. Tre ting, og hver af dem er et valg:
+ *
+ * 1. EN RIGTIG AFKRYDSNING, foerste barn af `.sammenligning-app`. Alt andet i
+ *    app'en er SOESKENDE efter den, saa `:checked ~ * .enhedsvis--imperial`
+ *    naar hver eneste celle i matricen — samme rene CSS-skifte som paa
+ *    robotsiden, og matricen behoever derfor IKKE tegnes om, naar laeseren
+ *    skifter enhed. Selve etiketten tegnes af klienten oven over tabellen
+ *    (assets/sammenligning.js), fordi den skal kunne UDEBLIVE; se vaernet dér.
+ *
+ * 2. `id="enhedsskift"` — den samme streng som robot.mjs' ENHED_ID, fordi
+ *    assets/enhed.js slaar netop den op. Det er hele delingen af valget:
+ *    vaelger man imperial paa /da/robotter/boston-dynamics-spot/, staar
+ *    kontakten her allerede paa imperial.
+ *
+ * 3. `enhed.js` SYNKRONT, umiddelbart efter kontakten — ikke `defer`. Skallen
+ *    har kun én `script`-plads, og den er optaget af sammenligning.js (som
+ *    ER deferred). Rækkefoelgen er dermed: enhed.js saetter afkrydsningen →
+ *    sammenligning.js tegner matricen. Havde enhed.js vaeret deferred, kunne
+ *    matricen naa at blive tegnet metrisk foerst og blinke.
+ *
+ * UDEN JS staar her en afkrydsning inde i en `hidden` beholder: usynlig,
+ * ikke i tabuleringsraekkefoelgen, og uden en matrix at skifte paa. Det er
+ * ikke en dOEd kontakt — det er ingen kontakt, hvilket er det rigtige, naar
+ * der ingen matrix er (P0: siden er stadig sand, bare ikke praecis).
+ */
+function enhedskontakt(ctx) {
+  const op = ctx?.url?.op;
+  const boks = `<input type="checkbox" id="${ENHED_ID}" class="kunskaerm enhedsskift__boks">`;
+  // Uden en kendt dybde skrives ingen <script>: en forkert sti ville give en
+  // 404 ved hvert sidevisning. Kontakten bliver staaende og virker — den
+  // husker bare ikke, praecis som robot.mjs' enhedsHukommelse() haandterer det.
+  if (typeof op !== 'string') return boks;
+  return `${boks}\n<script src="${esc(op)}enhed.js"></script>`;
+}
+
 /** Uden JS: en flad, alfabetisk liste med links - aldrig en tom side. */
 function fallbackHTML(robotter, ctx) {
   const { url } = ctx;
@@ -435,6 +544,7 @@ ${legendeHTML(t, T)}
 <h2 class="t-h2 kunskaerm" id="h-sammenligning">${esc(T.sammenligning_vaelg_titel)}</h2>
 
 <div class="sammenligning-app" data-sammenligning hidden>
+${enhedskontakt(ctx)}
 <p class="t-lille sammenligning-status" data-saml-status role="status" aria-live="polite" hidden></p>
 <div class="saml-rulle" data-saml-resultat></div>
 ${matrixFodHTML(t)}
