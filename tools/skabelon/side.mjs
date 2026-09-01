@@ -1511,13 +1511,23 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   }
 
   /**
-   * Alternativ tekst. Dataskriverens egen `alt:` vinder altid. Uden den siger
-   * en silhuet, at den ER en silhuet: en teknisk tegning efter maal er ikke det
-   * samme syn som et fotografi, og en skaermlaeserbruger skal have samme
-   * oplysning som en seende.
+   * Alternativ tekst. Dataskriverens egen `alt:` vinder altid, naar den
+   * baerer NOEGET sprog for netop DENNE side (spor/alt, 1. sep 2026: `alt` er
+   * et sprogkortlagt objekt, `{ da: "...", en: "..." }` - et nyt sprog er en
+   * noegle, ikke et nyt felt, jf. CLAUDE.md's arkitekturregel). Laest fra
+   * `robot.billede.alt` (raadata), IKKE fra `b.alt`: laesBillede()'s egen
+   * `tekst()`-hjaelper forkaster alt, der ikke er en STRENG, og ville derfor
+   * nulstille et sprogobjekt, foer det naaede hertil. Uden den rette noegle
+   * siger en silhuet, at den ER en silhuet: en teknisk tegning efter maal er
+   * ikke det samme syn som et fotografi, og en skaermlaeserbruger skal have
+   * samme oplysning som en seende.
    */
   function billedAlt(robot, b) {
-    if (b?.alt) return b.alt;
+    const altKort = robot?.billede?.alt;
+    if (altKort && typeof altKort === 'object' && !Array.isArray(altKort)) {
+      const egen = altKort[sprogkode];
+      if (typeof egen === 'string' && egen.trim() !== '') return egen;
+    }
     const navn = robot?.navn ?? '';
     if (b?.ophav === 'silhuet') return tf('billede_alt_silhuet', { model: navn });
     return navn;
