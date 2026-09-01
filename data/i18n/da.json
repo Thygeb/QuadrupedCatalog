@@ -381,9 +381,9 @@
   "om_metode_2_titel": "Skrevet",
   "om_metode_2_broed": "Tallet føres ind i ét af skemaets {felter} felter med enhed og kilde. Står tallet ikke hos producenten, bliver feltet ikke oplyst. Det bliver aldrig et skøn.",
   "om_metode_3_titel": "Efterprøvet",
-  "om_metode_3_broed": "Validatoren læser hele kataloget igen. Mangler et tal enhed, kilde eller dato — eller er producentens egne metriske og imperiale tal uenige — standser den bygget.",
+  "om_metode_3_broed": "Validatoren læser hele kataloget igen og standser bygget, hvis et tal mangler enhed, kilde eller dato. Passer producentens metriske og imperiale tal ikke sammen, retter vi aldrig stiltiende: enten standser bygget, eller også står uenigheden på siden ved siden af tallet.",
   "om_metode_4_titel": "Bygget",
-  "om_metode_4_broed": "Siderne genereres på ny fra de samme filer. Der er ingen vej uden om validatoren, og det er derfor, der står {u} tal uden kilde på siden.",
+  "om_metode_4_broed": "Siderne genereres på ny fra de samme filer, og bygget kører validatoren først hver gang. Det er derfor, der står {u} tal uden kilde på siden.",
 
   "om_tilstande_titel": "De fire tilstande",
   "om_tilstande_broed": "Et tal, et nul, et nej og et hul er fire forskellige ting. De ser forskellige ud med vilje, for det er dér, katalogsider lyver: et nul bliver til en tom celle, og en tom celle bliver til et nul. I dette katalog oplyser producenterne {nul} målte nul, og {nej} gange svarer de udtrykkeligt nej.",
@@ -391,12 +391,12 @@
   "om_tilstande_noegle": "Nøglen nedenfor er katalogets egen. Det er ikke en tegning af mærkerne, men de samme mærker, robotsiderne selv sætter — derfor står der også en femte tilstand for det, der kun kan ses på et billede, og de to kildemærker A og B.",
 
   "om_ikke_titel": "Hvad siden ikke gør",
-  "om_ikke_koeb": "Der er ingen købsknap, ingen henvisningslinks og ingen prisforespørgsel i en katalogpost.",
+  "om_ikke_koeb": "Der er ingen købsknap, ingen betalte henvisningslinks og ingen prisforespørgsel i en katalogpost. Linkene til producenternes egne sider er kilder, ikke henvisninger vi får noget for.",
   "om_ikke_spor": "Siden sætter ingen cookies, henter intet fra tredjepart og måler ikke, hvem der læser den. Den virker uden JavaScript.",
   "om_ikke_score": "Der gives ingen karakter fra 1 til 5, ingen stjerner og ingen rangering. En sådan score ville være en redaktionel konklusion skrevet om til et tal, og den ville kræve en offentliggjort metode med acceptkriterier. Den metode findes ikke, og derfor gør scoren det heller ikke.",
 
   "om_udgiver_titel": "Udgiver",
-  "om_udgiver_broed": "Kataloget udgives af KeyResearch i Aarhus. KeyResearch står som udgiver af opslagsværket — ikke som afsender i den enkelte katalogpost, og ikke som part i noget salg.",
+  "om_udgiver_broed": "Kataloget udgives af KeyResearch i Aarhus. KeyResearch står som udgiver af opslagsværket. Ikke som afsender i den enkelte katalogpost, og ikke som part i noget salg.",
   "om_udgiver_adresse": "Adresse",
   "om_udgiver_telefon": "Telefon",
   "om_udgiver_post": "E-post",

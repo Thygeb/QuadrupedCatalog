@@ -381,9 +381,9 @@
   "om_metode_2_titel": "Recorded",
   "om_metode_2_broed": "The figure goes into one of the schema’s {felter} fields with a unit and a source. If the manufacturer does not state it, the field becomes not stated. It never becomes an estimate.",
   "om_metode_3_titel": "Checked",
-  "om_metode_3_broed": "The validator reads the whole catalogue again. If a figure is missing a unit, a source or a date — or if the manufacturer’s own metric and imperial numbers disagree — it stops the build.",
+  "om_metode_3_broed": "The validator reads the whole catalogue again and stops the build if a figure is missing a unit, a source or a date. If the manufacturer’s metric and imperial figures do not match, we never correct them quietly: either the build stops, or the disagreement stands on the page beside the figure.",
   "om_metode_4_titel": "Built",
-  "om_metode_4_broed": "The pages are generated afresh from the same files. There is no way past the validator, and that is why the site carries {u} figures without a source.",
+  "om_metode_4_broed": "The pages are generated afresh from the same files, and the build runs the validator first every time. That is why the site carries {u} figures without a source.",
 
   "om_tilstande_titel": "The four states",
   "om_tilstande_broed": "A figure, a zero, a no and a gap are four different things. They are made to look different on purpose, because that is where catalogue pages lie: a zero turns into an empty cell, and an empty cell turns into a zero. In this catalogue the manufacturers state {nul} measured zeros, and {nej} times they answer no outright.",
@@ -391,12 +391,12 @@
   "om_tilstande_noegle": "The key below is the catalogue’s own. It is not a drawing of the marks but the very marks the robot pages set — which is why it also carries a fifth state, for what can only be seen in a photo, and the two source marks A and B.",
 
   "om_ikke_titel": "What this site does not do",
-  "om_ikke_koeb": "There is no buy button, no referral links and no price enquiry form in a catalogue entry.",
+  "om_ikke_koeb": "There is no buy button, no paid referral links and no price enquiry form in a catalogue entry. The links to the manufacturers’ own pages are sources, not referrals we are paid for.",
   "om_ikke_spor": "The site sets no cookies, loads nothing from third parties and does not measure who reads it. It works without JavaScript.",
   "om_ikke_score": "There is no rating from 1 to 5, no stars and no ranking. Such a score would be an editorial conclusion rewritten as a number, and it would require a published method with acceptance criteria. That method does not exist, so neither does the score.",
 
   "om_udgiver_titel": "Publisher",
-  "om_udgiver_broed": "The catalogue is published by KeyResearch in Aarhus, Denmark. KeyResearch stands as the publisher of the reference work — not as the sender of an individual catalogue entry, and not as a party to any sale.",
+  "om_udgiver_broed": "The catalogue is published by KeyResearch in Aarhus, Denmark. KeyResearch stands as the publisher of the reference work. Not as the sender of an individual catalogue entry, and not as a party to any sale.",
   "om_udgiver_adresse": "Address",
   "om_udgiver_telefon": "Telephone",
   "om_udgiver_post": "Email",
