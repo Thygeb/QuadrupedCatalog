@@ -22,7 +22,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://deeprobotics.cn/en/index/product3.html"
   hentet: "2026-08-19"
-  alt: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
+  alt:
+    da: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
+    en: "DEEP Robotics Jueying X30 series, studio photo on a white background"
   note: "Samme billede bruges af producenten på både X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
 felter:
   egenvaegt:

@@ -23,7 +23,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.anybotics.com/"
   hentet: "2026-08-19"
-  alt: "ANYbotics ANYmal X fotograferet indendoers i et industrianlaeg"
+  alt:
+    da: "ANYbotics ANYmal X fotograferet indendoers i et industrianlaeg"
+    en: "ANYbotics ANYmal X photographed indoors at an industrial plant"
 felter:
   egenvaegt: "ikke_oplyst"
   laengde: "ikke_oplyst"

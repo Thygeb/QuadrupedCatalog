@@ -23,7 +23,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.deeprobotics.cn/en/wap/product.html"
   hentet: "2026-08-24"
-  alt: "DEEP Robotics X20, hvidt studiofoto/render fra siden af"
+  alt:
+    da: "DEEP Robotics X20, hvidt studiofoto/render fra siden af"
+    en: "DEEP Robotics X20, white studio photo/render from the side"
 felter:
   egenvaegt:
     vaerdi: 53

@@ -19,7 +19,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.unitree.com/products/laikago/"
   hentet: "2026-08-24"
-  alt: "Unitree Laikago Pro, studiofoto paa graa baggrund"
+  alt:
+    da: "Unitree Laikago Pro, studiofoto paa graa baggrund"
+    en: "Unitree Laikago Pro, studio photo on a grey background"
   note: "Unitrees egen Laikago-side svarer i dag 404 (se noter ovenfor). Billedet er hentet 24. aug 2026 via Wayback Machine-snapshot af siden fra 21. juni 2021 - den eneste tilgængelige kopi af producentens eget materiale. billede_url i MANIFEST.tsv peger på web.archive.org, ikke på unitree.com direkte."
 felter:
   egenvaegt: "ikke_oplyst"

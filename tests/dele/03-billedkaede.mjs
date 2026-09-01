@@ -63,6 +63,7 @@ export default async function koer(ctx) {
 
     const kat = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'index.html'), 'utf8');
     const side = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
+    const sideEn = fs.readFileSync(path.join(kaedeDist, 'en', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
     const tom = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-tom-plade', 'index.html'), 'utf8');
     const sideDelt = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-delt', 'index.html'), 'utf8');
 
@@ -113,7 +114,29 @@ export default async function koer(ctx) {
 
     // 7. alt-teksten. En silhuet SIGER, at den er en silhuet - en
     //    skaermlaeserbruger skal have samme oplysning som en seende.
-    ok('dataskriverens egen alt-tekst vinder', side.includes('alt="Proevefigur i profil'));
+    //
+    //    VENDT TILBAGE af spor/alt-opfoelgeren (1. sep 2026) til at bevise
+    //    den NYE regel, efter at have staaet paa hovedet siden spor/alt
+    //    (samme dag): `billede.alt` er et sprogkortlagt objekt ({da,en}), saa
+    //    et nyt sprog er en noegle og ikke et nyt felt (CLAUDE.md's
+    //    arkitekturregel). side.mjs's `billedAlt()` (katalog/producent/
+    //    forside) laeser robot.billede.alt direkte og vaelger den rette
+    //    sprognoegle - efterproevet andetsteds i spor/alt (94 -> 0 danske ord
+    //    paa engelske sider). ROBOT.MJS's EGET store billede gik dengang
+    //    gennem en ANDEN vej, `laesBillede()` (side.mjs:294-325, nu i dette
+    //    spors filejerskab), hvis `tekst()`-hjaelper forkastede alt, der ikke
+    //    var en STRENG - den nulstillede derfor sprogobjektet, FOER robot.mjs
+    //    naaede det, og robotsidens EGET billede faldt ned i navnet alene
+    //    (eller silhuet-skabelonen). Rettelsen: `laesBillede()` tager nu en
+    //    `sprogkode`-option og vaelger selv den rette noegle, og robot.mjs's
+    //    `billedeAf()` sender `ctx.sprog` med. `en`-siden bevises separat
+    //    (sideEn) for at udelukke den forkerte fejl: at ETHVERT sprog nu
+    //    virker, ikke bare at dansk gjorde det ved et tilfaelde.
+    ok('robotsidens EGET billede (da) viser den fulde danske alt-tekst, ikke navnet/silhuetten',
+      side.includes('alt="Proevefigur i profil, tegnet 1 mm = 0,1 px"'));
+    ok('robotsidens EGET billede (en) viser den fulde engelske alt-tekst - IKKE dansk',
+      sideEn.includes('alt="Test figure in profile, drawn 1 mm = 0.1 px"')
+      && !sideEn.includes('Proevefigur i profil'));
     ok('uden egen alt-tekst siger silhuetten selv, at den er en silhuet',
       /alt="M[^"]*ltro silhuet af Proeve Delt/.test(kat));
 

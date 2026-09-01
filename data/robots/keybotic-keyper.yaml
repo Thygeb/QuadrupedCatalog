@@ -27,7 +27,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://keybotic.com/wp-content/uploads/2023/12/keyper-robot-01opt.png"
   hentet: "2026-08-26"
-  alt: "Keybotic Keyper, firbenet inspektionsrobot i sort og turkis, studiofoto paa hvid baggrund"
+  alt:
+    da: "Keybotic Keyper, firbenet inspektionsrobot i sort og turkis, studiofoto paa hvid baggrund"
+    en: "Keybotic Keyper, black and turquoise quadruped inspection robot, studio photo on a white background"
 felter:
   egenvaegt:
     vaerdi: 43

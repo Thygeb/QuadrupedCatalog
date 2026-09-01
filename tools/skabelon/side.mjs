@@ -290,12 +290,29 @@ export const YDERPUNKT_FORHOLD = 4 / 3;
  * parameter, saa ÉT sted afgoer "passer billedet i DENNE ramme uden at
  * miste robotten under cover" — ikke to separate, potentielt divergerende
  * beregninger.
+ *
+ * `sprogkode` (spor/alt, 1. sep 2026): `b.alt` er siden R18 et
+ * SPROGKORTLAGT objekt ({ da, en, … }), ikke en streng — en ny sprognoegle
+ * er en noegle, ikke et nyt felt (CLAUDE.md's arkitekturregel). Uden
+ * `sprogkode` er der intet at vaelge med, og `alt` bliver `null` (samme
+ * sikre tomhed som foer R18, og uaendret for de kaldesteder i denne fil,
+ * der laeser `robot.billede.alt` direkte i stedet, se billedAlt()).
+ * Sendes `sprogkode` med, vaelges NOEJAGTIGT den noegle — aldrig et andet
+ * sprogs tekst som fallback, for saa ville en skaermlaeser paa /en/ faa
+ * dansk prosa oplaest.
  */
-export function laesBillede(robot, rod = ROD, { forhold = SIDEFORHOLD_MAAL } = {}) {
+export function laesBillede(robot, rod = ROD, { forhold = SIDEFORHOLD_MAAL, sprogkode } = {}) {
   const b = robot?.billede;
   if (!b || typeof b !== 'object' || Array.isArray(b)) return null;
   if (typeof b.fil !== 'string' || b.fil.trim() === '') return null;
   const tekst = (v) => (typeof v === 'string' && v.trim() !== '' ? v : null);
+  // `b.alt` er enten en almindelig streng (aeldre form, bevaret for
+  // bagudkompatibilitet) eller et sprogkortlagt objekt. Er det et objekt,
+  // vaelges kun `sprogkode`-noeglen — ingen anden-sprogs-fallback, se noten
+  // ovenfor.
+  const altRaa = (b.alt && typeof b.alt === 'object' && !Array.isArray(b.alt))
+    ? (sprogkode ? b.alt[sprogkode] : null)
+    : b.alt;
   // Eksplicit `plade: ja`/`nej` i YAML'en vinder altid, i begge retninger —
   // et felt, en dataskriver bevidst har sat, skal ikke kunne overstyres af
   // en maaling, den ikke kan se. Er feltet IKKE sat, afgoer billedPlade()
@@ -311,7 +328,7 @@ export function laesBillede(robot, rod = ROD, { forhold = SIDEFORHOLD_MAAL } = {
     ophav: tekst(b.ophav),
     kilde: tekst(b.kilde),
     hentet: tekst(b.hentet),
-    alt: tekst(b.alt),
+    alt: tekst(altRaa),
     note: tekst(b.note),
     delt_med: tekst(b.delt_med),
     plade,
@@ -1644,13 +1661,23 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
   }
 
   /**
-   * Alternativ tekst. Dataskriverens egen `alt:` vinder altid. Uden den siger
-   * en silhuet, at den ER en silhuet: en teknisk tegning efter maal er ikke det
-   * samme syn som et fotografi, og en skaermlaeserbruger skal have samme
-   * oplysning som en seende.
+   * Alternativ tekst. Dataskriverens egen `alt:` vinder altid, naar den
+   * baerer NOEGET sprog for netop DENNE side (spor/alt, 1. sep 2026: `alt` er
+   * et sprogkortlagt objekt, `{ da: "...", en: "..." }` - et nyt sprog er en
+   * noegle, ikke et nyt felt, jf. CLAUDE.md's arkitekturregel). Laest fra
+   * `robot.billede.alt` (raadata), IKKE fra `b.alt`: laesBillede()'s egen
+   * `tekst()`-hjaelper forkaster alt, der ikke er en STRENG, og ville derfor
+   * nulstille et sprogobjekt, foer det naaede hertil. Uden den rette noegle
+   * siger en silhuet, at den ER en silhuet: en teknisk tegning efter maal er
+   * ikke det samme syn som et fotografi, og en skaermlaeserbruger skal have
+   * samme oplysning som en seende.
    */
   function billedAlt(robot, b) {
-    if (b?.alt) return b.alt;
+    const altKort = robot?.billede?.alt;
+    if (altKort && typeof altKort === 'object' && !Array.isArray(altKort)) {
+      const egen = altKort[sprogkode];
+      if (typeof egen === 'string' && egen.trim() !== '') return egen;
+    }
     const navn = robot?.navn ?? '';
     if (b?.ophav === 'silhuet') return tf('billede_alt_silhuet', { model: navn });
     return navn;

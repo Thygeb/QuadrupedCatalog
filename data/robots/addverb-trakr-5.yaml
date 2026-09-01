@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://addverb.ai/trakr"
   hentet: "2026-08-26"
-  alt: "Addverb Trakr, firbenet robot i roedt og graat, studiofoto set fra siden paa hvid baggrund"
+  alt:
+    da: "Addverb Trakr, firbenet robot i roedt og graat, studiofoto set fra siden paa hvid baggrund"
+    en: "Addverb Trakr, red and grey quadruped robot, studio photo from the side on a white background"
   note: "Delt foto med addverb-trakr-20.yaml: samme produktside/fane-vælger, som ikke har to forskellige produktfotos for Trakr 5 og Trakr 20."
 felter:
   egenvaegt:

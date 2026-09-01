@@ -34,7 +34,7 @@ import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER, FREMDRIFT_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
   ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER, sorterAnvendelse,
-  BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER,
+  BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER, SPROG,
 } from './skema.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
@@ -878,10 +878,39 @@ function tjekBillede(b, egenSlug) {
   }
 
   /* --- teksterne. Tomme strenge er huller, der ligner indhold. --- */
-  for (const n of ['alt', 'note']) {
-    if (b[n] === undefined) continue;
-    if (typeof b[n] !== 'string' || b[n].trim() === '') {
-      FEJL('R18', `${sti}.${n}`, `"${n}" skal vaere en ikke-tom tekst, fik ${JSON.stringify(b[n])}`);
+
+  /* "note" er sprogneutral (redaktionel forklaring, ikke brugertekst) og
+     forbliver en almindelig streng. */
+  if (b.note !== undefined && (typeof b.note !== 'string' || b.note.trim() === '')) {
+    FEJL('R18', `${sti}.note`, `"note" skal vaere en ikke-tom tekst, fik ${JSON.stringify(b.note)}`);
+  }
+
+  /* "alt" er en skaermlaeser-tekst og derfor SPROGKORTLAGT siden spor/alt
+     (1. sep 2026, R18): { da: "...", en: "..." } - et nyt sprog er en noegle
+     i SPROG, ikke et nyt felt (CLAUDE.md's arkitekturregel). Maalt samme dag:
+     94 engelske sider viste dansk billedtekst, fordi den gamle streng-form
+     lod dataskriverens danske tekst vinde paa alle sprog. Staar "alt"
+     overhovedet, skal DERFOR alle sprog i SPROG vaere udfyldt - en halv
+     oversaettelse ville stadig lade ét sprogs tekst laekke ud paa et andet
+     sprogs side. */
+  if (b.alt !== undefined) {
+    if (!erPost(b.alt)) {
+      FEJL('R18', `${sti}.alt`, `"alt" skal vaere et sprogkort med noeglerne ${SPROG.join('/')}` +
+        `, ikke ${JSON.stringify(b.alt)}. Et enkelt sprog kan ikke laengere staa alene - se spor/alt`);
+    } else {
+      for (const n of Object.keys(b.alt)) {
+        if (!SPROG.includes(n)) {
+          FEJL('R18', `${sti}.alt`, `ukendt sprog "${n}" i "alt". Gyldige: ${SPROG.join(', ')}`);
+        }
+      }
+      for (const sprog of SPROG) {
+        const v = b.alt[sprog];
+        if (typeof v !== 'string' || v.trim() === '') {
+          FEJL('R18', `${sti}.alt.${sprog}`, `"alt" mangler sproget "${sprog}" eller det er tomt. ` +
+            `Staar "alt" overhovedet, skal ALLE sprog vaere udfyldt - ellers laekker ét sprogs ` +
+            `tekst ud paa et andet sprogs side (det var netop denne fejl, spor/alt lukkede)`);
+        }
+      }
     }
   }
   if (b.pos !== undefined && (typeof b.pos !== 'string' || b.pos.trim() === '')) {

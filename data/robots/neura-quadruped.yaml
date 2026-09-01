@@ -24,7 +24,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://neura-robotics.com/wp-content/uploads/2026/01/NEURA_Quadruped_2.webp"
   hentet: "2026-08-26"
-  alt: "NEURA Quadruped, hvid firbenet robot med NEURA-logo, feltfoto paa betongulv"
+  alt:
+    da: "NEURA Quadruped, hvid firbenet robot med NEURA-logo, feltfoto paa betongulv"
+    en: "NEURA Quadruped, white quadruped robot with the NEURA logo, field photo on a concrete floor"
 felter:
   egenvaegt:
     vaerdi: 60

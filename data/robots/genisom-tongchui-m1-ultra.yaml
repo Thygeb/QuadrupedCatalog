@@ -30,7 +30,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.genisomai.com/product-robot/M1"
   hentet: "2026-08-26"
-  alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+    en: "GENISOM Tongchui M1, wheeled-leg quadruped robot, studio photo on a white background"
   note: "Delt foto med genisom-tongchui-m1.yaml og genisom-tongchui-m1-pro.yaml: M1 Ultra findes kun som fane-skift på M1's egen side, selvom den fysisk har en anden kameraopstilling (720 grader rundtomsyn) end de to andre - producentens side viser ikke desto mindre samme produktfoto for hele familien."
 felter:
   egenvaegt:

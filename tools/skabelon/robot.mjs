@@ -412,9 +412,18 @@ export function feltKrop(navn, post, ctx, kilder) {
  * Formen normaliseres af side.mjs, saa kortet og robotsiden ikke kan naa til
  * hver sin laesning af den samme YAML.
  */
+// `sprogkode` (spor/alt-opfoelger, 1. sep 2026): sendes med til laesBillede(),
+// saa robotsidens EGET store billede kan vaelge den rette noegle i
+// billede.alt's sprogkortlagte objekt ({ da, en, … }) — samme rettelse som
+// billedAlt() nedenfor allerede goer for katalog/producent/forside, men
+// dengang UDEN FOR laesBillede() selv, fordi den funktion laa uden for
+// dette spors filejerskab. Ejerskabet daekker den nu (side.mjs:294-321).
 function billedeAf(ctx) {
-  if (ctx?.billede) return laesBillede({ billede: ctx.billede, navn: ctx?.robot?.navn });
-  return laesBillede(ctx?.robot);
+  const sprogkode = ctx?.sprog;
+  if (ctx?.billede) {
+    return laesBillede({ billede: ctx.billede, navn: ctx?.robot?.navn }, undefined, { sprogkode });
+  }
+  return laesBillede(ctx?.robot, undefined, { sprogkode });
 }
 
 /**

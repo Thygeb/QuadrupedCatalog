@@ -28,7 +28,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-26"
-  alt: "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+    en: "GENISOM Gangben L2, wheeled-leg quadruped robot, studio photo on a white background"
   note: "Delt foto med genisom-gangben-l2.yaml og genisom-gangben-l2-w.yaml: L2-W Ultra findes kun som fane-skift på L2's egen side og har ingen selvstændig produktside eller eget produktfoto, selvom den fysisk har en ekstra LiDAR-sensorpakke (se noter i felter). Samme billed-URL som de to andre L2-poster."
 felter:
   egenvaegt:

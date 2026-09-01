@@ -13,7 +13,9 @@ billede:
   ophav: silhuet
   kilde: https://example.com/proeve
   hentet: 2026-08-21
-  alt: "Proevefigur i profil, tegnet 1 mm = 0,1 px"
+  alt:
+    da: "Proevefigur i profil, tegnet 1 mm = 0,1 px"
+    en: "Test figure in profile, drawn 1 mm = 0.1 px"
   note: "Figuren er paafundet til proeven og viser ingen rigtig maskine."
 felter:
   egenvaegt:

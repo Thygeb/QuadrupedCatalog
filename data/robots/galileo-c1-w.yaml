@@ -29,7 +29,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
   hentet: "2026-08-26"
-  alt: "Galileo (Tianjin) firbenet robot, hjulbenet udgave, produktfoto fra virksomhedens PDF-produktmanual"
+  alt:
+    da: "Galileo (Tianjin) firbenet robot, hjulbenet udgave, produktfoto fra virksomhedens PDF-produktmanual"
+    en: "Galileo (Tianjin) quadruped robot, wheeled-leg version, product photo from the manufacturer's PDF product manual"
   note: "Delt foto: PDF-manualens produktgalleri viser samme hjulbenede kropsudgave (uden top-sensor-modul) for både C1-W og E1-W - manualen skelner ikke mellem dem i billedvalget. S1-W har det samme ekstra sensor-modul som S1 og får sit eget foto (se galileo-s1-w.yaml)."
 felter:
   egenvaegt:

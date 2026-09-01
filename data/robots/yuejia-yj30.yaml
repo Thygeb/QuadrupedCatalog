@@ -28,7 +28,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html"
   hentet: "2026-08-26"
-  alt: "Yuejia Lingdong YJ30, gaaende firbenet robot uden hjul, studiofoto paa lys baggrund"
+  alt:
+    da: "Yuejia Lingdong YJ30, gaaende firbenet robot uden hjul, studiofoto paa lys baggrund"
+    en: "Yuejia Lingdong YJ30, walking quadruped robot without wheels, studio photo on a light background"
 felter:
   egenvaegt:
     vaerdi: 17.5

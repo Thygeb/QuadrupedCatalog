@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
   hentet: "2026-08-26"
-  alt: "Yuejia Lingdong YJ30Max, gaaende firbenet robot, feltfoto ved en el-transformerstation"
+  alt:
+    da: "Yuejia Lingdong YJ30Max, gaaende firbenet robot, feltfoto ved en el-transformerstation"
+    en: "Yuejia Lingdong YJ30Max, walking quadruped robot, field photo at an electrical transformer station"
 felter:
   egenvaegt:
     vaerdi: 45

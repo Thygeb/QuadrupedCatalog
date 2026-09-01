@@ -318,7 +318,8 @@ const GYLDIGE_HOVED = [
   ['silhuet med fil, ophav, kilde og hentedato',
     BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: silhuet\n` +
     `  kilde: https://example.com/a\n  hentet: 2026-08-19\n` +
-    `  alt: "Maaltro silhuet"\n  note: "Tegnet efter L 1000 x H 700 mm."\n` +
+    `  alt:\n    da: "Maaltro silhuet"\n    en: "True-to-scale silhouette"\n` +
+    `  note: "Tegnet efter L 1000 x H 700 mm."\n` +
     `felter:\n  egenvaegt: ikke_oplyst\n`],
   ['eget foto UDEN kilde - vi har taget det selv, der er ingen URL at pege paa',
     BILLEDHOVED + `billede:\n  fil: silhuetter/_proeve-kaede.svg\n  ophav: eget_foto\n` +
