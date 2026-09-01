@@ -250,10 +250,11 @@ De værste, med antal tekstnoder i hver:
 størrelser, ingen skærm kan skelne, og som derfor er to beslutninger, nogen skal
 vedligeholde uden nogensinde at kunne se forskel.
 
-**Kilden til de skæve tal er de relative grader.** `max(8px,.5em)`, `.80em`, `.62em`,
-`max(8px,.34em)` m.fl. — 15 af de 55 erklæringer er `em`-baserede eller `clamp()`.
-De arver en forælder, der selv er sat i halve pixels, og resultatet er værdier som
-8,4 · 9,52 · 10,8 · 12,88, som ingen har valgt.
+**Kilden til de skæve tal er de relative grader.** Af de 55 unikke værdier er
+**32 rene px, 15 `em`-baserede** (`max(8px,.5em)`, `.80em`, `.62em`, `max(8px,.34em)` m.fl.)
+og **8 `clamp()`**. De 15 `em`-værdier arver en forælder, der selv er sat i halve pixels, og
+resultatet er gengivne grader som **8,4 · 9,52 · 10,8 · 12,88 px**, som ingen har valgt og
+ingen kan finde ved at søge i stilarket.
 
 **Hvorfor det betyder noget for en læser.** På en datatung side er skriftgrad det stærkeste
 signal om, hvad der er vigtigst. Med 20 grader på robotsiden og 0,5 px mellem nabotrinene
@@ -262,7 +263,7 @@ nogen niveauer — kun en glidende skala. Det er den samme kritik, INSTRUMENT (L
 på med *"hårdere typografi"*.
 
 **Mindste ændring, der samler flest.** De fire mest brugte grader dækker allerede
-1.213 af 1.799 tekstnoder ved 1440: 15px (424), 12px (224), 12,5px (190), 16px (160).
+**998 af 1.779** tekstnoder ved 1440 (56 %): 15px (424), 12px (224), 12,5px (190), 16px (160).
 En skala på seks-syv trin — fx 10 · 12 · 13,5 · 15 · 17 · 20 · clamp-overskrifter — ville
 kunne optage de 32 med afrunding under 1 px for langt de fleste noder. **Halvpixeltrinnene
 er der, den største gevinst ligger**: at fjerne `.5`-trinnene alene fjerner elleve af de
@@ -386,7 +387,7 @@ Der findes desuden et `a.spring` ("Spring til indholdet") som første tab-stop p
 sider undtagen rod-404. Ringens *farve* er et selvstændigt fund (§2), men dens
 *tilstedeværelse* er komplet.
 
-### 6.2 `font-variant-numeric: tabular-nums`: 75 af 75 talceller ✅
+### 6.2 `font-variant-numeric: tabular-nums`: 150 af 150 talceller ✅
 
 Briefet bad om producentindekset og skematabellen. Begge er dækket **100 %**:
 
@@ -397,8 +398,9 @@ Briefet bad om producentindekset og skematabellen. Begge er dækket **100 %**:
 | robotside `.skema-tabel` | 99 | 32 | **32** |
 | `/en/` robotside `.skema-tabel` | 99 | 32 | **32** |
 
-Ingen talkolonne mangler det. `system.css:1873` sætter det desuden med `min-height:1em`,
-så en tom talcelle ikke kollapser.
+**150 af 150 talceller** på tværs af begge sprog (43 + 32 pr. sprog). Ingen talkolonne
+mangler det. `system.css:1873` sætter det desuden sammen med `min-height:1em`, så en tom
+talcelle ikke kollapser og river rækken skæv.
 
 ### 6.3 Vandret overløb ved 390 px: ingen — heller ikke producenttabellen ✅
 
@@ -464,6 +466,11 @@ selv sætter** — ikke en tegning af dem.
 **Briefets tal efterprøvet:** `min-height:44px` står **7 steder** i `assets/` — bekræftet
 (`generator.css:823, 1593`, `system.css:465, 1376, 1624, 1997, 2137`), plus
 `min-width:44px` og `height:44px` ét sted hver.
+
+*(Et rå `grep -c "min-height:44px" assets/*.css` giver **8**. Den ottende,
+`system.css:377`, står inde i en kommentar, der beskriver reglen i prosa. Samme fælde som
+`sed`-grebet i §3.1: et tal fra et greb, der ikke kender forskel på kode og kommentar,
+er en linjetælling, ikke en måling.)*
 
 **Men der findes et konkurrerende gulv på 24 px**, og det er det, der gælder på de tætte
 flader:
@@ -659,3 +666,169 @@ allerede er rigtige:
 
 **§1 og §2 er samme rodårsag** — `--accent` brugt i den retning, den ikke er målt for.
 Rettes den ene rigtigt, er den anden en tolinjers.
+
+---
+
+## §14. Sådan genkøres hvert tal
+
+Alle måleapparater er valideret mod et kendt facit, før deres tal blev brugt — det er
+projektets egen regel, og §0 viser hvorfor den ikke er en formalitet.
+
+**Forudsætning for alt, der måler i browseren:** serveren skal køre fra worktree-roden,
+og porten skal verificeres mod disken først.
+
+```
+/c/Users/thyge/AppData/Local/Programs/Python/Python314/python.exe -m http.server 8164 --directory dist
+md5sum dist/system.css && curl -s http://localhost:8164/system.css | md5sum   # skal stemme
+```
+
+### 14.1 Kontrast (§1, §2, §5) — kræver hverken server eller script
+
+```
+node -e "const K={accent:[242,196,0],bund:[232,235,237],hvid:[250,251,251],blaek:[34,38,42],blaek3:[95,104,111],linje:[198,204,209]};
+const s=c=>(c/=255)<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4);
+const L=a=>.2126*s(a[0])+.7152*s(a[1])+.0722*s(a[2]);
+const f=(a,b)=>((Math.max(L(a),L(b))+.05)/(Math.min(L(a),L(b))+.05)).toFixed(2);
+for(const [a,b] of [['accent','bund'],['accent','hvid'],['blaek','accent'],['linje','bund'],['blaek3','bund']])
+  console.log(a+' paa '+b+': '+f(K[a],K[b])+':1');"
+```
+
+Forventet, og målt af mig:
+
+```
+accent paa bund: 1.38:1      <- §1 og §2
+accent paa hvid: 1.60:1      <- §1, kildemaerkerne
+blaek paa accent: 9.19:1     <- palettens egen kommentar, den ANDEN vej
+linje paa bund: 1.35:1       <- §5
+blaek3 paa bund: 4.74:1      <- bestaar
+```
+
+**Hvis fundet var forkert**, ville `accent paa bund` have vist ≥ 4,5 — og så ville de 25
+producentnavne have bestået uden ændring.
+
+### 14.2 CSS-optælling (§3.1, §4) — gem som `uiux-census.mjs`, kør fra worktree-roden
+
+Et `sed`-greb kan ikke bruges her: det rammer kun ét-linjes kommentarer og går i stykker
+på strenge. Denne bruger en rigtig tilstandsmaskine.
+
+```js
+import fs from 'node:fs';
+const strib = s => { let u='',i=0;
+  while (i<s.length){ const c=s[i];
+    if(c==='/'&&s[i+1]==='*'){const e=s.indexOf('*/',i+2);i=e<0?s.length:e+2;u+=' ';continue;}
+    if(c==='"'||c==="'"){const q=c;u+=c;i++;
+      while(i<s.length){if(s[i]==='\\'){u+=s[i]+(s[i+1]||'');i+=2;continue;}u+=s[i];if(s[i]===q){i++;break;}i++;}
+      continue;}
+    u+=c;i++;}
+  return u; };
+const erkl = css => { const o=[];let d=0,b='',i=0,q=null,pa=0;
+  while(i<css.length){const c=css[i];
+    if(q){b+=c;if(c==='\\'){b+=css[i+1]||'';i+=2;continue;}if(c===q)q=null;i++;continue;}
+    if(c==='"'||c==="'"){q=c;b+=c;i++;continue;}
+    if(c==='('){pa++;b+=c;i++;continue;} if(c===')'){pa--;b+=c;i++;continue;}
+    if(c==='{'&&!pa){d++;b='';i++;continue;}
+    if(c==='}'&&!pa){if(d>=1&&b.includes(':'))o.push(b);d--;b='';i++;continue;}
+    if(c===';'&&!pa){if(d>=1&&b.includes(':'))o.push(b);b='';i++;continue;}
+    b+=c;i++;}
+  return o.map(s=>{const k=s.indexOf(':');return{e:s.slice(0,k).trim().toLowerCase(),v:s.slice(k+1).trim()};}); };
+
+let all=[];
+for (const f of ['assets/system.css','assets/generator.css']) all=all.concat(erkl(strib(fs.readFileSync(f,'utf8'))));
+
+const fsz=all.filter(d=>d.e==='font-size'), uniq=[...new Set(fsz.map(d=>d.v))];
+console.log('font-size: erklaeringer',fsz.length,'· unikke',uniq.length);
+const px=uniq.filter(v=>/^[\d.]+px$/.test(v)).map(parseFloat).sort((a,b)=>a-b);
+console.log('  rene px',px.length,'· em-baserede',uniq.filter(v=>/em/.test(v)&&!/clamp/.test(v)).length,
+            '· clamp',uniq.filter(v=>/clamp/.test(v)).length);
+console.log('  px-trin i 9-20:',px.filter(v=>v>=9&&v<=20).join(', '));
+
+const tok=v=>/var\(\s*--r\d/.test(v);
+const pad=all.filter(d=>/^padding(-(top|right|bottom|left))?$/.test(d.e));
+const kort=pad.filter(d=>d.e==='padding');
+console.log('padding: i alt',pad.length,'· token',pad.filter(d=>tok(d.v)).length,
+            '· raa px',pad.filter(d=>!tok(d.v)&&/\dpx/.test(d.v)).length);
+console.log('  heraf shorthand alene:',kort.length,'· token',kort.filter(d=>tok(d.v)).length,
+            '· unikke',new Set(kort.map(d=>d.v)).size,'(inkl. longhand:',new Set(pad.map(d=>d.v)).size+')');
+
+const skala=new Set(['4px','8px','12px','16px','24px','32px','48px','64px','96px']);
+let paa=0,uden=0;const h={};
+for (const d of all.filter(x=>/^(padding|margin|gap|row-gap|column-gap)(-(top|right|bottom|left))?$/.test(x.e))) {
+  if(tok(d.v))continue;
+  for (const m of d.v.matchAll(/(?<![\w.-])(\d+(?:\.\d+)?)px/g)) {
+    const v=m[1]+'px'; h[v]=(h[v]||0)+1; skala.has(v)?paa++:uden++; } }
+console.log('raa px paa skalaen:',paa,'· uden for skalaen:',uden);
+console.log('  hyppigste uden token:',Object.entries(h).filter(([v])=>!skala.has(v))
+  .sort((a,b)=>b[1]-a[1]).slice(0,7).map(([v,n])=>v+' x'+n).join(', '));
+```
+
+Forventet, og målt af mig:
+
+```
+font-size: erklaeringer 228 · unikke 55
+  rene px 32 · em-baserede 15 · clamp 8
+  px-trin i 9-20: 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 13.5, 14, 14.5, 15, 15.5, 16, 16.5, 17, 18, 19, 20
+padding: i alt 204 · token 88 · raa px 84
+  heraf shorthand alene: 131 · token 48 · unikke 88 (inkl. longhand: 102)
+raa px paa skalaen: 85 · uden for skalaen: 227
+  hyppigste uden token: 6px x38, 2px x32, 10px x26, 5px x24, 14px x18, 9px x17, 3px x16
+```
+
+**Hvis §4 var forkert**, ville `uden for skalaen` have været lavere end `paa skalaen` —
+altså at CSS'en overvejende rammer `--r`-trinnene. Den gør det modsatte, 227 mod 85.
+
+### 14.3 Gengivne skriftgrader (§3.2) — kræver serveren på 8164
+
+```
+node -e "const {createRequire}=require('module');
+const {chromium}=createRequire('file:///C:/Praktik/websites/maalevaerktoej/')('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1440,height:900}});const g={};
+for(const s of ['/da/producenter/','/da/producenter/boston-dynamics/','/da/om/','/da/404.html','/da/robotter/boston-dynamics-spot/']){
+ await p.goto('http://localhost:8164'+s,{waitUntil:'networkidle'});
+ const r=await p.evaluate(()=>{const o={};for(const e of document.querySelectorAll('body *')){const c=getComputedStyle(e);
+  if(c.display==='none'||c.visibility==='hidden')continue;let t='';for(const n of e.childNodes)if(n.nodeType===3)t+=n.textContent;
+  if(!t.trim())continue;const r=e.getBoundingClientRect();if(!r.width||!r.height)continue;o[c.fontSize]=(o[c.fontSize]||0)+1;}return o;});
+ for(const k in r)g[k]=(g[k]||0)+r[k];}
+await b.close();
+const a=Object.keys(g).map(parseFloat).sort((x,y)=>x-y);
+let par=0;for(let i=0;i+1<a.length;i++)if(a[i+1]-a[i]<1)par++;
+console.log('gengivne unikke skriftgrader:',a.length);console.log('par under 1px:',par);console.log(a.join(', '));})();"
+```
+
+**Sidesættet afgør tallet — derfor to tal i dokumentet, og begge er ægte:**
+
+| Sidesæt | Unikke grader | Par under 1 px |
+|---|---|---|
+| De 5 sider i kommandoen ovenfor | **30** | **16** |
+| Alle 15 målte sider (begge sprog, 5 producentsider, 3× 404, robotside) | **32** | **17** |
+
+**Hvis §3 var forkert**, ville tallet have ligget nær 6–8 — altså at de 55 erklærede
+værdier kollapsede til en egentlig skala ved gengivelse. Det gør de ikke.
+
+### 14.4 Fokusringe (§6.1), berøringsmål (§7), sidehøjder (§8)
+
+Disse tre kræver de fulde scripts. De ligger i sessionens scratchpad:
+
+```
+C:/Users/thyge/AppData/Local/Temp/claude/c--Praktik-websites-udstilling/
+   e5b0e47f-8725-4594-8914-f4e41d5e3176/scratchpad/
+      uiux-fokus.mjs     # --selvtest foerst; derefter: 1440 <stier...>
+      uiux-brows.mjs     # --selvtest foerst; derefter: <bredde> <stier...>
+      uiux-probe.mjs     # kontrast + beroeringsmaal pr. side
+      uiux-luft.mjs      # sidehoejder og bare striber
+      uiux-census.mjs    # samme som 14.2
+      uiux-elskud.mjs    # skud af ét element: <url> <selector> <ud.png> <bredde>
+```
+
+**Begge browser-scripts nægter at måle, før deres selvtest består** —
+`uiux-brows.mjs --selvtest` giver `SELVTEST OK: 11/11`, `uiux-fokus.mjs --selvtest` giver
+`FOKUS-SELVTEST OK: 4/4`. Overlever scratchpad'en ikke sessionen, er selvtesterne det,
+der skal skrives om først, ikke målingerne.
+
+**Det vigtigste enkelttal at genkøre**, hvis kun ét er muligt:
+
+```
+node uiux-fokus.mjs 1440 /da/producenter/     ->  tab-stop naaet: 111 · uden synlig ring: 0
+```
+
+Giver den andet end 0, er §6.1 forkert, og så er §2 heller ikke den rigtige diagnose —
+så er problemet, at ringen mangler, ikke at den har forkert farve.
