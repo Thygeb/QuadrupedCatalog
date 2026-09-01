@@ -548,8 +548,8 @@ yderligere sidespecifikke knap-lignende klasser, hver brugt ét sted —
 navnene er ikke enkeltvis efterprøvet af dette spor. Kildens egen kommentar
 kalder `.videre` "den eneste knapform på sitet"; det stemmer ikke længere.
 
-**2. Billedrammen — to sideforhold.** `.billedled{aspect-ratio:16/10}` +
-`object-fit:cover` (system.css) mod `.net .billedled{aspect-ratio:4/3}` +
+**2. Billedrammen — to sideforhold.** `.billedled{aspect-ratio:16/10}` (16:10) +
+`object-fit:cover` (system.css) mod `.net .billedled{aspect-ratio:4/3}` (4:3) +
 `object-fit:contain` (generator.css) — den sidste vinder på specificitet på
 katalogsiden. To formater på samme primitiv i to filer, ingen har besluttet
 hvilket der gælder generelt. Uddybet i `fund/FUND-kortramme.md`.
