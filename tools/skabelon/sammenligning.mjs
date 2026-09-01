@@ -45,7 +45,7 @@ const attr = esc;
  *  assets/enhed.js slaar op med getElementById — hukommelsen paa tvaers af
  *  sider er praecis den ene noegle. Aendres den ét sted, holder valget op med
  *  at foelge laeseren, og INTET bliver rødt: derfor laaser
- *  tests/dele/43-samlenhed.mjs de tre steder sammen. */
+ *  tests/dele/44-samlenhed.mjs de tre steder sammen. */
 const ENHED_ID = 'enhedsskift';
 
 /**

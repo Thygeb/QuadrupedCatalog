@@ -222,7 +222,7 @@
   /* Enhedskontaktens id. SAMME streng som tools/skabelon/sammenligning.mjs'
      ENHED_ID, robot.mjs' ENHED_ID og opslaget i assets/enhed.js - det er den
      ene noegle, der lader valget foelge laeseren fra en robotside hertil.
-     tests/dele/43-samlenhed.mjs holder de fire steder sammen. */
+     tests/dele/44-samlenhed.mjs holder de fire steder sammen. */
   var ENHED_ID = 'enhedsskift';
   var enhedsBoks = document.getElementById(ENHED_ID);
   var sidsteOmregnelige = 0;

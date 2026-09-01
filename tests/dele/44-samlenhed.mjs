@@ -1,5 +1,5 @@
 /**
- * tests/dele/43-samlenhed.mjs — spor/samlenhed, 1. sep 2026.
+ * tests/dele/44-samlenhed.mjs — spor/samlenhed, 1. sep 2026.
  *
  * Sammenligningsmatricen tegnes UDELUKKENDE klientside, og skabelonen kalder
  * `H.tal()` nul gange. Den arvede derfor ikke L60's enhedsskift, da spor/enhed
@@ -61,18 +61,18 @@ function dataAf(html) {
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
 
-  console.log('\n43. spor/samlenhed: matricen skifter enhed, og valget deles med sitet');
+  console.log('\n44. spor/samlenhed: matricen skifter enhed, og valget deles med sitet');
 
   const dist = path.join(tmp, 'dist-samlenhed');
   const b = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'), `--ud=${dist}`],
     { cwd: rod, encoding: 'utf8' });
-  ok('43.byg', b.status === 0, `build.mjs gav ${b.status}`);
+  ok('44.byg', b.status === 0, `build.mjs gav ${b.status}`);
   if (b.status !== 0) return;
 
   const html = fs.readFileSync(path.join(dist, 'da', 'sammenligning', 'index.html'), 'utf8');
   const htmlEn = fs.readFileSync(path.join(dist, 'en', 'sammenligning', 'index.html'), 'utf8');
   const data = dataAf(html);
-  ok('43.1 JSON-blokken kan laeses', !!data && Array.isArray(data.robotter), 'ingen data-blok');
+  ok('44.1 JSON-blokken kan laeses', !!data && Array.isArray(data.robotter), 'ingen data-blok');
   if (!data) return;
 
   /* --- 1. NOEGLEN: de fire steder, der skal sige det samme --------------- */
@@ -80,29 +80,29 @@ export default async function koer(ctx) {
   const enhedJs = fs.readFileSync(path.join(rod, 'assets', 'enhed.js'), 'utf8');
   const robotMjs = fs.readFileSync(path.join(rod, 'tools', 'skabelon', 'robot.mjs'), 'utf8');
 
-  ok('43.2 enhed.js slaar op paa netop den noegle',
+  ok('44.2 enhed.js slaar op paa netop den noegle',
     enhedJs.includes(`getElementById('${ENHED_ID}')`),
     'assets/enhed.js finder ikke kontakten mere');
-  ok('43.3 robot.mjs bruger samme id',
+  ok('44.3 robot.mjs bruger samme id',
     robotMjs.includes(`const ENHED_ID = '${ENHED_ID}'`),
     'robot.mjs har skiftet id - hukommelsen deles ikke laengere');
-  ok('43.4 sammenligning.js bruger samme id',
+  ok('44.4 sammenligning.js bruger samme id',
     samlJs.includes(`var ENHED_ID = '${ENHED_ID}'`),
     'assets/sammenligning.js har skiftet id');
   for (const [sprog, h] of [['da', html], ['en', htmlEn]]) {
-    ok(`43.5.${sprog} kontakten staar i den byggede side`,
+    ok(`44.5.${sprog} kontakten staar i den byggede side`,
       h.includes(`id="${ENHED_ID}"`) && h.includes('enhedsskift__boks'),
       'afkrydsningen mangler');
     // Hukommelsen er hele pointen med at dele noeglen: uden scriptet husker
     // siden ingenting, og acceptkriteriet (imperial valgt paa en robotside
     // aabner matricen imperialt) falder - tavst, for siden ser ens ud.
-    ok(`43.6.${sprog} enhed.js indlaeses`,
+    ok(`44.6.${sprog} enhed.js indlaeses`,
       /<script src="[^"]*enhed\.js"><\/script>/.test(h),
       'enhed.js hentes ikke - valget huskes ikke paa tvaers af sider');
   }
   // ... og synkront, FOER den deferrede sammenligning.js. Var den deferred,
   // ville matricen naa at blive tegnet metrisk og blinke.
-  ok('43.7 enhed.js er IKKE deferred',
+  ok('44.7 enhed.js er IKKE deferred',
     !/<script src="[^"]*enhed\.js" defer/.test(html),
     'enhed.js er deferred - matricen naar at blinke metrisk foerst');
 
@@ -149,36 +149,36 @@ export default async function koer(ctx) {
       if (post.enhed === '°C' && post.vaerdi === 0) {
         nulGrader++;
         // Selve faelden, som ét eksplicit krav: 0 °C skal blive 32 °F, aldrig 0.
-        ok(`43.8.${rd.slug} 0 °C bliver 32 °F, ikke 0`, set.vaerdi === 32,
+        ok(`44.8.${rd.slug} 0 °C bliver 32 °F, ikke 0`, set.vaerdi === 32,
           `${rd.slug}/${navn} gav ${set.vaerdi}`);
       }
     }
   }
-  ok('43.9 alle robotter i JSON findes i data/', manglende.length === 0, manglende.join(', '));
-  ok('43.10 hver imperial figur er imperialPost()s egen', afvig.length === 0,
+  ok('44.9 alle robotter i JSON findes i data/', manglende.length === 0, manglende.join(', '));
+  ok('44.10 hver imperial figur er imperialPost()s egen', afvig.length === 0,
     `${afvig.length} afvigelser: ${afvig.slice(0, 4).join(' | ')}`);
-  ok('43.11 der ER figurer at sammenligne', sammenlignet > 500, `kun ${sammenlignet}`);
-  ok('43.12 de otte 0 °C-felter er daekket', nulGrader === 8, `fandt ${nulGrader}`);
+  ok('44.11 der ER figurer at sammenligne', sammenlignet > 500, `kun ${sammenlignet}`);
+  ok('44.12 de otte 0 °C-felter er daekket', nulGrader === 8, `fandt ${nulGrader}`);
 
-  /* REGEL 1, som sit eget krav og ikke kun som en foelge af 43.10: oplyser
+  /* REGEL 1, som sit eget krav og ikke kun som en foelge af 44.10: oplyser
      producenten selv et imperialt tal, er det DERES, der staar. Taelles fra
      to uafhaengige sider - YAML'en og den byggede side - saa et fald i det
      ene tal ikke kan skjule sig i det andet. */
-  ok('43.13 regel 1: producentens egne tal er markeret som egne',
+  ok('44.13 regel 1: producentens egne tal er markeret som egne',
     egneIData === egneIYaml && egneIData > 0,
     `siden: ${egneIData}, YAML: ${egneIYaml}`);
 
   /* --- 3. CSS-VAERTEN: uden den er kontakten doed ------------------------ */
   const css = fs.readFileSync(path.join(rod, 'assets', 'system.css'), 'utf8');
-  ok('43.14 sammenligningssiden er IKKE en typeskilt-flade',
+  ok('44.14 sammenligningssiden er IKKE en typeskilt-flade',
     !html.includes('typeskilt'),
     'siden baerer nu .typeskilt - saa arver den §16c, og denne fils antagelse skal skrives om');
   for (const regel of ['.enhedsvis--metrisk', '.enhedsvis--imperial', '.enhedsnote']) {
-    ok(`43.15${regel} har en vaert paa sammenligningssiden`,
+    ok(`44.15${regel} har en vaert paa sammenligningssiden`,
       css.includes(`.sammenligning-app .enhedsskift__boks:checked ~ * ${regel}`),
       'kontakten er doed paa denne flade');
   }
-  ok('43.16 fokusringen tegnes ogsaa her',
+  ok('44.16 fokusringen tegnes ogsaa her',
     css.includes('.sammenligning-app .enhedsskift__boks:focus-visible ~ * .enhedsskift'),
     'boksen er 1x1 px - uden denne regel er der ingen synlig fokus');
 
@@ -186,12 +186,12 @@ export default async function koer(ctx) {
   const uden = data.robotter
     .filter((r) => !Object.keys(r.felter).some((n) => r.felter[n].imp))
     .map((r) => r.slug).sort();
-  ok('43.17 vaernet har noget at beskytte mod', uden.length > 0 && uden.length < 12,
+  ok('44.17 vaernet har noget at beskytte mod', uden.length > 0 && uden.length < 12,
     `${uden.length} robotter uden en eneste omregnelig figur`);
-  ok('43.18 strimlen tegnes betinget', /sidsteOmregnelige \? enhedslinjeHTML\(\)/.test(samlJs),
+  ok('44.18 strimlen tegnes betinget', /sidsteOmregnelige \? enhedslinjeHTML\(\)/.test(samlJs),
     'assets/sammenligning.js tegner kontakten ubetinget - en doed kontakt ved de '
     + `${uden.length} robotter uden omregnelige figurer`);
-  ok('43.19 afkrydsningen skjules med strimlen',
+  ok('44.19 afkrydsningen skjules med strimlen',
     /enhedsBoks\.hidden = !sidsteOmregnelige/.test(samlJs),
     'en fokusérbar kontrol uden synlig etikette bliver tilbage');
 
@@ -201,7 +201,7 @@ export default async function koer(ctx) {
      den forklare vores egen omregning med producentens ord. Maalt paa kilden,
      fordi wrapperen bygges ind i `metrisk` foer parret dannes. */
   const impLinje = samlJs.match(/var imperial = vaerdiSpan\([^\n]*\n/);
-  ok('43.20 regel 3: kildeformen staar kun paa den metriske tvilling',
+  ok('44.20 regel 3: kildeformen staar kun paa den metriske tvilling',
     !!impLinje && !impLinje[0].includes('original-enhed')
     && /metrisk = '<span class="original-enhed"/.test(samlJs),
     'kildeformen er havnet paa den imperiale figur');
