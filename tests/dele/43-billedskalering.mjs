@@ -54,7 +54,7 @@ export default async function koer(ctx) {
     rod, tmp, node, ok,
   } = ctx;
 
-  console.log('\n42. Billedskalering: srcset, bredder og sizes');
+  console.log('\n43. Billedskalering: srcset, bredder og sizes');
 
   /* ---------------------------------------------------------------- A + B + C
      Enhedsniveau mod et syntetisk assets-trae. Filerne behoever ikke vaere
