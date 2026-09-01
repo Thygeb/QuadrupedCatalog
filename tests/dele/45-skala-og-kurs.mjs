@@ -147,8 +147,13 @@ export default async function koer(ctx) {
     for (const navn of ['nyttelast', 'pris']) {
       const i = html.indexOf(`data-skala="${navn}"`);
       ok(`45.15.${sprog}.${navn}: skalaen findes`, i > 0);
-      const start = html.lastIndexOf('<fieldset', i);
-      const blok = html.slice(start, html.indexOf('</fieldset>', i));
+      // RETTET spor/katalog2, 1. sep 2026 (punkt 4): skalaBlok() bygger nu
+      // <details>/<summary> i stedet for <fieldset>/<legend> (JPK: "filter-
+      // felterne skal vaere collapsed som default"). Klasserne (facet,
+      // facet--skala osv.) er uaendrede - kun tagget skiftede - saa selve
+      // udsnittet af blokken foelger med ved at soege det nye tag i stedet.
+      const start = html.lastIndexOf('<details', i);
+      const blok = html.slice(start, html.indexOf('</details>', i));
 
       /* P0: SLIDEREN STAAR `hidden` I HTML'EN. Uden JavaScript er et
          <input type=range> en kontrol, der ikke goer noget - og en kontrol,

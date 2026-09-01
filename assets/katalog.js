@@ -208,6 +208,15 @@
   var hovedTaeller = form.querySelector('.taeller__tal');
   var resultatTitel = form.querySelector('.resultat__titel');
 
+  /* Filtergruppernes "mindst ét valgt"-maerke (JPK 1. sep 2026, punkt 4).
+     Uden JavaScript viser hver gruppe kun en TILSTEDEVAERELSE (CSS kan ikke
+     taelle - se katalog.mjs' facetAktivMrk()); denne del erstatter den med
+     det EKSAKTE tal. `[data-facetgruppe]` staar paa alle ni grupper, ogsaa
+     den reserverede certificeringsgruppe, som slet ingen afkrydsningsfelter
+     har og derfor aldrig faar et maerke at fylde (facetgruppeAntal() springer
+     den roligt over via `if (!mrk) continue`). */
+  var facetGrupper = form.querySelectorAll('[data-facetgruppe]');
+
   form.addEventListener('submit', function (e) { e.preventDefault(); });
 
   /* --- INDEKSET ------------------------------------------------------------
@@ -378,6 +387,46 @@
   /** Filtrerer skalaen overhovedet? I hvilestillingen goer den ikke. */
   function skalaAktiv(s) {
     return s.retning === 'mindst' ? s.nu > s.mindste : s.nu < s.stoerste;
+  }
+
+  /**
+   * Facetgruppernes eksakte "N valgt"-tal (JPK 1. sep 2026, punkt 4).
+   * Erstatter CSS-udgavens tilstedevaerelsesmaerke (katalog.mjs'
+   * facetAktivMrk() -> [data-facet-aktiv]) med et tal i [data-facet-antal].
+   *
+   * TO TAELLEMAADER, praecis som resten af filen skelner mellem dem:
+   *   - En SKALA (nyttelast, pris) er ÉN kontrol, ikke en liste af
+   *     afkrydsninger, naar JavaScript koerer (se filhovedets afsnit om
+   *     SKALAERNE) - "antal valgt" kan der kun vaere 0 eller 1, alt efter om
+   *     grebet staar i hvile.
+   *   - Enhver anden gruppe taelles ved at gaa `bokse` igennem og summere de
+   *     afkrydsede felter med samme `name` som gruppen - samme kilde, `bokse`,
+   *     som §4's per-vaerdi-taellere allerede bruger, saa der er ingen anden
+   *     taelling at driver fra.
+   */
+  function facetgruppeAntal() {
+    for (var g = 0; g < facetGrupper.length; g++) {
+      var gruppe = facetGrupper[g];
+      var navn = gruppe.getAttribute('data-facetgruppe');
+      var mrk = gruppe.querySelector('[data-facet-antal]');
+      if (!navn || !mrk) continue;
+      var antal = 0;
+      if (erSkala(navn)) {
+        for (var si = 0; si < skalaer.length; si++) {
+          if (skalaer[si].navn === navn && skalaAktiv(skalaer[si])) antal = 1;
+        }
+      } else {
+        for (var b2 = 0; b2 < bokse.length; b2++) {
+          if (bokse[b2].name === navn && bokse[b2].checked) antal++;
+        }
+      }
+      if (antal > 0) {
+        mrk.textContent = nformat(antal);
+        mrk.removeAttribute('hidden');
+      } else {
+        mrk.setAttribute('hidden', '');
+      }
+    }
   }
 
   /** Slipper ét kort gennem ÉN skala? */
@@ -637,6 +686,12 @@
       if (felt) felt.textContent = String(antal);
       if (etiket) etiket.classList.toggle('facet-tom', antal === 0);
     }
+
+    /* 4b. Filtergruppernes eksakte "N valgt" (punkt 4) - se facetgruppeAntal()
+       for begrundelsen. Kaldes hver gang, ligesom §4 ovenfor: en gruppes
+       markering kan aendre sig ved ethvert klik, ikke kun ved klik i den
+       gruppe selv (nulstil, et filterlink, tilbage-navigation). */
+    facetgruppeAntal();
 
     /* 5. Nul-tilstanden. Uden JavaScript kan den ikke naas fra filtrene -
        CSS kan ikke taelle - og det var fejl nr. 9 i kritikken: den ene

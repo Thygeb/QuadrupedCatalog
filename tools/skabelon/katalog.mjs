@@ -647,6 +647,22 @@ export function hovedStil(ctx) {
     }
   }
 
+  /* 6a2. FACETGRUPPENS "MINDST ÉT VALGT"-MAERKE (JPK 1. sep 2026, punkt 4).
+     Se facetBlok()s kommentar for den fulde begrundelse - dette er den
+     genererede halvdel. CSS kan ikke taelle, saa reglen her taender kun en
+     TILSTEDEVAERELSE ([data-facet-aktiv]) naar mindst ét afkrydsningsfelt i
+     gruppen er markeret; assets/katalog.js erstatter den med det praecise
+     tal, naar den kan. `:not([data-levende])` er den samme guard som §6a
+     bruger til skalaerne - naar JavaScript overtager en gruppe (i dag kun
+     de to skalaer), skal CSS'ens egen version tie, ellers kan de to komme
+     til at sige to forskellige ting om samme gruppe. */
+  const gruppeMrk = [];
+  for (const f of F) {
+    gruppeMrk.push(`.styr:not([data-levende]):has(.f-${f.navn}:checked) [data-facetgruppe="${f.navn}"] [data-facet-aktiv],`);
+    gruppeMrk.push(`.styr:not([data-levende]):has(.f-${f.navn}:target) [data-facetgruppe="${f.navn}"] [data-facet-aktiv]{display:inline}`);
+  }
+  gruppeMrk.push(`.styr:not([data-levende]):has(.f-eg:checked) [data-facetgruppe="eg"] [data-facet-aktiv]{display:inline}`);
+
   /* 6b. Egenskabschippene: ren HIDE, saa flere chips lagrer sig som OG.
      Se filhovedets note - det er den eneste facetgruppe, der virker saadan,
      fordi en capability er en uafhaengig betingelse og ikke en vaerdiliste. */
@@ -729,6 +745,9 @@ export function hovedStil(ctx) {
   return `/* Filtrene. Genereret af tools/skabelon/katalog.mjs - én regel pr. vaerdi. */
 @supports selector(:has(*)){
 ${linjer.join('\n')}
+
+/* Facetgruppernes "mindst ét valgt"-maerke (punkt 4). */
+${gruppeMrk.join('\n')}
 
 /* Egenskabschippene (OG, ikke ELLER - se filhovedet). */
 ${chipRegler.join('\n')}
@@ -885,10 +904,44 @@ export function render(ctx) {
       + `</label></div>`;
   };
 
-  const facetBlok = (f, bredde, klasser = '') => `<fieldset class="facet facet--s${bredde}${klasser}">
-<legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
+  /* --- GRUPPENS "MINDST ÉT VALGT"-MAERKE (JPK 1. sep 2026, punkt 4) --------
+     To spans, ALDRIG samme tekst paa samme tid:
+       - `data-facet-aktiv` er den JavaScript-frie udgave. CSS kan ikke
+         taelle, saa den er en TILSTEDEVAERELSE ("Valgt", genbruger
+         strimmel_valgt) og ikke et tal - sand, men ikke praecis, praecis som
+         briefets egen formulering. Regelen, der taender den, staar i
+         hovedStil() og laeser samme `.f-${navn}`-klasse som resten af
+         filtret. `:not([data-levende])` slukker den, saa snart JavaScript
+         overtager.
+       - `data-facet-antal` er den JavaScript kan fylde med det EKSAKTE tal
+         (assets/katalog.js' facetgruppeAntal()). Den staar `hidden`, indtil
+         scriptet saetter et tal - en tom taeller ville vaere en paastand
+         uden daekning.
+     Gruppens navn staar KUN på det omsluttende element (`data-facetgruppe`),
+     ikke gentaget paa hvert maerke - assets/katalog.js laeser det ÉN gang
+     pr. gruppe og finder sine to spans som efterkommere. */
+  const facetAktivMrk = () => `<span class="facet__aktiv" data-facet-aktiv hidden>${esc(t('strimmel_valgt'))}</span>`
+    + `<span class="facet__aktiv-tal" data-facet-antal hidden></span>`;
+
+  /* FACETGRUPPEN ER ET <details>/<summary> (JPK 1. sep 2026, punkt 4:
+     "Filter-felterne skal vaere collapsed som default"). `open` udelades
+     bevidst - collapsed ER standarden.
+
+     KLASSERNE STAAR UAENDRET (`facet facet--sN`), og det er ikke en
+     bekvemmelighed: generator.css:1356-1366 saetter display, polstring,
+     hairlines og grid-column-spaend paa NETOP disse klassenavne, uden at
+     spoerge om baereren er et <fieldset> eller et <details> - CSS kender
+     ikke til tags, kun klasser. Byttet fra <fieldset>+<legend> til
+     <details>+<summary> koster derfor ikke én linje i generator.css, som
+     dette spor alligevel ikke maa roere.
+
+     `data-facetgruppe` er kun til assets/katalog.js' opslag (facetgruppeAntal
+     finder sine to maerker som efterkommere af den) - hovedStil()s egne
+     :has()-regler bruger stadig `.f-${navn}`-klassen, uaendret af byttet. */
+  const facetBlok = (f, bredde, klasser = '') => `<details class="facet facet--s${bredde}${klasser}" data-facetgruppe="${attr(f.navn)}">
+<summary class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}${facetAktivMrk()}</summary>
 ${f.liste.map((v) => raekke(f, v)).join('\n')}
-</fieldset>`;
+</details>`;
 
   /* --- SKALABLOKKEN (L65c) -------------------------------------------------
      Samme fieldset som enhver anden facet, med tre ting mere: en skala, dens
@@ -933,8 +986,13 @@ ${f.liste.map((v) => raekke(f, v)).join('\n')}
     const ridser = knuder.map((n, i) => `<span class="skala__ridse" style="left:${attr(String(Math.round((i / led) * 1e4) / 100))}%">`
       + `<span class="skala__ridse-tal">${esc(hjaelp.nformat(n))}</span></span>`).join('');
 
-    return `<fieldset class="facet facet--s${bredde} facet--skala${klasser}">
-<legend class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}</legend>
+    // Samme <details>/<summary>-bytte som facetBlok() - se dens kommentar.
+    // Skalaen er ogsaa collapsed som standard: JavaScript fjerner `hidden`
+    // fra selve skalaen (linjen ovenfor), ikke fra <details>-elementets
+    // `open`, saa en laeser uden JavaScript stadig skal folde gruppen ud for
+    // at naa trinlisten - konsekvent med alle otte andre grupper.
+    return `<details class="facet facet--s${bredde} facet--skala${klasser}" data-facetgruppe="${attr(s.navn)}">
+<summary class="facet__navn">${esc(f.etiket)}${f.mrk ? `<span class="facet__tal">${esc(f.mrk)}</span>` : ''}${facetAktivMrk()}</summary>
 
 <div class="skala" hidden
  data-skala="${attr(s.navn)}"
@@ -964,7 +1022,7 @@ ${trinRaekker.map((v) => raekke(f, v)).join('\n')}
 </div>
 ${uoplyst.map((v) => raekke(f, v)).join('\n')}
 <p class="t-mikro skala__note">${noteHtml ?? esc(f.note)}</p>
-</fieldset>`;
+</details>`;
   };
 
   /* Egenskabsgruppen. Chippen er ÉT afkrydsningsfelt ("vis kun dem, der kan
