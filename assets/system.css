@@ -1870,7 +1870,12 @@ td .v{font-size:15px}
   display:flex;flex-direction:column;align-items:flex-end;gap:6px;
   margin:0 0 var(--r3);
 }
-.saml-enhedslinje .enhedsnote{margin:0;text-align:right}
+/* Noten er tre linjer, ikke tre ord. Blokken staar til hoejre (flex-end),
+   men TEKSTEN saettes venstrestillet: en hoejrestillet ragged-left brOEdtekst
+   over tre linjer tvinger oejet til at lede efter linjestarten forfra hver
+   gang. `--maal` er sitets egen laesebredde, saa linjelaengden bliver den
+   samme som i enhver anden brOEdtekst. */
+.saml-enhedslinje .enhedsnote{margin:0;text-align:left;max-width:var(--maal)}
 
 /* Matricens celler er smalle, og maerket maa ikke braekke figuren fra sin
    enhed. Paa robotsiden staar `.omregnet` paa samme linje som tallet; her
