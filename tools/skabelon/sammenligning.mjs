@@ -319,10 +319,11 @@ function vaelgerHTML(robotter, standard, legendeTekst, sogEtiket, sogPladsholder
   const felter = [...robotter].sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'))
     .map((r) => {
       const sogetekst = `${r.navn} ${r.producent}`.toLowerCase();
-      return `<span class="saml-chip" data-sog="${attr(sogetekst)}">`
-        + `<input type="checkbox" class="f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
+      return `<span class="vc" data-sog="${attr(sogetekst)}">`
+        + `<input type="checkbox" class="vc__felt f-saml" id="saml-${attr(r.slug)}" value="${attr(r.slug)}"`
         + `${std.has(r.slug) ? ' checked' : ''}>`
-        + `<label for="saml-${attr(r.slug)}">${esc(r.navn)}<span class="antal">${esc(r.producent)}</span></label>`
+        + `<label class="vc__mrk" for="saml-${attr(r.slug)}">${esc(r.navn)}`
+        + `<span class="vc__prod">${esc(r.producent)}</span></label>`
         + `</span>`;
     })
     .join('\n');
@@ -332,7 +333,7 @@ function vaelgerHTML(robotter, standard, legendeTekst, sogEtiket, sogPladsholder
 <label class="etiket" for="saml-soeg">${esc(sogEtiket)}</label>
 <input id="saml-soeg" type="search" autocomplete="off" placeholder="${attr(sogPladsholder)}">
 </div>
-<div class="filtre" data-saml-vaelger>
+<div class="vaelgernet" data-saml-vaelger>
 ${felter}
 </div>
 </fieldset>`;
