@@ -474,7 +474,17 @@ export function renderIndeks(ctx) {
   const alle = (Array.isArray(ctx?.producenter) ? ctx.producenter : [])
     .map((p) => ({
       ...p,
-      antal: p.antal ?? (Array.isArray(p.modeller) ? p.modeller.length
+      // p.antal !== undefined, IKKE `p.antal ?? …`: `??` behandler et
+      // EKSPLICIT `null` (producenten oplyser ikke sit fulde modeltal) som
+      // det samme som et helt fravaerende felt og ville regne det ud fra
+      // listens laengde alligevel — noejagtig den sammenblanding, "ikke
+      // oplyst" / "0" ikke maa lave (begraensning 5). Fundet af spor/
+      // prodindeks' 49.3, der satte antal: null og fik "1" tilbage, ikke en
+      // tom celle. Rammer ingen af de 25 rigtige producenter i dag —
+      // build.mjs saetter aldrig p.antal, saa feltet er altid `undefined`
+      // der, aldrig `null` — men reglen skal holde den dag data/
+      // manufacturers/ ikke laengere er tom.
+      antal: p.antal !== undefined ? p.antal : (Array.isArray(p.modeller) ? p.modeller.length
         : Array.isArray(p.robotter) ? p.robotter.length : null),
     }))
     .sort((a, b) => String(a.navn ?? '').localeCompare(String(b.navn ?? ''), ctx?.sprog ?? 'da'));
