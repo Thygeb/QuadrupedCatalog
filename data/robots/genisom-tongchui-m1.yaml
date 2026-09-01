@@ -145,7 +145,7 @@ felter:
     operator: "<"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"充电时长: ＜ 2 h\"."
+    advarsel: "\"充电时长: ＜ 2 h\" (ladetid)."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -174,7 +174,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNDERSØGT, MEN IKKE SAT. GENISOM AI's GitHub-organisation (zsibot) har et repo \"genisom_robot_sdk\" (README: \"Programming Language: C++\", Ubuntu 22.04/CMake/GCC/Boost), men repoet har INGEN GitHub-beskrivelse, der binder det til et specifikt produktnavn (modsat \"genisom_L1_sdk\", som eksplicit hedder \"Official SDK for Genisom L1 Series robots\"). Hverken \"M1\" eller \"铜锤\" står i den udtrukne README-tekst. At bruge repoet til M1 ville være samme slags navnesammenfald-uden-bevis, som blev fanget og afvist på L2's ros2-felt i forrige runde - derfor ikke oplyst i stedet for et gæt."
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); 基础动作 (踏步/滑行/匍匐等姿态, 前后左右直线移动, 原地旋转, 膝关节姿态变换, 支持砂石路/柏油路/草地/沙地/森林地面/建筑废墟等路面); 特技动作 (爬高墙/过挡鼠板/过窄墙/扭一扭等); 实时图像传输; OTA升级; 二次开发支持; 自主导航 (选配: 智航Pro版, 建图/定位/导航/避障); 智能避障"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); grundbevægelser (march/glide/kravle-positioner m.fl., ligeud bevægelse frem/tilbage/venstre/højre, rotation på stedet, knæledsposition-skift, understøtter grus/asfalt/græs/sand/skovbund/byggeruiner m.fl. underlag); specialbevægelser (klatre høj mur/krydse forhindringsplade/passere smal mur/vrikke m.fl.); realtids billedoverførsel; OTA-opdatering; understøtter videreudvikling; autonom navigation (tilvalg: Zhihang Pro-version, kortlægning/positionering/navigation/undvigelse); intelligent undvigelse af forhindringer"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala. Selvstændig navigation står eksplicit som TILVALG (\"选配\"), ikke standard."

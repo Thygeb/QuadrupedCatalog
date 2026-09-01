@@ -42,7 +42,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\"."
+    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" (stående mål, længde×bredde×højde, ca.)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 450
@@ -137,7 +137,7 @@ felter:
     advarsel: "Tilbehørsliste i L2-W's egen datablok har TO rækker: \"充电座: 标配\" (standardudstyr) OG separat \"充电桩（包含自主回充功能）: 选配\" (tilvalgt, inkl. autonom genopladningsfunktion). Samme to-niveau-mønster som basisudgaven L2."
   lidar: "ikke_oplyst"
   kameraer:
-    vaerdi: "Stereokamera, 2 x 2,07 MP (双目相机)"
+    vaerdi: "Stereokamera, 2 x 2,07 MP"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
     advarsel: "Identisk med basisudgaven - kun IMU og stereokamera står i L2-W's sensor-sektion, ingen lidar-række."
@@ -149,7 +149,7 @@ felter:
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); UWB (支持); 自主跟随 (支持); 智能避障 (支持); 二次开发支持; OTA升级; 特技动作 (倒立/双腿站立/托马斯/后空翻); 基础动作 (站立/卧倒/匍匐前进/向前跳/向上跳/锁定动作)"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); UWB (understøttet); autonom følgning (understøttet); intelligent undvigelse af forhindringer (understøttet); understøtter videreudvikling; OTA-opdatering; specialbevægelser (håndstand/stå på to ben/Thomas flair/baglæns saltomortale); grundbevægelser (stå/ligge/kravle fremad/spring fremad/spring opad/lås position)"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra L2-W's egen funktionsliste. Tilføjer \"托马斯\" (Thomas flair) til specialbevægelserne sammenlignet med basisudgavens liste."

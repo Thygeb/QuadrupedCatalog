@@ -44,7 +44,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" - identisk med L2-W."
+    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" (stående mål, længde×bredde×højde, ca.) - identisk med L2-W."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 450
@@ -155,7 +155,7 @@ felter:
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); UWB (支持); 自主跟随 (支持, GLUE 全向自主跟随); 智能避障 (激光+视觉 融合避障); 目标追踪 (支持); 二次开发支持; OTA升级; 自主导航 (支持); 实时图像传输 (支持); RTK定位模块 (支持); 特技动作 (倒立/双腿站立/托马斯/后空翻); 基础动作 (站立/卧倒/匍匐前进/向前跳/向上跳/爬高台/锁定动作)"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); UWB (understøttet); autonom følgning (understøttet, GLUE omnidirektionel autonom følgning); intelligent undvigelse af forhindringer (laser+vision-fusionsundvigelse); målsporing (understøttet); understøtter videreudvikling; OTA-opdatering; autonom navigation (understøttet); realtids billedoverførsel (understøttet); RTK-positioneringsmodul (understøttet); specialbevægelser (håndstand/stå på to ben/Thomas flair/baglæns saltomortale); grundbevægelser (stå/ligge/kravle fremad/spring fremad/spring opad/klatre op på platform/lås position)"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra denne variants egen funktionsliste - rigere end L2/L2-W's, tilføjer autonom navigation som standard (ikke tilvalg), målsporing, RTK og laser+vision-fusionsundvigelse."
