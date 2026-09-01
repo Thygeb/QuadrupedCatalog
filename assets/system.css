@@ -1737,14 +1737,25 @@ td .v{font-size:15px}
   padding:4px 8px;min-height:24px;
   font-family:var(--mono);font-size:9.5px;font-weight:700;
   letter-spacing:.13em;text-transform:uppercase;
-  color:var(--blaek);background:var(--bund);
-  border:0;border-left:1px solid var(--linje);border-bottom:1px solid var(--linje);
-  cursor:pointer;
+  border:0;cursor:pointer;
+  /* HVILETILSTANDEN ER DAEMPET MED VILJE. Knappen staar paa 83 kort samtidig
+     og er dermed sidens mest gentagne element; i fuld blaek med ramme blev
+     den den foerste ting, oejet maatte gennem, foer det naaede en robot
+     (set paa skaermbillede, 1440). MANIFESTets "faerre streger" gaelder
+     her. Stoev-blaek paa eloxgraa maaler 4,74:1 - over AA for den fede,
+     versale grad den staar i - saa daempningen koster ikke laesbarhed.
+     Fladen er ugennemsigtig og ikke transparent: kortets billede kan naa
+     helt op i hjoernet, og en transparent knap ville da staa paa et foto. */
+  color:var(--stoev-blaek);background:var(--bund);
 }
 /* Krydset er et REN CSS-tegn, ikke et ikon: ét glyf mindre at hente, og det
    skifter betydning med tilstanden (+ afsat, x fjern igen). */
 .kort__saml::before{content:"+";font-size:12px;line-height:1;font-weight:700}
-.kort__saml:hover{background:var(--panel)}
+/* Kortet under musen har KUN én knap, saa dér maa den godt traede frem. */
+.kort:hover .kort__saml,.kort__saml:hover,.kort__saml:focus-visible{
+  color:var(--blaek);background:var(--panel);
+  box-shadow:inset 0 0 0 1px var(--linje);
+}
 /* AFSAT: afmaerkningsgul. Farven er sidens markeringsfarve (D15), ikke en
    handelsfarve - og gunmetal paa gul maaler 9,19:1, saa teksten baerer.
    Den er OGSAA det eneste sted paa kortet, gult optraeder, saa et afsat kort
@@ -1765,6 +1776,12 @@ td .v{font-size:15px}
    uanset hvad der staar paa den. Her er den en chip blandt chips. */
 .saml-taeller{
   display:none;align-items:center;gap:8px;flex-wrap:wrap;
+  /* EGEN RAEKKE PAA PLADEN, med strimlens egen vandrette indrykning
+     (var(--r5)), saa den flugter med baandet ovenover i stedet for at ligge
+     og klemme sig mellem baandet og soegefeltets etikette. Hairline foroven
+     og forneden: raekken er en stansning i pladen som de oevrige. */
+  margin:0;padding:10px var(--r5);
+  border-bottom:1px solid var(--linje);
   font-family:var(--mono);font-size:11px;font-weight:700;
   letter-spacing:.13em;text-transform:uppercase;color:var(--blaek);
 }
@@ -1785,14 +1802,39 @@ td .v{font-size:15px}
 /* Graensebeskeden. `role="status"` i HTML'en, saa en skaermlaeser hoerer den;
    den staar kun, naar et klik faktisk blev afvist. */
 .saml-graense{
+  margin:0;padding:10px var(--r5);
+  border-bottom:1px solid var(--linje);
   font-family:var(--mono);font-size:11px;font-weight:600;
   letter-spacing:.04em;color:var(--blaek);
-  border-left:3px solid var(--accent);padding-left:8px;
+  box-shadow:inset 3px 0 0 var(--accent);
 }
+/* Tom besked = ingen raekke. `:empty` rammer kun, naar der ikke er ét eneste
+   tegn - og det er praecis tilstanden "intet klik er blevet afvist". */
 .saml-graense:empty{display:none}
 
 @media (max-width:720px){
   /* Knappen er et 24 px maal paa 1440. Paa touch skal den op paa 44 px, som
      resten af sidens betjening (samme graense som .udtraek__greb). */
   .kort__saml{min-height:44px;padding:6px 11px;font-size:10px}
+}
+
+/* 460 PX ER MAALT, IKKE VALGT EFTER SMAG. Fra 720 px og ned staar kortene
+   2-op (generator.css:1572), og kortbredden falder derfor med viewporten.
+   Maalt ved 390 px: kort 171 px · statusstempel "Annonceret" 85 px · knap
+   106 px = 190 px, som skal dele den samme oeverste kant. De to stoeder
+   sammen, saa snart kortet er smallere end ~190 px, hvilket sker under ca.
+   433 px viewport; 460 giver den maaling lidt luft.
+
+   UNDER GRAENSEN FOLDER KNAPPEN TIL SIT GLYF. Ordet forsvinder kun VISUELT -
+   `aria-label` baerer stadig "Sammenlign: <robot>", saa det tilgaengelige
+   navn er uaendret, og 44 px-maalet bevares. Det er statusstemplet, der
+   skal have pladsen: det er fabrikantens oplysning om maskinen, og den kan
+   laeseren ikke slaa op andre steder paa kortet - knappens betydning kan
+   hun laere af det foerste tryk. */
+@media (max-width:460px){
+  .kort__saml{padding:6px;gap:0;min-width:44px;justify-content:center}
+  .kort__saml-ord{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip-path:inset(50%);white-space:nowrap;
+  }
 }

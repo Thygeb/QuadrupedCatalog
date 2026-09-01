@@ -377,6 +377,57 @@
     resultat.innerHTML = tabelHTML(slugs);
   }
 
+  /* --- UDVALGET FRA KATALOGETS SAMLKNAPPER (JPK 1. sep 2026, punkt 1) ------
+     JPK valgte lokalt lager frem for URL-parametre, netop for at et udvalg
+     kan samles paa tvaers af sider. Her er den anden ende af den ledning:
+     har laeseren afsat robotter i kataloget, er det DEM, siden aabner med.
+
+     LAESERENS EGET VALG VINDER OVER STANDARDVALGET. Skabelonen krydser tre
+     robotter af paa forhaand (standardvalg() i sammenligning.mjs: de tre
+     taettest udfyldte fra hver sin producent), og det er et godt foerste
+     indtryk - men det er sidens gaet, ikke laeserens valg. Ligger der et
+     udvalg, erstatter det derfor standardvalget HELT, ogsaa hvis det kun
+     rummer én robot: saa staar der "vaelg mindst 2", hvilket er sandt og er
+     praecis den tilstand, laeseren selv har lavet. At fylde op til tre med
+     sidens egne gaet ville skjule, hvad laeseren faktisk havde afsat.
+
+     TOMT ELLER UTILGAENGELIGT LAGER AENDRER INTET: standardvalget staar, og
+     siden opfoerer sig noejagtig som foer. Det er ogsaa derfor hele blokken
+     kan kaste uden at koste noget - `catch` falder tilbage til status quo. */
+  var SAML_NOEGLE = 'quad-sammenligning';
+  try {
+    var raa = window.localStorage.getItem(SAML_NOEGLE);
+    if (raa) {
+      var gemt = JSON.parse(raa);
+      if (Object.prototype.toString.call(gemt) === '[object Array]' && gemt.length) {
+        /* Kun slugs, siden faktisk kender. Et gemt udvalg kan vaere aeldre end
+           kataloget: fjernes en robot, skal den droppes stille, ikke krydse
+           en boks af, der ikke findes. `maksAntal` klipper resten. */
+        var kendte = {};
+        checkboxes.forEach(function (c) { kendte[c.value] = true; });
+        var brug = [];
+        gemt.forEach(function (v) {
+          if (typeof v === 'string' && kendte[v] && brug.indexOf(v) < 0
+            && brug.length < DATA.maksAntal) brug.push(v);
+        });
+        if (brug.length) {
+          checkboxes.forEach(function (c) { c.checked = brug.indexOf(c.value) >= 0; });
+        }
+      }
+    }
+  } catch (e) { /* intet lager: standardvalget staar */ }
+
+  /* Ledningen gaar BEGGE VEJE. Fjerner laeseren en robot her, skal katalogets
+     taeller ikke blive staaende paa det gamle tal - saa var udvalget to
+     forskellige ting afhaengigt af, hvilken side man saa det fra.
+     Skrives kun ved `change`, aldrig ved indlaesning: sidens standardvalg er
+     sidens gaet, og et gaet maa ikke forvandles til laeserens valg, bare
+     fordi siden blev aabnet. */
+  function gemUdvalg() {
+    try { window.localStorage.setItem(SAML_NOEGLE, JSON.stringify(valgte())); }
+    catch (e) { /* intet lager: udvalget lever kun paa denne side */ }
+  }
+
   checkboxes.forEach(function (c) {
     c.addEventListener('change', function () {
       if (valgte().length > DATA.maksAntal) {
@@ -384,6 +435,7 @@
         visStatus(DATA.tekst.maks);
         return;
       }
+      gemUdvalg();
       opdater();
     });
   });

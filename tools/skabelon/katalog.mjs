@@ -455,7 +455,9 @@ ${omfang}
    ========================================================================== */
 
 export function render(ctx) {
-  const { robotter, i18n, sprog, hjaelp } = ctx;
+  // `url` og ikke en haandregnet '../': build.mjs' grund() advarer selv om, at
+  // "en haandregnet '../../' er den slags fejl, der ikke ses foer i browseren".
+  const { robotter, i18n, sprog, hjaelp, url } = ctx;
   const { T, t, tf } = i18n;
   const F = facetter(robotter, hjaelp, i18n);
   const K = kapabiliteter(robotter);
@@ -664,7 +666,7 @@ ${facetBlok(land, 3, ' facet--sidste-raekke')}
     // yderste lag og ARVES ned (CSS-variable nedarves) - samme greb som foer
     // ombygningen.
     return `<article class="kort${variant}">`
-      + `${stempel}${hjaelp.billede(r, '../../', { eager })}`
+      + `${stempel}${hjaelp.samlknap(r)}${hjaelp.billede(r, '../../', { eager })}`
       + `<div class="kort__tekst">`
       + `<p class="kort__prod">${esc(r.producent)}</p>`
       + `<h3 class="kort__navn"><a href="${attr(r.slug)}/">${esc(r.navn)}</a></h3>`
@@ -820,6 +822,23 @@ ${omfangStandard}
 </p>
 <button class="nulstil" type="reset" data-nulstil>${esc(t('filter_nulstil'))}</button>
 </div>
+
+<!-- SAMLTAELLEREN. Staar i strimlen, hvor sidens oevrige aktive valg allerede
+     staar, og ikke i et fastklaebet baand: et svaevende "N valgt" med en
+     fremad-knap er indkoebskurvens form (haard begraensning 1). Her er den en
+     chip blandt chips - og den forsvinder helt, naar udvalget er tomt.
+     Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript findes
+     hverken knapperne eller udvalget, saa en taeller ville vaere en paastand
+     om noget, laeseren ikke kan naa (P0). -->
+<p class="saml-taeller" data-saml-taeller hidden
+ data-saml-skabelon="${attr(t('saml_taeller'))}"
+ data-saml-maks-tekst="${attr(t('sammenligning_maks'))}">
+<span class="saml-taeller__tal" data-saml-tal>0</span>
+<span data-saml-ord></span>
+<a class="saml-taeller__gaa" href="${attr(url.sammenligning)}">${esc(t('saml_gaa'))}</a>
+<button class="saml-taeller__ryd" type="button" data-saml-ryd>${esc(t('saml_ryd'))}</button>
+</p>
+<p class="saml-graense" data-saml-graense role="status"></p>
 
 <details class="udtraek" open>
 <summary class="udtraek__greb">${esc(t('filter_udtraek'))}<span class="haandtag" aria-hidden="true">${hjaelp.ikon('i-pil', 'haandtag__tegn')}</span></summary>

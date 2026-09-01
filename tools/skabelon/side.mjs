@@ -1427,11 +1427,59 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // noejagtigt seks kort - hverken et style- eller et data-attribut maa
     // derfor ind foran klassen.
     return `<article class="kort">`
-      + `${stempel}${billede(emne, op, { eager })}`
+      + `${stempel}${samlknap(robot)}${billede(emne, op, { eager })}`
       + `<div class="kort__tekst">`
       + `<p class="kort__prod">${esc(robot.producent)}</p>`
       + `<h3 class="kort__navn"><a href="${attr(hvorhen)}">${esc(robot.navn ?? robot.slug)}</a></h3>`
       + `</div></article>`;
+  }
+
+  /* --- 9b. samlknappen ----------------------------------------------------
+   * "Tilfoej til sammenligning" (JPK 1. sep 2026, punkt 1). Ét sted, brugt af
+   * baade dette kort og katalogets egen kopi, saa de to flader ikke kan skride
+   * fra hinanden - det var netop den fejl, kommentaren over kort() beskriver.
+   *
+   * ARKITEKTURREGEL P0 (assets/katalog.js:1-17) LIGGER I `hidden`-ATTRIBUTTEN,
+   * og den er hele knappens fundament: "Uden JavaScript er siden SAND, men
+   * statisk. Med JavaScript bliver den PRAECIS." Uden JavaScript findes
+   * knappen derfor ikke for laeseren - hverken visuelt, i taborden eller i
+   * tilgaengelighedstraeet - og sammenligningssidens egne afkrydsningsfelter
+   * er uroert den eneste vej ind. assets/katalog.js fjerner attributten.
+   * En knap, der ikke goer noget, er vaerre end ingen knap.
+   *
+   * DERFOR ER DEN OGSAA INERT PAA PRODUCENTSIDERNE, og det er et bevidst
+   * fravalg frem for en fejl: de 50 producentsider indlaeser INTET JavaScript
+   * (maalt - kun forsiden og katalogsiden henter katalog.js), saa `hidden`
+   * bliver aldrig fjernet dér. Markup'en koster ~1,5 kort pr. side og taender
+   * af sig selv den dag, en side faar scriptet med. Alternativet - en
+   * parameter, kaldere skulle saette - ville kraeve aendringer i forside.mjs
+   * og producent.mjs, som dette spor ikke ejer.
+   *
+   * HAARD BEGRAENSNING 1: knappen er en SAMMENLIGNINGSHANDLING, ikke en kurv.
+   * Ordet er "Sammenlign", tilstanden er `aria-pressed`, og der findes intet
+   * trin bagefter, der peger mod en fabrikant. Se ogsaa .saml-taeller i
+   * system.css for, hvorfor taelleren er en chip i strimlen og ikke et
+   * fastklaebet baand - et svaevende "N valgt"-baand med en fremad-knap ER
+   * kurvens form, uanset hvad der staar paa den.
+   *
+   * TEKSTEN SKIFTER IKKE MED TILSTANDEN. Den synlige etiket er altid
+   * "Sammenlign", og om kortet er afsat, baeres af `aria-pressed` (hoert) og
+   * af den gule flade plus krydset (set). Skiftede ordet til "Valgt", ville
+   * den synlige tekst ikke laengere findes i det tilgaengelige navn
+   * (WCAG 2.5.3, "Label in Name"), og knappens bredde ville hoppe.
+   */
+  function samlknap(robot) {
+    if (!robot.slug) return '';
+    return `<button type="button" class="kort__saml" hidden`
+      + ` data-saml="${attr(robot.slug)}" aria-pressed="false"`
+      + ` aria-label="${attr(tf('kort_saml_navn', { robot: robot.navn ?? robot.slug }))}">`
+      // Ordet ligger i sin EGEN span, saa CSS kan folde det vaek paa de
+      // smalleste kort. MAALT ved 390 px: kortet er 171 px, statusstemplet
+      // "Annonceret" 85 px og knappen 106 px - 190 px paa en 171 px raekke,
+      // altsaa et sammenstoed. Et bart tekstknudepunkt kan ikke rammes af en
+      // vaelger; derfor spannet. Det tilgaengelige navn kommer fra
+      // aria-label og er uroert af, at ordet skjules visuelt.
+      + `<span class="kort__saml-ord">${esc(T.kort_saml_knap)}</span></button>`;
   }
 
   /* --- 10. tegnforklaringen ---------------------------------------------- */
@@ -1462,7 +1510,7 @@ ${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</s
     tal, tilstand, kildemaerke, kilder: lavKilder, vaegtklasse, anvendelse,
     // --- bekvemmeligheder ---
     esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe,
-    ceTilstand, billede, billedsandhed, billedTekst, kort, tegnforklaring, nformat, dformat, operator,
+    ceTilstand, billede, billedsandhed, billedTekst, kort, samlknap, tegnforklaring, nformat, dformat, operator,
     saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER, EAGER_KORT_ANTAL,
     // L50: vaegtklasser() - flertalsversionen, se dens egen kommentar ved
     // definitionen. KUN kataloget (katalog.mjs) laeser den i dag.

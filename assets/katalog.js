@@ -41,6 +41,145 @@
     });
   }
 
+  /* ======================================================================
+     SAMLINGEN: "Tilfoej til sammenligning" (JPK 1. sep 2026, punkt 1)
+
+     STAAR FOER DEN TIDLIGE `return` NEDENFOR MED VILJE. Linjen
+     `if (!gitter || !input || !form) return;` springer resten af filen over
+     paa sider uden resultatgitteret - og forsiden er netop saadan en side,
+     men den HAR kort med samlknapper. Laegges denne blok efter linjen,
+     virker knapperne kun i kataloget, og fejlen er tavs.
+
+     P0 I PRAKSIS (se filhovedet): knapperne staar `hidden` i HTML'en, og det
+     er DENNE fil, der fjerner attributten. Uden JavaScript findes de derfor
+     ikke - hverken visuelt, i taborden eller i tilgaengelighedstraeet - og
+     sammenligningssidens egne afkrydsningsfelter er uroert den eneste vej
+     ind. JavaScript forbedrer sandheden; den baerer den ikke.
+
+     JPK valgte UDTRYKKELIGT lokalt lager frem for URL-parametre, saa et
+     udvalg kan samles paa tvaers af sider. Ingen cookie, intet netvaerkskald:
+     localStorage bliver paa maskinen og forlader den aldrig.
+     ====================================================================== */
+  var SAML_NOEGLE = 'quad-sammenligning';
+  /* SKAL STEMME MED `maksAntal` i tools/skabelon/sammenligning.mjs (i dag 3).
+     Tallet kan ikke importeres herind - det er en egenskab paa et objekt,
+     skabelonen returnerer, ikke en eksport - saa i stedet vogter
+     tests/dele/41-samlknap.mjs, at de to er ens. Driver de fra hinanden,
+     bliver testen roed i stedet for at knappen tavst tillader en fjerde. */
+  var SAML_MAKS = 3;
+
+  var samlKnapper = document.querySelectorAll('[data-saml]');
+  if (samlKnapper.length) {
+    var samlTaeller = document.querySelector('[data-saml-taeller]');
+    var samlTal = document.querySelector('[data-saml-tal]');
+    var samlOrd = document.querySelector('[data-saml-ord]');
+    var samlGraense = document.querySelector('[data-saml-graense]');
+    var samlRyd = document.querySelector('[data-saml-ryd]');
+    /* Ordlyden hentes fra det, skabelonen allerede har skrevet, saa den
+       oversatte streng staar ÉT sted (data/i18n/*.json) og ikke ogsaa her.
+       `data-saml-skabelon` baerer "valgt til sammenligning" UDEN tallet:
+       tallet staar i sit eget gule stempel ved siden af, og stod det begge
+       steder, laeste raekken "3 · 3 valgt til sammenligning" (set paa
+       skaermbillede, 1440). Skabelonen beholder replace('{n}') alligevel,
+       saa en oversaettelse, der HAR brug for tallet inde i saetningen, kan
+       saette det - flere sprog kan ikke boeje uden om det. */
+    var samlSkabelon = samlTaeller ? samlTaeller.getAttribute('data-saml-skabelon') : '';
+    var samlMaksTekst = samlTaeller ? samlTaeller.getAttribute('data-saml-maks-tekst') : '';
+
+    /* Lokalt lager kan KASTE, ikke bare vaere tomt: privat vindue, blokerede
+       site-data, eller en browser der afviser skrivning naar kvoten er fuld.
+       Hvert kald er derfor pakket ind, og en fejl giver et tomt udvalg -
+       knappen holder op med at huske, men siden gaar ikke i stykker. */
+    function laesUdvalg() {
+      try {
+        var raa = window.localStorage.getItem(SAML_NOEGLE);
+        if (!raa) return [];
+        var a = JSON.parse(raa);
+        if (Object.prototype.toString.call(a) !== '[object Array]') return [];
+        var ud = [];
+        for (var i2 = 0; i2 < a.length && ud.length < SAML_MAKS; i2++) {
+          if (typeof a[i2] === 'string' && a[i2]) ud.push(a[i2]);
+        }
+        return ud;
+      } catch (e) { return []; }
+    }
+    function skrivUdvalg(a) {
+      try { window.localStorage.setItem(SAML_NOEGLE, JSON.stringify(a)); } catch (e) { /* tavs */ }
+    }
+
+    function sigGraense(tekst) {
+      if (samlGraense) samlGraense.textContent = tekst || '';
+    }
+
+    function tegnSaml() {
+      var valgt = laesUdvalg();
+      var k;
+      for (var i2 = 0; i2 < samlKnapper.length; i2++) {
+        k = samlKnapper[i2];
+        k.removeAttribute('hidden');
+        var er = valgt.indexOf(k.getAttribute('data-saml')) >= 0;
+        k.setAttribute('aria-pressed', er ? 'true' : 'false');
+      }
+      if (samlTaeller) {
+        /* Taelleren FORSVINDER ved tomt udvalg i stedet for at staa og sige
+           "0 valgt": et nul, ingen har valgt, er ikke en oplysning - det er
+           stoej i en strimmel, der ellers kun viser aktive valg. */
+        if (valgt.length) {
+          samlTaeller.removeAttribute('hidden');
+          samlTaeller.setAttribute('data-aktiv', '');
+        } else {
+          samlTaeller.setAttribute('hidden', '');
+          samlTaeller.removeAttribute('data-aktiv');
+        }
+        if (samlTal) samlTal.textContent = String(valgt.length);
+        if (samlOrd) samlOrd.textContent = samlSkabelon.replace('{n}', String(valgt.length));
+      }
+    }
+
+    for (var s = 0; s < samlKnapper.length; s++) {
+      samlKnapper[s].addEventListener('click', function (e) {
+        e.preventDefault();
+        var slug = this.getAttribute('data-saml');
+        var valgt = laesUdvalg();
+        var p = valgt.indexOf(slug);
+        if (p >= 0) {
+          valgt.splice(p, 1);
+          sigGraense('');
+        } else if (valgt.length >= SAML_MAKS) {
+          /* GRAENSEN SIGES, DEN VISES IKKE SOM 74 DAEMPEDE KNAPPER.
+             Alternativet - at slukke alle ikke-valgte knapper, naar den
+             tredje er sat - ville gaette, at laeseren er faerdig, og goere
+             74 kort passive for at haandhaeve en regel om 3. Her afvises
+             kun det klik, der faktisk overskrider, og beskeden staar i en
+             role="status", saa den ogsaa hoeres. */
+          sigGraense(samlMaksTekst);
+          return;
+        } else {
+          valgt.push(slug);
+          sigGraense('');
+        }
+        skrivUdvalg(valgt);
+        tegnSaml();
+      });
+    }
+
+    if (samlRyd) {
+      samlRyd.addEventListener('click', function () {
+        skrivUdvalg([]);
+        sigGraense('');
+        tegnSaml();
+      });
+    }
+
+    /* To faner aabne paa samme side: den ene skal ikke vise et foraeldet tal.
+       `storage` fyrer kun i de ANDRE faner, saa der er ingen sloejfe. */
+    window.addEventListener('storage', function (e) {
+      if (!e.key || e.key === SAML_NOEGLE) tegnSaml();
+    });
+
+    tegnSaml();
+  }
+
   var gitter = document.getElementById('alle');
   var input = document.getElementById('sog-katalog');
   var form = document.getElementById('styr');
