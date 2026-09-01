@@ -90,6 +90,27 @@ kør `impeccable shape` på fladen i stedet for at sende rettelserne enkeltvis.
 En enkeltstående, isoleret fejl må stadig rettes direkte — SELECTED-baren, der
 viste en standardtilstand som et brugervalg, var en sådan.
 
+**DESIGNFRYS, skærpet af JPK 1. sep 2026: *"vi skal have en overordnet
+designplan, inden vi retter noget design."*** Fund noteres, de rettes ikke.
+Frysen gælder, indtil den overordnede plan findes.
+
+Fælden, frysen lukker, er at et designfund kan **ligne** en almindelig fejl.
+Samme dags `FUND-uiux.md` er eksemplet: afmærkningsgul som tekstfarve på lys
+bund giver **1,38:1** mod WCAG's krav på 4,5 — efterregnet uafhængigt af to
+parter. Det ser ud som en fejl, der bare skal rettes. Men paletten er låst af
+D15, så rettelsen kan ikke være "vælg en anden gul"; den må være en
+systemregel om, **hvor `--accent` overhovedet må bruges som forgrund**. Den
+regel hører i planen, ikke i et hastespor.
+
+Rodårsagen er værd at kende, fordi den kan gentage sig for ethvert token:
+palettens egen kommentar siger `9,19` — og det tal er rigtigt for gunmetal
+**på** gult. Tokenet blev målt som **baggrund** og bruges som **forgrund**.
+Et kontrasttal uden en læseretning er ikke et tal.
+
+**Undtaget frysen:** rene funktionsfejl (en knap, der ikke virker), brudte
+hårde begrænsninger, og fejl hvor rettelsen ikke rører en systembeslutning.
+Er du i tvivl, om noget er en designrettelse: det er det.
+
 **Navngiv fladens MODE, hver gang.** Det er skillens egen ramme, og projektet
 brugte den ikke før nu: katalogsiden er **Operate** (den besøgende løser en
 opgave), robotsiden og Om os er **Read** (den besøgende skal forstå noget). To
