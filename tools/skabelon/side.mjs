@@ -319,22 +319,127 @@ export function laesBillede(robot, rod = ROD, { forhold = SIDEFORHOLD_MAAL } = {
   };
 }
 
+/* =============================================================== skalering
+   spor/foto, 1. sep 2026. Foer denne dato fandtes der INGEN skalering: hvert
+   <picture> pegede paa originalen og kun den, og sammenligningssidens 74px
+   chip hentede microrobotech-movenew-p1.jpg paa 4096 px og 329 KB (maalt).
+
+   Filerne laves IKKE her. `tools/build.mjs` er afhaengighedsfri, og Node kan
+   ikke skalere et billede uden et bibliotek — derfor ligger generatoren i
+   maalevaerktoej/skaler-fotos.mjs, uden for repoet, praecis som Playwright.
+   Bygget SER kun de faerdige filer paa disken.
+
+   Konventionen er den, `billedAlternativer` allerede brugte ("samme filnavn,
+   anden endelse"), udvidet med ét led:  <filnavn>-<bredde>w.<endelse>.
+   Kontrolleret: nul af de 76 originaler matcher `-\d+w\.`, saa suffikset kan
+   ikke kollidere med et originalnavn.
+
+   VAERNET ER UAENDRET: kun filer, der FINDES paa disken, bliver til en kilde.
+   Findes ingen skalerede udgaver, opfoerer funktionen sig noejagtigt som foer
+   — og en side uden derivater falder tilbage til originalen og er stadig
+   rigtig. Der bygges aldrig en srcset til en fil, ingen har lavet.
+   ======================================================================== */
+
+/** `<navn>-<bredde>w.<endelse>` — én regex, ét sted. */
+const SKALA_MOENSTER = /^(.*)-(\d+)w(\.[a-z0-9]+)$/i;
+
 /**
- * <source>-linjerne til et <picture>. Kun formater, der FINDES som fil i
+ * Index over de skalerede udgaver: basisnavn -> endelse -> [[bredde, fil], …]
+ * sorteret STIGENDE efter bredde. Cachet pr. rod, som billedFiler(), fordi et
+ * byg ellers ville gaa hele filsaettet igennem én gang pr. billedled (494 led
+ * x 610 filer).
+ */
+const _billedSkala = new Map();
+function billedSkala(rod = ROD) {
+  const noegle = path.resolve(rod);
+  if (_billedSkala.has(noegle)) return _billedSkala.get(noegle);
+  const index = new Map();
+  for (const f of billedFiler(rod)) {
+    const m = SKALA_MOENSTER.exec(f);
+    if (!m) continue;
+    const [, basis, bredde, endelse] = m;
+    if (!index.has(basis)) index.set(basis, new Map());
+    const pr = index.get(basis);
+    const e = endelse.toLowerCase();
+    if (!pr.has(e)) pr.set(e, []);
+    pr.get(e).push([Number(bredde), f]);
+  }
+  for (const pr of index.values()) for (const liste of pr.values()) liste.sort((a, b) => a[0] - b[0]);
+  _billedSkala.set(noegle, index);
+  return index;
+}
+
+/** Ryd skala-indekset. Kun til test — det foelger billedFiler()s cache. */
+export function glemBilledSkala() { _billedSkala.clear(); }
+
+/**
+ * <source>-kilderne til et <picture>. Kun formater, der FINDES som fil i
  * assets/, bliver til en kilde. En srcset til en fil, ingen har lavet, er en
  * tom paastand — browseren falder ganske vist tilbage til <img>, men saa staar
  * der en linje i HTML, der lyver om, hvad projektet har.
+ *
+ * Returnerer `[fil, mimetype, bredde|null]`. Tredje led er NYT (spor/foto) og
+ * er bevidst lagt BAGEST: `tools/skabelon/sammenligning.mjs:106` destrukturerer
+ * `([f, type]) => [sti(f), type]` og er dermed uroert af tilfoejelsen.
+ *
+ * RAEKKEFOELGEN ER EN BESLUTNING, ikke en tilfaeldighed. Inden for hver type
+ * staar den SMALLESTE foerst. Grunden er sammenligningssiden: dens celler
+ * tegnes af assets/sammenligning.js, som skriver én <source> pr. post og lader
+ * browseren vaelge den FOERSTE kilde, hvis type den understoetter — altsaa
+ * altid den foerste i denne liste. Chippen er maalt til 74x56 css-px, saa
+ * 240w (som daekker den helt op til dpr 3) er praecis det rigtige valg dér.
+ * Vender nogen listen om, henter sammenligningssiden 1400px-udgaven ind i en
+ * 74px-celle.
  */
 export function billedAlternativer(fil, rod = ROD) {
   const filer = billedFiler(rod);
+  const skala = billedSkala(rod);
   const uden = String(fil).replace(/\.[^./]+$/, '');
+  const pr = skala.get(uden);
   const ud = [];
   for (const [endelse, type] of BILLEDE_ALTERNATIVER) {
-    const kandidat = `${uden}${endelse}`;
-    if (kandidat !== fil && filer.has(kandidat)) ud.push([kandidat, type]);
+    for (const [bredde, kandidat] of (pr?.get(endelse) ?? [])) {
+      if (kandidat !== fil) ud.push([kandidat, type, bredde]);
+    }
+    const fuld = `${uden}${endelse}`;
+    if (fuld !== fil && filer.has(fuld)) {
+      // Fuldstoerrelsen i et moderne format er ikke noget, generatoren laver
+      // (den skriver kun -<bredde>w-filer), men vejen har altid vaeret der og
+      // bliver staaende. Bredden laeses af filens egen byte-header, saa den
+      // kan staa i den samme srcset som de skalerede; kan den ikke laeses,
+      // sendes null videre og billedledHTML afgoer, hvad der saa er aerligt.
+      const dim = dimAfFil(path.join(path.resolve(rod), 'assets', fuld));
+      ud.push([fuld, type, dim?.w ?? null]);
+    }
   }
   return ud;
 }
+
+/**
+ * `sizes` til de to rammer, billedledHTML tegner. MAALT 1. sep 2026 med
+ * maalevaerktoej/_foto-maal.mjs paa det byggede site (css-px for .billedled):
+ *
+ *   viewport      390   600   760   900  1100  1440
+ *   robotsidens led 358   559   708   415   511   679     (spalten braekker ~860)
+ *   forsidens kort  356   262   336   401   495   312
+ *   katalogkortet   179     -     -     -     -    270
+ *
+ * STOR foelger heroen: 94vw under braekket (708/760 = 93,2 %, 559/600 = 93,2 %,
+ * 358/390 = 91,8 %), 48vw over (679/1440 = 47,2 %).
+ *
+ * KORT er ÉN vaerdi for to rammer med forskellig bredde, og det er et bevidst
+ * valg frem for et nyt parameter i alle kaldesteder: forskellen forsvinder i
+ * stigens grovhed. Katalogkortet ved 390px har brug for 179 px og faar en
+ * `sizes` paa 359 — men naeste trin over 179 er alligevel 240w og over 359 er
+ * det 560w, saa over-hentningen er ÉT trin (3,5 KB -> 11,3 KB paa den
+ * tungeste fil), og kortene er lazy. Skal det snaevres ind, tager
+ * billedledHTML et `sizes`-argument; intet kaldested skal aendres for at faa
+ * den nuvaerende opfoersel.
+ */
+export const BILLED_SIZES = {
+  stor: '(max-width: 860px) 94vw, 48vw',
+  kort: '(max-width: 700px) 92vw, (max-width: 1200px) 46vw, 340px',
+};
 
 /**
  * Billedleddet. `tekst` baerer sproget: { intet, grund, alt, delt }.
@@ -348,9 +453,12 @@ export function billedAlternativer(fil, rod = ROD) {
  *          maalevaerktoej/_agent-raekke.mjs 26. aug 2026: praecis 4 kort
  *          staar i foerste raekke ved 1440px bredde, og ingen flere er
  *          synlige foer scroll ved nogen almindelig laptop-hoejde 700-1000px)
+ *   sizes  overstyrer `sizes`-attributten. Standard er BILLED_SIZES.stor /
+ *          .kort, som er MAALT (se der). Findes kun, saa en ramme med en
+ *          anden bredde kan sige det uden at aendre de andre kaldesteder
  */
 export function billedledHTML({
-  b, op = '', stor = false, eager = false, tekst, rod = ROD,
+  b, op = '', stor = false, eager = false, tekst, rod = ROD, sizes = null,
 }) {
   const klasser = ['billedled'];
   if (stor) klasser.push('billedled--stor');
@@ -370,8 +478,33 @@ export function billedledHTML({
 
   if (b.plade) klasser.push('billedled--plade');
   const sti = (f) => `${op}billeder/${f}`;
-  const kilder = billedAlternativer(b.fil, rod)
-    .map(([f, type]) => `<source srcset="${attr(sti(f))}" type="${attr(type)}">`);
+
+  /* Én <source> pr. type med ALLE bredder i samme srcset — ikke én <source>
+     pr. fil. Browseren vaelger den foerste <source>, hvis type den forstaar,
+     og laeser derefter srcset+sizes; stod hver bredde som sin egen <source>,
+     ville den foerste vinde og resten vaere doed markup.
+
+     Bredderne skrives som w-descriptorer. Reglen i HTML er, at en srcset
+     enten har w-descriptorer paa ALLE poster eller paa ingen — derfor
+     filtreres poster uden kendt bredde fra, saa snart bare én har en. Har
+     INGEN post en bredde (fx en silhuet, hvor der ikke findes derivater),
+     skrives noejagtigt den samme linje som foer denne aendring: en bar srcset
+     uden sizes. Det er faldskaermen: mangler de skalerede filer, taber siden
+     kun besparelsen, aldrig billedet. */
+  const prType = new Map();
+  for (const [f, type, bredde] of billedAlternativer(b.fil, rod)) {
+    if (!prType.has(type)) prType.set(type, []);
+    prType.get(type).push([f, bredde]);
+  }
+  const sizesVaerdi = sizes ?? (stor ? BILLED_SIZES.stor : BILLED_SIZES.kort);
+  const kilder = [];
+  for (const [type, poster] of prType) {
+    const medBredde = poster.filter(([, w]) => Number.isFinite(w) && w > 0);
+    const brug = medBredde.length ? medBredde : poster;
+    const srcset = brug.map(([f, w]) => (medBredde.length ? `${sti(f)} ${w}w` : sti(f))).join(', ');
+    kilder.push(`<source srcset="${attr(srcset)}"${
+      medBredde.length ? ` sizes="${attr(sizesVaerdi)}"` : ''} type="${attr(type)}">`);
+  }
   const stil = b.pos ? ` style="object-position:${attr(b.pos)}"` : '';
 
   // 15 robotter deler 7 filer (SHA-256 i MANIFEST.tsv). Maerket staar PAA
