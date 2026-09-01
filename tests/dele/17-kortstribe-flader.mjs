@@ -2,14 +2,20 @@
  * tests/dele/17-kortstribe-flader.mjs — Aa28-vagten, omskrevet af spor/kort
  * 31. aug 2026.
  *
- * FORMAALET ER UAENDRET: katalogsiden (/robotter/), forsiden (/) og
- * producentsiderne (/producenter/<slug>/) maa ikke skride fra hinanden.
- * Det skete ved Aa28 (producentkortets KORT_FELTER manglede 'hastighed',
- * mens katalog/forsidens STRIBE havde fire felter), og det skete igen
- * 31. aug, da katalogsporet gav sit kort TYPESKILT-grammatikken uden at de
- * to andre flader fulgte med: samme robot, to udseender, afhaengigt af
- * hvilken side man moedte den paa. Begge gange blev det fundet ved at bygge
- * og kigge - ingen test daekkede det.
+ * FORMAALET ER UAENDRET: katalogsiden (/) og producentsiderne
+ * (/producenter/<slug>/) maa ikke skride fra hinanden. Det skete ved Aa28
+ * (producentkortets KORT_FELTER manglede 'hastighed', mens katalog/forsidens
+ * STRIBE havde fire felter), og det skete igen 31. aug, da katalogsporet gav
+ * sit kort TYPESKILT-grammatikken uden at de to andre flader fulgte med:
+ * samme robot, to udseender, afhaengigt af hvilken side man moedte den paa.
+ * Begge gange blev det fundet ved at bygge og kigge - ingen test daekkede det.
+ *
+ * TREDJE FLADE FJERNET (spor/oversigt, 1. sep 2026, PUNKT 1): forsiden
+ * (forside.mjs) er slettet, og kataloget overtog dens adresse
+ * (dist/<sprog>/index.html) - "katalog" og "forside" er derfor ikke laengere
+ * to sammenlignelige flader, det er blevet ÉN fil. Sammenligningen herunder
+ * staar nu kun mellem katalog og producentsider; en tredje flade at
+ * sammenligne med findes ikke mere.
  *
  * HVAD DER BLEV MAALT FOER: de kompakte stribers feltorden, sammenlignet via
  * ikonets href (#i-vaegt ...), fordi etiket-TEKSTEN bevidst var forskellig
@@ -37,8 +43,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-/** Robottens slug ud af et kortlink. Fladerne har hver sin dybde:
- *  katalog "unitree-go2/", forside "robotter/unitree-go2/",
+/** Robottens slug ud af et kortlink. Fladerne har hver sin dybde: katalog
+ *  "../da/robotter/unitree-go2/" (kataloget bor selv paa sprogroden siden
+ *  spor/oversigt, 1. sep 2026 - se url.robot() i tools/skabelon/katalog.mjs),
  *  producent "../../robotter/unitree-go2/". Sidste ikke-tomme led er slug'en. */
 function slugAf(href) {
   const led = href.split('/').filter((s) => s && s !== '..' && s !== '.');
@@ -104,10 +111,11 @@ export default async function koer(ctx) {
   }
 
   for (const sprog of ['da', 'en']) {
-    const katalogHtml = laes(`${sprog}/robotter/index.html`);
-    ok(`${sprog}/robotter/: katalogsiden blev bygget`, katalogHtml !== null);
-    const forsideHtml = laes(`${sprog}/index.html`);
-    ok(`${sprog}/: forsiden blev bygget`, forsideHtml !== null);
+    // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden - se
+    // filens hoved-kommentar om, at "forside" ikke laengere er en tredje,
+    // adskilt flade.
+    const katalogHtml = laes(`${sprog}/index.html`);
+    ok(`${sprog}/: katalogsiden blev bygget`, katalogHtml !== null);
 
     const producentRod = path.join(udMappe, sprog, 'producenter');
     let producentKort = [];
@@ -123,11 +131,9 @@ export default async function koer(ctx) {
     }
 
     const katalogKort = katalogHtml ? traekKort(katalogHtml) : [];
-    const forsideKort = forsideHtml ? traekKort(forsideHtml) : [];
 
     const flader = [
       ['katalog', katalogKort],
-      ['forside', forsideKort],
       ['producent', producentKort],
     ];
 
@@ -166,8 +172,8 @@ export default async function koer(ctx) {
        robotter der stemples, er de skredet fra hinanden.
 
        Sammenligningen sker pr. slug, ikke pr. position: fladerne viser ikke
-       de samme robotter (forsiden viser seks, kataloget alle 77), saa kun
-       faellesmaengden kan sammenlignes. */
+       de samme robotter (producenten kun sine egne, kataloget alle 77), saa
+       kun faellesmaengden kan sammenlignes. */
     const stempletPrFlade = new Map();
     for (const [navn, kort] of flader) {
       const m = new Map();
@@ -175,7 +181,7 @@ export default async function koer(ctx) {
       stempletPrFlade.set(navn, m);
     }
     const katalogStempel = stempletPrFlade.get('katalog');
-    for (const navn of ['forside', 'producent']) {
+    for (const navn of ['producent']) {
       const m = stempletPrFlade.get(navn);
       const faelles = [...m.keys()].filter((s) => katalogStempel.has(s));
       const uenige = faelles.filter((s) => m.get(s) !== katalogStempel.get(s));

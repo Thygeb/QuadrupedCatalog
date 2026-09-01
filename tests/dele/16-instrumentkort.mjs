@@ -80,27 +80,23 @@ export default async function koer(ctx) {
          den samme side, saa de tre kan ses at vaere forskellige
      Denne vagt vendes derfor til at holde forsiden fast paa den nye form, saa
      striben ikke sniger sig tilbage uden en beslutning - praecis som vagten
-     nedenfor goer for kataloget. */
+     nedenfor goer for kataloget.
+
+     VENDT EN FJERDE GANG (spor/oversigt, 1. sep 2026, PUNKT 1): forsiden
+     (forside.mjs) er slettet, og kataloget overtog dens adresse
+     (dist/<sprog>/index.html). De to loekker herunder testede FOER dette
+     spor to forskellige filer med samme paastand (forsiden og kataloget
+     havde hver sin adresse, men samme kort-komponent); nu er der KUN én
+     fil at laese, saa loekkerne er lagt sammen til én for ikke at proeve to
+     paastande om det samme dokument under to forskellige navne. */
   for (const sprog of ['da', 'en']) {
     const html = laesFil(`${sprog}/index.html`);
-    ok(`${sprog}/: forsiden blev bygget`, html !== null);
+    ok(`${sprog}/: kataloget blev bygget`, html !== null);
     if (!html) continue;
     const { antalKort, taelling } = taelStribeLi(html);
-    ok(`${sprog}: forsidens TYPESKILT-kort har ingen stribe (alle ${antalKort} kort i "intet"-grenen)`,
+    ok(`${sprog}: katalogkortet baerer INGEN stribe (L56 punkt 7: billede + producent + navn, `
+      + `alle ${antalKort} kort i "intet"-grenen)`,
       antalKort > 0 && taelling.intet === antalKort && Object.keys(taelling).length === 1,
-      `fandt: ${JSON.stringify(taelling)} over ${antalKort} kort`);
-  }
-
-  /* Katalogkortets NYE form (L56 punkt 7). Den skal kunne fejle, hvis nogen
-     rullede beslutningen tilbage - derfor baade "ingen stribe" og "der ER
-     kort at maale paa", saa vagten ikke bliver sand af en tom side. */
-  for (const sprog of ['da', 'en']) {
-    const html = laesFil(`${sprog}/robotter/index.html`);
-    ok(`${sprog}/robotter/: katalogsiden blev bygget`, html !== null);
-    if (!html) continue;
-    const { antalKort, taelling } = taelStribeLi(html);
-    ok(`${sprog}: katalogkortet baerer INGEN stribe (L56 punkt 7: billede + producent + navn)`,
-      antalKort > 0 && taelling.intet === antalKort,
       `fandt: ${JSON.stringify(taelling)} over ${antalKort} kort`);
   }
 
@@ -155,7 +151,8 @@ export default async function koer(ctx) {
      fra datamappen, ikke et haandtal (se CLAUDE.md's advarsel mod haardkodede
      forventede tal). */
   {
-    const html = laesFil('da/robotter/index.html');
+    // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+    const html = laesFil('da/index.html');
     const antalKilder = fs.readdirSync(path.join(rod, 'data', 'robots')).filter((f) => /\.ya?ml$/.test(f)).length;
     ok(`antal katalogkort matcher antal robotfiler i data/robots/ (${antalKilder})`,
       html !== null && (html.match(/<article class="kort"/g) || []).length === antalKilder);

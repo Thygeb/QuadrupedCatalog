@@ -51,7 +51,9 @@ function kompakteStriber(html) {
 }
 
 export default async function koer(ctx) {
-  const { rod, tmp, node, ok } = ctx;
+  const {
+    rod, tmp, node, ok, skema,
+  } = ctx;
 
   console.log('\n20. spor/typografi: aflaesningslinjen - intet synligt forbeholds-tegn, ingen tabt tekst, kilde paa kortene');
 
@@ -104,23 +106,40 @@ export default async function koer(ctx) {
   const sideTomEksempler = [];
   /* Pr. FLADE, ikke i ét tal. Et samlet gennemsnit skjuler praecis den fejl,
      der findes nedenfor: to flader baerer kildemaerker, den tredje slet ingen,
-     og summen ser bare "lav" ud. */
+     og summen ser bare "lav" ud.
+
+     "forside" BUCKET FJERNET (spor/oversigt, 1. sep 2026, PUNKT 1): forsiden
+     (forside.mjs) er slettet paa JPKs udtrykkelige ordre ("HELE
+     oversigt-siden skal vaek"), og der er intet indhold tilbage at taelle
+     under det navn - dens ENESTE bidrag til disse tal (yderpunkt-sektionens
+     otte forbehold, se FLADEGULV nedenfor) forsvandt MED sektionen, ikke til
+     en anden flade. Kataloget overtog forsidens ADRESSE
+     (dist/<sprog>/index.html), men er en helt anden skabelon (katalog.mjs)
+     med sin egen bucket ('katalog'/'katalogindeks'), saa de to maa ikke
+     blandes sammen. */
+  const erSprogRod = (sti) => path.basename(sti) === 'index.html'
+    && skema.SPROG.includes(path.basename(path.dirname(sti)));
   const flade = (sti) => (sti.includes(`${path.sep}producenter${path.sep}`) ? 'producent'
-    : sti.includes(`${path.sep}robotter${path.sep}`) ? 'katalog' : 'forside');
-  const striber = { katalog: 0, forside: 0, producent: 0 };
-  const medKilde = { katalog: 0, forside: 0, producent: 0 };
+    : sti.includes(`${path.sep}robotter${path.sep}`) || erSprogRod(sti) ? 'katalog' : null);
+  const striber = { katalog: 0, producent: 0 };
+  const medKilde = { katalog: 0, producent: 0 };
   let legendePaaProducent = 0;
 
   /* Forbeholdene taelles ogsaa PR. FLADE (spor/katalog, 31. aug 2026). Se den
      lange note ved gulvet nedenfor: ét samlet tal kan ikke skelne "en flade
      mistede med vilje sine tal" fra "en oplysning forsvandt et tilfaeldigt
-     sted", og det var praecis den skelnen, der skulle bruges den dag. */
+     sted", og det var praecis den skelnen, der skulle bruges den dag.
+
+     "katalogindeks" (spor/oversigt, 1. sep 2026): kataloget flyttede fra
+     dist/<sprog>/robotter/index.html (parent-mappe "robotter") til
+     dist/<sprog>/index.html (parent-mappe er sprogkoden selv) - erSprogRod()
+     ovenfor er den nye, unikke kende-regel. */
   const bred = (sti) => (sti.includes(`${path.sep}producenter${path.sep}`) ? 'producent'
-    : path.basename(path.dirname(sti)) === 'robotter' ? 'katalogindeks'
+    : erSprogRod(sti) ? 'katalogindeks'
       : sti.includes(`${path.sep}robotter${path.sep}`) ? 'robotside'
-        : sti.includes('sammenligning') ? 'sammenligning' : 'forside');
+        : sti.includes('sammenligning') ? 'sammenligning' : null);
   const forbeholdPrFlade = {
-    forside: 0, producent: 0, robotside: 0, katalogindeks: 0, sammenligning: 0,
+    producent: 0, robotside: 0, katalogindeks: 0, sammenligning: 0,
   };
 
   for (const sti of sider) {
@@ -155,10 +174,15 @@ export default async function koer(ctx) {
         }
       }
     }
+    // spor/oversigt (1. sep 2026): bred() og flade() returnerer nu null for
+    // sider uden en bucket (fx om/, 404.html, den sprogneutrale rod) - de
+    // findes ikke i forbeholdPrFlade/striber/medKilde og skal ikke taelles
+    // ind i en af de andre buckets ved en fejl.
+    const bredNavn = bred(sti);
     for (const stykke of html.split(STYKKE_START)) {
       if (stykke.includes('forbehold--skjult')) {
         stykkerMedForbehold++;
-        forbeholdPrFlade[bred(sti)]++;
+        if (bredNavn) forbeholdPrFlade[bredNavn]++;
       }
     }
 
@@ -168,6 +192,7 @@ export default async function koer(ctx) {
       legendePaaProducent++;
     }
     for (const stribe of stribeListe) {
+      if (!f) continue;
       striber[f]++;
       if (/class="kildemaerke/.test(stribe)) medKilde[f]++;
       for (const celle of stribe.split('<li').slice(1)) {
@@ -286,8 +311,16 @@ export default async function koer(ctx) {
 
      Forsidens 8 er ikke en rest af kortene: de ligger i yderpunkt-sektionen,
      som viser rigtige vaerdier og derfor stadig skal baere sine forbehold.
-     Derfor har den stadig et gulv - falder den til 0, er noget gaaet i stykker. */
-  const FLADEGULV = { forside: 8, robotside: 264 };
+     Derfor har den stadig et gulv - falder den til 0, er noget gaaet i stykker.
+
+     "forside: 8" FJERNET (spor/oversigt, 1. sep 2026, PUNKT 1): den gulv-linje
+     beskyttede NETOP yderpunkt-sektionen, ovenstaaende note naevner ved navn -
+     og den sektion er slettet sammen med forside.mjs, paa JPKs udtrykkelige
+     ordre. Der er intet tilbage under det navn at saette et gulv for; en
+     bucket, ingen side laengere kan naa, er ikke en vagt, den er en fejlkilde
+     (se filens hoved-note om erSprogRod()). robotside-gulvet staar UROERT -
+     robot.mjs er ikke roert af dette spor. */
+  const FLADEGULV = { robotside: 264 };
   for (const [navn, gulv] of Object.entries(FLADEGULV)) {
     ok(`forbeholdene staar stadig paa ${navn} (${forbeholdPrFlade[navn]} stykker, gulv ${gulv}, maalt 31. aug 2026)`,
       forbeholdPrFlade[navn] >= gulv, `fandt ${forbeholdPrFlade[navn]}`);
@@ -372,7 +405,10 @@ export default async function koer(ctx) {
      bygget fejler stadig, hvis et talfelt mangler enhed eller kilde (maalt
      samme dag: 1110 tal med kilde, 0 uden). Tallene og deres bogstaver staar
      paa robotsiden, hvor de har plads til baade enhed og maerke. */
-  for (const navn of ['katalog', 'forside', 'producent']) {
+  // "forside" fjernet fra denne liste (spor/oversigt, 1. sep 2026): siden er
+  // slettet, og der er ingen bucket tilbage at proeve den under - se
+  // erSprogRod()-noten oevers i filen.
+  for (const navn of ['katalog', 'producent']) {
     ok(`${navn}: kortene har ingen striber at baere kildebogstaver paa`,
       striber[navn] === 0,
       `fandt ${striber[navn]} striber paa ${navn}-fladen`);
@@ -387,8 +423,8 @@ export default async function koer(ctx) {
      det gav href="#kilde-A" - et anker uden maal, da producentsiden ikke selv
      har en kildeliste (KRITIK-4 fund 2, spor/proveniens). Den faelde kan ikke
      komme igen paa denne flade, saa laenge fladen ikke tegner kildemaerker. */
-  ok('ingen af de tre kortflader tegner kildemaerker (der er ingen tal at pege paa)',
-    medKilde.katalog === 0 && medKilde.forside === 0 && medKilde.producent === 0,
-    `katalog ${medKilde.katalog}, forside ${medKilde.forside}, producent ${medKilde.producent}`
+  ok('ingen af de to kortflader tegner kildemaerker (der er ingen tal at pege paa)',
+    medKilde.katalog === 0 && medKilde.producent === 0,
+    `katalog ${medKilde.katalog}, producent ${medKilde.producent}`
     + ` · ${legendePaaProducent} producentsider trykker kort_legende`);
 }

@@ -115,9 +115,12 @@ export default async function koer(ctx) {
     // En besked uden en vej videre er stadig en blindgyde. Katalogsiden er
     // det eneste sted, tal kan sammenlignes uden JavaScript, saa beskeden
     // skal pege DERHEN - ikke bare konstatere, at noget ikke virker.
+    // spor/oversigt (1. sep 2026): kataloget (url.katalog) flyttede til
+    // sprogroden, saa linket peger nu paa "<sprog>/" og ikke laengere
+    // "<sprog>/robotter/".
     const blok = html.slice(html.indexOf('<noscript'), html.indexOf('</noscript>'));
     ok(`29/${sprog}: <noscript>-beskeden linker til katalogsiden`,
-      blok.includes(`${sprog}/robotter/`), blok.replace(/\s+/g, ' ').trim());
+      new RegExp(`href="[^"]*${sprog}/"`).test(blok), blok.replace(/\s+/g, ' ').trim());
   }
 
   /* --- 3. Skabelonen maa ikke miste caption-noeglen --------------------- */

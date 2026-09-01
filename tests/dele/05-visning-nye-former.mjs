@@ -89,7 +89,8 @@ export default async function koer(ctx) {
     ((r.stdout || '') + (r.stderr || '')).trim().split('\n').slice(-4).join(' / '));
 
   const side = fs.readFileSync(path.join(ud, 'da', 'robotter', 'proeve-alle-former', 'index.html'), 'utf8');
-  const katalog = fs.readFileSync(path.join(ud, 'da', 'robotter', 'index.html'), 'utf8');
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+  const katalog = fs.readFileSync(path.join(ud, 'da', 'index.html'), 'utf8');
 
   // Fortegnet er det, der gaar galt, hvis "nej" bliver laest som en sand streng.
   // Derfor laeses de to felters egne vaerdiceller, ikke bare siden som helhed.

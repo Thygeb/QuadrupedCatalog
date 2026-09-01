@@ -47,7 +47,10 @@ export default async function koer(ctx) {
   ok('56.0: byg giver exit 0', b.status === 0, (b.stderr || '').slice(0, 400));
   if (b.status !== 0) return;
 
-  const laesHtml = (sprog) => fs.readFileSync(path.join(ud, sprog, 'robotter', 'index.html'), 'utf8');
+  /* STIEN FLYTTEDE, ikke testen. Se noten i tests/dele/48 - katalogsiden bor
+     paa sprogroden efter L72, og denne fil blev flettet til main efter
+     spor/oversigt grenede. Paastandene er uaendrede. */
+  const laesHtml = (sprog) => fs.readFileSync(path.join(ud, sprog, 'index.html'), 'utf8');
   const i18nDa = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', 'da.json'), 'utf8'));
   const i18nEn = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', 'en.json'), 'utf8'));
 
@@ -141,5 +144,5 @@ export default async function koer(ctx) {
   }
 
   const restTal = (laesHtml('da').match(/valg--standard/g) || []).length;
-  console.log(`  info  56: ${restTal} forekomster af "valg--standard" i da/robotter/index.html (skal vaere 0)`);
+  console.log(`  info  56: ${restTal} forekomster af "valg--standard" i da/index.html (skal vaere 0)`);
 }

@@ -61,7 +61,8 @@ export default async function koer(ctx) {
     ok('bygget skriver ophavet ud, saa S1 kan ses uden at aabne en fil',
       /silhuet: 2/.test(b.stdout || ''));
 
-    const kat = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'index.html'), 'utf8');
+    // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+    const kat = fs.readFileSync(path.join(kaedeDist, 'da', 'index.html'), 'utf8');
     const side = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
     const sideEn = fs.readFileSync(path.join(kaedeDist, 'en', 'robotter', 'proeve-silhuet', 'index.html'), 'utf8');
     const tom = fs.readFileSync(path.join(kaedeDist, 'da', 'robotter', 'proeve-tom-plade', 'index.html'), 'utf8');
@@ -76,15 +77,19 @@ export default async function koer(ctx) {
 
     // 3. Stien skal PEGE rigtigt fra hver sidedybde. En haandregnet '../../' er
     //    den slags fejl, der foerst ses i browseren.
-    ok('kortets sti gaar to mapper op (/da/robotter/)',
-      kat.includes('src="../../billeder/silhuetter/_proeve-kaede.svg"'));
+    // spor/oversigt (1. sep 2026): kataloget flyttede fra /da/robotter/ til
+    // /da/ (sprogroden) - én mappe mindre dybt, saa dets billedsti gaar nu
+    // KUN én mappe op, ikke to.
+    ok('kortets sti gaar én mappe op (/da/)',
+      kat.includes('src="../billeder/silhuetter/_proeve-kaede.svg"'));
     ok('robotsidens sti gaar tre mapper op (/da/robotter/<slug>/)',
       side.includes('src="../../../billeder/silhuetter/_proeve-kaede.svg"'));
     for (const [navn, fil] of [['kortet', kat], ['robotsiden', side]]) {
       const stier = [...fil.matchAll(/src="([^"]*billeder\/[^"]+)"/g)].map((m) => m[1]);
       ok(`hver billedsti paa ${navn} findes som fil i dist/`,
-        stier.length > 0 && stier.every((s) => fs.existsSync(path.join(kaedeDist, 'da', 'robotter',
-          navn === 'kortet' ? '' : 'proeve-silhuet', s))),
+        stier.length > 0 && stier.every((s) => fs.existsSync(navn === 'kortet'
+          ? path.join(kaedeDist, 'da', s)
+          : path.join(kaedeDist, 'da', 'robotter', 'proeve-silhuet', s))),
         stier.join(' / '));
     }
 

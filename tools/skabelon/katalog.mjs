@@ -1219,10 +1219,10 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
     // yderste lag og ARVES ned (CSS-variable nedarves) - samme greb som foer
     // ombygningen.
     return `<article class="kort${variant}">`
-      + `${stempel}${hjaelp.samlknap(r)}${hjaelp.billede(r, '../../', { eager })}`
+      + `${stempel}${hjaelp.samlknap(r)}${hjaelp.billede(r, url.op, { eager })}`
       + `<div class="kort__tekst">`
       + `<p class="kort__prod">${esc(r.producent)}</p>`
-      + `<h3 class="kort__navn"><a href="${attr(r.slug)}/">${esc(r.navn)}</a></h3>`
+      + `<h3 class="kort__navn"><a href="${attr(url.robot(r.slug))}">${esc(r.navn)}</a></h3>`
       + `${under}</div></article>`;
   };
 
@@ -1266,7 +1266,7 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
         const post = s.post(r);
         const figur = hjaelp.tal(post, {
           kilder,
-          hvorhen: `${r.slug}/`,
+          hvorhen: url.robot(r.slug),
           kompakt: true,
           forbehold: post.advarsel ? [post.advarsel] : [],
         });

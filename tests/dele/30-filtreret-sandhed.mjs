@@ -56,7 +56,8 @@ export default async function koer(ctx) {
   ok('30.0: bygget lykkedes', b.status === 0,
     `exit ${b.status}: ${(b.stderr || '').slice(0, 300)}`);
 
-  const sider = ['da/robotter/index.html', 'en/robotter/index.html'];
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+  const sider = ['da/index.html', 'en/index.html'];
   for (const rel of sider) {
     const p = path.join(ud, rel);
     if (!fs.existsSync(p)) { ok(`30 ${rel}: bygget`, false, 'ikke bygget'); continue; }

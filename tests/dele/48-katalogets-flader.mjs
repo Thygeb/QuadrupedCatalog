@@ -53,7 +53,13 @@ export default async function koer(ctx) {
   ok('48.0: byg giver exit 0', b.status === 0, (b.stderr || '').slice(0, 400));
   if (b.status !== 0) return;
 
-  const laesHtml = (sprog) => fs.readFileSync(path.join(ud, sprog, 'robotter', 'index.html'), 'utf8');
+  /* STIEN FLYTTEDE, ikke testen. spor/oversigt lagde katalogsiden paa
+     sprogroden (L72, 1. sep 2026); dist/<sprog>/robotter/index.html findes
+     ikke laengere. Rettet af orkestratoren ved flettet - denne fil blev
+     flettet til main EFTER spor/oversigt grenede, saa sporet kunne ikke se
+     den, da det rettede de oevrige 20 testfiler. Alle paastandene herunder
+     er uaendrede; kun hvor de laeser fra er. */
+  const laesHtml = (sprog) => fs.readFileSync(path.join(ud, sprog, 'index.html'), 'utf8');
   const css = fs.readFileSync(path.join(rod, 'assets', 'system.css'), 'utf8');
   const js = fs.readFileSync(path.join(rod, 'assets', 'katalog.js'), 'utf8');
   const i18nDa = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', 'da.json'), 'utf8'));

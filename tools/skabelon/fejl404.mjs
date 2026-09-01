@@ -107,7 +107,10 @@ export function render(ctx) {
  * praecis SPROG.length sprog; denne fil laeser blot listen, den faar.
  */
 export function renderRod(sprog) {
-  const veje = sprog.map((s) => `<a class="f404-vej" href="${attr(`${s.kode}/robotter/`)}" hreflang="${attr(s.kode)}" lang="${attr(s.kode)}">
+  // spor/oversigt (1. sep 2026): kataloget ER sprogroden nu, saa "vejen ind"
+  // for hvert sprog er `${kode}/` - IKKE laengere `${kode}/robotter/`, som
+  // holdt op med at findes samtidig med forsiden (PUNKT 1).
+  const veje = sprog.map((s) => `<a class="f404-vej" href="${attr(`${s.kode}/`)}" hreflang="${attr(s.kode)}" lang="${attr(s.kode)}">
 <span class="f404-vej__kode">${esc(s.kode.toUpperCase())}</span>
 <span class="f404-vej__titel">${esc(s.titel)}</span>
 <span class="f404-vej__linje">${esc(s.forklaring)}</span>

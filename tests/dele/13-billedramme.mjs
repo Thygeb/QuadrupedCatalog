@@ -83,7 +83,8 @@ export default async function koer(ctx) {
     { cwd: rod, encoding: 'utf8' });
   ok('3c: byg af den rigtige data/robots/ giver exit 0', b5.status === 0,
     (b5.stderr || '').trim().split('\n').slice(-3).join(' / '));
-  const katalogHTML = fs.readFileSync(path.join(eagerDist, 'da', 'robotter', 'index.html'), 'utf8');
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+  const katalogHTML = fs.readFileSync(path.join(eagerDist, 'da', 'index.html'), 'utf8');
   const eagerAntal = (katalogHTML.match(/loading="eager"/g) || []).length;
   const lazyAntal = (katalogHTML.match(/loading="lazy"/g) || []).length;
   const imgAntal = (katalogHTML.match(/<img /g) || []).length;

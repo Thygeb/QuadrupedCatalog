@@ -51,8 +51,9 @@ export default async function koer(ctx) {
     .filter((f) => /\.ya?ml$/.test(f));
   const ANTAL = robotFiler.length;
 
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   for (const sprog of ['da', 'en']) {
-    const p = path.join(dist, sprog, 'robotter', 'index.html');
+    const p = path.join(dist, sprog, 'index.html');
     if (!fs.existsSync(p)) { ok(`35 ${sprog}: katalogsiden er bygget`, false, 'ikke bygget'); continue; }
     const html = fs.readFileSync(p, 'utf8');
     const stil = genereretStil(html);

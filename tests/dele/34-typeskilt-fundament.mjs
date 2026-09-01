@@ -182,12 +182,18 @@ export default async function koer(ctx) {
     // en side, der ikke er bygget - er 37.7, som slaar hver enkelt laenke op
     // i dist. Den fanger ogsaa det tilfaelde, denne vagt aldrig kunne se:
     // et fjerde punkt med et helt andet navn.
+    // spor/oversigt (1. sep 2026, PUNKT 1): nav-arrayets FOERSTE punkt er
+    // ikke laengere ['', T.nav_forside] - forsiden er slettet, og kataloget
+    // (['', T.nav_katalog]) staar nu foerst, paa href ''. Ankeret for "blev
+    // arrayet overhovedet fundet" flytter derfor fra nav_forside til
+    // nav_katalog - selve arrayet, og dermed 34.28's dybere paastand
+    // nedenfor, er UAENDRET af dette spor.
     const start = sideMjs.indexOf('const nav = [');
     const arrayLit = start < 0 ? '' : sideMjs.slice(start, sideMjs.indexOf('];', start) + 2);
     const pushLinjer = sideMjs.split('\n').filter((l) => /\bnav\.push\(/.test(l)).join('\n');
     const navKode = `${arrayLit}\n${pushLinjer}`;
     ok('34.28b: nav-arrayet blev overhovedet fundet i side.mjs',
-      start >= 0 && arrayLit.includes('nav_forside') && pushLinjer.includes('nav.push('),
+      start >= 0 && arrayLit.includes('nav_katalog') && pushLinjer.includes('nav.push('),
       'uden arrayet maaler 34.28 en tom streng og staar groen uanset hvad');
     ok('34.28: nav-arrayet i side.mjs baerer STADIG kun de tre faste punkter '
       + '+ det betingede producent-punkt (3.7s midlertidige maalepunkter er fjernet)',

@@ -86,8 +86,9 @@ export default async function koer(ctx) {
   }
 
   /* --- 2. Tegnforklaringens foerste raekke ------------------------------- */
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   const legendeSider = [
-    'da/robotter/index.html', 'en/robotter/index.html',
+    'da/index.html', 'en/index.html',
     'da/sammenligning/index.html', 'en/sammenligning/index.html',
   ];
   for (const rel of legendeSider) {
@@ -116,8 +117,9 @@ export default async function koer(ctx) {
   }
 
   /* --- 3. og 4. Tommelindeks og sortering paa katalogsiden --------------- */
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   for (const sprog of ['da', 'en']) {
-    const p = path.join(dist, sprog, 'robotter', 'index.html');
+    const p = path.join(dist, sprog, 'index.html');
     if (!fs.existsSync(p)) { ok(`24.7.${sprog}: katalogsiden findes`, false); continue; }
     const html = fs.readFileSync(p, 'utf8');
     const idsPaaSiden = new Set([...html.matchAll(/id="([^"]+)"/g)].map((m) => m[1]));
