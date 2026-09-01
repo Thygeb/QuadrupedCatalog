@@ -37,7 +37,7 @@ felter:
     enhed: "mm"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长×宽×高）672mm x 355mm x 432mm\" - stående mål."
+    advarsel: "\"站立尺寸（长×宽×高）672mm x 355mm x 432mm\" (stående mål, længde×bredde×højde) - stående mål."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 355
@@ -73,7 +73,7 @@ felter:
     enhed: "m/s"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "\"运动速度 0～3m/s\"."
+    advarsel: "\"运动速度 0～3m/s\" (bevægelseshastighed)."
     advarsel_klasse: "uddybning"
   haeldning: "ikke_oplyst"
   forhindring_enkelt: "ikke_oplyst"
@@ -107,7 +107,7 @@ felter:
     enhed: "Wh"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "Trykt direkte som \"432Wh\" og bekræftet i FAQ som \"标配（10000mAh, 432Wh）\" - IKKE beregnet af os ud fra mAh og spænding."
+    advarsel: "Trykt direkte som \"432Wh\" og bekræftet i FAQ som \"标配（10000mAh, 432Wh）\" (standard: 10000mAh, 432Wh) - IKKE beregnet af os ud fra mAh og spænding."
     advarsel_klasse: "uddybning"
   driftstid:
     vaerdi: 3.5
@@ -133,10 +133,10 @@ felter:
     hentet: "2026-08-24"
     advarsel: "\"激光雷达 可选配\" (LiDAR - tilvalg) - hverken type eller model oplyst, kun at det findes som tilvalg. Tæller ikke som udfyldt under D4's foreløbige regel."
   kameraer:
-    vaerdi: "Stereo/dobbeltøjet HD synligt-lys-kamera, model ikke oplyst (双目高清可见光相机)"
+    vaerdi: "Stereo/dobbeltøjet HD synligt-lys-kamera, model ikke oplyst"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "Spec-tabel: \"视觉传感器 双目高清动态相机\". FAQ uddyber: \"标准配置：双目高清可见光相机、IMU 惯性单元、内置麦克风扬声器、GPS 定位模组、4G 通信模块；可选配激光雷达、360°UWB 定位。\""
+    advarsel: "Spec-tabel: \"视觉传感器 双目高清动态相机\" (visuel sensor: stereo HD dynamisk kamera). FAQ uddyber: \"标准配置：双目高清可见光相机、IMU 惯性单元、内置麦克风扬声器、GPS 定位模组、4G 通信模块；可选配激光雷达、360°UWB 定位。\" (standardkonfiguration: stereo HD synligt-lys-kamera, IMU-inertialenhed, indbygget mikrofon/højttaler, GPS-positioneringsmodul, 4G-kommunikationsmodul; tilvalg: LiDAR, 360° UWB-positionering)."
   compute:
     vaerdi: "Valgfrit tilkøb: NVIDIA Jetson Orin Nano 8GB (op til 67 TOPS) / Orin NX 8GB (op til 117 TOPS) / Orin NX 16GB (op til 157 TOPS). Standardkonfiguration uden AI-modul ikke specificeret."
     kilde: "https://www.uniubi.com/shop/buy?product=air"
@@ -156,11 +156,11 @@ felter:
     hentet: "2026-08-24"
     advarsel: "FAQ: \"官方已提供C++、Python标准SDK，支持高级、低级控制接口，开放模型，具备完整二开能力\". GitHub: https://github.com/uniubi-ai (nævnt i samme svar, ikke selvstændigt efterprøvet i dette spor)."
   autonominiveau:
-    vaerdi: "Understøtter stemmedialog, følge-gang, helhusspatrulje og fjernvisning i hjemmescenarier (\"语音对话、跟随行走、全屋巡逻、远程画面查看\"); ingen eksplicit SLAM/autonom-navigationsklasse oplyst."
+    vaerdi: "Understøtter stemmedialog, følge-gang, helhusspatrulje og fjernvisning i hjemmescenarier; ingen eksplicit SLAM/autonom-navigationsklasse oplyst."
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
   monteringsinterface:
-    vaerdi: "20kg \"工业级有效载荷平台，为机械臂、雷达、计算盒与任务模组预留更高的物理冗余\" (industriel nyttelastplatform med fysisk reserve til robotarm, radar, computerboks og opgavemoduler). Standardiseret monteringsflade/-mål ikke oplyst."
+    vaerdi: "20kg industriel nyttelastplatform med fysisk reserve til robotarm, radar, computerboks og opgavemoduler. Standardiseret monteringsflade/-mål ikke oplyst."
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
   stroem_ud: "ikke_oplyst"
@@ -170,6 +170,6 @@ felter:
     enhed: "CNY"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "\"售价（含税）¥15,999\" (inkl. skat/moms). Samme side: \"部分功能及性能数据仍在持续开发和优化中... 涉及最终价格...以正式订单确认信息为准\" - prisen er en aktuel listepris, ikke garanteret endelig."
+    advarsel: "\"售价（含税）¥15,999\" (inkl. skat/moms). Samme side: \"部分功能及性能数据仍在持续开发和优化中... 涉及最终价格...以正式订单确认信息为准\" (nogle funktioner og ydelsestal er stadig under udvikling... det endelige beløb afgøres af den officielle ordrebekræftelse) - prisen er en aktuel listepris, ikke garanteret endelig."
     advarsel_klasse: "gyldighed"
   ce_oplyst: "ikke_oplyst"

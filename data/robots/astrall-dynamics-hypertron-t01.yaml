@@ -26,14 +26,14 @@ felter:
     enhed: "kg"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"重量 82kg（含电池）\" - inkl. batteri."
+    advarsel: "\"重量 82kg（含电池）\" (vægt 82kg, inkl. batteri) - inkl. batteri."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1110
     enhed: "mm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸 1110mm*610mm*745mm\" - stående mål."
+    advarsel: "\"站立尺寸 1110mm*610mm*745mm\" (stående mål) - stående mål."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 610
@@ -54,14 +54,14 @@ felter:
     operator: "<="
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"工作负载 ≤80kg\"."
+    advarsel: "\"工作负载 ≤80kg\" (arbejdslast)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 200
     enhed: "kg"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"最大站立负载 200kg\"."
+    advarsel: "\"最大站立负载 200kg\" (maks. stående last)."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 7
@@ -108,7 +108,7 @@ felter:
     enhed: "°C"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"工作温度 -20℃~55℃\". Opbevaringstemperatur -20~60℃ er separat - se noter."
+    advarsel: "\"工作温度 -20℃~55℃\" (driftstemperatur). Opbevaringstemperatur -20~60℃ er separat - se noter."
     advarsel_klasse: "uddybning"
   batteri_wh: "ikke_oplyst"
   driftstid:
@@ -131,17 +131,17 @@ felter:
     vaerdi: "2x mekanisk LiDAR, 192 linjer, rækkevidde ca. 30m ± 10%, punktsky op til 1.720.000 pts/s (dobbelt-echo) / 860.000 pts/s (enkelt-echo), synsfelt 360°x90°, 10 Hz opdatering"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"激光雷达 数量/检测距离: 2 台 / 30m ± 10%; 扫描线数/点云密度: 192线 / 1,720,000pts/s（双回波模式），860,000pts/s（单回波模式）; 视角/帧率: 360°*90° / 10 Hz\"."
+    advarsel: "\"激光雷达 数量/检测距离: 2 台 / 30m ± 10%; 扫描线数/点云密度: 192线 / 1,720,000pts/s（双回波模式），860,000pts/s（单回波模式）; 视角/帧率: 360°*90° / 10 Hz\" (LiDAR antal/detektionsafstand: 2 stk / 30m ±10%; scanlinjer/punktskytæthed: 192 linjer / 1.720.000 pts/s dobbelt-echo, 860.000 pts/s enkelt-echo; synsfelt/billedrate: 360°×90° / 10 Hz)."
   kameraer:
     vaerdi: "1x dybdekamera, 1280x800, 30 fps, arbejdsområde 0,01-20m, dim. 90x25x25mm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"深度相机 数量/尺寸: 1 个 / 90*25*25 mm; 分辨率/帧率: 1280*800 / 30 fps; 工作范围: 0.01-20m\"."
+    advarsel: "\"深度相机 数量/尺寸: 1 个 / 90*25*25 mm; 分辨率/帧率: 1280*800 / 30 fps; 工作范围: 0.01-20m\" (dybdekamera antal/mål: 1 stk / 90×25×25 mm; opløsning/billedrate: 1280×800 / 30 fps; arbejdsområde: 0,01-20m)."
   compute: "ikke_oplyst"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "\"我们利用高精度激光雷达构建实时构建高程图，使机器狗能'读懂'地形，从而在复杂环境中实现厘米级自主导航、稳定越障与自适应运动\" (centimeter-præcis autonom navigation, stabil forhindringsforcering og adaptiv bevægelse via realtids højdekort fra LiDAR). Sprogets sproglige klasse (SAE/ISO-niveau) er ikke oplyst - kun en kvalitativ beskrivelse."
+    vaerdi: "Centimeter-præcis autonom navigation, stabil forhindringsforcering og adaptiv bevægelse via realtids højdekort fra LiDAR. SAE/ISO-autonomiklasse er ikke oplyst - kun en kvalitativ beskrivelse."
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
   monteringsinterface: "ikke_oplyst"
@@ -149,7 +149,7 @@ felter:
     vaerdi: "Port 1: 12V, ≤20A, ≤240W. Port 2: 20-48V, ≤10A, ≤480W."
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\"."
+    advarsel: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\" (strømforsyningsport 1: 12V, ≤20A, ≤240W; strømforsyningsport 2: 20V-48V, ≤10A, ≤480W)."
   dataporte:
     vaerdi:
       - "RS485 x2"
@@ -157,6 +157,6 @@ felter:
       - "Ethernet x2"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"外部通讯 RS485*2, CAN*2, 以太网口*2\"."
+    advarsel: "\"外部通讯 RS485*2, CAN*2, 以太网口*2\" (ekstern kommunikation: RS485×2, CAN×2, Ethernet×2)."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"

@@ -33,14 +33,14 @@ felter:
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
-    advarsel: "\"重量: 20kg\" i \"基础参数\"-tabellen."
+    advarsel: "\"重量: 20kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 682
     enhed: "mm"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
-    advarsel: "\"站立尺寸: 682×354×532mm\"."
+    advarsel: "\"站立尺寸: 682×354×532mm\" (stående mål)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 354
@@ -66,14 +66,14 @@ felter:
     enhed: "m/s"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
-    advarsel: "\"最大速度: 5m/s\" - højere end den gående YJ30's 3m/s, som forventet for en hjuldrevet variant."
+    advarsel: "\"最大速度: 5m/s\" (maks. hastighed) - højere end den gående YJ30's 3m/s, som forventet for en hjuldrevet variant."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
-    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" som YJ30, samme forbehold som i YJ30's egen post."
+    advarsel: "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" (klatrevinkel/frihedsgrader) som YJ30, samme forbehold som i YJ30's egen post."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -104,15 +104,15 @@ felter:
   dockingstation: "ikke_oplyst"
   lidar: "ikke_oplyst"
   kameraer:
-    vaerdi: "红外热成像 (infrarød varmesøgning); højfølsom UV-lysgenkendelse; synligt-lys røg-/ildgenkendelse (三重探测技术: infrared thermal imaging + UV detection + visible-light smoke/fire recognition)"
+    vaerdi: "Infrarød varmesøgning; højfølsom UV-lysgenkendelse; synligt-lys røg-/ildgenkendelse (tredobbelt detektionsteknologi: infrared thermal imaging + UV detection + visible-light smoke/fire recognition)"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
-    advarsel: "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" - tre navngivne detektionsteknologier, specifikt til denne brandinspektionsvariant. Ingen modelbetegnelse eller opløsning oplyst for nogen af de tre."
+    advarsel: "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" (integreret tredobbelt detektionsteknologi: infrarød varmesøgning, højfølsom UV-lysgenkendelse, synligt-lys røg-/ildgenkendelse) - tre navngivne detektionsteknologier, specifikt til denne brandinspektionsvariant. Ingen modelbetegnelse eller opløsning oplyst for nogen af de tre."
   compute: "ikke_oplyst"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "WIFI (有/ja); 4G/5G (有/ja); 图传/billedtransmission (有/ja); 语音识别/stemmegenkendelse (有/ja); 跟随/autonom følgning (有/ja); 导航/navigation (有/ja); WiFi6 og Bluetooth 5.2 kompatibel (兼容WiFi6、蓝牙5.2); realtids fuldskærms-temperaturmåling og zoneovervågning (实时全屏测温、自定义区域温度监测)"
+    vaerdi: "WIFI (ja); 4G/5G (ja); Billedtransmission (ja); Stemmegenkendelse (ja); Autonom følgning (ja); Navigation (ja); WiFi6 og Bluetooth 5.2 kompatibel; realtids fuldskærms-temperaturmåling og zoneovervågning"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
     advarsel: "Kombinerer \"基础参数\"-tabellens seks ja/nej-rækker (samme mønster som YJ30) med produktbeskrivelsens ekstra kommunikations- og datånalysefunktioner specifikt for brandinspektionsvarianten."

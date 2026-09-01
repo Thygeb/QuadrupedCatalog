@@ -21,7 +21,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "Producentens etiket: 整机重量（含电池）- hele maskinen, batteri inklusive."
+    advarsel: "Producentens etiket: 整机重量（含电池）(samlet vægt, inkl. batteri) - hele maskinen, batteri inklusive."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 771

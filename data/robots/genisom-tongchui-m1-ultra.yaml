@@ -62,14 +62,14 @@ felter:
     enhed: "DoF"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"关节电机数量: 12 个\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 30
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"最大载荷: 30 kg\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel: "\"最大载荷: 30 kg\" (maks. last) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -84,14 +84,14 @@ felter:
     enhed: "°"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"最大爬坡角度: 45°\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel: "\"最大爬坡角度: 45°\" (maks. klatrbar skråningsvinkel) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"80cm 垂直越障高度\" fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Ultras egen JSON-blok. Samme kilde og forbehold som basisudgaven/M1 Pro."
+    advarsel: "\"80cm 垂直越障高度\" (80cm lodret forhindringshøjde) fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Ultras egen JSON-blok. Samme kilde og forbehold som basisudgaven/M1 Pro."
     advarsel_klasse: "gyldighed"
   trappetrin_kontinuerlig:
     vaerdi: 25
@@ -109,7 +109,7 @@ felter:
     enhed: "°C"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard."
+    advarsel: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\" (driftstemperatur -20 til 55°C, tilvalg: -40 til 80°C bredtemperatur-batteriversion) - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
@@ -129,21 +129,21 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Rækkevidde \"续航里程: 空载 29 km；满载 18 km\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel: "\"续航时间: 空载 5 h；满载 3.5 h\" (driftstid: ubelastet 5t; fuld last 3,5t) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Rækkevidde \"续航里程: 空载 29 km；满载 18 km\" (rækkevidde: ubelastet 29 km; fuld last 18 km) er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap:
     vaerdi: true
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" i M1 Ultras egen tilbehørsliste - identisk med basisudgaven og M1 Pro."
+    advarsel: "\"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap) i M1 Ultras egen tilbehørsliste - identisk med basisudgaven og M1 Pro."
   ladetid:
     vaerdi: 2
     enhed: "t"
     operator: "<"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"充电时长: ＜ 2 h\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
+    advarsel: "\"充电时长: ＜ 2 h\" (ladetid) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -154,9 +154,9 @@ felter:
     vaerdi: "3D LiDAR (type og model ikke oplyst)"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"3D激光雷达: 支持\" i M1 Ultras egen sensor-sektion - identisk med basisudgaven og M1 Pro, hverken linjetal, model eller producent oplyst."
+    advarsel: "\"3D激光雷达: 支持\" (3D LiDAR: understøttet) i M1 Ultras egen sensor-sektion - identisk med basisudgaven og M1 Pro, hverken linjetal, model eller producent oplyst."
   kameraer:
-    vaerdi: "4x fiskeøjekamera + 2x fremadrettet stereokamera til rundtomsynsbilleddannelse (环视成像); fiskeøje 3 MP, stereo 2 MP"
+    vaerdi: "4x fiskeøjekamera + 2x fremadrettet stereokamera til rundtomsynsbilleddannelse; fiskeøje 3 MP, stereo 2 MP"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
     advarsel: "\"相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像\" og \"相机像索: 鱼眼300万，双目200万\" i M1 Ultras egen sensor-sektion - HELT FORSKELLIG opstilling fra basisudgavens/M1 Pro's \"广角相机 x 2, 800万 x 2\". Se topnoten. Sensor-sektionen har også \"超声波传感器: 支持\" (ultralydssensor, samme som M1 Pro) ud over IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor."
@@ -172,7 +172,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "IKKE GENUNDERSØGT I DENNE SESSION - se topnoten. Overført fra basisudgavens konklusion, IKKE en frisk måling for netop M1 Ultra."
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); 基础动作 (踏步/滑行/匍匐等姿态, 前后左右直线移动, 原地旋转, 膝关节姿态变换, 支持砂石路/柏油路/草地/沙地/森林地面/建筑废墟等路面); 特技动作 (爬高墙/过挡鼠板/过窄墙/扭一扭等); 实时图像传输; OTA升级; 二次开发支持; 目标追踪 (UWB跟随；激光视觉跟随); 720° 3D 环视感知系统 (支持); 智能避障; 语音对讲 (支持); 录音广播 (支持)"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); grundbevægelser (march/glide/kravle-positioner m.fl., ligeud bevægelse frem/tilbage/venstre/højre, rotation på stedet, knæledsposition-skift, understøtter grus/asfalt/græs/sand/skovbund/byggeruiner m.fl. underlag); specialbevægelser (klatre høj mur/krydse forhindringsplade/passere smal mur/vrikke m.fl.); realtids billedoverførsel; OTA-opdatering; understøtter videreudvikling; målsporing (UWB-følgning; laser-vision-følgning); 720° 3D rundtomsyn-opfattelsessystem (understøttet); intelligent undvigelse af forhindringer; taleintercom (understøttet); lydoptagelse/højttalerudsendelse (understøttet)"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
     advarsel: "Fra M1 Ultras egen funktionsliste (id 508), 11 punkter i alt. BEMÆRK: INGEN eksplicit \"自主导航\"-række i denne liste, modsat basisudgaven (tilvalg) og M1 Pro (standard) - se topnoten. Ikke antaget tilføjet."

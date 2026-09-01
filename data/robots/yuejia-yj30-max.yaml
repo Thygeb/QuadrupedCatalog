@@ -6,8 +6,8 @@ producentby: "Shenzhen"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
-  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\"-tabellen."
+  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\" (grundparametre)-tabellen."
 anvendelse:
   vaerdi:
     - "inspektion"
@@ -33,14 +33,14 @@ felter:
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"重量: 45kg\" i \"基础参数\"-tabellen."
+    advarsel: "\"重量: 45kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 896
     enhed: "mm"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"站立尺寸: 896x635x530mm\"."
+    advarsel: "\"站立尺寸: 896x635x530mm\" (stående mål)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 635
@@ -72,7 +72,7 @@ felter:
     enhed: "m/s"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"速度: 3m/s\" - ét tal, ikke et interval."
+    advarsel: "\"速度: 3m/s\" (hastighed) - ét tal, ikke et interval."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
@@ -87,7 +87,7 @@ felter:
     enhed: "cm"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"攀爬台阶高度: 30cm\"."
+    advarsel: "\"攀爬台阶高度: 30cm\" (klatretrin-højde)."
     advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: "IP67"
@@ -114,7 +114,7 @@ felter:
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "WIFI (有/ja); 4G&5G (有/ja); 图传/billedtransmission (有/ja); 语音/stemme (有/ja); 导航/navigation (有/ja)"
+    vaerdi: "WIFI (ja); 4G&5G (ja); Billedtransmission (ja); Stemme (ja); Navigation (ja)"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
     advarsel: "Fem ja/nej-rækker fra \"基础参数\"-tabellen - én række færre end YJ30's tabel (intet \"跟随\"/følge-punkt her)."

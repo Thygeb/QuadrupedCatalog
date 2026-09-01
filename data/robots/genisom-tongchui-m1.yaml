@@ -64,14 +64,14 @@ felter:
     enhed: "DoF"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"关节电机数量: 12 个\" i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende \"16个自由度\"-påstand, som IKKE er brugt her."
+    advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer) i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende \"16个自由度\" (16 frihedsgrader)-påstand, som IKKE er brugt her."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 30
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷: 30 kg\". Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt."
+    advarsel: "\"最大载荷: 30 kg\" (maks. last). Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -86,14 +86,14 @@ felter:
     enhed: "°"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"最大爬坡角度: 45°\", bekræftet af marketingkortets \"45° 极限爬坡角度\" - ingen separat standard/grænse-splittelse her, modsat L1/L1-W."
+    advarsel: "\"最大爬坡角度: 45°\" (maks. klatrbar skråningsvinkel), bekræftet af marketingkortets \"45° 极限爬坡角度\" (45° grænse-skråningsvinkel) - ingen separat standard/grænse-splittelse her, modsat L1/L1-W."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"80cm 垂直越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W."
+    advarsel: "\"80cm 垂直越障高度\" (80cm lodret forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
@@ -138,14 +138,14 @@ felter:
     vaerdi: true
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "Bekræftet to steder på samme side: marketingkortet \"双电池 热插拔\" og tilbehørslisten \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\"."
+    advarsel: "Bekræftet to steder på samme side: marketingkortet \"双电池 热插拔\" (dobbeltbatteri, hot-swap) og tilbehørslisten \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap)."
   ladetid:
     vaerdi: 2
     enhed: "t"
     operator: "<"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"充电时长: ＜ 2 h\"."
+    advarsel: "\"充电时长: ＜ 2 h\" (ladetid)."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -166,15 +166,15 @@ felter:
     vaerdi: "8-kernet CPU, 100 TOPS"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\"."
+    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\" (grundlæggende regnekraft: 8-kernet højtydende CPU, 100 TOPS)."
   ros2: "ikke_oplyst"
   sdk_sprog:
     vaerdi: "ikke_oplyst"
     kilde: "https://github.com/zsibot/genisom_robot_sdk"
     hentet: "2026-08-24"
-    advarsel: "UNDERSØGT, MEN IKKE SAT. GENISOM AI's GitHub-organisation (zsibot) har et repo \"genisom_robot_sdk\" (README: \"Programming Language: C++\", Ubuntu 22.04/CMake/GCC/Boost), men repoet har INGEN GitHub-beskrivelse, der binder det til et specifikt produktnavn (modsat \"genisom_L1_sdk\", som eksplicit hedder \"Official SDK for Genisom L1 Series robots\"). Hverken \"M1\" eller \"铜锤\" står i den udtrukne README-tekst. At bruge repoet til M1 ville være samme slags navnesammenfald-uden-bevis, som blev fanget og afvist på L2's ros2-felt i forrige runde - derfor ikke oplyst i stedet for et gæt."
+    advarsel: "UNDERSØGT, MEN IKKE SAT. GENISOM AI's GitHub-organisation (zsibot) har et repo \"genisom_robot_sdk\" (README: \"Programming Language: C++\", Ubuntu 22.04/CMake/GCC/Boost), men repoet har INGEN GitHub-beskrivelse, der binder det til et specifikt produktnavn (modsat \"genisom_L1_sdk\", som eksplicit hedder \"Official SDK for Genisom L1 Series robots\"). Hverken \"M1\" eller \"铜锤\" (Tongchui) står i den udtrukne README-tekst. At bruge repoet til M1 ville være samme slags navnesammenfald-uden-bevis, som blev fanget og afvist på L2's ros2-felt i forrige runde - derfor ikke oplyst i stedet for et gæt."
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); 基础动作 (踏步/滑行/匍匐等姿态, 前后左右直线移动, 原地旋转, 膝关节姿态变换, 支持砂石路/柏油路/草地/沙地/森林地面/建筑废墟等路面); 特技动作 (爬高墙/过挡鼠板/过窄墙/扭一扭等); 实时图像传输; OTA升级; 二次开发支持; 自主导航 (选配: 智航Pro版, 建图/定位/导航/避障); 智能避障"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); grundbevægelser (march/glide/kravle-positioner m.fl., ligeud bevægelse frem/tilbage/venstre/højre, rotation på stedet, knæledsposition-skift, understøtter grus/asfalt/græs/sand/skovbund/byggeruiner m.fl. underlag); specialbevægelser (klatre høj mur/krydse forhindringsplade/passere smal mur/vrikke m.fl.); realtids billedoverførsel; OTA-opdatering; understøtter videreudvikling; autonom navigation (tilvalg: Zhihang Pro-version, kortlægning/positionering/navigation/undvigelse); intelligent undvigelse af forhindringer"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala. Selvstændig navigation står eksplicit som TILVALG (\"选配\"), ikke standard."

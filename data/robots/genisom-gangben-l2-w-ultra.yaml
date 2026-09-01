@@ -22,7 +22,7 @@ anvendelse:
     - "Kort-distance levering (短途配送)"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-24"
-  note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik."
+  note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik."
 billede:
   fil: "fotos/fabrikant/genisom-gangben-l2-w-ultra.webp"
   ophav: "fabrikant"
@@ -44,7 +44,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" - identisk med L2-W."
+    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" (stående mål, længde×bredde×højde, ca.) - identisk med L2-W."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 450
@@ -73,21 +73,21 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" - samme tal som L2/L2-W."
+    advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" (maks. last, grænse statisk 150kg) - samme tal som L2/L2-W."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"极限静态150kg\" står inde i \"最大载荷\"-rækken i denne variants egen datablok. Ikke krydsbekræftet af en separat marketingtekstlinje for netop denne variant."
+    advarsel: "\"极限静态150kg\" (grænse statisk 150kg) står inde i \"最大载荷\" (maks. last)-rækken i denne variants egen datablok. Ikke krydsbekræftet af en separat marketingtekstlinje for netop denne variant."
     advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 3.7
     enhed: "m/s"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大速度: 3.7 m/s\" - samme tal som L2-W, højere end basisudgavens 3.2 m/s. En separat \"极限速度\" på 5 m/s er også oplyst - ikke brugt som hovedværdi."
+    advarsel: "\"最大速度: 3.7 m/s\" (maks. hastighed) - samme tal som L2-W, højere end basisudgavens 3.2 m/s. En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 40
@@ -100,7 +100,7 @@ felter:
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"连续攀爬楼梯高度\" - samme tal som L2-W, højere end basisudgavens 22cm."
+    advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) - samme tal som L2-W, højere end basisudgavens 22cm."
     advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: "IP66"
@@ -155,7 +155,7 @@ felter:
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); UWB (支持); 自主跟随 (支持, GLUE 全向自主跟随); 智能避障 (激光+视觉 融合避障); 目标追踪 (支持); 二次开发支持; OTA升级; 自主导航 (支持); 实时图像传输 (支持); RTK定位模块 (支持); 特技动作 (倒立/双腿站立/托马斯/后空翻); 基础动作 (站立/卧倒/匍匐前进/向前跳/向上跳/爬高台/锁定动作)"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); UWB (understøttet); autonom følgning (understøttet, GLUE omnidirektionel autonom følgning); intelligent undvigelse af forhindringer (laser+vision-fusionsundvigelse); målsporing (understøttet); understøtter videreudvikling; OTA-opdatering; autonom navigation (understøttet); realtids billedoverførsel (understøttet); RTK-positioneringsmodul (understøttet); specialbevægelser (håndstand/stå på to ben/Thomas flair/baglæns saltomortale); grundbevægelser (stå/ligge/kravle fremad/spring fremad/spring opad/klatre op på platform/lås position)"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra denne variants egen funktionsliste - rigere end L2/L2-W's, tilføjer autonom navigation som standard (ikke tilvalg), målsporing, RTK og laser+vision-fusionsundvigelse."
@@ -169,6 +169,6 @@ felter:
       - "5G-kortplads x1"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽\" - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter."
+    advarsel: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽\" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 5G-kortplads) - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"

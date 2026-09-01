@@ -63,7 +63,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" - grænseværdi op til ca. 10 kg oplyst separat."
+    advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" (maks. last) - grænseværdi op til ca. 10 kg oplyst separat."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -113,7 +113,7 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"续航时间: 1-2 h\", ingen lastbetingelse oplyst. Rækkevidde \"续航里程: 6 km\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel: "\"续航时间: 1-2 h\" (driftstid), ingen lastbetingelse oplyst. Rækkevidde \"续航里程: 6 km\" (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -122,7 +122,7 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"充电时长: 1 h\"."
+    advarsel: "\"充电时长: 1 h\" (ladetid)."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -131,14 +131,14 @@ felter:
     advarsel: "Tilbehørsliste: \"充电座: 标配\" (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter IKKE autonom hjemkørsel/selvgenopladning - det ord står ikke på L1's side (modsat L2's eksplicitte \"自主回充功能\")."
   lidar: "ikke_oplyst"
   kameraer:
-    vaerdi: "Bredvinkelkamera, 8 MP (800万像素), DFOV 122° / HFOV 111° / VFOV 70°"
+    vaerdi: "Bredvinkelkamera, 8 MP, DFOV 122° / HFOV 111° / VFOV 70°"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
   compute:
     vaerdi: "8-kernet CPU"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel."
+    advarsel: "\"基础算力: 8 核高性能 CPU\" (grundlæggende regnekraft: 8-kernet højtydende CPU). \"工作最大功率: 3500W\" (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel."
   ros2: "ikke_oplyst"
   sdk_sprog:
     vaerdi:
@@ -148,7 +148,7 @@ felter:
     kildetype: "sekundaer"
     advarsel: "Kilde er producentens egen GitHub-organisation (zsibot = GENISOM AI), repoet \"genisom_L1_sdk\", eksplicit navngivet officiel L1-SDK. README: \"基于 C++20 开发\" (C++20). Ikke produktsiden selv, derfor kildetype: sekundær efter den nye regel."
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配, AI-forstærkningslæring bevægelsesstyring); 目标识别与追踪 (målgenkendelse og -sporing); OTA升级; 二次开发支持 (understøtter videreudvikling)"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); målgenkendelse og -sporing; OTA-opdatering; understøtter videreudvikling"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."

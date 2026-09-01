@@ -28,14 +28,14 @@ felter:
     operator: "<="
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "\"本体重量: ≤100 kg\"."
+    advarsel: "\"本体重量: ≤100 kg\" (egenvægt)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1190
     enhed: "mm"
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\" - ingen \"约\" (cirka)-tegn, ingen operator sat."
+    advarsel: "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\" (ydre mål, længde×bredde×højde) - ingen \"约\" (cirka)-tegn, ingen operator sat."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 640
@@ -53,7 +53,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
+    advarsel: "\"最大载荷: 50 kg\" (maks. last) i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -66,7 +66,7 @@ felter:
     enhed: "°"
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "\"最大爬坡角度: 35°\", bekræftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\"."
+    advarsel: "\"最大爬坡角度: 35°\" (maks. klatrbar skråningsvinkel), bekræftet af marketingteksten \"稳定爬坡 最大爬坡角度 35°\" (stabil skråningsklatring, maks. klatrbar skråningsvinkel 35°)."
     advarsel_klasse: "uddybning"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -109,7 +109,7 @@ felter:
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "AI强化学习运控 (支持); 自主导航 (支持); 智能避障 (支持); 二次开发支持; SLAM/IMU/AI-beslutningsfusion (\"融合 SLAM、IMU 与 AI 决策，自主规划、实时避障，现场信息同步回传\" - fusion af SLAM, IMU og AI-beslutning, autonom planlægning, realtidsundvigelse, on-site dataoverførsel i realtid)"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (understøttet); autonom navigation (understøttet); intelligent undvigelse af forhindringer (understøttet); understøtter videreudvikling; SLAM/IMU/AI-beslutningsfusion (fusion af SLAM, IMU og AI-beslutning, autonom planlægning, realtidsundvigelse, on-site dataoverførsel i realtid)"
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."

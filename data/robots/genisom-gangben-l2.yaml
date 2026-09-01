@@ -38,7 +38,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长 x 宽 x 高）约 720 x 390 x 480 mm\" - akserne er eksplicit mærket af producenten."
+    advarsel: "\"站立尺寸（长 x 宽 x 高）约 720 x 390 x 480 mm\" (stående mål, længde×bredde×højde, ca.) - akserne er eksplicit mærket af producenten."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 390
@@ -67,7 +67,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 16 kg\"."
+    advarsel: "\"最大载荷 ≈ 16 kg\" (maks. last)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
@@ -88,7 +88,7 @@ felter:
     enhed: "°"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大爬坡角度: 40°\", bekræftet af homepage-kapacitetskortet."
+    advarsel: "\"最大爬坡角度: 40°\" (maks. klatrbar skråningsvinkel), bekræftet af homepage-kapacitetskortet."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 70
@@ -123,7 +123,7 @@ felter:
     enhed: "Wh"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"756Wh 大容量电池\" fra sidens kapacitetskort. Se top-noten om det separate \"15000mAh\"-tal i tilbehørslisten - ikke brugt til at udregne Wh, kun noteret som fundet uden modsigelse."
+    advarsel: "\"756Wh 大容量电池\" (756Wh højkapacitetsbatteri) fra sidens kapacitetskort. Se top-noten om det separate \"15000mAh\"-tal i tilbehørslisten - ikke brugt til at udregne Wh, kun noteret som fundet uden modsigelse."
     advarsel_klasse: "uddybning"
   driftstid:
     min: 3.5
@@ -140,7 +140,7 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"充电时长: 1.5 h\"."
+    advarsel: "\"充电时长: 1.5 h\" (ladetid)."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -149,7 +149,7 @@ felter:
     advarsel: "Tilbehørsliste har TO rækker: \"充电座: 标配\" (ladesokkel, standardudstyr - samme som L1 har) OG separat \"充电桩（包含自主回充功能）: 选配\" (ladestation inkl. autonom genopladningsfunktion, TILVALG). L2 har altså både en standard-ladesokkel OG en betalt opgradering til autonom hjemkørsel - dockingstation: ja dækker minimum den første; den autonome genopladningsfunktion specifikt er kun bekræftet som tilvalg, ikke standard."
   lidar: "ikke_oplyst"
   kameraer:
-    vaerdi: "Stereokamera, 2 x 2,07 MP (双目相机)"
+    vaerdi: "Stereokamera, 2 x 2,07 MP"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
   compute:
@@ -164,7 +164,7 @@ felter:
     advarsel: "UNDERSØGT OG BEVIDST IKKE SAT TIL JA, EFTER SELV-TJEK FANGEDE FOR SVAGT BEVIS. L2's egen produktside nævner \"新一代 RoamerX 智能导航系统\" som en navngiven feature, og producentens GitHub-repo \"genisom_roamerx_open\" kræver eksplicit \"ROS2 Humble Hawksbill\". Første udkast af denne post satte ros2: ja på den kobling. Ved genlæsning af repoets EGEN README står der dog under et afsnit \"Hardware Deployment\": \"TODO\" - producenten skriver selv, at koblingen mellem dette open source-repo og et fysisk, sælgende produkt IKKE er dokumenteret endnu. Et navnesammenfald ('RoamerX') plus et repo, der selv siger 'TODO' til hardware-udrulning, er en gætning, ikke en måling - regel 1. Rettet til ikke oplyst."
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); UWB; 自主跟随 (autonom følgning); 智能避障 (智能undvigelse af forhindringer); OTA升级; 二次开发支持"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); UWB; autonom følgning; intelligent undvigelse af forhindringer; OTA-opdatering; understøtter videreudvikling"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."

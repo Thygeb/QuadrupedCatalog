@@ -40,7 +40,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长x宽x高）约 630 × 430 × 485 mm\"."
+    advarsel: "\"站立尺寸（长x宽x高）约 630 × 430 × 485 mm\" (stående mål, længde×bredde×højde, ca.)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 430
@@ -69,7 +69,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 10 kg（极限 ~12 kg）\" - grænseværdi op til ca. 12 kg oplyst separat."
+    advarsel: "\"最大载荷 ≈ 10 kg（极限 ~12 kg）\" (maks. last) - grænseværdi op til ca. 12 kg oplyst separat."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -91,7 +91,7 @@ felter:
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"65cm 最大越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2."
+    advarsel: "\"65cm 最大越障高度\" (65cm maks. forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 16
@@ -134,7 +134,7 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"充电时长: 1h\"."
+    advarsel: "\"充电时长: 1h\" (ladetid)."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -143,7 +143,7 @@ felter:
     advarsel: "Tilbehørsliste: \"充电座: 标配\" (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter ikke autonom hjemkørsel/selvgenopladning."
   lidar: "ikke_oplyst"
   kameraer:
-    vaerdi: "Bredvinkelkamera, 8 MP (800万像素), DFOV 122° / HFOV 111° / VFOV 70°"
+    vaerdi: "Bredvinkelkamera, 8 MP, DFOV 122° / HFOV 111° / VFOV 70°"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
     advarsel: "Samme kameraspecifikation som L1 - kun IMU og bredvinkelkameraet står i den strukturerede sensor-sektion, ingen lidar-række."
@@ -151,11 +151,11 @@ felter:
     vaerdi: "8-kernet CPU"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er også oplyst i samme sektion; skemaet har intet effektfelt."
+    advarsel: "\"基础算力: 8 核高性能 CPU\" (grundlæggende regnekraft: 8-kernet højtydende CPU). \"工作最大功率: 3500W\" (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt."
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "AI强化学习运控 (标配); 目标识别与追踪; 基础动作 (站立/卧倒/阻尼/俯仰身形/高低身形/水平转身); 特技动作 (向前跳/向上跳/双腿站立/后空翻/打招呼等); 二次开发支持; OTA升级; 实时图像传输"
+    vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); målgenkendelse og -sporing; grundbevægelser (stå/ligge/dæmpning/vip krop/høj-lav krop/vandret drejning); specialbevægelser (spring fremad/spring opad/stå på to ben/baglæns saltomortale/vinke m.fl.); understøtter videreudvikling; OTA-opdatering; realtids billedoverførsel"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
     advarsel: "Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala."
