@@ -71,9 +71,44 @@ og en agent, der fulgte tabellen, fik `Unknown skill` og gik videre uden skill.
 `frontend-design` og `teach-impeccable`, som heller ikke findes. Tabellen er
 derfor skrevet om til det, der faktisk kan kaldes:
 
+### L70: impeccables flows ER metoden for designarbejde
+
+**Besluttet af JPK 1. sep 2026, ordret: *"fremover anvender vi impeccables plugin
+og flows."*** Gælder alt designarbejde fra nu af.
+
+Anledningen var hans egen indvending midt i en strøm af punktrettelser: *"Inden
+vi laver for mange separate analyser, skal vi så ikke lave en konkret
+designplan?"* Han havde ret, og advarslen længere nede i denne fil var allerede
+købt for tre kritikrunder: **en fejlliste kan kun bringe siden tilbage til sit
+eget tilsigtede udseende — den kan aldrig hæve loftet.** Eftermiddagen 1. sep
+gentog mønstret præcist: polstring, tekststørrelse, SELECTED-baren og
+kildemærket, fire punktrettelser i træk, hver enkelt rigtig og tilsammen uden
+retning.
+
+**Konsekvensen i praksis:** står du med mere end én rettelse på samme flade, så
+kør `impeccable shape` på fladen i stedet for at sende rettelserne enkeltvis.
+En enkeltstående, isoleret fejl må stadig rettes direkte — SELECTED-baren, der
+viste en standardtilstand som et brugervalg, var en sådan.
+
+**Navngiv fladens MODE, hver gang.** Det er skillens egen ramme, og projektet
+brugte den ikke før nu: katalogsiden er **Operate** (den besøgende løser en
+opgave), robotsiden og Om os er **Read** (den besøgende skal forstå noget). To
+succeskriterier — og de blev behandlet ens i alt arbejde før 1. sep.
+
+**Skillen respekterer selv vores låse**, så den kan bruges uden værn mod den:
+*"The brief wins. Honor pinned aesthetics, eras, materials, fonts, and
+palettes."* D15 og L40 står uændret.
+
+**Tabellen nedenfor er læst fra `SKILL.md` på disken, ikke fra hukommelsen** —
+den har været forkert før, og det kostede en `Unknown skill` og et spor uden
+skill.
+
 | Skill | Hvornår |
 |---|---|
 | `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med 20+ underkommandoer. Se rækkerne nedenfor |
+| `impeccable layout` | Afstande, rytme og visuelt hierarki. Det, en "for meget polstring"-klage i virkeligheden beder om |
+| `impeccable typeset` | Typografisk hierarki. Målt 1. sep: **55 forskellige skriftstørrelser** i stilarkene, 18 trin alene i spændet 9–20 px |
+| `impeccable distill` | Skær ind til essensen, fjern kompleksitet |
 | `impeccable new-work` | Når en flade skal have en **retning**, ikke en rettelse. Bygger konkurrerende visuelle verdener, man kan se ved siden af hinanden |
 | `impeccable shape` | Planlæg UX/UI, før der skrives kode |
 | `impeccable critique` | Design-vurdering med heuristisk scoring: **virker designet**, ikke er det fejlfrit |
