@@ -9,7 +9,7 @@
  *
  * Hvorfor delt (spor/testdele, 26. aug 2026): filen var 2.209 linjer med otte
  * spor-blokke stablet i bunden, og 6 af 9 spor-flet konfliktede i netop den
- * fil, fordi to spor lagde hver sin nye testblok allersidst (ARBEJDSGANG-2.md,
+ * fil, fordi to spor lagde hver sin nye testblok allersidst (ARBEJDSGANG.md,
  * punkt O1). Løsningen er strukturel: én fil pr. emne, saa et nyt spor
  * TILFOEJER en fil i stedet for at redigere en delt.
  *
@@ -50,7 +50,7 @@ const ctx = {
 /** Raekkefoelgen er laeseorden, IKKE en afhaengighedskaede - hver del bygger
  *  sit eget data/dist i sin egen undermappe af tmp. Listen er IKKE skrevet i
  *  haanden: den er selve det, to samtidige spor ellers ville konfliktere om
- *  (ARBEJDSGANG-2.md, punkt O1 - "eet spor = een ny fil = INGEN konflikt"
+ *  (ARBEJDSGANG.md, punkt O1 - "eet spor = een ny fil = INGEN konflikt"
  *  holder ikke, hvis alle stadig skal redigere den samme array). En ny del
  *  tilfoejes ved at laegge filen i tests/dele/ med det naeste ledige
  *  tocifrede praefiks - og INTET andet, se tests/LAESMIG.md. Praefikset

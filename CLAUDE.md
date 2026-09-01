@@ -176,98 +176,36 @@ installeret** — kun det, der står i `.claude/settings.json`s `enabledPlugins`
 kaldes. Er en skill ikke slået til, kan dens `SKILL.md` stadig læses fra disk; skriv
 da i rapporten at det blev gjort.
 
-### `taste-skill` — grænsen, målt 27. aug 2026
+### `taste-skill` — hører næsten ikke hjemme her
 
-Pluginnet blev installeret 21. aug og er aktivt. **Kaldet er efterprøvet fra
-hovedrepoet: `taste-skill:redesign-skill` svarer.** Det rummer **13 underskills**;
-langt fra alle hører hjemme her.
+Installeret 21. aug 2026, aktiv, og kaldet er efterprøvet. **Men skillens egen
+første linje afgrænser den væk fra os:** *"Landing pages, portfolios, and
+redesigns. **Not dashboards, not data tables, not multi-step product UI.**"*
+Katalogsiden, sammenligningssiden og robotsiden ER datatabeller.
 
-**Skillens egen første linje afgrænser den, og den afgrænsning rammer os:**
+**Fire af dens afsnit bryder hårde begrænsninger, hvis de følges bogstaveligt.**
+Den anbefaler at opfinde "organiske" tal frem for runde, at digte
+firmanavne, at bruge `picsum.photos` som billedkilde og at erstatte
+pladsholdernavne med realistiske. Alle fire hviler på samme antagelse: at
+indhold må digtes, så siden ser ægte ud. Vores antagelse er den modsatte —
+hvert tal har en kilde, og hver producent er en rigtig virksomhed.
 
-> *"Landing pages, portfolios, and redesigns. **Not dashboards, not data tables,
-> not multi-step product UI.**"*
+**Efter L70 er spørgsmålet stort set lukket:** designarbejde køres gennem
+`impeccable`s flows. Det eneste, der stadig er værd at hente herfra, er
+`redesign-skill`s tjekliste over ting, der passer på en datatung side og
+ikke rører nogen beslutning: `font-variant-numeric: tabular-nums` på taldata,
+synlige fokusringe, `min-height: 100dvh`, semantisk HTML, alt-tekst,
+"skip to content"-link, egen 404-side, `text-wrap: balance`, animation via
+`transform`, og aktiv-tilstand på knapper.
 
-Katalogsiden, sammenligningssiden og robotsiden **er** datatabeller. Skillen er
-skrevet til en anden slags flade end den, dette projekt mest består af.
+**Den bredere lærdom, som ikke kun gælder denne skill:** en skill hentet
+udefra bærer sit eget projekts antagelser. **Læs en ny skills faktiske tekst
+for konflikter med de hårde begrænsninger, før den skrives ind i tabellen** —
+ikke kun dens beskrivelse.
 
-**FIRE AFSNIT MÅ ALDRIG FØLGES HER. De er ikke smagssager — de bryder de hårde
-begrænsninger:**
-
-| Skillen siger | Bryder |
-|---|---|
-| *"Fake round numbers like `99.99%` → use organic, messy data: `47.2%`"* | **Hård begrænsning 2.** Opfind aldrig tal. Hvert tal på siden har en kilde |
-| *"Placeholder company names like Acme Corp → invent believable brand names"* | Siden viser **rigtige** producenter. Et opfundet navn er en løgn om en virksomhed |
-| *"Use placeholder sources like `picsum.photos`"* | **Hård begrænsning 4** og hele kildeløftet. Intet billede uden ophav |
-| *"Generic names like John Doe → use realistic-sounding names"* | Samme rod: skillen antager en markedsføringsside, hvor indhold må digtes |
-
-**To afsnit kolliderer med en truffet beslutning, ikke med en regel:**
-
-- **Skrift- og paletteråd** (Geist, Satoshi, "one accent color", gradienter):
-  paletten og skrifterne er **låst af TYPESKILT** — en ekstern anmelder
-  anbefalede netop dem som forbedring, altså er de ikke problemet. Varier dem
-  ikke.
-- **Glasmorfisme, grain/noise, parallax-stakke, inerti-scroll:** TYPESKILT er
-  en stanset plade, ikke en overflade med dybde. De to peger modsat.
-
-> **RETTET 1. sep 2026 — og fejlen kostede syv briefs samme dag.**
-> Her stod, at **D15** låste paletten, og at **L40** valgte **INSTRUMENT**.
-> **Begge dele er forældede.** STATUS.md's **L54** (31. aug 2026) siger ordret:
-> *"HELE UI'ET REDESIGNES, og både D15 og L40 er omgjort… JPK fik D15 og L40
-> vist og valgte 'alt falder — palette, skrifter, retning'… de gamle verdener
-> (VITRINE/INSTRUMENT/REGISTER, retning-lys) er **anti-reference**, ikke
-> genbrug."*
->
-> **Gældende retning er TYPESKILT.** Listen over farver og skrifter er stadig
-> rigtig — kun attributionen var forkert, så ingen agent byggede noget galt.
-> Men **INSTRUMENT må aldrig citeres som pejlemærke i et brief**: det er
-> udtrykkeligt det, en flade IKKE skal ligne.
->
-> Fejlen blev fundet af `spor/shape`, som slog efter i STATUS.md i stedet for
-> at tro på denne fil. **Det er præcis Å55-fælden**, og den ramte her i sin
-> værste form: orkestratoren læste sin egen forældede note og gentog den i
-> syv briefs på én dag. Rettelsen står som et citat med kilde, så den næste
-> kan efterprøve den frem for at stole på mig.
-
-**Hvad der SÅ er brugbart, og det er ikke lidt.** `redesign-skill`s tjekliste
-bærer råd, der passer præcis på en datatung side og ikke rører nogen beslutning:
-`font-variant-numeric: tabular-nums` på taldata, synlige fokusringe,
-`min-height: 100dvh`, semantisk HTML, alt-tekst, "skip to content"-link, egen
-404-side, `text-wrap: balance`, animation via `transform` frem for `top/left`,
-og aktiv/trykket-tilstand på knapper.
-
-**Sådan bruges den:**
-
-| Underskill | Her? |
-|---|---|
-| `redesign-skill` | **Ja — som tjekliste**, med de fire forbudte afsnit sprunget over. Bedst til et revisionspas på en bygget flade |
-| `taste-skill` (v2) | **Kun forsiden**, og kun hvor den ikke rører palette, skrift eller TYPESKILT-retningen |
-| `output-skill` | **Måske.** Handler ikke om design: den forbyder afkortet kode og pladsholdere. Kan være værd at give et Sonnet-spor, der skal levere komplet kode |
-| `brutalist-skill` · `minimalist-skill` · `soft-skill` | **Nej.** Stilvarianter — TYPESKILT låste stilen |
-| `brandkit` · `imagegen-frontend-web` · `imagegen-frontend-mobile` · `image-to-code` | **Nej.** De genererer billeder. Hård begrænsning 4 |
-| `gpt-tasteskill` · `stitch-skill` | **Nej.** Skrevet til GPT/Codex og Google Stitch |
-| `taste-skill-v1` | Nej, arkiv |
-
-**Den bredere lærdom, som ikke kun gælder denne skill:** en skill hentet udefra
-bærer sit eget projekts antagelser. Denne ene antager en markedsføringsside,
-hvor indhold må digtes for at se ægte ud. Vores antager det modsatte. **Læs en
-ny skills faktiske tekst for konflikter med de hårde begrænsninger, før den
-skrives ind i tabellen** — ikke kun dens beskrivelse.
-
-**Advarslen, der kostede tre runder:** `ui-ux-critique` svarer på *"er den her
-side udført rigtigt?"*. `impeccable critique` svarer på *"er det her det rigtige
-design?"*. KRITIK-1, KRITIK-2 og KRITIK-3 er alle tre af den første slags — og
-det er derfor, udseendet ikke flyttede sig, selvom hver runde fandt ægte fejl.
-**En fejlliste kan kun bringe siden tilbage til sit eget tilsigtede udseende.
-Den kan aldrig hæve loftet.** Skal loftet hæves, er det `new-work` eller
-`bolder`, ikke endnu en fejljagt.
-
-**Til kodegennemgang** findes både CLI-kommandoen `/code-review` og pluginnet
-`code-review@claude-plugins-official`, som er installeret og slået til.
-
-**Andre installerede plugins, der ikke er nævnt i tabellen, men findes:**
-`skill-creator` (byg og evaluér nye skills), `feature-dev` (agenterne
-`code-architect`, `code-explorer`, `code-reviewer`), `ui-ux-pro-max`,
-`taste-skill` og `commit-commands`. `android-skills` er irrelevant her.
+*(Her stod indtil 1. sep 2026 en 93-linjers gennemgang af alle 13 underskills
+med en ja/nej-tabel. Den blev skåret, fordi svaret for tolv af dem er nej, og
+fordi L70 gjorde spørgsmålet mindre relevant. Detaljen står i git-historikken.)*
 
 ## Sprog
 
@@ -597,7 +535,7 @@ Ud over de globale skills i tabellen ovenfor har projektet otte egne i `.claude/
 | `robotdata` | Hver gang en robotpost tilføjes, opdateres eller efterprøves. Bærer 29-feltsskemaet, de ti hårde regler og selv-tjekket med tælling |
 | `parallelt` | Hver gang arbejde deles på flere agenter. Bærer worktree-opsætningen, prompt-tjeklisten og de to fælder |
 | `grillmig` | **UDE AF DET OBLIGATORISKE WORKFLOW pr. 28. aug 2026, besluttet af JPK.** Må stadig kaldes bevidst på et **agentbrief**, hvor et målbart facit findes — aldrig automatisk, og **aldrig på en designretning**. Begrundelsen, som er JPK's egen: den holder designprocessen tilbage og skærer for mange idéer. Det er strukturelt, ikke tilfældigt — skillens egen tekst siger *"enighed er fejltilstanden"* og *"slut aldrig med en ros"*, så den er bygget til at finde indvendinger. På et brief er det rigtigt. På en designretning er det skævt, fordi prisen ved en ny idé altid er konkret, mens gevinsten altid er spekulativ; resultatet bliver en nej-liste. **Det afgørende modbevis for dens beskyttelsesværdi er Å55:** sessionens dyreste fejl skete med skillen kørende — den stillede sit spørgsmål B3 om tidligere beslutninger, og jeg svarede forkert på det alligevel. En skill, der stiller det rigtige spørgsmål, forhindrer ikke et forkert svar. **Det, der SKAL overleve uden den:** slå altid efter i STATUS.md's **Lukket**-tabel og i *"Kom ikke igen med disse"*, før noget bygges — og afkort aldrig den søgning med `head`, se Å55 |
-| `brief` | **Bygger briefets krop** (kaldes nu direkte, uden et grillmig-trin før): kørte acceptkriterier, komplet filejerskab, mærkede tal, rapportform, miljøfælder, pladsholder-scanning. Bygget 27. aug 2026 af ARBEJDSGANG-2 O3's fire defekter |
+| `brief` | **Bygger briefets krop** (kaldes nu direkte, uden et grillmig-trin før): kørte acceptkriterier, komplet filejerskab, mærkede tal, rapportform, miljøfælder, pladsholder-scanning. Bygget 27. aug 2026 af ARBEJDSGANG.md O3's fire defekter |
 | `fejljagt` | HVER gang noget opfører sig uventet — rød test, måletal der ikke passer, kriterium der giver 0 uanset input. Efterprøv måleapparatet før tallet; mekanismesætning før rettelse; revert-bevis efter. Bygget 27. aug 2026 af ugens tre målefejl |
 | `flet` | HVER gang et spor flettes, en worktree fjernes eller en gren lukkes. Bærer de to regler, der manglede: tests på det FLETTEDE resultat, og `--force` kræver en måling først. Bygget 27. aug 2026 efter superpowers-analysen (`fund/FUND-superpowers.md`) |
 | `supabase` | Alt arbejde mod Supabase-projektet (L34): MCP, fejlfinding, HTTP-/RLS-overraskelser. Officiel Supabase-skill, installeret 25. aug 2026 |
@@ -620,7 +558,7 @@ den fra sin worktree — **fejlede**, og faldt korrekt tilbage til disken.
 
 *(Første udgave af denne regel sagde "en agent i en worktree kan ikke kalde skills". Det
 var generaliseret fra ét datapunkt og blev modbevist en time senere af det næste spor.
-Det er præcis fejl O5 i `ARBEJDSGANG-2.md`, begået i selve reglen om at måle.)*
+Det er præcis fejl O5 i `ARBEJDSGANG.md`, begået i selve reglen om at måle.)*
 
 Projektets egne otte skills ligger i `.claude/skills/`, er versionerede og følger derfor
 altid med worktreen. Bruger- og plugin-skills gør ikke.
@@ -676,25 +614,16 @@ genstart, i stedet for at rapportere fallback.
 
 **Pluginnets egen server (`plugin:playwright:playwright`) fejler STADIG med
 `CONNECTION_CLOSED` ved hver sessionsstart — det er forventet støj, jag den
-ikke.** Rodårsagen er målt 28. aug 2026 og uændret: pluginnets `.mcp.json`
-siger `{ "command": "npx", "args": ["@playwright/mcp@latest"] }`, og
-`C:\Program Files\nodejs\npx` **uden endelse er en bash-shellscript**
-(`#!/usr/bin/env bash`), som Windows' CreateProcess ikke kan udføre —
-`spawn('npx', ..., {shell:false})` → **ENOENT**. Serveren dør i samme
-øjeblik, den startes, og **Reconnect gentager nøjagtig samme kommando**.
-Pluginfilen kan ikke rettes varigt (overskrives ved plugin-opdatering);
-projektserveren er erstatningen.
+ikke.** Rodårsagen er målt: pluginnet starter `npx`, og `npx` uden endelse er
+et bash-script, som Windows' CreateProcess ikke kan udføre. Pluginfilen kan
+ikke rettes varigt (overskrives ved opdatering); projektserveren er
+erstatningen.
 
-**Fire hypoteser er modbevist undervejs — prøv dem ikke igen:**
-(1) *"npx er ikke på PATH"* — ikke i Git Bash, men det siger intet om den
-proces, Claude Code selv spawner. (2) *"pakken er ikke hentet"* —
-`npx @playwright/mcp@latest --help` svarede exit 0, og Reconnect fejlede
-alligevel. (3) *"skift til npx.cmd"* — målt 31. aug: `.cmd`-filer uden
-`shell:true` giver **EINVAL** under Node 24 (værnet efter CVE-2024-27980).
-(4) *"start via cmd /c npx"* — hviler på to PATH-antagelser (System32 og
-nodejs), og npx genstarter selv `node` via PATH; begge faldt under måling.
-Derfor den valgte form: fuld sti til `node.exe` + fuld sti til `cli.js`,
-nul PATH-afhængigheder.
+**Fire løsninger er prøvet og modbevist — prøv dem ikke igen:** at lægge `npx`
+på PATH, at hente pakken først, at skifte til `npx.cmd` (giver **EINVAL** under
+Node 24 uden `shell:true`), og at starte via `cmd /c npx`. Derfor den valgte
+form: fuld sti til `node.exe` + fuld sti til `cli.js`, nul PATH-afhængigheder.
+*(Den fulde måling af hver hypotese står i git-historikken.)*
 
 **Impeccables detektor (`detect.mjs`) kører STILLE DEGRADERET på denne maskine —
 målt 28. aug 2026, og den degraderede kørsel er en falsk blank attest.** Fire
@@ -753,12 +682,27 @@ mappe.** Derfor gælder to ting, hver gang der måles i browseren:
   et måleapparat — skal valideres mod et kendt svar, før dets tal bruges i
   et fund.**
 
-**Fælden, værktøjet selv faldt i første gang det blev brugt:** det målte
-beskæring mod `<img>`-elementets egen kasse og gav **0** — mens filmålingen gav
-**16**. `<img>` fylder ikke nødvendigvis sit `<picture>`, så billedets kasse
-følger dets naturlige forhold; beskæringen sker, fordi *rammen* klipper. Rettet
-til at måle mod `.billedled`. **Lærdommen er større end fejlen: et nyt
-måleapparat skal valideres mod et kendt svar, før dets tal bruges i et fund.**
+**Værktøjet faldt selv i fælden første gang det blev brugt:** det målte
+beskæring mod `<img>`-elementets kasse og gav **0**, mens filmålingen gav
+**16** — rammen klipper, ikke billedet. Rettet til at måle mod `.billedled`.
+Det er tredje gang samme lærdom står på denne side, og den er værd at gentage.
+
+### Disken er en begrænsning, ikke en selvfølge — målt 1. sep 2026
+
+Et spor døde midt i arbejdet, fordi C: var **100 % fuld**. Årsagen var ikke
+projektet, men dets affald: `tests/.tmp-koersel` var vokset til **2,6 GB**
+(611 billeder pr. kopi, én kopi pr. testkørsel), `db/.tmp` til **171 MB**, og
+to forældreløse målebyg (`dist-c/`, `dist-check/`) fyldte **102 MB**. Alle fire
+er gitignorerede og genskabes.
+
+**Konsekvenser, der gælder hver gang flere spor kører:**
+
+- **Antallet af samtidige spor er også begrænset af diskplads**, ikke kun af
+  delte filer. Hvert spor kan nå 2,5 GB i testartefakter.
+- **Ryd `tests/.tmp-koersel` mellem runder.** Målt samme dag: at rydde
+  hovedrepoets 2,5 GB gav *mindre* fri plads bagefter, fordi de kørende spor
+  skrev hurtigere, end der blev ryddet. Ryd før du starter, ikke bagefter.
+- Rammer ENOSPC et spor, er det **miljøet og ikke arbejdet** — se `fejljagt`.
 
 Tre fælder, der kostede kald samme dag ([ARBEJDSGANG.md](ARBEJDSGANG.md)):
 

@@ -28,7 +28,7 @@ Et tal, der skal bruges til at finde en fejl, skal selv kunne fejle:
   (`maal.mjs` blev valideret mod filmålingens 16 — og afveg.)
 - **Tving den til at fejle.** Bryd noget med vilje og se tallet flytte sig.
   Flytter det sig ikke, måler kommandoen ingenting. Det er O2-reglen fra
-  ARBEJDSGANG-2, og den gælder også under fejljagt.
+  ARBEJDSGANG.md runde 2, og den gælder også under fejljagt.
 - **Tjek de tomme mellemled.** Skriv linjeantal ud for hver mellemfil, før du
   sammenligner dem. En tom fil i en pipeline er en falsk godkendelse på vej.
 

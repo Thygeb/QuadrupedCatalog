@@ -119,7 +119,7 @@ orkestratoren kontrolleres ellers af ingen.
 
 Samme regel for citater, dine egne inklusive: **et citat er et tal.** Citeret
 med linjenummer og slået op = høj konfidens; citeret efter hukommelse = lav,
-og skal mærkes. To løse citater slap igennem på én session (ARBEJDSGANG-3 V3),
+og skal mærkes. To løse citater slap igennem på én session (ARBEJDSGANG.md V3),
 og begge lød dokumenterede, netop fordi de bar en henvisning.
 
 **Denne tjekliste gælder også rettelsesbeskeder til et kørende spor.** En

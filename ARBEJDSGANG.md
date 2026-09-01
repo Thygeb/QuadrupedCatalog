@@ -1,129 +1,124 @@
-# Evaluering af arbejdsgange og skills
+# ARBEJDSGANG.md — hvad tre evalueringer målte om arbejdsgangen selv
 
-Skrevet 19. august 2026, efter den første arbejdsdag på projektet. Bestilt af JPK med
-fokus på **autonomi** og **parallelt agentarbejde**.
+Sammenlagt 1. sep 2026 af **ARBEJDSGANG.md** (19. aug), **ARBEJDSGANG-2.md**
+(26. aug) og **ARBEJDSGANG-3.md** (27. aug). De to sidste er slettet; deres
+indhold står her.
 
-Skill-vurdering for denne opgave: `update-config` (hooks og permissions — det eneste sted
-noget kan ske automatisk uden at nogen husker det) og `fewer-permission-prompts`
-(allowlist). Gik forbi: `new-project` (git, .gitignore og CLAUDE.md findes allerede),
-`impeccable` (visuel retning, ikke påbegyndt endnu).
+**Hvorfor sammenlagt:** 517 linjer fordelt på tre filer, hvor de fleste fund
+siden er destilleret til skills. Prosaen blev læst én gang og derefter aldrig;
+skillene bliver kaldt. Denne fil er nu **indekset over, hvad hver runde fandt,
+og hvor svaret bor i dag** — ikke udredningen. Går du efter detaljen bag et
+fund, står den i den skill, fundet blev til.
 
----
-
-## Målingen
-
-Ikke et skøn. Otte værktøjskald i dagens session gik tabt på ting, der kunne have været
-vidst på forhånd:
-
-| # | Hvad fejlede | Hvorfor | Kald tabt |
-|---|---|---|---|
-| 1 | `node` | Ikke på PATH i Git Bash. Ligger i `/c/Program Files/nodejs/node.exe` | 1 |
-| 2 | `python` | Samme. Ligger i `/c/Users/thyge/AppData/Local/Programs/Python/Python314/` | 1 |
-| 3 | `jq` | Findes slet ikke på maskinen — men optræder i alle hook-eksempler | 1 |
-| 4 | Bash-heredoc | Knækkede på et langt markdown-dokument. Write-værktøjet klarede det uden videre | 1 |
-| 5 | Edit-værktøjet ×2 | Afviste med *"File has not been read yet"* — `head` i Bash tæller **ikke** som en læsning, kun Read-værktøjet gør | 2 |
-| 6 | `sed -i` | Ramte ikke sit mønster og gjorde **intet**, tavst og med exit 0 | 1 |
-| 7 | `/tmp` | node og Git Bash er ikke enige om, hvor `/tmp` ligger | 1 |
-
-**Otte kald.** Ingen af dem ødelagde noget; alle af dem kostede en runde. Nummer 6 er den
-farligste, fordi den var **tavs** — en sed, der ikke matcher, ser ud som en sed, der
-virkede.
-
-## Det største fund er ikke i tabellen
-
-**Jeg skrev de samme ti hårde regler i hånden ind i tre agentprompter.** Cirka 2.400 ord
-duplikeret instruktion — om kilder, operatorer, nyttelastsplit, trinhøjdesplit,
-lastbetingelser, selv-test og selv-review.
-
-Det er ikke spild af tegn. Det er en **risiko**: tre håndskrevne kopier af den samme regel
-divergerer ved fjerde kopi, og så indsamler agent fire efter en regel, ingen har besluttet
-at ændre. Det er præcis den fejl, en skill findes for at forhindre.
+**Numrene er bevaret med vilje.** O1–O5 og V1–V5 citeres fra levende filer:
+`.claude/skills/brief/SKILL.md`, `.claude/skills/fejljagt/SKILL.md`,
+`CLAUDE.md` og `tests/koer.mjs`. Et fund må omskrives, men aldrig omnummereres.
 
 ---
 
-## Hvad der er lavet
+## Runde 1 — 19. aug 2026
 
-### Projektskills — `.claude/skills/`
+Bestilt af JPK med fokus på **autonomi** og **parallelt agentarbejde**, efter
+den første arbejdsdag.
 
-| Skill | Hvad den bærer | Hvorfor |
+Resultatet var de første projektskills og en udvidet `.claude/settings.json`.
+Rundens varige bidrag er **tre miljøfælder**, som stadig koster et kald hver,
+når de udelades — de står nu i CLAUDE.md's værktøjsafsnit og i `brief`-skillens
+miljøblok:
+
+- `head` i Bash tæller **ikke** som en læsning for Edit-værktøjet.
+- `sed -i`, der ikke matcher, gør intet — tavst og med exit 0.
+- Lange markdown-filer knækker i bash-heredocs. Brug Write-værktøjet.
+
+---
+
+## Runde 2 — 26. aug 2026
+
+Bestilt af JPK: *"evaluér vores workflow ud fra det, du har lært i denne
+session."* Grundlaget var én dags arbejde, ikke en fornemmelse: **13
+agentbriefs sendt.**
+
+| # | Fundet | Hvor svaret bor i dag |
 |---|---|---|
-| **`robotdata`** | 29-feltsskemaet, de ti hårde regler, feltets YAML-form, tæthedsreferencerne, det obligatoriske selv-tjek med tælling | Erstatter de 2.400 duplikerede ord. En agent får nu reglerne fra ét sted, som kan rettes ét sted |
-| **`parallelt`** | Worktree-opsætning fra det rigtige repo, prompt-tjeklisten på ni punkter, flette- og oprydningsvejen, og de to fælder | Gør JPK's regel eksekverbar i stedet for hukommelsesafhængig |
+| **O1** | Testfilen er en flettekonflikt af konstruktion — ramte **6 af 9** spor-flet | **Løst.** `tests/koer.mjs` opdager selv filer i `tests/dele/`; ét spor = én ny fil = ingen konflikt. Kontrakten står i `tests/LAESMIG.md` |
+| **O2** | Et acceptkriterium, der aldrig blev kørt, måler ingenting — **2 af 13** briefs | **Løst.** `brief`-skillens punkt 2: kriteriet skal køres mod main og bære sit nuværende output |
+| **O3** | Briefets rygrad blev skrevet i hånden 13 gange — **4 defekter** slap igennem | **Løst.** Blev til `brief`-skillen |
+| **O4** | Beslutninger driver fra virkeligheden, og ingen måler det — **3 fund på én dag** | **Delvist.** Målingen blev kørt én gang og fandt sin egen grænse. Se det åbne punkt nederst |
+| **O5** | Tre gange præsenterede orkestratoren en **slutning** som en **måling** | **Delvist.** `fejljagt`-skillen kræver mekanismesætning før rettelse og revert-bevis efter — men fejlformen gentog sig 1. sep, se nedenfor |
 
-Begge bærer de fælder, der kostede tid i dag: `isolation: "worktree"` forgrener fra
-sessionens arbejdsmappe, og en worktrees `.git`-fil indeholder en absolut sti, så
-hovedrepoet ikke må flyttes under kørsel.
-
-### `.claude/settings.json`
-
-**Hook — `UserPromptSubmit`.** Injicerer projektreglen i konteksten ved hver eneste
-prompt: skill-vurdering først, skriv valgt og fravalgt, kør parallelt hvor det kan deles,
-selv-test med tælling. **Rørtestet: 495 tegn gyldig JSON.**
-
-Det er den eneste af de fire regler, der kan gøres *automatisk*. Resten afhænger af, at
-nogen læser CLAUDE.md — hooken afhænger ikke af noget.
-
-**Permissions — allow.** `node`, `npx --yes`, `mkdir`, `touch`, `cp`, `mv`, `cat`,
-`printf`, `jq`, `git init`, `git worktree`, `git switch`, `git checkout`, `git merge`,
-`python -m http.server`. De globale indstillinger dækkede allerede `git status/diff/log/
-add/commit/branch`, `grep`, `sed`, `find` med flere; det her er hullerne, dagen afslørede.
-
-**Permissions — deny.** Salgssiden er gjort **strukturelt** urørlig:
-
-```
-Edit(//c/Praktik/website/**)          Write(//c/Praktik/website/**)
-Edit(//c/Praktik/websites/salg/**)    Write(//c/Praktik/websites/salg/**)
-```
-
-Begge stier, fordi flytningen ikke er sket endnu. JPK har sagt tre gange, at salgssiden
-ikke må røres. En regel, der er gentaget tre gange, hører ikke hjemme i et dokument — den
-hører hjemme et sted, hvor den ikke kan overtrædes. `Bash(rm -rf:*)` er også nægtet.
-
-**`additionalDirectories`.** De tre worktrees, så agenterne ikke standser på
-tilladelsesspørgsmål midt i arbejdet.
+**Rangeringen dengang:** O2 var den billigste rettelse (én linje, ville have
+fanget to af fire defekter); O1 den dyreste at lade være med (en manuel
+konfliktløsning pr. flet, værre for hvert spor). Begge er udført.
 
 ---
 
-## Autonomi: hvad der faktisk blev flyttet
+## Runde 3 — 27. aug 2026
 
-| Før | Nu |
-|---|---|
-| Reglen om skill-vurdering stod i to CLAUDE.md-filer og virkede kun, hvis nogen læste dem | Hook injicerer den ved hver prompt |
-| Ti dataregler skrevet i hånden pr. agent | Én skill, ét sted at rette |
-| "Rør ikke salgssiden" var en henstilling | Deny-regel — værktøjet nægter |
-| `node`, `mv`, `cp`, `git worktree` gav tilladelsesspørgsmål | Tilladt på forhånd |
-| Worktree-fælderne lå i min hukommelse | Skrevet ned i `parallelt` |
+Bestilt af JPK: *"er der mangler? Har vi lavet fejl, som kunne være undgået?"*
 
-Det, der **ikke** kan automatiseres endnu: valideringen af, at et talfelt har enhed og
-kilde. Den hører til i en `PostToolUse`-hook på `data/robots/*.yaml`, men `tools/validate.mjs`
-findes ikke, fordi der ikke er skrevet kode. **Det er det første, der skal hooktes, den dag
-generatoren bygges** — og den vigtigste, for det er den, der gør "opfind aldrig tal" til
-noget maskinen håndhæver frem for noget vi lover.
+| # | Fundet | Hvor svaret bor i dag |
+|---|---|---|
+| **V1** | **Orkestratoren er sessionens hyppigste regelbryder — 6 mod 2** | **Delvist.** `brief`-skillens punkt 10 giver agenterne mandat til at måle orkestratorens påstande. Se det åbne punkt |
+| **V2** | En navngiven fejl gentog sig to gange — **papirregler standser ingenting** | **Delvist.** Skillene er bygget med mekaniske felter frem for formaninger, netop derfor |
+| **V3** | Citater slår igennem uden kontrol — **to gange på én session** | **Løst.** `brief`-skillen: et citat er et tal. Citeret med linjenummer og slået op = høj konfidens; citeret efter hukommelse = lav, og skal mærkes |
+| **V4** | Øjebliksbilleder af dynamisk tilstand **rådner på timer** | **Løst som regel.** Et kritikdokument er et øjebliksbillede af et katalog i bevægelse — genmål hvert fund lige før sporet sendes, ikke da dokumentet blev skrevet |
+| **V5** | **Miljøet er en større fejlkilde end koden** | **Løst.** Fik sit eget værn i `brief`-skillens miljøblok og i CLAUDE.md's værktøjsafsnit |
 
 ---
 
-## Ærligt: to ting virker ikke endnu
+## Hvad der virkede, og som ikke må optimeres væk
 
-1. **Hooken fyrer sandsynligvis ikke i denne session.** Claude Code overvåger kun
-   mapper, der havde en settings-fil, da sessionen startede. `c:\Praktik\guide\.claude\`
-   fandtes ikke da. Filen er korrekt og rørtestet — men den skal genindlæses via `/hooks`
-   eller en genstart, før den virker. Det kan jeg ikke gøre selv.
-2. **De to nye skills kan ikke kaldes i denne session.** Skills registreres ved
-   sessionsstart. Indtil næste session giver `/robotdata` og `/parallelt`
-   *Unknown skill* — de skal læses fra disk i stedet, og det skal **skrives i rapporten**,
-   så et stille fallback ikke forveksles med at skillen kørte.
+Tre ting bar de tidlige dage. De er navngivet her, så en fremtidig oprydning
+ikke fjerner dem i god tro:
 
-Begge er engangsomkostninger ved at oprette dem midt i en session. Ingen af dem kræver
-handling ud over en genstart.
+**Genmålingen før afsendelse betaler sig med det samme.** Da Å18's tolv fund
+skulle sendes ud, viste genmålingen, at **to af dem havde ændret sig under os
+på under fire timer** — ét var løst af et andet spor, ét var blevet værre. Et
+spor sendt på det første ville have arbejdet på et problem, der ikke fandtes.
 
-## Uafklaret
+**Konfidensskalaen med den kontrafaktiske linje virker.** Agenterne
+rapporterer huller, de kunne have skjult. Det er den ærlighed, der gør
+reviewet muligt overhovedet.
 
-- **Skal `fewer-permission-prompts` køres på rigtige transskriptioner?** Min allowlist er
-  bygget på én dags observationer. Skillen kan scanne historikken og finde de mønstre,
-  jeg ikke stødte på i dag.
-- **Skal `salg`-projektet have samme behandling?** Det har kun `Bash(node tools/:*)` og
-  ingen hooks. Men det projekt er i vedligehold, ikke i produktion, så gevinsten er mindre.
-- **En `SubagentStop`-hook**, der minder om at efterprøve agentens selv-review, før noget
-  flettes. Overvejet og valgt fra indtil videre: den ville fyre ved hver agent, også de
-  gange hvor resultatet er én linje, og en påmindelse, der altid kommer, holder op med at
-  blive læst.
+**"Ret assertions, slet dem ikke" bliver fulgt under pres.** Målt gentagne
+gange siden — senest 1. sep, hvor et spor flyttede en påstand om hård
+begrænsning 5 derhen, hvor beviset var flyttet, og *skærpede* den undervejs,
+uden at være bedt om det.
+
+---
+
+## Det åbne punkt: orkestratoren har stadig ingen kontrollant
+
+ARBEJDSGANG-3 skrev det som rundens vigtigste uløste, og formuleringen står
+uændret, fordi den holdt:
+
+> Punkt 10 giver agenterne mandat til at måle mine påstande i briefs — men
+> mine analyser, fletbeskeder og STATUS-poster læses af ingen. Det
+> strukturelle svar ville være et periodisk review-spor på den mest kapable
+> model, der læser orkestratorens egne dokumenter mod virkeligheden. **Ikke
+> bygget — det er en beslutning om pris, og den er JPK's.**
+
+**1. sep 2026 blev forudsigelsen indfriet, og prisen målt.** CLAUDE.md sagde,
+at D15 låste paletten, og at L40 valgte INSTRUMENT som retning. Begge dele var
+omgjort af L54 den 31. aug. Orkestratoren læste sin egen forældede note og
+skrev den ind i **syv briefs på én dag**. Farve- og skriftlisten var
+tilfældigvis stadig rigtig, så ingen agent byggede noget galt — men INSTRUMENT
+blev givet som pejlemærke til designspor, og det er udtrykkeligt det, en flade
+IKKE skal ligne.
+
+**Fejlen blev fundet, fordi ét spor slog efter i STATUS.md i stedet for at tro
+på CLAUDE.md.** Ingen regel bad det om det; `brief`-skillens punkt 10 gjorde
+det lovligt, men ikke påkrævet. Det er nøjagtig det hul, V1 beskrev: hver
+gentagelse af orkestratorens fejl ser ud som en bekræftelse, og de syv spor
+kunne ikke opdage den uden at gå uden om deres eget brief.
+
+**Det, der stadig mangler, er ikke en regel — det er en læser.**
+
+---
+
+## Det, ingen af de tre runder kunne måle
+
+Om skillene faktisk ændrer adfærd, eller om de bliver endnu et lag papir oven
+på reglerne, de er destilleret af. V2 siger, at papir ikke standser noget.
+Skillene er bygget med mekaniske felter netop derfor — men beviset kommer ved
+næste spor-afsendelse, næste flet og næste røde tal, ikke i en evaluering.
