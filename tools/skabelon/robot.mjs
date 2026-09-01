@@ -119,7 +119,8 @@ export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip'
 const ENHED_ID = 'enhedsskift';
 
 /** Stribens fem tal. CE er IKKE med: feltet er tomt paa 42 af 46, og en fast
- *  celle, der er et hul 42 gange, laerer ingen noget. CE faar sin egen blok. */
+ *  celle, der er et hul 42 gange, laerer ingen noget. CE staar i skiltlinjen
+ *  og i skemaet (se skiltLinje() og skemaRaekke()) — ikke i denne strib. */
 export const STRIBE_FELTER = [
   ['egenvaegt', 'i-vaegt'],
   ['nyttelast_gaaende', 'i-nyttelast'],
@@ -127,13 +128,6 @@ export const STRIBE_FELTER = [
   ['hastighed', 'i-fart'],
   ['ip_klasse', 'i-ip'],
 ];
-
-/** EU-blokken. L32 (24. aug 2026) fjernede eu_tilgaengelig, eu_service og
- *  leveringstid fra skemaet — CE er den eneste EU-oplysning skemaet stadig
- *  baerer. Listen har ét element tilbage, ikke fire; den lever videre som en
- *  liste og ikke en streng, saa euBlok() nedenfor ikke skal vide, at den er
- *  skrumpet. */
-const EU_FELTER = ['ce_oplyst'];
 
 /**
  * Streng, der SKAL findes. i18n kan vaere en Proxy, der selv kaster, eller et
@@ -574,48 +568,6 @@ ${under}
 }
 
 /**
- * EU-blokken. CE er taget ud af striben, fordi feltet er tomt paa 42 af 46 —
- * en fast celle, der er et hul 42 gange, laerer ingen noget. Her staar den i
- * sin egen sektion, hvor tomheden er en oplysning om producenten frem for et
- * hul hos os.
- *
- * L32 (24. aug 2026): de tre andre EU-felter (eu_tilgaengelig, eu_service,
- * leveringstid), CE tidligere stod sammen med her, er fjernet fra skemaet —
- * alle tre stod ikke_oplyst paa samtlige robotter. Blokken viser derfor kun
- * ét felt nu, men bevarer sin form (dl/raekke) frem for at blive skrevet om
- * til en enkelt saetning: modsat producentsidens EU-kolonne (mange modeller
- * paa én gang, se producent.mjs' euSaetning) er der her kun ét dyr og ét
- * felt, saa en tabelform vs. en saetningsform er ikke en forskel, en laeser
- * maerker.
- *
- * L25: der staar INTET om, at koeberen bliver importoer. Paastanden er droppet,
- * fordi der ikke findes en primaerkilde. Feltet hedder "CE oplyst", ikke
- * "har CE" — og forskellen er hele pointen.
- */
-function euBlok(ctx, kilder) {
-  const { i18n, robot } = ctx;
-  const raekker = EU_FELTER.map((navn) => `<div class="raekke">
-<dt${dtMaerke(robot.felter?.[navn])}>${esc(T(i18n, 'felt_' + navn))}</dt>
-<dd>${feltKrop(navn, robot.felter?.[navn], ctx, kilder)}</dd>
-</div>`).join('\n');
-
-  return `<section class="sektion eu-blok" aria-labelledby="eu-h">
-<div class="sektion-hoved">
-<h2 class="etiket etiket--blaek" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2>
-</div>
-<div class="eu-krop">
-<svg class="ikon eu-ikon" aria-hidden="true"><use href="#i-ce"/></svg>
-<div>
-<dl class="raekker">
-${raekker}
-</dl>
-<p class="t-lille eu-forklaring">${esc(T(i18n, 'eu_forklaring'))}</p>
-</div>
-</div>
-</section>`;
-}
-
-/**
  * Doeren ud. Det er DYBDEN: vi gengiver ikke hele databladet, og siden er ikke
  * en salgskanal. Derfor er formen `videre--stille` — den samme, "Om metoden"
  * bruger — og ikke en fyldt knap. Ingen koebsknap, ingen demo, ingen
@@ -761,11 +713,12 @@ function tilstandsMaerke(t) {
  * som paa comp'ens typeskilt - status, vaegtklasse, producentens egne
  * anvendelseskategorier og CE-oplysningen.
  *
- * CE staar med her OG i sin egen blok laengere nede. Det er ikke en
- * dobbeltfoering ved et uheld: blokken baerer kilden og forklaringen, mens
- * maerket her er sidens FOERSTE demonstration af, at "ikke oplyst" er et
- * svar, man kan taelle - og det er den skelnen, hele kataloget hviler paa.
- * Comp'en viser den samme dobbeltfoering ("CE oplyst: ikke oplyst" i linjen).
+ * CE staar med her OG som sin egen raekke i skemaet nedenfor (skemaRaekke()).
+ * JPK fjernede 1. sep 2026 den tredje visning - en separat "EU"-sektion, der
+ * gentog praecis samme vaerdi - fordi skemaet allerede baerer den. Maerket
+ * her er stadig sidens FOERSTE demonstration af, at "ikke oplyst" er et svar,
+ * man kan taelle, og skema-raekken baerer nu ogsaa forbeholdssaetningen
+ * (eu_forklaring), som den tidligere sektion ellers alene stod for.
  */
 function skiltLinje(ctx) {
   const { i18n, robot } = ctx;
@@ -865,7 +818,13 @@ ${kroppe}
 function skemaRaekke(navn, post, ctx, kilder) {
   const { i18n } = ctx;
   const { html, hul, maerke } = vaerdi(navn, post, ctx, kilder);
-  const noter = advarselBlok(post, ctx) + noteBlok(post) + varianter(post, ctx);
+  // CE-raekken baerer forbeholdssaetningen, den tidligere "eu-blok"-sektion
+  // alene stod for (JPK 1. sep 2026: sektionen skulle vaek, men saetningen
+  // er et vaern under haard begraensning 1 og maa ikke forsvinde med den).
+  const euNote = navn === 'ce_oplyst'
+    ? `<p class="feltnote feltnote--eu">${esc(T(i18n, 'eu_forklaring'))}</p>`
+    : '';
+  const noter = advarselBlok(post, ctx) + noteBlok(post) + varianter(post, ctx) + euNote;
   // De eksplicitte role-attributter er ikke stoej. Ved 720 px og derunder
   // saettes tabellens dele til display:block (comp'ens mobilform), og en
   // browser afleder da IKKE laengere tabelrollerne af elementnavnene - raekker
@@ -1093,7 +1052,6 @@ ${arbejde.__enhedsskift
     ? `<input type="checkbox" id="${ENHED_ID}" class="kunskaerm enhedsskift__boks">\n${enhedsHukommelse(arbejde)}`
     : ''}
 ${top(arbejde, kilder)}
-${euBlok(arbejde, kilder)}
 ${produktside(arbejde, kilder)}
 ${anvendelseBlok(arbejde)}
 ${skema(arbejde, kilder)}
