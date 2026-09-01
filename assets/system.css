@@ -2035,6 +2035,64 @@ summary.facet__navn > .facet__tal{
   .facetter__net .facet--s6{grid-column:1 / -1}
 }
 
+/* PUNKT 6 (JPK 1. sep 2026, L67): den klaebende bjaelke. JPK omgjorde det
+   fravalg, spor/kort skrev ind i .saml-taeller ovenfor - "en compact bar i
+   bunden af skaermbilledet, der viser valgte robotter som en adgangsknap
+   til compare mode". Elementet findes KUN, naar assets/katalog.js bygger
+   det (se dens KLAEBEBAR-afsnit); der staar intet i denne skabelons HTML,
+   saa uden JavaScript er bjaelken ikke `hidden` - den er FRAVAERENDE, ét
+   niveau strengere end resten af sidens P0-monster (samlknappen staar
+   `hidden` i markup'en, fordi kort() deles med producentsider, der aldrig
+   faar JavaScript; klaebebaren har intet saadant genbrugskrav).
+
+   SAMME MOERKE SPROG SOM .strimmel (--fod/--paafod), ikke et nyt: bjaelken
+   er en soesterflade til strimlen ("sidens aktive valg"), ikke en ny
+   komponentfamilie. `position:fixed;bottom:0` er det ene, der adskiller
+   den - strimlen klaeber til TOPPEN under scroll, denne til BUNDEN, saa
+   udvalget er synligt uanset hvor i de 77 kort laeseren staar.
+
+   HAARD BEGRAENSNING 1 I FORMEN: NAVNE (`.klaebebar__navne`), ikke et
+   optalt maerke ved siden af - se assets/katalog.js' `navne.join(' · ')`.
+   Ét link ("Åbn sammenligningen"), ingen knap med "fortsaet" eller "næste
+   trin". Ingen symboler af nogen art - kun tekst, som resten af sidens
+   betjening. */
+.klaebebar{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3);
+  padding:var(--r3) var(--r5);
+  background:var(--fod);color:var(--paafod);
+  box-shadow:0 -1px 0 rgba(0,0,0,.2);
+}
+/* Samme faelde som §2/§4's andre skjulte elementer: en forfatterregel med
+   `display:flex` slaar altid UA-arkets `[hidden]{display:none}`. */
+.klaebebar[hidden]{display:none}
+.klaebebar__navne{
+  margin:0;flex:1 1 auto;min-width:0;
+  font-size:14px;font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.klaebebar__gaa{
+  flex:none;color:var(--accent);text-underline-offset:3px;font-weight:600;
+}
+.klaebebar__gaa:hover{color:var(--paafod)}
+.klaebebar__ryd{
+  flex:none;border:0;background:none;padding:0;cursor:pointer;
+  font:inherit;color:var(--paafod2);text-decoration:underline;
+  text-underline-offset:3px;
+}
+.klaebebar__ryd:hover{color:var(--paafod)}
+.klaebebar__gaa:focus-visible,.klaebebar__ryd:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+/* Bjaelken daekker IKKE sidefoden - naar laeseren naar bunden af siden, skal
+   udvalget stadig kunne naas, men ikke ligge oven paa kildeloeftets tekst.
+   `scroll-padding-bottom` er ikke noedvendig her: bjaelken findes kun, naar
+   udvalget er ikke-tomt, og :target-hop paa denne side gaar til facetter,
+   ikke til sidefoden. */
+@media (max-width:460px){
+  .klaebebar__navne{font-size:13px}
+}
+
 /* --- sammenligningens vaelger (spor/samlvaelg) --- */
 /* Vaelgeren laante indtil nu katalogets filterchip (.filtre, afsnit 13). Det
    var ikke et valg, men et fravaer: comp'ens design

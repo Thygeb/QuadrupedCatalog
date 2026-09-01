@@ -96,6 +96,86 @@
     var samlSkabelon = samlTaeller ? samlTaeller.getAttribute('data-saml-skabelon') : '';
     var samlMaksTekst = samlTaeller ? samlTaeller.getAttribute('data-saml-maks-tekst') : '';
 
+    /* ====================================================================
+       KLAEBEBAR: en persistent bjaelke i bunden af skaermen (JPK 1. sep
+       2026, L67, punkt 6 - omgoer fravalget, der stod her indtil i dag).
+
+       ÉN DOM-KONSTRUKTION, ALDRIG SERVERRENDERET, og det er selve P0-
+       loesningen her: en `<div hidden>`, skabelonen skrev, ville staa i
+       markup'en paa hver eneste side, katalog.js henter (ogsaa forsiden) -
+       men denne fil bygger KUN elementet, naar den kan fylde det (naar
+       .saml-taeller findes, dvs. paa katalogsiden). Uden JavaScript findes
+       bjaelken derfor slet ikke - staerkere end `hidden`, som stadig ville
+       vaere et element i tilgaengelighedstraeet. Det er samme greb som
+       samlknappen (P0 i filhovedet), ét niveau strengere.
+
+       NAVNE, IKKE ANTAL (haard begraensning 1). Slug -> navn laeses af de
+       kort, der FAKTISK staar paa denne side - kataloget viser alle 77
+       (kun CSS-skjulte ved filtrering), saa opslaget lykkes for enhver
+       robot, der kan vaere valgt herfra. Ingen netvaerkskald: samme kilde,
+       samme DOM, samme princip som resten af filen.
+
+       TEKSTEN GENBRUGES, IKKE GENTAGES. "Åbn sammenligningen" og "Ryd
+       udvalget" staar ÉT sted i sprogfilerne (saml_gaa, saml_ryd) og laeses
+       her fra de elementer, skabelonen allerede skrev dem til
+       (.saml-taeller__gaa, samlRyd) - to kopier af samme streng ville
+       kunne drive fra hinanden ved naeste rettelse. Linket til
+       sammenligningssiden er af samme grund IKKE genberegnet her (en
+       haandregnet '../' ville vaere praecis den fejl, build.mjs' egen
+       advarsel gaelder) - det er samme `url.sammenligning`, katalog.mjs
+       allerede skrev til `.saml-taeller__gaa`. */
+    var samlNavne = {};
+    var klaebebar = null;
+    var klaebebarNavne = null;
+    var klaebebarGaa = null;
+    var klaebebarGaaHref = '';
+
+    if (samlTaeller) {
+      for (var sn = 0; sn < samlKnapper.length; sn++) {
+        var kortEl = samlKnapper[sn].parentElement;
+        while (kortEl && kortEl.classList && !kortEl.classList.contains('kort')) kortEl = kortEl.parentElement;
+        var navnEl = kortEl ? kortEl.querySelector('.kort__navn') : null;
+        var slugAttr = samlKnapper[sn].getAttribute('data-saml');
+        if (slugAttr && navnEl) samlNavne[slugAttr] = navnEl.textContent.trim();
+      }
+
+      var gaaLink = samlTaeller.querySelector('.saml-taeller__gaa');
+      klaebebarGaaHref = gaaLink ? gaaLink.getAttribute('href') : '';
+
+      klaebebar = document.createElement('div');
+      klaebebar.className = 'klaebebar';
+      klaebebar.setAttribute('hidden', '');
+      klaebebar.setAttribute('role', 'region');
+      klaebebar.setAttribute('aria-label', samlTaeller.getAttribute('data-klaebebar-etiket') || '');
+
+      klaebebarNavne = document.createElement('p');
+      klaebebarNavne.className = 'klaebebar__navne';
+
+      klaebebarGaa = document.createElement('a');
+      klaebebarGaa.className = 'klaebebar__gaa';
+      klaebebarGaa.textContent = gaaLink ? gaaLink.textContent : '';
+
+      var klaebebarRyd = document.createElement('button');
+      klaebebarRyd.type = 'button';
+      klaebebarRyd.className = 'klaebebar__ryd';
+      // samlRyd (knappen i strimlen) findes endnu ikke her - den bygges
+      // faa linjer laengere nede i filen - men elementet DEN sidder paa
+      // ER allerede i DOM'en (skabelonen skrev den), saa teksten kan laeses
+      // direkte uden at vente paa variablen.
+      var samlRydEl = document.querySelector('[data-saml-ryd]');
+      klaebebarRyd.textContent = samlRydEl ? samlRydEl.textContent : '';
+      klaebebarRyd.addEventListener('click', function () {
+        skrivUdvalg([]);
+        sigGraense('');
+        tegnSaml();
+      });
+
+      klaebebar.appendChild(klaebebarNavne);
+      klaebebar.appendChild(klaebebarGaa);
+      klaebebar.appendChild(klaebebarRyd);
+      document.body.appendChild(klaebebar);
+    }
+
     /* Lokalt lager kan KASTE, ikke bare vaere tomt: privat vindue, blokerede
        site-data, eller en browser der afviser skrivning naar kvoten er fuld.
        Hvert kald er derfor pakket ind, og en fejl giver et tomt udvalg -
@@ -143,6 +223,22 @@
         }
         if (samlTal) samlTal.textContent = String(valgt.length);
         if (samlOrd) samlOrd.textContent = samlSkabelon.replace('{n}', String(valgt.length));
+      }
+      if (klaebebar) {
+        if (valgt.length) {
+          var navne = [];
+          for (var vn = 0; vn < valgt.length; vn++) navne.push(samlNavne[valgt[vn]] || valgt[vn]);
+          // " · " er samme skilletegn, resten af siden bruger til korte
+          // opremsninger (fx kursparrene i katalog.mjs) - ikke et komma,
+          // som robotnavne med egne kommaer kunne blande sammen med.
+          klaebebarNavne.textContent = navne.join(' · ');
+          klaebebarGaa.setAttribute('href', klaebebarGaaHref || '#');
+          klaebebar.removeAttribute('hidden');
+        } else {
+          // Samme regel som samlTaeller: en tom bjaelke er ikke en
+          // oplysning, den er stoej. Forsvinder helt, naar udvalget goer.
+          klaebebar.setAttribute('hidden', '');
+        }
       }
     }
 

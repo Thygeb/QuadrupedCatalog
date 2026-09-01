@@ -1400,15 +1400,29 @@ ${omfangStandard}
 </div>
 
 <!-- SAMLTAELLEREN. Staar i strimlen, hvor sidens oevrige aktive valg allerede
-     staar, og ikke i et fastklaebet baand: et svaevende "N valgt" med en
-     fremad-knap er indkoebskurvens form (haard begraensning 1). Her er den en
-     chip blandt chips - og den forsvinder helt, naar udvalget er tomt.
-     Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript findes
-     hverken knapperne eller udvalget, saa en taeller ville vaere en paastand
-     om noget, laeseren ikke kan naa (P0). -->
+     staar - en chip blandt chips, som forsvinder helt, naar udvalget er
+     tomt. Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript
+     findes hverken knapperne eller udvalget, saa en taeller ville vaere en
+     paastand om noget, laeseren ikke kan naa (P0).
+
+     JPK OMGJORDE 1. sep 2026 (L67, punkt 6) det FRAVALG, der stod her indtil
+     i dag: "et svaevende 'N valgt' med en fremad-knap er indkoebskurvens
+     form". Bjaelken findes nu OGSAA - se assets/katalog.js' KLAEBEBAR-afsnit
+     - som en PERSISTENT paamindelse, mens laeseren scroller forbi denne
+     strimmel og ned gennem gitterets 77 kort. De to er ikke i konflikt:
+     denne chip er kontekstuel (staar kun, mens man ser filterpladen),
+     bjaelken er global (staar hele siden igennem). Haard begraensning 1
+     gaelder stadig begge - se katalog.js for hvordan bjaelken overholder
+     den (navne, ikke antal; intet ikon; ingen "fortsaet"-knap).
+
+     data-klaebebar-etiket baerer bjaelkens ARIA-navn; resten af dens tekst
+     (link og ryd) LAESER katalog.js fra klasserne saml-taeller__gaa/__ryd
+     herunder i stedet for at faa sin egen kopi - ét sted at oversaette
+     "Åbn sammenligningen"/"Ryd udvalget", ikke to. -->
 <p class="saml-taeller" data-saml-taeller hidden
  data-saml-skabelon="${attr(t('saml_taeller'))}"
- data-saml-maks-tekst="${attr(t('sammenligning_maks'))}">
+ data-saml-maks-tekst="${attr(t('sammenligning_maks'))}"
+ data-klaebebar-etiket="${attr(t('klaebebar_etiket'))}">
 <span class="saml-taeller__tal" data-saml-tal>0</span>
 <span data-saml-ord></span>
 <a class="saml-taeller__gaa" href="${attr(url.sammenligning)}">${esc(t('saml_gaa'))}</a>
