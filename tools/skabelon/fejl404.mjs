@@ -67,12 +67,28 @@ const attr = esc;
  * skabelon-kontrakt (grund('') i build.mjs) - samme ctx.url som forsiden
  * faar, fordi filen ligger i noejagtig samme mappedybde som
  * dist/<sprog>/index.html.
+ *
+ * SIGNATUREN (frontend-design-skillens krav om ÉT bevidst traek, ikke flere):
+ * sitets EGET sprog for fravaer er allerede tegnet - .intetfoto/.plade, den
+ * skraastribede firkant i en stiplet ramme, som staar paa hver eneste
+ * robotside uden fotografi (billedledHTML i side.mjs). Den forklarer i
+ * forvejen "vi har intet billede her, og det er en aerlig tilstand, ikke en
+ * fejl" - PRAECIS den samme saetning, en 404-side skal sige om en URL. At
+ * genbruge den her, fremfor at opfinde et nyt "404"-ikon eller -grafik, er
+ * en bevidst kobling til hard begraensning 5's grundide (tre tilstande skal
+ * SE forskellige ud - en tom plads er en aerlig tilstand) og kraever INGEN
+ * ny klasse: .billedled saetter selv 16:10-formatet, .intetfoto/.plade er
+ * uaendrede. Merket er rent visuelt (aria-hidden) - <h1> og <p> baerer hele
+ * den skrevne forklaring, saa intet siges to gange.
  */
 export function render(ctx) {
   const { i18n, hjaelp, url } = ctx;
   const { t } = i18n;
   return `<section class="sektion" aria-labelledby="h-fejl404">
 <div class="rum">
+<div class="billedled" style="max-width:200px;margin:0 0 var(--r5)" aria-hidden="true">
+<div class="intetfoto"><span class="plade"></span></div>
+</div>
 <h1 class="t-h1" id="h-fejl404">${esc(t('fejl404_titel'))}</h1>
 <p class="t-broed maal">${esc(t('fejl404_forklaring'))}</p>
 <p><a class="videre" href="${attr(url.katalog)}">${esc(t('fejl404_knap'))}${hjaelp.ikon('i-pil')}</a></p>
