@@ -76,6 +76,25 @@ gitignorerede filer kopieret ind i worktreen (billeder!) · egen serverport +
 verificér mod disken · UTF-8 uden BOM. Kopiér blokken fra et nyligt brief —
 det er en huskeliste, ikke en regel, så kopien er lovlig her.
 
+**To fælder mere, begge målt 1. sep 2026, begge kostede en forkert
+konklusion:**
+
+- **`git -C` med MSYS-sti (`/c/Praktik/…`) fejler på Windows.** Git kan ikke
+  skifte til den og skriver `fatal: cannot change to`. Brug `C:/Praktik/…`.
+- **Send aldrig en kommando til `/dev/null`, hvis dens exitkode eller
+  fejltekst er en del af målingen.** Orkestratoren målte fire worktrees med
+  `git -C /c/… 2>/dev/null` og fik "0 commits, intet ucommitteret" for dem
+  alle. Git havde aldrig kørt. To spors arbejde var ét skridt fra at blive
+  slettet på det tal.
+
+**Sporet skal lukke sin server, før det rapporterer.** Skriv det ind i
+briefet. Målt 1. sep 2026: **fem forældreløse `python -m http.server` fra
+døde spor kørte samtidig**, holdt to worktree-mapper låst, så de ikke kunne
+slettes, og optog de porte, nye spor fik tildelt — to porte endte med to
+processer hver. Ingen af dem hørte til et kørende spor. Linjen i briefet:
+*"luk din server, når du er færdig med at måle, og skriv i rapporten at du
+gjorde det."*
+
 ### 8. Commit undervejs er et krav, ikke et råd
 
 To spor døde på tre dage uden en linje efterladt. Ét commit pr. sammenhængende

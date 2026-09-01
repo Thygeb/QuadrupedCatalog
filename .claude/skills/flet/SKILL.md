@@ -85,6 +85,31 @@ Så er force blot en omvej om en fil-lås, og det er i orden.
   gren, sti og indhold, MÅLT (`status --short` + commits foran main) — ikke
   efter hukommelse. Å16-lærdommen: "der lå lidt" viste sig at være ingenting.
 
+**Sporets server skal være død, før worktreen fjernes — og det skal måles.**
+Reglen kom til 1. sep 2026, hvor **fem forældreløse `python -m http.server`
+fra døde spor** blev fundet kørende samtidig. To af dem holdt hver sin
+worktree-mappe låst, så `git worktree remove` og `rmdir` begge svarede
+`Permission denied` / `Device or resource busy`, og mapperne blev stående som
+tomme husker, ingen turde røre. To andre optog porte, som nye spor havde fået
+tildelt — så to porte havde to processer hver, og hvilken der svarede, var
+ikke til at vide.
+
+```
+/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command \
+  "Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | ForEach-Object { \
+   '{0}  {1:HH:mm}  {2}' -f \$_.ProcessId, \$_.CreationDate, \$_.CommandLine }"
+```
+
+Starttidspunktet er det, der afgør sagen: er processen ældre end det spor, du
+er ved at lukke, hører den til et dødt spor og skal lukkes. **Luk aldrig en
+server, mens et andet spor kan være midt i en måling mod den** — vent til
+dets flet, eller spørg.
+
+`powershell` er ikke på PATH i Git Bash; brug den fulde sti ovenfor. Og
+`Stop-Process` efterfulgt af et `Get-Process`-tjek i SAMME kommando lyver:
+processen når ikke at dø, og du får "STADIG I LIVE" om en proces, der er
+lukket. Mål i stedet ved at liste processerne igen bagefter.
+
 ### 7. Lukningen skal ramme ALLE steder, sagen findes
 
 Å25/Å26-fejlformen: en sag lukkes dér, hvor fundets ordlyd pegede, og

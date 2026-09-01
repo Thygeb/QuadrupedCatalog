@@ -14,7 +14,35 @@ og de fire hjælpefunktioner mere end én del bruger).
 
 **Et tocifret præfiks efterfulgt af `-` er PÅKRÆVET** (`15-mit-emne.mjs`, ikke
 `mit-emne.mjs`) — uden det bliver filen ikke opdaget, og dens tests koerer
-aldrig. Praefikset bærer også læseordenen, så vælg det næste ledige tal.
+aldrig. Praefikset bærer også læseordenen.
+
+### Nummeret TILDELES af orkestratoren. Vælg det aldrig selv
+
+Her stod indtil 1. sep 2026 *"vælg det næste ledige tal"*. **Den regel er
+umulig at følge fra et spor, og den kostede fire kollisioner på én dag** —
+to 41, to 42, to 43 og to 44.
+
+Årsagen er strukturel, ikke sjusk: et spor arbejder i sin egen worktree,
+grenet fra sin egen commit. Det kan se `tests/dele/` som mappen så ud DA
+grenen blev lavet, og kan hverken se de numre, andre samtidige spor er ved
+at bruge, eller dem, der er kommet på main siden. "Næste ledige" er derfor
+ikke et opslag, det er et gæt — og fire spor gættede ens.
+
+Bemærk, at afsnittet ovenfor har ret i, at to spor **ikke kan konfliktere i
+git**: filnavnene er forskellige (`44-cjk-ordlyd-db.mjs` og
+`44-noget-andet.mjs`), så begge flettes ind uden en lyd. Det er præcis
+derfor, fejlen er farlig — den ser ikke ud som noget. Læseordenen bliver
+tvetydig, og den næste, der leder efter "test 44", finder to.
+
+**Reglen nu:**
+
+- **Orkestratoren skriver nummeret i briefet**, sammen med hvilke numre der
+  er i brug, og hvilke andre samtidige spor der har fået tildelt hvilke.
+- **Sporet bruger det tildelte nummer og intet andet.** Er nummeret ikke i
+  briefet, så spørg — vælg det ikke selv.
+- Ved flet af flere spor: er en kollision alligevel sluppet igennem, omdøbes
+  filen **og dens interne facit-ID'er** (`45.1`, `45.2` …), ikke kun
+  filnavnet. Det blev glemt én gang og gav en halv omdøbning.
 
 En del-fil `export default`-er `async function koer(ctx)`. `ctx` giver:
 `rod, tmp, node, ok, skema, yaml, alder, lasRobotter, taelFilerRekursivt,
