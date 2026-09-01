@@ -359,7 +359,7 @@
   "savn_pris": "Pris ikke oplyst",
   "savn_nyttelast": "Nyttelast ikke oplyst",
   "savn_hastighed": "Hastighed ikke oplyst",
-  "sortering_pris_note": "Priserne er ikke omregnet. De står i producentens egen valuta, og kortene er derfor ordnet inden for hver valuta for sig — en vekselkurs ville være et tal, vi selv havde fundet på.",
+  "sortering_pris_note": "Priserne er omregnet til {basis} med Den Europæiske Centralbanks referencekurs for {dato}, så de {n} oplyste priser kan ordnes i én række i stedet for tre valutabunker, der ikke kunne sammenlignes. Producentens eget beløb og valuta står uændret på kortet; det omregnede tal står ved siden af og er mærket som vores.",
   "seneste_titel": "Seneste modeller",
   "seneste_aar_ord": "Seneste udgivelsesår",
   "seneste_antal": "{n} modeller udgivet i {aar}",
@@ -406,5 +406,27 @@
   "om_udgiver_adresse": "Adresse",
   "om_udgiver_telefon": "Telefon",
   "om_udgiver_post": "E-post",
-  "om_udgiver_ret": "Er et tal forkert, eller har en producent opdateret et datablad, så skriv. En rettelse følges tilbage til kilden og får ny hentedato."
+  "om_udgiver_ret": "Er et tal forkert, eller har en producent opdateret et datablad, så skriv. En rettelse følges tilbage til kilden og får ny hentedato.",
+
+  "filter_nyttelast": "Nyttelast",
+  "filter_nyttelast_mrk": "{n} af {m} oplyser",
+  "filter_nyttelast_note": "{n} robotter oplyser en nyttelast. De {u}, der ikke gør, står som deres egen række — de er ikke robotter, der bærer 0 kg.",
+  "skala_mindst": "Mindst {n} {enhed}",
+  "skala_hoejst": "Højst {n} {enhed}",
+  "skala_ord_mindst": "Mindst",
+  "skala_ord_hoejst": "Højst",
+  "skala_hvile_mindst": "Ingen nedre grænse",
+  "skala_hvile_hoejst": "Ingen øvre grænse",
+  "skala_traef": "{n} af {m} med oplyst tal",
+  "skala_uden_tal": "{u} uden tal — kommer kun med, når rækken herunder er krydset af",
+  "skala_ridser": "Ridserne er de trin, filteret bruger uden JavaScript.",
+
+  "filter_pris": "Pris",
+  "filter_pris_mrk": "{n} af {m} oplyser",
+  "filter_pris_note": "De {n} oplyste priser er omregnet til {basis} med Den Europæiske Centralbanks referencekurs for {dato} ({kurser}). Producentens eget beløb og valuta står uændret på kortet — omregningen er vores. De {u} robotter uden oplyst pris står som deres egen række; de er hverken billige eller dyre.",
+  "pris_omregnet": "omregnet",
+  "pris_omregnet_forklaring": "Vores omregning af {figur} til {basis} med Den Europæiske Centralbanks referencekurs for {dato}: {kurs}. Producenten oplyser ikke selv et beløb i {basis}, så omregningen har ingen selvstændig kilde, og den var kun sand den dag.",
+  "pris_kurs_par": "1 EUR = {tal} {valuta}",
+  "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
+  "kurs_kilde": "Kurs: {udgiver}, {navn}, {dato}."
 }

@@ -21,6 +21,16 @@
  * strimlens taeller og resultatets overskrift. Og `eg`-facetten regnes med OG
  * i stedet for ELLER - se passer().
  *
+ * AENDRET 1. sep 2026 (spor/filter, L65c/L66): nyttelast og pris har faaet
+ * GLIDENDE skalaer. De er det foerste sted, hvor JavaScript overtager en
+ * filtrering fra CSS - og netop derfor er de bygget som TO oploesninger af
+ * samme filter, ikke som et filter, der kun findes her: uden scriptet
+ * filtrerer begge som traerskel-afkrydsninger i ren CSS ("Mindst 20 kg"),
+ * med scriptet bliver de en skala, der kan staa hvor som helst imellem.
+ * Se afsnittet SKALAERNE nedenfor. Loeftet i filhovedet er uaendret; det er
+ * kun den blevet skarpere, fordi den samme sandhed nu findes i to
+ * oploesninger i stedet for én.
+ *
  * Ingen cookies, ingen netvaerkskald, ingen tredjepart.
  */
 (function () {
@@ -191,7 +201,6 @@
      de to ikke kan komme til at vaere uenige. */
   var OG_FACET = 'eg';
 
-  var lag = gitter.querySelectorAll('.lag[data-sog]');
   var tomt = document.querySelector('[data-tomt]');
   var tomtSoeg = document.querySelector('[data-tomt-grund="soeg"]');
   var tomtFilter = document.querySelector('[data-tomt-grund="filter"]');
@@ -211,7 +220,7 @@
   var kort = gitter.querySelectorAll('.kort');
   for (i = 0; i < kort.length; i++) {
     var k = kort[i];
-    var post = { el: k, v: {}, sog: '' };
+    var post = { el: k, ydre: null, v: {}, tal: {}, sog: '' };
     var el = k.parentElement;
     while (el && el.classList && el.classList.contains('lag')) {
       for (var c = 0; c < el.classList.length; c++) {
@@ -220,11 +229,256 @@
         var f = navn.slice(4);
         if (FACETTER.indexOf(f) === -1) FACETTER.push(f);
         post.v[f] = (el.getAttribute('data-' + f) || '').split(/\s+/).filter(Boolean);
+        /* SKALALAGENES RAA TAL. Attributten findes KUN paa de robotter, der
+           oplyser feltet (katalog.mjs udelader den ellers), saa fravaeret her
+           ER tilstanden "ikke oplyst". Derfor `hasAttribute` og ikke en
+           sammenligning med '' eller 0: et maalt nul er et tal, og de to maa
+           ikke kollapse (haard begraensning 5). */
+        if (el.hasAttribute('data-' + f + '-tal')) {
+          var raat = parseFloat(el.getAttribute('data-' + f + '-tal'));
+          if (!isNaN(raat)) post.tal[f] = raat;
+        }
       }
-      if (el.hasAttribute('data-sog')) post.sog = el.getAttribute('data-sog') || '';
+      /* Det YDERSTE lag er det, der baerer soegeteksten (katalog.mjs giver
+         kun facet nr. 0 `data-sog`). Det er ogsaa det lag, der skal skjules,
+         naar JavaScript filtrerer - ét sted at saette `hidden`, saa soegning
+         og skalaer ikke kan komme til at slaas om attributten. */
+      if (el.hasAttribute('data-sog')) {
+        post.sog = el.getAttribute('data-sog') || '';
+        post.ydre = el;
+      }
       el = el.parentElement;
     }
     poster.push(post);
+  }
+
+  /* ======================================================================
+     SKALAERNE: nyttelast og pris som GLIDENDE filtre (L65c/L66, JPK 1. sep)
+
+     DET HER ER DEN ANDEN OPLOESNING AF ET FILTER, DER ALLEREDE VIRKER.
+     Uden JavaScript filtrerer begge skalaer som traerskel-afkrydsninger i ren
+     CSS - "Mindst 20 kg" - noejagtig som enhver anden facet. Naar denne fil
+     koerer, skjules trinlisten (CSS: `.styr[data-levende] .skala__trin`),
+     CSS-reglerne for de to facetter slukker (katalog.mjs genererer dem med
+     `:not([data-levende])`), og skalaen herunder overtager. Det er P0 i sin
+     reneste form: samme spoergsmaal, finere svar, og den grove udgave staar
+     tilbage af sig selv, hvis scriptet ikke naar frem.
+
+     TO TING SKAL VAERE SANDE, FOR AT SKIFTET IKKE LYVER:
+       1. CSS maa ikke filtrere paa de to facetter samtidig med os. Det er
+          sikret i katalog.mjs, ikke her - men hvis nogen fjerner det led,
+          filtrerer siden to gange med to graenser, og fejlen er tavs.
+       2. En traerskel, laeseren allerede havde valgt (et filterlink som
+          robotter/#f-nyttelast-20, eller en tilbage-navigation der genskaber
+          afkrydsninger), skal FOELGE MED over i skalaen. Ellers ville et
+          filter, der virkede foer scriptet indlaeste, forsvinde idet det gjorde.
+          Se fraTraerskler() nedenfor.
+
+     "IKKE OPLYST" ER IKKE EN DEL AF SKALAEN, og det er med vilje. De 12
+     robotter uden nyttelast og de 66 uden pris kan hverken vaere over eller
+     under en graense; de har deres egen raekke, som bliver staaende i BEGGE
+     oploesninger. Er skalaen i hvile, er de med (der filtreres jo ikke). Er
+     den rykket, kommer de kun med, hvis raekken er krydset af. Det er den
+     eneste laesning, hvor de hverken forsvinder tavst eller lader som om de
+     baerer 0 kg (haard begraensning 5).
+     ====================================================================== */
+  var skalaer = [];
+  var SKALA_NAVNE = [];
+
+  var skalaEl = form.querySelectorAll('[data-skala]');
+  for (i = 0; i < skalaEl.length; i++) {
+    (function (rod) {
+      var navn = rod.getAttribute('data-skala');
+      var greb = rod.querySelector('.skala__greb');
+      if (!greb) return;
+      var knuder = (rod.getAttribute('data-skala-knuder') || '').split(/\s+/)
+        .map(parseFloat).filter(function (n) { return !isNaN(n); });
+      if (knuder.length < 2) return;
+      var s = {
+        navn: navn,
+        rod: rod,
+        greb: greb,
+        retning: rod.getAttribute('data-skala-retning') || 'mindst',
+        enhed: rod.getAttribute('data-skala-enhed') || '',
+        ord: rod.getAttribute('data-skala-ord') || '',
+        hviletekst: rod.getAttribute('data-skala-hviletekst') || '',
+        traefSkabelon: rod.getAttribute('data-skala-traef-skabelon') || '{n}/{m}',
+        knuder: knuder,
+        afrund: parseFloat(rod.getAttribute('data-skala-afrund')) || 1,
+        ordEl: rod.querySelector('[data-skala-visord]'),
+        talEl: rod.querySelector('[data-skala-vistal]'),
+        enhedEl: rod.querySelector('[data-skala-visenhed]'),
+        traefEl: rod.querySelector('[data-skala-traef]'),
+        chip: form.querySelector('[data-valg-skala="' + navn + '"]'),
+        nu: 0,
+      };
+      s.mindste = knuder[0];
+      s.stoerste = knuder[knuder.length - 1];
+      s.chipNavn = s.chip ? s.chip.querySelector('[data-valg-skala-navn]') : null;
+      // "Ikke oplyst"-raekken er et almindeligt afkrydsningsfelt i samme
+      // facetgruppe. Den laeses HER og ikke af passer(): skalaen ejer hele
+      // facetten, naar JavaScript koerer.
+      s.uoplyst = null;
+      var alle = form.querySelectorAll('input[name="' + navn + '"]');
+      for (var j = 0; j < alle.length; j++) {
+        if (alle[j].value === 'ikke_oplyst') s.uoplyst = alle[j];
+      }
+      s.traerskler = [];
+      for (j = 0; j < alle.length; j++) {
+        if (alle[j].value !== 'ikke_oplyst') s.traerskler.push(alle[j]);
+      }
+      skalaer.push(s);
+      SKALA_NAVNE.push(navn);
+    }(skalaEl[i]));
+  }
+
+  /** Er `navn` en facet, skalaerne har overtaget? */
+  function erSkala(navn) {
+    return SKALA_NAVNE.indexOf(navn) !== -1;
+  }
+
+  /* Tallenes form er sprogets, ikke denne fils: <html lang> baerer allerede
+     sidens sprog, og bygget formaterer med samme sprog paa serversiden. Der
+     staar derfor ingen tabel over decimaltegn her - kun et opslag. */
+  var SPROG = document.documentElement.getAttribute('lang') || 'da';
+  function nformat(n) {
+    try { return Number(n).toLocaleString(SPROG); } catch (e) { return String(n); }
+  }
+
+  /* STILLING -> VAERDI. Aksen er STYKKEVIS LINEAER gennem knuderne, som er
+     jaevnt fordelt paa banen. Uden det ville en lineaer akse fra 0 til 200 kg
+     samle 60 af de 65 oplyste robotter paa de foerste 40 % af banen, og de
+     fire traerskelridser ville staa oven i hinanden. Se katalog.mjs'
+     skalaBlok for hele begrundelsen; knuderne selv kommer DERFRA og staar
+     ikke som en kopi her. */
+  function tilVaerdi(s, p) {
+    var led = s.knuder.length - 1;
+    var x = (p / 100) * led;
+    var i2 = Math.min(Math.floor(x), led - 1);
+    var f2 = x - i2;
+    var v = s.knuder[i2] + f2 * (s.knuder[i2 + 1] - s.knuder[i2]);
+    return Math.round(v / s.afrund) * s.afrund;
+  }
+
+  /** Den modsatte vej: bruges kun, naar en traerskel skal loeftes ind i skalaen. */
+  function tilStilling(s, v) {
+    var led = s.knuder.length - 1;
+    if (v <= s.knuder[0]) return 0;
+    if (v >= s.knuder[led]) return 100;
+    for (var i2 = 0; i2 < led; i2++) {
+      if (v <= s.knuder[i2 + 1]) {
+        var spaend = s.knuder[i2 + 1] - s.knuder[i2];
+        var f2 = spaend ? (v - s.knuder[i2]) / spaend : 0;
+        return Math.round(((i2 + f2) / led) * 100);
+      }
+    }
+    return 100;
+  }
+
+  /** Filtrerer skalaen overhovedet? I hvilestillingen goer den ikke. */
+  function skalaAktiv(s) {
+    return s.retning === 'mindst' ? s.nu > s.mindste : s.nu < s.stoerste;
+  }
+
+  /** Slipper ét kort gennem ÉN skala? */
+  function skalaPasser(post, s) {
+    if (!skalaAktiv(s)) return true;
+    var v = post.tal[s.navn];
+    if (v === undefined) return !!(s.uoplyst && s.uoplyst.checked);
+    return s.retning === 'mindst' ? v >= s.nu : v <= s.nu;
+  }
+
+  /** ... og gennem dem alle, evt. med én sprunget over (til facettaellingen). */
+  function skalaerPasser(post, spring) {
+    for (var i2 = 0; i2 < skalaer.length; i2++) {
+      if (skalaer[i2].navn === spring) continue;
+      if (!skalaPasser(post, skalaer[i2])) return false;
+    }
+    return true;
+  }
+
+  /** Tegner aflaesning, bane, taelling og strimmelchip for én skala. */
+  function tegnSkala(s) {
+    var p = parseFloat(s.greb.value);
+    if (isNaN(p)) p = s.retning === 'mindst' ? 0 : 100;
+    s.nu = tilVaerdi(s, p);
+    var aktiv = skalaAktiv(s);
+    var ord = aktiv ? s.ord + ' ' + nformat(s.nu) + ' ' + s.enhed : s.hviletekst;
+
+    if (s.ordEl) s.ordEl.textContent = aktiv ? s.ord : s.hviletekst;
+    if (s.talEl) s.talEl.textContent = aktiv ? nformat(s.nu) : '';
+    if (s.enhedEl) s.enhedEl.textContent = aktiv ? s.enhed : '';
+    // Skaermlaeseren skal hoere "Mindst 20 kg", ikke "20" - tallet alene
+    // siger ikke hvilken vej graensen vender.
+    s.greb.setAttribute('aria-valuetext', ord);
+
+    // Den gule strimmel daekker det udsnit, filteret SLIPPER IGENNEM.
+    s.greb.style.setProperty('--f0', (s.retning === 'mindst' ? p : 0) + '%');
+    s.greb.style.setProperty('--f1', (s.retning === 'mindst' ? 100 : p) + '%');
+
+    if (s.traefEl) {
+      var n = 0;
+      var m = 0;
+      for (var i2 = 0; i2 < poster.length; i2++) {
+        var v = poster[i2].tal[s.navn];
+        if (v === undefined) continue;
+        m++;
+        if (!aktiv || (s.retning === 'mindst' ? v >= s.nu : v <= s.nu)) n++;
+      }
+      s.traefEl.textContent = s.traefSkabelon
+        .replace('{n}', nformat(n)).replace('{m}', nformat(m));
+    }
+
+    if (s.chip) {
+      if (aktiv) {
+        s.chip.removeAttribute('hidden');
+        if (s.chipNavn) s.chipNavn.textContent = ord;
+      } else s.chip.setAttribute('hidden', '');
+    }
+  }
+
+  /**
+   * Loefter en allerede valgt TRAERSKEL ind i skalaen og slaar den fra.
+   *
+   * Uden den her ville et filterlink (robotter/#f-nyttelast-20) og enhver
+   * tilbage-navigation, hvor browseren genskaber afkrydsninger, tabe sit
+   * filter i samme oejeblik JavaScript indlaeste: CSS-reglerne er slukket af
+   * `data-levende`, og skalaen stod paa hvile. Traersklen flyttes derfor over
+   * i skalaen - samme graense, finere kontrol - og feltet ryddes, saa det
+   * ikke ogsaa taeller med i markering() og nogenMarkering().
+   *
+   * FLERE valgte traerskler forenes til den mildeste, praecis som CSS'ens
+   * ELLER-grammatik ville have gjort: ">=20 eller >=50" ER ">=20".
+   */
+  function fraTraerskler() {
+    var haendt = false;
+    var maal = location.hash ? location.hash.slice(1) : '';
+    for (var i2 = 0; i2 < skalaer.length; i2++) {
+      var s = skalaer[i2];
+      var valgt = null;
+      for (var j = 0; j < s.traerskler.length; j++) {
+        var b = s.traerskler[j];
+        if (!b.checked && b.id !== maal) continue;
+        var v = parseFloat(b.value);
+        if (isNaN(v)) continue;
+        if (valgt === null) valgt = v;
+        else valgt = s.retning === 'mindst' ? Math.min(valgt, v) : Math.max(valgt, v);
+        b.checked = false;
+        haendt = true;
+      }
+      if (valgt !== null) {
+        s.greb.value = String(tilStilling(s, valgt));
+        haendt = true;
+      }
+      tegnSkala(s);
+    }
+    return haendt;
+  }
+
+  /** Stiller én skala tilbage i hvile. */
+  function nulstilSkala(s) {
+    s.greb.value = String(s.retning === 'mindst' ? 0 : 100);
+    tegnSkala(s);
   }
 
   /** Den aktuelle markering: afkrydsede felter PLUS det ene `:target`.
@@ -256,6 +510,13 @@
     for (var b = 0; b < bokse.length; b++) {
       if (bokse[b].checked !== bokse[b].defaultChecked) return true;
     }
+    // En skala ude af hvile ER en filtrering, selvom den ikke saetter et
+    // afkrydsningsfelt. Uden dette led ville en tom side efter et
+    // skalatraek faa soegningens forklaring ("ingen robotter matcher
+    // soegningen") i stedet for filterets - fejl nr. 9's slaegtning.
+    for (var s2 = 0; s2 < skalaer.length; s2++) {
+      if (skalaAktiv(skalaer[s2])) return true;
+    }
     var h = location.hash ? location.hash.slice(1) : '';
     if (h) {
       var e = document.getElementById(h);
@@ -274,6 +535,11 @@
   function passer(post, m, spring) {
     for (var f in m) {
       if (f === spring || !m[f].length) continue;
+      // Skalaernes facetter haandteres af skalaPasser(), ikke her. Baade
+      // traersklerne (som er ryddet af fraTraerskler) og "ikke oplyst"-raekken
+      // hoerer til skalaen, naar JavaScript koerer - og en dobbelt
+      // haandhaevelse ville filtrere med to graenser paa én gang.
+      if (erSkala(f)) continue;
       var mine = post.v[f] || [];
       var j;
       if (f === OG_FACET) {
@@ -305,13 +571,22 @@
     var filtrerer = nogenMarkering(m);
     var a;
 
-    /* 1. Soegningen - den ENESTE filtrering, JavaScript selv udfoerer.
-       Facetterne haandteres af CSS, og det skal de blive ved med: laa de her,
-       ville de forsvinde, naar JavaScript ikke koerer. */
-    for (a = 0; a < lag.length; a++) {
-      if (!q || (lag[a].getAttribute('data-sog') || '').indexOf(q) !== -1) {
-        lag[a].removeAttribute('hidden');
-      } else lag[a].setAttribute('hidden', '');
+    /* 1. Soegningen OG skalaerne - de to filtreringer, JavaScript selv
+       udfoerer. Her stod foer "den ENESTE filtrering"; skalaerne kom til
+       1. sep 2026 (L65c/L66) og er den anden - men de er den anden paa en
+       maade, der ikke bryder loeftet: de har hver deres CSS-baarne
+       traerskeludgave, som staar tilbage uden JavaScript. Listefacetterne
+       haandteres stadig af CSS alene og skal blive ved med det.
+
+       ÉT sted saettes `hidden`, og det er det yderste lag. To mekanismer, der
+       hver satte og fjernede attributten, ville slukke hinandens resultat i
+       den raekkefoelge, de tilfaeldigvis koerte i. */
+    for (a = 0; a < poster.length; a++) {
+      var pa = poster[a];
+      if (!pa.ydre) continue;
+      var vis = (!q || (pa.sog || '').indexOf(q) !== -1) && skalaerPasser(pa, '');
+      if (vis) pa.ydre.removeAttribute('hidden');
+      else pa.ydre.setAttribute('hidden', '');
     }
 
     /* 2. MAAL, hvad der staar paa skaermen. Bevidst en maaling og ikke en
@@ -350,6 +625,11 @@
         if (q && (po.sog || '').indexOf(q) === -1) continue;
         if ((po.v[boks.name] || []).indexOf(boks.value) === -1) continue;
         if (!passer(po, m, boks.name === OG_FACET ? '' : boks.name)) continue;
+        // Skalaerne holdes fast, praecis som de oevrige facetters markering -
+        // undtagen den skala, boksen selv hoerer til. Uden det led ville
+        // "ikke oplyst"-raekkens tal vaere regnet under en skala, der netop
+        // udelukker de robotter, raekken handler om, og altid staa 0.
+        if (!skalaerPasser(po, erSkala(boks.name) ? boks.name : '')) continue;
         antal++;
       }
       var etiket = boks.nextElementSibling;
@@ -374,22 +654,60 @@
      allerede er regnet om. */
   form.setAttribute('data-levende', '');
 
+  /* SKALAERNE TAENDES HER, og raekkefoelgen er ikke ligegyldig.
+     `data-levende` ovenfor slukker baade trinlisten og de to facetters
+     CSS-regler i samme oejeblik; foerst DEREFTER maa skalaen vise sig. Sattes
+     den frem foerst, ville der vaere et hak, hvor begge oploesninger stod og
+     kunne betjenes, og et klik i det hak ville filtrere to gange. */
+  for (i = 0; i < skalaer.length; i++) {
+    skalaer[i].rod.removeAttribute('hidden');
+  }
+  /* En allerede valgt traerskel loeftes ind i skalaen (se fraTraerskler).
+     Kaldet tegner ogsaa alle skalaer foerste gang. */
+  fraTraerskler();
+
+  for (i = 0; i < skalaer.length; i++) {
+    (function (s) {
+      s.greb.addEventListener('input', function () { tegnSkala(s); opdater(); });
+      // `change` fyrer ogsaa efter tastaturbetjening i browsere, hvor `input`
+      // ikke goer. Dobbelt tegning er gratis; en manglende er en doed pil.
+      s.greb.addEventListener('change', function () { tegnSkala(s); opdater(); });
+      var kryds = form.querySelector('[data-valg-skala-ryd="' + s.navn + '"]');
+      if (kryds) {
+        kryds.addEventListener('click', function () { nulstilSkala(s); opdater(); });
+      }
+    }(skalaer[i]));
+  }
+
   input.addEventListener('input', opdater);
   for (i = 0; i < bokse.length; i++) bokse[i].addEventListener('change', opdater);
-  window.addEventListener('hashchange', opdater);
+  window.addEventListener('hashchange', function () { fraTraerskler(); opdater(); });
 
   /* NULSTIL er en <button type="reset">, saa den virker UDEN JavaScript: den
      stiller formularen tilbage til dens `checked`-attributter, altsaa til
      L56's standardtilstand. Browseren nulstiller FOERST efter haendelsen, saa
-     opdateringen maa vente et hak - ellers taeller vi den gamle tilstand. */
-  form.addEventListener('reset', function () { setTimeout(opdater, 0); });
+     opdateringen maa vente et hak - ellers taeller vi den gamle tilstand.
 
-  /* "Vis alle igen" i nul-tilstanden rydder ALT, ogsaa status-standarden:
-     staar man i en blindgyde, skal vejen ud vise hele kataloget. */
+     Skalaerne foelger med af sig selv: browserens egen nulstilling saetter
+     <input type=range> tilbage til sin `value`-ATTRIBUT, og den er skrevet i
+     hvilestillingen. Vi skal derfor kun tegne dem om bagefter, ikke flytte
+     dem - én kilde til hvad "nulstillet" betyder. */
+  form.addEventListener('reset', function () {
+    setTimeout(function () {
+      for (var s2 = 0; s2 < skalaer.length; s2++) tegnSkala(skalaer[s2]);
+      opdater();
+    }, 0);
+  });
+
+  /* "Vis alle igen" i nul-tilstanden rydder ALT, ogsaa status-standarden og
+     begge skalaer: staar man i en blindgyde, skal vejen ud vise hele
+     kataloget. En skala, der blev staaende her, ville vaere netop den
+     blindgyde, knappen findes for at komme ud af. */
   var ryd = document.querySelectorAll('[data-ryd]');
   for (i = 0; i < ryd.length; i++) {
     ryd[i].addEventListener('click', function () {
       for (var b = 0; b < bokse.length; b++) bokse[b].checked = false;
+      for (var s2 = 0; s2 < skalaer.length; s2++) nulstilSkala(skalaer[s2]);
       input.value = '';
       opdater();
     });

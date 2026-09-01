@@ -1,0 +1,43 @@
+{
+  "_laesmig": [
+    "VEKSELKURSER — et tal på siden, og derfor et tal med kilde (hård begrænsning 2).",
+    "",
+    "Hvorfor filen findes: L66 (JPK, 1. sep 2026) afgjorde, at priserne SKAL omregnes",
+    "til USD, så de 11 oplyste priser kan sorteres og filtreres på ét interval i stedet",
+    "for at ligge i tre valutabunker, der ikke kan sammenlignes. Her stod tidligere —",
+    "i tools/skema.mjs og i data/i18n/*.json — at en kurs ville være 'et tal, vi selv",
+    "havde fundet på'. Det holdt kun, så længe ingen slog en kurs op. En daglig",
+    "referencekurs fra en centralbank er offentliggjort, dateret og efterprøvelig; den",
+    "er præcis lige så kildebelagt som producentens egen prisangivelse.",
+    "",
+    "HVAD DER STÅR I FILEN, OG HVAD DER IKKE GØR. Hvert tal under 'per_euro' er",
+    "AFSKREVET ORDRET fra ECB's daglige referencekursfil — ingen af dem er regnet,",
+    "afrundet eller justeret her. ECB noterer alle kurser som 'antal enheder pr. 1",
+    "euro', og derfor er EUR's egen post 1: det er notationens definition, ikke en",
+    "måling. Kursen til USD, som siden faktisk viser, UDLEDES i",
+    "tools/skabelon/katalog.mjs som per_euro(USD) / per_euro(X) — ét regnestykke, ét",
+    "sted, af to tal der begge kan slås efter i kilden.",
+    "",
+    "'dato' er ECB's egen referencedato (filens time-attribut), ikke den dag vi hentede",
+    "den. Det er den dato, kursen VAR sand på, og det er derfor den, der vises på",
+    "siden. 'hentet' er vores egen indsamlingsdato, samme felt som robotposterne har.",
+    "",
+    "HOLDBARHED: en dagskurs er sand én dag. Siden viser derfor altid datoen ved siden",
+    "af det omregnede tal, så en læser kan se, hvor gammelt tallet er, i stedet for at",
+    "tro at det er dagens. Skal filen opdateres, hentes de to tal forfra fra samme URL,",
+    "og 'dato' og 'hentet' rettes med. Rør aldrig et per_euro-tal uden at rette datoen."
+  ],
+  "basis": "USD",
+  "kilde": {
+    "udgiver": "Den Europæiske Centralbank",
+    "navn": "Euro foreign exchange reference rates",
+    "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+    "dato": "2026-08-31",
+    "hentet": "2026-09-01"
+  },
+  "per_euro": {
+    "EUR": 1,
+    "USD": 1.1596,
+    "CNY": 7.7922
+  }
+}
