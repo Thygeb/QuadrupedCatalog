@@ -232,11 +232,14 @@ export function jaNejAf(v) {
        ophav: silhuet                            # eget_foto | silhuet | fabrikant
        kilde: https://www.unitree.com/b2         # hvor maalene/billedet kom fra
        hentet: 2026-08-21
-       alt: "Maaltro silhuet af Unitree B2"      # valgfri
+       alt:                                       # valgfri, MEN sprogkortlagt (spor/alt, 1. sep 2026)
+         da: "Maaltro silhuet af Unitree B2"       #   - staar "alt" overhovedet, skal ALLE sprog
+         en: "True-to-scale silhouette of Unitree B2" #   i SPROG vaere udfyldt (R18), ellers laekker
+                                                    #   ét sprogs tekst ud paa et andet sprogs side
        note: "Tegnet efter L 1098 x B 450 mm."   # valgfri
        delt_med: unitree-b2                      # valgfri, L28
        plade: ja                                 # valgfri, ellers udledt af ophav
-       pos: "50% 40%"                            # valgfri object-position
+       pos: "50% 40%"                             # valgfri object-position
 
    Tre ting, feltet er bygget for at goere umuligt:
 
