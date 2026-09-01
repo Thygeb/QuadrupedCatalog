@@ -8,6 +8,12 @@
   "sted_navn": "Firbenede robotter",
   "sted_navn_midlertidig": "midlertidigt navn",
   "sted_undertitel": "Et opslagsværk med kilde og dato på hvert tal",
+
+  "fejl404_titel": "Siden findes ikke",
+  "fejl404_forklaring": "Adressen findes ikke på dette site. Den kan være stavet forkert, eller siden kan være flyttet — kataloget er her stadig.",
+  "fejl404_knap": "Gå til kataloget",
+  "fejl404_beskrivelse": "Adressen findes ikke. Gå videre til kataloget over firbenede robotter.",
+
   "udgiver": "Udgivet af KeyResearch",
   "ingen_forhandler": "Vi er ikke forhandler af nogen robot på denne side, og vi modtager ikke betaling fra producenterne.",
 

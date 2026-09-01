@@ -8,6 +8,12 @@
   "sted_navn": "Quadruped robots",
   "sted_navn_midlertidig": "working title",
   "sted_undertitel": "A reference work with a source and a date on every number",
+
+  "fejl404_titel": "Page not found",
+  "fejl404_forklaring": "This address does not exist on this site. It may be mistyped, or the page may have moved — the catalogue is still here.",
+  "fejl404_knap": "Go to the catalogue",
+  "fejl404_beskrivelse": "This address does not exist. Continue to the catalogue of quadruped robots.",
+
   "udgiver": "Published by KeyResearch",
   "ingen_forhandler": "We do not resell any robot on this site, and we take no payment from the manufacturers.",
 

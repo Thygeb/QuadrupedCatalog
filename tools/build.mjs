@@ -44,6 +44,7 @@ import * as forsideSkabelon from './skabelon/forside.mjs';
 import * as katalogSkabelon from './skabelon/katalog.mjs';
 import * as sammenligningSkabelon from './skabelon/sammenligning.mjs';
 import * as omOsSkabelon from './skabelon/om-os.mjs';
+import * as fejl404Skabelon from './skabelon/fejl404.mjs';
 
 const rod = process.cwd();
 const iDag = new Date().toISOString().slice(0, 10);
@@ -255,6 +256,10 @@ async function main(argv) {
   let sider = 0;
   let kortPaaForside = 0;
   let kortIKatalog = 0;
+  // Fyldes i sprogloekken herunder, laest af den sprogneutrale rod-404 efter
+  // loekken (spor/404). Samme genbrug som RODSPROG laengere nede: teksten
+  // hentes fra data/i18n/, skrives ikke to gange.
+  const rod404Sprog = [];
 
   for (const sprogkode of SPROG) {
     const i18n = lavSprog(sprogkode);
@@ -358,6 +363,31 @@ async function main(argv) {
       }));
       sider++;
     }
+
+    /* --- 404-siden, sprogspecifik variant (spor/404) ------------------------
+       Skrevet som en FLAD fil (dist/<sprog>/404.html), IKKE i en undermappe
+       med index.html: en statisk vaert leder efter en fil ved navn 404.html.
+       sti='' holder mappedybden lig forsidens (grund('') herover er allerede
+       beregnet til dybde 'dist/<sprog>/', samme mappe filen faktisk lander i),
+       saa alle relative stier (system.css, kataloglinket, sprogskiftet i
+       foden) peger rigtigt uden en saerlig regning. aktiv:null, fordi INGEN
+       af navigationens punkter er "den aktuelle side" for en 404 - se
+       tools/skabelon/fejl404.mjs for hele begrundelsen (fillayout, tone). */
+    {
+      const ctx = grund('');
+      const main0 = fejl404Skabelon.render(ctx);
+      skrivFil(path.join(ud, sprogkode, '404.html'), skal({
+        sprogkode, T, t, sti: '', aktiv: null, harProducenter,
+        titel: `${t('fejl404_titel')} · ${T.sted_navn}`,
+        beskrivelse: t('fejl404_beskrivelse'),
+        main: main0,
+      }));
+      sider++;
+    }
+    rod404Sprog.push({
+      kode: sprogkode, titel: t('fejl404_titel'),
+      forklaring: t('fejl404_forklaring'), knap: t('fejl404_knap'),
+    });
 
     /* --- robotsiderne --- */
     for (const robot of robotter) {
@@ -720,6 +750,18 @@ ${RODSPROG.map((s) => `<a class="rod__vej" href="${s.kode}/" hreflang="${s.kode}
 </body>
 </html>
 `);
+  sider++;
+
+  /* --- den sprogneutrale rod-404 (spor/404) -------------------------------
+     Selvbaerende, som roden herover - se tools/skabelon/fejl404.mjs for
+     hvorfor filen ligger uden for sti-systemet og hvilken vaertsadfaerd de to
+     404-varianter (denne og den sprogspecifikke) tilsammen daekker.
+     paastaa() vogter samme forudsaetning som RODSPROG lidt laengere oppe:
+     ét indslag pr. sprog, ikke flere, ikke faerre. */
+  paastaa(rod404Sprog.length === SPROG.length && rod404Sprog.every((s) => SPROG.includes(s.kode)),
+    `rod-404 baerer ${rod404Sprog.length} sprog, men bygget har ${SPROG.length} `
+    + `(${SPROG.join(', ')}). Et nyt sprog skal ogsaa faa sin egen fejl404_-tekst.`);
+  skrivFil(path.join(ud, '404.html'), fejl404Skabelon.renderRod(rod404Sprog));
   sider++;
 
   /* ------------------------------------------------------------ selv-tjek */

@@ -49,7 +49,17 @@ export default async function koer(ctx) {
      naeste NYE sidetype, tools/skabelon/om-os.mjs, ogsaa bygget én gang pr.
      sprog uafhaengigt af robotantallet. Assertionen er RETTET, ikke slettet:
      den beviser fortsat samme regel, nu med den nye sidetype talt med, og et
-     bortfald af Om-siden ville stadig faa den til at fejle. */
+     bortfald af Om-siden ville stadig faa den til at fejle.
+     VENDT EN TREDJE GANG (spor/404, 1. sep 2026): leddet er nu "5" - /404.html
+     er den naeste NYE sidetype, ogsaa bygget én gang pr. sprog uafhaengigt af
+     robotantallet (tools/skabelon/fejl404.mjs, render()). DESUDEN faar den
+     yderste konstant "+1" foran hele udtrykket: 404-siden har OGSAA en
+     sprogneutral rod-variant (dist/404.html, renderRod()), praecis som roden
+     selv (dist/index.html) - derfor "2" i stedet for "1". Maalt foer rettelsen:
+     denne assertion fejlede med "fandt 26" mod det gamle "23", praecis de tre
+     nye filer (dist/404.html, dist/da/404.html, dist/en/404.html). Assertionen
+     er igen RETTET, ikke slettet - et bortfald af 404-siden (nogen af de tre
+     filer) faar den stadig til at fejle. */
   const fixtureRobotter = lasRobotter(path.join(rod, 'tests', 'eksempel-robotter'));
   const fixtureProducenter = new Set(fixtureRobotter.map((rb) => rb.producent));
   // Samme gate som build.mjs L327 bruger for producenter/index.html - IKKE bare om
@@ -60,11 +70,11 @@ export default async function koer(ctx) {
   const producentModul = await import(
     `file://${path.join(rod, 'tools', 'skabelon', 'producent.mjs').replace(/\\/g, '/')}`).catch(() => null);
   const harProducentindeks = typeof producentModul?.renderIndeks === 'function';
-  const forventetSider = 1 + skema.SPROG.length * (4 + fixtureRobotter.length
+  const forventetSider = 2 + skema.SPROG.length * (5 + fixtureRobotter.length
     + (harProducentindeks ? 1 + fixtureProducenter.size : 0));
   ok(`${forventetSider} HTML-sider bygget, afledt af ${fixtureRobotter.length} robotter / `
     + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog `
-    + `+ sammenligningssiden + Om os (fandt ${sider.length})`,
+    + `+ sammenligningssiden + Om os + 404-siden (fandt ${sider.length})`,
     sider.length === forventetSider);
 
   const katalogDa = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');
