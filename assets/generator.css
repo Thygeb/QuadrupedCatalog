@@ -18,163 +18,6 @@
    flyder ovenpaa) — kun kataloget faar sin egen flade, se afsnit 6. */
 .aabning{display:flex;flex-direction:column}
 .aabning > section + section{margin-top:var(--r8)}
-/* Overstyrer kun det FOERSTE spring (hero -> yderpunkter): resten af
-   aabningen faar sin luft fra den generelle regel ovenfor (r8, systemets
-   "hoeje ende", JPK's tillaeg), men her kapper et fotografi maatte naa ind i
-   foerste viewport foer springet selv har raad til fuld luft. Yderpunkt-
-   sektionens egen overskrift giver stadig en synlig pause. */
-.hero + .yderpunkter-sektion{margin-top:var(--r4)}
-
-/* --- 1a. Hero. Ren tekst: overskrift + lede + soegning. Ingen figur her —
-   figuren er yderpunkterne nedenfor, saa hero'en kan holdes kort nok til at
-   den ledende yderpunkt-flade naar ind i foerste viewport. */
-.hero{border-bottom:1px solid var(--linje)}
-.hero .rum{padding-block:var(--r6) var(--r4)}
-.hero-ord{display:flex;flex-direction:column;gap:var(--r4);max-width:74ch}
-.hero-lede{margin-top:2px}
-.hero .styring{margin-top:var(--r3)}
-.hero-videre{display:flex}
-/* Ledeteksten er hero'ens eneste broedtekst og maa staa ét trin over resten.
-   Under 680 px bliver den 17 px igen, fordi hver linje dér koster plads i den
-   foerste viewport. */
-@media (min-width:680px){.hero-lede{font-size:19px}}
-
-/* --- 1b. YDERPUNKTERNE. FIRE LIGESTILLEDE KORT (fund 2, JPK 26. aug 2026 —
-   afloeser lead/lille-opdelingen: ét kort fyldte foer ca. TI GANGE de tre
-   andres areal, mens teksten under gitteret hele tiden sagde, at et
-   yderpunkt "ikke er et udvalg og ikke en anbefaling". Layout vinder altid
-   over tekst, saa arealet maatte rettes, ikke saetningen. Historik: den
-   gamle "ét leder, tre foelger"-loesning valgte lead-billedet redaktionelt
-   ud fra billedKVALITET (se DESIGN.md), ikke af tallet — men arealforskellen
-   havde intet offentliggjort kriterium og modsagde selv teksten, den stod
-   ved siden af. JPK fravalgte reviewets alternativ (rotation efter
-   ugenummer): det ville goere bygget uafhaengigt af sit eget input.
-   Samme gitter-ramme genbruges (--rund, --linje, --skygge, samme hover som
-   .kort) — ingen ny komponentfamilie, kun fire ens instanser af én. Ingen
-   dom: et yderpunkt er en MAALT kendsgerning (side.mjs, ekstremer()), ikke
-   en anbefaling — se forklaringen under gitteret.
-
-   spor/yderpunkt (26. aug 2026): ekstremer() garanterer nu, at et yderpunkt
-   altid har et RIGTIGT fotografi (laesBillede() !== null) - maaltro-pladen
-   (.billedled--maal, afsnit 8b) er dimensioneret til katalogkortets bredere
-   felt og blev afskaaret her. Dette afsnit skal derfor ALDRIG style
-   .billedled--maal for .yderpunkt - regnes den paastand engang forkert,
-   skal fejlen rettes i udvaelgelsen (side.mjs), ikke med CSS-plaster her.
-
-   Overskriften mister sin normale border+luft (systemets .sektion-hoved),
-   fordi det NETOP er springet fra overskrift til foto, der afgoer, om et
-   fotografi naar ind i foerste viewport (JPK's tillaeg).
-
-   FOTOPLADER (spor/plader, 27. aug 2026 — L40's sidste punkt: "VITRINEs fire
-   fotoplader med ét stort tal hver", inden for INSTRUMENTs stramme, haarde
-   ramme). Facit er retninger/vitrine/index.html + vitrine.css, men KUN
-   billedgrebet og talstoerrelsen er hentet derfra — IKKE comp'ens loesning:
-   comp'en dropper kortets kant/skygge/baggrund helt (billedet flyder frit
-   paa siden), og det ville genindfoere de bloede streger, INSTRUMENT
-   bevidst fjernede (L40). Kortrammen herunder (border+skygge+hover) er
-   derfor UAENDRET fra spor/instrument2 - kun to ting er rettet for at goere
-   fotoet til pladens hovedsag:
-   1. Billedet faar sit EGET plade/cover-tjek (YDERPUNKT_FORHOLD i side.mjs,
-      4:3 - samme tal som .billedled's aspect-ratio herunder, IKKE
-      katalogkortets 16:10). Foer denne rettelse blev galileo-s1-w (side-
-      forhold 1,78) tjekket mod 16:10 (11,9 % afvigelse, bestod) men vist i
-      DENNE 4:3-ramme, hvor cover skar 25,1 % af billedet af - maalt paa
-      main med maalevaerktoej/maal.mjs FOER rettelsen (beskaaretOver25pct:1).
-      Nu tjekkes billedet mod den ramme, det faktisk vises i.
-   2. Tallet er forstoerret fra clamp(24px,2.1vw,29px) til t-h1's ETABLEREDE
-      skala clamp(27px,3.6vw,46px) (system.css:136) - genbrugt, ikke
-      opfundet - saa figuren baerer samme vaegt som en sideoverskrift, nu
-      hvor fotoet ovenover fylder mere og resten af kortet ellers ville
-      virke underdrevent ved siden af det. */
-.yderpunkter-sektion .sektion-hoved{border-bottom:0;padding-bottom:0}
-.yderpunkter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:var(--r6);margin-top:var(--r3);align-items:stretch}
-
-.yderpunkt{position:relative;display:flex;flex-direction:column;background:var(--panel);
-  border:1px solid var(--linje);border-radius:var(--rund);box-shadow:var(--skygge);
-  overflow:hidden}
-.yderpunkt:hover,.yderpunkt:focus-within{border-color:#CFD4DB;box-shadow:var(--skygge-loeft)}
-/* Kildemaerket skal kunne rammes trods navnets kortdaekkende ::after — samme
-   teknik som .kort .kildemaerke. */
-.yderpunkt .kildemaerke{position:relative;z-index:2}
-.yderpunkt .billedled{aspect-ratio:4/3;border-bottom:1px solid var(--linje)}
-
-/* --- 1c. Pladernes FAELLES indre format (KRITIK-4 fund 7).
-   Pladernes egne kasser var allerede ens (maalt 1440: fire gange 312x234 px)
-   - fundet handlede aldrig om rammen, men om hvad der skete INDE i den.
-   Maalt paa de fire billeders egne kasser foer denne regel:
-     Y10       312x257   cover, HOEJERE end rammen -> 23 px klippet af
-     S1-W      312x188   --plade: contain, svaevede med brede margener
-     Lynx S10  312x234   cover, udfyldte praecist
-     MOVENEW   312x221   cover
-   Tre plader gik kant til kant, én svaevede. Det er derfor raekken laeses som
-   fire loesrevne kort i stedet for ét instrument med fire aflaesninger.
-
-   Loesningen er pladens ramme, ikke billedet: samme bund og samme indre
-   format til alle fire. Ingen beskaering (vaernet i briefet og grunden til
-   at --plade findes: en 4:3-beskaering tager enten poterne eller hovedet),
-   og intet billede genereret.
-
-   BIVIRKNING, der er en gevinst: Y10 blev beskaaret 23 px af rammen foer.
-   Med contain er ingen af de fire beskaaret overhovedet.
-
-   --panel-ro er systemets egen "rolige indfelt inde i et hvidt panel" - en
-   polet, der allerede findes. D15 laaste paletten; her indfoeres ingen ny
-   farve.
-
-   AARSAGEN, som ikke var object-fit. Billedet ligger i et <picture>, og det
-   er <picture>, der er .billedled's gridfelt - ikke <img>. <picture> er
-   inline og har ingen hoejde, saa system.css' `.billedled img{height:100%}`
-   aldrig kunne opløses: den regnede mod en auto-hoej beholder og faldt
-   tilbage til billedets NATURLIGE forhold. Derfor blev hver plades billede
-   312 px bredt gange sit eget sideforhold - 255, 181, 234, 223 - og rammen
-   klippede eller lod bunden staa. Det er praecis den faelde, CLAUDE.md
-   beskriver for maalevaerktoejet: "<img> fylder ikke noedvendigvis sit
-   <picture>". At saette object-fit alene flyttede kun tallene 2-7 px, fordi
-   det aldrig var problemet - foerst da <picture> fik en kasse, virkede det. */
-.yderpunkt .billedled{background:var(--panel-ro)}
-/* position:absolute + inset:0 frem for height:100%. .billedled er
-   position:relative i forvejen, saa <picture> faar praecis rammens kasse.
-   height:100% var IKKE nok: .billedled er et grid med align-items:center, saa
-   den implicitte raekke sizes efter sit INDHOLD. Et billede hoejere end 4:3
-   pustede raekken op over rammen, og 100% regnede saa mod den oppustede
-   raekke - en cyklisk procent, der stabiliserede paa 255 px i en 234 px
-   ramme. Maalt: Y10 blev ved med at staa paa 312x255, mens de tre andre
-   ramte 233-234, indtil pladen blev taget ud af raekkens hoejdeberegning. */
-.yderpunkt .billedled picture{position:absolute;inset:0;display:block}
-.yderpunkt .billedled img{object-fit:contain;padding:var(--r3) var(--r4)}
-.yderpunkt-krop{display:flex;flex-direction:column;gap:8px;min-width:0;padding:var(--r5)}
-.yderpunkt-krop > .etiket{display:flex;align-items:center;gap:8px}
-.yderpunkt-krop > .etiket .ikon{width:16px;height:16px;stroke-width:1.8;color:var(--accent)}
-.yderpunkt-krop .v{font-size:clamp(27px,3.6vw,46px);margin-top:2px}
-/* Samme princip som K8 (system.css:429): et tal maa aldrig knaekke
-   indvendigt. .v her arver ingen break-word (ingen regel saetter det paa
-   .yderpunkt-krop .v), men reglen skrives eksplicit alligevel, saa den ikke
-   stiltiende afhaenger af at forblive uskrevet andetsteds. */
-.yderpunkt-krop .v .num{white-space:nowrap}
-
-/* Og hele AFLAESNINGEN maa heller ikke knaekke. K8 ovenfor daekker figurens
-   indre; det her daekker leddene omkring den. Maalt paa /da/ ved 1750 og
-   1440: MOVENEW P1's "480-720 min" braekkede, saa kildebogstavet - pladens
-   eneste herkomstmaerke - faldt ned paa en linje for sig under tallet. Ved
-   1180 og derunder skete det ikke, saa fejlen fandtes praecis dér, hvor
-   fladen er stoerst.
-   Bare `flex-wrap:nowrap` bytter blot ombrydningen ud med et overloeb (maalt:
-   1 af 4 plader skoed ud). Loesningen er den samme som i den kompakte celle:
-   laengdeklasserne fra side.mjs' tal() saetter figuren ét trin ned, saa
-   linjen holder. Maalt efter, paa begge sprog ved 1750/1440/1180/1100/900/
-   700/390: 0 braekkede og 0 overloeb ved hver eneste bredde. */
-.yderpunkt-krop .v-tal{flex-wrap:nowrap}
-.yderpunkt-krop .v-tal--lang .num{font-size:.82em}
-.yderpunkt-krop .v-tal--xlang .num{font-size:.72em}
-.yderpunkt-navn{font-size:17px;font-weight:700;letter-spacing:-.016em;margin-top:2px}
-.yderpunkt-navn a{color:var(--blaek);text-decoration:none}
-.yderpunkt-navn a::after{content:"";position:absolute;inset:0;z-index:1}
-.yderpunkt-navn a:hover{text-decoration:underline;text-decoration-thickness:2px}
-.yderpunkt-prod{font-size:13px;color:var(--blaek3)}
-
-@media (max-width:1180px){.yderpunkter{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:420px){.yderpunkter{grid-template-columns:1fr}}
 
 /* --- 1c. EU-FUNDET. Én saetning, ét stort tal — laesbar paa to sekunder,
    ikke en infografik. Beregnet i forside.mjs, aldrig skrevet i haanden. */
@@ -212,16 +55,16 @@
    2026: facetterne er nu stansede felter i et 12-kolonners gitter, ikke en
    liste med etiketspalte.
 
-   MEN `.facet` ER IKKE KATALOGETS ALENE. Sammenligningssiden bruger
-   `class="facet sammenligning-vaelger"`, og den er ikke bygget om i dette
-   spor. Grundreglen bliver derfor staaende praecis som foer - det er den, den
-   flade regner med - og katalogets nye form er scopet under `.facetter__net`
-   i afsnit 20. Uden den opdeling fik sammenligningssidens vaelger 24 px
-   polstring og to haarstreger, den aldrig har bedt om. Samme fejl som
-   `.kort`, fanget samme dag. */
+   MEN `.facet` ER IKKE KATALOGETS ALENE. Grundreglen bliver derfor staaende
+   praecis som foer - det er den, sammenligningssidens vaelger ogsaa regner
+   med - og katalogets nye form er scopet under `.facetter__net` i afsnit 20.
+   Uden den opdeling fik sammenligningssidens vaelger 24 px polstring og to
+   haarstreger, den aldrig har bedt om. Samme fejl som `.kort`, fanget samme
+   dag. (`.sammenligning-vaelger` selv er en fjernet, doed klasse -
+   spor/doedcss, 1. sep 2026 - markeringen "facet sammenligning-vaelger" i
+   markup findes ikke laengere.) */
 .facet{border:0;margin:0;padding:0;min-width:0;display:contents}
 .facet legend{padding:0;margin:0}
-.facet-ryd{margin-top:var(--r3)}
 
 /* --- L44: sorteringskontrollen og tommelindekset -------------------------
    Begge er ren HTML. Sorteringen er radioknapper, som CSS'ens :has() laeser
@@ -320,20 +163,6 @@
 .sektion-note{margin-top:var(--r3);max-width:86ch}
 .sektion .gitter{margin-top:var(--r5)}
 
-/* --- 3b. KATALOGETS FLADE (JPK's tillaeg, 24. aug 2026): tonespring, ikke
-   en streg. --panel-ro (lidt lysere end --bund) signalerer "her begynder
-   kataloget" ved at skifte flade, ikke ved at traekke en linje — samme
-   flade, systemet allerede bruger til et roligt indfelt andre steder, saa
-   der er ingen ny farve. Fire gitre paa 12, 12, 13 og 9 kort i traek faar
-   luft nok (r8 mellem hver, system.css) til at laeses som adskilte grupper;
-   det foerste hoved staar taettere paa fladeskiftet, som selv er graensen. */
-.katalog-flade{background:var(--panel-ro);padding-bottom:var(--r8)}
-.katalog-flade > .rum > .sektion:first-child{padding-top:var(--r7)}
-/* Forsidens "Fra kataloget"-smagsproeve (spor/lysbyg): samme flade, samme
-   tonespring-regel som resten af kataloget - kun ÉT afsnit i stedet for
-   alle vaegtklasserne. */
-.udvalg-videre{text-align:center;margin-top:var(--r6)}
-
 /* --- 3c. FORSIDENS AFSLUTNING (spor/indgang, 26. aug 2026). Ganske
    almindelig .sektion, samme katalog-flade og samme r8-luft til "Fra
    kataloget" ovenfor - ingen ny centreret bloklayout, ingen ny flade.
@@ -341,7 +170,6 @@
    heller ikke centreret); en centreret afslutningsblok er netop den
    skabelon, impeccable's craft-floor navngiver som kategoriens
    standardsvar. */
-.afslutning-saetning{margin-top:var(--r3)}
 .afslutning-knap{margin-top:var(--r5)}
 
 /* VAEGTKLASSE-SALENE ER FJERNET 31. aug 2026 (spor/katalog, L54/L57).
@@ -397,7 +225,6 @@
 .feltvaerdi{display:flex;flex-wrap:wrap;align-items:baseline;gap:.34em;min-width:0}
 .feltvaerdi > .forbehold{align-self:center}
 .stribe .krop > .feltvaerdi{min-height:30px;align-items:center}
-.stribe--kompakt .krop > .feltvaerdi{min-height:23px}
 
 /* robot.mjs' EGEN varianter() (feltKrop, forskellig fra flet dt/dd-formen
    ovenfor) pakker hvert par i sin egen kasse. Mere specifik end
@@ -455,23 +282,6 @@
    4/10/5 -> 2/7/3, font 12,5px -> 12px. Scopet til .kort saa robotsidens
    egen badge-raekke (stoerre, sidens hovedsag der) IKKE rammes. */
 .kort .maerke{font-size:12px;padding:2px 7px 3px}
-
-/* --- 7. Specifikationstaetheden ------------------------------------------- */
-.taethed{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
-  padding:14px 16px;background:var(--panel-ro);border:1px solid var(--linje);
-  border-radius:var(--rund-ind)}
-.taethed .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
-  font-size:19px;font-weight:700;color:var(--blaek)}
-.taethed .brok{font-family:var(--mono);font-size:12px;color:var(--blaek3)}
-
-/* --- 8. Robotsidens midlertidige skabelon --------------------------------- */
-.post{display:flex;flex-direction:column;gap:var(--r5);padding-block:var(--r7)}
-.post-meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-.post-meta .land{font-family:var(--mono);font-size:12.5px;color:var(--blaek3)}
-.gruppe{display:flex;flex-direction:column;gap:var(--r3)}
-.midlertidig-note{padding:12px 14px;background:var(--tom);
-  border:1px dashed var(--hegn);border-radius:var(--rund-ind);
-  font-size:13.5px;color:var(--blaek2)}
 
 /* Robotsidens store billedled. Klassen sættes af billedled({stor:true}) i
    robot.mjs, men stod uden regel her — dens eneste styling laa i den
@@ -555,10 +365,6 @@
 .saml-tegn__tekst{font-family:var(--manual);font-size:11.5px;line-height:1.35;
   color:var(--blaek2);text-wrap:pretty;min-width:0}
 
-/* Vaelgeren genbruger .facet/.filtre (system.css §13) uaendret - kun en
-   loft-hoejde, saa 62 afkrydsningsfelter ikke skubber tabellen langt ned. */
-.sammenligning-vaelger .filtre{max-height:260px;overflow-y:auto;
-  padding:2px;border:1px solid var(--linje);border-radius:var(--rund-ind)}
 /* Samme notits-form til to beskeder, der begge siger "det, du forventede,
    sker ikke her": JS-status'en (for faa/for mange valgte) og noscript-
    beskeden (punkt 3, Aa54). Ingen ny visuel familie - kun klassenavnet er
@@ -642,13 +448,6 @@
 .specimen__fod{display:flex;align-items:baseline;gap:var(--r3);flex-wrap:wrap;
   margin-top:10px;padding-top:9px;border-top:1px solid var(--blaek2)}
 .specimen__taethed{font-size:11.5px;font-weight:500;color:var(--paafod2)}
-/* Betjeningen, dér hvor man opdager, at man kigger paa den forkerte maskine. */
-.specimen__skift{margin-left:auto;display:inline-flex;align-items:center;gap:5px;
-  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--bund);text-decoration:none;
-  padding:3px 7px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek2)}
-.specimen__skift:hover{background:var(--accent);color:var(--blaek);box-shadow:none}
-.specimen__skift:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
 /* Felttabellen. Aa54: en RIGTIG <table>, men med display:block/grid ovenpaa,
    saa gitteret staar som foer - en subgrid-lignende raekke (200px etiket +
@@ -741,16 +540,6 @@
   color:var(--stoev-blaek);max-width:78ch;margin:var(--r3) 0 0;padding:0 var(--r3) var(--r3);
   text-wrap:pretty}
 
-/* Vaelgeren: alle 77, men de koster ikke foerste skaerm - den staar UNDER
-   matricen, og kolonnehovedernes "Vaelg robotter" springer herned. */
-.saml-udtraek{margin-top:var(--r5);background:var(--panel);border-radius:var(--rund-ind);
-  box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
-  scroll-margin-top:var(--r4)}
-.saml-udtraek__top{margin:0;padding:var(--r4) var(--r5);font-family:var(--mono);
-  font-size:11.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--blaek);border-bottom:1px solid var(--linje)}
-.saml-udtraek__krop{padding:var(--r5)}
-
 /* --- 8b-IV. SMALLE SKAERME ----------------------------------------------
    Matricen brydes ALDRIG op i blokke - det ville koste tabelrollen, som Aa54
    netop lappede. Den ruller vandret i stedet, og raekkehovedet klaeber til
@@ -792,9 +581,7 @@
   .specimen-hoved th,.specimen-hoved td{padding:var(--r3) 10px}
   .specimen__navn{font-size:15px}
   .specimen__fod{display:block}
-  .specimen__skift{margin-top:6px}
-  .saml-udtraek__krop{padding:var(--r4)}
-}
+    }
 
 /* =============================================================================
    9. SIDENS RAMME, ROBOTSIDEN OG PRODUCENTSIDEN
@@ -960,7 +747,6 @@
 .robot-navn .kort-ophav{gap:6px 10px}
 .robot-navn h1{margin:0}
 .robot-navn .aar{font-size:12px;color:var(--blaek3)}
-.vaegtklasse{margin:0}
 .robot-navn .maerker{margin-top:2px}
 
 /* VARIANTNAVNENE ER DATA, IKKE KNAPPER. Her stod flade + ramme + radius —
@@ -1021,9 +807,6 @@
   .stribe--fem > li:nth-child(-n+2){border-top:0}
 }
 .stribe-hoved h2{margin:0}
-.stribe--intet-kort{border-radius:var(--rund-ind);padding:13px 14px 14px;gap:11px}
-.stribe--intet-kort .hoved{font-size:13.5px}
-.stribe--intet-kort p{font-size:13px}
 
 .advarsel-navn{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;color:var(--blaek);margin-bottom:3px}
@@ -1033,18 +816,6 @@
 .v-liste code{font-family:var(--mono);font-size:12.5px;color:var(--blaek2);
   background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--rund-lille);
   padding:2px 7px 3px}
-
-/* --- 9c. EU-blokken paa robotsiden (adskilt fra kortets lille .eu-badge) --- */
-.eu-blok .eu-krop{display:flex;gap:var(--r4);align-items:flex-start;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund);
-  box-shadow:var(--skygge);padding:var(--r4) var(--r5) var(--r5)}
-.eu-blok .eu-krop > div{flex:1;min-width:0}
-.eu-ikon{color:var(--hegn);margin-top:4px;flex:none}
-.eu-forklaring{margin-top:var(--r3);max-width:76ch}
-@media (max-width:560px){
-  .eu-blok .eu-krop{padding:var(--r4);gap:var(--r3)}
-  .eu-ikon{display:none}
-}
 
 /* --- 9d. Døren ud til producenten ------------------------------------------ */
 .produktside .videre{margin-top:var(--r3)}
@@ -1083,18 +854,12 @@
 .skema[open] > summary{border-radius:var(--rund) var(--rund) 0 0;border-bottom:1px solid var(--linje)}
 .skema > summary:hover{background:var(--panel-ro)}
 .skema > summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
-.skema-titel{font-size:19px;font-weight:700;letter-spacing:-.014em;color:var(--blaek)}
 .skema-taeller{font-size:12.5px;font-weight:500;color:var(--blaek2)}
-.skema-krop{padding:var(--r4) var(--r5) var(--r5)}
 .skema-gruppe + .skema-gruppe{margin-top:var(--r5)}
 .skema-gruppe h3{padding-bottom:8px;border-bottom:1px solid var(--linje);margin-bottom:4px}
-.skema-krop .raekke{align-items:start}
-.skema-krop .raekke dd{min-width:0}
-.skema-krop > .t-mikro{margin-top:var(--r5);padding-top:var(--r3);border-top:1px solid var(--linje)}
 @media (max-width:560px){
   .skema > summary{padding:14px var(--r4)}
-  .skema-krop{padding:var(--r4)}
-  /* Kun paa disse to sider. .raekke er en delt komponent — en aendring af dens
+    /* Kun paa disse to sider. .raekke er en delt komponent — en aendring af dens
      ombrydning ville ogsaa ramme katalogsidens producentindeks. */
   .robotside .raekke,.producentside .raekke{grid-template-columns:minmax(0,1fr)}
 }
@@ -1123,12 +888,7 @@
 .producent-fakta .figur{font-size:21px;font-weight:700}
 .producent-fakta .hjemsted{font-weight:600}
 
-.eu-tabel th[scope="row"] a{display:inline-block;min-height:24px;padding:8px 0;
-  color:var(--blaek);text-decoration-thickness:1.5px}
-.eu-tabel th[scope="row"] a:hover{color:var(--accent)}
-.eu-tabel td{white-space:nowrap}
 .sektion-hoved .tal{color:var(--blaek);font-weight:500}
-.eu-tom{margin-top:var(--r4)}
 
 .prodliste{display:flex;flex-direction:column;padding-top:var(--r2)}
 .prodliste li{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;
@@ -1218,7 +978,7 @@
   .skema{box-shadow:none}
   .skema,.skema > *{display:block !important}
   .stribe-under-fold,.stribe-under-fold > *{display:block !important}
-  .kort,.panel,.stribe,.eu-blok .eu-krop{box-shadow:none}
+  .kort,.stribe{box-shadow:none}
   .kilder .url{text-decoration:none;color:var(--blaek)}
 }
 
@@ -1341,18 +1101,12 @@
   padding:4px 5px 4px 10px;border-radius:2px;
   font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
 }
-/* Status vender modsat: chippen fortaeller, hvad der er SKJULT, og er derfor
-   ikke en markering i gult, men en kontur paa den moerke bund. */
-.valg--standard{background:transparent;color:var(--paafod);
-  box-shadow:inset 0 0 0 1px var(--stoev-blaek)}
 .valg__navn{min-width:0}
 .valg__fjern{
   display:grid;place-items:center;width:18px;height:18px;flex:none;
   background:rgba(34,38,42,.14);color:inherit;border-radius:2px;cursor:pointer;
 }
-.valg--standard .valg__fjern{background:rgba(232,235,237,.12)}
 .valg__fjern:hover{background:var(--blaek);color:var(--accent)}
-.valg--standard .valg__fjern:hover{background:var(--bund);color:var(--blaek)}
 .valg__kryds{display:block}
 
 .taeller{margin-left:auto;display:flex;align-items:baseline;gap:9px;padding-left:var(--r4)}
@@ -1395,8 +1149,6 @@
   border-bottom:1px solid var(--linje);
 }
 .facetter__net .facet--s3{grid-column:span 3}
-.facetter__net .facet--s4{grid-column:span 4}
-.facetter__net .facet--s5{grid-column:span 5}
 .facetter__net .facet--raekkeslut{border-right:0}
 .facetter__net .facet--sidste-raekke{border-bottom:0}
 .facet__navn{
@@ -1566,7 +1318,7 @@
 
 /* --- 20k. 1100 px: gitteret halveres ------------------------------------- */
 @media (max-width:1100px){
-  .facetter__net .facet--s3,.facetter__net .facet--s4,.facetter__net .facet--s5{grid-column:span 6}
+  .facetter__net .facet--s3{grid-column:span 6}
   .facetter__net .facet{border-right:1px solid var(--linje)}
   .facetter__net .facet:nth-of-type(2n){border-right:0}
   .facetter__net .facet--raekkeslut{border-right:0}
@@ -1601,7 +1353,7 @@
     stroke-width:1.8;transform:rotate(90deg)}
   .udtraek[open] > .udtraek__greb .haandtag__tegn{transform:rotate(-90deg)}
   .facetter__net .facet{border-right:0;padding:var(--r4)}
-  .facetter__net .facet--s3,.facetter__net .facet--s4,.facetter__net .facet--s5{grid-column:1 / -1}
+  .facetter__net .facet--s3{grid-column:1 / -1}
 
   .resultat{padding:var(--r5) 0 var(--r6)}
   .net{grid-template-columns:repeat(2,minmax(0,1fr))}

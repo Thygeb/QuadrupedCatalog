@@ -327,15 +327,6 @@ a:hover{text-decoration-thickness:2.5px}
 /* Tal saettes i mono med tabulaere cifre, saa kolonner flugter. */
 .figur{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
 
-/* --- 5. Panel og skillelinjer --------------------------------------------- */
-.panel{
-  background:var(--panel);border-radius:var(--rund);
-  border:1px solid var(--linje);box-shadow:var(--skygge);
-}
-.panel--ro{background:var(--panel-ro);box-shadow:none}
-.streg{border:0;border-top:1px solid var(--linje);margin:0}
-.streg--kraftig{border-top-color:var(--blaek);border-top-width:2px}
-
 /* TYPESKILT-primitiv (3.5, spor/fundament): den stansede kant. 2px radius,
    1px indfaeldet kant i --linje (=rille), hvid lyskant foroven (--stans).
    Materiale, ikke skeuomorf teater - MANIFEST §Layouttesen: "Ingen
@@ -1213,7 +1204,6 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .status{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;
   text-transform:uppercase;color:var(--blaek2);border:1px solid var(--linje);
   border-radius:var(--rund-lille);padding:2px 7px 3px;white-space:nowrap}
-.status--udgaaet{color:var(--blaek3);background:var(--tom);border-style:dashed;border-color:var(--hegn)}
 
 /* Anvendelsesmaerket. Producentens egen inddeling, gengivet — ikke vores. */
 .maerker{display:flex;flex-wrap:wrap;gap:6px}
@@ -1350,7 +1340,6 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 /* --- 13. Betjening: soegefelt og filtre ----------------------------------- */
 /* L17: begge skal staa i foerste viewport. Uden JavaScript virker feltet
    stadig som et almindeligt formularfelt, og filtrene som links. */
-.styring{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-end}
 /* Loftet paa maalet (27. aug 2026): uden det strakte feltet sig til ca.
    1230 px ved 1440, og sorteringsetiketten blev skubbet helt ud til modsatte
    kant. Et soegefelt bliver ikke bedre af at vaere en meter bredt end
@@ -1436,8 +1425,6 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   width:2px;background:var(--hegn)}
 .raekke .v{font-size:17px}
 
-.tabelrum{overflow-x:auto;border:1px solid var(--linje);border-radius:var(--rund);
-  background:var(--panel);box-shadow:var(--skygge)}
 table{border-collapse:collapse;width:100%;min-width:620px;font-size:15px}
 th,td{text-align:left;padding:12px 16px;border-top:1px solid var(--linje);vertical-align:baseline}
 thead th{border-top:0;border-bottom:2px solid var(--blaek);white-space:nowrap;
@@ -1610,7 +1597,6 @@ td .v{font-size:15px}
 
 .typeskilt .maerke__mrk{width:10px;height:10px;flex:none;color:var(--blaek3);display:block}
 .typeskilt .maerke--drift .maerke__mrk{color:var(--paafod2)}
-.typeskilt .maerke__navn{color:var(--blaek3);font-weight:500}
 
 /* --- 16c. Enhedsomskifteren (L60) -----------------------------------------
    Uden JavaScript. `.enhedsskift__boks` er en rigtig afkrydsning som foerste
@@ -2116,93 +2102,12 @@ summary.facet__navn > .facet__tal{
   .klaebebar__navne{font-size:13px}
 }
 
-/* --- sammenligningens vaelger (spor/samlvaelg) --- */
-/* Vaelgeren laante indtil nu katalogets filterchip (.filtre, afsnit 13). Det
-   var ikke et valg, men et fravaer: comp'ens design
-   (retninger/nyverden/sammenligning.html + typeskilt.css §.vaelgernet) blev
-   tegnet og aldrig bygget, saa 77 modeller stod som en flex-wrap af pilleformede
-   chips med ragged hoejrekant og INTET afkrydsningstegn - man kunne ikke se, at
-   en chip var en boks, foer man havde trykket paa den.
-
-   Comp'ens greb er et GITTER, ikke en raekke: 210 px spalter, navnet venstre,
-   producenten hoejrestillet i versaler, og en rigtig 13 px stansning foran.
-   Det er TYPESKILT-retningen (L54/L57) - strammere gitter, faerre streger:
-   chippens ramme er vaek, kolonnerne holder oejet, og der er nul dekoration.
-
-   Teknikken er comp'ens: <input> er et RIGTIGT afkrydsningsfelt, skjult uden
-   for skaermen, og <label> baerer udseendet. Tastatur og skaermlaeser er
-   dermed uaendrede - ingen div-chip, ingen role="checkbox", ingen JS.
-
-   TO BEVIDSTE AFVIGELSER FRA COMP'EN, begge fordi den byggede side har en
-   begraensning comp'en ikke har (den er statisk):
-
-   1. `.vc[hidden]{display:none}`. Comp'en saetter `.vc{display:block}`; en
-      forfatterregel slaar ALTID UA-arkets `[hidden]{display:none}`, uanset
-      specificitet. assets/sammenligning.js' soegning skjuler chips med
-      `el.hidden = !traf` (linje ~612), saa comp'ens regel alene ville have
-      gjort soegefeltet virkningsloest - den ville stadig SE rigtig ud, og
-      det er praecis den slags fejl, ingen opdager. Maalt: uden linjen bliver
-      77 chips staaende ved enhver soegning.
-   2. `color:var(--blaek)` paa den valgte chip. Comp'en saetter gunmetal paa
-      gult (9,19:1 iflg. MANIFEST). Den byggede .filtre-chip satte #FFFFFF paa
-      --accent, hvilket er ~1,6:1 - under WCAG's 4,5. Comp'ens vaerdi er
-      altsaa ogsaa en kontrastrettelse, ikke kun en farve. */
-.vaelgernet{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px 0}
-.vc{display:block;min-width:0}
-.vc[hidden]{display:none}          /* afvigelse 1 - se noten ovenfor */
-.vc__felt{position:absolute;opacity:0;width:1px;height:1px}
-.vc__mrk{
-  display:flex;align-items:baseline;gap:9px;cursor:pointer;
-  padding:6px 9px;border-radius:2px;
-  font-size:13.5px;font-weight:500;color:var(--blaek);
-}
-/* Stansningen: den lille firkant, der goer chippen til en BOKS. Uden den
-   maatte man trykke for at opdage, at listen kunne vaelges i. */
-.vc__mrk::before{
-  content:"";flex:none;width:13px;height:13px;border-radius:2px;
-  box-shadow:inset 0 0 0 1px var(--blaek);background:var(--panel);
-  /* AFVIGELSE 3 fra comp'en, som saetter `align-self:center`. Maalt paa den
-     byggede side: 17 af 77 modelnavne bryder til to linjer (fx "ANYmal
-     (Generation D)", "Honey Badger 4.0", "Lingmao Cyvet"). Med `center`
-     lander firkanten paa hele blokkens midte - 27 px nede i en 54 px hoej
-     etiket, mens foerste linjes midte er 16 px - altsaa 11 px under det ord,
-     den hoerer til. Firkanten bindes derfor til FOERSTE linje:
-     6 px padding + 4 px = 10 px fra toppen, hvilket centrerer de 13 px paa
-     linjens midte (16,5 px). Enkeltlinjede chips ser uaendrede ud. */
-  align-self:flex-start;margin-top:4px;
-}
-.vc__mrk:hover{background:var(--bund)}
-.vc__felt:checked + .vc__mrk{background:var(--accent);color:var(--blaek)}
-.vc__felt:checked + .vc__mrk::before{
-  background:var(--blaek);
-  box-shadow:inset 0 0 0 1px var(--blaek), inset 0 0 0 3px var(--accent);
-}
-.vc__felt:focus-visible + .vc__mrk{
-  outline:2px solid var(--blaek);outline-offset:1px;
-  box-shadow:0 0 0 4px var(--accent);
-}
-/* Producenten er en ETIKET, ikke en vaerdi: hoejrestillet, saa de 210 px
-   spalter faar en kant at laese langs, og i versaler, saa den ikke kan
-   forveksles med modelnavnet. */
-.vc__prod{
-  margin-left:auto;font-size:10px;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--blaek3);text-align:right;
-}
-.vc__felt:checked + .vc__mrk .vc__prod{color:var(--blaek)}
-@media (max-width:640px){
-  .vaelgernet{grid-template-columns:1fr}
-  /* AFVIGELSE 4 fra comp'en. Comp'en er en 1440-flade og saetter kun
-     `grid-template-columns:1fr` her. Den byggede chip er 33 px hoej, og det
-     er under sitets EGET beroeringsmaal paa 44 px, som staar syv steder i
-     assets/ - blandt dem system.css:1305, `.filtre label`, altsaa praecis den
-     chip denne blok afloeser. At porte comp'en raat ville derfor have vaeret
-     en tilbagegang paa mobil, ikke kun en anden staerk side.
-     Regnestykket: firkantens midte = padding-top + margin-top + 6,5, og
-     foerste linjes midte = padding-top + 10,46. De er ens naar margin-top er
-     4 px - UAFHAENGIGT af padding. Derfor kan padding hoejnes her uden at
-     roere `::before`. 11+20,925+11 = 42,9 px, og min-height loefter til 44. */
-  .vc__mrk{padding:11px 9px;min-height:44px}
-}
+/* --- sammenligningens vaelger (spor/samlvaelg, FJERNET spor/doedcss 1. sep
+   2026): CSS'en for .vaelgernet/.vc* var doed - klasserne stod i intet
+   class="..." paa nogen bygget side. Denne linje er bevidst bevaret som
+   grænsemaerke: tests/dele/48-katalogets-flader.mjs's udsnit() bruger den
+   literale streng "/* --- sammenligningens vaelger" som SLUT-graense for
+   klaebebar-ordforraadstjekket (48.28-48.29) og ejes ikke af dette spor. --- */
 
 /* --- topbar og sprogrod (spor/oversigt) -------------------------------------
    PUNKT 2 (JPK, 1. sep 2026): "Burde Unit-vaelgeren ikke vaere en del af
