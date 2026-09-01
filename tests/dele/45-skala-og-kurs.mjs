@@ -72,8 +72,9 @@ export default async function koer(ctx) {
   /* ==================================================================
      2. SIDEN: kurs, dato og kilde skal kunne LAESES
      ================================================================== */
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   for (const sprog of ['da', 'en']) {
-    const html = laes(path.join(sprog, 'robotter', 'index.html'));
+    const html = laes(path.join(sprog, 'index.html'));
 
     ok(`45.8.${sprog}: kursens kilde staar som et link paa siden`,
       html.includes(kurser.kilde.url),

@@ -2,15 +2,19 @@
  * tests/dele/43-kort-samling-scope.mjs — spor/oprydknap, 1. sep 2026.
  *
  * "Tilfoej til sammenligning"-knappen (samlknap() i side.mjs) staar paa
- * ALLE kort, fordi kort() er én delt funktion for forsiden, kataloget og de
+ * ALLE kort, fordi kort() er én delt funktion for kataloget og de
  * 50 producentsider. Maalt i browser (Playwright, 1. sep 2026) er knappen
- * KUN levende paa to af de tre flader:
+ * KUN levende paa én af de to flader:
  *
  *   - kataloget   henter katalog.js  -> knappen virker (klik -> aria-pressed,
  *                                       localStorage)
- *   - forsiden    henter katalog.js  -> knappen virker, praecis som ovenfor
  *   - producentsider henter INTET JavaScript -> `hidden` fjernes aldrig,
  *                                       knappen er doed markup for evigt
+ *
+ * FORSIDEN ER UDE af denne beskrivelse (spor/oversigt, 1. sep 2026, PUNKT 1):
+ * forside.mjs er slettet paa JPKs udtrykkelige ordre, og kataloget overtog
+ * dens adresse - "kataloget" og "forsiden" var to sider foer dette spor, de
+ * er nu ÉN.
  *
  * spor/oprydknap gav derfor kort() en `samling`-parameter (std. true) og
  * satte den til false i producent.mjs' modelkort(), saa producentsiderne
@@ -19,8 +23,8 @@
  * allerede daekker for de flader, der stadig har knappen):
  *
  *   1. Producentsider: NUL samlknapper, paa tvaers af alle 50 sider x 2 sprog.
- *   2. Kataloget og forsiden: hvert kort har staerkt praecis én samlknap -
- *      ingen af de to flader mistede knappen ved en fejl i scopingen.
+ *   2. Kataloget: hvert kort har staerkt praecis én samlknap - fladen
+ *      mistede ikke knappen ved en fejl i scopingen.
  *   3. Producentsiderne mistede KUN knappen, ikke resten af kortet: samme
  *      antal <article class="kort"> staar der stadig.
  *
@@ -50,8 +54,9 @@ export default async function koer(ctx) {
   const KORT_RE = /<article class="kort(?: kort--seneste)?">/g;
   const KNAP_RE = /<button[^>]*class="kort__saml"[^>]*>/g;
 
-  // Sti-formen er stabil (byg.mjs' egen struktur): dist/<sprog>/producenter/<slug>/index.html,
-  // dist/<sprog>/index.html og dist/<sprog>/robotter/index.html (katalogets liste).
+  // Sti-formen er stabil (byg.mjs' egen struktur): dist/<sprog>/producenter/<slug>/index.html
+  // og dist/<sprog>/index.html (katalogets liste - flyttet hertil fra
+  // dist/<sprog>/robotter/index.html af spor/oversigt, 1. sep 2026, PUNKT 1).
   const alle = [];
   (function gaa(mappe) {
     for (const p of fs.readdirSync(mappe, { withFileTypes: true })) {
@@ -63,14 +68,15 @@ export default async function koer(ctx) {
 
   const rel = (sti) => path.relative(ud, sti).split(path.sep).join('/');
   const producentSider = alle.filter((s) => /^(da|en)\/producenter\/[^/]+\/index\.html$/.test(rel(s)));
-  const katalogSider = alle.filter((s) => /^(da|en)\/robotter\/index\.html$/.test(rel(s)));
-  const forsideSider = alle.filter((s) => /^(da|en)\/index\.html$/.test(rel(s)));
+  // spor/oversigt (1. sep 2026, PUNKT 1): forsiden (forside.mjs) er slettet,
+  // og kataloget overtog dens adresse - "katalog" og "forside" var to
+  // sider foer dette spor, de er nu ÉN. `forsideSider` er derfor vaek;
+  // katalogSider peger paa den nye, ene adresse.
+  const katalogSider = alle.filter((s) => /^(da|en)\/index\.html$/.test(rel(s)));
 
   ok(`43.0: fandt producentsider (${producentSider.length})`, producentSider.length > 0);
   ok(`43.0: fandt katalogsider (${katalogSider.length})`, katalogSider.length === 2,
     katalogSider.map(rel).join(', '));
-  ok(`43.0: fandt forsider (${forsideSider.length})`, forsideSider.length === 2,
-    forsideSider.map(rel).join(', '));
 
   /* --- 1. Producentsider: nul samlknapper --------------------------------- */
   let producentKnapper = 0;
@@ -93,8 +99,10 @@ export default async function koer(ctx) {
   ok(`43.3: producentsiderne har stadig kort (fandt ${producentKort} <article class="kort"> paa tvaers af ${producentSider.length} sider)`,
     producentKort > 0);
 
-  /* --- 2. Kataloget og forsiden: hvert kort har praecis én samlknap ------- */
-  for (const [navn, sider] of [['katalog', katalogSider], ['forside', forsideSider]]) {
+  /* --- 2. Kataloget: hvert kort har praecis én samlknap -------------------
+     spor/oversigt (1. sep 2026): "forside" er fjernet fra denne liste - se
+     noten ved katalogSider. */
+  for (const [navn, sider] of [['katalog', katalogSider]]) {
     for (const sti of sider) {
       const html = fs.readFileSync(sti, 'utf8');
       const kort = tael(html, KORT_RE);

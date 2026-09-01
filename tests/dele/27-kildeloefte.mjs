@@ -13,10 +13,12 @@
  * Vagterne her beviser fire ting, valgt saa de ville FEJLE, hvis nogen
  * senere skrev løftet bredere igen:
  *
- * 1. Legenden staar paa netop de sider, der viser kort (forsiden,
- *    katalogsiden, hver producentside) — talt STRUKTURELT fra dist/, ikke
- *    hardkodet til et fast tal, saa testen ikke braekker naar kataloget
- *    vokser (jf. faelden fra 25. aug 2026 med et haandskrevet sidetal).
+ * 1. Legenden staar paa netop de sider, der viser kort (katalogsiden, hver
+ *    producentside) — talt STRUKTURELT fra dist/, ikke hardkodet til et fast
+ *    tal, saa testen ikke braekker naar kataloget vokser (jf. faelden fra
+ *    25. aug 2026 med et haandskrevet sidetal). FORSIDEN ER UDE af listen
+ *    (spor/oversigt, 1. sep 2026, PUNKT 1): forside.mjs er slettet paa JPKs
+ *    udtrykkelige ordre, og med den dens egen visning af legenden.
  * 2. Legenden optraeder IKKE paa sammenligningssiden — den udtrykkelige
  *    undtagelse, L46 satte.
  * 3. Selve ordlyden knytter loeftet til KORTENE og naevner dem ved navn, og
@@ -115,12 +117,17 @@ export default async function koer(ctx) {
       continue;
     }
 
-    /* --- 1. Strukturel optaelling: forside + katalogliste + hver producentside */
+    /* --- 1. Strukturel optaelling: katalogliste + hver producentside
+       spor/oversigt (1. sep 2026, PUNKT 1): forsiden (forside.mjs) er
+       slettet, og med den dens EGEN kopi af fotoloeftet - kataloget
+       (katalog.mjs, uroert af dette spor) trykker stadig sit eget, ét sted.
+       Leddet falder derfor fra "2" til "1": kataloget alene, ikke laengere
+       forside + katalog. */
     const producenterDir = path.join(dist, sprog, 'producenter');
     const antalProducenter = fs.existsSync(producenterDir)
       ? fs.readdirSync(producenterDir, { withFileTypes: true }).filter((d) => d.isDirectory()).length
       : 0;
-    const forventet = 2 + antalProducenter; // forside + robotter/index + hver producentside
+    const forventet = 1 + antalProducenter; // kataloget + hver producentside
 
     let fundet = 0;
     (function gaa(dir) {
@@ -145,9 +152,9 @@ export default async function koer(ctx) {
        vagten fortsat maalt hele kort_legende, ville den vaere faldet til 1 og
        have set ud som et brud paa kildeloeftet - men loeftet, den vogter, er
        fotoets, og det staar uaendret paa alle 27. */
-    ok(`27.5.${sprog}: fotoloeftet staar paa forside + katalogliste + hver producentside (${forventet})`,
+    ok(`27.5.${sprog}: fotoloeftet staar paa kataloglisten + hver producentside (${forventet})`,
       fundet === forventet,
-      `forventet ${forventet} (2 + ${antalProducenter} producenter), fandt ${fundet}`);
+      `forventet ${forventet} (1 + ${antalProducenter} producenter), fandt ${fundet}`);
 
     /* --- 2. Legenden optraeder IKKE paa sammenligningssiden (L46) -------- */
     const samPad = path.join(dist, sprog, 'sammenligning', 'index.html');

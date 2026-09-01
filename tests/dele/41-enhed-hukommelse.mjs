@@ -102,11 +102,19 @@ export default async function koer(ctx) {
     ok(`41.7.${sprog}: hver side med tvillinger har ogsaa en kontakt, og omvendt`,
       uenige.length === 0, `uenige sider: ${uenige.length}`);
 
-    // Laekagen: kataloget, forsiden og producentsiderne har ingen kontakt og
-    // maa derfor ikke baere ét eneste imperialt span.
+    // Laekagen: kataloget og producentsiderne har ingen forudberegnede
+    // enhedsvis--spans og maa derfor ikke baere ét eneste imperialt span.
+    // Sammenligningssiden staar med i listen, fordi dens matrix tegnes af
+    // JavaScript (assets/sammenligning.js) - den byggede statiske HTML har
+    // ligesom kataloget nul spans, selvom siden BAERER en kontakt (§ 41.7
+    // maaler netop den kontakt, denne liste ikke handler om enheden dér).
+    //
+    // spor/oversigt (1. sep 2026): kataloget flyttede fra
+    // dist/<sprog>/robotter/index.html til dist/<sprog>/index.html - den
+    // gamle sti findes ikke laengere og er fjernet herfra i stedet for at
+    // staa som en post, .filter(existsSync) alligevel altid dropper.
     const udenKontakt = [
       path.join(dist, sprog, 'index.html'),
-      path.join(dist, sprog, 'robotter', 'index.html'),
       path.join(dist, sprog, 'sammenligning', 'index.html'),
     ].filter((p) => fs.existsSync(p));
     const prodMappe = path.join(dist, sprog, 'producenter');

@@ -118,15 +118,18 @@ export default async function koer(ctx) {
   ok('51.3.revert: den samme test FANGER en falsk aria-current="page", naar den er der',
     medFalskAktiv.includes('aria-current="page"'));
 
-  /* --- 4. vej videre til kataloget, og linket rammer en rigtig fil -------- */
+  /* --- 4. vej videre til kataloget, og linket rammer en rigtig fil --------
+     spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden, saa
+     url.katalog (tools/build.mjs) og dermed dette link peger nu paa
+     "../<sprog>/" i stedet for "../<sprog>/robotter/". */
   for (const s of SPROG) {
     const hoved = hovedAf(sider[s]);
     const m = hoved.match(/<a class="videre[^"]*" href="([^"]+)">/);
     ok(`51.4.${s}: <main> har et .videre-link (sitets eneste knapform) til kataloget`, !!m);
     if (m) {
-      ok(`51.4.${s}: linket peger paa den rigtige mappe ("../${s}/robotter/")`,
-        m[1] === `../${s}/robotter/`, `fandt "${m[1]}"`);
-      const maal = path.join(dist, s, 'robotter', 'index.html');
+      ok(`51.4.${s}: linket peger paa den rigtige mappe ("../${s}/")`,
+        m[1] === `../${s}/`, `fandt "${m[1]}"`);
+      const maal = path.join(dist, s, 'index.html');
       ok(`51.4.${s}: maalfilen findes rent faktisk i SAMME byg (${path.relative(rod, maal)})`,
         fs.existsSync(maal));
     }
@@ -163,13 +166,16 @@ export default async function koer(ctx) {
   const rodVeje = [...rodSide.matchAll(/<a class="f404-vej" href="([^"]+)" hreflang="([^"]+)" lang="([^"]+)">/g)];
   ok(`51.6: rod-siden har praecis ${SPROG.length} vej(e) ind, én pr. sprog`,
     rodVeje.length === SPROG.length, `fandt ${rodVeje.length}`);
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden, saa
+  // renderRod()'s "vej ind" pr. sprog peger nu paa "<sprog>/" i stedet for
+  // "<sprog>/robotter/" (tools/skabelon/fejl404.mjs).
   for (const s of SPROG) {
     const v = rodVeje.find((m) => m[2] === s);
     ok(`51.6.${s}: rod-vejen til ${s} har href/hreflang/lang sat konsistent`,
-      !!v && v[1] === `${s}/robotter/` && v[3] === s,
+      !!v && v[1] === `${s}/` && v[3] === s,
       v ? `href="${v[1]}"` : 'vejen mangler');
     if (v) {
-      const maal = path.join(dist, s, 'robotter', 'index.html');
+      const maal = path.join(dist, s, 'index.html');
       ok(`51.6.${s}: rod-vejens maal findes i SAMME byg (${path.relative(rod, maal)})`,
         fs.existsSync(maal));
     }

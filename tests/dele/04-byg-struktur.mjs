@@ -59,7 +59,16 @@ export default async function koer(ctx) {
      denne assertion fejlede med "fandt 26" mod det gamle "23", praecis de tre
      nye filer (dist/404.html, dist/da/404.html, dist/en/404.html). Assertionen
      er igen RETTET, ikke slettet - et bortfald af 404-siden (nogen af de tre
-     filer) faar den stadig til at fejle. */
+     filer) faar den stadig til at fejle.
+     VENDT EN FJERDE GANG (spor/oversigt, 1. sep 2026, PUNKT 1, JPK ordret:
+     "HELE oversigt-siden skal vaek"): leddet er nu "4", ikke "5" - forsiden
+     (tools/skabelon/forside.mjs) er SLETTET, ikke bare flyttet. Kataloget
+     overtager dens adresse (dist/<sprog>/index.html); der er derfor stadig
+     KATALOG + SAMMENLIGNING + OM OS + 404 = fire faste sidetyper pr. sprog,
+     ikke fem. Maalt foer rettelsen: denne assertion fejlede med "fandt 18"
+     mod det (nu forkerte) "20" - netop de to forsider (da+en), som PUNKT 1
+     fjernede. Assertionen er igen RETTET, ikke slettet - falder en af de
+     fire tilbageblevne sidetyper bort, faar den stadig til at fejle. */
   const fixtureRobotter = lasRobotter(path.join(rod, 'tests', 'eksempel-robotter'));
   const fixtureProducenter = new Set(fixtureRobotter.map((rb) => rb.producent));
   // Samme gate som build.mjs L327 bruger for producenter/index.html - IKKE bare om
@@ -70,15 +79,17 @@ export default async function koer(ctx) {
   const producentModul = await import(
     `file://${path.join(rod, 'tools', 'skabelon', 'producent.mjs').replace(/\\/g, '/')}`).catch(() => null);
   const harProducentindeks = typeof producentModul?.renderIndeks === 'function';
-  const forventetSider = 2 + skema.SPROG.length * (5 + fixtureRobotter.length
+  const forventetSider = 2 + skema.SPROG.length * (4 + fixtureRobotter.length
     + (harProducentindeks ? 1 + fixtureProducenter.size : 0));
   ok(`${forventetSider} HTML-sider bygget, afledt af ${fixtureRobotter.length} robotter / `
     + `${fixtureProducenter.size} producenter / ${skema.SPROG.length} sprog `
-    + `+ sammenligningssiden + Om os + 404-siden (fandt ${sider.length})`,
+    + `+ katalog + sammenligningssiden + Om os + 404-siden, INGEN forside (PUNKT 1) `
+    + `(fandt ${sider.length})`,
     sider.length === forventetSider);
 
-  const katalogDa = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');
-  const katalogEn = fs.readFileSync(path.join(dist, 'en', 'robotter', 'index.html'), 'utf8');
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+  const katalogDa = fs.readFileSync(path.join(dist, 'da', 'index.html'), 'utf8');
+  const katalogEn = fs.readFileSync(path.join(dist, 'en', 'index.html'), 'utf8');
   const spotDa = fs.readFileSync(path.join(dist, 'da', 'robotter', 'boston-dynamics-spot', 'index.html'), 'utf8');
 
   ok('hreflang da + en + x-default paa detaljesiden',

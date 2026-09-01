@@ -242,7 +242,8 @@ export default async function koer(ctx) {
      efterproever maengden (det, navnet "en maengde" faktisk lover), ikke den
      specifikke streng - den strengere paastand staar allerede ovenfor, hvor
      den hoerer hjemme. */
-  const katalog = fs.readFileSync(path.join(ud, 'da', 'robotter', 'index.html'), 'utf8');
+  // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
+  const katalog = fs.readFileSync(path.join(ud, 'da', 'index.html'), 'utf8');
   ok('katalograekken baerer vaegtklassen som data-attribut, saa en gruppering kan bruge den',
     /data-vaegt="under_20"/.test(katalog) && /data-vaegt="ikke_oplyst"/.test(katalog));
   const jMaengde = [...katalog.matchAll(/data-anv="([^"]*)"/g)]
@@ -257,9 +258,16 @@ export default async function koer(ctx) {
      hver robots eget data-vaegt-lag findes ud fra dens EGEN "href="<slug>/""
      i kataloget, saa en fejl i én robots klassificering ikke kan forveksles
      med en anden robots. */
+  // spor/oversigt (1. sep 2026): katalogkortets href er ikke laengere en bar
+  // "<slug>/" (kataloget laa foer paa /da/robotter/, sibling til robotter/<slug>/).
+  // Efter flytningen til sprogroden bruger katalog.mjs url.robot(slug), som
+  // giver den fulde, dybde-korrekte sti (tools/skabelon/katalog.mjs:1121) -
+  // fx "../da/robotter/<slug>/". Opslaget matcher derfor paa et href, der
+  // SLUTTER paa "/<slug>/", uanset hvor mange mapper der staar foran.
   const blokForSlug = (html, slug) => {
-    const i = html.indexOf(`href="${slug}/"`);
-    if (i === -1) return '';
+    const m = html.match(new RegExp(`href="[^"]*/${slug}/"`));
+    if (!m) return '';
+    const i = html.indexOf(m[0]);
     const start = html.lastIndexOf('<div class="lag lag-anv"', i);
     const naeste = html.indexOf('<div class="lag lag-anv"', i + 1);
     return html.slice(start, naeste === -1 ? html.length : naeste);

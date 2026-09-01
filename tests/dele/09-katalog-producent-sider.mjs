@@ -1,8 +1,10 @@
 /**
  * tests/dele/09-katalog-producent-sider.mjs — to smaa visningsdetaljer, begge
  * paa en indekstype:
- *  - spor/kort: katalogkortets fodnote og EU/CE-maerke er vaek, og forsidens
- *    CE-saetning staar stadig med to udledte tal (L32).
+ *  - spor/kort: katalogkortets fodnote og EU/CE-maerke er vaek, og CE-saetningen
+ *    (oprindeligt forsidens, L32) staar stadig med to udledte tal - siden
+ *    spor/oversigt (1. sep 2026) slettede forsiden, maalt paa producentsiden,
+ *    som er den eneste, der stadig baerer den (se 4c herunder).
  *  - K11+K12: producentoversigten har fire kolonner (ikke land+antal klistret
  *    sammen) - tre til og med spor/prodindeks (1. sep 2026), som lagde
  *    modelnavnene i en fjerde .prod-navne-celle - og dens beregnede
@@ -36,8 +38,9 @@ export default async function koer(ctx) {
 
   console.log('\n10. spor/kort: fodnotesektion og EU/CE-maerke vaek fra katalogkort');
   {
-    const katalogDaKort = fs.readFileSync(path.join(dist, 'da', 'robotter', 'index.html'), 'utf8');
-    const forsideDa = fs.readFileSync(path.join(dist, 'da', 'index.html'), 'utf8');
+    // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden, saa
+    // "4a"/"4b" laeser i dag samme fil, ved dens nye adresse.
+    const katalogDaKort = fs.readFileSync(path.join(dist, 'da', 'index.html'), 'utf8');
 
     ok('4a: et bygget katalogkort indeholder ingen kort-fod',
       !katalogDaKort.includes('kort-fod'));
@@ -45,15 +48,31 @@ export default async function koer(ctx) {
     ok('4b: et bygget katalogkort indeholder intet EU/CE-maerke (klassen "eu eu--" er vaek)',
       !/class="eu eu--/.test(katalogDaKort) && !katalogDaKort.includes('eu-svar'));
 
-    // L32: forsidens CE-taelling (hjaelp.ceTilstand via forside.mjs) skal blive
-    // staaende uaendret. Tallene er UDLEDT af proevedatasaettet her, ikke
-    // haardkodede - fixture-settet (tests/eksempel-robotter) kan aendre sig,
-    // uden at proeven bliver forkert af den grund.
-    const ceMatch = forsideDa.match(/<b class="eu-fund-tal">(\d+) af (\d+)<\/b>/);
-    ok('4c: forsidens CE-saetning findes stadig og baerer to udledte tal (VAERN OM L32)',
+    // L32 beskyttede oprindeligt FORSIDENS CE-taelling (hjaelp.ceTilstand via
+    // forside.mjs). spor/oversigt slettede forside.mjs paa JPKs udtrykkelige
+    // ordre ("HELE oversigt-siden skal vaek", PUNKT 1) - saetningens FORM
+    // flyttede ALDRIG til kataloget (katalog.mjs har sine egne, andre
+    // EU-noter: eu_pointe/filter_certificering_note, uroert af dette spor).
+    // Den lever videre PRAECIS SOM FOER paa producentsiden alene
+    // (producent.mjs' euSaetning(), en fil dette spor ikke maa roere,
+    // genbruger bevidst SAMME i18n-noegler og CSS-klasser som forside.mjs
+    // havde - se producent.mjs:194-197). Vagten flyttes derfor til at maale
+    // DER i stedet for at blive slettet: L32s krav ("to udledte tal, ikke
+    // haardkodede") staar stadig, blot paa den side, der rent faktisk baerer
+    // det i dag.
+    const producentMapper = fs.readdirSync(path.join(dist, 'da', 'producenter'), { withFileTypes: true })
+      .filter((f) => f.isDirectory()).map((f) => f.name);
+    ok('4c-forudsaetning: mindst én producentside er bygget til at maale L32 paa',
+      producentMapper.length > 0, `fandt ${producentMapper.length} producentmapper`);
+    const producentDa = producentMapper.length
+      ? fs.readFileSync(path.join(dist, 'da', 'producenter', producentMapper[0], 'index.html'), 'utf8')
+      : '';
+    const ceMatch = producentDa.match(/<b class="eu-fund-tal">(\d+) af (\d+)<\/b>/);
+    ok('4c: producentsidens CE-saetning findes og baerer to udledte tal (VAERN OM L32, flyttet fra forsiden)',
       !!ceMatch && Number.isInteger(Number(ceMatch[1])) && Number.isInteger(Number(ceMatch[2]))
       && Number(ceMatch[2]) > 0,
-      ceMatch ? `fandt "${ceMatch[1]} af ${ceMatch[2]}"` : 'ingen eu-fund-tal fundet paa forsiden');
+      ceMatch ? `fandt "${ceMatch[1]} af ${ceMatch[2]}"`
+        : `ingen eu-fund-tal fundet paa producentsiden (${producentMapper[0] ?? 'ingen producent bygget'})`);
   }
 
   console.log('\nK11 + K12. Producentoversigten: fire kolonner + beregnet fordelingssaetning');

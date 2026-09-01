@@ -1,8 +1,17 @@
 /**
  * tests/dele/40-typeskilt-kort.mjs — spor/kort, 31. aug 2026.
  *
- * TYPESKILT-kortets egen kontrakt paa de to flader, der fik det i dette spor:
- * forsidens "Fra kataloget" og producentsidernes modelliste.
+ * TYPESKILT-kortets egen kontrakt paa producentsidernes modelliste (den
+ * anden flade, der fik kortet i spor/kort: forsidens "Fra kataloget").
+ *
+ * FJERNET (spor/oversigt, 1. sep 2026, PUNKT 1, JPK ordret: "HELE
+ * oversigt-siden skal vaek"): forsidens "Fra kataloget"-smagsproeve
+ * (forside.mjs, dens `.net net--fritstaaende`-grid) er slettet. Kataloget
+ * (katalog.mjs, uroert af dette spor) overtog adressen dist/<sprog>/
+ * index.html, men er en ANDEN skabelon med sin egen struktur, ikke
+ * forsidens - denne fils forside-specifikke paastande er derfor fjernet, jf.
+ * samme begrundelse som de slettede 10- og 19-testfilerne. Producentfladen
+ * er UROERT og staar tilbage som filens eneste flade.
  *
  * FORSKELLEN TIL 17-kortstribe-flader.mjs, saa de to ikke bliver den samme
  * test to gange: 17 sammenligner fladerne MED HINANDEN (skrider de fra
@@ -48,7 +57,7 @@ function traekKort(html) {
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
 
-  console.log('\n40. spor/kort: TYPESKILT-kortet paa forsiden og producentsiderne');
+  console.log('\n40. spor/kort: TYPESKILT-kortet paa producentsiderne');
 
   const udMappe = path.join(tmp, 'dist-typeskilt-kort');
   fs.rmSync(udMappe, { recursive: true, force: true });
@@ -81,18 +90,6 @@ export default async function koer(ctx) {
 
   for (const sprog of ['da', 'en']) {
     const i18n = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', `${sprog}.json`), 'utf8'));
-
-    /* ---------------------------------------------------------- forsiden */
-    const forside = fs.readFileSync(path.join(udMappe, sprog, 'index.html'), 'utf8');
-    const forsideKort = traekKort(forside);
-
-    ok(`${sprog}/: forsidens smagsproeve staar i .net net--fritstaaende`,
-      /<div class="net net--fritstaaende">/.test(forside),
-      'det flade .net ville tegne den sidste, ufyldte raekke som graa klodser');
-
-    ok(`${sprog}/: forsiden har kort, og alle har en slug at pege paa (${forsideKort.length})`,
-      forsideKort.length > 0 && forsideKort.every((k) => k.slug),
-      forsideKort.filter((k) => !k.slug).length ? 'et kort mangler sit navnelink' : '');
 
     /* ---------------------------------------------------- producentsiderne */
     const producentRod = path.join(udMappe, sprog, 'producenter');
@@ -141,8 +138,10 @@ export default async function koer(ctx) {
       forkertTekst.length === 0,
       forkertTekst.length ? `fx ${forkertTekst[0].slug}: "${forkertTekst[0].stempel}"` : '');
 
-    /* --- "INTET ANDET" (MANIFEST Layouttesen) ---------------------------- */
-    const alle = [...forsideKort, ...producentKort];
+    /* --- "INTET ANDET" (MANIFEST Layouttesen) ----------------------------
+       spor/oversigt (1. sep 2026): forsideKort er vaek sammen med forsiden -
+       "alle" er nu praecis producentKort, ikke laengere to flader samlet. */
+    const alle = [...producentKort];
     const FORBUDT = [
       ['den kompakte stribe', /<ul class="stribe/],
       ['anvendelsesmaerker', /<ul class="maerker">/],
@@ -157,12 +156,11 @@ export default async function koer(ctx) {
         traf.length === 0, traf.length ? `${traf.length} kort, fx ${traf[0].slug}` : '');
     }
 
-    /* --- LEGENDEN maa ikke love noget, kortet ikke viser ------------------ */
-    for (const [navn, html] of [['forside', forside]]) {
-      ok(`${sprog}/${navn}: legenden er fotoloeftet, ikke paastanden om kildemaerker paa tal`,
-        html.includes(i18n.kort_legende_foto) && !html.includes(i18n.kort_legende),
-        'kortet viser ingen tal, saa "Kortenes tal baerer kildemaerker" ville vaere forkert');
-    }
+    // "LEGENDEN maa ikke love noget, kortet ikke viser"-vagten er FJERNET
+    // (spor/oversigt, 1. sep 2026): den proevede udelukkende forsiden
+    // (`[['forside', forside]]` var altid ét-element-listen), og forsiden er
+    // slettet. Der findes ingen producent-udgave af denne vagt at flytte den
+    // til - se filens hoved-note.
 
     /* --- Skaermlaeserklassen hedder .kunskaerm, ikke .kun-skaerm ---------- */
     ok(`${sprog}: ingen af kortene bruger det forkerte klassenavn "kun-skaerm"`,
