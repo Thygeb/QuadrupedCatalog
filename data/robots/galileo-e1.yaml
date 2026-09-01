@@ -47,7 +47,7 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"站立尺寸（长×宽×高）单位mm: 1000*420*710\"."
+    advarsel: "\"站立尺寸（长×宽×高）单位mm: 1000*420*710\" (stående mål, længde×bredde×højde, i mm)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 420
@@ -76,7 +76,7 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"最大负载: 85kg\"."
+    advarsel: "\"最大负载: 85kg\" (maks. last)."
     advarsel_klasse: "uddybning"
   hastighed:
     min: 0
@@ -94,7 +94,7 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"可攀爬斜坡最大坡度: ±45°\"."
+    advarsel: "\"可攀爬斜坡最大坡度: ±45°\" (maks. klatrbar skråningsvinkel)."
     advarsel_klasse: "uddybning"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -156,26 +156,26 @@ felter:
     kildetype: "sekundaer"
     advarsel: "\"自主充电功能: 支持\" kombineret med den delte funktionssides ladepile-docking."
   lidar:
-    vaerdi: "LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst (探测距离40m)"
+    vaerdi: "LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst"
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
   kameraer: "ikke_oplyst"
   compute:
-    vaerdi: "X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, høj ydeevne (X86或国产ARM低功耗高性能CPU)"
+    vaerdi: "X86 eller indenlandsk kinesisk ARM, lavt strømforbrug, høj ydeevne"
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "Autonom opladning, understøttet (自主充电功能: 支持); stemmeinteraktion, tilvalg (语音交互: 选配)"
+    vaerdi: "Autonom opladning, understøttet; stemmeinteraktion, tilvalg"
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
   monteringsinterface: "ikke_oplyst"
   stroem_ud:
-    vaerdi: "5V；12V；48V (eksterne strømudtag, watttal ikke oplyst)"
+    vaerdi: "5V; 12V; 48V (eksterne strømudtag, watttal ikke oplyst)"
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"

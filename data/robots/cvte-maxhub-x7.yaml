@@ -8,8 +8,8 @@ fremdrift: "ben"
 foerste_udgivelse: 2025
 noter:
   - "SVAG SPECIFIKATIONSTÆTHED ER MÅLT, IKKE ANTAGET: CVTE's produktside er en marketing-highlights-side (\"产品亮点\") med retoriske overskrifter og fodnote-forbehold, IKKE en teknisk specifikationstabel som Astrall Dynamics' eller Unitrees produktsider. Der findes intet fundet CVTE-datablad med mål, vægt, nyttelast, hastighed eller DoF. maxhub.com selv (det globale MAXHUB-displaymærke) har INGEN robotprodukter overhovedet - X7 ligger udelukkende under moderselskabet CVTE/视源股份's egen produktnavigation, ikke under maxhub.com."
-  - "Producentens egne fodnoter på \"产品亮点\"-siden svækker flere af tallene med vilje: \"*续航时间: 在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal, reel brug varierer); \"*稳定穿越35°陡坡等地形...基于自适应步态算法与电驱动关节的实验室测试结果\"; \"*-20℃至55℃作业：指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\". Disse forbehold er gengivet på de enkelte felters advarsel."
-  - "MAXHUB X7's SØSTERPRODUKT \"商用清洁机器人\" (kommerciel rengøringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifølge nyhedsartiklen er solgt til Europa/Sydøstasien/Japan (\"进入欧洲、东南亚及日本市场\"). Det gælder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 på dette grundlag."
+  - "Producentens egne fodnoter på \"产品亮点\"-siden svækker flere af tallene med vilje: \"*续航时间: 在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal, reel brug varierer); \"*稳定穿越35°陡坡等地形...基于自适应步态算法与电驱动关节的实验室测试结果\" (kan stabilt krydse 35° stejle skråninger m.fl. terræn... baseret på laboratorietestresultater med adaptiv gangart-algoritme og eldrevne led); \"*-20℃至55℃作业：指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (-20°C til 55°C drift: gælder batteriets og kernekomponenternes normale arbejdsområde i dette temperaturinterval; ydeevnen kan påvirkes delvist ved ekstreme temperaturer). Disse forbehold er gengivet på de enkelte felters advarsel."
+  - "MAXHUB X7's SØSTERPRODUKT \"商用清洁机器人\" (kommerciel rengøringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifølge nyhedsartiklen er solgt til Europa/Sydøstasien/Japan (\"进入欧洲、东南亚及日本市场\" - er kommet ind på det europæiske, sydøstasiatiske og japanske marked). Det gælder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 på dette grundlag."
 anvendelse:
   vaerdi:
     - "industri"
@@ -45,7 +45,7 @@ felter:
     vaerdi: "IP66"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"IP66级防水防尘\"."
+    advarsel: "\"IP66级防水防尘\" (IP66 vand- og støvbeskyttelsesklasse)."
     advarsel_klasse: "uddybning"
   temp_min:
     vaerdi: -20
@@ -84,19 +84,19 @@ felter:
     hentet: "2026-08-24"
     advarsel: "Nyhedsartiklen: \"深度融合激光雷达、里程计、IMU、UWB、GNSS、视觉相机等多种传感器\" (dyb fusion af LiDAR, odometri, IMU, UWB, GNSS, visuelt kamera m.fl.). LiDAR nævnes kun som sensor-TYPE i en opremsning - intet antal, ingen model. Tæller ikke som udfyldt under D4's foreløbige regel."
   kameraer:
-    vaerdi: "Dobbeltspektret synligt lys + infrarødt drejetårn-kamera, model ikke oplyst (可见光+红外双光云台)"
+    vaerdi: "Dobbeltspektret synligt lys + infrarødt drejetårn-kamera, model ikke oplyst"
     kilde: "https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db"
     hentet: "2026-08-24"
-    advarsel: "\"X7搭载可见光+红外双光云台、气体传感器、机械臂甚至灭火装置\"."
+    advarsel: "\"X7搭载可见光+红外双光云台、气体传感器、机械臂甚至灭火装置\" (X7 er udstyret med et dobbeltspektret synligt lys/infrarødt drejetårn-kamera, gassensor, robotarm og endda en brandslukningsenhed)."
   compute: "ikke_oplyst"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "\"精准定位 百米长廊、空旷场地不迷路\" (præcis positionering: farer ikke vild i 100-meter-korridorer eller åbne områder). Nyhedsartiklen uddyber: \"全栈自研的智能导航系统，通过多模态融合建图定位算法、感知算法和规划算法等技术，确保其在空旷场景、无特征长走廊、暗光/无光环境下仍能保持高定位精度\" (fuldt selvudviklet navigationssystem, høj positioneringspræcision i åbne områder, træklose lange korridorer og mørke/lysløse omgivelser). Fodnote på produktsiden: \"基于多维感知算法在特定场景（如超100米长廊、空旷区域）的实现效果，实际避障能力受环境动态变化影响\" (specifikt scenarie-testet resultat; reel undvigeevne påvirkes af dynamiske ændringer). Ingen SAE/ISO-autonomiklasse oplyst."
+    vaerdi: "Præcis positionering: farer ikke vild i 100-meter-korridorer eller åbne områder. Nyhedsartiklen uddyber: fuldt selvudviklet navigationssystem, høj positioneringspræcision i åbne områder, træklose lange korridorer og mørke/lysløse omgivelser. Fodnote på produktsiden: specifikt scenarie-testet resultat; reel undvigeevne påvirkes af dynamiske ændringer. Ingen SAE/ISO-autonomiklasse oplyst."
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
   monteringsinterface:
-    vaerdi: "\"百变形态随心扩展 支持双光云台、气体传感器、机械臂等\" (modulær/udskiftelig montering af dobbeltspektret kamera, gassensor, robotarm m.fl.). Standardiseret monteringsflade/-mål eller hurtigskift-mekanisme ikke oplyst."
+    vaerdi: "Modulær/udskiftelig montering af dobbeltspektret kamera, gassensor, robotarm m.fl. Standardiseret monteringsflade/-mål eller hurtigskift-mekanisme ikke oplyst."
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
   stroem_ud: "ikke_oplyst"
