@@ -258,6 +258,17 @@ const SORTERINGER = [
     navn: 'dato',
     noegle: 'katalog_sortering_dato',
     savn: 'savn_dato',
+    feltnoegle: 'felt_foerste_udgivelse',
+    // AARSTALLET SENDES SOM STRENG, OG DET ER EN RETTELSE, IKKE EN GENVEJ.
+    // H.tal()s figurgren er `typeof post.vaerdi === 'number' ? nformat(...)
+    // : String(post.vaerdi)`, og nformat er `Intl.NumberFormat('da-DK')`:
+    // et TAL 2023 bliver til "2.023" med tusindtalsseparator (maalt).
+    // Et aarstal er et ORDENSTAL, ikke en maalt maengde - det har hverken
+    // enhed eller kilde i skemaet - og resten af sitet saetter det da ogsaa
+    // raat (robot.mjs:1151 og katalog.mjs' aarstempel bruger begge
+    // String(...)). Strengen rammer derfor den gren, der IKKE formaterer,
+    // og tallet arver stadig .v-tal-typografien fra H.tal().
+    post: (r) => ({ vaerdi: String(r.foerste_udgivelse) }),
     tal: (r) => (typeof r.foerste_udgivelse === 'number' ? r.foerste_udgivelse : null),
     faldende: true,
   },
@@ -266,6 +277,8 @@ const SORTERINGER = [
     noegle: 'katalog_sortering_pris',
     savn: 'savn_pris',
     note: 'sortering_pris_note',
+    feltnoegle: 'felt_pris',
+    post: (r) => r.felter?.pris,
     tal: (r) => { const f = laesFelt(r, 'pris'); return f.slags === 'tal' ? f.tal : null; },
     gruppe: (r) => (r.felter?.pris?.enhed ?? ''),
   },
@@ -273,6 +286,14 @@ const SORTERINGER = [
     navn: 'nyttelast',
     noegle: 'katalog_sortering_nyttelast',
     savn: 'savn_nyttelast',
+    // FELTNAVNET, IKKE ET KORTERE ORD. `sammenlign_advarsel` advarer selv om,
+    // at "nyttelast findes i to udgaver" - gaaende og staaende - og begge
+    // maales i kg. Et bart "14 kg" under et robotnavn kunne desuden laeses som
+    // robottens VAEGT, der ogsaa er kg. Etiketten baerer derfor hele
+    // feltnavnet "Nyttelast, gaaende", saa kortet ikke flader en skelnen ud,
+    // siden et andet sted udtrykkeligt beder laeseren om at holde fast i.
+    feltnoegle: 'felt_nyttelast_gaaende',
+    post: (r) => r.felter?.nyttelast_gaaende,
     tal: (r) => { const f = laesFelt(r, 'nyttelast_gaaende'); return f.slags === 'tal' ? f.tal : null; },
     faldende: true,
   },
@@ -280,6 +301,8 @@ const SORTERINGER = [
     navn: 'hastighed',
     noegle: 'katalog_sortering_hastighed',
     savn: 'savn_hastighed',
+    feltnoegle: 'felt_hastighed',
+    post: (r) => r.felter?.hastighed,
     tal: (r) => { const f = laesFelt(r, 'hastighed'); return f.slags === 'tal' ? f.tal : null; },
     faldende: true,
   },
@@ -378,6 +401,9 @@ export function hovedStil(ctx) {
     if (s.standard) continue;
     sortering.push(`.styr:has(#sort-${s.navn}:checked) .kort{order:var(--o-${s.navn})}`);
     sortering.push(`.styr:has(#sort-${s.navn}:checked) .kort__savn--${s.navn}{display:block}`);
+    // Samme mekanik som savn-maerket lige ovenfor, og med vilje samme form:
+    // vaerdien er savnets modstykke og taendes af noejagtig samme betingelse.
+    sortering.push(`.styr:has(#sort-${s.navn}:checked) .kort__vaerdi--${s.navn}{display:flex}`);
     if (s.note) sortering.push(`.styr:has(#sort-${s.navn}:checked) [data-note="${s.navn}"]{display:block}`);
   }
 
@@ -623,7 +649,7 @@ ${facetBlok(land, 3, ' facet--sidste-raekke')}
    * have ét kort pr. robot. Varianten holder derfor taellingen aerlig i stedet
    * for at slaa den fra.
    */
-  const kortHTML = (r, { variant = '', savn = '' } = {}) => {
+  const kortHTML = (r, { variant = '', under = '' } = {}) => {
     const eager = kortIndeks < hjaelp.EAGER_KORT_ANTAL;
     kortIndeks += 1;
     const stempel = r.status === 'i_produktion' ? ''
@@ -642,7 +668,7 @@ ${facetBlok(land, 3, ' facet--sidste-raekke')}
       + `<div class="kort__tekst">`
       + `<p class="kort__prod">${esc(r.producent)}</p>`
       + `<h3 class="kort__navn"><a href="${attr(r.slug)}/">${esc(r.navn)}</a></h3>`
-      + `${savn}</div></article>`;
+      + `${under}</div></article>`;
   };
 
   /** Resultatgitterets kort: indpakket i ét lag pr. facet. */
@@ -659,6 +685,41 @@ ${facetBlok(land, 3, ' facet--sidste-raekke')}
     const savn = SORTERINGER.filter((s) => !s.standard && s.tal(r) === null)
       .map((s) => `<span class="kort__savn kort__savn--${s.navn}">${esc(t(s.savn))}</span>`).join('');
 
+    /* DEN ANDEN HALVDEL AF SAVN-MAERKET (JPK 1. sep 2026: "ved sortering skal
+       det sorterede felt vises paa kortet"). Savn-maerket sagde hidtil kun,
+       hvem der TIER; nu siger raekken ved siden af, hvad de oevrige SIGER.
+
+       DE TO ER SAMME RAEKKE MED SAMME ETIKET og adskiller sig kun i det, de
+       baerer: en stiplet tom firkant mod en sat figur. Det er haard
+       begraensning 5 i selve formen - et hul kan ikke forveksles med et tal,
+       fordi de to ikke deler hverken bogstavform eller flade.
+
+       TALLET GAAR GENNEM H.tal() og aldrig gennem en egen formatering: den
+       funktion baerer kildemaerket, operatoren ("ca.", "fra"), intervallet,
+       forbeholdet og den imperiale sidevaerdi - fem ting, en haandskrevet
+       streng ville tabe én ad gangen. `kompakt: true` er kortets tilstand:
+       den imperiale vaerdi flytter til `title` og `.kunskaerm` i stedet for at
+       konkurrere med hovedfiguren i en 232 px celle.
+
+       `forbehold: post.advarsel` er samme moenster som forsidens yderpunkt
+       (forside.mjs:197). Uden den linje tabte kortet robottens EGEN
+       advarselstekst - fx Vision 60's R9-afvigelse mellem metrisk og
+       imperial - og viste kun den generiske lastbetingelse. */
+    const kilder = hjaelp.kilder(r);
+    const vaerdi = SORTERINGER.filter((s) => !s.standard && s.tal(r) !== null)
+      .map((s) => {
+        const post = s.post(r);
+        const figur = hjaelp.tal(post, {
+          kilder,
+          hvorhen: `${r.slug}/`,
+          kompakt: true,
+          forbehold: post.advarsel ? [post.advarsel] : [],
+        });
+        return `<span class="kort__vaerdi kort__vaerdi--${s.navn}">`
+          + `<span class="kort__vaerdi-mrk">${esc(t(s.feltnoegle))}</span>`
+          + `${figur}</span>`;
+      }).join('');
+
     // Ét lag pr. listefacet, plus ÉT faelles lag til alle fem egenskabschips.
     const egVaerdier = K.filter((k) => kapabilitet(r, k) === 'ja').map((k) => k.navn).join(' ');
     const aabne = F.map((f, i) => {
@@ -668,7 +729,11 @@ ${facetBlok(land, 3, ' facet--sidste-raekke')}
         : '';
       return `<div class="lag lag-${attr(f.navn)}" data-${attr(f.navn)}="${attr(vaerdier)}"${ekstra}>`;
     }).join('') + `<div class="lag lag-eg" data-eg="${attr(egVaerdier)}">`;
-    return `${aabne}\n${kortHTML(r, { savn })}\n${'</div>'.repeat(F.length + 1)}`;
+    // Vaerdien foerst, savnet derefter: de er gensidigt udelukkende pr.
+    // sortering (én robot kan ikke baade oplyse og tie om samme felt), saa
+    // raekkefoelgen i DOM'en afgoer intet visuelt - kun at de to hoerer til
+    // samme baelte under navnet.
+    return `${aabne}\n${kortHTML(r, { under: vaerdi + savn })}\n${'</div>'.repeat(F.length + 1)}`;
   };
 
   /* --- AABNINGEN: DE SENESTE MODELLER -------------------------------------

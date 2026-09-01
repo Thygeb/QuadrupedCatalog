@@ -231,6 +231,7 @@
   "felt_dataporte": "Data ports",
   "felt_pris": "Indicative price",
   "felt_ce_oplyst": "CE stated",
+  "felt_foerste_udgivelse": "Release year",
 
   "anvendelse_titel": "Intended use, per the manufacturer",
   "anvendelse_forklaring": "This category is not our assessment. It is the manufacturer’s own classification, quoted verbatim. Where the manufacturer cannot be quoted, it reads not stated.",
