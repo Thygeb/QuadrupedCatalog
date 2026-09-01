@@ -1738,6 +1738,11 @@ td .v{font-size:15px}
   -webkit-appearance:none;appearance:none;
   display:block;width:100%;height:22px;margin:0;padding:0;
   background:transparent;cursor:pointer;
+  /* Nulstillet med vilje: outline foelger elementets radius, og uden denne
+     linje tegnede fokusringen sig som en PILLE om banen (set paa
+     skaermbillede). TYPESKILT har ingen bloede kanter - heller ikke paa den
+     ene ting, der kun vises for tastaturet. */
+  border-radius:0;
 }
 .skala__greb:focus-visible{outline:2px solid var(--blaek);outline-offset:3px}
 
