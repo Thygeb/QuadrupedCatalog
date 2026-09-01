@@ -1221,11 +1221,23 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
   const seneste = medAar.filter((r) => r.foerste_udgivelse === senesteAar)
     .sort((a, b) => String(a.navn).localeCompare(String(b.navn), sprog));
 
+  /* H1'ET ER SEKTIONENS EGEN OVERSKRIFT, IKKE SIDENS (JPK 1. sep 2026: "skal
+     ikke vaere 'All robots', men mere beskrivende for hvad der vises i den
+     sektion"). Det staar strukturelt korrekt allerede - <section
+     aria-labelledby="aabning-titel"> goer h1'et til navnet paa NETOP
+     aabningen, ikke paa hele siden - men teksten sagde noget andet end
+     strukturen lovede. `katalog_titel` ("Alle robotter") maa IKKE genbruges
+     her: build.mjs:322 bruger samme noegle til <title>, og producent.mjs:263
+     bruger den til modelafsnittets H2 - begge steder er "Alle robotter"
+     korrekt, og en aendret VAERDI ville have rettet dette h1 ved at
+     oedelaegge de to andre. Derfor sin egen noegle, sand om netop de
+     `seneste.length` kort, aabningen viser (maalt 1. sep 2026: 9 paa tvaers
+     af den seneste udgivelsesaargang). */
   const aabning = senesteAar === null ? '' : `<section class="aabning" aria-labelledby="aabning-titel">
 <div class="aabning__krop stans">
 <div class="aabning__hoved">
 <div class="aabning__ord">
-<h1 class="aabning__titel" id="aabning-titel">${esc(T.katalog_titel)}</h1>
+<h1 class="aabning__titel" id="aabning-titel">${esc(t('katalog_seneste_titel'))}</h1>
 <p class="aabning__under">${esc(tf('katalog_plade_under', { n: alle, l: lande }))}</p>
 </div>
 <p class="aarstempel">
