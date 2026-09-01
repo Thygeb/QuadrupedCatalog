@@ -1,4 +1,4 @@
-/* 42-billedskalering.mjs — srcset, bredder og sizes i billedvejen.
+/* 43-billedskalering.mjs — srcset, bredder og sizes i billedvejen.
    Bygget af spor/foto 1. sep 2026, da der ikke fandtes NOGEN skalering:
    maalt foer sporet gav `grep -ro '<source' dist --include=*.html` NUL, og
    sammenligningssidens 74x56 chip hentede microrobotech-movenew-p1.jpg paa
