@@ -239,12 +239,20 @@ function euSaetning(ctx, modeller) {
  *  `billedeKilde` er producentsidens eget opslag i ctx.billeder. Det SKAL
  *  vinde over robottens eget felt - ellers viser minikortet et andet billede
  *  end det, siden har valgt. Det var praecis den overskrivning, billedled()
- *  lavede via ctx.billede, og den er baaret med over. */
+ *  lavede via ctx.billede, og den er baaret med over.
+ *
+ *  `samling: false` (spor/oprydknap, 1. sep 2026): producentsiderne
+ *  indlaeser intet JavaScript (maalt), saa "Tilfoej til sammenligning"-
+ *  knappen ville staa `hidden` for evigt - doed markup, ikke en fungerende
+ *  knap i venteposition. Se kort()s egen kommentar i side.mjs for hvorfor
+ *  forsidens kald IKKE faar samme parameter: dens knap virker rent faktisk,
+ *  fordi forsiden henter katalog.js. */
 function modelkort(ctx, m) {
   return ctx.__H.kort(m, {
     op: ctx?.url?.op || '../../../',
     href: sti(ctx, 'robot', m.slug),
     billedeKilde: ctx.billeder?.[m.slug] ?? m.billede ?? null,
+    samling: false,
   });
 }
 
