@@ -149,7 +149,7 @@ felter:
     vaerdi: "Port 1: 12V, ≤20A, ≤240W. Port 2: 20-48V, ≤10A, ≤480W."
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\"."
+    advarsel: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\" (strømforsyningsport 1: 12V, ≤20A, ≤240W; strømforsyningsport 2: 20V-48V, ≤10A, ≤480W)."
   dataporte:
     vaerdi:
       - "RS485 x2"

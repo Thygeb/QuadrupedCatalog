@@ -33,7 +33,7 @@ felter:
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
     hentet: "2026-08-25"
-    advarsel: "\"重量: 20kg\" i \"基础参数\"-tabellen."
+    advarsel: "\"重量: 20kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 682

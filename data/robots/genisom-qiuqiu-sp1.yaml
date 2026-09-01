@@ -28,7 +28,7 @@ felter:
     operator: "<="
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "\"本体重量: ≤100 kg\"."
+    advarsel: "\"本体重量: ≤100 kg\" (egenvægt)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1190
@@ -53,7 +53,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷: 50 kg\" i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
+    advarsel: "\"最大载荷: 50 kg\" (maks. last) i den strukturerede tabel, bekræftet af marketingteksten \"50 kg 持续行走负载\" (50kg vedvarende gåelast)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:

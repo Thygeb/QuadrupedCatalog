@@ -37,7 +37,7 @@ felter:
     enhed: "°"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"稳定穿越35°陡坡\" med fodnote: \"基于自适应步态算法与电驱动关节的实验室测试结果，实际地形性能受环境复杂度影响\" (laboratorietestresultat; reel terrænydelse påvirkes af omgivelsernes kompleksitet)."
+    advarsel: "\"稳定穿越35°陡坡\" (kan stabilt krydse 35° stejle skråninger) med fodnote: \"基于自适应步态算法与电驱动关节的实验室测试结果，实际地形性能受环境复杂度影响\" (laboratorietestresultat; reel terrænydelse påvirkes af omgivelsernes kompleksitet)."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig: "ikke_oplyst"
@@ -52,7 +52,7 @@ felter:
     enhed: "°C"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"-20°C至55°C宽温作业\" med fodnote: \"指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (gælder batteri og kørnekomponenters normale arbejdsområde)."
+    advarsel: "\"-20°C至55°C宽温作业\" (bredtemperatur-drift) med fodnote: \"指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (gælder batteri og kørnekomponenters normale arbejdsområde)."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55

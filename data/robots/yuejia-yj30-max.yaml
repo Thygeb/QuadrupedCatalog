@@ -33,14 +33,14 @@ felter:
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"重量: 45kg\" i \"基础参数\"-tabellen."
+    advarsel: "\"重量: 45kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 896
     enhed: "mm"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"站立尺寸: 896x635x530mm\"."
+    advarsel: "\"站立尺寸: 896x635x530mm\" (stående mål)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 635
