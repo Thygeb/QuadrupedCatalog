@@ -452,6 +452,10 @@ async function main(argv) {
     ['assets/generator.css', 'generator.css'],
     ['assets/katalog.js', 'katalog.js'],
     ['assets/sammenligning.js', 'sammenligning.js'],
+    // Enhedsvalgets hukommelse (L60 udvidet, spor/enhed). Indlaeses direkte
+    // af robotsiden, ikke gennem skallens `script`-parameter, som kun har
+    // én plads - se robot.mjs' enhedsHukommelse().
+    ['assets/enhed.js', 'enhed.js'],
   ]) {
     const kilde = path.join(rod, fra);
     if (fs.existsSync(kilde)) skrivFil(path.join(ud, til), fs.readFileSync(kilde, 'utf8'));
