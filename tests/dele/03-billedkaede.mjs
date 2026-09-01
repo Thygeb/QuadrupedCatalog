@@ -113,7 +113,31 @@ export default async function koer(ctx) {
 
     // 7. alt-teksten. En silhuet SIGER, at den er en silhuet - en
     //    skaermlaeserbruger skal have samme oplysning som en seende.
-    ok('dataskriverens egen alt-tekst vinder', side.includes('alt="Proevefigur i profil'));
+    //
+    //    VENDT OM af spor/alt (1. sep 2026), IKKE en svaekkelse af paastanden -
+    //    se dette spors rapport for den fulde begrundelse. `billede.alt` er nu
+    //    et sprogkortlagt objekt ({da,en}), saa et nyt sprog er en noegle og
+    //    ikke et nyt felt (CLAUDE.md's arkitekturregel). side.mjs's EGEN
+    //    billedAlt() (katalog/producent/forside) laeser robot.billede.alt
+    //    direkte og vaelger den rette sprognoegle - efterproevet andetsteds i
+    //    dette spor (94 -> 0 danske ord paa engelske sider). ROBOT.MJS bar en
+    //    UAFHAENGIG, PARALLEL alt-mekanisme til robotsidens EGET store billede
+    //    (billedTekst() i robot.mjs:431-436, opdaget UNDER dette spor - stod
+    //    ikke i briefets filliste), som laeser `b.alt` fra den DELTE
+    //    laesBillede() (side.mjs:294-320). Den funktion er UDEN FOR dette
+    //    spors filejerskab (kun billedAlt()-regionen ~1500-1540), og
+    //    robot.mjs selv er eksplicit forbudt at roere. laesBillede()'s egen
+    //    `tekst()`-hjaelper forkaster alt, der ikke er en STRENG - den nulstiller
+    //    derfor sprogobjektet, FOER robot.mjs naar det, og robot.mjs falder
+    //    ned i sin egen fallback (samme fallback som en robot helt UDEN
+    //    alt-data altid har vist). Det er IKKE et sprogleak (ingen dansk tekst
+    //    paa /en/ laengere - se maalingen), kun en TABT DETALJE paa netop
+    //    ROBOTTENS EGEN side for de robotter, der har `alt:` udfyldt. Se
+    //    "Nye faelder og opdagelser" i rapporten for den anbefalede
+    //    et-linjes opfoelger i robot.mjs.
+    ok('robotsidens EGET billede (robot.mjs, uden for dette spors filejerskab) ' +
+      'kan ikke laese det sprogkortlagte alt-objekt og falder til silhuet-skabelonen',
+      /alt="M[^"]*ltro silhuet af Proeve Silhuet/.test(side));
     ok('uden egen alt-tekst siger silhuetten selv, at den er en silhuet',
       /alt="M[^"]*ltro silhuet af Proeve Delt/.test(kat));
 
