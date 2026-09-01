@@ -7,6 +7,10 @@ status: "i_produktion"
 fremdrift: "ben"
 foerste_udgivelse: 2025
 noter:
+  - "SVAG SPECIFIKATIONSTÆTHED ER MÅLT, IKKE ANTAGET: CVTE's produktside er en marketing-highlights-side med retoriske overskrifter og fodnote-forbehold, IKKE en teknisk specifikationstabel som Astrall Dynamics' eller Unitrees produktsider. Der findes intet fundet CVTE-datablad med mål, vægt, nyttelast, hastighed eller DoF. maxhub.com selv (det globale MAXHUB-displaymærke) har INGEN robotprodukter overhovedet - X7 ligger udelukkende under moderselskabet CVTE 's egen produktnavigation, ikke under maxhub.com."
+  - "Producentens egne fodnoter på siden svækker flere af tallene med vilje: (laboratorietal, reel brug varierer); (kan stabilt krydse 35° stejle skråninger m.fl. terræn.. baseret på laboratorietestresultater med adaptiv gangart-algoritme og eldrevne led); (-20°C til 55°C drift: gælder batteriets og kernekomponenternes normale arbejdsområde i dette temperaturinterval; ydeevnen kan påvirkes delvist ved ekstreme temperaturer). Disse forbehold er gengivet på de enkelte felters advarsel."
+  - "MAXHUB X7's SØSTERPRODUKT (kommerciel rengøringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifølge nyhedsartiklen er solgt til Europa/Sydøstasien/Japan (- er kommet ind på det europæiske, sydøstasiatiske og japanske marked). Det gælder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 på dette grundlag."
+noter_ordlyd:
   - "SVAG SPECIFIKATIONSTÆTHED ER MÅLT, IKKE ANTAGET: CVTE's produktside er en marketing-highlights-side (\"产品亮点\") med retoriske overskrifter og fodnote-forbehold, IKKE en teknisk specifikationstabel som Astrall Dynamics' eller Unitrees produktsider. Der findes intet fundet CVTE-datablad med mål, vægt, nyttelast, hastighed eller DoF. maxhub.com selv (det globale MAXHUB-displaymærke) har INGEN robotprodukter overhovedet - X7 ligger udelukkende under moderselskabet CVTE/视源股份's egen produktnavigation, ikke under maxhub.com."
   - "Producentens egne fodnoter på \"产品亮点\"-siden svækker flere af tallene med vilje: \"*续航时间: 在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal, reel brug varierer); \"*稳定穿越35°陡坡等地形...基于自适应步态算法与电驱动关节的实验室测试结果\" (kan stabilt krydse 35° stejle skråninger m.fl. terræn... baseret på laboratorietestresultater med adaptiv gangart-algoritme og eldrevne led); \"*-20℃至55℃作业：指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (-20°C til 55°C drift: gælder batteriets og kernekomponenternes normale arbejdsområde i dette temperaturinterval; ydeevnen kan påvirkes delvist ved ekstreme temperaturer). Disse forbehold er gengivet på de enkelte felters advarsel."
   - "MAXHUB X7's SØSTERPRODUKT \"商用清洁机器人\" (kommerciel rengøringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifølge nyhedsartiklen er solgt til Europa/Sydøstasien/Japan (\"进入欧洲、东南亚及日本市场\" - er kommet ind på det europæiske, sydøstasiatiske og japanske marked). Det gælder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 på dette grundlag."
@@ -14,10 +18,12 @@ anvendelse:
   vaerdi:
     - "industri"
     - "forsvar_beredskab"
-  citat: "Anvendes til industri, elkraft, redning og lignende scenarier (适用于工业、电力、救援等场景)"
+  citat: "Anvendes til industri, elkraft, redning og lignende scenarier"
+  citat_ordlyd: "Anvendes til industri, elkraft, redning og lignende scenarier (适用于工业、电力、救援等场景)"
   kilde: "https://www.cvte.com/product/quadrupedrobot"
   hentet: "2026-08-24"
-  note: "\"工业\" (industri) og \"电力\" (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). \"救援\" (redning) er omsat til forsvar og beredskab."
+  note: "(industri) og (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). (redning) er omsat til forsvar og beredskab."
+  note_ordlyd: "\"工业\" (industri) og \"电力\" (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). \"救援\" (redning) er omsat til forsvar og beredskab."
 billede:
   fil: "fotos/fabrikant/cvte-maxhub-x7.jpg"
   ophav: "fabrikant"
@@ -37,7 +43,8 @@ felter:
     enhed: "°"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"稳定穿越35°陡坡\" (kan stabilt krydse 35° stejle skråninger) med fodnote: \"基于自适应步态算法与电驱动关节的实验室测试结果，实际地形性能受环境复杂度影响\" (laboratorietestresultat; reel terrænydelse påvirkes af omgivelsernes kompleksitet)."
+    advarsel: "(kan stabilt krydse 35° stejle skråninger) med fodnote: (laboratorietestresultat; reel terrænydelse påvirkes af omgivelsernes kompleksitet)."
+    advarsel_ordlyd: "\"稳定穿越35°陡坡\" (kan stabilt krydse 35° stejle skråninger) med fodnote: \"基于自适应步态算法与电驱动关节的实验室测试结果，实际地形性能受环境复杂度影响\" (laboratorietestresultat; reel terrænydelse påvirkes af omgivelsernes kompleksitet)."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig: "ikke_oplyst"
@@ -45,14 +52,16 @@ felter:
     vaerdi: "IP66"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"IP66级防水防尘\" (IP66 vand- og støvbeskyttelsesklasse)."
+    advarsel: "IP66 vand- og støvbeskyttelsesklasse."
+    advarsel_ordlyd: "\"IP66级防水防尘\" (IP66 vand- og støvbeskyttelsesklasse)."
     advarsel_klasse: "uddybning"
   temp_min:
     vaerdi: -20
     enhed: "°C"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"-20°C至55°C宽温作业\" (bredtemperatur-drift) med fodnote: \"指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (gælder batteri og kørnekomponenters normale arbejdsområde)."
+    advarsel: "(bredtemperatur-drift) med fodnote: (gælder batteri og kørnekomponenters normale arbejdsområde)."
+    advarsel_ordlyd: "\"-20°C至55°C宽温作业\" (bredtemperatur-drift) med fodnote: \"指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (gælder batteri og kørnekomponenters normale arbejdsområde)."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
@@ -66,7 +75,8 @@ felter:
     operator: ">"
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "Producenten oplyser TRE punkter i én sætning: \"40kg负载＞5H，20kg负载＞8H，空载＞11H\". Skemaet har kun ét driftstidsfelt, så mellempunktet (20kg > 8H) er valgt som primær værdi; de to andre (40kg > 5H, 0kg/space > 11H) står her. Fodnote: \"在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal ved 25°C på fladt hardt underlag)."
+    advarsel: "Producenten oplyser TRE punkter i én sætning. Skemaet har kun ét driftstidsfelt, så mellempunktet (20kg > 8H) er valgt som primær værdi; de to andre (40kg > 5H, 0kg/space > 11H) står her. Fodnote: (laboratorietal ved 25°C på fladt hardt underlag)."
+    advarsel_ordlyd: "Producenten oplyser TRE punkter i én sætning: \"40kg负载＞5H，20kg负载＞8H，空载＞11H\". Skemaet har kun ét driftstidsfelt, så mellempunktet (20kg > 8H) er valgt som primær værdi; de to andre (40kg > 5H, 0kg/space > 11H) står her. Fodnote: \"在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal ved 25°C på fladt hardt underlag)."
     advarsel_klasse: "gyldighed"
     ved_last:
       vaerdi: 20
@@ -77,17 +87,20 @@ felter:
     vaerdi: true
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "\"高度自主 定时启停、自主导航与回充\" (høj autonomi: tidsstyret start/stop, selvnavigation og selvopladning). Nyhedsartiklen (samme domæne) uddyber: \"能够自主规划路径、定时启动任务、完成后自动返航充电\" (kan selv planlægge rute, tidsstyre opgavestart og køre hjem for selv at oplade efter fuldført opgave). Ordet \"docking station\"/\"充电桩\" står ikke ordret nogen af stederne - \"自主...回充\"/\"自动返航充电\" er tolket som en automatisk opladningsfacilitet."
+    advarsel: "(høj autonomi: tidsstyret start/stop, selvnavigation og selvopladning). Nyhedsartiklen (samme domæne) uddyber: (kan selv planlægge rute, tidsstyre opgavestart og køre hjem for selv at oplade efter fuldført opgave). Ordet \"docking station\" / står ikke ordret nogen af stederne - er tolket som en automatisk opladningsfacilitet."
+    advarsel_ordlyd: "\"高度自主 定时启停、自主导航与回充\" (høj autonomi: tidsstyret start/stop, selvnavigation og selvopladning). Nyhedsartiklen (samme domæne) uddyber: \"能够自主规划路径、定时启动任务、完成后自动返航充电\" (kan selv planlægge rute, tidsstyre opgavestart og køre hjem for selv at oplade efter fuldført opgave). Ordet \"docking station\"/\"充电桩\" står ikke ordret nogen af stederne - \"自主...回充\"/\"自动返航充电\" er tolket som en automatisk opladningsfacilitet."
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db"
     hentet: "2026-08-24"
-    advarsel: "Nyhedsartiklen: \"深度融合激光雷达、里程计、IMU、UWB、GNSS、视觉相机等多种传感器\" (dyb fusion af LiDAR, odometri, IMU, UWB, GNSS, visuelt kamera m.fl.). LiDAR nævnes kun som sensor-TYPE i en opremsning - intet antal, ingen model. Tæller ikke som udfyldt under D4's foreløbige regel."
+    advarsel: "Nyhedsartiklen: (dyb fusion af LiDAR, odometri, IMU, UWB, GNSS, visuelt kamera m.fl.). LiDAR nævnes kun som sensor-TYPE i en opremsning - intet antal, ingen model. Tæller ikke som udfyldt under D4's foreløbige regel."
+    advarsel_ordlyd: "Nyhedsartiklen: \"深度融合激光雷达、里程计、IMU、UWB、GNSS、视觉相机等多种传感器\" (dyb fusion af LiDAR, odometri, IMU, UWB, GNSS, visuelt kamera m.fl.). LiDAR nævnes kun som sensor-TYPE i en opremsning - intet antal, ingen model. Tæller ikke som udfyldt under D4's foreløbige regel."
   kameraer:
     vaerdi: "Dobbeltspektret synligt lys + infrarødt drejetårn-kamera, model ikke oplyst"
     kilde: "https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db"
     hentet: "2026-08-24"
-    advarsel: "\"X7搭载可见光+红外双光云台、气体传感器、机械臂甚至灭火装置\" (X7 er udstyret med et dobbeltspektret synligt lys/infrarødt drejetårn-kamera, gassensor, robotarm og endda en brandslukningsenhed)."
+    advarsel: "X7 er udstyret med et dobbeltspektret synligt lys/infrarødt drejetårn-kamera, gassensor, robotarm og endda en brandslukningsenhed."
+    advarsel_ordlyd: "\"X7搭载可见光+红外双光云台、气体传感器、机械臂甚至灭火装置\" (X7 er udstyret med et dobbeltspektret synligt lys/infrarødt drejetårn-kamera, gassensor, robotarm og endda en brandslukningsenhed)."
   compute: "ikke_oplyst"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"

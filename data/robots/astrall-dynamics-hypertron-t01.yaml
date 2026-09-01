@@ -11,10 +11,12 @@ anvendelse:
     - "industri"
     - "forsvar_beredskab"
     - "sikkerhed_overvaagning"
-  citat: "电力能源、消防应急、园区厂区、建筑管廊、矿井轨道、石油化工、警务安防、水利水务 (menupunkterne under \"行业应用\" paa forsiden og produktsiden)"
+  citat: "Menupunkterne under paa forsiden og produktsiden."
+  citat_ordlyd: "电力能源、消防应急、园区厂区、建筑管廊、矿井轨道、石油化工、警务安防、水利水务 (menupunkterne under \"行业应用\" paa forsiden og produktsiden)"
   kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
   hentet: "2026-08-24"
-  note: "Mapning af de otte menupunkter til de syv tilladte værdier: 电力能源 (elkraft/energi), 建筑管廊 (bygge/forsyningstunneler), 矿井轨道 (mine/skinner) og 水利水务 (vandforsyning) er alle industrielle infrastruktursektorer -> industri. 消防应急 (brand/beredskab) -> forsvar og beredskab. 园区厂区 (industripark-/fabriksområde-patrulje - siden skriver selv \"360°全方位监测\", helområde-overvågning) og 警务安防 (politi/sikkerhed) -> sikkerhed og overvågning. 石油化工 (petrokemi) -> industri. Ingen af de otte er oversat til logistik, inspektion, forskning og udvikling eller forbruger og uddannelse."
+  note: "Mapning af de otte menupunkter til de syv tilladte værdier: (elkraft/energi), (bygge/forsyningstunneler), (mine/skinner) og (vandforsyning) er alle industrielle infrastruktursektorer -> industri. (brand/beredskab) -> forsvar og beredskab. (industripark- fabriksområde-patrulje - siden skriver selv, helområde-overvågning) og (politi/sikkerhed) -> sikkerhed og overvågning. (petrokemi) -> industri. Ingen af de otte er oversat til logistik, inspektion, forskning og udvikling eller forbruger og uddannelse."
+  note_ordlyd: "Mapning af de otte menupunkter til de syv tilladte værdier: 电力能源 (elkraft/energi), 建筑管廊 (bygge/forsyningstunneler), 矿井轨道 (mine/skinner) og 水利水务 (vandforsyning) er alle industrielle infrastruktursektorer -> industri. 消防应急 (brand/beredskab) -> forsvar og beredskab. 园区厂区 (industripark-/fabriksområde-patrulje - siden skriver selv \"360°全方位监测\", helområde-overvågning) og 警务安防 (politi/sikkerhed) -> sikkerhed og overvågning. 石油化工 (petrokemi) -> industri. Ingen af de otte er oversat til logistik, inspektion, forskning og udvikling eller forbruger og uddannelse."
 billede:
   fil: "fotos/fabrikant/astrall-dynamics-hypertron-t01.png"
   ophav: "fabrikant"
@@ -26,14 +28,16 @@ felter:
     enhed: "kg"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"重量 82kg（含电池）\" (vægt 82kg, inkl. batteri) - inkl. batteri."
+    advarsel: "(vægt 82kg, inkl. batteri) - inkl. batteri."
+    advarsel_ordlyd: "\"重量 82kg（含电池）\" (vægt 82kg, inkl. batteri) - inkl. batteri."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1110
     enhed: "mm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸 1110mm*610mm*745mm\" (stående mål) - stående mål."
+    advarsel: "(stående mål) - stående mål."
+    advarsel_ordlyd: "\"站立尺寸 1110mm*610mm*745mm\" (stående mål) - stående mål."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 610
@@ -54,35 +58,40 @@ felter:
     operator: "<="
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"工作负载 ≤80kg\" (arbejdslast)."
+    advarsel: "Arbejdslast."
+    advarsel_ordlyd: "\"工作负载 ≤80kg\" (arbejdslast)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 200
     enhed: "kg"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"最大站立负载 200kg\" (maks. stående last)."
+    advarsel: "Maks. stående last."
+    advarsel_ordlyd: "\"最大站立负载 200kg\" (maks. stående last)."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 7
     enhed: "m/s"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"最高速度 7 m/s（1）\" med producentens egen fodnote: \"（1）该数据来自实验环境下，实际应用中有所限速\" (tallet er fra laboratorieforsøg; reel anvendelse kan være hastighedsbegrænset)."
+    advarsel: "Med producentens egen fodnote: (tallet er fra laboratorieforsøg; reel anvendelse kan være hastighedsbegrænset)."
+    advarsel_ordlyd: "\"最高速度 7 m/s（1）\" med producentens egen fodnote: \"（1）该数据来自实验环境下，实际应用中有所限速\" (tallet er fra laboratorieforsøg; reel anvendelse kan være hastighedsbegrænset)."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: "°"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket er \"最大越障角度\" (maks. forhindrings-/traverseringsvinkel), ikke blot en hældnings-/skråningsangivelse - noteret her, da hældning er det nærmeste skemafelt."
+    advarsel: "Etiket er (maks. forhindrings- traverseringsvinkel), ikke blot en hældnings- skråningsangivelse - noteret her, da hældning er det nærmeste skemafelt."
+    advarsel_ordlyd: "Etiket er \"最大越障角度\" (maks. forhindrings-/traverseringsvinkel), ikke blot en hældnings-/skråningsangivelse - noteret her, da hældning er det nærmeste skemafelt."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 90
     enhed: "cm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"最大越障攀爬高度 90cm\" (maks. enkelt forhindringshøjde)."
+    advarsel: "Maks. enkelt forhindringshøjde."
+    advarsel_ordlyd: "\"最大越障攀爬高度 90cm\" (maks. enkelt forhindringshøjde)."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     min: 20
@@ -90,7 +99,8 @@ felter:
     enhed: "cm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"连续爬梯高度 20~25 cm\" (kontinuerlig trappekravlehøjde)."
+    advarsel: "Kontinuerlig trappekravlehøjde."
+    advarsel_ordlyd: "\"连续爬梯高度 20~25 cm\" (kontinuerlig trappekravlehøjde)."
     advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: "IP66"
@@ -108,7 +118,8 @@ felter:
     enhed: "°C"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"工作温度 -20℃~55℃\" (driftstemperatur). Opbevaringstemperatur -20~60℃ er separat - se noter."
+    advarsel: "(driftstemperatur). Opbevaringstemperatur -20~60℃ er separat - se noter."
+    advarsel_ordlyd: "\"工作温度 -20℃~55℃\" (driftstemperatur). Opbevaringstemperatur -20~60℃ er separat - se noter."
     advarsel_klasse: "uddybning"
   batteri_wh: "ikke_oplyst"
   driftstid:
@@ -117,7 +128,8 @@ felter:
     enhed: "t"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"续航时间 4~8小时 (有负载/空载)\" (belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-værdi - vi gætter ikke, at det er de 80 kg fra 工作负载-feltet, så lastbetingelsen står ikke oplyst i stedet for at opfinde koblingen."
+    advarsel: "(belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-værdi - vi gætter ikke, at det er de 80 kg fra feltet, så lastbetingelsen står ikke oplyst i stedet for at opfinde koblingen."
+    advarsel_ordlyd: "\"续航时间 4~8小时 (有负载/空载)\" (belastet/ubelastet). Siden knytter IKKE de 4 timer eksplicit til en bestemt kg-værdi - vi gætter ikke, at det er de 80 kg fra 工作负载-feltet, så lastbetingelsen står ikke oplyst i stedet for at opfinde koblingen."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -126,17 +138,20 @@ felter:
     vaerdi: true
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "Under 消防应急-fanen: \"全自主 高精度自主导航、全自主充电\" (fuldautonom: højpræcisions-selvnavigation, fuldautonom opladning). Ordet \"docking\"/\"充电桩\" står ikke ordret - \"全自主充电\" er tolket som en ladestation/dockingfunktion. Står i produktsidens brancheafsnit, ikke i selve 产品参数-tabellen."
+    advarsel: "Under fanen: (fuldautonom: højpræcisions-selvnavigation, fuldautonom opladning). Ordet \"docking\" / står ikke ordret - er tolket som en ladestation/dockingfunktion. Står i produktsidens brancheafsnit, ikke i selve tabellen."
+    advarsel_ordlyd: "Under 消防应急-fanen: \"全自主 高精度自主导航、全自主充电\" (fuldautonom: højpræcisions-selvnavigation, fuldautonom opladning). Ordet \"docking\"/\"充电桩\" står ikke ordret - \"全自主充电\" er tolket som en ladestation/dockingfunktion. Står i produktsidens brancheafsnit, ikke i selve 产品参数-tabellen."
   lidar:
     vaerdi: "2x mekanisk LiDAR, 192 linjer, rækkevidde ca. 30m ± 10%, punktsky op til 1.720.000 pts/s (dobbelt-echo) / 860.000 pts/s (enkelt-echo), synsfelt 360°x90°, 10 Hz opdatering"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"激光雷达 数量/检测距离: 2 台 / 30m ± 10%; 扫描线数/点云密度: 192线 / 1,720,000pts/s（双回波模式），860,000pts/s（单回波模式）; 视角/帧率: 360°*90° / 10 Hz\" (LiDAR antal/detektionsafstand: 2 stk / 30m ±10%; scanlinjer/punktskytæthed: 192 linjer / 1.720.000 pts/s dobbelt-echo, 860.000 pts/s enkelt-echo; synsfelt/billedrate: 360°×90° / 10 Hz)."
+    advarsel: "LiDAR antal/detektionsafstand: 2 stk / 30m ±10%; scanlinjer/punktskytæthed: 192 linjer / 1.720.000 pts/s dobbelt-echo, 860.000 pts/s enkelt-echo; synsfelt/billedrate: 360°×90° / 10 Hz."
+    advarsel_ordlyd: "\"激光雷达 数量/检测距离: 2 台 / 30m ± 10%; 扫描线数/点云密度: 192线 / 1,720,000pts/s（双回波模式），860,000pts/s（单回波模式）; 视角/帧率: 360°*90° / 10 Hz\" (LiDAR antal/detektionsafstand: 2 stk / 30m ±10%; scanlinjer/punktskytæthed: 192 linjer / 1.720.000 pts/s dobbelt-echo, 860.000 pts/s enkelt-echo; synsfelt/billedrate: 360°×90° / 10 Hz)."
   kameraer:
     vaerdi: "1x dybdekamera, 1280x800, 30 fps, arbejdsområde 0,01-20m, dim. 90x25x25mm"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"深度相机 数量/尺寸: 1 个 / 90*25*25 mm; 分辨率/帧率: 1280*800 / 30 fps; 工作范围: 0.01-20m\" (dybdekamera antal/mål: 1 stk / 90×25×25 mm; opløsning/billedrate: 1280×800 / 30 fps; arbejdsområde: 0,01-20m)."
+    advarsel: "Dybdekamera antal/mål: 1 stk / 90×25×25 mm; opløsning/billedrate: 1280×800 / 30 fps; arbejdsområde: 0,01-20m."
+    advarsel_ordlyd: "\"深度相机 数量/尺寸: 1 个 / 90*25*25 mm; 分辨率/帧率: 1280*800 / 30 fps; 工作范围: 0.01-20m\" (dybdekamera antal/mål: 1 stk / 90×25×25 mm; opløsning/billedrate: 1280×800 / 30 fps; arbejdsområde: 0,01-20m)."
   compute: "ikke_oplyst"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
@@ -149,7 +164,8 @@ felter:
     vaerdi: "Port 1: 12V, ≤20A, ≤240W. Port 2: 20-48V, ≤10A, ≤480W."
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\" (strømforsyningsport 1: 12V, ≤20A, ≤240W; strømforsyningsport 2: 20V-48V, ≤10A, ≤480W)."
+    advarsel: "Strømforsyningsport 1: 12V, ≤20A, ≤240W; strømforsyningsport 2: 20V-48V, ≤10A, ≤480W."
+    advarsel_ordlyd: "\"供电接口 1: 12V，≤20A，≤ 240W; 供电接口 2: 20V-48V，≤10A，≤480W\" (strømforsyningsport 1: 12V, ≤20A, ≤240W; strømforsyningsport 2: 20V-48V, ≤10A, ≤480W)."
   dataporte:
     vaerdi:
       - "RS485 x2"
@@ -157,6 +173,7 @@ felter:
       - "Ethernet x2"
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "\"外部通讯 RS485*2, CAN*2, 以太网口*2\" (ekstern kommunikation: RS485×2, CAN×2, Ethernet×2)."
+    advarsel: "Ekstern kommunikation: RS485×2, CAN×2, Ethernet×2."
+    advarsel_ordlyd: "\"外部通讯 RS485*2, CAN*2, 以太网口*2\" (ekstern kommunikation: RS485×2, CAN×2, Ethernet×2)."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"

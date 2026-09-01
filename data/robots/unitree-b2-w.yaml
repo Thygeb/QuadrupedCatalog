@@ -10,6 +10,9 @@ anvendelse:
   vaerdi: "industri"
   citat:
     - "Robot - Industry"
+    - "Robothund - industriniveau"
+  citat_ordlyd:
+    - ""
     - "Robothund - industriniveau (机器狗 - 行业级)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"

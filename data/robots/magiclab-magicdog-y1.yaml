@@ -20,7 +20,8 @@ anvendelse:
     - "MagicLab Industrial Quadruped Robot"
   kilde: "https://www.magiclabglobal.com/products/magicdog-y1/"
   hentet: "2026-08-19"
-  note: "De to producentdomæner siger det samme: magiclab.top skriver \"MagicLab Industrial Quadruped Robot\" (CN: \"魔法原子工业四足机器人\")."
+  note: "De to producentdomæner siger det samme: magiclab.top skriver \"MagicLab Industrial Quadruped Robot\" (CN:)."
+  note_ordlyd: "De to producentdomæner siger det samme: magiclab.top skriver \"MagicLab Industrial Quadruped Robot\" (CN: \"魔法原子工业四足机器人\")."
 billede:
   fil: "fotos/fabrikant/magiclab-magicdog-y1.jpg"
   ophav: "fabrikant"

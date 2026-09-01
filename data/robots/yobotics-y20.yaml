@@ -29,7 +29,8 @@ felter:
     operator: "~"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Med batteri (含电池)."
+    advarsel: "Med batteri."
+    advarsel_ordlyd: "Med batteri (含电池)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1100

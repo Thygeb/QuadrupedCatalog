@@ -6,6 +6,8 @@ producentby: "Beijing / Suzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
 noter:
+  - "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri, 86 TOPS) ER BEVIDST IKKE BRUGT HER: L2-sidens fremhævede hero-marketingkort står EN gang for hele siden, før fanebladene, og er ikke gentaget i L2-W's egen JSON-blok. De matcher L2 (basisudgavens) egne tal nøjagtigt - men uden en eksplicit gentagelse i L2-W's egen datablok kan de ikke sikkert tilskrives netop denne variant. forhindring_enkelt, batteri_wh og compute's TOPS-tal står derfor ikke oplyst/uden TOPS-tal her, i modsætning til den eksisterende L2-post, som bruger dem for basisudgaven."
+noter_ordlyd:
   - "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri, 86 TOPS) ER BEVIDST IKKE BRUGT HER: L2-sidens fremhævede hero-marketingkort (\"70cm 垂直越障高度\", \"756Wh 大容量电池\", \"高达 86 TOPS 算力平台\") står EN gang for hele siden, før fanebladene, og er ikke gentaget i L2-W's egen JSON-blok. De matcher L2 (basisudgavens) egne tal nøjagtigt - men uden en eksplicit gentagelse i L2-W's egen datablok kan de ikke sikkert tilskrives netop denne variant. forhindring_enkelt, batteri_wh og compute's TOPS-tal står derfor ikke oplyst/uden TOPS-tal her, i modsætning til den eksisterende L2-post, som bruger dem for basisudgaven."
 anvendelse:
   vaerdi:
@@ -14,13 +16,19 @@ anvendelse:
     - "forskning_udvikling"
     - "logistik"
   citat:
+    - "Sikkerhedspatrulje"
+    - "Akut brandbekæmpelse"
+    - "Forskning og uddannelse"
+    - "Kort-distance levering"
+  citat_ordlyd:
     - "Sikkerhedspatrulje (安防巡逻)"
     - "Akut brandbekæmpelse (应急消防)"
     - "Forskning og uddannelse (科研教育)"
     - "Kort-distance levering (短途配送)"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-24"
-  note: "Fra sektionen \"下一个应用场景，它已提前就位\" på L2's produktside. Teksten står EN gang på siden, FØR variant-fanebladet (L2/L2-W/L2-W Ultra) i den strukturerede specifikationstabel - den dækker hele Gangben L2-familien som helhed, ikke kun basisudgaven. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning om en anden robot (arvet_fra ville forudsætte, at L2-W's EGEN side var tavs og lånte L2's citat - det er den ikke, teksten står på netop den side, L2-W også bor på). Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik. BEMÆRK: dette citat har FIRE led (inkl. 应急消防), mens genisom-gangben-l2.yaml's eksisterende citat kun har tre (mangler 应急消防) - en uafhængig genlæsning af samme rå HTML for denne post. Den eksisterende L2-post er IKKE rettet, jf. opgavens instruks om ikke at røre de to eksisterende poster."
+  note: "Fra sektionen på L2's produktside. Teksten står EN gang på siden, FØR variant-fanebladet (L2/L2-W/L2-W Ultra) i den strukturerede specifikationstabel - den dækker hele Gangben L2-familien som helhed, ikke kun basisudgaven. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning om en anden robot (arvet_fra ville forudsætte, at L2-W's EGEN side var tavs og lånte L2's citat - det er den ikke, teksten står på netop den side, L2-W også bor på). Egen oversættelse: -> sikkerhed og overvågning; (akut brandbekæmpelse) -> forsvar og beredskab; -> forskning og udvikling; (kort-distance levering) -> logistik. BEMÆRK: dette citat har FIRE led (inkl.), mens genisom-gangben-l2.yaml's eksisterende citat kun har tre (mangler) - en uafhængig genlæsning af samme rå HTML for denne post. Den eksisterende L2-post er IKKE rettet, jf. opgavens instruks om ikke at røre de to eksisterende poster."
+  note_ordlyd: "Fra sektionen \"下一个应用场景，它已提前就位\" på L2's produktside. Teksten står EN gang på siden, FØR variant-fanebladet (L2/L2-W/L2-W Ultra) i den strukturerede specifikationstabel - den dækker hele Gangben L2-familien som helhed, ikke kun basisudgaven. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning om en anden robot (arvet_fra ville forudsætte, at L2-W's EGEN side var tavs og lånte L2's citat - det er den ikke, teksten står på netop den side, L2-W også bor på). Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik. BEMÆRK: dette citat har FIRE led (inkl. 应急消防), mens genisom-gangben-l2.yaml's eksisterende citat kun har tre (mangler 应急消防) - en uafhængig genlæsning af samme rå HTML for denne post. Den eksisterende L2-post er IKKE rettet, jf. opgavens instruks om ikke at røre de to eksisterende poster."
 billede:
   fil: "fotos/fabrikant/genisom-gangben-l2-w.webp"
   ophav: "fabrikant"
@@ -34,7 +42,8 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"整机重量（含电池）: 27 kg\" i L2-W's egen datablok - ingen \"约\" (cirka)-tegn."
+    advarsel: "I L2-W's egen datablok - ingen (cirka)-tegn."
+    advarsel_ordlyd: "\"整机重量（含电池）: 27 kg\" i L2-W's egen datablok - ingen \"约\" (cirka)-tegn."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 760
@@ -42,7 +51,8 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" (stående mål, længde×bredde×højde, ca.)."
+    advarsel: "Stående mål, længde×bredde×højde, ca.."
+    advarsel_ordlyd: "\"站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm\" (stående mål, længde×bredde×højde, ca.)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 450
@@ -56,14 +66,16 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Krybende mål (\"趴地尺寸\") er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand."
+    advarsel: "Krybende mål er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand."
+    advarsel_ordlyd: "Krybende mål (\"趴地尺寸\") er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand."
     advarsel_klasse: "uddybning"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\". Samme fortolkning som L1/L2/M1."
+    advarsel: "(antal ledmotorer), ikke eksplicit \"frihedsgrader\". Samme fortolkning som L1/L2/M1."
+    advarsel_ordlyd: "\"关节电机数量: 12 个\" (antal ledmotorer), ikke eksplicit \"frihedsgrader\". Samme fortolkning som L1/L2/M1."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 16
@@ -71,21 +83,24 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" (maks. last, grænse statisk 150kg) i L2-W's egen datablok - samme tal som basisudgaven L2."
+    advarsel: "(maks. last, grænse statisk 150kg) i L2-W's egen datablok - samme tal som basisudgaven L2."
+    advarsel_ordlyd: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" (maks. last, grænse statisk 150kg) i L2-W's egen datablok - samme tal som basisudgaven L2."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"极限静态150kg\" (grænse statisk 150kg) står inde i \"最大载荷\" (maks. last)-rækken i L2-W's egen datablok. Modsat basisudgaven L2 er dette IKKE krydsbekræftet af en separat marketingtekstlinje for netop L2-W - kun denne ene forekomst."
+    advarsel: "(grænse statisk 150kg) står inde i (maks. last)-rækken i L2-W's egen datablok. Modsat basisudgaven L2 er dette IKKE krydsbekræftet af en separat marketingtekstlinje for netop L2-W - kun denne ene forekomst."
+    advarsel_ordlyd: "\"极限静态150kg\" (grænse statisk 150kg) står inde i \"最大载荷\" (maks. last)-rækken i L2-W's egen datablok. Modsat basisudgaven L2 er dette IKKE krydsbekræftet af en separat marketingtekstlinje for netop L2-W - kun denne ene forekomst."
     advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 3.7
     enhed: "m/s"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大速度: 3.7 m/s\" i L2-W's egen datablok - højere end basisudgavens 3.2 m/s, som forventet for en hjuldrevet variant. En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi."
+    advarsel: "I L2-W's egen datablok - højere end basisudgavens 3.2 m/s, som forventet for en hjuldrevet variant. En separat (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi."
+    advarsel_ordlyd: "\"最大速度: 3.7 m/s\" i L2-W's egen datablok - højere end basisudgavens 3.2 m/s, som forventet for en hjuldrevet variant. En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 40
@@ -98,7 +113,8 @@ felter:
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i L2-W's egen datablok - højere end basisudgavens 22cm."
+    advarsel: "Etiket (kontinuerlig trappeklatrehøjde) i L2-W's egen datablok - højere end basisudgavens 22cm."
+    advarsel_ordlyd: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) i L2-W's egen datablok - højere end basisudgavens 22cm."
     advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: "IP66"
@@ -121,7 +137,8 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"续航时间: 5.5H（空载） 3.5H（满载）\" i L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel: "I L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel_ordlyd: "\"续航时间: 5.5H（空载） 3.5H（满载）\" i L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde \"续航里程: 20KM（空载） 12KM（满载）\" er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -134,7 +151,8 @@ felter:
     vaerdi: true
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Tilbehørsliste i L2-W's egen datablok har TO rækker: \"充电座: 标配\" (standardudstyr) OG separat \"充电桩（包含自主回充功能）: 选配\" (tilvalgt, inkl. autonom genopladningsfunktion). Samme to-niveau-mønster som basisudgaven L2."
+    advarsel: "Tilbehørsliste i L2-W's egen datablok har TO rækker: (standardudstyr) OG separat (tilvalgt, inkl. autonom genopladningsfunktion). Samme to-niveau-mønster som basisudgaven L2."
+    advarsel_ordlyd: "Tilbehørsliste i L2-W's egen datablok har TO rækker: \"充电座: 标配\" (standardudstyr) OG separat \"充电桩（包含自主回充功能）: 选配\" (tilvalgt, inkl. autonom genopladningsfunktion). Samme to-niveau-mønster som basisudgaven L2."
   lidar: "ikke_oplyst"
   kameraer:
     vaerdi: "Stereokamera, 2 x 2,07 MP"
@@ -145,14 +163,16 @@ felter:
     vaerdi: "8-kernet CPU"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU\" i L2-W's egen datablok. Sidens hero-marketingkort nævner separat \"高达 86 TOPS\" for L2-familien generelt - IKKE gentaget i L2-W's egen datablok og derfor ikke medtaget her (se topnoten)."
+    advarsel: "I L2-W's egen datablok. Sidens hero-marketingkort nævner separat for L2-familien generelt - IKKE gentaget i L2-W's egen datablok og derfor ikke medtaget her (se topnoten)."
+    advarsel_ordlyd: "\"基础算力: 8 核高性能 CPU\" i L2-W's egen datablok. Sidens hero-marketingkort nævner separat \"高达 86 TOPS\" for L2-familien generelt - IKKE gentaget i L2-W's egen datablok og derfor ikke medtaget her (se topnoten)."
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
     vaerdi: "AI-forstærkningslæring bevægelsesstyring (standard); UWB (understøttet); autonom følgning (understøttet); intelligent undvigelse af forhindringer (understøttet); understøtter videreudvikling; OTA-opdatering; specialbevægelser (håndstand/stå på to ben/Thomas flair/baglæns saltomortale); grundbevægelser (stå/ligge/kravle fremad/spring fremad/spring opad/lås position)"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Kvalitativ liste fra L2-W's egen funktionsliste. Tilføjer \"托马斯\" (Thomas flair) til specialbevægelserne sammenlignet med basisudgavens liste."
+    advarsel: "Kvalitativ liste fra L2-W's egen funktionsliste. Tilføjer (Thomas flair) til specialbevægelserne sammenlignet med basisudgavens liste."
+    advarsel_ordlyd: "Kvalitativ liste fra L2-W's egen funktionsliste. Tilføjer \"托马斯\" (Thomas flair) til specialbevægelserne sammenlignet med basisudgavens liste."
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte:
@@ -163,6 +183,7 @@ felter:
       - "4G-kortplads x1"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽\" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 4G-kortplads) i L2-W's egen datablok - identisk med basisudgaven L2."
+    advarsel: "(funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 4G-kortplads) i L2-W's egen datablok - identisk med basisudgaven L2."
+    advarsel_ordlyd: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽\" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 4G-kortplads) i L2-W's egen datablok - identisk med basisudgaven L2."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"

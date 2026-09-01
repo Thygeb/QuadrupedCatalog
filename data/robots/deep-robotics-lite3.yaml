@@ -18,10 +18,12 @@ anvendelse:
   vaerdi:
     - "forbruger_uddannelse"
     - "forskning_udvikling"
-  citat: "Uddannelse og videnskabelig forskning (教育科研)"
+  citat: "Uddannelse og videnskabelig forskning"
+  citat_ordlyd: "Uddannelse og videnskabelig forskning (教育科研)"
   kilde: "https://www.deeprobotics.cn/robot/index/product1.html"
   hentet: "2026-08-19"
-  note: "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får \"教育科研\" (uddannelse og videnskabelig forskning), X20 og X30 får \"行业应用\" (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
+  note: "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får (uddannelse og videnskabelig forskning), X20 og X30 får (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
+  note_ordlyd: "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får \"教育科研\" (uddannelse og videnskabelig forskning), X20 og X30 får \"行业应用\" (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
 billede:
   fil: "fotos/fabrikant/deep-robotics-lite3.jpg"
   ophav: "fabrikant"

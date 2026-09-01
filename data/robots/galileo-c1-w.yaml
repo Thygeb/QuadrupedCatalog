@@ -6,14 +6,24 @@ producentby: "Tianjin"
 status: "i_produktion"
 fremdrift: "ben_hjul"
 noter:
-  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2.5h～5h\" (driftstid) har intet kg-tal."
+  - "DRIFTSTID UDEN LASTBETINGELSE: (driftstid) har intet kg-tal."
   - "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1 - fra den delte funktionsside (side 6) hhv. kombinationen af tabelrække + funktionsside."
+noter_ordlyd:
+  - "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2.5h～5h\" (driftstid) har intet kg-tal."
+  - ""
 anvendelse:
   vaerdi:
     - "sikkerhed_overvaagning"
     - "forsvar_beredskab"
     - "inspektion"
   citat:
+    - "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+    - "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+    - "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+    - "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+    - "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+    - "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  citat_ordlyd:
     - "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
     - "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
     - "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
@@ -38,7 +48,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"重量: 19kg\" i \"本体规格\" - manualens side 7 (【C1-W工业小型】-tabellen)."
+    advarsel: "I - manualens side 7 (C1-W-tabellen)."
+    advarsel_ordlyd: "\"重量: 19kg\" i \"本体规格\" - manualens side 7 (【C1-W工业小型】-tabellen)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 660
@@ -46,7 +57,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"站立尺寸（长×宽×高）单位mm: 660*320*560\" (stående mål, længde×bredde×højde, i mm)."
+    advarsel: "Stående mål, længde×bredde×højde, i mm."
+    advarsel_ordlyd: "\"站立尺寸（长×宽×高）单位mm: 660*320*560\" (stående mål, længde×bredde×højde, i mm)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 320
@@ -69,7 +81,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"有效负载: 8kg\" (effektiv nyttelast) - samme fortolkning som hos C1. Identisk tal med den gående C1."
+    advarsel: "(effektiv nyttelast) - samme fortolkning som hos C1. Identisk tal med den gående C1."
+    advarsel_ordlyd: "\"有效负载: 8kg\" (effektiv nyttelast) - samme fortolkning som hos C1. Identisk tal med den gående C1."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende:
     vaerdi: 15
@@ -77,7 +90,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"最大负载: 15kg\" (maks. last) - identisk tal med den gående C1."
+    advarsel: "(maks. last) - identisk tal med den gående C1."
+    advarsel_ordlyd: "\"最大负载: 15kg\" (maks. last) - identisk tal med den gående C1."
     advarsel_klasse: "gyldighed"
   hastighed:
     min: 0
@@ -86,7 +100,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"运动速度: 0～2.5m/s\" - LAVERE end den gående C1's 3.7m/s. Bemærk: hos Yuejia er mønsteret omvendt (hjul-variant hurtigere). De to producenter kan ikke sammenlignes på dette punkt uden at kende deres respektive hjuldesign."
+    advarsel: "LAVERE end den gående C1's 3.7m/s. Bemærk: hos Yuejia er mønsteret omvendt (hjul-variant hurtigere). De to producenter kan ikke sammenlignes på dette punkt uden at kende deres respektive hjuldesign."
+    advarsel_ordlyd: "\"运动速度: 0～2.5m/s\" - LAVERE end den gående C1's 3.7m/s. Bemærk: hos Yuejia er mønsteret omvendt (hjul-variant hurtigere). De to producenter kan ikke sammenlignes på dette punkt uden at kende deres respektive hjuldesign."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 40
@@ -95,7 +110,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"可攀爬斜坡最大坡度: ±40°\" (maks. klatrbar skråningsvinkel) - identisk med den gående C1."
+    advarsel: "(maks. klatrbar skråningsvinkel) - identisk med den gående C1."
+    advarsel_ordlyd: "\"可攀爬斜坡最大坡度: ±40°\" (maks. klatrbar skråningsvinkel) - identisk med den gående C1."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 70
@@ -103,7 +119,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"可攀爬高度: 正向高度差70cm高台\" (klatrehøjde: fremadrettet højdeforskel 70cm platform) - se topnoten om terminologi-forskellen mellem C1 og C1-W."
+    advarsel: "(klatrehøjde: fremadrettet højdeforskel 70cm platform) - se topnoten om terminologi-forskellen mellem C1 og C1-W."
+    advarsel_ordlyd: "\"可攀爬高度: 正向高度差70cm高台\" (klatrehøjde: fremadrettet højdeforskel 70cm platform) - se topnoten om terminologi-forskellen mellem C1 og C1-W."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
@@ -117,7 +134,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"工作环境温度: -20℃~55℃（-40℃可定制）\" (driftstemperatur) - -40℃ er en tilvalgsgrænse, se C1's tilsvarende note."
+    advarsel: "(driftstemperatur) - -40℃ er en tilvalgsgrænse, se C1's tilsvarende note."
+    advarsel_ordlyd: "\"工作环境温度: -20℃~55℃（-40℃可定制）\" (driftstemperatur) - -40℃ er en tilvalgsgrænse, se C1's tilsvarende note."
     advarsel_klasse: "uddybning"
   temp_maks:
     vaerdi: 55
@@ -131,7 +149,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"电池容量: 15AH，720Wh\" (batterikapacitet) - identisk med den gående C1. 电池额定电压 (nominel batterispænding) 48V."
+    advarsel: "(batterikapacitet) - identisk med den gående C1. (nominel batterispænding) 48V."
+    advarsel_ordlyd: "\"电池容量: 15AH，720Wh\" (batterikapacitet) - identisk med den gående C1. 电池额定电压 (nominel batterispænding) 48V."
     advarsel_klasse: "uddybning"
   driftstid:
     min: 2.5
@@ -140,7 +159,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"续航时间: 2.5h～5h\" (driftstid) - længere end den gående C1's 3.5-6h nedre grænse, kortere øvre grænse. Separat \"续航里程: ＞15km\" (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel: "(driftstid) - længere end den gående C1's 3.5-6h nedre grænse, kortere øvre grænse. Separat (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel_ordlyd: "\"续航时间: 2.5h～5h\" (driftstid) - længere end den gående C1's 3.5-6h nedre grænse, kortere øvre grænse. Separat \"续航里程: ＞15km\" (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap:
@@ -155,7 +175,8 @@ felter:
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "\"自主充电功能: 支持\" (autonom opladningsfunktion: understøttet) kombineret med den delte funktionssides ladepile-docking, samme kilde som hos C1."
+    advarsel: "(autonom opladningsfunktion: understøttet) kombineret med den delte funktionssides ladepile-docking, samme kilde som hos C1."
+    advarsel_ordlyd: "\"自主充电功能: 支持\" (autonom opladningsfunktion: understøttet) kombineret med den delte funktionssides ladepile-docking, samme kilde som hos C1."
   lidar:
     vaerdi: "LiDAR, detektionsrækkevidde 40m - ingen model/type oplyst"
     kilde: "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf"

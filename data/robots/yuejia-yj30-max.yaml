@@ -6,6 +6,9 @@ producentby: "Shenzhen"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
+  - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i (grundparametre)-tabellen."
+noter_ordlyd:
   - "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
   - "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\" (grundparametre)-tabellen."
 anvendelse:
@@ -15,12 +18,17 @@ anvendelse:
     - "forsvar_beredskab"
     - "industri"
   citat:
+    - "。"
+    - "Industri og sikkerhedsinspektion"
+    - "Politipatrulje"
+  citat_ordlyd:
     - "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。"
     - "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
     - "Politipatrulje (警用巡逻)"
   kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
   hentet: "2026-08-25"
-  note: "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
+  note: "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: (industriinspektion) -> inspektion; (brandberedskab) -> forsvar og beredskab; (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): (politipatrulje) -> sikkerhed og overvågning. Kortet (el-inspektion) er udeladt, da det kun gentager inspektion."
+  note_ordlyd: "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
 billede:
   fil: "fotos/fabrikant/yuejia-yj30-max.png"
   ophav: "fabrikant"
@@ -33,14 +41,16 @@ felter:
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"重量: 45kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
+    advarsel: "(vægt) i (grundparametre)-tabellen."
+    advarsel_ordlyd: "\"重量: 45kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 896
     enhed: "mm"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"站立尺寸: 896x635x530mm\" (stående mål)."
+    advarsel: "Stående mål."
+    advarsel_ordlyd: "\"站立尺寸: 896x635x530mm\" (stående mål)."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 635
@@ -58,28 +68,32 @@ felter:
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"动态负载: 30kg\" (dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
+    advarsel: "(dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
+    advarsel_ordlyd: "\"动态负载: 30kg\" (dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 50
     enhed: "kg"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"静态负载: 50kg\" (statisk/stående last) - eksplicit navngivet felt."
+    advarsel: "(statisk/stående last) - eksplicit navngivet felt."
+    advarsel_ordlyd: "\"静态负载: 50kg\" (statisk/stående last) - eksplicit navngivet felt."
     advarsel_klasse: "uddybning"
   hastighed:
     vaerdi: 3
     enhed: "m/s"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"速度: 3m/s\" (hastighed) - ét tal, ikke et interval."
+    advarsel: "(hastighed) - ét tal, ikke et interval."
+    advarsel_ordlyd: "\"速度: 3m/s\" (hastighed) - ét tal, ikke et interval."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 50
     enhed: "°"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding (se topnote)."
+    advarsel: "Egen kolonne uden DOF-sammenblanding (se topnote)."
+    advarsel_ordlyd: "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding (se topnote)."
     advarsel_klasse: "uddybning"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -87,7 +101,8 @@ felter:
     enhed: "cm"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"攀爬台阶高度: 30cm\" (klatretrin-højde)."
+    advarsel: "Klatretrin-højde."
+    advarsel_ordlyd: "\"攀爬台阶高度: 30cm\" (klatretrin-højde)."
     advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: "IP67"
@@ -102,7 +117,8 @@ felter:
     enhed: "t"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"续航: 3-4h\". Ingen lastbetingelse (kg) oplyst."
+    advarsel: "Ingen lastbetingelse (kg) oplyst."
+    advarsel_ordlyd: "\"续航: 3-4h\". Ingen lastbetingelse (kg) oplyst."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -117,7 +133,8 @@ felter:
     vaerdi: "WIFI (ja); 4G&5G (ja); Billedtransmission (ja); Stemme (ja); Navigation (ja)"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "Fem ja/nej-rækker fra \"基础参数\"-tabellen - én række færre end YJ30's tabel (intet \"跟随\"/følge-punkt her)."
+    advarsel: "Fem ja/nej-rækker fra tabellen - én række færre end YJ30's tabel (intet / følge-punkt her)."
+    advarsel_ordlyd: "Fem ja/nej-rækker fra \"基础参数\"-tabellen - én række færre end YJ30's tabel (intet \"跟随\"/følge-punkt her)."
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte: "ikke_oplyst"
@@ -126,6 +143,7 @@ felter:
     enhed: "CNY"
     kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html"
     hentet: "2026-08-25"
-    advarsel: "\"￥288000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
+    advarsel: "\"￥288000.00\" Ved siden af en (køb nu)-knap."
+    advarsel_ordlyd: "\"￥288000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
     advarsel_klasse: "uddybning"
   ce_oplyst: "ikke_oplyst"
