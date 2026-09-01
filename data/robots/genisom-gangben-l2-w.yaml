@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-26"
-  alt: "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+    en: "GENISOM Gangben L2, wheeled-leg quadruped robot, studio photo on a white background"
   note: "Delt foto med genisom-gangben-l2.yaml (basisudgaven): L2-W findes kun som fane-skift på L2's egen side og har ingen selvstændig produktside, så producenten har heller ikke noget separat produktfoto for netop denne variant - samme billed-URL som den eksisterende L2-post."
 felter:
   egenvaegt:

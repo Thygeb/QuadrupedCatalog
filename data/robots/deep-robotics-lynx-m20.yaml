@@ -25,7 +25,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://deeprobotics.cn/en/index/lynx.html"
   hentet: "2026-08-19"
-  alt: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
+    en: "DEEP Robotics Lynx-series wheeled-leg robot, studio photo on a white background"
   note: "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
 felter:
   egenvaegt:

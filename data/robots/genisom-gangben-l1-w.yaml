@@ -25,7 +25,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.genisomai.com/product-robot/L1-W"
   hentet: "2026-08-26"
-  alt: "GENISOM Gangben L1-W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "GENISOM Gangben L1-W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+    en: "GENISOM Gangben L1-W, wheeled-leg quadruped robot, studio photo on a white background"
 felter:
   egenvaegt:
     vaerdi: 22

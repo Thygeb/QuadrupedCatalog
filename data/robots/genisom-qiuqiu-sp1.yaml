@@ -20,7 +20,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.genisomai.com/product-robot/sp1"
   hentet: "2026-08-26"
-  alt: "GENISOM Qiuqiu SP1, eksplosionssikret hjulbenet inspektionsrobot, studiofoto paa hvid baggrund"
+  alt:
+    da: "GENISOM Qiuqiu SP1, eksplosionssikret hjulbenet inspektionsrobot, studiofoto paa hvid baggrund"
+    en: "GENISOM Qiuqiu SP1, explosion-proof wheeled-leg inspection robot, studio photo on a white background"
 felter:
   egenvaegt:
     vaerdi: 100

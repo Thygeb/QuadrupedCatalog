@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://bhairavrobotics.com/wp-content/uploads/sites/197/2025/08/Shvana-page-pic1.png"
   hentet: "2026-08-26"
-  alt: "Bhairav Robotics Shvana, staaende firbenet robot, studiofoto paa sort baggrund"
+  alt:
+    da: "Bhairav Robotics Shvana, staaende firbenet robot, studiofoto paa sort baggrund"
+    en: "Bhairav Robotics Shvana, standing quadruped robot, studio photo on a black background"
 felter:
   egenvaegt:
     vaerdi: 25

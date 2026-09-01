@@ -30,7 +30,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.genisomai.com/product-robot/M1"
   hentet: "2026-08-26"
-  alt: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+    en: "GENISOM Tongchui M1, wheeled-leg quadruped robot, studio photo on a white background"
   note: "Delt foto: M1's produktside viser samme model på tværs af M1/M1 Pro/M1 Ultra-fanebladet (kun ét kort-thumbnail-billede fundet for hele familien) - Pro og Ultra får samme foto (se genisom-tongchui-m1-pro.yaml og genisom-tongchui-m1-ultra.yaml)."
 felter:
   egenvaegt:

@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.magiclabglobal.com/products/magicdog-y1/"
   hentet: "2026-08-19"
-  alt: "MagicLab MagicDog-Y1 fotograferet paa klippegrund, med maerkningen Y1 paa bagbenene"
+  alt:
+    da: "MagicLab MagicDog-Y1 fotograferet paa klippegrund, med maerkningen Y1 paa bagbenene"
+    en: "MagicLab MagicDog-Y1 photographed on rocky ground, with the Y1 marking on its hind legs"
 felter:
   egenvaegt:
     vaerdi: 70

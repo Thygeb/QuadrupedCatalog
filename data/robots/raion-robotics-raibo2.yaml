@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://raionrobotics.com/en/product/Raibo2"
   hentet: "2026-08-24"
-  alt: "Raion Robotics RAIBO2 udendoers paa asfalt"
+  alt:
+    da: "Raion Robotics RAIBO2 udendoers paa asfalt"
+    en: "Raion Robotics RAIBO2 outdoors on asphalt"
   note: "Hentet direkte fra producentens produktside 24. aug 2026, ikke fra det eksisterende billedarkiv, som ikke havde en mappe for denne robot."
 felter:
   egenvaegt:

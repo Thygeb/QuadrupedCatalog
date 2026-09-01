@@ -24,7 +24,15 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.deeprobotics.cn/robot/index/lynxs10.html"
   hentet: "2026-08-19"
-  alt: "DEEP Robotics Lynx S10 kravler over vandfyldte klippetrin"
+  alt:
+    da: "DEEP Robotics Lynx S10 kravler over vandfyldte klippetrin"
+    # spor/alt (1. sep 2026): den danske tekst ovenfor stemmer IKKE med billedet,
+    # efterproevet med Read-vaerktoejet - filen viser robotten paa en bunke
+    # traeplanker inde i en forladt/nedrivningsklar bygning, intet vand er synligt.
+    # Den engelske tekst beskriver derfor det, billedet faktisk viser, jf. reglen om
+    # aldrig at opfinde noget, man ikke kan se. Afvigelsen er rapporteret, ikke rettet
+    # stiltiende - den danske tekst er uden for dette spors filejerskab.
+    en: "DEEP Robotics Lynx S10 climbing over stacked wooden planks inside a derelict building"
   note: "Billedport 24. aug 2026: erstattet. Det oprindelige billede var et LiDAR-punktskysbillede fra app'en, ikke et foto af robotten. Nyt billede (s10_3.jpg) er fra samme producentside, efterprøvet mod media/robotbilleder/deep-robotics-lynx-s10/MANIFEST.tsv."
 felter:
   egenvaegt:

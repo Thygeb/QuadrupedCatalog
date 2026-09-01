@@ -27,7 +27,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.deeprobotics.cn/en/wap/product1.html"
   hentet: "2026-08-24"
-  alt: "DEEP Robotics Lite3, hvidt studiofoto/render fra siden af"
+  alt:
+    da: "DEEP Robotics Lite3, hvidt studiofoto/render fra siden af"
+    en: "DEEP Robotics Lite3, white studio photo/render from the side"
 felter:
   egenvaegt:
     vaerdi: 12

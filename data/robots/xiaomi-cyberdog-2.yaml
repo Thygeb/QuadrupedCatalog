@@ -17,7 +17,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://www.mi.com/cyberdog2"
   hentet: "2026-08-19"
-  alt: "Xiaomi CyberDog 2, studiofoto paa graa baggrund"
+  alt:
+    da: "Xiaomi CyberDog 2, studiofoto paa graa baggrund"
+    en: "Xiaomi CyberDog 2, studio photo on a grey background"
 felter:
   egenvaegt:
     vaerdi: 8.9

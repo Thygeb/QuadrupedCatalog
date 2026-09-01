@@ -26,7 +26,9 @@ billede:
   ophav: "fabrikant"
   kilde: "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html"
   hentet: "2026-08-26"
-  alt: "Yuejia Lingdong YJ30 W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+  alt:
+    da: "Yuejia Lingdong YJ30 W, hjulbenet firbenet robot, studiofoto paa hvid baggrund"
+    en: "Yuejia Lingdong YJ30 W, wheeled-leg quadruped robot, studio photo on a white background"
 felter:
   egenvaegt:
     vaerdi: 20
