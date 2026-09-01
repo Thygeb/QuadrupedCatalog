@@ -98,7 +98,7 @@ Fælden, frysen lukker, er at et designfund kan **ligne** en almindelig fejl.
 Samme dags `FUND-uiux.md` er eksemplet: afmærkningsgul som tekstfarve på lys
 bund giver **1,38:1** mod WCAG's krav på 4,5 — efterregnet uafhængigt af to
 parter. Det ser ud som en fejl, der bare skal rettes. Men paletten er låst af
-D15, så rettelsen kan ikke være "vælg en anden gul"; den må være en
+TYPESKILT, så rettelsen kan ikke være "vælg en anden gul"; den må være en
 systemregel om, **hvor `--accent` overhovedet må bruges som forgrund**. Den
 regel hører i planen, ikke i et hastespor.
 
@@ -118,7 +118,7 @@ succeskriterier — og de blev behandlet ens i alt arbejde før 1. sep.
 
 **Skillen respekterer selv vores låse**, så den kan bruges uden værn mod den:
 *"The brief wins. Honor pinned aesthetics, eras, materials, fonts, and
-palettes."* D15 og L40 står uændret.
+palettes."* TYPESKILT står uændret som gældende retning.
 
 **Tabellen nedenfor er læst fra `SKILL.md` på disken, ikke fra hukommelsen** —
 den har været forkert før, og det kostede en `Unknown skill` og et spor uden
@@ -203,11 +203,30 @@ begrænsninger:**
 **To afsnit kolliderer med en truffet beslutning, ikke med en regel:**
 
 - **Skrift- og paletteråd** (Geist, Satoshi, "one accent color", gradienter):
-  **D15 låste paletten og skrifterne** — en ekstern anmelder anbefalede netop
-  dem som forbedring, altså er de ikke problemet. Varier dem ikke.
-- **Glasmorfisme, grain/noise, parallax-stakke, inerti-scroll:** L40 valgte
-  INSTRUMENT — *færre streger, strammere gitter, hårdere typografi*. De to peger
-  modsat.
+  paletten og skrifterne er **låst af TYPESKILT** — en ekstern anmelder
+  anbefalede netop dem som forbedring, altså er de ikke problemet. Varier dem
+  ikke.
+- **Glasmorfisme, grain/noise, parallax-stakke, inerti-scroll:** TYPESKILT er
+  en stanset plade, ikke en overflade med dybde. De to peger modsat.
+
+> **RETTET 1. sep 2026 — og fejlen kostede syv briefs samme dag.**
+> Her stod, at **D15** låste paletten, og at **L40** valgte **INSTRUMENT**.
+> **Begge dele er forældede.** STATUS.md's **L54** (31. aug 2026) siger ordret:
+> *"HELE UI'ET REDESIGNES, og både D15 og L40 er omgjort… JPK fik D15 og L40
+> vist og valgte 'alt falder — palette, skrifter, retning'… de gamle verdener
+> (VITRINE/INSTRUMENT/REGISTER, retning-lys) er **anti-reference**, ikke
+> genbrug."*
+>
+> **Gældende retning er TYPESKILT.** Listen over farver og skrifter er stadig
+> rigtig — kun attributionen var forkert, så ingen agent byggede noget galt.
+> Men **INSTRUMENT må aldrig citeres som pejlemærke i et brief**: det er
+> udtrykkeligt det, en flade IKKE skal ligne.
+>
+> Fejlen blev fundet af `spor/shape`, som slog efter i STATUS.md i stedet for
+> at tro på denne fil. **Det er præcis Å55-fælden**, og den ramte her i sin
+> værste form: orkestratoren læste sin egen forældede note og gentog den i
+> syv briefs på én dag. Rettelsen står som et citat med kilde, så den næste
+> kan efterprøve den frem for at stole på mig.
 
 **Hvad der SÅ er brugbart, og det er ikke lidt.** `redesign-skill`s tjekliste
 bærer råd, der passer præcis på en datatung side og ikke rører nogen beslutning:
@@ -221,9 +240,9 @@ og aktiv/trykket-tilstand på knapper.
 | Underskill | Her? |
 |---|---|
 | `redesign-skill` | **Ja — som tjekliste**, med de fire forbudte afsnit sprunget over. Bedst til et revisionspas på en bygget flade |
-| `taste-skill` (v2) | **Kun forsiden**, og kun hvor den ikke rører palette, skrift eller INSTRUMENT-retningen |
+| `taste-skill` (v2) | **Kun forsiden**, og kun hvor den ikke rører palette, skrift eller TYPESKILT-retningen |
 | `output-skill` | **Måske.** Handler ikke om design: den forbyder afkortet kode og pladsholdere. Kan være værd at give et Sonnet-spor, der skal levere komplet kode |
-| `brutalist-skill` · `minimalist-skill` · `soft-skill` | **Nej.** Stilvarianter — D15 låste stilen |
+| `brutalist-skill` · `minimalist-skill` · `soft-skill` | **Nej.** Stilvarianter — TYPESKILT låste stilen |
 | `brandkit` · `imagegen-frontend-web` · `imagegen-frontend-mobile` · `image-to-code` | **Nej.** De genererer billeder. Hård begrænsning 4 |
 | `gpt-tasteskill` · `stitch-skill` | **Nej.** Skrevet til GPT/Codex og Google Stitch |
 | `taste-skill-v1` | Nej, arkiv |
