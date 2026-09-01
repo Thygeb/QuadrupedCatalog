@@ -574,6 +574,44 @@ C:/Users/thyge/.claude/plugins/marketplaces/claude-plugins-official/plugins/fron
 
 Kravet om at **skrive i rapporten, at den blev læst fra disk**, gælder uændret.
 
+## Enhver måling, der bærer en konklusion, skal have en kontrol
+
+**Sat 1. sep 2026 efter en dag med ni fletbeskeder, der hver især måtte
+optegne en fejl, orkestratoren selv havde lavet.** Alle ni havde samme form:
+en konklusion draget på et `grep`, en sti eller en kommando, som ingen havde
+efterprøvet.
+
+**Reglen er én linje: skriv, hvad tallet skal være, hvis alt er som forventet
+— FØR du læser det.**
+
+```
+echo -n "kort--seneste (forventer 9): "; grep -o 'kort--seneste' <fil> | wc -l
+```
+
+Koster ingenting. Fangede samme dag en forkert sti (`dist/da/katalog/` findes
+ikke — siden ligger i `dist/da/robotter/`) og et forkert mønster
+(`<td class="prod-navne">[^<]` gav 0 mod 25, fordi cellen begynder med `<a`).
+Uden kontrollen ser begge ud som gyldige nul-resultater.
+
+**Hvorfor `fejljagt` ikke dækker det:** den skill udløses, når noget ser
+forkert ud. Men **et forkert grep giver typisk et fuldstændig plausibelt tal** —
+0, eller 99, eller 504. Der er intet at undre sig over, så fejljagt fyrer
+aldrig. Kontrollen er det eneste, der gør fejlen synlig i samme øjeblik.
+
+**Fire konkrete fælder, alle målt samme dag:**
+
+| Målingen | Hvad den i virkeligheden målte |
+|---|---|
+| `grep -c` på en **diff** | Hele filen, ikke ændringen. Uden `^[-+]` gav den 99 kontekstlinjer |
+| Råt `grep -o '{'` i CSS | Også klammer i **kommentarer** — 504 mod motorens 493 |
+| `grep -o 'padding:'` | Kun **shorthand**. Longhand vendte konklusionen på hovedet |
+| `git -C` + `2>/dev/null` | Ingenting. Git fejlede på MSYS-stien, og fejlen var sendt i skraldespanden |
+
+**Og det gælder mine egne noter lige så hårdt som mine kommandoer.** Denne
+fils påstand om, at D15 og L40 var gældende, var forældet i to dage og nåede
+syv briefs, fordi ingen kontrollerede den mod STATUS.md. **Et citat er et tal**
+— se `brief`-skillens punkt 10.
+
 ## Værktøjer på denne maskine
 
 Målt 19. aug 2026. Git Bash har **ingen** af dem på PATH:
