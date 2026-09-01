@@ -584,7 +584,7 @@ function produktside(ctx, kilder) {
     : `<p class="t-lille">${esc(T(i18n, 'produktside_ingen'))}</p>`;
   return `<section class="sektion produktside" aria-labelledby="produktside-h">
 <div class="sektion-hoved"><h2 class="etiket etiket--blaek" id="produktside-h">${esc(T(i18n, 'produktside_titel'))}</h2></div>
-<p class="t-broed maal">${esc(T(i18n, 'produktside_forklaring'))}</p>
+<p class="t-lille">${esc(T(i18n, 'produktside_forklaring'))}</p>
 ${krop}
 </section>`;
 }
@@ -710,15 +710,15 @@ function tilstandsMaerke(t) {
 
 /**
  * Skiltets maerkelinje: ÉN raekke stansede maerker under robotnavnet, praecis
- * som paa comp'ens typeskilt - status, vaegtklasse, producentens egne
- * anvendelseskategorier og CE-oplysningen.
+ * som paa comp'ens typeskilt - status, vaegtklasse og producentens egne
+ * anvendelseskategorier.
  *
- * CE staar med her OG som sin egen raekke i skemaet nedenfor (skemaRaekke()).
- * JPK fjernede 1. sep 2026 den tredje visning - en separat "EU"-sektion, der
- * gentog praecis samme vaerdi - fordi skemaet allerede baerer den. Maerket
- * her er stadig sidens FOERSTE demonstration af, at "ikke oplyst" er et svar,
- * man kan taelle, og skema-raekken baerer nu ogsaa forbeholdssaetningen
- * (eu_forklaring), som den tidligere sektion ellers alene stod for.
+ * CE staar IKKE her. JPK fjernede den 1. sep 2026 (tredje trin i samme
+ * oprydning som eu-blok-sektionen ovenfor): `ce_oplyst` staar ikke_oplyst paa
+ * 73 af 77 robotter, og en fast celle paa sidens dyreste plads, der er et
+ * hul 73 gange ud af 77, laerer ingen noget - samme regel som allerede
+ * holdt CE ude af STRIBE_FELTER ovenfor. CE staar stadig i skemaet
+ * (skemaRaekke()), med forbeholdssaetningen (eu_forklaring) paa raekken.
  */
 function skiltLinje(ctx) {
   const { i18n, robot } = ctx;
@@ -740,16 +740,6 @@ function skiltLinje(ctx) {
   }
 
   punkter.push(...anvendelseMaerker(ctx));
-
-  // CE: de tre tilstande, tegnet forskelligt. `undefined` og "ikke oplyst" er
-  // det samme svar udadtil - producenten siger det ikke.
-  const ce = robot.felter?.ce_oplyst;
-  const raa = (ce && typeof ce === 'object') ? ce.vaerdi : ce;
-  const t = raa === true ? 'ja' : raa === false ? 'nej' : (tilstandAf(raa) ?? 'ikke_oplyst');
-  const tom = t === 'ikke_oplyst';
-  punkter.push(`<li class="maerke maerke--ce${tom ? ' maerke--tom' : ''}">`
-    + `${tilstandsMaerke(t)}<span class="maerke__navn">${esc(T(i18n, 'felt_ce_oplyst'))}:</span>`
-    + `${esc(t === 'ja' ? T(i18n, 'ja') : TD(i18n, 'tilstand_' + t, t))}</li>`);
 
   return `<ul class="maerker skiltlinje">${punkter.join('')}</ul>`;
 }

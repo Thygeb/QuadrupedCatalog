@@ -1750,6 +1750,29 @@ td .v{font-size:15px}
   .typeskilt .skema-gruppenavn th{padding-top:0}
 }
 
+/* --- robotsiden (spor/robotside) --------------------------------------------
+   JPK punkt 2, 1. sep 2026: "'The manufacturer's own page' - goer denne del
+   mindre." Sektionen arvede .sektion{padding-top:var(--r8)} (64px) - samme
+   lodrette vaegt som de STORE sektioner (skema, anvendelse) - selvom den kun
+   baerer én kildehenvisning nederst paa siden. Linket og adressen forbliver
+   uaendrede og laesbare; kun luften omkring dem krymper.
+
+   Maalt med Playwright ved 1440 px, dist/en/robotter/unitree-aliengo/:
+   FOER 237,65 px (padding-top 64 + overskrift 33,75 + to-linjers forklaring
+   54,4 + link 46+12 margin + adresse 19,5+8 margin). EFTER disse tre regler
+   plus den korte tekst (se data/i18n/*.json's produktside_forklaring, som
+   samtidig fjerner dobbeltfoeringen af forhandler-forbeholdet, punkt 3 fund
+   b): maal selv, tallet staar i commit-beskeden og agentrapporten.
+
+   Specificiteten `.typeskilt .produktside …` er BEVIDST hoejere end
+   generator.css' `.produktside .videre{margin-top:var(--r3)}` og
+   `.produktside-url{margin-top:8px}` (linje 1050-1051 dér) - denne fil maa
+   ikke aendres (se CLAUDE.md's filejerskab), saa vaegten flyttes ved at
+   VINDE cascaden, ikke ved at rette kilden. */
+.typeskilt .produktside{padding-top:var(--r5)}
+.typeskilt .produktside .videre{margin-top:var(--r2)}
+.typeskilt .produktside .produktside-url{margin-top:var(--r1)}
+
 /* --- filterskala og pris (spor/filter) --------------------------------------
    Skalaen til nyttelast (L65c) og prisen omregnet til USD (L66).
 
