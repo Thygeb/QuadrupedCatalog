@@ -223,3 +223,6 @@ felter:
     advarsel_ordlyd: "\"功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1\" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat \"15 大标准硬件接口全开放\" - IKKE brugt som feltværdi."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

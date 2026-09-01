@@ -172,3 +172,6 @@ felter:
     hentet: "2026-08-19"
     advarsel: "shop.unitree.com viser price:10000000 (= 100.000 USD) - nøjagtig samme beløb som A2 - sammen med teksten Contact us for the real price. Det er en pladsholder og føres ikke som pris."
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

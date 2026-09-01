@@ -108,3 +108,6 @@ felter:
     advarsel: "WiFi og Bluetooth er forbindelser, ikke fysiske porte. Feltet er talt som udfyldt, fordi producenten selv fører dem som interfaceliste."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

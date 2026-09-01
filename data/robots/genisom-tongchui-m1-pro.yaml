@@ -219,3 +219,6 @@ felter:
     advarsel_ordlyd: "\"功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1\" i M1 Pro's egen datablok - identisk med basisudgaven (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat \"15 大标准硬件接口全开放\" - et højere, ikke-specificeret tal, IKKE brugt som feltværdi (samme uafklarede uoverensstemmelse som basisudgaven)."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

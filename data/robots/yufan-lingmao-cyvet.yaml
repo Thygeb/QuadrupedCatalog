@@ -196,3 +196,6 @@ felter:
     advarsel_ordlyd: "\"售价（含税）¥15,999\" (inkl. skat/moms). Samme side: \"部分功能及性能数据仍在持续开发和优化中... 涉及最终价格...以正式订单确认信息为准\" (nogle funktioner og ydelsestal er stadig under udvikling... det endelige beløb afgøres af den officielle ordrebekræftelse) - prisen er en aktuel listepris, ikke garanteret endelig."
     advarsel_klasse: "gyldighed"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

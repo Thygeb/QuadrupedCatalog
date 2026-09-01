@@ -78,3 +78,6 @@ felter:
     kilde: "https://www.anybotics.com/robotics/anymal-x/"
     hentet: "2026-08-19"
     advarsel: "Producenten skriver FCC and CE compliant og Complies with CE directives for industrial deployment. Feltet betyder OPLYST - ikke at vi har set en overensstemmelseserklæring. Se noten om ATEX/IECEx, som skemaet ikke har plads til."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

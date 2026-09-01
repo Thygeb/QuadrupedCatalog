@@ -194,3 +194,6 @@ felter:
     advarsel_ordlyd: "\"开放 Ethernet、USB 3.0/2.0、24V/12V 电源等 7 大标准硬件接口\" - producenten hævder 7 interfacetyper i alt, men \"等\" (\"osv.\") gør listen ikke-udtømmende; kun disse tre kategorier er navngivet eksplicit."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

@@ -179,3 +179,6 @@ felter:
     kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
     hentet: "2026-08-19"
     advarsel: "IKKE EFTERPRØVET TIL BUNDS: CE er ikke negativkontrolleret lige så grundigt som for andre poster i kataloget."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

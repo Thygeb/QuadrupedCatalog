@@ -157,3 +157,6 @@ felter:
     kilde: "https://www.weilan.com/en/en/alphadogc.html"
     hentet: "2026-08-19"
     advarsel: "Producentens eneste bemærkning om markeder er: Due to standards and regulations, some features may not be available in all countries or regions. Ingen CE, ingen anden overensstemmelsesmærkning."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

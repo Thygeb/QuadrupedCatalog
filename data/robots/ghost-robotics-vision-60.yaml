@@ -206,3 +206,6 @@ felter:
     kilde: "https://www.ghostrobotics.io/vision-60"
     hentet: "2026-08-19"
     advarsel: "Feltet på databladet hedder Export Control | HC og svarer US ECCN: EAR-99 | 8479.50.00.00 Industrial Robots (No ITAR restrictions). Producenten svarer på et AMERIKANSK eksportspørgsmål, ikke på et europæisk markedsadgangsspørgsmål. Ingen CE nævnt."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

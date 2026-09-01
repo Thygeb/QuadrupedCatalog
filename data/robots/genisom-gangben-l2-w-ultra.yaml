@@ -198,3 +198,6 @@ felter:
     advarsel_ordlyd: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽\" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 5G-kortplads) - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"

@@ -150,3 +150,6 @@ felter:
     kilde: "https://www.mi.com/cyberdog2/specs"
     hentet: "2026-08-19"
     advarsel: "DOKUMENTERET NEJ, ikke et hul. Producenten oplyser sine standarder, og CE er ikke iblandt dem: GB 17625.1-2012, GB 4943.1-2011, GB/T 9254.1-2021, batteri GB31241-2014 og UN38.3. Kun kinesiske GB-standarder. Om et dokumenteret nej TÆLLER MED i specifikationstætheden er ikke besluttet - det er et spørgsmål til JPK."
+  fcc_oplyst: "ikke_oplyst"
+  ul_oplyst: "ikke_oplyst"
+  ccc_oplyst: "ikke_oplyst"
