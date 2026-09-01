@@ -1,59 +1,63 @@
 ---
 name: Firbenede robotter (arbejdstitel — Å1 er ikke afgjort)
-description: Et kildeangivet opslagsværk, hvor maskinen står frit på hvid plade og hullerne i vores viden har lige så meget form som tallene.
+description: Et kildeangivet opslagsværk over verdens firbenede robotter, hvor hullerne i vores viden er lige så formgivet som tallene.
 colors:
-  bund: "#F2F3F5"
-  panel: "#FFFFFF"
-  panel-ro: "#F7F8FA"
-  tom: "#EDEFF2"
-  blaek: "#14161A"
-  blaek2: "#4A515C"
-  blaek3: "#5A626E"
-  accent: "#0D5C86"
-  accent-ro: "#E7F0F6"
-  linje: "#E3E5E9"
-  hegn: "#7C8695"
-  fod: "#14161A"
-  paafod: "#E6E9EE"
-  paafod2: "#B9C0CA"
+  bund: "#E8EBED"
+  panel: "#FAFBFB"
+  panel-ro: "#E8EBED"
+  tom: "#E8EBED"
+  blaek: "#22262A"
+  blaek2: "#545C63"
+  blaek3: "#5F686F"
+  stoev-blaek: "#5F686F"
+  accent: "#F2C400"
+  accent-ro: "#E8EBED"
+  linje: "#C6CCD1"
+  hegn: "#9AA3A9"
+  fod: "#22262A"
+  paafod: "#E8EBED"
+  paafod2: "#9AA3A9"
+  stans: "#FFFFFF"
 typography:
   display:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
+    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(33px, 6.2vw, 76px)"
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 0.98
     letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
+    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(27px, 3.6vw, 46px)"
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.03em"
   title:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
+    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(23px, 2.8vw, 34px)"
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.026em"
   body:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, system-ui, sans-serif"
+    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
     fontSize: "17px"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.55
     letterSpacing: "-0.006em"
   label:
-    fontFamily: "JetBrains Mono lokal, JetBrains Mono, Cascadia Mono, Consolas, monospace"
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "11.5px"
     fontWeight: 500
     lineHeight: 1.3
     letterSpacing: "0.15em"
   figur:
-    fontFamily: "JetBrains Mono lokal, JetBrains Mono, Cascadia Mono, Consolas, monospace"
-    fontSize: "29px"
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontWeight: 700
-    lineHeight: 1.2
-    letterSpacing: "-0.02em"
     fontFeature: "tnum 1"
+  manual:
+    fontFamily: "Literata, Georgia, Times New Roman, serif"
+    fontSize: "18px"
+    fontWeight: 400
+    lineHeight: 1.62
 rounded:
   rund: "12px"
   rund-ind: "8px"
@@ -69,12 +73,9 @@ spacing:
   r8: "64px"
   r9: "96px"
   kant: "clamp(16px, 3.4vw, 44px)"
+  maal: "68ch"
 components:
   panel:
-    backgroundColor: "{colors.panel}"
-    textColor: "{colors.blaek}"
-    rounded: "{rounded.rund}"
-  kort:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek}"
     rounded: "{rounded.rund}"
@@ -93,11 +94,16 @@ components:
     rounded: "{rounded.rund-ind}"
     padding: "0 16px"
     height: "46px"
+  nulstil:
+    backgroundColor: "transparent"
+    textColor: "{colors.blaek2}"
+    rounded: "{rounded.rund-ind}"
+    height: "44px"
   filter:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek2}"
     rounded: "{rounded.rund-ind}"
-    padding: "0 15px"
+    padding: "0 14px"
     height: "44px"
   filter-valgt:
     backgroundColor: "{colors.accent}"
@@ -106,21 +112,20 @@ components:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek}"
     rounded: "{rounded.rund-ind}"
-    padding: "12px 15px"
-    height: "50px"
+    padding: "9px 14px"
+    height: "44px"
   vaerdi-tal:
     textColor: "{colors.blaek}"
     typography: "{typography.figur}"
   vaerdi-ikke:
     backgroundColor: "{colors.tom}"
     textColor: "{colors.blaek3}"
-    rounded: "{rounded.rund-lille}"
-    padding: "3px 9px 4px"
+    rounded: "2px"
+    padding: "1px 5px"
   maerke:
     backgroundColor: "{colors.panel-ro}"
     textColor: "{colors.blaek2}"
     rounded: "{rounded.rund-lille}"
-    padding: "4px 10px 5px"
   billednote:
     backgroundColor: "{colors.fod}"
     textColor: "{colors.paafod}"
@@ -130,741 +135,459 @@ components:
 
 ## Overblik
 
-**Ledestjerne: "Udstillingssalen"**
+**Ledestjerne: "Den eloxerede plade"**
 
-Maskinen står frit på hvid plade, som en genstand i en montre. Fotografiet leder, og
-grænsefladen træder tilbage bag det. Navnet ligger under billedet, aldrig hen over det —
-et pålagt navnebånd dækkede i den forrige udgave 27,7 % af fotografiet og skar fødderne
-af på 27 af 41 kort. Med navnet under billedet er tallet 0,0 %.
+Systemet hedder i koden **TYPESKILT** (`spor/fundament`, 31. aug 2026, L54/L57) og
+afløste et lysere, blødere system ved navn ORBIT. Metaforen er en eloxeret
+metalplade med stansede felter — ikke ORBIT-lysets bløde papirpanel. Layouttesen,
+skrevet i kildens egne kommentarer: **"Ingen slagskygge findes på siden"** —
+materiale, ikke skeuomorft teater. Begge systemets skyggetokens (`--skygge`,
+`--skygge-loeft`) er sat til `none`; se *Dybde* nedenfor.
 
-Stemningen er redaktionel stilhed. Systemet ligner en velsat opslagsbog snarere end en
-produktside: typografien og hvidrummet bærer hierarkiet, kanter er hårfine, og der findes
-kun én accentfarve. Ingen komponent tiltrækker opmærksomhed til sig selv. Personligheden
-ligger i præcisionen — tabulære cifre, der flugter i kolonner, målte berøringsmål og
-huller, der er formgivet lige så omhyggeligt som tallene.
+Kataloget er i dag sprogroden. Forsiden med hero, yderpunkter og EU-fundet, som
+tidligere udgave af denne fil beskrev udførligt, **er slettet** (L72, 1. sep
+2026, `spor/oversigt`) — `dist/da/index.html` er nu selve katalogsiden (86 kort,
+0 forekomster af ordet "hero"). De komponentbeskrivelser hører historien til, se
+noten i bunden af *Komponenter*.
 
-Og hullerne er sagen. Halvdelen af nøgletallene mangler på en typisk robot, fordi
-producenten ikke oplyser dem. Et katalog, der skjuler det, lyver. Derfor bliver cellen
-stående med sit ikon og sin etiket, og kun figuren skiftes ud med et synligt hul — så
-læseren lærer positionerne og kan se på tværs af robotter **hvad** der mangler, ikke bare
-at noget mangler. Når en tom montre er lige så synlig som en fyldt, kan udstillingen
-citeres.
+Redaktionel stilhed er stadig princippet: én accentfarve, hårfine kanter,
+firkantede stansede felter frem for runde bløde flader. Personligheden ligger i
+præcisionen — tabulære cifre der flugter i kolonner, og huller der er formgivet
+lige så omhyggeligt som tallene. Halvdelen af nøgletallene mangler på en typisk
+robot, fordi producenten ikke oplyser dem; cellen bliver stående med sit ikon og
+sin etiket, og kun figuren skiftes ud med et synligt hul (hård begrænsning 5).
 
-Det gælder billedet lige så vel som tallet. Vi har ingen fotografier endnu — men vi har
-mål, på 33 af de 46 robotter, og fra dem tegnes en **måleplade**: en kasse i fælles
-målestok, der viser hvad vi ved om formen (længde og højde), uden at foregive at vide
-resten. En tom, ensfarvet plade gentaget 46 gange var ikke et bevidst hul; det var en
-fejlmeddelelse, der lignede en fejl. Se afsnittet *Måleplade* under Komponenter.
+**Migrationen er i gang, ikke færdig.** `system.css`s egne kommentarer siger det
+selv: paletten og topbaren (dækket) er lagt om til TYPESKILT; overskrifter og
+brødtekst venter på det, kildens kommentarer kalder **"runde 2"**. Det betyder,
+at store dele af sidens tekst i dag rammes af den GAMLE skriftfamilie, som ikke
+længere er selvhostet. Se *Typografi* og `## Konflikter` nedenfor — det er den
+femte, ikke-brief-listede konflikt, dette spor fandt.
 
 **Nøglekarakteristika:**
 
-- Fire flader, ingen mørk tilstand: bund, panel, roligt indfelt, hul
-- Én accentfarve, brugt til links, valgte filtre, kildemærker og oplyste ikoner
-- Fotografiet fylder toppen af kortet; navnet står under det. Mangler fotografiet, men
-  findes både længde og højde, tegnes en måleplade i stedet for en tom flade
+- Ét ord for systemet i koden: **eloxeret plade**, stansede felter, ingen skygge
+- Fire flader, ingen mørk tilstand i selve sitet: bund, panel, roligt indfelt, hul
+  — men fem forskellige tokennavne deler i dag værdien `#E8EBED`, se *Farver*
 - Fire datatilstande, der ikke deler skriftgrad, bogstavform, flade eller mærke
+  (uændret fra ORBIT — TYPESKILT rørte paletten, ikke denne regel)
 - Tal sættes i mono med tabulære cifre; sætninger sættes aldrig som tal
-- 10,5 px er skriftgulvet i hele systemet, også i den smalleste ombrydning
+- 10,5 px er skriftgulvet i hele systemet
 - Ingen købsknap, ingen prisforespørgsel, ingen "featured" — formen findes ikke
 
 ## Farver
 
-Paletten er næsten farveløs med vilje: fjorten toner, hvoraf tretten er grå eller sorte,
-så den ene blå kan bære al betydning. Alle kontrastforhold nedenfor er målt 21. aug 2026
-mod **begge** flader — hvidt panel og grå bund — fordi en tone, der kun er prøvet mod
-hvid, falder, så snart den flyttes ud på sidens grund.
+Paletten er næsten farveløs med vilje: seksten poletter i `:root`, hvoraf tretten
+peger på gråtoner eller sort og én bærer al farve (`--accent`, afmærkningsgul).
+**Kontrastforholdene nedenfor er genmålt af dette spor** med WCAG's egen
+relativitetsformel (ikke kopieret fra den forrige udgave af filen, som beskrev en
+anden palet) — og krydstjekket mod de tal, kildens egne kommentarer allerede
+angiver (fx `blaek`:`bund` 12,72, `accent` som baggrund for `blaek`-tekst 9,19):
+alle stemte.
 
 ### Primær
 
-- **Dyb havblå** (`#0D5C86`): links, valgte filtre, kildemærker, fokusring og ikoner i
-  celler, der **er** oplyst. Målt 7,26 : hvid og 6,54 : bund. Hvid tekst på den giver
-  7,26, hvilket gør den brugbar som fyldt knapflade.
-- **Dyb havblå, rolig** (`#E7F0F6`): accentens hvilende flade. Et valgt filter i hvile,
-  en EU-markering med et ja. Accenten på den giver 6,29.
+- **Afmærkningsgul** (`#F2C400`): links, valgte filtre, kildemærker, fokusring
+  og `.videre--stille`-knappens tekst. **Kun sikker som BAGGRUND**, med mørk
+  tekst ovenpå (`blaek` på `accent` = 9,19 : 1). **Som forgrund er den ikke
+  sikker** — se konfliktafsnittet; det er samme fund som L70 i CLAUDE.md,
+  genmålt uafhængigt her.
+- **Afmærkningsgul, rolig** (`--accent-ro`): peger i koden på samme værdi som
+  `--bund` (`#E8EBED`) — se *Farvedubletter* i `## Konflikter`.
 
 ### Neutral
 
-- **Blæk** (`#14161A`): al primær tekst, overskrifter, tabelhovedets understregning og
-  den eneste knapflade på sitet. 18,11 : hvid og 16,31 : bund.
-- **Blæk 2** (`#4A515C`): brødtekst, feltnavne, sekundære etiketter. 8,01 og 7,21.
-- **Blæk 3** (`#5A626E`): mikroskrift, versaletiketter, kildelisten, hullets ord.
-  6,16 og 5,55. Den lyseste tone, systemet tillader til tekst.
-- **Hegn** (`#7C8695`): **betydningsbærende** kant — stiplet hul, inputkant, ikon i en
-  celle uden data. 3,68 : hvid, 3,32 : bund, 3,20 : hulfelt. Aldrig tekst.
-- **Linje** (`#E3E5E9`): hårfin skillelinje. Rent dekorativ og bevidst under
-  kontrastkravet, fordi den aldrig bærer betydning alene.
-- **Bund** (`#F2F3F5`): sidens grund.
-- **Panel** (`#FFFFFF`): den løftede flade — kort, striber, tabeller, båndet øverst.
-- **Panel, roligt** (`#F7F8FA`): indfelt inde i et hvidt panel. Mærker, EU-markering,
-  specifikationstæthed.
-- **Tom** (`#EDEFF2`): fyldet bag "ikke oplyst". Systemets eneste flade, der betyder
-  fravær.
+- **Gunmetal** (`--blaek`, `#22262A`): al primær tekst, overskrifter, den eneste
+  knapflade. 14,69 : panel, 12,72 : bund.
+- **Blæk 2** (`--blaek2`, `#545C63`): brødtekst, feltnavne. 6,56 : panel,
+  5,68 : bund.
+- **Støv-blæk** (`--blaek3` og `--stoev-blaek`, samme værdi `#5F686F`): mikroskrift,
+  "ikke oplyst"-teksten. 5,48 : panel, 4,74 : bund — den lyseste tone, systemet
+  tillader til tekst.
+- **Støvgrå** (`--hegn` og `--paafod2`, samme værdi `#9AA3A9`): **betydningsbærende**
+  kant — inputkant, stiplet hul-markør, focus-nabolag. 2,47 : panel, 2,14 : bund.
+  **Under WCAG 1.4.11's 3:1-krav til meningsbærende ikke-tekst** på begge flader
+  — se konfliktafsnittet.
+- **Rille** (`--linje`, `#C6CCD1`): hårfin skillelinje. Rent dekorativ, 1,56 : panel,
+  1,35 : bund — bevidst under kontrastkravet, fordi den aldrig bærer betydning alene.
+- **Eloxgrå** (`--bund`, `--panel-ro`, `--tom`, `--accent-ro`, `--paafod`, alle
+  `#E8EBED`): pladen selv, roligt indfelt, fyldet bag "ikke oplyst", lys tekst
+  på mørk flade. Fem navne, én værdi — se *Farvedubletter*.
+- **Kridt** (`--panel`, `#FAFBFB`): den løftede flade — kort, striber, tabeller.
+- **Lyskant** (`--stans`, `#FFFFFF`): 1px indfældet lyskant i en stansning
+  (`.stans`-primitiven). Ny TYPESKILT-token uden ORBIT-modstykke.
 
 ### Mørk flade
 
-- **Fod** (`#14161A`): billednoten øverst og sidefoden nederst.
-- **På fod** (`#E6E9EE`): tekst på den mørke flade. 14,88.
-- **På fod 2** (`#B9C0CA`): dæmpet tekst på den mørke flade. 9,88.
+- **Gunmetal som mørk flade** (`--fod`, samme værdi som `--blaek`): billednoten
+  øverst, sidefoden.
+- **Eloxgrå på gunmetal** (`--paafod`): lys tekst på mørk bund. 12,72 : 1.
+- **Støvgrå på gunmetal** (`--paafod2`): dæmpet tekst på mørk bund. 5,94 : 1.
 
 ### Navngivne regler
 
-**Reglen om de to flader.** Ingen tone godkendes på hvid alene. Hver eneste
-tekstfarve måles mod både `panel` og `bund`, og hullets ord måles derudover mod `tom`.
-CEO'ens forslag `#6B7280` blev målt til 4,35 mod bund og faldt på AA — `blaek3` er den
-nærmeste tone, der klarer alle tre.
+**Reglen om navnene, ikke værdierne.** `system.css`s egen kommentar siger det
+direkte: "VÆRDIERNE ER NYE, NAVNENE ER DE GAMLE" — TYPESKILT genbruger ORBIT's 16
+tokennavne med helt nye hex-værdier, fordi præcis ét sted i testsuiten
+(`tests/dele/31-pudsning.mjs:141-142`) binder et bogstaveligt tokennavn. Enhver,
+der læser et gammelt navn som et løfte om en gammel farve, læser forkert.
 
-**Reglen om den ene stemme.** Der findes én accentfarve, og den betyder "her er noget
-oplyst, og du kan gå videre herfra". Den bruges aldrig dekorativt, aldrig som
-baggrundsstemning og aldrig til at gøre en overskrift pænere.
+**Reglen om det farveløse hul.** Fravær har ingen farve. Et manglende tal er grå
+flade, stiplet kant og minuskler — aldrig rødt, aldrig gult.
 
-**Reglen om det farveløse hul.** Fravær har ingen farve. Et manglende tal er grå flade,
-stiplet hegn og minuskler — aldrig rødt, aldrig gult, aldrig et advarselsikon. Rødt
-læses som fejl, og at producenten ikke oplyser sin driftstid, er ikke en fejl.
+**Reglen om den ene stemme.** Der findes én accentfarve. Den bruges aldrig
+dekorativt og aldrig til at gøre en overskrift pænere.
 
 ## Typografi
 
-**Displayskrift:** Manrope (lokal variabel woff2, med Segoe UI Variable Text og system-ui
-som reserve)
-**Brødskrift:** Manrope, samme fil
-**Etiket- og talskrift:** JetBrains Mono (lokal variabel woff2, med Cascadia Mono og
-Consolas som reserve)
+**Tre skrifter, ét kun delvist koblet på.** Alle tre er selvhostede `woff2`-filer
+i `assets/fonts/` (Saira Semi Condensed: 8 filer, 400/500/600/700 × latin/latin-ext;
+Literata: 2 filer, variabel 400–600).
 
-**Karakter:** Ét sans-snit til alt, der læses som sprog, og ét mono-snit til alt, der
-læses som data. Parret er ikke valgt for kontrastens skyld, men for at gøre en enkelt
-skelnen synlig hele vejen igennem: mono betyder "det her er en måling". Manrope bærer den
-stramme negative knibning uden at blive stiv; JetBrains Mono har ægte tabulære cifre, så
-seks robotters vægte flugter lodret uden en tabel.
+- **SairaSemiCondensed** (`--mono`, "Pladen"): etiketter, tal, topbaren (`.daek`).
+  62 brugssteder på tværs af `system.css` (40) og `generator.css` (22) — talt
+  ved `grep -o "var(--mono)"`, ikke ved linjer, som overtæller flerbrugslinjer.
+- **Literata** (`--manual`, "Manualen"): løbende prosa på Om-siden
+  (`.om-lede`, `.om-broed`) og et par sammenligningsside-noter. 8 brugssteder.
+- **Manrope** (`--sans`): kun **3** eksplicitte brugssteder (`body`, `.sog input`,
+  `.v-tekst`) — men fordi `body{font-family:var(--sans)}` er sidens
+  **arve-standard**, og hverken `h1`–`h4`, `.t-hero`/`.t-h1`/`.t-h2`/`.t-h3`,
+  `.kort__navn` eller `.typeskilt .robot-navn h1` sætter deres egen
+  `font-family`, er `--sans` også skriften på **alle overskrifter og det
+  meste løbende tekst i dag** — inklusive robottens eget navn i H1 på
+  robotsiden. `"Manrope lokal"` har intet `@font-face` (fjernet i TYPESKILTs
+  runde 1), og `Manrope` er ikke hentet nogen steder fra, så stakken falder
+  til `Segoe UI Variable Text`/`Segoe UI`/`system-ui`. Kildens egen kommentar
+  ved `.daek`: *"Comp'ens body-skrift ER Saira; sidens er stadig --sans"* —
+  et selverkendt, ufærdigt migreringstrin, ikke en overset fejl.
 
 ### Hierarki
 
-Skalaen blev hævet 21. aug 2026 (designløftet). Den gamle gik 56 / 42 / 30 / 19 / 17 px og
-lod forsiden flyde sammen: afstanden mellem hero og sektionshoved var kun 26 px, mellem
-sektionshoved og kortnavn kun 8. Ved 1440 px er trinene nu 76 / 46 / 34 / 19 / 17 / 15 /
-13 / 11,5 px — forhold 1,65, 1,35, 1,79, 1,12, 1,13, 1,15, 1,13 mellem naboled. Skriftgulvet
-på 10,5 px er urørt af hævningen.
+Skalaen (klemmerne, ikke skrifterne) er uændret fra ORBIT: ved 1440 px
+76 / 46 / 34 / 19 / 17 / 15 / 13 / 11,5 px. **Vægten på Hero er rettet fra 800 til
+700** (`spor/kort`, 31. aug 2026): Saira selvhostes kun i 400/500/600/700, og en
+manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
+ujævn streg i store grader.
 
-- **Hero** (800, `clamp(33px, 6.2vw, 76px)`, 0,98, −0,035em): forsidens ene overskrift.
-  Optræder én gang pr. side.
-- **H1** (700, `clamp(27px, 3.6vw, 46px)`, 1,08, −0,03em): sidens titel, robottens navn
-  på detaljesiden.
-- **H2** (700, `clamp(23px, 2.8vw, 34px)`, 1,08, −0,026em): sektionshoveder.
-- **H3** (700, 19px, −0,014em): gruppeoverskrift inde i et panel.
-- **Brød** (400, 17px, 1,6, `blaek2`): løbende tekst. Sættes i højst 68ch.
-- **Lille** (400, 15px, 1,55, `blaek2`): sekundær forklaring, feltnoter.
-- **Mikro** (400, 13px, 1,5, `blaek3`): kortets fodnote, kildelisten.
-- **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`): navngiver en datagruppe
-  eller en enhed.
-- **Figur** (mono, 700, 29px i striben / 25px ved 680px / 20px kompakt, tabulære cifre):
-  selve tallet.
-
-**Sektionshovedets etiket** (21. aug 2026) fik sin egen linje over overskriften i stedet
-for at dele dens grundlinje: `.sektion-hoved > .etiket{flex:1 0 100%}`. En etiket, der
-deler linje med det, den navngiver, læses som en del af overskriften i stedet for som en
-selvstændig etiket over den — samme fejl, reglen om versaletiketten i forvejen advarer
-imod, bare i layoutet i stedet for i indholdet.
+- **Hero** (700, `clamp(33px,6.2vw,76px)`, 0,98, −0,035em, `--sans`-stakken):
+  206 sider bruger klassen i dag — ikke kun en forside, der ikke længere findes.
+- **H1** (700, `clamp(27px,3.6vw,46px)`, `--sans`-stakken): robotnavnet på
+  robotsiden bruger sin egen, større regel — `clamp(40px,7.2vw,84px)`, 700,
+  stadig `--sans`, ikke `--mono` — se konfliktafsnittet.
+- **H2** (700, `clamp(23px,2.8vw,34px)`): sektionshoveder.
+- **H3** (700, 19px).
+- **Brød** (400, 17px, 1,6, `blaek2`, `--sans`-stakken via nedarvning).
+- **Lille** (400, 15px, 1,55, `blaek2`).
+- **Mikro** (400, 13px, 1,5, `blaek3`).
+- **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`).
+- **Figur** (mono, 700, tabulære cifre `tnum 1`): selve tallet. Størrelsen er
+  kontekstbestemt af komponenten (fx `.om-regnskab__raekke .figur` 30px/38px på
+  Om-siden, `.producent-fakta .figur` 21px) — der er ingen ét-tal-passer-alle
+  figur-størrelse i dag.
+- **Manual-brød** (400, 18px, 1,62, `blaek`, `--manual`/Literata): Om-sidens
+  argumenterende afsnit. 62ch, ikke sitets almindelige 68ch — Literata er
+  bredere pr. tegn ved samme pixelstørrelse (målt: 62ch Literata 18px = 636px,
+  mod 68ch Saira 17px = 629px, kildens egen kommentar).
 
 ### Navngivne regler
 
-**Reglen om versaletiketten.** Den spatierede versaletiket må kun navngive en datagruppe
-eller en enhed. Den må **aldrig** stå som indholdstom optakt over en overskrift — ikke
-"BYGGET TIL FREMTIDEN", ikke "VORES KATALOG". Det er inspirationskildens mest kopierede
-manér og systemets tydeligste anti-reference.
+**Reglen om versaletiketten.** Den spatierede versaletiket må kun navngive en
+datagruppe eller en enhed — aldrig en indholdstom optakt over en overskrift.
 
-**Reglen om mono.** Mono og fed hører til tal. En sætning sat i mono læses som et tal.
-Tekstværdier — beregningsplatform, monteringsinterface — sættes derfor i brødskrift med
-vægt 500, ikke i mono.
+**Reglen om mono.** Mono og fed hører til tal, aldrig til en sætning.
 
-**Skriftgulvet.** 10,5 px er den mindste skriftgrad i systemet, og gulvet holdes også i
-den smalleste ombrydning. Under det bliver en spatieret versaletiket ulæselig på en
-telefon. Ved 420 px reduceres spatieringen i stedet for skriftgraden.
+**Skriftgulvet.** 10,5 px er den mindste skriftgrad i systemet, også i den
+smalleste ombrydning.
 
 ## Layout
 
-Sidens indhold ligger i `.rum`: højst 1440 px bredt, centreret, med `clamp(16px, 3.4vw,
-44px)` ydre luft. Brødtekst begrænses yderligere til 68ch, forklarende afsnit til 86ch og
-kortets fodnote til 96ch.
+Sidens indhold ligger i `.rum`: højst 1440 px bredt, centreret, med
+`clamp(16px,3.4vw,44px)` (`--kant`) ydre luft. Brødtekst begrænses til 68ch
+(`--maal`, Saira-stakken) eller 62ch (Literata).
 
-Rummet måles i en ottetalsskala med ni trin: 4, 8, 12, 16, 24, 32, 48, 64 og 96 px.
-Skalaen er komplet — nye afstande hentes fra den, ikke opfundet ved siden af.
+Rummet måles i en ottetalsskala med ni trin: 4, 8, 12, 16, 24, 32, 48, 64,
+96 px (`--r1`–`--r9`).
 
-Katalogets gitter er `repeat(auto-fill, minmax(310px, 1fr))` med 32 px lodret og 24 px
-vandret mellemrum (`--r6`/`--r5` — hævet fra 26/22 px 21. aug 2026, som stod uden for
-ottetalsskalaen). Under 679 px falder det til én spalte.
+**Katalogets gitter** (`.net`, katalogsiden er sprogroden i dag) er
+`repeat(auto-fill,minmax(232px,1fr))` med 1px synlig fuge farvet `--linje` —
+kortene bærer selv hårstregen, ingen enkeltborder pr. kort, ingen dobbeltstreg
+hvor to kort mødes.
 
-**Brudpunkter** (systemet har fire, alle max-width): 1180 px, hvor nøgletalsstriben går
-fra seks til tre spalter, og hvor hero'ens to spalter (ord/vægtstige) falder til én under
-1181 px · 680 px, hvor striben går til to, og hvor hero-ledens skrift falder fra 19 til
-17 px · 679 px, hvor gitteret bliver enkeltspaltet · 420 px, hvor det kompakte kort går
-til to spalter, ikonerne krymper, og vægtstigens fire trin går til to.
+**Dækket** (topbaren, `spor/topbar`, 31. aug 2026) er sidens ramme øverst: ingen
+egen baggrund (arver `--bund`), kun en hårfin `linje`-underkant, sat i `--mono`
+(Saira) — bevidst forskelligt fra sidens `--sans`-standard, fordi comp'en dækket
+er bygget efter selv står i Saira. Navigationen er et vandret rullespor (7 punkter
+i dag efter L58 tilføjede tre), med `scroll-padding-inline` og en indad-tegnet
+fokusring, fordi `overflow-x:auto` ellers klipper den.
 
-Striben er systemets vanskeligste layout, fordi omkring halvdelen af dens celler er tomme
-på en typisk robot. Cellerne beholder deres rækkefølge gennem alle brudpunkter, så
-positionen bliver noget, læseren kan lære. Forsidens vægtstige arver samme disciplin: dens
-fjerde trin (vægt ikke oplyst) skifter aldrig plads med de tre andre.
-
-Mellem sektionerne på forsiden er luften hævet til 96 px (`--r9`), med 48 px (`--r7`) til
-den første sektion, som ligger tættere på hero'en, der selv har bundluft. 32 px mellem fire
-ensartede afsnit i træk var for lidt til at læses som adskilte grupper.
+**Brudpunkter i koden i dag er langt flere end ORBIT-erans fire.** Målt ved
+`grep -oE "max-width:[0-9]+px"` over begge stilark: 420, 460, 560, 679, 680, 700,
+720, 820, 899, 1100, 1180 px optræder alle mindst én gang — de fleste tilføjet
+med Om-siden, sammenligningssiden og producentsiderne, som ikke fandtes, da
+ORBIT-udgaven af denne fil blev skrevet. De fire, ORBIT-filen nævnte (1180, 680,
+679, 420), er stadig reelle brudpunkter, men er ikke længere den fulde liste.
 
 ## Dybde
 
-Systemet er fladt i hvile. Der er to skygger, begge med både forskydning og blød sløring
-og begge i blækkets egen tone — aldrig en farvet glorie. Panelet bærer den lette skygge
-konstant som en bekræftelse af, at det ligger oven på bunden; kortet løfter til den tunge
-kun ved hover eller `:focus-within`.
+Systemet er **fladt, punktum** — ikke "fladt i hvile" som ORBIT. Begge
+skyggetokens er sat til `none` i `:root`, med kildens egen begrundelse ordret:
+*"Ingen slagskygge findes på siden. Materiale, ikke skeuomorft teater."*
+Tokenerne (`--skygge`, `--skygge-loeft`) er bevidst bevaret som navne — 11
+brugssteder på tværs af begge stilark refererer dem stadig via `var()` — så
+en fremtidig beslutning om at genindføre skygge kan gøres ét sted, uden at
+opsøge hvert brugssted. I dag tegner ingen af dem noget.
 
-Hullet løftes aldrig. Hverken "ikke oplyst"-værdien, den tomme plade eller den nulstillede
-stribe har skygge, og ingen af dem reagerer på hover. De er ikke en tilstand, der kan
-forbedres ved at pege på dem.
-
-### Skyggeordforråd
-
-- **Båret** (`0 1px 2px rgba(20,22,26,.045), 0 10px 28px -18px rgba(20,22,26,.20)`):
-  panel, kort, stribe, tabelramme i hvile.
-- **Løftet** (`0 2px 4px rgba(20,22,26,.055), 0 18px 40px -20px rgba(20,22,26,.26)`):
-  kun kortet, kun ved hover eller fokus.
-
-### Navngivne regler
-
-**Reglen om fladt i hvile.** Overflader er flade som udgangspunkt. Skygge optræder kun
-som svar på en tilstand. Et element, der løfter sig uden at brugeren har gjort noget,
-påstår en betydning, det ikke har.
-
-**Reglen om det ubevægelige hul.** Den ene tilladte bevægelse i systemet er fotografiets
-`scale(1.024)` ved hover. Hullerne rører sig ikke. Under `prefers-reduced-motion` falder
-også fotografiets bevægelse bort.
+Dybde signaleres i stedet af **fladeskift og streger**: `.rille`
+(`--linje`) mellem kort i gitteret, en hårfin underkant under dækket, og
+`.stans`-primitivens indfældede lyskant (se *Former*). Hullet — "ikke
+oplyst", den stiplede kant — reagerer aldrig på hover eller fokus; det er
+ikke en tilstand, der kan "forbedres" ved at pege på den.
 
 ## Former
 
-Tre radier, og de betyder tre forskellige niveauer: 12 px til panelet, 8 px til et indfelt
-inde i et panel, 6 px til en chip, et mærke eller et hul. Et element vælger sin radius
-efter, hvor dybt det ligger, ikke efter hvor stort det er.
+**To formsprog lever side om side i koden i dag, uden en fælles regel for
+hvornår hvert bruges** — se `## Konflikter`. Det ene er den gamle,
+tokeniserede treleddede skala (`--rund` 12px, `--rund-ind` 8px,
+`--rund-lille` 6px), brugt på paneler, kort, felter og chips. Det andet er
+TYPESKILTs **stansning**: en hårdkodet `border-radius:2px`, ikke bundet til
+noget token, som optræder **26 gange** på tværs af begge stilark (talt ved
+`grep -o "border-radius:2px"`) — `.stans`-primitiven selv, robotsidens
+store foto (`.robot-foto .billedled--stor`), og en række andre TYPESKILT-
+komponenter. Der findes desuden **4** hårdkodede `border-radius:99px`
+(pille/cirkel: scrollbar-håndtag, en lille prik-markør) — de konkurrerer
+ikke om samme rolle som de to andre og er ikke en del af konflikten.
 
-Kanten er systemets vigtigste formsprog, fordi den bærer betydning:
+Kanten bærer stadig betydning, som i ORBIT:
 
-- **Fuldt optrukket, `linje`**: dekorativ skillelinje. Deler, uden at sige noget.
-- **Fuldt optrukket, `hegn`**: en kant, læseren skal kunne se — inputfeltets ramme.
-- **Stiplet, `hegn`**: fravær. Hullet, den tomme plade, det udgåede statusmærke, den
-  midlertidige titel i båndet, sekundære kildemærker.
-- **2 px fuldt optrukket, `blaek`**: tabelhovedets underkant. Den eneste kraftige linje.
+- **Fuldt optrukket, `linje`**: dekorativ skillelinje.
+- **Fuldt optrukket, `hegn`**: en kant, læseren skal kunne se — inputfeltets
+  ramme. **Målt af dette spor: `hegn` er i dag under WCAG 1.4.11's 3:1-krav
+  til meningsbærende ikke-tekst** (2,47 : panel, 2,14 : bund) — se
+  `## Konflikter`.
+- **Stiplet, `hegn`**: fravær — hullet, "ikke oplyst"-chippen, den
+  sekundære kilde.
+- **`.stans`-kanten**: 1px indfældet `linje`-kontur med en 1px `--stans`
+  (hvid) lyskant foroven — den stansede-metal-effekt, TYPESKILTs signatur.
 
-Firkanten på 9 × 9 px er systemets signatur og optræder som mærke i fire varianter, der
-kan skelnes uden farve: **udfyldt** (nej), **åben med fyldt kerne** (ja), **stiplet**
-(ikke oplyst) og **halvt fyldt diagonalt** (kun vist på billede).
+Firkanten på 9 × 9 px er stadig systemets datatilstands-alfabet: **udfyldt**
+(nej), **åben med fyldt kerne** (ja), **stiplet** (ikke oplyst), **halvt
+fyldt diagonalt** (kun vist på billede) — uændret fra ORBIT.
 
 ## Komponenter
 
-### Hero'en
+### Dækket (topbaren)
 
-Ombygget 24. aug 2026 (forsideombygningen, JPK). Ren tekst: overskrift, lede, søgning.
-Ingen figur — figuren flyttede til yderpunkterne lige nedenfor, fordi et fotografi
-tjener "Udstillingssalen" bedre end en abstrakt akse.
+Ét bånd øverst på alle 213 sider, sat i `--mono` (Saira) — bevidst
+forskelligt fra sidens `--sans`-standard, se *Typografi*. Ingen egen
+baggrund; arver `--bund`, kun adskilt af en hårfin `linje`-underkant.
+Ordmærket bærer et **stiplet, midlertidigt navnemærke** (`.daek__stempel`),
+fordi sidens navn ikke er afgjort (Å1) — sat i neutral `blaek3`, ikke gult,
+fordi et permanent gult felt ville bruge sidens ENESTE accentfarve på noget,
+der aldrig skifter. Navigationen er et vandret rullespor; se *Layout* for
+de to målte tastaturfælder, det løser (`scroll-padding-inline`,
+indad-tegnet fokusring).
 
-- **Fladen:** `.hero` har ingen egen baggrund og arver `--bund`. Grænsen mellem hero og
-  yderpunkter er en hårfin `linje`, ikke et fladeskift — det skiftet er forbeholdt
-  kataloget, se *Kataloget: fladen* nedenfor.
-- Ingen robot er navngivet i hero'en. At vælge én ville være en anbefaling, og siden har
-  ingen metode at anbefale efter.
+### Kort (katalogets kort, `.net .kort`)
 
-### Yderpunkterne
+Rækkefølgen er fast: **fotografi · producentnavn · robotnavn.** Ingen
+mørketalsstribe på selve kortet i dag — `.stribe--kompakt`, som ORBIT-filen
+beskrev udførligt som "fire celler, ikke fem", **renders 0 gange** i det
+byggede site (bekræftet: én af de 9 kendte, beskyttede døde CSS-klasser fra
+`spor/doedcss`, ikke denne agents ansvar at røre).
 
-Tilføjet 24. aug 2026 (forsideombygningen). Løser samme problem, vægtstigen (21.–24. aug,
-nu superseret) løste anderledes: DESIGN.md forbyder eksplicit "featured", fordi en
-fremhævelse er en kvalitetsdom, og PRODUCT.md's princip 4 rangerer producenternes
-åbenhed, ikke deres kvalitet. Et **yderpunkt** er ingen dom — den tungeste robot er ikke
-"bedre" end den letteste, den er bare tungest. Fire MÅLTE kendsgerninger — letteste,
-tungeste, hurtigste, længste driftstid — beregnet i `side.mjs`s `ekstremer()` af de
-samme data, kortene selv viser. Uafgjort løses deterministisk, alfabetisk på slug (regel
-skrevet i koden, ingen af de fire har i praksis et uafgjort resultat).
-
-- **Fire ligestillede kort** (JPK 26. aug 2026, afløser "Ét leder, tre følger" nedenfor).
-  Samme gitter, fire kolonner ved bred skærm, faldende til 2 ved 1180 px og 1 ved 420 px
-  (de brudpunkter, `generator.css` allerede brugte). Hvert kort viser billede, ét stort
-  målt tal, robotnavn, producent og kildemærke — intet er fjernet fra det gamle lead-kort,
-  kun arealet er udlignet.
-- **Hvad der stod her før, og hvorfor det blev forladt.** Fra 24. til 26. aug 2026 fulgte
-  siden "ét leder, tre følger": lead-feltets foto var markant større end et katalogkort
-  (leaden fyldte 55–60 % af rummets bredde, de tre andre delte resten), og hvilket af de
-  fire yderpunkter der ledte, var redaktionelt afgjort af billedKVALITET — "hurtigste"
-  (DEEP Robotics Lynx S10) var det eneste rene, tekstfrie enkeltbillede, mens "tungeste"
-  (Unitree B2-W) og "letteste" (Yobotics Y10) bar marketinginfografik. Løsningen var
-  forsvarlig på billedvalget, men areal-forskellen (ca. 10×) havde intet offentliggjort
-  kriterium og modsagde selve teksten under gitteret, der siger, at et yderpunkt "ikke er
-  et udvalg og ikke en anbefaling" — layout vandt over tekst. JPK fravalgte samtidig
-  reviewets alternativ (rotation efter ugenummer): rotation ville gøre bygget uafhængigt
-  af sit eget input, så samme data kunne give en anden forside næste uge.
-- **Kortets ramme genbruges** (`--rund`, `--linje`, `--skygge`, hover til `#CFD4DB` +
-  `--skygge-loeft`) — samme sprog som `.kort`, ikke en ny komponentfamilie.
-- **Tallet** er `hjaelp.tal()`s almindelige `.v-tal`, samme kildemærke-mekanik som alle
-  andre tal på siden — intet særtal, ingen genvej uden om regel 1 (kilde på alt). Alle
-  fire kort deler nu én kontekststørrelse, `clamp(24px, 2,1vw, 29px)` — mellem systemets
-  "lille" (25 px) og gamle "lead" (36–52 px), fordi ingen af de fire længere skal bære
-  åbningens visuelle vægt alene.
-- **Forklaringen står under gitteret, ikke over det.** Et forklarende afsnit mellem
-  overskrift og foto kostede plads, foerste skærm ikke havde råd til (se *Aabningens
-  budget* nedenfor).
-
-### EU-fundet
-
-Tilføjet 24. aug 2026. PRODUCT.md kalder EU-kolonnen sidens positionering nr. 2; målt
-24. aug 2026, at kun **2 af 46** robotter i kataloget har `ce_oplyst: true` — næsten
-ingen producent oplyser CE-mærkning, og det er sidens stærkeste egen-iagttagelse.
-Beregnes i bygget (`forside.mjs`, `hjaelp.ceTilstand()`), aldrig skrevet i hånden.
-**Læser udelukkende `ce_oplyst`** — CEO-beslutning 24. aug 2026 (L32, STATUS.md): de tre
-øvrige EU-felter (`eu_tilgaengelig`, `eu_service`, `leveringstid`) fjernes fra skemaet i
-et senere spor og indgår ikke her.
-
-- **Én sætning, ét stort tal — ikke en infografik.** Et stort mono-tal (`clamp(26px,
-  2,6vw, 34px)`) inde i én løbende sætning, læsbar på to sekunder. Intet gitter, ingen
-  celler, intet ikon-batteri.
-- Sidder på `--bund`, samme flade som resten af åbningen — ingen ny farve, ingen ramme.
-
-### Formålsfilteret — HISTORISK, slettet 26. aug 2026 (spor/indgang)
-
-**Findes ikke længere.** L17 (søgefelt + anvendelsesfiltre i forsidens første viewport)
-blev skrevet om 26. aug 2026: forsiden er en indgang, kataloget er værktøjet. CSS-klassen
-(`.formaal-gitter`) rendredes 0 gange i den byggede forside — sporet efter flytningen til
-katalogsiden (se *Filtre (kataloget)* nedenfor), som stod tilbage uden at nogen kaldte
-den. Afsnittet nedenfor er arkiv: det beskriver et komponent, siden IKKE længere bygger.
-
-Ombygget 24. aug 2026 fra en række på seks-syv små `.chip`-piller til en tydelig,
-indbydende indgang: `.formaal-gitter`, `repeat(auto-fill, minmax(190px,1fr))`, hver
-tile mindst 96 px høj med navn og et rigtigt figurtal.
-
-- **Stadig et FILTER, ikke en gruppering.** Tilesne er **links** ind i kataloget
-  (`robotter/#f-anv-<vaerdi>`), ikke afkrydsningsfelter eller en omgruppering af
-  forsidens kort: 29 af 46 robotter har mere end ét formål (målt), så en gruppering
-  ville vise samme robot i flere bunker.
-- **"Ikke oplyst" er en tile som de andre otte**, men i hullets sprog — `formaal--tom`:
-  stiplet `hegn`-kant, `tom`-flade, dæmpet tekst. Samme regel som alle andre huller:
-  aldrig farvet, aldrig skjult, aldrig sidst af pynt-grunde (den sorteres sidst, fordi
-  den ikke er en kategori, ikke fordi den skjules).
-- Tal og navn deler samme genbrugte figursprog som resten af siden (mono, tabulære
-  cifre) — ingen ny type-stemme for "endnu et tal".
-
-### Kataloget: fladen
-
-Tilføjet 24. aug 2026. `.katalog-flade` (`--panel-ro`, en anelse lysere end `--bund`)
-er sidens TONESPRING: der, hvor kataloget begynder, skifter grunden flade i stedet for
-at trække en streg. Målt: `--bund` `rgb(242,243,245)` mod `--panel-ro`
-`rgb(247,248,250)` — begge eksisterende, målte poletter (ingen ny farve), forskellen er
-bevidst lille, fordi paletten selv er næsten farveløs med vilje. Signalet er derfor
-flerlaget, ikke kun farven: fladeskiftet, en generøs `--r7`-luft til den første
-sektionsoverskrift, og selve overskriften ("Vægtklasse · Under 20 kg") sammen udgør
-tonespringet.
-
-### Afslutningen
-
-Tilføjet 26. aug 2026 (spor/indgang). Forsiden sluttede før dette spor med kun en stille
-"Se alle N robotter →"-linje efter "Fra kataloget" — for diskret til at være sidens
-sidste indtryk, når hele formålet er at lede videre til kataloget. Et første udkast
-(centreret heading + sætning + knap) blev afvist i samme spor efter en impeccable-
-gennemgang: det ER netop kategoriens standardsvar ("hero-metric"/CTA-skabelon).
-
-- **Genbrugt sætning, ikke en ny.** Overskriften ("Ingen vinder her heller"/"No winner
-  here either") gentager bevidst sammenligningssidens `sammenligning_legende_vinder_titel`
-  ("Ingen vinder markeret") — samme påstand om yderpunkterne og "Fra kataloget"-udvalget
-  ovenfor, ikke en generisk invitation.
-- **Ingen ny flade, ingen ny bloklayout.** Sektionen er en almindelig `.sektion` i den
-  eksisterende `.katalog-flade` (samme flade som "Fra kataloget"), venstrestillet som
-  resten af siden — ikke centreret.
-- **Sætningen bærer UDLEDTE tal** (antal robotter, antal producenter), aldrig hårdkodet.
-- **Knappen er den fyldte `.videre`**, ikke `.videre--stille` (som allerede bærer den mere
-  tilbageholdne linje i "Fra kataloget"). Ingen robot er navngivet eller vist — L17's
-  kerne (ingen fremhævet robot) står ved magt.
-
-### Åbningens budget
-
-JPK's kompositionstillæg 24. aug 2026: åbningen (titel + lede + yderpunkter) må fylde op
-til 1,5 skærmhøjde ved 1440×900 — over den grænse er den blevet en salgsside. Målt
-efter det sidste kompressionstrin: `hero` + `yderpunkter-sektion` slutter ved **1348 px**
-fra sidens top (budget 1350 px). Hero'ens polstring, springet hero→yderpunkter og
-yderpunkter-gitterets egen top-luft er alle trukket fra systemets skala (r3–r7), ikke
-opfundet ved siden af den — kun VÆRDIERNE inden for skalaen er strammet, ikke skalaen
-selv.
-
-### Knapper
-
-Systemet har **én** knapform, og den er navigation inde på sitet.
-
-- **Form:** 8 px radius (`rund-ind`), mindst 46 px høj
-- **Primær:** blækflade, hvid tekst, 18 px vandret luft, 15 px halvfed
-- **Hover:** fladen skifter til dyb havblå. Ingen bevægelse, ingen skygge
-- **Stille variant:** ingen flade, accentfarvet tekst, `hegn`-kant. Hover fylder med
-  `accent-ro`
-- **Fokus:** 3 px accentfarvet ring, 3 px forskudt — samme ring i hele systemet
-
-**Der findes ingen købsknap, ingen demoknap og ingen prisforespørgsel.** Formen er ikke
-fravalgt i skabelonerne; den er ikke defineret i systemet.
+- **Rammen:** `.net` sætter et 1px `linje`-farvet gitter-gap; kortene selv
+  har `border:0;border-radius:0;box-shadow:none` — den tokeniserede
+  kort-ramme (`--rund`, `--linje`, `--skygge`) findes i `.kort`s
+  **grundregel**, men `.net .kort` nulstiller den. To kort-rammer i to
+  filer — se `## Konflikter`.
+- **Billedledet:** se *Former* og `## Konflikter` — `.billedled` (16:10,
+  `cover`) mod `.net .billedled` (4:3, `contain`); den sidste vinder på
+  specificitet på katalogsiden.
+- **Navnet** står under billedet, i `--sans`-stakken (arvet, ikke sat
+  eksplicit), 17px/600. Navnets `::after` dækker hele kortet, ét klikmål.
+- **Statusstempel:** lægges kun på, når status ikke er "i produktion".
 
 ### Filtre (kataloget)
 
-Kataloget (`katalog.mjs`)s egne afkrydsningsfelter. `.chip`/`.chips` (forsidens
-tidligere, små anvendelseslænker) er nedlagt 24. aug 2026 og erstattet af
-`.formaal-gitter`, som selv er slettet 26. aug 2026 (spor/indgang) — se *Formålsfilteret*
-ovenfor. Kataloget er nu ENESTE sted, anvendelse filtreres fra.
+`.filtre`/`.chips`, checkboxes med skjult, men fokuserbar, input.
 
-- **Form:** 8 px radius, mindst 44 px høj, hårfin `linje`-kant på hvid flade
-- **Hvile:** `blaek2`-tekst med et monospor antal i `blaek3`
-- **Hover:** kanten skifter til `hegn`, teksten til fuld blæk
-- **Valgt:** accentfyldt flade, hvid tekst, antallet i `accent-ro`
-- **Tilstanden nås på tre måder** — `:checked`, `:target` og `aria-current` — så et
-  filterlink (historisk: fra forsidens nu slettede formålsfilter; i dag fra ethvert
-  internt link med et `#f-anv-…`-fragment) også *ses* som valgt uden en linje JavaScript
-- Selve afkrydsningsfeltet er skjult, men fokuserbart; fokusringen tegnes på etiketten
+- **Form:** 8px radius, mindst 44px høj.
+- **Hvile:** hvid flade mod sidens grå bund — kanten er fjernet med vilje
+  (30 chips med hver sin 1px ramme læste som streg-støj).
+- **Valgt:** accentfyldt flade, hvid tekst.
+- **"Ikke oplyst"-chippen** (hård begrænsning 5): dæmpet `tom`-flade,
+  stiplet `hegn`-kant, ingen fed vægt — samme hulsprog som `.v-ikke`.
+- **Tælleren** er et tal og sættes i mono med tabulære cifre.
 
-### Kort
+### Søgefeltet
 
-Kortets orden er fast: **fotografi · ophav · navn · mærker · stribe · fodnote.**
+`.sog input`: 44px høj (sitets berøringsmål), 16px skrift (under det zoomer
+iOS Safari selv ved fokus), 9px lodret polstring — begge tal målt med
+`C:/Praktik/websites/maalevaerktoej/maal.mjs`, ikke regnet i hånden, ifølge
+kildens egen kommentar. Virker som et almindeligt formularfelt uden
+JavaScript; filtrene er links uanset.
 
-- **Form:** 12 px radius, hårfin `linje`-kant, båret skygge, `overflow: hidden`
-- **Billedled:** 16:10, hvid flade, underkant. Varianten `--plade` bruger `contain` med
-  6–7 % luft til maskiner fotograferet fri på hvid og til de måltro silhuetter
-- **Navn:** 22 px, −0,026em, **under** billedet. Navnets `::after` dækker hele kortet, så
-  kortet er ét klikmål
-- **Hover:** kanten lysner til `#CFD4DB`, skyggen løfter, fotografiet skalerer 1,024
-- **Hover-/fokusinvitation** (`.kort-invit`, spor/indgang, 26. aug 2026): fotografiets
-  scale er 2,4 % — for lille til at læses som et signal. Én tekst+pil ("Se robotten"/
-  "See the robot") toner ind ØVERST i billedet ved `:hover`/`:focus-within` (samme to
-  tilstande som skyggeløftet). Øverst, ikke nederst: bunden er allerede optaget af
-  `.maalplade .titelfelt` og `.billedmaerke`, som begge er altid-synlige, ikke hover-kun.
-  `position:absolute`, så kortets højde aldrig ændrer sig. Synligheden (opacity) virker
-  uden for `prefers-reduced-motion`; kun selve glidningen er betinget af `no-preference`,
-  samme opdeling som fotografiets egen scale.
-- **Fodnote:** monospor 11 px øverst adskilt af en linje. Her står billedets sandhed — og
-  kun den. Ingen pris, ingen knap. **Kortet har ingen dør ud af sitet**
+### Knapper
 
-### Måleplade
+**Kildens egen kommentar kalder `.videre` "den eneste knapform på sitet"** —
+det er ikke længere sandt i praksis, se `## Konflikter`.
 
-Tilføjet 21. aug 2026. Målt i `dist/da/index.html` før ændringen: 46 kort, 46 tomme
-plader, ingen billedelementer — og sætningen "Vi har ikke selv fotograferet modellen" stod
-92 gange, dobbelt op på hvert kort. Et gitter af 46 identiske grå kasser med stiplet kant
-er ikke et gennemtænkt hul; det er den samme fejlmeddelelse gentaget 46 gange.
+- **`.videre`** (primær): 46px høj, 8px radius, blæk-flade, hvid tekst,
+  hover skifter til accent. På 146 sider i alt (talt i `dist/`).
+- **`.videre--stille`**: samme kasse, gennemsigtig flade, accentfarvet
+  tekst — **som falder under WCAG 4,5:1** (1,38–1,60 : 1), se
+  `## Konflikter` — `hegn`-kant. På 144 af de 146 sider.
+- **`.nulstil`**: en anden, nyere knapklasse (katalogsidens
+  `<button type="reset">`), på 2 sider.
+- Plus mindst tre yderligere, siden-specifikke knap-lignende klasser
+  (fx `.valg__fjern`), hver brugt ét sted. Ikke navn-for-navn efterprøvet
+  af dette spor — se rapportens usikkerhedsafsnit.
 
-Løsningen er ikke et foto og ikke `assets/silhuetter/`s måltro tegninger (Å3, stadig ikke
-besluttet) — det er en **kasse**, tegnet af de mål, vi allerede har kilde på.
-
-- **Hvornår:** kun når robotten oplyser **både** længde og højde (31 af 46, plus 2 hvor
-  højden er et interval). Mangler en af de to, vises den gamle `.intetfoto` uændret — 13
-  robotter, ned fra 46.
-- **Fælles målestok:** billedfeltets bredde svarer til 1900 mm på **alle** kort, uanset
-  hvilken robot. To plader kan derfor sammenlignes med øjet. Det er samme princip, som
-  `assets/silhuetter/LÆSMIG.md` selv beskriver: seks pressefotos, hver i sin egen vinkel og
-  brændvidde, fortæller intet om størrelse; seks figurer i fælles målestok gør.
-- **Kassen, ikke maskinen.** Omridset er et rektangel med et skarpt hjørne (ingen radius —
-  formskalaen 12/8/6 px hører til komponenter, og en målt kasse er en tegning, ikke en
-  komponent). Vi kender længden og højden; vi kender ikke formen, og vi gætter den ikke.
-  Fyldet er `panel` (hvid), kanten `hegn` 1,5 px.
-- **Nettet og gulvet:** et lodret gitter i `linje` (dekorativt, ét stip pr. 250 mm) og en
-  vandret gulvlinje i `hegn` (betydningsbærende — den definerer "stående på gulvet"), så
-  kassen læses som en genstand i et rum og ikke som et flydende rektangel.
-- **Etiketten** navngiver de to mål ("LÆNGDE × HØJDE") i titelfeltet under gulvet, som på
-  et tegningsark — samme regel som versaletiketten andre steder: den navngiver en
-  datagruppe, den er ikke en indholdstom optakt.
-- **Skærmlæseren** får den fulde sætning med tal og enhed, præcis som skrevet i kilden
-  (`<span class="kunskaerm">`); den visuelle kasse er selv `aria-hidden`.
-- **Fladen er stadig hullets** (`--tom`). Fotografiet mangler stadig — det, der er
-  skiftet, er, at hullet nu har noget at vise frem. Pladen løfter sig ikke, skalerer ikke
-  og reagerer ikke på hover, som reglen om det ubevægelige hul kræver.
-
-### Felter
-
-- **Form:** 8 px radius, `hegn`-kant, hvid flade, mindst 50 px høj, 16,5 px skrift
-- **Pladsholder:** `blaek3` ved fuld opacitet
-- **Fokus:** kanten skifter til accent, og fokusringen tegnes 1 px forskudt
-- Søgefeltet er skjult, indtil JavaScript tænder det. Et felt, der intet gør, er en
-  betjeningsflade uden funktion. Filtrene er der uanset
-
-### Navigation
-
-Båndet øverst er et hvidt panel med en underkant, mindst 60 px højt. Navnet står til
-venstre med et **stiplet, midlertidigt mærke** under sig, fordi sidens navn ikke er
-afgjort. Der er intet logo og intet ordmærke. Links er 15 px halvfede med mindst 44 px
-berøringsmål; hover giver en rolig flade, og den aktuelle side markeres med accentfarve på
-`accent-ro`.
-
-### De fire datatilstande
-
-Systemets kerne. **"Ikke oplyst", "nej", "0" og "kun vist på billede" er fire forskellige
-ting**, og de deler hverken skriftgrad, bogstavform, flade eller mærke.
-
-- **Tal:** eneste tilstand med stor, fed, mørk figur. Operatoren står foran i 0,72 em og
-  dæmpet vægt, enheden bagefter i 0,56 em. `> 40 kg` er ikke det samme som `40 kg`
-- **Nul:** sættes **præcis** som ethvert andet tal. Ingen dæmpning, ingen stiplet kant.
-  Nul er en oplysning, producenten har givet
-- **Nej:** et svar. Versaler, 0,62 em, spatieret 0,13em, fuld blæk, udfyldt firkant
-- **Ja:** samme vægt som nej, åben firkant med fyldt kerne
-- **Ikke oplyst:** et hul. Minuskler, 0,46 em, `blaek3` på `tom`, stiplet `hegn`-kant
-- **Kun vist på billede:** kursiveret ord, halvt fyldt firkant, **ingen** dæmpet flade —
-  oplysningen findes, den står bare ikke skrevet
+**Der findes ingen købsknap, ingen demoknap, ingen prisforespørgsel.**
 
 ### Kildemærket
 
-Et hævet **bogstav** efter værdien, i accentfarve, 0,34 em, der peger på kildelisten
-nedenfor. Bogstav og ikke tal, så det aldrig kan læses som en del af figuren.
+Et hævet bogstav efter værdien, `--mono`, accentfarve (se kontrastfund i
+`## Konflikter`), `max(8px,.34em)`. Bærer et usynligt 24×24px `::before`
+for WCAG 2.5.8's berøringsmål uden at bogstavet selv vokser.
+**Sekundær kilde** (producentens domæne, ikke produktsiden) markeres med
+stiplet `hegn` i `blaek3` — hullets eget sprog.
 
-Bogstavet er cirka 6 × 8 px, men bærer et usynligt `::before` på 24 × 24 px centreret om
-sig, så WCAG 2.5.8 holdes uden at bogstavet vokser. På kortet løftes det til `z-index: 2`,
-så navnets kortdækkende `::after` ikke stjæler klikket.
+### De fire datatilstande
 
-**Sekundær kilde** — producentens eget domæne, men ikke produktsiden — markeres med
-stiplet hegn i `blaek3`, samme sprog som hullet.
+Systemets kerne: "Ikke oplyst", "nej", "0" og "kun vist på billede" deler
+hverken skriftgrad, bogstavform, flade eller mærke.
 
-### Nøgletalsstriben
+- **Tal** (`.v-tal`): stor, fed figur i mono. Operatoren foran i
+  `max(8px,.72em)`, enheden bagefter i `max(8px,.56em)`.
+- **Nul** (`.v-nul`): sættes præcis som ethvert andet tal.
+- **Nej** (`.v-nej`): **fast 10,5px** (ikke længere em-baseret — rettet i
+  `spor/samlvaelg`, fordi em-satsen svingede med arvet skrift), versaler,
+  0,13em spatiering, fuld blæk, udfyldt 9×9px firkant.
+- **Ja** (`.v-ja`): stadig em-baseret, `.62em`, samme vægt som nej, åben
+  firkant med fyldt kerne.
+- **Ikke oplyst** (`.v-ikke`): **fast 11px** (samme rettelse), minuskler,
+  `blaek3` på `tom`-flade, stiplet `hegn`-kant, 9×9px stiplet firkant.
+- **Kun vist på billede** (`.v-billede`): fast 11px, kursiveret ord, halvt
+  fyldt firkant, ingen dæmpet flade.
 
-Seks celler i et panel, hver med ikon, figur og etiket. `column-reverse` sætter figuren
-øverst visuelt, mens DOM-rækkefølgen bliver etiket før værdi — den rækkefølge, en
-skærmlæser skal have dem i.
+**`.v-nej` og `.v-ikke`/`.v-billede` bruger i dag to forskellige
+satsmetoder** (fast px mod em) inden for samme fire-tilstandsfamilie — ikke
+en af de fire konflikter i briefet, men målt her.
 
-Ikonets to tilstande bærer den samme oplysning som figuren: accent når cellen er oplyst,
-`hegn` når den er tom. Når **ingen** af de seks er oplyst, ville seks huller være støj;
-da erstattes hele striben af ét udsagn på hullets egen flade, og udsagnet siger hvorfor.
+### Nøgletalsstriben (robotsiden)
 
-**Kortets kompakte stribe er FIRE celler, ikke fem** (JPK, 24. aug 2026, `side.mjs`):
-egenvægt, nyttelast_gående, hastighed, driftstid — `ip_klasse` er fjernet. Målt over
-alle 46 datafiler: egenvægt 37/46, nyttelast_gående 36/46, hastighed 36/46, driftstid
-36/46, mod ip_klasse's 23/46 (JPK's eget tal fra briefet, 22/46, lå tæt på — begge peger
-på samme konklusion: en celle, der står tom på over halvdelen af kortene, lærer
-læseren at springe den over). Fire celler fylder `.stribe--kompakt`s to-spalters gitter
-præcist (2×2); den tidligere "femte/ulige celle får hele sidste række"-regel er fjernet
-som død kode. Robotsidens egen, fulde stribe (`robot.mjs`, uden for denne agents
-ejerskab) beholder sine fem felter — de to sider kan begrunde hver sin bredde, fordi
-robotsiden har mere plads end et kort.
+`.stribe--fem`, robotsidens egen fulde stribe: fem celler, `column-reverse`
+så figuren står øverst visuelt mens DOM-rækkefølgen er etiket-før-værdi
+(skærmlæserrækkefølge). Figur 29px i mono. Falder til tre spalter, så to,
+alt efter bredde. Brugt på 144 sider i dag. Katalogkortets tidligere
+kompakte udgave (`.stribe--kompakt`) er død, se *Kort* ovenfor.
 
-### Billednoten
+### Stansningen (`.stans`)
 
-En mørk stribe øverst på hver side, der bærer spærring S1: siden må ikke publiceres med
-fabrikantbilleder uden skriftlig tilladelse. Den er **mørk, ikke rød**. Rødt læses som
-fejl eller som salg; det her er en redaktionel oplysning, der skal ses hver gang og aldrig
-kunne overses.
+TYPESKILTs egen primitiv: 2px radius, 1px indfældet `linje`-kontur, 1px
+hvid (`--stans`) lyskant foroven — den stansede-metal-effekt. Bæres i dag
+af det midlertidige navnemærke i dækket; genbrugelig på fremtidige
+komponenter.
+
+### Slettede komponenter — historisk
+
+Forsiden (`hero`, `yderpunkterne`, `EU-fundet`, `formålsfilteret`) er
+**slettet** (L72, 1. sep 2026, `spor/oversigt`). Den forrige udgave af
+denne fil brugte omkring 250 linjer på at beskrive dem som levende
+komponenter, inklusive et ændringslog tilbage til 24. aug 2026. Det er nu
+arkiv — se git-historikken for `DESIGN.md` før dette spor, eller
+`fund/FUND-kortramme.md` for en analyse af hvad der skete, da `.yderpunkt`s
+billedrettelse ikke fulgte med til `.net`-kortet.
 
 ## Gør og lad være
 
 ### Gør
 
-- **Gør** hullet lige så formgivet som tallet. Cellen bliver stående med ikon og etiket;
-  kun figuren skiftes ud.
-- **Gør** hver ny tone målt mod både `panel` og `bund`, og mod `tom` hvis den skal stå i
-  et hul. Skriv målingen ind i kilden, som de fjorten eksisterende toner har den.
-- **Gør** tal i mono med tabulære cifre, og bevar operatoren: `> 40 kg` og `20~25 cm` er
-  værdier, ikke tal der skal renses.
-- **Gør** versaletiketten funktionel. Den navngiver en datagruppe eller en enhed.
-- **Gør** designændringer i `assets/*.css` og `tools/skabelon/*.mjs`. `dist/` er
-  genereret og overskrives ved næste byg.
-- **Gør** rummet fra ottetalsskalaen og radius efter dybde: 12 px panel, 8 px indfelt,
-  6 px chip.
-- **Gør** hver betjeningsflade brugbar uden JavaScript, eller skjul den til JS tænder den.
+- **Gør** hullet lige så formgivet som tallet.
+- **Gør** hver ny tone målt mod BÅDE `panel` og `bund` med den faktiske WCAG-
+  formel — ikke kun genbrugt fra en kildekommentar skrevet til en anden
+  rolle (se `## Konflikter`, `--accent` som forgrund).
+- **Gør** tal i mono med tabulære cifre, og bevar operatoren.
+- **Gør** versaletiketten funktionel — den navngiver en datagruppe eller
+  en enhed.
+- **Gør** designændringer i `assets/*.css` og `tools/skabelon/*.mjs`.
+  `dist/` er genereret og overskrives ved næste byg.
+- **Gør** rummet fra ottetalsskalaen.
+- **Gør** hver betjeningsflade brugbar uden JavaScript, eller skjul den til
+  JS tænder den.
 
 ### Lad være
 
-- **Lad være** med at give fravær farve. Ikke rødt, ikke gult, intet advarselsikon. At en
-  producent ikke oplyser et tal, er ikke en fejl.
-- **Lad være** med at sætte nul som et hul. Nul er et tal og sættes som ethvert andet.
-- **Lad være** med at lægge navnet hen over fotografiet. Det er målt: 27,7 % afdækning og
-  fødder skåret af på 27 af 41 kort.
-- **Lad være** med at bruge versaletiketten som indholdstom optakt over en overskrift.
-- **Lad være** med at indføre en knapform, der fører ud af sitet. Ingen købsknap, intet
-  affiliate-link, ingen prisforespørgsel — heller ikke som "kontakt producenten".
+- **Lad være** med at give fravær farve.
+- **Lad være** med at sætte nul som et hul.
+- **Lad være** med at bruge versaletiketten som indholdstom optakt.
+- **Lad være** med at indføre en knapform, der fører ud af sitet. Ingen
+  købsknap, intet affiliate-link, ingen prisforespørgsel.
 - **Lad være** med at løfte, animere eller fremhæve et hul.
-- **Lad være** med at sætte en sætning i mono. Mono betyder måling.
-- **Lad være** med at gå under 10,5 px, heller ikke i den smalleste ombrydning. Reducér
-  spatiering i stedet.
-- **Lad være** med at bruge `assets/stil.css` eller `assets/sider.css`. De definerer
-  `--blaek`, `--bund` og `--linje` med **andre** værdier end `system.css` og indgår ikke i
-  bygget. Se noten nedenfor.
-- **Lad være** med at tilføje en mørk tilstand uden at måle alle fjorten toner om.
-  `system.css` har ingen, og den forladte `stil.css` har en, der ikke er efterprøvet.
+- **Lad være** med at sætte en sætning i mono.
+- **Lad være** med at gå under 10,5px, heller ikke i den smalleste
+  ombrydning.
+- **Lad være** med at antage, at et token-navn (`--blaek3`, `--hegn`, …)
+  stadig bærer sin ORBIT-værdi. Værdierne er nye; kun navnene er gamle.
+- **Lad være** med at bruge `--accent` som tekstfarve mod en lys flade uden
+  at slå `## Konflikter` op først — den er kun målt sikker som baggrund.
 
 ---
 
-**Note om to forældede filer — HISTORISK, filerne er slettet 24. aug 2026.**
-`assets/stil.css` (14 tokens, med mørk tilstand) og `assets/sider.css` var rester fra
-en tidligere runde. Bygget sendte kun `system.css` og `generator.css`; de to andre
-blev udelukkende nævnt i en forladt testmappe. De var farlige, fordi de genbrugte
-tokennavne med andre værdier — blev en af dem hentet ind på en side, skiftede
-farverne uden en fejlmeddelelse. Alt indhold, skabelonerne faktisk brugte, er
-migreret til `generator.css` (se changelog-posten "robotdetaljesidens designløft"
-nedenfor og `fund/FUND-detalje.md`); begge filer er nu slettet fra repoet.
+## Konflikter
 
-*Skrevet 21. aug 2026 ud fra `assets/system.css` (547 linjer, 34 tokens) og
-`assets/generator.css` (136 linjer). 16 kontrastpar genmålt: 0 under kravet, og alle 16
-matcher de værdier, kommentarerne i kilden allerede påstod. 45 tokenfelter i denne fils
-frontmatter krydstjekket mod `system.css`: 0 afvigelser.*
+**Disse punkter er MÅLT, ikke afgjort.** Designfrysen (L70, CLAUDE.md)
+gælder: retningen ligger hos led 2 (`extract`) og JPK. Intet nedenfor er en
+anbefaling.
 
-**Opdateret 21. aug 2026 (designløftet).** `assets/system.css` er nu 621 linjer,
-`assets/generator.css` 243. Ændringen: forsidens hero fik en vægtstige (ny komponent), den
-tomme plade fik en måleplade for de 33 robotter, der oplyser både længde og højde,
-typografiskalaen for hero/H1/H2 blev hævet, gitterets mellemrum og sektionsluften flyttet
-ind på ottetalsskalaen. 13 kontrastpar målt for de nye eller genanvendte flader — heraf 9
-en efterprøvning af tal, DESIGN.md eller kildens kommentarer allerede påstod (alle 9
-stemte: `blaek3`:`panel` 6,16 · `blaek3`:`bund` 5,55 · `hegn`:`tom` 3,20 · `hegn`:`panel`
-3,68 · `hegn`:`bund` 3,32 · `blaek`:`panel` 18,11 · `blaek`:`bund` 16,31 · `blaek2`:`panel`
-8,01 · `blaek2`:`bund` 7,21), og 4 reelt nye par uden noget tidligere tal at holde op imod
-(`blaek3`:`tom` 5,35 · `hegn`:`accent-ro` 3,19 · `blaek`:`accent-ro` 15,69 · `linje`:`tom`
-1,09, sidstnævnte dekorativ og uden krav). 0 af de 13 faldt under deres krav. Fire brudpunkter
-efterprøvet ved CSS-sporing (ingen browser i værktøjskæden — samme metode, projektets
-egne målescripts allerede bruger): 1180, 680, 679 og 420 px, alle uden overlap eller
-mellemrum mellem forsidens nye regler og systemets eksisterende.
+**1. Knappen — to generationer.** `.videre`/`.videre--stille` (146/144
+sider, talt i `dist/`) er ORBIT-æraens knapprimitiv, stadig i brug.
+`.nulstil` (2 sider) er en nyere, anden knapklasse. Plus mindst tre
+yderligere sidespecifikke knap-lignende klasser, hver brugt ét sted —
+navnene er ikke enkeltvis efterprøvet af dette spor. Kildens egen kommentar
+kalder `.videre` "den eneste knapform på sitet"; det stemmer ikke længere.
 
-**Opdateret 24. aug 2026 (kataloghærdning, `fund/FUND-kort.md`).** Fire målte problemer på
-kortgitteret rettet, alle efterprøvet med Playwright over alle 46 kort ved 1440 og 360 px:
+**2. Billedrammen — to sideforhold.** `.billedled{aspect-ratio:16/10}` (16:10) +
+`object-fit:cover` (system.css) mod `.net .billedled{aspect-ratio:4/3}` (4:3) +
+`object-fit:contain` (generator.css) — den sidste vinder på specificitet på
+katalogsiden. To formater på samme primitiv i to filer, ingen har besluttet
+hvilket der gælder generelt. Uddybet i `fund/FUND-kortramme.md`.
 
-- **Klippede etiketter (0 → verificeret 0).** Den kompakte nøgletalsstribe gik fra tre til
-  to spalter ved alle bredder (var kun to under 420 px) — ved tre spalter var cellen for
-  smal til "NYTTELAST"/"DRIFTSTID" (284 klip/naboklip målt ved 1440 px). Samtidig lå der en
-  skjult fejl: `.stribe .v`/`.stribe--kompakt .v`/`.raekke .v`/`td .v` satte figurens
-  skriftstørrelse direkte på `.v` med to-klasses specificitet, som *altid* slog
-  `.v-ikke`/`.v-billede` (,46em) og `.v-nej`/`.v-ja` (,62em, kun én klasse) — "ikke oplyst"
-  stod derfor fladt i tallets egen størrelse (20 px i et kort, ikke de tilsigtede ~9 px),
-  hvilket både brød reglen om at tilstande aldrig deler skriftgrad med tal og bidrog til
-  klipningen. Rettet med tilsvarende to-klasses regler pr. kontekst, alle over 10,5 px-gulvet.
-- **Advarsel-støj (174 synlige ord → 0).** 174 af 181 forbeholdschips på forsiden viste
-  ordet "Advarsel" på 41 af 46 kort. Den korte tekst fra 21. aug er *ikke* rullet tilbage —
-  den ligger stadig fuldt ud i `title` og i en skærmlæsertekst — men den altid-synlige
-  ordchip er skiftet til et lille hævet tegn ("*"), i samme typografiske familie som
-  kildemærkets hævede bogstav. Ny komponent: `.forbehold--tegn`.
-- **Måltro-pladen** fik et titelfelt: etiketten ("LÆNGDE × HØJDE") står nu sammen med
-  producentens egne tal (fx "610 mm × 406 mm"), adskilt af en hårfin linje og en
-  `--panel-ro`-flade som eget lag — ikke en skygge, så reglen om det ubevægelige hul står
-  ved magt. To små målestreger hænger ned fra kassens egne bund-hjørner.
-- **Kortets fodnote** samlet fra en stak af 2-3 monospor-linjer til ét løbende afsnit
-  (`<span class="led">` pr. oplysning). Intet ord, kildetal eller forbehold er fjernet.
+**3. Farvedubletter.** Flere tokennavne peger på samme værdi: **5 navne**
+på `#E8EBED` (`--bund`, `--tom`, `--panel-ro`, `--accent-ro`, `--paafod`),
+**2** på `#9AA3A9` (`--hegn`, `--paafod2`), **2** på `#22262A` (`--blaek`,
+`--fod`), **2** på `#5F686F` (`--blaek3`, `--stoev-blaek`). Alle tal
+genmålt af dette spor direkte i `:root`.
 
-Sidehøjde på `/da/`-forsiden ved 1440 px: 12625 → 11954 px. Ingen af rettelserne rørte
-`.v-tal`, `.v-nul`, `.v-nej`, `.v-ja`s farve- eller formsprog, og de fire datatilstande
-forbliver adskilt efter reglen ovenfor.
+**4. Den tredje skrift — en ufærdig migrering.** `--mono` (Saira) i **62**
+regler (ikke 67 — genmålt, se rapporten), `--manual` (Literata) i **8**,
+`--sans` (Manrope) i kun **3** eksplicitte regler — men fordi `body`,
+`h1`–`h4` og hver typografisk utility-klasse (`.t-hero` osv.) undlader at
+sætte deres egen `font-family`, ARVER de `--sans`. Manrope har **0**
+fontfiler i `assets/fonts/` og falder til systemskrift. Kildens egen
+kommentar erkender det: *"sidens [skrift] er stadig --sans"*, ventende på
+en "runde 2".
 
-Samtidig rettet (indhold, ikke system): `billednote_tekst` i `data/i18n/da.json` og
-`en.json` påstod "ingen billeder fra producenterne" — usandt siden b22da4f koblede 32
-producentfotos på. Ny tekst følger S1/L26 i STATUS.md uændret; komponentbeskrivelsen
-ovenfor krævede ingen rettelse, den påstod aldrig noget om billedernes antal.
+**5. `--accent` som forgrund fejler WCAG AA (bekræfter L70, CLAUDE.md,
+genmålt uafhængigt her).** `accent` på `panel` = **1,60 : 1**, på `bund` =
+**1,38 : 1** — mod kravet på 4,5 : 1. Bruges alligevel som tekstfarve i
+`a{color:var(--accent)}` (ethvert link på sitet), `.kildemaerke` og
+`.videre--stille`. Sikker kun som BAGGRUND (`blaek`-tekst på `accent` =
+9,19 : 1, matcher kildens egen kommentar).
 
----
+**6. `--hegn` som betydningsbærende kant fejler WCAG 1.4.11.** 2,47 : 1 mod
+`panel`, 2,14 : 1 mod `bund` — under de 3,0 : 1, standarden kræver til
+meningsbærende ikke-tekst-elementer (inputkant, hul-markør). ORBIT-værdien
+klarede kravet (3,32–3,68 : 1, jf. den forrige filudgave); TYPESKILTs nye
+hex gjorde det ikke.
 
-**Opdateret 24. aug 2026 (forsideombygningen).** CEO'en (JPK) besluttede retningen efter
-interview, grilning og måling: læseren er den nysgerrige fagperson uden et modelnavn i
-hovedet, ikke (kun) den tekniske indkøber, PRODUCT.md's "Users" endnu beskriver
-(uafklaret modstrid, videreført til et andet spor). Fem ændringer, alle i
-`tools/skabelon/forside.mjs`, `tools/skabelon/side.mjs`, `assets/generator.css`,
-`assets/system.css`, `data/i18n/{da,en}.json`:
+**7. To formsprog for radius.** Den tokeniserede skala (`--rund` 12px,
+`--rund-ind` 8px, `--rund-lille` 6px) og en hårdkodet, ikke-tokeniseret
+TYPESKILT-stansning på 2px, brugt **26** gange på tværs af begge stilark.
+Ingen regel siger, hvilken en ny komponent skal vælge.
 
-1. **Vægtstigen fjernet, yderpunkterne tilføjet.** Se *Yderpunkterne* under Komponenter.
-   Løser "ingen fremhævet robot" ved at vise MÅLTE ekstremer (letteste/tungeste/
-   hurtigste/længste driftstid) i stedet for en anonym akse-graf — et yderpunkt er ingen
-   kvalitetsdom, en fremhævelse ville have været det.
-2. **EU-fundet tilføjet.** Én sætning: "2 af 46 robotter i kataloget oplyser
-   CE-mærkning." Beregnet af `hjaelp.ceTilstand()`, læser udelukkende `ce_oplyst` (CEO,
-   24. aug, L32 STATUS.md — de tre andre EU-felter forlader skemaet i et senere spor).
-3. **Formålsfilteret gjort tydeligt.** `.chip` → `.formaal-gitter`, se *Formålsfilteret*.
-4. **Kortets kompakte stribe: fem felter → fire.** `ip_klasse` fjernet (23/46 dækning
-   mod de fire tilbageblevnes 36-37/46). Rammer også katalogsidens kort (delt
-   komponent, `hjaelp.kort()`), ikke robotsidens egen, fulde stribe.
-5. **Kataloget fik sin egen flade** (`.katalog-flade`, `--panel-ro`) som tonespring fra
-   åbningen — se *Kataloget: fladen*.
-
-**Målt efter ombygningen** (Playwright, samme klip/overlap-metode som 24. aug ovenfor,
-kørt over ALLE 46 kort plus de fire nye yderpunkt-felter og otte formåls-tiles, ved
-1440 og 360 px, /da/ og /en/):
-
-- **Klip/overlap (streng test — `overflow:hidden`-ramt eller søskende, der dækker
-  hinanden >2 px i begge akser): 0 ved begge bredder, begge sprog, både før og efter.**
-  Ingen regression.
-- **Bredere heuristik** (`scrollWidth > clientWidth`, tæller også en værdi, der ombryder
-  til to linjer uden at blive klippet): 10 → 15 fund ved 1440 px, 6 → 6 ved 360 px. Alle
-  15 sidder på `.stribe--kompakt .v-tal` (hastigheds- og vægtværdier med et
-  kildemærke+forbeholdstegn), ALLE allerede til stede før forsideombygningen (samme
-  robotter, samme tal — kun deres indeks i målescriptet flyttede sig, fordi scriptet nu
-  også tæller de nye åbningselementer i samme liste). Efterprøvet med et separat
-  diagnosescript, der fjerner den skjulte skærmlæsertekst og genmåler: `scrollWidth`
-  ændrer sig ikke, og et zoomet skærmbillede af det værste tilfælde (Spot, "1,6 m/s")
-  viser INGEN synlig klipning — værdien ombryder til to linjer inde i `.v`s eget
-  `display:inline-flex;flex-wrap:wrap`, præcis den mekanisme, kommentaren ved
-  `overflow-wrap:break-word` (system.css §10) selv beskriver: "værdien må hellere
-  ombryde end skubbe cellen ud af sit spor." Ikke en regression i betydningen "noget der
-  nu klippes, som ikke gjorde før" — en allerede eksisterende, ikke-synlig
-  ombrydningsreserve, der nu rammes 5 gange mere, fordi hastighed er flyttet fra en
-  ulige femtecelle (som tidligere fik hele rækkens bredde) til en almindelig halvbred
-  celle. Ingen kodeændring lavet for dette, fordi den strenge test — den, der faktisk
-  svarer til "klippet eller overlappende" — er 0.
-- **Kontrast** (faktisk gengivet, Playwright + WCAG-formlen, ikke token-par i teorien):
-  13 nye tekst/flade-par målt, laveste **5,35 : 1** (`formaal--tom`s tekst på `--tom`,
-  identisk med det allerede dokumenterede `blaek3`:`tom`-par ovenfor) — alle 13 over
-  4,5 : 1. Højeste 18,11 (kort/yderpunkt-navn på hvidt panel).
-- **Åbningens budget:** hero + yderpunkter-sektion slutter 1348 px fra sidens top ved
-  1440×900 (budget 1350 px, JPK's tillæg). Yderpunkternes lead-foto: 59 % af dets højde
-  er synlig inden for de første 900 px.
-- **46 kort i statisk HTML uden JavaScript**, begge sprog, verificeret med en
-  Playwright-kontekst med `javaScriptEnabled:false` (ikke kun byggets egen påstand).
-- **Sidehøjde ved 1440 px:** 12116 → 12400 px (+284 px). Ved 360 px: 35984 → 35177 px
-  (−807 px) — mobiludgaven blev KORTERE, fordi yderpunkternes og formålsfeltets
-  enkeltspalte-layout er mere pladseffektivt end den gamle stige+chip-kombination var.
-- `node tools/validate.mjs`: 0 fejl. `node tools/linktjek.mjs`: 0 døde interne links
-  (125 sider). Begge sprog bygger.
-
-**Billedvalget til lead-yderpunktet er en selvstændig, dokumenteret beslutning:** de fire
-kandidaters fabrikantbilleder blev gennemgået enkeltvis. Tungeste (Unitree B2-W) og
-letteste (Yobotics Y10) viste sig at være hhv. en spec-infografik med paaklæbet
-marketingtekst og et seks-robotters familiebanner med kinesisk overskrift — begge
-modsiger "maskinen står frit". Hurtigste (DEEP Robotics Lynx S10) er det eneste
-tekstfrie enkeltbillede af de fire og blev valgt som lead; reglen og begrundelsen står i
-`forside.mjs`s kildekode, ikke kun her.
-
----
-
-**Opdateret 24. aug 2026 (robotdetaljesidens designløft, `fund/FUND-detalje.md`).**
-Robotsidens layout (`.robot-top`, `.robot-foto`, `.robot-navn`, `.skema`, `.eu-blok`,
-`.stribe--fem` m.fl.) havde aldrig en levende CSS-regel — kun i den aldrig-linkede
-`assets/sider.css` — så billedet (16:10, fuld rækkebredde) skubbede navnet under
-enhver rimelig skærmhøjde ved 1440 OG 360 px. Rettelsen er primært en migrering, ikke
-en omskrivning: sider.css's indhold (130 regelblokke) er flyttet ind i
-`generator.css` §9, med to bevidste afvigelser (`.advarsel` og `.v-tekst` udelades,
-fordi generator.css allerede definerer dem med andre, LEVENDE værdier) og to huller,
-migreringen selv afslørede (`.feltvaerdi`, `.variant`/`.variant--navn`, begge rettet
-før sletning). `assets/stil.css` og `assets/sider.css` (544 linjer) er slettet — se
-noten to afsnit nedenfor, som nu er historisk.
-
-- **Fra 900 px op** står billede og navn side om side (7fr/5fr). **Under 900 px**
-  (også ved 360 px) stakkes de stadig, men to nye narrow-width-regler holder navnet
-  inden for første viewport: `.baand nav a` får mindre luft under 420 px (nav gik fra
-  3 rækker til 1, sparede 46 px på ALLE sider), og et rigtigt fotografi (ikke
-  måltro-pladen, `:not(.billedled--maal)`) får `max-height:190px`.
-- **Advarsel-/variantbokse under nøgletalsstriben** (op til fem, tidligere alle
-  udfoldet som standard) er foldet bag `<details class="stribe-under-fold">` med en
-  kort opsummering. Teksten er UÆNDRET — kun standardtilstanden er ny. De fire
-  datatilstande i selve striben er urørt.
-- **Kildemærket** (`side.mjs`s `kildemaerke()`) fik `tabindex="-1"`: målt på
-  `/da/robotter/`, 47 → 39 tab-tryk for at nå det 5. katalogkort fra sidens top,
-  fordi op til 4 kildemærker pr. kort tidligere hver var sit eget tab-stop. Linket
-  forbliver et rigtigt `<a href>`, klikbart og i tilgængelighedstræet — kun den
-  sekventielle Tab-vej er lukket.
-- **`.billednote .maerke`** (banner-badgen "BILLEDER") satte aldrig sin egen
-  `background`, så den generiske `.maerke{background:var(--panel-ro)}` vandt på
-  netop den egenskab, mens `.billednote .maerke`s egen, mere specifikke regel kun
-  vandt på `color` — næsten-hvid tekst (`--paafod`) på næsten-hvid bund
-  (`--panel-ro`), 1,1:1, målt programmatisk. Rettet med én linje
-  (`background:transparent`); nu 14,88:1, som kildens egen kommentar altid påstod.
-- **Forbeholdet på robot- og producentsider** (`robot.mjs`s `forbehold()`) skiftede
-  fra det altid-synlige ord "Advarsel" til samme hævede `*`-tegn som side.mjs's
-  `fnote()` — samme rettelse, kataloget fik 24. aug, men som robot.mjs's egen
-  advarselsvisning aldrig arvede, fordi den er en selvstændig funktion.
-  Producentsidernes minikort arver rettelsen automatisk, fordi de kalder netop
-  denne funktion.
-- **Arven (L23)** vises nu med moderens rigtige navn og et rigtigt link
-  (`.anvendelse__arv`, BEM) i stedet for den rå slug uden markering. `hjaelp.
-  anvendelse()` manglede at returnere `arvet_fra`, selv om kontrakten
-  dokumenterede feltet — arve-blokken var derfor altid tom, uanset data.
-  Kategorimærker (`anvendelse__maerke--<værdi>`) og deres rækkefølge (`skema.mjs`s
-  `sorterAnvendelse()`, skrevet til formålet men aldrig kaldt) er nu konsistente på
-  tværs af robotter med samme kategorisæt.
-
-**Målt** (Playwright, `unitree-go2`): H1 top 1081 px → **276 px** ved 1440×900 (var
-uden for viewporten); ved 360×740 (Android-referencehøjde, se `fund/FUND-detalje.md`
-for hvorfor netop den højde): producent/status-linje 625 px, H1 661–694 px — begge
-inden for. 184 sidevisninger (46 robotter × 2 sprog × 2 bredder) regressionssweepet:
-0 klip, 0 horisontalt overløb (én præ-eksisterende overløbsfejl på
-`xiaomi-cyberdog-1`/`-2`, fundet og rettet undervejs — den var der allerede FØR dette
-spor). `node tools/validate.mjs`: 0 fejl. `node tools/linktjek.mjs`: 0 døde links.
-`node tests/koer.mjs`: 195 ok / 2 fejl (var 190 ok / 7 fejl; de to tilbageværende er
-en produktbeslutning om vægtinterval-klassificering og en L27-uenighed sporet til
-`tools/build.mjs`, en forbudt fil i dette spor — begge begrundet i
-`fund/FUND-detalje.md`, ingen krav sænket).
+**8. To kort-rammer i to filer.** `.kort`s grundregel (`system.css`) sætter
+`border:1px solid linje;border-radius:rund;box-shadow:skygge`. `.net .kort`
+(`generator.css`, katalogsiden) nulstiller alle tre til `0`/`none`. Samme
+klasse, to visuelle identiteter, afhængigt af hvilken side der spørger.
