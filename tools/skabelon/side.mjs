@@ -1653,9 +1653,16 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
      billedeKilde = producentsidens opslag i ctx.billeder, som skal vinde over
                     robottens eget felt. Uden den ville minikortet vise et andet
                     billede end det, producentsiden har valgt.
+     samling      = skal kortet baere samlknappen? Std. true (forsiden og
+                    kataloget - begge henter katalog.js og goer knappen
+                    levende, maalt i browser 1. sep 2026: klik saetter
+                    aria-pressed og skriver til localStorage paa BEGGE).
+                    producent.mjs saetter den til false: de 50 producentsider
+                    indlaeser intet JavaScript, saa knappen ville staa
+                    `hidden` for evigt - se samlknap()s kommentar.
    */
   function kort(robot, {
-    op = '', til = '', href = null, eager = false, billedeKilde = null,
+    op = '', til = '', href = null, eager = false, billedeKilde = null, samling = true,
   } = {}) {
     const hvorhen = href ?? `${til}${robot.slug}/`;
     // T['status_...'] slaar fejl, hvis en post mangler status. Alle 77 har den
@@ -1675,7 +1682,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // noejagtigt seks kort - hverken et style- eller et data-attribut maa
     // derfor ind foran klassen.
     return `<article class="kort">`
-      + `${stempel}${samlknap(robot)}${billede(emne, op, { eager })}`
+      + `${stempel}${samling ? samlknap(robot) : ''}${billede(emne, op, { eager })}`
       + `<div class="kort__tekst">`
       + `<p class="kort__prod">${esc(robot.producent)}</p>`
       + `<h3 class="kort__navn"><a href="${attr(hvorhen)}">${esc(robot.navn ?? robot.slug)}</a></h3>`
@@ -1695,13 +1702,18 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    * er uroert den eneste vej ind. assets/katalog.js fjerner attributten.
    * En knap, der ikke goer noget, er vaerre end ingen knap.
    *
-   * DERFOR ER DEN OGSAA INERT PAA PRODUCENTSIDERNE, og det er et bevidst
-   * fravalg frem for en fejl: de 50 producentsider indlaeser INTET JavaScript
-   * (maalt - kun forsiden og katalogsiden henter katalog.js), saa `hidden`
-   * bliver aldrig fjernet dér. Markup'en koster ~1,5 kort pr. side og taender
-   * af sig selv den dag, en side faar scriptet med. Alternativet - en
-   * parameter, kaldere skulle saette - ville kraeve aendringer i forside.mjs
-   * og producent.mjs, som dette spor ikke ejer.
+   * PAA PRODUCENTSIDERNE ER DEN VAERRE END INERT: de 50 sider indlaeser
+   * INTET JavaScript (maalt - kun forsiden og katalogsiden henter
+   * katalog.js), saa `hidden` bliver ALDRIG fjernet, og markup'en er derfor
+   * doed kode, der aldrig kan blive levende - modsat forsiden, som ogsaa
+   * kun bruger ÉT script, men netop katalog.js, og hvor knappen derfor ER
+   * levende (efterproevet i browser 1. sep 2026: klik paa forsidens kort
+   * saetter aria-pressed="true" og skriver slug'en til localStorage,
+   * praecis som paa katalogsiden). spor/oprydknap (1. sep 2026) fjernede
+   * derfor kun knappen paa producentsiderne, via kort()s `samling: false` -
+   * se producent.mjs' modelkort(). Forsiden er UROERT: dens kald bruger
+   * standardvaerdien `samling: true`, fordi knappen der rent faktisk
+   * virker.
    *
    * HAARD BEGRAENSNING 1: knappen er en SAMMENLIGNINGSHANDLING, ikke en kurv.
    * Ordet er "Sammenlign", tilstanden er `aria-pressed`, og der findes intet
