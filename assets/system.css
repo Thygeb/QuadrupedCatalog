@@ -1839,6 +1839,54 @@ td .v{font-size:15px}
   }
 }
 
+/* --- enheder paa sammenligning (spor/samlenhed) --- */
+/* Matricen tegnes af JavaScript, men SKIFTET er ren CSS, praecis som paa
+   robotsiden: begge figurer staar i cellen, og `:checked ~ *` vaelger.
+   Matricen tegnes derfor ikke om, naar laeseren skifter enhed.
+
+   HVORFOR DE FIRE REGLER SKAL SKRIVES IGEN HER. §16c's skifteregler er
+   scopet til `.typeskilt`, og MAALT 1. sep 2026 staar det ord NUL gange i
+   dist/da/sammenligning/index.html - sammenligningssiden er ikke en
+   typeskilt-flade. Grundformerne (.enhedsskift, .enhedsvis, .omregnet,
+   .enhedsnote) er derimod uscopede og arves uaendret; kun de fire
+   tilstandsregler mangler en vaert. Ét ord er aendret, resten er ordret
+   §16c, saa de to flader ikke kan komme til at se forskellige ud. */
+.sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift{color:var(--blaek);border-color:var(--blaek)}
+.sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
+.sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
+.sammenligning-app .enhedsskift__boks:focus-visible ~ * .enhedsskift{
+  outline:3px solid var(--accent);outline-offset:3px;border-radius:2px;
+}
+.sammenligning-app .enhedsskift__boks:checked ~ * .enhedsvis--metrisk{display:none}
+.sammenligning-app .enhedsskift__boks:checked ~ * .enhedsvis--imperial{display:contents}
+.sammenligning-app .enhedsskift__boks:checked ~ * .enhedsnote{display:block}
+
+/* Strimlen over matricen. Kontakten staar til HOEJRE, paa linje med den
+   spalte, oejet i forvejen ender i, og noten laegger sig under den i
+   imperial tilstand i stedet for at skubbe tabellen ned i metrisk.
+   `align-items:flex-end` frem for et gitter: noten findes kun halvdelen af
+   tiden, og en tom raekke i et gitter ville efterlade et hul i metrisk. */
+.saml-enhedslinje{
+  display:flex;flex-direction:column;align-items:flex-end;gap:6px;
+  margin:0 0 var(--r3);
+}
+.saml-enhedslinje .enhedsnote{margin:0;text-align:right}
+
+/* Matricens celler er smalle, og maerket maa ikke braekke figuren fra sin
+   enhed. Paa robotsiden staar `.omregnet` paa samme linje som tallet; her
+   faar den lov at falde ned under, naar cellen er for smal - derfor
+   `display:inline-block` (arvet) plus en egen margin, der ikke tegner et
+   haengende indryk, naar den goer det. */
+.saml-matrix .omregnet{margin-left:6px;margin-top:2px}
+
+@media (max-width:700px){
+  /* Under bruddet staar matricen i én spalte pr. robot, og en hoejrestillet
+     kontakt ville lande milevidt fra tabellens venstrekant. */
+  .saml-enhedslinje{align-items:stretch}
+  .saml-enhedslinje .enhedsskift{justify-content:center}
+  .saml-enhedslinje .enhedsnote{text-align:left}
+}
+
 /* --- om os (spor/omos) -----------------------------------------------------
    Om-siden (L61) er sitets ENESTE prosaside, og den eneste flade hvor
    sammenhaengende tekst baerer. Alt herunder hoerer til den; ingen regel

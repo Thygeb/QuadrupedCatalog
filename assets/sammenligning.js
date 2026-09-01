@@ -55,37 +55,108 @@
      samlet forbeholdstegn af ved_last + advarsel (samme sammenlaegning som
      side.mjs' tal() bruger til den kompakte visning, som mockuppens egen
      sammenligningstabel ogsaa bruger - se sammenligning.mjs' filhoved). */
+  /** Figuren som TEKST - ét tal eller et interval. Den samme form, side.mjs'
+      tal() bygger (`nformat(min)–nformat(maks)`), og derfor ogsaa den form,
+      `imperialPost()`s `kildeform` er skrevet i: samme en-tankestreg, samme
+      Intl-indstillinger (maximumFractionDigits: 3). Det er dét, der lader
+      "omregnet"-maerkets forklaring nedenfor bygges her i stedet for at skulle
+      sendes med i JSON'en for hvert af de 565 felter. */
+  function figurAf(v, min, maks) {
+    return (min !== null && min !== undefined)
+      ? fmt(min) + '–' + fmt(maks)
+      : (typeof v === 'number' ? fmt(v) : String(v));
+  }
+
+  function vaerdiSpan(figur, enhed, nul, op) {
+    return '<span class="v v-tal' + (nul ? ' v-nul' : '') + '">' + op
+      + '<b class="num">' + esc(figur) + '</b>'
+      + (enhed ? '<span class="enhed">' + esc(enhed) + '</span>' : '')
+      + '</span>';
+  }
+
+  /* Maerket, der skiller VORES omregning fra producentens eget imperiale tal
+     (regel 2). Ordret samme opbygning som side.mjs' omregningsMaerke():
+
+       - producentens eget tal (`imp.egen`, 30 felter i datasaettet) faar
+         INTET synligt maerke, kun en linje til skaermlaeseren. Det sjaeldne
+         skal ikke vaere det umaerkede, men et maerke paa 535 af 565 felter
+         ville drukne matricen; fravaeret forklares i omskifterens egen note.
+       - vores omregning faar `.omregnet` med figuren, den kom fra.
+
+     Forklaringen bygges af det METRISKE felt - "33,8 kg" - som er praecis
+     det, `imperialPost()` server-side kalder `kildeform`. */
+  function omregnetHTML(f, imp) {
+    if (imp.egen) return '<span class="kunskaerm">' + esc(DATA.tekst.imperial_forklaring || '') + '</span>';
+    var kilde = (figurAf(f.vaerdi, f.min, f.maks) + ' ' + (f.enhed || '')).replace(/\s+$/, '');
+    var forklaring = String(DATA.tekst.enhed_omregnet_forklaring || '').replace('{figur}', kilde);
+    return '<span class="omregnet" title="' + esc(forklaring) + '">'
+      + '<span aria-hidden="true">' + esc(DATA.tekst.enhed_omregnet || '') + '</span>'
+      + '<span class="kunskaerm">' + esc(forklaring) + '</span></span>';
+  }
+
   function renderTal(f) {
-    var figur = (f.min !== null && f.min !== undefined)
-      ? fmt(f.min) + '–' + fmt(f.maks)
-      : (typeof f.vaerdi === 'number' ? fmt(f.vaerdi) : String(f.vaerdi));
     var op = '';
     if (f.operator && DATA.operatorer[f.operator]) {
       var o = DATA.operatorer[f.operator];
       op = '<span class="op" aria-hidden="true">' + esc(o.vis) + '</span>'
         + '<span class="kunskaerm">' + esc(o.laest) + ' </span>';
     }
-    var enhed = f.enhed ? '<span class="enhed">' + esc(f.enhed) + '</span>' : '';
     var noter = [];
     if (f.ved_last) {
       if (f.ved_last.ukendt) noter.push(DATA.tekst.ved_last_ukendt);
       else noter.push((DATA.tekst.ved_last + ' ' + fmt(f.ved_last.vaerdi) + ' ' + (f.ved_last.enhed || '')).trim());
     }
     if (f.forbehold) noter.push(f.forbehold);
+    // Forbeholdstegnet staar UDEN FOR begge enhedstvillinger og bliver derfor
+    // staaende i begge tilstande. Det er den rigtige adfaerd og gratis her,
+    // hvor side.mjs maa foere `ved_last` over i sit rekursive kald: et
+    // forbehold om selve MAALINGEN ("ved last 20 kg") gaelder tallet, ikke
+    // den enhed, det er skrevet i.
     var noteHTML = noter.length ? fnote(noter.join(' · ')) : '';
-    var klasse = 'v v-tal' + (f.tilstand === 'nul' ? ' v-nul' : '');
-    var vaerdiHTML = '<span class="' + klasse + '">' + op + '<b class="num">' + esc(figur) + '</b>' + enhed + '</span>';
+
+    var metrisk = vaerdiSpan(figurAf(f.vaerdi, f.min, f.maks), f.enhed, f.tilstand === 'nul', op);
     // spor/enheder (K9) omregner visse felter til sidens faelles enhed;
     // `f.kildeform` (sat i sammenligning.mjs' dataBlok()) er producentens
     // egen figur+enhed. Samme title, samme i18n-noegle, samme placering
     // (uden om et eventuelt forbeholdstegn) som robot.mjs allerede bruger -
     // genbrugt moenster, ikke et nyt, se robot.mjs's kommentar ved
     // "original-enhed".
+    //
+    // REGEL 3: den saettes ALDRIG paa den imperiale tvilling. Dér ville
+    // "Producenten skrev: 1100 mm" staa som forklaring paa VORES omregning,
+    // og en omregning har ingen kilde. Samme `!__imperial`-vagt som
+    // side.mjs:1151.
     if (f.kildeform) {
       var titel = String(DATA.tekst.kilde_original_form || '').replace('{figur}', f.kildeform);
-      vaerdiHTML = '<span class="original-enhed" title="' + esc(titel) + '">' + vaerdiHTML + '</span>';
+      metrisk = '<span class="original-enhed" title="' + esc(titel) + '">' + metrisk + '</span>';
     }
-    return vaerdiHTML + noteHTML;
+
+    /* --- de to figurer (spor/samlenhed) ---------------------------------
+       `f.imp` er FORUDBEREGNET af tools/skabelon/sammenligning.mjs gennem
+       side.mjs' `imperialPost()` - den samme funktion, robotsiden bruger.
+       Denne fil regner IKKE: der er ingen omregningstabel her, ingen kopi af
+       afrundingsreglen, og ingen kopi af regel 1 ("producentens eget tal
+       vinder"). Se skabelonens `imperialFelt()` for hvorfor den vej blev
+       valgt frem for en tabel i browseren.
+
+       Begge figurer staar i markup'en; CSS viser én ad gangen, praecis som
+       paa robotsiden (`.enhedsvis{display:contents}`). Matricen behoever
+       derfor ikke tegnes om, naar laeseren skifter enhed - og den METRISKE
+       visning er noejagtig den, der stod her foer, fordi `display:contents`
+       ikke laegger en kasse ind.
+
+       NUL-TILSTANDEN AFGOERES PAA NY for den imperiale figur: 0 °C er 32 °F.
+       Otte felter i datasaettet er `temp_min: 0 °C`, og `v-nul` paa "32 °F"
+       ville baade vaere forkert og laese som nul-tilstanden (haard
+       begraensning 5). Samme udledning som side.mjs' `post.vaerdi === 0`,
+       taget paa den post, der faktisk vises. */
+    if (!f.imp) return metrisk + noteHTML;
+    var imp = f.imp;
+    var impFigur = figurAf(imp.vaerdi, imp.min, imp.maks);
+    var imperial = vaerdiSpan(impFigur, imp.enhed, imp.vaerdi === 0, op) + omregnetHTML(f, imp);
+    return '<span class="enhedsvis enhedsvis--metrisk">' + metrisk + '</span>'
+      + '<span class="enhedsvis enhedsvis--imperial">' + imperial + '</span>'
+      + noteHTML;
   }
 
   /* Ét felt, de samme fire datatilstande som resten af sitet
@@ -104,7 +175,12 @@
       case 'tekst': {
         var ud = '<span class="v v-tekst">' + esc(f.tekst) + '</span>';
         if (f.min !== null && f.min !== undefined) {
-          ud += ' ' + renderTal({ tilstand: 'tal', vaerdi: null, min: f.min, maks: f.maks, enhed: f.enhed, operator: null });
+          // `imp` foeres med: et tekstfelt med et maalbart interval ved siden
+          // af (Spots "ureguleret DC 35-58,8 V") skal skifte enhed som ethvert
+          // andet interval. MAALT 1. sep 2026: NUL af de 565 omregnelige
+          // felter staar i tilstanden 'tekst' i dag - linjen er der, for at
+          // det ikke er en tavs mangel, den dag et af dem gOEr.
+          ud += ' ' + renderTal({ tilstand: 'tal', vaerdi: null, min: f.min, maks: f.maks, enhed: f.enhed, operator: null, imp: f.imp });
         }
         return ud + forbeholdHTML;
       }
@@ -142,6 +218,14 @@
         Af samme grund har <caption> et id, som <table aria-labelledby>
         peger paa: caption->navn-relationen er lige saa udsat som resten. */
   var CAPTION_ID = 'saml-tabel-caption';
+
+  /* Enhedskontaktens id. SAMME streng som tools/skabelon/sammenligning.mjs'
+     ENHED_ID, robot.mjs' ENHED_ID og opslaget i assets/enhed.js - det er den
+     ene noegle, der lader valget foelge laeseren fra en robotside hertil.
+     tests/dele/43-samlenhed.mjs holder de fire steder sammen. */
+  var ENHED_ID = 'enhedsskift';
+  var enhedsBoks = document.getElementById(ENHED_ID);
+  var sidsteOmregnelige = 0;
 
   /* Specimen-raekken: signaturelementet mockuppen viser oeverst (de valgte
      robotter side om side, foer laeseren ser et eneste tal). Fotografiet er
@@ -287,6 +371,54 @@
       + esc(dele.join(' · ')) + '</p>';
   }
 
+  /* --- VAERNET: en kontakt, hvor intet skifter, er vaerre end ingen kontakt
+     (robot.mjs:1016-1018, samme regel som afgOEr, om robotsiden faar en
+     omskifter).
+
+     Paa robotsiden er svaret givet én gang pr. side. Her afhaenger det af,
+     hvad laeseren har valgt, og det aendrer sig under fingrene paa hende.
+     MAALT 1. sep 2026 paa datasaettet: 71 af 77 robotter har mindst én
+     omregnelig figur. De seks uden er anybotics-anymal-x,
+     ghost-robotics-spirit-40, unitree-laikago, weilan-alphadog-e300,
+     weilan-alphadog-e400l og weilan-babyalpha - alle sparsomt udfyldte.
+     Af 73.150 mulige trioer har 20 (0,027 %) ingen omregnelig figur
+     overhovedet, og 15 af parrene.
+
+     Sjaeldent er ikke det samme som umuligt, og en laeser, der vaelger netop
+     de tre, ville faa en kontakt, der intet gjorde. Derfor taelles der pr.
+     tegning, og strimlen UDEBLIVER ved nul - den er en del af matricen, ikke
+     af sidens faste stel, saa den forsvinder samme sted, som grunden til at
+     have den forsvinder. Selve afkrydsningen skjules samtidig (opdater()),
+     saa der ikke staar en fokusérbar kontrol tilbage uden en synlig etikette. */
+  function omregneligeAntal(robotter) {
+    var n = 0;
+    for (var i = 0; i < robotter.length; i++) {
+      var felter = robotter[i].felter;
+      for (var navn in felter) {
+        if (Object.prototype.hasOwnProperty.call(felter, navn) && felter[navn] && felter[navn].imp) n++;
+      }
+    }
+    return n;
+  }
+
+  /* Strimlen over matricen: kontaktens ETIKETTE (selve afkrydsningen er
+     server-renderet som foerste barn af .sammenligning-app, saa CSS'ens
+     `:checked ~ *` naar hver celle) og forklaringen af, hvad et UMAERKET
+     imperialt tal betyder. Flere <label for> til samme kontrol er gyldig
+     HTML - robotsiden har allerede to - saa etiketten maa gerne staa her,
+     langt fra boksen.
+
+     Noten er `.enhedsnote`: CSS viser den kun i imperial tilstand. I metrisk
+     ville den forklare noget, der ikke er paa skaermen. */
+  function enhedslinjeHTML() {
+    return '<div class="saml-enhedslinje">'
+      + '<label class="enhedsskift" for="' + ENHED_ID + '">'
+      + '<span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span>'
+      + '<span class="enhedsskift__ord">' + esc(DATA.tekst.enhed_skift_etiket || '') + '</span></label>'
+      + '<p class="t-mikro maal enhedsnote">' + esc(DATA.tekst.enhed_skift_forklaring || '') + '</p>'
+      + '</div>';
+  }
+
   function tabelHTML(slugs) {
     // `robotter` styrer BAADE hovedet og kroppen, og `n` udledes af den.
     // Foer taalte specimenHTML() over `slugs` og kroppen over den filtrerede
@@ -340,7 +472,13 @@
     var navne = robotter.map(function (r) { return r.navn; }).join(', ');
     var caption = String(DATA.tekst.tabel_caption || '').replace('{robotter}', navne);
 
-    return '<table class="saml-matrix" role="table" aria-labelledby="' + CAPTION_ID + '">'
+    // Strimlen staar FOER tabellen, ikke inde i den: den betjener matricen og
+    // hoerer ikke til en raekke eller en spalte - samme begrundelse, som
+    // holder fotokreditten uden for <table>.
+    sidsteOmregnelige = omregneligeAntal(robotter);
+
+    return (sidsteOmregnelige ? enhedslinjeHTML() : '')
+      + '<table class="saml-matrix" role="table" aria-labelledby="' + CAPTION_ID + '">'
       + '<caption id="' + CAPTION_ID + '" class="kunskaerm">' + esc(caption) + '</caption>'
       + specimenHoved(robotter, n) + grupperHTML
       + '</table>'
@@ -366,15 +504,32 @@
     status.textContent = '';
   }
 
+  /* Afkrydsningen foelger strimlen. Den er `.kunskaerm` (1x1 px) og derfor
+     stadig i tabuleringsraekkefoelgen - staar den tilbage, naar strimlen
+     udeblev, moeder en tastaturbruger en kontrol uden en synlig etikette og
+     uden nogen virkning. `hidden` tager den ud af baade traeet og
+     tabuleringsraekkefoelgen.
+
+     Den nulstilles IKKE til metrisk undervejs: laeserens valg er stadig
+     laeserens, ogsaa mens hun kigger paa tre robotter, det ikke rammer, og
+     det skal staa igen, naar hun vaelger en fjerde. Intet skifter i mellem-
+     tiden, fordi der ikke er noget at skifte. */
+  function opdaterKontakt() {
+    if (enhedsBoks) enhedsBoks.hidden = !sidsteOmregnelige;
+  }
+
   function opdater() {
     var slugs = valgte();
     if (slugs.length < 2) {
       visStatus(DATA.tekst.for_faa);
       resultat.innerHTML = '';
+      sidsteOmregnelige = 0;
+      opdaterKontakt();
       return;
     }
     skjulStatus();
     resultat.innerHTML = tabelHTML(slugs);
+    opdaterKontakt();
   }
 
   /* --- UDVALGET FRA KATALOGETS SAMLKNAPPER (JPK 1. sep 2026, punkt 1) ------
