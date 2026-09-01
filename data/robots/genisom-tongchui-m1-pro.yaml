@@ -60,14 +60,14 @@ felter:
     enhed: "DoF"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"关节电机数量: 12 个\" i M1 Pro's egen datablok - identisk med basisudgaven."
+    advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer) i M1 Pro's egen datablok - identisk med basisudgaven."
     advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 30
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"最大载荷: 30 kg\" i M1 Pro's egen datablok - identisk med basisudgaven."
+    advarsel: "\"最大载荷: 30 kg\" (maks. last) i M1 Pro's egen datablok - identisk med basisudgaven."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -82,7 +82,7 @@ felter:
     enhed: "°"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"最大爬坡角度: 45°\" i M1 Pro's egen datablok - identisk med basisudgaven."
+    advarsel: "\"最大爬坡角度: 45°\" (maks. klatrbar skråningsvinkel) i M1 Pro's egen datablok - identisk med basisudgaven."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
@@ -134,14 +134,14 @@ felter:
     vaerdi: true
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" i M1 Pro's egen tilbehørsliste - identisk med basisudgaven."
+    advarsel: "\"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap) i M1 Pro's egen tilbehørsliste - identisk med basisudgaven."
   ladetid:
     vaerdi: 2
     enhed: "t"
     operator: "<"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"充电时长: ＜ 2 h\" i M1 Pro's egen datablok - identisk med basisudgaven."
+    advarsel: "\"充电时长: ＜ 2 h\" (ladetid) i M1 Pro's egen datablok - identisk med basisudgaven."
     advarsel_klasse: "uddybning"
   dockingstation:
     vaerdi: true
@@ -152,7 +152,7 @@ felter:
     vaerdi: "3D LiDAR (type og model ikke oplyst)"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "\"3D激光雷达: 支持\" i M1 Pro's egen sensor-sektion - identisk med basisudgaven, hverken linjetal, model eller producent oplyst."
+    advarsel: "\"3D激光雷达: 支持\" (3D LiDAR: understøttet) i M1 Pro's egen sensor-sektion - identisk med basisudgaven, hverken linjetal, model eller producent oplyst."
   kameraer:
     vaerdi: "2x bredvinkelkamera, 8 MP hver, DFOV 122° / HFOV 111° / VFOV 70°"
     kilde: "https://www.genisomai.com/product-robot/M1"

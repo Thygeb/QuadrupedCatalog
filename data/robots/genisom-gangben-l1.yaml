@@ -63,7 +63,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" - grænseværdi op til ca. 10 kg oplyst separat."
+    advarsel: "\"最大载荷 ≈ 8 kg（极限 ~10 kg）\" (maks. last) - grænseværdi op til ca. 10 kg oplyst separat."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -113,7 +113,7 @@ felter:
     enhed: "t"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"续航时间: 1-2 h\", ingen lastbetingelse oplyst. Rækkevidde \"续航里程: 6 km\" er også oplyst; skemaet har intet rækkeviddefelt."
+    advarsel: "\"续航时间: 1-2 h\" (driftstid), ingen lastbetingelse oplyst. Rækkevidde \"续航里程: 6 km\" (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -138,7 +138,7 @@ felter:
     vaerdi: "8-kernet CPU"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel."
+    advarsel: "\"基础算力: 8 核高性能 CPU\" (grundlæggende regnekraft: 8-kernet højtydende CPU). \"工作最大功率: 3500W\" (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel."
   ros2: "ikke_oplyst"
   sdk_sprog:
     vaerdi:

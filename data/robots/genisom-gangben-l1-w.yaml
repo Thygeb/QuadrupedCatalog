@@ -69,7 +69,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 10 kg（极限 ~12 kg）\" - grænseværdi op til ca. 12 kg oplyst separat."
+    advarsel: "\"最大载荷 ≈ 10 kg（极限 ~12 kg）\" (maks. last) - grænseværdi op til ca. 12 kg oplyst separat."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -91,7 +91,7 @@ felter:
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"65cm 最大越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2."
+    advarsel: "\"65cm 最大越障高度\" (65cm maks. forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 16
@@ -151,7 +151,7 @@ felter:
     vaerdi: "8-kernet CPU"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU\". \"工作最大功率: 3500W\" er også oplyst i samme sektion; skemaet har intet effektfelt."
+    advarsel: "\"基础算力: 8 核高性能 CPU\" (grundlæggende regnekraft: 8-kernet højtydende CPU). \"工作最大功率: 3500W\" (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt."
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:

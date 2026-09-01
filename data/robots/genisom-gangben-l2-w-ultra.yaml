@@ -22,7 +22,7 @@ anvendelse:
     - "Kort-distance levering (短途配送)"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-24"
-  note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik."
+  note: "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik."
 billede:
   fil: "fotos/fabrikant/genisom-gangben-l2-w-ultra.webp"
   ophav: "fabrikant"
@@ -73,21 +73,21 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" - samme tal som L2/L2-W."
+    advarsel: "\"最大载荷 ≈ 16 kg （极限静态 150kg）\" (maks. last, grænse statisk 150kg) - samme tal som L2/L2-W."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 150
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"极限静态150kg\" står inde i \"最大载荷\"-rækken i denne variants egen datablok. Ikke krydsbekræftet af en separat marketingtekstlinje for netop denne variant."
+    advarsel: "\"极限静态150kg\" (grænse statisk 150kg) står inde i \"最大载荷\" (maks. last)-rækken i denne variants egen datablok. Ikke krydsbekræftet af en separat marketingtekstlinje for netop denne variant."
     advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 3.7
     enhed: "m/s"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"最大速度: 3.7 m/s\" - samme tal som L2-W, højere end basisudgavens 3.2 m/s. En separat \"极限速度\" på 5 m/s er også oplyst - ikke brugt som hovedværdi."
+    advarsel: "\"最大速度: 3.7 m/s\" (maks. hastighed) - samme tal som L2-W, højere end basisudgavens 3.2 m/s. En separat \"极限速度\" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 40
@@ -100,7 +100,7 @@ felter:
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"连续攀爬楼梯高度\" - samme tal som L2-W, højere end basisudgavens 22cm."
+    advarsel: "Etiket \"连续攀爬楼梯高度\" (kontinuerlig trappeklatrehøjde) - samme tal som L2-W, højere end basisudgavens 22cm."
     advarsel_klasse: "uddybning"
   ip_klasse:
     vaerdi: "IP66"
@@ -169,6 +169,6 @@ felter:
       - "5G-kortplads x1"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽\" - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter."
+    advarsel: "\"功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽\" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 5G-kortplads) - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"

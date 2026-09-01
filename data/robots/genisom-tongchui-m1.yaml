@@ -64,14 +64,14 @@ felter:
     enhed: "DoF"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"关节电机数量: 12 个\" i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende \"16个自由度\"-påstand, som IKKE er brugt her."
+    advarsel: "\"关节电机数量: 12 个\" (antal ledmotorer) i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende \"16个自由度\" (16 frihedsgrader)-påstand, som IKKE er brugt her."
     advarsel_klasse: "gyldighed"
   nyttelast_gaaende:
     vaerdi: 30
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"最大载荷: 30 kg\". Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt."
+    advarsel: "\"最大载荷: 30 kg\" (maks. last). Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -86,14 +86,14 @@ felter:
     enhed: "°"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"最大爬坡角度: 45°\", bekræftet af marketingkortets \"45° 极限爬坡角度\" - ingen separat standard/grænse-splittelse her, modsat L1/L1-W."
+    advarsel: "\"最大爬坡角度: 45°\" (maks. klatrbar skråningsvinkel), bekræftet af marketingkortets \"45° 极限爬坡角度\" (45° grænse-skråningsvinkel) - ingen separat standard/grænse-splittelse her, modsat L1/L1-W."
     advarsel_klasse: "uddybning"
   forhindring_enkelt:
     vaerdi: 80
     enhed: "cm"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"80cm 垂直越障高度\" fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W."
+    advarsel: "\"80cm 垂直越障高度\" (80cm lodret forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 25
@@ -138,7 +138,7 @@ felter:
     vaerdi: true
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "Bekræftet to steder på samme side: marketingkortet \"双电池 热插拔\" og tilbehørslisten \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\"."
+    advarsel: "Bekræftet to steder på samme side: marketingkortet \"双电池 热插拔\" (dobbeltbatteri, hot-swap) og tilbehørslisten \"电池: 54 V，9.35 Ah × 2；双电池，热插拔\" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap)."
   ladetid:
     vaerdi: 2
     enhed: "t"
@@ -166,7 +166,7 @@ felter:
     vaerdi: "8-kernet CPU, 100 TOPS"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-24"
-    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\"."
+    advarsel: "\"基础算力: 8 核高性能 CPU （100TOPS）\" (grundlæggende regnekraft: 8-kernet højtydende CPU, 100 TOPS)."
   ros2: "ikke_oplyst"
   sdk_sprog:
     vaerdi: "ikke_oplyst"
