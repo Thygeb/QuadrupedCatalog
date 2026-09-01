@@ -45,7 +45,16 @@ const iInline = new Set();
 }
 
 const raaDoede = [...iCss].filter((c) => !brugt.has(c));
-const iJs = raaDoede.filter((c) => new RegExp('[\'"`]' + c.replace(/[-]/g, '\\-') + '[\'"` ]').test(js));
+/* RETTET 1. sep 2026 efter at spor/doedcss fandt fejlen i dette script.
+   Det gamle tegnsaet var ['"`] FOER klassenavnet - altsaa kun et citationstegn.
+   Det misser enhver modifier, der staar som klasse nr. TO i en streng:
+     '<span class="saml-fotofelt saml-fotofelt--uoplyst">'   (mellemrum foer)
+     var tavs = svar.svarer === 0 ? ' saml-raekke--tavs' : ''  (mellemrum foer)
+   Tre klasser blev derfor talt doede, som JS'en bygger. Kontrol efter
+   rettelsen: de tre SKAL forsvinde fra listen, og tallet falde med 3. */
+const grænse = '[\'"`\\s]';
+const iJs = raaDoede.filter((c) =>
+  new RegExp(grænse + c.replace(/[-]/g, '\\-') + grænse).test(js));
 const aegteDoede = raaDoede.filter((c) => !iJs.includes(c)).sort();
 
 const raaUstylede = [...brugt].filter((c) => !iCss.has(c));
