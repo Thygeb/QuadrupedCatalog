@@ -40,7 +40,6 @@ import {
   lavSprog, lavHjaelp, lavKilder, skal, esc, vaegtklasse, VAEGTKLASSER,
   manglendeNoegler,
 } from './skabelon/side.mjs';
-import * as forsideSkabelon from './skabelon/forside.mjs';
 import * as katalogSkabelon from './skabelon/katalog.mjs';
 import * as sammenligningSkabelon from './skabelon/sammenligning.mjs';
 import * as omOsSkabelon from './skabelon/om-os.mjs';
@@ -254,7 +253,6 @@ async function main(argv) {
 
   const manglendeLande = new Set();
   let sider = 0;
-  let kortPaaForside = 0;
   let kortIKatalog = 0;
   // Fyldes i sprogloekken herunder, laest af den sprogneutrale rod-404 efter
   // loekken (spor/404). Samme genbrug som RODSPROG laengere nede: teksten
@@ -277,8 +275,10 @@ async function main(argv) {
         robotter, producenter, i18n, sprog: sprogkode, hjaelp, naevnere, d4,
         url: {
           sti, dybde, op,
-          forside: her,
-          katalog: `${her}robotter/`,
+          // spor/oversigt (1. sep 2026): kataloget ER sprogroden - forsiden
+          // (tools/skabelon/forside.mjs) er nedlagt, og der er dermed ingen
+          // separat "forside"-adresse at pege paa laengere. Se PUNKT 1.
+          katalog: her,
           sammenligning: `${her}sammenligning/`,
           producenter: `${her}producenter/`,
           robot: (slug) => `${her}robotter/${slug}/`,
@@ -287,43 +287,21 @@ async function main(argv) {
       };
     };
 
-    /* --- forsiden --- */
+    /* --- kataloget (spor/oversigt, 1. sep 2026): kataloget ER sprogroden ---
+       JPK, ordret: "HELE oversigt-siden skal vaek". Forsiden
+       (tools/skabelon/forside.mjs, dens seks-korts "Fra kataloget"-smagsproeve
+       og "yderpunkter"-sektion) er slettet, ikke erstattet - kataloget flytter
+       blot fra `<sprog>/robotter/` til `<sprog>/`, samme skabelon, samme
+       udseende, ny adresse. `<sprog>/robotter/` faar derfor INGEN index-fil;
+       kun robotundersiderne (robotter/<slug>/) bor der stadig. --- */
     {
       const ctx = grund('');
-      const main0 = forsideSkabelon.render(ctx);
-      kortPaaForside = taelKort(main0);
-      // VENDT (spor/lysbyg, retning LYS): forsiden er ikke laengere sitets
-      // fulde katalog - den var det, foer forsiden fik sin egen "Fra
-      // kataloget"-smagsproeve (tools/skabelon/forside.mjs, UDVALG_ANTAL).
-      // Den gamle regel var "forsiden viser ALLE robotter"; den nye er
-      // "forsiden viser NOEJAGTIGT smagsproevens antal, aldrig flere, aldrig
-      // faerre" - kravet er skaerpet, ikke sloejfet: bygget skal stadig
-      // fejle, hvis et kort falder ud af smagsproeven eller hvis flere end
-      // de tilsigtede seks sniger sig med. Kataloget (nedenfor) beviser
-      // stadig, at INTET robot gaar tabt paa vejen fra YAML til side.
-      const UDVALG_ANTAL = 6;
-      const forventetPaaForside = Math.min(UDVALG_ANTAL, robotter.length);
-      paastaa(kortPaaForside === forventetPaaForside,
-        `forsiden (${sprogkode}) har ${kortPaaForside} kort, men "Fra kataloget" skal vise `
-        + `${forventetPaaForside} (min(${UDVALG_ANTAL}, ${robotter.length} datafiler)).`);
-      skrivFil(path.join(ud, sprogkode, 'index.html'), skal({
-        sprogkode, T, t, sti: '', aktiv: '', script: true, harProducenter,
-        titel: `${T.sted_navn} · ${T.sted_undertitel}`,
-        beskrivelse: T.sted_undertitel,
-        main: main0,
-      }));
-      sider++;
-    }
-
-    /* --- kataloget --- */
-    {
-      const ctx = grund('robotter/');
       const main0 = katalogSkabelon.render(ctx);
       kortIKatalog = taelKort(main0);
       paastaa(kortIKatalog === robotter.length,
         `kataloget (${sprogkode}) har ${kortIKatalog} kort, men der er ${robotter.length} datafiler.`);
-      skrivFil(path.join(ud, sprogkode, 'robotter', 'index.html'), skal({
-        sprogkode, T, t, sti: 'robotter/', aktiv: 'robotter/', script: true, harProducenter,
+      skrivFil(path.join(ud, sprogkode, 'index.html'), skal({
+        sprogkode, T, t, sti: '', aktiv: '', script: true, harProducenter,
         titel: `${T.katalog_titel} · ${T.sted_navn}`,
         beskrivelse: T.sted_undertitel,
         stil: katalogSkabelon.hovedStil(ctx),
@@ -401,7 +379,10 @@ async function main(argv) {
       };
       const main0 = robotSkabelon ? robotSkabelon.render(ctx) : midlertidigRobotside(ctx);
       skrivFil(path.join(ud, sprogkode, 'robotter', robot.slug, 'index.html'), skal({
-        sprogkode, T, t, sti, aktiv: 'robotter/', harProducenter,
+        // aktiv:'' (spor/oversigt): kataloget bor nu paa sprogroden, saa dets
+        // nav-punkt bruger href '' - samme vaerdi som en robotside skal matche
+        // for stadig at vise "Katalog" som den aktive sektion, den er en del af.
+        sprogkode, T, t, sti, aktiv: '', harProducenter,
         titel: `${robot.navn} — ${robot.producent} · ${T.sted_navn}`,
         beskrivelse: `${robot.navn}, ${robot.producent}. ${T.sted_undertitel}`,
         stil: robotSkabelon?.hovedStil ? robotSkabelon.hovedStil(ctx) : '',
@@ -816,9 +797,8 @@ ${RODSPROG.map((s) => `<a class="rod__vej" href="${s.kode}/" hreflang="${s.kode}
 
   console.log(`\nByggede ${sider} sider. `
     + `Vaegtklasser: ${klasser.under_20}/${klasser['20_40']}/${klasser.over_40}/${klasser.ikke_oplyst} `
-    + `over ${robotter.length} datafiler. Kort paa forsiden ("Fra kataloget"): ${kortPaaForside} `
-    + `(skal vaere lig min(6, ${robotter.length})). Kildemaerker: ${medKilde} tal med kilde, ${udenKilde} uden.`);
-  console.log(`Kort i kataloget: ${kortIKatalog} · sekundaere kilder: ${sekundaere} felter · `
+    + `over ${robotter.length} datafiler. Kildemaerker: ${medKilde} tal med kilde, ${udenKilde} uden.`);
+  console.log(`Kort i kataloget (sprogroden): ${kortIKatalog} · sekundaere kilder: ${sekundaere} felter · `
     + `billeder kopieret fra assets/: ${billeder} (media/ indgaar aldrig)`);
   const ophavstekst = Object.keys(ophavstal).length
     ? Object.entries(ophavstal).map(([o, n]) => `${o}: ${n}`).join(', ')
