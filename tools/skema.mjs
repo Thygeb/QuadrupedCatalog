@@ -67,6 +67,13 @@ export const GRUPPER = ['fysik', 'energi', 'sensorik', 'nyttelast', 'kommercielt
 export const IDENTITET_PAAKRAEVET = ['slug', 'navn', 'producent', 'producentland', 'status', 'fremdrift'];
 export const IDENTITET_VALGFRI = [
   'foerste_udgivelse', 'forgaenger', 'noter',
+  // Soesterfeltet til `noter` (spor/cjkui, 1. sep 2026) — samme mekanik som
+  // ANVENDELSE_NOEGLER's citat_ordlyd: en PARALLEL liste, samme laengde og
+  // raekkefoelge som `noter`, "" hvor den enkelte note ikke havde en
+  // fremmedsproget ordlyd at bevare. `noter` renderes ordret i robot.mjs'
+  // noterBlok() og skal derfor vaere ren dansk; producentens egen, ikke-danske
+  // formulering flytter hertil, som ingen skabelon laeser. Se validate.mjs R21.
+  'noter_ordlyd',
   // Producentens by. Sammen med producentland er den svaret paa "hvor staar de
   // henne" — ANYbotics ligger i Zuerich, og Schweiz er ikke EU.
   'producentby',
@@ -192,9 +199,20 @@ export function sorterAnvendelse(vaerdier) {
   return [...vaerdier].sort((a, b) => plads(a) - plads(b) || String(a).localeCompare(String(b)));
 }
 
-/** Noegler, en anvendelsespost maa indeholde. Alt andet fejler paa R16. */
+/** Noegler, en anvendelsespost maa indeholde. Alt andet fejler paa R16.
+ *
+ *  `citat_ordlyd` og `note_ordlyd` — spor/cjkui, 1. sep 2026 (JPK: "UI SKAL
+ *  VAERE REN FOR kinesiske tegn", orkestratorens valg: ordlyden bliver i
+ *  dataen, forsvinder fra laeserens skaerm). Producentens egen, ikke-danske
+ *  formulering flytter hertil fra "citat"/"note", som fra nu kun baerer den
+ *  danske oversaettelse — INGEN skabelon laeser soesterfeltet, saa UI'et
+ *  bliver rent uden at robot.mjs roeres. Formen foelger sin vaert: staar
+ *  "citat" som en liste (flere citater), er "citat_ordlyd" samme liste,
+ *  samme raekkefoelge, "" hvor det enkelte citat ikke havde en fremmedsproget
+ *  ordlyd at bevare. Se tjekAnvendelse i validate.mjs (R21) for formkravet. */
 export const ANVENDELSE_NOEGLER = new Set([
   'vaerdi', 'citat', 'kilde', 'hentet', 'kildetype', 'arvet_fra', 'note',
+  'citat_ordlyd', 'note_ordlyd',
 ]);
 
 /**
@@ -298,10 +316,22 @@ export function billedPlade(b) {
 /** Noegler, en feltpost maa indeholde. Alt andet fejler — en tastefejl i en
  *  noegle ville ellers forsvinde tavst ud af bygget.
  *  `varianter` er skemaudvidelse 2: Go2's fire varianter er fire maskiner. */
+/**
+ * `advarsel_ordlyd` — spor/cjkui, 1. sep 2026. Soesterfeltet til "advarsel",
+ * samme begrundelse og samme mekanik som ANVENDELSE_NOEGLER's citat_ordlyd/
+ * note_ordlyd ovenfor: "advarsel" baerer fra nu KUN den danske oversaettelse
+ * (det, robot.mjs' advarselBlok() rent faktisk viser laeseren); den ordrette,
+ * ikke-danske kildeformulering flytter til "advarsel_ordlyd", som ingen
+ * skabelon laeser. Kun "note" (feltniveau) fik ALDRIG kinesisk indhold i
+ * praksis (0 af 890 advarsel-baerende poster, maalt) og har derfor intet
+ * soesterfelt her endnu — tilfoej "note_ordlyd" den dag et fund kraever det,
+ * saa skemaet ikke baerer en noegle, ingen fil bruger (samme regel som
+ * `silhuet` blev fjernet for, se identitet-kommentaren ovenfor).
+ */
 export const POST_NOEGLER = new Set([
   'vaerdi', 'min', 'maks', 'enhed', 'operator', 'kilde', 'hentet', 'kildetype',
-  'vaerdi_imperial', 'enhed_imperial', 'advarsel', 'advarsel_klasse', 'note', 'raa',
-  'ved_last', 'valuta', 'varianter',
+  'vaerdi_imperial', 'enhed_imperial', 'advarsel', 'advarsel_klasse', 'advarsel_ordlyd',
+  'note', 'raa', 'ved_last', 'valuta', 'varianter',
 ]);
 
 /**
