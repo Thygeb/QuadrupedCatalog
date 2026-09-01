@@ -240,7 +240,7 @@
   "felt_foerste_udgivelse": "Release year",
 
   "anvendelse_titel": "Intended use, per the manufacturer",
-  "anvendelse_forklaring": "This category is not our assessment. It is the manufacturer’s own classification, quoted verbatim. Where the manufacturer cannot be quoted, it reads not stated.",
+  "anvendelse_forklaring": "This category is not our assessment.",
   "anvendelse_citat": "The manufacturer’s words",
   "anvendelse_industri": "Industry",
   "anvendelse_inspektion": "Inspection",
@@ -264,7 +264,7 @@
   "varianter_kort": "var.",
   "varianter_forklaring": "The manufacturer sells this model in several variants. The figures on this page apply to the variant the source names.",
   "produktside_titel": "The manufacturer’s own page",
-  "produktside_forklaring": "We are not a dealer. The link goes to the manufacturer so the figures above can be checked at the source.",
+  "produktside_forklaring": "The link goes to the manufacturer so the figures above can be checked at the source.",
   "produktside_link": "Open the manufacturer’s page for {model}",
   "produktside_ingen": "The manufacturer has no product page for this model, or it has been taken down.",
   "til_producent": "See every model from {producent}",

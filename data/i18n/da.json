@@ -240,7 +240,7 @@
   "felt_foerste_udgivelse": "Udgivelsesår",
 
   "anvendelse_titel": "Anvendelse ifølge producenten",
-  "anvendelse_forklaring": "Kategorien er ikke vores vurdering. Den er producentens egen inddeling, gengivet ordret. Kan producenten ikke citeres, står der ikke oplyst.",
+  "anvendelse_forklaring": "Kategorien er ikke vores vurdering.",
   "anvendelse_citat": "Producentens ord",
   "anvendelse_industri": "Industri",
   "anvendelse_inspektion": "Inspektion",
@@ -264,7 +264,7 @@
   "varianter_kort": "var.",
   "varianter_forklaring": "Producenten sælger modellen i flere varianter. Tallene på siden gælder den variant, kilden nævner.",
   "produktside_titel": "Producentens egen side",
-  "produktside_forklaring": "Vi er ikke forhandler. Linket fører til producenten, så tallene ovenfor kan efterprøves ved kilden.",
+  "produktside_forklaring": "Linket fører til producenten, så tallene ovenfor kan efterprøves ved kilden.",
   "produktside_link": "Åbn producentens side om {model}",
   "produktside_ingen": "Producenten har ingen produktside for modellen, eller den er taget ned.",
   "til_producent": "Se alle modeller fra {producent}",

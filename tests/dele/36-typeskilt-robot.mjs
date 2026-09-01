@@ -245,12 +245,28 @@ export default async function koer(ctx) {
   /* --- 5. De tre tilstande maa stadig se forskellige ud ------------------ */
 
   // Haard begraensning 5. Skiltets maerkelinje er sidens FOERSTE moede med
-  // reglen, og den bruger spritens fire former - ikke kun fire toner.
+  // reglen (status og vaegtklasse), og bruger spritens SVG-former.
+  //
+  // CE staar IKKE laengere i maerkelinjen (JPK 1. sep 2026: en fast celle,
+  // der er et hul paa 73 af 77 robotter, laerer ingen noget paa sidens
+  // dyreste plads - samme regel som allerede holdt CE ude af STRIBE_FELTER).
+  // Beviset for CE's "ikke oplyst"-tilstand flyttede derfor til skemaet,
+  // hvor det staar som en RIGTIG raekke (skemaRaekke() -> side.mjs' tilstand()),
+  // og formen der er en ANDEN mekanik end SVG-spritten: en stiplet
+  // firkant (.v-ikke .mrk, border:1px dashed) mod NEJ's fyldte firkant
+  // (.v-nej .mrk, solid background) og JA's ring-med-kerne (.v-ja .mrk,
+  // inset box-shadow). Tre forskellige FORMER, ikke kun tre toner - proevet
+  // paa Spots CE-raekke, som databladet selv lader staa uoplyst (se
+  // data/robots/boston-dynamics-spot.yaml).
   const maerkeLinje = (spotDa.match(/<ul class="maerker skiltlinje">[\s\S]*?<\/ul>/) || [''])[0];
   ok('36.25: skiltet har en maerkelinje under robotnavnet', maerkeLinje !== '');
-  ok('36.26: den uoplyste CE-tilstand tegnes med spritens stiplede form, ikke kun med en tone',
-    /maerke--ce[^"]*maerke--tom/.test(maerkeLinje) && /href="#i-ioplyst"/.test(maerkeLinje),
-    maerkeLinje.slice(0, 200));
+  ok('36.25b: CE staar IKKE i skiltets maerkelinje', !/maerke--ce/.test(maerkeLinje), maerkeLinje.slice(0, 200));
+  const ceRaekke = (spotDa.match(/<th scope="row"[^>]*>CE oplyst<\/th>[\s\S]*?<\/tr>/) || [''])[0];
+  ok('36.26: den uoplyste CE-tilstand staar i skemaet med en stiplet form, ikke kun en tone',
+    /class="v v-ikke"/.test(ceRaekke) && /<i class="mrk">/.test(ceRaekke),
+    ceRaekke.slice(0, 200));
+  ok('36.26b: den stiplede form er en RIGTIG stiplet kant i CSS, ikke kun en klasse uden virkning',
+    /\.v-ikke \.mrk\{[^}]*border:1px dashed/.test(sys));
   ok('36.27: "ikke oplyst"-maerket baerer stoev-blaek (4,74:1), aldrig stoevgraa (2,14:1)',
     /\.typeskilt \.maerke--tom\{[^}]*color:var\(--blaek3\)/.test(sys)
     && !/\.typeskilt \.maerke--tom\{[^}]*color:var\(--hegn\)/.test(sys));
