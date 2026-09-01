@@ -1357,8 +1357,14 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    den laengste soegning, nogen skriver i det. */
 .sog{display:flex;flex-direction:column;gap:6px;flex:1 1 300px;min-width:250px;
   max-width:640px}
+/* JPK 1. sep 2026: "soege feltet og teksten padding" - feltet var 50px hoejt
+   med 12px lodret polstring, hvor kun to gulve er ufravigelige (katalog2):
+   min-height 44px (sitets eget beroeringsmaal, jf. .kort__saml paa touch,
+   .udtraek__greb) og font-size 16px (under den zoomer iOS Safari selv ved
+   fokus). 16px og 9px lodret polstring lander lige paa gulvet - maalt med
+   C:/Praktik/websites/maalevaerktoej/maal.mjs, ikke regnet i haanden. */
 .sog input{
-  font-family:var(--sans);font-size:16.5px;min-height:50px;padding:12px 15px;width:100%;
+  font-family:var(--sans);font-size:16px;min-height:44px;padding:9px 14px;width:100%;
   background:var(--panel);color:var(--blaek);
   border:1px solid var(--hegn);border-radius:var(--rund-ind);
 }
