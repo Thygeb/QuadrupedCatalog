@@ -100,6 +100,38 @@ ikke samtalen. Hver prompt skal derfor selv bære:
     **Byte-lighed mod en committet fil er en anden miljøfælde fra samme dag:**
     `core.autocrlf=true` checker filen ud med CRLF, mens node skriver LF — en sådan test er
     kun grøn i den worktree, der skrev filen. Normalisér `\r\n` → `\n` på begge sider.
+    **`media/_kilder/` mangler også, og den fælde er dyrere end den ser ud:** et brief,
+    der siger *"råkilderne findes allerede, seks filer"*, tager fejl i en frisk worktree,
+    fordi hele mappen er gitignoreret. Begge fase 2-pilotspor brugte en runde på det
+    2. sep 2026 — det ene gen-hentede kilderne over HTTP for at komme videre, hvilket var
+    rigtigt, men gav et snapshot med en anden dato end det, dataene blev indsamlet fra.
+    **Kopiér `media/_kilder/` ind sammen med `.env` og fotos** (målt: 164 MB), når sporet
+    skal efterprøve et citat mod sin kilde.
+
+12. **Diskforbruget er en egenskab ved BRIEFET, ikke ved sportypen.** Det er den vigtigste
+    halvdel, og den blev opdaget ved at to sessioner lånte hinandens tal 2. sep 2026:
+    ét spor blev kaldt "billigt som de andre" uden at nogen havde målt det.
+    Komponenterne, målt hver for sig:
+
+    | Post | Koster | Hvornår |
+    |---|---|---|
+    | worktree-kopien | ~380 MB | altid |
+    | `media/_kilder/` | 164 MB | kun hvis briefet beder om kildeefterprøvning |
+    | `dist/` | 68 MB | kun hvis briefet beder om et byg |
+    | skærmbilleder | under 1 MB | selv en fuld runde er ubetydelig |
+    | `tests/.tmp-koersel` | **2,8 GB** | **kun hvis briefet beder om `koer.mjs`** |
+
+    Et spor, der ikke rører kode, skal have *"kør IKKE `tests/koer.mjs`"* skrevet i
+    briefet — så koster det ~400 MB i stedet for 3,2 GB. Fire fase 2-spor med den linje
+    kostede tilsammen 1,7 GB. **Skriv altid linjen bevidst, i den ene eller anden
+    retning**, så tallet er valgt og ikke opdaget.
+
+    **`tests/.tmp-koersel` akkumulerer IKKE pr. kørsel** — den er bundet til ~2,8 GB pr.
+    worktree, der kører suiten (194 poster med scenarienavne, som overskrives). Et
+    kørende spor bliver derfor ikke dyrere ved at fortsætte; det er en **ny**
+    suite-kørende worktree, der koster. Et spor, der rammer ENOSPC, er **miljøet og ikke
+    arbejdet** — se `fejljagt`. Og `rm -rf` står i projektets `deny`-liste, så oprydningen
+    er JPK's: ingen agent kan rydde op efter sig selv.
 
 Send alle agenter af sted **i samme svar**, ellers er de ikke parallelle.
 Kør dem i baggrunden, så brugeren kan afbryde undervejs.
