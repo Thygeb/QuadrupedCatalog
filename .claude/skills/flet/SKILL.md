@@ -31,6 +31,28 @@ cp <worktree>/assets/fotos/fabrikant/<nye filer> assets/fotos/fabrikant/
 Sporets rapport skal bære listen over nye gitignorerede filer; mangler den, så
 spørg sporet, før der flettes.
 
+**Og det gælder ikke kun NYE filer. Det gælder REGENEREREDE.** Tilføjet
+2. sep 2026 efter et fund fra den anden session. `db/kanonisk.json` og
+`db/seed.sql` er gitignorerede artefakter, som spor regenererer undervejs.
+Mains udgaver havde da været bagud **siden `spor/cert`** og manglede
+`ccc_oplyst`, `fcc_oplyst` og `ul_oplyst`; den friske udgave fandtes kun i en
+worktree, der var på vej til at blive fjernet.
+
+Punkt 2's oprindelige formulering fanger det ikke, fordi den spørger
+*"har sporet tilføjet filer?"* — og svaret er nej. Filen fandtes i forvejen.
+Spørg derfor også:
+
+```
+diff <(git -C <worktree> log -1 --format=%H) <(git log -1 --format=%H)  # ikke nok
+ls -la db/kanonisk.json db/seed.sql <worktree>/db/kanonisk.json …       # sammenlign dato og stoerrelse
+```
+
+**Er worktreens udgave nyere, så efterprøv den for sporets egne prøvedata,
+FØR den kopieres ind** — den anden session målte 0 forekomster af de nøgler,
+sporet arbejdede med, og gemte mains gamle udgave som sikkerhedskopi først.
+Det er MANIFEST-tabet i ny forklædning: gitignoreret arbejde, der kun findes
+ét sted og forsvinder med worktreen, hvis ingen måler før fjernelsen.
+
 ## Selve flettet
 
 ### 3. `git merge --no-ff` med en fletbesked, der bærer TALLENE
