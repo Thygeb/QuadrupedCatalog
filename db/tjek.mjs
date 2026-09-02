@@ -261,27 +261,83 @@ function hoved() {
   const originalMappe = path.join(ROD, 'data/robots');
   const originalFiler = fs.readdirSync(originalMappe).filter((f) => /\.ya?ml$/.test(f)).sort();
   let ligeAntal = 0;
+  let talLigAntal = 0;
   const uligeDetaljer = [];
+  const talUligeSlugs = [];
+  let egneTalLigAntal = 0;
+  let egneDybtLigAntal = 0;
+  const egneTekstforskelLinjer = [];
+  const egneTalforskelDetaljer = [];
   for (const f of originalFiler) {
     const slug = f.replace(/\.ya?ml$/, '');
+    const erEgen = egneSlugs?.has(slug) ?? false;
     const eksportFil = path.join(EKSPORT_MAPPE, `${slug}.yaml`);
     if (!fs.existsSync(eksportFil)) {
       uligeDetaljer.push(`${slug}: eksportfilen findes ikke (${eksportFil})`);
+      talUligeSlugs.push(slug);
       continue;
     }
     const original = laesParsetNormaliseret(path.join(originalMappe, f));
     const eksport = laesParsetNormaliseret(eksportFil);
-    const stiTilFejl = [];
-    if (dybtLig(original, eksport, stiTilFejl)) {
+
+    const stiDybFejl = [];
+    const erDybtLig = dybtLig(original, eksport, stiDybFejl);
+    if (erDybtLig) {
       ligeAntal++;
     } else {
-      uligeDetaljer.push(`${slug}: ${stiTilFejl.reverse().join(' -> ')}`);
+      uligeDetaljer.push(`${slug}: ${stiDybFejl.reverse().join(' -> ')}`);
+    }
+
+    const stiTalFejl = [];
+    const erTalLig = talLig(original, eksport, stiTalFejl);
+    if (erTalLig) {
+      talLigAntal++;
+    } else {
+      talUligeSlugs.push(slug);
+    }
+
+    if (erEgen) {
+      if (erTalLig) {
+        egneTalLigAntal++;
+      } else {
+        egneTalforskelDetaljer.push(`${slug}: ${stiTalFejl.reverse().join(' -> ')}`);
+      }
+      if (erDybtLig) {
+        egneDybtLigAntal++;
+      } else if (erTalLig) {
+        egneTekstforskelLinjer.push(`${slug}: ${tekstforskelle(original, eksport).join(', ')}`);
+      }
     }
   }
   console.log(`     ${ligeAntal}/${originalFiler.length} dybt lig.`);
-  if (uligeDetaljer.length) {
-    fejl.push(`Tjek: ${uligeDetaljer.length} fil(er) er IKKE dybt lig deres original:\n  ` +
-      uligeDetaljer.join('\n  '));
+  console.log(`     ${talLigAntal}/${originalFiler.length} tal-lig (uden tekstnoegler).`);
+
+  if (!kunProducent) {
+    // Uden --kun: kravet er UAeNDRET fra foer dette spor — dybt lig ALLE 77.
+    // tal-lig-linjen ovenfor er ren information i denne gren.
+    if (uligeDetaljer.length) {
+      fejl.push(`Tjek: ${uligeDetaljer.length} fil(er) er IKKE dybt lig deres original:\n  ` +
+        uligeDetaljer.join('\n  '));
+    }
+  } else {
+    // Med --kun: kravet flytter til TAL-lighed for EGNE robotter alene.
+    // dybt-lig-forskelle for egne robotter er FORVENTEDE (fase 2 skriver
+    // tekst) og derfor kun information — ligesaa robotter uden for --kun,
+    // som et andet spor kan vaere midt i at skrive.
+    const k = egneSlugs.size;
+    console.log(`     ${egneTalLigAntal}/${k} tal-lig (${kunProducent})`);
+    console.log(`     ${egneDybtLigAntal}/${k} dybt lig (${kunProducent})`);
+    for (const linje of egneTekstforskelLinjer) console.log(`     ${linje}`);
+    if (egneTalLigAntal !== k) {
+      fejl.push(`Tjek (--kun="${kunProducent}"): ${k - egneTalLigAntal} af ${k} robot(ter) er IKKE ` +
+        `tal-lig deres original (talkolonner roerer sig, som de ikke maa):\n  ` +
+        egneTalforskelDetaljer.join('\n  '));
+    }
+    if (talLigAntal < originalFiler.length) {
+      const udenForSlugs = talUligeSlugs.filter((s) => !egneSlugs.has(s));
+      console.log(`     ADVARSEL: tal afviger uden for ${kunProducent}: ` +
+        `${udenForSlugs.join(', ') || '(ingen — kun egne robotter afviger)'}`);
+    }
   }
 
   console.log('3/4  node tools/validate.mjs paa den eksporterede mappe ...');
