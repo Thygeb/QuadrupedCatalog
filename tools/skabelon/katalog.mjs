@@ -460,17 +460,23 @@ function facetter(robotter, hjaelp, i18n) {
       tekst: tilstandsnavn,
     },
     {
-      /* STATUS er den ENESTE facet med en standardtilstand (L56 punkt 5):
-         udgaaede skjult, i produktion + annoncerede vist. Den saettes med
-         almindelige `checked`-attributter i HTML, saa den virker uden
-         JavaScript og kan nulstilles af en <button type="reset">. */
+      /* STATUS HAVDE en standardtilstand (L56 punkt 5: udgaaede skjult, i
+         produktion + annoncerede vist) - fjernet af BRIEF-uifix.md punkt 3
+         (spor/uifix, 2. sep 2026). JPK, ordret: "Baren paa katalogsiden
+         skal KUN vise de aktive filtre. som standard skal INGEN vaere
+         aktive." To fejl i én: to filtre var aktive ved indlaesning, OG
+         ingen af dem viste en chip (en aktiv, usynlig filtrering er vaerre
+         end en synlig). Status er derfor nu en facet SOM ALLE ANDRE -
+         ingen `mrk`, ingen `standard`, ingen `checked` ved indlaesning, og
+         dens vaerdier gaar gennem den samme generiske chip-mekanik som
+         vaegt/ip/land nedenfor i stedet for den tidligere INVERTEREDE
+         "skjult-X"-mekanik (se hovedStil() og valgListe herunder - begge
+         havde et status-saerspor, som er fjernet i samme spor). */
       navn: 'status',
       etiket: t('filter_status'),
-      mrk: t('filter_status_mrk'),
       vaerdier: (r) => [r.status],
       tekst: (v) => T['status_' + v],
       orden: ['i_produktion', 'annonceret', 'udgaaet'],
-      standard: new Set(['i_produktion', 'annonceret']),
     },
     {
       navn: 'land',
@@ -679,7 +685,6 @@ export function hovedStil(ctx) {
      kan tegnes uden at kunne taelle. */
   const valgRegler = [];
   for (const f of F) {
-    if (f.standard) continue; // status haandteres som UDELUKKELSE nedenfor
     // Samme begrundelse som §6a: naar JavaScript koerer, er skalaens tilstand
     // sliderens og ikke afkrydsningsfelternes, og chippen tegnes derfor af
     // assets/katalog.js med den vaerdi, laeseren faktisk har stillet paa.
@@ -695,20 +700,13 @@ export function hovedStil(ctx) {
     valgRegler.push(`.styr:has(#${id}:checked) [data-valg="${id}"],`);
     valgRegler.push(`.styr:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
   }
-  /* Status vender modsat: chippen fortaeller, hvad der er SKJULT - men KUN
-     for de vaerdier, standardtilstanden VISER (status.standard). For dem er
-     "unchecked" en aktiv AFVIGELSE fra standarden - et rigtigt valg. For
-     "udgaaet" (IKKE i standard) er "unchecked" derimod standarden selv -
-     ingen brugerhandling kan naa den tilstand, kun VAEK fra den. En chip
-     her ville altsaa vise noget, ingen har valgt (spor/valgbar, JPK 1. sep
-     2026: "baren skal KUN vise aktive filtre"). "74 af 77" forklares i
-     stedet af facet__tal i den (altid synlige) <summary> - se facetBlok(). */
+  // Status havde her et INVERTERET saerspor ("skjult-X" viser sig ved
+  // unchecked), fjernet af BRIEF-uifix.md punkt 3 sammen med `standard`-
+  // feltet paa facetten ovenfor. Status' checkbokse baerer samme
+  // `f-status`-klasse som enhver anden facet (se raekke()) og faar derfor
+  // AUTOMATISK den generiske chip-mekanik i loekken ovenfor - ingen egen
+  // kode noedvendig laengere.
   const status = F.find((f) => f.navn === 'status');
-  for (const v of status.liste) {
-    if (!status.standard.has(v)) continue;
-    const id = `f-status-${nogle(v)}`;
-    valgRegler.push(`.styr:not(:has(#${id}:checked)) [data-valg="skjult-${nogle(v)}"]{display:inline-flex}`);
-  }
 
   /* 6d. Sorteringen. To ting pr. sortering: kortenes orden og det aerlige
      savn-maerke paa dem, der ikke oplyser feltet. Alfabetisk har ingen regel -
@@ -728,24 +726,18 @@ export function hovedStil(ctx) {
      uden JavaScript (`:not([data-levende])`), fordi JavaScript regner tallene
      om og goer forbeholdet usandt. Se render()s note om maerkerne.
 
-     Status kraever sin egen betingelse: dens felter er krydset af i hvile, saa
-     "er der filtreret" betyder her "afviger fra standarden". */
+     Status havde her sin egen inverterede betingelse ("skjult standard-
+     vaerdi = filtreret"), fjernet af BRIEF-uifix.md punkt 3 - dens felter
+     er ikke laengere krydset af i hvile, saa den falder ind under den
+     generiske "har nogen krydset af" betingelse ligesom enhver anden
+     facet. */
   const filtreret = [];
   for (const f of F) {
-    if (f.standard) continue;
     filtreret.push(`.styr:not([data-levende]):has(.f-${f.navn}:checked)`);
     filtreret.push(`.styr:not([data-levende]):has(.f-${f.navn}:target)`);
   }
   filtreret.push('.styr:not([data-levende]):has(.f-eg:checked)');
   filtreret.push('.styr:not([data-levende]):has(.f-eg:target)');
-  for (const v of status.liste) {
-    const id = `f-status-${nogle(v)}`;
-    filtreret.push(status.standard.has(v)
-      // en standard-afkrydset vaerdi, der er slaaet FRA, er en filtrering
-      ? `.styr:not([data-levende]):not(:has(#${id}:checked))`
-      // en ikke-standard vaerdi, der er slaaet TIL, er ogsaa en filtrering
-      : `.styr:not([data-levende]):has(#${id}:checked)`);
-  }
   const omfang = `${filtreret.map((s) => `${s} [data-omfang]`).join(',\n')}{display:inline}\n`
     + `${filtreret.map((s) => `${s} [data-omfang-note]`).join(',\n')}{display:block}`;
 
@@ -815,11 +807,12 @@ export function render(ctx) {
   const omfangStandard = `<span class="taeller-omfang" data-omfang hidden> ${esc(t('taeller_standardvisning'))}</span>`;
 
   /* --- STANDARDVISNINGEN --------------------------------------------------
-     Hvor mange kort staar der, FOER laeseren roerer noget? Status-facetten er
-     krydset af paa i produktion + annonceret, saa svaret er ikke 77. Det
-     regnes her i stedet for at blive skrevet i haanden - tallet aendrer sig,
-     saa snart en robot skifter status. */
-  const iStandard = robotter.filter((r) => status.standard.has(r.status)).length;
+     Hvor mange kort staar der, FOER laeseren roerer noget? Foer BRIEF-uifix.md
+     punkt 3 (spor/uifix, 2. sep 2026) var status-facetten krydset af paa i
+     produktion + annonceret, saa svaret var 74, ikke 77. INGEN facet har
+     laengere en standardtilstand, saa standardvisningen ER hele kataloget -
+     tallet er derfor bare `alle`, ikke et separat, udregnet delmaengde. */
+  const iStandard = alle;
 
   /* --- TYPESKILTETS STEMPEL (JPK 1. sep 2026, punkt 2) ---------------------
      STOD FOER SOM FIRE FELTER (Type, Udgave, Poster, Oplyste felter). JPK
@@ -867,7 +860,6 @@ export function render(ctx) {
 
   const valgListe = [];
   for (const f of F) {
-    if (f.standard) continue;
     for (const v of f.liste) valgListe.push(valgChip(`f-${f.navn}-${nogle(v)}`, f.tekst(v)));
   }
   for (const k of K) valgListe.push(valgChip(`f-eg-${k.navn}`, t('eg_' + k.navn)));
@@ -886,25 +878,17 @@ export function render(ctx) {
       + `<button class="valg__fjern" type="button" data-valg-skala-ryd="${attr(f.navn)}">${kryds}`
       + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: f.etiket }))}</span></button></li>`);
   }
-  // Status vender modsat: chippen siger, hvad der er SKJULT - men KUN for de
-  // vaerdier, standardtilstanden viser. Se hovedStil()s begrundelse: en
-  // vaerdi der er skjult SOM STANDARD (i dag "udgaaet") faar aldrig en chip
-  // her, for dens "unchecked" er aldrig et brugervalg. Klassen er derfor
-  // almindelig "valg" - naar chippen VISER sig, er den altid en aktiv
-  // afvigelse, ikke et stille standardmaerke (spor/valgbar, JPK 1. sep 2026).
-  for (const v of status.liste) {
-    if (!status.standard.has(v)) continue;
-    const n = status.antal.get(v) ?? 0;
-    valgListe.push(`<li class="valg" data-valg="skjult-${attr(nogle(v))}">`
-      + `<span class="valg__navn">${esc(tf('valg_skjult', { navn: status.tekst(v), n }))}</span>`
-      + `<label class="valg__fjern" for="f-status-${attr(nogle(v))}">${kryds}`
-      + `<span class="kunskaerm">${esc(tf('valg_vis', { navn: status.tekst(v) }))}</span></label></li>`);
-  }
+  // Status havde her et INVERTERET saerspor ("skjult-X" chippen), fjernet af
+  // BRIEF-uifix.md punkt 3 (spor/uifix, 2. sep 2026) sammen med `standard`-
+  // feltet paa facetten og saersporet i hovedStil(). Status' vaerdier faar nu
+  // en almindelig chip fra loekken ovenfor, ligesom enhver anden facet.
 
   /* --- FACETGRUPPERNE ----------------------------------------------------- */
   const raekke = (f, v) => {
     const id = `f-${f.navn}-${nogle(v)}`;
-    const valgt = f.standard?.has(v) ? ' checked' : '';
+    // INGEN facet har en standardtilstand laengere (BRIEF-uifix.md punkt 3,
+    // spor/uifix, 2. sep 2026) - ingen checkbox er `checked` ved indlaesning.
+    const valgt = '';
     // "ikke oplyst" og "nej" er EGNE tilstande med egne maerker, aldrig et hul.
     const stand = v === 'ikke_oplyst' ? ' rk--uoplyst' : v === 'nej' ? ' rk--nej' : '';
     return `<div class="rk${stand}">`

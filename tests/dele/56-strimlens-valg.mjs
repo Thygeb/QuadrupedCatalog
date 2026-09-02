@@ -1,36 +1,34 @@
 /**
  * tests/dele/56-strimlens-valg.mjs — spor/valgbar, 1. sep 2026.
+ * OMSKREVET af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 3): status'
+ * `standard`-felt er fjernet HELT, ikke bare tømt. PUNKT 3/3b/3c og PUNKT 4
+ * nedenfor testede begge den gamle, delvise standardtilstand (i_produktion +
+ * annonceret checked, udgaaet skjult) og er derfor omskrevet fra bunden -
+ * ikke slettet, jf. CLAUDE.md "ret assertions, slet dem ikke". PUNKT 1, 2 og
+ * 5 proever fortsat sandt og staar uaendret.
  *
- * JPK, ordret: "SELECTED-baren viser DISCONTINUED HIDDEN selv om den ikke er
- * valgt. Baren skal KUN vise aktive filtre!"
+ * JPK, ordret (1. sep 2026): "SELECTED-baren viser DISCONTINUED HIDDEN selv
+ * om den ikke er valgt. Baren skal KUN vise aktive filtre!"
+ * JPK, ordret (2. sep 2026, BRIEF-uifix.md): "Baren paa katalogsiden skal
+ * KUN vise de aktive filtre. som standard skal INGEN vaere aktive." - og i
+ * interviewet: "lige nu er 'I produktion 68, Annonceret'-aktive. men de
+ * vises ikke som chips?"
  *
- * Mekanismen (fejljagt-skillens skridt 3-4, sporet baglaens fra symptomet):
- * Status-facetten har TRE mulige vaerdier, men kun TO af dem staar i
- * `status.standard` (i_produktion, annonceret er VIST som standard - deres
- * checkbokse er `checked` i den byggede HTML). Den tredje, "udgaaet", er
- * SKJULT som standard (ingen `checked`). Foer denne rettelse genererede
- * tools/skabelon/katalog.mjs én "skjult-X"-chip PR. VAERDI, uden at skelne:
- * for i_produktion/annonceret betyder "unchecked" en AKTIV afvigelse fra
- * standarden (et rigtigt brugervalg) - men for "udgaaet" betyder "unchecked"
- * netop STANDARDEN SELV, som ingen brugerhandling kan naa (den eneste vej
- * VAEK fra "unchecked" er at krydse af, og reglen viste chippen paa det
- * MODSATTE af det). Resultatet var en chip i en bar, der hedder "valgte
- * filtre", som stod der UDEN at nogen havde valgt noget.
+ * Mekanismen dengang (fejljagt-skillens skridt 3-4, sporet baglaens fra
+ * symptomet): Status-facetten havde TRE mulige vaerdier, men kun TO af dem
+ * stod i `status.standard` (i_produktion, annonceret var VIST som standard -
+ * deres checkbokse var `checked`). Den tredje, "udgaaet", var SKJULT som
+ * standard. spor/valgbar rettede DEN synlige del af symptomet (ingen chip
+ * for det ALDRIG-naaelige "udgaaet skjult"), men de to AKTIVE afvigelser
+ * (i_produktion/annonceret checket) var STADIG usynlige som chips - JPK's
+ * 2. sep-interview fangede netop DET som en resterende fejl: "to fejl i én".
  *
- * Rettelsen: katalog.mjs's to genereringssteder (chippens <li> i strimlen,
- * og dens :has()-regel i hovedStil()) springer nu vaerdier over, der IKKE er
- * i status.standard. Klassen "valg--standard" (den tidligere daempede,
- * "det er bare standarden"-stil) er fjernet helt fra de to tilbagevaerende
- * chips (i_produktion/annonceret) - naar de VISER sig, er de altid en
- * rigtig aktiv afvigelse og skal se ud som enhver anden valgt chip.
- *
- * "74 af 77" mister ikke sin forklaring: status-facettens <summary> baerer
- * allerede `f.mrk` (i18n-noeglen filter_status_mrk, "standard: udgaaede
- * skjult" / "default: discontinued hidden") - og et <summary>-element er
- * per HTML-spec ALTID synligt, ogsaa naar det omsluttende <details> er
- * sammenfoldet (facetgrupperne er sammenfoldet som standard, JPK 1. sep
- * 2026 punkt 4). Testen beviser det strukturelt: teksten ligger FOER det
- * lukkende </summary>-tag.
+ * spor/uifix's rettelse: status har ingen `standard` og intet `mrk` laengere
+ * - facetten er nu STRUKTURELT identisk med enhver anden facet (vaegt, ip,
+ * land): ingen checkbox er `checked` ved indlaesning, og alle tre vaerdier
+ * faar den samme GENERISKE chip-mekanik (almindelig, ikke-inverteret
+ * `:has(#id:checked)`), som resten af facetterne allerede brugte. Kataloget
+ * viser derfor 77 robotter ved indlaesning, ikke 74.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -77,60 +75,68 @@ export default async function koer(ctx) {
       !html.includes('[data-valg="skjult-udgaaet"]'));
 
     /* ==================================================================
-       PUNKT 3: brugerens EGNE valg forsvinder ikke sammen med standard-
-       chippen. De to statusvaerdier, der ER vist som standard (i_produktion,
-       annonceret), skal STADIG kunne blive til en aktiv chip, naar laeseren
-       fjerner fluebenet - ellers er "genindsaet mekanik" en paastand uden
-       daekning. Chippen skal baere almindelig "valg"-klasse (ikke den
-       fjernede --standard-daempning), for naar den VISER sig, er den en
-       rigtig valgt chip.
+       PUNKT 3 (BRIEF-uifix.md punkt 3): ALLE TRE statusvaerdier - ikke kun
+       to - faar nu den samme GENERISKE, ikke-inverterede chip-mekanik som
+       enhver anden facet: en almindelig "valg"-chip med id "f-status-X"
+       (IKKE det gamle "skjult-X"), taendt af den almindelige
+       #f-status-X:checked - ikke af fravaeret af checked.
        ================================================================== */
-    for (const v of ['i_produktion', 'annonceret']) {
-      const liRegex = new RegExp(`<li class="valg" data-valg="skjult-${v}">`);
-      ok(`56.3.${sprog}.${v}: <li class="valg" data-valg="skjult-${v}"> findes (ren "valg", ikke "valg--standard")`,
+    for (const v of ['i_produktion', 'annonceret', 'udgaaet']) {
+      const liRegex = new RegExp(`<li class="valg" data-valg="f-status-${v}">`);
+      ok(`56.3.${sprog}.${v}: <li class="valg" data-valg="f-status-${v}"> findes (generisk chip-id, ikke "skjult-${v}")`,
         liRegex.test(html));
 
       const regelRegex = new RegExp(
-        `\\.styr:not\\(:has\\(#f-status-${v}:checked\\)\\) \\[data-valg="skjult-${v}"\\]\\{display:inline-flex\\}`,
+        `\\.styr:has\\(#f-status-${v}:checked\\) \\[data-valg="f-status-${v}"\\]`,
       );
-      ok(`56.3b.${sprog}.${v}: :has()-reglen der taender chippen naar #f-status-${v} IKKE er checked, findes`,
+      ok(`56.3b.${sprog}.${v}: :has()-reglen der taender chippen naar #f-status-${v} ER checked, findes (generisk form)`,
         regelRegex.test(html));
 
-      // Modstykket: checkboksen ER checked som standard (I produktion/
-      // Annonceret er vist i hvile) - saa "unchecked" faktisk KAN naas ved
-      // en brugerhandling, i modsaetning til udgaaet.
-      const checkedRegex = new RegExp(`id="f-status-${v}"[^>]*checked`);
-      ok(`56.3c.${sprog}.${v}: #f-status-${v} ER checked i hvile (standard = vist)`,
-        checkedRegex.test(html));
+      // REVERT-BEVIS: den GAMLE inverterede id-form "skjult-X" findes IKKE
+      // laengere, for nogen af de tre vaerdier.
+      ok(`56.3.revert.${sprog}.${v}: den gamle inverterede chip-id "skjult-${v}" findes IKKE`,
+        !html.includes(`data-valg="skjult-${v}"`));
     }
 
-    // Og modsat: "udgaaet" er IKKE checked i hvile - den eneste vej til
-    // "unchecked" for den vaerdi ER hvile, aldrig en brugerhandling.
-    const udgaaetCheckboks = html.match(/id="f-status-udgaaet"[^>]*>/)?.[0] || '';
-    ok(`56.3d.${sprog}: #f-status-udgaaet er IKKE checked i hvile (standard = skjult)`,
-      !udgaaetCheckboks.includes('checked'));
+    // PUNKT 3c: INGEN af de tre statusvaerdier er checked ved indlaesning -
+    // det er selve rettelsen (BRIEF-uifix.md punkt 3, "som standard skal
+    // INGEN vaere aktive").
+    for (const v of ['i_produktion', 'annonceret', 'udgaaet']) {
+      const checkboks = html.match(new RegExp(`id="f-status-${v}"[^>]*>`))?.[0] || '';
+      ok(`56.3c.${sprog}.${v}: #f-status-${v} er IKKE checked i hvile (ingen standard laengere)`,
+        !checkboks.includes('checked'), checkboks || 'checkboksen blev ikke fundet');
+    }
+    // REVERT-BEVIS: samme udtryk fanger en syntetisk checked-checkboks.
+    ok(`56.3c.revert.${sprog}: samme moenster fanger en checked checkboks`,
+      'id="f-status-udgaaet" type="checkbox" checked'.includes('checked'));
 
     /* ==================================================================
-       PUNKT 4: "74 af 77" mister ikke sin forklaring. filter_status_mrk
-       ("standard: udgaaede skjult" / "default: discontinued hidden") skal
-       staa INDEN i <summary>, saa den er synlig, naar gruppen er
-       sammenfoldet (HTML-spec: <summary> er altid synligt, resten af
-       <details> er det ikke, naar `open` mangler).
+       PUNKT 4 (BRIEF-uifix.md punkt 3): "standard: udgaaede skjult" (i18n-
+       noeglen filter_status_mrk) er FJERNET, ikke omformuleret - status har
+       ingen standardtilstand at forklare laengere, og noeglen er derfor
+       fjernet fra da.json/en.json (BRIEF-uifix.md's eget valg: "fjern
+       noeglen, eller giv den et indhold, der passer"). Status-facettens
+       <summary> er nu STRUKTURELT identisk med enhver anden facet - ingen
+       facet__tal/mrk overhovedet.
        ================================================================== */
-    const mrkTekst = i18n.filter_status_mrk;
-    ok(`56.4.${sprog}: i18n-noeglen filter_status_mrk findes ("${mrkTekst}")`, !!mrkTekst);
+    ok(`56.4.${sprog}: i18n-noeglen filter_status_mrk findes IKKE laengere (fjernet, ikke omformuleret)`,
+      i18n.filter_status_mrk === undefined, `fandt "${i18n.filter_status_mrk}"`);
 
     const detailsMatch = html.match(/<details[^>]*data-facetgruppe="status"[^>]*>([\s\S]*?)<\/summary>/);
     ok(`56.4b.${sprog}: <details data-facetgruppe="status"> findes`, !!detailsMatch);
     if (detailsMatch) {
       const summaryDel = detailsMatch[1];
-      ok(`56.4c.${sprog}: "${mrkTekst}" staar INDEN i status-summary'en (synlig sammenfoldet)`,
-        summaryDel.includes(mrkTekst));
+      ok(`56.4c.${sprog}: status-summary'en baerer INGEN "facet__tal" (samme form som enhver anden facet)`,
+        !summaryDel.includes('facet__tal'));
+      // REVERT-BEVIS: land-facetten (som ALDRIG havde et mrk) proever samme
+      // vej - fangeren skal ogsaa "bestaa" dér, ellers tester den ingenting.
+      const landMatch = html.match(/<details[^>]*data-facetgruppe="land"[^>]*>([\s\S]*?)<\/summary>/);
+      ok(`56.4c.revert.${sprog}: samme tjek "bestaar" ogsaa paa land-facetten (proever noget aegte)`,
+        !!landMatch && !landMatch[1].includes('facet__tal'));
     }
 
     // Selve <details>-elementet maa IKKE baere `open` - sammenfoldet er
-    // standarden (JPK 1. sep 2026, punkt 4), og forklaringens synlighed
-    // staar og falder med netop det.
+    // standarden (JPK 1. sep 2026, punkt 4), uaendret af dette spor.
     const detailsAaben = html.match(/<details[^>]*data-facetgruppe="status"[^>]*>/)?.[0] || '';
     ok(`56.4d.${sprog}: status-facetgruppen har IKKE "open" (er sammenfoldet, som resten)`,
       !/\bopen\b/.test(detailsAaben));
