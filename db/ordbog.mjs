@@ -42,16 +42,33 @@
  *     tilstand_med_herkomst -> state_with_provenance). Ét dansk ord, ét
  *     engelsk ord, alle steder det forekommer — se selvtjekket nedenfor.
  *   - HAARD BEGRAENSNING 5: de fire tilstande (ikke_oplyst/nej/0/kun_billede)
- *     forbliver fire forskellige ord: undisclosed / no / (0 er en TALVAERDI,
+ *     forbliver fire forskellige ord: not_stated / no / (0 er en TALVAERDI,
  *     ikke et enum-medlem, og optraeder derfor slet ikke her) / image_only.
  *
  * NAVNEROEM: hver kortlaegning nedenfor er sin EGEN, uafhaengige ordbog — 1:1
- * kraeves KUN inden for samme kortlaegning (fx maa en TABEL og en ENUM-LABEL
- * godt begge oversaettes til "provenance", uden at det er en kollision, fordi
- * de aldrig slaas op i samme retning). Praksis her er alligevel GENNEMGAAENDE
- * konsistent: samme danske ord faar samme engelske ord, ogsaa paa tvaers af
- * kortlaegninger (fx "laengde" -> "length" baade som feltnavn og som
- * dimensionsetiket) — det er et bevidst, men IKKE et haandhaevet, valg.
+ * kraeves KUN inden for samme kortlaegning (fx maatte en TABEL og en
+ * ENUM-LABEL i princippet godt begge oversaettes til samme engelske ord, uden
+ * at det var en kollision, fordi de aldrig slaas op i samme retning).
+ * PRAKSIS her er alligevel GENNEMGAAENDE konsistent, og det haandhaeves NU
+ * ogsaa PAA TVAERS af kortlaegninger, efter en orkestrator-rettelse 2. sep
+ * 2026: "ophav" og "tilstand_med_herkomst" oversattes foerst begge til
+ * varianter af "provenance" — to danske ord, der delte ét engelsk, i to
+ * forskellige navnerum, og dermed usynligt for lavOrdbog()'s eget 1:1-vaern
+ * (som kun ser hver kortlaegning for sig). Rettet til "ophav" -> "origin"
+ * (kolonnen OG ophav_enum), saa "provenance" alene betyder herkomst
+ * (tilstand_med_herkomst -> state_with_provenance). Samme regel gaelder
+ * "laengde" -> "length" baade som feltnavn og som dimensionsetiket — det er
+ * FORTSAT bevidst genbrug (samme begreb, samme ord), ikke en kollision som
+ * ophav/herkomst var.
+ * FACIT FOR ENGELSKE ORD, HVOR SIDEN ALLEREDE HAR VALGT ET: `data/i18n/en.json`
+ * vinder over et frit oversaettelsesvalg her, efterproevet af samme
+ * orkestrator-rettelse: `hentet` -> `retrieved_at` (en dato, ikke en
+ * boolean), `fremdrift` -> `locomotion` (ikke `propulsion`, som betyder
+ * fremdrift ved motorkraft/thrust — robotikkens ord for ben-mod-hjul er
+ * "locomotion"), `haeldning` -> `slope` (en.json: `felt_haeldning = "Max
+ * slope"`, ikke `incline`). `obstacle_single`/`stair_step_continuous` blev
+ * efterproevet SAMTIDIG og matcher allerede en.json's "Single obstacle"/
+ * "Stair step, continuous" — uaendrede.
  */
 
 /** Bygger BEGGE retninger af én kortlaegning og fejler ved import, hvis den
@@ -122,7 +139,12 @@ export const TABELLER_FJERNET = ['synk_aftryk'];
 export const KOLONNER = lavOrdbog({
   // feltdefinitioner
   feltnavn: 'field_name',
-  gruppe: 'group',
+  // IKKE "group" — det er et RESERVERET Postgres-noegleord (GROUP BY) og
+  // ville kraeve anfoerselstegn ved hvert opslag, i modstrid med
+  // db/skema.sql's egen konvention (lowercase snake_case UDEN anfoerselstegn,
+  // Supabase-skillens schema-lowercase-identifiers.md). Fundet under egen
+  // efterproevning af den genererede migrering, 2. sep 2026 — ikke antaget.
+  gruppe: 'field_group',
   art: 'kind',
   dimension: 'dimension',
   ogsaa_dimension: 'secondary_dimension',
@@ -138,7 +160,7 @@ export const KOLONNER = lavOrdbog({
   producentland: 'manufacturer_country',
   producentby: 'manufacturer_city',
   status: 'status',
-  fremdrift: 'propulsion',
+  fremdrift: 'locomotion',
   foerste_udgivelse: 'first_released',
   forgaenger_robot_id: 'predecessor_robot_id',
   varianter: 'variants',
@@ -159,7 +181,7 @@ export const KOLONNER = lavOrdbog({
   vaerdi_imperial: 'imperial_value',
   operator: 'operator',
   kilde: 'source',
-  hentet: 'retrieved',
+  hentet: 'retrieved_at',
   kildetype: 'source_type',
   advarsel: 'caveat',
   advarsel_klasse: 'caveat_class',
@@ -175,14 +197,14 @@ export const KOLONNER = lavOrdbog({
   vaerdi: 'value',
   // anvendelse
   er_bar_streng: 'is_bare_string',
-  er_ikke_oplyst: 'is_undisclosed',
+  er_ikke_oplyst: 'is_not_stated',
   citat: 'quote',
   citat_ordlyd: 'quote_wording',
   arvet_fra_robot_id: 'inherited_from_robot_id',
   note_ordlyd: 'note_wording',
   // billede
   fil: 'file',
-  ophav: 'provenance',
+  ophav: 'origin',
   alt: 'alt',
   delt_med_robot_id: 'shared_with_robot_id',
   plade: 'plate',
@@ -205,7 +227,7 @@ export const ENUM_TYPER = lavOrdbog({
   status_enum: 'status_enum',
   kildetype_enum: 'source_type_enum',
   operator_enum: 'operator_enum',
-  ophav_enum: 'provenance_enum',
+  ophav_enum: 'origin_enum',
   feltform_enum: 'field_form_enum',
   feltnavn_enum: 'field_name_enum',
 }, 'ENUM_TYPER');
@@ -218,10 +240,14 @@ export const ENUM_TYPER = lavOrdbog({
 export const ENUM_LABELS = {
   // HAARD BEGRAENSNING 5: disse tre + tallet 0 (som slet ikke er et
   // enum-medlem, se skema.sql's egen kommentar ved tilstand_enum) skal
-  // forblive fire forskellige ord. undisclosed / no / image_only er alle
-  // indbyrdes forskellige og forskellige fra "0"/"zero".
+  // forblive fire forskellige ord. not_stated / no / image_only er alle
+  // indbyrdes forskellige og forskellige fra "0"/"zero". Rettet af
+  // orkestrator-review 2. sep 2026 fra det tidligere, mere ladede ordvalg
+  // (som antydede bevidst tilbageholdelse, hvilket ikke er paastanden) til
+  // "not_stated": data/i18n/en.json bruger allerede "not stated" som ordlyd
+  // (tilstand_ikke_oplyst, vaegtklasse_ikke_oplyst).
   tilstand_enum: lavOrdbog({
-    ikke_oplyst: 'undisclosed',
+    ikke_oplyst: 'not_stated',
     nej: 'no',
     kun_billede: 'image_only',
   }, 'ENUM_LABELS.tilstand_enum'),
@@ -273,7 +299,7 @@ export const ENUM_LABELS = {
     nyttelast_gaaende: 'payload_walking',
     nyttelast_staaende: 'payload_standing',
     hastighed: 'speed',
-    haeldning: 'incline',
+    haeldning: 'slope',
     forhindring_enkelt: 'obstacle_single',
     trappetrin_kontinuerlig: 'stair_step_continuous',
     ip_klasse: 'ip_rating',
