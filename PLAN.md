@@ -1,14 +1,93 @@
 # Byggeplan — oversigt over firbenede robotter
 
 Skrevet 19. august 2026 efter interview med JPK. Forbillede: humanoid.guide, som chefen
-har peget på. **Ingen kode skrevet endnu.** Denne fil er beslutningsgrundlaget; den
-visuelle retning er ikke afgjort og er sidste åbne punkt før byggestart.
+har peget på. ~~**Ingen kode skrevet endnu.**~~ *(Forældet — siden er bygget og i drift,
+se CLAUDE.md.)* Denne fil er beslutningsgrundlaget.
+
+**Den gældende byggeplan er §0 nedenfor**, skrevet 2. september 2026. §7, §8 og §12
+er overhalet af den og står som historik.
 
 Skill brugt til planlægningen: `impeccable` → `init` (produktsandhed, gav
 [PRODUCT.md](PRODUCT.md)) → `shape` (IA og adfærd før kode). Gik forbi: `ui-ux-critique`
 og `critique` (vurderer noget der findes), `frontend-design` og `ui-ux-pro-max`
 (overlapper impeccable), `feature-dev` (subagenter, ikke bedt om), `new-project`
 (scaffolding — først når vi koder).
+
+---
+
+## 0. Planen fra 2. september 2026 — Supabase som sandhedskilde, fase 0–5
+
+**Skrevet 2. sep 2026 efter JPK's beslutninger L81–L85** (STATUS.md Å115–Å119).
+Erstatter §7 (sprogarkitektur), §8 (teknisk arkitektur) og §12 (rækkefølge).
+
+### Præmissen
+
+Projektet kørte med **to lagre uden en primær**: YAML redigeret i hånden som den
+arbejdende sandhed, Supabase som spejl, holdt i takt af håndskrevne feltlister i
+`db/migrer.mjs`. Alle tre datatab-nærved (Å15, Å48, Å108) kom af den dobbelthed — en
+nøgle, der fandtes i det ene lager og aldrig nåede det andet. Målt 2. sep: `db/` var
+3.630 håndholdte linjer, og databasen var et **blad** i afhængighedsgrafen (0 læsere
+uden for `db/`), YAML roden (11.101 linjer i `tools/`+`tests/`).
+
+Planen fjerner dobbeltheden ved at gøre databasen til det ene lager — og fjerner
+derefter hvert lag, der kun fandtes for at holde to lagre i takt.
+
+### Beslutningerne
+
+| # | Beslutning | Vender | STATUS |
+|---|---|---|---|
+| **L81** | Supabase er den ene sandhedskilde; agenter skriver i databasen | L35 (model C); udfører L34 | Å116 |
+| **L82** | Websiden bliver engelsk alene; alt i databasen på engelsk — indhold, kolonner, etiketter. Dansk droppes i fase 4, ikke før | L3, L24 | Å116, Å118 |
+| **L83** | Tekstfelterne genindsamles fra producenterne på engelsk; tallene består | — | Å116 |
+| **L84** | Intet mellemlag: bygget læser databasen direkte. `data/robots/` slettes, ingen eksport committes | (Å115/Å116's fase 3–4) | Å119 |
+| **L85** | Koden bliver også engelsk (fase 5); ordbogen er et midlertidigt redskab, ikke et lag | — | Å119 |
+
+### Faserne
+
+**Rækkefølgen er bindende.** To afhængigheder er ikke til forhandling: **fase 1 skal
+være flettet og migreringen anvendt, FØR fase 2 skriver én tekst** (sikkerhedsnettet —
+databasen er genskabelig fra `data/robots/` på `b5bb73d` indtil da, og ikke derefter);
+og **fase 5 kan først køre, når intet andet spor er i `tools/` og `assets/`**.
+
+| Fase | Formål | Leverancer | Ejer | Færdig når | Status |
+|---|---|---|---|---|---|
+| **0** | Databasen bliver et sandt spejl af `data/robots/` — baselinen for alt efterfølgende | `migrer --til-db`; tre skemahuller lukket på den levende DB (cert-enum, `*_ordlyd`, `alt` → jsonb) | orkestrator | `rundtur --live` 77/77 · validate 0 · build 216=216 · 1111=1111 | **Kørt 2. sep** (Å115) |
+| **1** | Skemaet bliver engelsk; YAML→DB-retningen lukkes; historik og ejerskab kommer på | `db/ordbog.mjs` (dansk↔engelsk, 1:1, vendbar — 7 tabeller, 78 kolonner, 7 enums, 33 feltnavne, opremsede værdier) · `db/byg-migrering.mjs` **genererer** `db/migrering-engelsk.sql` fra ordbogen · `db/migrering-cert.sql` · `db/skema.sql` på engelsk med `images.alt jsonb`, `collected_by`, `change_reason`, historiktabel + trigger, uden `_i18n` · `db/eksporter.mjs` læser engelsk, skriver den danske YAML-form (midlertidigt bevis) · `db/migrer.mjs` **slettes**, `synk_aftryk` droppes, `db/rundtur.mjs` → `db/tjek.mjs` · tests 07/28/33/44/60 fjernes (114 assertions), ny test 63 | `spor/skema`, Sonnet | 13 acceptkriterier i [fund/BRIEF-skema.md](fund/BRIEF-skema.md); derefter orkestratoren: migrering anvendt på den levende DB, `tjek.mjs` → 77/77 · validate 0 · 216=216 · 1111=1111 | **Kører** (Å117) |
+| **2** | Teksterne genindsamles på engelsk fra producenterne; tallene rører sig ikke | N parallelle spor, **rækkeejerskab pr. producent**, skriver **kun tekstkolonner** via REST: `caveat` (891), `note` (97), `applications.quote` (76 blokke), `country` (8), feltetiketter (~30) · pr. tekst: engelsk formulering + `source_wording` **ordret i kildens sprog** + råkilde-snapshot med MANIFEST (URL, HTTP, UTC, SHA-256) · de 62 kinesiske producenter læses **på kinesisk** | fase 2-spor, Sonnet, på JPK's kommando | talkolonnernes diff før/efter = **0** · `source_wording` udfyldt på alle 891 (i dag 309) → derefter `NOT NULL` · konsistenskontrol: står tallet i den citerede ordlyd? | Venter på fase 1 |
+| **3** | Bygget læser databasen direkte — intet mellemlag | `build.mjs` henter 77 robotter via REST (anon-nøgle + RLS-læsepolitik — ingen hemmelighed for at bygge) og mapper gennem ordbogen til den dokumentform, skabelonerne læser · `validate` på det hentede · `tests/dele/_faelles.lasRobotter()` → `hentRobotter()`, ét kald, cachet · `--data=` udgår · `db/eksporter.mjs`, `db/hentbyg.mjs`, `db/tjek.mjs` slettes · `data/robots/` **slettes** · `tools/yaml.mjs` (457 linjer) slettes | ét spor, Sonnet | build fra DB giver byte-identisk `dist/` mod build fra `data/robots/` (målt før sletningen) · tests samme beståtal | Venter på fase 2 |
+| **4** | Omskiftet: engelsk alene, dokumenterne følger med | `SPROG = ['en']` (`tools/skema.mjs:563`), `KILDESPROG` · de 32 `da`-refererende tests rettes · `data/i18n/da.json` slettes · `spor/i18nfelt`s mekanisme fjernes · CLAUDE.md (mappestruktur, sprog, hårde begrænsninger 3 og L35-noter), DATAFLOW.md, `robotdata`-skillen (redigér i DB + råkilderegel) skrives om | ét spor + orkestrator (dokumenter) | 108 sider, ikke 216 · 0 forekomster af `dist/da` · linktjek 0 | Venter på fase 3 |
+| **5** | Koden taler engelsk; ordbogen slettes | Mekanisk omdøbning i `tools/`+`tests/` (1.227 linjer med de 33 feltnavne, 6.671 med kernenøglerne), 402 i18n-nøgler, CSS-klasser · `db/ordbog.mjs` slettes | ét spor, Sonnet | `dist/` byte-identisk før/efter · tests samme beståtal · `grep` efter hvert dansk identifikator = 0 | Venter på fase 4 **og** på at `spor/uifix`/`spor/extract` er flettet |
+
+### Det, der tabes — skrevet frem, ikke gemt
+
+- **Byg uden net.** Bygget kalder databasen (77 rækker, ét nested select).
+  Afhængighedsfriheden holder — L34 tillod fetch, ingen npm — men offline holder ikke.
+- **Git-diff af data før udgivelse.** Erstattes af historiktabellen (hvem, hvornår,
+  hvorfor, gammel række) og af diffen mellem to byg.
+- **Afvisning før data lander.** Erstattes af `collected_by` + historiktabel: en
+  afvisning er en forespørgsel, ikke en gren.
+- **Den danske side** (106 sider, 988 håndskrevne tekster — ligger i git-historikken).
+- **Redigering uden nøgle.** Skrivning kræver Supabase-adgang; læsning og byg gør ikke.
+
+### Det, der ikke er til forhandling
+
+- **Råkilden gemmes, hver gang** — snapshot + MANIFEST pr. kilde. Prisen var L9's 26
+  kina-poster. `robotdata`-skillen bærer ikke reglen i dag (0 træffere); den skal ind,
+  før fase 2's første spor sendes.
+- **Kinesiske producenter læses på kinesisk.** `＜60 cm` var undvigelsesafstand på
+  kinesisk og landede som forhindringshøjde på engelsk. Lagringssprog er engelsk;
+  kildesprog er producentens.
+- **Oversat ordlyd mærkes som oversættelse** — `source_wording` ordret, `source_wording_en`
+  ved siden af. Hård begrænsning 2.
+- **De fire tilstande forbliver fire ord** i den engelske enum. Hård begrænsning 5.
+- **`source_wording NOT NULL` sættes først, når fase 2 er færdig** — 582 rækker ville
+  falde i dag.
+
+### Hvad ordbogen er, og hvornår den forsvinder
+
+`db/ordbog.mjs` har tre roller: **(1)** migreringen genereres fra den — én liste, ikke to
+(L30) · **(2)** beviset for at omdøbningen er tabsfri (`tjek.mjs`) · **(3)** broen i
+build, indtil koden selv taler engelsk. Efter fase 5 findes den ikke.
 
 ---
 
@@ -149,6 +228,10 @@ så en filtreret liste kan sendes videre.
 
 ## 7. Sprogarkitektur
 
+> **Overhalet 2. sep 2026 af L82 — engelsk alene. Se §0.** Arkitekturen (én fil pr.
+> sprog, URL pr. sprog, `hreflang`) bliver stående i koden med ét sprog; den er ikke
+> revet ned, den er sat på ét.
+
 **Byg til mange, udgiv med to.** En robotpost er ~80 % tal — kg, mm, Wh, IP — og de
 oversættes aldrig.
 
@@ -163,6 +246,10 @@ ombygning. **`data-en`-attributløsningen fra salgsprojektet må ikke genbruges*
 en kontakt med to stillinger og kan ikke få en tredje.
 
 ## 8. Teknisk arkitektur
+
+> **Overhalet 2. sep 2026 af L81 og L84 — Supabase er kilden, `data/robots/` slettes i
+> fase 3, bygget læser databasen direkte. Se §0.** Resten af afsnittet (JS-fri katalog,
+> ingen tredjepartskald, målescripts) gælder stadig.
 
 ```
 data/robots/*.yaml            én fil pr. robot — én robot = én commit, git-diffbar
@@ -218,6 +305,9 @@ hentedato, og poster over 12 måneder markeres synligt. Uden det er kataloget fo
 efter et år, og ingen kan se det.
 
 ## 12. Rækkefølge
+
+> **Udført.** Alle syv trin nedenfor er gennemført (august 2026). Den gældende
+> rækkefølge er §0's fase 0–5.
 
 1. **Datamodellen fastlægges, og tre robotter udfyldes i hånden** — Unitree B2, Boston
    Dynamics Spot, ANYbotics ANYmal. De tre poler: billig, etableret, industriel. Det
