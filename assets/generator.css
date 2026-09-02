@@ -292,7 +292,10 @@
    robot.mjs, men stod uden regel her — dens eneste styling laa i den
    forladte sider.css. Fotografiet staar stille paa robotsiden: bevaegelsen
    paa .kort er en invitation til at klikke; her er man allerede fremme. */
-.billedled--stor{aspect-ratio:16/10;border:1px solid var(--linje);
+/* L78: varianten beholder sin egen KANT og plade, men sideforholdet og
+   fitten er systemets - 4:3 og contain, arvet fra .billedled. En variant maa
+   have sin egen ramme; den maa ikke have sit eget sideforhold. */
+.billedled--stor{border:1px solid var(--linje);
   border-radius:var(--rund);box-shadow:var(--skygge);background:var(--panel)}
 .billedled--stor .intetfoto{border-radius:var(--rund)}
 .billedled--stor img{transition:none}
@@ -639,8 +642,12 @@
    skubbede navnet for taet paa en almindelig telefons foerste skaermhoejde.
    Loftet gaelder KUN et rigtigt fotografi — :not(.billedled--maal) holder
    maaltro-pladen udenfor, fordi dens kasse regner sin egen procentbredde ud
-   fra 16:10 og ville forvrides af en haandregnet hoejde. Fotografiet selv
-   beskaeres proportionalt af det eksisterende object-fit:cover i system.css. */
+   fra 16:10 og ville forvrides af en haandregnet hoejde.
+   RETTET AF L78 (2. sep 2026): sidste linje sagde foer, at fotografiet blev
+   "beskaaret proportionalt af den eksisterende cover-fit i system.css".
+   Der er ingen cover-fit laengere. Loftet virker uaendret - men det
+   INDPASSER nu billedet i de 190 px i stedet for at beskaere det, hvilket er
+   praecis, hvad L78 vil have paa den flade, hvor maskinen skal ses. */
 @media (max-width:899px){
   .robot-top{gap:var(--r4)}
   .robot-foto .billedled--stor:not(.billedled--maal){max-height:190px}
@@ -1302,11 +1309,16 @@
 }
 .net .kort:hover{background:#FFFFFF}
 .net .kort:focus-within{outline:2px solid var(--blaek);outline-offset:-2px}
+/* L78: `aspect-ratio:4/3` og `object-fit:contain` stod her, fordi kataloget
+   rettede grundreglens 16:10+cover. Grundreglen ER nu 4:3+contain, saa de to
+   erklaeringer er slettet - dét er hele pointen med én regel ét sted.
+   Tilbage staar det, der reelt er katalogets eget: den graa bund bag det
+   indpassede foto, den nulstillede radius og luften omkring billedet. */
 .net .billedled{
-  aspect-ratio:4/3;background:var(--bund);display:grid;place-items:center;
+  background:var(--bund);display:grid;place-items:center;
   overflow:hidden;border-bottom:1px solid var(--linje);border-radius:0;
 }
-.net .billedled img{width:100%;height:100%;object-fit:contain;padding:var(--r3)}
+.net .billedled img{width:100%;height:100%;padding:var(--r3)}
 .kort__tekst{padding:var(--r3) var(--r4) var(--r4);display:flex;flex-direction:column;gap:3px}
 .kort__prod{
   margin:0;font-size:10.5px;font-weight:600;letter-spacing:.13em;

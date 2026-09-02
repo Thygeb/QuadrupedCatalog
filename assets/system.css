@@ -200,6 +200,14 @@
   --kant:clamp(16px,3.4vw,44px);   /* sidens ydre luft */
   --maal:68ch;                     /* broedtekstens maal */
 
+  /* L78: maaltro-pladens sideforhold - IKKE en smagsvaerdi, men den ene
+     halvdel af en maaleenhed. Den anden halvdel er
+     tools/skabelon/side.mjs:1728's `PLADE_MM_HOEJ = PLADE_MM_BRED * 10/16`.
+     Produktfotos er 4:3 uden undtagelse; pladen er ikke et foto, men en
+     tegning i maalestok, og de to tal SKAL flytte sig sammen.
+     tests/dele/61-extract.mjs laeser begge og fejler, hvis de skrider. */
+  --plade-forhold:16/10;
+
   /* Form */
   --rund:12px;                     /* panelets radius (L16) */
   --rund-ind:8px;                  /* indfelt inde i et panel */
@@ -1095,11 +1103,18 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 }
 .kort:hover,.kort:focus-within{border-color:#CFD4DB;box-shadow:var(--skygge-loeft)}
 
+/* L78: ET produktfoto beskaeres ALDRIG. Ét sideforhold (4:3) og én fit
+   (contain) for hele sitet - det er DEN regel, og den staar kun her.
+   Foer i dag var grundreglen 16:10 + cover, mens kataloget (.net .billedled)
+   selv rettede til 4:3 + contain. Kortene gjorde altsaa det rigtige, og
+   robotsiden - fladen hvor man netop vil SE maskinen - gjorde det forkerte.
+   Maalt: med cover mistede 40 af 65 fotos over 10 % af billedet,
+   gennemsnit 18,3 %, vaerst 59 %. */
 .billedled{
-  position:relative;overflow:hidden;aspect-ratio:16/10;background:var(--panel);
+  position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--panel);
   border-bottom:1px solid var(--linje);display:grid;place-items:center;
 }
-.billedled img{width:100%;height:100%;object-fit:cover;object-position:center}
+.billedled img{width:100%;height:100%;object-fit:contain;object-position:center}
 
 /* PRINT/PDF: kataloget bruges som haandout, og en udskrift uden billeder er
    ubrugelig. `loading="lazy"` paa kortene under folden er ALLEREDE ignoreret
@@ -1116,10 +1131,14 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   .billedled img{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 
-/* PLADE: maskinen er fotograferet fri paa hvid. En 16:10-beskaering tager
-   enten poterne eller hovedet. Den faar hele billedet paa kortets egen
-   hvide flade. Det er ogsaa den klasse, de maaltro silhuetter skal baere. */
-.billedled--plade img{object-fit:contain;padding:6% 7%}
+/* PLADE: maskinen er fotograferet fri paa hvid, og den faar ekstra luft
+   omkring sig paa kortets egen hvide flade.
+   L78: klassens `object-fit:contain` er SLETTET herfra - ikke fordi den var
+   forkert, men fordi den nu er systemets grundregel. Da den stod her, var
+   den en fladespecifik undtagelse fra en cover-standard; nu ville den vaere
+   en gentagelse, og en gentaget vaerdi er den, der en dag skrider.
+   Tilbage staar det, der faktisk er pladens eget: luften. */
+.billedled--plade img{padding:6% 7%}
 
 /* BILLEDMAERKE: staar PAA fotografiet, nede i venstre hjoerne, og kun paa de
    kort hvor billedet ikke sikkert er den maskine, kortet handler om.
@@ -1158,7 +1177,24 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    er skiftet, er, at hullet nu har noget at vise frem. Pladen loefter sig
    ikke, skalerer ikke og reagerer ikke paa hover — reglen om det ubevaegelige
    hul gaelder ogsaa her. */
-.billedled--maal{background:var(--tom)}
+/* L78's ENESTE undtagelse, og den er ikke en fladespecifik smagsdom - den er
+   en maaleenhed. Maaltro-pladen er IKKE et produktfoto: den indeholder intet
+   <img> overhovedet (kun <span>-elementer), saa `object-fit` rammer den ikke.
+   Dens KASSE tegnes derimod som procenter af feltet, og procenterne regnes i
+   tools/skabelon/side.mjs:1727-1728 ud fra
+       PLADE_MM_BRED = 1900;  PLADE_MM_HOEJ = PLADE_MM_BRED * 10 / 16;
+   altsaa et 16:10-felt. Skiftede pladen til 4:3, ville hoejden regnes af
+   0,75 W i stedet for 0,625 W, og HVER silhuet blev tegnet 20,0 % for hoej -
+   maalt paa dist/da/index.html's egen kasse (--bw:40.58%, --bh:33.68% =
+   771 x 400 mm, sandt forhold 1,928; tegnet 1,606 ved 4:3).
+   En tavs 20 %-fejl i en "maaltro" tegning er praecis den slags loegn, siden
+   findes for at undgaa. 14 plader i bygget, 6 med en maalt kasse.
+   DE TO TAL HOERER SAMMEN: skal pladen til 4:3, skal side.mjs' 10/16 blive
+   3/4 i SAMME aendring. side.mjs staar uden for dette spors filejerskab.
+   Vaerdien staar derfor som et NAVNGIVET token (--plade-forhold), ikke som
+   et loest tal, og tests/dele/61-extract.mjs laeser BEGGE sider og fejler,
+   hvis de to skrider fra hinanden. En tavs kobling er gjort til en maalt. */
+.billedled--maal{aspect-ratio:var(--plade-forhold);background:var(--tom)}
 .maalplade{position:relative;width:100%;height:100%;background:var(--tom);overflow:hidden}
 .maalplade::before{content:"";position:absolute;inset:10px;z-index:2;
   border:1px dashed var(--hegn);border-radius:var(--rund-ind)}
