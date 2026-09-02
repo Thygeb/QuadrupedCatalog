@@ -211,16 +211,40 @@
         k.setAttribute('aria-pressed', er ? 'true' : 'false');
       }
       if (samlTaeller) {
-        /* Taelleren FORSVINDER ved tomt udvalg i stedet for at staa og sige
-           "0 valgt": et nul, ingen har valgt, er ikke en oplysning - det er
-           stoej i en strimmel, der ellers kun viser aktive valg. */
-        if (valgt.length) {
-          samlTaeller.removeAttribute('hidden');
-          samlTaeller.setAttribute('data-aktiv', '');
-        } else {
-          samlTaeller.setAttribute('hidden', '');
-          samlTaeller.removeAttribute('data-aktiv');
-        }
+        /* CHIPPEN I STRIMLEN VISES ALDRIG MERE. JPK 2. sep 2026, ordret:
+           "selected to compare baren skal kun leve i bunden af skaermen".
+           Udvalget stod to steder - her og i klaebebaren - og to udgaver af
+           samme oplysning er én for mange.
+
+           Her stod til i dag en blok, der slog `hidden` fra og satte
+           `data-aktiv`. `data-aktiv` er det ENESTE, der kan vise elementet:
+           system.css giver `.saml-taeller{display:none}` som grundtilstand og
+           `.saml-taeller[data-aktiv]{display:flex}` som den eneste undtagelse.
+           Derfor er der ikke roert ét tegn CSS - attributten saettes bare ikke.
+
+           TO LAASE, IKKE ÉN. `hidden` - som skabelonen skriver - bliver nu
+           staaende hele siden igennem, fordi intet fjerner det laengere. CSS'
+           display:none er den anden laas. system.css ejes af et andet spor;
+           med kun CSS-laasen kunne chippen komme frem igen ved en aendring,
+           ingen forbandt med denne. `hidden` holder den desuden ude af
+           tilgaengelighedstraeet, saa dens <a> og <button> ikke kan naas med
+           tabulator - display:none alene goer det samme, men kun saa laenge
+           reglen staar.
+
+           ELEMENTET MAA IKKE SLETTES. Klaebebaren LAESER sin tekst af det:
+           href og linktekst fra `.saml-taeller__gaa`, ARIA-navnet fra
+           `data-klaebebar-etiket`, ryd-knappens tekst fra `[data-saml-ryd]`
+           (se KLAEBEBAR-afsnittet ovenfor). Det er nu en SKJULT BAERER af
+           oversatte strenge, ikke en flade. Alle tre laeses med `textContent`
+           og ikke `innerText` - det foerste er DOM og virker paa et skjult
+           element, det andet er layout og ville give tom streng.
+
+           TALLET OG ORDET FYLDES STADIG, og det er et bevidst fravalg, ikke
+           en forglemmelse: `samlSkabelon` er den eneste laeser af skabelonens
+           `data-saml-skabelon`, som igen er den eneste bruger af i18n-noeglen
+           `saml_taeller`. Fjernes de to linjer her, staar noeglen foraeldreloes
+           i `data/i18n/`, som dette spor ikke ejer. Oprydningen er noteret i
+           rapporten til det spor, der ejer sprogfilerne. */
         if (samlTal) samlTal.textContent = String(valgt.length);
         if (samlOrd) samlOrd.textContent = samlSkabelon.replace('{n}', String(valgt.length));
       }
@@ -269,6 +293,13 @@
       });
     }
 
+    /* KAN IKKE KLIKKES I DAG, og det skal staa her, saa den naeste laeser ikke
+       tror andet: `samlRyd` er knappen INDE i .saml-taeller, som siden 2. sep
+       2026 er permanent `hidden` (se tegnSaml ovenfor). Ryd-handlingen, en
+       laeser faktisk kan naa, er klaebebarens egen `.klaebebar__ryd`, som har
+       sin egen lytter med samme tre linjer. Lytteren bliver staaende som
+       vaern: skulle `hidden` falde bort ved en fremtidig aendring, er knappen
+       en virkende knap frem for en doed. */
     if (samlRyd) {
       samlRyd.addEventListener('click', function () {
         skrivUdvalg([]);

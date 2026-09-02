@@ -1372,26 +1372,39 @@ ${omfangStandard}
 <button class="nulstil" type="reset" data-nulstil>${esc(t('filter_nulstil'))}</button>
 </div>
 
-<!-- SAMLTAELLEREN. Staar i strimlen, hvor sidens oevrige aktive valg allerede
-     staar - en chip blandt chips, som forsvinder helt, naar udvalget er
-     tomt. Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript
-     findes hverken knapperne eller udvalget, saa en taeller ville vaere en
-     paastand om noget, laeseren ikke kan naa (P0).
+<!-- SAMLTAELLEREN ER IKKE LAENGERE EN FLADE. Den er en SKJULT BAERER af de
+     oversatte strenge, klaebebaren i bunden af skaermen laeser. Elementet
+     staar "hidden" fra foerste byte og bliver dét - assets/katalog.js
+     fjerner ikke laengere attributten. (INGEN BACKTICKS I DENNE FIL: hele
+     skabelonen ER en template literal, saa et backtick i en HTML-kommentar
+     afslutter strengen og giver SyntaxError. Maalt 2. sep 2026.)
 
-     JPK OMGJORDE 1. sep 2026 (L67, punkt 6) det FRAVALG, der stod her indtil
-     i dag: "et svaevende 'N valgt' med en fremad-knap er indkoebskurvens
-     form". Bjaelken findes nu OGSAA - se assets/katalog.js' KLAEBEBAR-afsnit
-     - som en PERSISTENT paamindelse, mens laeseren scroller forbi denne
-     strimmel og ned gennem gitterets 77 kort. De to er ikke i konflikt:
-     denne chip er kontekstuel (staar kun, mens man ser filterpladen),
-     bjaelken er global (staar hele siden igennem). Haard begraensning 1
-     gaelder stadig begge - se katalog.js for hvordan bjaelken overholder
-     den (navne, ikke antal; intet ikon; ingen "fortsaet"-knap).
+     JPK 2. sep 2026, ordret: "selected to compare baren skal kun leve i
+     bunden af skaermen". Her stod indtil i dag, at chippen var
+     "kontekstuel" og bjaelken "global", og at de to derfor ikke var i
+     konflikt. Det holdt ikke: en laeser med tre robotter valgt moedte
+     SAMME oplysning to gange paa samme skaerm - én gang i strimlen og én
+     gang i bunden - og det er én gang for meget.
 
-     data-klaebebar-etiket baerer bjaelkens ARIA-navn; resten af dens tekst
-     (link og ryd) LAESER katalog.js fra klasserne saml-taeller__gaa/__ryd
-     herunder i stedet for at faa sin egen kopi - ét sted at oversaette
-     "Åbn sammenligningen"/"Ryd udvalget", ikke to. -->
+     HISTORIKKEN, saa den ikke gaar tabt ved tredje omgoerelse: bjaelken var
+     FRAVALGT indtil 1. sep 2026 med begrundelsen "et svaevende 'N valgt'
+     med en fremad-knap er indkoebskurvens form". JPK omgjorde det fravalg
+     (L67, punkt 6). I dag er det chippen, der er vaek, og bjaelken der
+     staar. Haard begraensning 1 gaelder den uaendret - se katalog.js for
+     hvordan bjaelken overholder den (navne, ikke antal; intet ikon; ingen
+     "fortsaet"-knap).
+
+     HVORFOR ELEMENTET BLIVER STAAENDE: klaebebaren bygges af
+     assets/katalog.js og henter hele sin tekst herfra -
+     data-klaebebar-etiket er dens ARIA-navn, og link og ryd laeses fra
+     klasserne saml-taeller__gaa/__ryd herunder. Ét sted at oversaette
+     "Åbn sammenligningen"/"Ryd udvalget", ikke to. Slettes disse linjer,
+     doer bjaelken med - den ville staa uden navn, uden linktekst og uden
+     ryd-knap.
+
+     Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript findes
+     hverken knapperne eller udvalget, saa et tal ville vaere en paastand
+     om noget, laeseren ikke kan naa (P0). -->
 <p class="saml-taeller" data-saml-taeller hidden
  data-saml-skabelon="${attr(t('saml_taeller'))}"
  data-saml-maks-tekst="${attr(t('sammenligning_maks'))}"
