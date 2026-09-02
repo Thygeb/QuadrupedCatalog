@@ -505,7 +505,7 @@ const FIELD_ENTRIES = [
     value_text: '1 pair fisheye binocular depth camera' },
   { robot_id: 2240, field_name: 'compute', kasse: 'A', kilde: GO1, reason: REASON_A,
     caveat: 'The Air variant value.',
-    caveat_wording: 'Sensing Calculation 1*（4*1.43GHz',
+    caveat_wording: 'Sensing Calculation | 1*（4*1.43GHz | 128Core0.5T）',
     value_text: '1x (4 x 1.43 GHz, 128 cores, 0.5 T)' },
   { robot_id: 2240, field_name: 'sdk_languages', kasse: 'A', kilde: GO1, reason: REASON_A,
     caveat: 'Only Edu: Python Programming Interface. The value applies to Edu.',
