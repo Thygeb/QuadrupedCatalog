@@ -53,7 +53,21 @@ const KILDER = {
   CVTE_PROD: 'raa-kand2-2026-08-24/cvte-maxhub-x7-produktside-2026-08-24.html',
   CVTE_NEWS: 'raa-kand2-2026-08-24/cvte-maxhub-x7-nyhed-cn-2026-08-24.html',
   GALILEO_PDF: 'raa-kand4-2026-08-25/galileo-wrc-product-manual-2025.pdf',
+  MICRO_P1_EN: 'raa-kand1b-2026-08-24/micbotics-movenew-p1-en-2026-08-24.html',
+  MICRO_P1_PDF: 'raa-kand1b-2026-08-24/micbotics-movenew-p1-datasheet-2026-08-24.pdf',
+  MICRO_T1_EN: 'raa-kand1b-2026-08-24/micbotics-movenew-t1-en-2026-08-24.html',
+  MICRO_T1_CN: 'raa-kand1b-2026-08-24/micbotics-movenew-t1-cn-2026-08-24.html',
+  MICRO_T1_PDF: 'raa-kand1b-2026-08-24/micbotics-movenew-t1-datasheet-2026-08-24.pdf',
 };
+
+// MICRO_*_PDF-NOTE: begge micbotics-datablade er BILLED-PDF'er - pdftotext
+// giver 0 tegn (ingen tekstlag overhovedet, ikke engang mojibake), og
+// pdftoppm (sidebilleder til Read-vaerktoejet) er ikke installeret paa denne
+// maskine. Fire felter (P1: autonomy_level, mounting_interface. T1: hot_swap,
+// mounting_interface, power_output) er derfor IKKE efterproevet mod deres
+// egen raakilde - kun mod byte-for-byte YAML==DB-match (ingen drift siden
+// den oprindelige indsamling). LAV konfidens for netop disse fem citater -
+// se rapporten.
 
 // GALILEO_PDF-NOTE: pdftotext (poppler) udtraekker denne PDF's tabeller med
 // TO uafhaengige svagheder, begge maalt af dette spor: (1) cifre/tegn i
@@ -78,6 +92,31 @@ function laesKilde(rel) {
   return indhold;
 }
 
+// HTML-entiteter der kan staa mellem to ord i raa-kilden, hvor vores egen
+// gengivelse bruger et almindeligt mellemrum/tegn (browseren renderer dem
+// ens, men de rå bytes er forskellige - fx "NMC&nbsp;battery" i kilden mod
+// "NMC battery" i vores tekst).
+function afkodEnkleEntiteter(s) {
+  return s.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+const kildeCacheAfkodet = new Map();
+function laesKildeAfkodet(rel) {
+  if (kildeCacheAfkodet.has(rel)) return kildeCacheAfkodet.get(rel);
+  const raa = laesKilde(rel);
+  const afkodet = raa === null ? null : afkodEnkleEntiteter(raa);
+  kildeCacheAfkodet.set(rel, afkodet);
+  return afkodet;
+}
+// Tag-strippet udgave (til fragmenter, som en enkelt <span> deler op i to).
+const kildeCacheUdenTags = new Map();
+function laesKildeUdenTags(rel) {
+  if (kildeCacheUdenTags.has(rel)) return kildeCacheUdenTags.get(rel);
+  const afkodet = laesKildeAfkodet(rel);
+  const udenTags = afkodet === null ? null : afkodet.replace(/<[^>]*>/g, '');
+  kildeCacheUdenTags.set(rel, udenTags);
+  return udenTags;
+}
+
 /** Splitter et wording-felt i sine kildefragmenter — samme regel som
  *  db/f2-cjk-skriv.mjs: "..." adskiller flere selvstaendige citater
  *  (multi-citat, BRIEF-FAELLES.md §"PostgREST"), ikke kun omkring anfoerselstegn. */
@@ -94,22 +133,44 @@ function fragmenter(wording) {
 /** Prøv (1) fragmentet helt, (2) split på hver "..." (bevidst udeladelse),
  *  (3) split på FØRSTE mellemrum (etiket+værdi i to separate kilde-celler,
  *  jf. OPSKRIFT-fase2-cjk.md §"To faldgruber", punkt 1). */
+function proevAlleFormer(fragment, kildeRel, test) {
+  for (const indhold of [laesKilde(kildeRel), laesKildeAfkodet(kildeRel), laesKildeUdenTags(kildeRel)]) {
+    if (indhold !== null && test(indhold)) return true;
+  }
+  return false;
+}
+
 function verificerFragment(fragment, kildeRel) {
   const indhold = laesKilde(kildeRel);
   if (indhold === null) return { ok: false, grund: `kildefil mangler: ${kildeRel}` };
-  if (indhold.includes(fragment)) return { ok: true };
+  // Proev raat, saa HTML-entitet-afkodet (&nbsp; -> mellemrum osv.), saa
+  // tag-strippet (en enkelt <span> kan dele et fragment i to) - i den
+  // raekkefoelge, saa den svageste antagelse kun bruges naar noedvendigt.
+  if (proevAlleFormer(fragment, kildeRel, (i) => i.includes(fragment))) return { ok: true };
   if (fragment.includes('...')) {
     const dele = fragment.split('...').map((d) => d.trim()).filter(Boolean);
-    if (dele.length > 0 && dele.every((d) => indhold.includes(d))) return { ok: true, ellipse: true };
+    if (dele.length > 0 && dele.every((d) => proevAlleFormer(d, kildeRel, (i) => i.includes(d)))) return { ok: true, ellipse: true };
     return { ok: false, grund: `IKKE fundet (deltjek omkring "..." fejlede) i ${kildeRel}` };
   }
-  const i = fragment.indexOf(' ');
-  if (i > 0) {
-    const etiket = fragment.slice(0, i);
-    const vaerdi = fragment.slice(i + 1);
-    if (indhold.includes(etiket) && indhold.includes(vaerdi)) return { ok: true, split: true };
+  // Foretraek split paa ": " (vores egen "etiket: vaerdi"-konvention, selve
+  // kolonet er IKKE i kilden - label og vaerdi stod i to separate celler).
+  const ci = fragment.indexOf(': ');
+  if (ci > 0) {
+    const etiket = fragment.slice(0, ci);
+    const vaerdi = fragment.slice(ci + 2);
+    if (proevAlleFormer(etiket, kildeRel, (i) => i.includes(etiket)) && proevAlleFormer(vaerdi, kildeRel, (i) => i.includes(vaerdi))) {
+      return { ok: true, split: 'colon' };
+    }
   }
-  return { ok: false, grund: `IKKE fundet ordret (heller ikke split paa etiket+vaerdi) i ${kildeRel}` };
+  const i2 = fragment.indexOf(' ');
+  if (i2 > 0) {
+    const etiket = fragment.slice(0, i2);
+    const vaerdi = fragment.slice(i2 + 1);
+    if (proevAlleFormer(etiket, kildeRel, (i) => i.includes(etiket)) && proevAlleFormer(vaerdi, kildeRel, (i) => i.includes(vaerdi))) {
+      return { ok: true, split: true };
+    }
+  }
+  return { ok: false, grund: `IKKE fundet ordret (heller ikke split paa etiket+vaerdi, entitetsafkodning eller tag-strip) i ${kildeRel}` };
 }
 
 /* ------------------------------------------------------------------ data */
@@ -422,6 +483,130 @@ const FIELD_ENTRIES = [
   { robot_id: 2204, field_name: 'data_ports', kasse: 'A', kilde: KILDER.GALILEO_PDF,
     caveat_wording: '外接通讯接口: Ethernet; USB; RS485',
     caveat: 'External communication interface - identical to the walking S1.' },
+
+  // ================================================== MICROROBOTECH P1 (2223) ===
+  { robot_id: 2223, field_name: 'weight', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Total Weight: 77kg (Battery included)',
+    caveat: "Explicit including battery, unlike T1's ambiguous label." },
+  { robot_id: 2223, field_name: 'length', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Standing Dimensions: 900mm × 600mm × 650mm',
+    caveat: 'Axes are not labeled. The order length x width x height is assumed, not confirmed.' },
+  { robot_id: 2223, field_name: 'width', kasse: 'B', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: null,
+    caveat: 'UNCERTAIN ASSIGNMENT - see length.' },
+  { robot_id: 2223, field_name: 'height', kasse: 'B', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: null,
+    caveat: 'UNCERTAIN ASSIGNMENT - see length. Folded measurement is 1150 x 800 x 200mm; the schema has no folded-measurement field.' },
+  { robot_id: 2223, field_name: 'degrees_of_freedom', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'High-Performance Motors: 16 units',
+    caveat: 'Motor count, not explicitly DoF. Same interpretation as T1 and Go2.' },
+  { robot_id: 2223, field_name: 'payload_walking', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Max Walking Load: 200 kg',
+    caveat: "Label 'Max Walking Load'." },
+  { robot_id: 2223, field_name: 'payload_standing', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Max Standing Load: 400 kg',
+    caveat: "Label 'Max Standing Load'." },
+  { robot_id: 2223, field_name: 'slope', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Slope Capability: >45°',
+    caveat: "A different row, 'Step Negotiation', also shows 45° without '>' - possibly the same information repeated under two labels, possibly a manufacturer template error. Only the 'Slope Capability' row is used here, as it has the clearest label and operator." },
+  { robot_id: 2223, field_name: 'obstacle_single', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Max Climbing Ability: 800 mm',
+    caveat: "Unusually large figure for a single obstacle (twice as high as T1's 400mm-class obstacle) - not cross-checked against another field, and could be a manufacturer typo (e.g. confused with a ramp/load-related measurement). Recorded verbatim, not corrected." },
+  { robot_id: 2223, field_name: 'stair_step_continuous', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Stair Climbing Capability: Max step height 25cm',
+    caveat: "Label 'Stair Climbing Capability'." },
+  { robot_id: 2223, field_name: 'ip_rating', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Wheel Protection Rating IP68',
+    caveat: 'The source adds a wheel protection rating (IP68) - the wheels have a different, higher class than the whole machine. Only the whole-machine IP67 is used in the field.' },
+  { robot_id: 2223, field_name: 'battery_wh', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Hot-swappable 3.2kWh NMC battery (Supply voltage: 72V)',
+    caveat: 'Battery pack is described as hot-swappable NMC chemistry; nominal supply voltage 72V.' },
+  { robot_id: 2223, field_name: 'runtime', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'No-load continuous operating time: ≤12h | Full-load continuous operating time: ≤ 8h',
+    caveat: "Two load conditions (no load / full load) with no concrete kg figure for 'full load' - cannot therefore be written as a specific load requirement, only as load condition not disclosed. 'Max Walking Load: 200kg' appears in the table, but the manufacturer does not explicitly connect it to the 'full load' row, so that connection is not made here." },
+  { robot_id: 2223, field_name: 'hot_swap', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Hot-swappable',
+    caveat: "The word 'Hot-swappable' appears directly in the battery row." },
+  { robot_id: 2223, field_name: 'charging_time', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Charging Time: 1.5h',
+    caveat: "Label 'Charging Time'." },
+  { robot_id: 2223, field_name: 'lidar', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Automotive-grade LiDAR: 96-line LiDAR 1 (supports installation of up to 3 units)',
+    caveat: "Line count disclosed - therefore counts under rule D4 (type WITH model/specification), unlike T1's." },
+  { robot_id: 2223, field_name: 'cameras', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'HD Depth Camera: Support for installation | Ultrasonic Radar: Support for installation',
+    caveat: "Both rows say 'Support for installation', NOT that the equipment is standard-fitted. Recorded as the manufacturer's own wording, not converted to 'yes, camera fitted'." },
+  { robot_id: 2223, field_name: 'compute', kasse: 'A', kilde: KILDER.MICRO_P1_EN,
+    caveat_wording: 'Supports 2000 tops',
+    caveat: "The word 'Supports' suggests maximum supported compute power via an optional module, not necessarily built-in as standard - unlike T1, where 'Jetson Orin NX Super+RK3588' is named as the actual core module." },
+  { robot_id: 2223, field_name: 'autonomy_level', kasse: 'A', kilde: KILDER.MICRO_P1_PDF,
+    caveat_wording: 'Equipped with a multi-sensor fusion perception system and a high-computing power platform, it forms a 360° omnidirectional environmental awareness network, fully covering functional modules such as environmental perception, monitoring, and knowledge reasoning.',
+    caveat: "PDF datasheet ('MOVENEW P1 - Industrial Special-Purpose Wheeled Quadruped Robot'), page 3 ('Integrated Sensing & Control'). Qualitative description - no numeric autonomy level (SAE/ISO-like scale) disclosed." },
+  { robot_id: 2223, field_name: 'mounting_interface', kasse: 'A', kilde: KILDER.MICRO_P1_PDF,
+    caveat_wording: 'Expansion Rails',
+    caveat: "PDF datasheet, page 4 ('P1 Technical Specifications'), 'Function Configuration' section: the 'Expansion Rails' row is marked with a dot (present), same pattern as T1's 'Top Mount Expansion'/'Undercarriage Expansion' - but without further specification of interface standard or load capacity." },
+
+  // ================================================== MICROROBOTECH T1 (2224) ===
+  { robot_id: 2224, field_name: 'weight', kasse: 'A', kilde: [KILDER.MICRO_T1_EN, KILDER.MICRO_T1_CN],
+    caveat_wording: 'Total Battery Weight: 40~50kg | 整机电池重量',
+    caveat: "Label 'Total Battery Weight' - literally 'whole-machine-battery-weight', a conflated label. Placed as own weight (with battery), because the row appears under 'Mechanical Parameters' next to the dimensions, not under 'Electrical Parameters'. Not a typo on our part - the manufacturer's own label is ambiguous." },
+  { robot_id: 2224, field_name: 'length', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Standing Dimensions: 800mm × 600mm × 540mm',
+    caveat: 'The manufacturer does not label the axes. The order length x width x height is assumed by convention, not confirmed by the source (same uncertainty as deep-robotics-x30).' },
+  { robot_id: 2224, field_name: 'width', kasse: 'B', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: null,
+    caveat: 'UNCERTAIN ASSIGNMENT - see length. Axes are not labeled in the source.' },
+  { robot_id: 2224, field_name: 'height', kasse: 'B', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: null,
+    caveat: 'UNCERTAIN ASSIGNMENT - see length. Folded measurement is 1025 x 750 x 150mm; the schema has no folded-measurement field.' },
+  { robot_id: 2224, field_name: 'degrees_of_freedom', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'High-Performance Motors: 16 units',
+    caveat: "Manufacturer writes 'High-Performance Motors: 16 units', not 'Degrees of Freedom'. T1 is a wheel-leg hybrid, so the 16 motors presumably cover both leg joints and wheel hubs - not necessarily 16 pure degrees of freedom. Same interpretation as Go2's motor count." },
+  { robot_id: 2224, field_name: 'payload_walking', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Continuous Walking Load: 50kg',
+    caveat: "Label 'Continuous Walking Load'." },
+  { robot_id: 2224, field_name: 'payload_standing', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Max Standing Load: 100kg',
+    caveat: "Label 'Max Standing Load'." },
+  { robot_id: 2224, field_name: 'speed', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Max Moving Speed: 18 km/h',
+    caveat: "A ceiling, not a sustained operating speed. No operator added, since 'Max' here is a label (per the skill's distinction between label and operator)." },
+  { robot_id: 2224, field_name: 'slope', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Slope Capability: ≤45°',
+    caveat: "The source prints the character U+2264 before 45° under 'Slope Capability' - a ceiling, same pattern as X30's caveat about the same character from a different manufacturer." },
+  { robot_id: 2224, field_name: 'obstacle_single', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Step Negotiation: Forward climbing up/down 40cm steps',
+    caveat: "Label 'Step Negotiation'." },
+  { robot_id: 2224, field_name: 'stair_step_continuous', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Stair Climbing Capability: Max step height 25cm',
+    caveat: 'Separated from obstacle_single because the source itself uses two different labels and two different figures (25cm vs. 40cm) for the two concepts - unlike X30, where they stood as one combined field.' },
+  { robot_id: 2224, field_name: 'battery_wh', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Battery Capacity: 3.5/4.5 kwh, Supply Voltage 72V',
+    caveat: "Two battery-pack sizes to choose between, not a measured range. Recorded as min/max, because the schema has no 'two variants' format for a single figure." },
+  { robot_id: 2224, field_name: 'runtime', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Max Endurance Time: ≤12h',
+    caveat: 'No load condition disclosed - therefore cannot be compared directly to a runtime figure that IS load-marked.' },
+  { robot_id: 2224, field_name: 'hot_swap', kasse: 'A', kilde: KILDER.MICRO_T1_PDF,
+    caveat_wording: 'Equipped with high-density solid-state dual batteries and a modular quick-swap architecture, it supports hot-swappable battery replacement and provides external battery solutions.',
+    caveat: "PDF datasheet ('MOVNEWT1 Product Datasheet', found via micbotics.com/support/), page 5. Not mentioned in the structured specification table on the product page (the source for the other fields) - only in the datasheet's prose section on battery architecture." },
+  { robot_id: 2224, field_name: 'docking_station', kasse: 'A', kilde: [KILDER.MICRO_T1_EN, KILDER.MICRO_T1_CN],
+    caveat_wording: 'Charging Station: Fast Charge | 充电桩 | 快充',
+    caveat: "The row is called 'Charging Station: Fast Charge' (Chinese: label 充电桩, value 快充). Confirms a charging station exists, but does NOT confirm autonomous return-home/self-charging - unlike GENISOM L2's explicit claim (including autonomous recharge function). Interpreted as 'yes, a charging station exists', not as 'yes, with self-driving recharge'." },
+  { robot_id: 2224, field_name: 'lidar', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'Onboard LiDAR',
+    caveat: "The source marks only 'Onboard LiDAR' with a filled circle (present), with no model or line count. Type without model - does not count under D4 when that setting is selected." },
+  { robot_id: 2224, field_name: 'cameras', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'HD Depth Camera | 360° Panoramic Vision | Ultrasonic Radar',
+    caveat: 'Ultrasonic Radar is strictly speaking not a camera, but the schema has no separate radar field under sensing - listed here so the information is not lost.' },
+  { robot_id: 2224, field_name: 'autonomy_level', kasse: 'A', kilde: KILDER.MICRO_T1_EN,
+    caveat_wording: 'NeuroFuse Multi-Modal Perception System and CogniDecide AI Decision Engine, the product forms an intelligent system with high-performance environmental perception and real-time response capabilities. It fully covers functional modules including environmental perception, task planning, knowledge reasoning, and human-robot interaction.',
+    caveat: "Qualitative description of the manufacturer's own system names, not a level on a scale." },
+  { robot_id: 2224, field_name: 'mounting_interface', kasse: 'A', kilde: KILDER.MICRO_T1_PDF,
+    caveat_wording: 'Top Mount Expansion | Undercarriage Expansion',
+    caveat: "PDF datasheet, page 8 ('Parameter Information'), 'Functionality' section: the rows 'Top Mount Expansion' and 'Undercarriage Expansion' are both marked with a dot (present), with no further specification of interface standard, dimensions, or load capacity." },
+  { robot_id: 2224, field_name: 'power_output', kasse: 'A', kilde: KILDER.MICRO_T1_PDF,
+    caveat_wording: 'Featuring automotive-grade power output standards (supporting AC220V / 12V DC OUTLET dual-mode), it is compatible with multi-scenario devices via a quick interface matrix. | 12V DC OUTLET - 10A maximum, compliant with ISO 4165.',
+    caveat: 'PDF datasheet, page 5, with footnotes on regional AC voltage tolerances (220V ±7% in China/Southeast Asia per GB/T 12325-2008; 120V/240V in North America; nominal 230V ±10% in EU, practically compatible with 220V). Wattage for the AC side is not explicitly disclosed (voltage only); the 12V side yields 120W at 10A, but the manufacturer does not itself state this calculated figure, so only the printed A/V values are reproduced.' },
 ];
 
 const APPLICATIONS = [
@@ -443,6 +628,8 @@ const APPLICATIONS = [
     note: "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from." },
   { robot_id: 2204, kilde: KILDER.GALILEO_PDF,
     note: "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from." },
+  { robot_id: 2223, kilde: KILDER.MICRO_P1_EN,
+    note: "'industrial inspection' -> industrial + inspection; 'fire response' -> defense and emergency response; 'public safety missions' -> security and surveillance." },
 ];
 
 // robots.notes/notes_wording — kun rækker der aendres skrives.
@@ -500,6 +687,29 @@ const ROBOTS_NOTES = [
       "HOT-SWAP AND DOCKING STATION: same source and rationale as C1.",
     ],
     notes_wording: [''] },
+  { id: 2223, kilde: KILDER.MICRO_P1_EN,
+    notes: [
+      "The table's row order is confusing: 'Max Climbing Ability: 800 mm' appears right before 'Step Negotiation: 45°' and 'Slope Capability: >45°' - i.e. two rows with the same numeric value (45°) under two different labels, and a very large 800 mm value under a label ('Climbing Ability') one would normally expect to be an angle. Not silently corrected - see the caveats on obstacle_single and slope.",
+    ],
+    notes_wording: ['Max Climbing Ability: 800 mm | Step Negotiation: 45° | Slope Capability: >45°'] },
+  // T1 (2224): notes_wording[2] RETTET - eksisterende DB-tekst havde "整机
+  // 电机重量" (motor-vaegt); kilden (T1CN, bekraeftet 2x) skriver "整机电池
+  // 重量" (batteri-vaegt). Samme slags enkelt-tegns-korruption som CJK-
+  // opskriftens ・/• og 。/. fund - rettet her, IKKE flaget som L87-sletning,
+  // fordi paastanden ER belagt, blot fejltransskriberet.
+  { id: 2224, kilde: [KILDER.MICRO_T1_EN, KILDER.MICRO_T1_CN],
+    notes: [
+      "THE MANUFACTURER HAS CHANGED ITS NAME/DOMAIN. The domain used by the CEO's own materials and the press (microrobotech.com) redirects 301 to micbotics.com. The entire current site uses the brand name 'Micbot'/'MICBOT' (meta keywords, the page's title tags '...-MICBOT', navigation logo) - NOT 'MicroRoboTech'. The legal company name remains 杭州具微科技有限公司 (Hangzhou Juwei Technology), which 36Kr's project page translates as 'MicroRoboTech' (https://pitchhub.36kr.com/project/3401143382263687, retrieved 2026-08-24). The manufacturer field here retains the CEO's own naming 'MicroRoboTech', but the consumer-facing brand to look for going forward is 'Micbot'.",
+      "The datasheet table is identical on the English (micbotics.com) and Chinese (micbotics.cn) sites - all 25+ rows cross-checked verbatim, 0 discrepancies. The English version is therefore used directly as the source without translation risk for the figures themselves.",
+      "'Total Battery Weight: 40~50kg' / Chinese is an ambiguous label (conflates whole-machine weight with battery). Placed as own weight based on context (appears under 'Mechanical Parameters' together with the dimensions, not under 'Electrical Parameters'), but the wording is not unambiguous - see the caveat on the field.",
+      "No price found on either language version - only 'Buy Now'/'Get Solutions' contact buttons, no printed figure.",
+    ],
+    notes_wording: [
+      'Micbot | MICBOT | 杭州具微科技有限公司',
+      '',
+      'Total Battery Weight: 40~50kg | 整机电池重量 | 电池',
+      '',
+    ] },
 ];
 
 const VALUE_TEXT = [
@@ -529,6 +739,16 @@ const VALUE_TEXT = [
   { robot_id: 2204, field_name: 'compute', kilde: KILDER.GALILEO_PDF, value_text: 'X86 or domestic Chinese ARM, low power consumption, high performance' },
   { robot_id: 2204, field_name: 'autonomy_level', kilde: KILDER.GALILEO_PDF, value_text: 'Autonomous charging, supported; voice interaction, optional' },
   { robot_id: 2204, field_name: 'power_output', kilde: KILDER.GALILEO_PDF, value_text: '5V; 12V; 24V (external power outlets, wattage not disclosed)' },
+  // Microrobotech: kun de vaerdier der FAKTISK er danske (cameras/compute/
+  // autonomy_level er allerede rent engelsk paa flere af raekkerne - IKKE
+  // oversat, for at undgaa at "oversaette" et allerede-korrekt engelsk svar).
+  { robot_id: 2223, field_name: 'lidar', kilde: KILDER.MICRO_P1_EN, value_text: '96-line automotive-grade LiDAR (supports up to 3 units)' },
+  { robot_id: 2223, field_name: 'compute', kilde: KILDER.MICRO_P1_EN, value_text: 'Supports up to 2000 TOPS' },
+  { robot_id: 2223, field_name: 'autonomy_level', kilde: KILDER.MICRO_P1_PDF, value_text: 'Multi-sensor fusion perception system + high-computing power platform, forming a 360° omnidirectional situational-awareness network covering environmental perception, monitoring, and knowledge reasoning.' },
+  { robot_id: 2223, field_name: 'mounting_interface', kilde: KILDER.MICRO_P1_PDF, value_text: "'Expansion Rails' marked as a standard feature in the datasheet's function table (page 4, 'Function Configuration'). No standardized mounting-interface name, dimensions, or quick-release mechanism disclosed." },
+  { robot_id: 2224, field_name: 'lidar', kilde: KILDER.MICRO_T1_EN, value_text: 'Onboard LiDAR (model not disclosed)' },
+  { robot_id: 2224, field_name: 'mounting_interface', kilde: KILDER.MICRO_T1_PDF, value_text: "Top-mounted expansion interface ('Top Mount Expansion') and undercarriage expansion interface ('Undercarriage Expansion'), both marked as a standard feature in the datasheet's function table. No standardized mounting-interface name, dimensions, or quick-release mechanism disclosed." },
+  { robot_id: 2224, field_name: 'power_output', kilde: KILDER.MICRO_T1_PDF, value_text: "AC220V / 12V DC OUTLET (dual-mode, automotive-grade power-output standard, via 'quick interface matrix'). 12V DC OUTLET: 10A max (ISO 4165). AC side: 220V ±7% in China/Southeast Asia (GB/T 12325-2008); 120V/240V in North America; nominal 230V ±10% in EU (practically compatible with 220V)." },
 ];
 
 // images.note — kun rækker med indhold.
@@ -553,19 +773,24 @@ function verificerAlt() {
   let fejl = 0;
   let tjekket = 0;
   let sprunget = 0;
+  const UVERIFICERBARE = new Set([KILDER.GALILEO_PDF, KILDER.MICRO_P1_PDF, KILDER.MICRO_T1_PDF]);
   for (const r of FIELD_ENTRIES) {
     if (r.kasse === 'L87-SLET') continue;
-    if (r.kilde === KILDER.GALILEO_PDF) {
-      // Se GALILEO_PDF-NOTE ovenfor: pdftotext scrambler denne PDF's
-      // tabelraekkefoelge og mojibaker cifre - automatisk verifikation
-      // ville give falske MISS'er. Verificeret manuelt i stedet (rapport).
+    const kilder = Array.isArray(r.kilde) ? r.kilde : [r.kilde];
+    if (kilder.some((k) => UVERIFICERBARE.has(k))) {
+      // Se GALILEO_PDF-NOTE/MICRO_*_PDF-NOTE ovenfor: ingen paalidelig
+      // automatisk verifikation mulig for disse kilder. Verificeret
+      // manuelt/strukturelt i stedet (rapport).
       sprunget += fragmenter(r.caveat_wording).length;
       continue;
     }
     for (const frag of fragmenter(r.caveat_wording)) {
       tjekket++;
-      const v = verificerFragment(frag, r.kilde);
-      if (!v.ok) { fejl++; console.error(`FEJL field_entries ${r.robot_id}/${r.field_name}: "${frag}" — ${v.grund}`); }
+      const resultater = kilder.map((k) => verificerFragment(frag, k));
+      if (!resultater.some((v) => v.ok)) {
+        fejl++;
+        console.error(`FEJL field_entries ${r.robot_id}/${r.field_name}: "${frag}" — fundet i ingen af kilderne (${kilder.join(', ')})`);
+      }
     }
   }
   for (const rn of ROBOTS_NOTES) {
