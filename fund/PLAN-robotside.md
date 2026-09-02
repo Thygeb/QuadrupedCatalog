@@ -522,3 +522,347 @@ mangel — se 6.4.
   fremlægger valget og træffer det ikke.
 - **Om den tomme flade i billedledet skal have en egen behandling** (0–50,7 %,
   median 21,7 %). Se 6.1.
+
+---
+
+## 5. Forslagene
+
+**Formen er ens for alle syv:** hvad · hvorfor (én linje) · hvilken navngiven komponent
+det bruger · **acceptkriterium** · pris.
+
+**Læsenøgle til komponentkolonnen**, efter koordinatorens krav:
+**(a)** bruger en komponent eller regel, DESIGN.md allerede navngiver — citeret ved navn.
+**(b)** kræver en systemændring og har derfor en post i **afsnit 7**.
+
+Alle før-tal er målt 2. sep 2026 med kommandoen, der står ved dem. **Ingen af dem er et
+gæt, og ingen af dem er et krav til bygherren om at ramme mit tal** — efter-tallet er
+det, kriteriet måler.
+
+---
+
+### P1 — Optegnelsens tilstand får folden **(b)**
+
+**Hvad:** foldens højre spalte, som i dag stopper 275–497 px før fotoets underkant, får
+en blok under nøgletallene, der siger, hvor fuldstændig optegnelsen er, og bærer robottens
+redaktionelle noter. Noterne flyttes derop **som blok** — de udvælges ikke, sorteres ikke
+og omskrives ikke.
+
+**Hvorfor:** i Read-mode er *"hvor fuldstændig er den her viden"* sidens egentlige emne
+(afsnit 1), og det står i dag på **85–92 % sidedybde** på alle elleve målte robotter,
+mens **275–497 px** af folden står tom — og de to tal er omvendt korrelerede.
+
+**Komponent:** **(b)** — blokken hviler på `.stribe-hylster` (`side.mjs:1610`) og
+`.noter-blok` (`robot.mjs:946`), og **ingen af dem findes i DESIGN.md.** Se **S2**.
+
+**Vigtigt værn:** forslaget kræver **ikke**, at noterne typemærkes. Det var min første
+idé, og den holder ikke: VERSAL-optakten, der ville skulle bære udvælgelsen, findes kun
+på **69 af 147 noter = 47 %** (`node -e "…data/robots/*.yaml…"`). Blokken flytter derfor
+**hele** notelisten, i uændret rækkefølge.
+
+**Acceptkriterium** (før-tal fra `node shape-passer.mjs 1440 <slug>`):
+
+1. Færdig, når `node shape-passer.mjs 1440 ghost-robotics-spirit-40 unitree-laikago
+   weilan-babyalpha` viser **`tomtHøjre ≤ 120`** for alle tre — før: **441, 497, 441**.
+2. Færdig, når samme kommando viser **`noterDybde ≤ 25 %`** for de elleve robotter i
+   4.3-tabellen, der har noter — før: **85–92 %** for alle elleve.
+3. Færdig, når `unitree-go2` (noterH = 0) bygger **uden** en tom ramme: blokken skal
+   enten mangle helt eller bære sin egen tomme tilstand. Måles ved, at siden ikke
+   indeholder en tom `.noter-blok` uden børn.
+4. **De to lange noter skal have en designet afkortning, ikke et overløb.**
+   `microrobotech-movenew-t1` (396 px) og `yufan-lingmao-cyvet` (409 px) passer ikke i
+   275 px. Færdig, når `node maal.mjs` viser **`vandretOverloeb: 0`** og blokkens højde
+   ikke overstiger fotoets på nogen af de tolv målte robotter.
+
+**Pris:** `tools/skabelon/robot.mjs` (flytning af ét kald, ~1.060 linjer i dag) ·
+`assets/system.css` eller `generator.css` (blokkens sats) · **154 sider ombygges** ·
+`tests/dele/53-robotsidens-flader.mjs` skal have vendt sin assertion, hvis den påstår
+noget om noteblokkens plads — **assertionen vendes, den slettes ikke.**
+
+---
+
+### P2 — Én tællerform på hele siden **(b)**
+
+**Hvad:** skemaets tæller *"24 af 33 felter oplyst"* får samme form som
+nøgletalspanelets, som allerede står 900 px højere oppe på samme side:
+*"0 af 5 oplyst · 5 huller"*.
+
+**Hvorfor:** to tællere på én flade med to grader af ærlighed er en konsistensfejl
+inden for én skærm — og konsistens på tværs af skærme begynder dér.
+
+**Komponent:** **(b)** — `.skema-taeller` (`robot.mjs:778`) findes ikke i DESIGN.md.
+**Men indholdet skal ikke opfindes:** i18n-nøglerne findes allerede i **begge** sprog og
+er i paritet (394 nøgler i `da.json` og `en.json`, 0 manglende):
+
+```
+da.json:120  "noegletal_hul_en":    "1 hul"        en.json:120  "1 gap"
+da.json:121  "noegletal_hul_flere": "{n} huller"   en.json:121  "{n} gaps"
+da.json:193  "skema_taeller": "{a} af {b} felter oplyst"
+```
+
+**Acceptkriterium:** færdig, når
+
+```
+grep -ohE '\b1 hul\b|[0-9]+ huller' dist/da/robotter/*/index.html | wc -l
+```
+
+viser **114** — før: **37**. Tallet er **udledt, ikke ønsket**: alle 77 robotter har
+skemahuller (max er 24 af 33), så tælleren tilføjer præcis 77. **Afviger bygherrens
+måling fra 114, er det tallet, der gælder, og afvigelsen skal forklares** — ikke rettes
+mod mit.
+
+**Pris:** `tools/skabelon/robot.mjs` (én strengsammensætning) · ingen ny i18n-nøgle ·
+154 sider · `tests/dele/63-ordbog-og-skema.mjs` udvides med en prøve på, at de to
+tællere bruger samme form.
+
+---
+
+### P3 — Vores egen stemme sættes i Literata (udfører L80) **(a)**
+
+**Hvad:** den løbende prosa, der er **vores** og ikke producentens — noteblokken og
+feltnoterne — sættes i Literata. Tal, etiketter, tabelhoveder, enheder og producentens
+citerede strenge bliver i Saira.
+
+**Hvorfor:** L80 er ordret *"løbende prosa er Literata, og de 8 nuværende brug beholdes
+**og udvides**"*. Udvidelsen er ikke sket på denne flade, og det er den flade, der har
+mest af vores egen prosa.
+
+**Komponent:** **(a)** — **"Manual-brød"**, navngivet i DESIGN.md's *Typografi ›
+Hierarki*: *"(400, 18px, 1,62, `blaek`, `--manual`/Literata): Om-sidens argumenterende
+afsnit. 62ch, ikke sitets almindelige 68ch."* Rollen findes; den skal bruges her.
+**Rækkevidden er dog større end robotsiden — derfor har den også en post S4 i afsnit 7.**
+
+**Acceptkriterium:** færdig, når
+`node shape-regler.mjs "http://localhost:8234/da/robotter/microrobotech-movenew-p1/" 1440`
+viser **`literataTegn > 0`** — før: **0 af 7.664 tegn** — **og** `sairaTegn` fortsat er
+det største af de to, så maskinen stadig taler Saira. Samme kommando mod `/en/` skal
+give samme svar (før: 0 af 7.723).
+
+**Grænsen, der skal holdes, og som er let at overtræde:** forbeholdsblokken er
+**blandet** — den citerer producenten *og* kommenterer citatet. Kun **vores**
+kommentar må skifte skrift. Færdig, når en citeret producentstreng på
+movenew-p1 (`"Total Weight: 77kg (Battery included)"`) fortsat måles som Saira.
+
+**Pris:** `assets/system.css` (2–4 regler) · 0 skabelonændringer, hvis klasserne findes ·
+154 sider · ny prøve i `tests/dele/36-typeskilt-robot.mjs`.
+
+---
+
+### P4 — Prosaen under systemets eget mål **(a)**
+
+**Hvad:** de prosablokke på robotsiden, der i dag løber i fuld spaltebredde, får
+systemets eksisterende målklasse.
+
+**Hvorfor:** DESIGN.md's *Layout* siger *"Brødtekst begrænses til 68ch (`--maal`)"*.
+Robotsidens bredeste prosa måler **155 tegn pr. linje** — mere end det dobbelte.
+
+**Komponent:** **(a)** — `.maal` / `--maal`, `assets/system.css:358` og `:222`, og
+navngivet i DESIGN.md's *Layout*. **Mekanismen findes allerede og er anvendt på 2 af 6
+blokke** — de to, der overholder målet, bærer netop klassen `maal`. Det er ikke et nyt
+værktøj; det er et værktøj, der ikke er sat på.
+
+**Acceptkriterium:** færdig, når `node shape-regler.mjs <url> 1440` viser
+**`regel2_over68ch: 0`** på både `/da/` og `/en/` — før: **4 af 6** (da) og **5 af 7**
+(en). Værste blok i dag: **155ch / 1.352 px / `max-width: none` / klasse `t-lille`**.
+
+**Værn mod en overreaktion:** ved **390** er der **0 af 6** over målet allerede.
+**Mobilkaskaden må ikke røres** — kriteriet skal genkøres ved 390 og fortsat vise 0.
+
+**Pris:** `assets/system.css` eller `tools/skabelon/robot.mjs` (klassen sættes på 4
+blokke) · 154 sider · ingen ny test nødvendig, men en prøve på at målet holder ville
+være billig.
+
+---
+
+### P5 — Skriftgulvet: en modstrid, der skal **afgøres**, ikke rettes af en fladeplan
+
+**Dette er ikke et forslag. Det er et valg, der hører hos JPK**, og planen fremlægger
+det med begge priser i stedet for at træffe det.
+
+**Modstriden står inde i DESIGN.md selv:**
+
+| Sted i DESIGN.md | Hvad der står |
+|---|---|
+| *Typografi › Navngivne regler* | *"**Skriftgulvet.** 10,5 px er den mindste skriftgrad i systemet, **også i den smalleste ombrydning**."* |
+| *Komponenter › Kildemærket* | *"Et hævet bogstav efter værdien, `--mono`, `blaek2`, **`max(8px,.34em)`**."* |
+
+**Målt på robotsiden — 49 elementer under det erklærede gulv ved 1440:**
+
+```
+node shape-regler.mjs "http://localhost:8234/da/robotter/microrobotech-movenew-p1/" 1440
+  22 × 10px    .kildemaerke
+  16 × 8.4px   .enhed          ← enheden ved tallet: "kg", "cm", "km/h"
+   5 × 8px     .kildemaerke
+   3 × 10px    <th>            ← skemaets kolonnehoveder
+   2 × 10px    .kildemaerke--sek
+   1 × 10px    .daek__stempel  ← topbaren, ikke robotsidens
+```
+
+Ved **390** er tallet **46** — de 8 og 8,4 px følger med ned på mobil, hvor de er værst.
+
+**Den, der betyder mest for Read-modet, er ikke kildemærket — det er `.enhed`.**
+Tallet står i 15,5 px og dets enhed i **8,4 px**. På et specifikationsark er enheden
+det, der gør tallet til en oplysning: *77* er ingenting, *77 kg* er et faktum.
+Systemet sætter faktummets ene halvdel til 54 % af den andens grad.
+
+**De to veje, med prisen ved hver:**
+
+| | Hæv gulvet i praksis | Ret den navngivne regel |
+|---|---|---|
+| **Hvad** | `.enhed` og `.kildemaerke` op til 10,5 px | Reglen skrives om til at anerkende 8 px for hævede mærker |
+| **Pris** | Kildemærket vokser på **alle** flader (29 pr. robotside); DESIGN.md siger selv, at det bærer et usynligt 24×24 px berøringsmål, netop **for** at bogstavet ikke skal vokse. Layoutet i `.v-tal` skal efterprøves overalt | Gratis i kode. Men systemet har så **ikke** et gulv — det har en undtagelse pr. komponent, og det er tilstanden, gulvet blev skrevet for at afskaffe |
+| **Rører** | system.css, alle 216 sider | DESIGN.md |
+
+**Min anbefaling, hvis der ønskes en:** skil de to sager. `.kildemaerke` er et **mærke**,
+ikke tekst, og kan legitimt undtages i en omskrevet regel. `.enhed` er **tekst med
+betydning** og hører over gulvet. Det ville flytte 16 elementer og lade 29 stå.
+**Men det er en systembeslutning på tværs af alle flader, ikke en fladeplansbeslutning**
+— derfor S5 i afsnit 7 og ikke et P-nummer her.
+
+---
+
+### P6 — Gruppen får sin egen tæthed **(b)**
+
+**Hvad:** hver af skemaets seks gruppeoverskrifter (FYSIK, ENERGI, SENSORIK OG AUTONOMI,
+NYTTELAST OG GRÆNSEFLADER, KOMMERCIELT, EU) bærer sin egen tæller i P2's form.
+
+**Hvorfor:** i dag må læseren tælle 33 rækker for at se, *hvor* hullerne sidder. En
+robot kan have alt fysik og intet om energi — det er en oplysning om producenten, og den
+er sidens vare. **Hullerne bliver ikke skjult; de bliver talt.**
+
+**Værnet, der gør forslaget lovligt — og som er hele grunden til, at det er formuleret
+sådan:** hård begrænsning 5 og DESIGN.md's *Gør*-liste (*"Gør hullet lige så formgivet
+som tallet"*) forbyder at skjule eller slå tilstande sammen. **Ingen række fjernes,
+foldes eller dæmpes.** Alle 33 bliver stående i fuld form, og gruppens tal er en
+**tilføjelse**, ikke en erstatning. Et forslag om at folde tomme grupper sammen ville
+være i strid med begrænsningen, og det er derfor bevidst ikke stillet.
+
+**Komponent:** **(b)** — `.skema-gruppenavn` (`robot.mjs:762`) findes ikke i DESIGN.md.
+
+**Acceptkriterium:** færdig, når
+
+```
+grep -oh 'skema-gruppetaeller' dist/*/robotter/*/index.html | wc -l
+```
+
+viser **924** — før: **0**. Udledt: 6 grupper × 77 robotter × 2 sprog. **Er nævneren pr.
+gruppe ikke 6/6/6/…, skal bygherren skrive det målte tal, ikke ramme mit.**
+
+Og: færdig, når `spirit-40` fortsat viser **33** `v-ikke`-celler i skemaet — altså at
+ingen række forsvandt undervejs. Før: 33.
+
+**Pris:** `tools/skabelon/robot.mjs` (grupperingsfunktionen kender allerede sine felter) ·
+1 ny i18n-nøgle × 2 sprog · 154 sider · prøve i `tests/dele/63-ordbog-og-skema.mjs`, der
+sikrer, at gruppetallene summerer til sidens hovedtal — **den prøve er vigtigere end
+forslaget**, jf. *"Regler, der er købt dyrt"*: *"En brøk, hvis to halvdele kommer fra hver
+sin liste, skrider — tavst."*
+
+---
+
+### P7 — Gruppeoverskrift og kolonnehoved skal kunne skelnes **(b)**
+
+**Hvad:** skemaets gruppeoverskrift og dets kolonnehoved får forskellig rang.
+
+**Hvorfor:** de er to forskellige ting og ser ens ud. Målt:
+
+| Element | `font-size` | vægt | versaler | spatiering | farve |
+|---|---|---|---|---|---|
+| Gruppe (**FYSIK**) | **10,5 px** | 700 | ja | 1,575 px | `rgb(95,104,111)` |
+| Kolonnehoved (**FELT**) | **10 px** | 700 | ja | 1,5 px | `rgb(95,104,111)` |
+
+`node shape-hierarki.mjs <url> 1440` → `"identiskSignatur": false` — men forskellen er
+**0,5 px skriftgrad og 0,075 px spatiering.** Det er falsk ved måling og sandt for øjet:
+ingen læser skelner dem. Det er samme mønster som 3.2's fire trin inden for 1,5 px.
+
+**Komponent:** **(b)** — hverken `.skema-gruppenavn` eller skemaets `th` findes i
+DESIGN.md. Rangen skal hentes fra DESIGN.md's **"Etiket"** (mono, 500, 11,5 px, +0,15em,
+versaler, `blaek3`), som er den navngivne rolle for netop *"at navngive en datagruppe"* —
+se *Reglen om versaletiketten*.
+
+**Acceptkriterium:** færdig, når `shape-hierarki.mjs` viser, at de to signaturer
+adskiller sig på **mindst to** af {`font-size` (≥ 2 px forskel), `color`,
+`background-color`, `font-weight`} — før: de adskiller sig på **én**, og med 0,5 px.
+
+**Pris:** `assets/system.css` (1–2 regler) · 154 sider · ingen ny test nødvendig.
+
+---
+
+## 6. Hvad der skal blive, som det er — og hvorfor
+
+Briefet siger: *"Planen må gerne sige, at noget skal blive, som det er. Skriv da hvorfor
+— det er lige så meget en beslutning som en ændring, og den er lettere at glemme."*
+**Disse seks er beslutninger, ikke udeladelser.**
+
+### 6.1 `contain` + 4:3 bliver — også på det høje foto
+
+Prisen er målt, og den er reel:
+
+```
+node shape-billedspild.mjs assets/fotos/fabrikant
+  65 af 76 grundfotos læst (11 er avif/webp, som headerlæseren ikke kan — stikprøve)
+  gns 18,6 % · median 21,7 % · max 50,7 % · min 0 %
+  over 20 %: 33 af 65     over 30 %: 8 af 65     over 50 %: 1 af 65
+  høje (ar<1): 7 · brede (ar>1,34): 38 · nær 4:3: 20
+```
+
+**Halvdelen af billedledet står tom på `yufan-lingmao-cyvet`.** Alligevel **bliver det**:
+L78 valgte ét sideforhold og én fit for at stoppe drift, med den udtrykkelige
+formulering *"ingen fladespecifik undtagelse, der kan drive fra hinanden igen"*. At give
+robotsiden sit eget sideforhold ville genåbne præcis den beslutning, og den tomme flade
+er den ærlige pris for aldrig at beskære.
+
+**Uafhængig bekræftelse af den lukkede beslutning:** mit gennemsnit, **18,6 %**,
+reproducerer L78's eget måletal for 4:3 med `contain` nøjagtigt — målt af en anden agent,
+med en anden metode, en anden dag.
+
+**Det, der ér åbent, og som hører til JPK, ikke til denne plan:** om den tomme flade skal
+have en egen behandling (i dag hvid `--stans`) eller blive. Se **S6**.
+
+### 6.2 De fire datatilstande bliver — urørt
+
+`.v-tal`, `.v-nul`, `.v-nej`, `.v-ja`, `.v-ikke`, `.v-billede`. Hård begrænsning 5 er
+**opfyldt i dag**, og det er efterprøvet, ikke antaget:
+
+```
+assets/system.css:691   TRE-TILSTANDS-ALFABET - .v-nej har et FYLDT kvadrat, .v-ja et
+                        aabent med fyldt kerne, .v-ikke et STIPLET.
+grep over alle 154 sider:  v-nej 22 · v-nul 16 · v-ikke 2946 — tre adskilte klasser
+```
+
+**Planen rører dem ikke, og ingen fremtidig fladeplan bør gøre det uden at læse
+`system.css:691` først.** Det er sidens bedst gennemtænkte del.
+
+**Én ting er målt og ikke rettet, fordi den er systemets og ikke fladens:**
+`.v-nej` er fast 10,5 px, mens `.v-ja` og `.v-ikke` er em-baserede — to satsmetoder
+inden for én firetilstandsfamilie. DESIGN.md noterer det selv. Det hører i S5's
+oprydning, ikke her.
+
+### 6.3 Foldens komposition bliver
+
+To spalter, foto til venstre, nøgletal til højre, robotnavnet i 84 px over dem.
+Set med egne øjne ved 1440 på `/da/` og `/en/`: **den virker.** Navn, producent, land,
+status, klasse, billede og fem nøgletal er læst på under et sekund. P1 **udfylder**
+denne komposition; den ændrer den ikke.
+
+### 6.4 Robotsiden har ingen bevægelse — og skal ikke have nogen
+
+Målt i 3.1: `transform` er `none` før og under hover på alle tre robotter. Briefets fund
+1 gælder kataloget, ikke denne flade.
+
+**Det er rigtigt for Read-modet.** Bevægelse er en invitation til at handle; katalogets
+kort skal klikkes, robotsidens foto skal ses på. **Planen tilføjer ingen animation, ingen
+hover-tilstand og ingen overgang** — og skriver det her, så den næste fladeplan ikke
+"retter" en manglende bevægelse, der er tilsigtet.
+
+### 6.5 Kildemærkets systematik bliver
+
+29 mærker pr. robotside, hævet bogstav, `blaek2` efter L76, usynligt 24×24 px
+berøringsmål, sekundær kilde stiplet. Systemet er rigtigt. **Kun dets skriftgrad er
+omstridt, og den strid er S5's, ikke denne plans.**
+
+### 6.6 Der er ingen købsknap, og der kommer ingen
+
+Robotsiden har i dag nul købsknapper, nul affiliate-links og nul prisforespørgsler.
+**Det skal blive sådan** — hård begrænsning 1 og *"Kom ikke igen med disse"*.
+Skrevet her, fordi P1 lægger noget nyt i folden, og folden er præcis det sted, hvor en
+fremtidig læser af planen ville føle trang til at sætte en handling.
+Robotsidens eneste knap er og bliver `.videre` til producentens egen side.
