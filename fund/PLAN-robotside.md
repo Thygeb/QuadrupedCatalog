@@ -866,3 +866,250 @@ Robotsiden har i dag nul købsknapper, nul affiliate-links og nul prisforespørg
 Skrevet her, fordi P1 lægger noget nyt i folden, og folden er præcis det sted, hvor en
 fremtidig læser af planen ville føle trang til at sætte en handling.
 Robotsidens eneste knap er og bliver `.videre` til producentens egen side.
+
+---
+
+## 7. SYSTEMÆNDRING
+
+**Sektionen er ikke tom.** Den har **syv** poster.
+
+Formen er koordinatorens: hver post bærer (1) hvad komponenten hedder og gør, (2) hvilke
+**andre** skærme den også ville gælde for, navngivet, (3) hvad den erstatter med et målt
+antal forekomster i `dist/`, (4) acceptkriteriet.
+
+**Den overordnede grund til, at sektionen er så stor, er ét måletal:**
+
+```
+grep -c '<navn>' DESIGN.md   for robotsidens egne blokke
+  skema  0 · noter-blok  0 · feltnote  0 · skema-gruppe  0
+  skema-taeller  0 · stribe-hylster  0 · robot-noegletal  0
+```
+
+**Robotsidens syv egne blokke findes nul gange i DESIGN.md.** Den eneste komponent på
+fladen, systemet navngiver, er Nøgletalsstriben (`.stribe--fem`). Til sammenligning
+tælles der mindst **76 CSS-regler**, der betjener de unavngivne blokke:
+
+```
+for k in skema noter-blok feltnote robot-noegletal robot-foto advarsel anvendelse; do
+  grep -oE "^[^{]*\.$k[a-z0-9_-]*[^{]*\{" assets/system.css assets/generator.css | wc -l
+done
+  skema 42 · noter-blok 0 · feltnote 1 · robot-noegletal 14
+  robot-foto 5 · advarsel 6 · anvendelse 8   → i alt 76
+  (kontrol: .stribe*, som ER dokumenteret, giver 101)
+```
+
+**Tallet 76 er et gulv, ikke en facitliste:** grebet er forankret til linjestart og
+fanger derfor ikke regler, hvor klassen står som efterkommer længere inde i en selektor.
+`.noter-blok`s 0 er netop det: blokken har sats, men ingen regel, der begynder med den.
+
+**Det er hullet, der gør fem fladeplaner farlige.** Å103 skrev det ned: *"uden det
+midterste led ville fem fladeplaner hver finde på deres egen knap."* Led 2 lukkede
+knappen. Det, led 2 **ikke** nåede, var at give robotsidens største blokke navne — og en
+flade, hvis komponenter systemet ikke navngiver, er en flade, hvor den næste plan ikke
+**kan** være konsistent, uanset hvor gerne den vil.
+
+---
+
+### S1 — DESIGN.md skal navngive robotsidens blokke *(forudsætning for S2, S3, S7)*
+
+1. **Hvad:** ikke en ny komponent — en **dokumentation** af syv, der allerede findes og
+   bygges i dag: skematabellen, gruppeoverskriften, skematælleren, noteblokken,
+   feltnoten, forbeholdsblokken (`.advarsel`) og anvendelsesblokken. Hver med rolle,
+   sats og tilstande, som DESIGN.md gør for `Kort` og `De fire datatilstande`.
+2. **Andre skærme:** `.advarsel` og `.kildemaerke`-mønstret går igen på
+   **sammenligningssiden** og **producentsiden**; `.stribe-hylster` bygges i
+   `side.mjs:1610` og er derfor **fælles infrastruktur**, ikke robotsidens.
+   Resten er robotsidens alene — **men de skal alligevel navngives**, fordi
+   fladeplan 2, 3, 4 og 5 ellers ikke kan henvise til dem, og så opfinder de deres egne.
+3. **Erstatter:** intet. Tilføjer navne til **76+ eksisterende CSS-regler** og
+   **154 sider**.
+4. **Acceptkriterium:** færdig, når
+   `for k in skema noter-blok feltnote skema-gruppe skema-taeller stribe-hylster robot-noegletal; do grep -c "$k" DESIGN.md; done`
+   viser **syv tal større end 0** — før: **syv nuller**.
+
+---
+
+### S2 — Optegnelseskortet *(P1)*
+
+1. **Hvad:** en blok i foldens højre spalte, under nøgletallene, der bærer
+   optegnelsens tilstand og robottens redaktionelle noter. Den svarer på Read-modets
+   spørgsmål 3: *hvor fuldstændig er den her viden, og hvorfor?*
+2. **Andre skærme:** **producentsiden** har samme problem i lille format (en producent
+   har også en åbenhedsgrad og redaktionelle forbehold) og er den næste kandidat.
+   **Sammenligningssiden** kan ikke bruge den — den viser mange robotter og har ikke
+   plads til en per-robot-blok. **Kataloget, producentindekset, Om os, 404, sprogroden
+   og topbaren** rører den ikke.
+   **Den er derfor et systemelement med to aftagere, ikke ét**, og skal navngives
+   generisk nok til producentsiden — men **må ikke bygges til producentsiden nu**,
+   før den flades egen plan er skrevet.
+3. **Erstatter:** noteblokkens nuværende placering. Målt i `dist/`:
+   `grep -l 'noter-blok' dist/*/robotter/*/index.html | wc -l` → **126 sider**
+   (63 robotter × 2 sprog). De 14 robotter uden noter har ingen blok — det er den tomme
+   tilstand, kriteriet i P1 punkt 3 dækker.
+4. **Acceptkriterium:** P1's fire kriterier, uændret.
+
+---
+
+### S3 — Tællerformen *("{a} af {b} oplyst · {n} huller")* *(P2, P6)*
+
+1. **Hvad:** én form for at oplyse en tæthed: tæller, nævner **og hullet**, hvor hullet
+   siges i ord. Formen findes allerede i nøgletalspanelet; den skal være **systemets**
+   og ikke panelets.
+2. **Andre skærme — og her er den vigtigste opdagelse i hele afsnittet:**
+   ```
+   grep -oE '[0-9]+ af [0-9]+ (oplyst|felter)' <hver flade>
+     robotside 2 · kataloget 0 · sammenligning 0 · producentindeks 0 · Om os 0
+   grep -rliE 'tæthed' dist/da/ | wc -l   → 5 filer (4 noter + sammenligningssiden)
+   ```
+   **Specifikationstætheden er PRODUCT.md's *"eneste rangering"* — og den vises
+   overhovedet ikke på kataloget**, den flade, hvor man rangerer. Formen er i dag
+   robotsidens alene, men begrebet hører til **kataloget**, **sammenligningssiden** og
+   **producentsiden** ligeså. Derfor systemelement, ikke fladeelement.
+   **Denne plan foreslår ikke at sætte tætheden på kataloget** — det er katalogsidens
+   fladeplan, der ejer det. Den flager kun, at formen skal være delbar, når den dag kommer.
+3. **Erstatter:** den korte form på robotsidens skematæller.
+   `grep -l 'skema-taeller' dist/*/robotter/*/index.html | wc -l` → **154 sider**.
+   i18n-nøglerne findes allerede i begge sprog (`noegletal_hul_en`,
+   `noegletal_hul_flere`, `skema_taeller`; 394 nøgler i hver fil, 0 manglende).
+4. **Acceptkriterium:** P2's, plus P6's **924**.
+
+---
+
+### S4 — Literatas rækkevidde udvides *(P3)*
+
+1. **Hvad:** rollen **"Manual-brød"** (DESIGN.md, *Typografi › Hierarki*) holder op med
+   at være Om-sidens og bliver **sitets regel for vores egen prosa**.
+2. **Andre skærme:** **Om os** (har den i forvejen, 8 brug), **sammenligningssiden**
+   (et par noter har den i forvejen), **producentsiden** og **producentindekset** (har
+   redaktionel prosa og bør følge med), **404**. **Kataloget** og **topbaren** har ingen
+   løbende prosa og rører den ikke.
+   **Dette er den post, der har den bredeste rækkevidde af alle syv**, og den er derfor
+   den, der bedst bør afstemmes på tværs af de fem fladeplaner, før noget bygges.
+3. **Erstatter:** intet visuelt element. Ændrer skriftvalget for prosa.
+   Målt før: `--manual` **8 brug** i CSS · Literata bærer **0** tegn på robotsiden
+   (0 af 7.664 på `/da/`, 0 af 7.723 på `/en/`) · **2.787** tegn på Om-siden.
+4. **Acceptkriterium:** P3's, plus: `grep -c 'var(--manual)' assets/*.css` skal stige
+   fra **8**, og Om-sidens egne 62ch/18px/Literata skal måle **uændret** bagefter —
+   en udvidelse må ikke ændre det sted, reglen allerede virker.
+
+---
+
+### S5 — Skriftgulvet: modstriden afgøres *(P5)*
+
+1. **Hvad:** ikke en komponent — en **regel**, der modsiger sig selv. DESIGN.md's
+   *Navngivne regler* siger 10,5 px; DESIGN.md's *Kildemærket* siger `max(8px,.34em)`.
+   Én af de to skal vige, og det er JPK's valg, ikke en fladeplans.
+2. **Andre skærme: alle.** `.kildemaerke` bæres af hver flade, der viser et tal med
+   kilde — **robotsiden, kataloget, sammenligningssiden, producentsiden**. Det er
+   den mest fladeoverskridende post i sektionen.
+3. **Erstatter:** ingenting endnu. Berører, målt:
+   `grep -oh 'kildemaerke' dist/*/robotter/*/index.html | wc -l` → **3.458** mærker på
+   robotsiderne alene · **49** elementer under gulvet pr. robotside ved 1440, **46** ved 390.
+
+   *(Her stod først 4.463. Det tal er `v-tal`s, ikke kildemærkets — jeg genbrugte det fra
+   en tidligere måling uden at køre kommandoen. Kontrolkørslen af alle fire tal i dette
+   afsnit fangede det; de tre øvrige holdt. Det er andet tilfælde i dette spor, hvor en
+   kontrol væltede et tal, jeg allerede havde skrevet ned.)*
+4. **Acceptkriterium:** **kan ikke skrives, før valget er truffet** — og det er
+   bevidst. Skrives et kriterium nu, låser det udfaldet.
+   Når valget er truffet, er kriteriet ét af to:
+   *(a)* `shape-regler.mjs` viser `regel1_antalElementer: 0` ved både 1440 og 390, eller
+   *(b)* DESIGN.md's regel er omskrevet, og et nyt kriterium tæller **kun** de elementer,
+   den omskrevne regel stadig forbyder.
+
+---
+
+### S6 — Den tomme flade i billedledet *(6.1's åbne spørgsmål)*
+
+1. **Hvad:** ikke en ændring af L78 — et spørgsmål om, hvad den tomme flade **er**.
+   I dag er den hvid (`--stans`), og det læses på et højt foto som en uafsluttet ramme
+   snarere end som en bevidst plade.
+2. **Andre skærme:** **kataloget** (87 kort på sprogroden, alle 4:3 + `contain`),
+   **producentindekset** og **producentsiden**. Enhver behandling her gælder dem alle —
+   det er hele pointen med L78's *"ingen fladespecifik undtagelse"*.
+3. **Erstatter:** ingenting. Målt spild i dag, 65 af 76 grundfotos (11 avif/webp kan
+   headerlæseren ikke): **gns 18,6 % · median 21,7 % · max 50,7 %** ·
+   **33 af 65 over 20 %** · **8 af 65 over 30 %**.
+   Robotsidens `.billedled--stor` findes på **154 sider**.
+4. **Acceptkriterium:** kan først skrives, når JPK har sagt, om den tomme flade skal
+   have en behandling. **Bliver svaret nej, er det også et resultat, og så skal det
+   stå i DESIGN.md**, så den næste plan ikke stiller spørgsmålet igen.
+
+---
+
+### S7 — Skemaets to rangtrin *(P7)*
+
+1. **Hvad:** gruppeoverskriften i skemaet får rollen **"Etiket"** (DESIGN.md's
+   navngivne rolle for *"at navngive en datagruppe"*), og kolonnehovedet får en lavere
+   rang, så de to kan skelnes.
+2. **Andre skærme:** **sammenligningssiden** har samme tabelform med gruppeopdeling og
+   ville arve rangen. Kataloget, Om os, 404, sprogroden, producentindekset og topbaren
+   har ingen datatabel med grupper.
+   **Kun to skærme — men det er netop derfor, den hører i systemet og ikke i fladen:**
+   to skærme med samme tabel og to forskellige rangordner er den nøjagtige tilstand,
+   Å100's mønster beskriver, hvor en rettelse scopet til én side aldrig nåede resten.
+3. **Erstatter:** den nuværende sats.
+   `grep -oh 'skema-gruppenavn' dist/*/robotter/*/index.html | wc -l` → **924**
+   (6 × 77 × 2). Kolonnehoveder: 3 pr. side × 154 = **462**.
+4. **Acceptkriterium:** P7's, uændret.
+
+---
+
+## 8. Rækkefølge og pris
+
+**Rækkefølgen er ikke en prioritering efter værdi. Den er en afhængighedskæde.**
+S1 er først, fordi de tre af de syv poster ikke kan skrives ned uden den.
+
+| # | Skridt | Afhænger af | Filer | Sider | Tests |
+|---|---|---|---|---|---|
+| **1** | **S1** — DESIGN.md navngiver robotsidens syv blokke | — | `DESIGN.md` | 0 | 0 |
+| **2** | **P4** — prosaen under 68ch | — | `system.css` **el.** `robot.mjs` | 154 | 0 (1 billig) |
+| **3** | **P7 / S7** — skemaets to rangtrin | S1 | `system.css` | 154 | 0 |
+| **4** | **P2 / S3** — én tællerform | S1 | `robot.mjs` | 154 | 1 udvidet |
+| **5** | **P6 / S3** — gruppens tæthed | S1, P2 | `robot.mjs`, `da/en.json` | 154 | **1 ny, obligatorisk** |
+| **6** | **P1 / S2** — optegnelseskortet i folden | S1, P2 | `robot.mjs`, `system.css` | 154 | 1 vendt |
+| **7** | **P3 / S4** — Literata på vores stemme | afstemt på tværs | `system.css` | 154 | 1 ny |
+| **—** | **S5** — skriftgulvet | **JPK** | afventer | — | — |
+| **—** | **S6** — den tomme billedflade | **JPK** | afventer | — | — |
+
+**Hvorfor netop den rækkefølge:**
+
+- **S1 først**, fordi S2, S3 og S7 alle henviser til navne, der ikke findes endnu.
+  Bygges de før, skriver tre spor tre navne til samme blok.
+- **P4 nummer to**, fordi det er det billigste rigtige: klassen findes
+  (`system.css:358`), er allerede brugt på 2 af 6 blokke, og forslaget sætter den på de
+  fire sidste. **Det er en enkeltstående rettelse med et målbart facit** og kunne
+  isoleret set køres uden for frysen — men den er lagt i planen frem for i et hastespor,
+  fordi L70 netop findes for at stoppe strømmen af punktrettelser.
+- **P2 før P6**, fordi P6 er P2's form gentaget på gruppeniveau. Modsat rækkefølge giver
+  to former, der skal forenes bagefter.
+- **P1 sidst af byggeskridtene**, fordi den er den største, og fordi den bliver bedre af,
+  at tælleren (P2) allerede har sin endelige form, når blokken skal bære den.
+- **P3 uden for kæden**, fordi den er den eneste post, hvis rækkevidde er alle fem
+  fladeplaner. **Den bør afstemmes på tværs, før den bygges** — ellers får robotsiden
+  Literata og de fire andre flader ikke, og så er inkonsistensen større bagefter end før.
+
+**Samlet pris for skridt 1–7:** tre kildefiler (`robot.mjs`, `system.css`, `DESIGN.md`),
+to i18n-filer, **154 sider ombygges** (ingen ny side, ingen slettet side), **tre nye
+prøver og én vendt assertion**. Ingen datafil røres. Ingen af de 77 robotposter ændres.
+**Ingen ny komponent opfindes** — syv navngives, én form deles, én skriftrolle udvides.
+
+**Det, planen ikke koster, og som er værd at sige højt:** ingen ny farve, ingen ny
+skrift, ingen ny radius, ingen ny knap, ingen ny bevægelse, intet nyt sideforhold og
+ingen ny interaktiv kontrol. **Alle fem designbeslutninger L76–L80 står urørt, og fire
+af dem bruges aktivt som argument i planen.**
+
+---
+
+## 9. Det, denne plan ikke løser, og som hører et andet sted
+
+1. **Den engelske sides forbehold er dansk.** 1.148 af 1.148 tekster identiske,
+   0 oversat. **Eget spor, data/i18n, ikke design.** Uløst er halvdelen af sidens
+   Read-løfte ikke indfriet for den engelske læser — og planens forslag kan ikke
+   kompensere for det.
+2. **Noterne er ikke typede.** VERSAL-konventionen holder på 47 %. En datamodelændring
+   ville gøre P1 bedre, men P1 er skrevet, så den ikke kræver den.
+3. **Tætheden vises ikke på kataloget**, selv om PRODUCT.md kalder den sidens eneste
+   rangering. **Katalogsidens fladeplan ejer det spørgsmål**, ikke denne.
+4. **Briefets fund 1 (hover-zoomen)** hører i katalogsidens og producentindeksets
+   planer. Efterprøvet her og lagt fra mig, ikke glemt.
