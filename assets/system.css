@@ -239,7 +239,11 @@ img,svg{max-width:100%;display:block}
 b,strong{font-weight:700}
 
 /* Browserfladerne baerer ogsaa designet. */
-::selection{background:var(--accent);color:#FFFFFF}
+/* L76: tekst PAA accent er ALTID --blaek, aldrig hvid. Maalt (kontrol
+   sort/hvid = 21,00): hvid paa accent 1,66 : 1, --blaek paa accent 9,19 : 1.
+   ::selection er den mest oversete af de syv brugssteder, fordi den kun ses
+   i det oejeblik nogen markerer tekst - og derfor aldrig paa et skaermbillede. */
+::selection{background:var(--accent);color:var(--blaek)}
 /* accent-color er den sidste utegnede browserflade. VAER PRAECIS OM, HVAD DEN
    GOER: maalt 28. aug 2026 tegner browseren i dag NUL kontroller selv - alle
    220 afkrydsningsfelter og radioer i bygget (214 checkbox, 6 radio) staar
@@ -250,8 +254,19 @@ b,strong{font-weight:700}
    form af et blaat felt, ingen har valgt. En flade, man ikke har tegnet,
    baerer stadig designet. */
 :root{caret-color:var(--accent);accent-color:var(--accent)}
-a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
-a:hover{text-decoration-thickness:2.5px}
+/* L76: --accent er BAGGRUND og MARKOER, aldrig tekst paa en lys flade.
+   Linkets farve var accent: 1,38 : 1 mod --bund og 1,60 : 1 mod --panel,
+   paa 7.892 <a>-elementer over 216 sider. Kravet er 4,5.
+   Linket er nu --blaek (12,72 : 1) og baerer sin rolle paa UNDERSTREGNINGEN
+   i stedet for paa farven - understregning er en af de fire former, L76
+   udtrykkeligt tillader accent i paa lys flade (baggrund, kant,
+   understregning, fokusring).
+   Accent flytter til hover og fokus som understregningens FARVE, ikke som
+   tekstens: en gul tekstfarve paa hover ville vaere DAARLIGERE end hvile
+   (1,38 mod 12,72), altsaa det stik modsatte af hensigten. Tykkelsen goer
+   arbejdet for den, der ikke ser farve. */
+a{color:var(--blaek);text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
 /* Fokusringen paa et element uden egen radius. 2 px stod her og var paa
    ingen skala: en hedge mellem hard kant og systemets 6. Maalt paa fire
    sider: hvert eneste element, den rammer, er gennemsigtigt (prosalink,
@@ -739,7 +754,12 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .kildemaerke{
   position:relative;
   font-family:var(--mono);font-size:max(8px,.34em);font-weight:700;line-height:1;
-  letter-spacing:.02em;color:var(--accent);
+  /* L76: maerket stod i accent paa panel = 1,60 : 1 og var i praksis
+     usynligt (se fund/skud-extract/foer-robot-fold.png, hvor haevetegnene
+     efter hvert tal ikke kan ses). --blaek2 giver 5,68 : 1 mod --bund og
+     6,56 : 1 mod --panel: laesbart, men stadig et haevetegn og ikke en
+     overskrift. */
+  letter-spacing:.02em;color:var(--blaek2);
   text-decoration:none;padding:0 1px;
 }
 .v-tal > .kildemaerke{align-self:flex-start}
@@ -768,7 +788,10 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   border-top:1px solid var(--linje)}
 .kildeliste li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;
   font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--blaek3)}
-.kildeliste .bogstav{font-weight:700;color:var(--accent);align-self:start}
+/* L76: bogstavet er kildelistens noegle og skal kunne LAESES - accent gav
+   1,60 : 1 paa panel. --blaek (14,69 : 1 paa panel) goer det til raekkens
+   anker, hvilket ogsaa er rigtigt: resten af linjen staar i --blaek3. */
+.kildeliste .bogstav{font-weight:700;color:var(--blaek);align-self:start}
 /* Samme maerke, samme sprog: 0, ikke 3. Kassen er 17,2 x 21,8 px og taaler
    godt nok 6 px uden at blive rund, men den er den SAMME oplysning som
    `.kildemaerke--sek` — to former for ét maerke er en form for oevrigt. */
@@ -820,9 +843,13 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .stribe .krop > .v{min-height:30px;display:flex;align-items:center}
 .stribe .v{font-size:29px}
 
-/* Ikonets to tilstande: oplyst = accent, hul = hegn.
-   Farven er den samme oplysning som figuren, ikke en ekstra. */
-.stribe .ikon{color:var(--accent);margin-top:1px}
+/* Ikonets to tilstande: oplyst = blaek, hul = hegn.
+   Farven er den samme oplysning som figuren, ikke en ekstra.
+   L76: "oplyst" var accent. Det gjorde kodningen OMVENDT af hensigten -
+   maalt paa panel stod oplyst paa 1,60 : 1 og hul paa 2,47 : 1, altsaa var
+   HULLET det tydeligste af de to. Nu: oplyst 14,69 : 1, hul 2,47 : 1, og
+   forskellen er den, figuren allerede paastod. */
+.stribe .ikon{color:var(--blaek);margin-top:1px}
 .stribe .hul .ikon{color:var(--hegn)}
 
 /* Under 6 spalter: 3, saa 2. Cellerne beholder deres raekkefoelge. */
@@ -1277,7 +1304,9 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   border-bottom:1px solid var(--linje);
   opacity:0;pointer-events:none;
 }
-.kort-invit .ikon{width:15px;height:15px;stroke-width:2;color:var(--accent)}
+/* L76: ikonet staar paa --panel (1,60 : 1 som accent). --blaek deler farve
+   med invitationens egen tekst, som allerede er --blaek. */
+.kort-invit .ikon{width:15px;height:15px;stroke-width:2;color:var(--blaek)}
 .kort:hover .kort-invit,.kort:focus-within .kort-invit{opacity:1}
 
 @media (prefers-reduced-motion:no-preference){
@@ -1402,7 +1431,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    cifre, saa 1 og 62 fylder det samme og kolonnen ikke vibrerer. */
 .filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
-.filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--blaek)}
 .filtre input:checked + label .antal{color:var(--accent-ro)}
 .filtre input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
 
@@ -1418,8 +1447,11 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   background:var(--tom);border:1px dashed var(--hegn);
   font-weight:500;color:var(--blaek3)}
 .filtre input[value="ikke_oplyst"] + label:hover{color:var(--blaek2);border-color:var(--blaek3)}
+/* L76: den stiplede ramme OG teksten stod hvide paa accent (1,66 : 1).
+   Begge er nu --blaek. Hullets sprog er stadig den STIPLEDE ramme - det er
+   stregens form, ikke dens farve, der siger "ikke oplyst". */
 .filtre input[value="ikke_oplyst"]:checked + label{
-  background:var(--accent);border:1px dashed #FFFFFF;color:#FFFFFF;font-weight:600}
+  background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
 
 /* Den eneste knapform paa sitet: navigation inde paa sitet. Ingen koebsknap,
    ingen demo-knap, ingen prisforespoergsel. Formen findes ikke i systemet. */
@@ -1428,9 +1460,16 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   background:var(--blaek);color:#FFFFFF;text-decoration:none;border-radius:var(--rund-ind);
   font-size:15px;font-weight:600;letter-spacing:-.01em;
 }
-.videre:hover{background:var(--accent)}
+/* L76, SYVENDE brugssted af hvid-paa-accent - og det ENESTE, der ikke kan
+   ses paa et grep, fordi de to erklaeringer staar i HVER SIN regel:
+   `.videre` saetter color:#FFFFFF, og `.videre:hover` skifter kun
+   baggrunden til accent. Ved hover stod knappen derfor paa 1,66 : 1.
+   Briefets maaling fandt seks, fordi den soegte paa én linje ad gangen.
+   Farven rettes her; knappens FORM er spor 2's (L77). */
+.videre:hover{background:var(--accent);color:var(--blaek)}
 .videre .ikon{width:17px;height:17px;stroke-width:2}
-.videre--stille{background:none;color:var(--accent);border:1px solid var(--hegn);padding:0 16px}
+/* L76: accent som forgrund paa gennemsigtig (= --bund) var 1,38 : 1. */
+.videre--stille{background:none;color:var(--blaek);border:1px solid var(--hegn);padding:0 16px}
 .videre--stille:hover{background:var(--accent-ro);border-color:var(--accent)}
 
 /* --- 14. Raekker, tabel og sektionshoved ---------------------------------- */
@@ -2037,7 +2076,7 @@ summary.facet__navn > .facet__tal{
 .facet__aktiv-tal{
   display:inline-flex;align-items:center;justify-content:center;
   min-width:18px;height:18px;padding:0 5px;flex:none;margin-left:auto;
-  background:var(--accent);color:#FFFFFF;
+  background:var(--accent);color:var(--blaek);
   font-family:var(--mono);font-size:10px;font-weight:700;
   font-variant-numeric:tabular-nums;border-radius:2px;
 }
@@ -2105,6 +2144,10 @@ summary.facet__navn > .facet__tal{
   font-size:14px;font-weight:600;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
+/* L76 GENNEMGAAET, BEHOLDT: klaebebaren staar paa --fod (= gunmetal, samme
+   vaerdi som --blaek), og accent PAA blaek er 9,19 : 1. L76 tillader
+   udtrykkeligt accent som tekst paa den moerke flade. Skift den ikke til
+   --blaek "for konsistensens skyld": det ville give 1,00 : 1. */
 .klaebebar__gaa{
   flex:none;color:var(--accent);text-underline-offset:3px;font-weight:600;
 }
