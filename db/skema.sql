@@ -275,6 +275,13 @@ create table feltposter (
   -- en bar streng (aldrig en liste), saa der er ingen parallel-liste-form at
   -- bevare her, i modsaetning til noter/citat.
   advarsel_ordlyd     text,
+  -- ADVARSEL_I18N (spor/i18nfelt, 2. sep 2026, Å98 spor A, R22): soesterfeltet
+  -- til "advarsel" med ANDET FORMAAL end advarsel_ordlyd ovenfor: ordlyd
+  -- bevarer kildens EGEN formulering, i18n baerer en OVERSAETTELSE til et
+  -- andet sprog. Sprogkort ({en: "..."}), jsonb af samme grund som
+  -- anvendelse.citat_ordlyd (parallel-listeform) — her et OBJEKT, ikke en
+  -- streng/liste, saa formkravet er 'object', ikke 'string'/'array'.
+  advarsel_i18n       jsonb,
   note                text,
   raa                 text,           -- 0 forekomster i dag (formscan), men et gyldigt POST_NOEGLER-felt
   valuta              text,           -- 0 forekomster i dag, samme grund
@@ -385,6 +392,25 @@ create table feltposter (
   ),
   constraint feltposter_advarsel_ordlyd_kraever_advarsel check (
     advarsel_ordlyd is null or (advarsel is not null and btrim(advarsel) <> '')
+  ),
+
+  -- R22 (spor/i18nfelt): advarsel_i18n er et OBJEKT (sprogkort), kan ikke
+  -- staa uden det forbehold, det oversaetter, og kildesproget "da" maa ikke
+  -- staa som noegle deri — dansk bor i "advarsel" alene, ellers er der to
+  -- steder at rette den samme danske tekst (samme regel som tools/validate.
+  -- mjs's tjekI18nOverbygning haandhaever, se KILDESPROG i tools/skema.mjs).
+  -- Dybere formkrav (hver vaerdi ikke-tom tekst, kun kendte sprogkoder) er
+  -- IKKE en CHECK her, samme afgraensning som feltposter_raa_kun_paa_tal's
+  -- kommentar beskriver for R15 — SPROG kan vokse uden en skemaaendring, og
+  -- den fulde regel haandhaeves paa YAML-siden.
+  constraint feltposter_advarsel_i18n_form check (
+    advarsel_i18n is null or jsonb_typeof(advarsel_i18n) = 'object'
+  ),
+  constraint feltposter_advarsel_i18n_kraever_advarsel check (
+    advarsel_i18n is null or (advarsel is not null and btrim(advarsel) <> '')
+  ),
+  constraint feltposter_advarsel_i18n_ikke_kildesprog check (
+    advarsel_i18n is null or not (advarsel_i18n ? 'da')
   ),
 
   -- KUN_MED_TAL (den del af R4, der gaelder tilstandsposter): en tilstand
@@ -511,6 +537,10 @@ create table anvendelse (
   -- (anvendelsens egen note, IKKE feltposternes) — samme mekanik og samme
   -- begrundelse som ovenfor.
   note_ordlyd         text,
+  -- NOTE_I18N (spor/i18nfelt, 2. sep 2026, R22): soesterfeltet til "note",
+  -- samme ANDET FORMAAL som feltposter.advarsel_i18n — en OVERSAETTELSE
+  -- ({en: "..."}), ikke kildens egen ordlyd.
+  note_i18n           jsonb,
 
   constraint anvendelse_ikke_arv_af_sig_selv check (arvet_fra_robot_id is distinct from robot_id),
   constraint anvendelse_kilde_er_url check (kilde is null or kilde ~ '^https?://'),
@@ -547,6 +577,17 @@ create table anvendelse (
   ),
   constraint anvendelse_note_ordlyd_kraever_note check (
     note_ordlyd is null or (note is not null and btrim(note) <> '')
+  ),
+  -- R22 (spor/i18nfelt): samme tre krav som feltposter_advarsel_i18n_* —
+  -- objekt, kraever "note", kildesproget "da" maa ikke staa som noegle.
+  constraint anvendelse_note_i18n_form check (
+    note_i18n is null or jsonb_typeof(note_i18n) = 'object'
+  ),
+  constraint anvendelse_note_i18n_kraever_note check (
+    note_i18n is null or (note is not null and btrim(note) <> '')
+  ),
+  constraint anvendelse_note_i18n_ikke_kildesprog check (
+    note_i18n is null or not (note_i18n ? 'da')
   )
   -- Resten af R16 (er hver vaerdi i ANVENDELSE_VAERDIERs syv gyldige
   -- kategorier?) og HELE R17 (arv: har moderen selv en kategori? er den
@@ -575,6 +616,9 @@ create table billede (
   hentet              date,
   alt                 text,
   note                text,
+  -- NOTE_I18N (spor/i18nfelt, 2. sep 2026, R22): soesterfeltet til billedets
+  -- egen "note" — samme ANDET FORMAAL som de to ovenfor: en OVERSAETTELSE.
+  note_i18n           jsonb,
   delt_med_robot_id   bigint references robotter(id),  -- L28: to robotter kan dele samme fysiske fil
   plade               boolean,
   pos                 text,
@@ -592,6 +636,18 @@ create table billede (
   -- "hentet uden kilde daterer ingenting" (R18).
   constraint billede_hentet_kraever_kilde check (
     hentet is null or kilde is not null
+  ),
+  -- R22 (spor/i18nfelt): samme tre krav som feltposter_advarsel_i18n_*/
+  -- anvendelse_note_i18n_* — objekt, kraever "note", kildesproget "da" maa
+  -- ikke staa som noegle.
+  constraint billede_note_i18n_form check (
+    note_i18n is null or jsonb_typeof(note_i18n) = 'object'
+  ),
+  constraint billede_note_i18n_kraever_note check (
+    note_i18n is null or (note is not null and btrim(note) <> '')
+  ),
+  constraint billede_note_i18n_ikke_kildesprog check (
+    note_i18n is null or not (note_i18n ? 'da')
   )
   -- R18's regler om selve STIEN (ingen "..", ingen "\", ingen "media/",
   -- filen skal FINDES paa disk i assets/<mappe>/) er filsystemtjek og kan

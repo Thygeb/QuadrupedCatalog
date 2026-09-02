@@ -180,6 +180,12 @@ function byggFeltpostVaerdi(f) {
     // betingelse som advarsel_klasse ovenfor, producentens ordrette
     // kildeformulering, ingen skabelon laeser den.
     kort.advarsel_ordlyd = f.advarsel_ordlyd ?? undefined;
+    // R22 (spor/i18nfelt, 2. sep 2026): "advarsel_i18n" — samme form-
+    // betingelse, sprogkortet { en: "..." } med en OVERSAETTELSE af
+    // "advarsel" (modsat advarsel_ordlyd's kildesprogs-ordlyd ovenfor).
+    // emitKort() skriver kortet nested uden saerskilt kode (samme vej som
+    // billede.alt laengere nede).
+    kort.advarsel_i18n = f.advarsel_i18n ?? undefined;
   }
   if (f.ved_last) {
     // Tre virkelige former, alle fundet i data/robots/ (25. aug 2026, ikke
@@ -235,6 +241,9 @@ function byggRobotDoc(r) {
       kort.note = a.note ?? undefined;
       // note_ordlyd — spor/cjkui, 1. sep 2026 (R21): soesterfeltet til note.
       kort.note_ordlyd = a.note_ordlyd ?? undefined;
+      // note_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet med en
+      // OVERSAETTELSE af "note" (modsat note_ordlyd's kildesprogs-ordlyd).
+      kort.note_i18n = a.note_i18n ?? undefined;
       doc.anvendelse = kort;
     }
   }
@@ -243,7 +252,11 @@ function byggRobotDoc(r) {
     const b = r.billede;
     doc.billede = {
       fil: b.fil, ophav: b.ophav, kilde: b.kilde ?? undefined, hentet: b.hentet ?? undefined,
-      alt: b.alt ?? undefined, note: b.note ?? undefined, delt_med: b.delt_med ?? undefined,
+      alt: b.alt ?? undefined, note: b.note ?? undefined,
+      // note_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet med en
+      // OVERSAETTELSE af billedets egen "note".
+      note_i18n: b.note_i18n ?? undefined,
+      delt_med: b.delt_med ?? undefined,
       plade: b.plade ?? undefined, pos: b.pos ?? undefined,
     };
   }
@@ -316,6 +329,9 @@ function omdanFeltpostFraDb(row) {
     enhed: row.enhed, enhed_imperial: row.enhed_imperial, vaerdi_imperial: row.vaerdi_imperial,
     operator: row.operator, kilde: row.kilde, hentet: row.hentet, kildetype: row.kildetype,
     advarsel: row.advarsel, advarsel_klasse: row.advarsel_klasse, advarsel_ordlyd: row.advarsel_ordlyd,
+    // advarsel_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet, laest
+    // raat af PostgREST'ens jsonb-kolonne (samme facon som billede.alt).
+    advarsel_i18n: row.advarsel_i18n,
     note: row.note, raa: row.raa, valuta: row.valuta,
   };
   // ved_last_* er tre kolonner paa hver raekke (kun ikke-null for driftstid,
@@ -353,6 +369,9 @@ function omdanRobotFraDb(raa, idTilSlug) {
       er_bar_streng: a.er_bar_streng, er_ikke_oplyst: a.er_ikke_oplyst,
       vaerdi: a.vaerdi, citat: a.citat, citat_ordlyd: a.citat_ordlyd, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
       arvet_fra: a.arvet_fra_robot_id ? idTilSlug.get(a.arvet_fra_robot_id) : null, note: a.note, note_ordlyd: a.note_ordlyd,
+      // note_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet, laest raat
+      // af PostgREST'ens jsonb-kolonne.
+      note_i18n: a.note_i18n,
     };
   }
 
@@ -361,6 +380,7 @@ function omdanRobotFraDb(raa, idTilSlug) {
     const b = raa.billede;
     billede = {
       fil: b.fil, ophav: b.ophav, kilde: b.kilde, hentet: b.hentet, alt: b.alt, note: b.note,
+      note_i18n: b.note_i18n,
       delt_med: b.delt_med_robot_id ? idTilSlug.get(b.delt_med_robot_id) : null,
       plade: b.plade, pos: b.pos,
     };
