@@ -228,6 +228,17 @@ function findProducent(oenske, poster) {
   return { match, egneSlugs, gyldige: navne };
 }
 
+/** validate.mjs's fejllinjeform (maalt i tools/validate.mjs:1357):
+ *  "FEJL      <robot> · <felt> · <regel>: <besked>", hvor <robot> er
+ *  path.basename(fil) — samme "<slug>.yaml" som tjek.mjs' egne EKSPORT_MAPPE-
+ *  filnavne (validate.mjs's robotINavn saettes fra samme sti). D4's
+ *  egne/andre-gruppering matcher derfor paa slug, ikke paa delstreng, saa
+ *  "unitree-b2" ikke ved et uheld fanger "unitree-b2-w". */
+function robotFraFejlLinje(linje) {
+  const m = linje.match(/^FEJL\s+(\S+)/);
+  return m ? m[1].replace(/\.ya?ml$/, '') : null;
+}
+
 /* --------------------------------------------------------------- main */
 
 function hoved() {
@@ -349,6 +360,16 @@ function hoved() {
   }
   const vTal = traekValidateTal(validateUd);
   console.log(`     ${vTal.filer} fil(er) · ${vTal.fejl} fejl · ${vTal.advarsler} advarsler.`);
+  if (kunProducent) {
+    // Kravet "0 fejl paa hele eksporten" er UAeNDRET (haard begraensning 2
+    // gaelder alle 77) — grupperingen her er ren information, saa sporet
+    // straks kan se, om en fejl er dets EGEN eller stammer fra en anden
+    // producents raekker, mens de skrives samtidig.
+    const fejlLinjer = validateUd.split('\n').filter((l) => l.startsWith('FEJL'));
+    const egneFejlLinjer = fejlLinjer.filter((l) => egneSlugs.has(robotFraFejlLinje(l)));
+    const andreFejlLinjer = fejlLinjer.filter((l) => !egneSlugs.has(robotFraFejlLinje(l)));
+    console.log(`     validate-fejl: ${egneFejlLinjer.length} egne (${kunProducent}), ${andreFejlLinjer.length} andre.`);
+  }
   if (vTal.fejl !== 0) {
     fejl.push(`validate.mjs fandt ${vTal.fejl} fejl paa den eksporterede mappe (forventet 0):\n${validateUd}`);
   }
