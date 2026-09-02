@@ -331,6 +331,92 @@ function koerDansk(robotter, producent) {
   return 0;
 }
 
+/* -------------------------------------------------------------- PUNKT 3: --belaeg */
+
+/** Konverterer fuldbredde-cifre (U+FF10-FF19, "１８") til ASCII-cifre. */
+function fuldbredTilAscii(s) {
+  return s.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xFF10 + 0x30));
+}
+
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+/** Plausible SKRIFTFORMER af ét tal, konservativt (briefets krav): heltal
+ *  faar baade "18" og "18.0"/"18,0"; ikke-heltal faar baade punktum- og
+ *  komma-decimal SAMT en afrundet heltalsform (82.4 -> ogsaa "82"). Formaalet
+ *  er at MINIMERE falske "intet traef" (briefet: et manglende traef er et
+ *  spoergsmaal til et menneske, ikke en fejl) — IKKE at udtoemme alle
+ *  producentens mulige skrivemaader (enhedsomregning er ikke forsoegt her,
+ *  se koerBelaeg's kommentar). */
+function talformer(v) {
+  const former = new Set();
+  former.add(String(v));
+  if (Number.isInteger(v)) {
+    former.add(`${v}.0`);
+    former.add(`${v},0`);
+    // Tusind-adskiller ("15,999") — fundet noedvendigt ved foerste koersel
+    // mod den levende DB (yufan-lingmao-cyvet.price: 15999 vs. citeret
+    // "¥15,999"). Kun for tal >= 1000, hvor formen er meningsfuld.
+    if (Math.abs(v) >= 1000) former.add(v.toLocaleString('en-US'));
+  } else {
+    former.add(String(v).replace('.', ','));
+    former.add(String(Math.round(v)));
+  }
+  return [...former];
+}
+
+/** Forekommer `tal` i `ordlyd`? Fuldbredde-cifre normaliseres foerst.
+ *  Traeffet kraever, at tallet IKKE er omgivet af andre cifre/decimaltegn
+ *  (saa "18" ikke falsk-traeffer inde i "180" eller "2.18") — braendt af
+ *  lookaround i stedet for \b, fordi \b ikke skelner "18" fra "1.8"s "8". */
+export function ordlydIndeholderTal(ordlyd, v) {
+  if (typeof ordlyd !== 'string' || !ordlyd) return false;
+  const norm = fuldbredTilAscii(ordlyd);
+  for (const form of talformer(v)) {
+    const re = new RegExp(`(?<![0-9.,])${escapeRegex(form)}(?![0-9])`);
+    if (re.test(norm)) return true;
+  }
+  return false;
+}
+
+/** Alle field_entries-raekker med BAADE value_number OG caveat_wording
+ *  (ikke-blank) — briefets afgraensning af, hvad der skal "undersoeges".
+ *  {slug, field_name, value_number, caveat_wording, traef}[]. */
+export function belaegRaekker(robotter) {
+  const ud = [];
+  for (const raa of robotter) {
+    for (const fe of raa.field_entries ?? []) {
+      if (fe.value_number === null || fe.value_number === undefined) continue;
+      if (typeof fe.caveat_wording !== 'string' || fe.caveat_wording.trim() === '') continue;
+      ud.push({
+        slug: raa.slug, field_name: fe.field_name,
+        value_number: fe.value_number, caveat_wording: fe.caveat_wording,
+        traef: ordlydIndeholderTal(fe.caveat_wording, fe.value_number),
+      });
+    }
+  }
+  return ud;
+}
+
+function koerBelaeg(robotter, producent) {
+  const filtreret = filtrerProducent(robotter, producent);
+  const raekker = belaegRaekker(filtreret);
+  const medTraef = raekker.filter((r) => r.traef);
+  const udenTraef = raekker.filter((r) => !r.traef);
+  console.log(`FASE2-TJEK --belaeg${producent ? ` --producent="${producent}"` : ''}`);
+  console.log('Konservativ konsistenskontrol (PLAN.md par. 0): staar value_number i den citerede caveat_wording?');
+  console.log('Et manglende traef er et SPOeRGSMAaL TIL ET MENNESKE, ikke en fejl — enheder kan vaere omregnet,');
+  console.log('og formen kan afvige fra dette scripts konservative gaet (se talformer()s kommentar).');
+  if (udenTraef.length) {
+    console.log(`\nUDEN TRAeF (${udenTraef.length}):`);
+    for (const r of udenTraef) {
+      const uddrag = r.caveat_wording.length > 100 ? `${r.caveat_wording.slice(0, 100)}…` : r.caveat_wording;
+      console.log(`  ${r.slug} · ${r.field_name} · value_number=${r.value_number} · caveat_wording: "${uddrag}"`);
+    }
+  }
+  console.log(`\nUndersoegt: ${raekker.length} · med traef: ${medTraef.length} · uden traef: ${udenTraef.length}`);
+  return 0;
+}
+
 /* -------------------------------------------------------------- CLI */
 
 function laesFlag(argv) {
@@ -368,8 +454,8 @@ async function hoved() {
 
   if (flag['tal']) return koerTal(robotter, producent);
   if (flag['dansk']) return koerDansk(robotter, producent);
+  if (flag['belaeg']) return koerBelaeg(robotter, producent);
 
-  console.error('--belaeg kommer i et senere commit paa denne fil (punkt 3).');
   return 2;
 }
 
