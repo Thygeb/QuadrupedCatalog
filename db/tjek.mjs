@@ -91,6 +91,77 @@ function laesParsetNormaliseret(fil) {
   return normaliserRobot(parseYaml(fs.readFileSync(fil, 'utf8'), fil));
 }
 
+/* ------------------------------------------------------------ talkontrol (D2)
+ * PLAN.md par. 0, fase 2-raekken: N parallelle spor skriver KUN tekstkolonner
+ * — engelsk formulering (advarsel/citat/note-familien), kildesprogets
+ * ordrette ordlyd (caveat=advarsel, note, applications.quote=anvendelse.
+ * citat), producentens land/by (country), billedets alt-tekst — og INTET
+ * andet. TEKSTNOEGLER er netop den liste: de noegler, fase 2 MAA aendre.
+ * Alt andet i skemaet er en talkolonne, og haard begraensning 2 kraever, at
+ * de staar helt uroerte, mens fase 2 koerer. */
+const TEKSTNOEGLER = [
+  'advarsel', 'advarsel_ordlyd', 'advarsel_i18n',
+  'note', 'note_ordlyd', 'note_i18n',
+  'noter', 'noter_ordlyd',
+  'citat', 'citat_ordlyd',
+  'producentland', 'producentby',
+  'alt',
+];
+const TEKSTNOEGLE_SAET = new Set(TEKSTNOEGLER);
+
+/** Dyb kopi af `obj` hvor alle TEKSTNOEGLER-noegler er fjernet, paa ALLE
+ *  dybder (robottens top, felter.<x>, anvendelse, billede) — samme
+ *  rekursionsform (array/objekt/blad) som dybtLig ovenfor, saa de to
+ *  funktioner ikke kan naa til hver sin opfattelse af, hvad et "objekt" er.
+ *  Muterer IKKE `obj`. */
+function udenTekst(obj) {
+  if (Array.isArray(obj)) return obj.map(udenTekst);
+  if (obj !== null && typeof obj === 'object') {
+    const ud = {};
+    for (const [k, v] of Object.entries(obj)) {
+      if (TEKSTNOEGLE_SAET.has(k)) continue;
+      ud[k] = udenTekst(v);
+    }
+    return ud;
+  }
+  return obj;
+}
+
+/** dybtLig, men blind for TEKSTNOEGLER — beviser at TALLENE er ens, uanset
+ *  hvor langt fase 2's tekstgenindsamling er naaet paa netop denne robot. */
+function talLig(a, b, stiTilFejl) {
+  return dybtLig(udenTekst(a), udenTekst(b), stiTilFejl);
+}
+
+/** Samler ALLE differerende TEKSTNOEGLER-stier mellem to dokumenter, til
+ *  --kun's rapportering (D3). Modsat dybtLig, som stopper ved den FOeRSTE
+ *  forskel den moeder, skal denne finde dem ALLE, saa "unitree-aliengo:
+ *  .felter.egenvaegt.advarsel, .noter" kan vise flere paa én linje. Kaldes
+ *  kun paa par, hvor talLig(a,b) allerede er sand — enhver forskel, den
+ *  finder, er derfor per definition tekstlig, aldrig et tal. Ikke eksporteret:
+ *  ren rapporteringshjaelp, ingen anden fil har brug for den. */
+function tekstforskelle(a, b, sti = '') {
+  if (a === null || b === null || a === undefined || b === undefined) return [];
+  if (typeof a !== 'object' || typeof b !== 'object') return [];
+  if (Array.isArray(a) !== Array.isArray(b)) return [];
+  const resultater = [];
+  if (Array.isArray(a)) {
+    const n = Math.max(a.length, b.length);
+    for (let i = 0; i < n; i++) resultater.push(...tekstforskelle(a[i], b[i], `${sti}[${i}]`));
+    return resultater;
+  }
+  const noegler = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const k of noegler) {
+    const stiK = `${sti}.${k}`;
+    if (TEKSTNOEGLE_SAET.has(k)) {
+      if (JSON.stringify(a[k]) !== JSON.stringify(b[k])) resultater.push(stiK);
+    } else {
+      resultater.push(...tekstforskelle(a[k], b[k], stiK));
+    }
+  }
+  return resultater;
+}
+
 /** Traekker "N fil(er) · M fejl · K advarsler" ud af validate.mjs's stdout. */
 function traekValidateTal(ud) {
   const m = ud.match(/(\d+) fil\(er\) · (\d+) fejl · (\d+) advarsler/);
@@ -264,4 +335,4 @@ if (erHoved) {
   }
 }
 
-export { dybtLig, traekValidateTal };
+export { dybtLig, traekValidateTal, udenTekst, talLig, TEKSTNOEGLER };
