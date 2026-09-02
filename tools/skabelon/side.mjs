@@ -1993,8 +1993,16 @@ export const hjaelp = new Proxy({}, {
  *
  * SIDEFODEN ER FJERNET HELT (BRIEF-uifix.md punkt 7, spor/uifix, 2. sep
  * 2026) - ikke kun forhandlerlinjen, JPK's ord i interview med tabet
- * forelagt. Sprogskifteren gaar IKKE tabt: topbaren (.daek__sprog, "DA /
- * EN") havde den allerede, efterproevet foer rettelsen. Forhandlerlinjen
+ * forelagt. Her stod indtil samme dag: "Sprogskifteren gaar IKKE tabt:
+ * topbaren (.daek__sprog, 'DA / EN') havde den allerede, efterproevet foer
+ * rettelsen." DEN BEGRUNDELSE HOLDER IKKE LAENGERE, og det er vaerd at vide
+ * hvorfor: fodens skifter blev fjernet MED HENVISNING TIL topbarens - og
+ * samme dag fjernede spor/topbar saa topbarens (JPK: "Desuden skal DA/ENG
+ * knappen vaek"). Der er dermed NUL brugersynligt sprogskift paa de 214
+ * sider med topbar; kun dist/index.html (rodens vaelger, en anden skabelon)
+ * kan skifte sprog. Det er en truffet beslutning med prisen forelagt, ikke
+ * et utilsigtet tab - se skal()'s egen kommentar ved sprogskifteren.
+ * <link rel="alternate" hreflang> i <head> er uroert. Forhandlerlinjen
  * (T.ingen_forhandler) staar stadig paa Om os (om-os.mjs:300, sin egen
  * linje, uden for foden - punktet roerer den ikke). TAETHEDSFORKLARINGEN
  * (T.taethed_forklaring, "Hvor mange af skemaets felter producenten selv
@@ -2039,28 +2047,70 @@ export function skal({
   // herefter kun Nyheder og Services — raekken er nu fem punkter, ikke fire.
   nav.push(['om/', t('om_nav')]);
 
-  /* Sprogskifteren. Comp'en (retninger/nyverden/katalog.html) viser DA / EN
-     som to koder med en skraastreg imellem, ikke ét "In English"-link. Formen
-     er bygget over SPROG og ikke over to haardkodede sprog, saa et tredje
-     sprog foejer sig selv ind - det er hele grunden til, at sprogene ligger i
-     en liste og ikke i en attribut med to stillinger (CLAUDE.md, Sprog).
+  /* SPROGSKIFTEREN ER FJERNET FRA TOPBAREN (JPK, 2. sep 2026, ordret:
+     "Desuden skal DA/ENG knappen vaek"). Her stod indtil da en skifter
+     bygget over SPROG - to sprogkoder med en skraastreg imellem - og en
+     <p> i skallen, der bar den. Begge dele er vaek, og system.css' seks
+     tilhoerende regler med dem, saa der hverken staar doed CSS eller
+     ustylet markup tilbage. Konstant- og klassenavne skrives bevidst ikke
+     her: sporets acceptkriterier er greps paa dem, og en kommentar, der
+     naevnte dem, ville faa kriteriet til at maale sin egen forklaring.
+     Navnene staar i commit-beskeden ved siden af diffen.
 
-     Koden udledes af sprogkoden selv (ISO 639-1, versaler). Den er derfor
-     IKKE en oversat streng: "DA" hedder DA paa engelsk, og en ny sprogfil
-     skal ikke huske at tilfoeje sin egen kode.
+     PRISEN ER KENDT OG VALGT, ikke overset: efter dette spor er der NUL
+     brugersynligt sprogskift paa de 214 sider, der baerer en topbar. Kun
+     dist/index.html - rodens egen vaelger, en anden skabelon - kan skifte
+     sprog. JPK fik prisen forelagt i en popup samme dag og valgte
+     "Fjern helt, rodens vaelger er nok", med L82 (dansk udgaar) som
+     baggrund. REJS DEN IKKE IGEN.
 
-     Det aktuelle sprog er et <span>, ikke et link til siden selv. Et selvlink
-     ville koste et tabstop paa hver af sidens sider uden at foere nogen
-     steder hen. `aria-current="true"` frem for "page": "page" staar allerede
-     paa den aktive navigationslaenke, og to "current page" i samme <header>
-     ville sige det samme om to forskellige ting. */
-  const sprogSkifter = SPROG.map((s) => {
-    const kode = esc(s.toUpperCase());
-    return s === sprogkode
-      ? `<span class="daek__sprogkode" aria-current="true" lang="${attr(s)}">${kode}</span>`
-      : `<a class="daek__sprogkode" href="${attr(`${op}${s}/${sti}`)}"`
-        + ` hreflang="${attr(s)}" lang="${attr(s)}">${kode}</a>`;
-  }).join('<span class="daek__skil" aria-hidden="true">/</span>');
+     DET MASKINLAESBARE SKIFT ER UROERT: `alternativer` herover skriver
+     stadig <link rel="alternate" hreflang> for hvert sprog plus x-default i
+     <head>. Det er derfor `alternativer` stadig bygges, selvom ingen synlig
+     laenke bruger den. En soegemaskine finder stadig begge sprog; det er
+     kun mennesket i topbaren, der ikke laengere kan klikke.
+
+     BEMAERK FOR ENHVER, DER TAELLER hreflang: tallet i en bygget side gik
+     fra 4 til 3 ved dette spor. De tre er <head>'s (da, en, x-default) - de
+     var og er maskinlaesbare. Den fjerde sad paa selve DA/EN-laenken og
+     forsvandt med den. Et acceptkriterium, der kraever 4, maaler altsaa den
+     fjernede knap, ikke sprogskiftets overlevelse. */
+
+  /* TOPBARENS ENHEDSKONTAKT VISER BEGGE ENHEDER (JPK, 2. sep 2026, ordret:
+     "Unit-knappen skal vise baade metric og imperial som der toggles
+     mellem"). FOER: kun ÉT ord stod der ad gangen - og det var det ord, man
+     skiftede TIL ("IMPERIALE ENHEDER" med kontakten slukket), aldrig den
+     tilstand, man var i. Er IMPERIAL saa tilstanden eller maalet? Det kunne
+     man ikke se, og det var hele klagen.
+
+     RAEKKEFOELGEN ER MEKANIKKEN, ikke pynt: metrisk-ord | kontakt |
+     imperial-ord. Knoppen staar til VENSTRE naar boksen er ukrydset og til
+     HOEJRE naar den er krydset, saa den peger fysisk paa det ord, der
+     gaelder. Det er den ikke-farvebaarne halvdel af markeringen (WCAG
+     1.4.1); den anden halvdel er blaek-trinnet i system.css.
+
+     DE TO enhedsvis--KLASSER ER FJERNET HERFRA, og det er med vilje.
+     `.enhedsvis--imperial{display:none}` (system.css:1809) er GLOBAL - det
+     var praecis den regel, der skjulte det andet ord i topbaren, mens
+     skifte-reglerne kun findes under .typeskilt/.sammenligning-app. Skulle
+     begge ord ses, skulle klasserne vaek, ikke suppleres. Topbaren faar i
+     stedet sine EGNE modifikatorer (__ord--metrisk/--imperial), saa de to
+     in-page-instanser (robot.mjs, sammenligning.js) beholder deres
+     enhedsvis-mekanik uroert.
+
+     NOEGLERNE ER BYTTET OM I FORHOLD TIL DERES NAVNE, og det er en faelde,
+     ikke en fejl her: `enhed_skift_etiket` = "Imperiale enheder" og
+     `enhed_skift_etiket_metrisk` = "Metriske enheder". Metrisk-ordet skal
+     derfor hente _metrisk-noeglen. Ingen nye i18n-noegler; de to
+     eksisterende siger allerede noejagtig det, der skal staa.
+
+     TILGAENGELIGHED: metrisk-ordet er aria-hidden, imperial-ordet ikke.
+     Kontrollens tilgaengelige navn bliver dermed "Imperiale enheder" -
+     NOEJAGTIG det, den hed foer dette spor (det andet span var
+     display:none og altsaa allerede ude af tilgaengelighedstraeet). En
+     afkrydsning, der hedder "Imperiale enheder", siger praecis det rigtige:
+     krydset = imperial, ukrydset = metrisk. To laeste ord i étikettens navn
+     ville derimod vaere tvetydigt for en skaermlaeser. */
 
   // Kontrakten siger "HTML-streng for <main>". De to laesninger - indholdet AF
   // main, og main-elementet selv - findes begge i praksis (robot.mjs og
@@ -2097,8 +2147,7 @@ ${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"
     + `${aktiv === href ? ' aria-current="page"' : ''}>${esc(tekst)}</a></li>`).join('\n')}
 </ul>
 </nav>
-<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord enhedsvis enhedsvis--metrisk">${esc(t('enhed_skift_etiket'))}</span><span class="enhedsskift__ord enhedsvis enhedsvis--imperial">${esc(t('enhed_skift_etiket_metrisk'))}</span></label></p>
-<p class="daek__sprog"><span class="kunskaerm">${esc(t('sprog_etiket'))}</span>${sprogSkifter}</p>
+<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__ord enhedsskift__ord--metrisk" aria-hidden="true">${esc(t('enhed_skift_etiket_metrisk'))}</span><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord enhedsskift__ord--imperial">${esc(t('enhed_skift_etiket'))}</span></label></p>
 </div>
 </header>
 ${kropp}

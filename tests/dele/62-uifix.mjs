@@ -151,10 +151,30 @@ export default async function koer(ctx) {
     })(ud);
     ok(`62.7.a: 0 af ${antalSider} byggede sider baerer <footer class="fod">`,
       antalMedFod === 0, `fandt ${antalMedFod}`);
-    // Sprogskifteren gaar IKKE tabt - topbaren baerer den stadig.
+    /* 62.7.b ER VENDT OM (spor/topbar, 2. sep 2026). Den lyd indtil da:
+       "topbarens sprogskifter (daek__sprogkode) staar stadig paa forsiden",
+       og den var fodens ALIBI - foden maatte fjernes, netop fordi topbaren
+       bar skiftet. Samme dag fjernede JPK saa ogsaa topbarens ("Desuden
+       skal DA/ENG knappen vaek"), og alibiet holdt op med at findes.
+
+       Assertionen er derfor ikke slettet, men VENDT: det er nu en fejl,
+       hvis skifteren dukker op igen paa forsiden. Og fordi et rent
+       fravaer kan vaere groent af den forkerte grund - en tom eller
+       manglende fil er ogsaa "uden skifter" - proever den samtidig, at
+       siden faktisk ER en topbar-side (67-topbar2.mjs foerer den fulde
+       taelling over alle 214). */
     const forsideHtml = laes(path.join('da', 'index.html'));
-    ok('62.7.b: topbarens sprogskifter (daek__sprogkode) staar stadig paa forsiden',
-      /class="daek__sprogkode"/.test(forsideHtml));
+    ok('62.7.b: forsiden har en topbar, men INGEN sprogskifter i den '
+      + '(JPK 2. sep 2026: DA/EN vaek - fodens alibi findes ikke laengere)',
+      /<header class="daek">/.test(forsideHtml)
+        && !/class="daek__sprogkode"/.test(forsideHtml));
+    // Det MASKINLAESBARE sprogskift er uroert - det var aldrig knappen.
+    ok('62.7.b2: <link rel="alternate" hreflang> staar stadig i <head> paa forsiden',
+      (forsideHtml.match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length >= 2);
+    // REVERT-BEVIS: proeven skal FANGE en forside, hvor skifteren er tilbage.
+    const medSkifter = '<header class="daek"><a class="daek__sprogkode" href="../en/">EN</a></header>';
+    ok('62.7.b.revert: samme proeve FANGER en topbar, hvor sprogskifteren er vendt tilbage',
+      !(/<header class="daek">/.test(medSkifter) && !/class="daek__sprogkode"/.test(medSkifter)));
     // Om os' egen forhandlerlinje er UROERT.
     const omOsHtml = laes(path.join('da', 'om', 'index.html'));
     const i18nDa = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', 'da.json'), 'utf8'));

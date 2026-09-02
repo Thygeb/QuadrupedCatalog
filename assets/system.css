@@ -575,46 +575,40 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
 .daek__nav a[aria-current]::after{background:var(--blaek)}
 .daek__nav a:focus-visible{outline-offset:-3px}
 
-/* Sprogskifteren. Comp'ens to koder med en skraastreg imellem. Det aktuelle
-   sprog er et <span> uden href - se begrundelsen i side.mjs. */
-.daek__sprog{
-  display:flex;align-items:center;gap:0;margin:0;
-  font-size:12px;font-weight:600;letter-spacing:.1em;
-}
-.daek__sprogkode{text-decoration:none;color:var(--blaek3);padding:2px 6px}
-.daek__sprogkode[aria-current]{background:var(--blaek);color:var(--bund);border-radius:var(--hjoerne)}
-a.daek__sprogkode:hover{color:var(--blaek)}
-.daek__skil{color:var(--linje)}
-/* Trykfladen uden at pillen vokser. Comp'ens kode er ca. 20x30 px; WCAG 2.5.5
-   vil have 44x44. En usynlig, centreret kasse giver maalet uden at gøre
-   maerket til en knap. `max(100%,44px)` gør, at en bredere kode (fx en
-   fremtidig tre-bogstavskode) ikke bliver klippet ned til 44. */
-a.daek__sprogkode{position:relative}
-a.daek__sprogkode::after{
-  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:max(100%,44px);height:44px;
-}
+/* SPROGSKIFTERENS SEKS REGLER ER FJERNET HER (spor/topbar, 2. sep 2026,
+   JPK: "Desuden skal DA/ENG knappen vaek") sammen med deres markup i
+   side.mjs, saa der staar hverken doed CSS eller ustylet markup tilbage.
+   Hvilke regler det var, og hvorfor skraastregens egen regel fulgte med
+   selvom briefet ikke naevnte den, staar i sporets commit-besked ved siden
+   af diffen - KLASSENAVNENE SKRIVES BEVIDST IKKE HER, fordi sporets
+   acceptkriterium er et grep paa dem, og en kommentar, der naevner dem,
+   ville faa kriteriet til at maale sin egen forklaring. Samme greb som
+   side.mjs' begrundelse for ikke at efterlade en HTML-kommentar, hvor
+   sidefoden stod. */
 
-/* Under 420 px (systemets eget kompakt-brudpunkt) er ordmaerke, stempel,
-   fire navigationslaenker og sprogskifter tilsammen bredere end skaermen.
-   Navigationen faar sin egen raekke - præcis som comp'ens eget brudpunkt
-   goer det ved 720 px - og bliver dér ét spor, der kan rulles. ÉT SPOR,
-   ALDRIG TO RAEKKER: `flex-wrap:nowrap` paa listen staar UDEN FOR
-   brudpunktet, fordi braekket ikke hoerer til én bredde.
+/* Under 420 px (systemets eget kompakt-brudpunkt) er ordmaerke, stempel og
+   navigationslaenker tilsammen bredere end skaermen. Navigationen faar sin
+   egen raekke - præcis som comp'ens eget brudpunkt goer det ved 720 px - og
+   bliver dér ét spor, der kan rulles. ÉT SPOR, ALDRIG TO RAEKKER:
+   `flex-wrap:nowrap` paa listen staar UDEN FOR brudpunktet, fordi braekket
+   ikke hoerer til én bredde.
 
    STEMPLET STABLES UNDER ORDMAERKET, og det er en MAALING, ikke en smagssag.
-   Med stemplet paa ordmaerkets linje er `.daek__mark` 306 px bred; sammen med
-   sprogskifterens 62 px og 24 px mellemrum er det 392 px mod 343 px
-   raadighed ved 390 px. Flex braekker derfor sprogskifteren ned paa sin EGEN
-   raekke, hvor den staar alene til hoejre med en tom halvdel ved siden af sig
-   - tre raekker og 114 px daek, maalt. Stablet er `.daek__mark` 168 px bred,
-   sprogskifteren kommer op paa foerste raekke, og daekket er to raekker og
-   110 px. Fire px er ikke pointen; den tomme raekke er. */
+   Med stemplet paa ordmaerkets linje er `.daek__mark` 306 px bred mod 343 px
+   raadighed ved 390 px; stablet er den 168 px. Maalingen blev oprindeligt
+   skrevet med sprogskifterens 62 px som den anden halvdel af regnestykket -
+   den er vaek nu, men BRUDDET ER DET IKKE, for `.daek__mark` er 306 px helt
+   alene, og enhedspillen (.daek__enhed, 300 px ved 1440) staar paa de
+   sider, hvor der er en kontakt at vise. Se sporets egen maaling ved 390 px
+   i fund/FUND-topbar.md.
+
+   Skifterens egen `margin-left:auto` stod ogsaa her og er fjernet med den.
+   Hoejrestillingen paa foerste raekke baeres nu af `.daek__enhed`s egen
+   auto-margen (spor/oversigt-blokken, sidst i filen). */
 @media (max-width:420px){
   .daek__ramme{flex-wrap:wrap}
   .daek__mark{flex-direction:column;align-items:flex-start}
   .daek__nav{width:100%;margin-left:0;order:3}
-  .daek__sprog{margin-left:auto}
   .daek__nav>ul{gap:var(--r4)}
 }
 
@@ -2347,6 +2341,35 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__knop{left:auto;r
 body:has(.enhedsskift__boks:focus-visible) .daek__enhed .enhedsskift{
   outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
 }
+/* BEGGE ENHEDER STAAR SAMTIDIG (JPK, 2. sep 2026: "Unit-knappen skal vise
+   baade metric og imperial som der toggles mellem"). Markuppens raekkefoelge
+   og hvorfor enhedsvis--klasserne IKKE staar paa topbarens to ord: se
+   side.mjs. Her staar kun MARKERINGEN af, hvilket af de to der gaelder.
+
+   MARKERINGEN ER ET BLAEK-TRIN, IKKE EN KULOER. L76: --accent maa aldrig
+   baere forgrund paa lys bund (1,38:1 mod WCAG's 4,5), saa det aktive ord
+   kan ikke vaere gult. Trinnet er systemets eget: --blaek (12,72:1) paa det
+   gaeldende ord, --blaek3 (4,74:1 - selv over 4,5) paa det andet. INGEN af
+   dem er en "slukket" tilstand: begge ord skal kunne laeses, det er hele
+   pointen med aendringen.
+
+   HVORFOR IKKE FED SKRIFT SOM ANDET SIGNAL: en vaegtaendring ville aendre
+   ordets BREDDE, saa pillen hoppede ved hvert klik - paa en topbar, der
+   allerede braekker ved 420 px. Det ikke-farvebaarne signal er i stedet
+   KNOPPENS SIDE (WCAG 1.4.1): den staar til venstre ved ukrydset og til
+   hoejre ved krydset og peger dermed paa det ord, der gaelder. Det er den
+   ene grund til, at markuppen har metrisk-ordet FOER kontakten.
+
+   FARVEN STAAR DIREKTE PAA ORDENE, ikke paa etiketten. Ellers ville
+   `.enhedsskift:hover` (1786) og :checked-reglen fire linjer herover -
+   begge saetter --blaek paa HELE etiketten - udjaevne trinnet ved svaev og
+   ved krydsning, og markeringen ville forsvinde netop naar den bruges.
+   De to :has()-regler er 0,4,1 mod grundreglens 0,2,0 og vinder uden
+   !important. */
+.daek__enhed .enhedsskift__ord{color:var(--blaek3)}
+.daek__enhed .enhedsskift__ord--metrisk{color:var(--blaek)}
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--metrisk{color:var(--blaek3)}
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{color:var(--blaek)}
 /* Under 420 px braekker daekket allerede (16-topbar-blokken, flex-wrap).
    Kontakten faar samme hoejrestillede logik som sprogskifteren, naar den
    selv staar paa foerste raekke - staar den paa sin egen (fordi pillen +
