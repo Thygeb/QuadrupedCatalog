@@ -207,3 +207,111 @@ Slået op i **"Kom ikke igen med disse"**: ingen af planens forslag står på li
 Nærmeste nabo er *"Redaktionel 1-5-score"* — planen foreslår intet, der rangerer eller
 bedømmer en robot. Tætheden er et **optælling af producentens åbenhed**, ikke en
 karakter, og planen ændrer hverken dens formel eller dens nævner.
+
+---
+
+## 3. Briefets tre åbne fund — efterprøvet, ikke troet
+
+Briefet siger det selv: *"Alle tre er noteret, ingen er rettet. Mål hver enkelt selv."*
+**Ét af de tre holder ikke på denne flade. Ét holder. Ét holder, men er mindre end
+påstået — og dets rigtige udgave er større.**
+
+### 3.1 Fund 1 — hover-zoomen `scale(1.024)`: **RAMMER IKKE ROBOTSIDEN**
+
+Påstanden: *"Hover-zoomen `scale(1.024)` beskærer nu 2,4 %. Den var harmløs under `cover`
+og klipper under `contain` efter L78. Sidens eneste sanktionerede bevægelse."*
+
+**Reglen er scopet til kort:**
+
+```
+assets/system.css:1373
+  .kort:hover .billedled img,.kort:focus-within .billedled img{transform:scale(1.024)}
+```
+
+**Robotsiden har nul `.kort`.** Et `grep` på `\bkort\b` giver 1 træffer, og den er en
+**falsk positiv**: klassen hedder `kort-ophav`, og bindestregen er en ordgrænse.
+Robotsidens foto ligger i `figure.robot-foto > .billedled.billedled--stor`, ikke i et kort.
+
+Målt i browseren, med kontrollen kørt først:
+
+| Flade | transform før hover | transform under hover | ændrede |
+|---|---|---|---|
+| **Katalogsiden** (kontrol) | `none` | **`matrix(1.024, 0, 0, 1.024, 0, 0)`** | **ja** ✔ |
+| robotsiden, movenew-p1 | `none` | `none` | **nej** |
+| robotsiden, lingmao-cyvet | `none` | `none` | **nej** |
+| robotsiden, spirit-40 | `none` | `none` | **nej** |
+
+```
+node shape-hover.mjs "http://localhost:8234/da/"                       1440 ".kort .billedled img" ".kort"
+node shape-hover.mjs "http://localhost:8234/da/robotter/<slug>/"       1440 ".robot-foto img"      ".robot-foto"
+```
+
+**Havde arbejdet været forkert**, ville kontrolkørslen på kataloget også have vist
+`none` — så var apparatet, ikke fladen, det, jeg målte. Den viste `1.024`.
+
+**Konsekvens for planen:** fundet hører i katalogsidens og producentindeksets
+fladeplaner, ikke i denne. **Robotsiden har ingen bevægelse overhovedet**, og det er
+ikke en mangel — se 5.5.
+
+### 3.2 Fund 2 — de mange skriftstørrelser: **HOLDER, og robotsidens andel er nu målt**
+
+Påstanden: *"55 forskellige skriftstørrelser i stilarkene, 18 trin alene i spændet
+9–20 px (målt 1. sep). Robotsidens andel er ikke målt."*
+
+Målt nu, på **renderede elementer med egen tekst**, ikke på stilarkets regler — det er
+det tal, der beskriver, hvad et menneske faktisk ser:
+
+| Side | Bredde | Forskellige `font-size` |
+|---|---|---|
+| movenew-p1 (24/33) | 1440 | **18** |
+| movenew-p1 | 390 | **16** |
+| spirit-40 (0/33) | 1440 | **12** |
+| movenew-p1, `/en/` | 390 | **16** |
+
+```
+node shape-maal.mjs "http://localhost:8234/da/robotter/microrobotech-movenew-p1/" 1440
+  → "antalForskelligeFontSize": 18
+  → 84px×1 23px×6 16px×1 15.5px×33 15px×31 14px×2 13.5px×29 13px×5
+    12.88px×4 12.5px×17 12px×6 11.5px×19 11px×15 10.8px×1 10.5px×31
+    10px×28 8.4px×16 8px×5
+```
+
+**Tretten af de atten trin ligger mellem 8 og 15,5 px** — altså 13 grader inden for
+7,5 px. Det er ikke et hierarki; det er en gradient. Et hierarki, læseren kan bruge,
+har tre til fem trin, der kan skelnes uden at måle.
+
+**Det skarpeste enkelttal:** siden bruger **10,5 px (31 elementer)**, **10 px (28)**,
+**11 px (15)** og **11,5 px (19)** — fire trin inden for 1,5 px, tilsammen 93 elementer.
+Ingen læser kan se forskel på 10 og 10,5 px. De fire trin bærer altså **ingen**
+information, men koster fire beslutninger hvert sted, de bruges.
+
+### 3.3 Fund 3 — tæthedstallets nævner: **HOLDER, men er mindre og større end påstået**
+
+Påstanden: *"Tæthedstallet står nu som '24 af 33' uden nævnerforklaring… Forklaringen
+findes ikke længere nogen steder på robotsiden."*
+
+**Mindre end påstået:** tallet står ikke som et bart *"24 af 33"*. Den byggede side
+skriver **"24 af 33 felter oplyst"** — enheden er der. Og nævneren er ikke usynlig:
+**tabellen lige nedenunder ER de 33 felter**, med 40 `<tr>` = 33 datarækker + 6
+gruppeoverskrifter + 1 kolonnehoved. Læseren kan tælle dem.
+
+```
+node -e "…tekst uden tags…"  → forekomster af "33" i SYNLIG tekst: 1
+  ...Alle felter i skemaet 24 af 33 felter oplyst Imperiale enheder...
+node -e "…<tr> i tabellen…"  → tr i alt: 40 | gruppe-markører: 12
+```
+
+**Større end påstået:** det virkelige problem er ikke den manglende forklaring — det er,
+at **siden allerede har et bedre mønster 900 px længere oppe og ikke bruger det.**
+Nøgletalspanelet skriver:
+
+> **0 af 5 oplyst · 5 huller**
+> Producenten oplyser ingen af de 5 nøgletal.
+
+Det navngiver tæller, nævner **og hullet**, og det siger det i ord, når tallet er nul.
+Skemaet skriver `24 af 33 felter oplyst` og stopper. **To tællere på samme side, med to
+forskellige grader af ærlighed.** Det er en konsistensfejl inden for én flade — og
+konsistens på tværs af skærme, som JPK bad om, begynder med konsistens inden for én.
+
+**Konsekvens for planen:** forslaget bliver ikke *"forklar nævneren"* (det ville være en
+fodnote mere). Det bliver *"brug det mønster, siden allerede ejer"* — se **P2**.
