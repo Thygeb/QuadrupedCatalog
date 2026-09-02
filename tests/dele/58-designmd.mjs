@@ -25,12 +25,43 @@
  * som fund/maal-designmd.mjs (orkestratorens egen maaler, skrevet til
  * briefet) — se den fil for hvorfor: frontmatter-graensen er linjen mellem
  * foerste og andet '---', og en farvelinje er en to-mellemrums-indrykket
- * "navn: \"#HEX\"" inde i "colors:"-blokken.
+ * "navn: \"#HEX\"" ELLER "navn: \"var(--p-x)\"" inde i "colors:"-blokken
+ * (udvidet af spor/primitiv, se nedenfor — var-formen fandtes ikke 1. sep).
+ *
+ * RETTET af spor/primitiv (2. sep 2026, coordinator-dom "flet efter
+ * rettelse", punkt 4 af 4). Primitiv-laget (assets/system.css, 9 --p-*-
+ * tokens i :root) gjorde 58.2/58.3/58.4 roede, fordi de KUN kunne se
+ * literal hex — en semantisk token, der nu peger paa et primitiv via
+ * var(), var usynlig for dem. Den GAMLE regel var "hver farve i :root er
+ * literal hex, dokumenteret med sin egen hex i DESIGN.md". Den NYE regel,
+ * som de fire funktioner nedenfor beviser: DESIGN.md dokumenterer TO LAG —
+ * primitiver med en hexvaerdi, og semantiske tokens med en var()-reference
+ * til et primitiv — og begge lags FAKTISKE (opløste) farve skal matche
+ * koden. Farven er ikke forældet; kun paastanden om at den staar som hex
+ * ordret, var. Opløseren er kopieret fra fund/maal-farvetokens.mjs's
+ * loop-vaernede var()-kaede-algoritme (den fil er uden for dette spors
+ * ejerskab, saa logikken duplikeres, ikke importeres).
  */
 import fs from 'node:fs';
 import path from 'node:path';
 
-/** Samme udtraeksregel som fund/maal-designmd.mjs. Returnerer [[navn, HEX], ...]. */
+/** Loop-vaernet var()-opløser paa et navn->raa-vaerdi-map. Returnerer
+ *  'LOOP' ved en cirkel, undefined hvis navnet slet ikke findes, ellers
+ *  den opløste raa-vaerdi (hex bliver stort, alt andet urørt). */
+function loesVar(raa, navn, dybde = 0) {
+  if (dybde > 12) return 'LOOP';
+  const v = raa.get(navn);
+  if (v === undefined) return undefined;
+  const m = v.match(/^var\(--([a-z0-9-]+)\)$/);
+  if (!m) return /^#/.test(v) ? v.toUpperCase() : v;
+  return loesVar(raa, m[1], dybde + 1);
+}
+
+/** Samme udtraeksregel som fund/maal-designmd.mjs, UDVIDET til at acceptere
+ *  baade literal hex (primitiver) og var(--p-x) (semantiske referencer).
+ *  Returnerer [[navn, OPLØST-HEX], ...] — kun navne, hvis kaede rent
+ *  faktisk ender i en farve (LOOP eller en udefineret reference filtreres
+ *  fra, ligesom fund/maal-farvetokens.mjs kun beholder /^#|^rgb|^hsl/). */
 export function laesFrontmatterFarver(designMd) {
   const linjer = designMd.split(/\r?\n/);
   const graenser = linjer
@@ -39,23 +70,37 @@ export function laesFrontmatterFarver(designMd) {
   if (graenser.length < 2) return null; // ingen frontmatter
   const fm = linjer.slice(graenser[0] + 1, graenser[1]);
 
-  const farver = [];
+  const raa = new Map();
   let iColors = false;
   for (const l of fm) {
     if (/^colors:/.test(l)) { iColors = true; continue; }
     if (iColors && /^\S/.test(l)) iColors = false;
-    const m = iColors && l.match(/^\s+([a-z0-9-]+):\s*"?(#[0-9A-Fa-f]{3,8})"?/);
-    if (m) farver.push([m[1], m[2].toUpperCase()]);
+    const m = iColors && l.match(/^\s+([a-z0-9-]+):\s*"?(#[0-9A-Fa-f]{3,8}|var\(--[a-z0-9-]+\))"?/);
+    if (m) raa.set(m[1], m[2]);
+  }
+
+  const farver = [];
+  for (const navn of raa.keys()) {
+    const v = loesVar(raa, navn);
+    if (typeof v === 'string' && /^#[0-9A-Fa-f]{3,8}$/.test(v)) farver.push([navn, v]);
   }
   return farver;
 }
 
-/** Farver deklareret direkte i :root (navn -> HEX, sidste vinder ved dublet). */
+/** Farver deklareret i :root — literal hex (primitiver) ELLER var(--p-x)
+ *  (semantiske tokens), opløst rekursivt til deres FAKTISKE hex. Navne,
+ *  hvis kaede ikke ender i en farve (font-stakke, maal, none, osv.),
+ *  udelades — samme filter som ovenfor og som maal-farvetokens.mjs. */
 export function laesRodFarver(css) {
   const root = (css.match(/:root\{[\s\S]*?\n\}/) || [''])[0];
+  const raa = new Map();
+  for (const m of root.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/--([a-z0-9-]+):\s*([^;}]+)/g)) {
+    raa.set(m[1], m[2].trim());
+  }
   const kode = new Map();
-  for (const m of root.matchAll(/--([a-z0-9-]+):\s*(#[0-9A-Fa-f]{3,8})/g)) {
-    kode.set(m[1], m[2].toUpperCase());
+  for (const navn of raa.keys()) {
+    const v = loesVar(raa, navn);
+    if (typeof v === 'string' && /^#[0-9A-Fa-f]{3,8}$/.test(v)) kode.set(navn, v);
   }
   return kode;
 }
@@ -89,18 +134,18 @@ export default async function koer(ctx) {
     if (kodeVaerdi === vaerdi) ens++;
     else afvig.push(`${navn}: DESIGN.md ${vaerdi} / kode ${kodeVaerdi || '(findes ikke)'}`);
   }
-  console.log(`  info  58: ${ens} af ${dmFarver.length} DESIGN.md-farver matcher :root`);
+  console.log(`  info  58: ${ens} af ${dmFarver.length} DESIGN.md-farver (opløst) matcher :root (opløst)`);
 
-  ok('58.2: hver farve i DESIGN.md matcher :root paa vaerdi',
+  ok('58.2: hver farve i DESIGN.md loeser op til samme vaerdi som :root (primitiv-hex ELLER semantik-reference, begge opløst)',
     ens === dmFarver.length, afvig.join(' · '));
 
   const dmNavne = new Set(dmFarver.map(([navn]) => navn));
   const udaekket = [...kodeFarver.keys()].filter((navn) => !dmNavne.has(navn));
-  ok('58.3: hver farve i :root er dokumenteret i DESIGN.md',
+  ok('58.3: hver farve i :root (primitiv ELLER semantisk token) er dokumenteret i DESIGN.md',
     udaekket.length === 0, `udokumenteret: ${udaekket.join(', ')}`);
 
   const ikkeIRod = [...dmNavne].filter((navn) => !kodeFarver.has(navn));
-  ok('58.4: ingen opfundne farvenavne i DESIGN.md (alle findes i :root)',
+  ok('58.4: ingen opfundne farvenavne i DESIGN.md (alle findes i :root, som primitiv eller som semantisk reference)',
     ikkeIRod.length === 0, `opfundet: ${ikkeIRod.join(', ')}`);
 
   // Skriftfiler: de familier, der reelt ligger i assets/fonts/, skal kunne

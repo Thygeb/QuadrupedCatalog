@@ -2,22 +2,39 @@
 name: Firbenede robotter (arbejdstitel — Å1 er ikke afgjort)
 description: Et kildeangivet opslagsværk over verdens firbenede robotter, hvor hullerne i vores viden er lige så formgivet som tallene.
 colors:
-  bund: "#E8EBED"
-  panel: "#FAFBFB"
-  panel-ro: "#E8EBED"
-  tom: "#E8EBED"
-  blaek: "#22262A"
-  blaek2: "#545C63"
-  blaek3: "#5F686F"
-  stoev-blaek: "#5F686F"
-  accent: "#F2C400"
-  accent-ro: "#E8EBED"
-  linje: "#C6CCD1"
-  hegn: "#9AA3A9"
-  fod: "#22262A"
-  paafod: "#E8EBED"
-  paafod2: "#9AA3A9"
-  stans: "#FFFFFF"
+  # Primitiver (spor/primitiv, 2. sep 2026, BRIEF-primitiv.md): farven, som
+  # den ER. Navnene er MANIFEST.md's Paletten (retninger/nyverden/MANIFEST.md
+  # §Paletten). De 16 tokens nedenfor pegede foer direkte paa disse hex-
+  # vaerdier; de peger nu paa primitivet i stedet - samme farve, eksplicit
+  # delt fremfor implicit gentaget. Se assets/system.css :root for kilden.
+  p-eloxgraa: "#E8EBED"
+  p-gunmetal: "#22262A"
+  p-kridt: "#FAFBFB"
+  p-blaek-2: "#545C63"
+  p-afmaerkningsgul: "#F2C400"
+  p-rille: "#C6CCD1"
+  p-stoevgraa: "#9AA3A9"
+  p-stoev-blaek: "#5F686F"
+  p-stans: "#FFFFFF"
+  # Semantik: hvad farven BETYDER. Navnene er de oprindelige 16, uaendrede.
+  # Vaerdien er nu en reference til primitivet ovenfor, ikke en literal hex -
+  # praecis som i koden. Ingen af de 16 er fjernet eller lagt sammen.
+  bund: "var(--p-eloxgraa)"
+  panel: "var(--p-kridt)"
+  panel-ro: "var(--p-eloxgraa)"
+  tom: "var(--p-eloxgraa)"
+  blaek: "var(--p-gunmetal)"
+  blaek2: "var(--p-blaek-2)"
+  blaek3: "var(--p-stoev-blaek)"
+  stoev-blaek: "var(--p-stoev-blaek)"
+  accent: "var(--p-afmaerkningsgul)"
+  accent-ro: "var(--p-eloxgraa)"
+  linje: "var(--p-rille)"
+  hegn: "var(--p-stoevgraa)"
+  fod: "var(--p-gunmetal)"
+  paafod: "var(--p-eloxgraa)"
+  paafod2: "var(--p-stoevgraa)"
+  stans: "var(--p-stans)"
 typography:
   display:
     fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"

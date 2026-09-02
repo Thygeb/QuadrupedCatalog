@@ -19,6 +19,33 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
+/** RETTET af spor/primitiv (2. sep 2026, fund/BRIEF-primitiv.md, punkt 1).
+ *  34.11/34.13/34.14/34.15 bevisede foer en GAMMEL regel: at tokenet
+ *  indeholdt hex-teksten ORDRET. Efter primitiv-laget (assets/system.css,
+ *  9 --p-*-tokens i :root) er den regel forkert i formen, ikke i sagen -
+ *  tokenet er STADIG afmaerkningsgul/gunmetal/eloxgraa/stans/stoev-blaek,
+ *  det gaar nu bare gennem et primitiv i stedet for at VAERE hex selv. Den
+ *  NYE regel, disse to funktioner beviser: tokenet LØSER OP til farven,
+ *  literalt eller via var()-kaeden. Algoritmen er kopieret fra
+ *  fund/maal-farvetokens.mjs (uden for dette spors ejerskab, saa logikken
+ *  duplikeres, ikke importeres - samme fremgangsmaade som
+ *  tests/dele/59-farvetokens.mjs allerede brugte for netop dette problem). */
+function byggRaaTokenMap(css) {
+  const raa = new Map();
+  for (const m of css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/(--[a-z0-9-]+)\s*:\s*([^;}]+)/g)) {
+    if (!raa.has(m[1])) raa.set(m[1], m[2].trim());
+  }
+  return raa;
+}
+function loesTokenFarve(raa, navn, dybde = 0) {
+  if (dybde > 12) return 'LOOP';
+  const v = raa.get(navn);
+  if (v === undefined) return null;
+  const m = v.match(/^var\((--[a-z0-9-]+)\)$/);
+  if (!m) return v.toUpperCase();
+  return loesTokenFarve(raa, m[1], dybde + 1);
+}
+
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
 
@@ -98,17 +125,26 @@ export default async function koer(ctx) {
     ok('34.10: alle 14 oprindelige farve-tokens findes stadig ved navn',
       manglende.length === 0, `mangler: ${manglende.join(', ')}`);
 
-    ok('34.11: to nye tokens er tilfoejet: --stans og --stoev-blaek',
-      /--stans:#FFFFFF/i.test(sys) && /--stoev-blaek:#5F686F/i.test(sys),
-      'forventede --stans:#FFFFFF og --stoev-blaek:#5F686F i :root');
+    const raaTokens = byggRaaTokenMap(sys);
+    const stansFarve = loesTokenFarve(raaTokens, '--stans');
+    const stoevBlaekFarve = loesTokenFarve(raaTokens, '--stoev-blaek');
+    ok('34.11: --stans og --stoev-blaek findes og LOESER OP til #FFFFFF / #5F686F (direkte eller via primitiv)',
+      stansFarve === '#FFFFFF' && stoevBlaekFarve === '#5F686F',
+      `--stans -> ${stansFarve}, --stoev-blaek -> ${stoevBlaekFarve}`);
 
     ok('34.12: --skygge og --skygge-loeft er begge "none" (MANIFEST: ingen slagskygge)',
       /--skygge:none;/.test(sys) && /--skygge-loeft:none;/.test(sys),
       'tokenerne skal blive staaende, men pege paa none - ikke slettes');
 
-    ok('34.13: --accent er afmaerkningsgul (#F2C400)', /--accent:#F2C400;/i.test(sys));
-    ok('34.14: --blaek er gunmetal (#22262A)', /--blaek:#22262A;/i.test(sys));
-    ok('34.15: --bund er eloxgraa (#E8EBED)', /--bund:#E8EBED;/i.test(sys));
+    ok('34.13: --accent LOESER OP til afmaerkningsgul (#F2C400), direkte eller via primitiv',
+      loesTokenFarve(raaTokens, '--accent') === '#F2C400',
+      `fandt ${loesTokenFarve(raaTokens, '--accent')}`);
+    ok('34.14: --blaek LOESER OP til gunmetal (#22262A), direkte eller via primitiv',
+      loesTokenFarve(raaTokens, '--blaek') === '#22262A',
+      `fandt ${loesTokenFarve(raaTokens, '--blaek')}`);
+    ok('34.15: --bund LOESER OP til eloxgraa (#E8EBED), direkte eller via primitiv',
+      loesTokenFarve(raaTokens, '--bund') === '#E8EBED',
+      `fandt ${loesTokenFarve(raaTokens, '--bund')}`);
   }
 
   console.log('  4. --mono peger paa Saira, tabulartal staar paa body');
