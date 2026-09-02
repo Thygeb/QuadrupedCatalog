@@ -461,8 +461,15 @@ async function hoved() {
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('fase2-tjek.mjs');
 if (erHoved) {
-  hoved().then((k) => process.exit(k)).catch((e) => {
+  // process.exitCode (IKKE process.exit()) — se db/f2-skriv.mjs's
+  // laesGrennavn()-kommentar: et rigtigt fetch() efterfulgt af et
+  // EKSPLICIT process.exit() crasher denne maskines node.exe v24.13.0
+  // (libuv-assertion, exit-kode 127) — reproduceret isoleret. Denne fils
+  // egne koersler undgik faelden ved et TILFAeLDE (nok CPU-arbejde efter
+  // fetch, foer exit, til at raceconditionen naaede at lukke sig selv),
+  // ikke fordi metoden her var immun — derfor rettet defensivt her ogsaa.
+  hoved().then((k) => { process.exitCode = k; }).catch((e) => {
     console.error(String(e && e.stack ? e.stack : e));
-    process.exit(1);
+    process.exitCode = 1;
   });
 }
