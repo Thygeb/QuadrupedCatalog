@@ -624,6 +624,36 @@ npm     ligger samme sted som node, men er heller ikke på PATH i Git Bash.
         Kør den som  PATH="/c/Program Files/nodejs:$PATH" npm ...
 ```
 
+**Node-fælde på denne maskine, målt 2. sep 2026 med kontrolgruppe: et ægte
+`fetch()` efterfulgt af `process.exit()` crasher `node.exe` v24.13.0.** Libuv-
+assertionen `!(handle->flags & UV_HANDLE_CLOSING)` (`src\win\async.c:76`), exit
+**127** — også når kaldet lykkedes og svaret er læst. Fundet af `spor/f2-maal`,
+reproduceret af orkestratoren:
+
+```
+ægte fetch + process.exit(0)       exit 127, assertion
+ægte fetch + process.exitCode = 0  exit 0
+ægte fetch, ingen eksplicit exit   exit 0
+```
+
+**Reglen, som kan følges uden at tænke:** har en fil lavet et netværkskald, så
+kald aldrig `process.exit()` bagefter — sæt `process.exitCode` og lad løkken
+tømme sig. `process.exit()` **før** det første `fetch` (argumentfejl, manglende
+`.env`) er ufarligt.
+
+**Mekanismen, så ingen tror `fetch` er magisk:** `process.exit()` river
+event-løkken ned, mens en libuv-handle stadig er ved at lukke. Det er timingen,
+ikke netværkskaldet — symptomet kan komme efter enhver async-kilde med åbne
+handles (fil-watch, `child_process`, en timer med åben socket). Reglen er en
+bevidst over-approksimation; en regel, man kan følge uden at vurdere om handlen
+nåede at lukke, er bedre end en præcis.
+
+**Målefælden, der næsten skjulte det:** orkestratorens første reproduktion brugte
+`example.com`, som ikke kan nås fra denne skal. `fetch` fejlede, **begge**
+varianter gav exit 1, og det lignede en afkræftelse. Kun kontrollen uden `fetch`,
+som gav 0, afslørede at apparatet var i stykker. Et plausibelt tal fra et ødelagt
+apparat — samme fejlform som forkerte greps, og lige så tavs.
+
 **Browsermåling — `C:\Praktik\websites\maalevaerktoej\`** (sat op 26. aug 2026).
 Playwright ligger **bevidst uden for repoet**, så løftet om en afhængighedsfri
 generator står urørt. Intet derfra indgår nogensinde i et byg.
