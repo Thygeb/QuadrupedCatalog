@@ -437,13 +437,26 @@ function omdanRobotFraDb(raa, idTilSlug) {
  * 25. aug 2026, gaelder stadig efter L81-L83's omdoebning): et indlejret
  * select fra robots til applications/images er TVETYDIGT (300 + PGRST201),
  * fordi begge tabeller har TO fremmednoegler til robots. PostgREST kraever
- * eksplicit valg af CONSTRAINT-navn — og her er faelden, L81-L83s omdoebning
- * efterlod: RENAME TABLE/COLUMN aendrer IKKE en eksisterende constraints
- * EGET navn (kun tabellens/kolonnens). De to FK-constraints hedder derfor
- * STADIG deres oprindelige DANSKE navne, laest raat af pg_constraint 2. sep
- * 2026 (ikke gaettet): "anvendelse_robot_id_fkey" og "billede_robot_id_fkey"
- * — IKKE "applications_robot_id_fkey"/"images_robot_id_fkey", som en
- * naiv laesning af det NYE tabelnavn ville forvente.
+ * derfor et eksplicit disambigueringshint.
+ *
+ * HINTET ER VED KOLONNENAVN ("applications!robot_id(*)"), IKKE VED
+ * CONSTRAINT-NAVN — rettet 2. sep 2026 (orkestrator-review) efter en
+ * faelde, foerste udgave gik lige i: RENAME TABLE/COLUMN aendrer IKKE en
+ * eksisterende constraints EGET, autogenererede navn (kun tabellens/
+ * kolonnens). Den navngives ved CREATE TABLE-tid — af tabellens og
+ * kolonnens navne PAA DET TIDSPUNKT. En omdoebt tabel/kolonne BEHOLDER
+ * derfor det GAMLE, danske constraint-navn (laest raat af pg_constraint,
+ * ikke gaettet), mens en FRISK `db/skema.sql`-installation (et tomt
+ * projekt) faar et rent ENGELSK constraint-navn fra samme automatik — de to
+ * databaser ender saaledes med FORSKELLIGE constraint-navne for praecis
+ * samme relation. Et hardkodet constraint-navn her ville derfor kun virke
+ * mod ÉN af de to. Kolonnenavnet "robot_id" er derimod IDENTISK i begge —
+ * det blev aldrig omdoebt (se db/ordbog.mjs's KOLONNER, identitetsparret) —
+ * og overlever saaledes BEGGE veje. Efterproevet 2. sep 2026 med et raat,
+ * laese-kun GET mod den levende (stadig danske) instans:
+ * `robotter?select=slug,anvendelse!robot_id(robot_id)` -> HTTP 200 (samme
+ * for billede) — PostgREST accepterer et FK-KOLONNENAVN som hint, ikke kun
+ * et constraint-navn.
  *
  * POSTGREST-OVERRASKELSE 3: field_entry_variants har INGEN direkte
  * fremmednoegle til robots (dens FK er den SAMMENSATTE (robot_id,
@@ -465,7 +478,7 @@ async function fraDb() {
   }
   const headers = { apikey: noegle, Authorization: `Bearer ${noegle}` };
   const select = 'select=*,field_entries(*,field_entry_variants(*)),' +
-    'applications!anvendelse_robot_id_fkey(*),images!billede_robot_id_fkey(*)';
+    'applications!robot_id(*),images!robot_id(*)';
   const svar = await fetch(`${url}/rest/v1/robots?${select}`, { headers });
   if (!svar.ok) throw new Error(`GET robots fejlede: ${svar.status} ${await svar.text()}`);
   const raaRobotter = await svar.json();

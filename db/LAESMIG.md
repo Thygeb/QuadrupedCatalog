@@ -89,19 +89,36 @@ dag FASE 2's første tekst er skrevet, findes det net ikke mere.
 
 **Kendt begrænsning, fundet under migreringen (ikke rettet, dokumenteret):**
 `ALTER TABLE ... RENAME TO`/`RENAME COLUMN` ændrer IKKE en eksisterende
-constraints, indeks' eller sekvens' EGET navn — kun selve tabellens/
-kolonnens. De fleste af `skema.sql`s 30+ navngivne CHECK-constraints (og
-alle FK-indekser) beholder derfor deres oprindelige DANSKE navne
-(`anvendelse_robot_id_fkey`, `robotter_forgaenger_idx`, ...) på den
-LEVENDE, migrerede database, selvom en FRISK `db/skema.sql`-installation
-ville give dem rene engelske navne. To undtagelser, hvor selve VÆRDIEN (ikke
-kun navnet) skulle ændres, blev eksplicit håndteret af
+constraints, indeks' eller sekvens' EGET, autogenererede navn — kun selve
+tabellens/kolonnens. Det navn blev sat ved CREATE TABLE-tid, af de navne,
+tabellen/kolonnen havde DENGANG. De fleste af `skema.sql`s 30+ navngivne
+CHECK-constraints (og alle FK-indekser) beholder derfor deres oprindelige
+DANSKE navne (`anvendelse_robot_id_fkey`, `robotter_forgaenger_idx`, ...)
+på den LEVENDE, migrerede database — mens en FRISK `db/skema.sql`-
+installation (et tomt projekt) får rene ENGELSKE autogenererede navne for
+PRÆCIS samme relationer. De to databaser ender altså med forskellige
+constraint-/indeksnavne for samme struktur. Tre undtagelser, hvor selve
+VÆRDIEN (ikke kun navnet) skulle ændres, blev eksplicit håndteret af
 `db/byg-migrering.mjs`: `robotter_fremdrift_check` (droppet og genskabt som
-`robots_locomotion_check` med de nye værdier) og `billede_alt_form`
-(omdøbt til `images_alt_form`, samme betingelse). `db/eksporter.mjs`s
-PostgREST-`select`-streng bruger derfor bevidst de GAMLE, danske FK-
-constraint-navne (`anvendelse_robot_id_fkey`/`billede_robot_id_fkey`) til
-disambiguering — se filens egen kommentar.
+`robots_locomotion_check` med de nye værdier), `billede_alt_form` (omdøbt
+til `images_alt_form`, samme betingelse) og `feltposter_advarsel_klasse_gyldig`
+(droppet og genskabt som `field_entries_caveat_class_valid`, engelske
+værdier — se `db/skema.sql`s kommentar ved `caveat_class`).
+
+**Konsekvensen for `db/eksporter.mjs`s PostgREST-forespørgsel:** et
+disambigueringshint ved CONSTRAINT-navn ville derfor kun virke mod ÉN af de
+to databaser (levende-migreret ELLER frisk-installeret, aldrig begge).
+Rettet 2. sep 2026 (orkestrator-review) til at hinte ved KOLONNENAVN i
+stedet (`robot_id`) — det navn er IDENTISK i begge, fordi det aldrig blev
+omdøbt (identitetspar i `db/ordbog.mjs`s `KOLONNER`). Se afsnittet
+"Tilslutningsformen" nedenfor for selve forespørgslen.
+
+**PostgREST-skemacachen kan halte efter en DDL-ændring.** Kører
+`db/eksporter.mjs --fra-db` lige EFTER `apply_migration` er anvendt, og den
+fejler med 404/`PGRST205` ("Could not find the table..."), er det ikke en
+fejl i migreringen — PostgREST cacher skemaet og opdager ikke altid en
+omdøbning med det samme. Kør `notify pgrst, 'reload schema';` (SQL-editor
+eller `execute_sql`) og prøv igen.
 
 ## Fortrydelse: `change_log`, IKKE `synk_aftryk` (L81-L83, punkt 3)
 
@@ -123,9 +140,12 @@ nedenfor. `db/eksporter.mjs --fra-db`s faktiske select-streng:
 
 ```
 GET  <SUPABASE_URL>/rest/v1/robots?select=*,field_entries(*,field_entry_variants(*)),
-       applications!anvendelse_robot_id_fkey(*),images!billede_robot_id_fkey(*)
+       applications!robot_id(*),images!robot_id(*)
 headers: apikey: <service_role>, Authorization: Bearer <service_role>
 ```
+
+Disambigueringshintet (`!robot_id`) er ved KOLONNENAVN, ikke constraint-navn
+— se "Kendt begrænsning" ovenfor for hvorfor.
 
 `service_role` omgår RLS (se `skema.sql`'s afsnit 8) — det er meningen:
 dette script ER redaktøren, ikke en offentlig bruger.
@@ -142,11 +162,12 @@ hvad de hedder i dag):
 2. **To fremmednøgler til samme tabel gør et indlejret select tvetydigt.**
    `applications` og `images` har hver TO FK'er til `robots` (`robot_id` +
    hhv. `inherited_from_robot_id`/`shared_with_robot_id`) — et
-   `?select=*,applications(*)` fejler med 300 + `PGRST201`. Løsning: navngiv
-   constraintet eksplicit — men BEMÆRK: efter L81-L83's omdøbning er
-   constraintets EGET navn stadig dansk (se ovenfor), så det er
-   `applications!anvendelse_robot_id_fkey(*)`, IKKE
-   `applications!applications_robot_id_fkey(*)`.
+   `?select=*,applications(*)` fejler med 300 + `PGRST201`. Løsning: et
+   eksplicit hint. PostgREST accepterer BÅDE et constraint-navn og et
+   KOLONNENAVN som hint — vi bruger kolonnenavnet (`applications!robot_id(*)`),
+   fordi constraint-navnet ikke er stabilt på tværs af en frisk installation
+   og den levende, migrerede database (se "Kendt begrænsning" ovenfor).
+   Efterprøvet direkte mod den levende instans, læse-kun: HTTP 200.
 3. **En sammensat fremmednøgle kan ikke indlejres direkte fra den fjerne
    ende.** `field_entry_variants` har ingen egen FK til `robots` — dens FK
    er (`robot_id`, `field_name`) → `field_entries`. Indlejr den UNDER
@@ -181,6 +202,14 @@ alle uændrede af L81-L83 (Storage kender ikke til tabelnavne):
 - **Redigerings-UI.** Findes slet ikke. `field_definitions`-tabellen er
   bygget netop for at gøre en fremtidig UI mulig UDEN at den skal importere
   `tools/skema.mjs` selv — men UI'en er ikke bygget.
+- **`field_definitions` kan nu DRIVE fra `tools/skema.mjs`s FELTER.** Så
+  længe `db/migrer.mjs` fandtes, genskrev `--til-db` denne tabel ved HVER
+  kørsel (tøm-og-genindlæs, `db/LAESMIG.md`s "Genkørselsstrategi" —
+  historisk, den funktion er slettet med filen). Siden `migrer.mjs` er
+  fjernet (L81-L83, punkt 5), er de 33 rækker en HÅNDHOLDT kopi — intet
+  skriver dem længere fra koden. Ændrer `FELTER` sig (et nyt felt, en
+  ændret gruppe), skal `field_definitions` rettes manuelt (Studio eller en
+  fremtidig migreringsfil), ellers driver tabellen stille fra sandheden.
 
 ## Supabase-skillens anbefalinger — fulgt og fravalgt
 
