@@ -2062,6 +2062,42 @@ export function skal({
         + ` hreflang="${attr(s)}" lang="${attr(s)}">${kode}</a>`;
   }).join('<span class="daek__skil" aria-hidden="true">/</span>');
 
+  /* TOPBARENS ENHEDSKONTAKT VISER BEGGE ENHEDER (JPK, 2. sep 2026, ordret:
+     "Unit-knappen skal vise baade metric og imperial som der toggles
+     mellem"). FOER: kun ÉT ord stod der ad gangen - og det var det ord, man
+     skiftede TIL ("IMPERIALE ENHEDER" med kontakten slukket), aldrig den
+     tilstand, man var i. Er IMPERIAL saa tilstanden eller maalet? Det kunne
+     man ikke se, og det var hele klagen.
+
+     RAEKKEFOELGEN ER MEKANIKKEN, ikke pynt: metrisk-ord | kontakt |
+     imperial-ord. Knoppen staar til VENSTRE naar boksen er ukrydset og til
+     HOEJRE naar den er krydset, saa den peger fysisk paa det ord, der
+     gaelder. Det er den ikke-farvebaarne halvdel af markeringen (WCAG
+     1.4.1); den anden halvdel er blaek-trinnet i system.css.
+
+     DE TO enhedsvis--KLASSER ER FJERNET HERFRA, og det er med vilje.
+     `.enhedsvis--imperial{display:none}` (system.css:1809) er GLOBAL - det
+     var praecis den regel, der skjulte det andet ord i topbaren, mens
+     skifte-reglerne kun findes under .typeskilt/.sammenligning-app. Skulle
+     begge ord ses, skulle klasserne vaek, ikke suppleres. Topbaren faar i
+     stedet sine EGNE modifikatorer (__ord--metrisk/--imperial), saa de to
+     in-page-instanser (robot.mjs, sammenligning.js) beholder deres
+     enhedsvis-mekanik uroert.
+
+     NOEGLERNE ER BYTTET OM I FORHOLD TIL DERES NAVNE, og det er en faelde,
+     ikke en fejl her: `enhed_skift_etiket` = "Imperiale enheder" og
+     `enhed_skift_etiket_metrisk` = "Metriske enheder". Metrisk-ordet skal
+     derfor hente _metrisk-noeglen. Ingen nye i18n-noegler; de to
+     eksisterende siger allerede noejagtig det, der skal staa.
+
+     TILGAENGELIGHED: metrisk-ordet er aria-hidden, imperial-ordet ikke.
+     Kontrollens tilgaengelige navn bliver dermed "Imperiale enheder" -
+     NOEJAGTIG det, den hed foer dette spor (det andet span var
+     display:none og altsaa allerede ude af tilgaengelighedstraeet). En
+     afkrydsning, der hedder "Imperiale enheder", siger praecis det rigtige:
+     krydset = imperial, ukrydset = metrisk. To laeste ord i étikettens navn
+     ville derimod vaere tvetydigt for en skaermlaeser. */
+
   // Kontrakten siger "HTML-streng for <main>". De to laesninger - indholdet AF
   // main, og main-elementet selv - findes begge i praksis (robot.mjs og
   // producent.mjs skriver elementet med). To indlejrede <main> med samme
@@ -2097,7 +2133,7 @@ ${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"
     + `${aktiv === href ? ' aria-current="page"' : ''}>${esc(tekst)}</a></li>`).join('\n')}
 </ul>
 </nav>
-<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord enhedsvis enhedsvis--metrisk">${esc(t('enhed_skift_etiket'))}</span><span class="enhedsskift__ord enhedsvis enhedsvis--imperial">${esc(t('enhed_skift_etiket_metrisk'))}</span></label></p>
+<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__ord enhedsskift__ord--metrisk" aria-hidden="true">${esc(t('enhed_skift_etiket_metrisk'))}</span><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord enhedsskift__ord--imperial">${esc(t('enhed_skift_etiket'))}</span></label></p>
 <p class="daek__sprog"><span class="kunskaerm">${esc(t('sprog_etiket'))}</span>${sprogSkifter}</p>
 </div>
 </header>

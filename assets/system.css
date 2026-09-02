@@ -2347,6 +2347,35 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__knop{left:auto;r
 body:has(.enhedsskift__boks:focus-visible) .daek__enhed .enhedsskift{
   outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
 }
+/* BEGGE ENHEDER STAAR SAMTIDIG (JPK, 2. sep 2026: "Unit-knappen skal vise
+   baade metric og imperial som der toggles mellem"). Markuppens raekkefoelge
+   og hvorfor enhedsvis--klasserne IKKE staar paa topbarens to ord: se
+   side.mjs. Her staar kun MARKERINGEN af, hvilket af de to der gaelder.
+
+   MARKERINGEN ER ET BLAEK-TRIN, IKKE EN KULOER. L76: --accent maa aldrig
+   baere forgrund paa lys bund (1,38:1 mod WCAG's 4,5), saa det aktive ord
+   kan ikke vaere gult. Trinnet er systemets eget: --blaek (12,72:1) paa det
+   gaeldende ord, --blaek3 (4,74:1 - selv over 4,5) paa det andet. INGEN af
+   dem er en "slukket" tilstand: begge ord skal kunne laeses, det er hele
+   pointen med aendringen.
+
+   HVORFOR IKKE FED SKRIFT SOM ANDET SIGNAL: en vaegtaendring ville aendre
+   ordets BREDDE, saa pillen hoppede ved hvert klik - paa en topbar, der
+   allerede braekker ved 420 px. Det ikke-farvebaarne signal er i stedet
+   KNOPPENS SIDE (WCAG 1.4.1): den staar til venstre ved ukrydset og til
+   hoejre ved krydset og peger dermed paa det ord, der gaelder. Det er den
+   ene grund til, at markuppen har metrisk-ordet FOER kontakten.
+
+   FARVEN STAAR DIREKTE PAA ORDENE, ikke paa etiketten. Ellers ville
+   `.enhedsskift:hover` (1786) og :checked-reglen fire linjer herover -
+   begge saetter --blaek paa HELE etiketten - udjaevne trinnet ved svaev og
+   ved krydsning, og markeringen ville forsvinde netop naar den bruges.
+   De to :has()-regler er 0,4,1 mod grundreglens 0,2,0 og vinder uden
+   !important. */
+.daek__enhed .enhedsskift__ord{color:var(--blaek3)}
+.daek__enhed .enhedsskift__ord--metrisk{color:var(--blaek)}
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--metrisk{color:var(--blaek3)}
+body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{color:var(--blaek)}
 /* Under 420 px braekker daekket allerede (16-topbar-blokken, flex-wrap).
    Kontakten faar samme hoejrestillede logik som sprogskifteren, naar den
    selv staar paa foerste raekke - staar den paa sin egen (fordi pillen +
