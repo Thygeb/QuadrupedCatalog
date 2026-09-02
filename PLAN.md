@@ -53,10 +53,47 @@ og **fase 5 kan først køre, når intet andet spor er i `tools/` og `assets/`**
 |---|---|---|---|---|---|
 | **0** | Databasen bliver et sandt spejl af `data/robots/` — baselinen for alt efterfølgende | `migrer --til-db`; tre skemahuller lukket på den levende DB (cert-enum, `*_ordlyd`, `alt` → jsonb) | orkestrator | `rundtur --live` 77/77 · validate 0 · build 216=216 · 1111=1111 | **Kørt 2. sep** (Å115) |
 | **1** | Skemaet bliver engelsk; YAML→DB-retningen lukkes; historik og ejerskab kommer på | `db/ordbog.mjs` (dansk↔engelsk, 1:1, vendbar — 7 tabeller, 78 kolonner, 7 enums, 33 feltnavne, opremsede værdier) · `db/byg-migrering.mjs` **genererer** `db/migrering-engelsk.sql` fra ordbogen · `db/migrering-cert.sql` · `db/skema.sql` på engelsk med `images.alt jsonb`, `collected_by`, `change_reason`, historiktabel + trigger, uden `_i18n` · `db/eksporter.mjs` læser engelsk, skriver den danske YAML-form (midlertidigt bevis) · `db/migrer.mjs` **slettes**, `synk_aftryk` droppes, `db/rundtur.mjs` → `db/tjek.mjs` · tests 07/28/33/44/60 fjernes (114 assertions), ny test 63 | `spor/skema`, Sonnet | 13 acceptkriterier i [fund/BRIEF-skema.md](fund/BRIEF-skema.md); derefter orkestratoren: migrering anvendt på den levende DB, `tjek.mjs` → 77/77 · validate 0 · 216=216 · 1111=1111 | **Kører** (Å117) |
-| **2** | Teksterne genindsamles på engelsk fra producenterne; tallene rører sig ikke | N parallelle spor, **rækkeejerskab pr. producent**, skriver **kun tekstkolonner** via REST: `caveat` (891), `note` (97), `applications.quote` (76 blokke), `country` (8), feltetiketter (~30) · pr. tekst: engelsk formulering + `source_wording` **ordret i kildens sprog** + råkilde-snapshot med MANIFEST (URL, HTTP, UTC, SHA-256) · de 62 kinesiske producenter læses **på kinesisk** | fase 2-spor, Sonnet, på JPK's kommando | talkolonnernes diff før/efter = **0** · `source_wording` udfyldt på alle 891 (i dag 309) → derefter `NOT NULL` · konsistenskontrol: står tallet i den citerede ordlyd? | Venter på fase 1 |
+| **2** | Teksterne bliver engelske; tallene rører sig ikke. **To arbejder, ikke ét — se korrektionen under tabellen** | N parallelle spor, **rækkeejerskab pr. producent**, skriver **kun tekstkolonner** via REST: `caveat` (891), `note` (97), `applications.quote` (76 blokke), `country` (8), feltetiketter (~30) · pr. tekst: engelsk formulering + `source_wording` **ordret i kildens sprog** + råkilde-snapshot med MANIFEST (URL, HTTP, UTC, SHA-256) · de 62 kinesiske producenter læses **på kinesisk** | fase 2-spor, Sonnet, på JPK's kommando | talkolonnernes diff før/efter = **0** · `source_wording` udfyldt på alle 891 (i dag 309) → derefter `NOT NULL` · konsistenskontrol: står tallet i den citerede ordlyd? | Venter på fase 1 |
 | **3** | Bygget læser databasen direkte — intet mellemlag | `build.mjs` henter 77 robotter via REST (anon-nøgle + RLS-læsepolitik — ingen hemmelighed for at bygge) og mapper gennem ordbogen til den dokumentform, skabelonerne læser · `validate` på det hentede · `tests/dele/_faelles.lasRobotter()` → `hentRobotter()`, ét kald, cachet · `--data=` udgår · `db/eksporter.mjs`, `db/hentbyg.mjs`, `db/tjek.mjs` slettes · `data/robots/` **slettes** · `tools/yaml.mjs` (457 linjer) slettes | ét spor, Sonnet | build fra DB giver byte-identisk `dist/` mod build fra `data/robots/` (målt før sletningen) · tests samme beståtal | Venter på fase 2 |
 | **4** | Omskiftet: engelsk alene, dokumenterne følger med | `SPROG = ['en']` (`tools/skema.mjs:563`), `KILDESPROG` · de 32 `da`-refererende tests rettes · `data/i18n/da.json` slettes · `spor/i18nfelt`s mekanisme fjernes · CLAUDE.md (mappestruktur, sprog, hårde begrænsninger 3 og L35-noter), DATAFLOW.md, `robotdata`-skillen (redigér i DB + råkilderegel) skrives om | ét spor + orkestrator (dokumenter) | 108 sider, ikke 216 · 0 forekomster af `dist/da` · linktjek 0 | Venter på fase 3 |
 | **5** | Koden taler engelsk; ordbogen slettes | Mekanisk omdøbning i `tools/`+`tests/` (1.227 linjer med de 33 feltnavne, 6.671 med kernenøglerne), 402 i18n-nøgler, CSS-klasser · `db/ordbog.mjs` slettes | ét spor, Sonnet | `dist/` byte-identisk før/efter · tests samme beståtal · `grep` efter hvert dansk identifikator = 0 | Venter på fase 4 **og** på at `spor/uifix`/`spor/extract` er flettet |
+
+### Korrektion af fase 2's verbum, 2. sep 2026: "genindsamles fra producenterne" var forkert for de fleste tekster
+
+Rækken ovenfor sagde indtil nu *"Teksterne genindsamles på engelsk fra
+producenterne"*. **Det passer på under en tredjedel af dem.** Målt i
+`data/robots/` samme dag, nøgle for nøgle:
+
+| Hvem har skrevet teksten | Nøgler | Antal | Hvad fase 2 skal gøre |
+|---|---|---|---|
+| **Producenten** | `citat` 69 · `citat_ordlyd` 33 · `advarsel_ordlyd` 309 · `note_ordlyd` 22 · `noter_ordlyd` 17 · `producentland` 77 · `producentby` 61 | **588** | **Genindsamles** ordret fra kilden, på kildens sprog |
+| **Os** | `advarsel` 891 · `note` 97 · `noter` 63 · `alt` 35 | **1.086** | **Skrives om til engelsk.** Der er intet at indsamle — teksten findes ikke hos producenten |
+
+Beviset er et enkelt felt. Aliengos advarsel lyder: *"Producenten skriver
+Weight (without battery) 21.5kg ±1kg. Vægten er UDEN batteri — alle andre
+Unitree-modeller oplyser med. Sat ved siden af Go2's 15 kg og As2's 20 kg
+sammenligner man en robot uden batteri med to robotter med."* Kun første
+sætning står hos Unitree. Resten er vores sammenligning, og **56 advarsler**
+bærer den slags formulering (*"alle andre"*, *"sammenlign"*, *"skemaet har
+ingen felter til"*). Ingen producentside vil nogensinde indeholde dem.
+
+**Konsekvensen for briefene:** et fase 2-spor har to leverancer pr. robot,
+ikke én, og de har hvert sit acceptkriterium. Indsamlingen bevises med
+snapshot, MANIFEST og ordret ordlyd. Omskrivningen bevises med, at påstanden
+stadig kan holdes op mod ordlyden — samme konsistenskontrol som før, men det
+er en redigeringsopgave, ikke en indsamlingsopgave.
+
+**Og et tredje arbejde, som lå skjult i tallet 891 mod 309:** de **582**
+advarsler uden eget `advarsel_ordlyd` bærer ofte producentens citat **inde i**
+den danske prosa (`"WEIGHT (INCL BATTERY): 18 KG" i den strukturerede
+specifikationstabel`). De skal **skilles ad** i engelsk brødtekst plus ordret
+`source_wording`. Det er udtrækning, ikke indsamling, og det er dér, kravet
+`source_wording NOT NULL` bliver opfyldeligt.
+
+**Rest efter fase 2: ingen i dækning, men en åben beslutning.** Kan en
+advarsels påstand ikke føres tilbage til en kilde ved udtrækningen, er den
+enten forkert eller uden belæg — hård begrænsning 2's område. Den beslutning
+er JPK's og træffes på de konkrete felter, når de dukker op, ikke på forhånd.
 
 ### Det, der tabes — skrevet frem, ikke gemt
 
