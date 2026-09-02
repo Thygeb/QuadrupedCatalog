@@ -303,7 +303,8 @@ async function main() {
   const ok = verificerAlt();
   if (!ok) {
     console.error('Kildeverifikation fejlede — INGEN skrivning forsøgt.');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   if (kunVerificer) {
     console.log('--verificer: stopper her, ingen database rørt.');
@@ -315,7 +316,8 @@ async function main() {
   const K = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!U || !K) {
     console.error('Kræver SUPABASE_URL og SUPABASE_SERVICE_ROLE_KEY i .env.');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   const H = {
     apikey: K,
@@ -344,7 +346,8 @@ async function main() {
     const json = await svar.json();
     if (!svar.ok || !Array.isArray(json) || json.length !== 1) {
       console.error(`  AFBRUDT: ${r.robot_id}/${r.field_name} — status ${svar.status}, ${json.length ?? '?'} rækker`, json);
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
     udfoerte++;
     console.log('  OK, 1 række opdateret.');
@@ -364,7 +367,8 @@ async function main() {
     const json = await svar.json();
     if (!svar.ok || !Array.isArray(json) || json.length !== 1) {
       console.error(`  AFBRUDT: applications ${a.robot_id} — status ${svar.status}, ${json.length ?? '?'} rækker`, json);
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
     udfoerte++;
     console.log('  OK, 1 række opdateret.');
@@ -386,7 +390,8 @@ async function main() {
       const json = await svar.json();
       if (!svar.ok || !Array.isArray(json) || json.length !== 1) {
         console.error(`  AFBRUDT: robots 2258 — status ${svar.status}, ${json.length ?? '?'} rækker`, json);
-        process.exit(1);
+        process.exitCode = 1;
+        return;
       }
       udfoerte++;
       console.log('  OK, 1 række opdateret.');
@@ -410,6 +415,7 @@ const koertDirekte = process.argv[1] && import.meta.url === `file:///${process.a
 if (koertDirekte) {
   main().catch((err) => {
     console.error('f2-cjk-skriv: fejl —', err.message, err.stack);
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   });
 }

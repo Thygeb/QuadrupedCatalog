@@ -117,12 +117,14 @@ async function main() {
   const argIds = process.argv[2];
   if (!argIds) {
     console.error('Brug: node fund/maal-f2-cjk.mjs <robot_id>[,<robot_id>...]');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   const ids = argIds.split(',').map((s) => s.trim()).filter(Boolean);
   if (ids.some((id) => !/^\d+$/.test(id))) {
     console.error('robot_id skal være heltal, adskilt af komma.');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
 
   laesDotEnv(path.join(ROD, '.env'));
@@ -130,7 +132,8 @@ async function main() {
   const K = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!U || !K) {
     console.error('Kræver SUPABASE_URL og SUPABASE_SERVICE_ROLE_KEY i .env (se db/LAESMIG.md).');
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   const H = { apikey: K, Authorization: `Bearer ${K}` };
   const idListe = ids.join(',');
@@ -144,7 +147,8 @@ async function main() {
 
   if (!Array.isArray(fe) || !Array.isArray(ap) || !Array.isArray(im) || !Array.isArray(ro)) {
     console.error('Uventet svar fra PostgREST (forventede lister):', { fe, ap, im, ro });
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
 
   const slugs = ro.map((r) => r.slug).join(', ');
@@ -191,5 +195,6 @@ async function main() {
 
 main().catch((err) => {
   console.error('maal-f2-cjk: fejl —', err.message);
-  process.exit(1);
+  process.exitCode = 1;
+  return;
 });
