@@ -1,0 +1,181 @@
+{
+  "slug": "unitree-aliengo",
+  "navn": "AlienGo",
+  "producent": "Unitree Robotics",
+  "producentland": "Kina",
+  "status": "i_produktion",
+  "fremdrift": "ben",
+  "foerste_udgivelse": 2019,
+  "anvendelse": {
+    "vaerdi": "industri",
+    "citat": [
+      "Robot - Industry",
+      "Robothund - industriniveau"
+    ],
+    "citat_ordlyd": [
+      "",
+      "Robothund - industriniveau (机器狗 - 行业级)"
+    ],
+    "kilde": "https://www.unitree.com/",
+    "hentet": "2026-08-19",
+    "note": "Producentens egen produktnavigation, gruppen AlienGo står i."
+  },
+  "billede": {
+    "fil": "fotos/fabrikant/unitree-aliengo.jpg",
+    "ophav": "fabrikant",
+    "kilde": "https://www.unitree.com/aliengo",
+    "hentet": "2026-08-19"
+  },
+  "felter": {
+    "egenvaegt": {
+      "vaerdi": 21.5,
+      "enhed": "kg",
+      "operator": "±",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "FIXTURE-MUTATION: anden advarselstekst end originalen.",
+      "advarsel_klasse": "gyldighed"
+    },
+    "laengde": {
+      "vaerdi": 0.65,
+      "enhed": "m",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19"
+    },
+    "bredde": {
+      "vaerdi": 0.31,
+      "enhed": "m",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19"
+    },
+    "hoejde": {
+      "vaerdi": 0.6,
+      "enhed": "m",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Foldet 0,60 x 0,31 x 0,15 m. Skemaet har ingen felter til foldemål.",
+      "advarsel_klasse": "uddybning"
+    },
+    "frihedsgrader": {
+      "vaerdi": 12,
+      "enhed": "DoF",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Eksplicit overskrift: Degrees of Freedom (number of motors).",
+      "advarsel_klasse": "uddybning"
+    },
+    "nyttelast_gaaende": {
+      "vaerdi": 13,
+      "enhed": "kg",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Producenten skriver kun Load, uden angivelse af gående eller stående. Placeringen er en slutning.",
+      "advarsel_klasse": "gyldighed"
+    },
+    "nyttelast_staaende": "ikke_oplyst",
+    "hastighed": {
+      "vaerdi": 1.5,
+      "enhed": "m/s",
+      "operator": ">",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19"
+    },
+    "haeldning": {
+      "vaerdi": 25,
+      "enhed": "°",
+      "operator": "<=",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Producenten skriver Climbing Angle <=25 (tegn U+2264). Det er en ØVRE GRÆNSE, ikke en præstation. Alle andre skriver hældning som > 45 eller ca. 45 - en præstation. Stilles 25 mod 45 i samme kolonne, ser AlienGo ud som en dårligere robot; det er et andet slags udsagn.",
+      "advarsel_klasse": "gyldighed"
+    },
+    "forhindring_enkelt": {
+      "vaerdi": "ikke_oplyst",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Siden skriver Up and down steps, slopes, stairs uden tal."
+    },
+    "trappetrin_kontinuerlig": "ikke_oplyst",
+    "ip_klasse": {
+      "vaerdi": "ikke_oplyst",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Siden skriver Integrated Advanced Level of Protection uden klasse."
+    },
+    "temp_min": "ikke_oplyst",
+    "temp_maks": "ikke_oplyst",
+    "batteri_wh": {
+      "vaerdi": "ikke_oplyst",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "12600 mAh, hverken spænding eller Wh. Kan ikke omregnes, og skal ikke."
+    },
+    "driftstid": {
+      "min": 2.5,
+      "maks": 4.6,
+      "enhed": "t",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Uden lastbetingelse.",
+      "advarsel_klasse": "gyldighed",
+      "ved_last": "ikke_oplyst"
+    },
+    "hot_swap": "ikke_oplyst",
+    "ladetid": "ikke_oplyst",
+    "dockingstation": "ikke_oplyst",
+    "lidar": {
+      "vaerdi": "ikke_oplyst",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "single or multi-line, tilvalg - uden model."
+    },
+    "kameraer": {
+      "vaerdi": "dybdekamera x2 + visuelt odometerkamera x1; 1280x720, min. dybde 0,11 m, synsfelt 163 grader",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19"
+    },
+    "compute": {
+      "vaerdi": "ikke_oplyst",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Siden skriver onboard PC uden model."
+    },
+    "ros2": {
+      "vaerdi": "ikke_oplyst",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Siden skriver supports C/C++, ROS og Environment Sensing: Ubuntu-ROS. Feltet hedder ROS 2, og versionen står ikke. At tælle det med ville være at opfinde et versionsnummer."
+    },
+    "sdk_sprog": {
+      "vaerdi": [
+        "C/C++",
+        "ROS"
+      ],
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19"
+    },
+    "autonominiveau": "ikke_oplyst",
+    "monteringsinterface": "ikke_oplyst",
+    "stroem_ud": {
+      "vaerdi": "5 V; 12 V; 19 V; BAT (24~30 V)",
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19",
+      "advarsel": "Spænding oplyst, watt ikke."
+    },
+    "dataporte": {
+      "vaerdi": [
+        "Ethernet x2",
+        "USB 3.0 x2",
+        "USB 2.0 x1",
+        "RS485 x1"
+      ],
+      "kilde": "https://www.unitree.com/aliengo",
+      "hentet": "2026-08-19"
+    },
+    "pris": "ikke_oplyst",
+    "ce_oplyst": "ikke_oplyst",
+    "fcc_oplyst": "ikke_oplyst",
+    "ul_oplyst": "ikke_oplyst",
+    "ccc_oplyst": "ikke_oplyst"
+  }
+}
