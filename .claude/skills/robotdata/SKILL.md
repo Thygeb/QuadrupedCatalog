@@ -15,18 +15,48 @@ nedenfor er destillatet; hver enkelt er lært på en rigtig robot, ikke opfundet
 
 ---
 
-## To veje ind i data, siden L35 (25. aug 2026)
+## Én vej ind i data, siden L81 (2. sep 2026)
 
-Data findes nu to steder: `data/robots/*.yaml` (git, sandheden agenterne arbejder mod) og
-en Supabase-database (redaktionslag, L34). Siden L35 kan JPK også rette direkte i
-**Supabase Studio** — det er JPK's vej, ikke agenternes.
+**Supabase-databasen er sandhedskilden, og den er engelsk (L81, L82).** `data/robots/*.yaml`
+er et **genereret spejl**, som bygget læser, indtil fase 3 ([PLAN.md](../../../PLAN.md) §0)
+lader det læse databasen direkte. Her stod indtil 2. sep 2026, at agenterne redigerede
+YAML'en og aldrig databasen; det var rigtigt, så længe `db/migrer.mjs --til-db` skrev
+YAML ind i databasen. Den vej er slettet, og intet skriver længere fra YAML til
+databasen. **En agent, der skriver i YAML'en alene, skriver i noget, der overskrives ved
+næste eksport** (spor/prosa-fejlen 25. aug, i ny forklædning).
 
-**Agenternes egen arbejdsgang er UÆNDRET.** En agent, der indsamler eller retter en
-robotpost, redigerer stadig `data/robots/<slug>.yaml` i sin egen worktree, som hidtil —
-aldrig databasen direkte. Intet i denne skill ændrer sig for det arbejde.
+**Fase 2 (tekstgeninsamling) skriver derfor direkte i databasen, og KUN i tekstkolonner:**
+`caveat`, `note`, `applications.quote`, `manufacturer_country`, feltetiketter. Tallene
+rører sig ikke — det måles med `node db/tjek.mjs --kun="<producent>"` (talkontrol uden
+tekstnøgler, skal give k/k). Hver skrivning bærer `collected_by` (sporets navn) og
+`change_reason`; `change_log` gemmer den gamle række, så enhver ændring kan fortrydes.
 
-Retter JPK i Studio, skal rettelsen hentes hjem, før nogen kører en migrering.
-**JPK's egen vej (siden L35-opfølgningen) er én kommando, ikke tre:**
+### Råkilde og MANIFEST — fast krav til hver tekst, der indsamles (G1)
+
+En tekst uden bevis er husket, ikke indsamlet. Samme regel som for et tal (regel 2), og
+den håndhæves med tre ting pr. tekst:
+
+1. **`source_wording` ordret i kildens sprog** — ikke oversat, ikke forkortet, ikke
+   "renset". Kinesiske sider læses på kinesisk, og ordlyden gemmes på kinesisk. Den
+   engelske formulering er vores; ordlyden er beviset.
+2. **Et råkilde-snapshot** af den side eller det datablad, ordlyden står i, gemt i
+   `media/_kilder/raa-<spor>-<ÅÅÅÅ-MM-DD>/` efter navnereglen i
+   [media/_kilder/LÆSMIG.md](../../../media/_kilder/LÆSMIG.md):
+   `<producent>-<model>-<hvad>-<hentedato>.<ext>`. Mappen er gitignoreret og følger
+   ikke med grenen — orkestratoren kopierer den ind ved flettet (`flet`-skillens punkt 2).
+3. **En række i mappens `MANIFEST.tsv`** med de otte kolonner fra samme LÆSMIG:
+   `filnavn`, `kilde_url`, `http_status`, `hentet_utc`, `sha256`, `bytes`, `indhold`,
+   `sprogversion`. Sporet afleverer **nye rækker**, aldrig hele filen (MANIFEST-tabet
+   24. aug: 219 rækkers proveniens overskrevet af en 3-linjers fil). `hentet_utc` er
+   filens mtime og dermed en øvre grænse, ikke hentetidspunktet — skriv det ikke som
+   en måling.
+
+Konsistenskontrollen, der lukker fase 2, er mekanisk: står det tal, feltet bærer, i den
+citerede ordlyd? Kan det ikke findes dér, er enten tallet eller ordlyden forkert, og
+begge dele er en fejl, ikke en note.
+
+**JPK's vej gennem Supabase Studio findes stadig**, og den hentes hjem til spejlet med
+én kommando, indtil fase 3 gør spejlet overflødigt:
 
 ```
 node db/hentbyg.mjs
@@ -48,11 +78,11 @@ kun ét trin skal køres:
 node db/eksporter.mjs --fra-db --ud=data/robots
 ```
 
-...og resultatet committes som almindelige YAML-ændringer. `db/migrer.mjs --til-db`
-**nægter selv at køre**, hvis databasens indhold afviger fra `data/robots/` uden at
-være hentet hjem først — det er den mekaniske vagt (se `db/LAESMIG.md`), ikke en
-formaning. Vagten kan omgås bevidst med `--overskriv-databasen`, som kasserer
-Studio-rettelsen og skriver YAML'en ind i stedet — brug den kun, når det er meningen.
+...og resultatet committes som almindelige YAML-ændringer. Her stod indtil 2. sep 2026 en
+vagt i `db/migrer.mjs --til-db`, som nægtede at overskrive uhentede Studio-rettelser, og
+et `--overskriv-databasen`-flag, der omgik den. Begge er væk sammen med vejen, de
+vogtede: intet skriver fra YAML til databasen, så en Studio-rettelse kan ikke længere
+overskrives af en fil — kun af en anden rettelse, og den efterlader sit spor i `change_log`.
 
 **Eksporten validerer sig selv, før den rører `data/robots/`.** `db/eksporter.mjs`
 skriver ikke længere direkte ind i `udMappe` — den skriver først til en midlertidig
