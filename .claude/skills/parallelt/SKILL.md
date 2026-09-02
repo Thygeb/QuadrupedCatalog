@@ -92,6 +92,14 @@ ikke samtalen. Hver prompt skal derfor selv bære:
     `assets/fotos/fabrikant/` mangler, og validatorens R18 giver da 54 fejl, der ligner
     agentens egne. To spor snublede samme dag (`fund/FUND-vagt.md`, `fund/FUND-eksval.md`).
     Skriv i prompten, hvad der skal kopieres ind, eller gør det før udsendelsen.
+    **Og `dist/` mangler også** — den er gitignoreret byggeoutput, og 13 tests spørger, om
+    en side *er bygget*. Målt 2. sep 2026 (`spor/crlf63`): grundmålingen i en frisk
+    worktree gav **1384/14** mod main's **1478/1**, og de 13 ekstra røde var alle "siden
+    findes"-tests. Skriv derfor i briefet: *"kør `node tools/build.mjs` FØR grundmålingen"*
+    — ellers måler agenten sit miljø og rapporterer en afvigelse, der ikke er dens.
+    **Byte-lighed mod en committet fil er en anden miljøfælde fra samme dag:**
+    `core.autocrlf=true` checker filen ud med CRLF, mens node skriver LF — en sådan test er
+    kun grøn i den worktree, der skrev filen. Normalisér `\r\n` → `\n` på begge sider.
 
 Send alle agenter af sted **i samme svar**, ellers er de ikke parallelle.
 Kør dem i baggrunden, så brugeren kan afbryde undervejs.
