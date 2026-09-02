@@ -228,6 +228,12 @@ export function sorterAnvendelse(vaerdier) {
 export const ANVENDELSE_NOEGLER = new Set([
   'vaerdi', 'citat', 'kilde', 'hentet', 'kildetype', 'arvet_fra', 'note',
   'citat_ordlyd', 'note_ordlyd',
+  // note_i18n — spor/i18nfelt, 2. sep 2026 (Å98 spor A). Soesterfeltet til
+  // "note" (anvendelsens egen, IKKE en feltposts) — samme mekanik som
+  // POST_NOEGLER's advarsel_i18n ovenfor: et sprogkort { en: "..." } med en
+  // oversaettelse af den danske "note:", som forbliver kilden. R22 i
+  // validate.mjs haandhaever formen.
+  'note_i18n',
 ]);
 
 /**
@@ -299,9 +305,12 @@ export const BILLEDE_OPHAV = ['eget_foto', 'silhuet', 'fabrikant'];
 /** Ophav, hvor billedet ikke er vores eget arbejde og skal kunne foelges hjem. */
 export const BILLEDE_KRAEVER_KILDE = new Set(['silhuet', 'fabrikant']);
 
-/** Noegler, en billedpost maa indeholde. Alt andet fejler paa R18. */
+/** Noegler, en billedpost maa indeholde. Alt andet fejler paa R18.
+ *  `note_i18n` — spor/i18nfelt, 2. sep 2026 (Å98 spor A): soesterfeltet til
+ *  "note" (billedets egen), samme mekanik som ANVENDELSE_NOEGLER's note_i18n
+ *  ovenfor. R22 haandhaever formen. */
 export const BILLEDE_NOEGLER = new Set([
-  'fil', 'ophav', 'kilde', 'hentet', 'alt', 'note', 'delt_med', 'plade', 'pos',
+  'fil', 'ophav', 'kilde', 'hentet', 'alt', 'note', 'note_i18n', 'delt_med', 'plade', 'pos',
 ]);
 
 /** Mapper under assets/, et billede maa ligge i. media/ staar ikke og kan ikke staa her. */
@@ -345,11 +354,24 @@ export function billedPlade(b) {
  * soesterfelt her endnu — tilfoej "note_ordlyd" den dag et fund kraever det,
  * saa skemaet ikke baerer en noegle, ingen fil bruger (samme regel som
  * `silhuet` blev fjernet for, se identitet-kommentaren ovenfor).
+ *
+ * `advarsel_i18n` — spor/i18nfelt, 2. sep 2026 (Å98 spor A). ANDET FORMAAL
+ * end `advarsel_ordlyd` ovenfor, selvom begge er soesterfelter til
+ * "advarsel": ordlyd bevarer kildens EGEN (ikke-danske) formulering,
+ * i18n baerer en OVERSAETTELSE af den danske tekst til et andet SPROG
+ * (`en`, senere flere) — { en: "The manufacturer states ..." }. "advarsel:"
+ * forbliver dansk og forbliver kilden (KILDESPROG nedenfor); overbygningen
+ * er valgfri og sprognoeglet, saa dansk kun rettes ét sted (BRIEF-
+ * i18nfelt.md's "Den valgte form" — fravalgt: `advarsel_en:` som en kontakt
+ * med to stillinger, og `advarsel: {da:..,en:..}` som ville kraeve 44
+ * laesesteder om). Formkravet (sprogkort, ikke-tom tekst, ingen KILDESPROG
+ * som noegle, kraever "advarsel") haandhaeves af validate.mjs's R22 —
+ * tvillingen til R21 ovenfor.
  */
 export const POST_NOEGLER = new Set([
   'vaerdi', 'min', 'maks', 'enhed', 'operator', 'kilde', 'hentet', 'kildetype',
   'vaerdi_imperial', 'enhed_imperial', 'advarsel', 'advarsel_klasse', 'advarsel_ordlyd',
-  'note', 'raa', 'ved_last', 'valuta', 'varianter',
+  'advarsel_i18n', 'note', 'raa', 'ved_last', 'valuta', 'varianter',
 ]);
 
 /**
@@ -539,6 +561,17 @@ export function feltVisning(navn, post) {
 }
 
 export const SPROG = ['da', 'en'];
+
+/**
+ * Kildesproget — dansk. "advarsel:"/"note:" er ALTID skrevet paa dette
+ * sprog (BRIEF-i18nfelt.md's "Den valgte form": "advarsel: bliver dansk og
+ * bliver kilden"), og det er derfor det, en i18n-overbygning
+ * (advarsel_i18n/note_i18n) IKKE maa bruge som noegle — validate.mjs's R22
+ * fejler paa den, fordi to steder at rette den samme danske tekst er
+ * praecis den kontakt-med-to-stillinger, arkitekturreglen i CLAUDE.md
+ * ("sprogneutrale tal ét sted, oversat tekst i én fil pr. sprog") forbyder.
+ */
+export const KILDESPROG = 'da';
 
 /* ======================================================================
    Normalisering — ét sted, delt af validate.mjs og build.mjs

@@ -64,6 +64,61 @@ function paastaa(betingelse, besked) {
   if (!betingelse) throw new Error(`BYGFEJL: ${besked}`);
 }
 
+/**
+ * spor/i18nfelt (Å98 spor A), punkt 3 — ÉT sted, hvor build vaelger tekst
+ * efter sprog: en sprogoploest KOPI af `robotter` til ét sprog. Findes
+ * `advarsel_i18n[sprogkode]` paa en feltpost, traeder den i stedet for den
+ * danske "advarsel"; findes den ikke, staar "advarsel" uaendret (den danske
+ * kilde er stadig den ene sandhed, tools/skema.mjs's KILDESPROG). Samme
+ * mekanik for "note_i18n" paa "anvendelse" og "billede" — de to steder
+ * "note:" bor (grundmaalingen: 97 "note:", ALLE paa indryk 2 — anvendelse
+ * 76 + billede 21 — ALDRIG i en feltpost).
+ *
+ * KOPI, ikke mutation: `for (const sprogkode of SPROG)` laengere nede
+ * koerer FLERE gange over det SAMME `robotter`-array (parseYaml'et ÉN gang
+ * foer loekken) — en mutation i sprogrunde ét ville sive ind i runde to.
+ *
+ * Alle skabeloner, der laeser `robot.felter[navn].advarsel`/
+ * `robot.anvendelse.note`/`robot.billede.note` fra ctx.robotter (katalogkort,
+ * sammenligningens indlejrede JSON-blok, robotsidens egen `robot`), faar
+ * dermed automatisk den rigtige sprogudgave — ingen af tools/skabelon/*.mjs
+ * skal aendres (BRIEF-i18nfelt.md: "tools/skabelon/*.mjs skal IKKE aendres").
+ */
+function sprogoploesRobotter(robotter, sprogkode) {
+  const loesTekst = (kildeTekst, i18n) => {
+    if (!i18n || typeof i18n !== 'object') return kildeTekst;
+    const oversat = i18n[sprogkode];
+    return typeof oversat === 'string' && oversat.trim() !== '' ? oversat : kildeTekst;
+  };
+  return robotter.map((r) => {
+    let aendret = false;
+
+    let felter = r.felter;
+    for (const [navn, post] of Object.entries(r.felter ?? {})) {
+      if (!post || typeof post !== 'object' || !post.advarsel_i18n) continue;
+      const ny = loesTekst(post.advarsel, post.advarsel_i18n);
+      if (ny === post.advarsel) continue;
+      if (felter === r.felter) felter = { ...r.felter };  // foerste aendring i denne robot: kopiér
+      felter[navn] = { ...post, advarsel: ny };
+      aendret = true;
+    }
+
+    let anvendelse = r.anvendelse;
+    if (anvendelse && typeof anvendelse === 'object' && anvendelse.note_i18n) {
+      const ny = loesTekst(anvendelse.note, anvendelse.note_i18n);
+      if (ny !== anvendelse.note) { anvendelse = { ...anvendelse, note: ny }; aendret = true; }
+    }
+
+    let billede = r.billede;
+    if (billede && typeof billede === 'object' && billede.note_i18n) {
+      const ny = loesTekst(billede.note, billede.note_i18n);
+      if (ny !== billede.note) { billede = { ...billede, note: ny }; aendret = true; }
+    }
+
+    return aendret ? { ...r, felter, anvendelse, billede } : r;
+  });
+}
+
 /* Taeller tal med og uden kilde paa tvaers af kataloget. Ligger som funktion,
    fordi tallet nu skal bruges TO steder: i byggets logudskrift til sidst, og
    paa sprogvaelgeren, som stanser "TAL MED KILDE" i sit hoved. To kopier af
@@ -264,6 +319,13 @@ async function main(argv) {
     const { T, t } = i18n;
     const hjaelp = lavHjaelp({ sprogkode, T, t, tf: i18n.tf });
 
+    // spor/i18nfelt (Å98 spor A), punkt 3: ÉN sprogoploest kopi af
+    // robotterne, brugt af BAADE ctx.robotter (grund() herunder, laest af
+    // katalog- og sammenligningsskabelonen) OG robotsidernes egen loekke
+    // (`for (const robot of robotterSprog)` nedenfor) - se
+    // sprogoploesRobotter()'s kommentar for hvorfor en kopi og ikke en mutation.
+    const robotterSprog = sprogoploesRobotter(robotter, sprogkode);
+
     // ctx.url baerer BAADE stien og opslag pr. sidetype. Skabelonerne slaar op
     // med url.robot(slug) / url.katalog og skal ikke selv taelle mapper -
     // en haandregnet '../../' er den slags fejl, der ikke ses foer i browseren.
@@ -272,7 +334,7 @@ async function main(argv) {
       const op = '../'.repeat(dybde);
       const her = `${op}${sprogkode}/`;
       return {
-        robotter, producenter, i18n, sprog: sprogkode, hjaelp, naevnere, d4,
+        robotter: robotterSprog, producenter, i18n, sprog: sprogkode, hjaelp, naevnere, d4,
         url: {
           sti, dybde, op,
           // spor/oversigt (1. sep 2026): kataloget ER sprogroden - forsiden
@@ -368,7 +430,7 @@ async function main(argv) {
     });
 
     /* --- robotsiderne --- */
-    for (const robot of robotter) {
+    for (const robot of robotterSprog) {
       const sti = `robotter/${robot.slug}/`;
       // ctx.producent taender robotsidens to links til producentsiden
       // (skabelonen tegner dem kun, naar den kender et slug). Uden
