@@ -1,0 +1,62 @@
+{
+  "id": 9001,
+  "slug": "test-robot-alpha",
+  "manufacturer": "Testfabrikanten A/S",
+  "manufacturer_country": "Denmark",
+  "manufacturer_city": "Aarhus",
+  "first_released": 2024,
+  "variants": ["Pro", "Lite"],
+  "notes": ["Robotten er testet grundigt af producenten selv.", "No further remarks."],
+  "notes_wording": ["", ""],
+  "field_entries": [
+    {
+      "robot_id": 9001, "field_name": "weight", "form": "number", "state": null,
+      "value_number": 42, "minimum": null, "maximum": null,
+      "value_text": null, "value_bool": null, "value_list": null,
+      "unit": "kg", "imperial_unit": "lb", "imperial_value": 92.6,
+      "operator": null, "source": "https://example.com/spec", "retrieved_at": "2026-01-01",
+      "source_type": "primary",
+      "caveat": "Ekstra præcision: ±0,3 mm.",
+      "caveat_class": "elaboration",
+      "caveat_wording": "Weight excl. battery: 42 kg",
+      "note": null, "raw": null, "currency": null,
+      "load_state": null, "load_value": null, "load_unit": null,
+      "collected_by": null, "change_reason": null,
+      "field_entry_variants": [
+        { "robot_id": 9001, "field_name": "weight", "variant_name": "Pro", "value": 45 },
+        { "robot_id": 9001, "field_name": "weight", "variant_name": "Lite", "value": 39 }
+      ]
+    },
+    {
+      "robot_id": 9001, "field_name": "speed", "form": "bare_state", "state": "not_stated",
+      "value_number": null, "minimum": null, "maximum": null,
+      "value_text": null, "value_bool": null, "value_list": null,
+      "unit": null, "imperial_unit": null, "imperial_value": null,
+      "operator": null, "source": null, "retrieved_at": null, "source_type": null,
+      "caveat": "Producenten har ikke oplyst dette tal i skemaet.",
+      "caveat_class": null, "caveat_wording": null,
+      "note": null, "raw": null, "currency": null,
+      "load_state": null, "load_value": null, "load_unit": null,
+      "collected_by": null, "change_reason": null,
+      "field_entry_variants": []
+    }
+  ],
+  "applications": {
+    "robot_id": 9001, "is_bare_string": false, "is_not_stated": false,
+    "value": ["industrial"],
+    "quote": ["The manufacturer states this value clearly in the specification sheet."],
+    "quote_wording": ["Used in industrial settings."],
+    "source": "https://example.com", "retrieved_at": "2026-01-01", "source_type": "primary",
+    "inherited_from_robot_id": null,
+    "note": "The manufacturer states this value clearly in the specification sheet.",
+    "note_wording": "",
+    "collected_by": null, "change_reason": null
+  },
+  "images": {
+    "robot_id": 9001, "file": "fotos/fabrikant/test.png", "origin": "manufacturer",
+    "source": "https://example.com/img", "retrieved_at": "2026-01-01",
+    "alt": { "da": "Testrobot i gråt, set forfra", "en": "Test robot in grey, front view" },
+    "note": null, "shared_with_robot_id": null, "plate": null, "position": null,
+    "collected_by": null, "change_reason": null
+  }
+}
