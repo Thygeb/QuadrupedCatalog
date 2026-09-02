@@ -1,7 +1,8 @@
 /**
  * tests/dele/57-doed-css.mjs — spor/doedcss, 1. sep 2026.
+ * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4 nedenfor).
  *
- * Laaser resultatet af 66 -> 15 doede CSS-klasser. Skal FEJLE, hvis en
+ * Laaser resultatet af 66 -> 16 doede CSS-klasser. Skal FEJLE, hvis en
  * fjernet klasse (eller en helt ny, uafhaengig doed klasse) sniger sig ind
  * i assets/system.css eller assets/generator.css igen.
  *
@@ -25,12 +26,23 @@
  *      16 + 31), kort-navn/-krop/-hoved/-billed/-invit (test 14's 5c +
  *      test 16), filtre (test 31.8) og gitter (test 16) er alle laast saadan
  *      i FIRE testfiler, dette spor ikke ejer (CLAUDE.md, DIT FILEJERSKAB).
+ *   4. pris-om__ord (spor/uifix, 2. sep 2026, BRIEF-uifix.md punkt 2): JPK
+ *      bad om, at det synlige "omregnet"-ord paa katalogsidens priskort
+ *      skulle vaek. tools/skabelon/katalog.mjs holdt op med at skrive
+ *      class="pris-om__ord" (forklaringen lever videre i .kunskaerm) - men
+ *      assets/system.css er UDEN FOR spor/uifix' filejerskab (CLAUDE.md,
+ *      "Du maa ikke roere: assets/*.css"), saa CSS-reglen for klassen staar
+ *      tilbage doed. Dette er en TILSIGTET foelge af en produktbeslutning,
+ *      ikke en regression - modsat de tre punkter ovenfor er den ikke fundet
+ *      via en detektor-svaghed, men skabt af selve rettelsen. Fjernes CSS-
+ *      reglen i et senere spor med adgang til stilarkene, fjern klassen
+ *      herfra i samme spor.
  *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
- * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 15,
+ * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 16,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 15 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 16 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -40,8 +52,8 @@ import { spawnSync } from 'node:child_process';
 const BESKYTTET = [
   'billedmaerke', 'filtre', 'gitter', 'grund', 'kort-billed', 'kort-hoved',
   'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter', 'prik--klip',
-  'saml-fotofelt--uoplyst', 'saml-raekke--tavs', 'saml-svar__m--tavs',
-  'stribe--kompakt',
+  'pris-om__ord', 'saml-fotofelt--uoplyst', 'saml-raekke--tavs',
+  'saml-svar__m--tavs', 'stribe--kompakt',
 ].sort();
 
 export default async function koer(ctx) {

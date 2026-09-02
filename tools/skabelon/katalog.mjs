@@ -1177,9 +1177,11 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
       dato: hjaelp.dformat(KURSER.kilde.dato),
       kurs: kursPar(i18n, sprog),
     });
+    // JPK, punkt 2 (spor/uifix, 2. sep 2026): det synlige "omregnet"-ord
+    // (class="pris-om__ord") skal vaek. "≈"-tallet og den skjulte forklaring
+    // staar uaendret - kun ORDET forsvinder fra skaermen.
     return `<span class="pris-om" title="${attr(forklaring)}">`
       + `<span class="pris-om__tal" aria-hidden="true">≈ ${esc(hjaelp.nformat(p.tal))} ${esc(BASISVALUTA)}</span>`
-      + `<span class="pris-om__ord" aria-hidden="true">${esc(t('pris_omregnet'))}</span>`
       + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
   };
 

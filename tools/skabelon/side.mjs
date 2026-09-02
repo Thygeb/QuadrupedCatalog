@@ -1142,10 +1142,13 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     // skaermlaeser skal ikke skulle regne fravaeret ud af en forklaringslinje
     // langt oppe paa siden.
     if (imp.egen) return `<span class="kunskaerm">${esc(t('imperial_forklaring'))}</span>`;
+    // JPK, punkt 2 (spor/uifix, 2. sep 2026): det synlige "omregnet"-maerke
+    // (class="omregnet") skal vaek. Forklaringen forsvinder ikke - den
+    // flytter til .kunskaerm, samme form som imp.egen-grenen ovenfor, saa en
+    // skaermlaeser stadig faar hele saetningen, mens ingen laeser laengere
+    // ser ordet paa skaermen.
     const forklaring = saetInd(t('enhed_omregnet_forklaring'), { figur: imp.kildeform });
-    return `<span class="omregnet" title="${attr(forklaring)}">`
-      + `<span aria-hidden="true">${esc(t('enhed_omregnet'))}</span>`
-      + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
+    return `<span class="kunskaerm">${esc(forklaring)}</span>`;
   }
 
   /* --- 1. tal ------------------------------------------------------------ */
