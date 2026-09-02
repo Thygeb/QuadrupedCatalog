@@ -600,9 +600,16 @@ async function main(argv) {
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('eksporter.mjs');
 if (erHoved) {
-  main(process.argv.slice(2)).then((k) => process.exit(k)).catch((e) => {
+  // process.exitCode (IKKE process.exit()) — et AeGTE fetch() (fraDb(),
+  // naar --fra-db bruges) efterfulgt af et EKSPLICIT process.exit() crasher
+  // denne maskines node.exe v24.13.0 med en libuv-assertion, exit-kode 127,
+  // OGSAa naar kaldet lykkedes (reproduceret med kontrolgruppe, STATUS.md
+  // Å132; spor/f2-vaern punkt 2). Dette er den SIDSTE kode i filen — intet
+  // arbejde koerer efter, saa process.exitCode + lad loekken toemme sig er
+  // sikkert (samme moenster som db/fase2-tjek.mjs's hoved()).
+  main(process.argv.slice(2)).then((k) => { process.exitCode = k; }).catch((e) => {
     console.error(String(e && e.stack ? e.stack : e));
-    process.exit(1);
+    process.exitCode = 1;
   });
 }
 

@@ -7,8 +7,16 @@ for (const l of fs.readFileSync('.env', 'utf8').split(/\r?\n/)) {
 const U = process.env.SUPABASE_URL, K = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!U || !K) { console.error('mangler SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY i .env'); process.exit(1); }
 const H = { apikey: K, Authorization: `Bearer ${K}` };
+// process.exitCode (IKKE process.exit()) her — et AeGTE fetch() efterfulgt af
+// et EKSPLICIT process.exit() crasher denne maskines node.exe v24.13.0 med en
+// libuv-assertion, exit 127, ogsaa naar kaldet lykkedes (STATUS.md Å132;
+// spor/f2-vaern punkt 2). fetch() ER allerede kaldt (awaited) her, saa dette
+// KAN naas efter et fetch — kastes i stedet, saa s.json() aldrig kaldes paa
+// et fejlet svar, og udfoerelsen faktisk stopper i stedet for at fortsaette
+// med en tom/poisoned vaerdi.
 const q = async (p) => { const s = await fetch(`${U}/rest/v1/${p}`, { headers: H });
-  if (!s.ok) { console.error('HTTP', s.status, await s.text()); process.exit(1); } return s.json(); };
+  if (!s.ok) { console.error('HTTP', s.status, await s.text()); process.exitCode = 1; throw new Error(`HTTP ${s.status} paa ${p}`); }
+  return s.json(); };
 const DANSKE_ORD = /\b(producenten|producentens|oplyst|oplyser|ikke|samme|kilde|kilden|kilder|angiver|staar|står|vaerdi|værdi|tallet|siden|derfor|hverken|hvorfor|mens|uden|indeholder|noteret|maalt|målt|skemaet|feltet|naermeste|nærmeste)\b/i;
 const ae = (s) => /[æøåÆØÅ]/.test(s || '');
 const dansk = (s) => ae(s) || DANSKE_ORD.test(s || '');

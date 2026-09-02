@@ -497,14 +497,22 @@ async function main(argv) {
   }
 
   console.error('Brug: node db/billeder.mjs --op | --ned | --arkiv-op | --arkiv-ned [--ud=<mappe>] | --tjek | --proev-adskillelse');
-  process.exit(1);
+  process.exitCode = 1;
+  return;
 }
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('billeder.mjs');
 if (erHoved) {
+  // process.exitCode (IKKE process.exit()) — flere grene ovenfor kalder et
+  // AeGTE fetch() (op/ned/arkivOp/arkivNed/tjek), og et EKSPLICIT
+  // process.exit() derefter crasher denne maskines node.exe v24.13.0 med en
+  // libuv-assertion, exit-kode 127, OGSAa naar kaldet lykkedes (reproduceret
+  // med kontrolgruppe, STATUS.md Å132; spor/f2-vaern punkt 2). Dette er den
+  // SIDSTE kode i filen — intet arbejde koerer efter, saa exitCode + lad
+  // loekken toemme sig er sikkert.
   main(process.argv.slice(2)).catch((e) => {
     console.error(String(e && e.stack ? e.stack : e));
-    process.exit(1);
+    process.exitCode = 1;
   });
 }
 
