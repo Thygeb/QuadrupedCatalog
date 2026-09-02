@@ -69,6 +69,53 @@ update anvendelse set vaerdi = case jsonb_typeof(vaerdi)
   else vaerdi end
 where vaerdi is not null;
 
+-- A4. feltdefinitioner.gruppe/art/dimension/ogsaa_dimension: ingen CHECK
+--     (laest raat af pg_constraint 2. sep 2026: feltdefinitioner har KUN sin
+--     primaernoegle — ingen drop/genskab noedvendig, i modsaetning til A1/A5).
+--     Fundet 2. sep 2026 (orkestrator-review): denne tabel var glemt af den
+--     foerste udgave af denne fil, selvom ordbogen (FELTGRUPPER/FELTARTER/
+--     FELTDIMENSIONER) altid har defineret oversaettelsen — L82 gaelder ALT i
+--     databasen, ogsaa feltdefinitionernes egne etiketter.
+update feltdefinitioner set gruppe = case gruppe
+  when 'fysik' then 'physics'
+  when 'energi' then 'energy'
+  when 'sensorik' then 'sensing'
+  when 'nyttelast' then 'payload'
+  when 'kommercielt' then 'commercial'
+  when 'eu' then 'regulatory'
+  else gruppe end;
+update feltdefinitioner set art = case art
+  when 'tal' then 'number'
+  when 'jaNej' then 'yes_no'
+  when 'tekst' then 'text'
+  when 'liste' then 'list'
+  when 'ip' then 'ip'
+  else art end;
+update feltdefinitioner set dimension = case dimension
+  when 'masse' then 'mass'
+  when 'laengde' then 'length'
+  when 'antal' then 'count'
+  when 'hastighed' then 'speed'
+  when 'vinkel' then 'angle'
+  when 'stigning' then 'grade'
+  when 'temperatur' then 'temperature'
+  when 'energi' then 'energy'
+  when 'tid' then 'time'
+  when 'valuta' then 'currency'
+  else dimension end;
+update feltdefinitioner set ogsaa_dimension = case ogsaa_dimension
+  when 'masse' then 'mass'
+  when 'laengde' then 'length'
+  when 'antal' then 'count'
+  when 'hastighed' then 'speed'
+  when 'vinkel' then 'angle'
+  when 'stigning' then 'grade'
+  when 'temperatur' then 'temperature'
+  when 'energi' then 'energy'
+  when 'tid' then 'time'
+  when 'valuta' then 'currency'
+  else ogsaa_dimension end;
+
 -- B. Enum-VAeRDIER omdoebt (mens enum-TYPEnavnene stadig er danske —
 --    de to omdoebes uafhaengigt af hinanden). Identiske par (fx
 --    feltform_enum.interval -> interval) er udeladt: RENAME VALUE til

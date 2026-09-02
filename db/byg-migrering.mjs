@@ -141,6 +141,34 @@ function sektionA() {
   l.push('  )');
   l.push('  else vaerdi end');
   l.push('where vaerdi is not null;');
+  l.push('');
+  l.push('-- A4. feltdefinitioner.gruppe/art/dimension/ogsaa_dimension: ingen CHECK');
+  l.push('--     (laest raat af pg_constraint 2. sep 2026: feltdefinitioner har KUN sin');
+  l.push('--     primaernoegle — ingen drop/genskab noedvendig, i modsaetning til A1/A5).');
+  l.push('--     Fundet 2. sep 2026 (orkestrator-review): denne tabel var glemt af den');
+  l.push('--     foerste udgave af denne fil, selvom ordbogen (FELTGRUPPER/FELTARTER/');
+  l.push('--     FELTDIMENSIONER) altid har defineret oversaettelsen — L82 gaelder ALT i');
+  l.push('--     databasen, ogsaa feltdefinitionernes egne etiketter.');
+  l.push('update feltdefinitioner set gruppe = case gruppe');
+  for (const [da, en] of Object.entries(ordbog.FELTGRUPPER.kort)) {
+    l.push(`  when ${s(da)} then ${s(en)}`);
+  }
+  l.push('  else gruppe end;');
+  l.push('update feltdefinitioner set art = case art');
+  for (const [da, en] of Object.entries(ordbog.FELTARTER.kort)) {
+    l.push(`  when ${s(da)} then ${s(en)}`);
+  }
+  l.push('  else art end;');
+  l.push('update feltdefinitioner set dimension = case dimension');
+  for (const [da, en] of Object.entries(ordbog.FELTDIMENSIONER.kort)) {
+    l.push(`  when ${s(da)} then ${s(en)}`);
+  }
+  l.push('  else dimension end;');
+  l.push('update feltdefinitioner set ogsaa_dimension = case ogsaa_dimension');
+  for (const [da, en] of Object.entries(ordbog.FELTDIMENSIONER.kort)) {
+    l.push(`  when ${s(da)} then ${s(en)}`);
+  }
+  l.push('  else ogsaa_dimension end;');
   return l;
 }
 
