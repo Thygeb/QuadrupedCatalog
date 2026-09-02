@@ -74,3 +74,55 @@ kasse-A-ordlyd.
 **(b) MANIFEST.tsv:** 6 datarækker + hoved, bekræftet (`tail -n +3 | wc -l` = 6).
 Sha256 for `addverb-com-press-trakr2-2026-09-02.html` genberegnet og passer
 (`9d3f291e...`).
+
+## Punkt 3+4 — engelske tekster og skrivning
+
+Alle 21 tekster (17 caveat, 2 applications.note, 2 images.note) skrevet i
+`db/f2-pilot-skriv.mjs`. Tørløb (standard) viste 21/21 klar. `--skriv` kørt:
+**21/21 skrevet, 0 fejl**, hver PATCH verificeret til præcis 1 række via
+`Prefer: return=representation` (håndhævet i scriptet — afbryder og logger,
+hvis en PATCH giver 0 eller >1 række).
+
+**Efter-måling** (`node fund/maal-f2.mjs 2182,2183`):
+```
+caveat                         17 | dansk:    0   (krav opfyldt)
+  heraf uden ordlyd             1 | dansk:    -   (= B+C = 1+0, som forudsagt i punkt 1)
+applications.note               2 | dansk:    0   (krav opfyldt)
+images.note                     2 | dansk:    0   (krav opfyldt)
+```
+
+**Manuelt gennemsyn af alle 21 tekster** (ordlisten er nødvendig, ikke
+tilstrækkelig — læst selv til sidst): **21/21 læst, 0 reelle fejl fundet.**
+To observationer, ikke fejl:
+1. `field_entries.value_text` for `compute` og `autonomy_level` er STADIG
+   dansk ("grundlæggende", "tilvalgt modul til høj beregningskraft" osv.) —
+   uden for min tilladte kolonneliste (kun caveat/caveat_wording/note),
+   derfor bevidst urørt. Flag til senere fase 2-spor: `value_text` er endnu
+   en tekstkolonne, der skal gennem samme proces.
+2. I `applications.note` (2182) ændrede jeg en henvisning fra
+   `addverb-trakr-5.yaml` til "the Trakr 5 entry (addverb-trakr-5)" — YAML er
+   på vej ud (L84/fase 3), og en filsti-henvisning ville blive forældet
+   først. Bevidst valg, ikke en oversættelsesfejl.
+3. Bekræftet at "Gangben" (i 2182-notens GENISOM-reference) er et egennavn
+   (robottens faktiske `navn:`-felt i `data/robots/genisom-gangben-l2-w.yaml`
+   m.fl.), ikke et overset dansk ord — efterladt uændret, korrekt.
+
+## Punkt 5 — talkolonner urørt, change_log, kasse C-liste
+
+**(a) Talkolonner:** hentede alle 66 `field_entries`-rækker for 2182+2183
+FØR skrivning (`fund/felt-foer-2182-2183.json`) og EFTER (`fund/felt-efter-
+2182-2183.json`). Diff på alle kolonner UNDTAGEN caveat/caveat_wording/
+collected_by/change_reason: **0 diffs** på 66 rækker. Diff-mekanismen er
+efterprøvet ikke-vakuøs: den fangede korrekt at `caveat` ÆNDREDE sig på
+`2183/weight` (dansk -> engelsk), så et ægte nul-resultat på resten er til
+at stole på.
+
+**(b) change_log:** var 0 rækker før dette spor (bekræftet af briefet).
+**Efter: 21 rækker** — én pr. ændret række, `changed_by = "spor/f2-pilot"`,
+`old_row` bærer den gamle danske tekst. Triggeren virker.
+
+**(c) Kasse C-listen til JPK:** **TOM.** 0 advarsler kunne ikke føres tilbage
+til en kilde. Alle 16 kasse-A-citater blev genfundet ordret (punkt 2), og
+den ene kasse-B-advarsel (`autonomy_level`) erklærer selv, at der intet
+citat er (ikke en påstand uden belæg — en eksplicit "ingen skala navngivet").
+Ingen rækker afventer JPK's beslutning fra dette spor.
