@@ -100,9 +100,15 @@
 
   /* Flader. TYPESKILT (spor/fundament, L54/L57): eloxeret plade, ikke
      ORBIT-lysets bloede panel. VAERDIERNE ER NYE, NAVNENE ER DE GAMLE - jf.
-     briefets 3.3: ingen test matcher en hex-farve, kun ÉT sted matcher et
-     token-navn (tests/dele/31-pudsning.mjs:141-142), saa navnene bevares,
-     og hele siden skifter farve uden at noget knaekker. Kortlaegningen fra
+     briefets 3.3: navnene bevares, og hele siden skifter farve uden at
+     noget knaekker. RETTET af spor/primitiv (2. sep 2026): paastanden om
+     at "ingen test matcher en hex-farve" var allerede forkert, da den blev
+     skrevet - tests/dele/34-typeskilt-fundament.mjs (34.11, 34.13-34.15) og
+     tests/dele/58-designmd.mjs laaser flere af disse tokens til literal hex.
+     Se fund/FUND-primitiv.md for den fulde konsekvens: disse tokens peger nu
+     paa primitiver (var()) i stedet, og de laasende tests falder derfor rødt
+     - ikke rettet her, da ingen af de to testfiler er dette spors eje.
+     Kortlaegningen fra
      MANIFEST.md's ni navngivne roller (ikke otte - se rapporten) til de
      14 gamle tokens, dér hvor rollen var entydig:
        --bund/--tom/--panel-ro/--accent-ro -> eloxgraa (pladen selv, og de
@@ -113,22 +119,22 @@
          som "ikke oplyst"-teksten allerede havde: .v-ikke, .status--udgaaet)
        --accent -> afmaerkningsgul    --linje -> rille
        --hegn/--paafod2 -> stoevgraa  --paafod -> eloxgraa (lys tekst paa moerk bund) */
-  --bund:#E8EBED;
-  --panel:#FAFBFB;
-  --panel-ro:#E8EBED;        /* DOM: TYPESKILT har ingen "rolig flade INDE i
+  --bund:var(--p-eloxgraa);
+  --panel:var(--p-kridt);
+  --panel-ro:var(--p-eloxgraa);        /* DOM: TYPESKILT har ingen "rolig flade INDE i
                                  kridt-panelet" - de faa steder, comp'en gaar
                                  dybere end kridt, bruger eloxgraa (fx
                                  .kort__billedled). Mindst risikable valg,
                                  ikke en ny farve opfundet til lejligheden. */
-  --tom:#E8EBED;             /* fyldet bag "ikke oplyst" - TYPESKILT har INGEN
+  --tom:var(--p-eloxgraa);             /* fyldet bag "ikke oplyst" - TYPESKILT har INGEN
                                  fyld her (.rk--uoplyst .rk__boks{background:
                                  transparent}), saa eloxgraa (= --bund) er den
                                  naermeste "usynlige" flade uden at opfinde en */
 
   /* Blaek. Rollerne er MAALT i MANIFEST.md §Paletten, ikke skoennet her. */
-  --blaek:#22262A;           /* gunmetal - 12,72 : eloxgraa (maalt i manifestet) */
-  --blaek2:#545C63;          /* blaek-2 - 5,68 : eloxgraa */
-  --blaek3:#5F686F;          /* stoev-blaek - 4,74 : eloxgraa. --blaek3 bruges i
+  --blaek:var(--p-gunmetal);           /* gunmetal - 12,72 : eloxgraa (maalt i manifestet) */
+  --blaek2:var(--p-blaek-2);          /* blaek-2 - 5,68 : eloxgraa */
+  --blaek3:var(--p-stoev-blaek);          /* stoev-blaek - 4,74 : eloxgraa. --blaek3 bruges i
                                  dag praecis der, "ikke oplyst" allerede staar
                                  (.v-ikke, .status--udgaaet), saa rollen matcher */
 
@@ -138,24 +144,24 @@
      ville bryde "gult bruges ALDRIG dekorativt" paa alle ni steder, den
      bruges (4 i system.css, 5 i generator.css), foer runde 2 har rettet
      brugsstederne. Saettes derfor til eloxgraa - samme dom som --panel-ro. */
-  --accent:#F2C400;          /* afmaerkningsgul - 9,19 (gunmetal PAA gul) */
-  --accent-ro:#E8EBED;
+  --accent:var(--p-afmaerkningsgul);          /* afmaerkningsgul - 9,19 (gunmetal PAA gul) */
+  --accent-ro:var(--p-eloxgraa);
 
-  --linje:#C6CCD1;           /* rille - "rillen mellem stansede felter. Haarstreger." */
-  --hegn:#9AA3A9;            /* stoevgraa - KUN kontur. 2,14 : eloxgraa, maa
+  --linje:var(--p-rille);           /* rille - "rillen mellem stansede felter. Haarstreger." */
+  --hegn:var(--p-stoevgraa);            /* stoevgraa - KUN kontur. 2,14 : eloxgraa, maa
                                  ALDRIG baere tekst (se --paafod2 og --blaek3,
                                  som IKKE er stoevgraa, praecis derfor). */
 
-  --fod:#22262A;             /* gunmetal ogsaa som moerk flade - "strimlens bund"
+  --fod:var(--p-gunmetal);             /* gunmetal ogsaa som moerk flade - "strimlens bund"
                                  i typeskilt.css er samme farve som blaekket */
-  --paafod:#E8EBED;          /* eloxgraa - lys tekst paa gunmetal-bund */
-  --paafod2:#9AA3A9;         /* stoevgraa - 5,94 : gunmetal (MANIFEST: paa
+  --paafod:var(--p-eloxgraa);          /* eloxgraa - lys tekst paa gunmetal-bund */
+  --paafod2:var(--p-stoevgraa);         /* stoevgraa - 5,94 : gunmetal (MANIFEST: paa
                                  strimlens gunmetalbund BRUGES stoevgraa frit
                                  til tekst - modsat paa eloxgraa, se --hegn) */
 
   /* Nye TYPESKILT-roller uden et gammelt modstykke (briefets eksempler). */
-  --stans:#FFFFFF;           /* lyskanten i en stansning, 1px indfaeldet */
-  --stoev-blaek:#5F686F;     /* samme vaerdi som --blaek3 - se ovenfor. Ny,
+  --stans:var(--p-stans);           /* lyskanten i en stansning, 1px indfaeldet */
+  --stoev-blaek:var(--p-stoev-blaek);     /* samme vaerdi som --blaek3 - se ovenfor. Ny,
                                  tydeligt navngivet token til KOMMENDE kode
                                  (fx 3.6's SVG-maerker), der ikke skal gaette
                                  sig til, at --blaek3 er den rigtige */
