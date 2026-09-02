@@ -168,14 +168,20 @@
 .sektion-note{margin-top:var(--r3);max-width:86ch}
 .sektion .gitter{margin-top:var(--r5)}
 
-/* --- 3c. FORSIDENS AFSLUTNING (spor/indgang, 26. aug 2026). Ganske
-   almindelig .sektion, samme katalog-flade og samme r8-luft til "Fra
-   kataloget" ovenfor - ingen ny centreret bloklayout, ingen ny flade.
-   Venstrestillet som resten af siden (hero, yderpunkter, EU-fundet er
-   heller ikke centreret); en centreret afslutningsblok er netop den
-   skabelon, impeccable's craft-floor navngiver som kategoriens
-   standardsvar. */
-.afslutning-knap{margin-top:var(--r5)}
+/* --- 3c. HER STOD FORSIDENS AFSLUTNINGSBLOKS knap-wrapper - én
+   margin-top-regel (spor/indgang, 26. aug 2026). FJERNET 2. sep 2026 med
+   sin sidste bruger: sammenligningssidens éne "Vaelg robotter"-knap
+   (spor/saml3, JPK: "Choose robot knappen skal vaek"). Klassenavnet staar
+   ordret i commit-beskeden og i git-historikken, ikke her: sporets
+   acceptkriterium taeller navnet i DENNE fil og kan ikke se forskel paa en
+   kommentar og en regel.
+
+   Maalt foer fjernelsen, saa dette ikke blev en regression paa en anden
+   side: klassen stod ét sted i skabelonerne, i tools/skabelon/
+   sammenligning.mjs. Forsiden, som gav reglen sit navn, holdt op med at
+   bruge den (tests/dele/39-rod.mjs:109 laaser netop, at forsiden ikke
+   laengere baerer .videre--stille), saa sammenligningssiden var den eneste
+   tilbage. Uden denne sletning var reglen blevet doed CSS nr. 67 (Aa102). */
 
 /* VAEGTKLASSE-SALENE ER FJERNET 31. aug 2026 (spor/katalog, L54/L57).
    Reglerne for `.sal`, `.sal__nr`, `.sal__titel`, `.sal__antal`,
@@ -462,6 +468,87 @@
 .specimen__fod{display:flex;align-items:baseline;gap:var(--r3);flex-wrap:wrap;
   margin-top:10px;padding-top:9px;border-top:1px solid var(--blaek2)}
 .specimen__taethed{font-size:11.5px;font-weight:500;color:var(--paafod2)}
+
+/* FJERN-KNAPPEN i kolonnehovedets fod (spor/saml3, JPK 2. sep 2026).
+   Formen er `.nulstil` - katalogets egen stemme for "ryd/nulstil"-
+   handlinger, mono, versaler, spaerret - og ikke `.videre`: L77 er
+   besluttet (ÉN knapprimitiv `.knap` med varianter), og dette spor skal
+   ikke laegge endnu en .videre-forekomst til de 146, den skal rydde op i.
+
+   TO SELEKTORER DYBT (`.specimen .specimen__fjern`) er ikke pynt: `.nulstil`
+   staar 700 linjer LAENGERE NEDE i filen og ville ellers vinde paa
+   kilderaekkefoelge, saa farven og stoerrelsen herunder aldrig traadte i
+   kraft. Vaerdien er 0,2,0 mod `.nulstil`s 0,1,0. Alternativet - at flytte
+   reglen ned under `.nulstil` - ville skille knappen fra resten af
+   specimen-blokken, den hoerer til.
+
+   Kolonnehovedet staar paa moerk bund (`.specimen-hoved{background:blaek}`),
+   hvor `.nulstil`s `--paafod` og `--stoev-blaek` er skrevet til lys. Farverne
+   vendes derfor her - det er samme lokale neutralisering, `.saml-matrix`
+   allerede goer mod system.css' §14 lige nedenfor.
+
+   `margin-left:auto` skubber knappen til hoejre kant af foden, saa
+   taetheds-tallet og knappen ikke laeses som ét udtryk. `align-self` fordi
+   foden er `align-items:baseline`, som ellers ville haenge knappens ramme
+   op paa tekstens grundlinje. */
+.specimen .specimen__fjern{
+  position:relative;
+  margin-left:auto;align-self:center;
+  font-size:10px;letter-spacing:.1em;padding:5px 9px;
+  color:var(--paafod2);box-shadow:inset 0 0 0 1px var(--blaek2);
+}
+.specimen .specimen__fjern:hover{background:var(--bund);color:var(--blaek);box-shadow:none}
+
+/* BEROERINGSMAALET, og grunden til at det ikke bare er en `min-height`.
+   Den SYNLIGE knap er lille med vilje: kolonnehovedet KLAEBER (position:
+   sticky), og en 44 px hoej knap ville skubbe den klaebende raekke ned over
+   matricen - netop den fejl, `.saml-fotofelt`s bundne hoejde lige ovenfor er
+   sat for at undgaa ("et hoejt billede ville gOEre den klaebende raekke til
+   en skaerm i sig selv paa 390").
+
+   Maalt paa formen: 10 px mono + 5 px polstring op og ned giver ca. 24-25 px
+   hoejde - over WCAG 2.5.8's minimum (24x24), men under de 44, resten af
+   siden holder (tests/dele/55 laaser .videre paa >= 44 px).
+
+   `::after` loeser begge dele: et usynligt felt paa mindst 44x44, centreret
+   paa knappen, uden at aendre én eneste pixel af layoutet. De tre knapper
+   staar i hver sin spalte og kan derfor ikke overlappe hinandens felt. */
+.specimen .specimen__fjern::after{
+  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:100%;min-width:44px;height:44px;
+}
+
+/* INVITATIONEN tilbage til kataloget - ÉN pr. side, kun naar der er en ledig
+   plads (se sammenligning.js' invitationHTML() for hvorfor den ikke er tre
+   kopier i kolonnehovederne). Plads nok til at baere de 44 px direkte, uden
+   ::after-kneb.
+
+   FARVEN MAA VENDES, og foerste udgave af denne regel gjorde det ikke.
+   MAALT i browseren: `.nulstil` alene gav 1,16:1 - knappen var praktisk talt
+   usynlig. Aarsagen er ikke en fejl i `.nulstil`, men i hvor den blev sat:
+   dens `color:var(--paafod)` er #E8EBED, altsaa en LYS forgrund, fordi
+   katalogets nulstil-knap staar paa en MOERK flade. Her staar invitationen
+   paa sidens lyse bund.
+
+   Det er L70's laerdom om igen, ordret: "Et kontrasttal uden en laeseretning
+   er ikke et tal." Tokenet er rigtigt; laeseretningen var vendt. Derfor
+   saettes forgrunden eksplicit - noejagtig samme greb, som
+   `.specimen__fjern` ovenfor bruger den ANDEN vej (den staar paa moerk bund
+   og maa laane de lyse toner).
+
+   TO SELEKTORER DYBT AF SAMME GRUND SOM `.specimen__fjern` OVENFOR, og
+   denne gang blev prisen betalt: foerste udgave skrev `.saml-invit__link`
+   alene (0,1,0), som er PRAECIS lige saa specifik som `.nulstil` - og saa
+   afgoer kilderaekkefoelgen, hvor `.nulstil` staar ~700 linjer laengere nede
+   og vinder. Farven blev derfor slet ikke vendt, og browsermaalingen gav
+   stadig 1,16. `.saml-invit .saml-invit__link` er 0,2,0 og vinder.
+
+   EFTERMAALT I BROWSEREN efter rettelsen - se rapportens tal. */
+.saml-invit{margin-bottom:var(--r4)}
+.saml-invit .saml-invit__link{display:inline-flex;align-items:center;min-height:44px;
+  text-decoration:none;
+  color:var(--blaek);box-shadow:inset 0 0 0 1px var(--blaek2)}
+.saml-invit .saml-invit__link:hover{background:var(--blaek);color:var(--bund);box-shadow:none}
 
 /* Felttabellen. Aa54: en RIGTIG <table>, men med display:block/grid ovenpaa,
    saa gitteret staar som foer - en subgrid-lignende raekke (200px etiket +

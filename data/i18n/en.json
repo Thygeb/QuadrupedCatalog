@@ -339,6 +339,8 @@
   "saml_taeller": "selected to compare",
   "saml_gaa": "Open the comparison",
   "saml_ryd": "Clear the selection",
+  "saml_fjern_kort": "Remove",
+  "saml_fjern_navn": "Remove {navn} from the comparison",
   "filter_nulstil": "Reset",
   "filter_udtraek": "Filters",
   "taeller_standardvisning": "in the default view",
