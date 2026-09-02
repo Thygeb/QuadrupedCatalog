@@ -79,6 +79,25 @@
 
 /* --- 2. Poletter ---------------------------------------------------------- */
 :root{
+  /* Primitiver: farven, som den ER. spor/primitiv (LED 2, foerste del).
+     Navnene er MANIFEST.md's Paletten (retninger/nyverden/MANIFEST.md §Paletten,
+     "ni navngivne roller" - se kommentaren nedenfor). Deling af én hex mellem
+     flere semantiske tokens var indtil nu IMPLICIT (samme tal skrevet flere
+     gange); denne blok goer den EKSPLICIT uden at fjerne den - de semantiske
+     tokens nedenfor peger paa disse ni, og INGEN andet sted i CSS'en bruger
+     en --p-* variabel direkte. To af de ni (kridt, stans) har i dag kun ét
+     semantisk navn hver, men staar med her for at daekke HELE paletten, ikke
+     kun de fire navne med dubletter. */
+  --p-eloxgraa:#E8EBED;
+  --p-gunmetal:#22262A;
+  --p-kridt:#FAFBFB;
+  --p-blaek-2:#545C63;
+  --p-afmaerkningsgul:#F2C400;
+  --p-rille:#C6CCD1;
+  --p-stoevgraa:#9AA3A9;
+  --p-stoev-blaek:#5F686F;
+  --p-stans:#FFFFFF;
+
   /* Flader. TYPESKILT (spor/fundament, L54/L57): eloxeret plade, ikke
      ORBIT-lysets bloede panel. VAERDIERNE ER NYE, NAVNENE ER DE GAMLE - jf.
      briefets 3.3: ingen test matcher en hex-farve, kun ÉT sted matcher et
