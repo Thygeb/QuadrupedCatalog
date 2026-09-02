@@ -67,8 +67,10 @@ uændret **20/0** · `data-aktiv` sat igen **19/1** (65.1) · `.saml-taeller__ga
    som almindelig prosa. Skrevet ind i filens egen kommentar, så næste forfatter ser det på stedet.
 2. **En test kan måle sin egen dokumentation, og det ser ud som et gyldigt rødt resultat.** Jeg
    skrev `65.1` til at måle `setAttribute`-**kaldet** netop for at undgå det — og faldt så i
-   samme fælde i `65.11`, som målte ordet `innerText` og var rød ved prøvekørslen, fordi min egen
-   kommentar nævner ordet. Rettet til `.innerText`. **Lærdom: en kildekodetest på et forbudt ord
+   samme fælde i `65.11`, som målte ordet `innerText`, som min egen kommentar nævner. Fanget **før
+   testen blev kørt**, af CLAUDE.md's regel om at forudsige tallet før man læser det: jeg kørte
+   hvert af testens regexer med et forventet tal ved siden af, og dette ene gav 1 mod forventet 0.
+   Rettet til `.innerText`. **Lærdom: en kildekodetest på et forbudt ord
    skal måle syntaks (et kald, et ejendomsopslag), aldrig et ord** — forbud og dokumentation af
    forbuddet lever i samme fil.
 3. **`textContent` vs. `innerText` var et reelt minefelt, og det gik godt ved et tilfælde.**

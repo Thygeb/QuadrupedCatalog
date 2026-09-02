@@ -137,11 +137,12 @@ export default async function koer(ctx) {
      browseren 2. sep 2026: begge er fyldte. Laast her, saa en fremtidig
      omskrivning til innerText faelder i stedet for at gaa stille igennem.
 
-     Maalt paa EJENSKABSOPSLAGET (`.innerText`), ikke paa ordet: katalog.js'
+     Maalt paa EJENDOMSOPSLAGET (`.innerText`), ikke paa ordet: katalog.js'
      egen kommentar naevner innerText for at forklare hvorfor det ikke bruges,
-     og et raat js.includes('innerText') var roedt ved foerste koersel. Samme
-     fejl som 65.1 advarer mod - begaaet i selve testen om den, og fanget
-     af en proevekoersel foer flettet. */
+     saa foerste udgaves /\binnerText\b/ ville have vaeret roed fra dag ét.
+     Samme fejl som 65.1 advarer mod - begaaet i selve testen om den. Fanget
+     FOER testen blev koert, af en kontrol der forudsagde hvert regex-tal og
+     saa laeste det: forventede 0, fik 1. */
   ok('65.11: bjaelkens tekst laeses med textContent, ikke innerText',
     !/\.innerText\b/.test(js),
     'innerText er tom paa et skjult element - baereren ER skjult');
