@@ -98,36 +98,15 @@ function kursTilBasis(valuta) {
   return til / fra;
 }
 
-/**
- * En kurs skrevet ud, og den maa IKKE gaa gennem hjaelp.nformat().
- *
- * Den faelles formatering er `maximumFractionDigits: 3` (side.mjs:920), og
- * ECB's CNY-kurs har FIRE decimaler: 7,7922 ville blive trykt "7,792". Et
- * afkortet kurstal er ikke en afrunding af en maaling - det er en anden kurs
- * end den, kilden offentliggjorde, staaende ved siden af et link til kilden,
- * hvor enhver kan se at de to ikke stemmer. Derfor sin egen formatering med
- * plads til det, filen faktisk indeholder.
- */
-function kursFormat(n, sprogkode) {
-  return new Intl.NumberFormat(sprogkode === 'da' ? 'da-DK' : 'en-GB',
-    { maximumFractionDigits: 6 }).format(n);
-}
-
-/**
- * Kildens egne kurser skrevet som "1 EUR = 1,1596 USD · 1 EUR = 7,7922 CNY".
- *
- * NOTATIONEN ER ECB'S EGEN, ikke vores omregnede. Det er med vilje: skriver
- * siden "1 CNY = 0,148815 USD", staar der et tal, som ikke findes i kilden,
- * og en laeser, der klikker linket, kan ikke genfinde det. Kildens to tal
- * staar derfor som de staar, og divisionen imellem dem er beskrevet i
- * data/kurser.json.
- */
-function kursPar(i18n, sprogkode) {
-  return Object.entries(KURSER.per_euro)
-    .filter(([v]) => v !== 'EUR')
-    .map(([v, n]) => i18n.tf('pris_kurs_par', { tal: kursFormat(n, sprogkode), valuta: v }))
-    .join(' · ');
-}
+/* kursFormat()/kursPar() ("1 EUR = 1,1596 USD · 1 EUR = 7,7922 CNY") er
+   FJERNET af BRIEF-uifix.md punkt 5 (spor/uifix, 2. sep 2026): "katalogsiden
+   viser kun USD" - og en kurspar-tekst, der naevner den originale valuta ved
+   navn, er praecis den slags tekst, der ikke laengere maa staa paa siden,
+   naar den originale valuta ikke laengere vises dér. Den fulde kurs (begge
+   valutaers tal, med alle cifre) staar stadig i data/kurser.json og paa
+   robottens EGEN side (BRIEF-uifix.md punkt 6, uroert). Katalogsidens egen
+   prisforklaring (tidligere prisMaerke(), se dens fjernelse laengere nede)
+   er fjernet af samme grund. */
 
 /* ==========================================================================
    1. AFLAESNING AF ET FELT
@@ -376,17 +355,18 @@ function skalaFacet(spec, robotter, hjaelp, i18n) {
     etiket: t(spec.etiketNoegle),
     mrk: tf(spec.mrkNoegle, { n: tal.length, m: robotter.length }),
     // Kursens vaerdier gives til ALLE skalaers noter, ogsaa nyttelastens, som
-    // ikke bruger dem. Prisen er lige nu den ene, der har brug for {basis},
-    // {dato} og {kurser} - men saetInd() lader en ukendt pladsholder staa
-    // ORDRET paa siden ("{dato}"), og en note, der en dag faar en linje mere,
-    // skal ikke kunne lande saadan. Overfloedige vaerdier koster ingenting;
-    // en manglende koster en synlig fejl i produktionen.
+    // ikke bruger dem. Prisen er lige nu den ene, der har brug for {basis} og
+    // {dato} - men saetInd() lader en ukendt pladsholder staa ORDRET paa
+    // siden ("{dato}"), og en note, der en dag faar en linje mere, skal ikke
+    // kunne lande saadan. Overfloedige vaerdier koster ingenting; en
+    // manglende koster en synlig fejl i produktionen.
+    // {kurser} ("1 EUR = X USD · 1 EUR = Y CNY") er FJERNET af BRIEF-
+    // uifix.md punkt 5 sammen med kursPar() ovenfor - se dens begrundelse.
     note: tf(spec.noteNoegle, {
       n: tal.length,
       u: robotter.length - tal.length,
       basis: BASISVALUTA,
       dato: hjaelp.dformat(KURSER.kilde.dato),
-      kurser: kursPar(i18n, i18n.sprogkode),
     }),
     skala: {
       navn: spec.navn,
@@ -460,17 +440,23 @@ function facetter(robotter, hjaelp, i18n) {
       tekst: tilstandsnavn,
     },
     {
-      /* STATUS er den ENESTE facet med en standardtilstand (L56 punkt 5):
-         udgaaede skjult, i produktion + annoncerede vist. Den saettes med
-         almindelige `checked`-attributter i HTML, saa den virker uden
-         JavaScript og kan nulstilles af en <button type="reset">. */
+      /* STATUS HAVDE en standardtilstand (L56 punkt 5: udgaaede skjult, i
+         produktion + annoncerede vist) - fjernet af BRIEF-uifix.md punkt 3
+         (spor/uifix, 2. sep 2026). JPK, ordret: "Baren paa katalogsiden
+         skal KUN vise de aktive filtre. som standard skal INGEN vaere
+         aktive." To fejl i én: to filtre var aktive ved indlaesning, OG
+         ingen af dem viste en chip (en aktiv, usynlig filtrering er vaerre
+         end en synlig). Status er derfor nu en facet SOM ALLE ANDRE -
+         ingen `mrk`, ingen `standard`, ingen `checked` ved indlaesning, og
+         dens vaerdier gaar gennem den samme generiske chip-mekanik som
+         vaegt/ip/land nedenfor i stedet for den tidligere INVERTEREDE
+         "skjult-X"-mekanik (se hovedStil() og valgListe herunder - begge
+         havde et status-saerspor, som er fjernet i samme spor). */
       navn: 'status',
       etiket: t('filter_status'),
-      mrk: t('filter_status_mrk'),
       vaerdier: (r) => [r.status],
       tekst: (v) => T['status_' + v],
       orden: ['i_produktion', 'annonceret', 'udgaaet'],
-      standard: new Set(['i_produktion', 'annonceret']),
     },
     {
       navn: 'land',
@@ -679,7 +665,6 @@ export function hovedStil(ctx) {
      kan tegnes uden at kunne taelle. */
   const valgRegler = [];
   for (const f of F) {
-    if (f.standard) continue; // status haandteres som UDELUKKELSE nedenfor
     // Samme begrundelse som §6a: naar JavaScript koerer, er skalaens tilstand
     // sliderens og ikke afkrydsningsfelternes, og chippen tegnes derfor af
     // assets/katalog.js med den vaerdi, laeseren faktisk har stillet paa.
@@ -695,20 +680,13 @@ export function hovedStil(ctx) {
     valgRegler.push(`.styr:has(#${id}:checked) [data-valg="${id}"],`);
     valgRegler.push(`.styr:has(#${id}:target) [data-valg="${id}"]{display:inline-flex}`);
   }
-  /* Status vender modsat: chippen fortaeller, hvad der er SKJULT - men KUN
-     for de vaerdier, standardtilstanden VISER (status.standard). For dem er
-     "unchecked" en aktiv AFVIGELSE fra standarden - et rigtigt valg. For
-     "udgaaet" (IKKE i standard) er "unchecked" derimod standarden selv -
-     ingen brugerhandling kan naa den tilstand, kun VAEK fra den. En chip
-     her ville altsaa vise noget, ingen har valgt (spor/valgbar, JPK 1. sep
-     2026: "baren skal KUN vise aktive filtre"). "74 af 77" forklares i
-     stedet af facet__tal i den (altid synlige) <summary> - se facetBlok(). */
+  // Status havde her et INVERTERET saerspor ("skjult-X" viser sig ved
+  // unchecked), fjernet af BRIEF-uifix.md punkt 3 sammen med `standard`-
+  // feltet paa facetten ovenfor. Status' checkbokse baerer samme
+  // `f-status`-klasse som enhver anden facet (se raekke()) og faar derfor
+  // AUTOMATISK den generiske chip-mekanik i loekken ovenfor - ingen egen
+  // kode noedvendig laengere.
   const status = F.find((f) => f.navn === 'status');
-  for (const v of status.liste) {
-    if (!status.standard.has(v)) continue;
-    const id = `f-status-${nogle(v)}`;
-    valgRegler.push(`.styr:not(:has(#${id}:checked)) [data-valg="skjult-${nogle(v)}"]{display:inline-flex}`);
-  }
 
   /* 6d. Sorteringen. To ting pr. sortering: kortenes orden og det aerlige
      savn-maerke paa dem, der ikke oplyser feltet. Alfabetisk har ingen regel -
@@ -728,24 +706,18 @@ export function hovedStil(ctx) {
      uden JavaScript (`:not([data-levende])`), fordi JavaScript regner tallene
      om og goer forbeholdet usandt. Se render()s note om maerkerne.
 
-     Status kraever sin egen betingelse: dens felter er krydset af i hvile, saa
-     "er der filtreret" betyder her "afviger fra standarden". */
+     Status havde her sin egen inverterede betingelse ("skjult standard-
+     vaerdi = filtreret"), fjernet af BRIEF-uifix.md punkt 3 - dens felter
+     er ikke laengere krydset af i hvile, saa den falder ind under den
+     generiske "har nogen krydset af" betingelse ligesom enhver anden
+     facet. */
   const filtreret = [];
   for (const f of F) {
-    if (f.standard) continue;
     filtreret.push(`.styr:not([data-levende]):has(.f-${f.navn}:checked)`);
     filtreret.push(`.styr:not([data-levende]):has(.f-${f.navn}:target)`);
   }
   filtreret.push('.styr:not([data-levende]):has(.f-eg:checked)');
   filtreret.push('.styr:not([data-levende]):has(.f-eg:target)');
-  for (const v of status.liste) {
-    const id = `f-status-${nogle(v)}`;
-    filtreret.push(status.standard.has(v)
-      // en standard-afkrydset vaerdi, der er slaaet FRA, er en filtrering
-      ? `.styr:not([data-levende]):not(:has(#${id}:checked))`
-      // en ikke-standard vaerdi, der er slaaet TIL, er ogsaa en filtrering
-      : `.styr:not([data-levende]):has(#${id}:checked)`);
-  }
   const omfang = `${filtreret.map((s) => `${s} [data-omfang]`).join(',\n')}{display:inline}\n`
     + `${filtreret.map((s) => `${s} [data-omfang-note]`).join(',\n')}{display:block}`;
 
@@ -815,11 +787,12 @@ export function render(ctx) {
   const omfangStandard = `<span class="taeller-omfang" data-omfang hidden> ${esc(t('taeller_standardvisning'))}</span>`;
 
   /* --- STANDARDVISNINGEN --------------------------------------------------
-     Hvor mange kort staar der, FOER laeseren roerer noget? Status-facetten er
-     krydset af paa i produktion + annonceret, saa svaret er ikke 77. Det
-     regnes her i stedet for at blive skrevet i haanden - tallet aendrer sig,
-     saa snart en robot skifter status. */
-  const iStandard = robotter.filter((r) => status.standard.has(r.status)).length;
+     Hvor mange kort staar der, FOER laeseren roerer noget? Foer BRIEF-uifix.md
+     punkt 3 (spor/uifix, 2. sep 2026) var status-facetten krydset af paa i
+     produktion + annonceret, saa svaret var 74, ikke 77. INGEN facet har
+     laengere en standardtilstand, saa standardvisningen ER hele kataloget -
+     tallet er derfor bare `alle`, ikke et separat, udregnet delmaengde. */
+  const iStandard = alle;
 
   /* --- TYPESKILTETS STEMPEL (JPK 1. sep 2026, punkt 2) ---------------------
      STOD FOER SOM FIRE FELTER (Type, Udgave, Poster, Oplyste felter). JPK
@@ -867,7 +840,6 @@ export function render(ctx) {
 
   const valgListe = [];
   for (const f of F) {
-    if (f.standard) continue;
     for (const v of f.liste) valgListe.push(valgChip(`f-${f.navn}-${nogle(v)}`, f.tekst(v)));
   }
   for (const k of K) valgListe.push(valgChip(`f-eg-${k.navn}`, t('eg_' + k.navn)));
@@ -886,25 +858,17 @@ export function render(ctx) {
       + `<button class="valg__fjern" type="button" data-valg-skala-ryd="${attr(f.navn)}">${kryds}`
       + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: f.etiket }))}</span></button></li>`);
   }
-  // Status vender modsat: chippen siger, hvad der er SKJULT - men KUN for de
-  // vaerdier, standardtilstanden viser. Se hovedStil()s begrundelse: en
-  // vaerdi der er skjult SOM STANDARD (i dag "udgaaet") faar aldrig en chip
-  // her, for dens "unchecked" er aldrig et brugervalg. Klassen er derfor
-  // almindelig "valg" - naar chippen VISER sig, er den altid en aktiv
-  // afvigelse, ikke et stille standardmaerke (spor/valgbar, JPK 1. sep 2026).
-  for (const v of status.liste) {
-    if (!status.standard.has(v)) continue;
-    const n = status.antal.get(v) ?? 0;
-    valgListe.push(`<li class="valg" data-valg="skjult-${attr(nogle(v))}">`
-      + `<span class="valg__navn">${esc(tf('valg_skjult', { navn: status.tekst(v), n }))}</span>`
-      + `<label class="valg__fjern" for="f-status-${attr(nogle(v))}">${kryds}`
-      + `<span class="kunskaerm">${esc(tf('valg_vis', { navn: status.tekst(v) }))}</span></label></li>`);
-  }
+  // Status havde her et INVERTERET saerspor ("skjult-X" chippen), fjernet af
+  // BRIEF-uifix.md punkt 3 (spor/uifix, 2. sep 2026) sammen med `standard`-
+  // feltet paa facetten og saersporet i hovedStil(). Status' vaerdier faar nu
+  // en almindelig chip fra loekken ovenfor, ligesom enhver anden facet.
 
   /* --- FACETGRUPPERNE ----------------------------------------------------- */
   const raekke = (f, v) => {
     const id = `f-${f.navn}-${nogle(v)}`;
-    const valgt = f.standard?.has(v) ? ' checked' : '';
+    // INGEN facet har en standardtilstand laengere (BRIEF-uifix.md punkt 3,
+    // spor/uifix, 2. sep 2026) - ingen checkbox er `checked` ved indlaesning.
+    const valgt = '';
     // "ikke oplyst" og "nej" er EGNE tilstande med egne maerker, aldrig et hul.
     const stand = v === 'ikke_oplyst' ? ' rk--uoplyst' : v === 'nej' ? ' rk--nej' : '';
     return `<div class="rk${stand}">`
@@ -1146,42 +1110,27 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
 </div>`;
 
   /* --- DEN OMREGNEDE PRIS PAA KORTET (L66) --------------------------------
-     PRAECEDENSEN ER L60's IMPERIALE OMREGNING, og formen er med vilje den
-     samme (side.mjs' omregningsMaerke): producentens eget tal staar foerst og
-     uroert i producentens egen valuta, vores omregning staar ved siden af med
-     et synligt maerke, og hele forklaringen - kildefigur, kurs, dato - ligger
-     i `title` og i `.kunskaerm`, saa den er der for baade mus og skaermlaeser
-     uden at fylde i en 232 px celle.
+     FJERNET af BRIEF-uifix.md punkt 5 (spor/uifix, 2. sep 2026): "katalog-
+     siden viser kun USD". Her stod foer en `prisMaerke()`, der viste
+     producentens EGEN valuta som hovedtal og vores USD-omregning ved siden
+     af med et synligt "≈"-maerke (samme form som L60's imperiale omregning).
+     JPK's ord var entydige: originalvalutaen forsvinder fra kortet - ikke
+     kun dens maerke, som punkt 2 fjernede, men TALLET selv. Kortets prisfelt
+     (se vaerdi() nedenfor) viser derfor nu prisen direkte i BASISVALUTA for
+     ALLE robotter, uanset hvad producenten selv skrev - og der er intet
+     sekundaert tal tilbage at maerke.
 
-     TRE TING GOER MAERKET AERLIGT, og de er alle tre bevidste:
-       - `≈` foran tallet. Et lighedstegn ville paastaa, at 78.000 CNY ER
-         11.608 USD; det var det den 31. august og er det ikke i dag.
-       - ORDET "omregnet" ved siden af. Tegnet alene kan overses, og et
-         omregnet beloeb, der laeses som producentens, er praecis den
-         sammenblanding regel 3 forbyder.
-       - INTET MAERKE PAA DE FIRE USD-PRISER. Unitree og Pudu skriver selv i
-         USD; der er ingen omregning at maerke, og et maerke ville paastaa en
-         handling, vi ikke har foretaget.
+     KILDEMAERKET BLIVER (briefets egen formulering, en bevidst afvigelse fra
+     regel 3's "en omregning har ingen selvstaendig kilde" - se vaerdi()
+     nedenfor for hvordan). En forklaring af SELVE omregningen (kildefigur,
+     kurs) er derimod IKKE flyttet med: den forklaring maatte navngive
+     originalvalutaen for at give mening, og den maa netop ikke staa paa
+     siden laengere - hverken synligt eller i skjult tekst, jf. acceptkrite-
+     riets "grep -o 'CNY' ... 0". Den fulde forklaring staar stadig paa
+     robottens egen side (punkt 6, uroert).
 
-     Ingen "fra kun", ingen valutavaelger: haard begraensning 1. Det omregnede
-     tal er en OPLYSNING om et beloeb, producenten har trykt - ikke et tilbud,
-     og ikke en pris, siden staar inde for. */
-  const prisMaerke = (r) => {
-    const p = prisIBasis(r);
-    if (!p || !p.omregnet) return '';
-    const post = r.felter?.pris;
-    const kildefigur = `${hjaelp.nformat(post.vaerdi)} ${p.valuta}`;
-    const forklaring = tf('pris_omregnet_forklaring', {
-      figur: kildefigur,
-      basis: BASISVALUTA,
-      dato: hjaelp.dformat(KURSER.kilde.dato),
-      kurs: kursPar(i18n, sprog),
-    });
-    return `<span class="pris-om" title="${attr(forklaring)}">`
-      + `<span class="pris-om__tal" aria-hidden="true">≈ ${esc(hjaelp.nformat(p.tal))} ${esc(BASISVALUTA)}</span>`
-      + `<span class="pris-om__ord" aria-hidden="true">${esc(t('pris_omregnet'))}</span>`
-      + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
-  };
+     Ingen "fra kun", ingen valutavaelger: haard begraensning 1 gaelder
+     uaendret - tallet er en OPLYSNING, ikke et tilbud. */
 
   /* --- KORTET -------------------------------------------------------------
      L56 punkt 7: billede + producent + produktnavn, intet andet. Katalogets
@@ -1263,7 +1212,18 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
     const kilder = hjaelp.kilder(r);
     const vaerdi = SORTERINGER.filter((s) => !s.standard && s.tal(r) !== null)
       .map((s) => {
-        const post = s.post(r);
+        // BRIEF-uifix.md punkt 5 (spor/uifix, 2. sep 2026): prisfeltet vises
+        // i BASISVALUTA uanset producentens egen valuta - "katalogsiden
+        // viser kun USD". `post` klones med `vaerdi`/`enhed` overskrevet til
+        // den omregnede USD-figur; alle andre felter (isaer `.kilde`) staar
+        // uroert, saa hjaelp.tal()s kildemaerke nedenfor STADIG peger paa
+        // producentens side - "kildemaerket bliver", briefets egen
+        // formulering, en bevidst afvigelse fra regel 3 ("en omregning har
+        // ingen selvstaendig kilde") for netop dette felt. Robotsidens eget
+        // prisfelt (robot.mjs) er UROERT af dette - punkt 6, uaendret.
+        const post = s.navn === 'pris'
+          ? { ...s.post(r), vaerdi: prisIBasis(r).tal, enhed: BASISVALUTA }
+          : s.post(r);
         const figur = hjaelp.tal(post, {
           kilder,
           hvorhen: url.robot(r.slug),
@@ -1272,7 +1232,7 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
         });
         return `<span class="kort__vaerdi kort__vaerdi--${s.navn}">`
           + `<span class="kort__vaerdi-mrk">${esc(t(s.feltnoegle))}</span>`
-          + `${figur}${s.navn === 'pris' ? prisMaerke(r) : ''}</span>`;
+          + `${figur}</span>`;
       }).join('');
 
     // Ét lag pr. listefacet, plus ÉT faelles lag til alle fem egenskabschips.

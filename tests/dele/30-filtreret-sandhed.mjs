@@ -158,14 +158,21 @@ export default async function koer(ctx) {
       /\.styr:has\(#f-eg-[a-z]+:checked\) \.lag-eg:not\(\[data-eg~="[a-z]+"\]\)/.test(stil),
       'uden :not()-formen ville to chips udvide udvalget i stedet for at indsnaevre det');
 
-    /* --- 4. Standardtilstanden staar i HTML, ikke i JavaScript -----------
-       L56 punkt 5: udgaaede skjult, i produktion + annoncerede vist. Den er
-       sat med `checked`-attributter, saa den gaelder ogsaa uden JavaScript -
-       og saa <button type="reset"> kan foere tilbage til den. */
-    const statusChecked = (html.match(/id="f-status-(i_produktion|annonceret)"[^>]*checked/g) || []).length;
-    ok(`30.7 ${rel}: status-standarden staar som checked i HTML (L56 punkt 5)`,
-      statusChecked === 2 && !/id="f-status-udgaaet"[^>]*checked/.test(html),
-      `${statusChecked} af 2 forvalgte, og udgaaet maa ikke vaere krydset af`);
+    /* --- 4. INGEN facet har en standardtilstand (BRIEF-uifix.md punkt 3,
+       spor/uifix, 2. sep 2026, erstatter L56 punkt 5) --------------------
+       JPK, ordret: "som standard skal INGEN [filtre] vaere aktive." Status
+       havde foer denne rettelse to `checked`-vaerdier (i produktion,
+       annonceret) og en tredje, aktivt SKJULT (udgaaet) - to fejl i én, for
+       ingen af de to aktive filtre viste en chip. Nu er alle tre status-
+       checkbokse UNCHECKED ved indlaesning, ligesom enhver anden facet, og
+       kataloget viser alle 77 robotter i stedet for 74. */
+    const statusChecked = (html.match(/id="f-status-(i_produktion|annonceret|udgaaet)"[^>]*checked/g) || []).length;
+    ok(`30.7 ${rel}: INGEN status-vaerdi er checked i HTML (BRIEF-uifix.md punkt 3)`,
+      statusChecked === 0, `${statusChecked} af 3 var checked, forventede 0`);
+    // REVERT-BEVIS: samme regex FANGER en syntetisk streng med én checked.
+    ok(`30.7.revert ${rel}: samme optaelling fanger en checked status-vaerdi`,
+      (('id="f-status-udgaaet" type="checkbox" checked'
+        .match(/id="f-status-(i_produktion|annonceret|udgaaet)"[^>]*checked/g)) || []).length === 1);
     ok(`30.7b ${rel}: NULSTIL er en reset-knap, saa standarden kan naas uden JavaScript`,
       /<button class="nulstil" type="reset"/.test(html),
       'et link til #alle kan kun rydde :target, ikke afkrydsningerne');

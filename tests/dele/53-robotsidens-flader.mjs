@@ -24,10 +24,15 @@
  *      a) anvendelse-sektionens tre "per the manufacturer"-gentagelser er
  *         skaaret til én saetning ("This category is not our assessment.").
  *      b) forhandler-forbeholdet ("We are not a dealer." / "Vi er ikke
- *         forhandler.") stod BAADE i produktside-sektionen og i sidefoden.
- *         Sidefodens (T.ingen_forhandler, ALLE sider, uafhaengigt af dette
- *         spor) er nu den ENESTE, og skal derfor staa PRAECIS én gang pr.
- *         side.
+ *         forhandler.") stod BAADE i produktside-sektionen og i sidefoden;
+ *         produktside-sektionens kopi blev fjernet af DETTE spor, saa
+ *         sidefodens (T.ingen_forhandler, ALLE sider) blev den ENESTE.
+ *      3b OMSKREVET af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7):
+ *      sidefoden er nu fjernet HELT (JPK, i interview, med tabet forelagt -
+ *      ikke kun forhandlerlinjen, hele foden). Forbeholdet staar derfor 0
+ *      gange paa en robotside i dag, ikke 1 - det staar KUN paa Om os
+ *      (om-os.mjs:300, sin egen linje, uden for foden). Se
+ *      fund/FUND-uifix.md for maalingen/konfidensen.
  *
  * REVERT-BEVIS (CLAUDE.md's krav): hver strukturel paastand proeves ogsaa
  * mod en haandskrevet, bevidst OEDELAGT streng, og proeven kraever, at
@@ -154,13 +159,14 @@ export default async function koer(ctx) {
       typeof T.anvendelse_forklaring === 'string' && T.anvendelse_forklaring.length > 0);
   }
 
-  /* --- 3b. forhandler-forbeholdet staar PRAECIS én gang pr. side --------- */
+  /* --- 3b. forhandler-forbeholdet staar 0 gange pr. robotside (foden er
+     vaek, spor/uifix punkt 7) ------------------------------------------- */
 
   for (const s of SPROG) {
     const T = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', `${s}.json`), 'utf8'));
     const sider = alleFiler.filter((f) => f.sprog === s);
-    const afvigende = sider.filter((f) => f.html.split(T.ingen_forhandler).length - 1 !== 1);
-    ok(`53.11.${s}: forhandler-forbeholdet ("${T.ingen_forhandler.slice(0, 30)}…") staar PRAECIS 1 gang paa alle ${sider.length} sider`,
+    const afvigende = sider.filter((f) => f.html.split(T.ingen_forhandler).length - 1 !== 0);
+    ok(`53.11.${s}: forhandler-forbeholdet ("${T.ingen_forhandler.slice(0, 30)}…") staar 0 gange paa alle ${sider.length} robotsider (foden er vaek)`,
       afvigende.length === 0, `afveg paa: ${afvigende.map((f) => f.fil).slice(0, 3).join(', ')}`);
   }
 

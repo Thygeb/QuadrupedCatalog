@@ -1,6 +1,9 @@
 /**
  * 45-skala-og-kurs.mjs — nyttelast- og prisskalaen (L65c) og den omregnede
  * pris (L66). Bygget af spor/filter 1. sep 2026.
+ * PUNKT 2/3 OMSKREVET af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 5,
+ * "katalogsiden viser kun USD") - ikke slettet, jf. CLAUDE.md "ret
+ * assertions, slet dem ikke". Se de to punkter nedenfor for den nye form.
  *
  * HVAD DELEN VOGTER, OG HVORFOR NETOP DET:
  *
@@ -12,15 +15,26 @@
  *    se ens ud i enhver browser med JavaScript og tavst miste et filter i dem
  *    uden.
  *
- * 2. AT INTET KURSTAL STAAR I KODEN. En vekselkurs er et tal paa siden og skal
- *    have en kilde som ethvert andet (haard begraensning 2). Delen kraever, at
- *    kursen kommer fra data/kurser.json MED udgiver, URL og dato, og at baade
- *    kursen og datoen kan LAESES paa den byggede side.
+ * 2. AT INTET KURSTAL STAAR I KODEN, OG AT KILDEN KAN NAAS (haard begraensning
+ *    2). Kursen kommer fra data/kurser.json MED udgiver, URL og dato. FOER
+ *    punkt 5 stod hvert enkelt kurstal (ogsaa CNY's) ordret paa katalogsiden;
+ *    det goer det ikke laengere - originalvalutaen (og ethvert tal, der
+ *    naevner den ved navn) er fjernet HELT fra katalogsiden, ikke kun dens
+ *    maerke. Det, denne del stadig kraever paa KATALOGSIDEN, er derfor kun
+ *    URL'en og datoen; de fulde kurstal med alle cifre staar fortsat i
+ *    data/kurser.json og paa robottens EGEN side (BRIEF-uifix.md punkt 6,
+ *    uroert af dette spor, ikke denne dels ansvar at proeve).
  *
- * 3. AT OMREGNINGEN KAN SES SOM OMREGNING (L60's praecedens). Producentens
- *    eget beloeb skal staa uroert; vores tal skal baere et maerke. En pris,
- *    producenten selv skrev i USD, maa IKKE baere maerket - der er ingen
- *    omregning at maerke.
+ * 3. AT KATALOGSIDEN VISER PRISEN I ÉN VALUTA, IKKE TO (BRIEF-uifix.md punkt
+ *    5, erstatter den gamle L60-praecedens for netop dette felt). JPK, ordret:
+ *    "Katalogsiden [...] kun USD." Foer punkt 5 stod producentens eget beloeb
+ *    uroert paa kortet med et synligt "≈"-omregningsmaerke ved siden af (L60's
+ *    form, samme som imperial-omregningen); nu viser kortet KUN den omregnede
+ *    USD-figur, for ALLE priser, uanset original valuta - og baerer INTET
+ *    omregningsmaerke, fordi der intet sekundaert tal er at maerke. Kilde-
+ *    maerket (bogstavet, ikke "≈"-badgen) staar stadig paa figuren - en
+ *    bevidst afvigelse fra regel 3 ("en omregning har ingen selvstaendig
+ *    kilde"), som briefet selv kraever ("kildemaerket bliver").
  *
  * 4. AT DE UOPLYSTE HAR EN EGEN, SYNLIG TILSTAND (haard begraensning 5). De 12
  *    uden nyttelast og de 66 uden pris hverken forsvinder tavst eller ser ud
@@ -80,21 +94,17 @@ export default async function koer(ctx) {
       html.includes(kurser.kilde.url),
       'et kurstal uden vej tilbage til kilden er en paastand, ikke en oplysning');
 
-    /* KURSEN SELV, MED ALLE SINE CIFRE. Sidens faelles talformatering skaerer
-       ved tre decimaler; ECB's CNY-kurs har fire. Staar der 7,792 i stedet for
-       7,7922, er det en ANDEN kurs end kildens - ved siden af et link, hvor
-       enhver kan se at de to ikke stemmer. Derfor tjekkes hvert kurstal
-       ordret, med baade komma og punktum som decimaltegn. */
-    for (const [valuta, tal] of Object.entries(kurser.per_euro)) {
-      if (valuta === 'EUR') continue;
-      const cifre = String(tal);
-      const komma = cifre.replace('.', ',');
-      ok(`45.9.${sprog}.${valuta}: kursen staar med alle sine cifre`,
-        html.includes(cifre) || html.includes(komma),
-        `hverken "${cifre}" eller "${komma}" staar paa siden - er den blevet afrundet?`);
-    }
+    /* 45.9 (kurstal med alle cifre) er FJERNET af BRIEF-uifix.md punkt 5,
+       2. sep 2026, ikke svaekket: den proevede noejagtigt det, punkt 5
+       forbyder. Et kurstal som CNY's "7,7922" navngiver sin valuta ved
+       siden af (samme moenster som "1 EUR = X CNY") - og CNY maa ikke staa
+       paa katalogsiden i NOGEN form, synlig eller skjult (acceptkriteriet
+       er "grep -o 'CNY' ... 0" paa HELE filen). De fulde cifre findes
+       stadig i data/kurser.json (45.1-45.7 ovenfor) og paa robottens egen
+       side - ingen af dem er denne dels paastand. REVERT-BEVIS for selve
+       forbuddet staar i 45.11 nedenfor.
 
-    /* Datoen: kursen var sand ÉN dag, og laeseren skal kunne se hvilken.
+       Datoen: kursen var sand ÉN dag, og laeseren skal kunne se hvilken.
        SKILLETEGNET ER SPROGETS, ikke vores: hjaelp.dformat() bruger sidens
        locale, saa dansk skriver 31.08.2026 og engelsk 31/08/2026. Foerste
        udgave af denne paastand kraevede punktummer og var derfor roed paa /en/
@@ -107,40 +117,48 @@ export default async function koer(ctx) {
       `hverken ${dag}.${maaned}.${aar}, ${dag}/${maaned}/${aar} eller ${kurser.kilde.dato} staar paa siden`);
 
     /* ==================================================================
-       3. OMREGNINGEN SKAL SES SOM OMREGNING (L60's praecedens)
+       3. KATALOGSIDEN VISER PRISEN I ÉN VALUTA (BRIEF-uifix.md punkt 5)
        ================================================================== */
+    // 45.11: den GAMLE synlige "≈ X USD"-badge (class="pris-om") findes
+    // slet ikke laengere - der er intet sekundaert tal at maerke, naar
+    // kortet kun viser ét. REVERT-BEVIS: samme optaelling FANGER en
+    // syntetisk streng, der stadig baerer maerket.
     const maerker = (html.match(/class="pris-om"/g) || []).length;
-    ok(`45.11.${sprog}: der ER omregnede priser paa siden`, maerker > 0,
-      'uden maerker er enten omregningen eller visningen faldet ud');
+    ok(`45.11.${sprog}: den gamle "pris-om"-badge findes IKKE laengere paa siden`,
+      maerker === 0, `fandt ${maerker}`);
+    ok(`45.11.revert.${sprog}: samme optaelling fanger en syntetisk "pris-om"-streng`,
+      (('<span class="pris-om">'.match(/class="pris-om"/g) || []).length) === 1);
 
-    /* Maerket maa KUN staa paa de priser, producenten ikke selv skrev i
-       basisvalutaen. Tallet udledes af siden selv: hvert kort med en pris
-       baerer producentens valuta i sin egen figur. */
+    /* 45.12/45.13: HVERT kort med en pris viser den i basisvalutaen (USD) -
+       ingen undtagelser, og ingen anden 3-bogstavs valutakode staar noget
+       sted i en pris-kortcelle. */
     const prisKort = [...html.matchAll(/class="kort__vaerdi kort__vaerdi--pris"[\s\S]*?<\/span><\/span>/g)]
       .map((m) => m[0]);
+    ok(`45.12.${sprog}: der er prissatte kort at maale paa`,
+      prisKort.length > 0, `${prisKort.length} kort`);
     let iBasis = 0;
-    let omregnede = 0;
+    let andenValuta = 0;
     for (const k of prisKort) {
-      const harMaerke = k.includes('class="pris-om"');
       const erBasis = new RegExp(`class="enhed">${kurser.basis}<`).test(k);
-      if (erBasis) {
-        iBasis++;
-        ok(`45.12.${sprog}: en pris i ${kurser.basis} baerer INTET omregningsmaerke`,
-          !harMaerke, 'der er ingen omregning at maerke - maerket ville paastaa en handling, vi ikke har foretaget');
-      } else if (harMaerke) omregnede++;
+      if (erBasis) iBasis++;
+      // ANY 3-bogstavs valutakode i cellen, der ikke ER basisvalutaen -
+      // fanger baade "enhed"-feltet og enhver skjult tekst i samme celle.
+      if (/class="enhed">(?!USD<)[A-Z]{3}</.test(k)) andenValuta++;
     }
-    ok(`45.13.${sprog}: begge slags priser findes at maale paa`,
-      iBasis > 0 && omregnede > 0, `${iBasis} i ${kurser.basis}, ${omregnede} omregnede`);
+    ok(`45.13.${sprog}: ALLE prissatte kort viser ${kurser.basis} (ingen anden valuta tilbage)`,
+      iBasis === prisKort.length && andenValuta === 0,
+      `${iBasis} af ${prisKort.length} i ${kurser.basis}, ${andenValuta} med en anden valutakode`);
+    // REVERT-BEVIS: samme moenster FANGER en syntetisk celle med CNY.
+    ok(`45.13.revert.${sprog}: samme moenster fanger en syntetisk celle med en anden valuta`,
+      /class="enhed">(?!USD<)[A-Z]{3}</.test('<span class="enhed">CNY</span>'));
 
-    /* Producentens eget beloeb maa ALDRIG forsvinde bag vores. Maalt paa
-       selve kortene: hvert omregnet kort skal baere BAADE en fremmed valuta
-       og vores basisvaluta. */
-    for (const k of prisKort) {
-      if (!k.includes('class="pris-om"')) continue;
-      ok(`45.14.${sprog}: det omregnede kort baerer stadig producentens egen valuta`,
-        /class="enhed">(?!USD<)[A-Z]{3}</.test(k) && k.includes(kurser.basis),
-        'producentens tal er kilden; omregningen er vores');
-    }
+    /* 45.14: kildemaerket (bogstavet, ikke "≈"-badgen) staar STADIG paa
+       prisfiguren - briefets eksplicitte krav ("kildemaerket bliver"), en
+       bevidst afvigelse fra regel 3 for netop dette felt (se filhovedet). */
+    let medKildemaerke = 0;
+    for (const k of prisKort) if (/class="kildemaerke[^"]*"/.test(k)) medKildemaerke++;
+    ok(`45.14.${sprog}: prisfiguren baerer stadig et kildemaerke paa alle kort med kilde`,
+      medKildemaerke > 0, `${medKildemaerke} af ${prisKort.length}`);
 
     /* ==================================================================
        4. SKALAEN: to oploesninger, og den grove skal kunne staa alene

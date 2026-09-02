@@ -104,6 +104,12 @@ export default async function koer(ctx) {
     !forsideHTML.includes('billednote'));
   ok('5: teksten om manglende skriftlig tilladelse er vaek fra kataloget',
     !katalogHTML.includes('uden skriftlig tilladelse'));
-  ok('5: sidefodens forhandler-fodnote staar stadig (produktkrav, ikke S1)',
-    forsideHTML.includes('Vi er ikke forhandler'));
+  // OMVENDT af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7): sidefoden,
+  // som baar forhandler-fodnoten, er fjernet HELT (JPK, i interview, med
+  // tabet forelagt). Fodnotens EGEN tekst lever videre paa Om os
+  // (om-os.mjs:300, en linje uden for foden, uroert af punkt 7) - men den
+  // staar ikke laengere paa katalogsiden/forsiden, som denne assertion
+  // maalte. Se fund/FUND-uifix.md for konfidens/maaling.
+  ok('5.revert: forhandler-fodnoten er IKKE laengere paa forsiden (foden er fjernet)',
+    !forsideHTML.includes('Vi er ikke forhandler'));
 }

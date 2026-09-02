@@ -14,7 +14,6 @@
   "fejl404_knap": "Gå til kataloget",
   "fejl404_beskrivelse": "Adressen findes ikke. Gå videre til kataloget over firbenede robotter.",
 
-  "udgiver": "Udgivet af KeyResearch",
   "ingen_forhandler": "Vi er ikke forhandler af nogen robot på denne side, og vi modtager ikke betaling fra producenterne.",
 
   "spring_til_indhold": "Spring til indholdet",
@@ -25,7 +24,6 @@
   "nav_sammenligning": "Sammenligning",
   "nav_producenter": "Producenter",
   "til_katalog": "Tilbage til kataloget",
-  "andet_sprog": "In English",
 
   "forside_overskrift": "Firbenede robotter, felt for felt",
   "forside_lede": "{n} modeller fra {p} producenter. Hvert tal har kilde og hentedato, og hvert hul er lige så synligt som tallet.",
@@ -171,6 +169,7 @@
   "interval_til": "til",
   "imperial_forklaring": "Producentens eget imperiale tal.",
   "enhed_skift_etiket": "Imperiale enheder",
+  "enhed_skift_etiket_metrisk": "Metriske enheder",
   "enhed_skift_forklaring": "Imperiale tal er vores egen omregning og bærer mærket \"omregnet\". Tal uden det mærke er producentens egne. Kildebogstavet hører altid til det metriske tal — en omregning har ingen selvstændig kilde.",
   "enhed_omregnet": "omregnet",
   "enhed_omregnet_forklaring": "Vores omregning fra {figur}. Producenten oplyser ikke selv et imperialt tal, så omregningen har ingen selvstændig kilde.",
@@ -188,7 +187,6 @@
   "operator_pm_laest": "plus/minus",
 
   "taethed_titel": "Specifikationstæthed",
-  "taethed_forklaring": "Hvor mange af skemaets felter producenten selv oplyser. Det måler producentens åbenhed, ikke robottens kvalitet.",
   "taethed_naevner": "Ud af skemaets {b} felter. Samme nævner for alle robotter.",
   "taethed_udfyldte": "udfyldte felter",
   "skema_titel": "Alle felter i skemaet",
@@ -345,9 +343,6 @@
   "filter_udtraek": "Filtre",
   "taeller_standardvisning": "i standardvisningen",
   "valg_fjern": "Fjern filteret {navn}",
-  "valg_skjult": "{navn} skjult ({n})",
-  "valg_vis": "Vis også {navn}",
-  "filter_status_mrk": "standard: udgåede skjult",
   "filter_egenskaber": "Egenskaber",
   "filter_egenskaber_mrk": "ja · nej · ikke oplyst",
   "filter_certificering": "Certificeringer",
@@ -370,7 +365,7 @@
   "savn_pris": "Pris ikke oplyst",
   "savn_nyttelast": "Nyttelast ikke oplyst",
   "savn_hastighed": "Hastighed ikke oplyst",
-  "sortering_pris_note": "Priserne er omregnet til {basis} med Den Europæiske Centralbanks referencekurs for {dato}, så de {n} oplyste priser kan ordnes i én række i stedet for tre valutabunker, der ikke kunne sammenlignes. Producentens eget beløb og valuta står uændret på kortet; det omregnede tal står ved siden af og er mærket som vores.",
+  "sortering_pris_note": "Priserne vises i {basis}, omregnet med Den Europæiske Centralbanks referencekurs for {dato}, så de {n} oplyste priser kan ordnes i én række i stedet for flere valutabunker, der ikke kunne sammenlignes. Kildemærket peger stadig på producentens egen side, hvor beløbet står i dens egen valuta.",
   "seneste_titel": "Seneste modeller",
   "seneste_aar_ord": "Seneste udgivelsesår",
   "seneste_antal": "{n} modeller udgivet i {aar}",
@@ -434,10 +429,7 @@
 
   "filter_pris": "Pris",
   "filter_pris_mrk": "{n} af {m} oplyser",
-  "filter_pris_note": "De {n} oplyste priser er omregnet til {basis} med Den Europæiske Centralbanks referencekurs for {dato} ({kurser}). Producentens eget beløb og valuta står uændret på kortet — omregningen er vores. De {u} robotter uden oplyst pris står som deres egen række; de er hverken billige eller dyre.",
-  "pris_omregnet": "omregnet",
-  "pris_omregnet_forklaring": "Vores omregning af {figur} til {basis} med Den Europæiske Centralbanks referencekurs for {dato}: {kurs}. Producenten oplyser ikke selv et beløb i {basis}, så omregningen har ingen selvstændig kilde, og den var kun sand den dag.",
-  "pris_kurs_par": "1 EUR = {tal} {valuta}",
+  "filter_pris_note": "De {n} oplyste priser vises i {basis}, omregnet med Den Europæiske Centralbanks referencekurs for {dato}. Kildemærket peger stadig på producentens egen side, hvor beløbet står i dens egen valuta. De {u} robotter uden oplyst pris står som deres egen række; de er hverken billige eller dyre.",
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
   "kurs_kilde": "Kurs: {udgiver}, {navn}, {dato}.",
 

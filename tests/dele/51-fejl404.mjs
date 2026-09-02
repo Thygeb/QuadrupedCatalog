@@ -72,15 +72,18 @@ export default async function koer(ctx) {
   if (!fs.existsSync(rodFil) || Object.keys(sider).length !== SPROG.length) return;
   const rodSide = fs.readFileSync(rodFil, 'utf8');
 
-  // <main> alene til tekstpaastande - fodens ingen_forhandler-linje findes paa
-  // HVER side, saa en soegning i hele dokumentet ville vaere groen uanset hvad.
+  // <main> alene til tekstpaastande (bruges af de resterende sektioner
+  // nedenfor). FOER spor/uifix (2. sep 2026, BRIEF-uifix.md punkt 7) stod
+  // ingen_forhandler-linjen OGSAA i en delt sidefod paa HVER side; foden er
+  // nu fjernet helt (51.2 nedenfor proever netop dette).
   const hovedAf = (html) => {
     const a = html.indexOf('<main');
     const b = html.indexOf('</main>');
     return a >= 0 && b > a ? html.slice(a, b) : '';
   };
 
-  /* --- 2. sitets chrome er der (topbar, sprogskifter, fod) ---------------- */
+  /* --- 2. sitets chrome er der (topbar, sprogskifter - IKKE laengere en
+     fod, spor/uifix punkt 7) ------------------------------------------- */
   for (const s of SPROG) {
     const T = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', `${s}.json`), 'utf8'));
     ok(`51.2.${s}: <html lang="${s}">`, new RegExp(`<html lang="${s}"`).test(sider[s]));
@@ -92,10 +95,16 @@ export default async function koer(ctx) {
       /class="daek__navn"/.test(sider[s]));
     ok(`51.2.${s}: header-sprogskifteren (DA/EN) staar paa siden`,
       /class="daek__sprogkode"/.test(sider[s]));
-    ok(`51.2.${s}: fodens haarde linje ("ingen_forhandler") staar paa siden`,
-      sider[s].includes(T.ingen_forhandler));
-    ok(`51.2.${s}: fodens sprogskifte-laenke ("andet_sprog") staar paa siden`,
-      sider[s].includes(T.andet_sprog));
+    // OMVENDT af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7): fodens
+    // haarde linje stod her, fordi fodens ingen_forhandler-linje foer stod
+    // paa HVER side. Foden er fjernet HELT (JPK, i interview, med tabet
+    // forelagt) - linjen findes nu KUN paa Om os (om-os.mjs:300, uden for
+    // foden), ikke paa 404-siden. T.andet_sprog ("In English"/"På dansk")
+    // var UDELUKKENDE fodens egen sprogskifte-tekst og er fjernet fra
+    // da.json/en.json - sprogskiftet er allerede proevet to linjer ovenfor
+    // via topbarens "daek__sprogkode".
+    ok(`51.2.${s}: fodens haarde linje ("ingen_forhandler") staar IKKE paa 404-siden (foden er vaek)`,
+      !sider[s].includes(T.ingen_forhandler));
   }
   // REVERT-BEVIS: en side UDEN chrome (kun <main>, ingen <header>/<footer>)
   // skal fejle NOEJAGTIG samme fire regler. Beviser, at 51.2-reglerne rent

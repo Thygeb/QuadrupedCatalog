@@ -1,7 +1,9 @@
 /**
  * tests/dele/57-doed-css.mjs — spor/doedcss, 1. sep 2026.
+ * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4) -> 18 (punkt 5)
+ * -> 20 (punkt 7).
  *
- * Laaser resultatet af 66 -> 15 doede CSS-klasser. Skal FEJLE, hvis en
+ * Laaser resultatet af 66 -> 20 doede CSS-klasser. Skal FEJLE, hvis en
  * fjernet klasse (eller en helt ny, uafhaengig doed klasse) sniger sig ind
  * i assets/system.css eller assets/generator.css igen.
  *
@@ -25,12 +27,36 @@
  *      16 + 31), kort-navn/-krop/-hoved/-billed/-invit (test 14's 5c +
  *      test 16), filtre (test 31.8) og gitter (test 16) er alle laast saadan
  *      i FIRE testfiler, dette spor ikke ejer (CLAUDE.md, DIT FILEJERSKAB).
+ *   4. pris-om__ord (spor/uifix, 2. sep 2026, BRIEF-uifix.md punkt 2): JPK
+ *      bad om, at det synlige "omregnet"-ord paa katalogsidens priskort
+ *      skulle vaek. tools/skabelon/katalog.mjs holdt op med at skrive
+ *      class="pris-om__ord" (forklaringen lever videre i .kunskaerm) - men
+ *      assets/system.css er UDEN FOR spor/uifix' filejerskab (CLAUDE.md,
+ *      "Du maa ikke roere: assets/*.css"), saa CSS-reglen for klassen staar
+ *      tilbage doed. Dette er en TILSIGTET foelge af en produktbeslutning,
+ *      ikke en regression - modsat de tre punkter ovenfor er den ikke fundet
+ *      via en detektor-svaghed, men skabt af selve rettelsen. Fjernes CSS-
+ *      reglen i et senere spor med adgang til stilarkene, fjern klassen
+ *      herfra i samme spor.
+ *   5. pris-om, pris-om__tal (samme spor, BRIEF-uifix.md punkt 5, samme dag):
+ *      "katalogsiden viser kun USD" gjorde HELE den omregnede-pris-badge
+ *      paa kortet overfloedig, ikke kun dens ord - kortets prisfelt viser nu
+ *      selve USD-tallet direkte (med kildemaerke, se katalog.mjs), saa der
+ *      er intet sekundaert "≈ X USD"-tal tilbage at style. Samme graense som
+ *      punkt 4: assets/system.css er uden for filejerskabet, saa de to
+ *      CSS-regler staar doede tilbage af samme grund.
+ *   6. fod, haard (samme spor, BRIEF-uifix.md punkt 7, samme dag): HELE
+ *      <footer class="fod"> er fjernet fra tools/skabelon/side.mjs (JPK, i
+ *      interview, med tabet forelagt). ".fod" var footerens egen ramme;
+ *      ".haard" ("haard" formatering, IKKE det uroerte ".om-haard" paa Om
+ *      os) var kun brugt paa footerens forhandler-linje. Samme graense
+ *      igen: assets/system.css er uden for filejerskabet.
  *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
- * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 15,
+ * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 20,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 15 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 20 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -38,8 +64,9 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const BESKYTTET = [
-  'billedmaerke', 'filtre', 'gitter', 'grund', 'kort-billed', 'kort-hoved',
-  'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter', 'prik--klip',
+  'billedmaerke', 'filtre', 'fod', 'gitter', 'grund', 'haard', 'kort-billed',
+  'kort-hoved', 'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter',
+  'prik--klip', 'pris-om', 'pris-om__ord', 'pris-om__tal',
   'saml-fotofelt--uoplyst', 'saml-raekke--tavs', 'saml-svar__m--tavs',
   'stribe--kompakt',
 ].sort();
@@ -94,7 +121,7 @@ export default async function koer(ctx) {
   const iJs = raaDoede.filter((c) => new RegExp(`['"\`]${c.replace(/-/g, '\\-')}['"\` ]`).test(js));
   const aegteDoede = raaDoede.filter((c) => !iJs.includes(c)).sort();
 
-  ok(`57.1: aegte doede klasser er PRAECIS de 15 kendte, beskyttede undtagelser (fandt ${aegteDoede.length}: ${aegteDoede.join(', ') || 'ingen'})`,
+  ok(`57.1: aegte doede klasser er PRAECIS de ${BESKYTTET.length} kendte, beskyttede undtagelser (fandt ${aegteDoede.length}: ${aegteDoede.join(', ') || 'ingen'})`,
     aegteDoede.length === BESKYTTET.length && aegteDoede.every((c, i) => c === BESKYTTET[i]),
     `forventede praecis: ${BESKYTTET.join(', ')}`);
 }
