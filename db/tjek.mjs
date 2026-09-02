@@ -106,9 +106,80 @@ function traekBuildTal(ud) {
   return { sider: Number(sider[1]), medKilde: Number(kilder[1]), udenKilde: Number(kilder[2]) };
 }
 
+/* -------------------------------------------------------- argumenter (D1) */
+
+/** Samme "--noegle" / "--noegle=vaerdi"-form som tools/validate.mjs's
+ *  laesFlag — ikke importeret derfra, for at tjek.mjs ikke faar en ny
+ *  koblingsvej til validate.mjs (den kaldes i forvejen kun som subprocess). */
+function laesFlag(argv) {
+  const flag = {};
+  for (const a of argv) {
+    if (!a.startsWith('--')) continue;
+    const i = a.indexOf('=');
+    if (i === -1) flag[a.slice(2)] = true;
+    else flag[a.slice(2, i)] = a.slice(i + 1);
+  }
+  return flag;
+}
+
+/** (slug, producent)-par for alle YAML-filer i data/robots/ — ren lokal
+ *  laesning. INGEN database, INGEN .env: bruges af --liste og --kun, som
+ *  begge skal kunne svare uden at vente paa eksporten. */
+function laesProducenter() {
+  const mappe = path.join(ROD, 'data/robots');
+  return fs.readdirSync(mappe).filter((f) => /\.ya?ml$/.test(f)).sort().map((f) => {
+    const slug = f.replace(/\.ya?ml$/, '');
+    const doc = laesParsetNormaliseret(path.join(mappe, f));
+    return { slug, producent: String(doc.producent ?? '') };
+  });
+}
+
+/** --liste: producenter faldende efter antal robotter, "13  Unitree Robotics"
+ *  (antal, to mellemrum, navn). Ingen eksport, ingen .env — exit 0 straks. */
+function koerListe() {
+  const poster = laesProducenter();
+  const taelling = new Map();
+  for (const { producent } of poster) taelling.set(producent, (taelling.get(producent) ?? 0) + 1);
+  const raekker = [...taelling.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'da'));
+  for (const [navn, antal] of raekker) console.log(`${antal}  ${navn}`);
+  return 0;
+}
+
+/** Eksakt match paa producent, trim + case-uafhaengigt (Galileo (Tianjin)
+ *  osv. kan indeholde mellemrum og parenteser — der matches paa hele
+ *  strengen, ikke ord for ord). match er null ved ukendt navn; gyldige er
+ *  de kendte navne, brugt til fejlbeskeden. */
+function findProducent(oenske, poster) {
+  const soeg = String(oenske ?? '').trim().toLowerCase();
+  const navne = [...new Set(poster.map((p) => p.producent))].sort((a, b) => a.localeCompare(b, 'da'));
+  const match = navne.find((n) => n.trim().toLowerCase() === soeg) ?? null;
+  const egneSlugs = match ? new Set(poster.filter((p) => p.producent === match).map((p) => p.slug)) : null;
+  return { match, egneSlugs, gyldige: navne };
+}
+
 /* --------------------------------------------------------------- main */
 
 function hoved() {
+  const flag = laesFlag(process.argv.slice(2));
+
+  if (flag['liste']) return koerListe();
+
+  let kunProducent = null;
+  let egneSlugs = null;
+  if (flag['kun'] !== undefined) {
+    const oenske = flag['kun'] === true ? '' : String(flag['kun']);
+    const poster = laesProducenter();
+    const { match, egneSlugs: es, gyldige } = findProducent(oenske, poster);
+    if (!match) {
+      console.error(`Ukendt producent: "${oenske}".`);
+      console.error(`Gyldige producenter (${gyldige.length}):`);
+      for (const g of gyldige) console.error(`  ${g}`);
+      return 2;
+    }
+    kunProducent = match;
+    egneSlugs = es;
+  }
+
   console.log('1/4  node db/eksporter.mjs --fra-db --ud=db/.tmp/tjek-eksport ...');
   fs.rmSync(EKSPORT_MAPPE, { recursive: true, force: true });
   koer(['db/eksporter.mjs', '--fra-db', `--ud=${EKSPORT_MAPPE}`]);
