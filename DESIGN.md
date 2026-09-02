@@ -96,29 +96,65 @@ components:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek}"
     rounded: "{rounded.hjoerne}"
-  videre:
-    backgroundColor: "{colors.blaek}"
-    textColor: "#FFFFFF"
-    rounded: "{rounded.hjoerne}"
-    padding: "0 18px"
-    height: "46px"
-  videre-hover:
-    backgroundColor: "{colors.accent}"
-    # L76: her stod "#FFFFFF" = 1,66 : 1. Tekst PAA accent er altid blaek.
-    textColor: "{colors.blaek}"
-  videre-stille:
+  # KNAPPEN (L77, spor/knap, 2. sep 2026): ÉN primitiv med varianter.
+  # Her stod foer videre / videre-hover / videre-stille / nulstil - fire af
+  # de elleve knapudtryk, sitet talte. Grundformen taler nu TYPESKILT.
+  #
+  # DEN GAMLE "nulstil"-post var DIREKTE FORKERT, og fejlen er laererig:
+  # den stod her med textColor blaek2 og height 44px. I koden var den
+  # color:var(--paafod) (= eloxgraa, en LYS forgrund til en MOERK flade) og
+  # havde slet ingen height. En laeser af denne fil ville altsaa tro, at
+  # nulstil var en lys-flade-knap - og det var praecis den antagelse, der
+  # kostede spor/saml3 en knap paa 1,16:1 dagen foer L77.
+  knap:
+    # Grundformen baerer INGEN farve. Det er sporets vigtigste beslutning:
+    # en .knap uden flade-variant arver den flade, den staar paa, og kan
+    # derfor aldrig blive usynlig ved et uheld.
     backgroundColor: "transparent"
-    # L76: her stod "{colors.accent}" paa en gennemsigtig (= lys) flade,
-    # altsaa 1,38 : 1. Accent er baggrund og markoer, aldrig tekst paa lys.
-    textColor: "{colors.blaek}"
+    textColor: "inherit"
+    fontFamily: "{typography.label.fontFamily}"
+    fontSize: "12px"
+    fontWeight: 600
+    letterSpacing: "0.11em"
+    textTransform: "uppercase"
     rounded: "{rounded.hjoerne}"
     padding: "0 16px"
-    height: "46px"
-  nulstil:
-    backgroundColor: "transparent"
-    textColor: "{colors.blaek2}"
-    rounded: "{rounded.hjoerne}"
     height: "44px"
+  # FLADE-VARIANTER. Tre vaegte, to flader. Ingen af dem er standarden;
+  # ordet "-moerk" i navnet er vaernet mod at vaelge den forkerte flade.
+  knap--fyldt:            # lys bund - 14,69 : 1
+    backgroundColor: "{colors.blaek}"
+    textColor: "{colors.panel}"
+  knap--kant:             # lys bund - 12,72 : 1, haarstreg i blaek2
+    backgroundColor: "transparent"
+    textColor: "{colors.blaek}"
+  knap--tekst:            # lys bund - 4,74 : 1, understreget, uden kasse
+    backgroundColor: "transparent"
+    textColor: "{colors.stoev-blaek}"
+  knap--kant-moerk:       # moerk flade (--fod) - 12,72 : 1
+    backgroundColor: "transparent"
+    textColor: "{colors.paafod}"
+  knap--tekst-moerk:      # moerk flade (--fod) - 5,94 : 1
+    backgroundColor: "transparent"
+    textColor: "{colors.paafod2}"
+  knap--frem:             # tekstvaegtens oeverste trin, paa begge flader
+    textColor: "{colors.blaek}"          # paa lys - 12,72 : 1
+    textColorOnDark: "{colors.accent}"   # paa moerk - 9,19 : 1 (L76 tillader det)
+  knap--maerkat:          # kortets mikroplade - 4,74 : 1
+    backgroundColor: "{colors.bund}"
+    textColor: "{colors.stoev-blaek}"
+    fontSize: "9.5px"
+    fontWeight: 700
+    letterSpacing: "0.13em"
+    height: "24px"
+  knap--kryds:            # ikon-kvadrat, arver forgrunden fra sin chip
+    textColor: "inherit"
+    height: "18px"
+  knap-hover:
+    # ÉN gestus for hele familien: kassen fyldes med afmaerkningsgul, og
+    # teksten gaar til blaek - 9,19 : 1, uanset udgangsflade.
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.blaek}"
   filter:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek2}"
@@ -186,7 +222,8 @@ kommentarer kaldte *"runde 2"*, og at store dele af sidens tekst derfor
 blev tegnet i en skriftfamilie uden fontfiler. Det er ikke længere sandt:
 sidens skrift er Saira, sat eksplicit på `body`.
 
-**Det, der stadig udestår, er knappen** (L77, eget spor) samt de uafgjorte
+**Knappen fulgte 2. sep 2026 med L77** (`spor/knap`): elleve knapudtryk er
+foldet til én primitiv, `.knap`, med varianter. Tilbage står de uafgjorte
 punkter 3, 6 og 8 i `## Konflikter`.
 
 **Nøglekarakteristika:**
@@ -474,26 +511,64 @@ iOS Safari selv ved fokus), 9px lodret polstring — begge tal målt med
 kildens egen kommentar. Virker som et almindeligt formularfelt uden
 JavaScript; filtrene er links uanset.
 
-### Knapper
+### Knapper — én primitiv, `.knap` (L77, 2. sep 2026)
 
-**Kildens egen kommentar kalder `.videre` "den eneste knapform på sitet"** —
-det er ikke længere sandt i praksis, se `## Konflikter`.
+**Her stod indtil 2. sep 2026, at sitet havde to knapgenerationer og
+"mindst tre yderligere" navne, som ikke var efterprøvet. De blev talt:
+der var ELLEVE knapudtryk.** Nu er der ét. Grundformen taler TYPESKILT —
+mono, versaler, spærret, `--hjoerne`.
 
-- **`.videre`** (primær): 46px høj, `--hjoerne`, blæk-flade, hvid tekst.
-  Hover skifter til accent-flade med **blæk** tekst. På 146 sider i alt
-  (talt i `dist/`). L76-note: hover-tilstanden stod på hvid tekst mod
-  accent (1,66 : 1), og den fejl var usynlig for en linjebaseret søgning,
-  fordi farven står i `.videre` og baggrunden i `.videre:hover`.
-- **`.videre--stille`**: samme kasse, gennemsigtig flade, `hegn`-kant.
-  Teksten var accentfarvet og faldt under WCAG 4,5:1 (1,38–1,60 : 1);
-  den er **blæk** efter L76. På 144 af de 146 sider.
-- **`.nulstil`**: en anden, nyere knapklasse (katalogsidens
-  `<button type="reset">`), på 2 sider.
-- Plus mindst tre yderligere, siden-specifikke knap-lignende klasser
-  (fx `.valg__fjern`), hver brugt ét sted. Ikke navn-for-navn efterprøvet
-  af dette spor — se rapportens usikkerhedsafsnit.
+**Retningen er ikke valgt efter udbredelse.** `.videre` stod på 158 sider
+og `.nulstil` på 2; udbredelse er et mål for oprydningens størrelse, ikke
+et argument for en retning.
+
+**Grundformen bærer ingen farve**, og det er systemets vigtigste regel om
+knapper. `.knap` sætter `color:inherit` og `background:transparent`, så en
+knap uden flade-variant arver den flade, den står på. Den kan derfor aldrig
+blive usynlig ved et uheld — hvilket den kunne før: `.nulstil` var skrevet
+til den mørke flade, og genbrugt på lys bund målte den **1,16 : 1**.
+
+**Fladen vælges ved navn.** Tre vægte gange to flader:
+
+| | lys bund (`bund`/`panel`) | mørk flade (`fod`) |
+|---|---|---|
+| **Fyldt** | `.knap--fyldt` — 14,69 : 1 | *findes ikke endnu, se nedenfor* |
+| **Kant** | `.knap--kant` — 12,72 : 1 | `.knap--kant-moerk` — 12,72 : 1 |
+| **Tekst** | `.knap--tekst` — 4,74 : 1 | `.knap--tekst-moerk` — 5,94 : 1 |
+
+**Ingen af dem er standarden, og ordet `-moerk` i klassenavnet ER værnet:**
+den forkerte flade kan ikke vælges uden at have skrevet ordet.
+
+- **`.knap--frem`** er tekstvægtens øverste trin, når to tekstknapper står
+  side om side og den ene er handlingen og den anden fortrydelsen: `blaek`
+  på lys (12,72 : 1), `accent` på mørk (9,19 : 1 — L76 tillader udtrykkeligt
+  accent som tekst dér).
+- **`.knap--maerkat`** er kortets mikroplade, 9,5px/24px, dæmpet
+  `stoev-blaek` på `bund` (4,74 : 1), gul når `aria-pressed="true"`.
+  Bevidst dæmpet: den står på 77 kort samtidig.
+- **`.knap--kryds`** er ikon-kvadratet, 18×18. **Den eneste variant uden
+  flade i navnet**, og det er pointen: den sætter ingen forgrund, så den
+  arver chippens. På den gule `.valg`-chip giver arven blæk på gul,
+  9,19 : 1, uden at nogen har skullet vide det.
+
+**Hover er én gestus i hele familien:** kassen fyldes med afmærkningsgul, og
+teksten går til blæk — 9,19 : 1, uanset udgangsflade. Tekstvægtene har ingen
+kasse at fylde og skifter forgrund i stedet. Undtaget er `.knap--maerkat`
+(gul betyder dér *afsat*, ikke *musen er her*) og `.knap--kryds` (dens
+hvileflade ER gul).
+
+**Den fyldte vægt på mørk flade findes bevidst ikke endnu.** Ingen af de
+elleve knapper havde den, og en variant uden brugssted er død CSS
+(`tests/dele/57`). Pladsen er udmålt til den dag en flade behøver den:
+`background: paafod`, `textColor: blaek`, 12,72 : 1.
 
 **Der findes ingen købsknap, ingen demoknap, ingen prisforespørgsel.**
+Primitiven må ikke bruges til at indføre formen.
+
+`tests/dele/70-knap.mjs` vogter det hele: at de pensionerede klasser ikke
+kommer igen, at hver `<button>` på sitet bærer `.knap`, at grundformen
+forbliver farveløs, og at hver variant holder 4,5 : 1 — med kontrasten
+**regnet i testen** fra tokenernes hex, ikke afskrevet fra en kommentar.
 
 ### Kildemærket
 
@@ -607,16 +682,39 @@ afgjorte punkter er markeret **AFGJORT** med deres L-nummer og beholdt i
 fuld længde — en løst konflikt, der slettes, efterlader ingen forklaring
 på, hvorfor koden ser ud, som den gør.
 
-**Punkt 1 (knappen) står stadig ÅBENT.** Den følger som L77 i et separat
-spor, fordi den også ændrer skabelonerne. Punkt 3, 6 og 8 er uafgjorte og
-uberørte.
+**Fem af dem er afgjort nu.** Punkt 3, 6 og 8 er uafgjorte og uberørte.
 
-**1. Knappen — to generationer.** `.videre`/`.videre--stille` (146/144
-sider, talt i `dist/`) er ORBIT-æraens knapprimitiv, stadig i brug.
-`.nulstil` (2 sider) er en nyere, anden knapklasse. Plus mindst tre
-yderligere sidespecifikke knap-lignende klasser, hver brugt ét sted —
-navnene er ikke enkeltvis efterprøvet af dette spor. Kildens egen kommentar
-kalder `.videre` "den eneste knapform på sitet"; det stemmer ikke længere.
+**1. Knappen — to generationer. AFGJORT af L77 (2. sep 2026).**
+Konflikten var: `.videre`/`.videre--stille` (158/142 sider, talt i `dist/`)
+var ORBIT-æraens knapprimitiv, stadig i brug. `.nulstil` (2 sider) var en
+nyere, anden knapklasse. Plus "mindst tre yderligere sidespecifikke
+knap-lignende klasser, hver brugt ét sted — navnene er ikke enkeltvis
+efterprøvet". Kildens egen kommentar kaldte `.videre` "den eneste knapform
+på sitet"; det stemte ikke.
+
+**De blev talt, og de var ikke tre, men ni:** `.nulstil`, `.kort__saml`,
+`.valg__fjern`, `.saml-taeller__ryd`, `.saml-taeller__gaa`,
+`.specimen__fjern`, `.saml-invit__link`, `.klaebebar__ryd` og
+`.klaebebar__gaa`. **Elleve udtryk i alt** med `.videre` og
+`.videre--stille`.
+
+**Afgørelsen: ÉN primitiv, `.knap`, med varianter, og grundformen taler
+TYPESKILT.** Se *Komponenter → Knapper* for systemet. De to ting, der
+gjorde konflikten dyr, er lukket ved roden:
+
+- **Grundformen er farveløs.** Der findes ikke længere en "forkert flade,
+  man får ved et uheld". `.nulstil` var skrevet til mørk flade; genbrugt på
+  lys bund gav den 1,16 : 1, og *to* forsøg på at rette det slog fejl, fordi
+  reglen skulle vinde en specificitetskamp mod en klasse 700 linjer længere
+  nede i filen. Begge de neutraliserende regler er nu slettet — der er
+  ingenting at neutralisere.
+- **Fladen står i klassenavnet.** `-moerk` kan ikke udelades ved et uheld.
+
+Regnskabet: 11 udtryk → 1 primitiv + 8 varianter, hvoraf 6 er flade-vægte.
+414 elementer i `dist/` bærer `.knap`; 180 af 180 `<button>` gør.
+`.f-sort` overlevede uændret og er **ikke** en knap — den er den skjulte
+`<input type="radio">`, sorteringen hænger på; dens `<label>` er det
+synlige. Den stod på briefets liste over elleve ved en fejl.
 
 **2. Billedrammen — to sideforhold. AFGJORT af L78 (2. sep 2026).**
 Konflikten var: `.billedled` (16:10 + `cover`, system.css) mod
