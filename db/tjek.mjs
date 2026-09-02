@@ -30,6 +30,21 @@
  * dybtLig og traekValidateTal er UAeNDREDE (kopieret fra det slettede
  * db/rundtur.mjs, ikke omskrevet) — de er importeret af db/eksporter.mjs
  * (Aa12-princippet: ét sted, ikke to kopier der kan skride fra hinanden).
+ *
+ * ARGUMENTER (spor/tjekkun, 2. sep 2026 — PLAN.md par. 0 fase 2: N parallelle
+ * spor skriver hver KUN én producents tekstkolonner samtidig i databasen, og
+ * skal hver kunne maale sig selv uden at blive roede af de ANDRES raekker):
+ *
+ *   --liste            Producenter fra data/robots/ med antal robotter,
+ *                       faldende. INGEN database, INGEN .env, exit 0 straks.
+ *   --kun=<producent>  Afgraenser trin 2/3's KRAV til én producents robotter
+ *                       (eksakt, trim + versalsuafhaengigt). Kravet bliver
+ *                       talLig() (TEKSTNOEGLER fraregnet) for egne robotter;
+ *                       dybt-lig-forskelle for egne robotter er FORVENTEDE
+ *                       (fase 2 skriver tekst) og kun information. Robotter
+ *                       uden for --kun stiller intet krav. Se db/LAESMIG.md.
+ *
+ * Uden flag: adfaerd UAeNDRET fra foer dette spor (dybt lig ALLE 77).
  */
 
 import fs from 'node:fs';
