@@ -189,27 +189,61 @@ export default async function koer(ctx) {
     ok(`38.13.${sprog}: alle ${data.robotter.filter((r) => r.foto).length} fotostier findes i dist/billeder/`,
       manglende.length === 0, manglende.slice(0, 4).join(' · '));
 
-    // Svarmaerket: ét pr. plade pr. raekke. Tallet er UDLEDT af datablokken,
-    // ikke haardkodet - vokser skemaet eller kataloget, foelger kravet med.
-    const maerker = (tabelHTML.match(/class="saml-svar__m/g) || []).length;
-    ok(`38.14.${sprog}: svarmaerker = felter x plader = ${m.antalFelter}x${m.antalRobotter}`,
-      maerker === m.antalFelter * m.antalRobotter, `fandt ${maerker}`);
+    /* 38.14 + 38.15 er VENDT 2. sep 2026 (spor/saml3, JPK: "Disse bokse der
+       angiver felter oplyste skal ikke vaere der").
 
-    // De TAVSE maerker skal svare til de felter, robotterne faktisk ikke
-    // oplyser - ellers er maerket pynt, ikke en maaling. Talt uafhaengigt her,
-    // ud af datablokken, og holdt op mod det tegnede.
-    let ventetTavse = 0;
+       FOER beviste de to, at det GRAFISKE svarmaerke blev tegnet: én firkant
+       pr. plade pr. raekke (`felter x plader`), og at de stiplede fulgte
+       data. Begge maalte noget rigtigt om en flade, der ikke findes mere.
+       De er derfor vendt, ikke slettet - en slettet assertion efterlader
+       ingenting, der siger, at reglen nogensinde var der, og saa kan
+       boksene komme tilbage ved en senere "stramning" uden at noget bliver
+       roedt.
+
+       DEN NYE REGEL ER TODELT, og begge halvdele skal holde:
+         38.14  det grafiske er VAEK  (0 maerker, uanset datamaengde)
+         38.15  TAELLINGEN er tilbage (én .kunskaerm-linje pr. raekke, og
+                dens tal foelger data)
+       Halvdel to er det egentlige vaern: markoerraekken bar aria-hidden, saa
+       tallet i .kunskaerm ER skaermlaeserens eneste udgave af den
+       oplysning. Fjernes den med det grafiske, taber siden information for
+       en skaermlaeser - en tilgaengelighedsregression, ikke en oprydning. */
+    const maerker = (tabelHTML.match(/saml-svar/g) || []).length;
+    ok(`38.14.${sprog}: det grafiske svarmaerke er VAEK (0, ikke ${m.antalFelter}x${m.antalRobotter})`,
+      maerker === 0, `fandt ${maerker}`);
+
+    // Taellingen: ét .kunskaerm-svar pr. feltraekke. Tallet er UDLEDT af
+    // datablokken, ikke haardkodet - vokser skemaet eller kataloget, foelger
+    // kravet med. Talt paa raekkehovederne, saa fx fotofeltets eller
+    // operatorernes egne .kunskaerm-spans ikke taelles med.
+    const taellinger = (tabelHTML.match(/<\/span><span class="kunskaerm">[^<]*<\/span><\/th>/g) || []).length;
+    ok(`38.15a.${sprog}: svartaellingen staar stadig for hver af de ${m.antalFelter} feltraekker`,
+      taellinger === m.antalFelter, `fandt ${taellinger}`);
+
+    /* ... og tallet skal FOELGE DATA, ellers er taellingen pynt.
+       Sammenligningen er ORDNET, ikke en `includes`-stikproeve: raekkerne
+       staar i grupperaekkefoelgen, saa den n'te taelling i HTML'en hoerer til
+       det n'te felt. Uden ordenen ville to felter med samme tal ("3 af 3
+       oplyst") kunne daekke over hinandens fejl. */
+    const skabelon = String(data.tekst.svar_taeller);
+    const ventedeLinjer = [];
     for (const g of data.grupper) {
       for (const feltNavn of g.felter) {
+        let n = 0;
         for (const r of valgte) {
           const f = r.felter[feltNavn];
-          if (!f || f.tilstand === 'ikke_oplyst') ventetTavse++;
+          if (f && f.tilstand !== 'ikke_oplyst') n++;
         }
+        ventedeLinjer.push(skabelon.replace('{a}', n).replace('{b}', valgte.length));
       }
     }
-    const tegnetTavse = (tabelHTML.match(/saml-svar__m saml-svar__m--tavs/g) || []).length;
-    ok(`38.15.${sprog}: tavse svarmaerker foelger data (${ventetTavse})`,
-      tegnetTavse === ventetTavse, `tegnet ${tegnetTavse}, ventet ${ventetTavse}`);
+    const fundneLinjer = [...tabelHTML.matchAll(/<span class="kunskaerm">([^<]*)<\/span><\/th>/g)]
+      .map((t) => t[1]);
+    const foersteAfvig = ventedeLinjer.findIndex((v, i) => v !== fundneLinjer[i]);
+    ok(`38.15b.${sprog}: alle ${ventedeLinjer.length} taellinger foelger data, i raekkefoelge`,
+      fundneLinjer.length === ventedeLinjer.length && foersteAfvig === -1,
+      `fandt ${fundneLinjer.length} linjer; foerste afvigelse ved ${foersteAfvig}: `
+      + `ventet "${ventedeLinjer[foersteAfvig]}", fandt "${fundneLinjer[foersteAfvig]}"`);
 
     // Ingen vindermarkering. Haard begraensning 6: en redaktionel score uden
     // offentliggjort metode findes ikke - heller ikke som en "bedste"-klasse.
@@ -260,13 +294,28 @@ export default async function koer(ctx) {
   {
     const sideHTML = sider.da;
 
-    // 6a - fjern svarmaerket. 38.14 skal gaa fra opfyldt til brudt.
-    const udenSvar = scriptKilde.replace(/class="saml-svar__m/g, 'class="ingenting');
-    ok('38.21/modbevis: mutationen fjernede faktisk svarmaerkets klasse fra kilden',
-      udenSvar !== scriptKilde, 'ingen forekomst at fjerne - testen ville vaere tom');
-    const r1 = kaldTabelHTML(sideHTML, udenSvar);
-    ok('38.22/modbevis: uden svarmaerket falder taellingen til 0',
-      (r1.tabelHTML.match(/class="saml-svar__m/g) || []).length === 0);
+    /* 6a er VENDT MED 38.14/38.15 (spor/saml3, 2. sep 2026).
+
+       FOER muterede den svarmaerkets klasse ud af kilden og krav, at
+       taellingen faldt til 0. Det bevis er nu meningsloest: maerket ER 0 i
+       den uroerte kilde, saa mutationen ville ikke kunne aendre noget, og
+       modbeviset ville vaere groent uanset input - praecis den slags
+       kriterium, filhovedet advarer imod.
+
+       Det, der SKAL modbevises nu, er halvdel to: at 38.15 faktisk maaler
+       skaermlaeserens taelling. Mutationen fjerner derfor `.kunskaerm`-
+       udsendelsen fra svarHTML(), og 38.15a skal falde fra 30 til 0. Uden
+       den kunne taellingen forsvinde tavst sammen med boksene - som var
+       netop den tilgaengelighedsregression, briefet forbOEd. */
+    const udenTaelling = scriptKilde.replace(
+      "html: '<span class=\"kunskaerm\">' + esc(taelling) + '</span>',",
+      "html: '',");
+    ok('38.21/modbevis: mutationen fjernede faktisk svartaellingen fra kilden',
+      udenTaelling !== scriptKilde, 'ingen forekomst at fjerne - testen ville vaere tom');
+    const r1 = kaldTabelHTML(sideHTML, udenTaelling);
+    const t1 = (r1.tabelHTML.match(/<\/span><span class="kunskaerm">[^<]*<\/span><\/th>/g) || []).length;
+    ok('38.22/modbevis: uden .kunskaerm falder svartaellingen til 0',
+      t1 === 0, `fandt ${t1}`);
 
     // 6b - fjern fotoet. 38.11 skal falde med.
     const udenFoto = scriptKilde.replace(/<img src="/g, '<span data-src="');
@@ -281,12 +330,12 @@ export default async function koer(ctx) {
     // end mutationen (fx en shim, der slet ikke koerer scriptet).
     const rRen = kaldTabelHTML(sideHTML, scriptKilde);
     const mRen = taelSemantik(rRen.tabelHTML, rRen.data);
-    ok('38.25/modbevis: samme vej med UROERT kilde giver stadig maerker, fotos og fuld semantik',
-      (rRen.tabelHTML.match(/class="saml-svar__m/g) || []).length
-        === mRen.antalFelter * mRen.antalRobotter
+    const tRen = (rRen.tabelHTML.match(/<\/span><span class="kunskaerm">[^<]*<\/span><\/th>/g) || []).length;
+    ok('38.25/modbevis: samme vej med UROERT kilde giver stadig taellinger, fotos og fuld semantik',
+      tRen === mRen.antalFelter
       && (rRen.tabelHTML.match(/<img\b/g) || []).length > 0
       && mRen.table === 1 && mRen.thScopeCol === mRen.antalRobotter,
-      `maerker=${(rRen.tabelHTML.match(/class="saml-svar__m/g) || []).length}, `
+      `taellinger=${tRen} (ventet ${mRen.antalFelter}), `
       + `img=${(rRen.tabelHTML.match(/<img\b/g) || []).length}, table=${mRen.table}`);
   }
 }

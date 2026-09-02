@@ -515,17 +515,14 @@
   box-shadow:1px 0 0 var(--linje)}
 .saml-raekke__ord{display:block;font-size:13.5px;color:var(--blaek2);line-height:1.3}
 
-/* SVARMAERKET - signaturen sammen med jiggen. Ét felt pr. plade, i spaltens
-   egen raekkefoelge: fyldt = pladen svarer, stiplet = pladen tier. Det er en
-   TAELLING, ikke en score - samme maalestok som sidens "N af 30 felter
-   oplyst", vendt 90 grader. Firkanten er nOEjagtig den, sidens egen .mrk
-   bruger til datatilstandene (system.css §8), saa det er samme sprog, ikke
-   et nyt. Tegnet i CSS og ikke som SVG: 30 raekker x 3 plader = 90 maerker
-   pr. tegning, og inline-SVG kostede ~200 byte stykket. */
-.saml-svar{display:flex;gap:3px;margin-top:6px}
-.saml-svar__m{display:block;width:8px;height:8px;background:var(--blaek);
-  border-radius:var(--hjoerne)}
-.saml-svar__m--tavs{background:transparent;border:1px dashed var(--hegn)}
+/* HER STOD SVARMAERKET - en raekke smaa firkanter under hvert feltnavn, én
+   pr. plade, fyldt = svarer, stiplet = tier. FJERNET 2. sep 2026 (JPK:
+   "Disse bokse der angiver felter oplyste skal ikke vaere der"), sammen med
+   udsendelsen i assets/sammenligning.js' svarHTML().
+   Selve TAELLINGEN staar uaendret som tekst i `.kunskaerm` samme sted -
+   maerkeraekken var `aria-hidden`, saa en skaermlaeser hoerer det samme som
+   foer. Reglerne fjernes i SAMME commit som markup'en, saa klassen ikke
+   bliver til doed CSS (Aa102). */
 
 .saml-raekke__celle{vertical-align:top;padding:11px var(--r3);
   border-left:1px solid var(--linje);min-width:0}

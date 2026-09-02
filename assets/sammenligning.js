@@ -332,37 +332,41 @@
     return String(DATA.tekst.felter_naevner || '').replace('{b}', FELT_ANTAL);
   }
 
-  /* Svarmaerket: ét felt pr. plade, i spaltens egen raekkefoelge. Fyldt =
-     pladen svarer, stiplet = pladen tier. Det er en TAELLING, ikke en score -
-     samme maalestok som sidens "N af 30 felter oplyst", vendt 90 grader. Det
-     er derfor heller ikke en vindermarkering: det siger hvem der SVARER,
-     aldrig hvem der svarer BEDST (haard begraensning 6).
+  /* Svartaellingen: hvor mange af de viste plader der oplyser DETTE felt.
+     Det er en TAELLING, ikke en score - samme maalestok som sidens "N af 30
+     felter oplyst", vendt 90 grader. Det er derfor heller ikke en
+     vindermarkering: den siger hvem der SVARER, aldrig hvem der svarer BEDST
+     (haard begraensning 6).
 
-     Maerkerne er tegnet i CSS, ikke som SVG. Ikke en smagssag: 30 raekker x 3
-     plader = 90 maerker pr. tegning, og compens inline-SVG kostede ~200 byte
-     stykket = ~18 KB i hver eneste opdatering af matricen. En tom <span> med
-     en klasse koster 40. Firkanten er desuden nOEjagtig den, sidens egen
-     .mrk allerede bruger til de fire datatilstande - samme sprog, ikke et
-     nyt.
+     DET GRAFISKE ER FJERNET (JPK 2. sep 2026, ordret: "Disse bokse der
+     angiver felter oplyste skal ikke vaere der"). Foer stod der under hvert
+     feltnavn en raekke smaa firkanter - én pr. plade, fyldt = svarer,
+     stiplet = tier - tegnet i CSS. De er vaek sammen med deres tre
+     CSS-regler i generator.css, saa der ikke staar en doed klasse tilbage
+     (Aa102: projektet har 66 doede klasser, netop fordi hvert spor holdt sig
+     inden for sit eget).
 
-     aria-hidden paa selve maerkeraekken: den er en GRAFISK opsummering af
-     celler, skaermlaeseren alligevel laeser én for én lige nedenunder.
-     Taellingen staar i stedet som tekst i .kunskaerm ved siden af. */
+     TAELLINGEN BLIVER. Maerkeraekken bar `aria-hidden="true"` - den var en
+     GRAFISK opsummering af celler, skaermlaeseren alligevel laeser én for én
+     lige nedenunder - mens selve tallet altid har staaet som tekst i
+     `.kunskaerm`. Kun det aria-skjulte er altsaa fjernet; en skaermlaeser
+     hoerer noejagtig det samme som foer. Havde begge dele vaeret fjernet,
+     var det en tilgaengelighedsregression, ikke en oprydning.
+
+     `svarer` bruges desuden stadig af tabelHTML() til `.saml-raekke--tavs`
+     (raekker, hvor ingen plade svarer, traeder tilbage som helhed) - den
+     returneres derfor uaendret. */
   function svarHTML(robotter, feltNavn) {
     var svarer = 0;
-    var maerker = '';
     for (var i = 0; i < robotter.length; i++) {
       var f = robotter[i].felter[feltNavn];
-      var tavs = !f || f.tilstand === 'ikke_oplyst';
-      if (!tavs) svarer++;
-      maerker += '<span class="saml-svar__m' + (tavs ? ' saml-svar__m--tavs' : '') + '"></span>';
+      if (f && f.tilstand !== 'ikke_oplyst') svarer++;
     }
     var taelling = String(DATA.tekst.svar_taeller || '')
       .replace('{a}', svarer).replace('{b}', robotter.length);
     return {
       svarer: svarer,
-      html: '<span class="saml-svar" aria-hidden="true">' + maerker + '</span>'
-        + '<span class="kunskaerm">' + esc(taelling) + '</span>',
+      html: '<span class="kunskaerm">' + esc(taelling) + '</span>',
     };
   }
 

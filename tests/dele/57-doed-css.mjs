@@ -1,9 +1,9 @@
 /**
  * tests/dele/57-doed-css.mjs — spor/doedcss, 1. sep 2026.
  * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4) -> 18 (punkt 5)
- * -> 20 (punkt 7).
+ * -> 20 (punkt 7). AFKORTET af spor/saml3 samme dag: 20 -> 19 (punkt 8).
  *
- * Laaser resultatet af 66 -> 20 doede CSS-klasser. Skal FEJLE, hvis en
+ * Laaser resultatet af 66 -> 19 doede CSS-klasser. Skal FEJLE, hvis en
  * fjernet klasse (eller en helt ny, uafhaengig doed klasse) sniger sig ind
  * i assets/system.css eller assets/generator.css igen.
  *
@@ -52,11 +52,24 @@
  *      os) var kun brugt paa footerens forhandler-linje. Samme graense
  *      igen: assets/system.css er uden for filejerskabet.
  *
+ *   8. saml-svar__m--tavs er FJERNET fra listen (spor/saml3, 2. sep 2026,
+ *      BRIEF-samlflade.md punkt 1). Den stod her af grund 2 ovenfor:
+ *      detektorens regex missede den som klasse nr. TO i en class="a b".
+ *      JPK bad om, at de grafiske svarbokse under feltnavnene skulle vaek -
+ *      og modsat punkt 4-6 kunne DETTE spor roere stilarket
+ *      (assets/generator.css er i dets filejerskab). `.saml-svar`,
+ *      `.saml-svar__m` og `.saml-svar__m--tavs` er derfor fjernet fra CSS'en
+ *      i SAMME commit som udsendelsen i assets/sammenligning.js. Klassen er
+ *      altsaa ikke laengere DOED - den FINDES ikke, og en post om en klasse,
+ *      der ikke findes, ville gOEre listen usand. Det er den oprydning,
+ *      punkt 4's sidste saetning forudsaa ("Fjernes CSS-reglen i et senere
+ *      spor med adgang til stilarkene, fjern klassen herfra i samme spor").
+ *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
  * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 20,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 20 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 19 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -67,7 +80,7 @@ const BESKYTTET = [
   'billedmaerke', 'filtre', 'fod', 'gitter', 'grund', 'haard', 'kort-billed',
   'kort-hoved', 'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter',
   'prik--klip', 'pris-om', 'pris-om__ord', 'pris-om__tal',
-  'saml-fotofelt--uoplyst', 'saml-raekke--tavs', 'saml-svar__m--tavs',
+  'saml-fotofelt--uoplyst', 'saml-raekke--tavs',
   'stribe--kompakt',
 ].sort();
 
