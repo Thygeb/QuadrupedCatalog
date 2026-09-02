@@ -569,15 +569,19 @@ ${under}
 
 /**
  * Doeren ud. Det er DYBDEN: vi gengiver ikke hele databladet, og siden er ikke
- * en salgskanal. Derfor er formen `videre--stille` — den samme, "Om metoden"
- * bruger — og ikke en fyldt knap. Ingen koebsknap, ingen demo, ingen
- * prisforespoergsel; de former findes ikke i systemet.
+ * en salgskanal. Derfor er formen den TONEDE — `knap knap--kant`, den
+ * omridsede vaegt paa lys bund — og ikke den fyldte. Ingen koebsknap, ingen
+ * demo, ingen prisforespoergsel; de former findes ikke i systemet.
+ *
+ * L77 (2. sep 2026): klasserne hed `videre videre--stille` indtil knappen
+ * blev én primitiv. Vaegten er den samme (sekundaer, omridset); kun stemmen
+ * er skiftet fra ORBIT til TYPESKILT.
  */
 function produktside(ctx, kilder) {
   const { i18n, robot } = ctx;
   const valgt = vaelgProduktside(robot, kilder);
   const krop = valgt
-    ? `<a class="videre videre--stille" href="${esc(valgt.url)}" rel="nofollow noopener external">` +
+    ? `<a class="knap knap--kant" href="${esc(valgt.url)}" rel="nofollow noopener external">` +
       `${esc(flet(T(i18n, 'produktside_link'), { model: robot.navn }))}` +
       `<svg class="ikon" aria-hidden="true"><use href="#i-pil"/></svg></a>
 <p class="t-mikro produktside-url">${esc(valgt.url)}</p>`

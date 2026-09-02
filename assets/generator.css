@@ -109,7 +109,12 @@
   border:1px dashed var(--hegn);border-radius:var(--hjoerne);
   font-size:15px;color:var(--blaek2);
   display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
-.tomt__ryd{font-size:14px}
+/* L77: her stod `.tomt__ryd{font-size:14px}`, sat da knappen var `.videre`
+   (15 px) og nul-tilstandens udgave skulle vaere en anelse mindre. Med
+   primitiven er 12 px knappens grad overalt, og en enkelt undtagelse ville
+   goere nul-tilstandens knap til den eneste i sitet med sin egen stoerrelse.
+   Klassen bliver staaende i markup'en - tests/dele/30.9 kraever den ved siden
+   af `data-ryd` - den styrer bare ikke laengere noget. */
 
 /* --- 2b. TAELLERNES OMFANG (P0, 28. aug 2026) -----------------------------
    Katalogets taellere - 30 ved facetterne, 4 i tommelindekset, 4 ved salene -
@@ -924,7 +929,7 @@
   padding:2px 7px 3px}
 
 /* --- 9d. Døren ud til producenten ------------------------------------------ */
-.produktside .videre{margin-top:var(--r3)}
+.produktside .knap{margin-top:var(--r3)}
 .produktside-url{margin-top:8px;font-family:var(--mono);color:var(--blaek3);
   overflow-wrap:anywhere;max-width:70ch}
 

@@ -1450,7 +1450,7 @@ ${sorteret.map(lagKortHTML).join('\n')}
 <p class="tomt" data-tomt hidden role="status">
 <span data-tomt-grund="soeg">${esc(t('soeg_ingen_traef'))}</span>
 <span data-tomt-grund="filter" hidden>${esc(t('filter_ingen_traef'))}</span>
-<a class="videre videre--stille tomt__ryd" data-ryd href="#alle">${esc(t('filter_vis_alle'))}</a>
+<a class="knap knap--kant tomt__ryd" data-ryd href="#alle">${esc(t('filter_vis_alle'))}</a>
 </p>
 </section>
 </form>
