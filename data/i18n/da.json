@@ -14,7 +14,6 @@
   "fejl404_knap": "Gå til kataloget",
   "fejl404_beskrivelse": "Adressen findes ikke. Gå videre til kataloget over firbenede robotter.",
 
-  "udgiver": "Udgivet af KeyResearch",
   "ingen_forhandler": "Vi er ikke forhandler af nogen robot på denne side, og vi modtager ikke betaling fra producenterne.",
 
   "spring_til_indhold": "Spring til indholdet",
@@ -25,7 +24,6 @@
   "nav_sammenligning": "Sammenligning",
   "nav_producenter": "Producenter",
   "til_katalog": "Tilbage til kataloget",
-  "andet_sprog": "In English",
 
   "forside_overskrift": "Firbenede robotter, felt for felt",
   "forside_lede": "{n} modeller fra {p} producenter. Hvert tal har kilde og hentedato, og hvert hul er lige så synligt som tallet.",
@@ -189,7 +187,6 @@
   "operator_pm_laest": "plus/minus",
 
   "taethed_titel": "Specifikationstæthed",
-  "taethed_forklaring": "Hvor mange af skemaets felter producenten selv oplyser. Det måler producentens åbenhed, ikke robottens kvalitet.",
   "taethed_naevner": "Ud af skemaets {b} felter. Samme nævner for alle robotter.",
   "taethed_udfyldte": "udfyldte felter",
   "skema_titel": "Alle felter i skemaet",

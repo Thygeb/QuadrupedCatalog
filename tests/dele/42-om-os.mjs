@@ -161,10 +161,18 @@ export default async function koer(ctx) {
     ok(`42.4.${s}: "ingen forhandler"-linjen staar ORDRET i <main>`,
       tekstAf(hovedAf(sider[s])).includes(linje),
       'PRODUCT.md linje 95-96 og 119-120 kraever den paa netop denne side');
-    // Vagt paa selve maalingen: den skal ogsaa staa i foden, ellers maaler
-    // proeven ovenfor noget andet, end den tror.
-    ok(`42.4b.${s}: linjen staar OGSAA i sidefoden (maalingens forudsaetning)`,
-      tekstAf(sider[s].slice(sider[s].indexOf('</main>'))).includes(linje));
+    // 42.4b OMSKREVET af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7):
+    // linjen stod FOER ogsaa i sidefoden (denne assertion vogtede netop
+    // DET, som beviset for at 42.4's <main>-afgraensning betoed noget).
+    // Sidefoden er nu fjernet HELT, saa linjen staar kun ét sted paa siden
+    // - Om os' egen (om-os.mjs:300, uden for foden, uroert). Vagten er
+    // vendt om: falder den, er linjen kommet til at staa dobbelt igen
+    // (fx en genopstaaet fod), og 42.4's <main>-afgraensning betyder noget
+    // igen.
+    const heleSiden = tekstAf(sider[s]);
+    const forekomster = heleSiden.split(linje).length - 1;
+    ok(`42.4b.${s}: linjen staar PRAECIS ét sted paa siden (foden er vaek, ingen dublet)`,
+      forekomster === 1, `fandt ${forekomster} forekomster`);
   }
 
   /* --- 5. CVR 10049385 staar INTET sted i hele bygget --------------------- */

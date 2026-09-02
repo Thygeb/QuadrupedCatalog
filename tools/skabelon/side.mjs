@@ -1990,6 +1990,24 @@ export const hjaelp = new Proxy({}, {
  * punktet staar sidst. Raekken er dermed FEM punkter. Nyheder og Services er
  * fortsat ikke bygget og staar fortsat ikke i menuen; den vokser til syv den
  * dag de findes - rullesporet baerer dem allerede.
+ *
+ * SIDEFODEN ER FJERNET HELT (BRIEF-uifix.md punkt 7, spor/uifix, 2. sep
+ * 2026) - ikke kun forhandlerlinjen, JPK's ord i interview med tabet
+ * forelagt. Sprogskifteren gaar IKKE tabt: topbaren (.daek__sprog, "DA /
+ * EN") havde den allerede, efterproevet foer rettelsen. Forhandlerlinjen
+ * (T.ingen_forhandler) staar stadig paa Om os (om-os.mjs:300, sin egen
+ * linje, uden for foden - punktet roerer den ikke). TAETHEDSFORKLARINGEN
+ * (T.taethed_forklaring, "Hvor mange af skemaets felter producenten selv
+ * oplyser...") fandtes KUN i foden og er tabt for godt - JPK har valgt med
+ * det paa bordet, noteret i fund/FUND-uifix.md, ikke rettet. T.udgiver/
+ * T.andet_sprog ("Udgivet af KeyResearch · In English") var ogsaa kun her;
+ * alle tre noegler er fjernet fra da.json/en.json som foelge.
+ *
+ * INGEN HTML-KOMMENTAR staar i stedet for foden i selve markuppen: en
+ * forklaring, der citerer den fjernede tags egen tekst ordret, ville skrive
+ * "footer class=\"fod\"" tilbage ind i alle 216 sider og faa acceptkriteriets
+ * grep til at give 216, ikke 0. Forklaringen hoerer derfor HER, i kildekoden
+ * - ikke i det byggede output.
  */
 export function skal({
   sprogkode, T, t, titel, beskrivelse, sti, main, aktiv,
@@ -1997,7 +2015,8 @@ export function skal({
 }) {
   const dybde = 1 + (sti ? sti.split('/').filter(Boolean).length : 0);
   const op = '../'.repeat(dybde);
-  const andet = sprogkode === 'da' ? 'en' : 'da';
+  // `andet` (modsprogets kode) er FJERNET - BRIEF-uifix.md punkt 7 (spor/
+  // uifix, 2. sep 2026) fjernede foden, dens ENESTE bruger.
   const alternativer = SPROG.map((s) => ({ sprog: s, href: `${op}${s}/${sti}` }));
   // spor/oversigt (1. sep 2026, JPK: "HELE oversigt-siden skal vaek"):
   // kataloget ER sprogroden nu - dets nav-punkt bruger href '' og der er
@@ -2083,13 +2102,6 @@ ${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"
 </div>
 </header>
 ${kropp}
-<footer class="fod">
-<div class="rum">
-<p class="haard">${esc(T.ingen_forhandler)}</p>
-<p>${esc(T.taethed_forklaring)}</p>
-<p>${esc(T.udgiver)} · <a href="${attr(`${op}${andet}/${sti}`)}" hreflang="${attr(andet)}" lang="${attr(andet)}">${esc(T.andet_sprog)}</a></p>
-</div>
-</footer>
 ${script ? `<script src="${op}${attr(script === true ? 'katalog.js' : script)}" defer></script>` : ''}
 </body>
 </html>

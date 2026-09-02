@@ -14,7 +14,6 @@
   "fejl404_knap": "Go to the catalogue",
   "fejl404_beskrivelse": "This address does not exist. Continue to the catalogue of quadruped robots.",
 
-  "udgiver": "Published by KeyResearch",
   "ingen_forhandler": "We do not resell any robot on this site, and we take no payment from the manufacturers.",
 
   "spring_til_indhold": "Skip to content",
@@ -25,7 +24,6 @@
   "nav_sammenligning": "Compare",
   "nav_producenter": "Manufacturers",
   "til_katalog": "Back to the catalogue",
-  "andet_sprog": "På dansk",
 
   "forside_overskrift": "Quadruped robots, field by field",
   "forside_lede": "{n} models from {p} manufacturers. Every figure carries a source and a retrieval date, and every gap is as visible as the figure.",
@@ -189,7 +187,6 @@
   "operator_pm_laest": "plus/minus",
 
   "taethed_titel": "Specification density",
-  "taethed_forklaring": "How many of the schema’s fields the manufacturer itself states. It measures the manufacturer’s openness, not the robot’s quality.",
   "taethed_naevner": "Out of the schema’s {b} fields. The same denominator for every robot.",
   "taethed_udfyldte": "fields filled",
   "skema_titel": "Every field in the schema",

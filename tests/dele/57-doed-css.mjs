@@ -1,8 +1,9 @@
 /**
  * tests/dele/57-doed-css.mjs — spor/doedcss, 1. sep 2026.
- * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4) -> 18 (punkt 5).
+ * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4) -> 18 (punkt 5)
+ * -> 20 (punkt 7).
  *
- * Laaser resultatet af 66 -> 18 doede CSS-klasser. Skal FEJLE, hvis en
+ * Laaser resultatet af 66 -> 20 doede CSS-klasser. Skal FEJLE, hvis en
  * fjernet klasse (eller en helt ny, uafhaengig doed klasse) sniger sig ind
  * i assets/system.css eller assets/generator.css igen.
  *
@@ -44,12 +45,18 @@
  *      er intet sekundaert "≈ X USD"-tal tilbage at style. Samme graense som
  *      punkt 4: assets/system.css er uden for filejerskabet, saa de to
  *      CSS-regler staar doede tilbage af samme grund.
+ *   6. fod, haard (samme spor, BRIEF-uifix.md punkt 7, samme dag): HELE
+ *      <footer class="fod"> er fjernet fra tools/skabelon/side.mjs (JPK, i
+ *      interview, med tabet forelagt). ".fod" var footerens egen ramme;
+ *      ".haard" ("haard" formatering, IKKE det uroerte ".om-haard" paa Om
+ *      os) var kun brugt paa footerens forhandler-linje. Samme graense
+ *      igen: assets/system.css er uden for filejerskabet.
  *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
- * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 18,
+ * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 20,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 18 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 20 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -57,10 +64,11 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const BESKYTTET = [
-  'billedmaerke', 'filtre', 'gitter', 'grund', 'kort-billed', 'kort-hoved',
-  'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter', 'prik--klip',
-  'pris-om', 'pris-om__ord', 'pris-om__tal', 'saml-fotofelt--uoplyst',
-  'saml-raekke--tavs', 'saml-svar__m--tavs', 'stribe--kompakt',
+  'billedmaerke', 'filtre', 'fod', 'gitter', 'grund', 'haard', 'kort-billed',
+  'kort-hoved', 'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter',
+  'prik--klip', 'pris-om', 'pris-om__ord', 'pris-om__tal',
+  'saml-fotofelt--uoplyst', 'saml-raekke--tavs', 'saml-svar__m--tavs',
+  'stribe--kompakt',
 ].sort();
 
 export default async function koer(ctx) {
