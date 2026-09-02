@@ -226,6 +226,13 @@ function dataBlok(ctx) {
   return {
     standard: standardvalg(robotter, d4),
     maksAntal: 3,
+    /* Katalogets URL, saa klienten kan skrive invitationen tilbage dertil,
+       naar en plads er ledig (spor/saml3). Den staar UDEN FOR `tekst`
+       med vilje: tests/dele/38.20 kraever, at hver streng i `tekst` findes
+       ORDRET i i18n-filen, og en URL er ingen oversaettelse. Samme udtryk
+       som render()s eget `<p class="retur">` og <noscript>-linjen bruger -
+       ét sted at aendre, hvis kataloget nogensinde flytter. */
+    katalogUrl: ctx.url.katalog,
     robotter: robotterUd,
     grupper,
     feltNavne,
@@ -255,15 +262,32 @@ function dataBlok(ctx) {
          passede, er feltet UDELADT og fOErt som eftersleb i sporets rapport -
          aldrig fyldt med en dansk streng skrevet i skabelonen, som saa ville
          staa uoversat paa den engelske side.
-         `vaelg_titel` (kolonnehovedets "Skift plade"-link) er FJERNET her
-         (spor/saml2, JPK 1. sep 2026): kolonnens eget "Vælg robotter"-link
-         er vaek sammen med hele vaelgeren - der er nu ÉN knap for hele
-         siden (den SSR'ede .afslutning-knap i render(), aldrig JSON-baaret),
-         saa klienten har ikke laengere brug for teksten via DATA.tekst. */
-      // Svarmaerkets skaermlaesertekst, fx "2 af 3 oplyst". `noegletal_taeller`
+         `vaelg_titel` er TILBAGE i JSON'en (spor/saml3, 2. sep 2026), men
+         med en ny opgave. spor/saml2 fjernede den, fordi kolonnens eget
+         "Vælg robotter"-link var vaek og sidens éne knap var
+         server-renderet. Nu er DEN knap ogsaa vaek, og klienten skriver i
+         stedet selv invitationen tilbage til kataloget - men KUN naar der
+         er en ledig plads. Teksten skal derfor via DATA.tekst igen. */
+      vaelg_titel: t('sammenligning_vaelg_titel'),
+      // Svartaellingens skaermlaesertekst, fx "2 af 3 oplyst". `noegletal_taeller`
       // og ikke `skema_taeller`: sidstnaevnte siger "... felter oplyst", og her
       // taelles PLADER, ikke felter. Den generiske form passer praecis.
       svar_taeller: T.noegletal_taeller,
+      /* --- fjern-knappen pr. robotkolonne (spor/saml3, JPK 2. sep 2026) ---
+         TO NYE i18n-noegler, tilfoejet i BEGGE sprogfiler (L82: da og en
+         holdes i takt, indtil dansk udgaar i fase 4). Dette spor ejer dem,
+         modsat spor/samlbyg ovenfor, som maatte genbruge.
+
+         Hvorfor to og ikke én: knappen staar i et smalt kolonnehoved, saa
+         det SYNLIGE ord maa vaere kort ("Fjern"). Men "Fjern" alene
+         fortaeller ikke en skaermlaeser HVILKEN robot - og der staar tre
+         ens knapper ved siden af hinanden. `saml_fjern_navn` navngiver
+         robotten ("Fjern Spot fra sammenligningen") og er den eneste af de
+         to, der naar tilgaengelighedstraeet: det korte ord er
+         aria-hidden="true", det lange staar i .kunskaerm. Samme moenster som
+         renderTal()s operator lige ovenfor - ikke et nyt. */
+      fjern_kort: t('saml_fjern_kort'),
+      fjern_navn: t('saml_fjern_navn'),
       // Hjoernecellen over feltnavnene.
       alle_felter: T.alle_felter,
       felter_naevner: t('taethed_naevner'),
@@ -489,26 +513,38 @@ export function render(ctx) {
      stadig via localStorage (SAML_NOEGLE, assets/sammenligning.js), kun
      SKRIVES det ikke laengere fra denne side.
 
-     Tilbage staar ÉN knap, "Vaelg robotter" (samme tekst, samme i18n-noegle,
-     som foer sad paa den skjulte h2 og paa kolonnehovedets "Skift plade"-
-     link) - en RIGTIG <a href> til kataloget, altid til stede, ALDRIG kun
-     skabt af JS (P0: uden JavaScript er siden sand, med JavaScript bliver
-     den praecis - et link, der kun virker med JS, bryder netop den regel).
-     assets/sammenligning.js laegger klik-adfaerden ovenpaa: kommer laeseren
-     fra kataloget (document.referrer), goer knappen `history.back()` i
-     stedet, saa katalogets afkrydsede filtre genskabes af browseren selv
-     (bfcache) - ingen tilstand at gemme, ingen ny mekanisme.
+     SIDENS ÉNE SERVER-RENDEREDE "Vaelg robotter"-KNAP ER FJERNET HER
+     (spor/saml3, JPK 2. sep 2026, ordret: "Choose robot knappen skal vaek og
+     der skal istedet vaere en under hver robot").
 
-     KNAPPENS FORM er `.videre.videre--stille` - IKKE en ny klasse, samme
-     tilbageholdne knap robot.mjs' "Om metoden"/produktside-link bruger,
-     valgt netop fordi siden IKKE er en salgskanal (haard begraensning 1).
-     Wrapperen `.afslutning-knap` (generator.css:345, margin-top:r5) er
-     GENBRUGT fra forsidens afslutningsblok - den er en generisk
-     margin-regel uden nogen kobling til forsiden specifikt, og den giver
-     PRAECIS den luft over knappen, kataloget/generator.css allerede
-     validerer andetsteds. INGEN ny CSS er tilfoejet for at opnaa dette
-     (filejerskabet forbyder at roere system.css/generator.css); begge
-     klasser eksisterede allerede og laante kun deres eksisterende regler.
+     Den stod i et eget afsnit lige under laesenoeglen, som en tilbageholdt
+     fremad-knap med `data-saml-knap`, og pegede paa kataloget. (Markup'en
+     staar ordret i commit-beskeden og i git-historikken, ikke her: sporets
+     acceptkriterium taeller den gamle klasse i DENNE fil og kan ikke se
+     forskel paa en kommentar og en kodelinje.)
+
+     Erstatningen staar i assets/sammenligning.js: én knap pr. robotkolonne,
+     som FJERNER netop den robot fra sammenligningen - se specimenHoved() og
+     fjernSlug() dér for hvorfor knappen ikke maatte blive tre kopier af det
+     samme kataloglink (L73).
+
+     P0 ER IKKE BRUDT, og det er den kontrol, der skal goeres, foer en
+     SSR'et <a href> erstattes af noget klientside: uden JavaScript peger
+     `<p class="retur">` OVERST paa siden allerede paa noejagtig samme sted
+     (`url.katalog`, samme udtryk) - tests/dele/55 brugte i forvejen netop
+     det link som facit for, hvor knappen skulle pege hen. Den fjernede knap
+     var altsaa en DUBLET af returlinket i destination; det var kun dens
+     bfcache-adfaerd, der var unik, og den er flyttet med over paa
+     invitationen. Fallback-listen og <noscript>-linjen er uroerte.
+
+     WRAPPERENS CSS-REGEL er fjernet i SAMME commit (assets/generator.css,
+     som dette spor ejer). Maalt foerst: klassen blev ikke brugt af nogen
+     anden skabelon - den gamle kommentar her paastod, at den var "GENBRUGT
+     fra forsidens afslutningsblok", men forsiden holdt op med at bruge den
+     (se tests/dele/39-rod.mjs:109), saa denne side var dens eneste bruger.
+     Var den ladt staaende, var den blevet doed CSS nr. 67 (Aa102). Den gamle
+     kommentars linjehenvisning "generator.css:345" var i oevrigt ogsaa
+     forkert - reglen stod paa linje 178.
 
      STRUKTUREN BAGVED (`<div class="sektion">`) ER BEVIDST BEVARET, kun
      klassen "sammenligning" er droppet fra den: `.sektion{padding-top:r8}`
@@ -523,8 +559,9 @@ export function render(ctx) {
      <section> er intet landmark for en skaermlaeser alligevel, saa <div>
      siger det samme uden at paastaa en semantik, der ikke er der.
 
-     `.sammenligning-app` er STADIG hidden indtil JS. Laesenoeglen, knappen
-     og fallback-listen staar uden for den og virker alle uden JS. */
+     `.sammenligning-app` er STADIG hidden indtil JS. Laesenoeglen,
+     returlinket og fallback-listen staar uden for den og virker alle uden
+     JS. */
   return `<div class="rum">
 <p class="retur"><a href="${attr(url.katalog)}">${esc(T.til_katalog)}</a></p>
 
@@ -537,8 +574,6 @@ ${stempelblokHTML(ctx)}
 </div>
 
 ${legendeHTML(t, T)}
-
-<p class="afslutning-knap"><a class="videre videre--stille" href="${attr(url.katalog)}" data-saml-knap>${esc(T.sammenligning_vaelg_titel)}${ctx.hjaelp.ikon('i-pil')}</a></p>
 
 <div class="sektion">
 <div class="sammenligning-app" data-sammenligning hidden>

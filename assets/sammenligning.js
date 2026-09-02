@@ -300,15 +300,49 @@
         + '<span class="specimen__navn">' + esc(r.navn) + '</span>'
         + '<span class="specimen__meta">' + esc(r.producent) + '</span>'
         + '</span></span>'
-        // `.specimen__skift` ("Vaelg robotter", per kolonne, hoppede foer ned
-        // til den nu fjernede #saml-vaelger) er VAEK (spor/saml2). Der er
-        // ikke laengere et sted paa DENNE side at hoppe ned til - vaelgeren
-        // er flyttet til kataloget - saa et per-kolonne link ville pege paa
-        // netop den samme kataloghenvisning som sidens ÉNE knap allerede
-        // giver (den SSR'ede .afslutning-knap i sammenligning.mjs' render()).
-        // Tre identiske links til samme sted er stoej, ikke betjening.
+        // FJERN-KNAPPEN (spor/saml3, JPK 2. sep 2026: "Choose robot knappen
+        // skal vaek og der skal istedet vaere en under hver robot").
+        //
+        // Den staar dér, hvor spor/saml2 fjernede `.specimen__skift`, og
+        // dens begrundelse er den kommentar, der stod her indtil nu: "Tre
+        // identiske links til samme sted er stoej, ikke betjening." Den
+        // indvending er stadig rigtig, og derfor er DENNE knap ikke et link
+        // til kataloget. Den virker paa SIN EGEN kolonne: den fjerner netop
+        // den robot fra sammenligningen, og matricen tegnes om med de
+        // resterende. Tre knapper, tre forskellige virkninger - det er
+        // betjening, ikke stoej.
+        //
+        // L73 ("ét sted at vaelge") staar uroert: man kan stadig kun
+        // TILFOEJE en robot fra kataloget. Invitationen dertil staar ét
+        // sted, i den ledige plads over matricen, aldrig pr. kolonne - se
+        // invitationHTML() nedenfor.
+        //
+        // FORMEN er `.nulstil`-familien (mono, versaler, spaerret) - den
+        // stemme, katalogsiden allerede taler for "ryd/nulstil"-handlinger.
+        // Bevidst IKKE sidens fremad-knap: L77 er besluttet (ÉN knapprimitiv
+        // `.knap` med varianter), og dette spor skal ikke laegge endnu en
+        // forekomst til de 146, L77 skal rydde op i. Klassenavnet staar
+        // ikke her med vilje - sporets acceptkriterium taeller det i denne
+        // fil og ville laese en kommentar som kode. Se commit-beskeden.
+        //
+        // KLASSEORDENEN ER IKKE VILKAARLIG: `specimen__fjern` staar FOERST,
+        // fordi tests/dele/57's doede-klasse-detektor kraever et
+        // citationstegn UMIDDELBART foer klassenavnet og ellers ville
+        // klassificere den som doed (den kendte regex-bug, se testens
+        // punkt 2). `nulstil` staar som nr. to og er daekket ind, fordi
+        // katalogets nulstil-knap skriver den i bygget HTML.
+        //
+        // NAVNET, en skaermlaeser faar, er det LANGE: det korte ord er
+        // aria-hidden, og .kunskaerm baerer "Fjern Spot fra sammenligningen".
+        // Tre knapper, der alle bare hed "Fjern", ville vaere tre ens navne
+        // paa tre forskellige handlinger.
         + '<span class="specimen__fod">'
         + '<span class="specimen__taethed figur">' + esc(taethedTekst(r.taethedAntal)) + '</span>'
+        + '<button type="button" class="specimen__fjern nulstil" data-saml-fjern="' + esc(r.slug) + '">'
+        + '<span aria-hidden="true">' + esc(DATA.tekst.fjern_kort || '') + '</span>'
+        + '<span class="kunskaerm">'
+        + esc(String(DATA.tekst.fjern_navn || '').replace('{navn}', r.navn)) + '</span>'
+        + '</button>'
         + '</span>'
         + '</th>';
     }).join('');
@@ -332,37 +366,41 @@
     return String(DATA.tekst.felter_naevner || '').replace('{b}', FELT_ANTAL);
   }
 
-  /* Svarmaerket: ét felt pr. plade, i spaltens egen raekkefoelge. Fyldt =
-     pladen svarer, stiplet = pladen tier. Det er en TAELLING, ikke en score -
-     samme maalestok som sidens "N af 30 felter oplyst", vendt 90 grader. Det
-     er derfor heller ikke en vindermarkering: det siger hvem der SVARER,
-     aldrig hvem der svarer BEDST (haard begraensning 6).
+  /* Svartaellingen: hvor mange af de viste plader der oplyser DETTE felt.
+     Det er en TAELLING, ikke en score - samme maalestok som sidens "N af 30
+     felter oplyst", vendt 90 grader. Det er derfor heller ikke en
+     vindermarkering: den siger hvem der SVARER, aldrig hvem der svarer BEDST
+     (haard begraensning 6).
 
-     Maerkerne er tegnet i CSS, ikke som SVG. Ikke en smagssag: 30 raekker x 3
-     plader = 90 maerker pr. tegning, og compens inline-SVG kostede ~200 byte
-     stykket = ~18 KB i hver eneste opdatering af matricen. En tom <span> med
-     en klasse koster 40. Firkanten er desuden nOEjagtig den, sidens egen
-     .mrk allerede bruger til de fire datatilstande - samme sprog, ikke et
-     nyt.
+     DET GRAFISKE ER FJERNET (JPK 2. sep 2026, ordret: "Disse bokse der
+     angiver felter oplyste skal ikke vaere der"). Foer stod der under hvert
+     feltnavn en raekke smaa firkanter - én pr. plade, fyldt = svarer,
+     stiplet = tier - tegnet i CSS. De er vaek sammen med deres tre
+     CSS-regler i generator.css, saa der ikke staar en doed klasse tilbage
+     (Aa102: projektet har 66 doede klasser, netop fordi hvert spor holdt sig
+     inden for sit eget).
 
-     aria-hidden paa selve maerkeraekken: den er en GRAFISK opsummering af
-     celler, skaermlaeseren alligevel laeser én for én lige nedenunder.
-     Taellingen staar i stedet som tekst i .kunskaerm ved siden af. */
+     TAELLINGEN BLIVER. Maerkeraekken bar `aria-hidden="true"` - den var en
+     GRAFISK opsummering af celler, skaermlaeseren alligevel laeser én for én
+     lige nedenunder - mens selve tallet altid har staaet som tekst i
+     `.kunskaerm`. Kun det aria-skjulte er altsaa fjernet; en skaermlaeser
+     hoerer noejagtig det samme som foer. Havde begge dele vaeret fjernet,
+     var det en tilgaengelighedsregression, ikke en oprydning.
+
+     `svarer` bruges desuden stadig af tabelHTML() til `.saml-raekke--tavs`
+     (raekker, hvor ingen plade svarer, traeder tilbage som helhed) - den
+     returneres derfor uaendret. */
   function svarHTML(robotter, feltNavn) {
     var svarer = 0;
-    var maerker = '';
     for (var i = 0; i < robotter.length; i++) {
       var f = robotter[i].felter[feltNavn];
-      var tavs = !f || f.tilstand === 'ikke_oplyst';
-      if (!tavs) svarer++;
-      maerker += '<span class="saml-svar__m' + (tavs ? ' saml-svar__m--tavs' : '') + '"></span>';
+      if (f && f.tilstand !== 'ikke_oplyst') svarer++;
     }
     var taelling = String(DATA.tekst.svar_taeller || '')
       .replace('{a}', svarer).replace('{b}', robotter.length);
     return {
       svarer: svarer,
-      html: '<span class="saml-svar" aria-hidden="true">' + maerker + '</span>'
-        + '<span class="kunskaerm">' + esc(taelling) + '</span>',
+      html: '<span class="kunskaerm">' + esc(taelling) + '</span>',
     };
   }
 
@@ -431,6 +469,41 @@
       + '</div>';
   }
 
+  /* INVITATIONEN: den ENE vej tilbage til kataloget, og kun naar der er en
+     ledig plads (spor/saml3, JPK 2. sep 2026).
+
+     L73 er JPK's egen beslutning fra 1. sep: udvalget sker paa kataloget -
+     ét sted at vaelge, ét sted at laese. Fjern-knapperne i kolonnehovederne
+     roerer ikke den beslutning: de TRAEKKER FRA, de vaelger ikke til. Men
+     naar en plads foerst er blevet ledig, skal det kunne ses, hvordan den
+     fyldes - og DÉR hoerer kataloghenvisningen hjemme: ÉN gang, knyttet til
+     den tomme plads, aldrig som en kopi i hver besat kolonne.
+
+     HVORFOR IKKE EN TOM KOLONNE I TABELLEN, som "den tomme plads" ellers
+     ville pege paa: en fjerde <th scope="col"> ville vaere en
+     kolonneoverskrift uden kolonne (den fejl, hjoernecellen allerede er et
+     <td> for at undgaa), og en rigtig, tom kolonne ville kraeve 30 tomme
+     <td> ned gennem matricen og presse de to robotter, laeseren FAKTISK
+     valgte, sammen for at goere plads til ingenting. Invitationen staar
+     derfor over matricen, samme sted som enhedsstrimlen, uden for <table>.
+
+     Den vises OGSAA i "vaelg mindst 2"-tilstanden (se opdater()). Uden det
+     ville et klik paa den anden fjern-knap efterlade en side med en
+     statuslinje og ingen vej videre.
+
+     `data-saml-knap` er GENBRUGT, ikke nyt: klik-adfaerden (kommer laeseren
+     fra kataloget, saa history.back() i stedet for en ny navigation, saa
+     browserens egen bfcache genskaber de afkrydsede filtre) er den samme,
+     som den fjernede SSR-knap havde, og den er stadig praecis den rigtige
+     her. Se lytteren nederst i filen for hvorfor bindingen maatte skifte
+     til delegering. */
+  function invitationHTML() {
+    if (!DATA.katalogUrl) return '';
+    return '<p class="saml-invit"><a class="saml-invit__link nulstil" href="'
+      + esc(DATA.katalogUrl) + '" data-saml-knap>'
+      + esc(DATA.tekst.vaelg_titel || '') + '</a></p>';
+  }
+
   function tabelHTML(slugs) {
     // `robotter` styrer BAADE hovedet og kroppen, og `n` udledes af den.
     // Foer taalte specimenHTML() over `slugs` og kroppen over den filtrerede
@@ -489,7 +562,8 @@
     // holder fotokreditten uden for <table>.
     sidsteOmregnelige = omregneligeAntal(robotter);
 
-    return (sidsteOmregnelige ? enhedslinjeHTML() : '')
+    return (n < DATA.maksAntal ? invitationHTML() : '')
+      + (sidsteOmregnelige ? enhedslinjeHTML() : '')
       + '<table class="saml-matrix" role="table" aria-labelledby="' + CAPTION_ID + '">'
       + '<caption id="' + CAPTION_ID + '" class="kunskaerm">' + esc(caption) + '</caption>'
       + specimenHoved(robotter, n) + grupperHTML
@@ -526,13 +600,27 @@
   }
 
   /* --- UDVALGET (spor/saml2, JPK 1. sep 2026, punkt 1+2) -------------------
-     Siden har IKKE laengere sin egen vaelger. Kataloget er nu det ENE sted,
-     man vaelger robotter (afkrydsning der, eller den klaebende bundbjaelke
-     et samtidigt spor bygger til kataloget) - denne side LAESER kun
-     `SAML_NOEGLE` fra localStorage og SKRIVER den aldrig. Foer skrev
-     `gemUdvalg()` tilbage ved hvert checkbox-`change`; det kald og den
-     lytter er vaek sammen med checkboxene, for der er intet `change` at
-     lytte paa mere - siden er nu ren visning, ikke betjening.
+     Siden har IKKE sin egen vaelger. Kataloget er det ENE sted, man
+     VAELGER robotter (afkrydsning der, eller den klaebende bundbjaelke) -
+     L73, og den beslutning staar.
+
+     HER STOD INDTIL 2. SEP 2026: "denne side LAESER kun `SAML_NOEGLE` fra
+     localStorage og SKRIVER den aldrig ... siden er nu ren visning, ikke
+     betjening." DEN HALVDEL GAELDER IKKE LAENGERE. JPK bad samme dag om en
+     knap under hver robot, og den knap FJERNER robotten fra sammenligningen
+     - det er betjening, og den maa skrive.
+
+     HVORFOR DEN ER NOEDT TIL AT SKRIVE, og ikke bare kunne holde et udvalg
+     i hukommelsen: katalogets bundbjaelke laeser det SAMME `SAML_NOEGLE`.
+     Fjernede denne side kun sin egen visning, ville kataloget blive ved med
+     at sige "3 valgt", mens matricen viste 2 - to flader, der er uenige om
+     den samme kendsgerning. Katalogets `storage`-lytter (katalog.js) fanger
+     desuden skrivningen paa tvaers af faner, saa de to flader retter sig
+     efter hinanden af sig selv.
+
+     LAESNINGEN er stadig kun ét sted (`udvalgtSlugs()`), og SKRIVNINGEN er
+     kun ét sted (`gemUdvalg()`, kaldt udelukkende af `fjernSlug()`). Der er
+     altsaa fortsat ingen anden vej, hvorpaa denne side kan aendre udvalget.
 
      LAESERENS EGET VALG VINDER STADIG OVER STANDARDVALGET (uaendret regel,
      kun flyttet hertil fra det tidligere "flet ind i checkboxene"-trin, se
@@ -565,11 +653,46 @@
     return brug.length ? brug : DATA.standard;
   }
 
+  /* Den ENESTE skrivning. Try/catch af samme grund som laesningen: privat
+     tilstand og blokerede cookies faar `localStorage` til at KASTE, ikke til
+     at give null, og en fjern-knap, der river hele scriptet ned i en privat
+     fane, er vaerre end en, der ikke kan huske sit resultat.
+     (Uden lager tegnes matricen stadig om for det aktuelle sidevisning -
+     `opdater()` laeser bare standardvalget igen ved naeste indlaesning.) */
+  function gemUdvalg(liste) {
+    try { window.localStorage.setItem(SAML_NOEGLE, JSON.stringify(liste)); } catch (e) { /* tavs */ }
+  }
+
+  /* FJERN ÉN ROBOT - hele virkningen af kolonnehovedets knap.
+
+     FAELDEN, DEN LOESER, er standardvalget: har laeseren ikke selv valgt
+     noget, giver `udvalgtSlugs()` `DATA.standard`, og der staar INTET i
+     lageret. Skrev vi kun "det, der blev fjernet" et sted hen, ville
+     naeste `opdater()` laese lageret, finde ingenting, falde tilbage til de
+     samme tre - og klikket ville se ud som om det intet gjorde. Derfor
+     gemmes den RESULTERENDE liste, ogsaa naar udgangspunktet var
+     standardvalget: fra det klik er udvalget laeserens eget.
+
+     Faldt tallet til under 2, tegner `opdater()` "vaelg mindst 2" - en sand
+     tilstand, laeseren selv har lavet, praecis som `udvalgtSlugs()`
+     beskriver for et gemt udvalg med én robot. Invitationen tilbage til
+     kataloget staar med i den tilstand, saa den ikke er en blindgyde. */
+  function fjernSlug(slug) {
+    var nu = udvalgtSlugs();
+    var rest = [];
+    for (var i = 0; i < nu.length; i++) if (nu[i] !== slug) rest.push(nu[i]);
+    if (rest.length === nu.length) return;
+    gemUdvalg(rest);
+    opdater();
+  }
+
   function opdater() {
     var slugs = udvalgtSlugs();
     if (slugs.length < 2) {
       visStatus(DATA.tekst.for_faa);
-      resultat.innerHTML = '';
+      // Invitationen bliver staaende: uden den ville et klik paa den anden
+      // fjern-knap efterlade en side med en statuslinje og ingen vej videre.
+      resultat.innerHTML = invitationHTML();
       sidsteOmregnelige = 0;
       if (fod) fod.hidden = true;
       opdaterKontakt();
@@ -581,22 +704,38 @@
     opdaterKontakt();
   }
 
-  /* --- "Vaelg robotter"-knappen (spor/saml2, punkt 2) ----------------------
-     Knappen er SSR'et som en RIGTIG <a href> til kataloget (tools/skabelon/
-     sammenligning.mjs' render(), `.afslutning-knap .videre--stille[data-
-     saml-knap]`) og virker allerede uden JS, jf. P0 ("uden JavaScript er
-     siden sand, med JavaScript bliver den praecis"). Denne funktion
-     FORBEDRER kun klikket: kommer laeseren netop fra kataloget
-     (`document.referrer`s pathname er kataloget), foerer klikket tilbage i
-     historikken i stedet for at navigere frem igen - saa katalogets
-     afkrydsede filtre genskabes af browseren selv (bfcache-
-     formularhukommelse) uden at denne side skal kende til, gemme eller
-     genopbygge et eneste filter. Kommer laeseren et andet sted fra (eller
-     referrer mangler/er blokeret af browseren), sker der INGENTING i denne
-     funktion - linket navigerer normalt til kataloget, praecis adfaerden
-     uden JS.
+  /* --- BETJENINGEN: ÉN delegeret lytter til begge knaptyper ---------------
 
-     Sammenligningen bruger to detached <a>-elementer i stedet for
+     `[data-saml-fjern]`  fjern-knappen i hvert kolonnehoved (spor/saml3)
+     `[data-saml-knap]`   invitationen tilbage til kataloget
+
+     HVORFOR DELEGERING NU. Indtil 2. sep 2026 stod her et
+     `document.querySelectorAll('[data-saml-knap]')` med en lytter pr.
+     element, og det virkede, fordi knappen var SERVER-renderet og altsaa
+     fandtes, naar scriptet kOErte. Begge knapper tegnes nu KLIENTSIDE og
+     bygges om ved hvert `opdater()` - en lytter bundet ved opstart ville
+     ramme elementer, der ikke fandtes endnu, og efter foerste omtegning
+     ville den sidde paa elementer, der var kastet vaek. Lytteren sidder
+     derfor paa `resultat`, som overlever hver omtegning.
+
+     BFCACHE-ADFAERDEN ER UAENDRET og flyttet med fra den fjernede SSR-knap:
+     kommer laeseren netop fra kataloget (`document.referrer`s pathname er
+     kataloget), foerer klikket tilbage i HISTORIKKEN i stedet for at
+     navigere frem igen - saa katalogets afkrydsede filtre genskabes af
+     browseren selv (bfcache-formularhukommelse) uden at denne side skal
+     kende til, gemme eller genopbygge et eneste filter. Kommer laeseren et
+     andet sted fra (eller mangler referrer / er den blokeret), sker der
+     INGENTING - linket navigerer normalt til kataloget.
+
+     P0 ("uden JavaScript er siden sand, med JavaScript bliver den praecis")
+     holder stadig, selv om invitationen nu KUN findes med JS: den hoerer til
+     matricen, som i forvejen kun findes med JS. Uden JS staar
+     `<p class="retur">` OEVERST paa siden og
+     <noscript>-linjen nederst - begge server-renderede, begge til
+     `url.katalog`, det samme sted. Der er altsaa ingen vej, der forsvinder
+     uden JavaScript; kun matricens egen genvej til den.
+
+     `fraKataloget()` bruger to detached <a>-elementer i stedet for
      `new URL()`: samme ES5-stil som resten af filen, og den loeser
      relative href'er (fx "../robotter/") mod DOKUMENTETS base-URL uden at
      kende sitets fulde origin. */
@@ -611,17 +750,34 @@
         && kilde.pathname === maal.pathname;
     } catch (e) { return false; }
   }
-  var valgKnapper = document.querySelectorAll('[data-saml-knap]');
-  for (var vi = 0; vi < valgKnapper.length; vi++) {
-    (function (el) {
-      el.addEventListener('click', function (e) {
-        if (fraKataloget(el.getAttribute('href'))) {
-          e.preventDefault();
-          window.history.back();
-        }
-      });
-    }(valgKnapper[vi]));
+
+  /** Naermeste forfader med attributten - `closest()` er ikke i ES5-familien
+      og mangler desuden i testenes DOM-shim. */
+  function opefter(el, attr) {
+    while (el && el !== resultat) {
+      if (el.getAttribute && el.getAttribute(attr) !== null) return el;
+      el = el.parentNode;
+    }
+    return null;
   }
+
+  resultat.addEventListener('click', function (e) {
+    var maal = e && (e.target || e.srcElement);
+    if (!maal) return;
+
+    var fjern = opefter(maal, 'data-saml-fjern');
+    if (fjern) {
+      e.preventDefault();
+      fjernSlug(fjern.getAttribute('data-saml-fjern'));
+      return;
+    }
+
+    var invit = opefter(maal, 'data-saml-knap');
+    if (invit && fraKataloget(invit.getAttribute('href'))) {
+      e.preventDefault();
+      window.history.back();
+    }
+  });
 
   /* Samme betjeningsflade, to udtryksformer: JS erstatter den statiske
      fallback-liste med den byggede tabel i stedet for at vise begge. */

@@ -339,6 +339,8 @@
   "saml_taeller": "valgt til sammenligning",
   "saml_gaa": "Åbn sammenligningen",
   "saml_ryd": "Ryd udvalget",
+  "saml_fjern_kort": "Fjern",
+  "saml_fjern_navn": "Fjern {navn} fra sammenligningen",
   "filter_nulstil": "Nulstil",
   "filter_udtraek": "Filtre",
   "taeller_standardvisning": "i standardvisningen",
