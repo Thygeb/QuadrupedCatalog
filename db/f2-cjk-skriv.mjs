@@ -236,9 +236,9 @@ const FIELD_ENTRIES = [
 
 const APPLICATIONS = [
   { robot_id: 2186,
-    note: "Mapping of the eight menu items to the seven allowed values: electric power/energy, construction/utility tunnels, mining/rail and water supply are all industrial infrastructure sectors -> industry. fire/emergency response -> defense and emergency services. industrial-park/factory-area patrol (the page itself says whole-area surveillance) and police/security -> security and surveillance. petrochemical -> industry. None of the eight map to logistics, inspection, research and development, or consumer and education." },
+    note: "Mapping of the eight menu items to the seven allowed values: electric power/energy, construction/utility tunnels, mining/rail and water supply are all industrial infrastructure sectors -> industrial. fire/emergency response -> defense and emergency response. industrial-park/factory-area patrol (the page itself says whole-area surveillance) and police/security -> security and surveillance. petrochemical -> industrial. None of the eight map to logistics, inspection, research and development, or consumer and education." },
   { robot_id: 2258,
-    note: 'Industrial scenarios is mapped to industry. Home security/patrol is mapped to security and surveillance. Parent-child science education is mapped to consumer and education. Maker/researcher/geek/gamer is a target-audience description, not an industry, and is not mapped to any category.' },
+    note: 'Industrial scenarios is mapped to industrial. Home security/patrol is mapped to security and surveillance. Parent-child science education is mapped to consumer and education. Maker/researcher/geek/gamer is a target-audience description, not an industry sector, and is not mapped to any category.' },
 ];
 
 // ---------------------------------------------------------------- robots
