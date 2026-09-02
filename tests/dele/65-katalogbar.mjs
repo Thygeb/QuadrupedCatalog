@@ -105,7 +105,15 @@ export default async function koer(ctx) {
       html.includes('data-saml-taeller'),
       'uden elementet har bjaelken hverken navn, linktekst eller ryd-knap');
 
-    const gaa = chip && /<a class="saml-taeller__gaa" href="([^"]+)">([^<]+)<\/a>/.exec(chip);
+    /* 65.5 og 65.7 ER VENDT (spor/knap, L77, 2. sep 2026). Begge krallede
+       en ORDRET class-vaerdi (`class="saml-taeller__gaa"`), og de to
+       elementer baerer nu ogsaa knapprimitivens klasser
+       (`saml-taeller__gaa knap knap--tekst knap--frem`). Kontrakten, de
+       vogter, er uaendret - baereren skal have href og linktekst, som
+       katalog.js kopierer til bjaelken - saa moensteret er aabnet for
+       flere klasser i stedet for at blive slettet. Klassen selv er stadig
+       KRAEVET: katalog.js slaar den op med querySelector (se 65.8). */
+    const gaa = chip && /<a class="saml-taeller__gaa[^"]*" href="([^"]+)">([^<]+)<\/a>/.exec(chip);
     ok(`65.5.${sprog}: .saml-taeller__gaa baerer bjaelkens href OG dens linktekst`,
       !!gaa && gaa[1].length > 0 && gaa[2].length > 0,
       `href="${gaa && gaa[1]}" tekst="${gaa && gaa[2]}" - begge laeses af katalog.js`);
@@ -115,7 +123,7 @@ export default async function koer(ctx) {
       !!etiket && etiket[1].trim().length > 0,
       `fandt "${etiket && etiket[1]}" - tom giver en role="region" uden navn`);
 
-    const ryd = chip && /<button class="saml-taeller__ryd"[^>]*data-saml-ryd>([^<]+)<\/button>/.exec(chip);
+    const ryd = chip && /<button class="saml-taeller__ryd[^"]*"[^>]*data-saml-ryd>([^<]+)<\/button>/.exec(chip);
     ok(`65.7.${sprog}: [data-saml-ryd] baerer ryd-knappens tekst`,
       !!ryd && ryd[1].trim().length > 0,
       `fandt "${ryd && ryd[1]}" - bjaelkens egen ryd-knap kopierer denne streng`);

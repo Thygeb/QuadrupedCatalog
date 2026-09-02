@@ -124,8 +124,13 @@ export default async function koer(ctx) {
 
   ok('53.6: system.css krymper .typeskilt .produktside\'s padding-top til var(--r5)',
     /\.typeskilt \.produktside\{padding-top:var\(--r5\)\}/.test(sys));
+  /* 53.7 ER VENDT (spor/knap, L77, 2. sep 2026): selektoren hed
+     `.typeskilt .produktside .videre`, fordi doeren ud til producenten var
+     `.videre`. Den er nu sitets ene knapprimitiv, og reglen hedder `.knap`.
+     Kravet - at produktside-blokkens link- og adresselinje er strammet til
+     r2/r1 - er ordret det samme. */
   ok('53.7: link- og adresselinjens margin er strammet (var(--r2), var(--r1))',
-    /\.typeskilt \.produktside \.videre\{margin-top:var\(--r2\)\}/.test(sys)
+    /\.typeskilt \.produktside \.knap\{margin-top:var\(--r2\)\}/.test(sys)
     && /\.typeskilt \.produktside \.produktside-url\{margin-top:var\(--r1\)\}/.test(sys));
 
   const medGammelKlasse = alleFiler.filter((f) => {

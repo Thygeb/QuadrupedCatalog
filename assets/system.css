@@ -1544,24 +1544,109 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .filtre input[value="ikke_oplyst"]:checked + label{
   background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
 
-/* Den eneste knapform paa sitet: navigation inde paa sitet. Ingen koebsknap,
-   ingen demo-knap, ingen prisforespoergsel. Formen findes ikke i systemet. */
-.videre{
-  display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px;
-  background:var(--blaek);color:#FFFFFF;text-decoration:none;border-radius:var(--hjoerne);
-  font-size:15px;font-weight:600;letter-spacing:-.01em;
+/* --- 13b. KNAPPEN - ÉN PRIMITIV (L77, 2. sep 2026) -----------------------
+   Her stod indtil nu `.videre`/`.videre--stille`, ORBIT-aeraens knap: massiv
+   blaek, hvid tekst, 46 px, 15 px/600. Sitet talte i alt ELLEVE knapudtryk.
+   Nu taler det ét.
+
+   GRUNDFORMEN TALER TYPESKILT: mono, versaler, spaerret, systemets 2px-
+   hjoerne (--hjoerne, L79). Retningen er LAAST og er ikke valgt efter
+   udbredelse - `.videre` stod paa 158 sider og `.nulstil` paa 2. Udbredelse
+   er et maal for oprydningens stoerrelse, ikke et argument for en retning.
+
+   GRUNDFORMEN BAERER INGEN FARVE, og det er sporets vigtigste beslutning.
+   `color:inherit` + `background:transparent` goer, at en `.knap` uden flade-
+   variant arver den flade, den staar paa, og derfor ALDRIG kan blive
+   usynlig ved et uheld. Det er praecis den fejl, spor/saml3 betalte for
+   dagen foer: `.nulstil` var en MOERK-flade-knap (color:var(--paafod)), og
+   genbrugt paa lys bund maalte den 1,16:1. En primitiv skal baere sin flade
+   i sig - og den flade, man faar ved IKKE at vaelge, skal vaere den
+   omgivende.
+
+   FLADEN VAELGES EKSPLICIT, og de to flader hedder noget forskelligt:
+
+     lys bund (--bund/--panel)   .knap--fyldt  .knap--kant  .knap--tekst
+     moerk bund (--fod)                        .knap--kant-moerk
+                                                     .knap--tekst-moerk
+
+   INGEN af de fem er standarden; ordet "-moerk" i klassenavnet ER vaernet,
+   for den forkerte flade kan ikke vaelges uden at have skrevet ordet.
+
+   DEN FYLDTE VAEGT PAA MOERK FLADE FINDES BEVIDST IKKE ENDNU. Ingen af de
+   elleve knapper, primitiven samler op, er en fyldt knap paa moerk bund, og
+   en variant uden brugssted er doed CSS (tests/dele/57). Faar en kommende
+   fladeplan brug for den, er pladsen udmaalt: `background:var(--paafod);
+   color:var(--blaek)` = 12,72:1, og hover som resten af familien. Skriv den,
+   naar der er en knap at saette den paa - ikke foer.
+
+   HOVER ER ÉN GESTUS I HELE FAMILIEN: kassen fyldes med afmaerkningsgul, og
+   teksten gaar til blaek - 9,19:1, uanset hvilken flade knappen stod paa.
+   Undtaget er `--tekst`-vaegtene, som ingen kasse har at fylde; de skifter
+   forgrund i stedet. Det er samme grammatik som links efter L76: accent er
+   markoeren, aldrig hvileforgrunden paa lys.
+
+   KONTRASTEN PAA HVER VARIANT, maalt med WCAG-formlen, laeseretning "X paa Y"
+   (motoren valideret mod DESIGN.md's ti kendte svar, 10/10):
+     --fyldt       panel paa blaek     14,69
+     --kant        blaek paa bund      12,72   --kant-moerk   paafod paa fod    12,72
+     --tekst       stoev-blaek paa bund 4,74   --tekst-moerk  paafod2 paa fod    5,94
+     --tekst.frem  blaek paa bund      12,72   --tekst-moerk.frem accent paa fod 9,19
+     hover, alle kasse-vaegte          blaek paa accent                         9,19
+   Laveste er 4,74 mod WCAG's krav paa 4,5.
+
+   INGEN KOEBSKNAP, ingen demo-knap, ingen prisforespoergsel (haard
+   begraensning 1). Formen findes ikke i systemet, og primitiven maa ikke
+   bruges til at indfoere den. */
+.knap{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 16px;
+  font-family:var(--mono);font-size:12px;font-weight:600;line-height:1.1;
+  letter-spacing:.11em;text-transform:uppercase;
+  color:inherit;background:transparent;
+  border:0;border-radius:var(--hjoerne);
+  text-align:center;text-decoration:none;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
 }
-/* L76, SYVENDE brugssted af hvid-paa-accent - og det ENESTE, der ikke kan
-   ses paa et grep, fordi de to erklaeringer staar i HVER SIN regel:
-   `.videre` saetter color:#FFFFFF, og `.videre:hover` skifter kun
-   baggrunden til accent. Ved hover stod knappen derfor paa 1,66 : 1.
-   Briefets maaling fandt seks, fordi den soegte paa én linje ad gangen.
-   Farven rettes her; knappens FORM er spor 2's (L77). */
-.videre:hover{background:var(--accent);color:var(--blaek)}
-.videre .ikon{width:17px;height:17px;stroke-width:2}
-/* L76: accent som forgrund paa gennemsigtig (= --bund) var 1,38 : 1. */
-.videre--stille{background:none;color:var(--blaek);border:1px solid var(--hegn);padding:0 16px}
-.videre--stille:hover{background:var(--accent-ro);border-color:var(--accent)}
+/* INSTRUMENT tillader ét taktilt svar, ingen animation. Reglen stod foer kun
+   paa kortets stempel; den er primitivens nu. */
+.knap:active{transform:translateY(1px)}
+@media (prefers-reduced-motion:reduce){.knap:active{transform:none}}
+.knap .ikon{width:17px;height:17px;stroke-width:2}
+/* Fokusringen er sidens globale (:focus-visible, afsnit 1). Ingen variant
+   herunder maa saette outline:none - tests/dele/55.12 vogter det. */
+
+/* LYS BUND ---------------------------------------------------------------- */
+.knap--fyldt{background:var(--blaek);color:var(--panel)}
+.knap--kant{color:var(--blaek);box-shadow:inset 0 0 0 1px var(--blaek2)}
+/* Tekstvaegten har ingen kasse og derfor heller ingen polstring: den staar i
+   klaebende raekker (.saml-taeller, .klaebebar), hvor 44 px hoejde ville
+   skubbe raekken ned over indholdet - samme afvejning, som
+   .specimen__fjern's ::after-felt loeser i generator.css. */
+.knap--tekst{
+  min-height:0;padding:0;
+  color:var(--stoev-blaek);text-decoration:underline;text-underline-offset:3px;
+}
+/* MOERK BUND (--fod) ------------------------------------------------------- */
+.knap--kant-moerk{color:var(--paafod);box-shadow:inset 0 0 0 1px var(--paafod2)}
+.knap--tekst-moerk{
+  min-height:0;padding:0;
+  color:var(--paafod2);text-decoration:underline;text-underline-offset:3px;
+}
+/* FREM: tekstvaegtens oeverste trin, naar to tekstknapper staar side om side
+   og den ene er handlingen ("aabn sammenligningen") og den anden fortrydelsen
+   ("ryd"). Paa moerk flade er trinnet accent, ikke --paafod: L76 tillader
+   udtrykkeligt accent som TEKST paa den moerke flade (9,19:1), og
+   klaebebarens gaa-link har baaret den farve siden spor/kort. Skift den ikke
+   til --blaek "for konsistensens skyld": det ville give 1,00 : 1. */
+.knap--tekst.knap--frem{color:var(--blaek)}
+.knap--tekst-moerk.knap--frem{color:var(--accent)}
+
+/* HOVER: én gestus for kasse-vaegtene. */
+.knap--fyldt:hover,.knap--kant:hover,.knap--kant-moerk:hover{
+  background:var(--accent);color:var(--blaek);box-shadow:none;
+}
+.knap--tekst:hover,.knap--tekst.knap--frem:hover{color:var(--blaek)}
+.knap--tekst-moerk:hover,.knap--tekst-moerk.knap--frem:hover{color:var(--paafod)}
 
 /* --- 14. Raekker, tabel og sektionshoved ---------------------------------- */
 /* Baerer bid 4-7: robotsidens feltliste og producentsidens EU-kolonne. */
@@ -1918,12 +2003,13 @@ td .v{font-size:15px}
    b): maal selv, tallet staar i commit-beskeden og agentrapporten.
 
    Specificiteten `.typeskilt .produktside …` er BEVIDST hoejere end
-   generator.css' `.produktside .videre{margin-top:var(--r3)}` og
-   `.produktside-url{margin-top:8px}` (linje 1050-1051 dér) - denne fil maa
-   ikke aendres (se CLAUDE.md's filejerskab), saa vaegten flyttes ved at
-   VINDE cascaden, ikke ved at rette kilden. */
+   generator.css' `.produktside .knap{margin-top:var(--r3)}` og
+   `.produktside-url{margin-top:8px}` - den gang laa stilarket uden for
+   sporets filejerskab, saa vaegten blev flyttet ved at VINDE cascaden i
+   stedet for at rette kilden. Begge selektorer hed `.videre` indtil L77;
+   knappen er nu primitiven, og begge er fulgt med. */
 .typeskilt .produktside{padding-top:var(--r5)}
-.typeskilt .produktside .videre{margin-top:var(--r2)}
+.typeskilt .produktside .knap{margin-top:var(--r2)}
 .typeskilt .produktside .produktside-url{margin-top:var(--r1)}
 
 /* --- filterskala og pris (spor/filter) --------------------------------------
@@ -2053,12 +2139,19 @@ td .v{font-size:15px}
 
 /* 7. STRIMLENS SKALA-CHIP
    Findes kun under JavaScript (se katalog.mjs' valgListe), og arver alt af
-   .valg. Krydset er en <button> her og ikke en <label>, saa den skal have
-   knappens egen nulstilling. */
+   .valg.
+
+   HER STOD `.valg--skala .valg__fjern` med en <button>-nulstilling
+   (border:0, background:none, padding:0, font:inherit, cursor:pointer),
+   fordi krydset er en <button> her og en <label> paa de oevrige chips.
+   Primitiven `.knap` baerer nulstillingen nu, saa reglen er vaek.
+
+   DEN RETTEDE SAMTIDIG EN UTILSIGTET FORSKEL: `background:none` var skrevet
+   som en del af nulstillingen, men den slettede ogsaa krydsets tonede flade,
+   saa skala-chippens kryds som det eneste stod uden fordybning. De to slags
+   chips ser nu ens ud, hvilket var hensigten hele tiden ("arver alt af
+   .valg"). */
 .valg--skala[hidden]{display:none}
-.valg--skala .valg__fjern{
-  border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;
-}
 
 /* 8. DEN OMREGNEDE PRIS PAA KORTET (L66)
    Samme grammatik som L60's imperiale omregningsmaerke: en daempet sidevaerdi,
@@ -2241,20 +2334,26 @@ summary.facet__navn > .facet__tal{
   font-size:14px;font-weight:600;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-/* L76 GENNEMGAAET, BEHOLDT: klaebebaren staar paa --fod (= gunmetal, samme
-   vaerdi som --blaek), og accent PAA blaek er 9,19 : 1. L76 tillader
-   udtrykkeligt accent som tekst paa den moerke flade. Skift den ikke til
-   --blaek "for konsistensens skyld": det ville give 1,00 : 1. */
-.klaebebar__gaa{
-  flex:none;color:var(--accent);text-underline-offset:3px;font-weight:600;
-}
-.klaebebar__gaa:hover{color:var(--paafod)}
-.klaebebar__ryd{
-  flex:none;border:0;background:none;padding:0;cursor:pointer;
-  font:inherit;color:var(--paafod2);text-decoration:underline;
-  text-underline-offset:3px;
-}
-.klaebebar__ryd:hover{color:var(--paafod)}
+/* BJAELKENS TO HANDLINGER er knapprimitivens TEKST-vaegt paa MOERK flade:
+   `knap knap--tekst-moerk knap--frem` paa gaa-linket og `knap
+   knap--tekst-moerk` paa ryd-knappen (klasserne saettes i assets/katalog.js,
+   som bygger bjaelken).
+
+   Her stod foer to fulde regler: gaa-linkets accent-farve og en hel
+   <button>-nulstilling paa ryd. Begge er primitivens nu, og FARVERNE ER DE
+   SAMME som foer - accent (9,19:1) paa handlingen, --paafod2 (5,94:1) paa
+   fortrydelsen. L76's note om, hvorfor accent MAA staa som tekst her, er
+   flyttet med til `.knap--tekst-moerk.knap--frem` i afsnit 13b: bjaelken
+   staar paa --fod (= gunmetal), og accent PAA blaek er 9,19:1. Skift den
+   ikke til --blaek "for konsistensens skyld": det ville give 1,00 : 1.
+
+   TILBAGE STAAR KUN `flex:none`, som er LAYOUT i en flexbox og ikke noget,
+   en knap baerer i sig - bjaelken er `display:flex`, og uden den ville de to
+   handlinger blive klemt af navnelisten, der har `flex:1 1 auto`. */
+.klaebebar__gaa,.klaebebar__ryd{flex:none}
+/* Fokusringen er accent og tegnes UDAD med 2px i stedet for sidens globale
+   3px: bjaelken er kun ~44 px hoej, og en 3px ring med 3px offset ville
+   skaere ud over dens kant. */
 .klaebebar__gaa:focus-visible,.klaebebar__ryd:focus-visible{
   outline:2px solid var(--accent);outline-offset:2px;
 }
@@ -2432,13 +2531,27 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    z-index:3 er ikke pynt: .kort__navn a::after daekker hele kortet som
    klikmaal (z-index:1), og .kort__mrk ligger paa 2. Uden 3 ville knappen
    ligge UNDER navnelinket og ikke kunne rammes. */
-.kort__saml{
-  position:absolute;top:0;right:0;z-index:3;
-  display:flex;align-items:center;gap:5px;
+/* PLACERINGEN er kortets, ikke knappens: `.kort__saml` baerer efter L77 KUN
+   hvor stemplet sidder. Alt det, der handler om, hvordan en knap SER UD, er
+   flyttet til varianten `.knap--maerkat` herunder. */
+.kort__saml{position:absolute;top:0;right:0;z-index:3}
+
+/* .knap--maerkat: knapprimitivens MIKROPLADE - en til/fra-knap, der sidder
+   oven i en flade i stedet for ved siden af den. Den er den ene variant, der
+   IKKE staar oppe hos de andre i afsnit 13b, og grunden er kaskaden: reglerne
+   for hvile, hover og valgt tilstand har alle vaegten (0,2,0), saa det er
+   KILDERAEKKEFOELGEN, der afgoer, om et afsat kort forbliver gult, naar musen
+   koerer hen over det. De skal derfor blive staaende samlet og i denne
+   raekkefoelge - hover foerst, [aria-pressed] sidst. Flyttes de op til
+   primitiven, skal `.kort:hover`-reglen med, og saa vinder den over valgt.
+
+   Fladen er LYS (kortet), og varianten siger det ikke i sit navn, fordi den
+   kun findes ét sted. Skal den nogensinde bruges paa moerk bund, skal der
+   laves en `--maerkat-moerk`; arv den ikke. */
+.knap--maerkat{
+  gap:5px;
   padding:4px 8px;min-height:24px;
-  font-family:var(--mono);font-size:9.5px;font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;
-  border:0;cursor:pointer;
+  font-size:9.5px;font-weight:700;letter-spacing:.13em;
   /* HVILETILSTANDEN ER DAEMPET MED VILJE. Knappen staar paa 83 kort samtidig
      og er dermed sidens mest gentagne element; i fuld blaek med ramme blev
      den den foerste ting, oejet maatte gennem, foer det naaede en robot
@@ -2451,24 +2564,33 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 }
 /* Krydset er et REN CSS-tegn, ikke et ikon: ét glyf mindre at hente, og det
    skifter betydning med tilstanden (+ afsat, x fjern igen). */
-.kort__saml::before{content:"+";font-size:12px;line-height:1;font-weight:700}
-/* Kortet under musen har KUN én knap, saa dér maa den godt traede frem. */
-.kort:hover .kort__saml,.kort__saml:hover,.kort__saml:focus-visible{
+.knap--maerkat::before{content:"+";font-size:12px;line-height:1;font-weight:700}
+/* Kortet under musen har KUN én knap, saa dér maa den godt traede frem.
+   HOVER ER IKKE FAMILIENS GULE HER, og det er med vilje: den gule flade er
+   allerede taget - den betyder AFSAT paa dette kort (se reglen nedenfor).
+   Ville hover ogsaa vaere gul, kunne man ikke se forskel paa "musen er her"
+   og "denne robot er valgt", og det er den ene forskel, gitteret skal kunne
+   baere paa tvaers af 77 kort. Derfor traeder maerkatet frem i kridt+blaek. */
+.kort:hover .knap--maerkat,.knap--maerkat:hover,.knap--maerkat:focus-visible{
   color:var(--blaek);background:var(--panel);
   box-shadow:inset 0 0 0 1px var(--linje);
 }
 /* AFSAT: afmaerkningsgul. Farven er sidens markeringsfarve (D15), ikke en
    handelsfarve - og gunmetal paa gul maaler 9,19:1, saa teksten baerer.
    Den er OGSAA det eneste sted paa kortet, gult optraeder, saa et afsat kort
-   kan ses paa tvaers af gitteret uden at laese en eneste etiket. */
-.kort__saml[aria-pressed="true"]{
-  background:var(--accent);color:var(--blaek);border-color:var(--blaek);
+   kan ses paa tvaers af gitteret uden at laese en eneste etiket.
+   STAAR SIDST MED VILJE: den har samme vaegt (0,2,0) som hover-reglen
+   ovenfor, saa kun kilderaekkefoelgen holder et afsat kort gult under musen. */
+.knap--maerkat[aria-pressed="true"]{
+  background:var(--accent);color:var(--blaek);
 }
-.kort__saml[aria-pressed="true"]::before{content:"\00d7"}
-.kort__saml:focus-visible{outline:2px solid var(--blaek);outline-offset:-2px}
-/* Trykket tilstand - INSTRUMENT tillader ét taktilt svar, ingen animation. */
-.kort__saml:active{transform:translateY(1px)}
-@media (prefers-reduced-motion:reduce){.kort__saml:active{transform:none}}
+.knap--maerkat[aria-pressed="true"]::before{content:"\00d7"}
+/* Fokusringen tegnes INDAD og i blaek, ikke sidens globale 3px accent-ring
+   udad: stemplet sidder i kortets hjoerne, og en udad-ring ville blive
+   klippet af billedfeltet. Samme greb som daekkets rullespor. */
+.knap--maerkat:focus-visible{outline:2px solid var(--blaek);outline-offset:-2px}
+/* (`:active`-svaret er primitivens nu - se `.knap:active` i afsnit 13b.
+   Her stod foer et duplikat plus dets egen prefers-reduced-motion-regel.) */
 
 /* 3. TAELLEREN I STRIMLEN
    Udvalget taelles DÉR, hvor sidens oevrige aktive valg allerede staar, og
@@ -2493,13 +2615,18 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
   background:var(--accent);color:var(--blaek);
   font-variant-numeric:tabular-nums;
 }
-.saml-taeller__gaa{color:var(--blaek);text-underline-offset:3px}
-.saml-taeller__ryd{
-  border:0;background:none;padding:0;cursor:pointer;
-  font:inherit;color:var(--stoev-blaek);text-decoration:underline;
-  text-underline-offset:3px;
-}
-.saml-taeller__ryd:hover{color:var(--blaek)}
+/* RAEKKENS TO HANDLINGER er begge knapprimitiven i dens TEKST-vaegt, den ene
+   med `--frem` (aabn sammenligningen) og den anden uden (ryd). Her stod foer
+   to selvstaendige regler, hvoraf `.saml-taeller__ryd` var en hel
+   <button>-nulstilling; primitiven baerer det hele nu.
+
+   ÉN LINJE BLIVER: raekken saetter SIN EGEN typeskilt-grad (11 px / 700 /
+   .13em), og primitivens er 12 px / 600 / .11em. Uden denne linje ville de
+   to handlinger staa i en anden grad end raekkens egen etiket lige ved
+   siden af - to typeskilt-grader i én raekke, 1 px fra hinanden, hvilket
+   laeser som en fejl frem for som et hierarki. Knapper i en raekke, der
+   allerede TALER typeskilt, foelger raekkens grad. */
+.saml-taeller .knap{font-size:inherit;font-weight:inherit;letter-spacing:inherit}
 /* Graensebeskeden. `role="status"` i HTML'en, saa en skaermlaeser hoerer den;
    den staar kun, naar et klik faktisk blev afvist. */
 .saml-graense{
@@ -2516,7 +2643,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 @media (max-width:720px){
   /* Knappen er et 24 px maal paa 1440. Paa touch skal den op paa 44 px, som
      resten af sidens betjening (samme graense som .udtraek__greb). */
-  .kort__saml{min-height:44px;padding:6px 11px;font-size:10px}
+  .knap--maerkat{min-height:44px;padding:6px 11px;font-size:10px}
 }
 
 /* 460 PX ER MAALT, IKKE VALGT EFTER SMAG. Fra 720 px og ned staar kortene
@@ -2533,7 +2660,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    laeseren ikke slaa op andre steder paa kortet - knappens betydning kan
    hun laere af det foerste tryk. */
 @media (max-width:460px){
-  .kort__saml{padding:6px;gap:0;min-width:44px;justify-content:center}
+  .knap--maerkat{padding:6px;gap:0;min-width:44px}
   .kort__saml-ord{
     position:absolute;width:1px;height:1px;overflow:hidden;
     clip-path:inset(50%);white-space:nowrap;

@@ -173,9 +173,21 @@ export default async function koer(ctx) {
     ok(`30.7.revert ${rel}: samme optaelling fanger en checked status-vaerdi`,
       (('id="f-status-udgaaet" type="checkbox" checked'
         .match(/id="f-status-(i_produktion|annonceret|udgaaet)"[^>]*checked/g)) || []).length === 1);
+    /* 30.7b ER VENDT (spor/knap, L77, 2. sep 2026). Den krallede den ordrette
+       streng `<button class="nulstil" type="reset"`. Klassen `.nulstil` findes
+       ikke mere - knappen er sitets ene knapprimitiv i den moerke omridsede
+       vaegt - men KRAVET er uaendret og faktisk skaerpet: det er stadig
+       `type="reset"`, der er hele mekanikken uden JavaScript, og nu proeves
+       ogsaa, at knappen har valgt en flade. En `.knap` uden flade-variant
+       ville arve sin omgivelse; her staar den paa .strimmel, som er moerk. */
+    const nulstilKnap = (html.match(/<button[^>]*type="reset"[^>]*>/) || [])[0] || '';
     ok(`30.7b ${rel}: NULSTIL er en reset-knap, saa standarden kan naas uden JavaScript`,
-      /<button class="nulstil" type="reset"/.test(html),
+      !!nulstilKnap,
       'et link til #alle kan kun rydde :target, ikke afkrydsningerne');
+    ok(`30.7c ${rel}: nulstil-knappen er knapprimitiven med en MOERK flade-variant`,
+      /\bclass="[^"]*\bknap\b[^"]*"/.test(nulstilKnap)
+      && /knap--(fyldt|kant|tekst)-moerk\b/.test(nulstilKnap),
+      `fandt: ${nulstilKnap || '(ingen reset-knap)'}`);
 
     /* --- 5. Nul-tilstanden ---------------------------------------------- */
     ok(`30.8 ${rel}: nul-tilstanden har baade soege- og filterbegrundelse`,

@@ -52,7 +52,14 @@ export default async function koer(ctx) {
   // varianter skal med her, ellers fejler 43.2 paa katalogsiden med et
   // falsk 77-mod-86-mismatch, der intet siger om denne aendring.
   const KORT_RE = /<article class="kort(?: kort--seneste)?">/g;
-  const KNAP_RE = /<button[^>]*class="kort__saml"[^>]*>/g;
+  /* KNAP_RE ER VENDT (spor/knap, L77, 2. sep 2026): den krallede den ordrette
+     vaerdi `class="kort__saml"`. Samlknappen er nu sitets knapprimitiv med
+     sin maerkat-variant OG sin placeringsklasse
+     (`class="knap knap--maerkat kort__saml"`), saa moensteret maa taale
+     flere klasser. `kort__saml` er stadig KRAEVET - det er den klasse, der
+     siger "dette er kortets samlknap" og ikke bare en knap paa et kort -
+     og reglen taeller stadig praecis én pr. kort. */
+  const KNAP_RE = /<button[^>]*class="[^"]*\bkort__saml\b[^"]*"[^>]*>/g;
 
   // Sti-formen er stabil (byg.mjs' egen struktur): dist/<sprog>/producenter/<slug>/index.html
   // og dist/<sprog>/index.html (katalogets liste - flyttet hertil fra

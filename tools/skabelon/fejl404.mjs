@@ -41,8 +41,9 @@
  *
  * render() bruger sitets egen skal() - samme daekke og fod som alle andre
  * sider (skabelon-kontrakten i side.mjs). INGEN ny CSS: overskrift (.t-h1),
- * en linje forklaring (.t-broed.maal) og ét link (.videre, "den eneste
- * knapform paa sitet"). Sprogskiftet findes allerede i daekket og i fodens
+ * en linje forklaring (.t-broed.maal) og ét link (sitets knapprimitiv i sin
+ * fyldte vaegt, `knap knap--fyldt` — L77; klassen hed `videre` indtil
+ * 2. sep 2026). Sprogskiftet findes allerede i daekket og i fodens
  * T.andet_sprog-laenke (peger paa `${op}${andet}/`, sprogets rod) - en
  * ekstra sprogknap i <main> ville gentage noget, chrome'en allerede giver.
  *
@@ -91,7 +92,7 @@ export function render(ctx) {
 </div>
 <h1 class="t-h1" id="h-fejl404">${esc(t('fejl404_titel'))}</h1>
 <p class="t-broed maal">${esc(t('fejl404_forklaring'))}</p>
-<p><a class="videre" href="${attr(url.katalog)}">${esc(t('fejl404_knap'))}${hjaelp.ikon('i-pil')}</a></p>
+<p><a class="knap knap--fyldt" href="${attr(url.katalog)}">${esc(t('fejl404_knap'))}${hjaelp.ikon('i-pil')}</a></p>
 </div>
 </section>`;
 }

@@ -151,23 +151,41 @@ export default async function koer(ctx) {
      spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden, saa
      url.katalog (tools/build.mjs) og dermed dette link peger nu paa
      "../<sprog>/" i stedet for "../<sprog>/robotter/". */
+  /* 51.4 ER VENDT (spor/knap, L77, 2. sep 2026): knappen hed `.videre` og
+     var dengang "sitets eneste knapform". Den er nu sitets ene
+     knapPRIMITIV, `.knap`, og 404-siden bruger dens FYLDTE vaegt - den ene
+     side i vaerket, hvor der kun findes én handling, taaler den tyngde.
+     Kravet er uaendret: <main> skal have ét knap-link til kataloget, det
+     skal pege paa sprogroden, og maalfilen skal findes i samme byg.
+     Moensteret er samtidig strammet fra `class="videre[^"]*"` til et rigtigt
+     klasse-token, saa det ikke ville kunne matche en klasse, der bare
+     BEGYNDER med ordet (den fejl, briefets eget K1 lavede: dets \b-graense
+     talte ogsaa .robot-videre, et <p> om producenten). */
+  const knapLink = /<a class="(?:[^"]* )?knap(?: [^"]*)?" href="([^"]+)">/;
   for (const s of SPROG) {
     const hoved = hovedAf(sider[s]);
-    const m = hoved.match(/<a class="videre[^"]*" href="([^"]+)">/);
-    ok(`51.4.${s}: <main> har et .videre-link (sitets eneste knapform) til kataloget`, !!m);
+    const m = hoved.match(knapLink);
+    ok(`51.4.${s}: <main> har et knap-link (sitets ene knapprimitiv) til kataloget`, !!m);
     if (m) {
       ok(`51.4.${s}: linket peger paa den rigtige mappe ("../${s}/")`,
         m[1] === `../${s}/`, `fandt "${m[1]}"`);
       const maal = path.join(dist, s, 'index.html');
       ok(`51.4.${s}: maalfilen findes rent faktisk i SAMME byg (${path.relative(rod, maal)})`,
         fs.existsSync(maal));
+      ok(`51.4.${s}: knappen har valgt en flade-variant, ikke bare grundformen`,
+        /class="[^"]*\bknap--(?:fyldt|kant|tekst)\b/.test(m[0]), `fandt: ${m[0]}`);
     }
   }
-  // REVERT-BEVIS: et <main> uden noget .videre-link skal IKKE bestaa
-  // matchet ovenfor - beviser, at "har et link" rent faktisk kraever ét.
+  // REVERT-BEVIS: et <main> uden noget knap-link skal IKKE bestaa matchet
+  // ovenfor - beviser, at "har et link" rent faktisk kraever ét.
   const udenKnap = '<main id="hoved"><h1>Siden findes ikke</h1><p>Ingen vej videre her.</p></main>';
-  ok('51.4.revert: <main> uden .videre-link matcher IKKE knap-reglen',
-    !hovedAf(udenKnap).match(/<a class="videre[^"]*" href="([^"]+)">/));
+  ok('51.4.revert: <main> uden knap-link matcher IKKE knap-reglen',
+    !hovedAf(udenKnap).match(knapLink));
+  // REVERT-BEVIS 2: den gamle faelde. En klasse, der blot INDEHOLDER ordet,
+  // maa ikke taelle som knappen - ellers ville robotsidens .robot-videre-
+  // afsnit have gjort 51.4 groen paa en side helt uden knap.
+  ok('51.4.revert2: en klasse, der kun INDEHOLDER "knap", matcher ikke',
+    !'<a class="robot-knapper" href="../da/">x</a>'.match(knapLink));
 
   /* --- 5. "404" alene er ikke et svar -------------------------------------
      De sprogspecifikke sider maa ikke noeje sig med tallet: forklaringen fra
