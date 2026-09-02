@@ -171,6 +171,7 @@
   "interval_til": "to",
   "imperial_forklaring": "The manufacturer’s own imperial figure.",
   "enhed_skift_etiket": "Imperial units",
+  "enhed_skift_etiket_metrisk": "Metric units",
   "enhed_skift_forklaring": "Imperial figures are our own conversion and carry the mark \"converted\". Figures without that mark are the manufacturer’s own. The source letter always belongs to the metric figure — a conversion has no source of its own.",
   "enhed_omregnet": "converted",
   "enhed_omregnet_forklaring": "Our conversion from {figur}. The manufacturer does not state an imperial figure itself, so the conversion has no source of its own.",

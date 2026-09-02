@@ -2075,7 +2075,7 @@ ${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"
     + `${aktiv === href ? ' aria-current="page"' : ''}>${esc(tekst)}</a></li>`).join('\n')}
 </ul>
 </nav>
-<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord">${esc(t('enhed_skift_etiket'))}</span></label></p>
+<p class="daek__enhed"><label class="enhedsskift" for="enhedsskift"><span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span><span class="enhedsskift__ord enhedsvis enhedsvis--metrisk">${esc(t('enhed_skift_etiket'))}</span><span class="enhedsskift__ord enhedsvis enhedsvis--imperial">${esc(t('enhed_skift_etiket_metrisk'))}</span></label></p>
 <p class="daek__sprog"><span class="kunskaerm">${esc(t('sprog_etiket'))}</span>${sprogSkifter}</p>
 </div>
 </header>

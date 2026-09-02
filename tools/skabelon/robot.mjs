@@ -852,7 +852,8 @@ function enhedsskifter(ctx) {
   if (!ctx.__enhedsskift) return '';
   return `<label class="enhedsskift" for="${ENHED_ID}">`
     + `<span class="enhedsskift__spor" aria-hidden="true"><span class="enhedsskift__knop"></span></span>`
-    + `<span class="enhedsskift__ord">${esc(T(ctx.i18n, 'enhed_skift_etiket'))}</span></label>`;
+    + `<span class="enhedsskift__ord enhedsvis enhedsvis--metrisk">${esc(T(ctx.i18n, 'enhed_skift_etiket'))}</span>`
+    + `<span class="enhedsskift__ord enhedsvis enhedsvis--imperial">${esc(T(ctx.i18n, 'enhed_skift_etiket_metrisk'))}</span></label>`;
 }
 
 /**
