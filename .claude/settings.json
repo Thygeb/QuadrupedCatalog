@@ -28,8 +28,7 @@
       "../udstilling-wt-f2vest",
       "../udstilling-wt-f2genisom",
       "../udstilling-wt-f2galileo",
-      "../udstilling-wt-f2unitree",
-      "../udstilling-wt-f2vaern"
+      "../udstilling-wt-f2unitree"
     ]
   },
   "hooks": {
