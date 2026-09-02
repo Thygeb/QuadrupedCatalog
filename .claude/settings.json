@@ -25,7 +25,8 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "C:/Praktik/websites/udstilling-wt-crlf63"
+      "C:/Praktik/websites/udstilling-wt-crlf63",
+      "C:/Praktik/websites/udstilling-wt-i18ntest"
     ]
   },
   "hooks": {
