@@ -1,6 +1,71 @@
 # FUND — spor/f2-pilot
 
-Arbejdslog. Selve rapporten (højst 60 linjer) står nederst, skrevet sidst.
+## RAPPORTEN (højst 60 linjer, resten af filen er arbejdslog/detalje)
+
+**1. Valgt / fravalgt:**
+- Multi-citat-felter: kun de citater, der understøtter feltets NUVÆRENDE værdi, i
+  `caveat_wording` (adskilt med `" | "`); ubrugte/modstridende citater bliver
+  citeret i `caveat`-prosaen i stedet. Fravalgt: proppe alle citater i
+  `caveat_wording` — ville sløre hvilket citat der faktisk beviser værdien.
+- Manglende `media/_kilder/raa-kand6-2026-08-25/` (miljøfælde, se nedenfor): gen-
+  hentede kilderne friskt med ægte HTTP-headere. Fravalgt: stoppe og rapportere
+  blokeret — netadgang virkede, så det var en løsbar fælde, ikke en reel spærring.
+- MANIFEST.tsv dateret 2026-09-02 (dagens dato), ikke 2026-08-25. Fravalgt: genbruge
+  den gamle dato på filer jeg selv hentede i dag — det ville være en løgn om
+  proveniens.
+
+**2. Konfidens pr. punkt:**
+- Grundmåling: **Høj.** `node tools/validate.mjs` + `git log --oneline -1`,
+  genkørt, samme svar (77/0/1, f8eac85). Forkert arbejde ville give fejltal >0.
+- Punkt 1 (sum A+B+C=17): **Høj.** `field_entries?...&caveat=not.is.null` giver 17,
+  genkørbart. Hver enkelt A/B/C-TILDELING er derimod et redaktionelt skøn: **Middel**.
+- Punkt 2 (citat-efterprøvning): **Høj.** 25/25 citater fundet i tekstudtrukne
+  kildefiler; metoden fangede rent faktisk én fejl undervejs (min egen forkerte
+  kildeantagelse for "170 mm"-citatet) og rettede den — det beviser at et opfundet
+  citat VILLE være blevet fanget som "IKKE FUNDET".
+- MANIFEST.tsv: **Høj.** 6 datarækker; sha256 for én stikprøve genberegnet, matcher.
+- Punkt 3 (oversættelsernes troskab): **Middel.** `dansk: 0`-tallet er højt målt,
+  men at intet er OPFUNDET er efterprøvet ved manuel gennemlæsning, ikke en kommando.
+- Punkt 4 (skrivning): **Høj.** `node db/f2-pilot-skriv.mjs --skriv` → "21 (fejl: 0)
+  af 21". Forkert `robot_id`/`field_name` ville give 0 rækker og script-exit 1.
+- Punkt 5a (talkolonner urørt): **Høj.** Diff-script gav 0/66; mekanismen fangede
+  den forventede `caveat`-ændring (ikke-vakuøs). En rørt talkolonne ville printe
+  en `DIFF`-linje med kolonnenavn og de to værdier.
+- Punkt 5b (`change_log`): **Høj.** 0 → 21 rækker, genkørbart via `select=*`.
+
+**3. Usikkerheder:** hvilke citater der hører i `caveat_wording` vs. `caveat`-prosa
+er min fortolkning af briefets regel, ikke eksplicit specificeret der. 2182/
+`payload_walking` refererer til "topnoten", som ikke findes (`robots.notes` er
+tom for begge robotter) — lod den dinglende reference stå uændret, da det ligger
+uden for min kolonnescope at rette den.
+
+**4. Målingerne:** 17 advarsler, A=16 B=1 C=0 · 25/25 citater genfundet · MANIFEST
+6 datarækker · tørløb 21/21 · skrevet 21/21, 0 fejl · eftermåling caveat 17|dansk 0,
+applications.note 2|dansk 0, images.note 2|dansk 0 · talkolonne-diff 0/66 ·
+change_log 0→21 · manuel gennemlæsning 21/21, 0 fejl (2 observationer) · kasse C: 0.
+
+### Nye fælder og opdagelser (uden for loftet)
+
+1. **`media/_kilder/**` er gitignoreret projektbredt og bliver IKKE automatisk
+   kopieret ind i en ny worktree** (kun `.env` og `assets/fotos/fabrikant/` er
+   det). Et brief, der siger "råkilderne findes allerede", kan tage fejl af netop
+   den grund — efterprøv altid `ls media/_kilder/` FØR du stoler på den påstand.
+2. **"LABEL: VALUE"-citater i Addverbs specifikationstabel er ikke én sammenhængende
+   tekststreng i kilden** — label og værdi ligger i to separate DOM-elementer,
+   koblet af en rendering-konvention (kolon), ikke et bogstaveligt kildetegn.
+   Stadig gyldig kasse-A-ordlyd, men kræver HTML→tekst-udtrækning FØR grep.
+3. **Multi-citat-felter er reglen, ikke undtagelsen:** kun 10 af 16 kasse-A-rækker
+   havde ét enkelt citat. Se `fund/OPSKRIFT-fase2.md` §3 for den fulde regel.
+4. **`value_text`-kolonnen er stadig dansk** på felter som `compute` og
+   `autonomy_level` — en anden tekstbunke, intet spor ejer den endnu.
+
+### Punkter i briefet, jeg ikke nåede
+
+Ingen. Regel 0 og punkt 1-6 er alle gennemført og committet enkeltvis.
+
+---
+
+Arbejdslog og detaljer (tabellerne fra punkt 1 og 5(c) ligger heri):
 
 ## Punkt 1 — klassificering af de 17 advarsler
 
