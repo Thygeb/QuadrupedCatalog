@@ -24,7 +24,9 @@
       "Write(//c/Praktik/websites/salg/**)",
       "Bash(rm -rf:*)"
     ],
-    "additionalDirectories": []
+    "additionalDirectories": [
+      "C:/Praktik/websites/udstilling-wt-primitiv"
+    ]
   },
   "hooks": {
     "UserPromptSubmit": [
@@ -42,5 +44,6 @@
   "enabledPlugins": {
     "playwright@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true
-  }
+  },
+  "outputStyle": "Teknisk og tør"
 }
