@@ -148,4 +148,52 @@ export default async function koer(ctx) {
     ok('67.7b: ingen side bruger role="checkbox" i stedet for en aegte <input>',
       !medDaek.some((s) => /role="checkbox"/.test(s.html)));
   }
+
+  /* ======================================================================
+     PUNKT 5: DA/EN ER VAEK FRA TOPBAREN - OG hreflang ER DET IKKE
+     ====================================================================== */
+  {
+    // 67.8 Ingen topbar baerer et brugersynligt sprogskift. Dette er det ENE
+    // sted, fravaeret taelles paa tvaers af alle sider (51.6 slap sin halvdel
+    // netop hertil, saa paastanden staar ét sted, hvor den kan fejle).
+    const medSkifter = medDaek.filter((s) => /daek__sprogkode|daek__sprog"|daek__skil/.test(s.daek));
+    ok(`67.8: 0 af ${medDaek.length} topbarer baerer et sprogskift (DA/EN fjernet 2. sep 2026)`,
+      medSkifter.length === 0, medSkifter.slice(0, 3).map((s) => rel(s.p)).join(', '));
+    ok('67.8.revert: samme proeve FANGER en topbar, hvor DA/EN er vendt tilbage',
+      /daek__sprogkode|daek__sprog"|daek__skil/
+        .test('<p class="daek__sprog"><a class="daek__sprogkode">EN</a></p>'));
+
+    // 67.9 …og CSS'en er ryddet med, saa der ikke staar doed CSS tilbage.
+    ok('67.9: system.css baerer ingen regler for det fjernede sprogskift',
+      !/daek__sprog|daek__skil/.test(sysCss));
+
+    /* 67.10 DET MASKINLAESBARE SKIFT OVERLEVER. Uden denne assertion ville
+       67.8 vaere groen ogsaa den dag, nogen fjernede hreflang fra <head>
+       sammen med knappen - og siden ville tavst holde op med at fortaelle
+       en soegemaskine, at den findes paa to sprog. Det er den dyreste
+       udgave af "groent kriterium, oedelagt funktion". */
+    const udenAlternate = medDaek.filter((s) => {
+      const hoved = s.html.slice(0, s.html.indexOf('</head>'));
+      return (hoved.match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length < 3;
+    });
+    ok('67.10: hver topbar-side baerer stadig 3 <link rel="alternate" hreflang> i <head> '
+      + '(da, en, x-default) - sprogskiftet er maskinlaesbart, ikke tabt',
+      udenAlternate.length === 0, udenAlternate.slice(0, 3).map((s) => rel(s.p)).join(', '));
+    ok('67.10.revert: samme proeve FANGER en side, hvor hreflang er revet ud af <head>',
+      (('<head><title>x</title></head>').match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length < 3);
+
+    /* 67.11 TAELLINGEN, DER FORKLARER T5. Et raat `grep -o hreflang` paa en
+       bygget side gav 4 FOER sporet og giver 3 EFTER. Forskellen er ikke et
+       tab af maskinlaesbarhed: de tre i <head> er uroerte, og den fjerde sad
+       paa selve DA/EN-laenkens hreflang-attribut. Et kriterium, der kraever
+       4, maaler altsaa den fjernede knap - ikke sprogskiftets overlevelse.
+       Linjen her fastholder den skelnen, saa den ikke skal genopdages. */
+    const enSide = medDaek[0];
+    const iAlt = (enSide.html.match(/hreflang/g) || []).length;
+    const iHoved = (enSide.html.slice(0, enSide.html.indexOf('</head>'))
+      .match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length;
+    ok(`67.11: alle sidens hreflang-forekomster (${iAlt}) sidder i <head> som `
+      + `rel="alternate" (${iHoved}) - ingen sidder paa en synlig laenke laengere`,
+      iAlt === iHoved && iHoved === 3, `i alt ${iAlt}, i <head> ${iHoved}`);
+  }
 }

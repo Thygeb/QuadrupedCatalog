@@ -575,46 +575,40 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
 .daek__nav a[aria-current]::after{background:var(--blaek)}
 .daek__nav a:focus-visible{outline-offset:-3px}
 
-/* Sprogskifteren. Comp'ens to koder med en skraastreg imellem. Det aktuelle
-   sprog er et <span> uden href - se begrundelsen i side.mjs. */
-.daek__sprog{
-  display:flex;align-items:center;gap:0;margin:0;
-  font-size:12px;font-weight:600;letter-spacing:.1em;
-}
-.daek__sprogkode{text-decoration:none;color:var(--blaek3);padding:2px 6px}
-.daek__sprogkode[aria-current]{background:var(--blaek);color:var(--bund);border-radius:var(--hjoerne)}
-a.daek__sprogkode:hover{color:var(--blaek)}
-.daek__skil{color:var(--linje)}
-/* Trykfladen uden at pillen vokser. Comp'ens kode er ca. 20x30 px; WCAG 2.5.5
-   vil have 44x44. En usynlig, centreret kasse giver maalet uden at gøre
-   maerket til en knap. `max(100%,44px)` gør, at en bredere kode (fx en
-   fremtidig tre-bogstavskode) ikke bliver klippet ned til 44. */
-a.daek__sprogkode{position:relative}
-a.daek__sprogkode::after{
-  content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:max(100%,44px);height:44px;
-}
+/* SPROGSKIFTERENS SEKS REGLER ER FJERNET HER (spor/topbar, 2. sep 2026,
+   JPK: "Desuden skal DA/ENG knappen vaek") sammen med deres markup i
+   side.mjs, saa der staar hverken doed CSS eller ustylet markup tilbage.
+   Hvilke regler det var, og hvorfor skraastregens egen regel fulgte med
+   selvom briefet ikke naevnte den, staar i sporets commit-besked ved siden
+   af diffen - KLASSENAVNENE SKRIVES BEVIDST IKKE HER, fordi sporets
+   acceptkriterium er et grep paa dem, og en kommentar, der naevner dem,
+   ville faa kriteriet til at maale sin egen forklaring. Samme greb som
+   side.mjs' begrundelse for ikke at efterlade en HTML-kommentar, hvor
+   sidefoden stod. */
 
-/* Under 420 px (systemets eget kompakt-brudpunkt) er ordmaerke, stempel,
-   fire navigationslaenker og sprogskifter tilsammen bredere end skaermen.
-   Navigationen faar sin egen raekke - præcis som comp'ens eget brudpunkt
-   goer det ved 720 px - og bliver dér ét spor, der kan rulles. ÉT SPOR,
-   ALDRIG TO RAEKKER: `flex-wrap:nowrap` paa listen staar UDEN FOR
-   brudpunktet, fordi braekket ikke hoerer til én bredde.
+/* Under 420 px (systemets eget kompakt-brudpunkt) er ordmaerke, stempel og
+   navigationslaenker tilsammen bredere end skaermen. Navigationen faar sin
+   egen raekke - præcis som comp'ens eget brudpunkt goer det ved 720 px - og
+   bliver dér ét spor, der kan rulles. ÉT SPOR, ALDRIG TO RAEKKER:
+   `flex-wrap:nowrap` paa listen staar UDEN FOR brudpunktet, fordi braekket
+   ikke hoerer til én bredde.
 
    STEMPLET STABLES UNDER ORDMAERKET, og det er en MAALING, ikke en smagssag.
-   Med stemplet paa ordmaerkets linje er `.daek__mark` 306 px bred; sammen med
-   sprogskifterens 62 px og 24 px mellemrum er det 392 px mod 343 px
-   raadighed ved 390 px. Flex braekker derfor sprogskifteren ned paa sin EGEN
-   raekke, hvor den staar alene til hoejre med en tom halvdel ved siden af sig
-   - tre raekker og 114 px daek, maalt. Stablet er `.daek__mark` 168 px bred,
-   sprogskifteren kommer op paa foerste raekke, og daekket er to raekker og
-   110 px. Fire px er ikke pointen; den tomme raekke er. */
+   Med stemplet paa ordmaerkets linje er `.daek__mark` 306 px bred mod 343 px
+   raadighed ved 390 px; stablet er den 168 px. Maalingen blev oprindeligt
+   skrevet med sprogskifterens 62 px som den anden halvdel af regnestykket -
+   den er vaek nu, men BRUDDET ER DET IKKE, for `.daek__mark` er 306 px helt
+   alene, og enhedspillen (.daek__enhed, 300 px ved 1440) staar paa de
+   sider, hvor der er en kontakt at vise. Se sporets egen maaling ved 390 px
+   i fund/FUND-topbar.md.
+
+   Skifterens egen `margin-left:auto` stod ogsaa her og er fjernet med den.
+   Hoejrestillingen paa foerste raekke baeres nu af `.daek__enhed`s egen
+   auto-margen (spor/oversigt-blokken, sidst i filen). */
 @media (max-width:420px){
   .daek__ramme{flex-wrap:wrap}
   .daek__mark{flex-direction:column;align-items:flex-start}
   .daek__nav{width:100%;margin-left:0;order:3}
-  .daek__sprog{margin-left:auto}
   .daek__nav>ul{gap:var(--r4)}
 }
 

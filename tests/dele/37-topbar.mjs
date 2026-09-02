@@ -131,20 +131,35 @@ export default async function koer(ctx) {
       const aktive = (d.match(/aria-current="page"/g) || []).length;
       if (aktive > 1) fejl4.push(`${rel}: ${aktive}`);
 
-      // 5. Sprogskifteren: det aktuelle sprog er et <span> uden href, det
-      //    andet er et <a>, der peger paa SAMME sti under det andet sprog -
-      //    og den side findes.
-      const nu = d.match(new RegExp(`<span class="daek__sprogkode" aria-current="true" lang="${sprog}">`));
-      if (!nu) fejl5.push(`${rel}: aktuelt sprog er ikke et <span> med aria-current`);
-      for (const andet of skema.SPROG.filter((s) => s !== sprog)) {
-        const m = d.match(new RegExp(`<a class="daek__sprogkode" href="([^"]+)" hreflang="${andet}"`));
-        if (!m) { fejl5.push(`${rel}: intet link til ${andet}`); continue; }
+      /* 5. VENDT OM OG FLYTTET (spor/topbar, 2. sep 2026, JPK: "Desuden
+         skal DA/ENG knappen vaek"). Indtil da proevede blokken topbarens
+         SYNLIGE skifter: aktuelt sprog som <span aria-current>, det andet
+         som <a> til samme sti under det andet sprog, og at siden fandtes.
+
+         Skifteren er vaek, men INVARIANTEN er ikke: krydssprogs-henvisninger
+         skal stadig pege paa den TILSVARENDE side, og den side skal findes.
+         Den baeres nu af <link rel="alternate" hreflang> i <head>. Proeven
+         er derfor ikke slettet - den er flyttet over paa den baerer, der er
+         tilbage, og skaerpet med et krav om, at skifteren ikke er tilbage i
+         daekket. Uden den sidste halvdel ville en genindsat DA/EN-knap
+         passere ubemaerket. */
+      if (/class="daek__sprogkode"/.test(d)) {
+        fejl5.push(`${rel}: DA/EN-skifteren er tilbage i daekket`);
+      }
+      const helHtml = laes(f);
+      const hoved = helHtml.slice(0, helHtml.indexOf('</head>'));
+      for (const andet of skema.SPROG) {
+        const m = hoved.match(new RegExp(`<link rel="alternate" hreflang="${andet}" href="([^"]+)"`));
+        if (!m) { fejl5.push(`${rel}: intet <link rel=alternate> til ${andet}`); continue; }
         const forventet = path.join(dist, andet, sti);
         if (path.resolve(path.dirname(f), m[1]) !== forventet) {
           fejl5.push(`${rel}: ${andet} peger paa ${m[1]}, ikke paa ${andet}/${sti}`);
         } else if (!findes(f, m[1])) {
           fejl5.push(`${rel}: ${andet}/${sti} findes ikke i dist`);
         }
+      }
+      if (!/<link rel="alternate" hreflang="x-default"/.test(hoved)) {
+        fejl5.push(`${rel}: intet x-default`);
       }
 
       // 6. Hver navigationslaenke peger paa en side, der findes. L58's vagt.
@@ -163,7 +178,8 @@ export default async function koer(ctx) {
       fejl3.length === 0, fejl3.slice(0, 3).join(' | '));
     ok('37.5: hoejst ét aria-current="page" i daekket',
       fejl4.length === 0, fejl4.slice(0, 3).join(' | '));
-    ok('37.6: sprogskifteren peger paa den tilsvarende side, og den findes',
+    ok('37.6: krydssprogs-henvisningen (<link rel=alternate hreflang> i <head>) peger paa '
+      + 'den tilsvarende side, den findes, og DA/EN er IKKE tilbage i daekket',
       fejl5.length === 0, fejl5.slice(0, 3).join(' | '));
     ok('37.7: hver navigationslaenke peger paa en side, der findes (L58)',
       fejl6.length === 0, fejl6.slice(0, 3).join(' | '));
@@ -190,6 +206,14 @@ export default async function koer(ctx) {
 
   /* --- 9. Kilden: de to nye noegler og daekkets skrift ------------------ */
   {
+    /* `sprog_etiket` ER UBRUGT FRA 2. sep 2026 (spor/topbar): den var
+       skjult skaermlaeser-etiket paa DA/EN-skifteren, som JPK fik fjernet.
+       Noeglen staar bevidst tilbage i data/i18n/ - den fil ejes af et andet
+       spor - og assertionen er BEHOLDT, ikke slettet, fordi den stadig
+       proever noget sandt og nyttigt: at da.json og en.json har samme
+       noeglesaet. Bemaerk dog, at den fra nu af IKKE beviser, at noeglen
+       bruges. Fjernes den ved en senere oprydning, skal denne linje
+       fjernes SAMTIDIG - ellers bliver den roed uden at noget er i stykker. */
     for (const n of ['nav_etiket', 'sprog_etiket']) {
       ok(`37.10.${n}: noeglen findes i BEGGE sprogfiler`,
         n in da && n in en, `da:${n in da} en:${n in en}`);

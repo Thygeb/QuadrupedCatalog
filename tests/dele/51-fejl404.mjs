@@ -93,16 +93,27 @@ export default async function koer(ctx) {
       /<meta name="robots" content="noindex">/.test(sider[s]));
     ok(`51.2.${s}: topbaren med sitets navn staar paa siden ("daek__navn")`,
       /class="daek__navn"/.test(sider[s]));
-    ok(`51.2.${s}: header-sprogskifteren (DA/EN) staar paa siden`,
-      /class="daek__sprogkode"/.test(sider[s]));
+    /* VENDT OM (spor/topbar, 2. sep 2026, JPK: "Desuden skal DA/ENG
+       knappen vaek"). Assertionen lyd indtil da: "header-sprogskifteren
+       (DA/EN) staar paa siden". Den er ikke slettet, men vendt - det er nu
+       en fejl, hvis skifteren dukker op igen. 404-siden er den sidste
+       flade, man vil have en halvfjernet chrome paa. */
+    ok(`51.2.${s}: header-sprogskifteren (DA/EN) staar IKKE paa siden (fjernet 2. sep 2026)`,
+      !/class="daek__sprogkode"/.test(sider[s]));
+    /* …men SPROGSKIFTET selv overlever maskinlaesbart. Uden denne linje
+       ville reglen ovenfor vaere groen ogsaa den dag, nogen ved et uheld
+       rev hreflang ud af <head> sammen med knappen. */
+    ok(`51.2.${s}: <link rel="alternate" hreflang> staar stadig i <head> (maskinlaesbart skift)`,
+      (sider[s].match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length >= 2);
     // OMVENDT af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7): fodens
     // haarde linje stod her, fordi fodens ingen_forhandler-linje foer stod
     // paa HVER side. Foden er fjernet HELT (JPK, i interview, med tabet
     // forelagt) - linjen findes nu KUN paa Om os (om-os.mjs:300, uden for
     // foden), ikke paa 404-siden. T.andet_sprog ("In English"/"På dansk")
     // var UDELUKKENDE fodens egen sprogskifte-tekst og er fjernet fra
-    // da.json/en.json - sprogskiftet er allerede proevet to linjer ovenfor
-    // via topbarens "daek__sprogkode".
+    // da.json/en.json. Sprogskiftet blev indtil 2. sep 2026 proevet ovenfor
+    // via topbarens "daek__sprogkode"; efter spor/topbar er det hreflang-
+    // linjen, der baerer proeven.
     ok(`51.2.${s}: fodens haarde linje ("ingen_forhandler") staar IKKE paa 404-siden (foden er vaek)`,
       !sider[s].includes(T.ingen_forhandler));
   }
@@ -112,8 +123,17 @@ export default async function koer(ctx) {
   const udenChrome = '<main id="hoved"><h1>x</h1></main>';
   ok('51.2.revert: en side uden chrome mangler daek__navn (proever regelens negativ)',
     !/class="daek__navn"/.test(udenChrome));
-  ok('51.2.revert: en side uden chrome mangler daek__sprogkode',
-    !/class="daek__sprogkode"/.test(udenChrome));
+  /* VENDT MED SIN ASSERTION (spor/topbar, 2. sep 2026). Beviset lyd indtil
+     da: "en side uden chrome mangler daek__sprogkode" - det passede til en
+     POSITIV regel. Nu er reglen negativ, og et revert-bevis skal derfor
+     vise det modsatte: at proeven FANGER en side, hvor skifteren er tilbage.
+     Et fravaers-bevis paa en negativ regel ville vaere groent uanset alt. */
+  const medSprogskifter = '<header class="daek"><a class="daek__sprogkode" href="../en/">EN</a></header>';
+  ok('51.2.revert: proeven FANGER en side, hvor sprogskifteren er vendt tilbage',
+    /class="daek__sprogkode"/.test(medSprogskifter));
+  // …og hreflang-proeven skal ligeledes kunne fejle: en side uden <head>-links.
+  ok('51.2.revert: hreflang-proeven FANGER en side uden <link rel="alternate">',
+    (udenChrome.match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length < 2);
 
   /* --- 3. ingen falsk aria-current="page" --------------------------------- */
   for (const s of SPROG) {
@@ -169,8 +189,18 @@ export default async function koer(ctx) {
   /* --- 6. rod-siden: tosproget, selvbaerende, praecis én vej pr. sprog ---- */
   ok('51.6: rod-siden er noindex',
     /<meta name="robots" content="noindex">/.test(rodSide));
+  /* Halvdelen om daek__sprogkode er STROEGET HER (spor/topbar, 2. sep 2026),
+     og begrundelsen er vigtigere end linjen: efter at DA/EN er fjernet fra
+     topbaren, findes klassen ikke paa NOGEN side, saa `!daek__sprogkode`
+     ville vaere sandt uanset hvad rod-siden gjorde. En saadan halvdel goer
+     assertionen svagere, ikke staerkere - den kan ikke laengere fejle, men
+     ser stadig ud som om den vogter noget. Det er praecis Å121-fejlen: et
+     groent kriterium, der maaler noget andet end sit navn. Fravaeret paa
+     tvaers af ALLE sider vogtes i stedet ét sted, af 67.8 i
+     tests/dele/67-topbar2.mjs, hvor det kan fejle. daek__navn er beholdt:
+     rod-siden er selvbaerende, og den klasse findes stadig paa 214 sider. */
   ok('51.6: rod-siden bruger IKKE de sprogspecifikke chrome-klasser (den er selvbaerende)',
-    !/class="daek__navn"/.test(rodSide) && !/class="daek__sprogkode"/.test(rodSide));
+    !/class="daek__navn"/.test(rodSide));
 
   const rodVeje = [...rodSide.matchAll(/<a class="f404-vej" href="([^"]+)" hreflang="([^"]+)" lang="([^"]+)">/g)];
   ok(`51.6: rod-siden har praecis ${SPROG.length} vej(e) ind, én pr. sprog`,
