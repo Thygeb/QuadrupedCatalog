@@ -45,8 +45,21 @@ kilde.
 **(D) Kan ikke føres tilbage til nogen kilde.** 1 af mine 35
 (`2186/ip_rating`): caveaten hævdede en "IP67-påstand i en pressemeddelelse,
 der ikke kunne hentes" — søgt i alle tre kildefiler for den producent,
-intet fundet. **Rørt ikke.** Sat på en liste til JPK, ikke rettet, ikke
-gættet på.
+intet fundet.
+
+**OPDATERET af JPK's beslutning L87 (2. sep 2026), EFTER at dette spor
+oprindeligt afleverede kasse D som "rørt ikke, sat på en liste":**
+*"Kildens ord ordret, vores prosa KUN når hver påstand kan efterprøves i et
+snapshot — og det, der ikke kan, SLETTES."* **Kasse D betyder derfor ikke
+længere "lad stå urørt og spørg JPK" — den betyder "sæt `caveat` (og
+`caveat_wording`, hvis den findes) til `null`, og skriv hvorfor i
+`change_reason`."** `value_text` og de øvrige talfelter røres stadig ikke —
+kun selve den ubelagte påstand forsvinder. **Én ekstra kolonne kan følge
+med, mekanisk, ikke som et valg:** har rækken en `caveat_class`, kræver
+constraint'en `feltposter_advarsel_klasse_kraever_advarsel`
+(`db/skema.sql`), at den OGSÅ sættes til `null` — en advarsels-klasse uden
+en advarsel er ikke tilladt. Skriv altid `change_reason` som "L87: ..." så
+en senere læser kan se, at sletningen er en besluttet regel og ikke et gæt.
 
 ## Reglen for `caveat_wording`, sagt så den ikke kan misforstås
 

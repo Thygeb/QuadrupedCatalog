@@ -62,14 +62,38 @@ alle "1 række opdateret". 1 efterfølgende rettelse (2 × `applications.note`,
 0 forkerte `changed_by`. Punkt 5(a)-diff: 0 uventede ændringer uden for
 tekstkolonnerne (alle tal, kilder, datoer uændrede).
 
-## Punkt 5(c) — Kasse D-listen til JPK
+## Punkt 5(c) — Kasse D-listen til JPK — OPDATERET: raekken er SLETTET under L87
 
-Én række. Rørt ikke — raden står stadig på dansk i databasen, som den gjorde
-før dette spor. Beslutningen om, hvad der skal ske med den, er JPK's.
+**Denne sektion beskrev oprindeligt raekken som urørt, som briefets kasse-D-
+regel krævede.** Efter orkestratorens efterprøvning besluttede JPK **L87**
+(STATUS.md, 2. sep 2026): *"Kildens ord ordret, vores prosa KUN når hver
+påstand kan efterprøves i et snapshot — og det, der ikke kan, SLETTES."*
+Det er hård begrænsning 2 gjort til regel for fase 2, og den gør netop denne
+D-postens tilstand ("urørt, dansk, uden belæg") til noget der skal væk.
 
-| robot_id | field_name | dansk tekst (uændret i databasen) | søgt efter og ikke fundet |
+**Sletningen er JPK's beslutning, udført her på hans ord — ikke sporets eget
+initiativ.** Udført med `db/f2-cjk-l87-slet.mjs` (nyt, ejet af dette spor):
+`caveat` sat til `null` (var den danske sætning nedenfor), `caveat_wording`
+forblev `null` (var det allerede). `value_text` ("IP66", kildebelagt) er
+URØRT — kun selve den ubelagte påstand er væk.
+
+**Uventet ekstra ændring, opdaget af selve databasen, ikke af briefet:**
+rækken havde `caveat_class = 'validity'`. Constraint'en
+`feltposter_advarsel_klasse_kraever_advarsel` (db/skema.sql) tillader ikke
+en advarsels-klasse uden en advarsel — første skriveforsøg blev afvist med
+HTTP 400. `caveat_class` er derfor OGSÅ sat til `null`, mekanisk krævet af
+selve sletningen, ikke en selvstændig beslutning.
+
+| robot_id | field_name | dansk tekst (SLETTET, stod her før L87) | søgt efter og ikke fundet |
 |---|---|---|---|
-| 2186 | ip_rating | "Se noten om en ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes." | Søgte "IP67" og "pressemeddelelse" i alle tre astrall-kildefiler (`astralldynamics-hypertron-t01-produktside`, `astralldynamics-forside`, `astralldynamics-om-os`, alle 2026-08-24). Ingen af de tre nævner IP67 nogen steder (kun IP66, som ER kildebelagt på produktsiden og ikke er del af denne D-post). `robots.notes` for 2186 er desuden `NULL` — feltets egen henvisning "se noten" peger derfor på noget, der ikke findes i databasen i dag, hvilket understøtter at påstanden aldrig fik en kilde hæftet på sig. |
+| 2186 | ip_rating | ~~"Se noten om en ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes."~~ | Søgte "IP67" og "pressemeddelelse" i alle tre astrall-kildefiler (`astralldynamics-hypertron-t01-produktside`, `astralldynamics-forside`, `astralldynamics-om-os`, alle 2026-08-24). Ingen af de tre nævner IP67 nogen steder (kun IP66, som ER kildebelagt på produktsiden og URØRT). `robots.notes` for 2186 er desuden `NULL` — feltets egen henvisning "se noten" pegede derfor på noget, der ikke findes i databasen, hvilket understøttede at påstanden aldrig fik en kilde hæftet på sig. |
+
+**Efterprøvet:** `node fund/maal-f2-cjk.mjs 2186,2258` giver nu
+`caveat 34 | dansk 0` og `heraf uden ordlyd 0` (før: `35 | 1` og `1`).
+`change_log` for de to robotter: **40 rækker** (før: 39), alle
+`changed_by = 'spor/f2-cjk'`. Punkt 5(a)-diffen viser nu netop ÉN uventet
+kolonnediff (`caveat_class`, forklaret ovenfor) — resten af invariansen
+(alle andre tal, kilder, datoer) holder stadig.
 
 ## Punkt 2 — Klassificering af alle 35 advarsler
 
@@ -88,7 +112,7 @@ allerede ren. **C** = ingen ordlyd, citat findes i kilden og kan trækkes ud.
 | 2186 | slope | A | Starter ligefrem med dansk "Etiket er" foran CJK-citatet |
 | 2186 | obstacle_single | A | CJK-citat + dansk parentes |
 | 2186 | stair_step_continuous | A | CJK-citat + dansk parentes |
-| 2186 | ip_rating | D | Caveaten hævder en "ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes" — søgt i alle tre astrall-kildefiler (produktside, forside, om-os) efter "IP67" og "pressemeddelelse": intet fundet. Værdien selv (IP66) har en gyldig kilde; DENNE påstand har ingen. Rørt ikke, sat på D-listen |
+| 2186 | ip_rating | D → **slettet under L87** | Caveaten hævdede en "ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes" — søgt i alle tre astrall-kildefiler (produktside, forside, om-os) efter "IP67" og "pressemeddelelse": intet fundet. Værdien selv (IP66) har en gyldig kilde og er urørt; DENNE påstand havde ingen — oprindeligt sat på D-listen (rørt ikke), men **slettet af JPK's egen beslutning L87 efter orkestratorens efterprøvning**, se Punkt 5(c) |
 | 2186 | temperature_max | A | CJK-citat + `(driftstemperatur). Opbevaringstemperatur ... er separat - se noter.` — igen uden æøå, samme måleblinde-vinkel som payload_walking |
 | 2186 | runtime | A | CJK-citat + lang dansk uddybning |
 | 2186 | docking_station | A | CJK-citat + dansk uddybning, inkl. tolkningen af "docking" |
@@ -115,7 +139,9 @@ allerede ren. **C** = ingen ordlyd, citat findes i kilden og kan trækkes ud.
 | 2258 | sdk_languages | A | CJK-citat + dansk parentes |
 | 2258 | price | A | CJK-citat + dansk parentes + dansk uddybning |
 
-**Facit: A = 32, B = 0, C = 2, D = 1. Sum = 35.**
+**Facit ved sporets oprindelige aflevering: A = 32, B = 0, C = 2, D = 1.
+Sum = 35. Efter JPK's L87-beslutning (se Punkt 5(c)): D-rækken er slettet,
+34 tilbage.**
 
 **Afviger fra briefets forudsigelse 29/3/3/0** — se "Nye fælder og opdagelser"
 i hovedrapporten for hvorfor B blev 0, ikke 3.
@@ -162,6 +188,18 @@ i hovedrapporten for hvorfor B blev 0, ikke 3.
    i stedet for det korrekte 37 — `robots`-rækken var der hele tiden, bare
    under en anden nøgle. Fanget, fordi jeg havde skrevet forventningen
    ("37") ned, FØR jeg læste tallet.
+7. **`caveat_class` kan ikke stå alene uden en `caveat` — håndhævet af en
+   DB-constraint, ikke af nogen skrevet regel.** L87-sletningen (RETTELSE 1)
+   satte kun `caveat` til `null` i første forsøg; PostgREST afviste med
+   HTTP 400 og `feltposter_advarsel_klasse_kraever_advarsel`, fordi rækken
+   havde `caveat_class = 'validity'`. Enhver fremtidig L87-sletning skal
+   også nulstille `caveat_class`, hvis den er sat — ellers fejler skrivningen
+   synligt (godt), men først ved selve forsøget, ikke ved en kildekontrol.
+8. **`process.exit()` efter et gennemført `fetch()`-kald crasher Node 24
+   med en libuv-assertion og exit 127** — bekræftet af orkestratoren med
+   kontrolgruppe, rettet i RETTELSE 3 (`process.exitCode` + `return`
+   overalt i begge egne scripts). Værd at kende for enhver fremtidig
+   node-fetch-CLI i dette projekt.
 
 ## Punkter i briefet, jeg ikke nåede
 
