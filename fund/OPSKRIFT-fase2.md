@@ -127,7 +127,7 @@ ikke `media/_kilder/`. **Tjek dette FØR du stoler på et brief, der siger råki
 - Byg din `MANIFEST.tsv` af DISSE friske filer, dateret med DAGENS dato i
   filnavnet — ikke den oprindelige indsamlingsdato, som ville være løgn om
   proveniensen. Skriv en kommentarlinje øverst i MANIFEST.tsv, der forklarer
-  afvigelsen. Se `media/_kilder/raa-kand6-2026-08-25/MANIFEST.tsv` for et fuldt
+  afvigelsen. Se `media/_kilder/raa-f2-pilot-2026-09-02/MANIFEST.tsv` for et fuldt
   eksempel.
 - Verificér at det friskt hentede indhold rent faktisk BÆRER de citater, du skal
   bruge — søg dem alle, tæl fundet/ikke-fundet. Hvis siden har ændret sig siden
@@ -163,7 +163,10 @@ flag den i din rapport, så JPK ved den findes.
   tørløb/`--skriv`-skifte.
 - `fund/FUND-<dit-spor>.md` — din rapport, samme skabelon som denne fils forfatter
   brugte (se `fund/FUND-f2pilot.md`).
-- `media/_kilder/raa-<batch>/MANIFEST.tsv`, hvis den mangler (se §6.1).
+- `media/_kilder/raa-<dit-spornavn>-<dagens-dato>/MANIFEST.tsv`, hvis den mangler
+  (se §6.1). **Aldrig i en anden batches mappe** — heller ikke selvom dit brief
+  nævner en ældre batch-mappe ved navn (fx `raa-kand6-...`): den mappe hører til
+  en anden indsamling, med sit eget MANIFEST, der ikke dækker dine friske filer.
 
 God fornøjelse. Skriv til denne fil, hvis du finder noget, DEN tog fejl af — den er
 skrevet af det FØRSTE spor, ikke det sidste.
