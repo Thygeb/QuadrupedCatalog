@@ -38,3 +38,39 @@ tilsammen giver tal+operator (slope), to citater der begge bærer reel feltværd
 rent strukturelt. Beslutningsregel brugt her: `caveat_wording` bærer KUN det/de citater,
 der reelt understøtter feltets nuværende værdi (adskilt med " | " hvis flere), aldrig et
 ubrugt/modstridende tal — det bliver i `caveat`-prosaen som citeret kontekst.
+
+## Punkt 2 — MILJØFÆLDE fundet, og hvordan den blev lukket
+
+**`media/_kilder/raa-kand6-2026-08-25/` fandtes IKKE i denne worktree** — hverken
+mappen eller de seks filer, briefet forudsatte var der ("Addverbs råkilder findes
+allerede, seks filer"). Kontrolleret: `ls media/_kilder/` viste kun `LÆSMIG.md`
+(mappen er gitignoreret, `.env` og fabrikantfotos blev kopieret ind for mig, denne
+mappe blev det ikke). Dette er briefets egen påstand, som jeg her retter, jf.
+"Briefets fakta er påstande".
+
+**Løsning:** Netadgang virker fra denne worktree (`curl` til addverb.ai gav 308→200).
+Jeg gen-hentede de samme tre URL'er (fundet i `data/robots/addverb-*.yaml`s `kilde:`-
+felter og i selve advarslens citat af pressemeddelelsen), gemte dem MED ægte
+HTTP-headere (`curl -D`, statuskode + `Date`), beregnede rigtig sha256/bytes, og
+byggede `MANIFEST.tsv` af DISSE filer — dateret **2026-09-02**, ikke 25-08, med en
+forklarende kommentar øverst i filen om afvigelsen. `hentet_utc` er her serverens
+egen `Date`-header (ikke en mtime-øvregrænse — det er LÆSMIG.md's egen anbefalede
+forbedring til "næste gang").
+
+**(a) Citatefterprøvning:** alle 16 kasse-A-rækkers citater (25 enkeltstrenge, nogle
+rækker har 2) søgt i de tekstudtrukne filer. **25/25 fundet.** Én fejlede først
+("climb steps upto 170 mm" ikke fundet i blog.html) — undersøgt, og fejlen var min
+egen kildeantagelse: citatet står i `trakr.html`s "COMPARE TRAKR 5 / TRAKR 20"-sammen-
+ligningstekst, ikke i blogindlægget. Rettet og genfundet. **Ingen kasse-A nedgraderes
+til kasse C** — klassificeringen fra punkt 1 står fast.
+
+**Fund undervejs (vigtigt for opskriften):** "LABEL: VALUE"-citater som `"WEIGHT
+(INCL BATTERY): 18 KG"` er IKKE én sammenhængende tekststreng i kilden — det er to
+separate DOM-elementer (label i `<h4>`, værdi i naboelement) i Addverbs Framer-tabel.
+Kolonnet er en rendering-konvention, ikke bogstaveligt kildetegn. Begge ordstumper er
+dog 100 % producentens egne ord, kun adskilt i markup — behandlet som gyldig
+kasse-A-ordlyd.
+
+**(b) MANIFEST.tsv:** 6 datarækker + hoved, bekræftet (`tail -n +3 | wc -l` = 6).
+Sha256 for `addverb-com-press-trakr2-2026-09-02.html` genberegnet og passer
+(`9d3f291e...`).
