@@ -1,0 +1,453 @@
+[
+ {
+  "robot_id": 2189,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "industrial",
+   "defense_emergency_response"
+  ],
+  "quote": "Anvendes til industri, elkraft, redning og lignende scenarier",
+  "source": "https://www.cvte.com/product/quadrupedrobot",
+  "retrieved_at": "2026-08-24",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "(industri) og (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). (redning) er omsat til forsvar og beredskab.",
+  "quote_wording": "Anvendes til industri, elkraft, redning og lignende scenarier (适用于工业、电力、救援等场景)",
+  "note_wording": "\"工业\" (industri) og \"电力\" (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). \"救援\" (redning) er omsat til forsvar og beredskab.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2199,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "security_surveillance",
+   "defense_emergency_response",
+   "inspection"
+  ],
+  "quote": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  ],
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-25",
+  "source_type": "secondary",
+  "inherited_from_robot_id": null,
+  "note": "Fra manualens side 4, FØR de model-specifikke tekniske parameter-tabeller (side 7-9). Teksten står under overskriften (det generiske familienavn, samme navn C1 selv bærer) og nævner ikke C1 ved navn specifikt - den dækker hele C1/E1/S1-serien som produktkategori. Egen oversættelse: (sikkerhedspatrulje) -> sikkerhed og overvågning;(beredskab/antiterror/sprængstofrydning) -> forsvar og beredskab;(sikkerheds- intelligent inspektion) -> inspektion. Samme citat er brugt uafhængigt på alle seks Galileo-poster (C1/C1-W/E1/E1-W/S1/S1-W), IKKE via arvet_fra, fordi det er familiesiden, der ligger før variant-opdelingen - samme princip som Genisom Gangben L2-W's note om at citere den delte kilde selvstændigt.",
+  "quote_wording": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  ],
+  "note_wording": "Fra manualens side 4 (\"应用场景\"), FØR de model-specifikke tekniske parameter-tabeller (side 7-9). Teksten står under overskriften \"智能仿生四足机器人\" (det generiske familienavn, samme navn C1 selv bærer) og nævner ikke C1 ved navn specifikt - den dækker hele C1/E1/S1-serien som produktkategori. Egen oversættelse: 安保巡逻 (sikkerhedspatrulje) -> sikkerhed og overvågning; 应急救援/武装反恐/防爆 (beredskab/antiterror/sprængstofrydning) -> forsvar og beredskab; 安防巡检/智能巡检 (sikkerheds-/intelligent inspektion) -> inspektion. Samme citat er brugt uafhængigt på alle seks Galileo-poster (C1/C1-W/E1/E1-W/S1/S1-W), IKKE via arvet_fra, fordi det er familiesiden, der ligger før variant-opdelingen - samme princip som Genisom Gangben L2-W's note om at citere den delte kilde selvstændigt.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2200,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "security_surveillance",
+   "defense_emergency_response",
+   "inspection"
+  ],
+  "quote": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  ],
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-25",
+  "source_type": "secondary",
+  "inherited_from_robot_id": null,
+  "note": "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra, jf. galileo-c1.yaml's note.",
+  "quote_wording": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  ],
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2201,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "security_surveillance",
+   "defense_emergency_response",
+   "inspection"
+  ],
+  "quote": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  ],
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-25",
+  "source_type": "secondary",
+  "inherited_from_robot_id": null,
+  "note": "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra.",
+  "quote_wording": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  ],
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2202,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "security_surveillance",
+   "defense_emergency_response",
+   "inspection"
+  ],
+  "quote": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  ],
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-25",
+  "source_type": "secondary",
+  "inherited_from_robot_id": null,
+  "note": "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra.",
+  "quote_wording": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  ],
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2203,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "security_surveillance",
+   "defense_emergency_response",
+   "inspection"
+  ],
+  "quote": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  ],
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-25",
+  "source_type": "secondary",
+  "inherited_from_robot_id": null,
+  "note": "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra.",
+  "quote_wording": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  ],
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2204,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "security_surveillance",
+   "defense_emergency_response",
+   "inspection"
+  ],
+  "quote": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  ],
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-25",
+  "source_type": "secondary",
+  "inherited_from_robot_id": null,
+  "note": "Identisk citat og begrundelse som galileo-c1.yaml - fra manualens fælles side 4, før variant-opdelingen. Citeret uafhængigt her, ikke via arvet_fra.",
+  "quote_wording": [
+   "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)",
+   "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)",
+   "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+   "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)",
+   "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)",
+   "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  ],
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2223,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "industrial",
+   "inspection",
+   "defense_emergency_response",
+   "security_surveillance"
+  ],
+  "quote": "All-terrain quadruped robot for industrial inspection, fire response, and public safety missions.",
+  "source": "https://www.micbotics.com/list_12/98.html",
+  "retrieved_at": "2026-08-24",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "\"industrial inspection\" -> industri + inspektion; \"fire response\" -> forsvar og beredskab; \"public safety missions\" -> sikkerhed og overvågning.",
+  "quote_wording": null,
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2249,
+  "is_bare_string": false,
+  "is_not_stated": true,
+  "value": null,
+  "quote": null,
+  "source": "https://www.mi.com/cyberdog/specs",
+  "retrieved_at": "2026-08-21",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2.",
+  "quote_wording": null,
+  "note_wording": "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot (仿生四足机器人) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2250,
+  "is_bare_string": false,
+  "is_not_stated": true,
+  "value": null,
+  "quote": null,
+  "source": "https://www.mi.com/cyberdog2/specs",
+  "retrieved_at": "2026-08-19",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til.",
+  "quote_wording": null,
+  "note_wording": "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2251,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "research_development",
+   "consumer_education"
+  ],
+  "quote": "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots.",
+  "source": "https://www.yobotics.cn/en/product/quadruped_robot_series/",
+  "retrieved_at": "2026-08-19",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10.",
+  "quote_wording": null,
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2252,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "research_development",
+   "consumer_education"
+  ],
+  "quote": "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots.",
+  "source": "https://www.yobotics.cn/en/product/quadruped_robot_series/",
+  "retrieved_at": "2026-08-19",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Sætningen står som indledning på katalogsiden for hele serien (Y20, Y10, e-Dog) og er ikke skrevet om den enkelte model. Ordet \"commercial\" har det tilladte sæt ingen kategori for.",
+  "quote_wording": null,
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2253,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "research_development",
+   "consumer_education"
+  ],
+  "quote": "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots.",
+  "source": "https://www.yobotics.cn/en/product/quadruped_robot_series/",
+  "retrieved_at": "2026-08-19",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10.",
+  "quote_wording": null,
+  "note_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2254,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "inspection",
+   "security_surveillance",
+   "research_development",
+   "defense_emergency_response"
+  ],
+  "quote": [
+   "YJ30。",
+   "Industri og sikkerhedsinspektion",
+   "Politipatrulje"
+  ],
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html",
+  "retrieved_at": "2026-08-25",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: (undervisning/forskning) -> forskning og udvikling; (patrulje/inspektion) -> inspektion; (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): (politipatrulje) -> sikkerhed og overvågning. Et tredje kort (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion.",
+  "quote_wording": [
+   "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。",
+   "Industri og sikkerhedsinspektion (工业、安防巡检领域)",
+   "Politipatrulje (警用巡逻)"
+  ],
+  "note_wording": "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: 教学科研 (undervisning/forskning) -> forskning og udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2255,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "inspection",
+   "security_surveillance",
+   "defense_emergency_response",
+   "industrial"
+  ],
+  "quote": [
+   "。",
+   "Industri og sikkerhedsinspektion",
+   "Politipatrulje"
+  ],
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html",
+  "retrieved_at": "2026-08-25",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: (industriinspektion) -> inspektion; (brandberedskab) -> forsvar og beredskab; (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): (politipatrulje) -> sikkerhed og overvågning. Kortet (el-inspektion) er udeladt, da det kun gentager inspektion.",
+  "quote_wording": [
+   "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。",
+   "Industri og sikkerhedsinspektion (工业、安防巡检领域)",
+   "Politipatrulje (警用巡逻)"
+  ],
+  "note_wording": "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2256,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "inspection",
+   "security_surveillance",
+   "defense_emergency_response",
+   "industrial",
+   "research_development"
+  ],
+  "quote": [
+   "AI。。",
+   "Industri og sikkerhedsinspektion",
+   "Politipatrulje"
+  ],
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html",
+  "retrieved_at": "2026-08-25",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversættelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. (lager) er af samme grund som der IKKE talt med som en selvstændig logistik-kategori.",
+  "quote_wording": [
+   "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。",
+   "Industri og sikkerhedsinspektion (工业、安防巡检领域)",
+   "Politipatrulje (警用巡逻)"
+  ],
+  "note_wording": "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversættelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. \"仓储\" (lager) er af samme grund som der IKKE talt med som en selvstændig logistik-kategori.",
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2257,
+  "is_bare_string": false,
+  "is_not_stated": false,
+  "value": [
+   "inspection",
+   "security_surveillance",
+   "defense_emergency_response",
+   "industrial",
+   "research_development"
+  ],
+  "quote": [
+   "AI。。",
+   "Industri og sikkerhedsinspektion",
+   "Politipatrulje"
+  ],
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html",
+  "retrieved_at": "2026-08-25",
+  "source_type": null,
+  "inherited_from_robot_id": null,
+  "note": "Første citat er YJ30 W's egen produktbeskrivelse (samme side). Egen oversættelse:(multispektral brandfaredetektion varsling) -> forsvar og beredskab;(autonom mobil inspektion/patrulje) -> inspektion; -> industri; -> forskning og udvikling. (lager/logistik) er IKKE medtaget som logistik-kategori her, da det kun står i en opremsning af mulige indsatsmiljøer, ikke som en selvstændig anvendelseskategori på linje med de øvrige - en mere forsigtig læsning end den bredeste mulige. De to sidste citater er fra sidens delte sektion: -> sikkerhed og overvågning.",
+  "quote_wording": [
+   "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。",
+   "Industri og sikkerhedsinspektion (工业、安防巡检领域)",
+   "Politipatrulje (警用巡逻)"
+  ],
+  "note_wording": "Første citat er YJ30 W's egen produktbeskrivelse (samme side). Egen oversættelse: 多光谱火情探测/火情预警 (multispektral brandfaredetektion/-varsling) -> forsvar og beredskab; 自主移动巡检/自主巡逻 (autonom mobil inspektion/patrulje) -> inspektion; 工业 -> industri; 科研 -> forskning og udvikling. \"仓储\" (lager/logistik) er IKKE medtaget som logistik-kategori her, da det kun står i en opremsning af mulige indsatsmiljøer (\"工业、仓储、科研等复杂场景\"), ikke som en selvstændig anvendelseskategori på linje med de øvrige - en mere forsigtig læsning end den bredeste mulige. De to sidste citater er fra sidens delte \"行业应用\"-sektion: \"警用巡逻\" -> sikkerhed og overvågning.",
+  "collected_by": null,
+  "change_reason": null
+ }
+]
