@@ -1,62 +1,70 @@
 -- db/skema.sql — Postgres/Supabase-DDL for L34 (STATUS.md), redaktionslaget
 --
--- FUNDAMENT, IKKE LIVE: der findes intet Supabase-projekt endnu (25. aug 2026).
--- Denne fil er skrevet, så JPK kan lime den ind i Supabase' SQL-editor, når
--- projektet oprettes. Indtil da er den efterprøvet lokalt af db/rundtur.mjs
--- via en offline model af de samme regler (se den fils kommentarer).
+-- ENGELSK, "SOM OM DET ALTID HAR VAERET SAADAN" (L81-L83, spor/skema,
+-- 2. sep 2026): denne fil beskrev tidligere en database med danske tabel-,
+-- kolonne- og enumnavne. L82 goer databasen engelsk — denne udgave er
+-- skrevet, som om den engelske form altid har vaeret fundamentet, IKKE som
+-- en ALTER-koreografi (den koreografi er db/migrering-engelsk.sql, genereret
+-- af db/byg-migrering.mjs FRA db/ordbog.mjs — se den fil for selve
+-- navneoversaettelsen og L30-laerdommen om, hvorfor den ikke er en anden
+-- haandskrevet liste). Kommentarerne herunder er FORTSAT danske: det er
+-- projektets interne dokumentationssprog (CLAUDE.md, STATUS.md, DATAFLOW.md
+-- er alle danske) — L82 gaelder DATABASENS IDENTIFIKATORER og INDHOLD, ikke
+-- kildekodens/dokumentationens sprog.
 --
--- SANDHEDSKILDEN ER tools/skema.mjs, IKKE denne fil. Enum-værdierne herunder
--- (feltnavn_enum især) er en ØJEBLIKSAFLÆSNING af FELTNAVNE, senest ajourført
--- 1. sep 2026 (33 felter — spor/cert tilføjede fcc_oplyst/ul_oplyst/ccc_oplyst;
--- den oprindelige aflæsning, 30 felter, blev taget 25. aug 2026, se
--- fund/FUND-db1.md's formscan). Postgres kan ikke læse en
--- ekstern .mjs-fil ved CREATE TYPE-tid, så listen er skrevet i hånden ÉN gang
--- her og skal udvides mekanisk (ALTER TYPE ... ADD VALUE), hvis skema.mjs
--- ændrer sig. db/migrer.mjs sammenligner sin egen kopi af listen mod
--- skema.mjs's FELTNAVNE ved hver kørsel og fejler højlydt ved uoverensstemmelse
--- — se FELTNAVN_ENUM_I_SKEMA_SQL i den fil. Det er den mekaniske håndhævelse af,
--- at de to ikke må skride fra hinanden (samme fælde som D7/L30: to lister,
--- ét broekstreg).
---
--- SPROG I NAVNGIVNINGEN: tabel- og kolonnenavne er de SAMME danske ord som
--- tools/skema.mjs bruger (egenvaegt, nyttelast_gaaende, ...), ikke oversat til
--- engelsk. Migrer/eksporter-scripterne bliver dermed en næsten bogstavelig
--- oversættelse mellem YAML-nøgle og DB-værdi i stedet for endnu et sted, de to
--- navne kan divergere.
+-- SANDHEDSKILDEN for FELTNAVNENE er stadig tools/skema.mjs (danske noegler —
+-- den fil roeres ALDRIG af dette spor, jf. briefets filejerskab). Den
+-- danske<->engelske oversaettelse af feltnavne (og alt andet i denne fil)
+-- staar ÉT sted: db/ordbog.mjs. field_name_enum herunder er en
+-- OEJEBLIKSAFLAESNING af de 33 FELTNAVNE, senest ajourfoert 1. sep 2026 (spor/
+-- cert tilfoejede fcc_oplyst/ul_oplyst/ccc_oplyst — her fcc_disclosed/
+-- ul_disclosed/ccc_disclosed). Postgres kan ikke laese en ekstern .mjs-fil
+-- ved CREATE TYPE-tid, saa listen er skrevet i haanden ÉN gang her og skal
+-- udvides mekanisk (ALTER TYPE ... ADD VALUE), hvis skema.mjs aendrer sig —
+-- praecis den fejl, spor/cert selv begik (Å115), og som db/migrering-cert.sql
+-- retter for den levende database.
 --
 -- IDENTIFIKATORER: alle tabel- og kolonnenavne er lowercase snake_case uden
--- store bogstaver, så de aldrig kræver anførselstegn i en forespørgsel
+-- store bogstaver, saa de aldrig kraever anfoerselstegn i en forespoergsel
 -- (Supabase-skillen "supabase-postgres-best-practices", reference
 -- schema-lowercase-identifiers.md — "unquoted lowercase identifiers are
--- portable and tool-friendly"). Danske bogstaver æøå bruges IKKE i
--- identifikatorer af samme grund som i data/robots/-filnavne: "ae/oe/aa" er
--- den transskription, hele projektet allerede bruger.
+-- portable and tool-friendly"). Ét reserveret Postgres-noegleord blev fundet
+-- og undgaaet under omdoebningen: feltdefinitioner.gruppe blev IKKE til
+-- "group" (GROUP BY), men til "field_group" — se db/ordbog.mjs's egen
+-- kommentar ved kolonnen.
 --
--- PRIMÆRNØGLE: Supabase-skillens reference schema-primary-keys.md anbefaler
+-- PRIMAeRNOeGLE: Supabase-skillens reference schema-primary-keys.md anbefaler
 -- "bigint identity" for en enkelt database (ikke UUID v4 — det fragmenterer
--- indekset ved indsættelse) og nævner slet ikke naturlige nøgler/slugs som
--- alternativ. Opgavebrevet kræver omvendt "slug er nøgle". De to forliges
--- her: `id bigint generated always as identity` er den TEKNISKE primærnøgle
--- (det, fremmednøgler peger på — hurtige joins, ingen tekstsammenligning),
--- og `slug` står som `UNIQUE NOT NULL` ved siden af og er den FORRETNINGSMÆSSIGE
--- nøgle, som R14 (slug = filnavn) og hele YAML-kæden allerede kender. Ingen af
--- de to erstatter den anden.
+-- indekset ved indsaettelse) og naevner slet ikke naturlige noegler/slugs som
+-- alternativ. Opgavebrevet kraever omvendt "slug er noegle". De to forliges
+-- her: `id bigint generated always as identity` er den TEKNISKE primaernoegle
+-- (det, fremmednoegler peger paa — hurtige joins, ingen tekstsammenligning),
+-- og `slug` staar som `UNIQUE NOT NULL` ved siden af og er den
+-- FORRETNINGSMAeSSIGE noegle, som R14 (slug = filnavn) og hele YAML-kaeden
+-- allerede kender. Ingen af de to erstatter den anden.
 --
--- FREMMEDNØGLER: hver eneste FK-kolonne herunder har sit eget indeks
+-- FREMMEDNOeGLER: hver eneste FK-kolonne herunder har sit eget indeks
 -- (schema-foreign-key-indexes.md — Postgres opretter IKKE automatisk et
--- indeks på en FK-kolonne, og uden det bliver JOIN og CASCADE-sletning en
+-- indeks paa en FK-kolonne, og uden det bliver JOIN og CASCADE-sletning en
 -- fuld tabelscanning).
 --
 -- RLS: se bunden af filen. Supabase-skillens reference security-privileges.md
 -- ("grant only the minimum permissions required") og security-rls-basics.md
 -- er fulgt, men TILPASSET: dette er IKKE et multi-tenant-system med
 -- brugerdata (RLS-basics' eksempler handler alle om at adskille bruger A's
--- rækker fra bruger B's). Supabase er her redaktørens eget redskab (L34) —
--- siden bygges stadig fra data/robots/*.yaml, ikke fra databasen direkte.
--- Der er derfor INGEN anon/authenticated-policy: RLS slås til uden nogen
--- policy, hvilket er Postgres' egen default-luk-alt, og kun service_role
--- (som altid omgår RLS) kan læse og skrive. Det er "basis", auth og
--- finere RLS-politikker er bevidst ikke bygget — se db/LAESMIG.md.
+-- raekker fra bruger B's). Supabase er her redaktoerens eget redskab (L34) —
+-- siden bygges stadig fra data/robots/*.yaml (eksporteret fra databasen via
+-- db/eksporter.mjs), ikke fra databasen direkte. Der er derfor INGEN
+-- anon/authenticated-policy: RLS slaas til uden nogen policy, hvilket er
+-- Postgres' egen default-luk-alt, og kun service_role (som altid omgaar RLS)
+-- kan laese og skrive. Det er "basis", auth og finere RLS-politikker er
+-- bevidst ikke bygget — se db/LAESMIG.md.
+--
+-- SYNK_AFTRYK FINDES IKKE LAeNGERE (L81-L83, punkt 5): den vagtede
+-- db/migrer.mjs --til-db's skrivevej, som selv er fjernet — databasen ER
+-- kilden nu, ikke YAML. Fortrydelse er flyttet til change_log (afsnit 7
+-- nedenfor), som daekker BEGGE skrivevejenes fravaer: enhver UPDATE/DELETE,
+-- uanset om den kom fra Supabase Studio eller en fremtidig redigerings-UI.
 
 begin;
 
@@ -66,674 +74,632 @@ begin;
 
 -- De TRE tilstande, en feltpost kan skrive som ren tekst (TILSTANDE i
 -- skema.mjs). "0" er IKKE et fjerde medlem her — det er en almindelig
--- talpost med vaerdi_tal = 0 og sin egen kilde (skema.mjs's egen kommentar:
--- "0 er den fjerde og er IKKE en streng ... kan ikke skrives som en
--- sentinel"). De fire tilstande — ikke_oplyst, nej, 0, kun_billede — kan
--- derfor ALDRIG kollapse i dette skema: de tre første er lukkede enum-
--- værdier, og 0 kan kun opstå som form='tal', vaerdi_tal=0 — en helt
--- anden kolonne end tilstand-enum'en. De to kan strukturelt ikke blandes.
-create type tilstand_enum as enum ('ikke_oplyst', 'nej', 'kun_billede');
+-- talpost med value_number = 0 og sin egen kilde (skema.mjs's egen
+-- kommentar: "0 er den fjerde og er IKKE en streng ... kan ikke skrives som
+-- en sentinel"). De fire tilstande — not_stated, no, 0, image_only — kan
+-- derfor ALDRIG kollapse i dette skema (haard begraensning 5): de tre
+-- foerste er lukkede enum-vaerdier, og 0 kan kun opstaa som form='number',
+-- value_number=0 — en helt anden kolonne end state_enum'en. De to kan
+-- strukturelt ikke blandes.
+create type state_enum as enum ('not_stated', 'no', 'image_only');
 
 -- Robottens markedsstatus (STATUS_VAERDIER). 'demonstrator' har 0
--- forekomster i de 62 filer i dag (formscan, 25. aug 2026), men står i
--- skema.mjs og skal kunne bruges — LimX W1-sagen i D9 er præcis grunden.
-create type status_enum as enum ('i_produktion', 'annonceret', 'udgaaet', 'demonstrator');
+-- forekomster i data i dag (formscan, 25. aug 2026), men staar i skema.mjs
+-- og skal kunne bruges — LimX W1-sagen i D9 er praecis grunden.
+create type status_enum as enum ('in_production', 'announced', 'discontinued', 'demonstrator');
 
--- Kildens art (R6/tjekKilde). 'primaer' har 0 eksplicitte forekomster i
--- data i dag (fraværet AF kildetype betyder implicit primær - se R6: feltet
--- er valgfrit), men står som gyldig værdi og skal kunne skrives eksplicit.
-create type kildetype_enum as enum ('primaer', 'sekundaer');
+-- Kildens art (R6/tjekKilde). 'primary' har 0 eksplicitte forekomster i data
+-- i dag (fravaeret AF kildetype betyder implicit primaer - se R6: feltet er
+-- valgfrit), men staar som gyldig vaerdi og skal kunne skrives eksplicit.
+create type source_type_enum as enum ('primary', 'secondary');
 
 -- De seks operatorer, R8 tillader (OPERATORER i yaml.mjs/validate.mjs).
+-- Symboler, ikke danske ord — uaendrede af L82 (sprogneutrale).
 create type operator_enum as enum ('>', '>=', '<', '<=', '~', '±');
 
--- Billedets ophav (BILLEDE_OPHAV). 'fabrikant' er den, SPÆRRING S1 dækker —
--- se kommentaren ved billede.ophav nedenfor.
-create type ophav_enum as enum ('eget_foto', 'silhuet', 'fabrikant');
+-- Billedets oprindelse (BILLEDE_OPHAV). 'manufacturer' er den, SPAeRRING S1
+-- daekker — se kommentaren ved images.origin nedenfor. IKKE navngivet
+-- "provenance_enum": det ord er allerede brugt til field_form_enum's
+-- 'state_with_provenance' (herkomst-begrebet) — to danske ord (ophav,
+-- herkomst) maa ikke dele ét engelsk paa tvaers af navnerum, ogsaa selvom
+-- lavOrdbog()'s eget 1:1-vaern ikke saa det (den er per-kortlaegning), jf.
+-- db/ordbog.mjs's rettelseshistorik.
+create type origin_enum as enum ('own_photo', 'silhouette', 'manufacturer');
 
--- FORM — den afgørende diskriminator for en feltpost. Ikke en del af
--- skema.mjs (som ikke behøver den — JS kan bare kigge på hvilke nøgler et
+-- FORM — den afgoerende diskriminator for en feltpost. Ikke en del af
+-- skema.mjs (som ikke behoever den — JS kan bare kigge paa hvilke noegler et
 -- objekt har), men den mekaniske formscan af alle 62 filer (25. aug 2026,
--- fund/FUND-db1.md) fandt PRÆCIS syv former, og de summer til alle 1860
--- feltposter (62 robotter x 30 felter) uden rest:
---   899 bare_tilstand           — feltet er en ren tekststreng: "ikke_oplyst"
---   111 tilstand_med_herkomst   — { vaerdi: <tilstand>, kilde, hentet, ... }
---   556 tal                     — { vaerdi: <tal>, enhed, kilde, hentet, ... }
---    48 interval                — { min, maks, enhed, kilde, hentet, ... }
---   167 tekst                   — { vaerdi: <tekst>, kilde, hentet, ... }
---    43 bool                    — { vaerdi: true/false, kilde, hentet, ... }
---    36 liste                   — { vaerdi: [tekst, ...], kilde, hentet, ... }
--- Formen er det, der gør R4 ("vaerdi ELLER min/maks, aldrig begge, aldrig
--- ingen") til en CHECK i stedet for applikationslogik: en række har PRÆCIS
--- én form, og CHECK-reglerne nedenfor tillader kun de kolonner, formen siger.
-create type feltform_enum as enum (
-  'bare_tilstand', 'tilstand_med_herkomst', 'tal', 'interval', 'tekst', 'bool', 'liste'
+-- fund/FUND-db1.md) fandt PRAeCIS syv former, og de summer til alle
+-- feltposter (77 robotter x 33 felter) uden rest:
+--   bare_state             — feltet er en ren tekststreng: "not_stated"
+--   state_with_provenance  — { vaerdi: <tilstand>, kilde, hentet, ... }
+--   number                 — { vaerdi: <tal>, enhed, kilde, hentet, ... }
+--   interval               — { min, maks, enhed, kilde, hentet, ... }
+--   text                   — { vaerdi: <tekst>, kilde, hentet, ... }
+--   bool                   — { vaerdi: true/false, kilde, hentet, ... }
+--   list                   — { vaerdi: [tekst, ...], kilde, hentet, ... }
+-- Formen er det, der goer R4 ("vaerdi ELLER min/maks, aldrig begge, aldrig
+-- ingen") til en CHECK i stedet for applikationslogik: en raekke har
+-- PRAeCIS én form, og CHECK-reglerne nedenfor tillader kun de kolonner,
+-- formen siger.
+create type field_form_enum as enum (
+  'bare_state', 'state_with_provenance', 'number', 'interval', 'text', 'bool', 'list'
 );
 
--- De 33 feltnavne, skema.mjs's FELTNAVNE havde 1. sep 2026 (NAEVNER, jf.
--- L30/L32/spor/cert i STATUS.md — nævneren udledes i koden af FELTNAVNE.length
--- og må ALDRIG skrives som et tal andre steder end her og i db/migrer.mjs's
--- driftvagt mod skema.mjs. Se filens toptekst for hvordan de to holdes i sync).
--- spor/cert (1. sep 2026): fcc_oplyst, ul_oplyst, ccc_oplyst tilføjet — tre
--- regulatoriske jaNej-felter i samme form som ce_oplyst. Ingen robotdata
--- skrevet i det spor: alle rækker migreret før dette har feltet som
--- "ikke_oplyst" (db/migrer.mjs's klassificerRobot() default'er et
--- fraværende FELTNAVNE-felt til 'ikke_oplyst', samme regel som
--- feltVisning() i skema.mjs og felt() i side.mjs allerede fulgte).
-create type feltnavn_enum as enum (
-  'egenvaegt', 'laengde', 'bredde', 'hoejde', 'frihedsgrader',
-  'nyttelast_gaaende', 'nyttelast_staaende', 'hastighed', 'haeldning',
-  'forhindring_enkelt', 'trappetrin_kontinuerlig', 'ip_klasse', 'temp_min', 'temp_maks',
-  'batteri_wh', 'driftstid', 'hot_swap', 'ladetid', 'dockingstation',
-  'lidar', 'kameraer', 'compute', 'ros2', 'sdk_sprog', 'autonominiveau',
-  'monteringsinterface', 'stroem_ud', 'dataporte',
-  'pris',
-  'ce_oplyst', 'fcc_oplyst', 'ul_oplyst', 'ccc_oplyst'
+-- De 33 feltnavne, tools/skema.mjs's FELTNAVNE havde 1. sep 2026 (NAeVNER,
+-- jf. L30/L32/spor/cert i STATUS.md — naevneren udledes i koden af
+-- FELTNAVNE.length og maa ALDRIG skrives som et tal andre steder end her og
+-- i db/eksporter.mjs's driftvagt mod skema.mjs). Rakkefoelgen matcher
+-- tools/skema.mjs's FELTER-objekt, ikke db/ordbog.mjs's — de to er ikke
+-- forpligtet til samme raekkefoelge, kun samme MAeNGDE.
+create type field_name_enum as enum (
+  'weight', 'length', 'width', 'height', 'degrees_of_freedom',
+  'payload_walking', 'payload_standing', 'speed', 'slope',
+  'obstacle_single', 'stair_step_continuous', 'ip_rating', 'temperature_min', 'temperature_max',
+  'battery_wh', 'runtime', 'hot_swap', 'charging_time', 'docking_station',
+  'lidar', 'cameras', 'compute', 'ros2', 'sdk_languages', 'autonomy_level',
+  'mounting_interface', 'power_output', 'data_ports',
+  'price',
+  'ce_disclosed', 'fcc_disclosed', 'ul_disclosed', 'ccc_disclosed'
 );
 
 /* ============================================================
-   1. FELTDEFINITIONER — udledt af skema.mjs's FELTER, ikke opfundet.
+   1. FIELD_DEFINITIONS — udledt af skema.mjs's FELTER, ikke opfundet.
    ============================================================
-   db/migrer.mjs fylder denne tabel FRA tools/skema.mjs's FELTER-objekt ved
-   hver kørsel (TRUNCATE + genindsæt) — det er den mekaniske håndhævelse af
-   "databaseskemaet skal udledes af skemaet, ikke opfindes". Tabellen bruges
-   ikke af CHECK-constraints (Postgres CHECK kan ikke slå op i en anden
-   tabel), men er den maskinlæsbare kopi af FELTER, som en redigerings-UI
-   eller et review-script kan læse UDEN at importere JavaScript. */
-create table feltdefinitioner (
-  feltnavn            feltnavn_enum primary key,
-  gruppe              text not null,               -- 'fysik' | 'energi' | ... (GRUPPER)
-  art                 text not null,                -- 'tal' | 'jaNej' | 'tekst' | 'liste' | 'ip'
-  dimension           text,                         -- spec.type, fx 'masse', 'laengde' — null for ikke-tal-arter
-  ogsaa_dimension     text,                         -- spec.ogsaaType, fx haeldning: 'stigning'
-  kraever_ved_last    boolean not null default false,
-  d4_beroert          boolean not null default false, -- spec.d4 — beroert af det aabne spoergsmaal D4
-  katalogfelt         boolean not null default false, -- staar i KATALOG_FELTER
-  filterfelt          boolean not null default false  -- staar i FILTER_FELTER
+   db/eksporter.mjs (den vej, der skriver database -> YAML) laeser denne
+   tabel som en maskinlaesbar spejling af tools/skema.mjs's FELTER-objekt —
+   IKKE omvendt: siden L81 er databasen kilden, saa en fremtidig
+   redigerings-UI kan laese/skrive denne tabel direkte, uden at importere
+   JavaScript. field_definitions er BEVIDST UNDTAGET collected_by/
+   change_reason (afsnit 7) — den er en spejling af koden, aldrig en
+   Studio-redigering, et menneske skal kunne forklare/fortryde. */
+create table field_definitions (
+  field_name          field_name_enum primary key,
+  field_group         text not null,               -- 'physics' | 'energy' | ... (GRUPPER)
+  kind                text not null,                -- 'number' | 'yes_no' | 'text' | 'list' | 'ip'
+  dimension           text,                         -- spec.type, fx 'mass', 'length' — null for ikke-tal-arter
+  secondary_dimension text,                         -- spec.ogsaaType, fx slope: 'grade'
+  requires_load_condition boolean not null default false, -- spec.kraeverVedLast
+  d4_affected         boolean not null default false, -- spec.d4 — beroert af det aabne spoergsmaal D4
+  catalog_field       boolean not null default false, -- staar i KATALOG_FELTER
+  filter_field        boolean not null default false  -- staar i FILTER_FELTER
 );
-comment on table feltdefinitioner is
-  'Spejl af tools/skema.mjs FELTER, genskrevet af db/migrer.mjs ved hver koersel. Ikke haandskrevet.';
+comment on table field_definitions is
+  'Spejl af tools/skema.mjs FELTER. Genskrevet ved hver --til-db, indtil YAML-vejen erstattes fuldt af databasen som kilde (L81).';
 
 /* ============================================================
-   2. ROBOTTER — identiteten (IDENTITET_PAAKRAEVET / IDENTITET_VALGFRI)
+   2. ROBOTS — identiteten (IDENTITET_PAAKRAEVET / IDENTITET_VALGFRI)
    ============================================================ */
-create table robotter (
+create table robots (
   id                  bigint generated always as identity primary key,
   slug                text not null unique,
-  navn                text not null,
-  producent           text not null,
-  -- PRODUCENTFELTER BOR PAA ROBOTPOSTEN, IKKE I EN EGEN producenter-TABEL.
+  name                text not null,
+  manufacturer        text not null,
+  -- PRODUCENTFELTER BOR PAA ROBOTPOSTEN, IKKE I EN EGEN manufacturers-TABEL.
   -- Det er IKKE en afvigelse fra i dag: tools/build.mjs udleder selv
   -- "producenter" af robotternes eget producent-felt (en Map over
   -- r.producent), fordi data/manufacturers/ er tom. En separat
   -- producent-tabel ville kraeve en beslutning om, HVORDAN producenter
-  -- normaliseres (samme navn stavet forskelligt to steder?), som ingen af
-  -- de 62 filer i dag tester, og som L34's opgave ikke bad om at loese.
-  -- Bliver data/manufacturers/ nogensinde levende, er det en ny beslutning
-  -- med sit eget nummer i STATUS.md, ikke noget der glider ind her.
-  producentland       text not null,
-  producentby         text,                          -- IDENTITET_VALGFRI, 46/62 udfyldt (formscan)
+  -- normaliseres (samme navn stavet forskelligt to steder?), som ingen fil
+  -- i dag tester, og som L34's opgave ikke bad om at loese. Bliver
+  -- data/manufacturers/ nogensinde levende, er det en ny beslutning med sit
+  -- eget nummer i STATUS.md, ikke noget der glider ind her.
+  manufacturer_country text not null,
+  manufacturer_city   text,                          -- IDENTITET_VALGFRI, delvist udfyldt (formscan)
   status              status_enum not null,
-  -- FREMDRIFT (spor/dbfelter, 31. aug 2026): nyt PAAKRAEVET identitetsfelt
-  -- (IDENTITET_PAAKRAEVET, tools/validate.mjs:67 — "ben" | "ben_hjul",
-  -- FREMDRIFT_VAERDIER paa tools/validate.mjs:99). text + CHECK, IKKE et nyt
-  -- enum: samme begrundelse som feltposter.advarsel_klasse ovenfor (§3) —
-  -- to lukkede vaerdier, der staar UDEN for tools/skema.mjs's FELTNAVNE (saa
-  -- de udloeser ikke den mekaniske FELTNAVN_ENUM_I_SKEMA_SQL-driftvagt), og
-  -- en CHECK kraever ingen ALTER TYPE ... ADD VALUE-koreografi, hvis en
-  -- tredje fremdriftsform nogensinde tilfoejes. Udfyldt 77/77 i dag: 53 ben
-  -- / 24 ben_hjul (formscan, spor/datafelter).
-  fremdrift           text not null check (fremdrift in ('ben', 'ben_hjul')),
-  foerste_udgivelse   integer,                        -- IDENTITET_VALGFRI, kun et aarstal (45/77 i dag, maalt 31. aug 2026 — var 3/62 ved skrivning)
-  forgaenger_robot_id bigint references robotter(id), -- IDENTITET_VALGFRI "forgaenger:", 1/62 i dag
-  varianter           text[],                          -- IDENTITET_VALGFRI topnoegle, liste af variantnavne (R15), 7/62
-  noter               jsonb,                           -- streng ELLER liste af strenge (noterListe=59, noterString=0 i dag,
-                                                         -- men skal kunne vaere begge — se R1's noter-tjek). jsonb bevarer
-                                                         -- den PRAECISE form (streng vs. 1-elements liste er IKKE det samme
-                                                         -- for rundturstesten), saa formen roeres ikke som tal/enhed gaettes.
-  -- NOTER_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "noter".
+  -- LOCOMOTION (spor/dbfelter, 31. aug 2026): PAAKRAEVET identitetsfelt
+  -- (IDENTITET_PAAKRAEVET, tools/validate.mjs:67 — "ben" | "ben_hjul" paa
+  -- YAML-siden, her 'legged' | 'legged_wheeled'). text + CHECK, IKKE et nyt
+  -- enum: to lukkede vaerdier, der staar UDEN for tools/skema.mjs's
+  -- FELTNAVNE, og en CHECK kraever ingen ALTER TYPE ... ADD VALUE-
+  -- koreografi, hvis en tredje fremdriftsform nogensinde tilfoejes. IKKE
+  -- "propulsion" (orkestrator-rettelse, db/ordbog.mjs): propulsion er
+  -- fremdrift ved motorkraft/thrust, locomotion er robotikkens ord for
+  -- ben-mod-hjul.
+  locomotion          text not null check (locomotion in ('legged', 'legged_wheeled')),
+  first_released      integer,                        -- IDENTITET_VALGFRI, kun et aarstal
+  predecessor_robot_id bigint references robots(id),   -- IDENTITET_VALGFRI "forgaenger:"
+  variants            text[],                          -- IDENTITET_VALGFRI topnoegle, liste af variantnavne (R15)
+  notes               jsonb,                           -- streng ELLER liste af strenge (noterListe/noterString,
+                                                         -- se R1's noter-tjek). jsonb bevarer den PRAeCISE form
+                                                         -- (streng vs. 1-elements liste er IKKE det samme for
+                                                         -- rundturstesten/db/tjek.mjs), saa formen roeres ikke.
+  -- NOTES_WORDING (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "notes".
   -- JPK: "UI SKAL VAERE REN FOR kinesiske tegn" — producentens ordrette,
-  -- ikke-danske formulering flytter hertil fra "noter", som fra nu KUN
-  -- baerer den danske oversaettelse (robot.mjs' noterBlok() renderer den
-  -- ordret). ALTID en liste, ALDRIG en bar streng (modsat "noter" selv) —
-  -- en PARALLEL liste, samme laengde og raekkefoelge som "noter", "" hvor
-  -- den enkelte note ikke havde en fremmedsproget ordlyd (tools/validate.mjs's
-  -- R21). Den praecise laengde-parring haandhaeves IKKE her (samme afgraensning
-  -- som R15/feltpost_varianter ovenfor — kraever et element-for-element-tjek,
-  -- CHECK kan ikke sammenligne to jsonb-arrays elementvis uden en funktion) —
-  -- kun formen (skal vaere et array) er en DB-CHECK.
-  noter_ordlyd        jsonb,
-  constraint robotter_forgaenger_ikke_selv check (forgaenger_robot_id is distinct from id),
-  constraint robotter_noter_form check (noter is null or jsonb_typeof(noter) in ('string', 'array')),
-  constraint robotter_noter_ordlyd_form check (noter_ordlyd is null or jsonb_typeof(noter_ordlyd) = 'array')
+  -- ikke-danske formulering staar her; "notes" baerer KUN den danske
+  -- oversaettelse (robot.mjs' noterBlok() renderer den ordret). ALTID en
+  -- liste, ALDRIG en bar streng (modsat "notes" selv) — en PARALLEL liste,
+  -- samme laengde og raekkefoelge som "notes", "" hvor den enkelte note ikke
+  -- havde en fremmedsproget ordlyd (tools/validate.mjs's R21). Den praecise
+  -- laengde-parring haandhaeves IKKE her (kraever et element-for-element-
+  -- tjek, CHECK kan ikke sammenligne to jsonb-arrays elementvis uden en
+  -- funktion) — kun formen (skal vaere et array) er en DB-CHECK.
+  notes_wording       jsonb,
+  -- COLLECTED_BY + CHANGE_REASON (L81-L83, punkt 3): fortrydelsesknappen OG
+  -- haard begraensning 2's spor, jf. change_log (afsnit 7). Udfyldes af den,
+  -- der redigerer raekken (Studio eller en fremtidig UI) — begge NULLABLE,
+  -- fordi den maskinelle --til-db-indlaesning (indtil den erstattes fuldt af
+  -- databasen som kilde) ikke kender en menneskelig aarsag pr. felt.
+  collected_by        text,
+  change_reason        text,
+  constraint robots_predecessor_not_self check (predecessor_robot_id is distinct from id),
+  constraint robots_notes_form check (notes is null or jsonb_typeof(notes) in ('string', 'array')),
+  constraint robots_notes_wording_form check (notes_wording is null or jsonb_typeof(notes_wording) = 'array')
 );
-create index robotter_forgaenger_idx on robotter (forgaenger_robot_id);
-create index robotter_producent_idx on robotter (producent);
-comment on table robotter is 'Én raekke pr. data/robots/<slug>.yaml. R1: identitetsfelter er NOT NULL, ukendte topnoegler er strukturelt umulige (rigidt kolonnesaet).';
-comment on column robotter.slug is 'R14: slug = filnavn. Forretningsnoeglen, som YAML-kaeden bruger. id er den tekniske FK-maalnoegle.';
+create index robots_predecessor_idx on robots (predecessor_robot_id);
+create index robots_manufacturer_idx on robots (manufacturer);
+comment on table robots is 'Én raekke pr. robot (data/robots/<slug>.yaml eksporteret hertil, eller redigeret direkte). R1: identitetsfelter er NOT NULL, ukendte topnoegler er strukturelt umulige (rigidt kolonnesaet).';
+comment on column robots.slug is 'R14: slug = filnavn i den eksporterede YAML. Forretningsnoeglen. id er den tekniske FK-maalnoegle.';
 
 /* ============================================================
-   3. FELTPOSTER — de 30 specifikationsfelter, én raekke pr. (robot, felt).
+   3. FIELD_ENTRIES — de 33 specifikationsfelter, én raekke pr. (robot, felt).
    ============================================================
-   62 robotter x 30 felter = 1860 raekker, uanset udfyldningsgrad — en
-   "ikke_oplyst"-post er lige saa meget en raekke som en udfyldt. Det er
+   77 robotter x 33 felter = 2.541 raekker, uanset udfyldningsgrad — en
+   "not_stated"-post er lige saa meget en raekke som en udfyldt. Det er
    praecis den regel, specifikationstaetheden (D7/L30) allerede regner med:
-   naevneren er 30, fordi ALLE 30 felter altid skrives, ogsaa som ikke_oplyst. */
-create table feltposter (
-  robot_id            bigint not null references robotter(id) on delete cascade,
-  feltnavn            feltnavn_enum not null,
-  form                feltform_enum not null,
+   naevneren er 33, fordi ALLE 33 felter altid skrives, ogsaa som
+   not_stated. */
+create table field_entries (
+  robot_id            bigint not null references robots(id) on delete cascade,
+  field_name          field_name_enum not null,
+  form                field_form_enum not null,
 
-  -- Tilstanden. Baade 'bare_tilstand' (ren streng i YAML, R3) og
-  -- 'tilstand_med_herkomst' (kort med vaerdi+kilde+hentet, skemaudvidelse 1)
-  -- bruger denne kolonne. De to adskilles KUN af, om kilde er udfyldt.
-  tilstand            tilstand_enum,
+  -- Tilstanden. Baade 'bare_state' (ren streng i YAML, R3) og
+  -- 'state_with_provenance' (kort med vaerdi+kilde+hentet, skemaudvidelse 1)
+  -- bruger denne kolonne. De to adskilles KUN af, om source er udfyldt.
+  state               state_enum,
 
   -- Vaerdikolonnerne. Praecis én er udfyldt, afhaengigt af form — det er
   -- R4's "vaerdi ELLER min/maks, aldrig begge" skrevet som CHECK i stedet
   -- for at staa som en regel, en dataskriver kan glemme.
-  vaerdi_tal          numeric,
-  min                 numeric,
-  maks                numeric,
-  vaerdi_tekst        text,
-  vaerdi_bool         boolean,
-  vaerdi_liste        text[],
+  value_number        numeric,
+  minimum             numeric,
+  maximum             numeric,
+  value_text          text,
+  value_bool          boolean,
+  value_list          text[],
 
-  enhed               text,
-  enhed_imperial      text,
-  vaerdi_imperial     numeric,
+  unit                text,
+  imperial_unit       text,
+  imperial_value      numeric,
   operator            operator_enum,
-  kilde               text,
-  hentet              date,
-  kildetype           kildetype_enum,
-  advarsel            text,
+  source              text,
+  retrieved_at        date,
+  source_type         source_type_enum,
+  caveat              text,
   -- R20/L48/D14 (spor/d14data, opfoelgning spor/dbklasse): et forbehold
-  -- ("advarsel") kan baere en MASKINLAESBAR klasse — "gyldighed" (paavirker
+  -- ("caveat") kan baere en MASKINLAESBAR klasse — "gyldighed" (paavirker
   -- sammenligneligheden) eller "uddybning" (uddybende kontekst, intet tvivl
-  -- om selve tallet). 562 af 890 forbehold er klassificeret af et menneske,
-  -- post for post (fund/FUND-d14-klassifikation.md); de resterende 328 er
-  -- BEVIDST uklassificerede (CLAUDE.md begraensning 6: ingen redaktionel dom
-  -- uden offentliggjort metode) — kolonnen er derfor NULLABLE, IKKE NOT NULL.
+  -- om selve tallet). IKKE oversat til engelsk (briefets punkt 1 naevner
+  -- ikke caveat_class blandt de opremsede datavaerdier, der skal
+  -- oversaettes — en bevidst afgraensning, se fund/FUND-skema.md): kolonnen
+  -- HEDDER engelsk (caveat_class), men INDHOLDET (de to vaerdier
+  -- "gyldighed"/"uddybning") forbliver dansk indtil videre.
   --
-  -- KOLONNETYPE: text + CHECK, ikke et nyt enum (advarsel_klasse_enum).
-  -- Begrundelse (skema-data-types.md tillader begge: "Enums: use text with
-  -- check constraint or create enum type"): de to gyldige vaerdier staar
-  -- IKKE i tools/skema.mjs (som feltnavn_enum goer, jf. toptekstens
-  -- driftvagt-forklaring) — de staar alene i tools/validate.mjs's
-  -- ADVARSEL_KLASSER-saet. Et enum ville kraeve sin EGEN driftvagt
-  -- (endnu et sted, to lister kan skride fra hinanden, D7/L30-faelden) for
+  -- KOLONNETYPE: text + CHECK, ikke et nyt enum. De to gyldige vaerdier
+  -- staar IKKE i tools/skema.mjs — de staar alene i tools/validate.mjs's
+  -- ADVARSEL_KLASSER-saet. Et enum ville kraeve sin EGEN driftvagt for
   -- praecis to vaerdier, der sjaeldent aendrer sig. En CHECK holder samme
-  -- haandhaevelse ved siden af selve kolonnen, uden det ekstra synk-punkt,
-  -- og uden ALTER TYPE ... ADD VALUE-koreografien, hvis en tredje klasse
-  -- nogensinde tilfoejes.
-  advarsel_klasse     text,
-  -- ADVARSEL_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til
-  -- "advarsel". Samme JPK-krav og samme mekanik som robotter.noter_ordlyd
-  -- ovenfor — producentens ordrette, ikke-danske kildeformulering, flyttet
-  -- ud af "advarsel" (som fra nu kun baerer den danske oversaettelse robot.mjs
-  -- rent faktisk viser laeseren). Text, ikke jsonb: "advarsel" selv er altid
-  -- en bar streng (aldrig en liste), saa der er ingen parallel-liste-form at
-  -- bevare her, i modsaetning til noter/citat.
-  advarsel_ordlyd     text,
-  -- ADVARSEL_I18N (spor/i18nfelt, 2. sep 2026, Å98 spor A, R22): soesterfeltet
-  -- til "advarsel" med ANDET FORMAAL end advarsel_ordlyd ovenfor: ordlyd
-  -- bevarer kildens EGEN formulering, i18n baerer en OVERSAETTELSE til et
-  -- andet sprog. Sprogkort ({en: "..."}), jsonb af samme grund som
-  -- anvendelse.citat_ordlyd (parallel-listeform) — her et OBJEKT, ikke en
-  -- streng/liste, saa formkravet er 'object', ikke 'string'/'array'.
-  advarsel_i18n       jsonb,
+  -- haandhaevelse ved siden af selve kolonnen, uden det ekstra synk-punkt.
+  caveat_class        text,
+  -- CAVEAT_WORDING (spor/cjkui, 1. sep 2026, R21): soesterfeltet til
+  -- "caveat". Samme JPK-krav og samme mekanik som robots.notes_wording
+  -- ovenfor — producentens ordrette, ikke-danske kildeformulering; "caveat"
+  -- selv baerer fra nu KUN den danske oversaettelse robot.mjs rent faktisk
+  -- viser laeseren. Text, ikke jsonb: "caveat" selv er altid en bar streng
+  -- (aldrig en liste).
+  caveat_wording       text,
   note                text,
-  raa                 text,           -- 0 forekomster i dag (formscan), men et gyldigt POST_NOEGLER-felt
-  valuta              text,           -- 0 forekomster i dag, samme grund
+  raw                 text,           -- sjaeldent udfyldt, men et gyldigt POST_NOEGLER-felt (raa)
+  currency            text,           -- sjaeldent udfyldt, samme grund
 
-  -- ved_last (R10, "driftstid uden lastbetingelse er ikke et tal"). Kan
-  -- selv vaere en tilstand ("ikke_oplyst") ELLER et masse-kort. To
-  -- kolonner, samme XOR-moenster som ovenfor.
-  ved_last_tilstand   tilstand_enum,
-  ved_last_vaerdi     numeric,
-  ved_last_enhed      text,
+  -- LOAD_STATE/LOAD_VALUE/LOAD_UNIT (R10, "driftstid uden lastbetingelse er
+  -- ikke et tal"). Kan selv vaere en tilstand ("not_stated") ELLER et
+  -- masse-kort. To kolonner, samme XOR-moenster som ovenfor.
+  load_state          state_enum,
+  load_value          numeric,
+  load_unit           text,
 
-  primary key (robot_id, feltnavn),
+  -- COLLECTED_BY + CHANGE_REASON (punkt 3) — se robots' egen kommentar.
+  collected_by        text,
+  change_reason        text,
 
-  -- R2 (ukendt felt) haandhaeves allerede af feltnavn_enum: en vaerdi uden
-  -- for de 30 kan slet ikke INSERTes. Samme for R3's gyldige tilstande.
+  primary key (robot_id, field_name),
 
-  -- Formen bestemmer PRAECIS hvilke vaerdikolonner maa vaere udfyldt.
-  constraint feltposter_form_tilstand check (
-    (form in ('bare_tilstand', 'tilstand_med_herkomst')) = (tilstand is not null)
+  -- R2 (ukendt felt) haandhaeves allerede af field_name_enum: en vaerdi uden
+  -- for de 33 kan slet ikke INSERTes. Samme for R3's gyldige tilstande.
+
+  -- Formen bestemmer PRAeCIS hvilke vaerdikolonner maa vaere udfyldt.
+  constraint field_entries_form_state check (
+    (form in ('bare_state', 'state_with_provenance')) = (state is not null)
   ),
-  constraint feltposter_form_tal check (
-    (form = 'tal') = (vaerdi_tal is not null)
+  constraint field_entries_form_number check (
+    (form = 'number') = (value_number is not null)
   ),
-  constraint feltposter_form_interval check (
-    form <> 'interval' or (min is not null and maks is not null)
+  constraint field_entries_form_interval check (
+    form <> 'interval' or (minimum is not null and maximum is not null)
   ),
-  -- min/maks er IKKE eksklusive for formen 'interval' alene. Den generiske
-  -- min/maks-gren i validate.mjs's tjekFelt gaelder for ALLE ikke-tal-arter
-  -- (koden naevner selv eksemplet): Boston Dynamics' Spot skriver stroem_ud
-  -- som TEKST ("ureguleret DC 35-58,8 V, 150 W pr. port") OG samtidig
+  -- minimum/maximum er IKKE eksklusive for formen 'interval' alene. Den
+  -- generiske min/maks-gren i validate.mjs's tjekFelt gaelder for ALLE
+  -- ikke-tal-arter (fx Spot's stroem_ud skrevet som TEKST OG samtidig
   -- min:35/maks:58,8/enhed:V som et maaleligt sidespor ved siden af
-  -- ordlyden. Det er IKKE en opfundet udvidelse — formscan (25. aug 2026)
-  -- fandt netop denne ÉNE post (ud af 1860) med begge dele paa samme raekke.
-  constraint feltposter_min_maks_parvis check (
-    (min is null) = (maks is null)
+  -- ordlyden — formscan 25. aug 2026, 1 forekomst ud af 1860 dengang).
+  constraint field_entries_minmax_paired check (
+    (minimum is null) = (maximum is null)
   ),
-  constraint feltposter_min_maks_kun_paa_disse_former check (
-    min is null or form in ('interval', 'tekst', 'bool', 'liste')
+  constraint field_entries_minmax_only_on_these_forms check (
+    minimum is null or form in ('interval', 'text', 'bool', 'list')
   ),
-  constraint feltposter_form_tekst check (
-    (form = 'tekst') = (vaerdi_tekst is not null)
+  constraint field_entries_form_text check (
+    (form = 'text') = (value_text is not null)
   ),
-  constraint feltposter_form_bool check (
-    (form = 'bool') = (vaerdi_bool is not null)
+  constraint field_entries_form_bool check (
+    (form = 'bool') = (value_bool is not null)
   ),
-  constraint feltposter_form_liste check (
-    (form = 'liste') = (vaerdi_liste is not null)
+  constraint field_entries_form_list check (
+    (form = 'list') = (value_list is not null)
   ),
-  constraint feltposter_tekst_ikke_tom check (
-    form <> 'tekst' or btrim(vaerdi_tekst) <> ''
+  constraint field_entries_text_not_blank check (
+    form <> 'text' or btrim(value_text) <> ''
   ),
   -- OBS: array_length(tomt_array, 1) returnerer NULL i Postgres, ikke 0 —
-  -- og "NULL > 0" er UKENDT, som en CHECK behandler som BESTAAET. Det ville
-  -- lade en tom "vaerdi: []" liste passere ustraffet, stik imod R4 ("listen
-  -- er tom"). cardinality() returnerer korrekt 0 for et tomt array, saa den
-  -- bruges her i stedet.
-  constraint feltposter_liste_ikke_tom check (
-    form <> 'liste' or cardinality(vaerdi_liste) > 0
+  -- og "NULL > 0" er UKENDT, som en CHECK behandler som BESTAAET. cardinality()
+  -- returnerer korrekt 0 for et tomt array, saa den bruges her i stedet.
+  constraint field_entries_list_not_empty check (
+    form <> 'list' or cardinality(value_list) > 0
   ),
 
-  -- R5: et udfyldt talfelt (tal ELLER interval) SKAL have enhed. At enheden
-  -- ogsaa skal tilhoere feltets rette dimension (fx "kg" ikke paa et
-  -- laengdefelt) kraever et opslag i feltdefinitioner og haandhaeves derfor
-  -- IKKE her, men i db/migrer.mjs og tools/validate.mjs — se fund/FUND-db1.md.
-  constraint feltposter_tal_kraever_enhed check (
-    (form not in ('tal', 'interval') or enhed is not null)
-    and (min is null or enhed is not null)
+  -- R5: et udfyldt talfelt (number ELLER interval) SKAL have enhed. At
+  -- enheden ogsaa skal tilhoere feltets rette dimension (fx "kg" ikke paa
+  -- et laengdefelt) kraever et opslag i field_definitions og haandhaeves
+  -- derfor IKKE her, men i tools/validate.mjs.
+  constraint field_entries_number_requires_unit check (
+    (form not in ('number', 'interval') or unit is not null)
+    and (minimum is null or unit is not null)
   ),
 
   -- R6 + R7 (kilde-URL og hentedato): PAAKRAEVET paa alt undtagen en BAR
-  -- tilstand. Det er den bogstavelige gengivelse af, at validate.mjs kalder
-  -- tjekKilde/tjekHentet ubetinget for tal/interval/tekst/bool/liste OG for
-  -- tilstand_med_herkomst — kun 'bare_tilstand' slipper (R3 alene, ingen
-  -- kilde kraevet af en ren "ikke_oplyst"-streng).
-  constraint feltposter_kilde_paakraevet check (
-    form = 'bare_tilstand' or kilde is not null
+  -- tilstand. Kun 'bare_state' slipper (R3 alene, ingen kilde kraevet af en
+  -- ren "not_stated"-streng).
+  constraint field_entries_source_required check (
+    form = 'bare_state' or source is not null
   ),
-  constraint feltposter_hentet_paakraevet check (
-    form = 'bare_tilstand' or hentet is not null
+  constraint field_entries_retrieved_at_required check (
+    form = 'bare_state' or retrieved_at is not null
   ),
   -- R6: kilden skal vaere en http(s)-URL. Samme regex som tjekKilde i
   -- tools/validate.mjs (/^https?:\/\//).
-  constraint feltposter_kilde_er_url check (
-    kilde is null or kilde ~ '^https?://'
+  constraint field_entries_source_is_url check (
+    source is null or source ~ '^https?://'
   ),
 
-  -- R20/L48/D14: advarsel_klasse er enten NULL (uklassificeret, lovligt —
-  -- se kolonnens egen kommentar ovenfor) eller PRAECIS én af de to tekster,
-  -- validate.mjs's ADVARSEL_KLASSER kender. Samme grov haandhaevelse som
-  -- validatorens tjekAdvarselKlasse, skrevet som CHECK i stedet for kun at
-  -- staa som applikationslogik.
-  constraint feltposter_advarsel_klasse_gyldig check (
-    advarsel_klasse is null or advarsel_klasse in ('gyldighed', 'uddybning')
+  -- R20/L48/D14: caveat_class er enten NULL (uklassificeret, lovligt) eller
+  -- PRAeCIS én af de to tekster, validate.mjs's ADVARSEL_KLASSER kender.
+  constraint field_entries_caveat_class_valid check (
+    caveat_class is null or caveat_class in ('gyldighed', 'uddybning')
   ),
   -- R20's andet krav: en klasse klassificerer et forbehold — uden et
-  -- forbehold er der intet at klassificere. Samme regel som validatorens
-  -- tjekAdvarselKlasse ("advarsel_klasse staar uden advarsel"), gjort til
-  -- en DB-CHECK saa en fremtidig Studio-redigering ikke kan skabe det
-  -- samme ugyldige par uden om YAML-vejen.
-  constraint feltposter_advarsel_klasse_kraever_advarsel check (
-    advarsel_klasse is null or (advarsel is not null and btrim(advarsel) <> '')
+  -- forbehold er der intet at klassificere.
+  constraint field_entries_caveat_class_requires_caveat check (
+    caveat_class is null or (caveat is not null and btrim(caveat) <> '')
   ),
 
-  -- R21 (spor/cjkui): samme to krav, samme facon, for advarsel_ordlyd —
-  -- ikke-tom tekst, og kan ikke staa uden det forbehold, det er en ordlyd TIL.
-  constraint feltposter_advarsel_ordlyd_ikke_tom check (
-    advarsel_ordlyd is null or btrim(advarsel_ordlyd) <> ''
+  -- R21 (spor/cjkui): samme to krav, samme facon, for caveat_wording.
+  constraint field_entries_caveat_wording_not_blank check (
+    caveat_wording is null or btrim(caveat_wording) <> ''
   ),
-  constraint feltposter_advarsel_ordlyd_kraever_advarsel check (
-    advarsel_ordlyd is null or (advarsel is not null and btrim(advarsel) <> '')
-  ),
-
-  -- R22 (spor/i18nfelt): advarsel_i18n er et OBJEKT (sprogkort), kan ikke
-  -- staa uden det forbehold, det oversaetter, og kildesproget "da" maa ikke
-  -- staa som noegle deri — dansk bor i "advarsel" alene, ellers er der to
-  -- steder at rette den samme danske tekst (samme regel som tools/validate.
-  -- mjs's tjekI18nOverbygning haandhaever, se KILDESPROG i tools/skema.mjs).
-  -- Dybere formkrav (hver vaerdi ikke-tom tekst, kun kendte sprogkoder) er
-  -- IKKE en CHECK her, samme afgraensning som feltposter_raa_kun_paa_tal's
-  -- kommentar beskriver for R15 — SPROG kan vokse uden en skemaaendring, og
-  -- den fulde regel haandhaeves paa YAML-siden.
-  constraint feltposter_advarsel_i18n_form check (
-    advarsel_i18n is null or jsonb_typeof(advarsel_i18n) = 'object'
-  ),
-  constraint feltposter_advarsel_i18n_kraever_advarsel check (
-    advarsel_i18n is null or (advarsel is not null and btrim(advarsel) <> '')
-  ),
-  constraint feltposter_advarsel_i18n_ikke_kildesprog check (
-    advarsel_i18n is null or not (advarsel_i18n ? 'da')
+  constraint field_entries_caveat_wording_requires_caveat check (
+    caveat_wording is null or (caveat is not null and btrim(caveat) <> '')
   ),
 
-  -- KUN_MED_TAL (den del af R4, der gaelder tilstandsposter): en tilstand
-  -- er ikke et tal og maa ikke baere enhed/operator/min/maks/imperial/raa/
-  -- valuta. Formen alene styrer dette allerede (feltposter_form_tal m.fl.
-  -- tvinger de kolonner til null, naar form ikke er 'tal'/'interval') —
-  -- denne constraint er en dobbeltsikring, der navngiver reglen eksplicit.
-  constraint feltposter_tilstand_baerer_intet_tal check (
-    form not in ('bare_tilstand', 'tilstand_med_herkomst')
-    or (enhed is null and operator is null and vaerdi_imperial is null
-        and enhed_imperial is null and raa is null and valuta is null)
+  -- ONLY_WITH_NUMBER (den del af R4, der gaelder tilstandsposter): en
+  -- tilstand er ikke et tal og maa ikke baere enhed/operator/min/maks/
+  -- imperial/raw/currency. Formen alene styrer dette allerede (dobbeltsikring).
+  constraint field_entries_state_carries_no_number check (
+    form not in ('bare_state', 'state_with_provenance')
+    or (unit is null and operator is null and imperial_value is null
+        and imperial_unit is null and raw is null and currency is null)
   ),
 
-  -- R8: operatoren er allerede begraenset af operator_enum. raa staar kun
+  -- R8: operatoren er allerede begraenset af operator_enum. raw staar kun
   -- paa et tal/interval semantisk (tjekRaa kaldes kun fra tjekTalfelt) —
-  -- denne CHECK er STRENGERE end R11 (som blot tillader noeglen overalt) og
-  -- er et bevidst DB-tilfoejet praecisionskrav, ikke en 1:1-oversaettelse af
-  -- en eksisterende regel. Se fund/FUND-db1.md's selv-review.
-  constraint feltposter_raa_kun_paa_tal check (
-    raa is null or form in ('tal', 'interval')
+  -- denne CHECK er STRENGERE end R11 (som blot tillader noeglen overalt).
+  constraint field_entries_raw_only_on_number check (
+    raw is null or form in ('number', 'interval')
   ),
 
-  -- R9: metrisk/imperial staar sammen eller slet ikke. tjekImperial fejler i
-  -- praksis, hvis kun én af de to er sat (se skema.sql's toptekst-analyse af
-  -- koden) — her er kravet gjort eksplicit og symmetrisk.
-  constraint feltposter_imperial_par check (
-    (vaerdi_imperial is null) = (enhed_imperial is null)
+  -- R9: metrisk/imperial staar sammen eller slet ikke.
+  constraint field_entries_imperial_paired check (
+    (imperial_value is null) = (imperial_unit is null)
   ),
 
-  -- R10: ved_last hoerer KUN til paa driftstid, og driftstid (naar den er
-  -- et tal/interval) SKAL have en ved_last-angivelse — enten en tilstand
-  -- eller et masse-kort, aldrig begge.
-  constraint feltposter_ved_last_kun_paa_driftstid check (
-    (ved_last_tilstand is null and ved_last_vaerdi is null)
-    or feltnavn = 'driftstid'
+  -- R10: load_* hoerer KUN til paa 'runtime', og runtime (naar den er et
+  -- tal/interval) SKAL have en load-angivelse — enten en tilstand eller et
+  -- masse-kort, aldrig begge.
+  constraint field_entries_load_only_on_runtime check (
+    (load_state is null and load_value is null)
+    or field_name = 'runtime'
   ),
-  constraint feltposter_driftstid_kraever_ved_last check (
-    feltnavn <> 'driftstid' or form not in ('tal', 'interval')
-    or (ved_last_tilstand is not null or ved_last_vaerdi is not null)
+  constraint field_entries_runtime_requires_load check (
+    field_name <> 'runtime' or form not in ('number', 'interval')
+    or (load_state is not null or load_value is not null)
   ),
-  constraint feltposter_ved_last_xor check (
-    ved_last_tilstand is null or ved_last_vaerdi is null
+  constraint field_entries_load_xor check (
+    load_state is null or load_value is null
   ),
-  constraint feltposter_ved_last_vaerdi_kraever_enhed check (
-    ved_last_vaerdi is null or ved_last_enhed is not null
+  constraint field_entries_load_value_requires_unit check (
+    load_value is null or load_unit is not null
   ),
 
   -- R13: IP-klassen skal ligne "IP65", "IPX4", "IP56K" (samme regex som
-  -- tjekTekstfelt: /^IP[0-9X]{2}K?$/i). Kun relevant naar feltnavn er
-  -- ip_klasse OG formen er 'tekst' — begge dele staar i samme CHECK, fordi
-  -- Postgres ikke kan slaa "ip_klasse har art ip" op i feltdefinitioner her.
-  constraint feltposter_ip_klasse_form check (
-    feltnavn <> 'ip_klasse' or form <> 'tekst' or vaerdi_tekst ~* '^IP[0-9X]{2}K?$'
+  -- tjekTekstfelt: /^IP[0-9X]{2}K?$/i). Kun relevant naar field_name er
+  -- ip_rating OG formen er 'text'.
+  constraint field_entries_ip_rating_form check (
+    field_name <> 'ip_rating' or form <> 'text' or value_text ~* '^IP[0-9X]{2}K?$'
   )
 );
-create index feltposter_robot_id_idx on feltposter (robot_id);
-create index feltposter_feltnavn_idx on feltposter (feltnavn);
-comment on table feltposter is
-  '62 x 30 = 1860 raekker. form-kolonnen er R4 skrevet som CHECK: praecis én vaerdiform pr. raekke.';
+create index field_entries_robot_id_idx on field_entries (robot_id);
+create index field_entries_field_name_idx on field_entries (field_name);
+comment on table field_entries is
+  '77 x 33 = 2.541 raekker. form-kolonnen er R4 skrevet som CHECK: praecis én vaerdiform pr. raekke.';
 
 /* ============================================================
-   4. FELTPOST-VARIANTER — R15, "varianter:"-blokken paa et enkelt felt.
+   4. FIELD_ENTRY_VARIANTS — R15, "varianter:"-blokken paa et enkelt felt.
    ============================================================
    Go2's fire varianter er fire maskiner (nyttelasten falder 5 -> 2,5 kg hen
    over Lite3's fire kolonner) — se skema.mjs's kommentar ved R15. */
-create table feltpost_varianter (
+create table field_entry_variants (
   robot_id            bigint not null,
-  feltnavn            feltnavn_enum not null,
-  variant_navn        text not null,
-  vaerdi              jsonb not null,   -- scalar (tal, tekst ELLER bool) — jsonb bevarer typen uden gaetteri
-  primary key (robot_id, feltnavn, variant_navn),
-  foreign key (robot_id, feltnavn) references feltposter (robot_id, feltnavn) on delete cascade,
-  constraint feltpost_varianter_vaerdi_er_skalar check (
-    jsonb_typeof(vaerdi) in ('string', 'number', 'boolean')
+  field_name          field_name_enum not null,
+  variant_name        text not null,
+  value               jsonb not null,   -- scalar (tal, tekst ELLER bool) — jsonb bevarer typen uden gaetteri
+  primary key (robot_id, field_name, variant_name),
+  foreign key (robot_id, field_name) references field_entries (robot_id, field_name) on delete cascade,
+  constraint field_entry_variants_value_is_scalar check (
+    jsonb_typeof(value) in ('string', 'number', 'boolean')
   )
-  -- R15's krav om, at variant_navn skal staa i robottens EGEN "varianter:"-
-  -- topnoegle (robotter.varianter), kraever et opslag paa TVAERS af
-  -- tabeller — Postgres' CHECK tillader ikke subqueries mod andre raekker
-  -- eller tabeller, saa det haandhaeves IKKE her. Se fund/FUND-db1.md's
-  -- regeltabel (R15) og db/migrer.mjs, som validerer det foer INSERT.
+  -- R15's krav om, at variant_name skal staa i robottens EGEN "varianter:"-
+  -- topnoegle (robots.variants), kraever et opslag paa TVAERS af tabeller —
+  -- Postgres' CHECK tillader ikke subqueries mod andre raekker/tabeller, saa
+  -- det haandhaeves IKKE her. Se tools/validate.mjs (R15).
 );
--- INTET separat indeks paa (robot_id, feltnavn) her: praimaernoeglen
--- (robot_id, feltnavn, variant_navn) daekker allerede opslag paa de to
--- foerste kolonner som et PREFIX af sit eget btree-indeks (Postgres kan
--- bruge et indeks' foerste N kolonner uden en fuld match) — et ekstra
--- indeks ville vaere rent vedligeholdelsesarbejde uden gevinst.
-comment on table feltpost_varianter is 'R15: variantvaerdier paa et felt. Medlemsskabet af robotter.varianter haandhaeves ved migrering, ikke i DB.';
+-- INTET separat indeks paa (robot_id, field_name) her: primaernoeglen
+-- (robot_id, field_name, variant_name) daekker allerede opslag paa de to
+-- foerste kolonner som et PREFIX af sit eget btree-indeks.
+comment on table field_entry_variants is 'R15: variantvaerdier paa et felt. Medlemsskabet af robots.variants haandhaeves i tools/validate.mjs, ikke i DB.';
 
 /* ============================================================
-   5. ANVENDELSE — producentens EGEN inddeling (R16), topnoegle, ikke felt.
+   5. APPLICATIONS — producentens EGEN inddeling (R16), topnoegle, ikke felt.
    ============================================================
-   Ligger uden for feltposter helt bevidst, ligesom i skema.mjs: anvendelse
-   taeller IKKE i specifikationstaetheden (D7/L30's naevner er FELTNAVNE.length,
-   og anvendelse staar ikke i FELTNAVNE). 61/62 robotter har topnoeglen i dag
-   (formscan) — én robot har den slet ikke, og den robot har derfor INGEN
-   raekke her (ikke en NULL-raekke — fravaeret ER fravaeret, samme princip
-   som billede nedenfor). */
-create table anvendelse (
-  robot_id            bigint primary key references robotter(id) on delete cascade,
-  er_bar_streng       boolean not null default false,
-  -- true, naar YAML'en skrev "anvendelse: ikke_oplyst" som ren tekst i
-  -- stedet for et kort. 0/62 i dag (formscan: anvendelseTilstand=0, alle 61
-  -- er kort-formen), men R16 tillader begge, og rundturen skal kunne
+   Ligger uden for field_entries helt bevidst, ligesom i skema.mjs: anvendelse
+   taeller IKKE i specifikationstaetheden (D7/L30's naevner er
+   FELTNAVNE.length, og anvendelse staar ikke i FELTNAVNE). Fravaer af
+   topnoeglen giver INGEN raekke her (ikke en NULL-raekke — fravaeret ER
+   fravaeret, samme princip som images nedenfor). */
+create table applications (
+  robot_id            bigint primary key references robots(id) on delete cascade,
+  is_bare_string      boolean not null default false,
+  -- true, naar YAML'en skrev "anvendelse: not_stated" som ren tekst i
+  -- stedet for et kort. R16 tillader begge, og db/eksporter.mjs skal kunne
   -- genskabe formen praecist, hvis den nogensinde bruges.
-  er_ikke_oplyst      boolean not null,
-  vaerdi              jsonb,     -- kategori(er): streng ELLER liste (ANVENDELSE_VAERDIER), null naar ikke_oplyst
-  citat               jsonb,     -- ordret citat: streng ELLER liste, PAAKRAEVET naar ikke er_ikke_oplyst (R16)
-  -- CITAT_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "citat",
-  -- samme mekanik som robotter.noter_ordlyd/feltposter.advarsel_ordlyd —
-  -- producentens ordrette, ikke-danske formulering, flyttet ud af "citat"
-  -- (som fra nu kun baerer den danske oversaettelse). Foelger citat's EGEN
-  -- form (streng ELLER liste, samme jsonb-begrundelse) — staar "citat" som en
-  -- liste, er "citat_ordlyd" samme laengde liste, "" hvor det enkelte citat
-  -- ikke havde en fremmedsproget ordlyd. Element-for-element-laengdeparring
-  -- mod "citat" er IKKE en DB-CHECK, samme afgraensning som noter_ordlyd
-  -- ovenfor — kun formen.
-  citat_ordlyd        jsonb,
-  kilde               text,
-  hentet              date,
-  kildetype           kildetype_enum,
-  arvet_fra_robot_id  bigint references robotter(id),  -- R17: moderens robot, IKKE robotten selv
+  is_not_stated       boolean not null,
+  value               jsonb,     -- kategori(er): streng ELLER liste (ANVENDELSE_VAERDIER), null naar is_not_stated
+  quote               jsonb,     -- ordret citat: streng ELLER liste, PAAKRAEVET naar ikke er is_not_stated (R16)
+  -- QUOTE_WORDING (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "quote",
+  -- samme mekanik som robots.notes_wording/field_entries.caveat_wording —
+  -- producentens ordrette, ikke-danske formulering. Foelger quote's EGEN
+  -- form (streng ELLER liste). Staar "quote" som en liste, er
+  -- "quote_wording" samme laengde liste, "" hvor det enkelte citat ikke
+  -- havde en fremmedsproget ordlyd. Element-for-element-laengdeparring mod
+  -- "quote" er IKKE en DB-CHECK — kun formen.
+  quote_wording        jsonb,
+  source              text,
+  retrieved_at        date,
+  source_type         source_type_enum,
+  inherited_from_robot_id bigint references robots(id),  -- R17: moderens robot, IKKE robotten selv
   note                text,
-  -- NOTE_ORDLYD (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "note"
-  -- (anvendelsens egen note, IKKE feltposternes) — samme mekanik og samme
-  -- begrundelse som ovenfor.
-  note_ordlyd         text,
-  -- NOTE_I18N (spor/i18nfelt, 2. sep 2026, R22): soesterfeltet til "note",
-  -- samme ANDET FORMAAL som feltposter.advarsel_i18n — en OVERSAETTELSE
-  -- ({en: "..."}), ikke kildens egen ordlyd.
-  note_i18n           jsonb,
+  -- NOTE_WORDING (spor/cjkui, 1. sep 2026, R21): soesterfeltet til "note"
+  -- (anvendelsens egen note, IKKE feltposternes) — samme mekanik.
+  note_wording         text,
 
-  constraint anvendelse_ikke_arv_af_sig_selv check (arvet_fra_robot_id is distinct from robot_id),
-  constraint anvendelse_kilde_er_url check (kilde is null or kilde ~ '^https?://'),
+  -- COLLECTED_BY + CHANGE_REASON (punkt 3).
+  collected_by        text,
+  change_reason        text,
 
-  -- R16: ikke_oplyst maa ikke baere et citat eller en arv (tjekAnvendelse:
+  constraint applications_not_inherited_from_self check (inherited_from_robot_id is distinct from robot_id),
+  constraint applications_source_is_url check (source is null or source ~ '^https?://'),
+
+  -- R16: is_not_stated maa ikke baere et citat eller en arv (tjekAnvendelse:
   -- "citat staar sammen med ikke_oplyst" / "arvet_fra staar sammen med
   -- ikke_oplyst" er begge FEJL).
-  constraint anvendelse_ikke_oplyst_uden_citat check (
-    not er_ikke_oplyst or citat is null
+  constraint applications_not_stated_has_no_quote check (
+    not is_not_stated or quote is null
   ),
-  constraint anvendelse_ikke_oplyst_uden_arv check (
-    not er_ikke_oplyst or arvet_fra_robot_id is null
+  constraint applications_not_stated_has_no_inheritance check (
+    not is_not_stated or inherited_from_robot_id is null
   ),
-  -- R16: er kategorien IKKE ikke_oplyst, er citatet paakraevet — "uden
+  -- R16: er kategorien IKKE not_stated, er citatet paakraevet — "uden
   -- producentens eget ord er kategorien vores mening".
-  constraint anvendelse_citat_paakraevet check (
-    er_ikke_oplyst or citat is not null
+  constraint applications_quote_required check (
+    is_not_stated or quote is not null
   ),
-  constraint anvendelse_vaerdi_form check (
-    vaerdi is null or jsonb_typeof(vaerdi) in ('string', 'array')
+  constraint applications_value_form check (
+    value is null or jsonb_typeof(value) in ('string', 'array')
   ),
-  constraint anvendelse_citat_form check (
-    citat is null or jsonb_typeof(citat) in ('string', 'array')
+  constraint applications_quote_form check (
+    quote is null or jsonb_typeof(quote) in ('string', 'array')
   ),
-  -- R21 (spor/cjkui): citat_ordlyd foelger citat's egen form (streng ELLER
-  -- liste) — samme constraint-facon som citat selv.
-  constraint anvendelse_citat_ordlyd_form check (
-    citat_ordlyd is null or jsonb_typeof(citat_ordlyd) in ('string', 'array')
+  constraint applications_quote_wording_form check (
+    quote_wording is null or jsonb_typeof(quote_wording) in ('string', 'array')
   ),
-  -- R21: note_ordlyd er ikke-tom tekst og kan ikke staa uden den note, den
-  -- er en ordlyd til — samme to krav som feltposter_advarsel_ordlyd_* ovenfor.
-  constraint anvendelse_note_ordlyd_ikke_tom check (
-    note_ordlyd is null or btrim(note_ordlyd) <> ''
+  constraint applications_note_wording_not_blank check (
+    note_wording is null or btrim(note_wording) <> ''
   ),
-  constraint anvendelse_note_ordlyd_kraever_note check (
-    note_ordlyd is null or (note is not null and btrim(note) <> '')
-  ),
-  -- R22 (spor/i18nfelt): samme tre krav som feltposter_advarsel_i18n_* —
-  -- objekt, kraever "note", kildesproget "da" maa ikke staa som noegle.
-  constraint anvendelse_note_i18n_form check (
-    note_i18n is null or jsonb_typeof(note_i18n) = 'object'
-  ),
-  constraint anvendelse_note_i18n_kraever_note check (
-    note_i18n is null or (note is not null and btrim(note) <> '')
-  ),
-  constraint anvendelse_note_i18n_ikke_kildesprog check (
-    note_i18n is null or not (note_i18n ? 'da')
+  constraint applications_note_wording_requires_note check (
+    note_wording is null or (note is not null and btrim(note) <> '')
   )
   -- Resten af R16 (er hver vaerdi i ANVENDELSE_VAERDIERs syv gyldige
   -- kategorier?) og HELE R17 (arv: har moderen selv en kategori? er den
   -- ikke selv en arv? er barnets kategorier en delmaengde af moderens? er
   -- citatet ordret moderens? er kilden moderens?) kraever at laese EN ANDEN
-  -- raekke (moderrobotten) og kan derfor ikke vaere en CHECK. arvet_fra_robot_id
-  -- er en fremmednoegle, saa "peger arven paa en robot, der findes?" ER
-  -- DB-haandhaevet — resten er ikke. Se fund/FUND-db1.md.
+  -- raekke (moderrobotten) og kan derfor ikke vaere en CHECK.
+  -- inherited_from_robot_id er en fremmednoegle, saa "peger arven paa en
+  -- robot, der findes?" ER DB-haandhaevet — resten er ikke.
 );
-create index anvendelse_arvet_fra_idx on anvendelse (arvet_fra_robot_id);
-comment on table anvendelse is 'R16/R17. 0-1 raekke pr. robot. Fravaer af raekke = fravaer af topnoeglen i YAML.';
+create index applications_inherited_from_idx on applications (inherited_from_robot_id);
+comment on table applications is 'R16/R17. 0-1 raekke pr. robot. Fravaer af raekke = fravaer af topnoeglen i YAML.';
 
 /* ============================================================
-   6. BILLEDE — R18, topnoegle, ikke felt (samme naevner-begrundelse).
+   6. IMAGES — R18, topnoegle, ikke felt (samme naevner-begrundelse).
    ============================================================
-   46/62 robotter har et billede i dag (formscan) — alle 46 med ophav
-   "fabrikant", hvilket er praecis SPAERRING S1's problem: siden maa ikke
-   PUBLICERES, mens de 46 raekker har ophav = 'fabrikant'. Det haandhaeves
-   ikke her (en DB-raekke er ikke en publicering), men i tools/build.mjs's
-   --til-udgivelse-flag efter eksport. */
-create table billede (
-  robot_id            bigint primary key references robotter(id) on delete cascade,
-  fil                 text not null,      -- relativ til assets/, R18's stiregler haandhaeves IKKE i DB (kraever filsystemopslag)
-  ophav               ophav_enum not null,
-  kilde               text,
-  hentet              date,
-  alt                 text,
+   Alle robotter med et billede stod pr. sidste maaling med origin =
+   'manufacturer', hvilket er praecis SPAeRRING S1's problem historisk —
+   ophaevet af JPK 26. aug 2026 (L37, CLAUDE.md), saa spaerringen haandhaeves
+   ikke laengere i tools/build.mjs. */
+create table images (
+  robot_id            bigint primary key references robots(id) on delete cascade,
+  file                text not null,      -- relativ til assets/, R18's stiregler haandhaeves IKKE i DB (kraever filsystemopslag)
+  origin              origin_enum not null,
+  source              text,
+  retrieved_at        date,
+  -- ALT: JSONB (L81 punkt 3), IKKE text. Spor/alt (1. sep 2026) indfoerte et
+  -- sprogkort ({da: "...", en: "..."}), men db/skema.sql fulgte ikke med —
+  -- migreringen skete direkte paa den levende database FOeR denne fil blev
+  -- rettet (Å115, STATUS.md). Denne udgave skriver det, der ALLEREDE staar
+  -- live, ikke en ny beslutning.
+  alt                 jsonb,
   note                text,
-  -- NOTE_I18N (spor/i18nfelt, 2. sep 2026, R22): soesterfeltet til billedets
-  -- egen "note" — samme ANDET FORMAAL som de to ovenfor: en OVERSAETTELSE.
-  note_i18n           jsonb,
-  delt_med_robot_id   bigint references robotter(id),  -- L28: to robotter kan dele samme fysiske fil
-  plade               boolean,
-  pos                 text,
+  shared_with_robot_id bigint references robots(id), -- L28: to robotter kan dele samme fysiske fil
+  plate               boolean,
+  position             text,
 
-  constraint billede_fil_ikke_tom check (btrim(fil) <> ''),
-  constraint billede_ikke_delt_med_sig_selv check (delt_med_robot_id is distinct from robot_id),
-  constraint billede_kilde_er_url check (kilde is null or kilde ~ '^https?://'),
+  -- COLLECTED_BY + CHANGE_REASON (punkt 3).
+  collected_by        text,
+  change_reason        text,
 
-  -- R18: ophav 'silhuet' og 'fabrikant' KRAEVER kilde (silhuet: maaltal skal
-  -- kunne foelges; fabrikant: billedet skal kunne foelges til sin side).
-  -- 'eget_foto' maa staa uden — vi har taget det selv.
-  constraint billede_kilde_paakraevet_for_ophav check (
-    ophav = 'eget_foto' or kilde is not null
+  constraint images_file_not_blank check (btrim(file) <> ''),
+  constraint images_not_shared_with_self check (shared_with_robot_id is distinct from robot_id),
+  constraint images_source_is_url check (source is null or source ~ '^https?://'),
+
+  -- R18: origin 'silhouette' og 'manufacturer' KRAeVER source (silhouette:
+  -- maaltal skal kunne foelges; manufacturer: billedet skal kunne foelges
+  -- til sin side). 'own_photo' maa staa uden — vi har taget det selv.
+  constraint images_source_required_for_origin check (
+    origin = 'own_photo' or source is not null
   ),
-  -- "hentet uden kilde daterer ingenting" (R18).
-  constraint billede_hentet_kraever_kilde check (
-    hentet is null or kilde is not null
+  -- "retrieved_at uden source daterer ingenting" (R18).
+  constraint images_retrieved_at_requires_source check (
+    retrieved_at is null or source is not null
   ),
-  -- R22 (spor/i18nfelt): samme tre krav som feltposter_advarsel_i18n_*/
-  -- anvendelse_note_i18n_* — objekt, kraever "note", kildesproget "da" maa
-  -- ikke staa som noegle.
-  constraint billede_note_i18n_form check (
-    note_i18n is null or jsonb_typeof(note_i18n) = 'object'
-  ),
-  constraint billede_note_i18n_kraever_note check (
-    note_i18n is null or (note is not null and btrim(note) <> '')
-  ),
-  constraint billede_note_i18n_ikke_kildesprog check (
-    note_i18n is null or not (note_i18n ? 'da')
+  -- ALT: jsonb-objekt (sprogkort), samme formkrav som R18's oprindelige
+  -- text-udgave havde som fri prosa — nu haandhaevet strukturelt.
+  constraint images_alt_form check (
+    alt is null or jsonb_typeof(alt) = 'object'
   )
   -- R18's regler om selve STIEN (ingen "..", ingen "\", ingen "media/",
   -- filen skal FINDES paa disk i assets/<mappe>/) er filsystemtjek og kan
-  -- ikke vaere en SQL CHECK. De staar ved magt i tools/validate.mjs, som
-  -- koerer paa den EKSPORTEREDE mappe i db/rundtur.mjs.
+  -- ikke vaere en SQL CHECK. De staar ved magt i tools/validate.mjs.
 );
-comment on table billede is 'R18. 0-1 raekke pr. robot. SPAERRING S1: alle raekker med ophav=fabrikant er ikke-publicerbare, haandhaeves af build.mjs --til-udgivelse.';
+comment on table images is 'R18. 0-1 raekke pr. robot. SPAeRRING S1 er ophaevet af JPK 26. aug 2026 (L37) — ingen build-tidsblokering laengere.';
+comment on column images.shared_with_robot_id is 'L28: to robotter kan dele samme fysiske fil.';
 
 /* ============================================================
-   7. SYNK_AFTRYK — vagtens fingeraftryk (Å14, STATUS.md)
+   7. CHANGE_LOG — fortrydelsesknappen (L81-L83, punkt 3)
    ============================================================
-   L35's oprindelige vagt (db/migrer.mjs's sammenlignDbMedYaml) sammenlignede
-   databasens NUVAeRENDE indhold mod YAML'ens NUVAeRENDE tilstand og naegtede
-   ved enhver forskel — ogsaa naar forskellen blot var et agent-spors nye
-   robotter i data/robots/, som databasen aldrig havde tabt noget af. Å14
-   retter det: vagten skal kun raabe, naar DATABASEN selv har flyttet sig
-   siden sidste migrering (en Studio-redigering) — ikke naar YAML'en er
-   rykket videre.
-
-   Loesningen er et FINGERAFTRYK: hver vellykket "--til-db" gemmer den
-   kanoniske robotter-struktur, den LIGE HAR SKREVET, i denne ene raekke.
-   Naeste koersel sammenligner databasens nuvaerende indhold mod AFTRYKKET
-   (ikke mod YAML) — matcher de, er intet redigeret i Studio siden sidst, og
-   migreringen fortsaetter, uanset hvor langt YAML selv er rykket. Afviger
-   de, er databasen redigeret uden om YAML siden sidste migrering, og
-   migreringen stopper foer foerste DELETE (se db/migrer.mjs's tilDb).
-
-   VALG: ÉN SINGLETON-RAeKKE, IKKE EN LOGTABEL MED ÉN RAeKKE PR. KOeRSEL.
-   Vagten skal kun kende SENESTE tilstand — en historik af tidligere aftryk
-   loeser ingen del af Å14's problem og ville blot vokse ubegraenset ved
-   hver migrering (77 robotter x hver koersel). "--til-db" SLETTER OG
-   GENINDSAeTTER derfor denne ene raekke ved hver vellykket koersel, samme
-   toem-og-genindlaes-princip som resten af tabellerne.
-
-   SINGLETON-MOeNSTERET: en `bigint identity`-noegle (skema-primary-keys.md's
-   generelle anbefaling for en enkelt database) loeser IKKE "praecis én
-   raekke" — det kraever enten en separat unik delvis-indeks-regel eller en
-   applikationsdisciplin, ingen af delene findes her. `id boolean primary
-   key default true` sammen med CHECK (id) er i stedet en velkendt Postgres-
-   idiom for netop singleton-konfigurationstabeller: booleans domaene har
-   kun to vaerdier, og CHECK (id) forbyder den ene af dem (false) som raekke
-   — der kan derfor STRUKTURELT aldrig eksistere mere end én raekke, ikke
-   kun "i praksis, hvis koden opfoerer sig ordentligt".
-
-   RLS: samme "basis" som resten af filen (se afsnit 8 nedenfor) — ingen
-   policy for anon/authenticated, kun service_role (BYPASSRLS) laeser og
-   skriver. security-rls-performance.md's advarsel om auth.uid() kaldt pr.
-   raekke er IKKE relevant her, fordi der slet ikke findes nogen policy at
-   optimere — samme begrundelse som resten af filens RLS-afsnit. */
-create table synk_aftryk (
-  id          boolean primary key default true,
-  aftryk      jsonb not null,      -- den kanoniske robotter-struktur, senest skrevet af --til-db
-  robotantal  integer not null,    -- til hurtig, laesbar logging uden at aabne aftryk selv
-  opdateret   timestamptz not null default now(),
-
-  constraint synk_aftryk_er_singleton check (id)
+   Erstatter synk_aftryk-vagten (Å14), som kun beskyttede ÉN skrivevej
+   (db/migrer.mjs --til-db, nu fjernet). change_log daekker ALLE skrivevejes
+   fravaer: en raekke-trigger paa UPDATE/DELETE gemmer den GAMLE raekke som
+   jsonb, sammen med hvem og hvorfor (collected_by/change_reason paa selve
+   raekken, jf. de fem tabeller ovenfor) — en afvisning bliver en
+   forespoergsel (find raekken i change_log, se hvad den var), ikke en gren
+   (Å116's egen formulering for, hvad L81 taber og genopretter). */
+create table change_log (
+  id          bigint generated always as identity primary key,
+  table_name  text not null,
+  row_key     jsonb not null,      -- den aendrede raekkes primaernoegle(r), som et JSON-objekt
+  operation   text not null check (operation in ('update', 'delete')),
+  old_row     jsonb not null,      -- HELE den gamle raekke, foer aendringen
+  changed_by  text,                -- fra collected_by (NEW ved UPDATE, OLD ved DELETE — se log_change())
+  reason      text,                -- fra change_reason, samme regel
+  changed_at  timestamptz not null default now()
 );
-comment on table synk_aftryk is
-  'Å14: singleton-raekke. Vagten sammenligner databasens nuvaerende indhold mod aftryk (ikke mod YAML), saa den kun naegter, naar DATABASEN er redigeret siden sidste --til-db.';
+create index change_log_table_name_idx on change_log (table_name);
+create index change_log_changed_at_idx on change_log (changed_at);
+comment on table change_log is 'L81 punkt 3: raekke-historik ved UPDATE/DELETE paa robots/field_entries/field_entry_variants/applications/images. Fyldt af trigger log_change() nedenfor.';
+
+/** Generisk trigger-funktion: virker paa alle fem skrivbare tabeller uden
+ *  fem separate kopier (samme D7/L30-princip som resten af projektet — én
+ *  funktion, ikke fem, der kan skride fra hinanden). Noeglen bygges pr.
+ *  tabel via TG_TABLE_NAME, fordi de fem tabeller har forskellige
+ *  primaernoegler (robots: id · field_entries/applications/images: robot_id
+ *  · field_entry_variants: robot_id+field_name+variant_name). */
+create or replace function log_change() returns trigger as $$
+declare
+  v_key jsonb;
+  v_changed_by text;
+  v_reason text;
+begin
+  if TG_TABLE_NAME = 'robots' then
+    v_key := jsonb_build_object('id', OLD.id);
+  elsif TG_TABLE_NAME = 'field_entries' then
+    v_key := jsonb_build_object('robot_id', OLD.robot_id, 'field_name', OLD.field_name);
+  elsif TG_TABLE_NAME = 'field_entry_variants' then
+    v_key := jsonb_build_object('robot_id', OLD.robot_id, 'field_name', OLD.field_name, 'variant_name', OLD.variant_name);
+  elsif TG_TABLE_NAME = 'applications' then
+    v_key := jsonb_build_object('robot_id', OLD.robot_id);
+  elsif TG_TABLE_NAME = 'images' then
+    v_key := jsonb_build_object('robot_id', OLD.robot_id);
+  else
+    v_key := '{}'::jsonb;
+  end if;
+
+  -- UPDATE: NEW.collected_by/change_reason er redaktoerens forklaring PAA
+  -- DENNE aendring (saettes samtidig med selve aendringen). DELETE: intet
+  -- NEW findes, saa OLD's sidst kendte vaerdier bruges som naermeste bud.
+  if TG_OP = 'UPDATE' then
+    v_changed_by := NEW.collected_by;
+    v_reason := NEW.change_reason;
+  else
+    v_changed_by := OLD.collected_by;
+    v_reason := OLD.change_reason;
+  end if;
+
+  insert into change_log (table_name, row_key, operation, old_row, changed_by, reason)
+  values (TG_TABLE_NAME, v_key, lower(TG_OP), to_jsonb(OLD), v_changed_by, v_reason);
+
+  return OLD;
+end;
+$$ language plpgsql security definer;
+
+create trigger log_change_robots after update or delete on robots for each row execute function log_change();
+create trigger log_change_field_entries after update or delete on field_entries for each row execute function log_change();
+create trigger log_change_field_entry_variants after update or delete on field_entry_variants for each row execute function log_change();
+create trigger log_change_applications after update or delete on applications for each row execute function log_change();
+create trigger log_change_images after update or delete on images for each row execute function log_change();
 
 commit;
 
 /* ============================================================
    8. ROW LEVEL SECURITY — "basis", jf. opgavens afgraensning
    ============================================================
-   Se filens toptekst. RLS slaas til paa alle syv tabeller UDEN nogen
-   policy for anon/authenticated — Postgres' egen default, naar RLS er
-   aktiveret uden en matchende policy, er at NÆGTE adgang for enhver rolle,
-   der ikke er ejeren eller BYPASSRLS. service_role har altid BYPASSRLS i
-   Supabase og er den eneste rolle, db/migrer.mjs og db/eksporter.mjs
-   bruger (SUPABASE_SERVICE_ROLE_KEY, se db/LAESMIG.md) — noeglen maa ALDRIG
-   bruges i en offentlig klient (Supabase-skillens egen advarsel,
-   skills/supabase/SKILL.md: "Never expose the service_role ... key in
-   public clients").
+   Se filens toptekst. RLS slaas til paa alle syv tabeller UDEN nogen policy
+   for anon/authenticated — Postgres' egen default, naar RLS er aktiveret
+   uden en matchende policy, er at NAeGTE adgang for enhver rolle, der ikke
+   er ejeren eller BYPASSRLS. service_role har altid BYPASSRLS i Supabase og
+   er den eneste rolle, db/eksporter.mjs bruger (SUPABASE_SERVICE_ROLE_KEY,
+   se db/LAESMIG.md) — noeglen maa ALDRIG bruges i en offentlig klient.
 
-   Bevidst IKKE bygget her (se db/LAESMIG.md's afsnit om det): en
-   authenticated-policy til en fremtidig redigerings-UI, en anon-laese-
-   policy (kataloget er stadig statisk HTML fra YAML, ikke live fra DB),
-   og enhver rolle ud over service_role. */
-alter table feltdefinitioner   enable row level security;
-alter table robotter           enable row level security;
-alter table feltposter         enable row level security;
-alter table feltpost_varianter enable row level security;
-alter table anvendelse         enable row level security;
-alter table billede            enable row level security;
-alter table synk_aftryk        enable row level security;
+   Bevidst IKKE bygget her: en authenticated-policy til en fremtidig
+   redigerings-UI, en anon-laese-policy (kataloget er stadig statisk HTML,
+   genereret fra en database-eksport, ikke live fra DB), og enhver rolle ud
+   over service_role. */
+alter table field_definitions      enable row level security;
+alter table robots                 enable row level security;
+alter table field_entries          enable row level security;
+alter table field_entry_variants   enable row level security;
+alter table applications           enable row level security;
+alter table images                 enable row level security;
+alter table change_log             enable row level security;
 
 -- Least privilege (security-privileges.md): PUBLIC-skemaets standardrettigheder
 -- fjernes eksplicit, saa en fremtidig anon/authenticated-rolle ikke arver
