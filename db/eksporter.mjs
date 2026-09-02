@@ -4,50 +4,54 @@
  *
  * Nul afhaengigheder.
  *
- * TO TILSTANDE:
+ * ÉN TILSTAND, siden L81-L83 (STATUS.md) punkt 5: databasen er kilden, YAML
+ * -> DB findes ikke laengere, og db/migrer.mjs — den eneste skriver af den
+ * lokale mellemfil, en tidligere, nu fjernet LOKAL tilstand her laeste — er
+ * SLETTET.
  *
- *   node db/eksporter.mjs --ud=<mappe>     LOKAL (standard). Ingen DB findes
- *                                          endnu. Laeser db/kanonisk.json
- *                                          (skrevet af db/migrer.mjs) og
- *                                          genererer én YAML-fil pr. robot i
- *                                          <mappe> — IKKE oven i data/robots/,
- *                                          som er laesekilde for et andet spor.
- *
- *   node db/eksporter.mjs --fra-db --ud=<mappe>   FORBEREDT, IKKE KOERT.
- *                                          Henter robotterne fra et rigtigt
- *                                          Supabase-projekt via fetch mod
- *                                          PostgREST og skriver samme YAML.
- *                                          Kraever SUPABASE_URL og
+ *   node db/eksporter.mjs --fra-db --ud=<mappe>   KOeRT (L81-L83, spor/skema,
+ *                                          2. sep 2026 — var forberedt, ikke
+ *                                          koert, indtil dette spor). Henter
+ *                                          robotterne fra det ENGELSKE
+ *                                          Supabase-skema
+ *                                          (db/skema.sql,
+ *                                          db/migrering-engelsk.sql) via
+ *                                          fetch mod PostgREST og OVERSAeTTER
+ *                                          dem tilbage til nøjagtig den
+ *                                          danske form, data/robots/ har i
+ *                                          dag — via db/ordbog.mjs, den ENE
+ *                                          dansk<->engelsk-ordbog. Kraever
+ *                                          SUPABASE_URL og
  *                                          SUPABASE_SERVICE_ROLE_KEY i .env.
  *
  * FIDELITETSKONTRAKTEN: den genererede YAML skal, naar den laeses igen med
  * tools/yaml.mjs's parseYaml + tools/skema.mjs's normaliserRobot, give et
  * DYBT LIG resultat af det samme kaldt paa originalen. Det er IKKE et krav
  * om byte-identisk tekst (facon, kommentarer og noegleraekkefoelge maa gerne
- * skifte) — det er kravet, db/rundtur.mjs proever. Se den fils kommentarer
- * for hvorfor "parse" her betyder normaliserRobot(parseYaml(x)) og ikke den
- * raa parseYaml alene.
+ * skifte) — det er kravet, db/tjek.mjs proever (efterfoelgeren for
+ * db/rundtur.mjs, L81-L83 punkt 5). Se den fils kommentarer for hvorfor
+ * "parse" her betyder normaliserRobot(parseYaml(x)) og ikke den raa
+ * parseYaml alene.
  *
  * VAGTEN (L35-opfoelgning, STATUS.md's D12/L35-raekke): eksporten skriver
  * ALDRIG direkte ind i udMappe. Den skriver foerst til en midlertidig
  * sibling-mappe, koerer tools/validate.mjs PAA DEN, og flytter kun filerne
  * ind i udMappe, hvis valideringen er fejlfri. Slaar valideringen fejl,
- * staar udMappe UBERoeRT — samme princip som db/migrer.mjs's vagt (linje
- * "VAGTEN" i den fil): en kontrol, der koerer EFTER filerne allerede er
- * skrevet, opdager problemet, den forhindrer det ikke. Kun FEJL blokerer;
- * advarsler (fx R9 paa ghost-robotics-vision-60) slipper igennem uaendret,
- * ligesom de altid har gjort i data/robots/. Se boerFlyttes() nedenfor for
- * selve beslutningen som en ren, testbar funktion.
+ * staar udMappe UBERoeRT. Kun FEJL blokerer; advarsler (fx R9 paa
+ * ghost-robotics-vision-60) slipper igennem uaendret, ligesom de altid har
+ * gjort i data/robots/. Se boerFlyttes() nedenfor for selve beslutningen som
+ * en ren, testbar funktion.
  *
- * STRATEGI: for hver robot genopbygges et JS-objekt, der ser ud som den
- * originale YAML-fils PARSEDE (men IKKE normaliserede) form — samme
- * noeglenavne (vaerdi/min/maks/kilde/hentet/...), samme topnoegler
- * (billede/anvendelse/felter/...) — og det objekt skrives saa til YAML af en
- * generisk emitter. Fordi kanonisk.json allerede er bygget af
- * normaliserRobot(parseYaml(original)), er den forme, der skrives her,
- * ALLEREDE i kanonisk form (min/maks ikke vaerdi_min, boolean ikke "ja"),
- * saa en fornyet normalisering af den eksporterede fil er et no-op i forhold
- * til betydning.
+ * STRATEGI: for hver robot genopbygges et JS-objekt paa NØJAGTIG den DANSKE
+ * kanoniske form, db/migrer.mjs's klassificerRobot() tidligere byggede af
+ * YAML (samme noeglenavne: vaerdi/min/maks/kilde/hentet/tilstand/...,
+ * samme topnoegler: billede/anvendelse/felter/...) — og det objekt skrives
+ * saa til YAML af en generisk emitter. omdanRobotFraDb/omdanFeltpostFraDb
+ * nedenfor er derfor OVERSAeTTERE: de laeser de ENGELSKE PostgREST-raekker
+ * og skriver den DANSKE kanoniske form via db/ordbog.mjs — resten af filen
+ * (byggRobotDoc, byggFeltpostVaerdi, skrivRobotYaml, emitKort) er UAeNDRET
+ * siden foer L81-L83, fordi den kun kender den danske kanoniske form, ikke
+ * hvor den kom fra.
  */
 
 import fs from 'node:fs';
@@ -55,6 +59,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import * as ordbog from './ordbog.mjs';
 
 const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { FELTNAVNE } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`);
@@ -63,8 +68,9 @@ const { FELTNAVNE } = await import(`file://${path.join(ROD, 'tools/skema.mjs')}`
 // spor arbejdede i den (25. aug 2026) - og funktionen var dengang ikke
 // eksporteret derfra. Den laas er vaek nu; funktionen importeres i stedet,
 // saa udtraekket af validatorens opsummeringslinje kun findes ÉT sted
-// (D7/L30-faelden: to kopier af samme ting skrider fra hinanden).
-const { traekValidateTal } = await import(`file://${path.join(ROD, 'db/rundtur.mjs')}`);
+// (D7/L30-faelden: to kopier af samme ting skrider fra hinanden). Importeret
+// fra db/tjek.mjs (L81-L83 punkt 5's efterfoelger for db/rundtur.mjs).
+const { traekValidateTal } = await import(`file://${path.join(ROD, 'db/tjek.mjs')}`);
 
 /* --------------------------------------------------------- YAML-udskrift */
 
@@ -126,8 +132,10 @@ function emitKort(obj, indent, linjer) {
 
 /* -------------------------------------------------- genopbygning: felter */
 
-/** Genopbygger ÉN feltposts YAML-repraesentation af dens kanoniske form
- *  (se db/migrer.mjs's klassificerFeltpost for det modsatte). */
+/** Genopbygger ÉN feltposts YAML-repraesentation af dens danske kanoniske
+ *  form (se omdanFeltpostFraDb nedenfor for OVERSAeTTELSEN engelsk -> dansk,
+ *  som sker FOeR denne funktion nogensinde kaldes). UAeNDRET siden foer
+ *  L81-L83 — den kender kun den danske kanoniske form. */
 function byggFeltpostVaerdi(f) {
   if (f.form === 'bare_tilstand') return f.tilstand; // en ren streng, ikke et kort
 
@@ -149,7 +157,8 @@ function byggFeltpostVaerdi(f) {
   }
 
   // SIDESPOR (1 forekomst i data, se db/migrer.mjs's kommentar ved samme
-  // navn): et maaleligt interval kan staa ved siden af en tekst/bool/liste-
+  // navn — bevaret som historisk reference, filen selv er slettet):
+  // et maaleligt interval kan staa ved siden af en tekst/bool/liste-
   // vaerdi — Boston Dynamics' Spot skriver stroem_ud som TEKST og har
   // samtidig min/maks for spaendingen. 'interval'-formen selv har allerede
   // sat kort.min/kort.maks ovenfor og rammer aldrig denne gren.
@@ -180,12 +189,6 @@ function byggFeltpostVaerdi(f) {
     // betingelse som advarsel_klasse ovenfor, producentens ordrette
     // kildeformulering, ingen skabelon laeser den.
     kort.advarsel_ordlyd = f.advarsel_ordlyd ?? undefined;
-    // R22 (spor/i18nfelt, 2. sep 2026): "advarsel_i18n" — samme form-
-    // betingelse, sprogkortet { en: "..." } med en OVERSAETTELSE af
-    // "advarsel" (modsat advarsel_ordlyd's kildesprogs-ordlyd ovenfor).
-    // emitKort() skriver kortet nested uden saerskilt kode (samme vej som
-    // billede.alt laengere nede).
-    kort.advarsel_i18n = f.advarsel_i18n ?? undefined;
   }
   if (f.ved_last) {
     // Tre virkelige former, alle fundet i data/robots/ (25. aug 2026, ikke
@@ -241,9 +244,6 @@ function byggRobotDoc(r) {
       kort.note = a.note ?? undefined;
       // note_ordlyd — spor/cjkui, 1. sep 2026 (R21): soesterfeltet til note.
       kort.note_ordlyd = a.note_ordlyd ?? undefined;
-      // note_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet med en
-      // OVERSAETTELSE af "note" (modsat note_ordlyd's kildesprogs-ordlyd).
-      kort.note_i18n = a.note_i18n ?? undefined;
       doc.anvendelse = kort;
     }
   }
@@ -253,9 +253,6 @@ function byggRobotDoc(r) {
     doc.billede = {
       fil: b.fil, ophav: b.ophav, kilde: b.kilde ?? undefined, hentet: b.hentet ?? undefined,
       alt: b.alt ?? undefined, note: b.note ?? undefined,
-      // note_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet med en
-      // OVERSAETTELSE af billedets egen "note".
-      note_i18n: b.note_i18n ?? undefined,
       delt_med: b.delt_med ?? undefined,
       plade: b.plade ?? undefined, pos: b.pos ?? undefined,
     };
@@ -319,108 +316,157 @@ function laesDotEnv(fil) {
   }
 }
 
-/** Genopbygger ÉN feltposts kanoniske form (samme facon som db/migrer.mjs's
- *  klassificerFeltpost bygger fra YAML) af DENS raa DB-raekke. */
+/** Oversaetter anvendelse.value (jsonb: STRENG eller LISTE af strenge,
+ *  engelske kategorier) tilbage til danske ANVENDELSE_VAERDIER-navne via
+ *  ordbog.DATA_VAERDIER.anvendelse_vaerdi. Formen (streng vs. liste)
+ *  bevares praecist — samme regel som db/byg-migrering.mjs's sektion A3
+ *  brugte den ANDEN vej. */
+function oversaetAnvendelseVaerdi(v) {
+  if (v === null || v === undefined) return v;
+  if (Array.isArray(v)) return v.map((x) => ordbog.DATA_VAERDIER.anvendelse_vaerdi.tilDansk(x));
+  return ordbog.DATA_VAERDIER.anvendelse_vaerdi.tilDansk(v);
+}
+
+/** Genopbygger ÉN feltposts danske kanoniske form (samme facon som det
+ *  slettede db/migrer.mjs's klassificerFeltpost byggede fra YAML) af DENS
+ *  raa, ENGELSKE DB-raekke (field_entries, jf. db/skema.sql). Hver
+ *  ordbog.tilDansk()-kald er punktet, hvor L81-L83's omdoebning gaar i
+ *  omvendt retning igen — se db/ordbog.mjs. */
 function omdanFeltpostFraDb(row) {
   const ud = {
-    form: row.form, tilstand: row.tilstand,
-    vaerdi_tal: row.vaerdi_tal, min: row.min, maks: row.maks,
-    vaerdi_tekst: row.vaerdi_tekst, vaerdi_bool: row.vaerdi_bool, vaerdi_liste: row.vaerdi_liste,
-    enhed: row.enhed, enhed_imperial: row.enhed_imperial, vaerdi_imperial: row.vaerdi_imperial,
-    operator: row.operator, kilde: row.kilde, hentet: row.hentet, kildetype: row.kildetype,
-    advarsel: row.advarsel, advarsel_klasse: row.advarsel_klasse, advarsel_ordlyd: row.advarsel_ordlyd,
-    // advarsel_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet, laest
-    // raat af PostgREST'ens jsonb-kolonne (samme facon som billede.alt).
-    advarsel_i18n: row.advarsel_i18n,
-    note: row.note, raa: row.raa, valuta: row.valuta,
+    form: ordbog.ENUM_LABELS.feltform_enum.tilDansk(row.form),
+    tilstand: row.state === null || row.state === undefined ? row.state : ordbog.ENUM_LABELS.tilstand_enum.tilDansk(row.state),
+    vaerdi_tal: row.value_number, min: row.minimum, maks: row.maximum,
+    vaerdi_tekst: row.value_text, vaerdi_bool: row.value_bool, vaerdi_liste: row.value_list,
+    enhed: row.unit, enhed_imperial: row.imperial_unit, vaerdi_imperial: row.imperial_value,
+    // operator_enum er identitetsoversat (symboler, ikke ord) — se
+    // db/ordbog.mjs's ENUM_LABELS.operator_enum. tilDansk() virker stadig
+    // korrekt her (kaster ikke), fordi lavOrdbog() ogsaa registrerer
+    // identitetspar i BEGGE retninger.
+    operator: row.operator === null || row.operator === undefined ? row.operator : ordbog.ENUM_LABELS.operator_enum.tilDansk(row.operator),
+    kilde: row.source, hentet: row.retrieved_at,
+    kildetype: row.source_type === null || row.source_type === undefined ? row.source_type : ordbog.ENUM_LABELS.kildetype_enum.tilDansk(row.source_type),
+    advarsel: row.caveat,
+    // advarsel_klasse ER oversat (rettet 2. sep 2026, orkestrator-review —
+    // se db/skema.sql's kommentar ved field_entries.caveat_class og
+    // db/ordbog.mjs's DATA_VAERDIER.advarsel_klasse). tools/build.mjs's
+    // D14-maerke laeser den danske vaerdi direkte fra YAML'en, saa den
+    // oversaettelse maa ske HER, ikke lades staa som engelsk i eksporten.
+    advarsel_klasse: row.caveat_class === null || row.caveat_class === undefined ? row.caveat_class : ordbog.DATA_VAERDIER.advarsel_klasse.tilDansk(row.caveat_class),
+    advarsel_ordlyd: row.caveat_wording,
+    note: row.note, raa: row.raw, valuta: row.currency,
   };
-  // ved_last_* er tre kolonner paa hver raekke (kun ikke-null for driftstid,
-  // jf. db/skema.sql's feltposter_ved_last_kun_paa_driftstid) — genopbyg kun
-  // ved_last-noeglen, naar mindst én af dem baerer noget, samme betingelse
-  // klassificerVedLast (migrer.mjs) selv bruger til at afgoere om noeglen
-  // findes overhovedet.
-  if (row.ved_last_tilstand !== null || row.ved_last_vaerdi !== null || row.ved_last_enhed !== null) {
-    ud.ved_last = { tilstand: row.ved_last_tilstand, vaerdi: row.ved_last_vaerdi, enhed: row.ved_last_enhed };
+  // load_state/load_value/load_unit er tre kolonner paa hver raekke (kun
+  // ikke-null for 'runtime', jf. db/skema.sql's
+  // field_entries_load_only_on_runtime) — genopbyg kun ved_last-noeglen, naar
+  // mindst én af dem baerer noget.
+  if (row.load_state !== null || row.load_value !== null || row.load_unit !== null) {
+    ud.ved_last = {
+      tilstand: row.load_state === null || row.load_state === undefined ? row.load_state : ordbog.ENUM_LABELS.tilstand_enum.tilDansk(row.load_state),
+      vaerdi: row.load_value, enhed: row.load_unit,
+    };
   }
-  // feltpost_varianter er indlejret UNDER feltposter i selve GET'et (se
-  // POSTGREST-OVERRASKELSE 2 nedenfor) — {variant_navn, vaerdi}[] -> {navn: vaerdi}.
-  if (row.feltpost_varianter && row.feltpost_varianter.length) {
-    ud.varianter = Object.fromEntries(row.feltpost_varianter.map((v) => [v.variant_navn, v.vaerdi]));
+  // field_entry_variants er indlejret UNDER field_entries i selve GET'et (se
+  // POSTGREST-OVERRASKELSE 3 nedenfor) — {variant_name, value}[] ->
+  // {navn: vaerdi}. variant_name er producentens EGET variantnavn (fx "Go2
+  // Pro") — fri tekst, ikke en ordbogsnoegle, oversaettes ikke.
+  if (row.field_entry_variants && row.field_entry_variants.length) {
+    ud.varianter = Object.fromEntries(row.field_entry_variants.map((v) => [v.variant_name, v.value]));
   }
   return ud;
 }
 
-/** Genopbygger ÉN robots kanoniske form af dens raa, indlejrede DB-raekke.
- *  `idTilSlug` opslaar en robots EGEN id -> slug for de tre selv/kryds-
- *  referencer (forgaenger/arvet_fra/delt_med), som DB'en baerer som
- *  numeriske id'er, men kanonisk() (og dermed YAML) baerer som slugs. */
+/** Genopbygger ÉN robots danske kanoniske form af dens raa, indlejrede,
+ *  ENGELSKE DB-raekke (robots, jf. db/skema.sql). `idTilSlug` opslaar en
+ *  robots EGEN id -> slug for de tre selv/kryds-referencer (forgaenger/
+ *  arvet_fra/delt_med), som DB'en baerer som numeriske id'er, men den
+ *  kanoniske form (og dermed YAML) baerer som slugs. */
 function omdanRobotFraDb(raa, idTilSlug) {
   const felter = {};
-  for (const fp of raa.feltposter) felter[fp.feltnavn] = omdanFeltpostFraDb(fp);
+  for (const fp of raa.field_entries) felter[ordbog.ENUM_LABELS.feltnavn_enum.tilDansk(fp.field_name)] = omdanFeltpostFraDb(fp);
   if (Object.keys(felter).length !== FELTNAVNE.length) {
     throw new Error(`${raa.slug}: ${Object.keys(felter).length} feltposter hentet, forventede ${FELTNAVNE.length} — ` +
       'migreringen har efterladt et hul, eller GET-kaldet blev pagineret. Undersoeg, foer resultatet bruges.');
   }
 
   let anvendelse = null;
-  if (raa.anvendelse) {
-    const a = raa.anvendelse;
+  if (raa.applications) {
+    const a = raa.applications;
     anvendelse = {
-      er_bar_streng: a.er_bar_streng, er_ikke_oplyst: a.er_ikke_oplyst,
-      vaerdi: a.vaerdi, citat: a.citat, citat_ordlyd: a.citat_ordlyd, kilde: a.kilde, hentet: a.hentet, kildetype: a.kildetype,
-      arvet_fra: a.arvet_fra_robot_id ? idTilSlug.get(a.arvet_fra_robot_id) : null, note: a.note, note_ordlyd: a.note_ordlyd,
-      // note_i18n — spor/i18nfelt, 2. sep 2026 (R22): sprogkortet, laest raat
-      // af PostgREST'ens jsonb-kolonne.
-      note_i18n: a.note_i18n,
+      er_bar_streng: a.is_bare_string, er_ikke_oplyst: a.is_not_stated,
+      vaerdi: oversaetAnvendelseVaerdi(a.value), citat: a.quote, citat_ordlyd: a.quote_wording,
+      kilde: a.source, hentet: a.retrieved_at,
+      kildetype: a.source_type === null || a.source_type === undefined ? a.source_type : ordbog.ENUM_LABELS.kildetype_enum.tilDansk(a.source_type),
+      arvet_fra: a.inherited_from_robot_id ? idTilSlug.get(a.inherited_from_robot_id) : null,
+      note: a.note, note_ordlyd: a.note_wording,
     };
   }
 
   let billede = null;
-  if (raa.billede) {
-    const b = raa.billede;
+  if (raa.images) {
+    const b = raa.images;
     billede = {
-      fil: b.fil, ophav: b.ophav, kilde: b.kilde, hentet: b.hentet, alt: b.alt, note: b.note,
-      note_i18n: b.note_i18n,
-      delt_med: b.delt_med_robot_id ? idTilSlug.get(b.delt_med_robot_id) : null,
-      plade: b.plade, pos: b.pos,
+      fil: b.file, ophav: ordbog.ENUM_LABELS.ophav_enum.tilDansk(b.origin),
+      kilde: b.source, hentet: b.retrieved_at, alt: b.alt, note: b.note,
+      delt_med: b.shared_with_robot_id ? idTilSlug.get(b.shared_with_robot_id) : null,
+      plade: b.plate, pos: b.position,
     };
   }
 
   return {
-    slug: raa.slug, navn: raa.navn, producent: raa.producent, producentland: raa.producentland,
-    producentby: raa.producentby, status: raa.status, fremdrift: raa.fremdrift, foerste_udgivelse: raa.foerste_udgivelse,
-    forgaenger: raa.forgaenger_robot_id ? idTilSlug.get(raa.forgaenger_robot_id) : null,
-    varianter: raa.varianter, noter: raa.noter, noter_ordlyd: raa.noter_ordlyd,
+    slug: raa.slug, navn: raa.name, producent: raa.manufacturer,
+    producentland: ordbog.DATA_VAERDIER.producentland.tilDansk(raa.manufacturer_country),
+    producentby: raa.manufacturer_city,
+    status: ordbog.ENUM_LABELS.status_enum.tilDansk(raa.status),
+    fremdrift: ordbog.DATA_VAERDIER.fremdrift.tilDansk(raa.locomotion),
+    foerste_udgivelse: raa.first_released,
+    forgaenger: raa.predecessor_robot_id ? idTilSlug.get(raa.predecessor_robot_id) : null,
+    varianter: raa.variants, noter: raa.notes, noter_ordlyd: raa.notes_wording,
     felter, anvendelse, billede,
   };
 }
 
 /**
- * Henter robotterne fra et rigtigt Supabase-projekt via fetch mod PostgREST
- * (GET med indlejrede relationer for feltposter/feltpost_varianter/
- * anvendelse/billede) og omsaetter DEM til den SAMME kanoniske,
- * slug-noeglede form, db/migrer.mjs bygger lokalt af YAML — se
- * omdanRobotFraDb ovenfor. Kaldes kun med --fra-db.
+ * Henter robotterne fra det ENGELSKE Supabase-skema (db/skema.sql,
+ * db/migrering-engelsk.sql) via fetch mod PostgREST (GET med indlejrede
+ * relationer for field_entries/field_entry_variants/applications/images) og
+ * omsaetter DEM til den danske kanoniske, slug-noeglede form — se
+ * omdanRobotFraDb ovenfor.
  *
  * POSTGREST-OVERRASKELSE 2 (fundet ved afproevning mod en rigtig instans,
- * 25. aug 2026): et indlejret select fra robotter til anvendelse/billede er
- * TVETYDIGT og fejler med 300 + PGRST201 ("more than one relationship was
- * found"), fordi begge tabeller har TO fremmednoegler til robotter
- * (robot_id OG arvet_fra_robot_id / delt_med_robot_id). PostgREST kan ikke
- * gaette, hvilken der menes, og kraever eksplicit valg af constraint-navn:
- * `anvendelse!anvendelse_robot_id_fkey(*)` / `billede!billede_robot_id_fkey(*)`.
+ * 25. aug 2026, gaelder stadig efter L81-L83's omdoebning): et indlejret
+ * select fra robots til applications/images er TVETYDIGT (300 + PGRST201),
+ * fordi begge tabeller har TO fremmednoegler til robots. PostgREST kraever
+ * derfor et eksplicit disambigueringshint.
  *
- * POSTGREST-OVERRASKELSE 3: feltpost_varianter har INGEN direkte
- * fremmednoegle til robotter (dens FK er den SAMMENSATTE (robot_id,
- * feltnavn) -> feltposter) — et forsoeg paa at indlejre den direkte under
- * robotter fejler med 400 + PGRST200 ("no matches were found... Perhaps you
- * meant 'feltposter'"). Den skal indlejres UNDER feltposter i stedet:
- * `feltposter(*,feltpost_varianter(*))`.
+ * HINTET ER VED KOLONNENAVN ("applications!robot_id(*)"), IKKE VED
+ * CONSTRAINT-NAVN — rettet 2. sep 2026 (orkestrator-review) efter en
+ * faelde, foerste udgave gik lige i: RENAME TABLE/COLUMN aendrer IKKE en
+ * eksisterende constraints EGET, autogenererede navn (kun tabellens/
+ * kolonnens). Den navngives ved CREATE TABLE-tid — af tabellens og
+ * kolonnens navne PAA DET TIDSPUNKT. En omdoebt tabel/kolonne BEHOLDER
+ * derfor det GAMLE, danske constraint-navn (laest raat af pg_constraint,
+ * ikke gaettet), mens en FRISK `db/skema.sql`-installation (et tomt
+ * projekt) faar et rent ENGELSK constraint-navn fra samme automatik — de to
+ * databaser ender saaledes med FORSKELLIGE constraint-navne for praecis
+ * samme relation. Et hardkodet constraint-navn her ville derfor kun virke
+ * mod ÉN af de to. Kolonnenavnet "robot_id" er derimod IDENTISK i begge —
+ * det blev aldrig omdoebt (se db/ordbog.mjs's KOLONNER, identitetsparret) —
+ * og overlever saaledes BEGGE veje. Efterproevet 2. sep 2026 med et raat,
+ * laese-kun GET mod den levende (stadig danske) instans:
+ * `robotter?select=slug,anvendelse!robot_id(robot_id)` -> HTTP 200 (samme
+ * for billede) — PostgREST accepterer et FK-KOLONNENAVN som hint, ikke kun
+ * et constraint-navn.
  *
- * POSTGREST-OVERRASKELSE 4: anvendelse og billede kommer tilbage som ENKELTE
- * OBJEKTER (ikke ét-elements arrays), fordi PostgREST selv opdager, at
- * relationen er ét-til-ét (robot_id er BAADE fremmednoegle OG primaernoegle
- * i begge tabeller) — samme facon som naar en 0-1-relation laeses lokalt.
+ * POSTGREST-OVERRASKELSE 3: field_entry_variants har INGEN direkte
+ * fremmednoegle til robots (dens FK er den SAMMENSATTE (robot_id,
+ * field_name) -> field_entries) — indlejres derfor UNDER field_entries:
+ * `field_entries(*,field_entry_variants(*))`.
+ *
+ * POSTGREST-OVERRASKELSE 4: applications og images kommer tilbage som
+ * ENKELTE OBJEKTER (ikke ét-elements arrays), fordi PostgREST selv opdager,
+ * at relationen er ét-til-ét (robot_id er BAADE fremmednoegle OG
+ * primaernoegle i begge tabeller).
  */
 async function fraDb() {
   laesDotEnv(path.join(ROD, '.env'));
@@ -431,10 +477,10 @@ async function fraDb() {
     return null;
   }
   const headers = { apikey: noegle, Authorization: `Bearer ${noegle}` };
-  const select = 'select=*,feltposter(*,feltpost_varianter(*)),' +
-    'anvendelse!anvendelse_robot_id_fkey(*),billede!billede_robot_id_fkey(*)';
-  const svar = await fetch(`${url}/rest/v1/robotter?${select}`, { headers });
-  if (!svar.ok) throw new Error(`GET robotter fejlede: ${svar.status} ${await svar.text()}`);
+  const select = 'select=*,field_entries(*,field_entry_variants(*)),' +
+    'applications!robot_id(*),images!robot_id(*)';
+  const svar = await fetch(`${url}/rest/v1/robots?${select}`, { headers });
+  if (!svar.ok) throw new Error(`GET robots fejlede: ${svar.status} ${await svar.text()}`);
   const raaRobotter = await svar.json();
 
   const idTilSlug = new Map(raaRobotter.map((r) => [r.id, r.slug]));
@@ -458,13 +504,10 @@ function laesFlag(argv) {
 /**
  * Koerer tools/validate.mjs som subproces mod `mappe` og traekker tallene ud
  * af opsummeringslinjen ("N fil(er) · M fejl · K advarsler") via
- * db/rundtur.mjs's traekValidateTal (importeret ovenfor, ikke genskrevet —
- * Aa12, STATUS.md: en tidligere bevidst duplikeret kopi af regex'en er
- * fjernet nu, hvor rundtur.mjs's forbud fra et andet spor er ophoert. To
- * kopier af samme udtraek er praecis D7/L30-faelden: de skrider fra
- * hinanden ved naeste aendring, fordi ingen af dem ved, den anden findes).
- * fejlLinjer (de FEJL-praefikserede linjer, til selve fejlteksten i
- * rapporten) er IKKE en del af traekValidateTal og hentes derfor stadig her.
+ * db/tjek.mjs's traekValidateTal (importeret ovenfor, ikke genskrevet —
+ * Aa12, STATUS.md). fejlLinjer (de FEJL-praefikserede linjer, til selve
+ * fejlteksten i rapporten) er IKKE en del af traekValidateTal og hentes
+ * derfor stadig her.
  */
 function koerValidator(mappe) {
   let udskrift;
@@ -482,7 +525,7 @@ function koerValidator(mappe) {
 /**
  * Ren beslutningsfunktion — ingen filsystem, ingen netvaerk. Givet
  * valideringens optalte tal ({fejl, ...}, samme facon koerValidator()
- * ovenfor og rundtur.mjs's traekValidateTal begge producerer), afgoer den om
+ * ovenfor og db/tjek.mjs's traekValidateTal begge producerer), afgoer den om
  * den midlertidige eksportmappe maa flyttes ind i den endelige udMappe.
  *
  * KUN FEJL BLOKERER. Advarsler (fx R9 paa ghost-robotics-vision-60, som
@@ -492,7 +535,7 @@ function koerValidator(mappe) {
  * bruger den ikke.
  *
  * Testet uden netvaerk og uden .env i tests/koer.mjs (samme moenster som
- * db/migrer.mjs's sammenlignDbMedYaml testes rent i afsnit 7 der).
+ * det slettede db/migrer.mjs's sammenlignDbMedYaml blev testet rent).
  */
 export function boerFlyttes(valideringsTal) {
   return valideringsTal.fejl === 0;
@@ -502,19 +545,16 @@ async function main(argv) {
   const flag = laesFlag(argv);
   const udMappe = path.resolve(String(flag['ud'] ?? 'db/eksport'));
 
-  let robotter;
-  if (flag['fra-db']) {
-    const data = await fraDb();
-    if (!data) return 1;
-    robotter = data;
-  } else {
-    const kanoniskFil = path.join(ROD, 'db/kanonisk.json');
-    if (!fs.existsSync(kanoniskFil)) {
-      console.error(`${kanoniskFil} findes ikke. Koer db/migrer.mjs foerst.`);
-      return 1;
-    }
-    robotter = JSON.parse(fs.readFileSync(kanoniskFil, 'utf8')).robotter;
+  // ÉN vej ind, siden L81-L83 punkt 5 (db/migrer.mjs, den eneste skriver af
+  // den tidligere lokale mellemfil, er slettet — databasen er kilden).
+  if (!flag['fra-db']) {
+    console.error('db/eksporter.mjs kraever --fra-db. Den tidligere lokale tilstand ' +
+      '(uden --fra-db, laeste en lokal mellemfil) er fjernet (L81-L83, punkt 5) — ' +
+      'db/migrer.mjs, den eneste skriver af den fil, findes ikke laengere.');
+    return 1;
   }
+  const robotter = await fraDb();
+  if (!robotter) return 1;
 
   // VAGTEN: skriv til en midlertidig SIBLING-mappe (samme foraelder som
   // udMappe, saa den senere flytning er en rename inden for samme drev),
@@ -542,7 +582,7 @@ async function main(argv) {
 
     fs.mkdirSync(udMappe, { recursive: true });
     // Ryd maalmappen for gamle filer fra en tidligere koersel, saa en
-    // fjernet robot ikke efterlader en foraeldreloes fil, rundturen ville
+    // fjernet robot ikke efterlader en foraeldreloes fil, tjek.mjs ville
     // laese ved en fejl — men roer kun *.yaml, ligesom hidtil.
     for (const f of fs.readdirSync(udMappe)) {
       if (/\.ya?ml$/.test(f)) fs.rmSync(path.join(udMappe, f));
@@ -566,4 +606,4 @@ if (erHoved) {
   });
 }
 
-export { byggRobotDoc, skrivRobotYaml, fraDb, byggFeltpostVaerdi, omdanFeltpostFraDb, omdanRobotFraDb };
+export { byggRobotDoc, skrivRobotYaml, fraDb, byggFeltpostVaerdi, omdanFeltpostFraDb, omdanRobotFraDb, oversaetAnvendelseVaerdi };

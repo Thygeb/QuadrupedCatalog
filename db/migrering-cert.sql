@@ -1,0 +1,46 @@
+-- db/migrering-cert.sql — ALTER-migrering af det LEVENDE Supabase-projekt
+-- (spor/skema, punkt 2 af FASE 1, L81-L83 — retter en glemt migreringsfil fra
+-- spor/cert). Samme princip som db/migrering-fremdrift.sql/migrering-cjk-
+-- ordlyd.sql (læs den førstes toptekst for hvorfor en ALTER-fil findes ved
+-- siden af db/skema.sql, som er skrevet, som om kolonnerne/vaerdierne altid
+-- har vaeret der).
+--
+-- HVAD DEN RETTER (Å115, STATUS.md): 1. sep 2026 tilføjede spor/cert tre nye
+-- feltnavn_enum-vaerdier (fcc_oplyst, ul_oplyst, ccc_oplyst) DIREKTE til
+-- db/skema.sql (commit 1a5552d) UDEN en ALTER-fil ved siden af — den ene
+-- konvention, ethvert andet skemaskift i dette projekt følger. Å115 (2. sep
+-- 2026) fandt hullet og lukkede den LEVENDE database via `execute_sql`
+-- (fordi `apply_migration`-kaldet blev blokeret af en auto-mode-klassifikator
+-- midt i den session), men skrev selv: "den ændring står derfor IKKE i
+-- migreringstabellen." Denne fil ER den manglende migreringsfil, skrevet
+-- EFTERFØLGENDE, så migreringstabellen kan blive sand — ikke fordi den
+-- levende database mangler noget (den gør ikke, bekræftet ved læsning
+-- 2. sep 2026: `select enumlabel from pg_enum where enumtypid =
+-- 'feltnavn_enum'::regtype` viser alle 33 vaerdier, fcc_oplyst/ul_oplyst/
+-- ccc_oplyst iblandt), men fordi historikken skal vaere sand.
+--
+-- DANSKE NAVNE, MED VILJE: denne fil dokumenterer en historisk tilstand FØR
+-- L81-L83's omdøbning (db/migrering-engelsk.sql). Anvendes den EFTER
+-- migrering-engelsk.sql, er feltnavn_enum allerede omdøbt til
+-- field_name_enum, og disse tre "ADD VALUE IF NOT EXISTS"-linjer bliver
+-- selv et no-op, fordi de nu matcher et enum-navn, der ikke findes —
+-- Postgres fejler da SYNLIGT ("type feltnavn_enum does not exist"), ikke
+-- tavst, hvilket er den korrekte rækkefølgeadvarsel: kør DENNE fil FØR
+-- migrering-engelsk.sql, eller slet ikke (den er allerede anvendt).
+--
+-- IDEMPOTENT: "ADD VALUE IF NOT EXISTS" kan køres vilkårligt mange gange —
+-- Postgres springer selv over en vaerdi, der allerede findes. Ingen DO-blok-
+-- vagt er nødvendig (til forskel fra migrering-cjk-ordlyd.sql's CHECK-
+-- constraints, som IKKE har et "IF NOT EXISTS"-udtryk i Postgres og derfor
+-- kraever en manuel pg_constraint-vagt).
+--
+-- INGEN TRANSAKTIONSPAKNING: Postgres tillader "ALTER TYPE ... ADD VALUE"
+-- inden for en transaktionsblok siden PG12, MEN ikke i SAMME transaktion som
+-- den nye vaerdi selv BRUGES (fx i en efterfølgende INSERT/UPDATE). Denne
+-- fil hverken bruger eller behøver at bruge vaerdierne — den tilføjer dem
+-- alene — så "begin;/commit;" ville have vaeret sikkert, men er udeladt for
+-- at holde filen til de tre linjer, den faktisk er, og for at undgå enhver
+-- tvivl om reglen for en fremtidig laeser.
+alter type feltnavn_enum add value if not exists 'fcc_oplyst';
+alter type feltnavn_enum add value if not exists 'ul_oplyst';
+alter type feltnavn_enum add value if not exists 'ccc_oplyst';
