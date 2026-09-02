@@ -7,10 +7,13 @@
  * ÉN TILSTAND, siden L81-L83 (STATUS.md) punkt 5: databasen er kilden, YAML
  * -> DB findes ikke laengere, og db/migrer.mjs — den eneste skriver af den
  * lokale mellemfil, en tidligere, nu fjernet LOKAL tilstand her laeste — er
- * SLETTET. Var indtil dette spor "FORBEREDT, IKKE KOERT".
+ * SLETTET.
  *
- *   node db/eksporter.mjs --fra-db --ud=<mappe>   Henter robotterne fra det
- *                                          ENGELSKE Supabase-skema
+ *   node db/eksporter.mjs --fra-db --ud=<mappe>   KOeRT (L81-L83, spor/skema,
+ *                                          2. sep 2026 — var forberedt, ikke
+ *                                          koert, indtil dette spor). Henter
+ *                                          robotterne fra det ENGELSKE
+ *                                          Supabase-skema
  *                                          (db/skema.sql,
  *                                          db/migrering-engelsk.sql) via
  *                                          fetch mod PostgREST og OVERSAeTTER
