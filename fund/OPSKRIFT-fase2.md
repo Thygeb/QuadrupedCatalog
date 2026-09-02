@@ -92,9 +92,10 @@ to-delt svar, eller et ubrugt modstridende tal). **Forvent det samme hos dig.**
    `JSON.parse(svar).length` og afbryder hele kørslen, hvis det er 0 eller >1 — se
    `db/f2-pilot-skriv.mjs`s `patchEen()`-funktion, som du kan kopiere direkte.
 3. **Kun tekstkolonner:** `caveat`, `caveat_wording`, `note`, `collected_by`,
-   `change_reason`. Aldrig en talkolonne (`value_number`, `value_text` osv. — se
-   §6's fund om `value_text`, som IKKE er del af denne fases scope, selvom den også
-   er dansk).
+   `change_reason`. Aldrig en talkolonne (`value_number`, `minimum`, `maximum` osv.),
+   og heller ikke `value_text`, som er tekst men uden for denne fases scope — se
+   §6.4: den er en FEMTE tekstbunke, som endnu intet spor ejer, selvom den også
+   er dansk.
 4. **Tørløb er standard, `--skriv` er eksplicit.** Kør altid tørløbet først og læs
    det igennem — ikke bare tæl linjerne.
 
@@ -152,6 +153,10 @@ korrekt.** Din kolonneliste er snæver med vilje (kun `caveat`, `caveat_wording`
 STADIG dansk prosa i selve værdien efter du er færdig — det er en ANDEN
 tekstgenindsamlings-bunke, som endnu ikke har sit eget spor. Rør den ikke, men
 flag den i din rapport, så JPK ved den findes.
+
+**Målt af orkestratoren 2. sep 2026, ikke et gæt:** `value_text` er en **femte**
+arbejdsbunke, som ingen plan nævner — **230 `value_text`-værdier i kataloget,
+heraf 105 danske.** Det er et spor for sig, ikke noget du løser undervejs.
 
 ---
 
