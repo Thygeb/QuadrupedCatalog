@@ -22,7 +22,9 @@
 /* --- 1c. EU-FUNDET. Én saetning, ét stort tal — laesbar paa to sekunder,
    ikke en infografik. Beregnet i forside.mjs, aldrig skrevet i haanden. */
 .eu-fund-linje{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 12px;max-width:74ch}
-.eu-fund-linje .ikon{align-self:center;color:var(--accent)}
+/* L76: ikonet stod i accent paa --bund = 1,38 : 1 og var reelt usynligt.
+   --blaek (12,72 : 1) binder det samtidig til tallet ved siden af. */
+.eu-fund-linje .ikon{align-self:center;color:var(--blaek)}
 .eu-fund-tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
   font-size:clamp(26px,2.6vw,34px);font-weight:700;letter-spacing:-.01em;color:var(--blaek)}
 .eu-fund-linje span{font-size:17px;line-height:1.5;color:var(--blaek2)}
@@ -91,17 +93,20 @@
    beholder sit stiplede hegn ogsaa naar det er valgt - ellers ville netop det
    filter, der peger paa manglende data, tabe sit maerke i valgt tilstand, og
    haard begraensning 5 gaelder i alle tilstande, ikke kun i hvile. */
-.filtre input:target + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.filtre input:target + label{background:var(--accent);border-color:var(--accent);color:var(--blaek)}
 .filtre input:target + label .antal{color:var(--accent-ro)}
+/* L76: hvid ramme og hvid tekst paa accent var 1,66 : 1. Begge --blaek.
+   Hullets sprog er den STIPLEDE streg, ikke dens farve - spejler
+   system.css' :target-loese modstykke praecist. */
 .filtre input[value="ikke_oplyst"]:target + label{
-  background:var(--accent);border:1px dashed #FFFFFF;color:#FFFFFF;font-weight:600}
+  background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
 
 /* Soegefeltet er skjult, indtil JavaScript taender det: et felt, der intet
    goer, er en betjeningsflade uden funktion. Filtrene er der uanset.
    .sog saetter display:flex i system.css og slaar derfor [hidden]. */
 .sog[hidden],.styr[hidden],.tomt[hidden]{display:none}
 .tomt{margin-top:var(--r5);padding:18px 20px;background:var(--tom);
-  border:1px dashed var(--hegn);border-radius:var(--rund);
+  border:1px dashed var(--hegn);border-radius:var(--hjoerne);
   font-size:15px;color:var(--blaek2);
   display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
 .tomt__ryd{font-size:14px}
@@ -185,15 +190,21 @@
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
 
 /* --- 4. Vaerdier, system.css ikke har en form til ------------------------- */
-/* Tekstvaerdier (compute, monteringsinterface) saettes i broedskrift. Mono og
-   fed hoerer til TAL; en saetning sat som et tal laeses som et tal. */
-.v-tekst{font-family:var(--sans);font-weight:500;color:var(--blaek);
+/* Tekstvaerdier (compute, monteringsinterface). Fed og stor hoerer til TAL;
+   en saetning sat som et tal laeses som et tal.
+   L80: reglen pegede paa --sans og faar nu --mono (Saira), fordi UI og data
+   ER Saira. VAER OPMAERKSOM PAA, HVAD DER SKER HER: forskellen paa denne
+   regel og et tal var indtil i dag ogsaa en SKRIFT-forskel - men kun ved et
+   uheld, fordi --sans faldt igennem til Segoe UI. Den utilsigtede forskel
+   forsvinder. Skellet baeres nu af vaegt (500 mod tallenes 700) og af
+   display:inline, hvilket er det, reglen hele tiden PAASTOD at goere. */
+.v-tekst{font-family:var(--mono);font-weight:500;color:var(--blaek);
   display:inline;line-height:1.5}
 
 /* Advarslen staar VED SIDEN AF vaerdien, aldrig i en fodnote (regel 9). */
 .advarsel{display:flex;flex-direction:column;gap:3px;margin-top:8px;
   padding:9px 12px 10px;background:var(--panel-ro);
-  border-left:2px solid var(--hegn);border-radius:0 var(--rund-lille) var(--rund-lille) 0;
+  border-left:2px solid var(--hegn);border-radius:0 var(--hjoerne) var(--hjoerne) 0;
   font-size:13.5px;line-height:1.5;color:var(--blaek2);max-width:80ch}
 
 /* D18: blokken har to slags, saa laeseren, der foelger et maerke ned i
@@ -287,9 +298,12 @@
    robot.mjs, men stod uden regel her — dens eneste styling laa i den
    forladte sider.css. Fotografiet staar stille paa robotsiden: bevaegelsen
    paa .kort er en invitation til at klikke; her er man allerede fremme. */
-.billedled--stor{aspect-ratio:16/10;border:1px solid var(--linje);
-  border-radius:var(--rund);box-shadow:var(--skygge);background:var(--panel)}
-.billedled--stor .intetfoto{border-radius:var(--rund)}
+/* L78: varianten beholder sin egen KANT og plade, men sideforholdet og
+   fitten er systemets - 4:3 og contain, arvet fra .billedled. En variant maa
+   have sin egen ramme; den maa ikke have sit eget sideforhold. */
+.billedled--stor{border:1px solid var(--linje);
+  border-radius:var(--hjoerne);box-shadow:var(--skygge);background:var(--panel)}
+.billedled--stor .intetfoto{border-radius:var(--hjoerne)}
 .billedled--stor img{transition:none}
 
 /* "Vitrine"-mat (spor/lysbyg, retning LYS, prototype/retning-lys/lys.css'
@@ -309,7 +323,7 @@
 .billedled--stor:not(.billedled--maal){padding:12px 12px 0}
 .billedled--stor:not(.billedled--maal) picture{
   display:block;width:100%;height:100%;overflow:hidden;
-  border-radius:var(--rund-ind);border:1px solid var(--linje)}
+  border-radius:var(--hjoerne);border:1px solid var(--linje)}
 
 /* --- 8b. SAMMENLIGNINGSSIDEN (spor/lysbyg, kontrakt:
    prototype/retning-lys/sammenligning.html + BEGRUNDELSE.md) --------------- */
@@ -342,7 +356,7 @@
    ikke en linje ovenover - det sparer en hel tekstlinje, og saetningen
    loeber vandret gennem baandet i stedet for at blive gentaget fire gange. */
 .saml-noegle{margin-top:var(--r5);padding:10px var(--r4) 11px;
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund-ind)}
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--hjoerne)}
 /* Spalterne er UENS med vilje: "nul"-forklaringen baerer to saetninger
    (forskellen paa et maalt nul og et tomt felt er sidens vigtigste skelnen),
    mens "nej" og "ikke oplyst" er korte. Lige spalter tvang nul-teksten til
@@ -370,7 +384,7 @@
    beskeden (punkt 3, Aa54). Ingen ny visuel familie - kun klassenavnet er
    nyt, poletterne er de samme. */
 .sammenligning-status,.sammenligning-noscript{margin-top:var(--r3);padding:10px 14px;
-  background:var(--accent-ro);border-radius:var(--rund-ind);color:var(--blaek)}
+  background:var(--accent-ro);border-radius:var(--hjoerne);color:var(--blaek)}
 .sammenligning-status[hidden]{display:none}
 
 /* --- 8b-II. JIGGEN: MATRICEN SOM RIGTIG TABEL ----------------------------
@@ -391,7 +405,7 @@
    skaermbilledet saa helt rigtigt ud. Beholderen ruller derfor kun paa de
    bredder, hvor den skal (se 820 px-graensen), og er visible resten af tiden. */
 .saml-rulle{position:relative;overflow:visible;margin-top:var(--r5);
-  background:var(--panel);border-radius:var(--rund-ind);
+  background:var(--panel);border-radius:var(--hjoerne);
   box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans)}
 
 /* JIGRAEKKEN: kolonnehovedet klaeber. Foer rullede robotnavnene vaek, og
@@ -430,7 +444,7 @@
 .specimen__top{display:flex;align-items:flex-start;gap:var(--r3);min-width:0}
 .specimen__id{display:block;min-width:0}
 .saml-fotofelt{flex:none;width:74px;height:56px;display:grid;place-items:center;
-  overflow:hidden;background:var(--bund);border-radius:2px}
+  overflow:hidden;background:var(--bund);border-radius:var(--hjoerne)}
 .saml-fotofelt picture{display:block;width:100%;height:100%}
 .saml-fotofelt img{width:100%;height:100%;object-fit:contain;padding:3px}
 /* Manglende foto: den stiplede ikke-oplyst-plade, samme sprog som ethvert
@@ -510,7 +524,7 @@
    pr. tegning, og inline-SVG kostede ~200 byte stykket. */
 .saml-svar{display:flex;gap:3px;margin-top:6px}
 .saml-svar__m{display:block;width:8px;height:8px;background:var(--blaek);
-  border-radius:2px}
+  border-radius:var(--hjoerne)}
 .saml-svar__m--tavs{background:transparent;border:1px dashed var(--hegn)}
 
 .saml-raekke__celle{vertical-align:top;padding:11px var(--r3);
@@ -610,7 +624,11 @@
 .retur a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px 0 0;
   font-size:15px;font-weight:600;text-decoration:none;color:var(--blaek2)}
 .retur a::before{content:"←";margin-right:9px;font-family:var(--mono);color:var(--blaek3)}
-.retur a:hover{color:var(--accent);text-decoration:underline;text-decoration-thickness:2px}
+/* L76: hover satte accent som TEKST paa --bund (1,38 : 1) - altsaa gjorde
+   hover mindre laesbart end hvile (--blaek2, 5,68 : 1). Nu loefter hover til
+   fuld --blaek, og accent baerer understregningen. */
+.retur a:hover{color:var(--blaek);text-decoration:underline;text-decoration-thickness:2px;
+  text-decoration-color:var(--accent)}
 
 .robotside,.producentside{display:flex;flex-direction:column}
 
@@ -630,8 +648,12 @@
    skubbede navnet for taet paa en almindelig telefons foerste skaermhoejde.
    Loftet gaelder KUN et rigtigt fotografi — :not(.billedled--maal) holder
    maaltro-pladen udenfor, fordi dens kasse regner sin egen procentbredde ud
-   fra 16:10 og ville forvrides af en haandregnet hoejde. Fotografiet selv
-   beskaeres proportionalt af det eksisterende object-fit:cover i system.css. */
+   fra 16:10 og ville forvrides af en haandregnet hoejde.
+   RETTET AF L78 (2. sep 2026): sidste linje sagde foer, at fotografiet blev
+   "beskaaret proportionalt af den eksisterende cover-fit i system.css".
+   Der er ingen cover-fit laengere. Loftet virker uaendret - men det
+   INDPASSER nu billedet i de 190 px i stedet for at beskaere det, hvilket er
+   praecis, hvad L78 vil have paa den flade, hvor maskinen skal ses. */
 @media (max-width:899px){
   .robot-top{gap:var(--r4)}
   .robot-foto .billedled--stor:not(.billedled--maal){max-height:190px}
@@ -814,7 +836,7 @@
 /* .v-tekst har allerede en regel i §4 ovenfor; kun .v-liste manglede. */
 .v-liste{display:inline-flex;flex-wrap:wrap;gap:5px}
 .v-liste code{font-family:var(--mono);font-size:12.5px;color:var(--blaek2);
-  background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--rund-lille);
+  background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--hjoerne);
   padding:2px 7px 3px}
 
 /* --- 9d. Døren ud til producenten ------------------------------------------ */
@@ -824,7 +846,7 @@
 
 /* --- 9e. Anvendelsen -------------------------------------------------------- */
 .anvendelse-citat{margin:var(--r3) 0 var(--r3);padding:14px 18px 16px;
-  background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--rund-ind);
+  background:var(--panel-ro);border:1px solid var(--linje);border-radius:var(--hjoerne);
   max-width:76ch}
 .anvendelse-citat .etiket{margin-bottom:6px}
 .anvendelse-citat p + p{margin-top:8px}
@@ -836,22 +858,24 @@
    alene (class="anvendelse__arv", ikke "t-mikro anvendelse__arv"). */
 .anvendelse__arv{font-size:13px;line-height:1.5;font-style:normal;color:var(--blaek3)}
 .anvendelse__arv a{color:var(--blaek3);text-decoration-thickness:1.5px}
-.anvendelse__arv a:hover{color:var(--accent)}
+/* L76: samme moenster som .retur - hover gik FRA --blaek3 (4,74 : 1) TIL
+   accent (1,38 : 1). Nu loefter den til --blaek, og accent staar i stregen. */
+.anvendelse__arv a:hover{color:var(--blaek);text-decoration-color:var(--accent)}
 .anvendelse__note{margin-top:4px}
 
 /* --- 9f. Det fulde skema, sammenklappet ------------------------------------ */
 .skema{margin-top:var(--r7);background:var(--panel);border:1px solid var(--linje);
-  border-radius:var(--rund);box-shadow:var(--skygge)}
+  border-radius:var(--hjoerne);box-shadow:var(--skygge)}
 .skema > summary{
   display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;
   min-height:56px;padding:14px var(--r5);cursor:pointer;list-style:none;
-  border-radius:var(--rund);
+  border-radius:var(--hjoerne);
 }
 .skema > summary::-webkit-details-marker{display:none}
 .skema > summary::after{content:"+";margin-left:auto;font-family:var(--mono);font-size:20px;
   font-weight:500;color:var(--blaek3);line-height:1}
 .skema[open] > summary::after{content:"–"}
-.skema[open] > summary{border-radius:var(--rund) var(--rund) 0 0;border-bottom:1px solid var(--linje)}
+.skema[open] > summary{border-radius:var(--hjoerne) var(--hjoerne) 0 0;border-bottom:1px solid var(--linje)}
 .skema > summary:hover{background:var(--panel-ro)}
 .skema > summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 .skema-taeller{font-size:12.5px;font-weight:500;color:var(--blaek2)}
@@ -896,7 +920,8 @@
 .prodliste li:first-child{border-top:0}
 .prodliste .pnavn{font-size:16px;font-weight:600;flex:1 1 14ch;min-height:24px;
   display:inline-flex;align-items:center;padding:8px 0}
-.prodliste a.pnavn{color:var(--accent)}
+/* L76: producentnavnet er listens vigtigste ord og stod paa 1,38 : 1. */
+.prodliste a.pnavn{color:var(--blaek)}
 .prodliste [aria-current]{color:var(--blaek3)}
 .prodliste .pland{font-family:var(--mono);font-size:12px;color:var(--blaek3)}
 .prodliste .pantal{font-family:var(--mono);font-size:12.5px;color:var(--blaek2)}
@@ -921,7 +946,8 @@
 .prod-tabel thead th{border-top:0;padding-bottom:8px;font-size:12.5px;
   font-weight:600;color:var(--blaek3);text-transform:uppercase;letter-spacing:.02em}
 .prod-tabel tbody tr:first-child td{border-top:1px solid var(--linje)}
-.prod-tabel a{color:var(--accent);font-weight:600;display:inline-flex;
+/* L76: 1,38 : 1 paa hvert link i tabellen. --blaek + arvet understregning. */
+.prod-tabel a{color:var(--blaek);font-weight:600;display:inline-flex;
   align-items:center;min-height:24px}
 .prod-tabel th.figur,.prod-tabel td.figur{text-align:right;padding-right:0}
 .prod-tabel th:nth-child(2),.prod-tabel td:nth-child(2){width:20ch}
@@ -940,13 +966,17 @@
      dermed sin smalle bredde, og .prod-navne faar den forkert. Rettet ved at
      give .figur sin egen eksplicitte bredde tilbage og .prod-navne fri
      bredde, saa 390px-visningen bliver den, den var foer dette spor.
-   - .prod-tabel a{color:var(--accent)} (linje 1164) gaelder alle links i
-     tabellen, producentnavnet inklusive. For ni GENISOM AI-modellers navne i
-     traek ville accentfarven vaere for hoej vaegt paa hvert enkelt navn.
-     Kun cellen daempes til --blaek3; cellens EGNE links loefter sig til
-     fuld --blaek (ikke accent), saa kommaerne mellem navnene traeder
-     tilbage af sig selv uden at faa deres egen klasse (producent.mjs's
-     egen begrundelse, mellemtilstandens hovedkommentar).
+   - .prod-tabel a gaelder alle links i tabellen, producentnavnet inklusive.
+     For ni GENISOM AI-modellers navne i traek ville fuld vaegt paa hvert
+     enkelt navn vaere for meget. Kun cellen daempes til --blaek3; cellens
+     EGNE links loefter sig til fuld --blaek, saa kommaerne mellem navnene
+     traeder tilbage af sig selv uden at faa deres egen klasse
+     (producent.mjs's egen begrundelse, mellemtilstandens hovedkommentar).
+     RETTET AF L76 (2. sep 2026): grundreglen var
+     `.prod-tabel a{color:var(--accent)}` (1,38 : 1), og daempningen blev
+     dengang beskrevet som "til --blaek, ikke accent". Grundreglen ER nu
+     --blaek, saa daempningen til --blaek3 og loeftet tilbage til --blaek
+     staar uaendret - kun praemissen om accent er vaek.
    - .figur's padding-right:0 (linje 1166) forudsatte, at .figur var sidste
      kolonne - der var intet efter, som skulle skilles fra. Nu staar
      .prod-navne lige efter, med samme 0-venstre-polstring som alle andre
@@ -1098,18 +1128,22 @@
 .valg{
   display:none;align-items:center;gap:8px;
   background:var(--accent);color:var(--blaek);
-  padding:4px 5px 4px 10px;border-radius:2px;
+  padding:4px 5px 4px 10px;border-radius:var(--hjoerne);
   font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
 }
 .valg__navn{min-width:0}
 .valg__fjern{
   display:grid;place-items:center;width:18px;height:18px;flex:none;
-  background:rgba(34,38,42,.14);color:inherit;border-radius:2px;cursor:pointer;
+  background:rgba(34,38,42,.14);color:inherit;border-radius:var(--hjoerne);cursor:pointer;
 }
+/* L76 GENNEMGAAET, BEHOLDT: accent staar her PAA --blaek = 9,19 : 1. */
 .valg__fjern:hover{background:var(--blaek);color:var(--accent)}
 .valg__kryds{display:block}
 
 .taeller{margin-left:auto;display:flex;align-items:baseline;gap:9px;padding-left:var(--r4)}
+/* L76 GENNEMGAAET, BEHOLDT: .strimmel staar paa --fod (= gunmetal), saa
+   tallet er accent PAA blaek = 9,19 : 1 - den moerke flade, hvor L76
+   udtrykkeligt tillader accent som tekst. */
 .taeller__tal{
   font-size:25px;font-weight:700;letter-spacing:-.01em;line-height:1;
   color:var(--accent);font-variant-numeric:tabular-nums;
@@ -1129,7 +1163,7 @@
   background:transparent;border:0;color:var(--paafod);cursor:pointer;
   font:inherit;font-family:var(--mono);font-size:12px;font-weight:600;
   letter-spacing:.11em;text-transform:uppercase;
-  padding:8px 12px;border-radius:2px;box-shadow:inset 0 0 0 1px var(--stoev-blaek);
+  padding:8px 12px;border-radius:var(--hjoerne);box-shadow:inset 0 0 0 1px var(--stoev-blaek);
 }
 .nulstil:hover{background:var(--bund);color:var(--blaek);box-shadow:none}
 
@@ -1167,11 +1201,11 @@
 .rk{display:block}
 .rk__felt{position:absolute;opacity:0;width:1px;height:1px}
 .rk__mrk{display:flex;align-items:center;gap:10px;padding:5.5px 7px;margin:0 -7px;
-  border-radius:2px;cursor:pointer}
+  border-radius:var(--hjoerne);cursor:pointer}
 .rk__mrk:hover{background:var(--bund)}
 .rk__felt:focus-visible + .rk__mrk{outline:2px solid var(--blaek);outline-offset:1px}
 .rk__boks{
-  flex:none;width:15px;height:15px;border-radius:2px;
+  flex:none;width:15px;height:15px;border-radius:var(--hjoerne);
   box-shadow:inset 0 0 0 1px var(--blaek);background:var(--panel);
   display:grid;place-items:center;
 }
@@ -1203,7 +1237,7 @@
 .chip__felt{position:absolute;opacity:0;width:1px;height:1px}
 .chip__krop{
   display:block;cursor:pointer;padding:11px var(--r3) 10px;
-  border-radius:2px;background:var(--panel);
+  border-radius:var(--hjoerne);background:var(--panel);
   box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
 }
 .chip__krop:hover{box-shadow:inset 0 0 0 1px var(--blaek)}
@@ -1227,7 +1261,7 @@
 /* --- 20h. Den reserverede certificeringsgruppe ---------------------------
    Pladsen bygges, ikke facetten (L55 punkt 1). En stiplet ramme siger det
    samme som et stiplet "ikke oplyst"-maerke: her er et svar, vi ikke har. */
-.reserveret{border:1px dashed var(--hegn);border-radius:2px;padding:var(--r4) var(--r3)}
+.reserveret{border:1px dashed var(--hegn);border-radius:var(--hjoerne);padding:var(--r4) var(--r3)}
 .reserveret__ord{font-size:13px;font-weight:600;color:var(--stoev-blaek);margin-bottom:5px}
 .reserveret__note{font-size:12.5px;line-height:1.5;color:var(--stoev-blaek)}
 
@@ -1249,7 +1283,7 @@
 .sortervalg label{
   display:inline-flex;align-items:center;padding:6px 10px;cursor:pointer;
   font-size:12.5px;font-weight:600;color:var(--blaek2);background:var(--panel);
-  border-radius:2px;box-shadow:inset 0 0 0 1px var(--linje);
+  border-radius:var(--hjoerne);box-shadow:inset 0 0 0 1px var(--linje);
 }
 .sortervalg label:hover{box-shadow:inset 0 0 0 1px var(--blaek);color:var(--blaek)}
 .sortervalg input:checked + label{background:var(--accent);color:var(--blaek);
@@ -1281,11 +1315,16 @@
 }
 .net .kort:hover{background:#FFFFFF}
 .net .kort:focus-within{outline:2px solid var(--blaek);outline-offset:-2px}
+/* L78: `aspect-ratio:4/3` og `object-fit:contain` stod her, fordi kataloget
+   rettede grundreglens 16:10+cover. Grundreglen ER nu 4:3+contain, saa de to
+   erklaeringer er slettet - dét er hele pointen med én regel ét sted.
+   Tilbage staar det, der reelt er katalogets eget: den graa bund bag det
+   indpassede foto, den nulstillede radius og luften omkring billedet. */
 .net .billedled{
-  aspect-ratio:4/3;background:var(--bund);display:grid;place-items:center;
+  background:var(--bund);display:grid;place-items:center;
   overflow:hidden;border-bottom:1px solid var(--linje);border-radius:0;
 }
-.net .billedled img{width:100%;height:100%;object-fit:contain;padding:var(--r3)}
+.net .billedled img{width:100%;height:100%;padding:var(--r3)}
 .kort__tekst{padding:var(--r3) var(--r4) var(--r4);display:flex;flex-direction:column;gap:3px}
 .kort__prod{
   margin:0;font-size:10.5px;font-weight:600;letter-spacing:.13em;
@@ -1348,7 +1387,7 @@
   }
   .udtraek > .udtraek__greb::-webkit-details-marker{display:none}
   .haandtag{margin-left:auto;display:grid;place-items:center;width:24px;height:24px;
-    border-radius:2px;box-shadow:inset 0 0 0 1px var(--blaek)}
+    border-radius:var(--hjoerne);box-shadow:inset 0 0 0 1px var(--blaek)}
   .haandtag__tegn{width:13px;height:13px;fill:none;stroke:currentColor;
     stroke-width:1.8;transform:rotate(90deg)}
   .udtraek[open] > .udtraek__greb .haandtag__tegn{transform:rotate(-90deg)}

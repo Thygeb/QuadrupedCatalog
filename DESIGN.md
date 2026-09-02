@@ -37,25 +37,25 @@ colors:
   stans: "var(--p-stans)"
 typography:
   display:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(33px, 6.2vw, 76px)"
     fontWeight: 700
     lineHeight: 0.98
     letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(27px, 3.6vw, 46px)"
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.03em"
   title:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(23px, 2.8vw, 34px)"
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.026em"
   body:
-    fontFamily: "Manrope lokal, Manrope, Segoe UI Variable Text, Segoe UI, system-ui, -apple-system, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.55
@@ -76,9 +76,9 @@ typography:
     fontWeight: 400
     lineHeight: 1.62
 rounded:
-  rund: "12px"
-  rund-ind: "8px"
-  rund-lille: "6px"
+  # L79 (2. sep 2026): ét hjoerne, ikke en skala. Her stod rund 12 /
+  # rund-ind 8 / rund-lille 6. Se ## Konflikter, punkt 7 — AFGJORT.
+  hjoerne: "2px"
 spacing:
   r1: "4px"
   r2: "8px"
@@ -95,40 +95,44 @@ components:
   panel:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek}"
-    rounded: "{rounded.rund}"
+    rounded: "{rounded.hjoerne}"
   videre:
     backgroundColor: "{colors.blaek}"
     textColor: "#FFFFFF"
-    rounded: "{rounded.rund-ind}"
+    rounded: "{rounded.hjoerne}"
     padding: "0 18px"
     height: "46px"
   videre-hover:
     backgroundColor: "{colors.accent}"
-    textColor: "#FFFFFF"
+    # L76: her stod "#FFFFFF" = 1,66 : 1. Tekst PAA accent er altid blaek.
+    textColor: "{colors.blaek}"
   videre-stille:
     backgroundColor: "transparent"
-    textColor: "{colors.accent}"
-    rounded: "{rounded.rund-ind}"
+    # L76: her stod "{colors.accent}" paa en gennemsigtig (= lys) flade,
+    # altsaa 1,38 : 1. Accent er baggrund og markoer, aldrig tekst paa lys.
+    textColor: "{colors.blaek}"
+    rounded: "{rounded.hjoerne}"
     padding: "0 16px"
     height: "46px"
   nulstil:
     backgroundColor: "transparent"
     textColor: "{colors.blaek2}"
-    rounded: "{rounded.rund-ind}"
+    rounded: "{rounded.hjoerne}"
     height: "44px"
   filter:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek2}"
-    rounded: "{rounded.rund-ind}"
+    rounded: "{rounded.hjoerne}"
     padding: "0 14px"
     height: "44px"
   filter-valgt:
     backgroundColor: "{colors.accent}"
-    textColor: "#FFFFFF"
+    # L76: her stod "#FFFFFF" = 1,66 : 1. Nu blaek paa accent = 9,19 : 1.
+    textColor: "{colors.blaek}"
   sogefelt:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.blaek}"
-    rounded: "{rounded.rund-ind}"
+    rounded: "{rounded.hjoerne}"
     padding: "9px 14px"
     height: "44px"
   vaerdi-tal:
@@ -137,12 +141,12 @@ components:
   vaerdi-ikke:
     backgroundColor: "{colors.tom}"
     textColor: "{colors.blaek3}"
-    rounded: "2px"
+    rounded: "{rounded.hjoerne}"
     padding: "1px 5px"
   maerke:
     backgroundColor: "{colors.panel-ro}"
     textColor: "{colors.blaek2}"
-    rounded: "{rounded.rund-lille}"
+    rounded: "{rounded.hjoerne}"
   billednote:
     backgroundColor: "{colors.fod}"
     textColor: "{colors.paafod}"
@@ -174,12 +178,16 @@ lige så omhyggeligt som tallene. Halvdelen af nøgletallene mangler på en typi
 robot, fordi producenten ikke oplyser dem; cellen bliver stående med sit ikon og
 sin etiket, og kun figuren skiftes ud med et synligt hul (hård begrænsning 5).
 
-**Migrationen er i gang, ikke færdig.** `system.css`s egne kommentarer siger det
-selv: paletten og topbaren (dækket) er lagt om til TYPESKILT; overskrifter og
-brødtekst venter på det, kildens kommentarer kalder **"runde 2"**. Det betyder,
-at store dele af sidens tekst i dag rammes af den GAMLE skriftfamilie, som ikke
-længere er selvhostet. Se *Typografi* og `## Konflikter` nedenfor — det er den
-femte, ikke-brief-listede konflikt, dette spor fandt.
+**Migrationen er kommet et stort skridt videre.** Paletten og topbaren
+(dækket) blev lagt om til TYPESKILT 31. aug; **overskrifter, brødtekst,
+radius og billedramme fulgte 2. sep 2026 med L76–L80** (`spor/extract`).
+Her stod indtil da, at overskrifter og brødtekst ventede på det, kildens
+kommentarer kaldte *"runde 2"*, og at store dele af sidens tekst derfor
+blev tegnet i en skriftfamilie uden fontfiler. Det er ikke længere sandt:
+sidens skrift er Saira, sat eksplicit på `body`.
+
+**Det, der stadig udestår, er knappen** (L77, eget spor) samt de uafgjorte
+punkter 3, 6 og 8 i `## Konflikter`.
 
 **Nøglekarakteristika:**
 
@@ -204,11 +212,15 @@ alle stemte.
 
 ### Primær
 
-- **Afmærkningsgul** (`#F2C400`): links, valgte filtre, kildemærker, fokusring
-  og `.videre--stille`-knappens tekst. **Kun sikker som BAGGRUND**, med mørk
-  tekst ovenpå (`blaek` på `accent` = 9,19 : 1). **Som forgrund er den ikke
-  sikker** — se konfliktafsnittet; det er samme fund som L70 i CLAUDE.md,
-  genmålt uafhængigt her.
+- **Afmærkningsgul** (`#F2C400`): valgte filtre, fokusring, understregning
+  på hover, markørflader. **L76 (2. sep 2026) gør reglen bindende: accent er
+  en BAGGRUND og en MARKØR, aldrig tekst på en lys flade.** Med mørk tekst
+  ovenpå er den sikker (`blaek` på `accent` = 9,19 : 1); som forgrund på lys
+  er den 1,60 : 1 på `panel` og 1,38 : 1 på `bund`. **Tekst PÅ accent er
+  altid `blaek`, aldrig hvid** (hvid = 1,66 : 1). På den mørke flade
+  (`blaek`/`fod`) MÅ accent være tekst — dér er den 9,19 : 1, og tre regler
+  bruger den sådan. Her stod tidligere, at accent var farven på *links* og
+  *kildemærker*; det er den ikke længere. Se punkt 5 i `## Konflikter`.
 - **Afmærkningsgul, rolig** (`--accent-ro`): peger i koden på samme værdi som
   `--bund` (`#E8EBED`) — se *Farvedubletter* i `## Konflikter`.
 
@@ -257,26 +269,30 @@ dekorativt og aldrig til at gøre en overskrift pænere.
 
 ## Typografi
 
-**Tre skrifter, ét kun delvist koblet på.** Alle tre er selvhostede `woff2`-filer
-i `assets/fonts/` (Saira Semi Condensed: 8 filer, 400/500/600/700 × latin/latin-ext;
-Literata: 2 filer, variabel 400–600).
+**To skrifter. Saira til maskinen, Literata til mennesket** (L80,
+2. sep 2026). Begge er selvhostede `woff2`-filer i `assets/fonts/`
+(Saira Semi Condensed: 8 filer, 400/500/600/700 × latin/latin-ext;
+Literata: 2 filer, variabel 400–600). **Der er ingen tredje skrift** — her
+stod indtil 2. sep "tre skrifter, ét kun delvist koblet på", og den tredje
+havde nul fontfiler.
 
-- **SairaSemiCondensed** (`--mono`, "Pladen"): etiketter, tal, topbaren (`.daek`).
-  62 brugssteder på tværs af `system.css` (40) og `generator.css` (22) — talt
-  ved `grep -o "var(--mono)"`, ikke ved linjer, som overtæller flerbrugslinjer.
+- **SairaSemiCondensed** (`--mono`, "Pladen"): **sidens skrift.** `body`
+  sætter den eksplicit, så etiketter, tal, topbaren (`.daek`), alle
+  overskrifter og al ikke-prosa tekst står i den. 62 brugssteder i kode
+  (59 før L80 plus de 3, `--sans` afgav) — talt ved `grep -o "var(--mono)"`
+  på filen **uden kommentarer**; et råt grep giver et par flere, fordi
+  tokennavnet også nævnes i kommentarer.
 - **Literata** (`--manual`, "Manualen"): løbende prosa på Om-siden
   (`.om-lede`, `.om-broed`) og et par sammenligningsside-noter. 8 brugssteder.
-- **Manrope** (`--sans`): kun **3** eksplicitte brugssteder (`body`, `.sog input`,
-  `.v-tekst`) — men fordi `body{font-family:var(--sans)}` er sidens
-  **arve-standard**, og hverken `h1`–`h4`, `.t-hero`/`.t-h1`/`.t-h2`/`.t-h3`,
-  `.kort__navn` eller `.typeskilt .robot-navn h1` sætter deres egen
-  `font-family`, er `--sans` også skriften på **alle overskrifter og det
-  meste løbende tekst i dag** — inklusive robottens eget navn i H1 på
-  robotsiden. `"Manrope lokal"` har intet `@font-face` (fjernet i TYPESKILTs
-  runde 1), og `Manrope` er ikke hentet nogen steder fra, så stakken falder
-  til `Segoe UI Variable Text`/`Segoe UI`/`system-ui`. Kildens egen kommentar
-  ved `.daek`: *"Comp'ens body-skrift ER Saira; sidens er stadig --sans"* —
-  et selverkendt, ufærdigt migreringstrin, ikke en overset fejl.
+  L80 lod de 8 stå, som de var.
+
+`h1`–`h4` sætter **ingen** `font-family` og arver `body`. Det er et bevidst
+valg, ikke en forglemmelse: fejlen, L80 rettede, lå i `body`s værdi, så en
+eksplicit erklæring på overskrifterne ville have arvet eller gentaget det
+samme forkerte token. Én kilde til sidens skrift.
+
+**Navnet `--mono` er historisk og passer ikke til indholdet** — tokenet er
+ikke en fastbredde-skrift. Se punkt 4 i `## Konflikter`.
 
 ### Hierarki
 
@@ -286,14 +302,14 @@ Skalaen (klemmerne, ikke skrifterne) er uændret fra ORBIT: ved 1440 px
 manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
 ujævn streg i store grader.
 
-- **Hero** (700, `clamp(33px,6.2vw,76px)`, 0,98, −0,035em, `--sans`-stakken):
+- **Hero** (700, `clamp(33px,6.2vw,76px)`, 0,98, −0,035em, Saira):
   206 sider bruger klassen i dag — ikke kun en forside, der ikke længere findes.
-- **H1** (700, `clamp(27px,3.6vw,46px)`, `--sans`-stakken): robotnavnet på
+- **H1** (700, `clamp(27px,3.6vw,46px)`, Saira): robotnavnet på
   robotsiden bruger sin egen, større regel — `clamp(40px,7.2vw,84px)`, 700,
-  stadig `--sans`, ikke `--mono` — se konfliktafsnittet.
+  nu `--mono` (Saira), som resten af siden.
 - **H2** (700, `clamp(23px,2.8vw,34px)`): sektionshoveder.
 - **H3** (700, 19px).
-- **Brød** (400, 17px, 1,6, `blaek2`, `--sans`-stakken via nedarvning).
+- **Brød** (400, 17px, 1,6, `blaek2`, Saira via nedarvning fra `body`).
 - **Lille** (400, 15px, 1,55, `blaek2`).
 - **Mikro** (400, 13px, 1,5, `blaek3`).
 - **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`).
@@ -332,8 +348,10 @@ hvor to kort mødes.
 
 **Dækket** (topbaren, `spor/topbar`, 31. aug 2026) er sidens ramme øverst: ingen
 egen baggrund (arver `--bund`), kun en hårfin `linje`-underkant, sat i `--mono`
-(Saira) — bevidst forskelligt fra sidens `--sans`-standard, fordi comp'en dækket
-er bygget efter selv står i Saira. Navigationen er et vandret rullespor (7 punkter
+(Saira), fordi comp'en dækket er bygget efter selv står i Saira. Indtil L80
+var det bevidst FORSKELLIGT fra sidens standard; efter L80 er det samme
+skrift som resten af siden, og erklæringen er dermed blevet en bekræftelse
+i stedet for en undtagelse. Navigationen er et vandret rullespor (7 punkter
 i dag efter L58 tilføjede tre), med `scroll-padding-inline` og en indad-tegnet
 fokusring, fordi `overflow-x:auto` ellers klipper den.
 
@@ -362,17 +380,27 @@ ikke en tilstand, der kan "forbedres" ved at pege på den.
 
 ## Former
 
-**To formsprog lever side om side i koden i dag, uden en fælles regel for
-hvornår hvert bruges** — se `## Konflikter`. Det ene er den gamle,
-tokeniserede treleddede skala (`--rund` 12px, `--rund-ind` 8px,
-`--rund-lille` 6px), brugt på paneler, kort, felter og chips. Det andet er
-TYPESKILTs **stansning**: en hårdkodet `border-radius:2px`, ikke bundet til
-noget token, som optræder **26 gange** på tværs af begge stilark (talt ved
-`grep -o "border-radius:2px"`) — `.stans`-primitiven selv, robotsidens
-store foto (`.robot-foto .billedled--stor`), og en række andre TYPESKILT-
-komponenter. Der findes desuden **4** hårdkodede `border-radius:99px`
-(pille/cirkel: scrollbar-håndtag, en lille prik-markør) — de konkurrerer
-ikke om samme rolle som de to andre og er ikke en del af konflikten.
+**Ét hjørne. `--hjoerne` = 2px, og det gælder overalt** (L79,
+2. sep 2026). JPK's ord: *"der skal være konsistens i websiden"* — derfor
+ét trin, ikke to.
+
+Her stod indtil 2. sep, at **to** formsprog levede side om side uden en
+fælles regel: den gamle tokeniserede treleddede skala (`--rund` 12px,
+`--rund-ind` 8px, `--rund-lille` 6px) på 31 brugssteder, og TYPESKILTs
+**stansning** — en hårdkodet 2px på 26 brugssteder, ikke bundet til noget
+token. Stansningen vandt, og den er nu et token. Alle 57 brugssteder peger
+samme sted; 54 står tilbage, efter at tre selvophævende regler er slettet.
+
+**Navnet:** `--stans` var det oplagte valg og er optaget — det er en
+FARVE (lyskanten i en stansning). Tokenet hedder derfor `--hjoerne`.
+
+To ting er ikke hjørner og beholder deres egen værdi:
+
+- **Radius nul** (14 steder) er en anden påstand end "systemets hjørne" —
+  fx de to sekundære kildemærker, der skal læses som klammer, ikke som
+  prikker (låst af `tests/dele/31-pudsning.mjs` 31.14).
+- **99px-pillen** (4 steder: scrollbar-håndtag, enhedsomskifterens spor og
+  knop, en lille prik) er en fuldt afrundet **ende**, ikke et hjørne.
 
 Kanten bærer stadig betydning, som i ORBIT:
 
@@ -395,7 +423,7 @@ fyldt diagonalt** (kun vist på billede) — uændret fra ORBIT.
 ### Dækket (topbaren)
 
 Ét bånd øverst på alle 213 sider, sat i `--mono` (Saira) — bevidst
-forskelligt fra sidens `--sans`-standard, se *Typografi*. Ingen egen
+sat i `--mono` som resten af siden, se *Typografi*. Ingen egen
 baggrund; arver `--bund`, kun adskilt af en hårfin `linje`-underkant.
 Ordmærket bærer et **stiplet, midlertidigt navnemærke** (`.daek__stempel`),
 fordi sidens navn ikke er afgjort (Å1) — sat i neutral `blaek3`, ikke gult,
@@ -414,13 +442,15 @@ byggede site (bekræftet: én af de 9 kendte, beskyttede døde CSS-klasser fra
 
 - **Rammen:** `.net` sætter et 1px `linje`-farvet gitter-gap; kortene selv
   har `border:0;border-radius:0;box-shadow:none` — den tokeniserede
-  kort-ramme (`--rund`, `--linje`, `--skygge`) findes i `.kort`s
+  kort-ramme (`--hjoerne`, `--linje`, `--skygge`) findes i `.kort`s
   **grundregel**, men `.net .kort` nulstiller den. To kort-rammer i to
   filer — se `## Konflikter`.
-- **Billedledet:** se *Former* og `## Konflikter` — `.billedled` (16:10,
-  `cover`) mod `.net .billedled` (4:3, `contain`); den sidste vinder på
-  specificitet på katalogsiden.
-- **Navnet** står under billedet, i `--sans`-stakken (arvet, ikke sat
+- **Billedledet:** 4:3 og `contain`, som overalt på sitet (L78). Her stod,
+  at `.billedled` (16:10, `cover`) og `.net .billedled` (4:3, `contain`)
+  konkurrerede, og at den sidste vandt på specificitet. Grundreglen bærer
+  nu begge værdier, og katalogets undtagelse er slettet, fordi den var
+  blevet en gentagelse. Se punkt 2 i `## Konflikter`.
+- **Navnet** står under billedet, i Saira (arvet fra `body`, ikke sat
   eksplicit), 17px/600. Navnets `::after` dækker hele kortet, ét klikmål.
 - **Statusstempel:** lægges kun på, når status ikke er "i produktion".
 
@@ -428,7 +458,7 @@ byggede site (bekræftet: én af de 9 kendte, beskyttede døde CSS-klasser fra
 
 `.filtre`/`.chips`, checkboxes med skjult, men fokuserbar, input.
 
-- **Form:** 8px radius, mindst 44px høj.
+- **Form:** `--hjoerne` (2px, L79), mindst 44px høj.
 - **Hvile:** hvid flade mod sidens grå bund — kanten er fjernet med vilje
   (30 chips med hver sin 1px ramme læste som streg-støj).
 - **Valgt:** accentfyldt flade, hvid tekst.
@@ -449,11 +479,14 @@ JavaScript; filtrene er links uanset.
 **Kildens egen kommentar kalder `.videre` "den eneste knapform på sitet"** —
 det er ikke længere sandt i praksis, se `## Konflikter`.
 
-- **`.videre`** (primær): 46px høj, 8px radius, blæk-flade, hvid tekst,
-  hover skifter til accent. På 146 sider i alt (talt i `dist/`).
-- **`.videre--stille`**: samme kasse, gennemsigtig flade, accentfarvet
-  tekst — **som falder under WCAG 4,5:1** (1,38–1,60 : 1), se
-  `## Konflikter` — `hegn`-kant. På 144 af de 146 sider.
+- **`.videre`** (primær): 46px høj, `--hjoerne`, blæk-flade, hvid tekst.
+  Hover skifter til accent-flade med **blæk** tekst. På 146 sider i alt
+  (talt i `dist/`). L76-note: hover-tilstanden stod på hvid tekst mod
+  accent (1,66 : 1), og den fejl var usynlig for en linjebaseret søgning,
+  fordi farven står i `.videre` og baggrunden i `.videre:hover`.
+- **`.videre--stille`**: samme kasse, gennemsigtig flade, `hegn`-kant.
+  Teksten var accentfarvet og faldt under WCAG 4,5:1 (1,38–1,60 : 1);
+  den er **blæk** efter L76. På 144 af de 146 sider.
 - **`.nulstil`**: en anden, nyere knapklasse (katalogsidens
   `<button type="reset">`), på 2 sider.
 - Plus mindst tre yderligere, siden-specifikke knap-lignende klasser
@@ -464,8 +497,10 @@ det er ikke længere sandt i praksis, se `## Konflikter`.
 
 ### Kildemærket
 
-Et hævet bogstav efter værdien, `--mono`, accentfarve (se kontrastfund i
-`## Konflikter`), `max(8px,.34em)`. Bærer et usynligt 24×24px `::before`
+Et hævet bogstav efter værdien, `--mono`, `blaek2`, `max(8px,.34em)`.
+Mærket var accentfarvet indtil L76 og stod dermed på 1,60 : 1 mod panel —
+i praksis usynligt ved 8px. `blaek2` giver 6,56 : 1 og holder det stadig
+underordnet selve tallet. Bærer et usynligt 24×24px `::before`
 for WCAG 2.5.8's berøringsmål uden at bogstavet selv vokser.
 **Sekundær kilde** (producentens domæne, ikke produktsiden) markeres med
 stiplet `hegn` i `blaek3` — hullets eget sprog.
@@ -547,16 +582,34 @@ billedrettelse ikke fulgte med til `.net`-kortet.
   ombrydning.
 - **Lad være** med at antage, at et token-navn (`--blaek3`, `--hegn`, …)
   stadig bærer sin ORBIT-værdi. Værdierne er nye; kun navnene er gamle.
-- **Lad være** med at bruge `--accent` som tekstfarve mod en lys flade uden
-  at slå `## Konflikter` op først — den er kun målt sikker som baggrund.
+- **Lad være** med at bruge `--accent` som tekstfarve mod en lys flade.
+  Det er ikke længere en advarsel, men en regel (L76): accent er baggrund,
+  kant, understregning eller fokusring — aldrig forgrund på lyst. På den
+  mørke flade må den gerne være tekst.
+- **Lad være** med at sætte hvid tekst på `--accent`. Tekst på accent er
+  altid `--blaek`. Hvid giver 1,66 : 1.
+- **Lad være** med at beskære et produktfoto (L78), og lad være med at
+  give en flade sit eget sideforhold eller sin egen `object-fit`.
+- **Lad være** med at skrive en radius i hånden. Brug `--hjoerne` (L79).
+  Vil du have nul eller en fuldt afrundet ende, så skriv det — det er
+  andre påstande end "systemets hjørne".
 
 ---
 
 ## Konflikter
 
-**Disse punkter er MÅLT, ikke afgjort.** Designfrysen (L70, CLAUDE.md)
-gælder: retningen ligger hos led 2 (`extract`) og JPK. Intet nedenfor er en
-anbefaling.
+**Punkterne her er MÅLT.** De blev skrevet, mens designfrysen (L70) gjaldt,
+og ingen af dem var dengang afgjort.
+
+**Fire af dem er afgjort siden.** JPK traf 2. sep 2026 beslutningerne
+L76–L80, og led 2 (`extract`) byggede fire af dem ind i stilarkene. De
+afgjorte punkter er markeret **AFGJORT** med deres L-nummer og beholdt i
+fuld længde — en løst konflikt, der slettes, efterlader ingen forklaring
+på, hvorfor koden ser ud, som den gør.
+
+**Punkt 1 (knappen) står stadig ÅBENT.** Den følger som L77 i et separat
+spor, fordi den også ændrer skabelonerne. Punkt 3, 6 og 8 er uafgjorte og
+uberørte.
 
 **1. Knappen — to generationer.** `.videre`/`.videre--stille` (146/144
 sider, talt i `dist/`) er ORBIT-æraens knapprimitiv, stadig i brug.
@@ -565,11 +618,26 @@ yderligere sidespecifikke knap-lignende klasser, hver brugt ét sted —
 navnene er ikke enkeltvis efterprøvet af dette spor. Kildens egen kommentar
 kalder `.videre` "den eneste knapform på sitet"; det stemmer ikke længere.
 
-**2. Billedrammen — to sideforhold.** `.billedled{aspect-ratio:16/10}` (16:10) +
-`object-fit:cover` (system.css) mod `.net .billedled{aspect-ratio:4/3}` (4:3) +
-`object-fit:contain` (generator.css) — den sidste vinder på specificitet på
-katalogsiden. To formater på samme primitiv i to filer, ingen har besluttet
-hvilket der gælder generelt. Uddybet i `fund/FUND-kortramme.md`.
+**2. Billedrammen — to sideforhold. AFGJORT af L78 (2. sep 2026).**
+Konflikten var: `.billedled` (16:10 + `cover`, system.css) mod
+`.net .billedled` (4:3 + `contain`, generator.css) — den sidste vandt på
+specificitet på katalogsiden. To formater på samme primitiv i to filer.
+Uddybet i `fund/FUND-kortramme.md`.
+
+**Afgørelsen: et produktfoto beskæres aldrig. 4:3 og `contain` overalt,
+ingen fladespecifik undtagelse.** Grundreglen bærer nu begge værdier, og
+de fire overflødige undtagelser er slettet frem for efterladt. Målingen bag:
+med `cover` mistede 40 af 65 fotos over 10 % af billedet, i snit 18,3 %,
+værst 59 % — og robotsiden er netop fladen, hvor man vil se maskinen.
+
+**Én undtagelse, og den er en måleenhed, ikke en smagsdom.** Måltro-pladen
+(`.billedled--maal`) er ikke et produktfoto — den har intet `<img>`, kun
+`<span>`. Dens kasse tegnes i procent af feltet, og procenterne regnes i
+`tools/skabelon/side.mjs` ud fra et 16:10-felt. Ved 4:3 ville hver silhuet
+blive tegnet **20,0 % for høj** (målt på pladens egen kasse: 771 × 400 mm,
+sandt forhold 1,928, tegnet 1,606). Pladens forhold står derfor som tokenet
+`--plade-forhold`, og `tests/dele/61-extract.mjs` læser BEGGE sider og
+fejler, hvis CSS'en og `side.mjs` skrider fra hinanden.
 
 **3. Farvedubletter.** Flere tokennavne peger på samme værdi: **5 navne**
 på `#E8EBED` (`--bund`, `--tom`, `--panel-ro`, `--accent-ro`, `--paafod`),
@@ -577,21 +645,60 @@ på `#E8EBED` (`--bund`, `--tom`, `--panel-ro`, `--accent-ro`, `--paafod`),
 `--fod`), **2** på `#5F686F` (`--blaek3`, `--stoev-blaek`). Alle tal
 genmålt af dette spor direkte i `:root`.
 
-**4. Den tredje skrift — en ufærdig migrering.** `--mono` (Saira) i **62**
-regler (ikke 67 — genmålt, se rapporten), `--manual` (Literata) i **8**,
-`--sans` (Manrope) i kun **3** eksplicitte regler — men fordi `body`,
-`h1`–`h4` og hver typografisk utility-klasse (`.t-hero` osv.) undlader at
-sætte deres egen `font-family`, ARVER de `--sans`. Manrope har **0**
-fontfiler i `assets/fonts/` og falder til systemskrift. Kildens egen
-kommentar erkender det: *"sidens [skrift] er stadig --sans"*, ventende på
-en "runde 2".
+**4. Den tredje skrift — en ufærdig migrering. AFGJORT af L80
+(2. sep 2026).** Konflikten var: `--mono` (Saira) i **62** regler,
+`--manual` (Literata) i **8**, `--sans` (Manrope) i kun **3** eksplicitte
+regler — men fordi `body`, `h1`–`h4` og hver typografisk utility-klasse
+undlod at sætte deres egen `font-family`, ARVEDE de `--sans`. Manrope havde
+**0** fontfiler i `assets/fonts/`, så hver overskrift og al brødtekst på
+216 sider blev tegnet i operativsystemets standardskrift.
 
-**5. `--accent` som forgrund fejler WCAG AA (bekræfter L70, CLAUDE.md,
-genmålt uafhængigt her).** `accent` på `panel` = **1,60 : 1**, på `bund` =
-**1,38 : 1** — mod kravet på 4,5 : 1. Bruges alligevel som tekstfarve i
-`a{color:var(--accent)}` (ethvert link på sitet), `.kildemaerke` og
-`.videre--stille`. Sikker kun som BAGGRUND (`blaek`-tekst på `accent` =
-9,19 : 1, matcher kildens egen kommentar).
+**Afgørelsen: der er to skrifter, ikke tre. Saira til maskinen, Literata
+til mennesket.** `--sans` er fjernet; dens tre brugssteder (`body`,
+`.sog input`, `.v-tekst`) peger nu på `--mono`. `body` sættes eksplicit.
+`h1`–`h4` arver bevidst: en eksplicit erklæring dér ville have arvet eller
+gentaget det samme fantomtoken og var altså ikke det, der beskyttede mod
+fejlen — kun `body`s værdi var det.
+
+Efterprøvet i browseren, ikke kun i CSS'en: `body`, `h1`, `h2`, `.v-tekst`,
+`.stribe` og `.billedled--stor` tegner alle i SairaSemiCondensed.
+
+To rettelser til tallene ovenfor, begge målt: `assets/fonts/` rummer **8**
+Saira-filer (4 vægte × 2 subsets) og 2 Literata — ikke 10 Saira. Og de
+**62** `--mono`-brug var 59 i kode plus 3 i kommentarer.
+
+**Stadig åbent, men lille:** navnet `--mono` passer ikke til indholdet —
+tokenet er ikke en fastbredde-skrift, det er maskinens skrift. Et
+navneskift rører 62 brugssteder og to tests, der kræver strengen ordret,
+og var ikke en del af L80.
+
+**5. `--accent` som forgrund fejler WCAG AA. AFGJORT af L76
+(2. sep 2026).** Konflikten var: `accent` på `panel` = **1,60 : 1**, på
+`bund` = **1,38 : 1** — mod kravet på 4,5 : 1. Brugt alligevel som
+tekstfarve i `a{color:var(--accent)}` (ethvert link på sitet, 7.892
+`<a>`-elementer), `.kildemaerke` og `.videre--stille`.
+
+**Afgørelsen: `--accent` er en BAGGRUND og en MARKØR, aldrig tekst på en
+lys flade.** På lys flade må accent være baggrund, kant, understregning
+eller fokusring. **Tekst PÅ accent er altid `blaek`, aldrig hvid** — hvid
+på accent er 1,66 : 1, `blaek` på accent er 9,19 : 1. På den mørke flade
+(`blaek`/`fod`) MÅ accent være tekst; dér er den 9,19 : 1.
+
+Links er nu `blaek` med understregning; accent flytter til hover som
+understregningens farve, ikke tekstens — en gul tekstfarve på hover ville
+give 1,38 mod hvilens 12,72, altså det modsatte af hensigten.
+
+15 regler med accent som forgrund blev gennemgået enkeltvis: **12 flyttet,
+3 beholdt** (`.klaebebar__gaa`, `.valg__fjern:hover`, `.taeller__tal` —
+alle på mørk flade, hver med en kommentar i koden om hvorfor).
+
+**Vær opmærksom på, at hvid-på-accent fandtes SYV steder, ikke seks.** Det
+syvende, `.videre:hover`, kan ikke ses med en linjebaseret søgning: farven
+står i `.videre` og baggrunden i `.videre:hover`, altså i hver sin regel.
+
+Efterprøvet i browseren på en bygget robotside: 29 links, **0** med accent
+som tekstfarve, **0** under 4,5 : 1. Måleapparatet er valideret mod et
+kendt svar — tvinges accent tilbage, rapporterer samme script 29 og 15.
 
 **6. `--hegn` som betydningsbærende kant fejler WCAG 1.4.11.** 2,47 : 1 mod
 `panel`, 2,14 : 1 mod `bund` — under de 3,0 : 1, standarden kræver til
@@ -599,10 +706,29 @@ meningsbærende ikke-tekst-elementer (inputkant, hul-markør). ORBIT-værdien
 klarede kravet (3,32–3,68 : 1, jf. den forrige filudgave); TYPESKILTs nye
 hex gjorde det ikke.
 
-**7. To formsprog for radius.** Den tokeniserede skala (`--rund` 12px,
-`--rund-ind` 8px, `--rund-lille` 6px) og en hårdkodet, ikke-tokeniseret
-TYPESKILT-stansning på 2px, brugt **26** gange på tværs af begge stilark.
-Ingen regel siger, hvilken en ny komponent skal vælge.
+**7. To formsprog for radius. AFGJORT af L79 (2. sep 2026).** Konflikten
+var: den tokeniserede skala (`--rund` 12px, `--rund-ind` 8px,
+`--rund-lille` 6px, **31** brugssteder) og en hårdkodet, ikke-tokeniseret
+TYPESKILT-stansning på 2px, brugt **26** gange. Ingen regel sagde, hvilken
+en ny komponent skulle vælge. Systemet rettede endda sig selv i hånden:
+tre regler scopet under `.typeskilt` ophævede `--rund` tilbage til 2px.
+
+**Afgørelsen: stansningen vinder. 2px bliver systemets radius overalt, og
+den bliver et token.** JPK's ord: *"der skal være konsistens i websiden"* —
+derfor ét trin, ikke to. Tokenet hedder **`--hjoerne`**; `--stans` var det
+oplagte navn og er optaget af en FARVE (lyskanten i en stansning).
+
+Regnskabet: 26 hårdkodede + 31 tokeniserede = 57 brugssteder, minus de tre
+selvophævende `.typeskilt`-regler = **54 i kode**. De tre blev efterprøvet
+enkeltvis før sletningen: deres grundregler stod alle på `var(--hjoerne)`.
+
+Urørt med vilje: **14** × radius nul (en anden påstand end "systemets
+hjørne") og **4** × 99px-pillen (en fuldt afrundet ende, ikke et hjørne).
+
+Tre kommentarer, der argumenterede ud fra den gamle skala, er skrevet om i
+stedet for efterladt. Én assertion (34.20) er **vendt**, ikke slettet: den
+krævede den ordrette værdi `border-radius:2px` og beviser nu, at `.stans`
+peger på systemets token, OG at tokenet er 2px.
 
 **8. To kort-rammer i to filer.** `.kort`s grundregel (`system.css`) sætter
 `border:1px solid linje;border-radius:rund;box-shadow:skygge`. `.net .kort`

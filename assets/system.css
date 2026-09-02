@@ -18,14 +18,19 @@
 
 /* --- 1. Skrift ------------------------------------------------------------
    TYPESKILT-fundament (spor/fundament, 31. aug 2026, L54/L57). Erstatter den
-   gamle Manrope-og-skrivemaskineskrift-strategi, som ALDRIG selvhostede noget (maalt
-   21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer dette spor - kun
-   local()+en ikke-eksisterende url() og et fallback til systemskrift).
-   Saira Semi Condensed ("Pladen": etiketter, tal, navigation, se --mono
-   nedenfor) og Literata ("Manualen": prosa - endnu ikke koblet paa noget
-   token; det er runde 2's arbejde). Kilde: retninger/nyverden/skrift/ og
-   typeskilt.css. Begge snit er SIL OFL 1.1, fri til selvhosting. 10 filer,
-   latin + latin-ext hver, unicode-range delt som i comp'en. */
+   gamle sans-og-skrivemaskineskrift-strategi, som ALDRIG selvhostede noget
+   (maalt 21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer det spor -
+   kun local()+en ikke-eksisterende url() og et fallback til systemskrift).
+
+   L80 (2. sep 2026) lukkede den sidste rest: der er nu TO skrifter, ikke
+   tre. Saira Semi Condensed ("Pladen": etiketter, tal, navigation,
+   overskrifter og broedtekst - se --mono) og Literata ("Manualen": loebende
+   prosa - se --manual, 8 brugssteder). Det tredje token pegede paa en
+   skrift uden fontfil og er fjernet; indtil da tegnede sitet sin body og
+   alle sine overskrifter i operativsystemets standardskrift.
+   Kilde: retninger/nyverden/skrift/ og typeskilt.css. Begge snit er
+   SIL OFL 1.1, fri til selvhosting. 10 filer, latin + latin-ext hver,
+   unicode-range delt som i comp'en. */
 @font-face{
   font-family:"SairaSemiCondensed";font-style:normal;font-weight:400;font-display:swap;
   src:url("fonts/saira-400-latin.woff2") format("woff2");
@@ -166,14 +171,30 @@
                                  (fx 3.6's SVG-maerker), der ikke skal gaette
                                  sig til, at --blaek3 er den rigtige */
 
-  /* Skrift. --sans er UROERT i dette spor - runde 2 kobler kroppens
-     tekstroller til Saira/Literata; her selvhostes fontene kun (3.1) og
-     --mono repeges (3.4), fordi det er det ENESTE skriftskifte, briefet
-     beder om. "Manrope lokal" har intet @font-face-modstykke laengere
-     (fjernet i 3.1) og falder derfor bare videre i stakken - det er en
-     gyldig, uskadt CSS-tilstand, ikke en fejl. */
-  --sans:"Manrope lokal",Manrope,"Segoe UI Variable Text","Segoe UI",
-         system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  /* Skrift. L79's soesterregel L80: der er TO skrifter paa sitet og ikke
+     tre. Saira til maskinen, Literata til mennesket.
+
+     HER STOD ET TREDJE TOKEN, --sans, og det var en fantomskrift. Det
+     pegede paa en familie, der ikke havde én eneste fontfil paa disken
+     (maalt: assets/fonts/ rummer 8 saira- og 2 literata-filer og NUL af
+     den tredje). Skriftens navn staar i DESIGN.md's ## Konflikter, hvor
+     historikken hoerer hjemme - det er med vilje ikke gentaget her, saa
+     filen ikke selv holder et doedt navn i live.
+     Stakken faldt derfor helt igennem til "Segoe UI".
+     Tokenet stod paa body, saa konsekvensen var ikke lille: HVER
+     overskrift og AL broedtekst paa sitet blev tegnet i operativsystemets
+     standardskrift - mens den forrige kommentar her forsikrede, at det var
+     "en gyldig, uskadt CSS-tilstand, ikke en fejl". Den var uskadt for
+     CSS-parseren og forkert for enhver, der saa paa siden.
+
+     De tre brugssteder (body, .sog input, .v-tekst) peger nu paa --mono.
+
+     OM NAVNET --mono: det er historisk og passer ikke laengere til
+     indholdet - tokenet er ikke en fastbredde-skrift, det ER maskinens
+     skrift. Et navneskift beroerer 62 brugssteder og to tests, der kraever
+     strengen `font-family:var(--mono)` ordret (31-pudsning.mjs og
+     37-topbar.mjs 37.11), og det er ikke det, L80 beder om. Noteret som
+     kandidat i DESIGN.md's ## Konflikter, ikke gjort her. */
   /* --mono: MANIFEST §"Hvorfor ingen skrivemaskineskrift" - paa et rigtigt
      typeskilt staar tallene i SAMME skrift som etiketterne. Tokenet
      beholdes (17 brugssteder i system.css alene, og
@@ -200,10 +221,43 @@
   --kant:clamp(16px,3.4vw,44px);   /* sidens ydre luft */
   --maal:68ch;                     /* broedtekstens maal */
 
-  /* Form */
-  --rund:12px;                     /* panelets radius (L16) */
-  --rund-ind:8px;                  /* indfelt inde i et panel */
-  --rund-lille:6px;                /* chip, hul, maerke */
+  /* L78: maaltro-pladens sideforhold - IKKE en smagsvaerdi, men den ene
+     halvdel af en maaleenhed. Den anden halvdel er
+     tools/skabelon/side.mjs:1728's `PLADE_MM_HOEJ = PLADE_MM_BRED * 10/16`.
+     Produktfotos er 4:3 uden undtagelse; pladen er ikke et foto, men en
+     tegning i maalestok, og de to tal SKAL flytte sig sammen.
+     tests/dele/61-extract.mjs laeser begge og fejler, hvis de skrider. */
+  --plade-forhold:16/10;
+
+  /* Form. L79: ÉT hjoerne, ikke en skala.
+     JPK, 2. sep 2026: "der skal vaere konsistens i websiden" - derfor ét
+     trin, ikke to. Stansningen vinder: 2 px er TYPESKILT's radius
+     (MANIFEST §Layouttesen, "det stansede udtryk").
+
+     Foer i dag levede to formsprog side om side: den bloede, tokeniserede
+     treleddede skala (--rund 12, --rund-ind 8, --rund-lille 6) paa 31
+     brugssteder, og en haardkodet 2px paa 26. Tre regler i §16b-2 ophaevede
+     endda --rund tilbage til 2px, scopet under .typeskilt - altsaa
+     rettede systemet allerede sig selv i haanden. De tre er slettet, fordi
+     2 px NU er standarden og ikke laengere en undtagelse.
+
+     NAVNET: --stans var det oplagte valg og er OPTAGET - det er en FARVE
+     (lyskanten i en stansning, :root ovenfor). --hjoerne var ledigt.
+
+     Alle 57 brugssteder (26 haardkodede + 31 tokeniserede) peger nu her;
+     54 staar tilbage, efter at tre selvophaevende regler er slettet.
+
+     TO ting er IKKE hjoerner og beholder derfor deres egen vaerdi:
+     en radius paa nul er en anden PAASTAND end "systemets hjoerne" (fx de
+     to sekundaere kildemaerker, der skal vaere klammer - 31-pudsning.mjs
+     31.14), og 99px-pillen paa kontakt, rullebjaelke og prik er en fuldt
+     afrundet ENDE, ikke et hjoerne.
+
+     Bemaerk for den naeste, der skriver her: 31-pudsning.mjs' radius-vagt
+     laeser filen UDEN at fjerne kommentarer foerst, saa selve teksten
+     "border-" + "radius:" i en kommentar taeller med som en erklaering.
+     Derfor er ordene ovenfor skrevet i prosa i stedet for som kode. */
+  --hjoerne:2px;
 
   /* Dybde. TYPESKILT §Layouttesen: "Ingen slagskygge findes paa siden" -
      materiale, ikke skeuomorf teater. Tokenerne bevares (11 brugssteder:
@@ -224,7 +278,9 @@
 html{-webkit-text-size-adjust:100%;scrollbar-color:var(--hegn) var(--bund)}
 body{
   margin:0;background:var(--bund);color:var(--blaek);
-  font-family:var(--sans);font-size:17px;line-height:1.55;
+  /* L80: sat EKSPLICIT og til en skrift, der findes paa disken. Det var
+     denne ene erklaering, der sendte hele sitet i Segoe UI. */
+  font-family:var(--mono);font-size:17px;line-height:1.55;
   font-weight:400;letter-spacing:-.006em;
   -webkit-font-smoothing:antialiased;
   /* 3.4: daekker alle var(--mono)-brugssteder paa én gang, jf. kommentaren
@@ -232,6 +288,14 @@ body{
      er en nedarvet egenskab), saa intet af de 17 brugssteder skal roeres. */
   font-variant-numeric:tabular-nums;
 }
+/* L80, BEVIDST VALG: h1-h4 saetter INGEN font-family og arver body's Saira.
+   Overvejet og fravalgt at saette den eksplicit. Grunden er, at det ikke
+   ville have forhindret den fejl, L80 retter: overskrifterne stod i Segoe
+   UI, fordi BODY's token var en fantomskrift - en eksplicit erklaering her
+   ville have arvet det samme token eller gentaget det, altsaa vaeret lige
+   saa forkert. Duplikatet koeber ingen sikkerhed, og det er netop den slags
+   gentagelse, dette spor er sat i verden for at fjerne. Én kilde til
+   sidens skrift: body. */
 h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.08;letter-spacing:-.022em;text-wrap:balance}
 p,dl,dd,dt,ul,ol,figure,blockquote{margin:0}
 ul,ol{padding:0;list-style:none}
@@ -239,7 +303,11 @@ img,svg{max-width:100%;display:block}
 b,strong{font-weight:700}
 
 /* Browserfladerne baerer ogsaa designet. */
-::selection{background:var(--accent);color:#FFFFFF}
+/* L76: tekst PAA accent er ALTID --blaek, aldrig hvid. Maalt (kontrol
+   sort/hvid = 21,00): hvid paa accent 1,66 : 1, --blaek paa accent 9,19 : 1.
+   ::selection er den mest oversete af de syv brugssteder, fordi den kun ses
+   i det oejeblik nogen markerer tekst - og derfor aldrig paa et skaermbillede. */
+::selection{background:var(--accent);color:var(--blaek)}
 /* accent-color er den sidste utegnede browserflade. VAER PRAECIS OM, HVAD DEN
    GOER: maalt 28. aug 2026 tegner browseren i dag NUL kontroller selv - alle
    220 afkrydsningsfelter og radioer i bygget (214 checkbox, 6 radio) staar
@@ -250,18 +318,30 @@ b,strong{font-weight:700}
    form af et blaat felt, ingen har valgt. En flade, man ikke har tegnet,
    baerer stadig designet. */
 :root{caret-color:var(--accent);accent-color:var(--accent)}
-a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:3px}
-a:hover{text-decoration-thickness:2.5px}
-/* Fokusringen paa et element uden egen radius. 2 px stod her og var paa
-   ingen skala: en hedge mellem hard kant og systemets 6. Maalt paa fire
-   sider: hvert eneste element, den rammer, er gennemsigtigt (prosalink,
-   kildemaerke, .url, summary), saa kun ringens FORM skifter — og med 6 px
-   hoerer den til samme familie som chippens ring (6) og knappens (8) i
-   stedet for at vaere den ene, der er naesten-firkantet.
+/* L76: --accent er BAGGRUND og MARKOER, aldrig tekst paa en lys flade.
+   Linkets farve var accent: 1,38 : 1 mod --bund og 1,60 : 1 mod --panel,
+   paa 7.892 <a>-elementer over 216 sider. Kravet er 4,5.
+   Linket er nu --blaek (12,72 : 1) og baerer sin rolle paa UNDERSTREGNINGEN
+   i stedet for paa farven - understregning er en af de fire former, L76
+   udtrykkeligt tillader accent i paa lys flade (baggrund, kant,
+   understregning, fokusring).
+   Accent flytter til hover og fokus som understregningens FARVE, ikke som
+   tekstens: en gul tekstfarve paa hover ville vaere DAARLIGERE end hvile
+   (1,38 mod 12,72), altsaa det stik modsatte af hensigten. Tykkelsen goer
+   arbejdet for den, der ikke ser farve. */
+a{color:var(--blaek);text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
+/* Fokusringen paa et element uden egen radius. Maalt paa fire sider: hvert
+   eneste element, den rammer, er gennemsigtigt (prosalink, kildemaerke,
+   .url, summary), saa kun ringens FORM skifter.
+   L79: her stod foer 6 px med begrundelsen "samme familie som chippens ring
+   (6) og knappens (8)". Den familie findes ikke laengere - der er ét
+   hjoerne, og ringen deler det med alt andet. Begrundelsen er altsaa ikke
+   faldet vaek; den er blevet triviel, hvilket var hele meningen med L79.
    Springlinket beholder sin egen form: `.spring` staar senere i filen med
-   samme specificitet og vinder — maalt ved fokus: "0px 0px 8px". */
+   samme specificitet og vinder. */
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px;
-  border-radius:var(--rund-lille)}
+  border-radius:var(--hjoerne)}
 ::-webkit-scrollbar{width:12px;height:12px}
 ::-webkit-scrollbar-track{background:var(--bund)}
 ::-webkit-scrollbar-thumb{background:var(--hegn);border:3px solid var(--bund);border-radius:99px}
@@ -271,7 +351,7 @@ a:hover{text-decoration-thickness:2.5px}
 
 .spring{position:absolute;left:-9999px;top:0;z-index:99;background:var(--blaek);
   color:#FFFFFF;padding:14px 20px;font-family:var(--mono);font-size:14px;
-  text-decoration:none;border-radius:0 0 var(--rund-ind) 0}
+  text-decoration:none;border-radius:0 0 var(--hjoerne) 0}
 .spring:focus{left:0;top:0}
 
 .rum{max-width:1440px;margin:0 auto;padding-inline:var(--kant)}
@@ -363,7 +443,7 @@ a:hover{text-decoration-thickness:2.5px}
    - en 52px dashed ikon-plads), og at genbruge navnet til noget andet
    ville have skabt to modstridende betydninger af samme klasse. */
 .stans{
-  border-radius:2px;
+  border-radius:var(--hjoerne);
   box-shadow:inset 0 0 0 1px var(--linje), inset 0 1px 0 var(--stans);
 }
 
@@ -502,7 +582,7 @@ a:hover{text-decoration-thickness:2.5px}
   font-size:12px;font-weight:600;letter-spacing:.1em;
 }
 .daek__sprogkode{text-decoration:none;color:var(--blaek3);padding:2px 6px}
-.daek__sprogkode[aria-current]{background:var(--blaek);color:var(--bund);border-radius:2px}
+.daek__sprogkode[aria-current]{background:var(--blaek);color:var(--bund);border-radius:var(--hjoerne)}
 a.daek__sprogkode:hover{color:var(--blaek)}
 .daek__skil{color:var(--linje)}
 /* Trykfladen uden at pillen vokser. Comp'ens kode er ca. 20x30 px; WCAG 2.5.5
@@ -616,7 +696,7 @@ a.daek__sprogkode::after{
    Sekundaert bevaret: minuskler (mod .omregnets versaler) og den daempede
    flade (mod .omregnets gennemsigtige). */
 .v-ikke{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--blaek3);
-  background:var(--tom);border:1px dashed var(--hegn);border-radius:2px;
+  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
   padding:1px 5px;align-items:center}
 .v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn);flex:none}
 
@@ -663,7 +743,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 
 /* Lastbetingelse og andre forbehold haenger paa vaerdien, ikke ved siden af. */
 .forbehold{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--blaek3);
-  border:1px solid var(--linje);border-radius:var(--rund-lille);padding:1px 6px 2px;
+  border:1px solid var(--linje);border-radius:var(--hjoerne);padding:1px 6px 2px;
   letter-spacing:.02em;cursor:help;text-decoration:none;align-self:center}
 .forbehold:hover{border-color:var(--hegn);color:var(--blaek2)}
 
@@ -739,7 +819,12 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .kildemaerke{
   position:relative;
   font-family:var(--mono);font-size:max(8px,.34em);font-weight:700;line-height:1;
-  letter-spacing:.02em;color:var(--accent);
+  /* L76: maerket stod i accent paa panel = 1,60 : 1 og var i praksis
+     usynligt (se fund/skud-extract/foer-robot-fold.png, hvor haevetegnene
+     efter hvert tal ikke kan ses). --blaek2 giver 5,68 : 1 mod --bund og
+     6,56 : 1 mod --panel: laesbart, men stadig et haevetegn og ikke en
+     overskrift. */
+  letter-spacing:.02em;color:var(--blaek2);
   text-decoration:none;padding:0 1px;
 }
 .v-tal > .kildemaerke{align-self:flex-start}
@@ -768,7 +853,10 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   border-top:1px solid var(--linje)}
 .kildeliste li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;
   font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--blaek3)}
-.kildeliste .bogstav{font-weight:700;color:var(--accent);align-self:start}
+/* L76: bogstavet er kildelistens noegle og skal kunne LAESES - accent gav
+   1,60 : 1 paa panel. --blaek (14,69 : 1 paa panel) goer det til raekkens
+   anker, hvilket ogsaa er rigtigt: resten af linjen staar i --blaek3. */
+.kildeliste .bogstav{font-weight:700;color:var(--blaek);align-self:start}
 /* Samme maerke, samme sprog: 0, ikke 3. Kassen er 17,2 x 21,8 px og taaler
    godt nok 6 px uden at blive rund, men den er den SAMME oplysning som
    `.kildemaerke--sek` — to former for ét maerke er en form for oevrigt. */
@@ -806,7 +894,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 
 .stribe{
   display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
-  background:var(--panel);border:1px solid var(--linje);border-radius:var(--rund);
+  background:var(--panel);border:1px solid var(--linje);border-radius:var(--hjoerne);
   box-shadow:var(--skygge);overflow:hidden;
 }
 .stribe > li{
@@ -820,9 +908,13 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .stribe .krop > .v{min-height:30px;display:flex;align-items:center}
 .stribe .v{font-size:29px}
 
-/* Ikonets to tilstande: oplyst = accent, hul = hegn.
-   Farven er den samme oplysning som figuren, ikke en ekstra. */
-.stribe .ikon{color:var(--accent);margin-top:1px}
+/* Ikonets to tilstande: oplyst = blaek, hul = hegn.
+   Farven er den samme oplysning som figuren, ikke en ekstra.
+   L76: "oplyst" var accent. Det gjorde kodningen OMVENDT af hensigten -
+   maalt paa panel stod oplyst paa 1,60 : 1 og hul paa 2,47 : 1, altsaa var
+   HULLET det tydeligste af de to. Nu: oplyst 14,69 : 1, hul 2,47 : 1, og
+   forskellen er den, figuren allerede paastod. */
+.stribe .ikon{color:var(--blaek);margin-top:1px}
 .stribe .hul .ikon{color:var(--hegn)}
 
 /* Under 6 spalter: 3, saa 2. Cellerne beholder deres raekkefoelge. */
@@ -844,7 +936,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    Da faar den ét udsagn i stedet — og udsagnet siger hvorfor. */
 .stribe--intet{
   display:flex;gap:14px;align-items:flex-start;
-  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--rund);
+  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
   box-shadow:none;padding:18px 20px 20px;
 }
 .stribe--intet .ikon{color:var(--hegn);margin-top:2px}
@@ -883,7 +975,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    telefon-laesbarhed staar ved magt); kun letter-spacing er strammet.
    Padding strammet fra 12px/11px til 10px/9px. */
 .stribe--kompakt{grid-template-columns:repeat(2,minmax(0,1fr));box-shadow:none;
-  border-radius:var(--rund-ind);gap:8px 12px}
+  border-radius:var(--hjoerne);gap:8px 12px}
 
 /* AFLAESNINGEN FAAR HELE CELLENS BREDDE (JPK 27. aug 2026, ordre med
    skaermbillede: "* stabler sig hulter til bulter").
@@ -1063,16 +1155,23 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    Med navnet under billedet er tallet 0,0 %. */
 .kort{
   display:flex;flex-direction:column;background:var(--panel);
-  border:1px solid var(--linje);border-radius:var(--rund);
+  border:1px solid var(--linje);border-radius:var(--hjoerne);
   box-shadow:var(--skygge);overflow:hidden;position:relative;
 }
 .kort:hover,.kort:focus-within{border-color:#CFD4DB;box-shadow:var(--skygge-loeft)}
 
+/* L78: ET produktfoto beskaeres ALDRIG. Ét sideforhold (4:3) og én fit
+   (contain) for hele sitet - det er DEN regel, og den staar kun her.
+   Foer i dag var grundreglen 16:10 + cover, mens kataloget (.net .billedled)
+   selv rettede til 4:3 + contain. Kortene gjorde altsaa det rigtige, og
+   robotsiden - fladen hvor man netop vil SE maskinen - gjorde det forkerte.
+   Maalt: med cover mistede 40 af 65 fotos over 10 % af billedet,
+   gennemsnit 18,3 %, vaerst 59 %. */
 .billedled{
-  position:relative;overflow:hidden;aspect-ratio:16/10;background:var(--panel);
+  position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--panel);
   border-bottom:1px solid var(--linje);display:grid;place-items:center;
 }
-.billedled img{width:100%;height:100%;object-fit:cover;object-position:center}
+.billedled img{width:100%;height:100%;object-fit:contain;object-position:center}
 
 /* PRINT/PDF: kataloget bruges som haandout, og en udskrift uden billeder er
    ubrugelig. `loading="lazy"` paa kortene under folden er ALLEREDE ignoreret
@@ -1089,10 +1188,14 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   .billedled img{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 
-/* PLADE: maskinen er fotograferet fri paa hvid. En 16:10-beskaering tager
-   enten poterne eller hovedet. Den faar hele billedet paa kortets egen
-   hvide flade. Det er ogsaa den klasse, de maaltro silhuetter skal baere. */
-.billedled--plade img{object-fit:contain;padding:6% 7%}
+/* PLADE: maskinen er fotograferet fri paa hvid, og den faar ekstra luft
+   omkring sig paa kortets egen hvide flade.
+   L78: klassens `object-fit:contain` er SLETTET herfra - ikke fordi den var
+   forkert, men fordi den nu er systemets grundregel. Da den stod her, var
+   den en fladespecifik undtagelse fra en cover-standard; nu ville den vaere
+   en gentagelse, og en gentaget vaerdi er den, der en dag skrider.
+   Tilbage staar det, der faktisk er pladens eget: luften. */
+.billedled--plade img{padding:6% 7%}
 
 /* BILLEDMAERKE: staar PAA fotografiet, nede i venstre hjoerne, og kun paa de
    kort hvor billedet ikke sikkert er den maskine, kortet handler om.
@@ -1103,7 +1206,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .billedmaerke{
   position:absolute;left:9px;bottom:9px;z-index:2;
   display:inline-flex;align-items:center;gap:6px;
-  background:var(--panel);border:1px dashed var(--hegn);border-radius:var(--rund-lille);
+  background:var(--panel);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
   padding:3px 8px 4px;font-family:var(--mono);font-size:10.5px;font-weight:500;
   letter-spacing:.06em;color:var(--blaek3);
 }
@@ -1131,10 +1234,27 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    er skiftet, er, at hullet nu har noget at vise frem. Pladen loefter sig
    ikke, skalerer ikke og reagerer ikke paa hover — reglen om det ubevaegelige
    hul gaelder ogsaa her. */
-.billedled--maal{background:var(--tom)}
+/* L78's ENESTE undtagelse, og den er ikke en fladespecifik smagsdom - den er
+   en maaleenhed. Maaltro-pladen er IKKE et produktfoto: den indeholder intet
+   <img> overhovedet (kun <span>-elementer), saa `object-fit` rammer den ikke.
+   Dens KASSE tegnes derimod som procenter af feltet, og procenterne regnes i
+   tools/skabelon/side.mjs:1727-1728 ud fra
+       PLADE_MM_BRED = 1900;  PLADE_MM_HOEJ = PLADE_MM_BRED * 10 / 16;
+   altsaa et 16:10-felt. Skiftede pladen til 4:3, ville hoejden regnes af
+   0,75 W i stedet for 0,625 W, og HVER silhuet blev tegnet 20,0 % for hoej -
+   maalt paa dist/da/index.html's egen kasse (--bw:40.58%, --bh:33.68% =
+   771 x 400 mm, sandt forhold 1,928; tegnet 1,606 ved 4:3).
+   En tavs 20 %-fejl i en "maaltro" tegning er praecis den slags loegn, siden
+   findes for at undgaa. 14 plader i bygget, 6 med en maalt kasse.
+   DE TO TAL HOERER SAMMEN: skal pladen til 4:3, skal side.mjs' 10/16 blive
+   3/4 i SAMME aendring. side.mjs staar uden for dette spors filejerskab.
+   Vaerdien staar derfor som et NAVNGIVET token (--plade-forhold), ikke som
+   et loest tal, og tests/dele/61-extract.mjs laeser BEGGE sider og fejler,
+   hvis de to skrider fra hinanden. En tavs kobling er gjort til en maalt. */
+.billedled--maal{aspect-ratio:var(--plade-forhold);background:var(--tom)}
 .maalplade{position:relative;width:100%;height:100%;background:var(--tom);overflow:hidden}
 .maalplade::before{content:"";position:absolute;inset:10px;z-index:2;
-  border:1px dashed var(--hegn);border-radius:var(--rund-ind)}
+  border:1px dashed var(--hegn);border-radius:var(--hjoerne)}
 
 /* Nettet: én linje pr. 250 mm. Elementet er praecis 76 % af pladens hoejde,
    altsaa 902,5 mm, saa 250 mm er 27,70 % af gradientens laengde. --linje er
@@ -1150,9 +1270,12 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 
 /* Omridset. --bw og --bh saettes af generatoren ud af producentens egne maal,
    i procent af billedfeltet. Fyldet er panelets hvide, saa maskinens plads i
-   rummet kan ses mod hullets graa. Skarpt hjoerne med vilje: formskalaen
-   (12/8/6 px) hoerer til KOMPONENTER, og en maalt kasse er ikke en komponent
-   — den er en tegning. Et rundet hjoerne her ville laese som en chip. */
+   rummet kan ses mod hullets graa. Skarpt hjoerne med vilje: systemets
+   hjoerne (--hjoerne) hoerer til KOMPONENTER, og en maalt kasse er ikke en
+   komponent — den er en tegning. Et rundet hjoerne her ville laese som en
+   chip. (L79: argumentet pegede foer paa "formskalaen 12/8/6 px". Skalaen
+   er vaek, men reglen er den samme: kassen er en tegning og faar derfor
+   INTET hjoerne, heller ikke systemets 2 px.) */
 .maalplade .kasse{position:absolute;left:50%;bottom:24%;transform:translateX(-50%);
   width:var(--bw);height:var(--bh);background:var(--panel);
   border:1.5px solid var(--hegn)}
@@ -1199,13 +1322,14 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   gap:12px;text-align:center;padding:22px 20px;
 }
 .intetfoto::before{content:"";position:absolute;inset:10px;
-  border:1px dashed var(--hegn);border-radius:var(--rund-ind)}
-/* Her 6 og ikke 0: pladen er 52 x 52 px og sidder INDE i den stiplede ramme
-   `.intetfoto::before`, som staar paa 8. En hard firkant inden i en rundet
-   ramme laeser som to systemer; 6 inden i 8 laeser som ét. Tokenets egen
-   beskrivelse er "chip, hul, maerke" — pladen er et hul. */
+  border:1px dashed var(--hegn);border-radius:var(--hjoerne)}
+/* Pladen er 52 x 52 px og sidder INDE i den stiplede ramme
+   `.intetfoto::before`. Argumentet var foer, at en hard firkant inden i en
+   rundet ramme laeser som to systemer, mens "6 inden i 8" laeser som ét.
+   L79 goer det til det staerkest mulige tilfaelde af netop det argument:
+   pladen og rammen deler nu SAMME hjoerne. */
 .intetfoto .plade{width:52px;height:52px;flex:none;border:2px dashed var(--hegn);
-  border-radius:var(--rund-lille);
+  border-radius:var(--hjoerne);
   background:repeating-linear-gradient(135deg,transparent 0 7px,var(--hegn) 7px 8px)}
 .intetfoto .hoved{font-size:13.5px;font-weight:700;letter-spacing:.02em;color:var(--blaek)}
 .intetfoto .grund{font-size:13px;line-height:1.45;color:var(--blaek2);max-width:32ch}
@@ -1228,12 +1352,12 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 /* Statusmaerket er en oplysning, ikke en udmaerkelse. Ingen "featured". */
 .status{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;
   text-transform:uppercase;color:var(--blaek2);border:1px solid var(--linje);
-  border-radius:var(--rund-lille);padding:2px 7px 3px;white-space:nowrap}
+  border-radius:var(--hjoerne);padding:2px 7px 3px;white-space:nowrap}
 
 /* Anvendelsesmaerket. Producentens egen inddeling, gengivet — ikke vores. */
 .maerker{display:flex;flex-wrap:wrap;gap:6px}
 .maerke{font-size:12.5px;font-weight:600;color:var(--blaek2);background:var(--panel-ro);
-  border:1px solid var(--linje);border-radius:var(--rund-lille);padding:4px 10px 5px}
+  border:1px solid var(--linje);border-radius:var(--hjoerne);padding:4px 10px 5px}
 .maerke--tom{color:var(--blaek3);background:var(--tom);border-style:dashed;
   border-color:var(--hegn);font-weight:500;font-family:var(--mono);font-size:11.5px}
 
@@ -1277,7 +1401,9 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   border-bottom:1px solid var(--linje);
   opacity:0;pointer-events:none;
 }
-.kort-invit .ikon{width:15px;height:15px;stroke-width:2;color:var(--accent)}
+/* L76: ikonet staar paa --panel (1,60 : 1 som accent). --blaek deler farve
+   med invitationens egen tekst, som allerede er --blaek. */
+.kort-invit .ikon{width:15px;height:15px;stroke-width:2;color:var(--blaek)}
 .kort:hover .kort-invit,.kort:focus-within .kort-invit{opacity:1}
 
 @media (prefers-reduced-motion:no-preference){
@@ -1378,9 +1504,9 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    fokus). 16px og 9px lodret polstring lander lige paa gulvet - maalt med
    C:/Praktik/websites/maalevaerktoej/maal.mjs, ikke regnet i haanden. */
 .sog input{
-  font-family:var(--sans);font-size:16px;min-height:44px;padding:9px 14px;width:100%;
+  font-family:var(--mono);font-size:16px;min-height:44px;padding:9px 14px;width:100%;
   background:var(--panel);color:var(--blaek);
-  border:1px solid var(--hegn);border-radius:var(--rund-ind);
+  border:1px solid var(--hegn);border-radius:var(--hjoerne);
 }
 .sog input::placeholder{color:var(--blaek3);opacity:1}
 .sog input:focus-visible{border-color:var(--accent);outline-offset:1px}
@@ -1395,14 +1521,14 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .filtre label{
   display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
   cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
-  background:var(--panel);border:1px solid transparent;border-radius:var(--rund-ind);
+  background:var(--panel);border:1px solid transparent;border-radius:var(--hjoerne);
 }
 .filtre label:hover{background:var(--accent-ro);color:var(--blaek)}
 /* Taelleren er et TAL og saettes som sidens andre tal: mono med tabulaere
    cifre, saa 1 og 62 fylder det samme og kolonnen ikke vibrerer. */
 .filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;
   font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
-.filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:#FFFFFF}
+.filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--blaek)}
 .filtre input:checked + label .antal{color:var(--accent-ro)}
 .filtre input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
 
@@ -1418,19 +1544,29 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   background:var(--tom);border:1px dashed var(--hegn);
   font-weight:500;color:var(--blaek3)}
 .filtre input[value="ikke_oplyst"] + label:hover{color:var(--blaek2);border-color:var(--blaek3)}
+/* L76: den stiplede ramme OG teksten stod hvide paa accent (1,66 : 1).
+   Begge er nu --blaek. Hullets sprog er stadig den STIPLEDE ramme - det er
+   stregens form, ikke dens farve, der siger "ikke oplyst". */
 .filtre input[value="ikke_oplyst"]:checked + label{
-  background:var(--accent);border:1px dashed #FFFFFF;color:#FFFFFF;font-weight:600}
+  background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
 
 /* Den eneste knapform paa sitet: navigation inde paa sitet. Ingen koebsknap,
    ingen demo-knap, ingen prisforespoergsel. Formen findes ikke i systemet. */
 .videre{
   display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 18px;
-  background:var(--blaek);color:#FFFFFF;text-decoration:none;border-radius:var(--rund-ind);
+  background:var(--blaek);color:#FFFFFF;text-decoration:none;border-radius:var(--hjoerne);
   font-size:15px;font-weight:600;letter-spacing:-.01em;
 }
-.videre:hover{background:var(--accent)}
+/* L76, SYVENDE brugssted af hvid-paa-accent - og det ENESTE, der ikke kan
+   ses paa et grep, fordi de to erklaeringer staar i HVER SIN regel:
+   `.videre` saetter color:#FFFFFF, og `.videre:hover` skifter kun
+   baggrunden til accent. Ved hover stod knappen derfor paa 1,66 : 1.
+   Briefets maaling fandt seks, fordi den soegte paa én linje ad gangen.
+   Farven rettes her; knappens FORM er spor 2's (L77). */
+.videre:hover{background:var(--accent);color:var(--blaek)}
 .videre .ikon{width:17px;height:17px;stroke-width:2}
-.videre--stille{background:none;color:var(--accent);border:1px solid var(--hegn);padding:0 16px}
+/* L76: accent som forgrund paa gennemsigtig (= --bund) var 1,38 : 1. */
+.videre--stille{background:none;color:var(--blaek);border:1px solid var(--hegn);padding:0 16px}
 .videre--stille:hover{background:var(--accent-ro);border-color:var(--accent)}
 
 /* --- 14. Raekker, tabel og sektionshoved ---------------------------------- */
@@ -1596,7 +1732,7 @@ td .v{font-size:15px}
   display:inline-flex;align-items:center;gap:7px;
   font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;
   text-transform:uppercase;color:var(--blaek2);
-  background:none;border:1px solid var(--linje);border-radius:2px;padding:5px 10px;
+  background:none;border:1px solid var(--linje);border-radius:var(--hjoerne);padding:5px 10px;
 }
 /* "I produktion" er den ene forskel, kortet og skiltet skal kunne baere, og
    den faar derfor den fyldte plade. Alle andre statusser staar som kontur —
@@ -1606,19 +1742,25 @@ td .v{font-size:15px}
   background:none;border:1px dashed var(--hegn);
   color:var(--blaek3);font-weight:500;font-size:11px;
 }
-/* 16b-2. Stansningen, ikke det bloede panel. Fotorammen og noegletalspladen
-   arvede --rund (12 px) fra den gamle ORBIT-verden; TYPESKILT'ets radius er
-   2 px ("det stansede udtryk", MANIFEST §Layouttesen), og skalaen i
-   tests/dele/31-pudsning.mjs tillader netop 0/2/6/8/12 + 99px-pillen.
-   Selektorerne er lange med vilje: generator.css' egne regler er 0,3,0
+/* 16b-2. L79 SLETTEDE TRE REGLER HER, og det er den bedste slags sletning:
+   de var blevet sande af sig selv.
+
+   Fotorammen, "intet foto"-pladen og noegletalspladen arvede --rund (12 px)
+   fra den gamle ORBIT-verden, og TYPESKILT ville have 2 px. De tre regler
+   ophaevede derfor --rund tilbage til 2 px - i haanden, med lange selektorer,
+   scopet under .typeskilt. Systemet rettede sig selv ét sted ad gangen.
+   Nu ER 2 px systemets radius (--hjoerne), saa alle tre sagde praecis det
+   samme som grundreglerne, de overskrev. Efterprovet enkeltvis foer
+   sletningen: generator.css' `.billedled--stor` og
+   `.billedled--stor .intetfoto` samt system.css' `.stribe` staar alle tre
+   paa var(--hjoerne).
+
+   TILBAGE staar ÉN regel, og den er ikke en gentagelse: det indre <picture>
+   skal vaere skarpt (0), ikke stanset. Den er beholdt med vilje.
+   Selektoren er lang med vilje: generator.css' egen regel er 0,3,0
    (`.billedled--stor:not(.billedled--maal) picture`), saa der skal 0,4,0 til
    for at vinde uden at roere den fil. */
-.typeskilt .robot-foto .billedled--stor{border-radius:2px}
 .typeskilt .robot-foto .billedled--stor:not(.billedled--maal) picture{border-radius:0}
-.typeskilt .robot-foto .billedled--stor .intetfoto{border-radius:2px}
-/* `.stribe` har overflow:hidden, saa cellernes hjoerner klippes af hylsteret
-   selv — kun beholderens radius skal saettes. */
-.typeskilt .robot-noegletal .stribe{border-radius:2px}
 
 .typeskilt .maerke__mrk{width:10px;height:10px;flex:none;color:var(--blaek3);display:block}
 .typeskilt .maerke--drift .maerke__mrk{color:var(--paafod2)}
@@ -1639,7 +1781,7 @@ td .v{font-size:15px}
   font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;
   text-transform:uppercase;color:var(--blaek3);white-space:nowrap;
   padding:6px 12px;min-height:44px;
-  border:1px solid var(--linje);border-radius:2px;background:var(--panel);
+  border:1px solid var(--linje);border-radius:var(--hjoerne);background:var(--panel);
 }
 .enhedsskift:hover{color:var(--blaek);border-color:var(--hegn)}
 .enhedsskift__spor{
@@ -1656,7 +1798,7 @@ td .v{font-size:15px}
 .typeskilt .enhedsskift__boks:checked ~ * .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
 .typeskilt .enhedsskift__boks:checked ~ * .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
 .typeskilt .enhedsskift__boks:focus-visible ~ * .enhedsskift{
-  outline:3px solid var(--accent);outline-offset:3px;border-radius:2px;
+  outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
 }
 
 /* Selve skiftet. `display:contents` er valgt frem for inline/block, fordi
@@ -1675,7 +1817,7 @@ td .v{font-size:15px}
   display:inline-block;margin-left:7px;vertical-align:1px;
   font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.13em;
   text-transform:uppercase;color:var(--blaek3);
-  border:1px dashed var(--hegn);border-radius:2px;padding:1px 5px;
+  border:1px dashed var(--hegn);border-radius:var(--hjoerne);padding:1px 5px;
 }
 .enhedsnote{display:none}
 .typeskilt .enhedsskift__boks:checked ~ * .enhedsnote{display:block;margin:0 0 var(--r4)}
@@ -1739,7 +1881,7 @@ td .v{font-size:15px}
   display:inline-grid;place-items:center;width:17px;height:17px;
   margin:0 8px 0 0;padding:0;vertical-align:1px;top:0;
   font-size:10px;font-weight:700;line-height:1;text-decoration:none;
-  background:var(--blaek);color:var(--paafod);border:0;border-radius:2px;
+  background:var(--blaek);color:var(--paafod);border:0;border-radius:var(--hjoerne);
 }
 .typeskilt .skema-k .kildemaerke--sek{
   background:none;color:var(--blaek2);border:1px dashed var(--hegn);border-radius:0;
@@ -2032,14 +2174,14 @@ summary.facet__navn > .facet__tal{
 .facet__aktiv{
   font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;color:var(--blaek);background:var(--accent-ro);
-  padding:2px 7px;border-radius:2px;flex:none;margin-left:auto;
+  padding:2px 7px;border-radius:var(--hjoerne);flex:none;margin-left:auto;
 }
 .facet__aktiv-tal{
   display:inline-flex;align-items:center;justify-content:center;
   min-width:18px;height:18px;padding:0 5px;flex:none;margin-left:auto;
-  background:var(--accent);color:#FFFFFF;
+  background:var(--accent);color:var(--blaek);
   font-family:var(--mono);font-size:10px;font-weight:700;
-  font-variant-numeric:tabular-nums;border-radius:2px;
+  font-variant-numeric:tabular-nums;border-radius:var(--hjoerne);
 }
 /* Samme faelde som .kort__saml (afsnit 2 ovenfor, allerede kommenteret):
    `display:inline-flex` er en FORFATTERregel og slaar ALTID UA-arkets
@@ -2105,6 +2247,10 @@ summary.facet__navn > .facet__tal{
   font-size:14px;font-weight:600;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
+/* L76 GENNEMGAAET, BEHOLDT: klaebebaren staar paa --fod (= gunmetal, samme
+   vaerdi som --blaek), og accent PAA blaek er 9,19 : 1. L76 tillader
+   udtrykkeligt accent som tekst paa den moerke flade. Skift den ikke til
+   --blaek "for konsistensens skyld": det ville give 1,00 : 1. */
 .klaebebar__gaa{
   flex:none;color:var(--accent);text-underline-offset:3px;font-weight:600;
 }
@@ -2199,7 +2345,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift{color:var(--blaek
 body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
 body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
 body:has(.enhedsskift__boks:focus-visible) .daek__enhed .enhedsskift{
-  outline:3px solid var(--accent);outline-offset:3px;border-radius:2px;
+  outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
 }
 /* Under 420 px braekker daekket allerede (16-topbar-blokken, flex-wrap).
    Kontakten faar samme hoejrestillede logik som sprogskifteren, naar den
@@ -2387,7 +2533,7 @@ body:has(.enhedsskift__boks:focus-visible) .daek__enhed .enhedsskift{
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
 .sammenligning-app .enhedsskift__boks:focus-visible ~ * .enhedsskift{
-  outline:3px solid var(--accent);outline-offset:3px;border-radius:2px;
+  outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
 }
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsvis--metrisk{display:none}
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsvis--imperial{display:contents}

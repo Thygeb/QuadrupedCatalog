@@ -164,7 +164,18 @@ export default async function koer(ctx) {
     const stansRegel = (sys.match(/\.stans\{[^}]*\}/) || [''])[0];
     ok('34.19: .stans findes som selvstaendig regel', stansRegel !== '',
       'primitiven skal vaere en genbrugelig klasse, ikke kun en compen');
-    ok('34.20: .stans bruger 2px radius', /border-radius:2px/.test(stansRegel), stansRegel);
+    // VENDT af spor/extract (L79, 2. sep 2026). Assertionen kraevede foer
+    // den ORDRETTE vaerdi `border-radius:2px`. L79 gjorde 2px til systemets
+    // eneste radius OG til et token (--hjoerne), saa .stans skriver den ikke
+    // laengere selv - den peger paa tokenet. Kravet er IKKE saenket: den
+    // gamle test beviste "2px her", den nye beviser BEGGE led i kaeden,
+    // altsaa at .stans bruger systemets hjoerne, OG at systemets hjoerne
+    // stadig ER 2px. Bliver --hjoerne en dag til 4px, fejler denne linje -
+    // det gjorde den gamle ikke, den ville bare holde op med at gaelde.
+    const hjoerne = (sys.match(/--hjoerne:\s*([^;}]+)/) || [])[1];
+    ok('34.20: .stans bruger systemets radius-token, og tokenet er 2px',
+      /border-radius:var\(--hjoerne\)/.test(stansRegel) && hjoerne === '2px',
+      `--hjoerne=${hjoerne} · ${stansRegel}`);
     ok('34.21: .stans\' indfaeldede kant bruger --linje (rille) og --stans (lyskant)',
       /inset 0 0 0 1px var\(--linje\)/.test(stansRegel) && /inset 0 1px 0 var\(--stans\)/.test(stansRegel),
       stansRegel);
