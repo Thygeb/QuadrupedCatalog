@@ -315,3 +315,210 @@ konsistens på tværs af skærme, som JPK bad om, begynder med konsistens inden 
 
 **Konsekvens for planen:** forslaget bliver ikke *"forklar nævneren"* (det ville være en
 fodnote mere). Det bliver *"brug det mønster, siden allerede ejer"* — se **P2**.
+
+---
+
+## 4. Briefet (skillens fase 3)
+
+### 4.1 Job og publikum
+
+**Hvem ankommer:** PRODUCT.md's **primære** læser — den nysgerrige fagperson (presse,
+studerende, folk i branchen), der er landet her fra en søgning eller et link, **uden**
+et modelnavn i hovedet, og som vil vide, hvad denne maskine er, og om tallene kan bruges.
+**Sekundært** den tekniske indkøber, der kender modellen og skal kunne afvise eller
+beholde den og begrunde det internt.
+
+**Situation og sindstilstand:** hun læser **én** robot, ofte som den første og eneste hun
+åbner. Hun har ikke set kataloget. Hun skal kunne citere ét tal isoleret — PRODUCT.md's
+*Operating Context* siger det direkte: *"kildeangivelsen skal derfor holde til at blive
+citeret isoleret."*
+
+**Visitor mode: Read.** Se afsnit 1.
+
+### 4.2 Resultat og bevis
+
+**Den primære ting, hun skal forstå:** *hvad vi ved om denne maskine, hvor det kommer
+fra, og hvor stort hullet er.* Ikke "hvilken robot skal jeg købe" — det er
+katalogsidens og sammenligningssidens job.
+
+**Succes:** hun kan efter ét gennemløb sige tre ting uden at gætte: (1) hvad maskinen er
+og hvem der laver den, (2) hvor fuldstændig producentens oplysning er, (3) hvor et
+bestemt tal kommer fra og hvornår det blev hentet.
+
+**Det ægte bevismateriale, fladen bærer i dag** — intet af det er opfundet, og planen
+tilfører intet:
+
+| Bevis | Mængde, målt |
+|---|---|
+| Tal med kilde i hele bygget | **1.111**, og **0** uden (`node tools/build.mjs`) |
+| Kildemærker på én robotside | **29** (`shape-hierarki.mjs`, movenew-p1) |
+| Forbeholds-/notetekster på robotsiderne | **1.148** blokke |
+| Redaktionelle noter i data | **147** over **63 af 77** robotter, 2,3 pr. robot |
+| Andel af sidens synlige tekst i forbeholdsspalten | **42,8 %** (4.550 af 10.637 tegn) |
+
+**Den produktspecifikke sandhed, en nabo ikke kan kopiere:** hullerne er talt, daterede
+og begrundede. **36,7 % af alle værdiceller siger "ikke oplyst"**, og siden siger det
+med et eget formsprog frem for at lade cellen stå tom. Det er positionens kerne, og det
+er den, fladen i dag underspiller.
+
+### 4.3 Den valgte retning
+
+**Visuel autoritet:** **TYPESKILT**, uændret og låst. Ingen ny verden, ingen
+world-workshop — `impeccable shape` går kun i `new-work`, når komposition eller
+interaktion står materielt åben, og det gør den ikke: fem designbeslutninger (L76–L80)
+er netop truffet, og led 2 har skrevet dem ind i koden.
+
+**Strukturel tese — og det er planens ene idé:**
+
+> **Siden har i dag én akt og har brug for to.**
+> Skemaet fylder **53–68 %** af siden, og hver af dets 33 rækker vejer det samme.
+> Derfor ser en side med 24 kendte felter og en side med **0** næsten ens ud — samme
+> sektioner, samme 33 rækker, samme rytme. Kun længden skiller dem (5.536 mod 3.763 px).
+> **En Read-flade, hvis form ikke ændrer sig med dens indhold, er en skabelon, ikke et
+> dokument.**
+
+Retningen deler siden i **Skiltet** og **Journalen**:
+
+- **Skiltet** (folden): hvad maskinen er, hvad der er kendt, **og hvor fuldstændig
+  optegnelsen er.** Det er typeskiltet på maskinen — TYPESKILTs egen metafor, taget
+  bogstaveligt for første gang på denne flade.
+- **Journalen** (resten): hele optegnelsen, felt for felt, med kilde, hentedato og
+  forbehold. Uændret i substans; kun grupperet og sat, så den kan læses.
+
+**Sekvens** (hvad øjet møder, i rækkefølge): navn og producent → maskinen (foto) →
+nøgletallene → **optegnelsens tilstand i ord** → journalen → kilderne.
+Det eneste nye trin er det fjerde, og det står i dag på **85–92 % sidedybde**.
+
+**Det fokale øjeblik:** foldens højre spalte, under nøgletallene. I dag er den **tom**.
+
+```
+node shape-passer.mjs 1440 <12 slugs>
+slug                          tæt  sidehøjde  tomtHøjre  noterH  noterDybde  passer
+microrobotech-movenew-p1       24       5536        275     180         92%     JA
+microrobotech-movenew-t1       24       5744        275     396         88%    NEJ
+genisom-gangben-l2             23       5573        275     249         91%     JA
+boston-dynamics-spot           22       5462        275     246         91%     JA
+galileo-s1                     22       5118        313     213         90%     JA
+yufan-lingmao-cyvet            21       5846        275     409         88%    NEJ
+unitree-go2                    15       5117        275       0           -      -
+anybotics-anymal               11       4660        275     166         91%     JA
+ghost-robotics-spirit-40        0       3763        441     269         87%     JA
+unitree-laikago                 0       3911        497     362         85%     JA
+weilan-babyalpha                0       3819        441     246         87%     JA
+deep-robotics-x30              13       4367        296     190         90%     JA
+```
+
+**Læs tabellen som ét argument.** Noteblokken — *vores egen stemme, det eneste på siden,
+producenten ikke har skrevet* — ligger på **85–92 % sidedybde på alle elleve robotter,
+der har en.** Samtidig står **275–497 px** af foldens højre spalte tom. Og de to tal er
+**omvendt korrelerede**: jo tommere robotten er, jo mere tom fold (441–497 px ved 0 af
+33) — og jo vigtigere er noten, fordi den så er *det eneste, siden har at sige.*
+
+**Pladsen vokser præcis dér, hvor behovet vokser.** Det er ikke en rettelse, der skal
+opfindes; det er en tom plads og et hjemløst indhold, der passer sammen på **9 af de 11**
+robotter, der har noter (målt: `noterH <= tomtHøjre`).
+
+**Implementeringskonsekvens:** ingen ny visuel verden, ingen ny farve, ingen ny skrift,
+ingen ny knap. Retningen består af **flytning, gruppering og sats** — og den kan derfor
+udføres inden for L76–L80 uden at genåbne nogen af dem.
+
+### 4.4 Omfang og grænser
+
+- **Fidelity:** fladeplan. Ingen kode, ingen comp, intet direction contract — `shape`
+  skriver aldrig kode, og briefet forbyder det.
+- **Bredde:** robotsiden, 154 sider. **Ikke** kataloget, sammenligningen,
+  producentsiden, producentindekset, Om os, 404 eller sprogroden — men se afsnit 7,
+  hvor de forslag, der uundgåeligt rører dem, er udskilt.
+- **Interaktivitet:** uændret. Siden har i dag én interaktiv kontrol (enhedsskiftet) og
+  én udfoldning (*"Afvigelser og varianter i nøgletallene (4)"*). Planen tilføjer ingen.
+- **Urørt:** de fire datatilstande, paletten, skriftvalget, `contain`+4:3, radius,
+  kildemærkets systematik, enhedsskiftet, og hele dataindholdet.
+- **Udtrykkelige anti-mål:** ingen ny knap (L77 ejer knappen, og den er ikke bygget) ·
+  ingen accentfarvet forgrund (L76) · ingen beskæring (L78) · ingen ny skrift (L80) ·
+  ingen skjulte eller sammenlagte huller (hård begrænsning 5) · **ingen rangering,
+  score eller anbefaling** (hård begrænsning 6, og *"Kom ikke igen med disse"*).
+
+### 4.5 Tilstande og spænd
+
+Skabelonen skal bære hele dette spænd. Alle tal målt.
+
+| Dimension | Minimum | Typisk | Maksimum |
+|---|---|---|---|
+| Oplyste felter | **0 af 33** (5 robotter) | 15 af 33 | **24 af 33** |
+| Sidehøjde @1440 | 3.763 px | ~5.100 px | 5.846 px |
+| Noter pr. robot | **0** (14 robotter) | 2,3 | 396–409 px blok |
+| Tomt i billedled | **0 %** | 21,7 % (median) | **50,7 %** |
+| Nøgletal oplyst | **0 af 5** | — | 5 af 5 |
+| Forbeholdsblokke pr. side | 1 | ~15 | — |
+
+**Materielle tilstande, planen skal navngive og ikke må glemme:**
+
+1. **Den tomme optegnelse** — 0 af 33, 0 af 5 nøgletal. Fem robotter. Her er noten hele
+   indholdet, og siden er 3.763 px, hvoraf **53,4 % er 33 rækker, der siger "ikke oplyst"**.
+2. **Den fulde optegnelse** — 24 af 33. Her er skemaet 67,8 % og kræver gruppering for
+   at kunne læses.
+3. **Ingen noter** — 14 af 77 robotter. Foldens nye blok skal have en tom tilstand, der
+   ikke ser i stykker ud. `unitree-go2` er prøvetilfældet (`noterH = 0`).
+4. **Den lange note** — movenew-t1 (396 px) og lingmao-cyvet (409 px) passer **ikke** i
+   275 px. To af elleve. Skal have en designet afkortning, ikke et overløb.
+5. **Det høje foto** — 50,7 % tomt billedled. Syv fotos er højere end brede.
+6. **Den udgåede model** — status ≠ *i produktion*. Bærer statusstempel og oftest den
+   vigtigste note.
+7. **Engelsk** — se 4.7.
+
+### 4.6 Interaktion og layout
+
+**Hierarki, i den rækkefølge planen vil have det læst:**
+robotnavn (84 px) → producent + land → status og klasse → foto **‖** nøgletal →
+**optegnelsens tilstand** → journalen, grupperet → noter → kilder.
+
+**Topologi:** uændret to spalter over folden (foto venstre, nøgletal højre), fuld bredde
+derunder. Planen ændrer **ikke** kompositionen; den **udfylder** den højre spalte, der i
+dag stopper 275–497 px før fotoets underkant.
+
+**Responsivitet:** ved 390 falder alt til én spalte, og målet (68ch) er **allerede
+overholdt** — 0 af 6 prosablokke over målet ved 390 mod 4 af 6 ved 1440.
+**Linjelængdeproblemet er udelukkende et desktopproblem**, og planen skal ikke røre
+mobilkaskaden for at løse det.
+
+**Affordances og tilbagemelding:** uændret. Ingen ny hover, intet nyt fokus, ingen ny
+overgang. Robotsiden har i dag **nul** bevægelse (3.1), og det er en beslutning, ikke en
+mangel — se 6.4.
+
+### 4.7 Begrænsninger og åbne beslutninger
+
+**Bindende, og planen kan ikke løse dem:**
+
+1. **Den engelske side er ikke oversat, hvor det tæller.** Alle **1.148**
+   forbeholds- og notetekster er byte-identiske mellem `/da/` og `/en/`; **0** er
+   oversat. Etiketten (*Forbehold* → *Caveat*) er oversat i 401 af 1.148 tilfælde,
+   kroppen i **ingen**.
+   **Konsekvensen for enhver fladeplan, inklusive denne:** et forslag, der læner sig
+   hårdere på forbeholdsspalten, forbedrer den danske side og gør **intet** for den
+   engelske. Planens forslag er derfor vægtet mod **struktur og sats**, som virker på
+   begge sprog, frem for mod at fremhæve prosa, som kun virker på ét.
+   **Dette er et data-/i18n-spørgsmål, ikke et designspørgsmål, og planen løser det
+   ikke.** Det hører i et eget spor. Se rapportens opdagelsesafsnit.
+
+2. **Noterne er ikke typede.** `noter:` i YAML er en flad liste af strenge. En de
+   facto-konvention — VERSAL-optakt på den optegnelses-brede note — findes, men holder
+   kun på **69 af 147 noter = 47 %**. **Et design, der automatisk skal vælge "den
+   vigtige note", kan derfor ikke bygges uden en datamodelændring**, og det er ikke
+   denne plans ærinde. Planens P1 er skrevet, så den ikke kræver det.
+
+3. **L77's knapprimitiv er besluttet og ikke bygget.** Robotsidens eneste knap er
+   `.videre` (producentlinket). Planen tilføjer ingen knap og venter på L77.
+
+4. **Tre spor rører `assets/system.css` samtidig.** Hvert tal i denne plan, der stammer
+   fra en delt fil, er målt **2. sep 2026** og mærket med den dato. Planens forslag er
+   formuleret som **regler og acceptkriterier**, ikke som linjenumre, netop for at holde,
+   uanset hvor de tre spor lander.
+
+**Åbne beslutninger, en bygger IKKE må opfinde selv** — de hører hos JPK:
+
+- **Skriftgulvet.** DESIGN.md's navngivne regel siger **10,5 px**; DESIGN.md's egen
+  komponentspecifikation for kildemærket siger `max(8px,.34em)`. **Dokumentet modsiger
+  sig selv**, og robotsiden har **49 elementer under 10,5 px**. Se **P5** — planen
+  fremlægger valget og træffer det ikke.
+- **Om den tomme flade i billedledet skal have en egen behandling** (0–50,7 %,
+  median 21,7 %). Se 6.1.
