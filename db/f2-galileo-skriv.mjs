@@ -58,7 +58,18 @@ const KILDER = {
   MICRO_T1_EN: 'raa-kand1b-2026-08-24/micbotics-movenew-t1-en-2026-08-24.html',
   MICRO_T1_CN: 'raa-kand1b-2026-08-24/micbotics-movenew-t1-cn-2026-08-24.html',
   MICRO_T1_PDF: 'raa-kand1b-2026-08-24/micbotics-movenew-t1-datasheet-2026-08-24.pdf',
+  XIAOMI_CD1_SPEC_JS: 'raa-anvendelse-2026-08-19/xiaomi-cyberdog1-specside-bundle-js-2026-08-21.js',
+  XIAOMI_CD1_PROD_HTML: 'raa-anvendelse-2026-08-19/xiaomi-cyberdog1-produktside-cn-2026-08-21.html',
+  XIAOMI_CD2_SPEC_JS: 'raa-kina-weilan-xiaomi-2026-08-19/xiaomi-cyberdog2-specside-bundle-js-2026-08-19.js',
+  XIAOMI_CD2_PROD_HTML: 'raa-kina-weilan-xiaomi-2026-08-19/xiaomi-cyberdog2-produktside-2026-08-19.html',
 };
+
+// XIAOMI-NOTE: specifikationerne er Vue.js-renderet (e._v("...")-kald i en
+// JS-bundle), IKKE statisk HTML. db/fase2-tjek.mjs --belaeg's "22 raekker
+// uden traef" flaggede 3 af CyberDog 1's raekker (weight/height/
+// payload_walking) som ubelagte - alle 3 er FALSKE ALARMER: tallet findes,
+// bogstaveligt, i JS-bundlen, som --belaeg ikke soeger i (kun .html). Se
+// rapportens "Nye fælder og opdagelser".
 
 // MICRO_*_PDF-NOTE: begge micbotics-datablade er BILLED-PDF'er - pdftotext
 // giver 0 tegn (ingen tekstlag overhovedet, ikke engang mojibake), og
@@ -97,7 +108,9 @@ function laesKilde(rel) {
 // ens, men de rå bytes er forskellige - fx "NMC&nbsp;battery" i kilden mod
 // "NMC battery" i vores tekst).
 function afkodEnkleEntiteter(s) {
-  return s.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  //  : JS-bundler (Xiaomi) bruger det LITERALE NBSP-tegn direkte i
+  // strengen (ikke en HTML-entitet) som mellemrum mellem etiket og vaerdi.
+  return s.replace(/&nbsp;/g, ' ').replace(/ /g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
 const kildeCacheAfkodet = new Map();
 function laesKildeAfkodet(rel) {
@@ -152,14 +165,16 @@ function verificerFragment(fragment, kildeRel) {
     if (dele.length > 0 && dele.every((d) => proevAlleFormer(d, kildeRel, (i) => i.includes(d)))) return { ok: true, ellipse: true };
     return { ok: false, grund: `IKKE fundet (deltjek omkring "..." fejlede) i ${kildeRel}` };
   }
-  // Foretraek split paa ": " (vores egen "etiket: vaerdi"-konvention, selve
-  // kolonet er IKKE i kilden - label og vaerdi stod i to separate celler).
-  const ci = fragment.indexOf(': ');
-  if (ci > 0) {
-    const etiket = fragment.slice(0, ci);
-    const vaerdi = fragment.slice(ci + 2);
-    if (proevAlleFormer(etiket, kildeRel, (i) => i.includes(etiket)) && proevAlleFormer(vaerdi, kildeRel, (i) => i.includes(vaerdi))) {
-      return { ok: true, split: 'colon' };
+  // Foretraek split paa et kolon (": " ELLER kildens eget fuldbredde "：",
+  // med eller uden mellemrum efter - Vue/JS-bundler bruger tit "：" direkte
+  // klaebet til vaerdien, ingen mellemrum).
+  for (const [koloni, skipLen] of [[fragment.indexOf(': '), 2], [fragment.indexOf('：'), 1], [fragment.indexOf(':'), 1]]) {
+    if (koloni > 0) {
+      const etiket = fragment.slice(0, koloni);
+      const vaerdi = fragment.slice(koloni + skipLen);
+      if (proevAlleFormer(etiket, kildeRel, (i) => i.includes(etiket)) && proevAlleFormer(vaerdi, kildeRel, (i) => i.includes(vaerdi))) {
+        return { ok: true, split: 'colon' };
+      }
     }
   }
   const i2 = fragment.indexOf(' ');
@@ -607,6 +622,91 @@ const FIELD_ENTRIES = [
   { robot_id: 2224, field_name: 'power_output', kasse: 'A', kilde: KILDER.MICRO_T1_PDF,
     caveat_wording: 'Featuring automotive-grade power output standards (supporting AC220V / 12V DC OUTLET dual-mode), it is compatible with multi-scenario devices via a quick interface matrix. | 12V DC OUTLET - 10A maximum, compliant with ISO 4165.',
     caveat: 'PDF datasheet, page 5, with footnotes on regional AC voltage tolerances (220V ±7% in China/Southeast Asia per GB/T 12325-2008; 120V/240V in North America; nominal 230V ±10% in EU, practically compatible with 220V). Wattage for the AC side is not explicitly disclosed (voltage only); the 12V side yields 120W at 10A, but the manufacturer does not itself state this calculated figure, so only the printed A/V values are reproduced.' },
+
+  // ===================================================== XIAOMI CyberDog 1 (2249) ===
+  { robot_id: 2249, field_name: 'weight', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '整机重量（含电池）：14kg',
+    caveat: "Manufacturer's label: whole-machine weight, including battery." },
+  { robot_id: 2249, field_name: 'height', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '长度：807mm | 宽度：406mm | 高度：206mm',
+    caveat: 'The LYING-position (趴下) measurement is also disclosed: 807 x 406 x 206mm. This is a different state than folded and is not comparable to Unitree\'s folded measurement. The schema has no folded-measurement fields.' },
+  { robot_id: 2249, field_name: 'degrees_of_freedom', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '自由度：整机12，单腿3',
+    caveat: 'Manufacturer states 12 in total, 3 per leg.' },
+  { robot_id: 2249, field_name: 'payload_walking', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '最大负载：3kg',
+    caveat: "Manufacturer's label is maximum load, undivided, with no distinction between walking and standing. Placement in the walking field is an inference, exactly as for CyberDog 2." },
+  { robot_id: 2249, field_name: 'speed', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: 'MAX 3.2m/s | 实验室测得整机最大行走速度为3.2m/s，最大安全行走速度为1.6m/s',
+    caveat: 'Manufacturer writes MAX 3.2m/s. The footnote on the same page: the lab-measured maximum walking speed is 3.2 m/s, while the maximum SAFE walking speed is 1.6 m/s. Two figures on the same page, half of each other. The printed headline figure is 3.2.' },
+  { robot_id: 2249, field_name: 'temperature_min', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '温度：0℃~40℃',
+    caveat: '0 degrees is a disclosed lower bound, not a missing figure. For outdoor Danish winter operation it is a disqualifier.' },
+  { robot_id: 2249, field_name: 'battery_wh', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '标称容量：5.6Ah  120.9Wh | 标称电压：21.6V | 额定容量：5.2Ah  112.3Wh',
+    caveat: "NOMINAL capacity: 5.6Ah / 120.9Wh at 21.6V. Cross-check: 5.6 x 21.6 = 120.96 - the manufacturer's figure works out. The manufacturer ALSO discloses a rated capacity of 5.2Ah / 112.3Wh. The two are 7.1% apart, and that is the manufacturer's own difference, not an error." },
+  { robot_id: 2249, field_name: 'runtime', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '续航时间：约1小时* | *1小时是包括趴下、起立、静止姿态展示、常规地面稳定行走等基础行为综合测得',
+    caveat: 'NO LOAD CONDITION, BUT A STATE CONDITION. Manufacturer\'s footnote: the one hour is measured as a composite of lying down, standing up, displaying static poses, and stable regular-ground walking. The schema has no room for that kind of condition.' },
+  { robot_id: 2249, field_name: 'lidar', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: '光流计',
+    caveat: 'NO LIDAR MENTIONED. The manufacturer\'s sensor list has twelve items and none of them is a LiDAR: RealSense D450 depth camera, AI interaction camera, binocular ultra-wide-angle camera, TOF sensor, light sensor, ultrasonic sensor, IMU, GPS module, magnetometer, optical flow sensor (光流计), 6-mic ring array, and touch sensor. The field is not marked as "no", because the manufacturer does not declare the list exhaustive - but the absence is itself informative.' },
+  { robot_id: 2249, field_name: 'ros2', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: 'Ubuntu 18.04+ROS 2',
+    caveat: 'Manufacturer writes Ubuntu 18.04+ROS 2. The ROS 2 version is not named.' },
+  { robot_id: 2249, field_name: 'power_output', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: 'AD100 | 输入参数：100-240V~ 50/60Hz 1.6A | 输出参数：20V⎓5A MAX | 外设扩展口',
+    caveat: 'Manufacturer discloses the AD100 power supply: input 100-240V 50/60Hz 1.6A, output 20V 5A max. That is power IN to the robot, not power OUT to a payload. The Type-C port labeled peripheral expansion port has no disclosed wattage.' },
+  { robot_id: 2249, field_name: 'data_ports', kasse: 'A', kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    caveat_wording: 'Type-C×3(快充、下载、外设扩展口) | 802.11 a/b/n/g/ac | 蓝牙 4.2',
+    caveat: "Manufacturer divides the three Type-C ports by function: fast-charge, download, and peripheral expansion port. Wireless: Wi-Fi IEEE 802.11 a/b/n/g/ac and Bluetooth 4.2 - an older Bluetooth than CyberDog 2's 5.0." },
+  { robot_id: 2249, field_name: 'price', kasse: 'A', kilde: KILDER.XIAOMI_CD1_PROD_HTML,
+    caveat_wording: '"product_id":"14815" | "price":"0","market_price":"0","is_enable":false',
+    caveat: "The page's own product JSON says price 0, market_price 0 and is_enable false for product id 14815. A price of 0 for a product with is_enable false means NO PRICE SET, not costs zero. Exactly the same picture as CyberDog 2." },
+
+  // ===================================================== XIAOMI CyberDog 2 (2250) ===
+  { robot_id: 2250, field_name: 'weight', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '整机重量 (含电池)：8.9 ± 0.5kg',
+    caveat: 'Manufacturer writes 8.9 +/- 0.5kg. The tolerance range is the manufacturer\'s own and must not be reduced to a bare 8.9 kg.' },
+  { robot_id: 2250, field_name: 'height', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '长度：603mm | 宽度：339mm | 高度：300mm',
+    caveat: "Manufacturer also discloses a LYING-position measurement: 603 x 339 x 300mm. This is a different state than folded and is not comparable to Unitree's folded measurement. The schema nonetheless has no folded-measurement fields." },
+  { robot_id: 2250, field_name: 'degrees_of_freedom', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '整机12个自由度，单腿3个自由度',
+    caveat: 'Manufacturer states 12 degrees of freedom in total, 3 per leg.' },
+  { robot_id: 2250, field_name: 'payload_walking', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '最大负载：1kg',
+    caveat: "Manufacturer's label is maximum load - undivided, no distinction between walking and standing. The placement is an inference." },
+  { robot_id: 2250, field_name: 'speed', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '1.6m/s',
+    caveat: "Manufacturer's label: maximum speed in the FORWARD direction." },
+  { robot_id: 2250, field_name: 'temperature_min', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '0°C~40°C',
+    caveat: '0 degrees is a disclosed lower bound, not a missing figure. For outdoor Danish winter operation it is a disqualifier.' },
+  { robot_id: 2250, field_name: 'battery_wh', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '4500mAh 97.2Wh',
+    caveat: '4500 mAh, nominal voltage 21.6V, charge limit 24.9V. Cross-check: 4.5Ah x 21.6V = 97.2Wh - the manufacturer\'s own figure works out precisely.' },
+  { robot_id: 2250, field_name: 'runtime', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: '约90分钟 | 90 分钟续航是包括趴下、站立、静止姿态展示、常规地面稳定行走等基础行为综合测得。',
+    caveat: 'NO LOAD CONDITION, BUT A STATE CONDITION - and an unusually honest one. Manufacturer\'s footnote: the 90 minutes are measured as a composite of lying down, standing, displaying static poses, and stable regular-ground walking. That is more than any other manufacturer in the collection discloses, and the schema has no room for it.' },
+  { robot_id: 2250, field_name: 'lidar', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: 'YDLIDAR TG30',
+    caveat: 'TYPE AND MODEL - one of few entries in the whole collection that names the LiDAR. The field counts regardless of which way D4 falls.' },
+  { robot_id: 2250, field_name: 'ros2', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: 'Ubuntu 18.04 + ROS2',
+    caveat: 'Manufacturer writes Ubuntu 18.04 + ROS2. The ROS 2 version is not named.' },
+  { robot_id: 2250, field_name: 'power_output', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: 'MDY-13-EU | 输入参数:100-240V~50/60Hz 3.0A | 输出参数:20V 10.5A MAX',
+    caveat: 'Manufacturer discloses the MDY-13-EU adapter: input 100-240V 50/60Hz 3.0A, output 20V 10.5A max. That is power IN to the robot, not power out to a payload.' },
+  { robot_id: 2250, field_name: 'data_ports', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: 'Wi-Fi：IEEE 802.11 a/b/g/n/ac | 蓝牙：5.0',
+    caveat: 'Wireless: WiFi IEEE 802.11 a/b/g/n/ac and Bluetooth 5.0.' },
+  { robot_id: 2250, field_name: 'price', kasse: 'A', kilde: KILDER.XIAOMI_CD2_PROD_HTML,
+    caveat_wording: '"product_id":"19079" | "price":"0","market_price":"0","is_enable":false',
+    caveat: 'The page\'s own product JSON says price 0, market_price 0 and is_enable false. The product is not purchasable on mi.com on the collection date. A price of 0 for a product with is_enable false means NO PRICE SET, not costs zero. Writing 0 into the field would be rule-10 error in its purest form.' },
+  { robot_id: 2250, field_name: 'ce_disclosed', kasse: 'A', kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    caveat_wording: 'GB 17625.1-2012 | GB 4943.1-2011 | GB/T 9254.1-2021 | GB31241-2014 | UN38.3',
+    caveat: 'DOCUMENTED NO, not a gap. The manufacturer discloses its standards, and CE is not among them: GB 17625.1-2012, GB 4943.1-2011, GB/T 9254.1-2021, battery GB31241-2014 and UN38.3. Only Chinese GB standards. Whether a documented "no" COUNTS toward the specification density has not been decided - that is a question for JPK.' },
 ];
 
 const APPLICATIONS = [
@@ -630,6 +730,10 @@ const APPLICATIONS = [
     note: "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from." },
   { robot_id: 2223, kilde: KILDER.MICRO_P1_EN,
     note: "'industrial inspection' -> industrial + inspection; 'fire response' -> defense and emergency response; 'public safety missions' -> security and surveillance." },
+  { robot_id: 2249, kilde: KILDER.XIAOMI_CD1_SPEC_JS,
+    note: "READ THROUGH, NOTHING FOUND - also in the JS bundle, where the specifications live. The manufacturer's only label is the product type biomimetic quadruped robot and the model number 21051191C. That is what it IS, not who it is for. Same result as on CyberDog 2." },
+  { robot_id: 2250, kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    note: "READ THROUGH, NOTHING FOUND - also in the JS bundle, where the specifications live. The manufacturer's only label is the product type (biomimetic quadruped robot). That is what it IS, not who it is for." },
 ];
 
 // robots.notes/notes_wording — kun rækker der aendres skrives.
@@ -710,6 +814,19 @@ const ROBOTS_NOTES = [
       'Total Battery Weight: 40~50kg | 整机电池重量 | 电池',
       '',
     ] },
+  { id: 2249, kilde: [KILDER.XIAOMI_CD1_PROD_HTML, KILDER.XIAOMI_CD2_SPEC_JS],
+    notes: [
+      "SAME TRAP AS CYBERDOG 2, SAME SOLUTION. The specification page delivers an empty content element; the entire sheet lives as plain text in a JavaScript bundle, which the page itself tells the browser to fetch: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog/specs.5406502c.js (retrieved 2026-08-21). Primary source: the manufacturer's own server, the manufacturer's own content.",
+      "STATUS IS A CATALOG DECISION BASED ON MEASURED SIMILARITY, NOT A STATEMENT FROM THE MANUFACTURER. Six signals were compared between CyberDog 1 and CyberDog 2 on mi.com: HTTP status on the product page (200 vs 200), the 'buy now' button ('立即购买', 2 occurrences vs 2), the 'add to cart' button ('加入购物车', 0 occurrences vs 0), the 'sold out' marker ('已售罄', 0 vs 0), the price field in the page's product JSON (0 vs 0), and is_enable (false vs false). All six are identical. There is therefore NO measurable difference on the manufacturer's page between the model we carry as in-production and this one. The only argument for discontinued is that a successor with a higher generation number exists - and that is our own inference, not Xiaomi's word.",
+      "NO LIDAR IN THE SENSOR LIST. The manufacturer lists twelve sensors, and a LiDAR is not among them. This is NOT recorded as 'no', because the list is not declared exhaustive. By comparison, CyberDog 2 names a YDLIDAR TG30. See the caveat on the lidar field.",
+      "THE DEPTH CAMERA IS DIFFERENT FROM CYBERDOG 2'S: here Intel RealSense D450, there D430.",
+    ],
+    notes_wording: ['', '立即购买', '', ''] },
+  { id: 2250, kilde: KILDER.XIAOMI_CD2_SPEC_JS,
+    notes: [
+      "THE SPECIFICATIONS ARE TEXT, NOT IMAGES - but they are not in the page's HTML. The parameter page's content element is empty on delivery (75 bytes, only a loading spinner); the entire specification sheet lives as plain text in the JavaScript bundle the page itself tells the browser to fetch: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog2/specs.74df51bf.js (saved, 200, 109,869 bytes). Treated as the primary source: the manufacturer's own server, the manufacturer's own content, and the text a visitor is actually shown.",
+    ],
+    notes_wording: [''] },
 ];
 
 const VALUE_TEXT = [
@@ -749,6 +866,10 @@ const VALUE_TEXT = [
   { robot_id: 2224, field_name: 'lidar', kilde: KILDER.MICRO_T1_EN, value_text: 'Onboard LiDAR (model not disclosed)' },
   { robot_id: 2224, field_name: 'mounting_interface', kilde: KILDER.MICRO_T1_PDF, value_text: "Top-mounted expansion interface ('Top Mount Expansion') and undercarriage expansion interface ('Undercarriage Expansion'), both marked as a standard feature in the datasheet's function table. No standardized mounting-interface name, dimensions, or quick-release mechanism disclosed." },
   { robot_id: 2224, field_name: 'power_output', kilde: KILDER.MICRO_T1_PDF, value_text: "AC220V / 12V DC OUTLET (dual-mode, automotive-grade power-output standard, via 'quick interface matrix'). 12V DC OUTLET: 10A max (ISO 4165). AC side: 220V ±7% in China/Southeast Asia (GB/T 12325-2008); 120V/240V in North America; nominal 230V ±10% in EU (practically compatible with 220V)." },
+  { robot_id: 2249, field_name: 'cameras', kilde: KILDER.XIAOMI_CD1_SPEC_JS, value_text: 'Intel RealSense D450 (depth) x1; AI interaction camera 13 MP x1; binocular ultra-wide-angle camera 2 MP' },
+  { robot_id: 2249, field_name: 'compute', kilde: KILDER.XIAOMI_CD1_SPEC_JS, value_text: '6-core NVIDIA Carmel ARM v8.2 64-bit CPU; 384-core NVIDIA Volta GPU with 48 Tensor Cores; 8 GB 128-bit LPDDR4x; 16 GB eMMC 5.1; 128 GB SSD' },
+  { robot_id: 2250, field_name: 'cameras', kilde: KILDER.XIAOMI_CD2_SPEC_JS, value_text: 'Intel RealSense D430 (depth); 13 MP (AI); 1 MP (RGB); fisheye FOV 146 degrees' },
+  { robot_id: 2250, field_name: 'compute', kilde: KILDER.XIAOMI_CD2_SPEC_JS, value_text: '6-core NVIDIA Carmel ARM v8.2 64-bit; 384-core Volta GPU with 48 Tensor Cores; 8 GB LPDDR4x; 16 GB eMMC 5.1; 32 GB SD Class 10' },
 ];
 
 // images.note — kun rækker med indhold.
