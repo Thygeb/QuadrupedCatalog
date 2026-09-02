@@ -399,7 +399,17 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('f2-cjk-skriv: fejl —', err.message, err.stack);
-  process.exit(1);
-});
+// Eksporteret så fund/f2-cjk-utf8tjek.mjs kan genbruge NØJAGTIG samme data
+// til efterprøvningen — to kopier af "hvad jeg sendte" kan skride fra
+// hinanden, én kan ikke.
+export { FIELD_ENTRIES, APPLICATIONS, ROBOTS_2258_NOTES, ROBOTS_2258_NOTES_WORDING };
+
+// Kør kun main() når filen eksekveres direkte (node db/f2-cjk-skriv.mjs),
+// ikke når den importeres for sin data.
+const koertDirekte = process.argv[1] && import.meta.url === `file:///${process.argv[1].replace(/\\/g, '/')}`;
+if (koertDirekte) {
+  main().catch((err) => {
+    console.error('f2-cjk-skriv: fejl —', err.message, err.stack);
+    process.exit(1);
+  });
+}
