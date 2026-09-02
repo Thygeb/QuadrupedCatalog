@@ -10,7 +10,8 @@
  *     dette spor, se kommentaren ved konstanten) er en eksplicit,
  *     dokumenteret undtagelse — de blev FOEDT engelske (punkt 3, L81) og har
  *     intet dansk ord at oversaette fra.
- * (c) db/byg-migrering.mjs's output er byte-lig db/migrering-engelsk.sql.
+ * (c) db/byg-migrering.mjs's output er lig db/migrering-engelsk.sql efter
+ *     CRLF-normalisering.
  * (d) db/eksporter.mjs's omdannelse af en FIXTURE (addverb-trakr-20's
  *     indhold i engelsk kolonneform) giver det danske dokument, der er
  *     dybt lig data/robots/addverb-trakr-20.yaml.
@@ -162,12 +163,17 @@ export default async function koer(ctx) {
   ok('(b) enum-labels: hver enum-types vaerdier i skema.sql matcher ordbogen praecist',
     alleLabelsEnige, labelDetaljer.join(' · ') || `${Object.keys(ordbog.ENUM_LABELS).length} enum-typer tjekket`);
 
-  // (c) db/byg-migrering.mjs's output er byte-lig db/migrering-engelsk.sql.
+  // (c) db/byg-migrering.mjs's output er lig db/migrering-engelsk.sql efter
+  // CRLF-normalisering. HVORFOR: core.autocrlf=true giver CRLF ved checkout;
+  // generatoren skriver LF; byte-lighed uden normalisering er kun groen i
+  // den worktree, der skrev filen (maalt 2. sep 2026: 376 CR mod 0).
   const genereret = execFileSync(ctx.node, [path.join(rod, 'db/byg-migrering.mjs')], { cwd: rod, encoding: 'utf8' });
   const committet = fs.readFileSync(path.join(rod, 'db/migrering-engelsk.sql'), 'utf8');
-  ok('(c) byg-migrering.mjs output er byte-lig db/migrering-engelsk.sql',
-    genereret === committet,
-    genereret === committet ? `${genereret.length} bytes` : `genereret ${genereret.length} bytes vs committet ${committet.length} bytes`);
+  const genereretNorm = genereret.replace(/\r\n/g, '\n');
+  const committetNorm = committet.replace(/\r\n/g, '\n');
+  ok('(c) byg-migrering.mjs output er lig db/migrering-engelsk.sql efter CRLF-normalisering',
+    genereretNorm === committetNorm,
+    genereretNorm === committetNorm ? `${genereretNorm.length} bytes (normaliseret)` : `genereret ${genereretNorm.length} bytes vs committet ${committetNorm.length} bytes (normaliseret)`);
 
   // (d) Fixture-omdannelse: addverb-trakr-20 i engelsk kolonneform ->
   //     dansk dokument, dybt lig originalen.
