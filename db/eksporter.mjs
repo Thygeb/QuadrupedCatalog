@@ -4,24 +4,14 @@
  *
  * Nul afhaengigheder.
  *
- * TO TILSTANDE:
+ * ÉN TILSTAND, siden L81-L83 (STATUS.md) punkt 5: databasen er kilden, YAML
+ * -> DB findes ikke laengere, og db/migrer.mjs — den eneste skriver af den
+ * lokale mellemfil, en tidligere, nu fjernet LOKAL tilstand her laeste — er
+ * SLETTET. Var indtil dette spor "FORBEREDT, IKKE KOERT".
  *
- *   node db/eksporter.mjs --ud=<mappe>     LOKAL. Laeser db/kanonisk.json
- *                                          (tidligere skrevet af det nu
- *                                          SLETTEDE db/migrer.mjs, L81-L83
- *                                          punkt 5 — YAML -> DB findes ikke
- *                                          laengere). Denne gren er derfor
- *                                          UDEN PRODUCENT i dag: koden fejler
- *                                          fortsat rent (filen findes ikke),
- *                                          men intet skriver laengere til
- *                                          db/kanonisk.json. Ikke fjernet af
- *                                          dette spor — se fund/FUND-skema.md.
- *
- *   node db/eksporter.mjs --fra-db --ud=<mappe>   KOeRT (L81-L83, spor/skema,
- *                                          2. sep 2026 — var "FORBEREDT, IKKE
- *                                          KOERT" indtil dette spor). Henter
- *                                          robotterne fra det ENGELSKE
- *                                          Supabase-skema (db/skema.sql,
+ *   node db/eksporter.mjs --fra-db --ud=<mappe>   Henter robotterne fra det
+ *                                          ENGELSKE Supabase-skema
+ *                                          (db/skema.sql,
  *                                          db/migrering-engelsk.sql) via
  *                                          fetch mod PostgREST og OVERSAeTTER
  *                                          dem tilbage til nøjagtig den
@@ -537,20 +527,16 @@ async function main(argv) {
   const flag = laesFlag(argv);
   const udMappe = path.resolve(String(flag['ud'] ?? 'db/eksport'));
 
-  let robotter;
-  if (flag['fra-db']) {
-    const data = await fraDb();
-    if (!data) return 1;
-    robotter = data;
-  } else {
-    const kanoniskFil = path.join(ROD, 'db/kanonisk.json');
-    if (!fs.existsSync(kanoniskFil)) {
-      console.error(`${kanoniskFil} findes ikke. Den blev tidligere skrevet af db/migrer.mjs, som er` +
-        ' slettet (L81-L83, punkt 5 — YAML -> DB findes ikke laengere). Brug --fra-db.');
-      return 1;
-    }
-    robotter = JSON.parse(fs.readFileSync(kanoniskFil, 'utf8')).robotter;
+  // ÉN vej ind, siden L81-L83 punkt 5 (db/migrer.mjs, den eneste skriver af
+  // den tidligere lokale mellemfil, er slettet — databasen er kilden).
+  if (!flag['fra-db']) {
+    console.error('db/eksporter.mjs kraever --fra-db. Den tidligere lokale tilstand ' +
+      '(uden --fra-db, laeste en lokal mellemfil) er fjernet (L81-L83, punkt 5) — ' +
+      'db/migrer.mjs, den eneste skriver af den fil, findes ikke laengere.');
+    return 1;
   }
+  const robotter = await fraDb();
+  if (!robotter) return 1;
 
   // VAGTEN: skriv til en midlertidig SIBLING-mappe (samme foraelder som
   // udMappe, saa den senere flytning er en rename inden for samme drev),

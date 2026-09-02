@@ -5,9 +5,9 @@
  *
  * LAeS-KUN, ÉN TILSTAND: siden db/migrer.mjs er slettet (YAML -> DB findes
  * ikke laengere; databasen ER kilden), findes der ikke laengere en "lokal"
- * kaede at proeve (db/rundtur.mjs's gamle tilstand uden --live, som gik via
- * db/kanonisk.json, er der intet der skriver til laengere). db/tjek.mjs har
- * derfor kun ÉT forloeb, altid mod den RIGTIGE Supabase-instans:
+ * kaede at proeve (db/rundtur.mjs's gamle tilstand uden --live gik via en
+ * lokalt genereret mellemfil, som intet skriver til laengere). db/tjek.mjs
+ * har derfor kun ÉT forloeb, altid mod den RIGTIGE Supabase-instans:
  *
  *   1. node db/eksporter.mjs --fra-db --ud=db/.tmp/tjek-eksport
  *   2. For alle *.yaml i data/robots/: parse(original) skal vaere DYBT LIG

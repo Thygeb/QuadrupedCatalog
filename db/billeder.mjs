@@ -56,8 +56,10 @@
  * spanden, uanset om der er 54 eller 770 filer. Prisen: manifestet kan i
  * teorien komme ud af trit med spandens virkelige indhold, hvis nogen
  * redigerer spanden uden om dette script. Det er accepteret, fordi dette
- * script er den ENESTE kodesti, der taler med nogen af de to spande (ligesom
- * migrer.mjs er den eneste, der skriver til robotter-tabellerne). De to
+ * script er den ENESTE kodesti, der taler med nogen af de to spande (samme
+ * ene-skriver-antagelse, tidligere illustreret med "migrer.mjs er den eneste,
+ * der skriver til robotter-tabellerne" — forældet reference rettet 2. sep
+ * 2026, spor/skema: db/migrer.mjs er slettet, L81-L83 punkt 5). De to
  * spande har HVER SIN "_manifest.json" — det er to forskellige objekter i to
  * forskellige spand-navnerum, ikke én delt fil.
  */
