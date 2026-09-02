@@ -34,7 +34,7 @@ import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER, FREMDRIFT_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
   ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER, sorterAnvendelse,
-  BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER, SPROG,
+  BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER, SPROG, KILDESPROG,
 } from './skema.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
@@ -338,6 +338,59 @@ function tjekAdvarselOrdlyd(sti, post) {
 }
 
 /**
+ * R22 — spor/i18nfelt, 2. sep 2026 (Å98 spor A): tvilling til R21 ovenfor,
+ * men for OVERBYGNINGEN i stedet for ordlyden. "<felt>_i18n" er et
+ * sprogkort { en: "...", ... } ved siden af den danske kilde
+ * ("advarsel:"/"note:"), som forbliver den ENE sandhed (KILDESPROG,
+ * tools/skema.mjs) — BRIEF-i18nfelt.md punkt 2 stiller fem krav:
+ *
+ *   1. vaerdien er et kort af sprogkode -> ikke-tom tekst
+ *   2. hver noegle findes i SPROG
+ *   3. KILDESPROG maa ikke staa som noegle — dansk bor i kildeNoeglen, og to
+ *      steder at rette den samme danske tekst er den fejl, hele opgaven
+ *      findes for at undgaa
+ *   4. "<felt>_i18n" kan ikke staa uden kildeNoeglen (samme krav som R21)
+ *   5. tjekInterntSprog koeres paa HVER oversat tekst — R19 vogter i dag kun
+ *      den danske, og uden dette kan et filnavn eller "ikke_oplyst" sive ind
+ *      ad den engelske doer
+ *
+ * Delt af to kaldesteder: feltpostens "advarsel_i18n" (tjekFelt nedenfor) og
+ * anvendelse/billedes "note_i18n" (tjekAnvendelse/tjekBillede) — samme form,
+ * samme regler, to forskellige kilde-/i18n-noeglepar.
+ */
+function tjekI18nOverbygning(sti, post, kildeNoegle, i18nNoegle) {
+  const blok = post[i18nNoegle];
+  if (blok === undefined) return;
+  if (!erPost(blok)) {
+    FEJL('R22', sti, `"${i18nNoegle}" skal vaere et sprogkort af sprogkode -> tekst, fik ` +
+      `${JSON.stringify(blok)}`);
+    return;
+  }
+  if (typeof post[kildeNoegle] !== 'string' || post[kildeNoegle].trim() === '') {
+    FEJL('R22', sti, `"${i18nNoegle}" staar uden "${kildeNoegle}" — overbygningen oversaetter en ` +
+      `tekst, laeseren ser, og uden den tekst er der intet at oversaette`);
+  }
+  for (const [sprog, tekst] of Object.entries(blok)) {
+    if (sprog === KILDESPROG) {
+      FEJL('R22', `${sti}.${i18nNoegle}`, `kildesproget "${KILDESPROG}" staar som noegle. Dansk bor ` +
+        `i "${kildeNoegle}:" — to steder at rette den samme danske tekst er den fejl, hele ` +
+        `i18n-overbygningen findes for at undgaa`);
+      continue;
+    }
+    if (!SPROG.includes(sprog)) {
+      FEJL('R22', `${sti}.${i18nNoegle}`, `ukendt sprog "${sprog}" i "${i18nNoegle}". Gyldige: ${SPROG.join(', ')}`);
+      continue;
+    }
+    if (typeof tekst !== 'string' || tekst.trim() === '') {
+      FEJL('R22', `${sti}.${i18nNoegle}.${sprog}`, `oversaettelsen er tom eller ikke tekst, fik ` +
+        `${JSON.stringify(tekst)}`);
+      continue;
+    }
+    tjekInterntSprog('R22', `${sti}.${i18nNoegle}.${sprog}`, tekst);
+  }
+}
+
+/**
  * R15 — "varianter:" paa et felt (skemaudvidelse 2).
  * Go2's fire varianter er fire maskiner, ikke pynt: nyttelasten falder fra 5 til
  * 2,5 kg hen over Lite3's fire kolonner. Blokken skal derfor kunne staa — men
@@ -510,6 +563,7 @@ function tjekFelt(navn, vaerdi, spec, kendteVarianter) {
   tjekVarianter(sti, vaerdi, kendteVarianter);
   tjekAdvarselKlasse(sti, vaerdi);   // R20 — foer typegrenen, gaelder alle former ens
   tjekAdvarselOrdlyd(sti, vaerdi);   // R21 — samme grund, samme placering
+  tjekI18nOverbygning(sti, vaerdi, 'advarsel', 'advarsel_i18n');   // R22 — samme grund, samme placering
 
   // Skemaudvidelse 1: tilstanden med herkomst. "Producenten svarer nej, her er
   // hvor det staar" er en anden oplysning end en bar "nej" — og en langt bedre.
@@ -634,6 +688,12 @@ function tjekAnvendelse(a, egenSlug) {
         `kildeformulering — fik ${JSON.stringify(a.citat_ordlyd)}`);
     }
   }
+
+  // R22 — spor/i18nfelt, 2. sep 2026: "note_i18n" er soesterfeltet til
+  // "note" (anvendelsens egen). Placeret her, foer vaerdi-tjekket, af samme
+  // grund som citat_ordlyd/note_ordlyd ovenfor: en strukturel form-regel,
+  // uafhaengig af om posten i oevrigt er ikke_oplyst.
+  tjekI18nOverbygning(sti, a, 'note', 'note_i18n');
 
   // 1. Vaerdien: én kategori, en liste af dem, eller tilstanden ikke_oplyst.
   const raa = a.vaerdi;
@@ -939,6 +999,10 @@ function tjekBillede(b, egenSlug) {
   if (b.note !== undefined && (typeof b.note !== 'string' || b.note.trim() === '')) {
     FEJL('R18', `${sti}.note`, `"note" skal vaere en ikke-tom tekst, fik ${JSON.stringify(b.note)}`);
   }
+
+  // R22 — spor/i18nfelt, 2. sep 2026: "note_i18n" er soesterfeltet til
+  // billedets egen "note".
+  tjekI18nOverbygning(sti, b, 'note', 'note_i18n');
 
   /* "alt" er en skaermlaeser-tekst og derfor SPROGKORTLAGT siden spor/alt
      (1. sep 2026, R18): { da: "...", en: "..." } - et nyt sprog er en noegle
