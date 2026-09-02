@@ -190,9 +190,15 @@
 .tegnforklaring .raekke dt{display:flex;align-items:center;min-height:34px}
 
 /* --- 4. Vaerdier, system.css ikke har en form til ------------------------- */
-/* Tekstvaerdier (compute, monteringsinterface) saettes i broedskrift. Mono og
-   fed hoerer til TAL; en saetning sat som et tal laeses som et tal. */
-.v-tekst{font-family:var(--sans);font-weight:500;color:var(--blaek);
+/* Tekstvaerdier (compute, monteringsinterface). Fed og stor hoerer til TAL;
+   en saetning sat som et tal laeses som et tal.
+   L80: reglen pegede paa --sans og faar nu --mono (Saira), fordi UI og data
+   ER Saira. VAER OPMAERKSOM PAA, HVAD DER SKER HER: forskellen paa denne
+   regel og et tal var indtil i dag ogsaa en SKRIFT-forskel - men kun ved et
+   uheld, fordi --sans faldt igennem til Segoe UI. Den utilsigtede forskel
+   forsvinder. Skellet baeres nu af vaegt (500 mod tallenes 700) og af
+   display:inline, hvilket er det, reglen hele tiden PAASTOD at goere. */
+.v-tekst{font-family:var(--mono);font-weight:500;color:var(--blaek);
   display:inline;line-height:1.5}
 
 /* Advarslen staar VED SIDEN AF vaerdien, aldrig i en fodnote (regel 9). */

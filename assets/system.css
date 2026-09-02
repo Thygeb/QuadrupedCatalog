@@ -18,14 +18,19 @@
 
 /* --- 1. Skrift ------------------------------------------------------------
    TYPESKILT-fundament (spor/fundament, 31. aug 2026, L54/L57). Erstatter den
-   gamle Manrope-og-skrivemaskineskrift-strategi, som ALDRIG selvhostede noget (maalt
-   21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer dette spor - kun
-   local()+en ikke-eksisterende url() og et fallback til systemskrift).
-   Saira Semi Condensed ("Pladen": etiketter, tal, navigation, se --mono
-   nedenfor) og Literata ("Manualen": prosa - endnu ikke koblet paa noget
-   token; det er runde 2's arbejde). Kilde: retninger/nyverden/skrift/ og
-   typeskilt.css. Begge snit er SIL OFL 1.1, fri til selvhosting. 10 filer,
-   latin + latin-ext hver, unicode-range delt som i comp'en. */
+   gamle sans-og-skrivemaskineskrift-strategi, som ALDRIG selvhostede noget
+   (maalt 21.08. og igen 31.08.2026: 0 woff2-filer i repoet foer det spor -
+   kun local()+en ikke-eksisterende url() og et fallback til systemskrift).
+
+   L80 (2. sep 2026) lukkede den sidste rest: der er nu TO skrifter, ikke
+   tre. Saira Semi Condensed ("Pladen": etiketter, tal, navigation,
+   overskrifter og broedtekst - se --mono) og Literata ("Manualen": loebende
+   prosa - se --manual, 8 brugssteder). Det tredje token pegede paa en
+   skrift uden fontfil og er fjernet; indtil da tegnede sitet sin body og
+   alle sine overskrifter i operativsystemets standardskrift.
+   Kilde: retninger/nyverden/skrift/ og typeskilt.css. Begge snit er
+   SIL OFL 1.1, fri til selvhosting. 10 filer, latin + latin-ext hver,
+   unicode-range delt som i comp'en. */
 @font-face{
   font-family:"SairaSemiCondensed";font-style:normal;font-weight:400;font-display:swap;
   src:url("fonts/saira-400-latin.woff2") format("woff2");
@@ -166,14 +171,30 @@
                                  (fx 3.6's SVG-maerker), der ikke skal gaette
                                  sig til, at --blaek3 er den rigtige */
 
-  /* Skrift. --sans er UROERT i dette spor - runde 2 kobler kroppens
-     tekstroller til Saira/Literata; her selvhostes fontene kun (3.1) og
-     --mono repeges (3.4), fordi det er det ENESTE skriftskifte, briefet
-     beder om. "Manrope lokal" har intet @font-face-modstykke laengere
-     (fjernet i 3.1) og falder derfor bare videre i stakken - det er en
-     gyldig, uskadt CSS-tilstand, ikke en fejl. */
-  --sans:"Manrope lokal",Manrope,"Segoe UI Variable Text","Segoe UI",
-         system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  /* Skrift. L79's soesterregel L80: der er TO skrifter paa sitet og ikke
+     tre. Saira til maskinen, Literata til mennesket.
+
+     HER STOD ET TREDJE TOKEN, --sans, og det var en fantomskrift. Det
+     pegede paa en familie, der ikke havde én eneste fontfil paa disken
+     (maalt: assets/fonts/ rummer 8 saira- og 2 literata-filer og NUL af
+     den tredje). Skriftens navn staar i DESIGN.md's ## Konflikter, hvor
+     historikken hoerer hjemme - det er med vilje ikke gentaget her, saa
+     filen ikke selv holder et doedt navn i live.
+     Stakken faldt derfor helt igennem til "Segoe UI".
+     Tokenet stod paa body, saa konsekvensen var ikke lille: HVER
+     overskrift og AL broedtekst paa sitet blev tegnet i operativsystemets
+     standardskrift - mens den forrige kommentar her forsikrede, at det var
+     "en gyldig, uskadt CSS-tilstand, ikke en fejl". Den var uskadt for
+     CSS-parseren og forkert for enhver, der saa paa siden.
+
+     De tre brugssteder (body, .sog input, .v-tekst) peger nu paa --mono.
+
+     OM NAVNET --mono: det er historisk og passer ikke laengere til
+     indholdet - tokenet er ikke en fastbredde-skrift, det ER maskinens
+     skrift. Et navneskift beroerer 62 brugssteder og to tests, der kraever
+     strengen `font-family:var(--mono)` ordret (31-pudsning.mjs og
+     37-topbar.mjs 37.11), og det er ikke det, L80 beder om. Noteret som
+     kandidat i DESIGN.md's ## Konflikter, ikke gjort her. */
   /* --mono: MANIFEST §"Hvorfor ingen skrivemaskineskrift" - paa et rigtigt
      typeskilt staar tallene i SAMME skrift som etiketterne. Tokenet
      beholdes (17 brugssteder i system.css alene, og
@@ -257,7 +278,9 @@
 html{-webkit-text-size-adjust:100%;scrollbar-color:var(--hegn) var(--bund)}
 body{
   margin:0;background:var(--bund);color:var(--blaek);
-  font-family:var(--sans);font-size:17px;line-height:1.55;
+  /* L80: sat EKSPLICIT og til en skrift, der findes paa disken. Det var
+     denne ene erklaering, der sendte hele sitet i Segoe UI. */
+  font-family:var(--mono);font-size:17px;line-height:1.55;
   font-weight:400;letter-spacing:-.006em;
   -webkit-font-smoothing:antialiased;
   /* 3.4: daekker alle var(--mono)-brugssteder paa én gang, jf. kommentaren
@@ -265,6 +288,14 @@ body{
      er en nedarvet egenskab), saa intet af de 17 brugssteder skal roeres. */
   font-variant-numeric:tabular-nums;
 }
+/* L80, BEVIDST VALG: h1-h4 saetter INGEN font-family og arver body's Saira.
+   Overvejet og fravalgt at saette den eksplicit. Grunden er, at det ikke
+   ville have forhindret den fejl, L80 retter: overskrifterne stod i Segoe
+   UI, fordi BODY's token var en fantomskrift - en eksplicit erklaering her
+   ville have arvet det samme token eller gentaget det, altsaa vaeret lige
+   saa forkert. Duplikatet koeber ingen sikkerhed, og det er netop den slags
+   gentagelse, dette spor er sat i verden for at fjerne. Én kilde til
+   sidens skrift: body. */
 h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.08;letter-spacing:-.022em;text-wrap:balance}
 p,dl,dd,dt,ul,ol,figure,blockquote{margin:0}
 ul,ol{padding:0;list-style:none}
@@ -1473,7 +1504,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    fokus). 16px og 9px lodret polstring lander lige paa gulvet - maalt med
    C:/Praktik/websites/maalevaerktoej/maal.mjs, ikke regnet i haanden. */
 .sog input{
-  font-family:var(--sans);font-size:16px;min-height:44px;padding:9px 14px;width:100%;
+  font-family:var(--mono);font-size:16px;min-height:44px;padding:9px 14px;width:100%;
   background:var(--panel);color:var(--blaek);
   border:1px solid var(--hegn);border-radius:var(--hjoerne);
 }
