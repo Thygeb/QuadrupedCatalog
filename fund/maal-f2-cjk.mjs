@@ -64,14 +64,24 @@ const AEOEAA = /[æøåÆØÅ]/;
 // Kurateret, IKKE udtømmende. Kun ord på 3+ bogstaver, ingen æøå i egen
 // stavning (dem fanger ben 1 allerede). Formålet er ben 2's egen opgave:
 // danske saetninger der IKKE bruger et æøå-tegn nogen steder.
+// RETTET efter foerste koersel mod de skrevne engelske tekster: 'men'
+// (engelsk flertal af "man"), 'dog' (KRITISK paa en robothunde-side —
+// ordet vil forekomme konstant i legitim engelsk prosa), 'under' og
+// 'over' (begge almindelige engelske praepositioner) gav falske
+// positiver paa ellers ren engelsk tekst ("under development", "under
+// the ... tab") og er derfor FJERNET. Ingen af de 35 oprindelige danske
+// tal (32/29 osv., braevets facit) hvilede paa disse fem ord — samtlige
+// blev fanget af aeoeaa alene (efterproevet), saa rettelsen aendrer ikke
+// braevets allerede bekraeftede grundtal, kun stopords-benets praecision
+// paa engelsk tekst herefter.
 const STOPORD = new Set([
-  'ikke', 'med', 'som', 'der', 'det', 'den', 'denne', 'disse', 'samt', 'men',
-  'eller', 'hvis', 'fordi', 'dog', 'meget', 'alle', 'ingen', 'uden', 'efter',
-  'under', 'over', 'mellem', 'ved', 'fra', 'til', 'har', 'kan', 'skal', 'vil',
+  'ikke', 'med', 'som', 'der', 'det', 'den', 'denne', 'disse', 'samt',
+  'eller', 'hvis', 'fordi', 'meget', 'alle', 'ingen', 'uden', 'efter',
+  'mellem', 'ved', 'fra', 'til', 'har', 'kan', 'skal', 'vil',
   'var', 'bliver', 'blev', 'ville', 'skulle', 'kunne', 'burde', 'selv',
   'samme', 'andet', 'anden', 'andre', 'hvor', 'hvordan', 'hvilken', 'hvilke',
   'netop', 'dermed', 'derfor', 'heller', 'stadig', 'allerede', 'begge',
-  'hvert', 'hver', 'sig', 'deres', 'vores', 'jeres', 'dette', 'disse',
+  'hvert', 'hver', 'deres', 'vores', 'jeres', 'dette', 'disse',
   'ogsaa', 'nogle', 'noget', 'ingen', 'kunne', 'skulle', 'ville', 'bliver',
   'sammenligning', 'producenten', 'kilden', 'siden', 'oplyst', 'oplyses',
 ]);
