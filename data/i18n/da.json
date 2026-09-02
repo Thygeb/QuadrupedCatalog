@@ -368,7 +368,7 @@
   "savn_pris": "Pris ikke oplyst",
   "savn_nyttelast": "Nyttelast ikke oplyst",
   "savn_hastighed": "Hastighed ikke oplyst",
-  "sortering_pris_note": "Priserne er omregnet til {basis} med Den Europæiske Centralbanks referencekurs for {dato}, så de {n} oplyste priser kan ordnes i én række i stedet for tre valutabunker, der ikke kunne sammenlignes. Producentens eget beløb og valuta står uændret på kortet; det omregnede tal står ved siden af og er mærket som vores.",
+  "sortering_pris_note": "Priserne vises i {basis}, omregnet med Den Europæiske Centralbanks referencekurs for {dato}, så de {n} oplyste priser kan ordnes i én række i stedet for flere valutabunker, der ikke kunne sammenlignes. Kildemærket peger stadig på producentens egen side, hvor beløbet står i dens egen valuta.",
   "seneste_titel": "Seneste modeller",
   "seneste_aar_ord": "Seneste udgivelsesår",
   "seneste_antal": "{n} modeller udgivet i {aar}",
@@ -432,10 +432,7 @@
 
   "filter_pris": "Pris",
   "filter_pris_mrk": "{n} af {m} oplyser",
-  "filter_pris_note": "De {n} oplyste priser er omregnet til {basis} med Den Europæiske Centralbanks referencekurs for {dato} ({kurser}). Producentens eget beløb og valuta står uændret på kortet — omregningen er vores. De {u} robotter uden oplyst pris står som deres egen række; de er hverken billige eller dyre.",
-  "pris_omregnet": "omregnet",
-  "pris_omregnet_forklaring": "Vores omregning af {figur} til {basis} med Den Europæiske Centralbanks referencekurs for {dato}: {kurs}. Producenten oplyser ikke selv et beløb i {basis}, så omregningen har ingen selvstændig kilde, og den var kun sand den dag.",
-  "pris_kurs_par": "1 EUR = {tal} {valuta}",
+  "filter_pris_note": "De {n} oplyste priser vises i {basis}, omregnet med Den Europæiske Centralbanks referencekurs for {dato}. Kildemærket peger stadig på producentens egen side, hvor beløbet står i dens egen valuta. De {u} robotter uden oplyst pris står som deres egen række; de er hverken billige eller dyre.",
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
   "kurs_kilde": "Kurs: {udgiver}, {navn}, {dato}.",
 

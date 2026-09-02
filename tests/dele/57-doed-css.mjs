@@ -1,8 +1,8 @@
 /**
  * tests/dele/57-doed-css.mjs — spor/doedcss, 1. sep 2026.
- * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4 nedenfor).
+ * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4) -> 18 (punkt 5).
  *
- * Laaser resultatet af 66 -> 16 doede CSS-klasser. Skal FEJLE, hvis en
+ * Laaser resultatet af 66 -> 18 doede CSS-klasser. Skal FEJLE, hvis en
  * fjernet klasse (eller en helt ny, uafhaengig doed klasse) sniger sig ind
  * i assets/system.css eller assets/generator.css igen.
  *
@@ -37,12 +37,19 @@
  *      via en detektor-svaghed, men skabt af selve rettelsen. Fjernes CSS-
  *      reglen i et senere spor med adgang til stilarkene, fjern klassen
  *      herfra i samme spor.
+ *   5. pris-om, pris-om__tal (samme spor, BRIEF-uifix.md punkt 5, samme dag):
+ *      "katalogsiden viser kun USD" gjorde HELE den omregnede-pris-badge
+ *      paa kortet overfloedig, ikke kun dens ord - kortets prisfelt viser nu
+ *      selve USD-tallet direkte (med kildemaerke, se katalog.mjs), saa der
+ *      er intet sekundaert "≈ X USD"-tal tilbage at style. Samme graense som
+ *      punkt 4: assets/system.css er uden for filejerskabet, saa de to
+ *      CSS-regler staar doede tilbage af samme grund.
  *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
- * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 16,
+ * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 18,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 16 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 18 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -52,8 +59,8 @@ import { spawnSync } from 'node:child_process';
 const BESKYTTET = [
   'billedmaerke', 'filtre', 'gitter', 'grund', 'kort-billed', 'kort-hoved',
   'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter', 'prik--klip',
-  'pris-om__ord', 'saml-fotofelt--uoplyst', 'saml-raekke--tavs',
-  'saml-svar__m--tavs', 'stribe--kompakt',
+  'pris-om', 'pris-om__ord', 'pris-om__tal', 'saml-fotofelt--uoplyst',
+  'saml-raekke--tavs', 'saml-svar__m--tavs', 'stribe--kompakt',
 ].sort();
 
 export default async function koer(ctx) {
@@ -106,7 +113,7 @@ export default async function koer(ctx) {
   const iJs = raaDoede.filter((c) => new RegExp(`['"\`]${c.replace(/-/g, '\\-')}['"\` ]`).test(js));
   const aegteDoede = raaDoede.filter((c) => !iJs.includes(c)).sort();
 
-  ok(`57.1: aegte doede klasser er PRAECIS de 15 kendte, beskyttede undtagelser (fandt ${aegteDoede.length}: ${aegteDoede.join(', ') || 'ingen'})`,
+  ok(`57.1: aegte doede klasser er PRAECIS de ${BESKYTTET.length} kendte, beskyttede undtagelser (fandt ${aegteDoede.length}: ${aegteDoede.join(', ') || 'ingen'})`,
     aegteDoede.length === BESKYTTET.length && aegteDoede.every((c, i) => c === BESKYTTET[i]),
     `forventede praecis: ${BESKYTTET.join(', ')}`);
 }

@@ -368,7 +368,7 @@
   "savn_pris": "Price not stated",
   "savn_nyttelast": "Payload not stated",
   "savn_hastighed": "Speed not stated",
-  "sortering_pris_note": "Prices are converted to {basis} at the European Central Bank reference rate for {dato}, so the {n} stated prices can be ordered in one sequence instead of three currency piles that could not be compared. The manufacturer’s own amount and currency stand unchanged on the card; the converted figure stands beside it, marked as ours.",
+  "sortering_pris_note": "Prices are shown in {basis}, converted at the European Central Bank reference rate for {dato}, so the {n} stated prices can be ordered in one sequence instead of several currency piles that could not be compared. The source mark still points to the manufacturer's own page, where the amount stands in its own currency.",
   "seneste_titel": "Latest models",
   "seneste_aar_ord": "Latest release year",
   "seneste_antal": "{n} models released in {aar}",
@@ -432,10 +432,7 @@
 
   "filter_pris": "Price",
   "filter_pris_mrk": "{n} of {m} state it",
-  "filter_pris_note": "The {n} stated prices are converted to {basis} at the European Central Bank reference rate for {dato} ({kurser}). The manufacturer’s own amount and currency stand unchanged on the card — the conversion is ours. The {u} robots without a stated price stand as their own row; they are neither cheap nor expensive.",
-  "pris_omregnet": "converted",
-  "pris_omregnet_forklaring": "Our conversion of {figur} to {basis} at the European Central Bank reference rate for {dato}: {kurs}. The manufacturer does not state an amount in {basis} itself, so the conversion has no source of its own, and it was true only on that day.",
-  "pris_kurs_par": "1 EUR = {tal} {valuta}",
+  "filter_pris_note": "The {n} stated prices are shown in {basis}, converted at the European Central Bank reference rate for {dato}. The source mark still points to the manufacturer's own page, where the amount stands in its own currency. The {u} robots without a stated price stand as their own row; they are neither cheap nor expensive.",
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
   "kurs_kilde": "Rate: {udgiver}, {navn}, {dato}.",
 

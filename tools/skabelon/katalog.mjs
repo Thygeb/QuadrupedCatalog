@@ -98,36 +98,15 @@ function kursTilBasis(valuta) {
   return til / fra;
 }
 
-/**
- * En kurs skrevet ud, og den maa IKKE gaa gennem hjaelp.nformat().
- *
- * Den faelles formatering er `maximumFractionDigits: 3` (side.mjs:920), og
- * ECB's CNY-kurs har FIRE decimaler: 7,7922 ville blive trykt "7,792". Et
- * afkortet kurstal er ikke en afrunding af en maaling - det er en anden kurs
- * end den, kilden offentliggjorde, staaende ved siden af et link til kilden,
- * hvor enhver kan se at de to ikke stemmer. Derfor sin egen formatering med
- * plads til det, filen faktisk indeholder.
- */
-function kursFormat(n, sprogkode) {
-  return new Intl.NumberFormat(sprogkode === 'da' ? 'da-DK' : 'en-GB',
-    { maximumFractionDigits: 6 }).format(n);
-}
-
-/**
- * Kildens egne kurser skrevet som "1 EUR = 1,1596 USD · 1 EUR = 7,7922 CNY".
- *
- * NOTATIONEN ER ECB'S EGEN, ikke vores omregnede. Det er med vilje: skriver
- * siden "1 CNY = 0,148815 USD", staar der et tal, som ikke findes i kilden,
- * og en laeser, der klikker linket, kan ikke genfinde det. Kildens to tal
- * staar derfor som de staar, og divisionen imellem dem er beskrevet i
- * data/kurser.json.
- */
-function kursPar(i18n, sprogkode) {
-  return Object.entries(KURSER.per_euro)
-    .filter(([v]) => v !== 'EUR')
-    .map(([v, n]) => i18n.tf('pris_kurs_par', { tal: kursFormat(n, sprogkode), valuta: v }))
-    .join(' · ');
-}
+/* kursFormat()/kursPar() ("1 EUR = 1,1596 USD · 1 EUR = 7,7922 CNY") er
+   FJERNET af BRIEF-uifix.md punkt 5 (spor/uifix, 2. sep 2026): "katalogsiden
+   viser kun USD" - og en kurspar-tekst, der naevner den originale valuta ved
+   navn, er praecis den slags tekst, der ikke laengere maa staa paa siden,
+   naar den originale valuta ikke laengere vises dér. Den fulde kurs (begge
+   valutaers tal, med alle cifre) staar stadig i data/kurser.json og paa
+   robottens EGEN side (BRIEF-uifix.md punkt 6, uroert). Katalogsidens egen
+   prisforklaring (tidligere prisMaerke(), se dens fjernelse laengere nede)
+   er fjernet af samme grund. */
 
 /* ==========================================================================
    1. AFLAESNING AF ET FELT
@@ -376,17 +355,18 @@ function skalaFacet(spec, robotter, hjaelp, i18n) {
     etiket: t(spec.etiketNoegle),
     mrk: tf(spec.mrkNoegle, { n: tal.length, m: robotter.length }),
     // Kursens vaerdier gives til ALLE skalaers noter, ogsaa nyttelastens, som
-    // ikke bruger dem. Prisen er lige nu den ene, der har brug for {basis},
-    // {dato} og {kurser} - men saetInd() lader en ukendt pladsholder staa
-    // ORDRET paa siden ("{dato}"), og en note, der en dag faar en linje mere,
-    // skal ikke kunne lande saadan. Overfloedige vaerdier koster ingenting;
-    // en manglende koster en synlig fejl i produktionen.
+    // ikke bruger dem. Prisen er lige nu den ene, der har brug for {basis} og
+    // {dato} - men saetInd() lader en ukendt pladsholder staa ORDRET paa
+    // siden ("{dato}"), og en note, der en dag faar en linje mere, skal ikke
+    // kunne lande saadan. Overfloedige vaerdier koster ingenting; en
+    // manglende koster en synlig fejl i produktionen.
+    // {kurser} ("1 EUR = X USD · 1 EUR = Y CNY") er FJERNET af BRIEF-
+    // uifix.md punkt 5 sammen med kursPar() ovenfor - se dens begrundelse.
     note: tf(spec.noteNoegle, {
       n: tal.length,
       u: robotter.length - tal.length,
       basis: BASISVALUTA,
       dato: hjaelp.dformat(KURSER.kilde.dato),
-      kurser: kursPar(i18n, i18n.sprogkode),
     }),
     skala: {
       navn: spec.navn,
@@ -1130,44 +1110,27 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
 </div>`;
 
   /* --- DEN OMREGNEDE PRIS PAA KORTET (L66) --------------------------------
-     PRAECEDENSEN ER L60's IMPERIALE OMREGNING, og formen er med vilje den
-     samme (side.mjs' omregningsMaerke): producentens eget tal staar foerst og
-     uroert i producentens egen valuta, vores omregning staar ved siden af med
-     et synligt maerke, og hele forklaringen - kildefigur, kurs, dato - ligger
-     i `title` og i `.kunskaerm`, saa den er der for baade mus og skaermlaeser
-     uden at fylde i en 232 px celle.
+     FJERNET af BRIEF-uifix.md punkt 5 (spor/uifix, 2. sep 2026): "katalog-
+     siden viser kun USD". Her stod foer en `prisMaerke()`, der viste
+     producentens EGEN valuta som hovedtal og vores USD-omregning ved siden
+     af med et synligt "≈"-maerke (samme form som L60's imperiale omregning).
+     JPK's ord var entydige: originalvalutaen forsvinder fra kortet - ikke
+     kun dens maerke, som punkt 2 fjernede, men TALLET selv. Kortets prisfelt
+     (se vaerdi() nedenfor) viser derfor nu prisen direkte i BASISVALUTA for
+     ALLE robotter, uanset hvad producenten selv skrev - og der er intet
+     sekundaert tal tilbage at maerke.
 
-     TRE TING GOER MAERKET AERLIGT, og de er alle tre bevidste:
-       - `≈` foran tallet. Et lighedstegn ville paastaa, at 78.000 CNY ER
-         11.608 USD; det var det den 31. august og er det ikke i dag.
-       - ORDET "omregnet" ved siden af. Tegnet alene kan overses, og et
-         omregnet beloeb, der laeses som producentens, er praecis den
-         sammenblanding regel 3 forbyder.
-       - INTET MAERKE PAA DE FIRE USD-PRISER. Unitree og Pudu skriver selv i
-         USD; der er ingen omregning at maerke, og et maerke ville paastaa en
-         handling, vi ikke har foretaget.
+     KILDEMAERKET BLIVER (briefets egen formulering, en bevidst afvigelse fra
+     regel 3's "en omregning har ingen selvstaendig kilde" - se vaerdi()
+     nedenfor for hvordan). En forklaring af SELVE omregningen (kildefigur,
+     kurs) er derimod IKKE flyttet med: den forklaring maatte navngive
+     originalvalutaen for at give mening, og den maa netop ikke staa paa
+     siden laengere - hverken synligt eller i skjult tekst, jf. acceptkrite-
+     riets "grep -o 'CNY' ... 0". Den fulde forklaring staar stadig paa
+     robottens egen side (punkt 6, uroert).
 
-     Ingen "fra kun", ingen valutavaelger: haard begraensning 1. Det omregnede
-     tal er en OPLYSNING om et beloeb, producenten har trykt - ikke et tilbud,
-     og ikke en pris, siden staar inde for. */
-  const prisMaerke = (r) => {
-    const p = prisIBasis(r);
-    if (!p || !p.omregnet) return '';
-    const post = r.felter?.pris;
-    const kildefigur = `${hjaelp.nformat(post.vaerdi)} ${p.valuta}`;
-    const forklaring = tf('pris_omregnet_forklaring', {
-      figur: kildefigur,
-      basis: BASISVALUTA,
-      dato: hjaelp.dformat(KURSER.kilde.dato),
-      kurs: kursPar(i18n, sprog),
-    });
-    // JPK, punkt 2 (spor/uifix, 2. sep 2026): det synlige "omregnet"-ord
-    // (class="pris-om__ord") skal vaek. "≈"-tallet og den skjulte forklaring
-    // staar uaendret - kun ORDET forsvinder fra skaermen.
-    return `<span class="pris-om" title="${attr(forklaring)}">`
-      + `<span class="pris-om__tal" aria-hidden="true">≈ ${esc(hjaelp.nformat(p.tal))} ${esc(BASISVALUTA)}</span>`
-      + `<span class="kunskaerm">${esc(forklaring)}</span></span>`;
-  };
+     Ingen "fra kun", ingen valutavaelger: haard begraensning 1 gaelder
+     uaendret - tallet er en OPLYSNING, ikke et tilbud. */
 
   /* --- KORTET -------------------------------------------------------------
      L56 punkt 7: billede + producent + produktnavn, intet andet. Katalogets
@@ -1249,7 +1212,18 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
     const kilder = hjaelp.kilder(r);
     const vaerdi = SORTERINGER.filter((s) => !s.standard && s.tal(r) !== null)
       .map((s) => {
-        const post = s.post(r);
+        // BRIEF-uifix.md punkt 5 (spor/uifix, 2. sep 2026): prisfeltet vises
+        // i BASISVALUTA uanset producentens egen valuta - "katalogsiden
+        // viser kun USD". `post` klones med `vaerdi`/`enhed` overskrevet til
+        // den omregnede USD-figur; alle andre felter (isaer `.kilde`) staar
+        // uroert, saa hjaelp.tal()s kildemaerke nedenfor STADIG peger paa
+        // producentens side - "kildemaerket bliver", briefets egen
+        // formulering, en bevidst afvigelse fra regel 3 ("en omregning har
+        // ingen selvstaendig kilde") for netop dette felt. Robotsidens eget
+        // prisfelt (robot.mjs) er UROERT af dette - punkt 6, uaendret.
+        const post = s.navn === 'pris'
+          ? { ...s.post(r), vaerdi: prisIBasis(r).tal, enhed: BASISVALUTA }
+          : s.post(r);
         const figur = hjaelp.tal(post, {
           kilder,
           hvorhen: url.robot(r.slug),
@@ -1258,7 +1232,7 @@ ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
         });
         return `<span class="kort__vaerdi kort__vaerdi--${s.navn}">`
           + `<span class="kort__vaerdi-mrk">${esc(t(s.feltnoegle))}</span>`
-          + `${figur}${s.navn === 'pris' ? prisMaerke(r) : ''}</span>`;
+          + `${figur}</span>`;
       }).join('');
 
     // Ét lag pr. listefacet, plus ÉT faelles lag til alle fem egenskabschips.
