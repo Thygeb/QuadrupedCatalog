@@ -28,6 +28,30 @@
  *   node db/hentbyg.mjs                 alle fem trin
  *   node db/hentbyg.mjs --uden-commit   stopper efter trin 3 (test / se an)
  *   node db/hentbyg.mjs --uden-byg      springer trin 5 over (commit koerer)
+ *   node db/hentbyg.mjs --alligevel     omgaar VAeRNET (se nedenfor) — kraever
+ *                                       OGSAa --uden-commit, se VAeRNETs kommentar
+ *
+ * VAeRNET (spor/f2-vaern, fund/BRIEF-f2-vaern.md, Fare 1): fase 2 oversaetter
+ * lige nu databasen fra dansk til engelsk (STATUS.md Å132/Å134). Foer trin 1
+ * (eksporten) maa koere, maaler hentbyg om databasen stadig baerer dansk tekst
+ * — genbruger db/fase2-tjek.mjs's --dansk-instrument (hentRobotter + danskAlle,
+ * IMPORTERET, ikke genskrevet, D7/L30-laerdommen) paa 'caveat'-kolonnen, samme
+ * tal STATUS.md selv citerer ("N af M advarsler er stadig danske"). Er tallet
+ * > 0, NAeGTER hentbyg at fortsaette — uden vaernet ville trin 1 skrive 77
+ * halvt engelske filer ned i data/robots/ SOM OM de var den danske kanoniske
+ * form, og trin 4 ville committe dem.
+ *
+ * --alligevel omgaar vaernet, men KRAeVER ogsaa --uden-commit (den ene
+ * beslutning briefet overlod til sporet — se fund/FUND-f2vaern.md for
+ * begrundelsen): en overstyring af maalingen maa ALDRIG ogsaa tillade et
+ * automatisk commit af halvt oversat data. Vil du se, hvad eksporten giver i
+ * dag uden vaernet, koer "--alligevel --uden-commit"; et rigtigt commit af
+ * halvt oversat data er IKKE noget denne ét-kommando-vej goer for dig — det
+ * kraever et bevidst, manuelt skridt uden om hentbyg.
+ *
+ * Kan vaernet ikke maale (fx mangler .env), STOPPER hentbyg med en forklaring
+ * — det maaler IKKE som "0 dansk" ved en fejl. Et vaern, der springer sig selv
+ * over, naar det ikke kan maale, er vaerre end intet vaern.
  *
  * Nul afhaengigheder. Samme "process.execPath til subprocesser"-stil som
  * resten af db/ (se fx db/eksporter.mjs's koerValidator).
@@ -54,10 +78,102 @@ function filerFraStatus(status) {
   return status.trim().split(/\r?\n/).map((l) => l.slice(3).trim()).filter(Boolean);
 }
 
+/* --------------------------------------------------------- VAeRNET (Fare 1) */
+
+/** Ren beslutningsfunktion — ingen filsystem, intet netvaerk. Givet
+ *  'caveat'-kolonnens {iAlt, dansk} (samme facon db/fase2-tjek.mjs's
+ *  danskAlle() giver pr. kolonne), afgoer den om vaernet blokerer. KUN
+ *  dansk > 0 blokerer — er databasen ren, koerer hentbyg som foer (briefets
+ *  krav 4: "maa ikke koste noget, naar databasen er ren"). */
+export function vaernTilstand({ iAlt, dansk }) {
+  return dansk > 0 ? { blokeret: true, iAlt, dansk } : { blokeret: false };
+}
+
+/** Beskeden vaernet viser, NAeR tallet — ikke bare "nej" (briefets krav 1). */
+export function vaernBesked({ iAlt, dansk }) {
+  return `HENTBYG STOPPET: ${dansk} af ${iAlt} advarsler i databasen er stadig danske. `
+    + 'Fase 2 er ikke faerdig, og en eksport nu ville committe halvt oversat YAML.\n'
+    + 'Koer med --alligevel for at se eksporten alligevel — --alligevel kraever OGSAa '
+    + '--uden-commit, saa en halvt oversat eksport aldrig committes automatisk '
+    + '(se filens toptekst for begrundelsen).';
+}
+
+/**
+ * Kernen af vaernet, dependency-injiceret for testbarhed (tests/dele/71 kører
+ * UDEN databaseadgang, jf. tests/LAESMIG.md): `hentDanskCaveatTal` er en
+ * async funktion uden argumenter, der giver {iAlt, dansk} eller KASTER. I
+ * produktion er den hentDanskCaveatTalLive nedenfor (rigtig DB-maaling); i
+ * testen er den en fixture/stub, saa testen aldrig rører netvaerket.
+ *
+ * Returnerer altid {blokeret, besked?} — kaster aldrig selv (kaldstedet
+ * afgoer, om en blokering betyder "skriv beskeden og returnér 1").
+ */
+export async function koerVaern(flag, hentDanskCaveatTal) {
+  const alligevel = flag.has('--alligevel');
+  const udenCommit = flag.has('--uden-commit');
+
+  // --alligevel UDEN --uden-commit ville tillade et automatisk commit af
+  // halvt oversat data — det er netop den fare, vaernet findes for at lukke.
+  // Denne kontrol er REN flag-logik (intet netvaerk), saa den koster intet,
+  // uanset databasens tilstand.
+  if (alligevel && !udenCommit) {
+    return {
+      blokeret: true,
+      besked: 'HENTBYG STOPPET: --alligevel kraever OGSAa --uden-commit. '
+        + 'En overstyring af sprogvaernet maa ikke ogsaa committe halvt oversat '
+        + 'data automatisk — koer "node db/hentbyg.mjs --alligevel --uden-commit" '
+        + 'for at se eksporten uden at committe, eller vent til fase 2 er faerdig.',
+    };
+  }
+  if (alligevel) return { blokeret: false };
+
+  let tal;
+  try {
+    tal = await hentDanskCaveatTal();
+  } catch (e) {
+    // Ingen .env / maalingen fejlede -> STOP. Et vaern, der springer sig selv
+    // over, naar det ikke kan maale, er vaerre end intet vaern (briefets krav 5).
+    return {
+      blokeret: true,
+      besked: 'HENTBYG STOPPET: vaernet kunne ikke maale, om databasen stadig '
+        + `baerer dansk tekst (${e && e.message ? e.message : e}). Ingen maaling `
+        + '-> ingen tavs succes. Ret .env, eller koer med --alligevel --uden-commit, '
+        + 'hvis du bevidst vil springe vaernet over.',
+    };
+  }
+
+  const tilstand = vaernTilstand(tal);
+  if (tilstand.blokeret) return { blokeret: true, besked: vaernBesked(tal) };
+  return { blokeret: false };
+}
+
+/** Den RIGTIGE maaling — importerer db/fase2-tjek.mjs's hentRobotter/
+ *  danskAlle (IMPORTERET, ikke genskrevet, D7/L30-laerdommen; samme
+ *  "importer fra den fil" -moenster som db/eksporter.mjs's traekValidateTal)
+ *  og laeser 'caveat'-kolonnens {iAlt, dansk} ud — samme tal STATUS.md selv
+ *  citerer under fase 2 ("N af M advarsler er stadig danske"). */
+export async function hentDanskCaveatTalLive() {
+  const mod = await import(`file://${path.join(ROD, 'db/fase2-tjek.mjs')}`);
+  const robotter = await mod.hentRobotter();
+  const resultater = mod.danskAlle(robotter);
+  const caveat = resultater.find((r) => r.navn === 'caveat');
+  if (!caveat) {
+    throw new Error('db/fase2-tjek.mjs\'s danskAlle() indeholder ikke en "caveat"-kolonne'
+      + ' — uventet skema-aendring, undersoeg foer vaernet stoles paa.');
+  }
+  return { iAlt: caveat.iAlt, dansk: caveat.dansk };
+}
+
 async function main(argv) {
   const flag = new Set(argv);
   const udenCommit = flag.has('--uden-commit');
   const udenByg = flag.has('--uden-byg');
+
+  const vaernResultat = await koerVaern(flag, hentDanskCaveatTalLive);
+  if (vaernResultat.blokeret) {
+    console.error(vaernResultat.besked);
+    return 1;
+  }
 
   // 1. Eksport fra DB -> data/robots.
   let eksportUdskrift;
@@ -129,9 +245,15 @@ async function main(argv) {
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('hentbyg.mjs');
 if (erHoved) {
-  main(process.argv.slice(2)).then((k) => process.exit(k)).catch((e) => {
+  // VAeRNET ovenfor importerer db/fase2-tjek.mjs, som kalder et AeGTE fetch()
+  // I DENNE PROCES (til forskel fra trin 1/5's execFileSync-subprocesser,
+  // hvor fetch sker i et BARN) — samme exit-127-fare som db/eksporter.mjs,
+  // db/billeder.mjs og fund/maal-f2.mjs (spor/f2-vaern punkt 2, STATUS.md
+  // Å132). Fandtes ikke her, foer vaernet blev tilfoejet — rettet defensivt
+  // med det samme, saa punkt 1 ikke selv indfoerer faren, punkt 2 lukker.
+  main(process.argv.slice(2)).then((k) => { process.exitCode = k; }).catch((e) => {
     console.error(String(e && e.stack ? e.stack : e));
-    process.exit(1);
+    process.exitCode = 1;
   });
 }
 
