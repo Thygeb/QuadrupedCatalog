@@ -11,6 +11,15 @@ skal være **kildens tegn og kun kildens tegn**. I praksis var de fleste
 allerede udfyldte felter en sammenklistret streng: citat + dansk oversættelse
 + dansk kommentar, i samme kolonne. De to kan ikke være sande samtidig.
 
+## Mangler råkilderne i din worktree, eller skal du hente et nyt snapshot?
+
+Mangler raakilderne i din worktree, eller skal du hente nyt: følg
+`fund/OPSKRIFT-fase2.md` §6.1 — snapshots ligger i
+`media/_kilder/raa-<dit-spornavn>-<dagens-dato>/` med `MANIFEST.tsv`,
+ALDRIG i en anden batches mappe. Dette spor mødte selv den kendte
+gitignore-fælde (`media/_kilder/` følger ikke med en ny worktree) — se
+"Nye fælder og opdagelser" i `fund/FUND-f2cjk.md`, punkt 5.
+
 ## De fire kasser, med et rigtigt eksempel hver
 
 **(A) Ordlyd findes, forurenet af dansk.** Det almindelige tilfælde — 32 af
