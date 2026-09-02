@@ -6,6 +6,12 @@ designbeslutning at træffe); `robotdata`/`fejljagt`/`flet`/`grillmig`/`brief`/
 `supabase*` (ingen af dem dækker et mekanisk, binært CSS-facitkrav). Dette er
 selv briefets vurdering ("Ingen designbeslutning"), efterprøvet og bekræftet.
 
+**Opdateret efter coordinator-dommen "flet efter rettelse":** udvidet
+ejerskab til fire filer lukkede de 7 testfejl, som resten af rapporten
+(urørt, skrevet FØR rettelserne) dokumenterede som uundgåelige inden for
+det oprindelige ejerskab. Se "Rettelser efter coordinator-dom" for hvad
+hver vendt assertion nu beviser.
+
 ## 1. Valgt løsning
 
 **Valgt:** 9 primitiver (`--p-*`) tilføjet i `:root`, alle 16 gamle
@@ -33,73 +39,103 @@ en inkonsistent halv-arkitektur uden at redde noget væsentligt).
   påstået): kommenterede `--tom`-linjen midlertidigt ud, kørte
   `tests/koer.mjs`, så 3 af mine 19 påstande gå røde, genindsatte, kørte
   igen: 19/19 grønne.
-- **Acceptkriterium 4 ("præcis grundmålingstallene")** — **IKKE opfyldt, og
-  det er målt, ikke gættet.** `node tests/koer.mjs` gav 1487/0 før mit
-  arbejde, **1499/7 efter** (1480 gamle + 19 nye fra test 59; 7 fejl). De 7
-  er `tests/dele/34-typeskilt-fundament.mjs` (34.11, 34.13-34.15) og
-  `tests/dele/58-designmd.mjs` (58.2-58.4) — uden for mit filejerskab. Se
-  "Nye fælder" for hvorfor dette er uundgåeligt, ikke en fejl i mit arbejde.
+- **Acceptkriterium 4 — OPFYLDT efter coordinatorens fire rettelser.** HØJ.
+  `node tests/koer.mjs` → **1506 bestået, 0 fejlet** (coordinatorens eget
+  kriterium: "0 fejlet, mindst 1499"). Var 1499/7 før rettelserne. Se
+  "Rettelser efter coordinator-dom" for de 7 vendte assertions.
 
 ## 3. Usikkerheder
 
-Skal `tests/dele/34`/`58` og `DESIGN.md` gøres var()-bevidste i et
-opfølgende spor, eller skal de 7 fejl accepteres? Scope-spørgsmål, ikke
-teknisk. Kommentaren jeg rettede (den forældede påstand om "ingen test
-matcher en hex-farve") kan have flere søskende, jeg ikke har ledt efter.
+Ingen om leverancen. Min rettede kommentar i system.css ("ingen test
+matcher en hex-farve") kan have søskende andre steder, ikke ledt efter.
 
 ## 4. Målingerne
 
 validate: 77/0/1 (uændret) · build: 216 sider, 1111/0 (uændret) · farve­
 sammenligning: 0 ændret/0 fjernet/9 nye, exit 0 · byte-diff: 0 forskelle ·
-tests: 1499 bestået, 7 fejlet (var 1487/0 før, +19 nye fra test 59, 7 kendte
-kollisioner) · farvetokens: 25 (16+9) · dublet-grupper: uændret 4 blandt de
-16 gamle, nu 9 blandt alle 25.
+tests: **1506 bestået, 0 fejlet** (var 1499/7 før de fire rettelser) ·
+`fund/maal-designmd.mjs`: 25 af 25 farver matcher (var 16 af 16 før
+DESIGN.md fik primitiverne) · farvetokens: 25 (16+9).
+
+---
+
+## Rettelser efter coordinator-dom (udvidet ejerskab, 4 commits)
+
+**1-2. `tests/dele/34-typeskilt-fundament.mjs` (34.11, 34.13, 34.14, 34.15).**
+Tilføjede en loop-værnet `var()`-opløser (kopieret fra
+`fund/maal-farvetokens.mjs`s algoritme). Hver assertion beviste FØR at
+tokenets RÅTEKST i `assets/system.css` var literal hex (`/--accent:#F2C400;/i`);
+den beviser NU at tokenet LØSER OP til samme farve, direkte eller gennem et
+`--p-*`-primitiv (`loesTokenFarve(raaTokens,'--accent') === '#F2C400'`).
+Farven er den samme; kun målemetoden ser nu gennem indirektionen.
+
+**3. `fund/maal-designmd.mjs`.** Kunne FØR kun læse literal hex (0
+forekomster af `var(` i filen, coordinatorens tal, efterprøvet: `grep -c
+'var(' … → 0`) og var derfor blind for et primitiv-lag. Fik samme
+opløser-algoritme kopieret ind. Beviser NU at hver farve i DESIGN.md's
+frontmatter, opløst gennem sin evt. `var()`-kæde, matcher `:root`s
+tilsvarende opløste værdi — ikke kun at teksten er ens.
+
+**4. `DESIGN.md` (kun colors-blokken) + `tests/dele/58-designmd.mjs`
+(58.2-58.4).** DESIGN.md fik 9 nye linjer (primitiverne, literal hex,
+navne fra MANIFEST.md) og de 16 eksisterende linjer ændret fra literal hex
+til `var(--p-x)` — spejler `assets/system.css`s `:root` præcist. `58.2`
+beviste FØR at DESIGN.md's hex-tekst matchede `:root`s hex-tekst ordret;
+den beviser NU at begges OPLØSTE værdi (primitiv-hex eller
+semantik-reference, kørt gennem samme resolver) matcher. `58.3` beviste
+FØR at hver *literal-hex*-token i `:root` var dokumenteret; den beviser NU
+at hver *farve-token* (primitiv ELLER semantisk reference) er det — de 9
+primitiver er ikke længere "udokumenterede", de er en ny, navngivet
+kategori. `58.4` beviste FØR at ingen DESIGN.md-navn manglede som literal
+hex i `:root`; den beviser NU det samme, men accepterer at et DESIGN.md-navn
+kan matche en `:root`-reference i stedet for en `:root`-hex. Ingen af de
+otte konflikter i DESIGN.md er rørt eller afgjort; kun colors-blokken.
+
+**Ikke rettet, og ikke bedt om:** systemcomments andre steder, der måtte
+gentage den samme forældede "ingen test matcher hex"-påstand — ikke ledt
+efter uden for `assets/system.css`.
 
 ---
 
 ## Nye fælder og opdagelser
 
-**Den centrale opdagelse: briefets eget eksempel i afsnit 2 er inkompatibelt
-med to testfiler, jeg ikke ejer.** `tests/dele/34-typeskilt-fundament.mjs`
-(fra spor/fundament, 31. aug) og `tests/dele/58-designmd.mjs` (fra
-spor/document, 1. sep) låser flere semantiske tokens til **literal hex-tekst**
-i `assets/system.css` (fx `/--bund:#E8EBED;/i.test(sys)`) og til
-`DESIGN.md`s frontmatter (regex-udtræk af `--navn:#HEX` inde i selve
-`:root{}`-blokken). I det øjeblik en semantisk token skrives om til
-`var(--p-x)`, forsvinder den fra begge testfilers regex — det er ikke en
-implementeringsfejl fra min side, det er strukturelt uundgåeligt: selv
-briefets EGET eksempel (`--bund: var(--p-eloxgraa)`) ville udløse præcis
-denne kollision. Jeg har ikke rettet nogen af de to filer eller `DESIGN.md`
-(uden for filejerskab, §5), og har i stedet dokumenteret det grundigt i
-commit-beskederne (075fc6f, 1b91052) og her. **En stille observation:** den
-eksisterende kommentar i system.css (linje ~103, nu rettet) påstod "ingen
-test matcher en hex-farve, kun ÉT sted matcher et token-navn" — den påstand
-var allerede forkert, da den blev skrevet (test 34 er ældre end den kommentar
-antyder ikke, men begge testfiler fandtes før mit spor startede).
+**Den centrale opdagelse (nu rettet, se ovenfor): briefets eget eksempel i
+afsnit 2 var strukturelt inkompatibelt med to testfiler, det oprindelige
+filejerskab udelukkede.** `tests/dele/34-typeskilt-fundament.mjs` (fra
+spor/fundament, 31. aug) og `tests/dele/58-designmd.mjs` (fra
+spor/document, 1. sep) låste flere semantiske tokens til **literal
+hex-tekst** i `assets/system.css` og til `DESIGN.md`s frontmatter. I det
+øjeblik en semantisk token skrives om til `var(--p-x)`, forsvandt den fra
+begge testfilers regex — det var ikke en implementeringsfejl, det var
+strukturelt uundgåeligt: selv briefets EGET eksempel (`--bund:
+var(--p-eloxgraa)`) ville udløse præcis denne kollision. Coordinatoren
+bekræftede dette som sin egen fejl i det oprindelige filejerskab og
+udvidede det, fremfor at bede om en anden løsning. **En stille
+observation, stadig gyldig:** den oprindelige kommentar i system.css (nu
+rettet) påstod "ingen test matcher en hex-farve, kun ÉT sted matcher et
+token-navn" — den påstand var allerede forkert, da den blev skrevet.
 
 **Coordinator-beskeden, jeg fik midt i arbejdet, indeholdt et forkert
-faktum.** Den kaldte `.tmp-farver.json` for "gitignoreres" — målt med
-`git check-ignore -v .tmp-farver.json` (exit 1, intet match) og
-`git status --short` (viste filen som `??`, dvs. utracked, IKKE ignoreret).
-Filen er slettet igen efter brug, så det gjorde ingen skade, men et
-"gitignoreres"-udsagn fra en overordnet besked er lige så meget en påstand
-som et tal i et brief.
+faktum, som coordinatoren selv siden bekræftede.** Den kaldte
+`.tmp-farver.json` for "gitignoreres" — målt med `git check-ignore -v
+.tmp-farver.json` (exit 1, intet match) og `git status --short` (viste
+filen som `??`, dvs. utracked, IKKE ignoreret). Filen er slettet efter
+brug. Coordinatoren bekræftede efterfølgende dette som egen målefejl.
 
-**`--panel` (#FAFBFB) og `--stans` (#FFFFFF) mangler i briefets egen
+**`--panel` (#FAFBFB) og `--stans` (#FFFFFF) manglede i briefets egen
 palette-tabel (afsnit 2), men ER officielle MANIFEST.md-navne** ("Kridt" og
 "Stans", `retninger/nyverden/MANIFEST.md` §Paletten, som selv har 9 rækker
 under overskriften "Otte navngivne roller" — en allerede kendt uoverens­
 stemmelse, jf. system.css's egen kommentar "ni navngivne roller (ikke otte)").
-Jeg har brugt `--p-kridt` og `--p-stans` som primitivnavne for dem, hentet
-fra MANIFEST.md, ikke opfundet.
+Brugte `--p-kridt` og `--p-stans` som primitivnavne, hentet fra
+MANIFEST.md, ikke opfundet. Coordinatoren kvitterede for dette fund.
 
 ## Punkter i briefet, jeg ikke nåede
 
 Ingen. Alle punkter i afsnit 1-9 er udført eller undersøgt og rapporteret,
-inklusive de tre punkter i afsnit 4 (se nedenfor). Acceptkriterium 4 er
-**forsøgt fuldt ud**, men **ikke opfyldt** af strukturelle grunde uden for
-mit filejerskab — se "Nye fælder" ovenfor. Det er en afvigelse, ikke en
-forglemmelse.
+inklusive de tre punkter i afsnit 4 (se nedenfor) og de fire
+coordinator-rettelser efter "flet efter rettelse"-dommen. Acceptkriterium
+4 er nu fuldt opfyldt (1506/0).
 
 ---
 
@@ -211,12 +247,16 @@ beslutning, ikke min.
 
 Server på port 8142 blev ikke startet — ingen af acceptkriterierne krævede
 browsermåling (alt er tekst-/build-niveau: `maal-farvetokens.mjs`, `diff`,
-`tests/koer.mjs`). `tests/.tmp-koersel` og `.tmp/` ryddet efter sidste
+`tests/koer.mjs`). `tests/.tmp-koersel` og `.tmp/` ryddet efter hver
 kørsel. `.tmp-farver.json` slettet (se "Nye fælder" — den var IKKE
-gitignoreret, modsat hvad jeg fik at vide undervejs).
+gitignoreret, modsat hvad jeg fik at vide undervejs, bekræftet af
+coordinatoren som dennes egen målefejl).
 
 ## Commits
 
-`075fc6f` primitiver tilføjet alene · `1b91052` 16 tokens repeget ·
-`bd1ec28` test 59 tilføjet. Ingen fjerde commit var nødvendig ud over denne
-rapport.
+Oprindelige tre: `075fc6f` primitiver tilføjet alene · `1b91052` 16 tokens
+repeget · `bd1ec28` test 59 tilføjet · `4cfa57a` denne rapport (første
+udgave). Efter coordinator-dommen, udvidet ejerskab: `aed3efa` test 34
+punkt 1 (34.13-34.15) · `771a62b` test 34 punkt 2 (34.11) · `c89e7a9`
+`fund/maal-designmd.mjs` punkt 3 · `c521f7f` DESIGN.md + test 58 punkt 4.
+Denne rapport er den ottende, opdaterede leverance.
