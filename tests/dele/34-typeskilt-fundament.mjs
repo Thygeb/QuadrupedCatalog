@@ -125,15 +125,17 @@ export default async function koer(ctx) {
     ok('34.10: alle 14 oprindelige farve-tokens findes stadig ved navn',
       manglende.length === 0, `mangler: ${manglende.join(', ')}`);
 
-    ok('34.11: to nye tokens er tilfoejet: --stans og --stoev-blaek',
-      /--stans:#FFFFFF/i.test(sys) && /--stoev-blaek:#5F686F/i.test(sys),
-      'forventede --stans:#FFFFFF og --stoev-blaek:#5F686F i :root');
+    const raaTokens = byggRaaTokenMap(sys);
+    const stansFarve = loesTokenFarve(raaTokens, '--stans');
+    const stoevBlaekFarve = loesTokenFarve(raaTokens, '--stoev-blaek');
+    ok('34.11: --stans og --stoev-blaek findes og LOESER OP til #FFFFFF / #5F686F (direkte eller via primitiv)',
+      stansFarve === '#FFFFFF' && stoevBlaekFarve === '#5F686F',
+      `--stans -> ${stansFarve}, --stoev-blaek -> ${stoevBlaekFarve}`);
 
     ok('34.12: --skygge og --skygge-loeft er begge "none" (MANIFEST: ingen slagskygge)',
       /--skygge:none;/.test(sys) && /--skygge-loeft:none;/.test(sys),
       'tokenerne skal blive staaende, men pege paa none - ikke slettes');
 
-    const raaTokens = byggRaaTokenMap(sys);
     ok('34.13: --accent LOESER OP til afmaerkningsgul (#F2C400), direkte eller via primitiv',
       loesTokenFarve(raaTokens, '--accent') === '#F2C400',
       `fandt ${loesTokenFarve(raaTokens, '--accent')}`);
