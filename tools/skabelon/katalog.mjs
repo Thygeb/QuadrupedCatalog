@@ -835,7 +835,7 @@ export function render(ctx) {
     + `<path d="M1.4 1.4 7.6 7.6M7.6 1.4 1.4 7.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
   const valgChip = (id, tekst, ekstra = '') => `<li class="valg${ekstra}" data-valg="${attr(id)}">`
     + `<span class="valg__navn">${esc(tekst)}</span>`
-    + `<label class="valg__fjern" for="${attr(id)}">${kryds}`
+    + `<label class="knap knap--kryds" for="${attr(id)}">${kryds}`
     + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: tekst }))}</span></label></li>`;
 
   const valgListe = [];
@@ -855,7 +855,7 @@ export function render(ctx) {
     if (!f.skala) continue;
     valgListe.push(`<li class="valg valg--skala" data-valg-skala="${attr(f.navn)}" hidden>`
       + `<span class="valg__navn" data-valg-skala-navn></span>`
-      + `<button class="valg__fjern" type="button" data-valg-skala-ryd="${attr(f.navn)}">${kryds}`
+      + `<button class="knap knap--kryds" type="button" data-valg-skala-ryd="${attr(f.navn)}">${kryds}`
       + `<span class="kunskaerm">${esc(tf('valg_fjern', { navn: f.etiket }))}</span></button></li>`);
   }
   // Status havde her et INVERTERET saerspor ("skjult-X" chippen), fjernet af
@@ -1411,8 +1411,8 @@ ${omfangStandard}
  data-klaebebar-etiket="${attr(t('klaebebar_etiket'))}">
 <span class="saml-taeller__tal" data-saml-tal>0</span>
 <span data-saml-ord></span>
-<a class="saml-taeller__gaa" href="${attr(url.sammenligning)}">${esc(t('saml_gaa'))}</a>
-<button class="saml-taeller__ryd" type="button" data-saml-ryd>${esc(t('saml_ryd'))}</button>
+<a class="saml-taeller__gaa knap knap--tekst knap--frem" href="${attr(url.sammenligning)}">${esc(t('saml_gaa'))}</a>
+<button class="saml-taeller__ryd knap knap--tekst" type="button" data-saml-ryd>${esc(t('saml_ryd'))}</button>
 </p>
 <p class="saml-graense" data-saml-graense role="status"></p>
 

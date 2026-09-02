@@ -1893,7 +1893,7 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
    */
   function samlknap(robot) {
     if (!robot.slug) return '';
-    return `<button type="button" class="kort__saml" hidden`
+    return `<button type="button" class="knap knap--maerkat kort__saml" hidden`
       + ` data-saml="${attr(robot.slug)}" aria-pressed="false"`
       + ` aria-label="${attr(tf('kort_saml_navn', { robot: robot.navn ?? robot.slug }))}">`
       // Ordet ligger i sin EGEN span, saa CSS kan folde det vaek paa de

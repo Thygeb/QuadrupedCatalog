@@ -1223,12 +1223,33 @@
   font-size:12.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;
 }
 .valg__navn{min-width:0}
-.valg__fjern{
-  display:grid;place-items:center;width:18px;height:18px;flex:none;
-  background:rgba(34,38,42,.14);color:inherit;border-radius:var(--hjoerne);cursor:pointer;
+/* .knap--kryds: knapprimitivens IKON-KVADRAT. Her stod `.valg__fjern`.
+   DEN ENESTE VARIANT UDEN FLADE I NAVNET, og det er selve pointen: krydset
+   saetter ingen forgrund, saa det arver chippens. `.valg` er
+   `background:var(--accent);color:var(--blaek)`, altsaa en TREDJE flade ud
+   over lys og moerk - den gule - og dér giver arven blaek paa gul = 9,19:1
+   uden at nogen har skullet vide det. Det er `color:inherit` i primitiven,
+   der goer det muligt; en variant med en haardkodet forgrund ville have
+   skullet gaette chippens farve.
+
+   Fladen er en TONE af chippens eget blaek, ikke en ny farve: 14 % gunmetal
+   oven paa gult laeser som en fordybning i chippen frem for et fremmedlegeme.
+
+   BEROERINGSMAALET ER 18x18 og dermed under WCAG 2.5.8's 24x24. Det er
+   uaendret fra foer L77 - primitiven hverken forbedrer eller forvaerrer det -
+   og staar noteret som fund i agentrapporten, ikke rettet: designfrysen
+   (L70) siger, at et fund noteres. Rettelsen er ikke gratis, fordi chippen
+   er 26 px hoej i alt. */
+.knap--kryds{
+  display:grid;place-items:center;
+  width:18px;height:18px;min-height:0;padding:0;gap:0;flex:none;
+  background:rgba(34,38,42,.14);
 }
-/* L76 GENNEMGAAET, BEHOLDT: accent staar her PAA --blaek = 9,19 : 1. */
-.valg__fjern:hover{background:var(--blaek);color:var(--accent)}
+/* L76 GENNEMGAAET, BEHOLDT: accent staar her PAA --blaek = 9,19 : 1.
+   Krydset er den ene variant, der IKKE tager familiens gule hover: dens
+   hvileflade ER gul (chippen), saa en gul hover ville vaere usynlig. Den
+   vender i stedet chippens to farver om. */
+.knap--kryds:hover{background:var(--blaek);color:var(--accent)}
 .valg__kryds{display:block}
 
 .taeller{margin-left:auto;display:flex;align-items:baseline;gap:9px;padding-left:var(--r4)}

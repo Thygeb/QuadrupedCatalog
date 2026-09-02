@@ -48,10 +48,18 @@ function regler(css) {
  *  flade (--fod/--blaek), hvor forholdet er 9,19 : 1. Listen er en
  *  BESLUTNING, ikke en observation - vokser den, skal nogen kunne
  *  begrunde hvorfor, og det er hele pointen med at skrive den ned. */
+/* TO AF DE TRE HAR SKIFTET NAVN, ikke betydning (spor/knap, L77, 2. sep
+   2026). Begge var knapper med hver sit klassenavn og er nu den samme
+   knapprimitiv med en variant; fladen under dem og dermed kontrasttallet er
+   uaendret. Listen er stadig tre poster, og ingen ny flade er kommet til:
+     .klaebebar__gaa    -> .knap--tekst-moerk.knap--frem  (stadig paa --fod)
+     .valg__fjern:hover -> .knap--kryds:hover             (stadig paa --blaek)
+   Selektorerne staar med deres nye navne, saa en fremtidig laeser ikke leder
+   efter en regel, der ikke findes. */
 const ACCENT_TEKST_TILLADT = [
-  '.klaebebar__gaa',      // staar paa --fod
-  '.valg__fjern:hover',   // staar paa --blaek
-  '.taeller__tal',        // staar i .strimmel, som er --fod
+  '.knap--tekst-moerk.knap--frem',  // klaebebarens gaa-link, staar paa --fod
+  '.knap--kryds:hover',             // chippens kryds, staar paa --blaek
+  '.taeller__tal',                  // staar i .strimmel, som er --fod
 ];
 
 /** Fund: regler, der bruger accent som TEKSTfarve uden at staa paa listen. */

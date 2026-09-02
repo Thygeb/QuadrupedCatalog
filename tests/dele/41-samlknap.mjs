@@ -54,12 +54,21 @@ export default async function koer(ctx) {
     }
   }(ud));
 
+  /* MOENSTERET ER VENDT (spor/knap, L77, 2. sep 2026), to steder i denne
+     fil: det krallede den ordrette vaerdi `class="kort__saml"`. Samlknappen
+     er nu sitets knapprimitiv med sin maerkat-variant plus sin
+     placeringsklasse - `class="knap knap--maerkat kort__saml"` - saa en
+     ordret sammenligning fandt 0 knapper og gjorde 41.1 roed paa et intakt
+     arbejde. Kravene er ordret de samme: hver samlknap skal staa `hidden`
+     (P0), baere data-saml og baere aria-label. `kort__saml` er stadig
+     KRAEVET i moensteret; det er den klasse, der siger, at knappen hoerer
+     til et kort og ikke bare er en knap et sted paa siden. */
   let knapper = 0;
   let udenHidden = 0;
   const udenHiddenEksempler = [];
   for (const sti of sider) {
     const html = fs.readFileSync(sti, 'utf8');
-    for (const m of html.matchAll(/<button([^>]*class="kort__saml"[^>]*)>/g)) {
+    for (const m of html.matchAll(/<button([^>]*class="[^"]*\bkort__saml\b[^"]*"[^>]*)>/g)) {
       knapper++;
       if (!/\shidden(\s|>|=)/.test(m[1])) {
         udenHidden++;
@@ -78,7 +87,7 @@ export default async function koer(ctx) {
   let udenNavn = 0;
   for (const sti of sider) {
     const html = fs.readFileSync(sti, 'utf8');
-    for (const m of html.matchAll(/<button([^>]*class="kort__saml"[^>]*)>/g)) {
+    for (const m of html.matchAll(/<button([^>]*class="[^"]*\bkort__saml\b[^"]*"[^>]*)>/g)) {
       if (!/data-saml="[^"]+"/.test(m[1])) udenSlug++;
       if (!/aria-label="[^"]+"/.test(m[1])) udenNavn++;
     }

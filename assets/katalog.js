@@ -152,12 +152,22 @@
       klaebebarNavne.className = 'klaebebar__navne';
 
       klaebebarGaa = document.createElement('a');
-      klaebebarGaa.className = 'klaebebar__gaa';
+      // L77: knapprimitiven i TEKST-vaegten paa MOERK flade (.klaebebar staar
+      // paa --fod), med `--frem` fordi dette er bjaelkens handling og
+      // `__ryd` nedenfor dens fortrydelse. `--frem` er accent paa den moerke
+      // flade = 9,19:1, altsaa noejagtig den farve, linket havde i forvejen -
+      // L76 tillader udtrykkeligt accent som tekst dér.
+      // classList.add og ikke className = 'a b c': hver klasse staar da som
+      // sin EGEN streng. tests/dele/57's doede-klasse-detektor leder efter
+      // et klassenavn med et citationstegn omkring, og `knap--tekst-moerk`
+      // findes KUN her (bjaelken bygges af JavaScript og staar aldrig i
+      // dist/), saa i én lang streng ville den blive talt som doed CSS.
+      klaebebarGaa.classList.add('klaebebar__gaa', 'knap', 'knap--tekst-moerk', 'knap--frem');
       klaebebarGaa.textContent = gaaLink ? gaaLink.textContent : '';
 
       var klaebebarRyd = document.createElement('button');
       klaebebarRyd.type = 'button';
-      klaebebarRyd.className = 'klaebebar__ryd';
+      klaebebarRyd.classList.add('klaebebar__ryd', 'knap', 'knap--tekst-moerk');
       // samlRyd (knappen i strimlen) findes endnu ikke her - den bygges
       // faa linjer laengere nede i filen - men elementet DEN sidder paa
       // ER allerede i DOM'en (skabelonen skrev den), saa teksten kan laeses
