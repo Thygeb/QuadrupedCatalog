@@ -1,0 +1,498 @@
+=== applications ===
+--- robot 2205 ---
+{
+ "robot_id": 2205,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "inspection",
+  "defense_emergency_response",
+  "security_surveillance",
+  "research_development"
+ ],
+ "quote": "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot.. anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (L1..。)",
+ "source": "https://www.genisomai.com/product-robot/L1",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Egen oversættelse: \"Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot.. anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse.\" -> inspektion; -> forsvar og beredskab; -> sikkerhed og overvågning; -> forskning og udvikling (uddannelsesdelen af har intet præcist svar i værdisættet ud over forbruger og uddannelse, som ikke er brugt her, da konteksten er faglig forskning, ikke forbrugerprodukt).",
+ "quote_wording": "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。)",
+ "note_wording": "Egen oversættelse: \"Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse.\" 电力巡检 -> inspektion; 应急救援 -> forsvar og beredskab; 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling (uddannelsesdelen af 科研教育 har intet præcist svar i værdisættet ud over forbruger og uddannelse, som ikke er brugt her, da konteksten er faglig forskning, ikke forbrugerprodukt).",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2206 ---
+{
+ "robot_id": 2206,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "defense_emergency_response",
+  "research_development",
+  "security_surveillance"
+ ],
+ "quote": [
+  "Rekognoscering og eftersøgningsredning",
+  "Akut brandbekæmpelse",
+  "Forskning og uddannelse",
+  "Sikkerhedspatrulje"
+ ],
+ "source": "https://www.genisomai.com/product-robot/L1-W",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Fra sektionen (næste anvendelsesscenarie, allerede klar) på L1-W's egen produktside - fire selvstændige citater, ikke arvet fra L1. Egen oversættelse: (rekognoscering/eftersøgning-redning) -> forsvar og beredskab; (akut brandbekæmpelse) -> forsvar og beredskab (samme kategori som, to citater); -> forskning og udvikling; -> sikkerhed og overvågning.",
+ "quote_wording": [
+  "Rekognoscering og eftersøgningsredning (侦查搜救)",
+  "Akut brandbekæmpelse (应急消防)",
+  "Forskning og uddannelse (科研教育)",
+  "Sikkerhedspatrulje (安防巡逻)"
+ ],
+ "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på L1-W's egen produktside - fire selvstændige citater, ikke arvet fra L1. Egen oversættelse: 侦查搜救 (rekognoscering/eftersøgning-redning) -> forsvar og beredskab; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab (samme kategori som 侦查搜救, to citater); 科研教育 -> forskning og udvikling; 安防巡逻 -> sikkerhed og overvågning.",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2207 ---
+{
+ "robot_id": 2207,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "security_surveillance",
+  "research_development",
+  "logistics"
+ ],
+ "quote": [
+  "Sikkerhedspatrulje",
+  "Forskning og uddannelse",
+  "Kort-distance levering"
+ ],
+ "source": "https://www.genisomai.com/product-robot/L2",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Fra siden (næste anvendelsesscenarie, allerede klar). -> sikkerhed og overvågning; -> forskning og udvikling; (kort-distance levering) -> logistik.",
+ "quote_wording": [
+  "Sikkerhedspatrulje (安防巡逻)",
+  "Forskning og uddannelse (科研教育)",
+  "Kort-distance levering (短途配送)"
+ ],
+ "note_wording": "Fra siden \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar). 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik.",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2208 ---
+{
+ "robot_id": 2208,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "security_surveillance",
+  "defense_emergency_response",
+  "research_development",
+  "logistics"
+ ],
+ "quote": [
+  "Sikkerhedspatrulje",
+  "Akut brandbekæmpelse",
+  "Forskning og uddannelse",
+  "Kort-distance levering"
+ ],
+ "source": "https://www.genisomai.com/product-robot/L2",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Fra sektionen på L2's produktside. Teksten står EN gang på siden, FØR variant-fanebladet (L2/L2-W/L2-W Ultra) i den strukturerede specifikationstabel - den dækker hele Gangben L2-familien som helhed, ikke kun basisudgaven. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning om en anden robot (arvet_fra ville forudsætte, at L2-W's EGEN side var tavs og lånte L2's citat - det er den ikke, teksten står på netop den side, L2-W også bor på). Egen oversættelse: -> sikkerhed og overvågning; (akut brandbekæmpelse) -> forsvar og beredskab; -> forskning og udvikling; (kort-distance levering) -> logistik. BEMÆRK: dette citat har FIRE led (inkl.), mens genisom-gangben-l2.yaml's eksisterende citat kun har tre (mangler) - en uafhængig genlæsning af samme rå HTML for denne post. Den eksisterende L2-post er IKKE rettet, jf. opgavens instruks om ikke at røre de to eksisterende poster.",
+ "quote_wording": [
+  "Sikkerhedspatrulje (安防巡逻)",
+  "Akut brandbekæmpelse (应急消防)",
+  "Forskning og uddannelse (科研教育)",
+  "Kort-distance levering (短途配送)"
+ ],
+ "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" på L2's produktside. Teksten står EN gang på siden, FØR variant-fanebladet (L2/L2-W/L2-W Ultra) i den strukturerede specifikationstabel - den dækker hele Gangben L2-familien som helhed, ikke kun basisudgaven. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning om en anden robot (arvet_fra ville forudsætte, at L2-W's EGEN side var tavs og lånte L2's citat - det er den ikke, teksten står på netop den side, L2-W også bor på). Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik. BEMÆRK: dette citat har FIRE led (inkl. 应急消防), mens genisom-gangben-l2.yaml's eksisterende citat kun har tre (mangler 应急消防) - en uafhængig genlæsning af samme rå HTML for denne post. Den eksisterende L2-post er IKKE rettet, jf. opgavens instruks om ikke at røre de to eksisterende poster.",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2209 ---
+{
+ "robot_id": 2209,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "security_surveillance",
+  "defense_emergency_response",
+  "research_development",
+  "logistics"
+ ],
+ "quote": [
+  "Sikkerhedspatrulje",
+  "Akut brandbekæmpelse",
+  "Forskning og uddannelse",
+  "Kort-distance levering"
+ ],
+ "source": "https://www.genisomai.com/product-robot/L2",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten (næste anvendelsesscenarie, allerede klar) står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: -> sikkerhed og overvågning; -> forsvar og beredskab; -> forskning og udvikling; -> logistik.",
+ "quote_wording": [
+  "Sikkerhedspatrulje (安防巡逻)",
+  "Akut brandbekæmpelse (应急消防)",
+  "Forskning og uddannelse (科研教育)",
+  "Kort-distance levering (短途配送)"
+ ],
+ "note_wording": "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik.",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2210 ---
+{
+ "robot_id": 2210,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "industrial",
+  "inspection"
+ ],
+ "quote": [
+  "GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (SP1)",
+  "Autonom inspektion, dataoverførsel, nul personalerisiko"
+ ],
+ "source": "https://www.genisomai.com/product-robot/sp1",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Egen oversættelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverførsel, nul personalerisiko\" (marketingoverskrift, = autonom inspektion). Sidens EGEN \"næste anvendelsesscenarie\"-sektion lister FIRE ANLÆGSTYPER, ikke aktivitetskategorier: (raffinaderianlæg), (kemisk lagertankområde), LNG (gas/LNG-station), (olie- gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte sæt, så de er IKKE brugt som citat/værdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens (højrisiko-industrimiljø) og (eksplosionssikker..inspektionsrobot) samt brodtekstens eksplicitte (autonom inspektion).",
+ "quote_wording": [
+  "GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人)",
+  "Autonom inspektion, dataoverførsel, nul personalerisiko (自主巡检 数据回传 人员零涉险)"
+ ],
+ "note_wording": "Egen oversættelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverførsel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"næste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLÆGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlæg), 化工储罐区 (kemisk lagertankområde), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte sæt, så de er IKKE brugt som citat/værdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (højrisiko-industrimiljø) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion).",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2211 ---
+{
+ "robot_id": 2211,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "defense_emergency_response",
+  "inspection",
+  "security_surveillance",
+  "logistics"
+ ],
+ "quote": [
+  "Skovbrandbekæmpelse",
+  "Petrokemisk brandbekæmpelse",
+  "Elkraftinspektion",
+  "Områdepatrulje",
+  "Logistiktransport"
+ ],
+ "source": "https://www.genisomai.com/product-robot/M1",
+ "retrieved_at": "2026-08-24",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Fra sektionen (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Egen oversættelse: (skovbrandbekæmpelse) -> forsvar og beredskab; (petrokemisk brandbekæmpelse) -> forsvar og beredskab (samme kategori, to citater); (elkraftinspektion) -> inspektion; (områdepatrulje) -> sikkerhed og overvågning; (logistiktransport) -> logistik.",
+ "quote_wording": [
+  "Skovbrandbekæmpelse (森林消防)",
+  "Petrokemisk brandbekæmpelse (石化消防)",
+  "Elkraftinspektion (电力巡检)",
+  "Områdepatrulje (园区巡逻)",
+  "Logistiktransport (物流运输)"
+ ],
+ "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Egen oversættelse: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab (samme kategori, to citater); 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik.",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2212 ---
+{
+ "robot_id": 2212,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "defense_emergency_response",
+  "inspection",
+  "security_surveillance",
+  "logistics"
+ ],
+ "quote": [
+  "Skovbrandbekæmpelse",
+  "Petrokemisk brandbekæmpelse",
+  "Elkraftinspektion",
+  "Områdepatrulje",
+  "Logistiktransport"
+ ],
+ "source": "https://www.genisomai.com/product-robot/M1",
+ "retrieved_at": "2026-08-25",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Fra sektionen (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Teksten står EN gang på siden, delt af alle tre faner (M1/M1 Pro/M1 Ultra) i den strukturerede specifikationstabel - den dækker hele Tongchui M1-familien som helhed. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning lånt fra en anden robots side (samme princip som GENISOM Gangben L2-W/L2-W Ultra i dette katalog - arvet_fra ville forudsætte, at M1 Pro's EGEN side var tavs og lånte M1's citat, hvilket den ikke er: teksten står på netop den side, M1 Pro også bor på). Egen oversættelse - identisk med genisom-tongchui-m1.yaml's: (skovbrandbekæmpelse) -> forsvar og beredskab; (petrokemisk brandbekæmpelse) -> forsvar og beredskab; (elkraftinspektion) -> inspektion; (områdepatrulje) -> sikkerhed og overvågning; (logistiktransport) -> logistik.",
+ "quote_wording": [
+  "Skovbrandbekæmpelse (森林消防)",
+  "Petrokemisk brandbekæmpelse (石化消防)",
+  "Elkraftinspektion (电力巡检)",
+  "Områdepatrulje (园区巡逻)",
+  "Logistiktransport (物流运输)"
+ ],
+ "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Teksten står EN gang på siden, delt af alle tre faner (M1/M1 Pro/M1 Ultra) i den strukturerede specifikationstabel - den dækker hele Tongchui M1-familien som helhed. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning lånt fra en anden robots side (samme princip som GENISOM Gangben L2-W/L2-W Ultra i dette katalog - arvet_fra ville forudsætte, at M1 Pro's EGEN side var tavs og lånte M1's citat, hvilket den ikke er: teksten står på netop den side, M1 Pro også bor på). Egen oversættelse - identisk med genisom-tongchui-m1.yaml's: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab; 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik.",
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2213 ---
+{
+ "robot_id": 2213,
+ "is_bare_string": false,
+ "is_not_stated": false,
+ "value": [
+  "defense_emergency_response",
+  "inspection",
+  "security_surveillance",
+  "logistics"
+ ],
+ "quote": [
+  "Skovbrandbekæmpelse",
+  "Petrokemisk brandbekæmpelse",
+  "Elkraftinspektion",
+  "Områdepatrulje",
+  "Logistiktransport"
+ ],
+ "source": "https://www.genisomai.com/product-robot/M1",
+ "retrieved_at": "2026-08-25",
+ "source_type": null,
+ "inherited_from_robot_id": null,
+ "note": "Samme kilde-sektion som genisom-tongchui-m1-pro.yaml og basisudgaven - den samme primærkilde for alle tre varianter, IKKE arvet_fra. Se genisom-tongchui-m1-pro.yaml for den fulde begrundelse for hvorfor arvet_fra ikke bruges her.",
+ "quote_wording": [
+  "Skovbrandbekæmpelse (森林消防)",
+  "Petrokemisk brandbekæmpelse (石化消防)",
+  "Elkraftinspektion (电力巡检)",
+  "Områdepatrulje (园区巡逻)",
+  "Logistiktransport (物流运输)"
+ ],
+ "note_wording": "Samme kilde-sektion som genisom-tongchui-m1-pro.yaml og basisudgaven (\"下一个应用场景，它已提前就位\") - den samme primærkilde for alle tre varianter, IKKE arvet_fra. Se genisom-tongchui-m1-pro.yaml for den fulde begrundelse for hvorfor arvet_fra ikke bruges her.",
+ "collected_by": null,
+ "change_reason": null
+}
+=== images ===
+--- robot 2205 ---
+{
+ "robot_id": 2205,
+ "file": "fotos/fabrikant/genisom-gangben-l1.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/L1",
+ "retrieved_at": "2026-08-24",
+ "alt": null,
+ "note": null,
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2206 ---
+{
+ "robot_id": 2206,
+ "file": "fotos/fabrikant/genisom-gangben-l1-w.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/L1-W",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Gangben L1-W, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Gangben L1-W, wheeled-leg quadruped robot, studio photo on a white background"
+ },
+ "note": null,
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2207 ---
+{
+ "robot_id": 2207,
+ "file": "fotos/fabrikant/genisom-gangben-l2.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/L2",
+ "retrieved_at": "2026-08-24",
+ "alt": null,
+ "note": null,
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2208 ---
+{
+ "robot_id": 2208,
+ "file": "fotos/fabrikant/genisom-gangben-l2-w.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/L2",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Gangben L2, wheeled-leg quadruped robot, studio photo on a white background"
+ },
+ "note": "Delt foto med genisom-gangben-l2.yaml (basisudgaven): L2-W findes kun som fane-skift på L2's egen side og har ingen selvstændig produktside, så producenten har heller ikke noget separat produktfoto for netop denne variant - samme billed-URL som den eksisterende L2-post.",
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2209 ---
+{
+ "robot_id": 2209,
+ "file": "fotos/fabrikant/genisom-gangben-l2-w-ultra.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/L2",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Gangben L2, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Gangben L2, wheeled-leg quadruped robot, studio photo on a white background"
+ },
+ "note": "Delt foto med genisom-gangben-l2.yaml og genisom-gangben-l2-w.yaml: L2-W Ultra findes kun som fane-skift på L2's egen side og har ingen selvstændig produktside eller eget produktfoto, selvom den fysisk har en ekstra LiDAR-sensorpakke (se noter i felter). Samme billed-URL som de to andre L2-poster.",
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2210 ---
+{
+ "robot_id": 2210,
+ "file": "fotos/fabrikant/genisom-qiuqiu-sp1.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/sp1",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Qiuqiu SP1, eksplosionssikret hjulbenet inspektionsrobot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Qiuqiu SP1, explosion-proof wheeled-leg inspection robot, studio photo on a white background"
+ },
+ "note": null,
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2211 ---
+{
+ "robot_id": 2211,
+ "file": "fotos/fabrikant/genisom-tongchui-m1.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/M1",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Tongchui M1, wheeled-leg quadruped robot, studio photo on a white background"
+ },
+ "note": "Delt foto: M1's produktside viser samme model på tværs af M1/M1 Pro/M1 Ultra-fanebladet (kun ét kort-thumbnail-billede fundet for hele familien) - Pro og Ultra får samme foto (se genisom-tongchui-m1-pro.yaml og genisom-tongchui-m1-ultra.yaml).",
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2212 ---
+{
+ "robot_id": 2212,
+ "file": "fotos/fabrikant/genisom-tongchui-m1-pro.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/M1",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Tongchui M1, wheeled-leg quadruped robot, studio photo on a white background"
+ },
+ "note": "Delt foto med genisom-tongchui-m1.yaml (basisudgaven) og genisom-tongchui-m1-ultra.yaml: M1 Pro findes kun som fane-skift på M1's egen side, og siden viser samme produktfoto for hele familien.",
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+--- robot 2213 ---
+{
+ "robot_id": 2213,
+ "file": "fotos/fabrikant/genisom-tongchui-m1-ultra.webp",
+ "origin": "manufacturer",
+ "source": "https://www.genisomai.com/product-robot/M1",
+ "retrieved_at": "2026-08-26",
+ "alt": {
+  "da": "GENISOM Tongchui M1, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+  "en": "GENISOM Tongchui M1, wheeled-leg quadruped robot, studio photo on a white background"
+ },
+ "note": "Delt foto med genisom-tongchui-m1.yaml og genisom-tongchui-m1-pro.yaml: M1 Ultra findes kun som fane-skift på M1's egen side, selvom den fysisk har en anden kameraopstilling (720 grader rundtomsyn) end de to andre - producentens side viser ikke desto mindre samme produktfoto for hele familien.",
+ "shared_with_robot_id": null,
+ "plate": null,
+ "position": null,
+ "collected_by": null,
+ "change_reason": null
+}
+=== robots (notes/notes_wording only) ===
+--- 2205 genisom-gangben-l1 ---
+notes: null
+notes_wording: null
+--- 2206 genisom-gangben-l1-w ---
+notes: [
+ "IKKE EN DUBLET AF L1/L2: L1-W har egen produktside, eget navn, egne mål (630x430x485mm mod L1's 630x360x415mm) og en fjerde hjulmotor-gruppe, L1 ikke har. Klart en selvstændig variant, ikke L1 under et andet navn."
+]
+notes_wording: null
+--- 2207 genisom-gangben-l2 ---
+notes: [
+ "SENSOR-UOVERENSSTEMMELSE, IKKE LØST STILTIENDE: L2's markedsføringstekst (samme side) skriver (understøtter automatisk kortlægning og ruteplanlægning, kombineret med LiDAR og GNSS for centimeterpræcis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og (stereokamera) under for basismodellen L2 - INGEN lidar-række. En lidar-række findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder på samme side modsiger hinanden, og det rettes ikke stiltiende."
+]
+notes_wording: [
+ "SENSOR-UOVERENSSTEMMELSE, IKKE LØST STILTIENDE: L2's markedsføringstekst (samme side) skriver \"支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位\" (understøtter automatisk kortlægning og ruteplanlægning, kombineret med LiDAR og GNSS for centimeterpræcis positionering) - hvilket antyder LiDAR. Men den STRUKTUREREDE specifikationstabel (samme sides window.techParamsData) lister KUN IMU og \"双目相机\" (stereokamera) under \"传感器\" for basismodellen L2 - INGEN lidar-række. En lidar-række (\"3D激光雷达: 工业级96线激光雷达*2\") findes KUN under L2-W Ultra-varianten i samme JSON. Feltet lidar er derfor sat til ikke oplyst for basismodellen, ikke udledt af markedsteksten - de to kilder på samme side modsiger hinanden, og det rettes ikke stiltiende."
+]
+--- 2208 genisom-gangben-l2-w ---
+notes: [
+ "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri, 86 TOPS) ER BEVIDST IKKE BRUGT HER: L2-sidens fremhævede hero-marketingkort står EN gang for hele siden, før fanebladene, og er ikke gentaget i L2-W's egen JSON-blok. De matcher L2 (basisudgavens) egne tal nøjagtigt - men uden en eksplicit gentagelse i L2-W's egen datablok kan de ikke sikkert tilskrives netop denne variant. forhindring_enkelt, batteri_wh og compute's TOPS-tal står derfor ikke oplyst/uden TOPS-tal her, i modsætning til den eksisterende L2-post, som bruger dem for basisudgaven."
+]
+notes_wording: [
+ "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri, 86 TOPS) ER BEVIDST IKKE BRUGT HER: L2-sidens fremhævede hero-marketingkort (\"70cm 垂直越障高度\", \"756Wh 大容量电池\", \"高达 86 TOPS 算力平台\") står EN gang for hele siden, før fanebladene, og er ikke gentaget i L2-W's egen JSON-blok. De matcher L2 (basisudgavens) egne tal nøjagtigt - men uden en eksplicit gentagelse i L2-W's egen datablok kan de ikke sikkert tilskrives netop denne variant. forhindring_enkelt, batteri_wh og compute's TOPS-tal står derfor ikke oplyst/uden TOPS-tal her, i modsætning til den eksisterende L2-post, som bruger dem for basisudgaven."
+]
+--- 2209 genisom-gangben-l2-w-ultra ---
+notes: [
+ "INGEN SELVSTÆNDIG URL: samme forbehold som L2-W - findes udelukkende som fane-skift på L2's egen side (https: www.genisomai.com/product-robot/L2, techParamsData.datas[2], classname, id 1250).",
+ "MARKETINGKORTETS TAL (70cm forhindringshøjde, 756Wh batteri) ER BEVIDST IKKE BRUGT HER: samme forbehold som L2-W - hero-marketingkortets tal står en gang for hele siden og er ikke gentaget i L2-W Ultra's egen datablok, derfor ikke tilskrevet denne variant specifikt.",
+ "L2-W ULTRA HAR EGEN LIDAR-SPECIFIKATION, SOM L2/L2-W IKKE HAR: sensor-sektionen for netop denne variant navngiver (industriel 96-linjers LiDAR, 2 stk.) - eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal."
+]
+notes_wording: [
+ "INGEN SELVSTÆNDIG URL: samme forbehold som L2-W - findes udelukkende som fane-skift på L2's egen side (https://www.genisomai.com/product-robot/L2, techParamsData.datas[2], classname \"钢镚 L2-W Ultra\", id 1250).",
+ "",
+ "L2-W ULTRA HAR EGEN LIDAR-SPECIFIKATION, SOM L2/L2-W IKKE HAR: sensor-sektionen for netop denne variant navngiver \"3D激光雷达: 工业级96线激光雷达*2\" (industriel 96-linjers LiDAR, 2 stk.) - eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal."
+]
+--- 2210 genisom-qiuqiu-sp1 ---
+notes: null
+notes_wording: null
+--- 2211 genisom-tongchui-m1 ---
+notes: [
+ "META-DESCRIPTIONS MODSIGES AF DEN STRUKTUREREDE SPECIFIKATIONSTABEL, IKKE LØST STILTIENDE: metabeskrivelsen påstår 16 frihedsgrader, men den strukturerede tabel (samme side) skriver eksplicit - samme mønster som L1/L2 (ledmotor-antal, ikke eksplicit \"frihedsgrader\"). 12 er brugt som feltværdi, fordi det står i den strukturerede tabel; 16-tallet fra metabeskrivelsen er IKKE brugt, og uoverensstemmelsen er noteret her i stedet for at blive rettet stiltiende.",
+ "VÆGT-UOVERENSSTEMMELSE PÅ SAMME SIDE, IKKE LØST STILTIENDE: se advarslen på egenvægt nedenfor - marketingteksten påstår \"næsten 1:1 negativt/positivt last-egenvægt-forhold\" ud fra en \"~30kg\"-vægt, mens den strukturerede tabel siger 41 kg.",
+ "KONKURRENCE- OG MARATHON-PÅSTANDE, CITERET MEN IKKE EFTERPRØVET UD OVER PRODUCENTENS EGEN SIDE: (2026 Beijing Yizhuang Robot Warrior-udfordringen - M1 var det eneste hold, der gennemførte den autonome navigationsdisciplin, og vandt førstepladsen i autonom navigation, flest priser, højeste totalscore og hurtigst i firbenet-kategorien). Samt: (første gang globalt en autonomt følgende robot fuldførte et marathon sammen med et menneske - M1 fungerede som verdens første autonomt følgende \"sweep hare\" på en halvmaraton). Ingen af de to hører til i de 30 skemafelter - noteret her som producentcitat, ikke som et efterprøvet tredjepartsfaktum."
+]
+notes_wording: [
+ "META-DESCRIPTIONS \"16个自由度\" MODSIGES AF DEN STRUKTUREREDE SPECIFIKATIONSTABEL, IKKE LØST STILTIENDE: metabeskrivelsen påstår 16 frihedsgrader, men den strukturerede tabel (samme side) skriver eksplicit \"关节电机数量: 12 个\" - samme mønster som L1/L2 (ledmotor-antal, ikke eksplicit \"frihedsgrader\"). 12 er brugt som feltværdi, fordi det står i den strukturerede tabel; 16-tallet fra metabeskrivelsen er IKKE brugt, og uoverensstemmelsen er noteret her i stedet for at blive rettet stiltiende.",
+ "",
+ "KONKURRENCE- OG MARATHON-PÅSTANDE, CITERET MEN IKKE EFTERPRØVET UD OVER PRODUCENTENS EGEN SIDE: \"2026北京亦庄机器人勇士挑战赛，铜锤M1 自主导航项目全场唯一完赛，并斩获四足机器人大类自主导航第一、奖项数第一、总分第一、速度第一\" (2026 Beijing Yizhuang Robot Warrior-udfordringen - M1 var det eneste hold, der gennemførte den autonome navigationsdisciplin, og vandt førstepladsen i autonom navigation, flest priser, højeste totalscore og hurtigst i firbenet-kategorien). Samt: \"全球首次由自主跟随机器人陪人类完成马拉松赛事... 铜锤M1作为全球首个自主跟随的机器人\"关门兔\"完成半马陪跑任务\" (første gang globalt en autonomt følgende robot fuldførte et marathon sammen med et menneske - M1 fungerede som verdens første autonomt følgende \"sweep hare\" på en halvmaraton). Ingen af de to hører til i de 30 skemafelter - noteret her som producentcitat, ikke som et efterprøvet tredjepartsfaktum."
+]
+--- 2212 genisom-tongchui-m1-pro ---
+notes: [
+ "AUTONOM NAVIGATION ER STANDARD, IKKE TILVALG, PÅ M1 PRO: basisudgavens funktionsliste skriver (selvstændig navigation: TILVALG). M1 Pro's egen funktionsliste for SAMME punkt skriver blot - UDEN (tilvalg)-præfikset. Læst som en reel forskel, ikke en udeladelse: M1 Pro leveres med selvstændig navigation som standardfunktion."
+]
+notes_wording: [
+ "AUTONOM NAVIGATION ER STANDARD, IKKE TILVALG, PÅ M1 PRO: basisudgavens funktionsliste skriver \"自主导航: 选配：智航Pro版\" (selvstændig navigation: TILVALG). M1 Pro's egen funktionsliste for SAMME punkt skriver blot \"自主导航: 智航Pro版\" - UDEN \"选配\" (tilvalg)-præfikset. Læst som en reel forskel, ikke en udeladelse: M1 Pro leveres med selvstændig navigation som standardfunktion."
+]
+--- 2213 genisom-tongchui-m1-ultra ---
+notes: [
+ "SAMME FYSISKE MÅL SOM M1 PRO, IKKE BASISUDGAVEN: stående mål 930×480×595mm og krybende mål 930×630×210mm - identisk med M1 Pro, 10mm højere end basisudgavens 585/200mm. Vægt 41kg identisk på tværs af alle tre varianter.",
+ "KAMERAOPSTILLING ER HELT FORSKELLIG FRA BASISUDGAVEN OG M1 PRO, IKKE BLOT EN TILFØJELSE: M1 Ultra's sensor-sektion skriver (4x fiskeøjekamera + 2x fremadrettet stereokamera, rundtomsynsbilleddannelse) og (fiskeøje 3MP, stereo 2MP) - erstatter (ikke supplerer) basisudgavens/M1 Pro's (2x bredvinkelkamera, 8MP hver). Sidens brødtekst bekræfter: (Firevejs fiskeøje, fremadrettet stereokamera - Tongchui M1 Ultra understøtter 720° panoramaopfattelse, forbedrer yderligere dybdeopfattelse og kompleks miljøgenkendelse). M1 Ultra's egen funktionsliste tilføjer desuden det eksplicitte punkt (720° 3D rundtomsyn-opfattelsessystem, understøttet) - IKKE til stede på hverken basisudgaven eller M1 Pro.",
+ "(SELVSTÆNDIG NAVIGATION) MANGLER HELT I M1 ULTRAS EGEN FUNKTIONSLISTE - EN GENUIN UDELADELSE, IKKE EN ANTAGELSE. Basisudgaven nævner det som tilvalg, M1 Pro nævner det som standard (, uden), men M1 Ultras egen funktionsliste (id 508, 11 punkter i alt: AI,, OTA,, 720°3D,,) INDEHOLDER INGEN række overhovedet. Dette er dokumenteret som fundet i kilden, ikke antaget at være en udeladelse eller fejl fra vores side - kan lige så godt være en reel produktforskel (fx at M1 Ultras sensorpakke erstatter den navngivne navigationsfunktion med noget andet) som en redaktionel forglemmelse på producentens egen side. autonominiveau-feltet nedenfor gengiver kun det, listen faktisk indeholder."
+]
+notes_wording: [
+ "",
+ "KAMERAOPSTILLING ER HELT FORSKELLIG FRA BASISUDGAVEN OG M1 PRO, IKKE BLOT EN TILFØJELSE: M1 Ultra's sensor-sektion skriver \"相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像\" (4x fiskeøjekamera + 2x fremadrettet stereokamera, rundtomsynsbilleddannelse) og \"相机像索: 鱼眼300万，双目200万\" (fiskeøje 3MP, stereo 2MP) - erstatter (ikke supplerer) basisudgavens/M1 Pro's \"广角相机 x 2, 800万 x 2\" (2x bredvinkelkamera, 8MP hver). Sidens brødtekst bekræfter: \"四路鱼眼、前向双目相机 / 铜锤M1 Ultra 支持720° 全景感知，进一步提升深度感知与复杂环境识别能力。\" (Firevejs fiskeøje, fremadrettet stereokamera - Tongchui M1 Ultra understøtter 720° panoramaopfattelse, forbedrer yderligere dybdeopfattelse og kompleks miljøgenkendelse). M1 Ultra's egen funktionsliste tilføjer desuden det eksplicitte punkt \"720° 3D 环视感知系统: 支持\" (720° 3D rundtomsyn-opfattelsessystem, understøttet) - IKKE til stede på hverken basisudgaven eller M1 Pro.",
+ "\"自主导航\" (SELVSTÆNDIG NAVIGATION) MANGLER HELT I M1 ULTRAS EGEN FUNKTIONSLISTE - EN GENUIN UDELADELSE, IKKE EN ANTAGELSE. Basisudgaven nævner det som tilvalg (\"选配：智航Pro版\"), M1 Pro nævner det som standard (\"智航Pro版\", uden \"选配\"), men M1 Ultras egen funktionsliste (id 508, 11 punkter i alt: AI强化学习运控, 基础动作, 特技动作, 实时图像传输, OTA升级, 二次开发, 目标追踪, 720°3D环视感知系统, 智能避障, 语音对讲, 录音广播) INDEHOLDER INGEN \"自主导航\"-række overhovedet. Dette er dokumenteret som fundet i kilden, ikke antaget at være en udeladelse eller fejl fra vores side - kan lige så godt være en reel produktforskel (fx at M1 Ultras sensorpakke erstatter den navngivne \"智航Pro\"-navigationsfunktion med noget andet) som en redaktionel forglemmelse på producentens egen side. autonominiveau-feltet nedenfor gengiver kun det, listen faktisk indeholder."
+]
