@@ -347,10 +347,12 @@ function omdanFeltpostFraDb(row) {
     kilde: row.source, hentet: row.retrieved_at,
     kildetype: row.source_type === null || row.source_type === undefined ? row.source_type : ordbog.ENUM_LABELS.kildetype_enum.tilDansk(row.source_type),
     advarsel: row.caveat,
-    // advarsel_klasse ER IKKE oversat (briefets punkt 1's afgraensning, se
-    // db/skema.sql's kommentar ved field_entries.caveat_class) — kolonnen
-    // hedder engelsk, INDHOLDET er stadig dansk ('gyldighed'/'uddybning').
-    advarsel_klasse: row.caveat_class,
+    // advarsel_klasse ER oversat (rettet 2. sep 2026, orkestrator-review —
+    // se db/skema.sql's kommentar ved field_entries.caveat_class og
+    // db/ordbog.mjs's DATA_VAERDIER.advarsel_klasse). tools/build.mjs's
+    // D14-maerke laeser den danske vaerdi direkte fra YAML'en, saa den
+    // oversaettelse maa ske HER, ikke lades staa som engelsk i eksporten.
+    advarsel_klasse: row.caveat_class === null || row.caveat_class === undefined ? row.caveat_class : ordbog.DATA_VAERDIER.advarsel_klasse.tilDansk(row.caveat_class),
     advarsel_ordlyd: row.caveat_wording,
     note: row.note, raa: row.raw, valuta: row.currency,
   };

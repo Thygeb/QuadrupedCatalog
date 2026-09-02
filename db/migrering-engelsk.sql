@@ -116,6 +116,18 @@ update feltdefinitioner set ogsaa_dimension = case ogsaa_dimension
   when 'valuta' then 'currency'
   else ogsaa_dimension end;
 
+-- A5. feltposter.advarsel_klasse: CHECK-begraensningen ("feltposter_advarsel_klasse_gyldig",
+--     laest raat af pg_constraint 2. sep 2026, IKKE gaettet) forbyder de nye
+--     vaerdier og droppes derfor FOeR UPDATE — genskabt med de nye vaerdier i
+--     sektion F5, EFTER omdoebningen (samme moenster som A1/F1).
+--     feltposter_advarsel_klasse_kraever_advarsel roeres IKKE: den haardkoder
+--     ingen af de to vaerdier, kun at kolonnen kraever et forbehold ved siden af.
+alter table feltposter drop constraint feltposter_advarsel_klasse_gyldig;
+update feltposter set advarsel_klasse = case advarsel_klasse
+  when 'gyldighed' then 'validity'
+  when 'uddybning' then 'elaboration'
+  else advarsel_klasse end;
+
 -- B. Enum-VAeRDIER omdoebt (mens enum-TYPEnavnene stadig er danske —
 --    de to omdoebes uafhaengigt af hinanden). Identiske par (fx
 --    feltform_enum.interval -> interval) er udeladt: RENAME VALUE til
@@ -353,6 +365,9 @@ begin
     alter table images add constraint images_alt_form check (alt is null or jsonb_typeof(alt) = 'object');
   end if;
 end $$;
+
+-- F5. field_entries.caveat_class: CHECK genskabt med de NYE vaerdier (droppet i A5).
+alter table field_entries add constraint field_entries_caveat_class_valid check (caveat_class is null or caveat_class in ('validity', 'elaboration'));
 
 -- G. synk_aftryk droppet (punkt 5) — vagtede en skrivevej (db/migrer.mjs),
 --    der selv er fjernet. IF EXISTS: allerede fjernet er ikke en fejl.

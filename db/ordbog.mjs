@@ -366,6 +366,19 @@ export const DATA_VAERDIER = {
     forsvar_beredskab: 'defense_emergency_response',
     logistik: 'logistics',
   }, 'DATA_VAERDIER.anvendelse_vaerdi'),
+  // feltposter.advarsel_klasse — CHECK (advarsel_klasse in ('gyldighed',
+  // 'uddybning')), IKKE en enum-type (samme begrundelse som skema.sql's
+  // egen kommentar ved kolonnen: to lukkede vaerdier, sjaeldent aendret).
+  // TILFOEJET 2. sep 2026 (orkestrator-review): stod IKKE paa briefets
+  // liste over opremsede datavaerdier (fund/FUND-skema.md's oprindelige
+  // udgave dokumenterede fravalget som en bevidst afgraensning) — men
+  // briefets liste var ufuldstaendig. Et lukket saet paa to danske ord er
+  // praecis samme slags vaerdi som fremdrift ovenfor, og L82 gaelder ALT i
+  // databasen.
+  advarsel_klasse: lavOrdbog({
+    gyldighed: 'validity',
+    uddybning: 'elaboration',
+  }, 'DATA_VAERDIER.advarsel_klasse'),
 };
 
 /* ============================================================

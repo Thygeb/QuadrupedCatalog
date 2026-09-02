@@ -268,13 +268,18 @@ create table field_entries (
   source_type         source_type_enum,
   caveat              text,
   -- R20/L48/D14 (spor/d14data, opfoelgning spor/dbklasse): et forbehold
-  -- ("caveat") kan baere en MASKINLAESBAR klasse — "gyldighed" (paavirker
-  -- sammenligneligheden) eller "uddybning" (uddybende kontekst, intet tvivl
-  -- om selve tallet). IKKE oversat til engelsk (briefets punkt 1 naevner
-  -- ikke caveat_class blandt de opremsede datavaerdier, der skal
-  -- oversaettes — en bevidst afgraensning, se fund/FUND-skema.md): kolonnen
-  -- HEDDER engelsk (caveat_class), men INDHOLDET (de to vaerdier
-  -- "gyldighed"/"uddybning") forbliver dansk indtil videre.
+  -- ("caveat") kan baere en MASKINLAESBAR klasse — "validity" (paavirker
+  -- sammenligneligheden, dansk kildeord "gyldighed") eller "elaboration"
+  -- (uddybende kontekst, intet tvivl om selve tallet, dansk kildeord
+  -- "uddybning"). OVERSAT 2. sep 2026 (orkestrator-review, rettede en
+  -- ufuldstaendig liste i briefets punkt 1): et lukket saet paa to danske
+  -- ord er praecis samme slags vaerdi som robots.locomotion, og L82 gaelder
+  -- ALT i databasen, ikke kun det briefet eksplicit navngav. Se
+  -- db/ordbog.mjs's DATA_VAERDIER.advarsel_klasse — db/eksporter.mjs
+  -- oversaetter tilbage til dansk ved eksport, saa YAML'en (som stadig
+  -- baerer det danske kildeord for "validity", jf. ovenfor) og
+  -- tools/build.mjs's D14-maerke, der laeser netop det danske ord, er
+  -- begge UROERTE.
   --
   -- KOLONNETYPE: text + CHECK, ikke et nyt enum. De to gyldige vaerdier
   -- staar IKKE i tools/skema.mjs — de staar alene i tools/validate.mjs's
@@ -374,9 +379,12 @@ create table field_entries (
   ),
 
   -- R20/L48/D14: caveat_class er enten NULL (uklassificeret, lovligt) eller
-  -- PRAeCIS én af de to tekster, validate.mjs's ADVARSEL_KLASSER kender.
+  -- PRAeCIS én af de to ENGELSKE oversaettelser af validate.mjs's
+  -- ADVARSEL_KLASSER (som selv forbliver danske — den fil roeres ikke af
+  -- L81-L83). db/ordbog.mjs's DATA_VAERDIER.advarsel_klasse er den ene
+  -- oversaettelse.
   constraint field_entries_caveat_class_valid check (
-    caveat_class is null or caveat_class in ('gyldighed', 'uddybning')
+    caveat_class is null or caveat_class in ('validity', 'elaboration')
   ),
   -- R20's andet krav: en klasse klassificerer et forbehold — uden et
   -- forbehold er der intet at klassificere.

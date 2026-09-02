@@ -169,6 +169,19 @@ function sektionA() {
     l.push(`  when ${s(da)} then ${s(en)}`);
   }
   l.push('  else ogsaa_dimension end;');
+  l.push('');
+  l.push('-- A5. feltposter.advarsel_klasse: CHECK-begraensningen ("feltposter_advarsel_klasse_gyldig",');
+  l.push('--     laest raat af pg_constraint 2. sep 2026, IKKE gaettet) forbyder de nye');
+  l.push('--     vaerdier og droppes derfor FOeR UPDATE — genskabt med de nye vaerdier i');
+  l.push('--     sektion F5, EFTER omdoebningen (samme moenster som A1/F1).');
+  l.push('--     feltposter_advarsel_klasse_kraever_advarsel roeres IKKE: den haardkoder');
+  l.push('--     ingen af de to vaerdier, kun at kolonnen kraever et forbehold ved siden af.');
+  l.push('alter table feltposter drop constraint feltposter_advarsel_klasse_gyldig;');
+  l.push('update feltposter set advarsel_klasse = case advarsel_klasse');
+  for (const [da, en] of Object.entries(ordbog.DATA_VAERDIER.advarsel_klasse.kort)) {
+    l.push(`  when ${s(da)} then ${s(en)}`);
+  }
+  l.push('  else advarsel_klasse end;');
   return l;
 }
 
@@ -329,6 +342,17 @@ function sektionF() {
   l.push("    alter table images add constraint images_alt_form check (alt is null or jsonb_typeof(alt) = 'object');");
   l.push('  end if;');
   l.push('end $$;');
+  l.push('');
+  // Udledt af ordbogen (samme begrundelse som F1: en hardkodet "caveat_class"
+  // her ville kunne desynke tavst fra ordbog.mjs, praecis den fejl F1 selv
+  // rettede for propulsion/locomotion).
+  {
+    const enTabel = ordbog.TABELLER.tilEngelsk('feltposter');
+    const enKol = ordbog.KOLONNER.tilEngelsk('advarsel_klasse');
+    const enVaerdier = Object.values(ordbog.DATA_VAERDIER.advarsel_klasse.kort).map((v) => s(v)).join(', ');
+    l.push(`-- F5. ${enTabel}.${enKol}: CHECK genskabt med de NYE vaerdier (droppet i A5).`);
+    l.push(`alter table ${enTabel} add constraint ${enTabel}_${enKol}_valid check (${enKol} is null or ${enKol} in (${enVaerdier}));`);
+  }
   return l;
 }
 

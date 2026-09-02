@@ -189,7 +189,7 @@
       "retrieved_at": "2026-08-25",
       "source_type": null,
       "caveat": "\"Trakr 20 is the heavy-duty quadruped. 20 kg carry, rock-steady under load.\" - brødtekst for Trakr 20-fanen på den primære produktside. Producenten skelner ikke mellem gående og stående last (samme tolkningsprincip som Trakr 5, Boston Dynamics Spot m.fl.). Uafhængigt bekræftet af addverb.com/press-release/addverb-launches-new-warehouse-robots-trakr-2-0-brisk-and-hoca-at-logimat-india-2025/ (hentet 2026-08-25, kildetype sekundær): \"The Trakr 2.0, a quadruped robot, is capable of carrying up to 20 kg\" - citat af medstifter Bir Singh. Se topnoten for hvorfor DENNE værdi er brugt, mens resten af fanens specifikationstabel ikke er.",
-      "caveat_class": "gyldighed",
+      "caveat_class": "validity",
       "caveat_wording": null,
       "note": null,
       "raw": null,

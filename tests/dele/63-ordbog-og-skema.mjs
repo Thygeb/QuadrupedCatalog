@@ -177,8 +177,9 @@ export default async function koer(ctx) {
   const idTilSlug = new Map([[fixture.id, fixture.slug]]);
   let fixtureFejl = null;
   let ligMedOriginal = false;
+  let kanoniskDa = null;
   try {
-    const kanoniskDa = omdanRobotFraDb(fixture, idTilSlug);
+    kanoniskDa = omdanRobotFraDb(fixture, idTilSlug);
     const doc = byggRobotDoc(kanoniskDa);
     const yamlTekst = skrivRobotYaml(doc);
     const genskabt = ctx.skema.normaliserRobot(ctx.yaml.parseYaml(yamlTekst, 'fixture-genskabt'));
@@ -192,6 +193,15 @@ export default async function koer(ctx) {
   }
   ok('(d) fixture (addverb-trakr-20, engelsk) -> eksporteret dansk dokument er dybt lig originalen',
     ligMedOriginal, fixtureFejl ?? '33 feltposter, anvendelse (6 kategorier, liste), billede (alt-sprogkort) alle dybt lig');
+
+  // (d2) EKSPLICIT, ud over den brede dybtLig ovenfor: fixturens
+  // payload_walking.caveat_class = "validity" (engelsk, DB-formen) skal
+  // blive til "gyldighed" (dansk, YAML-formen) — orkestrator-tilfoejet
+  // 2. sep 2026, DEN faktiske robot addverb-trakr-20 baerer netop denne
+  // vaerdi paa netop dette felt (data/robots/addverb-trakr-20.yaml:45).
+  ok('(d2) caveat_class "validity" -> "gyldighed" paa payload_walking (den faktiske vaerdi i fixturen)',
+    kanoniskDa?.felter?.nyttelast_gaaende?.advarsel_klasse === 'gyldighed',
+    JSON.stringify(kanoniskDa?.felter?.nyttelast_gaaende?.advarsel_klasse));
 
   // (e) db/migrering-cert.sql er idempotent.
   const cert = fs.readFileSync(path.join(rod, 'db/migrering-cert.sql'), 'utf8');
