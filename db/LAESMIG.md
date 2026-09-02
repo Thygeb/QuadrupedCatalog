@@ -190,6 +190,20 @@ alle uændrede af L81-L83 (Storage kender ikke til tabelnavne):
 7. **`object/list` returnerer mapper som poster med `id: null`** — de skal
    foldes ud med rekursive `prefix`-kald, før objektstørrelser kan summeres.
 
+## `tjek.mjs --liste` / `--kun` / tal-lig — fase 2's afgrænsning (spor/tjekkun, 2. sep 2026)
+
+Fase 2 sender N parallelle spor, der hver skriver KUN tekstkolonner for ÉN
+producents robotter. Uden afgrænsning bliver ét spors `tjek.mjs` rødt af de
+ANDRES rækker. `--liste` (producenter + antal, ingen database, under 1 s)
+finder producentnavnet; `--kun=<producent>` (eksakt, trim + versalsuafhængigt)
+afgrænser kravet til den producents robotter alene. Kravet for et fase 2-spor
+er **k/k tal-lig (uden `TEKSTNOEGLER`)** for egne robotter + `validate 0 fejl`
+på hele eksporten (uændret, gælder alle 77). Dybt-lig-forskelle på egne
+robotter er **forventede** (fase 2 skriver netop tekst) og kun information —
+ligesom robotter uden for `--kun`, som et andet spor kan være midt i at
+skrive. `TEKSTNOEGLER`/`udenTekst`/`talLig` er eksporteret fra `tjek.mjs` til
+netop dette formål; se `db/tjek.mjs`s egen toptekst for den fulde liste.
+
 ## Bygget og efterprøvet
 
 - **Auth.** Der er ingen brugerkonti, intet login. `service_role` er den

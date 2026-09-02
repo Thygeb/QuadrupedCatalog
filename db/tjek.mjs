@@ -30,6 +30,21 @@
  * dybtLig og traekValidateTal er UAeNDREDE (kopieret fra det slettede
  * db/rundtur.mjs, ikke omskrevet) — de er importeret af db/eksporter.mjs
  * (Aa12-princippet: ét sted, ikke to kopier der kan skride fra hinanden).
+ *
+ * ARGUMENTER (spor/tjekkun, 2. sep 2026 — PLAN.md par. 0 fase 2: N parallelle
+ * spor skriver hver KUN én producents tekstkolonner samtidig i databasen, og
+ * skal hver kunne maale sig selv uden at blive roede af de ANDRES raekker):
+ *
+ *   --liste            Producenter fra data/robots/ med antal robotter,
+ *                       faldende. INGEN database, INGEN .env, exit 0 straks.
+ *   --kun=<producent>  Afgraenser trin 2/3's KRAV til én producents robotter
+ *                       (eksakt, trim + versalsuafhaengigt). Kravet bliver
+ *                       talLig() (TEKSTNOEGLER fraregnet) for egne robotter;
+ *                       dybt-lig-forskelle for egne robotter er FORVENTEDE
+ *                       (fase 2 skriver tekst) og kun information. Robotter
+ *                       uden for --kun stiller intet krav. Se db/LAESMIG.md.
+ *
+ * Uden flag: adfaerd UAeNDRET fra foer dette spor (dybt lig ALLE 77).
  */
 
 import fs from 'node:fs';
@@ -91,6 +106,77 @@ function laesParsetNormaliseret(fil) {
   return normaliserRobot(parseYaml(fs.readFileSync(fil, 'utf8'), fil));
 }
 
+/* ------------------------------------------------------------ talkontrol (D2)
+ * PLAN.md par. 0, fase 2-raekken: N parallelle spor skriver KUN tekstkolonner
+ * — engelsk formulering (advarsel/citat/note-familien), kildesprogets
+ * ordrette ordlyd (caveat=advarsel, note, applications.quote=anvendelse.
+ * citat), producentens land/by (country), billedets alt-tekst — og INTET
+ * andet. TEKSTNOEGLER er netop den liste: de noegler, fase 2 MAA aendre.
+ * Alt andet i skemaet er en talkolonne, og haard begraensning 2 kraever, at
+ * de staar helt uroerte, mens fase 2 koerer. */
+const TEKSTNOEGLER = [
+  'advarsel', 'advarsel_ordlyd', 'advarsel_i18n',
+  'note', 'note_ordlyd', 'note_i18n',
+  'noter', 'noter_ordlyd',
+  'citat', 'citat_ordlyd',
+  'producentland', 'producentby',
+  'alt',
+];
+const TEKSTNOEGLE_SAET = new Set(TEKSTNOEGLER);
+
+/** Dyb kopi af `obj` hvor alle TEKSTNOEGLER-noegler er fjernet, paa ALLE
+ *  dybder (robottens top, felter.<x>, anvendelse, billede) — samme
+ *  rekursionsform (array/objekt/blad) som dybtLig ovenfor, saa de to
+ *  funktioner ikke kan naa til hver sin opfattelse af, hvad et "objekt" er.
+ *  Muterer IKKE `obj`. */
+function udenTekst(obj) {
+  if (Array.isArray(obj)) return obj.map(udenTekst);
+  if (obj !== null && typeof obj === 'object') {
+    const ud = {};
+    for (const [k, v] of Object.entries(obj)) {
+      if (TEKSTNOEGLE_SAET.has(k)) continue;
+      ud[k] = udenTekst(v);
+    }
+    return ud;
+  }
+  return obj;
+}
+
+/** dybtLig, men blind for TEKSTNOEGLER — beviser at TALLENE er ens, uanset
+ *  hvor langt fase 2's tekstgenindsamling er naaet paa netop denne robot. */
+function talLig(a, b, stiTilFejl) {
+  return dybtLig(udenTekst(a), udenTekst(b), stiTilFejl);
+}
+
+/** Samler ALLE differerende TEKSTNOEGLER-stier mellem to dokumenter, til
+ *  --kun's rapportering (D3). Modsat dybtLig, som stopper ved den FOeRSTE
+ *  forskel den moeder, skal denne finde dem ALLE, saa "unitree-aliengo:
+ *  .felter.egenvaegt.advarsel, .noter" kan vise flere paa én linje. Kaldes
+ *  kun paa par, hvor talLig(a,b) allerede er sand — enhver forskel, den
+ *  finder, er derfor per definition tekstlig, aldrig et tal. Ikke eksporteret:
+ *  ren rapporteringshjaelp, ingen anden fil har brug for den. */
+function tekstforskelle(a, b, sti = '') {
+  if (a === null || b === null || a === undefined || b === undefined) return [];
+  if (typeof a !== 'object' || typeof b !== 'object') return [];
+  if (Array.isArray(a) !== Array.isArray(b)) return [];
+  const resultater = [];
+  if (Array.isArray(a)) {
+    const n = Math.max(a.length, b.length);
+    for (let i = 0; i < n; i++) resultater.push(...tekstforskelle(a[i], b[i], `${sti}[${i}]`));
+    return resultater;
+  }
+  const noegler = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const k of noegler) {
+    const stiK = `${sti}.${k}`;
+    if (TEKSTNOEGLE_SAET.has(k)) {
+      if (JSON.stringify(a[k]) !== JSON.stringify(b[k])) resultater.push(stiK);
+    } else {
+      resultater.push(...tekstforskelle(a[k], b[k], stiK));
+    }
+  }
+  return resultater;
+}
+
 /** Traekker "N fil(er) · M fejl · K advarsler" ud af validate.mjs's stdout. */
 function traekValidateTal(ud) {
   const m = ud.match(/(\d+) fil\(er\) · (\d+) fejl · (\d+) advarsler/);
@@ -106,9 +192,91 @@ function traekBuildTal(ud) {
   return { sider: Number(sider[1]), medKilde: Number(kilder[1]), udenKilde: Number(kilder[2]) };
 }
 
+/* -------------------------------------------------------- argumenter (D1) */
+
+/** Samme "--noegle" / "--noegle=vaerdi"-form som tools/validate.mjs's
+ *  laesFlag — ikke importeret derfra, for at tjek.mjs ikke faar en ny
+ *  koblingsvej til validate.mjs (den kaldes i forvejen kun som subprocess). */
+function laesFlag(argv) {
+  const flag = {};
+  for (const a of argv) {
+    if (!a.startsWith('--')) continue;
+    const i = a.indexOf('=');
+    if (i === -1) flag[a.slice(2)] = true;
+    else flag[a.slice(2, i)] = a.slice(i + 1);
+  }
+  return flag;
+}
+
+/** (slug, producent)-par for alle YAML-filer i data/robots/ — ren lokal
+ *  laesning. INGEN database, INGEN .env: bruges af --liste og --kun, som
+ *  begge skal kunne svare uden at vente paa eksporten. */
+function laesProducenter() {
+  const mappe = path.join(ROD, 'data/robots');
+  return fs.readdirSync(mappe).filter((f) => /\.ya?ml$/.test(f)).sort().map((f) => {
+    const slug = f.replace(/\.ya?ml$/, '');
+    const doc = laesParsetNormaliseret(path.join(mappe, f));
+    return { slug, producent: String(doc.producent ?? '') };
+  });
+}
+
+/** --liste: producenter faldende efter antal robotter, "13  Unitree Robotics"
+ *  (antal, to mellemrum, navn). Ingen eksport, ingen .env — exit 0 straks. */
+function koerListe() {
+  const poster = laesProducenter();
+  const taelling = new Map();
+  for (const { producent } of poster) taelling.set(producent, (taelling.get(producent) ?? 0) + 1);
+  const raekker = [...taelling.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'da'));
+  for (const [navn, antal] of raekker) console.log(`${antal}  ${navn}`);
+  return 0;
+}
+
+/** Eksakt match paa producent, trim + case-uafhaengigt (Galileo (Tianjin)
+ *  osv. kan indeholde mellemrum og parenteser — der matches paa hele
+ *  strengen, ikke ord for ord). match er null ved ukendt navn; gyldige er
+ *  de kendte navne, brugt til fejlbeskeden. */
+function findProducent(oenske, poster) {
+  const soeg = String(oenske ?? '').trim().toLowerCase();
+  const navne = [...new Set(poster.map((p) => p.producent))].sort((a, b) => a.localeCompare(b, 'da'));
+  const match = navne.find((n) => n.trim().toLowerCase() === soeg) ?? null;
+  const egneSlugs = match ? new Set(poster.filter((p) => p.producent === match).map((p) => p.slug)) : null;
+  return { match, egneSlugs, gyldige: navne };
+}
+
+/** validate.mjs's fejllinjeform (maalt i tools/validate.mjs:1357):
+ *  "FEJL      <robot> · <felt> · <regel>: <besked>", hvor <robot> er
+ *  path.basename(fil) — samme "<slug>.yaml" som tjek.mjs' egne EKSPORT_MAPPE-
+ *  filnavne (validate.mjs's robotINavn saettes fra samme sti). D4's
+ *  egne/andre-gruppering matcher derfor paa slug, ikke paa delstreng, saa
+ *  "unitree-b2" ikke ved et uheld fanger "unitree-b2-w". */
+function robotFraFejlLinje(linje) {
+  const m = linje.match(/^FEJL\s+(\S+)/);
+  return m ? m[1].replace(/\.ya?ml$/, '') : null;
+}
+
 /* --------------------------------------------------------------- main */
 
 function hoved() {
+  const flag = laesFlag(process.argv.slice(2));
+
+  if (flag['liste']) return koerListe();
+
+  let kunProducent = null;
+  let egneSlugs = null;
+  if (flag['kun'] !== undefined) {
+    const oenske = flag['kun'] === true ? '' : String(flag['kun']);
+    const poster = laesProducenter();
+    const { match, egneSlugs: es, gyldige } = findProducent(oenske, poster);
+    if (!match) {
+      console.error(`Ukendt producent: "${oenske}".`);
+      console.error(`Gyldige producenter (${gyldige.length}):`);
+      for (const g of gyldige) console.error(`  ${g}`);
+      return 2;
+    }
+    kunProducent = match;
+    egneSlugs = es;
+  }
+
   console.log('1/4  node db/eksporter.mjs --fra-db --ud=db/.tmp/tjek-eksport ...');
   fs.rmSync(EKSPORT_MAPPE, { recursive: true, force: true });
   koer(['db/eksporter.mjs', '--fra-db', `--ud=${EKSPORT_MAPPE}`]);
@@ -119,27 +287,83 @@ function hoved() {
   const originalMappe = path.join(ROD, 'data/robots');
   const originalFiler = fs.readdirSync(originalMappe).filter((f) => /\.ya?ml$/.test(f)).sort();
   let ligeAntal = 0;
+  let talLigAntal = 0;
   const uligeDetaljer = [];
+  const talUligeSlugs = [];
+  let egneTalLigAntal = 0;
+  let egneDybtLigAntal = 0;
+  const egneTekstforskelLinjer = [];
+  const egneTalforskelDetaljer = [];
   for (const f of originalFiler) {
     const slug = f.replace(/\.ya?ml$/, '');
+    const erEgen = egneSlugs?.has(slug) ?? false;
     const eksportFil = path.join(EKSPORT_MAPPE, `${slug}.yaml`);
     if (!fs.existsSync(eksportFil)) {
       uligeDetaljer.push(`${slug}: eksportfilen findes ikke (${eksportFil})`);
+      talUligeSlugs.push(slug);
       continue;
     }
     const original = laesParsetNormaliseret(path.join(originalMappe, f));
     const eksport = laesParsetNormaliseret(eksportFil);
-    const stiTilFejl = [];
-    if (dybtLig(original, eksport, stiTilFejl)) {
+
+    const stiDybFejl = [];
+    const erDybtLig = dybtLig(original, eksport, stiDybFejl);
+    if (erDybtLig) {
       ligeAntal++;
     } else {
-      uligeDetaljer.push(`${slug}: ${stiTilFejl.reverse().join(' -> ')}`);
+      uligeDetaljer.push(`${slug}: ${stiDybFejl.reverse().join(' -> ')}`);
+    }
+
+    const stiTalFejl = [];
+    const erTalLig = talLig(original, eksport, stiTalFejl);
+    if (erTalLig) {
+      talLigAntal++;
+    } else {
+      talUligeSlugs.push(slug);
+    }
+
+    if (erEgen) {
+      if (erTalLig) {
+        egneTalLigAntal++;
+      } else {
+        egneTalforskelDetaljer.push(`${slug}: ${stiTalFejl.reverse().join(' -> ')}`);
+      }
+      if (erDybtLig) {
+        egneDybtLigAntal++;
+      } else if (erTalLig) {
+        egneTekstforskelLinjer.push(`${slug}: ${tekstforskelle(original, eksport).join(', ')}`);
+      }
     }
   }
   console.log(`     ${ligeAntal}/${originalFiler.length} dybt lig.`);
-  if (uligeDetaljer.length) {
-    fejl.push(`Tjek: ${uligeDetaljer.length} fil(er) er IKKE dybt lig deres original:\n  ` +
-      uligeDetaljer.join('\n  '));
+  console.log(`     ${talLigAntal}/${originalFiler.length} tal-lig (uden tekstnoegler).`);
+
+  if (!kunProducent) {
+    // Uden --kun: kravet er UAeNDRET fra foer dette spor — dybt lig ALLE 77.
+    // tal-lig-linjen ovenfor er ren information i denne gren.
+    if (uligeDetaljer.length) {
+      fejl.push(`Tjek: ${uligeDetaljer.length} fil(er) er IKKE dybt lig deres original:\n  ` +
+        uligeDetaljer.join('\n  '));
+    }
+  } else {
+    // Med --kun: kravet flytter til TAL-lighed for EGNE robotter alene.
+    // dybt-lig-forskelle for egne robotter er FORVENTEDE (fase 2 skriver
+    // tekst) og derfor kun information — ligesaa robotter uden for --kun,
+    // som et andet spor kan vaere midt i at skrive.
+    const k = egneSlugs.size;
+    console.log(`     ${egneTalLigAntal}/${k} tal-lig (${kunProducent})`);
+    console.log(`     ${egneDybtLigAntal}/${k} dybt lig (${kunProducent})`);
+    for (const linje of egneTekstforskelLinjer) console.log(`     ${linje}`);
+    if (egneTalLigAntal !== k) {
+      fejl.push(`Tjek (--kun="${kunProducent}"): ${k - egneTalLigAntal} af ${k} robot(ter) er IKKE ` +
+        `tal-lig deres original (talkolonner roerer sig, som de ikke maa):\n  ` +
+        egneTalforskelDetaljer.join('\n  '));
+    }
+    if (talLigAntal < originalFiler.length) {
+      const udenForSlugs = talUligeSlugs.filter((s) => !egneSlugs.has(s));
+      console.log(`     ADVARSEL: tal afviger uden for ${kunProducent}: ` +
+        `${udenForSlugs.join(', ') || '(ingen — kun egne robotter afviger)'}`);
+    }
   }
 
   console.log('3/4  node tools/validate.mjs paa den eksporterede mappe ...');
@@ -151,6 +375,16 @@ function hoved() {
   }
   const vTal = traekValidateTal(validateUd);
   console.log(`     ${vTal.filer} fil(er) · ${vTal.fejl} fejl · ${vTal.advarsler} advarsler.`);
+  if (kunProducent) {
+    // Kravet "0 fejl paa hele eksporten" er UAeNDRET (haard begraensning 2
+    // gaelder alle 77) — grupperingen her er ren information, saa sporet
+    // straks kan se, om en fejl er dets EGEN eller stammer fra en anden
+    // producents raekker, mens de skrives samtidig.
+    const fejlLinjer = validateUd.split('\n').filter((l) => l.startsWith('FEJL'));
+    const egneFejlLinjer = fejlLinjer.filter((l) => egneSlugs.has(robotFraFejlLinje(l)));
+    const andreFejlLinjer = fejlLinjer.filter((l) => !egneSlugs.has(robotFraFejlLinje(l)));
+    console.log(`     validate-fejl: ${egneFejlLinjer.length} egne (${kunProducent}), ${andreFejlLinjer.length} andre.`);
+  }
   if (vTal.fejl !== 0) {
     fejl.push(`validate.mjs fandt ${vTal.fejl} fejl paa den eksporterede mappe (forventet 0):\n${validateUd}`);
   }
@@ -193,4 +427,4 @@ if (erHoved) {
   }
 }
 
-export { dybtLig, traekValidateTal };
+export { dybtLig, traekValidateTal, udenTekst, talLig, TEKSTNOEGLER };
