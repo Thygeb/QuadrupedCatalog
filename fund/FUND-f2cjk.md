@@ -2,6 +2,75 @@
 
 Robotter: `robot_id` 2186 (`astrall-dynamics-hypertron-t01`) og 2258 (`yufan-lingmao-cyvet`).
 
+## Punkt 5(b) øverst, som krævet: `change_log`-triggeren VIRKER
+
+`change_log` havde 0 rækker for disse to robotter, da briefet blev skrevet.
+**Efter skrivningen: 39 rækker** (34 `field_entries` + 4 `applications` +
+1 `robots` — de 4 på `applications` er 2 originale + 2 fra en efterfølgende
+rettelse, se punkt 4 nedenfor), alle med `changed_by = 'spor/f2-cjk'`.
+Triggeren fyrer altså korrekt på en rigtig UPDATE. Målt to gange (før og
+efter rettelsen), samme mekanisme begge gange.
+
+## Rapport (≤60 linjer)
+
+**1. Valgt / fravalgt.** Genskabte måleredskabet fra briefets beskrivelse
+(kildekoden fra `spor/f2-pilot` var ikke tilgængelig) frem for at gætte på
+et andet format — fravalgt: at stole på den eksisterende `caveat_wording`-
+tekst uden kildeverifikation (ville have arvet mindst to tegnkorruptioner,
+se "Nye fælder"). Fravalgt at bruge briefets forudsagte 29/3/3/0-fordeling
+som facit — målt egen fordeling i stedet (32/0/2/1), se punkt 2.
+
+**2. Konfidens.**
+- **Høj**: `node fund/maal-f2-cjk.mjs 2186,2258` — genkørbar, giver i dag
+  `caveat 35|dansk 1, caveat_wording 34|dansk 0, applications.note 2|dansk 0,
+  images.note 0|dansk 0, robots.notes 3|dansk 0, robots.notes_wording 3|dansk 0`.
+  Var arbejdet forkert (dansk glemt et sted), ville et af disse tal være >0
+  ud over den bevidst urørte D-række.
+- **Høj**: UTF-8-rundtur, `node fund/f2-cjk-utf8tjek.mjs` — 76 strenge
+  sammenlignet med `===` mod PRÆCIS det, `db/f2-cjk-skriv.mjs` selv sendte
+  (genbrugt via `import`, ikke en ny afskrift): 0 mismatch. Var en CJK-streng
+  forvansket undervejs, ville denne kommando vise `MISMATCH` med det eksakte
+  kodepunkt.
+- **Høj**: kildeverifikation, `node db/f2-cjk-skriv.mjs --verificer` — 73
+  wording-fragmenter, hvert prøvet som bogstavelig delstreng (eller
+  etiket+værdi-split, eller "..."-split) i den citerede råkildefil: 0 fejl.
+  Var et citat opdigtet, ville denne kommando afvise det FØR nogen
+  skrivning.
+- **Høj**: `node fund/f2-cjk-punkt5-tjek.mjs` — punkt 5(a)+(b) samlet: 0
+  uventede kolonnediffs mod `fund/snapshot-foer-f2-cjk.json`, 39
+  `change_log`-rækker, 0 forkerte `changed_by`. Var en talkolonne rørt ved
+  et uheld, ville denne kommando vise `UVENTET DIFF` med kolonnenavn.
+- **Middel**: de engelske `caveat`-teksters MENING (at oversættelsen er tro
+  mod det danske grundlag) — læst igennem manuelt (alle 43), ikke målt med
+  en kommando. Fandt og rettede 1 fejl (se punkt 4).
+
+**3. Usikkerheder.** `2186/height`s "se noter" og `2186/temperature_max`s
+"se noter" peger på `robots.notes`, som er `NULL` for 2186 — enten en
+dinglende reference fra en tidligere agent, eller "noter" betyder blot
+"andre feltbemærkninger på denne robot" i løs forstand. Oversat bogstaveligt
+uden at gætte på hvilken. Ingen kinesisk etiket var uklar nok til at kræve
+et gæt — alle otte stikprøvede labels/citater matchede råkilden ordret ved
+direkte opslag (se punkt 1 i commit-historikken).
+
+**4. Målingerne.** 35 advarsler klassificeret: **A=32, B=0, C=2, D=1**
+(briefets forudsigelse var 29/3/3/0 — B blev 0, ikke 3, se "Nye fælder").
+37 skrivninger udført (34 `field_entries` + 2 `applications` + 1 `robots`),
+alle "1 række opdateret". 1 efterfølgende rettelse (2 × `applications.note`,
+"industry" → "industrial") fundet ved slutlæsningen af alle 43 tekster —
+**43 læst, 1 fejl fundet**. Slutmåling: `caveat_wording` dansk 34→0,
+`caveat` dansk 35→1 (kun kasse D, bevidst urørt). `change_log`: 39 rækker,
+0 forkerte `changed_by`. Punkt 5(a)-diff: 0 uventede ændringer uden for
+tekstkolonnerne (alle tal, kilder, datoer uændrede).
+
+## Punkt 5(c) — Kasse D-listen til JPK
+
+Én række. Rørt ikke — raden står stadig på dansk i databasen, som den gjorde
+før dette spor. Beslutningen om, hvad der skal ske med den, er JPK's.
+
+| robot_id | field_name | dansk tekst (uændret i databasen) | søgt efter og ikke fundet |
+|---|---|---|---|
+| 2186 | ip_rating | "Se noten om en ueftereprøvet IP67-påstand i en pressemeddelelse, der ikke kunne hentes." | Søgte "IP67" og "pressemeddelelse" i alle tre astrall-kildefiler (`astralldynamics-hypertron-t01-produktside`, `astralldynamics-forside`, `astralldynamics-om-os`, alle 2026-08-24). Ingen af de tre nævner IP67 nogen steder (kun IP66, som ER kildebelagt på produktsiden og ikke er del af denne D-post). `robots.notes` for 2186 er desuden `NULL` — feltets egen henvisning "se noten" peger derfor på noget, der ikke findes i databasen i dag, hvilket understøtter at påstanden aldrig fik en kilde hæftet på sig. |
+
 ## Punkt 2 — Klassificering af alle 35 advarsler
 
 Fire kasser. **A** = ordlyd findes, forurenet af dansk. **B** = ordlyd findes,
@@ -50,3 +119,51 @@ allerede ren. **C** = ingen ordlyd, citat findes i kilden og kan trækkes ud.
 
 **Afviger fra briefets forudsigelse 29/3/3/0** — se "Nye fælder og opdagelser"
 i hovedrapporten for hvorfor B blev 0, ikke 3.
+
+---
+
+## Nye fælder og opdagelser (uden for de 60 linjer)
+
+1. **To karaktertegn-korruptioner i den EKSISTERENDE database-tekst**, fundet
+   ved at verificere citater mod selve HTML-kilden i stedet for at stole på
+   teksten, der allerede lå der. `robots.notes_wording[1]` havde `•`
+   (U+2022, almindelig bullet) hvor kilden konsekvent bruger `・` (U+30FB,
+   katakana-midterprik) i "灵猫・Cyvet" — ni gange i kilden, alle ni med
+   samme tegn. `robots.notes_wording[2]` havde et ASCII-punktum `.` hvor
+   kilden har et fuldbredde kinesisk `。` (U+3002). Begge rettet til kildens
+   tegn ved denne skrivning. Ingen af dem ville være fanget visuelt eller af
+   dansk-detektoren — kun ved kodepunkt-for-kodepunkt-sammenligning.
+2. **Kildens HTML-tabeller lægger etiket og værdi i separate celler**, ofte
+   med mellemrum omkring skråstreger i etiketten ("数量 / 检测距离"). Første
+   forsøg på at genkonstruere `caveat_wording` som én sammenhængende streng
+   gav 31 verifikationsfejl af 46 fragmenter — ikke fordi indholdet var
+   forkert, men fordi mellemrumsformateringen ikke matchede kilden præcist.
+   Rettet felt for felt mod frisk HTML-udtræk. Se `fund/OPSKRIFT-fase2-cjk.md`.
+3. **Måleredskabets egen stopordsliste kolliderede med almindelig engelsk**
+   ("under", "over", "men", "dog") og gav 5 falske dansk-positiver på
+   allerede-korrekt engelsk tekst efter selve skrivningen — herunder ordet
+   "dog" i sig selv, som er farligt på netop denne robothunde-side. Fundet
+   og rettet, se commit 96dacfa.
+4. **Kasse B var 0, ikke briefets forudsagte 3.** De tre "kandidater",
+   måleredskabet ikke selv fangede som danske, VAR stadig danskforurenede
+   ved manuel læsning ("arbejdslast", "ekstern kommunikation", "driftstem-
+   peratur ... er separat - se noter") — bare uden æøå og uden et ord fra en
+   almindelig stopordsliste. Bekræftet beregnet (ikke kun læst): et script
+   fjernede al citeret tekst fra alle 32 wording-felter og testede, om der
+   stod dansk uden for citaterne — 0 af 32 var reelt rene.
+5. **`media/_kilder/raa-kand2-2026-08-24/` og `raa-pdf-2026-08-24/`
+   (uniubi GitHub-snapshots) manglede i worktreen** — briefet sagde "dine
+   råkilder findes allerede", men den kendte gitignore-fælde ramte alligevel.
+   Kopieret ind (læst fra hovedrepoet, intet skrevet der) — se commit 04a0673.
+6. **`change_log`s `row_key` bruger forskellige nøglenavne pr. tabel**
+   (`robot_id` for `field_entries`/`applications`/`images`, men `id` for
+   `robots` — `log_change()`-triggeren i `db/skema.sql`). En første
+   change_log-optælling filtreret kun på `row_key->>robot_id` gav derfor 36
+   i stedet for det korrekte 37 — `robots`-rækken var der hele tiden, bare
+   under en anden nøgle. Fanget, fordi jeg havde skrevet forventningen
+   ("37") ned, FØR jeg læste tallet.
+
+## Punkter i briefet, jeg ikke nåede
+
+Ingen. Alle seks punkter (1-6) er gennemført, målt og commit'et undervejs.
+
