@@ -191,3 +191,25 @@ til en kilde. Alle 16 kasse-A-citater blev genfundet ordret (punkt 2), og
 den ene kasse-B-advarsel (`autonomy_level`) erklærer selv, at der intet
 citat er (ikke en påstand uden belæg — en eksplicit "ingen skala navngivet").
 Ingen rækker afventer JPK's beslutning fra dette spor.
+
+## Rettelser efter orkestratorens gennemgang (2. sep 2026)
+
+Arbejdet blev efterprøvet uafhængigt (change_log's `old_row` mod den levende
+række, ikke mine før/efter-JSON-filer — samme facit: caveat 17, caveat_wording
+16, collected_by 21, change_reason 21, note 4 ændrede, 0 talkolonner, 21/21
+rækker på robot_id 2182/2183). Tre præcise rettelser, ingen i data:
+
+1. **Mappenavnet løj om sin egen dato.** De syv filer, jeg gen-hentede
+   2026-09-02, lå i `media/_kilder/raa-kand6-2026-08-25/` — samme mappe som
+   hovedrepoets rigtige august-batch (Addverb + GENISOM + NEURA), som mit
+   MANIFEST ikke dækkede. Flyttet til `media/_kilder/raa-f2-pilot-2026-09-02/`
+   (konventionen `raa-<spor>-<dato>` fra robotdata-skillens G1). MANIFEST.tsv's
+   kommentarlinje er uændret — filnavnene deri var allerede sti-fri.
+2. `fund/OPSKRIFT-fase2.md` linje 130 og 166 pegede på den gamle sti — rettet
+   til den nye, og linje 166 skriver nu selve navnekonventionen ud eksplicit,
+   så senere spor ikke lander i en fremmed batches mappe.
+3. `fund/OPSKRIFT-fase2.md` linje 95 kaldte `value_text` en talkolonne — den
+   er en tekstkolonne, uden for denne fases scope (som §6.4 allerede sagde
+   rigtigt). Rettet, og §6.4 har fået orkestratorens egne tal: **230
+   `value_text`-værdier i kataloget, 105 danske** — målt af orkestratoren
+   2. sep 2026, ikke mit gæt.
