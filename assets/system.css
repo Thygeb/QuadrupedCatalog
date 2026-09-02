@@ -1566,12 +1566,18 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    FLADEN VAELGES EKSPLICIT, og de to flader hedder noget forskelligt:
 
      lys bund (--bund/--panel)   .knap--fyldt  .knap--kant  .knap--tekst
-     moerk bund (--fod)          .knap--fyldt-moerk  .knap--kant-moerk
+     moerk bund (--fod)                        .knap--kant-moerk
                                                      .knap--tekst-moerk
 
-   Tre vaegte gange to flader. INGEN af de seks er standarden; ordet
-   "-moerk" i klassenavnet ER vaernet, for den forkerte flade kan ikke
-   vaelges uden at have skrevet ordet.
+   INGEN af de fem er standarden; ordet "-moerk" i klassenavnet ER vaernet,
+   for den forkerte flade kan ikke vaelges uden at have skrevet ordet.
+
+   DEN FYLDTE VAEGT PAA MOERK FLADE FINDES BEVIDST IKKE ENDNU. Ingen af de
+   elleve knapper, primitiven samler op, er en fyldt knap paa moerk bund, og
+   en variant uden brugssted er doed CSS (tests/dele/57). Faar en kommende
+   fladeplan brug for den, er pladsen udmaalt: `background:var(--paafod);
+   color:var(--blaek)` = 12,72:1, og hover som resten af familien. Skriv den,
+   naar der er en knap at saette den paa - ikke foer.
 
    HOVER ER ÉN GESTUS I HELE FAMILIEN: kassen fyldes med afmaerkningsgul, og
    teksten gaar til blaek - 9,19:1, uanset hvilken flade knappen stod paa.
@@ -1581,11 +1587,12 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 
    KONTRASTEN PAA HVER VARIANT, maalt med WCAG-formlen, laeseretning "X paa Y"
    (motoren valideret mod DESIGN.md's ti kendte svar, 10/10):
-     --fyldt       panel paa blaek     14,69   --fyldt-moerk  blaek paa paafod  12,72
+     --fyldt       panel paa blaek     14,69
      --kant        blaek paa bund      12,72   --kant-moerk   paafod paa fod    12,72
      --tekst       stoev-blaek paa bund 4,74   --tekst-moerk  paafod2 paa fod    5,94
      --tekst.frem  blaek paa bund      12,72   --tekst-moerk.frem accent paa fod 9,19
      hover, alle kasse-vaegte          blaek paa accent                         9,19
+   Laveste er 4,74 mod WCAG's krav paa 4,5.
 
    INGEN KOEBSKNAP, ingen demo-knap, ingen prisforespoergsel (haard
    begraensning 1). Formen findes ikke i systemet, og primitiven maa ikke
@@ -1620,7 +1627,6 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   color:var(--stoev-blaek);text-decoration:underline;text-underline-offset:3px;
 }
 /* MOERK BUND (--fod) ------------------------------------------------------- */
-.knap--fyldt-moerk{background:var(--paafod);color:var(--blaek)}
 .knap--kant-moerk{color:var(--paafod);box-shadow:inset 0 0 0 1px var(--paafod2)}
 .knap--tekst-moerk{
   min-height:0;padding:0;
@@ -1635,9 +1641,8 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .knap--tekst.knap--frem{color:var(--blaek)}
 .knap--tekst-moerk.knap--frem{color:var(--accent)}
 
-/* HOVER: én gestus for de fire kasse-vaegte. */
-.knap--fyldt:hover,.knap--kant:hover,
-.knap--fyldt-moerk:hover,.knap--kant-moerk:hover{
+/* HOVER: én gestus for kasse-vaegtene. */
+.knap--fyldt:hover,.knap--kant:hover,.knap--kant-moerk:hover{
   background:var(--accent);color:var(--blaek);box-shadow:none;
 }
 .knap--tekst:hover,.knap--tekst.knap--frem:hover{color:var(--blaek)}

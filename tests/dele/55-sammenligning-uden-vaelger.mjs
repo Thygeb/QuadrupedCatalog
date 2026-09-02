@@ -185,32 +185,46 @@ export default async function koer(ctx) {
   ok(`55.11 fjern-knappens beroeringsmaal er mindst 44x44 (fandt ${feltB}x${feltH}px)`,
     feltH >= 44 && feltB >= 44);
 
-  /* NYT 55.11b: invitationen har plads nok til at baere de 44 px direkte -
-     den staar paa sidens lyse bund, ikke i en klaebende raekke. */
-  const invitBlok = (genCss.match(/\.saml-invit\s+\.saml-invit__link\s*\{([^}]*)\}/) || [])[1] || '';
-  const invitH = parseFloat((invitBlok.match(/min-height:\s*([\d.]+)px/) || [])[1] || '0');
-  ok(`55.11c invitationens link har min-height >= 44px (fandt ${invitH}px)`, invitH >= 44);
+  /* 55.11c OG 55.11d ER VENDT (spor/knap, L77, 2. sep 2026).
 
-  /* NYT 55.11d: invitationen skal saette sin EGEN forgrund, og reglen skal
-     vaere to selektorer dyb.
+     BEGGE maalte en overstyring i generator.css, som kun fandtes, fordi
+     knappen laante `.nulstil` - en MOERK-flade-knap, sat paa sidens lyse
+     bund. 11c laaste et `min-height:44px` i invitationens EGEN blok; 11d
+     laaste, at blokken satte sin EGEN forgrund i en regel paa 0,2,0, som
+     kunne slaa `.nulstil`s 0,1,0. Foerste udgave af knappen maalte 1,16:1,
+     fordi den arvede den lyse forgrund; anden udgave satte farven i en
+     0,1,0-regel og maalte stadig 1,16, fordi kilderaekkefoelgen afgjorde.
 
-     Begge halvdele er koebt af en maalt fejl i dette spor. `.nulstil`s
-     `color` er `--paafod` = #E8EBED, en LYS forgrund, fordi katalogets
-     nulstil-knap staar paa en MOERK flade; invitationen staar paa sidens
-     lyse bund. Foerste udgave arvede den og maalte 1,16:1 i browseren -
-     knappen var praktisk talt usynlig. Anden udgave satte farven, men i en
-     regel paa 0,1,0, altsaa PRAECIS lige saa specifik som `.nulstil`, der
-     staar senere i filen og derfor vandt: maalingen gav stadig 1,16.
-     Efter 0,2,0: 14,69:1.
+     BEGGE OVERSTYRINGER ER NU BORTE, og det er den rigtige tilstand, ikke
+     en regression: `.knap` er farveloes (`color:inherit`), saa der er ingen
+     forkert forgrund at vinde over, og `min-height:44px` staar i
+     primitiven. Kravet flyttes derfor DERHEN, hvor det nu bor - to
+     assertions, der tilsammen beviser det samme som de gamle:
+       11c: primitiven selv baerer de 44 px.
+       11d: invitationen vaelger en LYS flade-variant og ingen moerk. Det er
+            den halvdel, der ville have fanget 1,16-fejlen, hvis primitiven
+            havde eksisteret dengang - knappen ville have staaet med
+            `knap--kant-moerk` paa lys bund, og det fanges her. */
+  const knapBlok = (css.match(/(^|\})\s*\.knap\s*\{([^}]*)\}/) || [])[2] || '';
+  const knapH = parseFloat((knapBlok.match(/min-height:\s*([\d.]+)px/) || [])[1] || '0');
+  ok(`55.11c knapprimitiven baerer selv beroeringsmaalet, min-height >= 44px (fandt ${knapH}px)`,
+    knapH >= 44, `.knap-blokken var: "${knapBlok.replace(/\s+/g, ' ').trim().slice(0, 120)}"`);
 
-     Assertion laaser mekanismen, ikke tallet - et kontrasttal kan kun
-     maales i en browser, og det staar i agentrapporten. Men uden en
-     eksplicit farve i en regel, der VINDER, er tallet garanteret forkert. */
-  ok('55.11d invitationen saetter sin egen forgrund i en regel, der slaar .nulstil (0,2,0)',
-    /color:\s*var\(--/.test(invitBlok),
-    `blokken var: "${invitBlok.replace(/\s+/g, ' ').trim().slice(0, 100)}"`);
+  // (`raaJs` laeses foerst laengere nede i filen; invitationens markup skal
+  //  bruges her, saa kilden laeses lokalt i stedet for at flytte den blok.)
+  const invitKilde = fs.readFileSync(path.join(rod, 'assets', 'sammenligning.js'), 'utf8');
+  const invitKlasser = (invitKilde.match(/class="(saml-invit__link[^"]*)"/) || [])[1] || '';
+  ok('55.11d invitationen vaelger en LYS flade-variant (den staar paa sidens lyse bund)',
+    /\bknap\b/.test(invitKlasser)
+    && /\bknap--(fyldt|kant|tekst)\b/.test(invitKlasser)
+    && !/-moerk\b/.test(invitKlasser),
+    `klasserne var: "${invitKlasser}"`);
+  // REVERT-BEVIS: den moerke variant paa samme plads SKAL falde igennem.
+  ok('55.11d/revert: samme proeve afviser en moerk flade-variant paa invitationen',
+    !(/\bknap--(fyldt|kant|tekst)\b/.test('saml-invit__link knap knap--kant-moerk')
+      && !/-moerk\b/.test('saml-invit__link knap knap--kant-moerk')));
 
-  // Global fokusring, upaavirket for .nulstil-familien: ingen
+  // Global fokusring, upaavirket for knapprimitiven: ingen
   // outline:none/0-overstyring nogen steder i de to CSS-filer (efterproevet
   // separat af agenten - grep gav 0 traeffere i begge filer).
   ok('55.12 :focus-visible saetter en synlig outline globalt (knappen faar den, ingen override fjerner den)',

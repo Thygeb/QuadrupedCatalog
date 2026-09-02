@@ -317,20 +317,18 @@
         // sted, i den ledige plads over matricen, aldrig pr. kolonne - se
         // invitationHTML() nedenfor.
         //
-        // FORMEN er `.nulstil`-familien (mono, versaler, spaerret) - den
-        // stemme, katalogsiden allerede taler for "ryd/nulstil"-handlinger.
-        // Bevidst IKKE sidens fremad-knap: L77 er besluttet (ÉN knapprimitiv
-        // `.knap` med varianter), og dette spor skal ikke laegge endnu en
-        // forekomst til de 146, L77 skal rydde op i. Klassenavnet staar
-        // ikke her med vilje - sporets acceptkriterium taeller det i denne
-        // fil og ville laese en kommentar som kode. Se commit-beskeden.
+        // FORMEN er sitets knapprimitiv i den OMRIDSEDE vaegt paa MOERK
+        // flade: kolonnehovedet staar paa --fod. `-moerk` i variantnavnet er
+        // ikke pynt - det er vaernet mod praecis den fejl, foerste udgave af
+        // denne knap lavede (1,16:1, se generator.css' egen note). Efter
+        // L77 er valget nu ét ord i stedet for en 15-linjers udredning:
+        // paafod paa fod = 12,72:1.
         //
-        // KLASSEORDENEN ER IKKE VILKAARLIG: `specimen__fjern` staar FOERST,
-        // fordi tests/dele/57's doede-klasse-detektor kraever et
-        // citationstegn UMIDDELBART foer klassenavnet og ellers ville
-        // klassificere den som doed (den kendte regex-bug, se testens
-        // punkt 2). `nulstil` staar som nr. to og er daekket ind, fordi
-        // katalogets nulstil-knap skriver den i bygget HTML.
+        // KLASSEORDENEN: `specimen__fjern` staar stadig foerst, fordi det er
+        // den klasse, generator.css' to-selektor-regel haenger paa. Ordenen
+        // er IKKE laengere et hensyn til tests/dele/57's detektor - den
+        // splitter class-strengen paa mellemrum og ser alle led (kun dens
+        // JS-side havde graense-bug'en, og den blev rettet 1. sep).
         //
         // NAVNET, en skaermlaeser faar, er det LANGE: det korte ord er
         // aria-hidden, og .kunskaerm baerer "Fjern Spot fra sammenligningen".
@@ -338,7 +336,7 @@
         // paa tre forskellige handlinger.
         + '<span class="specimen__fod">'
         + '<span class="specimen__taethed figur">' + esc(taethedTekst(r.taethedAntal)) + '</span>'
-        + '<button type="button" class="specimen__fjern nulstil" data-saml-fjern="' + esc(r.slug) + '">'
+        + '<button type="button" class="specimen__fjern knap knap--kant-moerk" data-saml-fjern="' + esc(r.slug) + '">'
         + '<span aria-hidden="true">' + esc(DATA.tekst.fjern_kort || '') + '</span>'
         + '<span class="kunskaerm">'
         + esc(String(DATA.tekst.fjern_navn || '').replace('{navn}', r.navn)) + '</span>'
@@ -499,7 +497,7 @@
      til delegering. */
   function invitationHTML() {
     if (!DATA.katalogUrl) return '';
-    return '<p class="saml-invit"><a class="saml-invit__link nulstil" href="'
+    return '<p class="saml-invit"><a class="saml-invit__link knap knap--kant" href="'
       + esc(DATA.katalogUrl) + '" data-saml-knap>'
       + esc(DATA.tekst.vaelg_titel || '') + '</a></p>';
   }

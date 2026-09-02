@@ -1369,7 +1369,7 @@ ${valgListe.join('\n')}
 <span class="taeller__af">${esc(tf('taeller_af_alle', { n: alle }))}</span>
 ${omfangStandard}
 </p>
-<button class="nulstil" type="reset" data-nulstil>${esc(t('filter_nulstil'))}</button>
+<button class="knap knap--kant-moerk" type="reset" data-nulstil>${esc(t('filter_nulstil'))}</button>
 </div>
 
 <!-- SAMLTAELLEREN ER IKKE LAENGERE EN FLADE. Den er en SKJULT BAERER af de
