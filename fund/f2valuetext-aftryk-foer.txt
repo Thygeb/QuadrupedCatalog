@@ -1,0 +1,47 @@
+=== DEEP Robotics ===
+FASE2-TJEK --tal --producent="DEEP Robotics"
+9 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2190  deep-robotics-lite3  63fe7fd70f7f8e760a78b7cd455fdccb2862767c071b2b40e4212ee510ad47bb
+  2191  deep-robotics-lynx-m20  868ddfb1ae789c53863a459dda63cc6757f4dcc64be0857dd2d45a24d66f8a05
+  2192  deep-robotics-lynx-m20-pro  c4df37280a829f8e1bfa222052a0eb498d9430ab531d9464d97efa9e192e1958
+  2193  deep-robotics-lynx-m20s  a94bad42bd60ac3a013e5342da0567c4bf8fd8d1bbdaf6a729f559fdc50e6cb5
+  2194  deep-robotics-lynx-s10  160a5c6da5726c82106885d967c686685f7bb86176723ffbf7400e89fbb84e2f
+  2195  deep-robotics-mini  87da3a6635ad862860ff8b75457abcc7149fe619732022717dcc4a509020d510
+  2196  deep-robotics-x20  5f9313d8cb4e12364dcf6db9c8165154f8b09b3e5363db395fb76a98be7062ad
+  2197  deep-robotics-x30  384bc9523949c555cc48ea7aacb6bcfde1b7e2c784f03ca10b4cced09d1da3c9
+  2198  deep-robotics-x30-pro  ad18767644b07e713d54c883c145de907776f0a4f441d2f97c2f923d6b6e4d2f
+SAMLET AFTRYK: a171780a9161f141c0cbd9a63830f82501b8073f4885eec76afbacff8c08c501
+
+=== MagicLab ===
+FASE2-TJEK --tal --producent="MagicLab"
+4 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2219  magiclab-magicdog-edu  b7a4c08d3ca9aa1d924e42b1c846f9c7a908ff063a7aa0fb720741ceb0df1526
+  2220  magiclab-magicdog-pro  c0156f15b7fc903cf9e56655e1d7331b4f3b07adbba542d7e1459a9f1927e77c
+  2221  magiclab-magicdog-w  bd9ed40c70b2abe24e982b1ed190ddcd12fecd30f7476b731c5c9542f4845420
+  2222  magiclab-magicdog-y1  4f62ee118e6783e094dfe568fc90465e1034c45c399ebc60c639c3442eb501e3
+SAMLET AFTRYK: 596709137cf961440e755197f49df088a49b8dffcf003aaf4ba61286adc3977d
+
+=== Pudu Robotics ===
+FASE2-TJEK --tal --producent="Pudu Robotics"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2226  pudu-d5  4fe40406af41d9b04d8c7323d2e22e3b4847217945c646fdbc6c01b5fd2ed25f
+  2227  pudu-d5-w  b2ba1dd8541a56a8f2ab47deabdc8dc4dd08d696c0cfda8995e8b9ce0746ed10
+SAMLET AFTRYK: bb0e94d61eda255140d751c9c0c661b14a07cb23e7242e5c725fbb34e305f08d
+
+=== WEILAN ===
+FASE2-TJEK --tal --producent="WEILAN"
+5 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2244  weilan-alphadog-c500  28cdc2804aa2cb5a2d8289828a067c3e7d3c4f1ccbee3a0679aa1bc46f731673
+  2245  weilan-alphadog-c501  f504623c1eae36c69457bd2ec68bb2ab0f59296a84900a56483bc1e54d9b973a
+  2246  weilan-alphadog-e300  8580a28c6029cc7433af42ebd8de50f95f08f528058cb3c2c4a95b86e0fd019c
+  2247  weilan-alphadog-e400l  41216cebdb3c2f21ef91a1eecda6942f0263488e47e05c63755047e89ed73f5f
+  2248  weilan-babyalpha  09c34506d5d909baaade64e743a9a4409056309d4bceff7ae3af286aac863023
+SAMLET AFTRYK: 5fa1a923731e85704686dafe0d2062e6fb989cbe6f2d0c60bb1a3ac6909ca7dc
+
+=== Addverb ===
+FASE2-TJEK --tal --producent="Addverb"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2182  addverb-trakr-20  84665a02e04a08da9d8c08df6cc06df2d7864a7a057fb2f17de45f6979c1d476
+  2183  addverb-trakr-5  37ba7e189c11d17ed2d746099c82cac5a3ab30abd9b0057c02cf2ff4387c4b55
+SAMLET AFTRYK: 2d2e897ac9975d282be4de285063e72b636a18f8d6dfd6720e23d154ab765fdd
+
