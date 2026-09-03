@@ -29,6 +29,27 @@ for (const [k, rel] of Object.entries(KILDE)) {
   indhold[k] = fs.readFileSync(path.join(ROD, rel), 'utf8');
 }
 
+/**
+ * NOTE_EN: applications.note (allerede engelsk, 0 dansk maalt i grundmaalingen)
+ * for GENISOM's 9 robotter, indlaest DIREKTE fra grundmaalingens dump
+ * (fund/f2feje-data/GENISOM-AI.json) i stedet for at blive genindtastet i
+ * haanden — undgaar tegn-drift i buede anfoerselstegn/tankestreger.
+ *
+ * BRUG: note_wording (dansk, DENNE tur) er verificeret (robot for robot,
+ * jf. RETTELSEN i "Nye faelder" i fund/FUND-f2feje.md) at vaere PARALLEL-
+ * OVERSAT indhold af DENNE note — samme resonnement, to sprog, ikke en
+ * kilde-ordret formulering. BRIEF-f2-feje.md afsnit 7 forbyder at
+ * omstrukturere et saadant felt (fjerne resonnementet og reducere det til
+ * en kort kilde-etikette, som foerste udgave af dette script gjorde) —
+ * i stedet genbruges note's EGEN, allerede-etablerede engelske tekst som
+ * note_wording's nye vaerdi: samme indhold, samme struktur, blot ikke
+ * genoversat af mig (og dermed ikke en ny kilde til afvigelse fra note).
+ */
+const NOTE_EN = Object.fromEntries(
+  JSON.parse(fs.readFileSync(path.join(ROD, 'fund/f2feje-data/GENISOM-AI.json'), 'utf8'))
+    .map((r) => [r.robot_id, r.applications.note]),
+);
+
 /** Kaster, hvis fragmentet IKKE er en bogstavelig delstreng af kildefilen. */
 function verificer(kildeNoegle, fragment, mærkat) {
   if (!indhold[kildeNoegle].includes(fragment)) {
@@ -76,52 +97,52 @@ export const poster = [
   {
     tabel: 'applications', noegle: { robot_id: 2205 },
     saet: {
-      note_wording: '电力巡检、应急救援、安防巡逻、科研教育',
+      note_wording: NOTE_EN[2205],
       quote: "Gangben L1 is GENISOM AI's own first industrial-grade small quadruped robot... widely used in power-grid inspection, emergency rescue, security patrol, research and education.",
       quote_wording: '钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。',
     },
-    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk (rest fra BRIEF-FAELLES.md\'s ni-kolonne-fejl, STATUS.md Å143). quote_wording sat til kildens kinesiske ordlyd ordret (meta description, genisomai-L1-2026-09-02.html), quote til den engelske oversaettelse allerede etableret i applications.note, note_wording til kategori-listens kinesiske ordlyd.',
+    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk (rest fra BRIEF-FAELLES.md\'s ni-kolonne-fejl, STATUS.md Å143). quote_wording sat til kildens kinesiske ordlyd ordret (meta description, genisomai-L1-2026-09-02.html), quote til den engelske oversaettelse allerede etableret i applications.note. note_wording ER note (samme resonnement, ikke en kilde-ordlyd) - se BRIEF-f2-feje.md afsnit 7, aabent spoergsmaal til JPK.',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2206 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2206],
       quote: ['Reconnaissance and search-and-rescue', 'Emergency firefighting', 'Research and education', 'Security patrol'],
       quote_wording: ['侦查搜救', '应急消防', '科研教育', '安防巡逻'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): samme rettelse som 2205 - quote/quote_wording var dansk. Kilde: genisomai-l1w-2026-08-24.html, sektionen "下一个应用场景，它已提前就位".',
+    change_reason: 'fase 2 (spor/f2-feje): samme rettelse som 2205 - quote/quote_wording/note_wording var dansk. Kilde: genisomai-l1w-2026-08-24.html, sektionen "下一个应用场景，它已提前就位". note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2207 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2207],
       quote: ['Security patrol', 'Research and education', 'Short-distance delivery'],
       quote_wording: ['安防巡逻', '科研教育', '短途配送'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording var dansk. Kategorivaerdien (3 led, uden 应急消防) ROERES IKKE - kun sproget. Kilde: genisomai-l2-2026-08-24.html.',
+    change_reason: 'fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording/note_wording var dansk. Kategorivaerdien (3 led, uden 应急消防) ROERES IKKE - kun sproget. Kilde: genisomai-l2-2026-08-24.html. note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2208 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2208],
       quote: ['Security patrol', 'Emergency firefighting', 'Research and education', 'Short-distance delivery'],
       quote_wording: ['安防巡逻', '应急消防', '科研教育', '短途配送'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien).',
+    change_reason: 'fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording/note_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2209 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2209],
       quote: ['Security patrol', 'Emergency firefighting', 'Research and education', 'Short-distance delivery'],
       quote_wording: ['安防巡逻', '应急消防', '科研教育', '短途配送'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien).',
+    change_reason: 'fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording/note_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2210 },
     saet: {
-      note_wording: '高危工业环境',
+      note_wording: NOTE_EN[2210],
       quote: [
         'GENISOM Qiuqiu SP1 is an explosion-proof quadruped inspection robot for high-risk industrial environments such as petrochemicals and energy stations',
         'Autonomous inspection, data transmission, zero personnel risk',
@@ -131,34 +152,34 @@ export const poster = [
         '自主巡检 数据回传 人员零涉险',
       ],
     },
-    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-sp1-2026-08-24.html (meta description + markedsfoeringsoverskrift).',
+    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-sp1-2026-08-24.html (meta description + markedsfoeringsoverskrift). note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2211 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2211],
       quote: ['Forest firefighting', 'Petrochemical firefighting', 'Power-grid inspection', 'Site patrol', 'Logistics transport'],
       quote_wording: ['森林消防', '石化消防', '电力巡检', '园区巡逻', '物流运输'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-m1-2026-08-24.html.',
+    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-m1-2026-08-24.html. note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2212 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2212],
       quote: ['Forest firefighting', 'Petrochemical firefighting', 'Power-grid inspection', 'Site patrol', 'Logistics transport'],
       quote_wording: ['森林消防', '石化消防', '电力巡检', '园区巡逻', '物流运输'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien).',
+    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
   {
     tabel: 'applications', noegle: { robot_id: 2213 },
     saet: {
-      note_wording: HEADING,
+      note_wording: NOTE_EN[2213],
       quote: ['Forest firefighting', 'Petrochemical firefighting', 'Power-grid inspection', 'Site patrol', 'Logistics transport'],
       quote_wording: ['森林消防', '石化消防', '电力巡检', '园区巡逻', '物流运输'],
     },
-    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien).',
+    change_reason: 'fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7).',
   },
 ];
 
