@@ -311,6 +311,15 @@ kollisioner efter at reglerne var aftalt. Indtil da fandtes de kun i STATUS.md
    commit i samme tur. **Et nummer reserveres ved at pushe rækken, ikke ved at
    melde det** — to sessioner tog begge det rigtige forbehold og kolliderede
    alligevel på Å138, fordi vinduet mellem måling og commit er reelt.
+
+   **Og reglen gælder PR. FIL, ikke pr. kommando.** Tilføjet 3. sep 2026,
+   samme dag som punktet blev skrevet, fordi det blev brudt i selve den commit,
+   der indførte det: `41836eb` lagde fem filer til i ét `git add`, diffen blev
+   målt på **én** af dem, og syv linjer, den anden session havde skrevet i
+   `CLAUDE.md`, red med uden attribution. Indholdet var rigtigt, så intet
+   gik tabt — og derfor var der heller intet at opdage. **Et delvist udført
+   tjek ligner et udført tjek.** Mål diffen på hver fil, du lægger til, og
+   **spørg, før du committer en fil, den anden session har rørt for nylig.**
 2. **To samtidige `tests/koer.mjs` crasher** (delt `tests/.tmp-koersel`, hver sit
    HEAD). Meld via `SendMessage`, før du kører på main; vent på *"main er din"*;
    meld *"færdig"*. Se `flet`-skillens punkt 4.
