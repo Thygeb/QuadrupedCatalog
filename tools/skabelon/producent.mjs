@@ -11,9 +11,11 @@
  * eu_tilgaengelig, eu_service, leveringstid), ét pr. model. De tre sidste er
  * fjernet fra skemaet — stod ikke_oplyst paa alle 55 robotter — og med kun
  * ét felt tilbage er en matrix ikke laengere den rigtige form. euSaetning()
- * nedenfor erstatter tabellen med ÉN linje, beregnet paa samme maade som
- * forsidens EU-fund (forside.mjs), bare talt over denne producents modeller
- * i stedet for hele kataloget.
+ * nedenfor erstatter tabellen med linjer, beregnet paa samme maade som
+ * forsidens EU-fund, bare talt over denne producents modeller i stedet for
+ * hele kataloget. (forside.mjs er slettet siden, L72 1. sep 2026 — se noten
+ * ved euSaetning(). Siden 3. sep 2026 er det ÉN linje pr. CE-tilstand, ikke
+ * ét tal: se samme note.)
  *
  * ---------------------------------------------------------------------------
  * KONTRAKTEN (laast — side.mjs skrives af en anden agent)
