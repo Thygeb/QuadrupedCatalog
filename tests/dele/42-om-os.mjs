@@ -161,18 +161,23 @@ export default async function koer(ctx) {
     ok(`42.4.${s}: "ingen forhandler"-linjen staar ORDRET i <main>`,
       tekstAf(hovedAf(sider[s])).includes(linje),
       'PRODUCT.md linje 95-96 og 119-120 kraever den paa netop denne side');
-    // 42.4b OMSKREVET af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7):
-    // linjen stod FOER ogsaa i sidefoden (denne assertion vogtede netop
-    // DET, som beviset for at 42.4's <main>-afgraensning betoed noget).
-    // Sidefoden er nu fjernet HELT, saa linjen staar kun ét sted paa siden
-    // - Om os' egen (om-os.mjs:300, uden for foden, uroert). Vagten er
-    // vendt om: falder den, er linjen kommet til at staa dobbelt igen
-    // (fx en genopstaaet fod), og 42.4's <main>-afgraensning betyder noget
-    // igen.
+    // 42.4b VENDT TILBAGE (spor/fodtest, 3. sep 2026): JPK omgjorde samme
+    // dag sin egen uifix-beslutning (2. sep) og genindsatte sidefoden
+    // (spor/sidefod). Linjen staar nu igen BEGGE steder - Om os' egen
+    // (om-os.mjs:300, i <main>, uroert) og fodens (system.css afsnit 17,
+    // uden for <main>). 42.4's <main>-afgraensning betyder derfor noget
+    // igen: uden den ville 42.4 og 42.4b maale det samme tal. Falder denne
+    // vagt til 1, er foden forsvundet igen; falder den til 3+, er linjen
+    // kommet til at staa dobbelt ét sted.
     const heleSiden = tekstAf(sider[s]);
     const forekomster = heleSiden.split(linje).length - 1;
-    ok(`42.4b.${s}: linjen staar PRAECIS ét sted paa siden (foden er vaek, ingen dublet)`,
-      forekomster === 1, `fandt ${forekomster} forekomster`);
+    ok(`42.4b.${s}: linjen staar PRAECIS TO steder paa siden (Om os' egen + fodens - foden er tilbage)`,
+      forekomster === 2, `fandt ${forekomster} forekomster`);
+    // REVERT-BEVIS: en side med linjen kun ÉN gang (foden fjernet igen)
+    // maa IKKE bestaa den nye proeve.
+    const kunEnGang = `x ${linje} y`;
+    ok(`42.4b.${s}.revert: proeven FANGER en side med linjen kun ÉN gang (fjernes foden igen, falder testen)`,
+      (kunEnGang.split(linje).length - 1) !== 2);
   }
 
   /* --- 5. CVR 10049385 staar INTET sted i hele bygget --------------------- */
