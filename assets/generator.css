@@ -1439,7 +1439,21 @@
 .net .billedled{
   background:var(--bund);display:grid;place-items:center;
   overflow:hidden;border-bottom:1px solid var(--linje);border-radius:0;
+  position:relative;
 }
+/* spor/ramme, testnr. 74: `picture{display:block;width:100%;height:100%}` -
+   samme regel som .billedled--stor (generator.css:335) og .saml-fotofelt
+   (generator.css:459) - blev PROEVET FOERST og maalt at fejle her: rammen
+   er en CSS-grid (`.net{display:grid}`) MED flere raekker af varierende
+   hoejde, og med `place-items:center` (align-items != stretch) resolver
+   Chromium IKKE et procent-hoejde-barn til den enkelte raekkes stoerrelse i
+   denne opstilling - maalt reproducerbart, ogsaa med inline !important, paa
+   32 af 85 billeder (fund/FUND-ramme.md). De to andre steder virker reglen,
+   fordi de IKKE ligger i en CSS-grid-raekke. Loesningen her omgaar problemet
+   helt: `position:absolute;inset:0` regner mod .billedled's PADDING-BOX,
+   ikke mod en grid-raekkes stoerrelse, og er derfor ikke afhaengig af
+   grid-tracksens definithed. */
+.net .billedled picture{display:block;position:absolute;inset:0}
 .net .billedled img{width:100%;height:100%;padding:var(--r3)}
 .kort__tekst{padding:var(--r3) var(--r4) var(--r4);display:flex;flex-direction:column;gap:3px}
 .kort__prod{
