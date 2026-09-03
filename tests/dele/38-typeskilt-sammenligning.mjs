@@ -251,23 +251,36 @@ export default async function koer(ctx) {
       !/vinder|winner|bedst|best-value/i.test(tabelHTML));
   }
 
-  /* --- 5b. Vinderreglen staar ved foden, ikke i noeglen ------------------ */
+  /* --- 5b. Vinderreglens TEKST er vaek - princippet er det ikke ----------
+     VENDT 3. sep 2026, ikke slettet. Indtil da stod her 38.17/38.18/38.19,
+     som beviste at teksten "Ingen vinder markeret" STOD paa siden og stod
+     uden for laesenoeglen. JPK fjernede teksten; assertionerne beviser nu
+     den NYE regel, saa der ikke bliver et hul, hvor der foer stod et krav.
+     Havde de bare vaeret slettet, ville intet laengere sige, at teksten
+     engang var der - og intet ville forhindre, at den kom igen ved et
+     uheld sammen med en vindermarkering. */
 
-  console.log('  4. Vinderreglen staar ved matricens fod');
+  console.log('  4. Vinderreglens tekst er fjernet, foden og princippet staar');
   for (const sprog of ['da', 'en']) {
     const html = sider[sprog];
-    const noegle = html.indexOf('class="saml-noegle"');
-    const noegleSlut = html.indexOf('</section>', noegle);
-    const regel = html.indexOf('class="saml-vinderregel"');
+    const fod = html.indexOf('class="saml-fod"');
 
-    ok(`38.17.${sprog}: vinderreglen staar paa siden`, regel !== -1);
-    // Den er en TRUFFET BESLUTNING, ikke et tegn man slaar op. Stod den i
-    // noeglen, blev den laest som endnu et tegn blandt tegnene.
-    ok(`38.18.${sprog}: vinderreglen staar UDEN FOR laesenoeglen`,
-      regel !== -1 && (regel < noegle || regel > noegleSlut),
-      `noegle=${noegle}..${noegleSlut}, regel=${regel}`);
-    ok(`38.19.${sprog}: vinderreglen staar EFTER matricens resultatbeholder`,
-      regel > html.indexOf('data-saml-resultat'));
+    ok(`38.17.${sprog}: vinderreglens tekst staar IKKE laengere paa siden`,
+      html.indexOf('class="saml-vinderregel"') === -1);
+    // Ordet selv, uafhaengigt af klassenavnet: en ny formulering af samme
+    // note ville slippe forbi et tjek, der kun kigger efter klassen.
+    ok(`38.18.${sprog}: hverken "ingen vinder" eller "no winner" staar i markup'en`,
+      !/ingen vinder|no winner/i.test(html));
+    // Foden BLIVER: fotokreditten skrives ind i den klientside.
+    ok(`38.19.${sprog}: .saml-fod staar stadig, EFTER matricens resultatbeholder`,
+      fod !== -1 && fod > html.indexOf('data-saml-resultat'),
+      `fod=${fod}, resultat=${html.indexOf('data-saml-resultat')}`);
+    // REVERT-BEVIS: de to tjek ovenfor SKAL fange en syntetisk streng, der
+    // baerer det, de forbyder. Ellers er et groent 38.17/38.18 ingenting vaerd.
+    ok(`38.17.revert.${sprog}: en syntetisk streng med klassen fanges`,
+      '<p class="saml-vinderregel">x</p>'.indexOf('class="saml-vinderregel"') !== -1);
+    ok(`38.18.revert.${sprog}: en syntetisk streng med ordet fanges`,
+      /ingen vinder|no winner/i.test('<p>Ingen vinder markeret</p>'));
   }
 
   /* --- 6. Ingen opfundne strenge ---------------------------------------- */

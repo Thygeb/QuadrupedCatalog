@@ -69,8 +69,6 @@
   "sammenligning_uden_js_forklaring": "The comparison requires JavaScript. Without it: pick a robot from the list to see its full specification.",
   "sammenligning_uden_js_noscript": "Side-by-side comparison requires JavaScript. The catalogue shows the robots' key figures without JavaScript.",
   "sammenligning_uden_js_link": "Go to the catalogue",
-  "sammenligning_legende_vinder_titel": "No winner marked",
-  "sammenligning_legende_vinder_forklaring": "We do not mark a winning cell per row. A lower value is not better than a higher one – only the intended use decides that, and the page does not know the use.",
 
   "katalog_titel": "All robots",
   "katalog_antal": "robots in the catalogue",
@@ -170,8 +168,7 @@
   "imperial_forklaring": "The manufacturer’s own imperial figure.",
   "enhed_skift_etiket": "Imperial units",
   "enhed_skift_etiket_metrisk": "Metric units",
-  "enhed_skift_forklaring": "Imperial figures are our own conversion and carry the mark \"converted\". Figures without that mark are the manufacturer’s own. The source letter always belongs to the metric figure — a conversion has no source of its own.",
-  "enhed_omregnet": "converted",
+  "enhed_skift_forklaring": "Imperial figures are our own conversion unless the manufacturer states an imperial figure itself. The source letter always belongs to the metric figure — a conversion has no source of its own.",
   "enhed_omregnet_forklaring": "Our conversion from {figur}. The manufacturer does not state an imperial figure itself, so the conversion has no source of its own.",
   "operator_cirka": "approx.",
   "operator_cirka_laest": "approximately",

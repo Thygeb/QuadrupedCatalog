@@ -69,8 +69,6 @@
   "sammenligning_uden_js_forklaring": "Sammenligningen kræver JavaScript. Uden det: vælg en robot fra listen for at se dens fulde specifikation.",
   "sammenligning_uden_js_noscript": "Sammenligning side om side kræver JavaScript. Kataloget viser robotternes nøgletal uden JavaScript.",
   "sammenligning_uden_js_link": "Gå til kataloget",
-  "sammenligning_legende_vinder_titel": "Ingen vinder markeret",
-  "sammenligning_legende_vinder_forklaring": "Vi markerer ikke en vindercelle pr. række. En lavere værdi er ikke bedre end en højere – kun anvendelsen afgør det, og siden kender ikke anvendelsen.",
 
   "katalog_titel": "Alle robotter",
   "katalog_antal": "robotter i kataloget",
@@ -170,8 +168,7 @@
   "imperial_forklaring": "Producentens eget imperiale tal.",
   "enhed_skift_etiket": "Imperiale enheder",
   "enhed_skift_etiket_metrisk": "Metriske enheder",
-  "enhed_skift_forklaring": "Imperiale tal er vores egen omregning og bærer mærket \"omregnet\". Tal uden det mærke er producentens egne. Kildebogstavet hører altid til det metriske tal — en omregning har ingen selvstændig kilde.",
-  "enhed_omregnet": "omregnet",
+  "enhed_skift_forklaring": "Imperiale tal er vores egen omregning, medmindre producenten selv oplyser et imperialt tal. Kildebogstavet hører altid til det metriske tal — en omregning har ingen selvstændig kilde.",
   "enhed_omregnet_forklaring": "Vores omregning fra {figur}. Producenten oplyser ikke selv et imperialt tal, så omregningen har ingen selvstændig kilde.",
   "operator_cirka": "ca.",
   "operator_cirka_laest": "cirka",
