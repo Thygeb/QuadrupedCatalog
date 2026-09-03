@@ -217,3 +217,102 @@ overtrumfet af samme mekanisme.
 `table{width:100%;min-width:620px;font-size:15px}` når allerede herind og måtte neutraliseres
 én gang (`generator.css:575`, hvis egen kommentar kalder `min-width:620px` *"den farligste af
 dem"*). En global regel ville ramme producentsidens tabel og robotsidernes 77 tabeller umålt.
+
+---
+
+## K2 — vandrette skillelinjer
+
+**Spørgsmålet kan ikke besvares, som det er stillet, fordi præmissen ikke holder.** Der er
+ingen vandrette streger at have flere eller færre af: alle 142 celler måler `border-top:
+0px none` (F1). Både briefets *"de findes, og de kan bare ikke ses"* og JPK's *"skal vi have
+dem?"* går ud fra, at der står noget svagt. Der står intet.
+
+Det rigtige spørgsmål er derfor: **skal matricen have sin første vandrette struktur — og
+hvilken?** Mit svar er ja til **én** ny streg, nej til 33 — og det, der faktisk løser
+Operate-opgaven, er ikke en streg.
+
+Rangeret efter målt virkning på opgaven *"følg én række på tværs"*:
+
+### 1. Rækkemarkering ved svæv og fokus — den vigtigste, og den ingen bad om
+
+Målt: **0** hover-regler på `.saml-raekke` (læst ud af CSSOM, ikke gættet). Øjets rejse fra
+feltnavn til sidste værdi: **1.336,8 px**. 33 rækker, median rækkehøjde **43,7 px**.
+
+Det, øjet mangler på den flade, er ikke en grænse mellem række 17 og 18. Det er at kunne
+**holde fast i række 17**, mens blikket flytter 1.336,8 px til højre. En statisk streg hjælper
+ikke på det; en markering af den række, man er i, gør.
+
+- **Fladen: `background:var(--accent-ro)`** på `.saml-raekke:hover`. Det er *sidens egen
+  etablerede hover-flade*, allerede brugt af `.filtre label:hover` (`system.css:1520`).
+  Ingen ny farve, og samme vokabular på tværs af skærmene — hvilket er selve Operate-kravet.
+  Målt: eloxgraa `#E8EBED` mod `--panel` `#FAFBFB` = **1,16:1**.
+- **1,16:1 er tæt på perceptionsgulvet, så tonen må ikke stå alene.** Makkeren er feltnavnet:
+  `.saml-raekke:hover .saml-raekke__navn` går fra `--blaek2` (**6,56:1**) til `--blaek`
+  (**14,69:1**). En **farve**ændring, ikke en vægtændring — vægt ville ændre ordets bredde,
+  og den fejl har topbaren allerede betalt for én gang (`system.css`-kommentaren ved
+  `.daek__enhed`: *"en vægtændring ville ændre ordets BREDDE, så pillen hoppede"*).
+- **Teksten holder på den tonede række.** Målt mod eloxgraa: `--blaek` 12,72 · `--blaek2` 5,68
+  · `--blaek3` 4,74. Ingen tekst falder under 4,5.
+- **Bivirkning, der skal stå i byggebriefet:** de lodrette kolonnestreger bliver svagere over
+  en tonet række — `--linje` måler **1,56:1** mod panel, men **1,35:1** mod eloxgraa.
+- **`@media (hover:hover)` som værn.** En touch-enhed skal ikke sidde fast i en markeret række.
+- **`:focus-within` skal have en rigtig fokusring, ikke tonen.** Sidens globale
+  `:focus-visible{outline:3px solid var(--accent);outline-offset:3px}` (`system.css:343`).
+  En tone på 1,16:1 er ikke en fokusindikator, og må ikke bruges som en.
+
+### 2. Gruppeskellet — den ene nye streg
+
+6 grupper, 33 rækker. En streg mellem grupper er **5 streger**, ikke 33. Den bærer
+information (hvor slutter FYSIK, hvor begynder ENERGI), og skal derfor måle **≥3,0:1**.
+
+- `--linje` **1,56** og `--hegn` **2,47** er begge under grænsen.
+- `--blaek3` `#5F686F` måler **5,48:1** mod panel — og er **allerede gruppetitlens egen
+  tekstfarve**. Samme token, samme sted, ny læseretning. Ingen ny farve, så hård begrænsning 3
+  og TYPESKILT står urørt.
+- **Placering:** på gruppens første række, ikke på titlen selv. Titlen har allerede
+  `padding-top:var(--r5)` (`generator.css:596`), så stregen får luft på begge sider uden en ny
+  afstandsværdi.
+- **Tykkelse 1 px.** Kontrasten bærer den, ikke vægten. (Bemærk F1's biobservation: en
+  `1px`-kant måles til **0,8 px** brugt bredde ved `devicePixelRatio` 1 på denne maskine.
+  Årsagen er ikke isoleret; den gælder alle kanter på siden i forvejen, så den ændrer ikke
+  valget — men et byggespor, der måler 0,8 og forventer 1, skal vide det.)
+
+### 3. Rækkehårstregen — nej. Her er jeg uenig med briefet
+
+Briefet foreslår at *"løfte rækkestregen til mindst 3,0:1"*. Tre målte grunde til at lade være:
+
+- **Det er 33 streger à 1.336,8 px.** Briefets egen sætning — *"33 rækker med ens
+  fuldbredde-streger bliver et bur"* — holder også, når stregerne er stærke nok til at ses.
+  Den bliver mere sand, ikke mindre.
+- **Rækkeadskillelsen er allerede båret.** Median 43,7 px rækkehøjde, 11 px lodret polstring
+  i cellen, og hver celle har sin egen venstrekant. Der er intet målt problem med at se, hvor
+  en række slutter. Problemet er at **følge** den, og det er punkt 1.
+- **Det er ikke en sammenligningssidebeslutning.** At løfte `--linje` selv rammer **70 linjer
+  / 73 forekomster / 71 uden for kommentarer** på tværs af begge stilark. Se SYSTEMÆNDRING.
+
+### Systemreglen, rettelsen skal skrives som
+
+Hård begrænsning 3 forbyder *"vælg en anden farve"*. L76 løste det tilsvarende problem ved at
+skrive en regel om, **hvor** `--accent` må stå. Samme form her, og den er målt, ikke skønnet:
+
+> **En streg, der er den eneste bærer af en skelnen, skal bruge et token, der måler ≥3,0:1
+> mod den flade, den ligger på. `--linje` (1,56) og `--hegn` (2,47) ligger under og må derfor
+> kun bære adskillelse, der er redundant med et andet signal — luft, en etiket eller en
+> tilstand.**
+
+Reglen dømmer fladen, som den er i dag, uden at kræve en eneste ny farve: de lodrette
+kolonnestreger på 1,56 er **lovlige**, fordi kolonnen også er markeret af plade-hovedet
+ovenover; et gruppeskel er det **ikke**, fordi stregen ville være det eneste, der markerer
+skellet — derfor `--blaek3`.
+
+### Og hvad der skal ske med den døde regel
+
+`generator.css:604` skal ikke blive stående. En regel, der ser ud som om den tegner en streg,
+og ikke gør det, er præcis det, der gjorde briefets K2 forkert. **Fjern den** i samme commit
+som gruppeskellet, med en kommentar, der siger hvorfor rækkestregen ikke kom tilbage — ellers
+genopfinder den næste læser den om tre uger.
+
+**F3 hører også til her, men er sit eget arbejde.** Gruppetitlens klæbning virker ikke
+(16 → −234,4 px). Det er en ren funktionsfejl og dermed undtaget designfrysen, men den rører
+gruppens rækkestruktur, som punkt 2 også rører. **Byg de to sammen, ikke hver for sig** — to
+spor i `.saml-gruppe` er en flettekonflikt, der først viser sig til sidst.
