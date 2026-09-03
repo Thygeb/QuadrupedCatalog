@@ -77,6 +77,23 @@ export default async function koer(ctx) {
   // Vagten paa PRAEMISSEN: bliver et felt en dag SYNLIGT, skal nogen se
   // efter, om chip-grammatikken stadig holder. Skjulningen er selve grunden
   // til, at accent-color er insurance og ikke en synlig rettelse.
+  //
+  // FEJLJAGT 3. sep 2026 (spor/testvend). MEKANISMESAETNING, skrevet FOER
+  // rettelsen (CLAUDE.md's kommandoregel): "31.8 er ROED, IKKE fordi et felt
+  // er blevet visuelt synligt (INGEN regression fra kat3's J1/J2/J3-
+  // stoerrelsesaendringer), MEN fordi kat3 (commit c7a3270, samme dag, Aa146
+  // beslutning G) slettede de 11 doede `.filtre`-regler i system.css - deriblandt
+  // netop `.filtre input{position:absolute;width:1px;height:1px;opacity:0}`,
+  // som denne vagt laeste efter. Klassen `.filtre` havde 0 forekomster i alle
+  // 216 byggede HTML-filer (maalt af kat3 selv, med positiv kontrol), fordi
+  // facetterne er omlagt fra chips (`.filtre`) til raekker (`.rk`) - den
+  // visuelt-skjulte-felt-mekanik FINDES STADIG, nu som
+  // `.rk__felt{position:absolute;opacity:0;width:1px;height:1px}` i
+  // generator.css, med `<label class="rk__mrk">` som den nye 'chip'/etiket
+  // (samme <input>+<label for>-par, samme princip, nyt navn og ny fil)."
+  //
+  // Testen selv er endnu IKKE rettet i denne commit - kun diagnosen. Se
+  // naeste commit for selve vendingen.
   ok('31.8: filterfelterne er stadig visuelt skjulte (chippen er etiketten)',
     /\.filtre input\{position:absolute;width:1px;height:1px;opacity:0\}/.test(sys),
     'holder den ikke, tegner browseren felterne, og accent-color bliver synlig');
