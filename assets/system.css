@@ -170,6 +170,7 @@
                                  tydeligt navngivet token til KOMMENDE kode
                                  (fx 3.6's SVG-maerker), der ikke skal gaette
                                  sig til, at --blaek3 er den rigtige */
+  --ring:var(--blaek);                  /* DP1b: semantisk alias for fokusringen (12,72:1 paa lys flade) */
 
   /* Skrift. L79's soesterregel L80: der er TO skrifter paa sitet og ikke
      tre. Saira til maskinen, Literata til mennesket.
@@ -340,8 +341,9 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    faldet vaek; den er blevet triviel, hvilket var hele meningen med L79.
    Springlinket beholder sin egen form: `.spring` staar senere i filen med
    samme specificitet og vinder. */
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px;
+:focus-visible{outline:3px solid var(--ring);outline-offset:3px;
   border-radius:var(--hjoerne)}
+.sidefod,.klaebebar{--ring:var(--accent)}
 ::-webkit-scrollbar{width:12px;height:12px}
 ::-webkit-scrollbar-track{background:var(--bund)}
 ::-webkit-scrollbar-thumb{background:var(--hegn);border:3px solid var(--bund);border-radius:99px}
@@ -1521,7 +1523,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   border:1px solid var(--hegn);border-radius:var(--hjoerne);
 }
 .sog input::placeholder{color:var(--blaek3);opacity:1}
-.sog input:focus-visible{border-color:var(--accent);outline-offset:1px}
+.sog input:focus-visible{border-color:var(--ring);outline-offset:1px}
 
 /* --- J1: SOEGEFELTET FAAR SIT EGET BAAND (PLAN-katalog.md J1.1) -----------
    JPK 3. sep 2026, ordret: "Padding omkring 'Search by model, manufacturer or
@@ -2019,7 +2021,7 @@ td .v{font-size:15px}
 .typeskilt .enhedsskift__boks:checked ~ * .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
 .typeskilt .enhedsskift__boks:checked ~ * .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
 .typeskilt .enhedsskift__boks:focus-visible ~ * .enhedsskift{
-  outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
+  outline:3px solid var(--ring);outline-offset:3px;border-radius:var(--hjoerne);
 }
 
 /* Selve skiftet. `display:contents` er valgt frem for inline/block, fordi
@@ -2365,7 +2367,7 @@ summary.facet__navn::before{
 }
 details[open] > summary.facet__navn::before{content:"–"}
 summary.facet__navn:hover::before{color:var(--blaek)}
-summary.facet__navn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+summary.facet__navn:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 /* Etiketten selv skal ALDRIG forkortes (den er kort og skal altid kunne
    laeses fuldt ud); det er kun den valgfrie undertekst, der viger. */
 summary.facet__navn > .facet__tal{
@@ -2480,7 +2482,7 @@ summary.facet__navn > .facet__tal{
    3px: bjaelken er kun ~44 px hoej, og en 3px ring med 3px offset ville
    skaere ud over dens kant. */
 .klaebebar__gaa:focus-visible,.klaebebar__ryd:focus-visible{
-  outline:2px solid var(--accent);outline-offset:2px;
+  outline:2px solid var(--ring);outline-offset:2px;
 }
 /* Bjaelken daekker IKKE sidefoden - naar laeseren naar bunden af siden, skal
    udvalget stadig kunne naas, men ikke ligge oven paa kildeloeftets tekst.
@@ -2563,7 +2565,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift{color:var(--blaek
 body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
 body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
 body:has(.enhedsskift__boks:focus-visible) .daek__enhed .enhedsskift{
-  outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
+  outline:3px solid var(--ring);outline-offset:3px;border-radius:var(--hjoerne);
 }
 /* BEGGE ENHEDER STAAR SAMTIDIG (JPK, 2. sep 2026: "Unit-knappen skal vise
    baade metric og imperial som der toggles mellem"). Markuppens raekkefoelge
@@ -2808,7 +2810,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift__spor{background:var(--accent);border-color:var(--blaek)}
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsskift__knop{left:auto;right:1px;background:var(--blaek)}
 .sammenligning-app .enhedsskift__boks:focus-visible ~ * .enhedsskift{
-  outline:3px solid var(--accent);outline-offset:3px;border-radius:var(--hjoerne);
+  outline:3px solid var(--ring);outline-offset:3px;border-radius:var(--hjoerne);
 }
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsvis--metrisk{display:none}
 .sammenligning-app .enhedsskift__boks:checked ~ * .enhedsvis--imperial{display:contents}

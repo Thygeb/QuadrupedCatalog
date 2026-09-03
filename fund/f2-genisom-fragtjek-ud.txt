@@ -1,0 +1,637 @@
+=== field_entries.caveat_wording ===
+
+[2205] weight
+  "整机重量（含电池）: 15 kg" -> [split ": " ("整机重量（含电池）" + "15 kg")] genisomai-l1maker-2026-08-24.html, l1maker-techparams.json
+  "含电池" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "~" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html, github-genisom_robot_sdk-2026-08-24.html, github-genisom_robot_sdk-text.txt, l2-text.txt, self-check-extract.txt
+
+[2205] length
+  "站立尺寸（长 x 宽 x 高）约 630 x 360 x 415 mm" -> INGEN FIL
+
+[2205] height
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2205] degrees_of_freedom
+  "关节电机数量: 12个" -> INGEN FIL
+  "frihedsgrader" -> [helt] self-check-extract.txt
+  "自由度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json
+
+[2205] payload_walking
+  "最大载荷 ≈ 8 kg（极限 ~10 kg）" -> INGEN FIL
+
+[2205] speed
+  "最大速度: 3.7 m/s" -> [split ": " ("最大速度" + "3.7 m/s")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "最大速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html
+  "normal maksimal hastighed" -> INGEN FIL
+
+[2205] slope
+  "最大爬坡角度: 标准环境 30°，极限可达 40°" -> [split ": " ("最大爬坡角度" + "标准环境 30°，极限可达 40°")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2205] stair_step_continuous
+  "连续攀爬楼梯高度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2205] battery_wh
+  "电池" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2205] runtime
+  "续航时间: 1-2 h" -> INGEN FIL
+  "续航里程: 6 km" -> INGEN FIL
+
+[2205] charging_time
+  "充电时长: 1 h" -> INGEN FIL
+
+[2205] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "自主回充功能" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2205] compute
+  "基础算力: 8 核高性能 CPU" -> [split ": " ("基础算力" + "8 核高性能 CPU")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "工作最大功率: 3500W" -> [split ": " ("工作最大功率" + "3500W")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2205] sdk_languages
+  "genisom_L1_sdk" -> [helt] github-zsibot-org-2026-08-24.html
+  "基于 C++20 开发" -> INGEN FIL
+
+[2206] weight
+  "整机重量（含电池）: 22 kg" -> [split ": " ("整机重量（含电池）" + "22 kg")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+  "含电池" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+
+[2206] length
+  "站立尺寸（长x宽x高）约 630 × 430 × 485 mm" -> INGEN FIL
+
+[2206] height
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2206] degrees_of_freedom
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "高性能轮毂电机: 4 个" -> [split ": " ("高性能轮毂电机" + "4 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2206] payload_walking
+  "最大载荷 ≈ 10 kg（极限 ~12 kg）" -> [split blank ("最大载荷" + "≈ 10 kg（极限 ~12 kg）")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2206] speed
+  "最大速度: 3.7 m/s" -> [split ": " ("最大速度" + "3.7 m/s")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  ">5.5m/s 极限奔跑速度" -> INGEN FIL
+
+[2206] slope
+  "最大爬坡角度: 标准环境 30°，极限可达 40°" -> [split ": " ("最大爬坡角度" + "标准环境 30°，极限可达 40°")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2206] obstacle_single
+  "65cm 最大越障高度" -> [helt] genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html
+
+[2206] stair_step_continuous
+  "连续攀爬楼梯高度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2206] battery_wh
+  "电池" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2206] runtime
+  "续航时间: 1-2h" -> [split ": " ("续航时间" + "1-2h")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+  "续航里程: 9km" -> [split ": " ("续航里程" + "9km")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2206] charging_time
+  "充电时长: 1h" -> [split ": " ("充电时长" + "1h")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2206] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2206] compute
+  "基础算力: 8 核高性能 CPU" -> [split ": " ("基础算力" + "8 核高性能 CPU")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "工作最大功率: 3500W" -> [split ": " ("工作最大功率" + "3500W")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html
+
+[2206] data_ports
+  "开放 Ethernet、USB 3.0/2.0、24V/12V 电源等 7 大标准硬件接口" -> [helt] genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html
+  "等" -> [helt] genisomai-home-2026-08-24.html, genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html, l1maker-techparams.json, l1maker-text.txt, l2-text.txt, self-check-extract.txt
+  "osv." -> INGEN FIL
+
+[2207] weight
+  "整机重量（含电池）: 21 kg" -> [split ": " ("整机重量（含电池）" + "21 kg")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "含电池" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+
+[2207] length
+  "站立尺寸（长 x 宽 x 高）约 720 x 390 x 480 mm" -> INGEN FIL
+
+[2207] height
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2207] degrees_of_freedom
+  "关节电机数量: 12个" -> INGEN FIL
+  "frihedsgrader" -> [helt] self-check-extract.txt
+
+[2207] payload_walking
+  "最大载荷 ≈ 16 kg" -> [split blank ("最大载荷" + "≈ 16 kg")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2207] payload_standing
+  "极限静态150kg" -> INGEN FIL
+  "最大静态载荷可达150kg" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+
+[2207] speed
+  "最大速度: 3.2 m/s" -> [split ": " ("最大速度" + "3.2 m/s")] genisomai-l2-2026-08-24-techparams-pretty.json
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2207] slope
+  "最大爬坡角度: 40°" -> [split ": " ("最大爬坡角度" + "40°")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2207] obstacle_single
+  "70cm 垂直越障高度" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+
+[2207] stair_step_continuous
+  "连续攀爬楼梯高度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2207] battery_wh
+  "756Wh 大容量电池" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+  "15000mAh" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2207] runtime
+  "续航时间: 5.5H（空载） 3.5H（满载）" -> [split ": " ("续航时间" + "5.5H（空载） 3.5H（满载）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "fuld last" -> INGEN FIL
+  "续航里程: 20KM（空载） 12KM（满载）" -> [split ": " ("续航里程" + "20KM（空载） 12KM（满载）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2207] charging_time
+  "充电时长: 1.5 h" -> [split ": " ("充电时长" + "1.5 h")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2207] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "充电桩（包含自主回充功能）: 选配" -> [split ": " ("充电桩（包含自主回充功能）" + "选配")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2207] compute
+  "基础算力: 8 核高性能 CPU" -> [split ": " ("基础算力" + "8 核高性能 CPU")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "高达 86 TOPS 算力平台" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+
+[2207] ros2
+  "新一代 RoamerX 智能导航系统" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+  "genisom_roamerx_open" -> [helt] github-zsibot-org-2026-08-24.html
+  "ROS2 Humble Hawksbill" -> INGEN FIL
+  "Hardware Deployment" -> INGEN FIL
+  "TODO" -> INGEN FIL
+
+[2207] data_ports
+  "功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽" -> [split ": " ("功能拓展接口" + "5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2207] price
+  "¥39999 起" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+  "起" -> [helt] genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, l2-text.txt
+  "fra" -> [helt] commit-msg-2.txt, github-genisom_robot_sdk-2026-08-24.html, github-MATRiX_Python_SDK-2026-08-24.html, github-zsibot-org-2026-08-24.html, self-check-extract.txt
+  "startende ved" -> INGEN FIL
+
+[2208] weight
+  "整机重量（含电池）: 27 kg" -> [split ": " ("整机重量（含电池）" + "27 kg")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+
+[2208] length
+  "站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm" -> INGEN FIL
+
+[2208] height
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2208] degrees_of_freedom
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "frihedsgrader" -> [helt] self-check-extract.txt
+
+[2208] payload_walking
+  "最大载荷 ≈ 16 kg （极限静态 150kg）" -> [split blank ("最大载荷" + "≈ 16 kg （极限静态 150kg）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2208] payload_standing
+  "极限静态150kg" -> INGEN FIL
+  "最大载荷" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html, l1maker-techparams.json
+
+[2208] speed
+  "最大速度: 3.7 m/s" -> [split ": " ("最大速度" + "3.7 m/s")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2208] stair_step_continuous
+  "连续攀爬楼梯高度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2208] runtime
+  "续航时间: 5.5H（空载） 3.5H（满载）" -> [split ": " ("续航时间" + "5.5H（空载） 3.5H（满载）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "续航里程: 20KM（空载） 12KM（满载）" -> [split ": " ("续航里程" + "20KM（空载） 12KM（满载）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2208] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "充电桩（包含自主回充功能）: 选配" -> [split ": " ("充电桩（包含自主回充功能）" + "选配")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2208] compute
+  "基础算力: 8 核高性能 CPU" -> [split ": " ("基础算力" + "8 核高性能 CPU")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "高达 86 TOPS" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+
+[2208] autonomy_level
+  "托马斯" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, self-check-extract.txt
+
+[2208] data_ports
+  "功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽" -> [split ": " ("功能拓展接口" + "5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2209] weight
+  "整机重量（含电池）: 27 kg" -> [split ": " ("整机重量（含电池）" + "27 kg")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+
+[2209] length
+  "站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm" -> INGEN FIL
+
+[2209] height
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2209] degrees_of_freedom
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "frihedsgrader" -> [helt] self-check-extract.txt
+
+[2209] payload_walking
+  "最大载荷 ≈ 16 kg （极限静态 150kg）" -> [split blank ("最大载荷" + "≈ 16 kg （极限静态 150kg）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2209] payload_standing
+  "极限静态150kg" -> INGEN FIL
+  "最大载荷" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html, l1maker-techparams.json
+
+[2209] speed
+  "最大速度: 3.7 m/s" -> [split ": " ("最大速度" + "3.7 m/s")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2209] stair_step_continuous
+  "连续攀爬楼梯高度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2209] runtime
+  "续航时间: 4.5H（空载） 3H（满载）" -> [split ": " ("续航时间" + "4.5H（空载） 3H（满载）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "续航里程: 16KM（空载） 10KM（满载）" -> [split ": " ("续航里程" + "16KM（空载） 10KM（满载）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2209] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "充电桩（包含自主回充功能）: 选配" -> [split ": " ("充电桩（包含自主回充功能）" + "选配")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2209] lidar
+  "3D激光雷达: 工业级96线激光雷达*2" -> [split ": " ("3D激光雷达" + "工业级96线激光雷达*2")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "RTK定位模块: 支持" -> [split ": " ("RTK定位模块" + "支持")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, self-check-extract.txt
+
+[2209] cameras
+  "相机类型: 前向双目+周视鱼眼阵列" -> [split ": " ("相机类型" + "前向双目+周视鱼眼阵列")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "相机像索: 207万*2" -> [split ": " ("相机像索" + "207万*2")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+  "前向双目" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2209] compute
+  "基础算力: 8核高性能CPU+ 6核高性能CPU（80TOPS）" -> [split ": " ("基础算力" + "8核高性能CPU+ 6核高性能CPU（80TOPS）")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2209] data_ports
+  "功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽" -> [split ": " ("功能拓展接口" + "5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2210] weight
+  "本体重量: ≤100 kg" -> [split ": " ("本体重量" + "≤100 kg")] genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html
+
+[2210] length
+  "外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm" -> [split ": " ("外形尺寸（长 × 宽 × 高）" + "1190 × 640 × 925 mm")] genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+
+[2210] payload_walking
+  "最大载荷: 50 kg" -> [split ": " ("最大载荷" + "50 kg")] genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html
+  "50 kg 持续行走负载" -> [helt] genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html
+
+[2210] slope
+  "最大爬坡角度: 35°" -> [split ": " ("最大爬坡角度" + "35°")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html
+  "稳定爬坡 最大爬坡角度 35°" -> [split blank ("稳定爬坡" + "最大爬坡角度 35°")] genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html
+
+[2210] stair_step_continuous
+  "攀爬能力: 23cm连续台阶" -> INGEN FIL
+
+[2210] runtime
+  "续航时间: ≥4 h" -> [split ": " ("续航时间" + "≥4 h")] genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html
+  "满载" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html
+  "4 h 满载续航 持续作业" -> [helt] genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html
+  "50 kg 持续行走负载" -> [helt] genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html
+
+[2211] weight
+  "整机重量（含电池）: 41 kg" -> [split ": " ("整机重量（含电池）" + "41 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，在四足机器人行业内首次实现近 1:1 负载自重比" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] length
+  "站立尺寸（长 × 宽 × 高）: 930 × 480 × 585 mm" -> [split ": " ("站立尺寸（长 × 宽 × 高）" + "930 × 480 × 585 mm")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+
+[2211] height
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2211] degrees_of_freedom
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "16个自由度" -> [helt] genisomai-m1-2026-08-24.html
+
+[2211] payload_walking
+  "最大载荷: 30 kg" -> [split ": " ("最大载荷" + "30 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] speed
+  "最大速度: 6 m/s" -> [split ": " ("最大速度" + "6 m/s")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24.html
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] slope
+  "最大爬坡角度: 45°" -> [split ": " ("最大爬坡角度" + "45°")] genisomai-l1maker-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+  "45° 极限爬坡角度" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] obstacle_single
+  "80cm 垂直越障高度" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] stair_step_continuous
+  "连续攀爬楼梯高度" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+  "25cm 持续攀爬台阶" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] temperature_min
+  "-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] temperature_max
+  "宽温电池版本" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] battery_wh
+  "电池" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "54 V，9.35 Ah × 2；双电池，热插拔" -> [helt] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] runtime
+  "续航时间: 空载 5 h；满载 3.5 h" -> [split ": " ("续航时间" + "空载 5 h；满载 3.5 h")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "最大载荷: 30 kg" -> [split ": " ("最大载荷" + "30 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "续航里程: 空载 29 km；满载 18 km" -> [split ": " ("续航里程" + "空载 29 km；满载 18 km")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] hot_swap
+  "双电池 热插拔" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+  "电池: 54 V，9.35 Ah × 2；双电池，热插拔" -> [split ": " ("电池" + "54 V，9.35 Ah × 2；双电池，热插拔")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] charging_time
+  "充电时长: ＜ 2 h" -> [split ": " ("充电时长" + "＜ 2 h")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "可选配智能充电桩，支持低电量自主返回充电" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2211] lidar
+  "3D激光雷达: 支持" -> [split ": " ("3D激光雷达" + "支持")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "96线激光雷达" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2211] cameras
+  "相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°" -> [split ": " ("相机类型" + "广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "相机像索: 800万 x 2" -> [split ": " ("相机像索" + "800万 x 2")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "深度相机" -> [helt] genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "RTK定位模块" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, self-check-extract.txt
+
+[2211] compute
+  "基础算力: 8 核高性能 CPU （100TOPS）" -> [split ": " ("基础算力" + "8 核高性能 CPU （100TOPS）")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2211] sdk_languages
+  "genisom_robot_sdk" -> [helt] github-genisom_robot_sdk-2026-08-24.html, github-genisom_robot_sdk-text.txt, github-zsibot-org-2026-08-24.html
+  "Programming Language: C++" -> [split ": " ("Programming Language" + "C++")] github-genisom_robot_sdk-2026-08-24.html, github-genisom_robot_sdk-text.txt
+  "genisom_L1_sdk" -> [helt] github-zsibot-org-2026-08-24.html
+  "Official SDK for Genisom L1 Series robots" -> INGEN FIL
+  "M1" -> [helt] commit-msg-1.txt, genisomai-home-2026-08-24.html, genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html, github-genisom_robot_sdk-2026-08-24.html, github-MATRiX_Python_SDK-2026-08-24.html, github-zsibot-org-2026-08-24.html, l1maker-text.txt, l2-text.txt, self-check-extract.txt
+  "铜锤" -> [helt] genisomai-home-2026-08-24.html, genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, genisomai-sp1-2026-08-24-text.txt, genisomai-sp1-2026-08-24.html, l1maker-text.txt, l2-text.txt
+
+[2211] autonomy_level
+  "选配" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, self-check-extract.txt
+
+[2211] data_ports
+  "功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1" -> [split ": " ("功能拓展接口" + "千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "15 大标准硬件接口全开放" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2212] weight
+  "整机重量（含电池）: 41 kg" -> [split ": " ("整机重量（含电池）" + "41 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "约" -> [helt] genisomai-l1maker-2026-08-24.html, genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24-text.txt, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l1maker-techparams.json, l2-text.txt
+  "约 30kg" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2212] height
+  "站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm" -> [split ": " ("站立尺寸（长 × 宽 × 高）" + "930 × 480 × 595 mm")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2212] degrees_of_freedom
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] payload_walking
+  "最大载荷: 30 kg" -> [split ": " ("最大载荷" + "30 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] speed
+  "最大速度: 6 m/s" -> [split ": " ("最大速度" + "6 m/s")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24.html
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] slope
+  "最大爬坡角度: 45°" -> [split ": " ("最大爬坡角度" + "45°")] genisomai-l1maker-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2212] obstacle_single
+  "80cm 垂直越障高度" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2212] stair_step_continuous
+  "连续攀爬楼梯高度: 25 cm" -> [split ": " ("连续攀爬楼梯高度" + "25 cm")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] temperature_min
+  "-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2212] battery_wh
+  "电池: 54 V，9.35 Ah × 2；双电池，热插拔" -> [split ": " ("电池" + "54 V，9.35 Ah × 2；双电池，热插拔")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] runtime
+  "续航时间: 空载 5 h；满载 3.5 h" -> [split ": " ("续航时间" + "空载 5 h；满载 3.5 h")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "续航里程: 空载 29 km；满载 18 km" -> [split ": " ("续航里程" + "空载 29 km；满载 18 km")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] hot_swap
+  "电池: 54 V，9.35 Ah × 2；双电池，热插拔" -> [split ": " ("电池" + "54 V，9.35 Ah × 2；双电池，热插拔")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] charging_time
+  "充电时长: ＜ 2 h" -> [split ": " ("充电时长" + "＜ 2 h")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "充电桩: 选配" -> [split ": " ("充电桩" + "选配")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2212] lidar
+  "3D激光雷达: 支持" -> [split ": " ("3D激光雷达" + "支持")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] cameras
+  "相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°" -> [split ": " ("相机类型" + "广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "相机像索: 800万 x 2" -> [split ": " ("相机像索" + "800万 x 2")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "超声波传感器: 支持" -> [split ": " ("超声波传感器" + "支持")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] compute
+  "基础算力: 8 核高性能 CPU （100TOPS）" -> [split ": " ("基础算力" + "8 核高性能 CPU （100TOPS）")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2212] autonomy_level
+  "选配" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, self-check-extract.txt
+
+[2212] data_ports
+  "功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1" -> [split ": " ("功能拓展接口" + "千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "15 大标准硬件接口全开放" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2213] weight
+  "整机重量（含电池）: 41 kg" -> [split ": " ("整机重量（含电池）" + "41 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "约 30kg" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2213] height
+  "站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm" -> [split ": " ("站立尺寸（长 × 宽 × 高）" + "930 × 480 × 595 mm")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "趴地尺寸" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html
+
+[2213] degrees_of_freedom
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] payload_walking
+  "最大载荷: 30 kg" -> [split ": " ("最大载荷" + "30 kg")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] speed
+  "最大速度: 6 m/s" -> [split ": " ("最大速度" + "6 m/s")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24.html
+  "极限速度" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] slope
+  "最大爬坡角度: 45°" -> [split ": " ("最大爬坡角度" + "45°")] genisomai-l1maker-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, l1maker-techparams.json
+
+[2213] obstacle_single
+  "80cm 垂直越障高度" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2213] stair_step_continuous
+  "连续攀爬楼梯高度: 25 cm" -> [split ": " ("连续攀爬楼梯高度" + "25 cm")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] temperature_min
+  "-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2213] battery_wh
+  "电池: 54 V，9.35 Ah × 2；双电池，热插拔" -> [split ": " ("电池" + "54 V，9.35 Ah × 2；双电池，热插拔")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] runtime
+  "续航时间: 空载 5 h；满载 3.5 h" -> [split ": " ("续航时间" + "空载 5 h；满载 3.5 h")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "续航里程: 空载 29 km；满载 18 km" -> [split ": " ("续航里程" + "空载 29 km；满载 18 km")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] hot_swap
+  "电池: 54 V，9.35 Ah × 2；双电池，热插拔" -> [split ": " ("电池" + "54 V，9.35 Ah × 2；双电池，热插拔")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] charging_time
+  "充电时长: ＜ 2 h" -> [split ": " ("充电时长" + "＜ 2 h")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] docking_station
+  "充电座: 标配" -> [split ": " ("充电座" + "标配")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "充电桩: 选配" -> [split ": " ("充电桩" + "选配")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2213] lidar
+  "3D激光雷达: 支持" -> [split ": " ("3D激光雷达" + "支持")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] cameras
+  "相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像" -> [split ": " ("相机类型" + "鱼眼相机 x 4 + 前向双目相机 x 2 环视成像")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "相机像索: 鱼眼300万，双目200万" -> [split ": " ("相机像索" + "鱼眼300万，双目200万")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "广角相机 x 2, 800万 x 2" -> INGEN FIL
+  "超声波传感器: 支持" -> [split ": " ("超声波传感器" + "支持")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] compute
+  "基础算力: 6核高性能CPU（128TOPS）" -> [split ": " ("基础算力" + "6核高性能CPU（128TOPS）")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "8 核高性能 CPU （100TOPS）" -> [helt] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+
+[2213] autonomy_level
+  "自主导航" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html, l2-text.txt, self-check-extract.txt
+
+[2213] data_ports
+  "功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1" -> [split ": " ("功能拓展接口" + "千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "15 大标准硬件接口全开放" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+=== applications.note/quote_wording ===
+
+[2205] note
+  "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot.. anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse." -> INGEN FIL
+[2205] quote_wording: "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。)"
+
+[2206] note
+[2206] quote_wording: ["Rekognoscering og eftersøgningsredning (侦查搜救)","Akut brandbekæmpelse (应急消防)","Forskning og uddannelse (科研教育)","Sikkerhedspatrulje (安防巡逻)"]
+
+[2207] note
+[2207] quote_wording: ["Sikkerhedspatrulje (安防巡逻)","Forskning og uddannelse (科研教育)","Kort-distance levering (短途配送)"]
+
+[2208] note
+[2208] quote_wording: ["Sikkerhedspatrulje (安防巡逻)","Akut brandbekæmpelse (应急消防)","Forskning og uddannelse (科研教育)","Kort-distance levering (短途配送)"]
+
+[2209] note
+[2209] quote_wording: ["Sikkerhedspatrulje (安防巡逻)","Akut brandbekæmpelse (应急消防)","Forskning og uddannelse (科研教育)","Kort-distance levering (短途配送)"]
+
+[2210] note
+  "GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer" -> INGEN FIL
+  "Autonom inspektion, dataoverførsel, nul personalerisiko" -> INGEN FIL
+  "næste anvendelsesscenarie" -> INGEN FIL
+[2210] quote_wording: ["GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人)","Autonom inspektion, dataoverførsel, nul personalerisiko (自主巡检 数据回传 人员零涉险)"]
+
+[2211] note
+[2211] quote_wording: ["Skovbrandbekæmpelse (森林消防)","Petrokemisk brandbekæmpelse (石化消防)","Elkraftinspektion (电力巡检)","Områdepatrulje (园区巡逻)","Logistiktransport (物流运输)"]
+
+[2212] note
+[2212] quote_wording: ["Skovbrandbekæmpelse (森林消防)","Petrokemisk brandbekæmpelse (石化消防)","Elkraftinspektion (电力巡检)","Områdepatrulje (园区巡逻)","Logistiktransport (物流运输)"]
+
+[2213] note
+[2213] quote_wording: ["Skovbrandbekæmpelse (森林消防)","Petrokemisk brandbekæmpelse (石化消防)","Elkraftinspektion (电力巡检)","Områdepatrulje (园区巡逻)","Logistiktransport (物流运输)"]
+
+=== robots.notes_wording ===
+
+[2207] notes_wording[0]
+  "支持自动建图与路径规划，结合激光雷达与GNSS实现厘米级定位" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+  "双目相机" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-ne01-2026-08-24.html, l2-text.txt, self-check-extract.txt
+  "传感器" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "3D激光雷达: 工业级96线激光雷达*2" -> [split ": " ("3D激光雷达" + "工业级96线激光雷达*2")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2208] notes_wording[0]
+  "70cm 垂直越障高度" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+  "756Wh 大容量电池" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+  "高达 86 TOPS 算力平台" -> [helt] genisomai-l2-2026-08-24.html, l2-text.txt
+
+[2209] notes_wording[0]
+  "钢镚 L2-W Ultra" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2209] notes_wording[1]
+  (ingen fragmenter): ""
+
+[2209] notes_wording[2]
+  "3D激光雷达: 工业级96线激光雷达*2" -> [split ": " ("3D激光雷达" + "工业级96线激光雷达*2")] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html
+
+[2211] notes_wording[0]
+  "16个自由度" -> [helt] genisomai-m1-2026-08-24.html
+  "关节电机数量: 12 个" -> [split ": " ("关节电机数量" + "12 个")] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "frihedsgrader" -> [helt] self-check-extract.txt
+
+[2211] notes_wording[1]
+  (ingen fragmenter): ""
+
+[2211] notes_wording[2]
+  "2026北京亦庄机器人勇士挑战赛，铜锤M1 自主导航项目全场唯一完赛，并斩获四足机器人大类自主导航第一、奖项数第一、总分第一、速度第一" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+  "全球首次由自主跟随机器人陪人类完成马拉松赛事... 铜锤M1作为全球首个自主跟随的机器人" -> INGEN FIL
+  "完成半马陪跑任务" -> [helt] genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+  "sweep hare" -> INGEN FIL
+
+[2212] notes_wording[0]
+  "自主导航: 选配：智航Pro版" -> [split ": " ("自主导航" + "选配：智航Pro版")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "自主导航: 智航Pro版" -> [split ": " ("自主导航" + "智航Pro版")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, self-check-extract.txt
+  "选配" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, self-check-extract.txt
+
+[2213] notes_wording[0]
+  (ingen fragmenter): ""
+
+[2213] notes_wording[1]
+  "相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像" -> [split ": " ("相机类型" + "鱼眼相机 x 4 + 前向双目相机 x 2 环视成像")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "相机像索: 鱼眼300万，双目200万" -> [split ": " ("相机像索" + "鱼眼300万，双目200万")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "广角相机 x 2, 800万 x 2" -> INGEN FIL
+  "四路鱼眼、前向双目相机 / 铜锤M1 Ultra 支持720° 全景感知，进一步提升深度感知与复杂环境识别能力。" -> INGEN FIL
+  "720° 3D 环视感知系统: 支持" -> [split ": " ("720° 3D 环视感知系统" + "支持")] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html
+
+[2213] notes_wording[2]
+  "自主导航" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html, l2-text.txt, self-check-extract.txt
+  "选配：智航Pro版" -> [helt] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html
+  "智航Pro版" -> [helt] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, self-check-extract.txt
+  "选配" -> [helt] genisomai-l1w-2026-08-24-techparams-pretty.json, genisomai-l1w-2026-08-24-techparams.json, genisomai-l1w-2026-08-24.html, genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, self-check-extract.txt
+  "自主导航" -> [helt] genisomai-l2-2026-08-24-techparams-pretty.json, genisomai-l2-2026-08-24-techparams.json, genisomai-l2-2026-08-24.html, genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24-text.txt, genisomai-m1-2026-08-24.html, genisomai-sp1-2026-08-24-techparams-pretty.json, genisomai-sp1-2026-08-24-techparams.json, genisomai-sp1-2026-08-24.html, l2-text.txt, self-check-extract.txt
+  "智航Pro" -> [helt] genisomai-m1-2026-08-24-techparams-pretty.json, genisomai-m1-2026-08-24-techparams.json, genisomai-m1-2026-08-24.html, self-check-extract.txt
+
+=== images.note ===
+
+[2205] images.note: null
+
+[2206] images.note: null
+
+[2207] images.note: null
+
+[2208] images.note: "Delt foto med genisom-gangben-l2.yaml (basisudgaven): L2-W findes kun som fane-skift på L2's egen side og har ingen selvstændig produktside, så producenten har heller ikke noget separat produktfoto for netop denne variant - samme billed-URL som den eksisterende L2-post."
+
+[2209] images.note: "Delt foto med genisom-gangben-l2.yaml og genisom-gangben-l2-w.yaml: L2-W Ultra findes kun som fane-skift på L2's egen side og har ingen selvstændig produktside eller eget produktfoto, selvom den fysisk har en ekstra LiDAR-sensorpakke (se noter i felter). Samme billed-URL som de to andre L2-poster."
+
+[2210] images.note: null
+
+[2211] images.note: "Delt foto: M1's produktside viser samme model på tværs af M1/M1 Pro/M1 Ultra-fanebladet (kun ét kort-thumbnail-billede fundet for hele familien) - Pro og Ultra får samme foto (se genisom-tongchui-m1-pro.yaml og genisom-tongchui-m1-ultra.yaml)."
+
+[2212] images.note: "Delt foto med genisom-tongchui-m1.yaml (basisudgaven) og genisom-tongchui-m1-ultra.yaml: M1 Pro findes kun som fane-skift på M1's egen side, og siden viser samme produktfoto for hele familien."
+
+[2213] images.note: "Delt foto med genisom-tongchui-m1.yaml og genisom-tongchui-m1-pro.yaml: M1 Ultra findes kun som fane-skift på M1's egen side, selvom den fysisk har en anden kameraopstilling (720 grader rundtomsyn) end de to andre - producentens side viser ikke desto mindre samme produktfoto for hele familien."

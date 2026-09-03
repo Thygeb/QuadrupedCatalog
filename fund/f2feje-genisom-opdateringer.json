@@ -1,0 +1,190 @@
+[
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2205
+    },
+    "saet": {
+      "note_wording": "Own translation: \"Gangben L1 is GENISOM AI’s own first industrial-grade small quadruped robot ... widely used in power-grid inspection, emergency rescue, security patrol, research and education.\" 电力巡检 (power-grid inspection) -> inspection; 应急救援 (emergency rescue) -> defense and emergency response; 安防巡逻 (security patrol) -> security and surveillance; 科研教育 (research and education) -> research and development (the education part of 科研教育 has no precise match in the value set beyond consumer and education, which is not used here, since the context is professional research, not a consumer product).",
+      "quote": "Gangben L1 is GENISOM AI's own first industrial-grade small quadruped robot... widely used in power-grid inspection, emergency rescue, security patrol, research and education.",
+      "quote_wording": "钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。"
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk (rest fra BRIEF-FAELLES.md's ni-kolonne-fejl, STATUS.md Å143). quote_wording sat til kildens kinesiske ordlyd ordret (meta description, genisomai-L1-2026-09-02.html), quote til den engelske oversaettelse allerede etableret i applications.note. note_wording ER note (samme resonnement, ikke en kilde-ordlyd) - se BRIEF-f2-feje.md afsnit 7, aabent spoergsmaal til JPK."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2206
+    },
+    "saet": {
+      "note_wording": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place) on L1-W’s own product page — four separate quotes, not inherited from L1. Own translation: 侦查搜救 (reconnaissance/search-and-rescue) -> defense and emergency response; 应急消防 (emergency firefighting) -> defense and emergency response (same category as 侦查搜救, two quotes); 科研教育 -> research and development; 安防巡逻 -> security and surveillance.",
+      "quote": [
+        "Reconnaissance and search-and-rescue",
+        "Emergency firefighting",
+        "Research and education",
+        "Security patrol"
+      ],
+      "quote_wording": [
+        "侦查搜救",
+        "应急消防",
+        "科研教育",
+        "安防巡逻"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse som 2205 - quote/quote_wording/note_wording var dansk. Kilde: genisomai-l1w-2026-08-24.html, sektionen \"下一个应用场景，它已提前就位\". note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2207
+    },
+    "saet": {
+      "note_wording": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place). 安防巡逻 -> security and surveillance; 科研教育 -> research and development; 短途配送 (short-distance delivery) -> logistics.",
+      "quote": [
+        "Security patrol",
+        "Research and education",
+        "Short-distance delivery"
+      ],
+      "quote_wording": [
+        "安防巡逻",
+        "科研教育",
+        "短途配送"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording/note_wording var dansk. Kategorivaerdien (3 led, uden 应急消防) ROERES IKKE - kun sproget. Kilde: genisomai-l2-2026-08-24.html. note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2208
+    },
+    "saet": {
+      "note_wording": "From the section \"下一个应用场景，它已提前就位\" on L2’s product page. The text appears ONCE on the page, BEFORE the variant tabs (L2/L2-W/L2-W Ultra), in the structured spec table — it covers the whole Gangben L2 family as a whole, not just the base version. Quoted independently from the same URL, NOT via inherited_from: it is the same primary source for all three variants, not an inference about another robot (inherited_from would presuppose that L2-W’s OWN page was silent and borrowed L2’s quote — it is not: the text sits on the very page L2-W also lives on). Own translation: 安防巡逻 -> security and surveillance; 应急消防 (emergency firefighting) -> defense and emergency response; 科研教育 -> research and development; 短途配送 (short-distance delivery) -> logistics. NOTE: this quote has FOUR items (incl. 应急消防), while genisom-gangben-l2.yaml’s existing quote has only three (missing 应急消防) — an independent re-reading of the same raw HTML for this entry. The existing L2 entry is NOT corrected, per the task’s instruction not to touch the two existing entries.",
+      "quote": [
+        "Security patrol",
+        "Emergency firefighting",
+        "Research and education",
+        "Short-distance delivery"
+      ],
+      "quote_wording": [
+        "安防巡逻",
+        "应急消防",
+        "科研教育",
+        "短途配送"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording/note_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2209
+    },
+    "saet": {
+      "note_wording": "Same section and same reasoning as genisom-gangben-l2-w.yaml: the text \"下一个应用场景，它已提前就位\" (next application scenario, already in place) appears ONCE on the L2 page for the whole Gangben L2 family, before the variant tabs. Quoted independently from the same URL, not via inherited_from. Own translation: 安防巡逻 -> security and surveillance; 应急消防 -> defense and emergency response; 科研教育 -> research and development; 短途配送 -> logistics.",
+      "quote": [
+        "Security patrol",
+        "Emergency firefighting",
+        "Research and education",
+        "Short-distance delivery"
+      ],
+      "quote_wording": [
+        "安防巡逻",
+        "应急消防",
+        "科研教育",
+        "短途配送"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording/note_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2210
+    },
+    "saet": {
+      "note_wording": "Own translation: \"GENISOM Qiuqiu SP1 is an explosion-proof quadruped inspection robot for high-risk industrial environments such as petrochemicals and energy stations\" (meta description) and \"Autonomous inspection, data transmission, zero personnel risk\" (marketing headline, 自主巡检 = autonomous inspection). The page’s OWN \"next application scenario\" section (\"下一个应用场景，它已提前就位\") lists FOUR FACILITY TYPES, not activity categories: 炼化装置区 (refinery plant area), 化工储罐区 (chemical storage tank area), 燃气/LNG场站 (gas/LNG station), 油气管线 (oil/gas pipeline) — none of them is a verbatim activity category in the schema’s allowed set, so they are NOT used as quote/value here. Instead, industrial/inspection is derived from the meta description’s 高危工业环境 (high-risk industrial environment) and 防爆...巡检机器人 (explosion-proof ... inspection robot), plus the body text’s explicit 自主巡检 (autonomous inspection).",
+      "quote": [
+        "GENISOM Qiuqiu SP1 is an explosion-proof quadruped inspection robot for high-risk industrial environments such as petrochemicals and energy stations",
+        "Autonomous inspection, data transmission, zero personnel risk"
+      ],
+      "quote_wording": [
+        "智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人",
+        "自主巡检 数据回传 人员零涉险"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-sp1-2026-08-24.html (meta description + markedsfoeringsoverskrift). note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2211
+    },
+    "saet": {
+      "note_wording": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place) on M1’s own product page. Own translation: 森林消防 (forest firefighting) -> defense and emergency response; 石化消防 (petrochemical firefighting) -> defense and emergency response (same category, two quotes); 电力巡检 (power-grid inspection) -> inspection; 园区巡逻 (site patrol) -> security and surveillance; 物流运输 (logistics transport) -> logistics.",
+      "quote": [
+        "Forest firefighting",
+        "Petrochemical firefighting",
+        "Power-grid inspection",
+        "Site patrol",
+        "Logistics transport"
+      ],
+      "quote_wording": [
+        "森林消防",
+        "石化消防",
+        "电力巡检",
+        "园区巡逻",
+        "物流运输"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-m1-2026-08-24.html. note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2212
+    },
+    "saet": {
+      "note_wording": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place) on M1’s own product page. The text appears ONCE on the page, shared by all three tabs (M1/M1 Pro/M1 Ultra) in the structured spec table — it covers the whole Tongchui M1 family as a whole. Quoted independently from the same URL, NOT via inherited_from: it is the same primary source for all three variants, not an inference borrowed from another robot’s page (same principle as GENISOM Gangben L2-W/L2-W Ultra in this catalogue — inherited_from would presuppose that M1 Pro’s OWN page was silent and borrowed M1’s quote, which it is not: the text sits on the very page M1 Pro also lives on). Own translation — identical to genisom-tongchui-m1.yaml’s: 森林消防 (forest firefighting) -> defense and emergency response; 石化消防 (petrochemical firefighting) -> defense and emergency response; 电力巡检 (power-grid inspection) -> inspection; 园区巡逻 (site patrol) -> security and surveillance; 物流运输 (logistics transport) -> logistics.",
+      "quote": [
+        "Forest firefighting",
+        "Petrochemical firefighting",
+        "Power-grid inspection",
+        "Site patrol",
+        "Logistics transport"
+      ],
+      "quote_wording": [
+        "森林消防",
+        "石化消防",
+        "电力巡检",
+        "园区巡逻",
+        "物流运输"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2213
+    },
+    "saet": {
+      "note_wording": "Same source section as genisom-tongchui-m1-pro.yaml and the base version (\"下一个应用场景，它已提前就位\") — the same primary source for all three variants, NOT inherited_from. See genisom-tongchui-m1-pro.yaml for the full reasoning for why inherited_from is not used here.",
+      "quote": [
+        "Forest firefighting",
+        "Petrochemical firefighting",
+        "Power-grid inspection",
+        "Site patrol",
+        "Logistics transport"
+      ],
+      "quote_wording": [
+        "森林消防",
+        "石化消防",
+        "电力巡检",
+        "园区巡逻",
+        "物流运输"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien). note_wording ER note (BRIEF-f2-feje.md afsnit 7)."
+  }
+]

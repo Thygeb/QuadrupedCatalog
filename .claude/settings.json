@@ -25,10 +25,7 @@
       "Bash(rm -rf:*)"
     ],
     "additionalDirectories": [
-      "../udstilling-wt-f2vest",
-      "../udstilling-wt-f2genisom",
-      "../udstilling-wt-f2galileo",
-      "../udstilling-wt-f2unitree"
+      "../udstilling-wt-f2galileo"
     ]
   },
   "hooks": {

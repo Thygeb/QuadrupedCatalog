@@ -1,0 +1,612 @@
+########## 2205 genisom-gangben-l1 (Gangben L1) ##########
+--- field: weight | value_number=15 value_text=null unit=kg caveat_class=elaboration ---
+caveat: Eksplicit (inkl. batteri). RETTET VED SELV-TJEK: rækken har INTET (cirka)-tegn foran vægten, i modsætning til målene lige ovenover i samme tabel, som ER markeret. Første udkast af denne post satte fejlagtigt operator "~" på vægten ud fra en antagelse om, at hele sektionen delte samme cirka-markering - rettet efter genlæsning af rå-JSON'en.
+caveat_wording: "整机重量（含电池）: 15 kg" - eksplicit "含电池" (inkl. batteri). RETTET VED SELV-TJEK: rækken har INTET "约" (cirka)-tegn foran vægten, i modsætning til målene lige ovenover i samme tabel, som ER markeret "约". Første udkast af denne post satte fejlagtigt operator "~" på vægten ud fra en antagelse om, at hele sektionen delte samme cirka-markering - rettet efter genlæsning af rå-JSON'en.
+
+--- field: length | value_number=630 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Akserne ER mærket eksplicit af producenten (=længde, =bredde, =højde), i modsætning til MicroRoboTechs to poster.
+caveat_wording: "站立尺寸（长 x 宽 x 高）约 630 x 360 x 415 mm" - akserne ER mærket eksplicit af producenten (长=længde, 宽=bredde, 高=højde), i modsætning til MicroRoboTechs to poster.
+
+--- field: height | value_number=415 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Krybende mål er ~670 x 425 x 145 mm; skemaet har intet felt til den tilstand.
+caveat_wording: Krybende mål ("趴地尺寸") er ~670 x 425 x 145 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=validity ---
+caveat: (antal ledmotorer), ikke eksplicit "frihedsgrader". Samme fortolkning som Unitree Go2 i denne samling.
+caveat_wording: "关节电机数量: 12个" (antal ledmotorer), ikke eksplicit "frihedsgrader"/"自由度". Samme fortolkning som Unitree Go2 i denne samling.
+
+--- field: payload_walking | value_number=8 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last) - grænseværdi op til ca. 10 kg oplyst separat.
+caveat_wording: "最大载荷 ≈ 8 kg（极限 ~10 kg）" (maks. last) - grænseværdi op til ca. 10 kg oplyst separat.
+
+--- field: speed | value_number=3.7 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: En separat (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, fordi er den etiket, der svarer til "normal maksimal hastighed" i resten af samlingen.
+caveat_wording: "最大速度: 3.7 m/s". En separat "极限速度" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, fordi "最大速度" er den etiket, der svarer til "normal maksimal hastighed" i resten af samlingen.
+
+--- field: slope | value_number=30 value_text=null unit=° caveat_class=elaboration ---
+caveat: (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt; grænseværdien 40° er noteret her, ikke skrevet ind som feltets værdi.
+caveat_wording: "最大爬坡角度: 标准环境 30°，极限可达 40°" (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt; grænseværdien 40° er noteret her, ikke skrevet ind som feltets værdi.
+
+--- field: stair_step_continuous | value_number=16 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (kontinuerlig trappeklatrehøjde).
+caveat_wording: Etiket "连续攀爬楼梯高度" (kontinuerlig trappeklatrehøjde).
+
+--- field: battery_wh | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste oplyser: (nominel kapacitet 5 Ah, mærkekapacitet 4,6 Ah, spænding 43,2 V). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9 - MagicLab-posten er beviset på, at producentens eget udregnede Wh-tal ikke altid stemmer med Ah x V).
+caveat_wording: Tilbehørsliste oplyser "电池": "标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V" (nominel kapacitet 5 Ah, mærkekapacitet 4,6 Ah, spænding 43,2 V). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9 - MagicLab-posten er beviset på, at producentens eget udregnede Wh-tal ikke altid stemmer med Ah x V).
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: (driftstid), ingen lastbetingelse oplyst. Rækkevidde (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 1-2 h" (driftstid), ingen lastbetingelse oplyst. Rækkevidde "续航里程: 6 km" (rækkevidde) er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: charging_time | value_number=1 value_text=null unit=t caveat_class=elaboration ---
+caveat: Ladetid.
+caveat_wording: "充电时长: 1 h" (ladetid).
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste: (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter IKKE autonom hjemkørsel/selvgenopladning - det ord står ikke på L1's side (modsat L2's eksplicitte).
+caveat_wording: Tilbehørsliste: "充电座: 标配" (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter IKKE autonom hjemkørsel/selvgenopladning - det ord står ikke på L1's side (modsat L2's eksplicitte "自主回充功能").
+
+--- field: compute | value_number=null value_text="8-kernet CPU" unit=null caveat_class=null ---
+caveat: (grundlæggende regnekraft: 8-kernet højtydende CPU). (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel.
+caveat_wording: "基础算力: 8 核高性能 CPU" (grundlæggende regnekraft: 8-kernet højtydende CPU). "工作最大功率: 3500W" (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt. Se også top-noten om et ubekræftet, muligvis konfigurerbart RealSense/Livox/Orin-sensorsæt nævnt i tredjepartskilder, men ikke i denne officielle tabel.
+
+--- field: sdk_languages | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Kilde er producentens egen GitHub-organisation (zsibot = GENISOM AI), repoet "genisom_L1_sdk", eksplicit navngivet officiel L1-SDK. README: (C++20). Ikke produktsiden selv, derfor kildetype: sekundær efter den nye regel.
+caveat_wording: Kilde er producentens egen GitHub-organisation (zsibot = GENISOM AI), repoet "genisom_L1_sdk", eksplicit navngivet officiel L1-SDK. README: "基于 C++20 开发" (C++20). Ikke produktsiden selv, derfor kildetype: sekundær efter den nye regel.
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); målgenkendelse og -sporing; OTA-opdatering; understøtter videreudvikling" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala.
+caveat_wording: null
+
+########## 2206 genisom-gangben-l1-w (Gangben L1-W) ##########
+--- field: weight | value_number=22 value_text=null unit=kg caveat_class=elaboration ---
+caveat: Eksplicit (inkl. batteri). Rækken har intet (cirka)-tegn.
+caveat_wording: "整机重量（含电池）: 22 kg" - eksplicit "含电池" (inkl. batteri). Rækken har intet "约" (cirka)-tegn.
+
+--- field: length | value_number=630 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Stående mål, længde×bredde×højde, ca..
+caveat_wording: "站立尺寸（长x宽x高）约 630 × 430 × 485 mm" (stående mål, længde×bredde×højde, ca.).
+
+--- field: height | value_number=485 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Krybende mål er ~690 x 540 x 165 mm; skemaet har intet felt til den tilstand.
+caveat_wording: Krybende mål ("趴地尺寸") er ~690 x 540 x 165 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=validity ---
+caveat: (antal ledmotorer). Derudover 4 hjulnavmotorer, som ikke tæller med i dette DoF-tal - skemaet har intet separat hjulmotorfelt.
+caveat_wording: "关节电机数量: 12 个" (antal ledmotorer). Derudover 4 hjulnavmotorer ("高性能轮毂电机: 4 个"), som ikke tæller med i dette DoF-tal - skemaet har intet separat hjulmotorfelt.
+
+--- field: payload_walking | value_number=10 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last) - grænseværdi op til ca. 12 kg oplyst separat.
+caveat_wording: "最大载荷 ≈ 10 kg（极限 ~12 kg）" (maks. last) - grænseværdi op til ca. 12 kg oplyst separat.
+
+--- field: speed | value_number=3.7 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: En separat (grænsehastighed) på 5.5 m/s er også oplyst (marketingkortet skriver) - ikke brugt som hovedværdi, samme princip som L1/L2.
+caveat_wording: "最大速度: 3.7 m/s". En separat "极限速度" (grænsehastighed) på 5.5 m/s er også oplyst (marketingkortet skriver ">5.5m/s 极限奔跑速度") - ikke brugt som hovedværdi, samme princip som L1/L2.
+
+--- field: slope | value_number=30 value_text=null unit=° caveat_class=elaboration ---
+caveat: (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt, samme princip som L1.
+caveat_wording: "最大爬坡角度: 标准环境 30°，极限可达 40°" (standardmiljø 30°, grænse op til 40°). Standardværdien er brugt, samme princip som L1.
+
+--- field: obstacle_single | value_number=65 value_text=null unit=cm caveat_class=elaboration ---
+caveat: (65cm maks. forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2.
+caveat_wording: "65cm 最大越障高度" (65cm maks. forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/deep-robotics-x30/B2.
+
+--- field: stair_step_continuous | value_number=16 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel.
+caveat_wording: Etiket "连续攀爬楼梯高度" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel.
+
+--- field: battery_wh | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste oplyser: (nominel kapacitet 5 Ah, mærkekapacitet 4,6 Ah, spænding 43,2 V) - samme tal som L1. Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9).
+caveat_wording: Tilbehørsliste oplyser "电池": "标称容量 5 Ah，额定容量 4.6 Ah，电压 43.2 V" (nominel kapacitet 5 Ah, mærkekapacitet 4,6 Ah, spænding 43,2 V) - samme tal som L1. Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9).
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: Ingen lastbetingelse oplyst - samme tal som L1. Rækkevidde er også oplyst (lavere end L1's 6km-tal er IKKE - L1-W's 9km er højere; skemaet har intet rækkeviddefelt).
+caveat_wording: "续航时间: 1-2h", ingen lastbetingelse oplyst - samme tal som L1. Rækkevidde "续航里程: 9km" er også oplyst (lavere end L1's 6km-tal er IKKE - L1-W's 9km er højere; skemaet har intet rækkeviddefelt).
+
+--- field: charging_time | value_number=1 value_text=null unit=t caveat_class=elaboration ---
+caveat: Ladetid.
+caveat_wording: "充电时长: 1h" (ladetid).
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste: (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter ikke autonom hjemkørsel/selvgenopladning.
+caveat_wording: Tilbehørsliste: "充电座: 标配" (ladesokkel, standardudstyr). Bekræfter en fysisk ladestation følger med som standard, MEN bekræfter ikke autonom hjemkørsel/selvgenopladning.
+
+--- field: cameras | value_number=null value_text="Bredvinkelkamera, 8 MP, DFOV 122° / HFOV 111° / VFOV 70°" unit=null caveat_class=null ---
+caveat: Samme kameraspecifikation som L1 - kun IMU og bredvinkelkameraet står i den strukturerede sensor-sektion, ingen lidar-række.
+caveat_wording: null
+
+--- field: compute | value_number=null value_text="8-kernet CPU" unit=null caveat_class=null ---
+caveat: (grundlæggende regnekraft: 8-kernet højtydende CPU). (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt.
+caveat_wording: "基础算力: 8 核高性能 CPU" (grundlæggende regnekraft: 8-kernet højtydende CPU). "工作最大功率: 3500W" (maks. arbejdseffekt 3500W) er også oplyst i samme sektion; skemaet har intet effektfelt.
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); målgenkendelse og -sporing; grundbevægelser (stå/ligge/dæmpning/vip krop/høj-lav krop/vandret drejning); specialbevægelser (spring fremad/spring opad/stå på to ben/baglæns saltomortale/vinke m.fl.); understøtter videreudvikling; OTA-opdatering; realtids billedoverførsel" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala.
+caveat_wording: null
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Producenten hævder 7 interfacetyper i alt, men ("osv.") gør listen ikke-udtømmende; kun disse tre kategorier er navngivet eksplicit.
+caveat_wording: "开放 Ethernet、USB 3.0/2.0、24V/12V 电源等 7 大标准硬件接口" - producenten hævder 7 interfacetyper i alt, men "等" ("osv.") gør listen ikke-udtømmende; kun disse tre kategorier er navngivet eksplicit.
+
+########## 2207 genisom-gangben-l2 (Gangben L2) ##########
+--- field: weight | value_number=21 value_text=null unit=kg caveat_class=elaboration ---
+caveat: Eksplicit (inkl. batteri). Rækken har INTET (cirka)-tegn, i modsætning til målene lige ovenover i samme tabel (samme mønster som Gangben L1, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl).
+caveat_wording: "整机重量（含电池）: 21 kg" - eksplicit "含电池" (inkl. batteri). Rækken har INTET "约" (cirka)-tegn, i modsætning til målene lige ovenover i samme tabel (samme mønster som Gangben L1, rettet ved selv-tjek der - kontrolleret her fra start efter samme fejl).
+
+--- field: length | value_number=720 value_text=null unit=mm caveat_class=elaboration ---
+caveat: (stående mål, længde×bredde×højde, ca.) - akserne er eksplicit mærket af producenten.
+caveat_wording: "站立尺寸（长 x 宽 x 高）约 720 x 390 x 480 mm" (stående mål, længde×bredde×højde, ca.) - akserne er eksplicit mærket af producenten.
+
+--- field: height | value_number=480 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Krybende mål er ~780 x 460 x 190 mm; skemaet har intet felt til den tilstand.
+caveat_wording: Krybende mål ("趴地尺寸") er ~780 x 460 x 190 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=validity ---
+caveat: (antal ledmotorer), ikke eksplicit "frihedsgrader". Samme fortolkning som L1 og Unitree Go2.
+caveat_wording: "关节电机数量: 12个" (antal ledmotorer), ikke eksplicit "frihedsgrader". Samme fortolkning som L1 og Unitree Go2.
+
+--- field: payload_walking | value_number=16 value_text=null unit=kg caveat_class=elaboration ---
+caveat: Maks. last.
+caveat_wording: "最大载荷 ≈ 16 kg" (maks. last).
+
+--- field: payload_standing | value_number=150 value_text=null unit=kg caveat_class=elaboration ---
+caveat: I specifikationstabellen, bekræftet af samme tal i markedsføringsteksten - to steder på samme side, enige.
+caveat_wording: "极限静态150kg" i specifikationstabellen, bekræftet af samme tal i markedsføringsteksten ("最大静态载荷可达150kg") - to steder på samme side, enige.
+
+--- field: speed | value_number=3.2 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: En separat (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1.
+caveat_wording: "最大速度: 3.2 m/s". En separat "极限速度" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1.
+
+--- field: slope | value_number=40 value_text=null unit=° caveat_class=elaboration ---
+caveat: (maks. klatrbar skråningsvinkel), bekræftet af homepage-kapacitetskortet.
+caveat_wording: "最大爬坡角度: 40°" (maks. klatrbar skråningsvinkel), bekræftet af homepage-kapacitetskortet.
+
+--- field: obstacle_single | value_number=70 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (70cm lodret forhindringshøjde) fra sidens kapacitetskort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som deep-robotics-x30/B2.
+caveat_wording: Etiket "70cm 垂直越障高度" (70cm lodret forhindringshøjde) fra sidens kapacitetskort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som deep-robotics-x30/B2.
+
+--- field: stair_step_continuous | value_number=22 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel - lavere end det enkeltstående forhindringstal (70 cm), som forventet for de to forskellige mål.
+caveat_wording: Etiket "连续攀爬楼梯高度" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel - lavere end det enkeltstående forhindringstal (70 cm), som forventet for de to forskellige mål.
+
+--- field: battery_wh | value_number=756 value_text=null unit=Wh caveat_class=elaboration ---
+caveat: (756Wh højkapacitetsbatteri) fra sidens kapacitetskort. Se top-noten om det separate "15000mAh"-tal i tilbehørslisten - ikke brugt til at udregne Wh, kun noteret som fundet uden modsigelse.
+caveat_wording: "756Wh 大容量电池" (756Wh højkapacitetsbatteri) fra sidens kapacitetskort. Se top-noten om det separate "15000mAh"-tal i tilbehørslisten - ikke brugt til at udregne Wh, kun noteret som fundet uden modsigelse.
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for "fuld last" - derfor er lastbetingelsen ikke oplyst, ikke et gættet masse-kort. Rækkevidde er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 5.5H（空载） 3.5H（满载）" (5,5 t tomgang / 3,5 t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal for "fuld last" - derfor er lastbetingelsen ikke oplyst, ikke et gættet masse-kort. Rækkevidde "续航里程: 20KM（空载） 12KM（满载）" er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: charging_time | value_number=1.5 value_text=null unit=t caveat_class=elaboration ---
+caveat: Ladetid.
+caveat_wording: "充电时长: 1.5 h" (ladetid).
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste har TO rækker: (ladesokkel, standardudstyr - samme som L1 har) OG separat (ladestation inkl. autonom genopladningsfunktion, TILVALG). L2 har altså både en standard-ladesokkel OG en betalt opgradering til autonom hjemkørsel - dockingstation: ja dækker minimum den første; den autonome genopladningsfunktion specifikt er kun bekræftet som tilvalg, ikke standard.
+caveat_wording: Tilbehørsliste har TO rækker: "充电座: 标配" (ladesokkel, standardudstyr - samme som L1 har) OG separat "充电桩（包含自主回充功能）: 选配" (ladestation inkl. autonom genopladningsfunktion, TILVALG). L2 har altså både en standard-ladesokkel OG en betalt opgradering til autonom hjemkørsel - dockingstation: ja dækker minimum den første; den autonome genopladningsfunktion specifikt er kun bekræftet som tilvalg, ikke standard.
+
+--- field: compute | value_number=null value_text="8-kernet CPU, op til 86 TOPS" unit=null caveat_class=null ---
+caveat: Fra den strukturerede specifikationstabel, kombineret med homepage-kapacitetskortets (op til 86 TOPS-regnekraftplatform) - begge fra genisomai.com, ikke krydsbekræftet mod hinanden ud over at stå på samme domæne.
+caveat_wording: "基础算力: 8 核高性能 CPU" fra den strukturerede specifikationstabel, kombineret med homepage-kapacitetskortets "高达 86 TOPS 算力平台" (op til 86 TOPS-regnekraftplatform) - begge fra genisomai.com, ikke krydsbekræftet mod hinanden ud over at stå på samme domæne.
+
+--- field: ros2 | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: UNDERSØGT OG BEVIDST IKKE SAT TIL JA, EFTER SELV-TJEK FANGEDE FOR SVAGT BEVIS. L2's egen produktside nævner som en navngiven feature, og producentens GitHub-repo "genisom_roamerx_open" kræver eksplicit "ROS2 Humble Hawksbill". Første udkast af denne post satte ros2: ja på den kobling. Ved genlæsning af repoets EGEN README står der dog under et afsnit "Hardware Deployment": "TODO" - producenten skriver selv, at koblingen mellem dette open source-repo og et fysisk, sælgende produkt IKKE er dokumenteret endnu. Et navnesammenfald ('RoamerX') plus et repo, der selv siger 'TODO' til hardware-udrulning, er en gætning, ikke en måling - regel 1. Rettet til ikke oplyst.
+caveat_wording: UNDERSØGT OG BEVIDST IKKE SAT TIL JA, EFTER SELV-TJEK FANGEDE FOR SVAGT BEVIS. L2's egen produktside nævner "新一代 RoamerX 智能导航系统" som en navngiven feature, og producentens GitHub-repo "genisom_roamerx_open" kræver eksplicit "ROS2 Humble Hawksbill". Første udkast af denne post satte ros2: ja på den kobling. Ved genlæsning af repoets EGEN README står der dog under et afsnit "Hardware Deployment": "TODO" - producenten skriver selv, at koblingen mellem dette open source-repo og et fysisk, sælgende produkt IKKE er dokumenteret endnu. Et navnesammenfald ('RoamerX') plus et repo, der selv siger 'TODO' til hardware-udrulning, er en gætning, ikke en måling - regel 1. Rettet til ikke oplyst.
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); UWB; autonom følgning; intelligent undvigelse af forhindringer; OTA-opdatering; understøtter videreudvikling" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala.
+caveat_wording: null
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: 5 Flystik i alt: 2 x USB3.0 + 1 x M12 17PIN + 1 x M12 18PIN + 1 x 4G-kortplads = 5 - alle fem er navngivet i kilden, ingen uspecificerede.
+caveat_wording: "功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽" (5 flystik i alt: 2 x USB3.0 + 1 x M12 17PIN + 1 x M12 18PIN + 1 x 4G-kortplads = 5 - alle fem er navngivet i kilden, ingen uspecificerede).
+
+--- field: price | value_number=39999 value_text=null unit=CNY caveat_class=validity ---
+caveat: Betyder "fra"/"startende ved": basiskonfigurationens pris, tilvalg (fx den valgfrie ladestation ovenfor) lægges oveni.
+caveat_wording: "¥39999 起" - "起" betyder "fra"/"startende ved": basiskonfigurationens pris, tilvalg (fx den valgfrie ladestation ovenfor) lægges oveni.
+
+########## 2208 genisom-gangben-l2-w (Gangben L2-W) ##########
+--- field: weight | value_number=27 value_text=null unit=kg caveat_class=elaboration ---
+caveat: I L2-W's egen datablok - ingen (cirka)-tegn.
+caveat_wording: "整机重量（含电池）: 27 kg" i L2-W's egen datablok - ingen "约" (cirka)-tegn.
+
+--- field: length | value_number=760 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Stående mål, længde×bredde×højde, ca..
+caveat_wording: "站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm" (stående mål, længde×bredde×højde, ca.).
+
+--- field: height | value_number=500 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Krybende mål er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand.
+caveat_wording: Krybende mål ("趴地尺寸") er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=validity ---
+caveat: (antal ledmotorer), ikke eksplicit "frihedsgrader". Samme fortolkning som L1/L2/M1.
+caveat_wording: "关节电机数量: 12 个" (antal ledmotorer), ikke eksplicit "frihedsgrader". Samme fortolkning som L1/L2/M1.
+
+--- field: payload_walking | value_number=16 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last, grænse statisk 150kg) i L2-W's egen datablok - samme tal som basisudgaven L2.
+caveat_wording: "最大载荷 ≈ 16 kg （极限静态 150kg）" (maks. last, grænse statisk 150kg) i L2-W's egen datablok - samme tal som basisudgaven L2.
+
+--- field: payload_standing | value_number=150 value_text=null unit=kg caveat_class=validity ---
+caveat: (grænse statisk 150kg) står inde i (maks. last)-rækken i L2-W's egen datablok. Modsat basisudgaven L2 er dette IKKE krydsbekræftet af en separat marketingtekstlinje for netop L2-W - kun denne ene forekomst.
+caveat_wording: "极限静态150kg" (grænse statisk 150kg) står inde i "最大载荷" (maks. last)-rækken i L2-W's egen datablok. Modsat basisudgaven L2 er dette IKKE krydsbekræftet af en separat marketingtekstlinje for netop L2-W - kun denne ene forekomst.
+
+--- field: speed | value_number=3.7 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: I L2-W's egen datablok - højere end basisudgavens 3.2 m/s, som forventet for en hjuldrevet variant. En separat (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi.
+caveat_wording: "最大速度: 3.7 m/s" i L2-W's egen datablok - højere end basisudgavens 3.2 m/s, som forventet for en hjuldrevet variant. En separat "极限速度" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi.
+
+--- field: stair_step_continuous | value_number=25 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (kontinuerlig trappeklatrehøjde) i L2-W's egen datablok - højere end basisudgavens 22cm.
+caveat_wording: Etiket "连续攀爬楼梯高度" (kontinuerlig trappeklatrehøjde) i L2-W's egen datablok - højere end basisudgavens 22cm.
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: I L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 5.5H（空载） 3.5H（满载）" i L2-W's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde "续航里程: 20KM（空载） 12KM（满载）" er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste i L2-W's egen datablok har TO rækker: (standardudstyr) OG separat (tilvalgt, inkl. autonom genopladningsfunktion). Samme to-niveau-mønster som basisudgaven L2.
+caveat_wording: Tilbehørsliste i L2-W's egen datablok har TO rækker: "充电座: 标配" (standardudstyr) OG separat "充电桩（包含自主回充功能）: 选配" (tilvalgt, inkl. autonom genopladningsfunktion). Samme to-niveau-mønster som basisudgaven L2.
+
+--- field: cameras | value_number=null value_text="Stereokamera, 2 x 2,07 MP" unit=null caveat_class=null ---
+caveat: Identisk med basisudgaven - kun IMU og stereokamera står i L2-W's sensor-sektion, ingen lidar-række.
+caveat_wording: null
+
+--- field: compute | value_number=null value_text="8-kernet CPU" unit=null caveat_class=null ---
+caveat: I L2-W's egen datablok. Sidens hero-marketingkort nævner separat for L2-familien generelt - IKKE gentaget i L2-W's egen datablok og derfor ikke medtaget her (se topnoten).
+caveat_wording: "基础算力: 8 核高性能 CPU" i L2-W's egen datablok. Sidens hero-marketingkort nævner separat "高达 86 TOPS" for L2-familien generelt - IKKE gentaget i L2-W's egen datablok og derfor ikke medtaget her (se topnoten).
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); UWB (understøttet); autonom følgning (understøttet); intelligent undvigelse af forhindringer (understøttet); understøtter videreudvikling; OTA-opdatering; specialbevægelser (håndstand/stå på to ben/Thomas flair/baglæns saltomortale); grundbevægelser (stå/ligge/kravle fremad/spring fremad/spring opad/lås position)" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra L2-W's egen funktionsliste. Tilføjer (Thomas flair) til specialbevægelserne sammenlignet med basisudgavens liste.
+caveat_wording: Kvalitativ liste fra L2-W's egen funktionsliste. Tilføjer "托马斯" (Thomas flair) til specialbevægelserne sammenlignet med basisudgavens liste.
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 4G-kortplads) i L2-W's egen datablok - identisk med basisudgaven L2.
+caveat_wording: "功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个4G卡槽" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 4G-kortplads) i L2-W's egen datablok - identisk med basisudgaven L2.
+
+########## 2209 genisom-gangben-l2-w-ultra (Gangben L2-W Ultra) ##########
+--- field: weight | value_number=27 value_text=null unit=kg caveat_class=elaboration ---
+caveat: I L2-W Ultra's egen datablok - samme tal som L2-W, ingen (cirka)-tegn.
+caveat_wording: "整机重量（含电池）: 27 kg" i L2-W Ultra's egen datablok - samme tal som L2-W, ingen "约" (cirka)-tegn.
+
+--- field: length | value_number=760 value_text=null unit=mm caveat_class=elaboration ---
+caveat: (stående mål, længde×bredde×højde, ca.) - identisk med L2-W.
+caveat_wording: "站立尺寸（长 × 宽 × 高）约 760 × 450 × 500 mm" (stående mål, længde×bredde×højde, ca.) - identisk med L2-W.
+
+--- field: height | value_number=500 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Krybende mål er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand.
+caveat_wording: Krybende mål ("趴地尺寸") er ~780 x 550 x 190 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=validity ---
+caveat: (antal ledmotorer), ikke eksplicit "frihedsgrader".
+caveat_wording: "关节电机数量: 12 个" (antal ledmotorer), ikke eksplicit "frihedsgrader".
+
+--- field: payload_walking | value_number=16 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last, grænse statisk 150kg) - samme tal som L2/L2-W.
+caveat_wording: "最大载荷 ≈ 16 kg （极限静态 150kg）" (maks. last, grænse statisk 150kg) - samme tal som L2/L2-W.
+
+--- field: payload_standing | value_number=150 value_text=null unit=kg caveat_class=validity ---
+caveat: (grænse statisk 150kg) står inde i (maks. last)-rækken i denne variants egen datablok. Ikke krydsbekræftet af en separat marketingtekstlinje for netop denne variant.
+caveat_wording: "极限静态150kg" (grænse statisk 150kg) står inde i "最大载荷" (maks. last)-rækken i denne variants egen datablok. Ikke krydsbekræftet af en separat marketingtekstlinje for netop denne variant.
+
+--- field: speed | value_number=3.7 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: (maks. hastighed) - samme tal som L2-W, højere end basisudgavens 3.2 m/s. En separat (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi.
+caveat_wording: "最大速度: 3.7 m/s" (maks. hastighed) - samme tal som L2-W, højere end basisudgavens 3.2 m/s. En separat "极限速度" (grænsehastighed) på 5 m/s er også oplyst - ikke brugt som hovedværdi.
+
+--- field: stair_step_continuous | value_number=25 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (kontinuerlig trappeklatrehøjde) - samme tal som L2-W, højere end basisudgavens 22cm.
+caveat_wording: Etiket "连续攀爬楼梯高度" (kontinuerlig trappeklatrehøjde) - samme tal som L2-W, højere end basisudgavens 22cm.
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: LAVERE end L2/L2-W's 5.5H/3.5H, som ventet når det udvidede sensorsæt (dobbelt LiDAR, RTK) trækker mere strøm. Kvalitativ lastbetingelse, intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 4.5H（空载） 3H（满载）" - LAVERE end L2/L2-W's 5.5H/3.5H, som ventet når det udvidede sensorsæt (dobbelt LiDAR, RTK) trækker mere strøm. Kvalitativ lastbetingelse, intet kg-tal - derfor er lastbetingelsen ikke oplyst. Rækkevidde "续航里程: 16KM（空载） 10KM（满载）" er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste har TO rækker: (standardudstyr) OG separat (tilvalgt). Samme to-niveau-mønster som L2/L2-W.
+caveat_wording: Tilbehørsliste har TO rækker: "充电座: 标配" (standardudstyr) OG separat "充电桩（包含自主回充功能）: 选配" (tilvalgt). Samme to-niveau-mønster som L2/L2-W.
+
+--- field: lidar | value_number=null value_text="2x industriel 96-linjers 3D LiDAR" unit=null caveat_class=null ---
+caveat: Eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal. RTK-positioneringsmodul er også oplyst i samme sensor-sektion; skemaet har intet dedikeret RTK-felt, så det er gentaget under autonominiveau nedenfor.
+caveat_wording: "3D激光雷达: 工业级96线激光雷达*2" - eneste GENISOM-post i dette spor med et konkret LiDAR-linjetal. RTK-positioneringsmodul ("RTK定位模块: 支持") er også oplyst i samme sensor-sektion; skemaet har intet dedikeret RTK-felt, så det er gentaget under autonominiveau nedenfor.
+
+--- field: cameras | value_number=null value_text="Front-dobbeltkamera + rundtomsyn-fiskeøjearray, 2 x 2,07 MP" unit=null caveat_class=null ---
+caveat: Og. Pixel-tallet (207*2) står kun ved siden af (front-dobbeltkameraet) i råstrengen - fiskeøje-arrayets eget pixeltal er IKKE separat oplyst, så 2,07 MP bør læses som dækkende dobbeltkameraet, ikke nødvendigvis hele arrayet.
+caveat_wording: "相机类型: 前向双目+周视鱼眼阵列" og "相机像索: 207万*2". Pixel-tallet (207万*2) står kun ved siden af "前向双目" (front-dobbeltkameraet) i råstrengen - fiskeøje-arrayets eget pixeltal er IKKE separat oplyst, så 2,07 MP bør læses som dækkende dobbeltkameraet, ikke nødvendigvis hele arrayet.
+
+--- field: compute | value_number=null value_text="8-kernet CPU + 6-kernet CPU, 80 TOPS" unit=null caveat_class=null ---
+caveat: To CPU'er, laveste TOPS-tal (80) af de tre GENISOM-modeller, der oplyser TOPS (L2 86, M1 100, denne 80) - formentlig fordi den ekstra sensorbelastning (dobbelt LiDAR, RTK) deler regnekraften.
+caveat_wording: "基础算力: 8核高性能CPU+ 6核高性能CPU（80TOPS）" - to CPU'er, laveste TOPS-tal (80) af de tre GENISOM-modeller, der oplyser TOPS (L2 86, M1 100, denne 80) - formentlig fordi den ekstra sensorbelastning (dobbelt LiDAR, RTK) deler regnekraften.
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); UWB (understøttet); autonom følgning (understøttet, GLUE omnidirektionel autonom følgning); intelligent undvigelse af forhindringer (laser+vision-fusionsundvigelse); målsporing (understøttet); understøtter videreudvikling; OTA-opdatering; autonom navigation (understøttet); realtids billedoverførsel (understøttet); RTK-positioneringsmodul (understøttet); specialbevægelser (håndstand/stå på to ben/Thomas flair/baglæns saltomortale); grundbevægelser (stå/ligge/kravle fremad/spring fremad/spring opad/klatre op på platform/lås position)" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra denne variants egen funktionsliste - rigere end L2/L2-W's, tilføjer autonom navigation som standard (ikke tilvalg), målsporing, RTK og laser+vision-fusionsundvigelse.
+caveat_wording: null
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 5G-kortplads) - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter.
+caveat_wording: "功能拓展接口: 5个航插：2个USB3.0,1个M12 17PIN,1个M12 18PIN,1个5G卡槽" (funktionsudvidelsesport: 5 flystik i alt: 2x USB3.0, 1x M12 17PIN, 1x M12 18PIN, 1x 5G-kortplads) - BEMÆRK: 5G-kortplads, ikke 4G som på L2/L2-W. Genlæst og bekræftet forskellig fra de to andre varianter.
+
+########## 2210 genisom-qiuqiu-sp1 (Qiuqiu SP1) ##########
+--- field: weight | value_number=100 value_text=null unit=kg caveat_class=elaboration ---
+caveat: Egenvægt.
+caveat_wording: "本体重量: ≤100 kg" (egenvægt).
+
+--- field: length | value_number=1190 value_text=null unit=mm caveat_class=elaboration ---
+caveat: (ydre mål, længde×bredde×højde) - ingen (cirka)-tegn, ingen operator sat.
+caveat_wording: "外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm" (ydre mål, længde×bredde×højde) - ingen "约" (cirka)-tegn, ingen operator sat.
+
+--- field: payload_walking | value_number=50 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last) i den strukturerede tabel, bekræftet af marketingteksten (50kg vedvarende gåelast).
+caveat_wording: "最大载荷: 50 kg" (maks. last) i den strukturerede tabel, bekræftet af marketingteksten "50 kg 持续行走负载" (50kg vedvarende gåelast).
+
+--- field: slope | value_number=35 value_text=null unit=° caveat_class=elaboration ---
+caveat: (maks. klatrbar skråningsvinkel), bekræftet af marketingteksten (stabil skråningsklatring, maks. klatrbar skråningsvinkel 35°).
+caveat_wording: "最大爬坡角度: 35°" (maks. klatrbar skråningsvinkel), bekræftet af marketingteksten "稳定爬坡 最大爬坡角度 35°" (stabil skråningsklatring, maks. klatrbar skråningsvinkel 35°).
+
+--- field: stair_step_continuous | value_number=23 value_text=null unit=cm caveat_class=elaboration ---
+caveat: (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet på siden - derfor er forhindring_enkelt ikke oplyst i stedet for at genbruge dette tal.
+caveat_wording: "攀爬能力: 23cm连续台阶" (23cm kontinuerlig trappeklatring). Intet separat enkelt-forhindringstal fundet på siden - derfor er forhindring_enkelt ikke oplyst i stedet for at genbruge dette tal.
+
+--- field: runtime | value_number=4 value_text=null unit=t caveat_class=validity ---
+caveat: I den strukturerede tabel. Marketingkortet knytter samme tal til (fuld last): - men INTET kg-tal står direkte på denne række. Et separat tal findes andetsteds på siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter.
+caveat_wording: "续航时间: ≥4 h" i den strukturerede tabel. Marketingkortet knytter samme tal til "满载" (fuld last): "4 h 满载续航 持续作业" - men INTET kg-tal står direkte på denne række. Et separat "50 kg 持续行走负载"-tal findes andetsteds på siden, men er ikke eksplicit bundet til denne udholdenhedsangivelse - derfor er lastbetingelsen ikke oplyst, samme forsigtighed som L2/M1's driftstidsfelter.
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (understøttet); autonom navigation (understøttet); intelligent undvigelse af forhindringer (understøttet); understøtter videreudvikling; SLAM/IMU/AI-beslutningsfusion (fusion af SLAM, IMU og AI-beslutning, autonom planlægning, realtidsundvigelse, on-site dataoverførsel i realtid)" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala.
+caveat_wording: null
+
+########## 2211 genisom-tongchui-m1 (Tongchui M1) ##########
+--- field: weight | value_number=41 value_text=null unit=kg caveat_class=validity ---
+caveat: I den strukturerede specifikationstabel - ingen (cirka)-markering. MODSIGES af sidens eget marketingkort: (ca. 30kg egenvægt, ca. 30kg vedvarende last, næsten 1:1-forhold). De to tal (41kg vs. 30kg) er den samme robots egenvægt på den SAMME side og står i modstrid. Regel 9: rettes ikke stiltiende. Den strukturerede tabel er brugt som feltværdi, fordi den er den mest specifikke kilde (samme princip som resten af GENISOM-posterne), men uoverensstemmelsen er ikke bortforklaret.
+caveat_wording: "整机重量（含电池）: 41 kg" i den strukturerede specifikationstabel - ingen "约" (cirka)-markering. MODSIGES af sidens eget marketingkort: "约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，在四足机器人行业内首次实现近 1:1 负载自重比" (ca. 30kg egenvægt, ca. 30kg vedvarende last, næsten 1:1-forhold). De to tal (41kg vs. 30kg) er den samme robots egenvægt på den SAMME side og står i modstrid. Regel 9: rettes ikke stiltiende. Den strukturerede tabel er brugt som feltværdi, fordi den er den mest specifikke kilde (samme princip som resten af GENISOM-posterne), men uoverensstemmelsen er ikke bortforklaret.
+
+--- field: length | value_number=930 value_text=null unit=mm caveat_class=elaboration ---
+caveat: INGEN (cirka)-tegn i denne række, modsat L1/L2's tilsvarende mål. Ingen operator sat, jf. regel 4 (opfind aldrig et forbehold, producenten ikke skrev).
+caveat_wording: "站立尺寸（长 × 宽 × 高）: 930 × 480 × 585 mm" - INGEN "约" (cirka)-tegn i denne række, modsat L1/L2's tilsvarende mål. Ingen operator sat, jf. regel 4 (opfind aldrig et forbehold, producenten ikke skrev).
+
+--- field: height | value_number=585 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Krybende mål er 930 x 630 x 200 mm; skemaet har intet felt til den tilstand.
+caveat_wording: Krybende mål ("趴地尺寸") er 930 x 630 x 200 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=validity ---
+caveat: (antal ledmotorer) i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende (16 frihedsgrader)-påstand, som IKKE er brugt her.
+caveat_wording: "关节电机数量: 12 个" (antal ledmotorer) i den strukturerede tabel. Se topnoten om metabeskrivelsens modstridende "16个自由度" (16 frihedsgrader)-påstand, som IKKE er brugt her.
+
+--- field: payload_walking | value_number=30 value_text=null unit=kg caveat_class=validity ---
+caveat: (maks. last). Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt.
+caveat_wording: "最大载荷: 30 kg" (maks. last). Marketingkortet bruger samme 30kg-tal til at hævde et 1:1 last-egenvægt-forhold ud fra en 30kg-egenvægt-påstand, som modsiger den strukturerede tabels 41kg - se advarslen på egenvægt.
+
+--- field: speed | value_number=6 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: En separat (grænsehastighed) på 8 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1/L2/L1-W.
+caveat_wording: "最大速度: 6 m/s". En separat "极限速度" (grænsehastighed) på 8 m/s er også oplyst - ikke brugt som hovedværdi, samme princip som L1/L2/L1-W.
+
+--- field: slope | value_number=45 value_text=null unit=° caveat_class=elaboration ---
+caveat: (maks. klatrbar skråningsvinkel), bekræftet af marketingkortets (45° grænse-skråningsvinkel) - ingen separat standard/grænse-splittelse her, modsat L1/L1-W.
+caveat_wording: "最大爬坡角度: 45°" (maks. klatrbar skråningsvinkel), bekræftet af marketingkortets "45° 极限爬坡角度" (45° grænse-skråningsvinkel) - ingen separat standard/grænse-splittelse her, modsat L1/L1-W.
+
+--- field: obstacle_single | value_number=80 value_text=null unit=cm caveat_class=elaboration ---
+caveat: (80cm lodret forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W.
+caveat_wording: "80cm 垂直越障高度" (80cm lodret forhindringshøjde) fra sidens marketingkort - adskilt fra trappetrin_kontinuerlig, som står med et andet, lavere tal i den strukturerede specifikationstabel. Samme to-felts-mønster som L2/L1-W.
+
+--- field: stair_step_continuous | value_number=25 value_text=null unit=cm caveat_class=elaboration ---
+caveat: Etiket (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel, bekræftet af marketingkortets.
+caveat_wording: Etiket "连续攀爬楼梯高度" (kontinuerlig trappeklatrehøjde) i den strukturerede specifikationstabel, bekræftet af marketingkortets "25cm 持续攀爬台阶".
+
+--- field: temperature_min | value_number=-20 value_text=null unit=°C caveat_class=elaboration ---
+caveat: Basisspecifikationen (-20~55°C) er brugt; den bredere -40~80°C er kun en tilvalgt batteriversion, ikke standard.
+caveat_wording: "-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本" - basisspecifikationen (-20~55°C) er brugt; den bredere -40~80°C er kun en tilvalgt batteriversion, ikke standard.
+
+--- field: temperature_max | value_number=55 value_text=null unit=°C caveat_class=elaboration ---
+caveat: Samme forbehold som temp_min: -40~80°C er en tilvalgt (bredtemperatur-batteriversion), ikke basiskonfigurationen.
+caveat_wording: Samme forbehold som temp_min: -40~80°C er en tilvalgt "宽温电池版本" (bredtemperatur-batteriversion), ikke basiskonfigurationen.
+
+--- field: battery_wh | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste oplyser: (54V, 2x 9,35 Ah, dobbelt batteri, hot-swap). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9).
+caveat_wording: Tilbehørsliste oplyser "电池": "54 V，9.35 Ah × 2；双电池，热插拔" (54V, 2x 9,35 Ah, dobbelt batteri, hot-swap). Wh er IKKE trykt direkte, og vi udregner ikke Wh af Ah x V (regel 9).
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: (5t tomgang / 3,5t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte til denne række - derfor er lastbetingelsen ikke oplyst, selvom et separat står andetsteds på siden. Rækkevidde er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 空载 5 h；满载 3.5 h" (5t tomgang / 3,5t fuld last). Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte til denne række - derfor er lastbetingelsen ikke oplyst, selvom et separat "最大载荷: 30 kg" står andetsteds på siden. Rækkevidde "续航里程: 空载 29 km；满载 18 km" er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: hot_swap | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Bekræftet to steder på samme side: marketingkortet (dobbeltbatteri, hot-swap) og tilbehørslisten (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap).
+caveat_wording: Bekræftet to steder på samme side: marketingkortet "双电池 热插拔" (dobbeltbatteri, hot-swap) og tilbehørslisten "电池: 54 V，9.35 Ah × 2；双电池，热插拔" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap).
+
+--- field: charging_time | value_number=2 value_text=null unit=t caveat_class=elaboration ---
+caveat: Ladetid.
+caveat_wording: "充电时长: ＜ 2 h" (ladetid).
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste: (ladesokkel, standardudstyr). Marketingteksten nævner separat (tilvalgt intelligent ladestation med autonom hjemkørsel ved lav ladning) - kun tilvalgt, ikke standard. Samme to-niveau-mønster som L1/L2's dockingstation.
+caveat_wording: Tilbehørsliste: "充电座: 标配" (ladesokkel, standardudstyr). Marketingteksten nævner separat "可选配智能充电桩，支持低电量自主返回充电" (tilvalgt intelligent ladestation med autonom hjemkørsel ved lav ladning) - kun tilvalgt, ikke standard. Samme to-niveau-mønster som L1/L2's dockingstation.
+
+--- field: lidar | value_number=null value_text="3D LiDAR (type og model ikke oplyst)" unit=null caveat_class=null ---
+caveat: I den strukturerede sensor-sektion - bekræfter tilstedeværelse, men hverken linjetal, model eller producent er oplyst (modsat L2-W Ultra, der navngiver).
+caveat_wording: "3D激光雷达: 支持" i den strukturerede sensor-sektion - bekræfter tilstedeværelse, men hverken linjetal, model eller producent er oplyst (modsat L2-W Ultra, der navngiver "96线激光雷达").
+
+--- field: cameras | value_number=null value_text="2x bredvinkelkamera, 8 MP hver, DFOV 122° / HFOV 111° / VFOV 70°" unit=null caveat_class=null ---
+caveat: Og. Sensor-sektionen nævner også (dybdekamera) og (RTK-positioneringsmodul) uden yderligere specifikation - skemaet har intet dedikeret felt til nogen af de to.
+caveat_wording: "相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°" og "相机像索: 800万 x 2". Sensor-sektionen nævner også "深度相机" (dybdekamera) og "RTK定位模块" (RTK-positioneringsmodul) uden yderligere specifikation - skemaet har intet dedikeret felt til nogen af de to.
+
+--- field: compute | value_number=null value_text="8-kernet CPU, 100 TOPS" unit=null caveat_class=null ---
+caveat: Grundlæggende regnekraft: 8-kernet højtydende CPU, 100 TOPS.
+caveat_wording: "基础算力: 8 核高性能 CPU （100TOPS）" (grundlæggende regnekraft: 8-kernet højtydende CPU, 100 TOPS).
+
+--- field: sdk_languages | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: UNDERSØGT, MEN IKKE SAT. GENISOM AI's GitHub-organisation (zsibot) har et repo "genisom_robot_sdk" (README: "Programming Language: C++", Ubuntu 22.04/CMake/GCC/Boost), men repoet har INGEN GitHub-beskrivelse, der binder det til et specifikt produktnavn (modsat "genisom_L1_sdk", som eksplicit hedder "Official SDK for Genisom L1 Series robots"). Hverken "M1" eller (Tongchui) står i den udtrukne README-tekst. At bruge repoet til M1 ville være samme slags navnesammenfald-uden-bevis, som blev fanget og afvist på L2's ros2-felt i forrige runde - derfor ikke oplyst i stedet for et gæt.
+caveat_wording: UNDERSØGT, MEN IKKE SAT. GENISOM AI's GitHub-organisation (zsibot) har et repo "genisom_robot_sdk" (README: "Programming Language: C++", Ubuntu 22.04/CMake/GCC/Boost), men repoet har INGEN GitHub-beskrivelse, der binder det til et specifikt produktnavn (modsat "genisom_L1_sdk", som eksplicit hedder "Official SDK for Genisom L1 Series robots"). Hverken "M1" eller "铜锤" (Tongchui) står i den udtrukne README-tekst. At bruge repoet til M1 ville være samme slags navnesammenfald-uden-bevis, som blev fanget og afvist på L2's ros2-felt i forrige runde - derfor ikke oplyst i stedet for et gæt.
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); grundbevægelser (march/glide/kravle-positioner m.fl., ligeud bevægelse frem/tilbage/venstre/højre, rotation på stedet, knæledsposition-skift, understøtter grus/asfalt/græs/sand/skovbund/byggeruiner m.fl. underlag); specialbevægelser (klatre høj mur/krydse forhindringsplade/passere smal mur/vrikke m.fl.); realtids billedoverførsel; OTA-opdatering; understøtter videreudvikling; autonom navigation (tilvalg: Zhihang Pro-version, kortlægning/positionering/navigation/undvigelse); intelligent undvigelse af forhindringer" unit=null caveat_class=null ---
+caveat: Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala. Selvstændig navigation står eksplicit som TILVALG, ikke standard.
+caveat_wording: Kvalitativ liste fra producentens funktionsafsnit, ikke et niveau på en skala. Selvstændig navigation står eksplicit som TILVALG ("选配"), ikke standard.
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Fra den strukturerede specifikationstabel (2+2+1+1+2+1 = 9 navngivne porte i alt). Marketingteksten påstår separat (15 standardinterfaces i alt) - et højere, ikke-specificeret tal, som IKKE er brugt som feltværdi. De 9 navngivne porte er brugt, fordi de er den eneste itemiserede kilde; 15-tallet er noteret som en uafklaret uoverensstemmelse, ikke rettet stiltiende.
+caveat_wording: "功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1" fra den strukturerede specifikationstabel (2+2+1+1+2+1 = 9 navngivne porte i alt). Marketingteksten påstår separat "15 大标准硬件接口全开放" (15 standardinterfaces i alt) - et højere, ikke-specificeret tal, som IKKE er brugt som feltværdi. De 9 navngivne porte er brugt, fordi de er den eneste itemiserede kilde; 15-tallet er noteret som en uafklaret uoverensstemmelse, ikke rettet stiltiende.
+
+########## 2212 genisom-tongchui-m1-pro (Tongchui M1 Pro) ##########
+--- field: weight | value_number=41 value_text=null unit=kg caveat_class=validity ---
+caveat: I M1 Pro's egen specifikationstabel (id 497) - identisk med basisudgaven, INGEN (cirka)-markering. MODSIGES af sidens sidebredde marketingkort - se topnoten. Regel 9: ikke rettet stiltiende.
+caveat_wording: "整机重量（含电池）: 41 kg" i M1 Pro's egen specifikationstabel (id 497) - identisk med basisudgaven, INGEN "约" (cirka)-markering. MODSIGES af sidens sidebredde marketingkort ("约 30kg") - se topnoten. Regel 9: ikke rettet stiltiende.
+
+--- field: height | value_number=595 value_text=null unit=mm caveat_class=elaboration ---
+caveat: 10Mm højere end basisudgavens 585mm. Krybende mål: 930 x 630 x 210 mm; skemaet har intet felt til den tilstand.
+caveat_wording: "站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm" - 10mm højere end basisudgavens 585mm. Krybende mål ("趴地尺寸"): 930 x 630 x 210 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=elaboration ---
+caveat: (antal ledmotorer) i M1 Pro's egen datablok - identisk med basisudgaven.
+caveat_wording: "关节电机数量: 12 个" (antal ledmotorer) i M1 Pro's egen datablok - identisk med basisudgaven.
+
+--- field: payload_walking | value_number=30 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last) i M1 Pro's egen datablok - identisk med basisudgaven.
+caveat_wording: "最大载荷: 30 kg" (maks. last) i M1 Pro's egen datablok - identisk med basisudgaven.
+
+--- field: speed | value_number=6 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: Identisk med basisudgaven. Separat (grænsehastighed) 8 m/s er også oplyst, ikke brugt som hovedværdi (samme princip som basisudgaven).
+caveat_wording: "最大速度: 6 m/s" - identisk med basisudgaven. Separat "极限速度" (grænsehastighed) 8 m/s er også oplyst, ikke brugt som hovedværdi (samme princip som basisudgaven).
+
+--- field: slope | value_number=45 value_text=null unit=° caveat_class=elaboration ---
+caveat: (maks. klatrbar skråningsvinkel) i M1 Pro's egen datablok - identisk med basisudgaven.
+caveat_wording: "最大爬坡角度: 45°" (maks. klatrbar skråningsvinkel) i M1 Pro's egen datablok - identisk med basisudgaven.
+
+--- field: obstacle_single | value_number=80 value_text=null unit=cm caveat_class=validity ---
+caveat: Fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Pro's egen JSON-blok (som ikke har et separat felt for denne værdi). Samme kilde og forbehold som basisudgavens tilsvarende felt - se topnoten.
+caveat_wording: "80cm 垂直越障高度" fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Pro's egen JSON-blok (som ikke har et separat felt for denne værdi). Samme kilde og forbehold som basisudgavens tilsvarende felt - se topnoten.
+
+--- field: stair_step_continuous | value_number=25 value_text=null unit=cm caveat_class=elaboration ---
+caveat: I M1 Pro's EGEN datablok (id 498) - identisk med basisudgaven, men denne gang direkte fra fanen selv, ikke en sidebredt værdi.
+caveat_wording: "连续攀爬楼梯高度: 25 cm" i M1 Pro's EGEN datablok (id 498) - identisk med basisudgaven, men denne gang direkte fra fanen selv, ikke en sidebredt værdi.
+
+--- field: temperature_min | value_number=-20 value_text=null unit=°C caveat_class=elaboration ---
+caveat: Basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard (identisk forbehold som basisudgaven).
+caveat_wording: "-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本" - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard (identisk forbehold som basisudgaven).
+
+--- field: temperature_max | value_number=55 value_text=null unit=°C caveat_class=elaboration ---
+caveat: Samme forbehold som temp_min.
+caveat_wording: null
+
+--- field: battery_wh | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste oplyser - identisk med basisudgaven. Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9).
+caveat_wording: Tilbehørsliste oplyser "电池: 54 V，9.35 Ah × 2；双电池，热插拔" - identisk med basisudgaven. Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9).
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: I M1 Pro's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte - derfor er lastbetingelsen ikke oplyst. Rækkevidde er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 空载 5 h；满载 3.5 h" i M1 Pro's egen datablok - identisk med basisudgaven. Kvalitativ lastbetingelse (tom/fuld), intet kg-tal knyttet direkte - derfor er lastbetingelsen ikke oplyst. Rækkevidde "续航里程: 空载 29 km；满载 18 km" er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: hot_swap | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap) i M1 Pro's egen tilbehørsliste - identisk med basisudgaven.
+caveat_wording: "电池: 54 V，9.35 Ah × 2；双电池，热插拔" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap) i M1 Pro's egen tilbehørsliste - identisk med basisudgaven.
+
+--- field: charging_time | value_number=2 value_text=null unit=t caveat_class=elaboration ---
+caveat: (ladetid) i M1 Pro's egen datablok - identisk med basisudgaven.
+caveat_wording: "充电时长: ＜ 2 h" (ladetid) i M1 Pro's egen datablok - identisk med basisudgaven.
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste: (standardudstyr). Separat (tilvalgt ladestation) er også oplyst - samme to-niveau-mønster som basisudgaven.
+caveat_wording: Tilbehørsliste: "充电座: 标配" (standardudstyr). Separat "充电桩: 选配" (tilvalgt ladestation) er også oplyst - samme to-niveau-mønster som basisudgaven.
+
+--- field: lidar | value_number=null value_text="3D LiDAR (type og model ikke oplyst)" unit=null caveat_class=null ---
+caveat: (3D LiDAR: understøttet) i M1 Pro's egen sensor-sektion - identisk med basisudgaven, hverken linjetal, model eller producent oplyst.
+caveat_wording: "3D激光雷达: 支持" (3D LiDAR: understøttet) i M1 Pro's egen sensor-sektion - identisk med basisudgaven, hverken linjetal, model eller producent oplyst.
+
+--- field: cameras | value_number=null value_text="2x bredvinkelkamera, 8 MP hver, DFOV 122° / HFOV 111° / VFOV 70°" unit=null caveat_class=null ---
+caveat: Og i M1 Pro's egen sensor-sektion - identisk med basisudgaven (bemærk: samme kameraopstilling som basis-M1, IKKE M1 Ultra's fiskeøje-array). M1 Pro's sensor-sektion tilføjer desuden (ultralydssensor) ud over basisudgavens IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor, noteret her.
+caveat_wording: "相机类型: 广角相机 x 2, DFOV 122°，HFOV 111°，VFOV 70°" og "相机像索: 800万 x 2" i M1 Pro's egen sensor-sektion - identisk med basisudgaven (bemærk: samme kameraopstilling som basis-M1, IKKE M1 Ultra's fiskeøje-array). M1 Pro's sensor-sektion tilføjer desuden "超声波传感器: 支持" (ultralydssensor) ud over basisudgavens IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor, noteret her.
+
+--- field: compute | value_number=null value_text="8-kernet CPU, 100 TOPS" unit=null caveat_class=null ---
+caveat: I M1 Pro's egen datablok - identisk med basisudgaven (bemærk: DIFFERER fra M1 Ultra's 6-kernet/128TOPS).
+caveat_wording: "基础算力: 8 核高性能 CPU （100TOPS）" i M1 Pro's egen datablok - identisk med basisudgaven (bemærk: DIFFERER fra M1 Ultra's 6-kernet/128TOPS).
+
+--- field: sdk_languages | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: IKKE GENUNDERSØGT I DENNE SESSION - se topnoten. Overført fra basisudgavens konklusion (samme producent-GitHub, intet produktnavn i README'en), IKKE en frisk måling for netop M1 Pro.
+caveat_wording: null
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); grundbevægelser (march/glide/kravle-positioner m.fl., ligeud bevægelse frem/tilbage/venstre/højre, rotation på stedet, knæledsposition-skift, understøtter grus/asfalt/græs/sand/skovbund/byggeruiner m.fl. underlag); specialbevægelser (klatre høj mur/krydse forhindringsplade/passere smal mur/vrikke m.fl.); realtids billedoverførsel; OTA-opdatering; understøtter videreudvikling; målsporing (UWB-følgning; laser-vision-følgning); autonom navigation (Zhihang Pro-version: kortlægning/positionering/navigation/undvigelse - standard, IKKE mærket tilvalg for denne variant); intelligent undvigelse af forhindringer; taleintercom (understøttet); lydoptagelse/højttalerudsendelse (understøttet)" unit=null caveat_class=null ---
+caveat: Fra M1 Pro's egen funktionsliste (id 501). Fire punkter ud over basisudgaven:,, samt at her står UDEN præfikset - se topnoten.
+caveat_wording: Fra M1 Pro's egen funktionsliste (id 501). Fire punkter ud over basisudgaven: 目标追踪, 语音对讲, 录音广播, samt at 自主导航 her står UDEN "选配"-præfikset - se topnoten.
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: I M1 Pro's egen datablok - identisk med basisudgaven (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat - et højere, ikke-specificeret tal, IKKE brugt som feltværdi (samme uafklarede uoverensstemmelse som basisudgaven).
+caveat_wording: "功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1" i M1 Pro's egen datablok - identisk med basisudgaven (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat "15 大标准硬件接口全开放" - et højere, ikke-specificeret tal, IKKE brugt som feltværdi (samme uafklarede uoverensstemmelse som basisudgaven).
+
+########## 2213 genisom-tongchui-m1-ultra (Tongchui M1 Ultra) ##########
+--- field: weight | value_number=41 value_text=null unit=kg caveat_class=validity ---
+caveat: I M1 Ultras egen specifikationstabel (id 504) - identisk med basisudgaven og M1 Pro. MODSIGES af sidens sidebredde marketingkort, samme selvmodsigelse som M1 Pro. Ikke rettet stiltiende.
+caveat_wording: "整机重量（含电池）: 41 kg" i M1 Ultras egen specifikationstabel (id 504) - identisk med basisudgaven og M1 Pro. MODSIGES af sidens sidebredde marketingkort ("约 30kg"), samme selvmodsigelse som M1 Pro. Ikke rettet stiltiende.
+
+--- field: height | value_number=595 value_text=null unit=mm caveat_class=elaboration ---
+caveat: Identisk med M1 Pro, 10mm højere end basisudgavens 585mm. Krybende mål: 930 x 630 x 210 mm; skemaet har intet felt til den tilstand.
+caveat_wording: "站立尺寸（长 × 宽 × 高）: 930 × 480 × 595 mm" - identisk med M1 Pro, 10mm højere end basisudgavens 585mm. Krybende mål ("趴地尺寸"): 930 x 630 x 210 mm; skemaet har intet felt til den tilstand.
+
+--- field: degrees_of_freedom | value_number=12 value_text=null unit=DoF caveat_class=elaboration ---
+caveat: (antal ledmotorer) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+caveat_wording: "关节电机数量: 12 个" (antal ledmotorer) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+
+--- field: payload_walking | value_number=30 value_text=null unit=kg caveat_class=elaboration ---
+caveat: (maks. last) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+caveat_wording: "最大载荷: 30 kg" (maks. last) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+
+--- field: speed | value_number=6 value_text=null unit=m/s caveat_class=elaboration ---
+caveat: Identisk med basisudgaven og M1 Pro. Separat (grænsehastighed) 8 m/s er også oplyst, ikke brugt som hovedværdi.
+caveat_wording: "最大速度: 6 m/s" - identisk med basisudgaven og M1 Pro. Separat "极限速度" (grænsehastighed) 8 m/s er også oplyst, ikke brugt som hovedværdi.
+
+--- field: slope | value_number=45 value_text=null unit=° caveat_class=elaboration ---
+caveat: (maks. klatrbar skråningsvinkel) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+caveat_wording: "最大爬坡角度: 45°" (maks. klatrbar skråningsvinkel) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+
+--- field: obstacle_single | value_number=80 value_text=null unit=cm caveat_class=validity ---
+caveat: (80cm lodret forhindringshøjde) fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Ultras egen JSON-blok. Samme kilde og forbehold som basisudgaven/M1 Pro.
+caveat_wording: "80cm 垂直越障高度" (80cm lodret forhindringshøjde) fra sidens SIDEBREDDE marketingkort, IKKE fra M1 Ultras egen JSON-blok. Samme kilde og forbehold som basisudgaven/M1 Pro.
+
+--- field: stair_step_continuous | value_number=25 value_text=null unit=cm caveat_class=elaboration ---
+caveat: I M1 Ultras EGEN datablok (id 505) - identisk med basisudgaven og M1 Pro, direkte fra fanen selv.
+caveat_wording: "连续攀爬楼梯高度: 25 cm" i M1 Ultras EGEN datablok (id 505) - identisk med basisudgaven og M1 Pro, direkte fra fanen selv.
+
+--- field: temperature_min | value_number=-20 value_text=null unit=°C caveat_class=elaboration ---
+caveat: (driftstemperatur -20 til 55°C, tilvalg: -40 til 80°C bredtemperatur-batteriversion) - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard.
+caveat_wording: "-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本" (driftstemperatur -20 til 55°C, tilvalg: -40 til 80°C bredtemperatur-batteriversion) - basisspecifikationen brugt; den bredere -40~80°C er en tilvalgt batteriversion, ikke standard.
+
+--- field: temperature_max | value_number=55 value_text=null unit=°C caveat_class=elaboration ---
+caveat: Samme forbehold som temp_min.
+caveat_wording: null
+
+--- field: battery_wh | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste oplyser - identisk med basisudgaven og M1 Pro. Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9).
+caveat_wording: Tilbehørsliste oplyser "电池: 54 V，9.35 Ah × 2；双电池，热插拔" - identisk med basisudgaven og M1 Pro. Wh er ikke trykt direkte og udregnes ikke af V x Ah (regel 9).
+
+--- field: runtime | value_number=null value_text=null unit=t caveat_class=validity ---
+caveat: (driftstid: ubelastet 5t; fuld last 3,5t) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Rækkevidde (rækkevidde: ubelastet 29 km; fuld last 18 km) er også oplyst; skemaet har intet rækkeviddefelt.
+caveat_wording: "续航时间: 空载 5 h；满载 3.5 h" (driftstid: ubelastet 5t; fuld last 3,5t) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro. Kvalitativ lastbetingelse, intet kg-tal knyttet direkte - lastbetingelsen er derfor ikke oplyst. Rækkevidde "续航里程: 空载 29 km；满载 18 km" (rækkevidde: ubelastet 29 km; fuld last 18 km) er også oplyst; skemaet har intet rækkeviddefelt.
+
+--- field: hot_swap | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap) i M1 Ultras egen tilbehørsliste - identisk med basisudgaven og M1 Pro.
+caveat_wording: "电池: 54 V，9.35 Ah × 2；双电池，热插拔" (batteri: 54V, 9,35 Ah × 2; dobbeltbatteri, hot-swap) i M1 Ultras egen tilbehørsliste - identisk med basisudgaven og M1 Pro.
+
+--- field: charging_time | value_number=2 value_text=null unit=t caveat_class=elaboration ---
+caveat: (ladetid) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+caveat_wording: "充电时长: ＜ 2 h" (ladetid) i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro.
+
+--- field: docking_station | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: Tilbehørsliste: (standardudstyr). Separat (tilvalgt ladestation) er også oplyst - samme to-niveau-mønster som basisudgaven og M1 Pro.
+caveat_wording: Tilbehørsliste: "充电座: 标配" (standardudstyr). Separat "充电桩: 选配" (tilvalgt ladestation) er også oplyst - samme to-niveau-mønster som basisudgaven og M1 Pro.
+
+--- field: lidar | value_number=null value_text="3D LiDAR (type og model ikke oplyst)" unit=null caveat_class=null ---
+caveat: (3D LiDAR: understøttet) i M1 Ultras egen sensor-sektion - identisk med basisudgaven og M1 Pro, hverken linjetal, model eller producent oplyst.
+caveat_wording: "3D激光雷达: 支持" (3D LiDAR: understøttet) i M1 Ultras egen sensor-sektion - identisk med basisudgaven og M1 Pro, hverken linjetal, model eller producent oplyst.
+
+--- field: cameras | value_number=null value_text="4x fiskeøjekamera + 2x fremadrettet stereokamera til rundtomsynsbilleddannelse; fiskeøje 3 MP, stereo 2 MP" unit=null caveat_class=null ---
+caveat: Og i M1 Ultras egen sensor-sektion - HELT FORSKELLIG opstilling fra basisudgavens/M1 Pro's. Se topnoten. Sensor-sektionen har også (ultralydssensor, samme som M1 Pro) ud over IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor.
+caveat_wording: "相机类型: 鱼眼相机 x 4 + 前向双目相机 x 2 环视成像" og "相机像索: 鱼眼300万，双目200万" i M1 Ultras egen sensor-sektion - HELT FORSKELLIG opstilling fra basisudgavens/M1 Pro's "广角相机 x 2, 800万 x 2". Se topnoten. Sensor-sektionen har også "超声波传感器: 支持" (ultralydssensor, samme som M1 Pro) ud over IMU/3D LiDAR/dybdekamera/RTK - ingen skemafelt til ultralydssensor.
+
+--- field: compute | value_number=null value_text="6-kernet CPU, 128 TOPS" unit=null caveat_class=null ---
+caveat: I M1 Ultras egen datablok - DIFFERER fra basisudgavens/M1 Pro's (færre kerner, højere TOPS). Se topnoten.
+caveat_wording: "基础算力: 6核高性能CPU（128TOPS）" i M1 Ultras egen datablok - DIFFERER fra basisudgavens/M1 Pro's "8 核高性能 CPU （100TOPS）" (færre kerner, højere TOPS). Se topnoten.
+
+--- field: sdk_languages | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: IKKE GENUNDERSØGT I DENNE SESSION - se topnoten. Overført fra basisudgavens konklusion, IKKE en frisk måling for netop M1 Ultra.
+caveat_wording: null
+
+--- field: autonomy_level | value_number=null value_text="AI-forstærkningslæring bevægelsesstyring (standard); grundbevægelser (march/glide/kravle-positioner m.fl., ligeud bevægelse frem/tilbage/venstre/højre, rotation på stedet, knæledsposition-skift, understøtter grus/asfalt/græs/sand/skovbund/byggeruiner m.fl. underlag); specialbevægelser (klatre høj mur/krydse forhindringsplade/passere smal mur/vrikke m.fl.); realtids billedoverførsel; OTA-opdatering; understøtter videreudvikling; målsporing (UWB-følgning; laser-vision-følgning); 720° 3D rundtomsyn-opfattelsessystem (understøttet); intelligent undvigelse af forhindringer; taleintercom (understøttet); lydoptagelse/højttalerudsendelse (understøttet)" unit=null caveat_class=null ---
+caveat: Fra M1 Ultras egen funktionsliste (id 508), 11 punkter i alt. BEMÆRK: INGEN eksplicit række i denne liste, modsat basisudgaven (tilvalg) og M1 Pro (standard) - se topnoten. Ikke antaget tilføjet.
+caveat_wording: Fra M1 Ultras egen funktionsliste (id 508), 11 punkter i alt. BEMÆRK: INGEN eksplicit "自主导航"-række i denne liste, modsat basisudgaven (tilvalg) og M1 Pro (standard) - se topnoten. Ikke antaget tilføjet.
+
+--- field: data_ports | value_number=null value_text=null unit=null caveat_class=null ---
+caveat: I M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat - IKKE brugt som feltværdi.
+caveat_wording: "功能拓展接口: 千兆网口 ×2、USB 3.0 ×2、RS232 ×1、RS485 ×1、SBUS ×2、PPS ×1" i M1 Ultras egen datablok - identisk med basisudgaven og M1 Pro (9 navngivne porte). Sidens sidebredde marketingtekst påstår separat "15 大标准硬件接口全开放" - IKKE brugt som feltværdi.

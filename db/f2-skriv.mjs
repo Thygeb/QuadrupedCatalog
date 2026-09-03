@@ -72,6 +72,13 @@ export const TEKSTKOLONNE_HVIDLISTE = new Set([
   'note', 'note_wording', 'notes', 'notes_wording',
   'quote', 'quote_wording', 'alt',
   'manufacturer_city', 'manufacturer_country',
+  // value_text er ANDERLEDES end de tolv ovenfor: den er feltets SVAR, ikke en
+  // bemaerkning om svaret — den vises som robottens data (fund/BRIEF-FAELLES.md,
+  // "value_text er ny i denne runde"). Oversaettelse maa derfor kun aendre SPROG,
+  // aldrig BETYDNING: "grundlaeggende" -> "basic", ikke "basic (entry-level)".
+  // Udvider en post value_text's indhold, har den aendret et datapunkt, og det
+  // er lige saa alvorligt som at roere et tal (spor/f2-valuetext, 3. sep 2026).
+  'value_text',
 ]);
 
 /**

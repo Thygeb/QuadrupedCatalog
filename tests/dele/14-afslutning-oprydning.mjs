@@ -10,6 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { rens } from '../rens-css.mjs';
 
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
@@ -78,9 +79,14 @@ export default async function koer(ctx) {
       `kort ${antal}, .net#alle ${iNet}, navnelinks ${navnelink}`);
   }
   const generatorCss5c = fs.readFileSync(path.join(indgangDist, 'generator.css'), 'utf8');
+  // Rens FILEN, ikke moenstret (tests/rens-css.mjs, BRIEF-prodtest.md):
+  // generator.css blev omformateret, og mellemrummene i
+  // ".net .kort:hover .kort__navn a" og foer "{" knaekkede det gamle,
+  // kompakte moenster.
+  const generatorCss5cR = rens(generatorCss5c);
   ok('5c: katalogkortet har sit eget hover- OG fokussignal (understregning + fokusramme)',
-    /\.net \.kort:hover \.kort__navn a\{border-bottom-color/.test(generatorCss5c)
-      && /\.net \.kort:focus-within\{outline/.test(generatorCss5c),
+    /\.net\.kort:hover\.kort__navna\{border-bottom-color/.test(generatorCss5cR)
+      && /\.net\.kort:focus-within\{outline/.test(generatorCss5cR),
     'uden et af de to kan et katalogkort ikke ses som klikbart - hverken med mus eller tastatur');
   /* De to naeste vagter maaler DOED CSS pr. 31. aug 2026 (spor/kort).
      `.kort-invit` rendres ingen steder mere - vagten lige ovenfor kraever

@@ -1,0 +1,13 @@
+[
+  {
+    "robot_id": 2186,
+    "slug": "astrall-dynamics-hypertron-t01",
+    "manufacturer": "Astrall Dynamics",
+    "applications": {
+      "note": "Mapping of the eight menu items to the seven allowed values: electric power/energy, construction/utility tunnels, mining/rail and water supply are all industrial infrastructure sectors -> industrial. fire/emergency response -> defense and emergency response. industrial-park/factory-area patrol (the page itself says whole-area surveillance) and police/security -> security and surveillance. petrochemical -> industrial. None of the eight map to logistics, inspection, research and development, or consumer and education.",
+      "note_wording": "Mapning af de otte menupunkter til de syv tilladte værdier: 电力能源 (elkraft/energi), 建筑管廊 (bygge/forsyningstunneler), 矿井轨道 (mine/skinner) og 水利水务 (vandforsyning) er alle industrielle infrastruktursektorer -> industri. 消防应急 (brand/beredskab) -> forsvar og beredskab. 园区厂区 (industripark-/fabriksområde-patrulje - siden skriver selv \"360°全方位监测\", helområde-overvågning) og 警务安防 (politi/sikkerhed) -> sikkerhed og overvågning. 石油化工 (petrokemi) -> industri. Ingen af de otte er oversat til logistik, inspektion, forskning og udvikling eller forbruger og uddannelse.",
+      "quote": "Menupunkterne under paa forsiden og produktsiden.",
+      "quote_wording": "电力能源、消防应急、园区厂区、建筑管廊、矿井轨道、石油化工、警务安防、水利水务 (menupunkterne under \"行业应用\" paa forsiden og produktsiden)"
+    }
+  }
+]

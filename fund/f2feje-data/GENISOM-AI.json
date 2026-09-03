@@ -1,0 +1,181 @@
+[
+  {
+    "robot_id": 2205,
+    "slug": "genisom-gangben-l1",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "Own translation: \"Gangben L1 is GENISOM AI’s own first industrial-grade small quadruped robot ... widely used in power-grid inspection, emergency rescue, security patrol, research and education.\" 电力巡检 (power-grid inspection) -> inspection; 应急救援 (emergency rescue) -> defense and emergency response; 安防巡逻 (security patrol) -> security and surveillance; 科研教育 (research and education) -> research and development (the education part of 科研教育 has no precise match in the value set beyond consumer and education, which is not used here, since the context is professional research, not a consumer product).",
+      "note_wording": "Egen oversættelse: \"Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse.\" 电力巡检 -> inspektion; 应急救援 -> forsvar og beredskab; 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling (uddannelsesdelen af 科研教育 har intet præcist svar i værdisættet ud over forbruger og uddannelse, som ikke er brugt her, da konteksten er faglig forskning, ikke forbrugerprodukt).",
+      "quote": "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot.. anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (L1..。)",
+      "quote_wording": "Gangben L1 er GENISOM AI's selvudviklede første industriklasse små firbenede robot... anvendes bredt inden for elkraftinspektion, redningsberedskab, sikkerhedspatrulje, forskning og uddannelse. (钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。)"
+    }
+  },
+  {
+    "robot_id": 2206,
+    "slug": "genisom-gangben-l1-w",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place) on L1-W’s own product page — four separate quotes, not inherited from L1. Own translation: 侦查搜救 (reconnaissance/search-and-rescue) -> defense and emergency response; 应急消防 (emergency firefighting) -> defense and emergency response (same category as 侦查搜救, two quotes); 科研教育 -> research and development; 安防巡逻 -> security and surveillance.",
+      "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på L1-W's egen produktside - fire selvstændige citater, ikke arvet fra L1. Egen oversættelse: 侦查搜救 (rekognoscering/eftersøgning-redning) -> forsvar og beredskab; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab (samme kategori som 侦查搜救, to citater); 科研教育 -> forskning og udvikling; 安防巡逻 -> sikkerhed og overvågning.",
+      "quote": [
+        "Rekognoscering og eftersøgningsredning",
+        "Akut brandbekæmpelse",
+        "Forskning og uddannelse",
+        "Sikkerhedspatrulje"
+      ],
+      "quote_wording": [
+        "Rekognoscering og eftersøgningsredning (侦查搜救)",
+        "Akut brandbekæmpelse (应急消防)",
+        "Forskning og uddannelse (科研教育)",
+        "Sikkerhedspatrulje (安防巡逻)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2207,
+    "slug": "genisom-gangben-l2",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place). 安防巡逻 -> security and surveillance; 科研教育 -> research and development; 短途配送 (short-distance delivery) -> logistics.",
+      "note_wording": "Fra siden \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar). 安防巡逻 -> sikkerhed og overvågning; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik.",
+      "quote": [
+        "Sikkerhedspatrulje",
+        "Forskning og uddannelse",
+        "Kort-distance levering"
+      ],
+      "quote_wording": [
+        "Sikkerhedspatrulje (安防巡逻)",
+        "Forskning og uddannelse (科研教育)",
+        "Kort-distance levering (短途配送)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2208,
+    "slug": "genisom-gangben-l2-w",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "From the section \"下一个应用场景，它已提前就位\" on L2’s product page. The text appears ONCE on the page, BEFORE the variant tabs (L2/L2-W/L2-W Ultra), in the structured spec table — it covers the whole Gangben L2 family as a whole, not just the base version. Quoted independently from the same URL, NOT via inherited_from: it is the same primary source for all three variants, not an inference about another robot (inherited_from would presuppose that L2-W’s OWN page was silent and borrowed L2’s quote — it is not: the text sits on the very page L2-W also lives on). Own translation: 安防巡逻 -> security and surveillance; 应急消防 (emergency firefighting) -> defense and emergency response; 科研教育 -> research and development; 短途配送 (short-distance delivery) -> logistics. NOTE: this quote has FOUR items (incl. 应急消防), while genisom-gangben-l2.yaml’s existing quote has only three (missing 应急消防) — an independent re-reading of the same raw HTML for this entry. The existing L2 entry is NOT corrected, per the task’s instruction not to touch the two existing entries.",
+      "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" på L2's produktside. Teksten står EN gang på siden, FØR variant-fanebladet (L2/L2-W/L2-W Ultra) i den strukturerede specifikationstabel - den dækker hele Gangben L2-familien som helhed, ikke kun basisudgaven. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning om en anden robot (arvet_fra ville forudsætte, at L2-W's EGEN side var tavs og lånte L2's citat - det er den ikke, teksten står på netop den side, L2-W også bor på). Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 (akut brandbekæmpelse) -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 (kort-distance levering) -> logistik. BEMÆRK: dette citat har FIRE led (inkl. 应急消防), mens genisom-gangben-l2.yaml's eksisterende citat kun har tre (mangler 应急消防) - en uafhængig genlæsning af samme rå HTML for denne post. Den eksisterende L2-post er IKKE rettet, jf. opgavens instruks om ikke at røre de to eksisterende poster.",
+      "quote": [
+        "Sikkerhedspatrulje",
+        "Akut brandbekæmpelse",
+        "Forskning og uddannelse",
+        "Kort-distance levering"
+      ],
+      "quote_wording": [
+        "Sikkerhedspatrulje (安防巡逻)",
+        "Akut brandbekæmpelse (应急消防)",
+        "Forskning og uddannelse (科研教育)",
+        "Kort-distance levering (短途配送)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2209,
+    "slug": "genisom-gangben-l2-w-ultra",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "Same section and same reasoning as genisom-gangben-l2-w.yaml: the text \"下一个应用场景，它已提前就位\" (next application scenario, already in place) appears ONCE on the L2 page for the whole Gangben L2 family, before the variant tabs. Quoted independently from the same URL, not via inherited_from. Own translation: 安防巡逻 -> security and surveillance; 应急消防 -> defense and emergency response; 科研教育 -> research and development; 短途配送 -> logistics.",
+      "note_wording": "Samme sektion og samme begrundelse som genisom-gangben-l2-w.yaml: teksten \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) står EN gang på L2-siden for hele Gangben L2-familien, før variant-fanebladene. Citeret selvstændigt fra samme URL, ikke via arvet_fra. Egen oversættelse: 安防巡逻 -> sikkerhed og overvågning; 应急消防 -> forsvar og beredskab; 科研教育 -> forskning og udvikling; 短途配送 -> logistik.",
+      "quote": [
+        "Sikkerhedspatrulje",
+        "Akut brandbekæmpelse",
+        "Forskning og uddannelse",
+        "Kort-distance levering"
+      ],
+      "quote_wording": [
+        "Sikkerhedspatrulje (安防巡逻)",
+        "Akut brandbekæmpelse (应急消防)",
+        "Forskning og uddannelse (科研教育)",
+        "Kort-distance levering (短途配送)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2210,
+    "slug": "genisom-qiuqiu-sp1",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "Own translation: \"GENISOM Qiuqiu SP1 is an explosion-proof quadruped inspection robot for high-risk industrial environments such as petrochemicals and energy stations\" (meta description) and \"Autonomous inspection, data transmission, zero personnel risk\" (marketing headline, 自主巡检 = autonomous inspection). The page’s OWN \"next application scenario\" section (\"下一个应用场景，它已提前就位\") lists FOUR FACILITY TYPES, not activity categories: 炼化装置区 (refinery plant area), 化工储罐区 (chemical storage tank area), 燃气/LNG场站 (gas/LNG station), 油气管线 (oil/gas pipeline) — none of them is a verbatim activity category in the schema’s allowed set, so they are NOT used as quote/value here. Instead, industrial/inspection is derived from the meta description’s 高危工业环境 (high-risk industrial environment) and 防爆...巡检机器人 (explosion-proof ... inspection robot), plus the body text’s explicit 自主巡检 (autonomous inspection).",
+      "note_wording": "Egen oversættelse: \"GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer\" (meta-description) og \"Autonom inspektion, dataoverførsel, nul personalerisiko\" (marketingoverskrift, \"自主巡检\" = autonom inspektion). Sidens EGEN \"næste anvendelsesscenarie\"-sektion (\"下一个应用场景，它已提前就位\") lister FIRE ANLÆGSTYPER, ikke aktivitetskategorier: 炼化装置区 (raffinaderianlæg), 化工储罐区 (kemisk lagertankområde), 燃气/LNG场站 (gas/LNG-station), 油气管线 (olie-/gasledning) - ingen af dem er en verbatim aktivitetskategori i skemaets tilladte sæt, så de er IKKE brugt som citat/værdi her. I stedet er industri/inspektion udledt af meta-beskrivelsens \"高危工业环境\" (højrisiko-industrimiljø) og \"防爆...巡检机器人\" (eksplosionssikker...inspektionsrobot) samt brodtekstens eksplicitte \"自主巡检\" (autonom inspektion).",
+      "quote": [
+        "GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (SP1)",
+        "Autonom inspektion, dataoverførsel, nul personalerisiko"
+      ],
+      "quote_wording": [
+        "GENISOM Qiuqiu SP1 er en eksplosionssikker firbenet inspektionsrobot til højrisiko-industrimiljøer som petrokemi og energistationer (智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人)",
+        "Autonom inspektion, dataoverførsel, nul personalerisiko (自主巡检 数据回传 人员零涉险)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2211,
+    "slug": "genisom-tongchui-m1",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place) on M1’s own product page. Own translation: 森林消防 (forest firefighting) -> defense and emergency response; 石化消防 (petrochemical firefighting) -> defense and emergency response (same category, two quotes); 电力巡检 (power-grid inspection) -> inspection; 园区巡逻 (site patrol) -> security and surveillance; 物流运输 (logistics transport) -> logistics.",
+      "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Egen oversættelse: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab (samme kategori, to citater); 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik.",
+      "quote": [
+        "Skovbrandbekæmpelse",
+        "Petrokemisk brandbekæmpelse",
+        "Elkraftinspektion",
+        "Områdepatrulje",
+        "Logistiktransport"
+      ],
+      "quote_wording": [
+        "Skovbrandbekæmpelse (森林消防)",
+        "Petrokemisk brandbekæmpelse (石化消防)",
+        "Elkraftinspektion (电力巡检)",
+        "Områdepatrulje (园区巡逻)",
+        "Logistiktransport (物流运输)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2212,
+    "slug": "genisom-tongchui-m1-pro",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place) on M1’s own product page. The text appears ONCE on the page, shared by all three tabs (M1/M1 Pro/M1 Ultra) in the structured spec table — it covers the whole Tongchui M1 family as a whole. Quoted independently from the same URL, NOT via inherited_from: it is the same primary source for all three variants, not an inference borrowed from another robot’s page (same principle as GENISOM Gangben L2-W/L2-W Ultra in this catalogue — inherited_from would presuppose that M1 Pro’s OWN page was silent and borrowed M1’s quote, which it is not: the text sits on the very page M1 Pro also lives on). Own translation — identical to genisom-tongchui-m1.yaml’s: 森林消防 (forest firefighting) -> defense and emergency response; 石化消防 (petrochemical firefighting) -> defense and emergency response; 电力巡检 (power-grid inspection) -> inspection; 园区巡逻 (site patrol) -> security and surveillance; 物流运输 (logistics transport) -> logistics.",
+      "note_wording": "Fra sektionen \"下一个应用场景，它已提前就位\" (næste anvendelsesscenarie, allerede klar) på M1's egen produktside. Teksten står EN gang på siden, delt af alle tre faner (M1/M1 Pro/M1 Ultra) i den strukturerede specifikationstabel - den dækker hele Tongchui M1-familien som helhed. Citeret selvstændigt fra samme URL, IKKE via arvet_fra: det er den samme primærkilde for alle tre varianter, ikke en slutning lånt fra en anden robots side (samme princip som GENISOM Gangben L2-W/L2-W Ultra i dette katalog - arvet_fra ville forudsætte, at M1 Pro's EGEN side var tavs og lånte M1's citat, hvilket den ikke er: teksten står på netop den side, M1 Pro også bor på). Egen oversættelse - identisk med genisom-tongchui-m1.yaml's: 森林消防 (skovbrandbekæmpelse) -> forsvar og beredskab; 石化消防 (petrokemisk brandbekæmpelse) -> forsvar og beredskab; 电力巡检 (elkraftinspektion) -> inspektion; 园区巡逻 (områdepatrulje) -> sikkerhed og overvågning; 物流运输 (logistiktransport) -> logistik.",
+      "quote": [
+        "Skovbrandbekæmpelse",
+        "Petrokemisk brandbekæmpelse",
+        "Elkraftinspektion",
+        "Områdepatrulje",
+        "Logistiktransport"
+      ],
+      "quote_wording": [
+        "Skovbrandbekæmpelse (森林消防)",
+        "Petrokemisk brandbekæmpelse (石化消防)",
+        "Elkraftinspektion (电力巡检)",
+        "Områdepatrulje (园区巡逻)",
+        "Logistiktransport (物流运输)"
+      ]
+    }
+  },
+  {
+    "robot_id": 2213,
+    "slug": "genisom-tongchui-m1-ultra",
+    "manufacturer": "GENISOM AI",
+    "applications": {
+      "note": "Same source section as genisom-tongchui-m1-pro.yaml and the base version (\"下一个应用场景，它已提前就位\") — the same primary source for all three variants, NOT inherited_from. See genisom-tongchui-m1-pro.yaml for the full reasoning for why inherited_from is not used here.",
+      "note_wording": "Samme kilde-sektion som genisom-tongchui-m1-pro.yaml og basisudgaven (\"下一个应用场景，它已提前就位\") - den samme primærkilde for alle tre varianter, IKKE arvet_fra. Se genisom-tongchui-m1-pro.yaml for den fulde begrundelse for hvorfor arvet_fra ikke bruges her.",
+      "quote": [
+        "Skovbrandbekæmpelse",
+        "Petrokemisk brandbekæmpelse",
+        "Elkraftinspektion",
+        "Områdepatrulje",
+        "Logistiktransport"
+      ],
+      "quote_wording": [
+        "Skovbrandbekæmpelse (森林消防)",
+        "Petrokemisk brandbekæmpelse (石化消防)",
+        "Elkraftinspektion (电力巡检)",
+        "Områdepatrulje (园区巡逻)",
+        "Logistiktransport (物流运输)"
+      ]
+    }
+  }
+]

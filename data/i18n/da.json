@@ -270,7 +270,7 @@
 
   "producent_hjemsted": "Hjemsted",
   "producent_modeller_titel": "Modeller i kataloget",
-  "producent_modeller": "{n} modeller",
+  "producent_modeller": "{n}\u00A0modeller",
   "producent_alle": "Alle {n} producenter",
   "producent_ingen_modeller": "Ingen modeller fra denne producent er i kataloget endnu.",
 
@@ -312,7 +312,7 @@
   "land_Rusland": "Rusland",
   "land_Tyrkiet": "Tyrkiet",
   "land_Brasilien": "Brasilien",
-  "producent_model_en": "1 model",
+  "producent_model_en": "1\u00A0model",
 
   "forside_udvalg_regel": "{n} robotter, spredt på producent og vægtklasse og derefter valgt efter, hvor mange af de {m} felter producenten selv oplyser.",
   "sammenligning_soeg_etiket": "Søg blandt robotterne",

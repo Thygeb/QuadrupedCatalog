@@ -1,0 +1,58 @@
+[
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2186
+    },
+    "saet": {
+      "note_wording": "Mapping of the eight menu items to the seven allowed values: 电力能源 (electric power/energy), 建筑管廊 (construction/utility tunnels), 矿井轨道 (mining/rail) and 水利水务 (water supply) are all industrial infrastructure sectors -> industrial. 消防应急 (fire/emergency response) -> defense and emergency response. 园区厂区 (industrial-park/factory-area patrol - the page itself says \"360-degree all-round monitoring\", whole-area surveillance) and 警务安防 (police/security) -> security and surveillance. 石油化工 (petrochemical) -> industrial. None of the eight map to logistics, inspection, research and development, or consumer and education.",
+      "quote": "The menu items on the homepage and product page.",
+      "quote_wording": "电力能源、消防应急、园区厂区、建筑管廊、矿井轨道、石油化工、警务安防、水利水务 (menu items under \"行业应用\" on the homepage and product page)"
+    },
+    "change_reason": "fase 2 (spor/f2-feje): note_wording/quote/quote_wording var dansk. quote_wording renset til kildens rene menupunkter (verificeret mod astralldynamics-forside-2026-08-24.html), quote oversat. note_wording er egen resonnement-tekst, oversat AS-IS (BRIEF-f2-feje.md afsnit 7, ingen omstrukturering)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2189
+    },
+    "saet": {
+      "note_wording": "\"工业\" (industry) and \"电力\" (power/electricity) are both mapped to industrial, since the sentence here does not itself use an inspection word (unlike the news article, see notes). \"救援\" (rescue) is mapped to defense and emergency response.",
+      "quote": "Suited for industry, power, rescue and similar scenarios.",
+      "quote_wording": "适用于工业、电力、救援等场景"
+    },
+    "change_reason": "fase 2 (spor/f2-feje): note_wording/quote/quote_wording var dansk. quote_wording renset til kildens raa saetning (verificeret mod cvte-maxhub-x7-produktside-2026-08-24.html), quote oversat. note_wording oversat AS-IS (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2258
+    },
+    "saet": {
+      "note_wording": "Industrial scenarios is mapped to industrial. Home security/patrol is mapped to security and surveillance. Parent-child science education is mapped to consumer and education. Maker/researcher/geek/gamer is a target-audience description, not an industry sector, and is not mapped to any category.",
+      "quote": "Lingmao is an open embodied-intelligence vehicle and technology platform with adaptability across many scenarios. It can be used in industrial scenarios to solve problems across multiple fields, but is also a highly playful hands-on tool for makers, research enthusiasts, geeks and gamers. As an everyday user device, it also offers full companionship and safety-monitoring functions, and supports smart home interaction features including voice dialogue, follow-walking, whole-home patrol and remote video viewing - suited for tech enthusiasts, home security, and parent-child science education, among others.",
+      "quote_wording": "灵猫是一个开放的具身智能载具和技术平台，具备多场景适应能力，不但可以用在工业场景解决多领域问题，更是可玩性极高的创客、科研爱好者、极客、玩家的实践载体。作为普通用户，也具备完整陪伴和安全防护功能，支持家用场景智能化交互功能，包括：语音对话、跟随行走、全屋巡逻、远程画面查看，适合科技爱好者、家庭安防、亲子科教等。"
+    },
+    "change_reason": "fase 2 (spor/f2-feje): note_wording/quote/quote_wording var dansk. quote_wording renset til kildens rene paragraf (verificeret ordret mod yufan-uniubi-shop-cyvet-2026-08-24.html), quote oversat til engelsk. note_wording oversat AS-IS - note (EN) er allerede en identisk mapping-analyse for denne robot, saa note_wording foelger samme mapping-liste paa engelsk (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2249
+    },
+    "saet": {
+      "note_wording": "READ THROUGH, NOTHING FOUND - also in the JS bundle, where the specifications live. The manufacturer's only label is the product type biomimetic quadruped robot (仿生四足机器人) and the model number 21051191C. That is what it IS, not who it is for. Same result as on CyberDog 2."
+    },
+    "change_reason": "fase 2 (spor/f2-feje): note_wording var dansk (quote/quote_wording er begge null - is_not_stated). Oversat AS-IS fra dansk, samme indhold/struktur som note (BRIEF-f2-feje.md afsnit 7)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2250
+    },
+    "saet": {
+      "note_wording": "READ THROUGH, NOTHING FOUND - also in the JS bundle, where the specifications live. The manufacturer's only label is the product type \"仿生四足机器人\" (biomimetic quadruped robot). That is what it IS, not who it is for."
+    },
+    "change_reason": "fase 2 (spor/f2-feje): note_wording var dansk (quote/quote_wording er begge null - is_not_stated). Oversat AS-IS fra dansk, samme indhold/struktur som note (BRIEF-f2-feje.md afsnit 7)."
+  }
+]

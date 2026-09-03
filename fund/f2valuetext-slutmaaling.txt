@@ -1,0 +1,1850 @@
+1. Selvtest af parser og normalisering
+  ok    validatorens selvtest bestaar
+
+2. Bevidst oedelagte filer — fejler den, og fejler den paa den rigtige regel?
+  ok    talfelt uden enhed  ->  R5
+  ok    talfelt uden kilde  ->  R6
+  ok    talfelt uden hentedato  ->  R7
+  ok    kilde er ikke en URL  ->  R6
+  ok    ukendt operator  ->  R8
+  ok    Ghost: 2.4 m/s mod 4.9 mph afviger 9 %  ->  R9
+  ok    Spot: 110 mm mod 43.3 in, faktor 10  ->  R9
+  ok    driftstid uden lastbetingelse  ->  R10
+  ok    ukendt feltnavn (tastefejl)  ->  R2
+  ok    ugyldig tilstand  ->  R3
+  ok    bart tal uden enhed, kilde og dato  ->  R4
+  ok    interval med kun min  ->  R4
+  ok    ja/nej-felt med et ord, der hverken er ja eller nej  ->  R4
+  ok    ja/nej-felt med et tal  ->  R4
+  ok    tilstand som post uden kilde  ->  R6
+  ok    tilstand som post uden hentedato  ->  R7
+  ok    tilstand som post med enhed - "ikke oplyst kg" findes ikke  ->  R4
+  ok    tilstand som post med lastbetingelse - den betinger ingenting  ->  R10
+  ok    lastbetingelse paa et felt, der ikke kraever en  ->  R10
+  ok    varianter paa et felt, men ingen variantliste paa robotten  ->  R15
+  ok    "C" som masseenhed er stadig ukendt  ->  R5
+  ok    procent som masseenhed er stadig forkert dimension  ->  R5
+  ok    tekstfelt med et halvt interval ved siden af ordlyden  ->  R4
+  ok    tekstfelt med interval uden enhed  ->  R5
+  ok    begge stavemaader af min i samme post  ->  R11
+  ok    ukendt noegle i feltposten  ->  R11
+  ok    enhed af forkert dimension  ->  R5
+  ok    ugyldig IP-klasse  ->  R13
+  ok    raastreng med &gt;, operator tabt  ->  R12
+  ok    raastreng med U+00A0, enhed passer ikke  ->  R12
+  ok    YAML 1.1-boolean  ->  R0
+  ok    tabulator i indrykningen  ->  R0
+  ok    status med mellemrum i stedet for understreg  ->  R1
+  ok    slug passer ikke til filnavnet  ->  R14
+  ok    producent mangler  ->  R1
+  ok    variantnavn paa et felt, som ikke staar paa robottens variantliste  ->  R15
+  ok    variantlisten er ikke en liste  ->  R15
+  ok    noter er hverken tekst eller liste af tekst  ->  R1
+  ok    anvendelse med kategori, men uden citat  ->  R16
+  ok    anvendelse med kategori og citat, men uden kilde  ->  R6
+  ok    anvendelse med kategori og citat, men uden hentedato  ->  R7
+  ok    anvendelse med en kategori uden for det tilladte saet  ->  R16
+  ok    anvendelse ikke_oplyst, men med et citat alligevel  ->  R16
+  ok    anvendelse med tomt citat  ->  R16
+  ok    anvendelse med samme kategori to gange  ->  R16
+  ok    ukendt noegle i anvendelsesposten  ->  R16
+  ok    anvendelse som bar tekst, der ikke er en tilstand  ->  R16
+  ok    arvet_fra peger paa robotten selv  ->  R17
+  ok    arvet_fra staar sammen med ikke_oplyst - der er ingen kategori at arve  ->  R17
+  ok    arvet_fra er ikke moderens slug som tekst  ->  R17
+  ok    billede uden ophav - siden kan ikke se, om S1 gaelder  ->  R18
+  ok    billede med et ophav, skemaet ikke kender  ->  R18
+  ok    billede uden fil  ->  R18
+  ok    billede peger paa en fil, der ikke findes i assets/  ->  R18
+  ok    billede peger ind i media/ - fabrikantens materiale  ->  R18
+  ok    billedstien gaar op ad mappetraeet  ->  R18
+  ok    billedstien skrevet med "assets/" foran - den er allerede relativ til assets/  ->  R18
+  ok    silhuet uden kilde paa de maal, den er tegnet efter  ->  R18
+  ok    fabrikantbillede uden kilde - det kan ikke foelges hjem  ->  R18
+  ok    billede med kilde, men uden hentedato (R18 genbruger R7)  ->  R7
+  ok    ukendt noegle i billedposten (tastefejl)  ->  R18
+  ok    billede som bar tekst - der findes ingen tilstand "billede: ikke_oplyst"  ->  R18
+  ok    delt_med peger paa robotten selv  ->  R18
+  ok    tom alt-tekst - et hul, der ligner indhold  ->  R18
+  ok    topnoeglen "silhuet" findes ikke laengere - billede: er den eneste vej ind  ->  R1
+
+2b. De to skemaudvidelser og aliasserne — skal PASSERE
+  ok    ja/nej-felt skrevet som "ja"
+  ok    ja/nej-felt skrevet som "nej"
+  ok    dokumenteret nul-svar: listefelt med tilstanden nej, kilde og forbehold
+  ok    dokumenteret ikke_oplyst med kilde
+  ok    IP-feltet som dokumenteret tilstand (R13 gaelder kun en rigtig IP-klasse)
+  ok    temperatur i "C"
+  ok    haeldning i procent - producentens egen enhed, uden omregning
+  ok    haeldning i grader - den anden dimension paa samme felt
+  ok    interval skrevet som vaerdi_min/vaerdi_maks
+  ok    tekstfelt med producentens ordlyd OG et maalbart interval med enhed
+  ok    frihedsgrader med DoF som enhed
+  ok    lastbetingelse, hvor producenten siger MED last, men ikke hvor meget
+  ok    varianter paa et felt, med variantnavnene paa robotten
+  ok    anvendelse med én kategori og ét citat
+  ok    anvendelse med flere kategorier og flere citater
+  ok    anvendelse ikke_oplyst MED kilde - vi kiggede, producenten sagde intet
+  ok    anvendelse som bar tilstand uden kort
+  ok    robot helt uden anvendelse - feltet er valgfrit, ikke paakraevet
+  ok    sikkerhed_overvaagning er en gyldig anvendelse (L22)
+  ok    silhuet med fil, ophav, kilde og hentedato
+  ok    eget foto UDEN kilde - vi har taget det selv, der er ingen URL at pege paa
+  ok    fabrikantbillede med kilde - tilladt lokalt (L13), spaerret ved udgivelse (S1)
+  ok    plade og pos skrevet ud i haanden
+  ok    robot helt uden billede - feltet er valgfrit, og den tomme plade er aerlig
+
+2c. R17 — arv af anvendelse paa tvaers af filer (L23)
+  ok    moderen findes ikke  ->  R17
+  ok    moderen har selv ingen kategori - tavshed kan ikke arves  ->  R17
+  ok    arven giver varianten en kategori, moderen ikke har  ->  R17
+  ok    arven baerer et citat, der ikke staar ordret hos moderen  ->  R17
+  ok    arven skifter kilde - citatet blev laest hos moderen  ->  R17
+  ok    arv i kaede: moderen har selv arvet  ->  R17
+  ok    arv med moderens kategori, moderens citat, moderens kilde og maerket  ->  skal passere
+  ok    arv af BEGGE moderens kategorier og begge citater  ->  skal passere
+  ok    R17 fanger arven ogsaa naar KUN varianten valideres
+
+3. Gyldige filer maa IKKE fejle
+  ok    de tre eksempelposter giver exit 0
+  ok    Spots imperial-afvigelse baeres som advarsel, ikke som fejl
+  ok    --streng goer den advarsel til en fejl igen (advarsel: er ingen lyddaemper)
+  ok    "ikke oplyst" med mellemrum accepteres, men advares om
+
+3b. Naevneren (D7 / L30)
+  ok    skemaet har 33 feltnoegler
+  ok    fremdrift staar i IDENTITET_PAAKRAEVET (paakraevet identitetsfelt, som status)
+  ok    fremdrift staar IKKE i FELTNAVNE - den maa ikke taelle i specifikationstaetheden
+  ok    naevneren er stadig 33, efter fremdrift blev tilfoejet til identiteten
+  ok    naevneren er skemaets feltantal, ikke et haandskrevet tal
+  ok    bygget bruger praecis én naevner som standard
+  ok    metode.md udgiver formlen med et tal
+  ok    metode.md udgiver SAMME naevner som koden regner med
+  ok    metode.md har ingen efterladte 29-, 30- eller 31-taellinger i broedteksten
+  ok    ingen af de 77 poster kommer over 100 % (hoejeste: 73 %)
+
+3c. Billedkaeden: YAML -> assets/ -> dist/billeder/ -> <picture>
+  ok    de tre proeveposter valideres uden fejl
+  ok    bygget giver exit 0
+  ok    silhuetten er kopieret til dist/billeder/silhuetter/
+  ok    bygget taeller billedet i sin slutrapport (611 billedfiler faktisk kopieret til dist/billeder/, maalt - ikke hardkodet)
+  ok    bygget skriver ophavet ud, saa S1 kan ses uden at aabne en fil
+  ok    kortet bruger <picture>
+  ok    robotsiden bruger <picture>
+  ok    robotsidens billedled er det store
+  ok    silhuetten faar --plade (contain), ikke en 16:10-beskaering af poterne
+  ok    kortets sti gaar én mappe op (/da/)
+  ok    robotsidens sti gaar tre mapper op (/da/robotter/<slug>/)
+  ok    hver billedsti paa kortet findes som fil i dist/
+  ok    hver billedsti paa robotsiden findes som fil i dist/
+  ok    robotten uden billede faar den tomme plade
+  ok    den tomme plade baerer en grund, ikke bare et ikon
+  ok    robotten uden billede har intet <picture>
+  ok    kataloget har baade et <picture> og en tom plade paa samme side
+  ok    den delte fil er maerket med .billedmaerke
+  ok    robotsidens billedfod siger, hvem filen deles med
+  ok    robotsidens billedfod siger, at det er en silhuet og ikke et fotografi
+  ok    dataskriverens egen note staar under billedet
+  ok    robotsidens EGET billede (da) viser den fulde danske alt-tekst, ikke navnet/silhuetten
+  ok    robotsidens EGET billede (en) viser den fulde engelske alt-tekst - IKKE dansk
+  ok    uden egen alt-tekst siger silhuetten selv, at den er en silhuet
+  ok    ingen henvisning til media/ i billedkaedens byg
+  ok    bygget gennemfoerer nu med et fabrikantbillede (S1 ophaevet)
+  ok    det gamle --til-udgivelse-flag er nu virkningsloest, ikke en spaerring
+  ok    <source> skrives for den .webp, der FINDES
+  ok    ingen <source> for et format, ingen har lavet
+
+3d. R18 paa tvaers af filer
+  ok    delt_med peger paa en robot, der ikke findes  ->  R18
+
+3e. spor/s1: spaerringen mod fabrikantbilleder er ophaevet (L37)
+  ok    spor/s1: det rigtige katalog (med fabrikantfotos) bygger med exit 0
+  ok    spor/s1: bygget udskriver ikke "SPAERRING" nogen steder
+  ok    spor/s1: fabrikantbilleder er stadig talt op i output (kun spaerringen er vaek, ikke tallet)
+
+4. Bygget
+  ok    build.mjs giver exit 0
+  ok    24 HTML-sider bygget, afledt af 3 robotter / 3 producenter / 2 sprog + katalog + sammenligningssiden + Om os + 404-siden, INGEN forside (PUNKT 1) (fandt 24)
+  ok    hreflang da + en + x-default paa detaljesiden
+  ok    katalogets to sprog er reelt oversat (ikke samme tekst)
+  ok    landenavne er oversat paa /en/ (Schweiz -> Switzerland)
+  ok    ingen data-en-attributter noget sted i dist/
+  ok    ingen henvisning til media/ i dist/
+  ok    ingen koebsknap eller affiliate-link i dist/
+  ok    alle fire tilstande har hver sin markoer i katalogets forklaring
+  ok    CSS giver hver tilstand sin egen regel (ikke kun farve)
+  ok    operatoren vises foran tallet: "> 40 kg"
+  ok    advarslen staar ved siden af vaerdien paa detaljesiden
+  ok    kilde og hentedato staar paa hvert tal
+  ok    robots.json baerer praecis én naevner
+  ok    og hver robots taethed er opgjort paa netop den ene naevner
+  ok    detaljesiden trykker ingen fremmed naevner (fx 5/29 eller 5/31)
+  ok    robots.json har de tre robotter
+  ok    robots.json er et lille indeks, ikke hele datasaettet
+  ok    kataloget staar fuldt renderet i HTML uden JS (3 kort)
+  ok    filterformularen ("styr") findes og er IKKE skjult - CSS-filtrene skal virke uden JS
+  ok    kun fritekstsoegningen er skjult, indtil JS taender den (resten af filteret kan ikke det)
+
+5. Visningen af de nye former
+  ok    bygget gaar igennem med alle de nye former
+  ok    "vaerdi: nej" paa et ja/nej-felt vises som nej, ikke som ja
+  ok    "vaerdi: ja" paa et ja/nej-felt vises som ja
+  ok    ikke_oplyst, nej og 0 ser stadig forskellige ud paa samme side
+  ok    den dokumenterede tilstand baerer sin kilde
+  ok    operatoren staar ogsaa foran et interval, nu i kanonisk enhed: "ca. 60–120 min"
+  ok    haeldningen vises i producentens procent, ikke omregnet til grader
+  ok    varianterne staar paa siden med navn og vaerdi
+  ok    forsidens TYPESKILT-kort baerer ingen variantmarkering (det har ingen stribe)
+  ok    katalogkortet baerer ingen variantmarkering (det har ingen stribe, L56 punkt 7)
+  ok    advarslen staar stadig ved siden af vaerdien
+  ok    de to noter staar som to punkter, ikke som én sammenkoedet linje
+  ok    robots.json holder ja/nej som boolean, ikke som teksten "nej"
+  ok    en robot uden oplyst vaegt faar klassen ikke_oplyst, ikke ingen klasse
+  ok    vaegtklassen staar ogsaa paa siden, saa den ikke kun findes i indekset
+
+6. Vaegtklasser og flervaerdi-anvendelse
+  ok    bygget gaar igennem med de nye former
+  ok    19,9 kg -> under_20
+  ok    20 kg -> 20_40 (graensen er inklusiv nedadtil)
+  ok    39,9 kg -> 20_40
+  ok    40 kg -> 20_40 (graensen er inklusiv i begge ender, maalt mod koden og mod 12/12/13/9)
+  ok    "~ 60 kg" laeser stadig som 60 og klassificeres som over_40
+  ok    "<= 20 kg" ligger paa graensen, og operatoren staar synligt paa siden i stedet for et flag
+  ok    18-25 kg (g-interval) -> vaegtklasse() i ENTAL giver stadig 20_40 (midtpunkt, tilsigtet - se L50-proeverne nedenfor for FLERTAL)
+  ok    ingen vaegt -> klassen ikke_oplyst, og robotten bliver staaende
+  ok    74 lb laeses ikke som 74 kg
+  ok    den afledte fordeling summer korrekt: under_20 2 / 20_40 7 / over_40 2 / ikke_oplyst 6
+  ok    og summen af de fire klasser er alle robotterne - ingen falder ud imellem dem
+  ok    to filer med samme kategorier i modsat raekkefoelge giver samme indeks (L27)
+  ok    og samme raekkefoelge paa de to sider - ingen af dem er "hovedkategori"
+  ok    alle tre kategorier vises, ingen tabes af grupperingen
+  ok    arven staar synligt paa varianten, med moderens navn og et link
+  ok    og moderens citat vises paa varianten
+  ok    moderen selv baerer INGEN arvemarkering
+  ok    den arvede side siger, at koblingen er vores - ikke det modsatte
+  ok    og moderens side siger stadig det oprindelige
+  ok    katalograekken baerer vaegtklassen som data-attribut, saa en gruppering kan bruge den
+  ok    og anvendelserne som en maengde, mellemrumsadskilt
+  ok    L50: 13-50 kg (n-tre-klasser-a, briefets eget regneeksempel) daekker alle tre klasser
+  ok    L50: 15-50 kg (n-tre-klasser-b) daekker alle tre klasser, ligesom 13-50
+  ok    L50 graensetilfaelde: spaend der SLUTTER praecis paa 20 (10-20 kg) daekker BAADE under_20 og 20_40
+  ok    L50 graensetilfaelde: spaend der STARTER praecis paa 40 (40-60 kg) daekker BAADE 20_40 og over_40
+  ok    L50: 18-25 kg (g-interval) daekker BAADE under_20 og 20_40 i kataloget - den regel, denne fil holdt aaben, er nu proevet direkte
+  ok    enkelttal-robotter faar fortsat PRAECIS én klasse i kataloget (fx a-under, 19,9 kg)
+  ok    ingen datafil indeholder ordet "vaegtklasse" - klassen er afledt, ikke skrevet
+
+9. tools/alder.mjs — rene funktioner (aeldste/nyeste/median, graense-logik)
+  ok    robotAlder: 5 datoer (ulige antal) - aeldste, nyeste og midterste er de rigtige
+  ok    robotAlder: tom liste er null, ikke en dato — INGEN DATEREDE KILDER er en tredje tilstand
+  ok    medianDato: lige antal, praecis midtvejs mellem to datoer uden brøkdag (01. og 03. -> 02.)
+  ok    medianDato: lige antal, midtpunktet er en halv dag (02. og 03.) -> runder OP til 03.
+  ok    dageSiden: 2026-08-01 til 2026-08-25 er 24 hele dage
+  ok    tilEfterproevning: 24 dage gammel, graense 23 -> til efterproevning (24 > 23)
+  ok    tilEfterproevning: 24 dage gammel, graense 24 -> IKKE til efterproevning (24 er ikke > 24)
+  ok    tilEfterproevning: 24 dage gammel, graense 25 -> IKKE til efterproevning
+  ok    tilEfterproevning: robot uden daterede kilder (alder === null) er ALDRIG til efterproevning her - den staar allerede i sin egen tilstand, "til efterproevning" maaler fra en nyeste-dato, den ikke har
+  ok    datoerIRobot: 4 gyldige datoer fundet (2 felter + anvendelse + billede), 2 felter uden dato sprunget over
+  ok    datoerIRobot: en robot helt uden daterede kilder giver en tom liste, ikke en fejl
+
+10. spor/kort: fodnotesektion og EU/CE-maerke vaek fra katalogkort
+  ok    4a: et bygget katalogkort indeholder ingen kort-fod
+  ok    4b: et bygget katalogkort indeholder intet EU/CE-maerke (klassen "eu eu--" er vaek)
+  ok    4c-forudsaetning: mindst én producentside er bygget til at maale L32 paa
+  ok    4c: producentsidens CE-saetning findes og baerer to udledte tal (VAERN OM L32, flyttet fra forsiden)
+
+K11 + K12. Producentoversigten: fire kolonner + beregnet fordelingssaetning
+  ok    K11: producentoversigten har 3 datarækker med fire <td> hver, modeltallet højrestillet med .figur, modelnavnene i en fjerde .prod-navne-celle (fandt 3/3 <tr>, 12/12 <td>, 3/3 <td class="figur">, 3/3 <td class="prod-navne">)
+  ok    K12: fordelingssaetningen matcher en uafhaengig optaelling af proevedatasaettet ("1 af 3 producenter er fra Kina og står for 1 af de 3 modeller i kataloget.")
+  ok    K12: samme fordelingssaetning er oversat paa /en/ ("1 of 3 manufacturers are from China and account for 1 of the 3 models in the catalogue.")
+
+13. spor/sammenlign: standardtrio (punkt 1), tekst+interval (punkt 2), soegning (punkt 3)
+  ok    spor/sammenlign: byg af hele kataloget (1/2) giver exit 0
+  ok    4a: standardtrioen har tre robotter, hver med >= 15 af 30 felter oplyst
+  ok    4b: standardtrioens tre robotter har tre forskellige producenter
+  ok    spor/sammenlign: byg af hele kataloget (2/2) giver exit 0
+  ok    4b: standardtrioen er deterministisk (to uafhaengige byg giver samme tre slugs, samme raekkefoelge)
+  ok    4c: Spots "stroem ud" (tekstvaerdi + interval) viser kun tekstvaerdien - min/maks er vaek fra visningen
+  ok    4d: assets/sammenligning.js kan parses og koere mod den byggede side
+  ok    4d: soegefeltet og vaelgerchippene er FJERNET med vaelgeren (L73) (fandt 0 soegefelt, 0 chips - begge skal vaere 0)
+
+13. spor/enheder: kanonisk visningsenhed (K9) og klaebende tabelhoved (K10)
+  ok    K9a: visningsPost normaliserer Spots laengde 1100 mm -> 110 cm og bevarer kilden
+  ok    K9a: visningsPost roerer IKKE Go2s laengde 70 cm (allerede kanonisk) - samme reference
+  ok    K9a: visningsPost omsaetter driftstid 1,5 t -> 90 min (mindretallets enhed, se skema.mjs)
+  ok    K9b: `pris` staar UDEN for KANONISK_VISNINGSENHED - visningsPost roerer den ikke
+  ok    K9b (dokumenteret 1c-undtagelse): `haeldning` staar OGSAA uden for kortet - % roeres ikke
+  ok    K9c: data/robots/boston-dynamics-spot.yaml har STADIG laengde: 1100 mm paa disk
+  ok    spor/enheder: byg af hele kataloget giver exit 0
+  ok    K9a: "laengde" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9a: "bredde" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9a: "hoejde" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9a: "forhindring_enkelt" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9a: "hastighed" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9a: "driftstid" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9a: "ladetid" viser PRAECIS én enhed paa tvaers af kataloget (bygget dist)
+  ok    K9b: `pris` viser STADIG flere valutaer (den bevidste undtagelse er ikke rullet ind i normaliseringen)
+  ok    K10: kolonnehovedet klaeber - position:sticky;top:0 paa jigraekkens celler i den byggede generator.css
+  ok    K10b: .saml-rulle er overflow:visible som udgangspunkt og ruller kun under 820px
+
+13. spor/billedramme: sideforhold -> --plade automatisk, og eager/lazy paa kortene
+  ok    3a: et billede langt fra 16:10 (300x900, ratio 0,33) faar --plade automatisk (billedAutoPlade)
+  ok    3b: et billede PRAECIS 16:10 (320x200) faar IKKE --plade — reglen skelner, saetter den ikke paa alt
+  ok    3a: laesBillede() saetter plade:true for det skaeve foto, uden noget plade-felt i YAML
+  ok    3b: laesBillede() saetter plade:false for det paesiddende foto
+  ok    3a: billedledHTML() skriver billedled--plade for det skaeve foto
+  ok    3b: billedledHTML() skriver IKKE billedled--plade for det paesiddende foto
+  ok    eksplicit plade:nej i YAML vinder over den automatiske udledning
+  ok    billedledHTML(): eager:true skriver loading="eager"
+  ok    billedledHTML(): eager:false (standard) skriver loading="lazy"
+  ok    billedledHTML(): stor (robotsidens hero) vinder over eager - baerer aldrig et loading-attribut
+  ok    3c: byg af den rigtige data/robots/ giver exit 0
+  ok    3c: kataloget har praecis EAGER_KORT_ANTAL (4) kort med loading="eager" (fandt 4)
+  ok    3c: resten af billederne (85 <img> i alt) er loading="lazy" (fandt 81)
+  ok    5: billednote-banneret findes ikke laengere paa katalogsiden
+  ok    5: billednote-banneret findes ikke laengere paa forsiden
+  ok    5: teksten om manglende skriftlig tilladelse er vaek fra kataloget
+  ok    5.vendt: forhandler-fodnoten ER TILBAGE paa forsiden (foden findes)
+  ok    5.vendt.revert: proeven FANGER en side uden forbeholdet (fjernes foden igen, falder testen)
+
+14. spor/indgang: doede i18n-noegler, hover-signal, kildeform
+  ok    5a: doed noegle "forside_filtre_etiket" er ikke i da.json
+  ok    5a: doed noegle "forside_filtre_etiket" er ikke i en.json
+  ok    5a: doed noegle "forside_formaal_titel" er ikke i da.json
+  ok    5a: doed noegle "forside_formaal_titel" er ikke i en.json
+  ok    5a: doed noegle "forside_formaal_forklaring" er ikke i da.json
+  ok    5a: doed noegle "forside_formaal_forklaring" er ikke i en.json
+  ok    5a: doed noegle "soeg_kraever_js" er ikke i da.json
+  ok    5a: doed noegle "soeg_kraever_js" er ikke i en.json
+  ok    5a: .formaal-gitter/-chip er vaek fra generator.css (klasserne rendredes 0 gange)
+  ok    1c: forside_soeg_etiket er omdoebt - katalog_soeg_etiket findes i stedet
+  ok    spor/indgang: byg af den rigtige data/robots/ giver exit 0
+  ok    5c: /da/ har 77 kort i .net#alle, hver med et .kort__navn-link at tegne signalet paa (86)
+  ok    5c: /en/ har 77 kort i .net#alle, hver med et .kort__navn-link at tegne signalet paa (86)
+  ok    5c: katalogkortet har sit eget hover- OG fokussignal (understregning + fokusramme)
+  ok    5c: CSS-en gemmer signalet bag :hover OG :focus-within (samme regel som fotografiets scale)
+  ok    5c: selve bevaegelsen (transform) er betinget af prefers-reduced-motion:no-preference
+  ok    5d: "Producenten skrev" findes paa sammenligningssiden (1 gang(e), var 0)
+
+15. spor/hastighed: kanonisk visningsenhed km/h (L41)
+  15.1 Kanonisk visningsenhed for hastighed er km/h
+  ok    KANONISK_VISNINGSENHED.hastighed === "km/h"
+  15.2 En post der allerede staar i km/h roeres slet ikke
+  ok    samme objekt-reference (ingen omregning udfoert)
+  ok    vaerdi uaendret (15)
+  ok    ingen _kildeform tilfoejet (der skete ingen omregning)
+  15.3 m/s -> km/h regnes praecist om (unitree-a1s egen post: 3.3 m/s)
+  ok    ny post, ikke samme reference (der skete en omregning)
+  ok    enhed er km/h
+  ok    vaerdi er PRAECIS 11.88 — ikke 11.879999999999999 eller 11.880001
+  ok    _kildeform baerer producentens egen figur ("3.3 m/s")
+  15.4 Interval-poster (min/maks) regnes ogsaa om, praecist
+  ok    min er praecis 9
+  ok    maks er praecis 18
+  15.5 De fire navngivne km/t-robotter (D-fund i briefet): heltal, ingen omregning
+  ok    unitree-b2-w.yaml: raa-enhed er allerede km/h efter normaliserRobot (km/t-alias)
+  ok    unitree-b2-w.yaml: ingen omregning fandt sted (samme reference)
+  ok    unitree-b2-w.yaml: vaerdi er praecis 15
+  ok    yobotics-e-dog.yaml: raa-enhed er allerede km/h efter normaliserRobot (km/t-alias)
+  ok    yobotics-e-dog.yaml: ingen omregning fandt sted (samme reference)
+  ok    yobotics-e-dog.yaml: vaerdi er praecis 12
+  ok    neura-quadruped.yaml: raa-enhed er allerede km/h efter normaliserRobot (km/t-alias)
+  ok    neura-quadruped.yaml: ingen omregning fandt sted (samme reference)
+  ok    neura-quadruped.yaml: vaerdi er praecis 12
+  ok    rivr-one.yaml: raa-enhed er allerede km/h efter normaliserRobot (km/t-alias)
+  ok    rivr-one.yaml: ingen omregning fandt sted (samme reference)
+  ok    rivr-one.yaml: vaerdi er praecis 14
+  15.6 Tilstande og fri tekst roeres ikke (uaendret regel, ikke ny — men skal blive ved med at holde)
+  ok    tilstanden "ikke_oplyst" er uroert
+  ok    fri tekst er uroert
+  15.7 Fuldt byg (isoleret --ud=, roerer ikke det rigtige dist/): alle talposter viser km/h, aldrig m/s
+  ok    build.mjs giver exit 0
+  ok    kun km/h forekommer blandt talposterne (aldrig m/s)
+  15.8 Kommentarblokken i skema.mjs modsiger ikke laengere koden
+  ok    strengen "hastighed -> m/s" findes 0 gange (den gamle, nu forkerte, paastand)
+
+16. spor/instrument2: INSTRUMENT ind i kortet og gitteret (L40)
+  ok    build.mjs giver exit 0 (frisk byg til midlertidig mappe, hele det rigtige datasaet)
+  ok    da/: kataloget blev bygget
+  ok    da: katalogkortet baerer INGEN stribe (L56 punkt 7: billede + producent + navn, alle 77 kort i "intet"-grenen)
+  ok    en/: kataloget blev bygget
+  ok    en: katalogkortet baerer INGEN stribe (L56 punkt 7: billede + producent + navn, alle 77 kort i "intet"-grenen)
+  ok    robotsidens egen fulde stribe (kompakt:false) viser stadig "intet"-prosagrenen for mindst én robot uden noegletal
+  ok    gitteret bruger en smallere minimumsbredde end foer sporet (250px, ikke 310px) - fem spalter ved 1440 px i stedet for fire
+  ok    kortets kompakte stribe har INGEN haarstreg mellem cellerne laengere (kun de stiplede "ikke oplyst"-huller staar tilbage, uaendret)
+  ok    kortets navnesats er strammet under det oprindelige 22px (haardere typografi, punkt 3)
+  ok    ingen "kanalhoved"-lignende overskriftsraekke over katalogets gitter (bevidst fravalg uden maaling, se rapporten)
+  ok    antal katalogkort matcher antal robotfiler i data/robots/ (77)
+
+17. Aa28-vagten: TYPESKILT-kortet er den SAMME komponent paa alle tre flader
+  ok    build.mjs giver exit 0 (frisk byg til midlertidig mappe, hele det rigtige datasaet)
+  ok    da/: katalogsiden blev bygget
+  ok    da/producenter/: der blev fundet producentsider med kort (25 sider, 77 kort)
+  ok    da/katalog: der er kort at maale paa (86)
+  ok    da/producent: der er kort at maale paa (77)
+  ok    da/katalog: alle 86 kort har billedled + .kort__prod + .kort__navn i .kort__tekst (1 paa maaleplade)
+  ok    da/producent: alle 77 kort har billedled + .kort__prod + .kort__navn i .kort__tekst (1 paa maaleplade)
+  ok    da/katalog: intet kort baerer den gamle stribe eller kort-krop/-ophav/-navn/-invit
+  ok    da/producent: intet kort baerer den gamle stribe eller kort-krop/-ophav/-navn/-invit
+  ok    da: producent og katalog er enige om statusstemplet paa alle 77 faelles robotter
+  ok    da/katalog: nogle kort baerer et statusstempel (12 af 86)
+  ok    en/: katalogsiden blev bygget
+  ok    en/producenter/: der blev fundet producentsider med kort (25 sider, 77 kort)
+  ok    en/katalog: der er kort at maale paa (86)
+  ok    en/producent: der er kort at maale paa (77)
+  ok    en/katalog: alle 86 kort har billedled + .kort__prod + .kort__navn i .kort__tekst (1 paa maaleplade)
+  ok    en/producent: alle 77 kort har billedled + .kort__prod + .kort__navn i .kort__tekst (1 paa maaleplade)
+  ok    en/katalog: intet kort baerer den gamle stribe eller kort-krop/-ophav/-navn/-invit
+  ok    en/producent: intet kort baerer den gamle stribe eller kort-krop/-ophav/-navn/-invit
+  ok    en: producent og katalog er enige om statusstemplet paa alle 77 faelles robotter
+  ok    en/katalog: nogle kort baerer et statusstempel (12 af 86)
+
+18. R19 — internt sprog i advarsel/noter afvises
+  ok    advarsel med "se galileo-c1.yaml"  ->  R19
+  ok    noter med "STOPPROEVE ... BESTAAET"  ->  R19
+  ok    internt feltnavn ved_last  ->  R19
+  ok    internt feltnavn _gaaende  ->  R19
+  ok    internt feltnavn _staaende  ->  R19
+  ok    vaerktoejsnavnet validator  ->  R19
+  ok    filendelsen .mjs  ->  R19
+  ok    direkte instruks "skal normaliseres"  ->  R19
+  ok    direkte instruks "i indlaesningen"  ->  R19
+  ok    almindelig, laeservendt advarsel passerer R19
+  ok    "arvet_fra" som YAML-noegle udloeser ikke R19 (kun R17)
+
+20. spor/typografi: aflaesningslinjen - intet synligt forbeholds-tegn, ingen tabt tekst, kilde paa kortene
+  ok    build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    der blev bygget sider at maale paa (216 .html)
+  ok    intet synligt forbeholds-tegn nogen steder paa sitet (0 af 522 forbehold)
+  ok    hvert skjult forbehold baerer sin tekst i BAADE title og .kunskaerm (522 forbehold, 0 uden)
+  ok    ingen kompakte stribeceller paa nogen flade (fandt 0)
+  ok    forbeholdene staar stadig paa robotside (264 stykker, gulv 264, maalt 31. aug 2026)
+  ok    forbeholdene er ikke forsvundet: 266 stykker baerer mindst ét forbehold (raa .kunskaerm: 2988)
+  ok    producent baerer ingen forbehold (kortet viser ingen tal)
+  ok    katalogkortet viser igen tal: 370 vaerdier i .kort__vaerdi (gulv 300, maalt 370 den 1. sep 2026)
+  ok    og tallene baerer deres forbehold med: 258 af 370 (gulv 200, maalt 258)
+  ok    og deres kildemaerke: 280 af 370 (gulv 240, maalt 280 - resten er udgivelsesaar uden kilde i skemaet)
+  ok    katalog: kortene har ingen striber at baere kildebogstaver paa
+  ok    producent: kortene har ingen striber at baere kildebogstaver paa
+  ok    ingen af de to kortflader tegner kildemaerker (der er ingen tal at pege paa)
+
+22. Kildetjek — klassifikation uden netvaerk
+  ok    22.1: 200 -> OK
+  ok    22.2: 301 (fetch har allerede fulgt omdirigeringen) -> OK
+  ok    22.3: 399 -> OK (graensen er "under 400")
+  ok    22.4: 404 -> DOED
+  ok    22.5: 500 -> DOED
+  ok    22.6: statuskoden foelger med paa et DOED-svar
+  ok    22.7: et OK/DOED-svar har ingen "aarsag" (den hoerer kun til UNAAELIG)
+  ok    22.8: TimeoutError -> UNAAELIG
+  ok    22.9: TimeoutError faar aarsagen "timeout"
+  ok    22.10: AbortError -> UNAAELIG med samme aarsag "timeout"
+  ok    22.11: ENOTFOUND -> UNAAELIG, aarsagen naevner dns
+  ok    22.12: ECONNREFUSED -> UNAAELIG, aarsagen naevner "naegtet"
+  ok    22.13: ECONNRESET -> UNAAELIG, aarsagen naevner "afbrudt"
+  ok    22.14: en TLS-fejl -> UNAAELIG, aarsagen naevner tls
+  ok    22.15: en kastet fejl faar aldrig en HTTP-status - kun en aarsag
+  ok    22.16: en 404 (DOED) og en timeout (UNAAELIG) faar forskelligt udfald
+  ok    22.17: hverken 404 eller en timeout klassificeres nogensinde som OK
+  ok    22.18: en DNS-fejl og en forbindelse-naegtet-fejl er begge UNAAELIG, ikke DOED
+  ok    22.19: 403 udloeser GET-fallback (typisk bot-beskyttelse mod HEAD)
+  ok    22.20: 405 udloeser GET-fallback (Method Not Allowed)
+  ok    22.21: 501 udloeser GET-fallback (Not Implemented)
+  ok    22.22: 404 udloeser IKKE GET-fallback (siden er reelt vaek, ikke kun metoden)
+  ok    22.23: 200 udloeser IKKE GET-fallback
+  ok    22.24: indsamlUrler fejler ikke paa en manglende data/manufacturers/-mappe
+  ok    22.25: finder begge URL'er i testfilen
+  ok    22.26: et afsluttende punktum skaeres af kilde-URL'en
+  ok    22.27: en afsluttende parentes skaeres af note-URL'en
+  ok    22.28: slug hentes fra "slug:"-linjen i filen, ikke kun filnavnet
+
+23. Prosasprog — R19-udvidelsen mod enum-navne, og translit-nul paa det rigtige katalog
+  ok    enum-leak sikkerhed_overvaagning (ren ASCII-form)  ->  R19
+  ok    enum-leak sikkerhed_overvågning (aa allerede rettet til å)  ->  R19
+  ok    enum-leak forsvar_beredskab  ->  R19
+  ok    enum-leak forskning_udvikling  ->  R19
+  ok    enum-leak forbruger_uddannelse  ->  R19
+  ok    enum-leak ikke_oplyst i loebende tekst  ->  R19
+  ok    naturligt omskrevet advarsel (sikkerhed og overvågning / ikke oplyst) passerer R19
+  ok    det rigtige katalog bygger med exit 0 (grundmaaling for denne del)
+  ok    mindst én HTML-side blev fundet at scanne (ellers beviser 0-tallet ingenting)
+  ok    translit-udvalget (vaerdi, laengde, vaegt, hoejde, graense, naevner, erklaering, foerste) forekommer 0 gange i det byggede output
+
+24. Fladen: S1-sprog, tegnforklaring, tommelindeks, sortering, noegletal (spor/flade)
+  ok    24.1.da: ingen spaerringspaastand i da.json
+  ok    24.2.da: billedets ophav staar stadig i da.json
+  ok    24.1.en: ingen spaerringspaastand i en.json
+  ok    24.2.en: billedets ophav staar stadig i en.json
+  FEJL  24.3: der ER bygget sider at maale paa — uden dist/ beviser de foelgende vagter ingenting
+  FEJL  24.5 da/index.html: filen findes — ikke bygget
+  FEJL  24.5 en/index.html: filen findes — ikke bygget
+  FEJL  24.5 da/sammenligning/index.html: filen findes — ikke bygget
+  FEJL  24.5 en/sammenligning/index.html: filen findes — ikke bygget
+  FEJL  24.7.da: katalogsiden findes
+  FEJL  24.7.en: katalogsiden findes
+  FEJL  24.12.da: robotsiden findes
+  FEJL  24.12.en: robotsiden findes
+1. Optaelling: 259 gyldighed / 303 uddybning / 562 i alt over data/robots/*.yaml
+  ok    77 robotfiler laest
+  ok    259 forbehold maerket "gyldighed"
+  ok    303 forbehold maerket "uddybning"
+  ok    562 i alt, ingen ugyldig vaerdi i det rigtige datasaet
+
+2. R20 — validatorreglen fejler paa de ugyldige former, passerer de gyldige
+  ok    ugyldig klasse (hverken gyldighed eller uddybning)  ->  R20
+  ok    klasse uden noget "advarsel" at klassificere  ->  R20
+  ok    klassen er et tal, ikke en af de to tekster  ->  R20
+  ok    forbehold MED gyldig klasse "gyldighed"
+  ok    forbehold MED gyldig klasse "uddybning"
+  ok    forbehold UDEN klasse (endnu ikke klassificeret — lovligt, jf. orkestratorens rettelse 28. aug 2026)
+  ok    felt uden noget forbehold overhovedet, og uden advarsel_klasse
+
+3. Navngivet stikproeve mod fund/FUND-d14-klassifikation.md
+  ok    unitree-b2.yaml har en egenvaegt-blok
+  ok    unitree-b2 / egenvaegt baerer advarsel_klasse: "gyldighed" (FUND-doc: familie 3, MED/UDEN batteri)
+
+27. Kildeloeftet: kort_legende knytter sig til kortene, ikke til hele siden (spor/legende2)
+  ok    27.1.da: kort_legende findes og er en ikke-tom streng
+  ok    27.1b.da: kort_legende_foto er ordret starten paa kort_legende
+  ok    27.2.da: legenden loever ikke bredere end kortene ("hvert/alle tal")
+  ok    27.3.da: legenden naevner kortene ved navn
+  ok    27.3b.da: legenden knytter sig til den SYNLIGE markering, ikke kun til at tallet "har" en kilde
+  FEJL  27.4.da: der ER bygget sider at maale paa — uden dist/ eller uden en gyldig legende-streng beviser de foelgende vagter ingenting
+  ok    27.1.en: kort_legende findes og er en ikke-tom streng
+  ok    27.1b.en: kort_legende_foto er ordret starten paa kort_legende
+  ok    27.2.en: legenden loever ikke bredere end kortene ("hvert/alle tal")
+  ok    27.3.en: legenden naevner kortene ved navn
+  ok    27.3b.en: legenden knytter sig til den SYNLIGE markering, ikke kun til at tallet "har" en kilde
+  ok    27.7.en: kort_legende og kilde_maerke_forklaring bruger samme engelske udtryk for det haevede bogstav
+  FEJL  27.4.en: der ER bygget sider at maale paa — uden dist/ eller uden en gyldig legende-streng beviser de foelgende vagter ingenting
+
+29. Aa54: tabelsemantik i sammenligningsmatricen + noscript-udvejen
+  ok    29: byg af hele kataloget giver exit 0
+  ok    29/da: tabelHTML() udsender praecis én <table>
+  ok    29/da: tabellen har præcis én <caption>
+  ok    29/da: <caption> har et id, som <table aria-labelledby> peger paa
+  ok    29/da: captionteksten naevner hver af de 3 valgte robotter
+  ok    29/da: <th scope="col"> = antal valgte robotter (3)
+  ok    29/da: <th scope="row"> = antal felter (33)
+  ok    29/da: <th scope="rowgroup"> = antal <tbody>-grupper (6)
+  ok    29/da: alle 99 vaerdiceller er <td> (ikke <div>)
+  ok    29/da: ingen vaerdi (.v) staar uden for en <td>/<th>
+  ok    29/da: hvert direkte barn af en <tr> er <td> eller <th>
+  ok    29/da: <tr> = 1 hoved + 6 gruppetitler + 33 feltraekker = 40
+  ok    29/da: <td> = 1 hjoernecelle + 3x33 vaerdier = 100
+  ok    29/en: tabelHTML() udsender praecis én <table>
+  ok    29/en: tabellen har præcis én <caption>
+  ok    29/en: <caption> har et id, som <table aria-labelledby> peger paa
+  ok    29/en: captionteksten naevner hver af de 3 valgte robotter
+  ok    29/en: <th scope="col"> = antal valgte robotter (3)
+  ok    29/en: <th scope="row"> = antal felter (33)
+  ok    29/en: <th scope="rowgroup"> = antal <tbody>-grupper (6)
+  ok    29/en: alle 99 vaerdiceller er <td> (ikke <div>)
+  ok    29/en: ingen vaerdi (.v) staar uden for en <td>/<th>
+  ok    29/en: hvert direkte barn af en <tr> er <td> eller <th>
+  ok    29/en: <tr> = 1 hoved + 6 gruppetitler + 33 feltraekker = 40
+  ok    29/en: <td> = 1 hjoernecelle + 3x33 vaerdier = 100
+  ok    29/da: sammenligningssiden har mindst én <noscript>
+  ok    29/da: <noscript>-beskeden linker til katalogsiden
+  ok    29/en: sammenligningssiden har mindst én <noscript>
+  ok    29/en: <noscript>-beskeden linker til katalogsiden
+  ok    29/da: datablokken baerer tekst.tabel_caption med pladsholderen {robotter}
+  ok    29/en: datablokken baerer tekst.tabel_caption med pladsholderen {robotter}
+  ok    29/modbevis: mutationen fjernede faktisk scope="col" fra kilden
+  ok    29/modbevis: uden scope="col" falder th[scope=col] til 0, og kriteriet brydes
+  ok    29/modbevis: mutationen erstattede faktisk <table>-taggen
+  ok    29/modbevis: uden <table> falder tabelkriteriet til 0
+  ok    29/modbevis: samme vej med UROERT kilde giver stadig fuld semantik
+
+30. Den filtrerede katalogside lyver ikke (spor/haerd)
+  ok    30.0: bygget lykkedes
+  ok    30.1 da/index.html: der ER taellere at vogte
+  ok    30.2 da/index.html: hver taeller baerer praecis ét omfangsmaerke
+  ok    30.3 da/index.html: maerkerne er hidden som udgangspunkt
+  ok    30.4 da/index.html: facetterne er fundet
+  ok    30.5 da/index.html: hver facet har baade skjul- og vis-regler
+  ok    30.5b da/index.html: skalafacetterne er fundet
+  ok    30.5c da/index.html: skalaen "nyttelast" filtrerer KUN uden JavaScript
+  ok    30.5c da/index.html: skalaen "pris" filtrerer KUN uden JavaScript
+  ok    30.5d da/index.html: listefacetten "anv" filtrerer OGSAA med JavaScript
+  ok    30.5d da/index.html: listefacetten "vaegt" filtrerer OGSAA med JavaScript
+  ok    30.5d da/index.html: listefacetten "ip" filtrerer OGSAA med JavaScript
+  ok    30.5d da/index.html: listefacetten "status" filtrerer OGSAA med JavaScript
+  ok    30.5d da/index.html: listefacetten "land" filtrerer OGSAA med JavaScript
+  ok    30.5d da/index.html: listefacetten "ce" filtrerer OGSAA med JavaScript
+  ok    30.6 da/index.html: egenskabschippene skjuler med :not(), saa de virker som OG
+  ok    30.7 da/index.html: INGEN status-vaerdi er checked i HTML (BRIEF-uifix.md punkt 3)
+  ok    30.7.revert da/index.html: samme optaelling fanger en checked status-vaerdi
+  ok    30.7b da/index.html: NULSTIL er en reset-knap, saa standarden kan naas uden JavaScript
+  ok    30.7c da/index.html: nulstil-knappen er knapprimitiven med en MOERK flade-variant
+  ok    30.8 da/index.html: nul-tilstanden har baade soege- og filterbegrundelse
+  ok    30.9 da/index.html: nul-tilstanden tilbyder en vej ud
+  ok    30.10 da/index.html: nul-tilstanden ligger INDE i formularen
+  ok    30.11 da/index.html: kortene staar i statisk HTML (virker uden JavaScript)
+  ok    30.1 en/index.html: der ER taellere at vogte
+  ok    30.2 en/index.html: hver taeller baerer praecis ét omfangsmaerke
+  ok    30.3 en/index.html: maerkerne er hidden som udgangspunkt
+  ok    30.4 en/index.html: facetterne er fundet
+  ok    30.5 en/index.html: hver facet har baade skjul- og vis-regler
+  ok    30.5b en/index.html: skalafacetterne er fundet
+  ok    30.5c en/index.html: skalaen "nyttelast" filtrerer KUN uden JavaScript
+  ok    30.5c en/index.html: skalaen "pris" filtrerer KUN uden JavaScript
+  ok    30.5d en/index.html: listefacetten "anv" filtrerer OGSAA med JavaScript
+  ok    30.5d en/index.html: listefacetten "vaegt" filtrerer OGSAA med JavaScript
+  ok    30.5d en/index.html: listefacetten "ip" filtrerer OGSAA med JavaScript
+  ok    30.5d en/index.html: listefacetten "status" filtrerer OGSAA med JavaScript
+  ok    30.5d en/index.html: listefacetten "land" filtrerer OGSAA med JavaScript
+  ok    30.5d en/index.html: listefacetten "ce" filtrerer OGSAA med JavaScript
+  ok    30.6 en/index.html: egenskabschippene skjuler med :not(), saa de virker som OG
+  ok    30.7 en/index.html: INGEN status-vaerdi er checked i HTML (BRIEF-uifix.md punkt 3)
+  ok    30.7.revert en/index.html: samme optaelling fanger en checked status-vaerdi
+  ok    30.7b en/index.html: NULSTIL er en reset-knap, saa standarden kan naas uden JavaScript
+  ok    30.7c en/index.html: nulstil-knappen er knapprimitiven med en MOERK flade-variant
+  ok    30.8 en/index.html: nul-tilstanden har baade soege- og filterbegrundelse
+  ok    30.9 en/index.html: nul-tilstanden tilbyder en vej ud
+  ok    30.10 en/index.html: nul-tilstanden ligger INDE i formularen
+  ok    30.11 en/index.html: kortene staar i statisk HTML (virker uden JavaScript)
+  ok    30.12 en: omfangsmaerket er oversat
+  ok    30.13: katalog.js lytter paa afkrydsningsfelterne
+  ok    30.14: hashchange loefter traerskler ind i skalaen OG opdaterer
+  ok    30.15: katalog.js maaler geometrien i stedet for at regne CSS efter
+  ok    30.16: foerste opdatering gentages ved load (:target er foerst loest da)
+  ok    30.17: katalog.js saetter data-levende, saa forbeholdene slukkes
+  ok    30.18: noegletalspanelet saetter IKKE satsen paa alle .v
+  ok    30.19: figurens sats undtager de fire datatilstande
+  ok    30.20: tilstandenes egen skala staar stadig i system.css
+  ok    30.21: kildemaerket har et gulv i px, ikke kun en em-andel
+  ok    30.22: den gamle .47em-undtagelse er ikke genindfoert
+
+31. Pudsningen (spor/puds)
+  ok    31.1: grundreglens enhed og operator har et px-gulv
+  ok    31.2.lang: laengdetrinnet --lang baerer gulvet paa .enhed
+  ok    31.2.xlang: laengdetrinnet --xlang baerer gulvet paa .enhed
+  ok    31.2.xxlang: laengdetrinnet --xxlang baerer gulvet paa .enhed
+  ok    31.3.xlang: laengdetrinnet --xlang baerer gulvet paa .op
+  ok    31.3.xxlang: laengdetrinnet --xxlang baerer gulvet paa .op
+  ok    31.4: ingen enhed/op staar tilbage paa en bar em-grad
+  ok    31.5: laengdestigen falder til --lang's grad under 420 px
+  ok    31.6: accent-color er sat
+  ok    31.7: accent-color kommer fra paletten, ikke fra en loes hex
+  ok    31.8: filterfelterne er stadig visuelt skjulte (raekkens etiket er den synlige del)
+  ok    31.8.revert: den udgaaede `.filtre input`-regel er OGSAA vaek af sig selv (ingen dobbeltdaekning)
+  ok    31.9: navigationen er ét spor, ikke to raekker
+  ok    31.10: rullesporet har rullefyld, saa fokus afsloerer hele laenken
+  ok    31.11: fokusringen tegnes inde i laenken, saa overflow ikke klipper den
+  ok    31.12: trykfladen er stadig 44 px
+  ok    31.12b: ingen .baand-regel er blevet staaende
+  ok    31.13: ingen radius uden for skalaen 0/2/6/8/12 (+ 99px-pillen)
+  ok    31.14: begge sekundaere kildemaerker staar paa 0
+  ok    31.15: .variantnavn fandtes stadig som regel
+  ok    31.16: variantnavnene har hverken flade, ramme eller radius
+  ok    31.17: variantnavnene er sat som sidens vaerdier (mono, fuld blaek)
+  ok    31.18: variantparret grupperes af en 1 px tap, ikke af en chip
+
+32. "fremdrift" — nyt paakraevet identitetsfelt (spor/datafelter)
+  1. Skemaet: to gyldige vaerdier, og feltet er identitet, ikke FELTER
+  ok    FREMDRIFT_VAERDIER er praecis ["ben", "ben_hjul"]
+  ok    fremdrift er et PAAKRAEVET identitetsfelt (som status)
+  ok    fremdrift taeller IKKE i specifikationstaetheden (staar ikke i FELTNAVNE)
+  2. Validatoren: manglende/ugyldig fremdrift fejler paa R1, gyldige vaerdier passerer
+  ok    robot helt uden fremdrift  ->  R1
+  ok    fremdrift: "hjul" (hverken ben eller ben_hjul)  ->  R1
+  ok    fremdrift: "" (tomt)  ->  R1
+  ok    fremdrift: "ben"  ->  passerer
+  ok    fremdrift: "ben_hjul"  ->  passerer
+  3. Stikproeve mod det RIGTIGE datasaet (data/robots/*.yaml) - MAALT, ikke gaettet
+  ok    77 robotfiler laest
+  ok    alle 77 robotter har et udfyldt fremdrift-felt
+  ok    ingen robot har en fremdrift-vaerdi uden for FREMDRIFT_VAERDIER
+  ok    hver robot er praecis ÉN af ben/ben_hjul, og de to lister daekker alle 77
+
+34. TYPESKILT-fundamentet (spor/fundament)
+  1. Skrifterne: 10 woff2-filer, @font-face peger paa dem
+  ok    34.1: assets/fonts/ har praecis 10 woff2-filer
+  ok    34.2: system.css har praecis 10 @font-face-regler
+  ok    34.3: alle 10 bruger font-display:swap
+  ok    34.4: 8 SairaSemiCondensed-regler (4 vaegte x latin/latin-ext)
+  ok    34.5: 2 Literata-regler (latin/latin-ext)
+  ok    34.6: ingen @font-face erklaerer laengere "Manrope lokal" eller "JetBrains Mono lokal"
+  2. build.mjs kopierer skrifterne til dist/fonts (behavioral, egen tmp-dist)
+  ok    34.7: build.mjs giver exit 0 paa proevedatasaettet
+  ok    34.8: dist/fonts har praecis 10 woff2-filer efter et byg
+  ok    34.9: saira-400-latin.woff2 er byte-identisk i dist (kopiFileSync, ikke tekst-skrivFil)
+  3. Paletten: token-navnene er bevaret, --skygge er "none"
+  ok    34.10: alle 14 oprindelige farve-tokens findes stadig ved navn
+  ok    34.11: --stans og --stoev-blaek findes og LOESER OP til #FFFFFF / #5F686F (direkte eller via primitiv)
+  ok    34.12: --skygge og --skygge-loeft er begge "none" (MANIFEST: ingen slagskygge)
+  ok    34.13: --accent LOESER OP til afmaerkningsgul (#F2C400), direkte eller via primitiv
+  ok    34.14: --blaek LOESER OP til gunmetal (#22262A), direkte eller via primitiv
+  ok    34.15: --bund LOESER OP til eloxgraa (#E8EBED), direkte eller via primitiv
+  4. --mono peger paa Saira, tabulartal staar paa body
+  ok    34.16: --mono starter med "SairaSemiCondensed" (ikke en fastbredde-stak)
+  ok    34.17: ingen "monospace" eller "JetBrains" tilbage i system.css
+  ok    34.18: body faar font-variant-numeric:tabular-nums (daekker alle --mono-brugssteder)
+  5. .stans-primitiven: 2px radius, indfaeldet kant, hvid lyskant
+  ok    34.19: .stans findes som selvstaendig regel
+  ok    34.20: .stans bruger systemets radius-token, og tokenet er 2px
+  ok    34.21: .stans' indfaeldede kant bruger --linje (rille) og --stans (lyskant)
+  6. De fire tre-tilstandsmaerker i SPRITE
+  ok    34.22.i-ja: symbolet findes i SPRITE
+  ok    34.22.i-nej: symbolet findes i SPRITE
+  ok    34.22.i-nul: symbolet findes i SPRITE
+  ok    34.22.i-ioplyst: symbolet findes i SPRITE
+  ok    34.23: i-ja er fyldt (fill="currentColor" paa selve elementet)
+  ok    34.24: i-nul har en fyldt prik (circle med fill="currentColor")
+  ok    34.25: i-ioplyst er stiplet (stroke-dasharray) og har INGEN fill-attribut (arver fill:none)
+  7. nav_forside er "Oversigt"/"Overview", nav-strukturen er uroert
+  ok    34.26: da.json nav_forside er "Oversigt"
+  ok    34.27: en.json nav_forside er "Overview"
+  ok    34.28b: nav-arrayet blev overhovedet fundet i side.mjs
+  ok    34.28: nav-arrayet i side.mjs baerer STADIG kun de tre faste punkter + det betingede producent-punkt (3.7s midlertidige maalepunkter er fjernet)
+
+35. Katalogsiden er typeskiltet (spor/katalog, L54/L57)
+  FEJL  35 da: katalogsiden er bygget — ikke bygget
+  FEJL  35 en: katalogsiden er bygget — ikke bygget
+  ok    35.22: TYPESKILT-afsnittet findes i generator.css
+  ok    35.23: ingen radius uden for skalaen i TYPESKILT-afsnittet
+  ok    35.24: intet skriftgulv under 8px i TYPESKILT-afsnittet
+  ok    35.25: sprogfilerne er symmetriske (393 noegler)
+
+36. spor/robot: robotsiden i TYPESKILT-formen (L57/L60)
+  ok    36.0: byg af hele kataloget giver exit 0
+  ok    36.1.da: der er bygget robotsider at maale paa
+  ok    36.2.da: robotnavnet staar FOER fotoet i DOM'en paa alle 77 sider
+  ok    36.1.en: der er bygget robotsider at maale paa
+  ok    36.2.en: robotnavnet staar FOER fotoet i DOM'en paa alle 77 sider
+  ok    36.3: gitteret saetter navnet i FOERSTE raekke over begge spalter
+  ok    36.4: robotnavnet staar paa en vaegt, skriftfilerne faktisk har (700)
+  ok    36.5: navnets mindste grad er stoerre end den stoerste vaerdi i striben (29px)
+  ok    36.6: producentens eget imperiale tal vinder over vores omregning
+  ok    36.7: uden producentens tal omregner vi selv - og markerer det som vores
+  ok    36.8: og omregningen baerer sit metriske udgangspunkt, saa maerket kan sige hvorfra
+  ok    36.9: 110 cm omregnes til 43,3 in - samme afrunding som databladets egen
+  ok    36.10: -20 °C bliver -4 °F (affin omregning, ikke en skalering)
+  ok    36.11: timer, grader, DoF, Wh, minutter, valuta, volt og procent omregnes ALDRIG
+  ok    36.12: … mens de syv omregnelige enheder ALLE giver et resultat
+  ok    36.13: en tilstandsvaerdi omregnes ikke
+  ok    36.14.da: lige mange metriske og imperiale figurer over 77 sider
+  ok    36.14.en: lige mange metriske og imperiale figurer over 77 sider
+  ok    36.15: .enhedsvis er display:contents (wrapperen tegner ingen kasse)
+  ok    36.16: imperial er skjult som standard - siden aabner metrisk, ogsaa uden JavaScript
+  ok    36.17: skiftet haenger paa en RIGTIG afkrydsning, ikke paa JavaScript
+  ok    36.18: "omregnet"-maerket staar paa eller over skriftgulvet 8px
+  ok    36.19.da: kildelisten er sidens SIDSTE sektion paa alle 77 sider
+  ok    36.20.da: alle 1548 kildeankre rammer et id paa deres egen side
+  ok    36.19.en: kildelisten er sidens SIDSTE sektion paa alle 77 sider
+  ok    36.20.en: alle 1548 kildeankre rammer et id paa deres egen side
+  ok    36.21: der ER forbehold i datasaettet at holde skemaet op imod
+  ok    36.22.da: alle 891 forbehold staar UDFOLDET i skematabellen
+  ok    36.22.en: alle 891 forbehold staar UDFOLDET i skematabellen
+  ok    36.23: skemaet er en aaben <section>, ikke en <details>-sammenklapning
+  ok    36.24: og det er en RIGTIG tabel med tre navngivne kolonner
+  ok    36.24b: skematabellen nulstiller den globale table{min-width:620px}
+  ok    36.25: skiltet har en maerkelinje under robotnavnet
+  ok    36.25b: CE staar IKKE i skiltets maerkelinje
+  ok    36.26: den uoplyste CE-tilstand staar i skemaet med en stiplet form, ikke kun en tone
+  ok    36.26b: den stiplede form er en RIGTIG stiplet kant i CSS, ikke kun en klasse uden virkning
+  ok    36.27: "ikke oplyst"-maerket baerer stoev-blaek (4,74:1), aldrig stoevgraa (2,14:1)
+
+37. Daekket oeverst (spor/topbar)
+  ok    37.0: build.mjs giver exit 0
+  ok    37.0b: der er sider at maale paa
+  ok    37.1: alle 22 sider har <header class="daek">
+  ok    37.2: ingen side har det gamle <header class="baand">
+  ok    37.3: skip-link, derefter SPRITE, derefter daekket - paa hver side
+  ok    37.4: ordmaerket foerer til sprogets forside paa hver side
+  ok    37.5: hoejst ét aria-current="page" i daekket
+  ok    37.6: krydssprogs-henvisningen (<link rel=alternate hreflang> i <head>) peger paa den tilsvarende side, den findes, og DA/EN er IKKE tilbage i daekket
+  ok    37.7: hver navigationslaenke peger paa en side, der findes (L58)
+  ok    37.8: navigationens aria-label er ikke katalogets
+  ok    37.9: "midlertidigt navn"-stemplet staar paa hver side (aaben beslutning)
+  ok    37.9b: stemplet baerer .stans (systemets indfaeldede kant), ikke en stiplet ramme
+  ok    37.10.nav_etiket: noeglen findes i BEGGE sprogfiler
+  ok    37.10.sprog_etiket: noeglen findes i BEGGE sprogfiler
+  ok    37.11: daekket er sat i --mono (Saira, "Pladen")
+  ok    37.12: daekkets raekke baerer ogsaa .rum, saa maalet er sidens eget
+
+38. TYPESKILT: sammenligningssiden (spor/samlbyg)
+  ok    38: byg af hele kataloget giver exit 0
+  1. Laesenoeglen staar altid synlig — ingen fold
+  ok    38.1.da: sammenligningssiden har 0 <details>/<summary>
+  ok    38.2.da: laesenoegle-baandet findes paa siden
+  ok    38.3.da: baandet er hverken hidden eller display:none
+  ok    38.4.da: baandet viser tilstanden .v-tal
+  ok    38.4.da: baandet viser tilstanden .v-nul
+  ok    38.4.da: baandet viser tilstanden .v-nej
+  ok    38.4.da: baandet viser tilstanden .v-ikke
+  ok    38.1.en: sammenligningssiden har 0 <details>/<summary>
+  ok    38.2.en: laesenoegle-baandet findes paa siden
+  ok    38.3.en: baandet er hverken hidden eller display:none
+  ok    38.4.en: baandet viser tilstanden .v-tal
+  ok    38.4.en: baandet viser tilstanden .v-nul
+  ok    38.4.en: baandet viser tilstanden .v-nej
+  ok    38.4.en: baandet viser tilstanden .v-ikke
+  2. Baandets lead er udledt af i18n — tegn for tegn
+  ok    38.5.da: lead + rest giver den oprindelige streng tilbage, tegn for tegn
+  ok    38.6.da: leadet er mindst to ord ("Producenten oplyser")
+  ok    38.7.da: de fire rester er indbyrdes forskellige
+  ok    38.8.da: den udledte rest staar paa siden ("et tal med enhed")
+  ok    38.5.en: lead + rest giver den oprindelige streng tilbage, tegn for tegn
+  ok    38.6.en: leadet er mindst to ord ("The manufacturer states")
+  ok    38.7.en: de fire rester er indbyrdes forskellige
+  ok    38.8.en: den udledte rest staar paa siden ("a figure with a unit")
+  3. Jigraekken, fotoet og svarmaerket (klientside-output)
+  ok    38.9.da: matricen tegner 0 kildebogstaver (L46)
+  ok    38.10.da: jigraekken har praecis ét hjoerne, og det er et <td>
+  ok    38.11.da: ét <img> pr. valgt robot med foto (3)
+  ok    38.12.da: hvert <img> i matricen har en alt-tekst
+  ok    38.13.da: alle 76 fotostier findes i dist/billeder/
+  ok    38.14.da: det grafiske svarmaerke er VAEK (0, ikke 33x3)
+  ok    38.15a.da: svartaellingen staar stadig for hver af de 33 feltraekker
+  ok    38.15b.da: alle 33 taellinger foelger data, i raekkefoelge
+  ok    38.16.da: matricen markerer ingen vinder
+  ok    38.9.en: matricen tegner 0 kildebogstaver (L46)
+  ok    38.10.en: jigraekken har praecis ét hjoerne, og det er et <td>
+  ok    38.11.en: ét <img> pr. valgt robot med foto (3)
+  ok    38.12.en: hvert <img> i matricen har en alt-tekst
+  ok    38.13.en: alle 76 fotostier findes i dist/billeder/
+  ok    38.14.en: det grafiske svarmaerke er VAEK (0, ikke 33x3)
+  ok    38.15a.en: svartaellingen staar stadig for hver af de 33 feltraekker
+  ok    38.15b.en: alle 33 taellinger foelger data, i raekkefoelge
+  ok    38.16.en: matricen markerer ingen vinder
+  4. Vinderreglens tekst er fjernet, foden og princippet staar
+  ok    38.17.da: vinderreglens tekst staar IKKE laengere paa siden
+  ok    38.18.da: hverken "ingen vinder" eller "no winner" staar i markup'en
+  ok    38.19.da: .saml-fod staar stadig, EFTER matricens resultatbeholder
+  ok    38.17.revert.da: en syntetisk streng med klassen fanges
+  ok    38.18.revert.da: en syntetisk streng med ordet fanges
+  ok    38.17.en: vinderreglens tekst staar IKKE laengere paa siden
+  ok    38.18.en: hverken "ingen vinder" eller "no winner" staar i markup'en
+  ok    38.19.en: .saml-fod staar stadig, EFTER matricens resultatbeholder
+  ok    38.17.revert.en: en syntetisk streng med klassen fanges
+  ok    38.18.revert.en: en syntetisk streng med ordet fanges
+  5. Hver klientstreng kommer fra i18n — ingen opfundet tekst
+  ok    38.20.da: alle 26 klientstrenge findes ordret i da.json
+  ok    38.20.en: alle 26 klientstrenge findes ordret i en.json
+  6. Modbevis — kriterierne skal falde, naar reglen fjernes
+  ok    38.21/modbevis: mutationen fjernede faktisk svartaellingen fra kilden
+  ok    38.22/modbevis: uden .kunskaerm falder svartaellingen til 0
+  ok    38.23/modbevis: mutationen fjernede faktisk <img> fra kilden
+  ok    38.24/modbevis: uden <img> falder fototaellingen til 0
+  ok    38.25/modbevis: samme vej med UROERT kilde giver stadig taellinger, fotos og fuld semantik
+
+39. Sprogvaelgeren paa roden (spor/rod)
+  ok    39.1: build.mjs giver exit 0
+  ok    39.2: POSTER foelger datasaettet (3 robotter i proevedata, ikke katalogets 77)
+  ok    39.3: LANDE foelger datasaettet (3 unikke producentlande)
+  ok    39.4: TAL MED KILDE er det samme tal, som bygget selv rapporterer
+  ok    39.5: TAL MED KILDE er positivt (en tom plade er ikke et gyldigt stempel)
+  ok    39.6: NYESTE KILDE er en ISO-dato
+  ok    39.7: NYESTE KILDE er ikke byggedagen (den skal komme fra data, ikke fra uret)
+  ok    39.8: roden baerer praecis 3 <link rel="alternate">
+  ok    39.9: roden baerer hreflang="da"
+  ok    39.9: roden baerer hreflang="en"
+  ok    39.10: roden baerer hreflang="x-default"
+  ok    39.11: én vej ind pr. sprog (2)
+  ok    39.12: ingen af cellerne baerer en variantklasse (ingen primaer/sekundaer)
+  ok    39.13: vejen til /da/ har href, hreflang og lang sat
+  ok    39.13: vejen til /en/ har href, hreflang og lang sat
+  ok    39.14: den gamle primaer/sekundaer-grammatik er vaek fra roden
+  ok    39.15: roden bruger ikke .t-hero (font-weight:800 + skrift uden @font-face)
+  ok    39.16: roden saetter ikke .rum og .hero paa samme element (.hero .rum rammer aldrig)
+  ok    39.17: ingen font-weight:800 paa roden - Saira selvhostes kun i 400/500/600/700
+  ok    39.18: roden har sin egen form i et inline <style>
+  ok    39.19: rodens inline-CSS holder radius-skalaen 0/2/6/8/12 (+ 99px)
+  ok    39.20: intet skriftgulvsbrud i rodens inline-CSS (alt >= 8px)
+  ok    39.21: roden har en synlig fokusring paa vejene ind
+  ok    39.22: bevaegelse respekterer prefers-reduced-motion
+  ok    39.23: tal staar med tabulartal (tabular-nums) paa maerkepladen
+  ok    39.24: roden er stadig noindex (den er en vaelger, ikke en forside)
+  ok    39.25: roden henviser ikke til media/ (fabrikantmateriale maa aldrig i et byg)
+  ok    39.26: ingen koebsknap eller affiliate-link paa roden
+  ok    39.28: bygget gennemfoerer paa et datasaet helt uden kildebelagte felter
+  ok    39.29: stempler uden vaerdi udelades - ingen tom <dd> paa pladen
+  ok    39.30: "Tal med kilde" stanses slet ikke, naar der ingen er (ikke som "0")
+  ok    39.31: POSTER staar stadig, fordi den ER maalt
+  ok    39.27: dansk paa roden er stavet med æøå, ikke translittereret
+
+40. spor/kort: TYPESKILT-kortet paa producentsiderne
+  ok    build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    robots.json har en robotter-liste at holde kortene op mod
+  ok    robots.json giver 77 robotter, heraf 9 med en status, der skal stemples
+  ok    system.css erklaerer ingen font-weight:800 - Saira selvhostes kun i 400/500/600/700
+  ok    .t-hero staar paa 700, som der FINDES en fil til
+  ok    da/producenter/: alle 25 modellister staar i .net net--fritstaaende
+  ok    da/producenter/: hver af de 77 robotter staar paa praecis ét producentkort (77 kort)
+  ok    da/producenter/: stemplet sidder paa noejagtigt de 9 robotter, der ikke er i produktion
+  ok    da/producenter/: alle 9 stempler viser status oversat til da
+  ok    da: intet af de 77 kort baerer den kompakte stribe
+  ok    da: intet af de 77 kort baerer anvendelsesmaerker
+  ok    da: intet af de 77 kort baerer landeled
+  ok    da: intet af de 77 kort baerer statusled fra det gamle kort
+  ok    da: intet af de 77 kort baerer hover-invitationen
+  ok    da: intet af de 77 kort baerer kildemaerke
+  ok    da: ingen af kortene bruger det forkerte klassenavn "kun-skaerm"
+  ok    en/producenter/: alle 25 modellister staar i .net net--fritstaaende
+  ok    en/producenter/: hver af de 77 robotter staar paa praecis ét producentkort (77 kort)
+  ok    en/producenter/: stemplet sidder paa noejagtigt de 9 robotter, der ikke er i produktion
+  ok    en/producenter/: alle 9 stempler viser status oversat til en
+  ok    en: intet af de 77 kort baerer den kompakte stribe
+  ok    en: intet af de 77 kort baerer anvendelsesmaerker
+  ok    en: intet af de 77 kort baerer landeled
+  ok    en: intet af de 77 kort baerer statusled fra det gamle kort
+  ok    en: intet af de 77 kort baerer hover-invitationen
+  ok    en: intet af de 77 kort baerer kildemaerke
+  ok    en: ingen af kortene bruger det forkerte klassenavn "kun-skaerm"
+
+41. spor/enhed: enhedsvalget bor ét sted og huskes paa tvaers af sider
+  ok    41.0: byg af hele kataloget giver exit 0
+  ok    41.1: side.mjs baerer omregningen (imperialTal/imperialPost defineres her)
+  ok    41.2: … og omregningstabellen selv, saa der kun er ét regnestykke
+  ok    41.3: robot.mjs videresender navnene i stedet for at definere dem igen
+  ok    41.4: tal() er dét sted, enheden afgoeres
+  ok    41.5: … og den imperiale tvilling soeger ikke selv en tvilling
+  ok    41.6.da: robotsiderne baerer imperiale tvillinger (71 af 77)
+  ok    41.7.da: hver side med tvillinger har ogsaa en kontakt, og omvendt
+  ok    41.8.da: flaget laekker ikke til de 27 sider uden kontakt
+  ok    41.6.en: robotsiderne baerer imperiale tvillinger (71 af 77)
+  ok    41.7.en: hver side med tvillinger har ogsaa en kontakt, og omvendt
+  ok    41.8.en: flaget laekker ikke til de 27 sider uden kontakt
+  ok    41.9: assets/enhed.js findes
+  ok    41.10: den laeser og skriver valget i localStorage
+  ok    41.11: … og saetter kontaktens tilstand, ikke tallenes
+  ok    41.12: P0 — enhed.js roerer hverken display, klasser eller netvaerk
+  ok    41.13: … og proeven kan fejle (kontrolfil med skiftet i JS fanges)
+  ok    41.14: enhed.js kopieres til dist
+  ok    41.15.da: scriptet staar paa praecis de sider, der har en kontakt
+  ok    41.16.da: scriptet staar foer sidens indhold og uden defer (intet blink)
+  ok    41.15.en: scriptet staar paa praecis de sider, der har en kontakt
+  ok    41.16.en: scriptet staar foer sidens indhold og uden defer (intet blink)
+
+41. spor/kort: samlknappen - P0, graensen og haard begraensning 1
+  ok    41: byg giver exit 0
+  ok    41.1: der ER samlknapper at maale paa (fandt 172)
+  ok    41.1: P0 - alle 172 samlknapper staar hidden i HTML'en (0 uden)
+  ok    41.1: hver samlknap baerer data-saml (172 af 172)
+  ok    41.1: hver samlknap baerer aria-label med robottens navn (172 af 172)
+  ok    41.2: SAML_MAKS findes i assets/katalog.js
+  ok    41.2: maksAntal findes i tools/skabelon/sammenligning.mjs
+  ok    41.2: de to graenser er ens (katalog.js 3 = sammenligning.mjs 3)
+  ok    41.2: begge scripts bruger samme noegle i lokalt lager
+  ok    41.3: da.json har noeglen kort_saml_knap
+  ok    41.3: da.kort_saml_knap baerer intet kurv-ord ("Sammenlign")
+  ok    41.3: da.json har noeglen kort_saml_navn
+  ok    41.3: da.kort_saml_navn baerer intet kurv-ord ("Sammenlign: {robot}")
+  ok    41.3: da.json har noeglen saml_taeller
+  ok    41.3: da.saml_taeller baerer intet kurv-ord ("valgt til sammenligning")
+  ok    41.3: da.json har noeglen saml_gaa
+  ok    41.3: da.saml_gaa baerer intet kurv-ord ("Åbn sammenligningen")
+  ok    41.3: da.json har noeglen saml_ryd
+  ok    41.3: da.saml_ryd baerer intet kurv-ord ("Ryd udvalget")
+  ok    41.3: en.json har noeglen kort_saml_knap
+  ok    41.3: en.kort_saml_knap baerer intet kurv-ord ("Compare")
+  ok    41.3: en.json har noeglen kort_saml_navn
+  ok    41.3: en.kort_saml_navn baerer intet kurv-ord ("Compare: {robot}")
+  ok    41.3: en.json har noeglen saml_taeller
+  ok    41.3: en.saml_taeller baerer intet kurv-ord ("selected to compare")
+  ok    41.3: en.json har noeglen saml_gaa
+  ok    41.3: en.saml_gaa baerer intet kurv-ord ("Open the comparison")
+  ok    41.3: en.json har noeglen saml_ryd
+  ok    41.3: en.saml_ryd baerer intet kurv-ord ("Clear the selection")
+
+42. spor/cjkui — advarsel/note/citat/noter er rene for han-tegn, ordlyden er bevaret i *_ordlyd
+  ok    alle fire *_ordlyd-felter, korrekt formet, passerer validatoren
+  ok    advarsel_ordlyd: tom streng  ->  R21
+  ok    advarsel_ordlyd uden advarsel  ->  R21
+  ok    anvendelse.citat_ordlyd med forkert laengde  ->  R21
+  ok    anvendelse.note_ordlyd uden note  ->  R21
+  ok    top-level noter_ordlyd med forkert laengde  ->  R21
+  ok    0 han-tegn i advarsel/note/citat/noter paa tvaers af 77 robotter
+  ok    byg af hele kataloget (eget dist) giver exit 0
+  ok    0 byggede sider baerer han-tegn
+  ok    0 han-tegn i alt i dist/
+
+42. Om-siden (spor/omos, L61)
+  ok    42.0: build.mjs giver exit 0
+  ok    42.1.da: dist/da/om/index.html findes
+  ok    42.1.en: dist/en/om/index.html findes
+  ok    42.1: Om-siden er bygget paa ALLE sprog, ikke kun ét
+  ok    42.2.a (fixtur): oplyst + ikke oplyst == felter x robotter
+  ok    42.2.b (fixtur): medKilde + udenKilde + tilstandssvar == oplyst
+  ok    42.2.a (det rigtige datasaet): oplyst + ikke oplyst == felter x robotter
+  ok    42.2.b (det rigtige datasaet): medKilde + udenKilde + tilstandssvar == oplyst
+  ok    42.3.0: fixturen har et andet robottal end det rigtige datasaet
+  ok    42.3.0b: fixturen har et andet antal mulige oplysninger
+  ok    42.3.da: siden viser fixturens robottal (3)
+  ok    42.3.da: siden viser fixturens mulige oplysninger (99)
+  ok    42.3.da: siden viser fixturens oplyste (17)
+  ok    42.3.da: siden viser fixturens ikke oplyste (82)
+  ok    42.3.da: siden viser fixturens producenttal (3)
+  ok    42.3.da: siden viser IKKE det rigtige datasaets robottal (77)
+  ok    42.3.da: siden viser IKKE det rigtige datasaets mulige oplysninger (2541)
+  ok    42.3.en: siden viser fixturens robottal (3)
+  ok    42.3.en: siden viser fixturens mulige oplysninger (99)
+  ok    42.3.en: siden viser fixturens oplyste (17)
+  ok    42.3.en: siden viser fixturens ikke oplyste (82)
+  ok    42.3.en: siden viser fixturens producenttal (3)
+  ok    42.3.en: siden viser IKKE det rigtige datasaets robottal (77)
+  ok    42.3.en: siden viser IKKE det rigtige datasaets mulige oplysninger (2541)
+  ok    42.3b.da: ingen om_-noegle baerer et flercifret tal
+  ok    42.3b.en: ingen om_-noegle baerer et flercifret tal
+  ok    42.4.da: "ingen forhandler"-linjen staar ORDRET i <main>
+  ok    42.4b.da: linjen staar PRAECIS TO steder paa siden (Om os' egen + fodens - foden er tilbage)
+  ok    42.4b.da.revert: proeven FANGER en side med linjen kun ÉN gang (fjernes foden igen, falder testen)
+  ok    42.4.en: "ingen forhandler"-linjen staar ORDRET i <main>
+  ok    42.4b.en: linjen staar PRAECIS TO steder paa siden (Om os' egen + fodens - foden er tilbage)
+  ok    42.4b.en.revert: proeven FANGER en side med linjen kun ÉN gang (fjernes foden igen, falder testen)
+  ok    42.5: INCUBA a/s' CVR 10049385 staar ingen steder i bygget
+  ok    42.6.da: Om-siden har nul udgaaende http(s)-links
+  ok    42.6b.da: kontakten staar som mailto og tel
+  ok    42.6.en: Om-siden har nul udgaaende http(s)-links
+  ok    42.6b.en: kontakten staar som mailto og tel
+  ok    42.7.da: ordet "cvr" staar ikke paa Om-siden
+  ok    42.7.da: ordet "stiftet" staar ikke paa Om-siden
+  ok    42.7.da: ordet "grundlagt" staar ikke paa Om-siden
+  ok    42.7.da: ordet "founded" staar ikke paa Om-siden
+  ok    42.7.da: ordet "incorporated" staar ikke paa Om-siden
+  ok    42.7.en: ordet "cvr" staar ikke paa Om-siden
+  ok    42.7.en: ordet "stiftet" staar ikke paa Om-siden
+  ok    42.7.en: ordet "grundlagt" staar ikke paa Om-siden
+  ok    42.7.en: ordet "founded" staar ikke paa Om-siden
+  ok    42.7.en: ordet "incorporated" staar ikke paa Om-siden
+  ok    42.8.da: hreflang peger paa da-udgaven af Om-siden
+  ok    42.8.da: hreflang peger paa en-udgaven af Om-siden
+  ok    42.8.en: hreflang peger paa da-udgaven af Om-siden
+  ok    42.8.en: hreflang peger paa en-udgaven af Om-siden
+  ok    42.9: menupunktet "Om os" staar i daekket paa hver side med skal
+  ok    42.9b: der ER sider at maale paa
+  ok    42.10.da: "KeyResearch" staar paa siden
+  ok    42.10.da: "Incuba, Åbogade 15, Aarhus" staar paa siden
+  ok    42.10.da: "+45 22231116" staar paa siden
+  ok    42.10.da: "jpk@keyresearch.dk" staar paa siden
+  ok    42.10.en: "KeyResearch" staar paa siden
+  ok    42.10.en: "Incuba, Åbogade 15, Aarhus" staar paa siden
+  ok    42.10.en: "+45 22231116" staar paa siden
+  ok    42.10.en: "jpk@keyresearch.dk" staar paa siden
+
+43. Billedskalering: srcset, bredder og sizes
+  ok    ingen srcset for en fil uden skalerede udgaver (faldskaermen)
+  ok    alle tre avif-bredder og begge webp-bredder bliver til kilder
+  ok    avif-bredderne staar stigende (240 foerst — sammenligningens 74px-chip)
+  ok    webp-bredderne staar stigende
+  ok    avif staar foer webp, som i BILLEDE_ALTERNATIVER
+  ok    faldskaermen: uden derivater skrives INGEN <source>, kun <img src>
+  ok    én <source> pr. type — ikke én pr. bredde
+  ok    hver post i srcset baerer en w-descriptor
+  ok    ingen srcset blander poster med og uden w-descriptor
+  ok    en srcset med bredder faar ogsaa en sizes
+  ok    robotsidens store led faar BILLED_SIZES.stor
+  ok    originalen staar stadig som <img src> — faldskaerm for gamle browsere
+  ok    bygget gennemfoerer
+  ok    hver sti i hver srcset findes som fil i dist/
+  ok    ingen srcset i bygget blander w-descriptorer
+  ok    sammenligningssidens datablok findes
+  ok    foerste kilde pr. type i sammenligningens blob er den SMALLESTE
+     (76 af 77 robotter har skalerede kilder; 948 srcset med 3328 poster i 216 html-filer)
+
+43. spor/oprydknap: samlknappens scope - vaek fra producentsider, uroert andre steder
+  ok    43: byg giver exit 0
+  ok    43.0: fandt producentsider (50)
+  ok    43.0: fandt katalogsider (2)
+  ok    43.1: producentsiderne har 0 samlknapper (fandt 0 paa tvaers af 50 sider)
+  ok    43.3: producentsiderne har stadig kort (fandt 154 <article class="kort"> paa tvaers af 50 sider)
+  ok    43.2: katalog da/index.html - hvert kort (86) har praecis én samlknap (86)
+  ok    43.2: katalog en/index.html - hvert kort (86) har praecis én samlknap (86)
+
+44. spor/samlenhed: matricen skifter enhed, og valget deles med sitet
+  ok    44.byg
+  ok    44.1 JSON-blokken kan laeses
+  ok    44.2 enhed.js slaar op paa netop den noegle
+  ok    44.3 robot.mjs bruger samme id
+  ok    44.4 sammenligning.js bruger samme id
+  ok    44.5.da kontakten staar i den byggede side
+  ok    44.6.da enhed.js indlaeses
+  ok    44.5.en kontakten staar i den byggede side
+  ok    44.6.en enhed.js indlaeses
+  ok    44.7 enhed.js er IKKE deferred
+  ok    44.8.weilan-alphadog-c500 0 °C bliver 32 °F, ikke 0
+  ok    44.8.weilan-alphadog-c501 0 °C bliver 32 °F, ikke 0
+  ok    44.8.xiaomi-cyberdog-1 0 °C bliver 32 °F, ikke 0
+  ok    44.8.xiaomi-cyberdog-2 0 °C bliver 32 °F, ikke 0
+  ok    44.8.genisom-gangben-l1 0 °C bliver 32 °F, ikke 0
+  ok    44.8.genisom-gangben-l1-w 0 °C bliver 32 °F, ikke 0
+  ok    44.8.mab-honey-badger-4 0 °C bliver 32 °F, ikke 0
+  ok    44.8.mab-honey-badger-5 0 °C bliver 32 °F, ikke 0
+  ok    44.9 alle robotter i JSON findes i data/
+  ok    44.10 hver imperial figur er imperialPost()s egen
+  ok    44.11 der ER figurer at sammenligne
+  ok    44.12 de otte 0 °C-felter er daekket
+  ok    44.13 regel 1: producentens egne tal er markeret som egne
+  ok    44.14 sammenligningssiden er IKKE en typeskilt-flade
+  ok    44.15.enhedsvis--metrisk har en vaert paa sammenligningssiden
+  ok    44.15.enhedsvis--imperial har en vaert paa sammenligningssiden
+  ok    44.15.enhedsnote har en vaert paa sammenligningssiden
+  ok    44.16 fokusringen tegnes ogsaa her
+  ok    44.17 vaernet har noget at beskytte mod
+  ok    44.18 strimlen tegnes betinget
+  ok    44.19 afkrydsningen skjules med strimlen
+  ok    44.20 regel 3: kildeformen staar kun paa den metriske tvilling
+  ok    45.1: data/kurser.json findes
+  ok    45.2: kursfilen navngiver sin basisvaluta
+  ok    45.3.udgiver: kilden oplyser "udgiver"
+  ok    45.3.navn: kilden oplyser "navn"
+  ok    45.3.url: kilden oplyser "url"
+  ok    45.3.dato: kilden oplyser "dato"
+  ok    45.3.hentet: kilden oplyser "hentet"
+  ok    45.4: kildens URL er en rigtig adresse, man kan slaa efter i
+  ok    45.5: kildens dato er en ISO-dato
+  ok    45.6: basisvalutaen har selv en kurs i filen
+  ok    45.7: EUR staar som 1 (ECB's egen notation)
+  ok    45.8.da: kursens kilde staar som et link paa robotsiden
+  ok    45.10.da: kursens dato staar paa robotsiden
+  ok    45.11.da: den gamle "pris-om"-badge findes IKKE laengere paa siden
+  ok    45.11.revert.da: samme optaelling fanger en syntetisk "pris-om"-streng
+  ok    45.12.da: der er prissatte kort at maale paa
+  ok    45.13.da: ALLE prissatte kort viser USD (ingen anden valuta tilbage)
+  ok    45.13.revert.da: samme moenster fanger en syntetisk celle med en anden valuta
+  ok    45.14.da: prisfiguren baerer stadig et kildemaerke paa alle kort med kilde
+  ok    45.15.da.nyttelast: skalaen findes
+  ok    45.16.da.nyttelast: skalaen staar hidden og taendes af scriptet
+  ok    45.17.da.nyttelast: der er trin at filtrere paa uden JavaScript
+  ok    45.18.da.nyttelast: de uoplyste har deres egen raekke
+  ok    45.19.da.nyttelast: den uoplyste raekke staar UDEN FOR trinlisten
+  ok    45.20.da.nyttelast: knuderne sendes med fra bygget
+  ok    45.21.da.nyttelast: hver knude har sin ridse
+  ok    45.22.da.nyttelast: skalaen er et rigtigt range-felt med navn
+  ok    45.15.da.pris: skalaen findes
+  ok    45.16.da.pris: skalaen staar hidden og taendes af scriptet
+  ok    45.17.da.pris: der er trin at filtrere paa uden JavaScript
+  ok    45.18.da.pris: de uoplyste har deres egen raekke
+  ok    45.19.da.pris: den uoplyste raekke staar UDEN FOR trinlisten
+  ok    45.20.da.pris: knuderne sendes med fra bygget
+  ok    45.21.da.pris: hver knude har sin ridse
+  ok    45.22.da.pris: skalaen er et rigtigt range-felt med navn
+  ok    45.23.da: kortene baerer nyttelastens raa tal
+  ok    45.24.da: de uoplyste har INGEN tal-attribut
+  ok    45.8.en: kursens kilde staar som et link paa robotsiden
+  ok    45.10.en: kursens dato staar paa robotsiden
+  ok    45.11.en: den gamle "pris-om"-badge findes IKKE laengere paa siden
+  ok    45.11.revert.en: samme optaelling fanger en syntetisk "pris-om"-streng
+  ok    45.12.en: der er prissatte kort at maale paa
+  ok    45.13.en: ALLE prissatte kort viser USD (ingen anden valuta tilbage)
+  ok    45.13.revert.en: samme moenster fanger en syntetisk celle med en anden valuta
+  ok    45.14.en: prisfiguren baerer stadig et kildemaerke paa alle kort med kilde
+  ok    45.15.en.nyttelast: skalaen findes
+  ok    45.16.en.nyttelast: skalaen staar hidden og taendes af scriptet
+  ok    45.17.en.nyttelast: der er trin at filtrere paa uden JavaScript
+  ok    45.18.en.nyttelast: de uoplyste har deres egen raekke
+  ok    45.19.en.nyttelast: den uoplyste raekke staar UDEN FOR trinlisten
+  ok    45.20.en.nyttelast: knuderne sendes med fra bygget
+  ok    45.21.en.nyttelast: hver knude har sin ridse
+  ok    45.22.en.nyttelast: skalaen er et rigtigt range-felt med navn
+  ok    45.15.en.pris: skalaen findes
+  ok    45.16.en.pris: skalaen staar hidden og taendes af scriptet
+  ok    45.17.en.pris: der er trin at filtrere paa uden JavaScript
+  ok    45.18.en.pris: de uoplyste har deres egen raekke
+  ok    45.19.en.pris: den uoplyste raekke staar UDEN FOR trinlisten
+  ok    45.20.en.pris: knuderne sendes med fra bygget
+  ok    45.21.en.pris: hver knude har sin ridse
+  ok    45.22.en.pris: skalaen er et rigtigt range-felt med navn
+  ok    45.23.en: kortene baerer nyttelastens raa tal
+  ok    45.24.en: de uoplyste har INGEN tal-attribut
+  ok    45.25: katalog.mjs laeser kursen fra data, ikke fra en konstant
+  ok    45.26: prisen falder ikke tavst ud paa en ukendt valuta
+  ok    45.27: katalog.js baerer ingen kopi af traerskellisten
+  ok    45.28: katalog.js overlader skalafacetterne til skalaen, ikke til passer()
+
+47. spor/samlvaelg: sammenligningens vaelger + tilstandenes faste sats
+  ok    47.1 build.mjs giver exit 0 (frisk byg til egen midlertidig mappe)
+  ok    47.2.da sammenligningssiden findes
+  ok    47.3.da robotvaelgeren er FJERNET fra sammenligningssiden (L73)
+  ok    47.2.en sammenligningssiden findes
+  ok    47.3.en robotvaelgeren er FJERNET fra sammenligningssiden (L73)
+  ok    47.15 .v-ikke har en basisregel i system.css
+  ok    47.16 .v-ikke saetter sin sats i px, ikke em (fandt: 11px)
+  ok    47.15 .v-nej har en basisregel i system.css
+  ok    47.16 .v-nej saetter sin sats i px, ikke em (fandt: 10.5px)
+  ok    47.15 .v-billede har en basisregel i system.css
+  ok    47.16 .v-billede saetter sin sats i px, ikke em (fandt: 11px)
+  ok    47.17 generator.css saetter stadig den generiske .v til 16px (forudsaetningen for 47.18)
+  ok    47.18 .v-ikke har en matrix-regel, der slaar den generiske .v
+  ok    47.18 .v-nej har en matrix-regel, der slaar den generiske .v
+  ok    47.18 .v-billede har en matrix-regel, der slaar den generiske .v
+  ok    47.18 .v-ja har en matrix-regel, der slaar den generiske .v
+  ok    47.19 matrix-reglen er mere specifik end den generiske (2,1 > 2,0)
+  ok    47.20 .v-ikke deler .omregnets padding (1px 5px = 1px 5px)
+  ok    47.20 .v-ikke deler .omregnets border-radius (var(--hjoerne) = var(--hjoerne))
+  ok    47.21 .v-ikke beholder sit stiplede kvadrat (.mrk) - det .omregnet aldrig faar
+  ok    47.22 .v-ikke er minuskler, .omregnet er versaler - de kan ikke forveksles
+  ok    47.23 de tre tilstande har hver sit kvadrat (fyldt / aabent / stiplet)
+
+48. spor/katalog2: katalogets seks punkter + JPKs fire rettelser (4R/5R/6R/7R)
+  ok    48.0: byg giver exit 0
+  ok    48.1.da: h1 findes
+  ok    48.1.da: h1 er den nye, sektionsspecifikke noegle ("Nyeste i kataloget")
+  ok    48.2.da: h1 er IKKE laengere "Alle robotter"/"All robots"
+  ok    48.1.en: h1 findes
+  ok    48.1.en: h1 er den nye, sektionsspecifikke noegle ("Latest in the catalogue")
+  ok    48.2.en: h1 er IKKE laengere "Alle robotter"/"All robots"
+  ok    48.3.da: ingen QUAD-taerskel paa katalogsiden
+  ok    48.4.da: stempelblokken findes
+  ok    48.5.da: pladen baerer praecis ét stempel (fandt 1)
+  ok    48.6.da: det ene stempel er en dato (ÅÅÅÅ-MM-DD)
+  ok    48.3.en: ingen QUAD-taerskel paa katalogsiden
+  ok    48.4.en: stempelblokken findes
+  ok    48.5.en: pladen baerer praecis ét stempel (fandt 1)
+  ok    48.6.en: det ene stempel er en dato (ÅÅÅÅ-MM-DD)
+  ok    48.7: sammenligningssidens plade findes
+  ok    48.7b: sammenligningens plade baerer praecis ét stempel (fandt 1)
+  ok    48.7c: det ene stempel er en dato, ikke en taelling
+  ok    48.8: .sog input-reglen findes
+  ok    48.9: min-height >= 44px (fandt 44)
+  ok    48.10: font-size >= 16px, ellers zoomer iOS Safari (fandt 16)
+  ok    48.11.da: ti <details> i alt, alle ni facetgrupper (inkl. certificering) baerer data-facetgruppe
+  ok    48.11.da.revert: uden CE's data-facetgruppe (den gamle tilstand) falder taellingen til 8
+  ok    48.12.da: kun DEN ydre panel-toggle staar aaben (fandt 1 med "open")
+  ok    48.13.da: facetter__net baerer ingen <fieldset> laengere
+  ok    48.14.da: 4R - ingen facet bruger s4 eller s5 laengere (fandt s4=0, s5=0)
+  ok    48.15.da: 4R - seks facetter er s3, tre er s6 (fandt s3=6, s6=3)
+  ok    48.11.en: ti <details> i alt, alle ni facetgrupper (inkl. certificering) baerer data-facetgruppe
+  ok    48.11.en.revert: uden CE's data-facetgruppe (den gamle tilstand) falder taellingen til 8
+  ok    48.12.en: kun DEN ydre panel-toggle staar aaben (fandt 1 med "open")
+  ok    48.13.en: facetter__net baerer ingen <fieldset> laengere
+  ok    48.14.en: 4R - ingen facet bruger s4 eller s5 laengere (fandt s4=0, s5=0)
+  ok    48.15.en: 4R - seks facetter er s3, tre er s6 (fandt s3=6, s6=3)
+  ok    48.16: CSS-udgaven af "mindst ét valgt"-maerket findes ([data-facet-aktiv])
+  ok    48.17: JS-udgaven ([data-facet-antal]) fyldes af assets/katalog.js
+  ok    48.18: 5R - begge maerkeudgaver flugter mod cellens hoejre kant (margin-left:auto)
+  ok    48.19: 5R - haarstregen efter summary er slaaet fra, saa auto-margenen faar sin plads
+  ok    48.20: 5R/7R - <summary> har sit eget 44px-gulv (var IKKE tilfaeldet foer rettelsen)
+  ok    48.21: 5R - underteksten forkortes i stedet for at braekke om (ellipsis, ikke wrap)
+  ok    48.22: 6R - .facet__aktiv-tal respekterer [hidden] (den fundne cascade-bug)
+  ok    48.23: 7R - .facet--s6 gaar fuld bredde under 720px (generator.css daekker kun s3/s4/s5)
+  ok    48.24.da: bjaelken findes IKKE i den byggede HTML (JS-bygget, ikke skabelon-bygget)
+  ok    48.24.en: bjaelken findes IKKE i den byggede HTML (JS-bygget, ikke skabelon-bygget)
+  ok    48.25: assets/katalog.js bygger bjaelken naar samlknapper findes
+  ok    48.26: bjaelken laenker til sammenligningssiden (samme href, skabelonen allerede skrev)
+  ok    48.27: bjaelken viser NAVNE (join med mellemrum-punktum), ikke et antal
+  ok    48.28: klaebebar-CSS-blokken blev fundet til ordforraadstjekket
+  ok    48.29: klaebebar-CSS-blokken baerer intet handels- eller kurv-ord
+  ok    48.30: assets/katalog.js baerer intet handels- eller kurv-ord
+  ok    48.31.da: klaebebar_etiket findes og er en ikke-tom streng
+  ok    48.32.da: klaebebar_etiket baerer intet handels- eller kurv-ord ("Robotter valgt til sammenligning")
+  ok    48.31.en: klaebebar_etiket findes og er en ikke-tom streng
+  ok    48.32.en: klaebebar_etiket baerer intet handels- eller kurv-ord ("Robots selected for comparison")
+
+49. Producentindeksets Antal-kolonne: kilden er p.antal, aldrig navnelistens laengde
+  ok    49.1: Antal-cellen viser p.antal (999), ikke robotter.length (2)
+  ok    49.2: modelkolonnen baerer stadig kun de 2 rigtige modellinks (beviser at de to tal FAKTISK afveg i denne fixture - uden dette ville 49.1 ikke vaere et bevis)
+  ok    49.3: p.antal === null giver en TOM Antal-celle, ikke "0" og ikke "1" (begraensning 5: "ikke oplyst", "nej" og "0" er tre tilstande)
+  ok    49.4: sorterModeller() i indeksets modelkolonne: letteste foerst (Let 10kg, Tung 80kg), ukendt vaegt sidst (Ukendt)
+  ok    49.5a: producentindeksets <thead> har 4 kolonner, sidste med class="prod-navne"
+  ok    49.5b: alle 3 producentraekker i fixture-bygget: Antal og modellinks-antal er ens
+
+50. Taelleregnskabet: ét tal maa kun betyde én ting (spor/tal)
+  1. Om-os' regnskab balancerer
+  ok    50.1.a: oplyst + ikke oplyst = felter x robotter
+  ok    50.1.b: medKilde + udenKilde + tilstandssvar = oplyst
+  ok    50.1.c: naevneren regnskab() bruger ER skemaets FELTNAVNE.length (ikke skrevet i haanden)
+  ok    50.1/modbevis-forudsaetning: de syntetiske robotter rammer begge grene (én med alle 33 noegler tilstede som "ikke_oplyst", én med 0 noegler i doc'et)
+  ok    50.1/modbevis.a: DEN RIGTIGE regnskab() balancerer paa de syntetiske robotter
+  ok    50.1/modbevis.b: den OEDELAGTE kopi falder paa SAMME assertion — beviser at 50.1.a rent faktisk kan opdage denne fejlklasse
+  ok    50.0: byg af hele kataloget giver exit 0
+  2. Sammenligningssiden baerer ikke laengere en "Felter"-plade
+  ok    50.2.da: dist/da/sammenligning/index.html findes
+  ok    50.2.da: ingen raekke paa sammenligningssiden baerer etiketten "Oplyste felter"
+  ok    50.2.da: pladen viser praecis Udgave, og intet andet
+  ok    50.2.en: dist/en/sammenligning/index.html findes
+  ok    50.2.en: ingen raekke paa sammenligningssiden baerer etiketten "Fields stated"
+  ok    50.2.en: pladen viser praecis Udgave, og intet andet
+  3. Samme etiket betyder samme tal, overalt i det byggede site
+     da: "Oplyste felter" bruges 0 sted(er) — 
+  ok    50.3.da: "Oplyste felter" viser samme tal paa alle sider, der bruger den (0 distinkt(e) vaerdi(er) fundet)
+  ok    50.4.da: ingen brug af "Oplyste felter" viser den raa naevner (33) — det er skemaets FELTANTAL, ikke en optaelling af oplyste feltvaerdier
+  ok    50.3/modbevis.da: en syntetisk ekstra vaerdi under samme etiket FAAR 50.3-formen til at falde
+  ok    50.4/modbevis.da: den syntetiske vaerdi (= naevneren) bliver FANGET af 50.4-formen
+     en: "Fields stated" bruges 0 sted(er) — 
+  ok    50.3.en: "Fields stated" viser samme tal paa alle sider, der bruger den (0 distinkt(e) vaerdi(er) fundet)
+  ok    50.4.en: ingen brug af "Fields stated" viser den raa naevner (33) — det er skemaets FELTANTAL, ikke en optaelling af oplyste feltvaerdier
+  ok    50.3/modbevis.en: en syntetisk ekstra vaerdi under samme etiket FAAR 50.3-formen til at falde
+  ok    50.4/modbevis.en: den syntetiske vaerdi (= naevneren) bliver FANGET af 50.4-formen
+
+51. 404-siden (spor/404)
+  ok    51.0: build.mjs giver exit 0
+  ok    51.1.rod: dist/404.html findes
+  ok    51.1.da: dist/da/404.html findes (FLAD fil, ikke da/404/index.html)
+  ok    51.1.en: dist/en/404.html findes (FLAD fil, ikke en/404/index.html)
+  ok    51.1: 404-siden er bygget paa ALLE sprog, ikke kun ét
+  ok    51.2.da: <html lang="da">
+  ok    51.2.da: <title> baerer fejl404_titel + sted_navn
+  ok    51.2.da: siden er noindex (samme regel som alle andre sider)
+  ok    51.2.da: topbaren med sitets navn staar paa siden ("daek__navn")
+  ok    51.2.da: header-sprogskifteren (DA/EN) staar IKKE paa siden (fjernet 2. sep 2026)
+  ok    51.2.da: <link rel="alternate" hreflang> staar stadig i <head> (maskinlaesbart skift)
+  ok    51.2.da: fodens haarde linje ("ingen_forhandler") staar PAA 404-siden (foden er tilbage)
+  ok    51.2.da.revert: proeven FANGER en 404-side uden fodens linje (fjernes foden igen, falder testen)
+  ok    51.2.en: <html lang="en">
+  ok    51.2.en: <title> baerer fejl404_titel + sted_navn
+  ok    51.2.en: siden er noindex (samme regel som alle andre sider)
+  ok    51.2.en: topbaren med sitets navn staar paa siden ("daek__navn")
+  ok    51.2.en: header-sprogskifteren (DA/EN) staar IKKE paa siden (fjernet 2. sep 2026)
+  ok    51.2.en: <link rel="alternate" hreflang> staar stadig i <head> (maskinlaesbart skift)
+  ok    51.2.en: fodens haarde linje ("ingen_forhandler") staar PAA 404-siden (foden er tilbage)
+  ok    51.2.en.revert: proeven FANGER en 404-side uden fodens linje (fjernes foden igen, falder testen)
+  ok    51.2.revert: en side uden chrome mangler daek__navn (proever regelens negativ)
+  ok    51.2.revert: proeven FANGER en side, hvor sprogskifteren er vendt tilbage
+  ok    51.2.revert: hreflang-proeven FANGER en side uden <link rel="alternate">
+  ok    51.3.da: intet navigationspunkt er markeret som den aktuelle side
+  ok    51.3.en: intet navigationspunkt er markeret som den aktuelle side
+  ok    51.3.revert: den samme test FANGER en falsk aria-current="page", naar den er der
+  ok    51.4.da: <main> har et knap-link (sitets ene knapprimitiv) til kataloget
+  ok    51.4.da: linket peger paa den rigtige mappe ("../da/")
+  ok    51.4.da: maalfilen findes rent faktisk i SAMME byg (tests\.tmp-koersel\dist-fejl404\da\index.html)
+  ok    51.4.da: knappen har valgt en flade-variant, ikke bare grundformen
+  ok    51.4.en: <main> har et knap-link (sitets ene knapprimitiv) til kataloget
+  ok    51.4.en: linket peger paa den rigtige mappe ("../en/")
+  ok    51.4.en: maalfilen findes rent faktisk i SAMME byg (tests\.tmp-koersel\dist-fejl404\en\index.html)
+  ok    51.4.en: knappen har valgt en flade-variant, ikke bare grundformen
+  ok    51.4.revert: <main> uden knap-link matcher IKKE knap-reglen
+  ok    51.4.revert2: en klasse, der kun INDEHOLDER "knap", matcher ikke
+  ok    51.5.da: forklaringen staar i klartekst i <main> (ikke kun "404")
+  ok    51.5.en: forklaringen staar i klartekst i <main> (ikke kun "404")
+  ok    51.5.revert: <main>404</main> alene matcher IKKE forklarings-reglen
+  ok    51.6: rod-siden er noindex
+  ok    51.6: rod-siden bruger IKKE de sprogspecifikke chrome-klasser (den er selvbaerende)
+  ok    51.6: rod-siden har praecis 2 vej(e) ind, én pr. sprog
+  ok    51.6.da: rod-vejen til da har href/hreflang/lang sat konsistent
+  ok    51.6.da: rod-vejens maal findes i SAMME byg (tests\.tmp-koersel\dist-fejl404\da\index.html)
+  ok    51.6.en: rod-vejen til en har href/hreflang/lang sat konsistent
+  ok    51.6.en: rod-vejens maal findes i SAMME byg (tests\.tmp-koersel\dist-fejl404\en\index.html)
+  ok    51.6.revert: en rod-side med kun ét sprogs vej matcher IKKE SPROG.length
+  ok    51.6.da: rod-sidens titel for da staar i klartekst
+  ok    51.6.en: rod-sidens titel for en staar i klartekst
+  ok    51.7.da/404.html: ingen koebsknap eller affiliate-link
+  ok    51.7.da/404.html: ingen henvisning til media/ (fabrikantmateriale maa aldrig i et byg)
+  ok    51.7.en/404.html: ingen koebsknap eller affiliate-link
+  ok    51.7.en/404.html: ingen henvisning til media/ (fabrikantmateriale maa aldrig i et byg)
+  ok    51.7.404.html: ingen koebsknap eller affiliate-link
+  ok    51.7.404.html: ingen henvisning til media/ (fabrikantmateriale maa aldrig i et byg)
+  ok    51.8: netop 3 404-filer i alt (1 rod + 2 sprog), uafhaengigt af robotantallet (3 i fixturen)
+
+52. Stilarkets struktur: klammebalance, negativ dybde, konfliktmarkoerer, nestet @media (spor/klamme)
+  info  assets/system.css: { 507 } 507 (motorens eget tal, kommentarer/strenge/url() ekskluderet)
+  ok    52.1 assets/system.css: klammerne balancerer (sluttdybde 0)
+  ok    52.2 assets/system.css: dybden gaar aldrig negativ
+  ok    52.3 assets/system.css: ingen efterladte konfliktmarkoerer
+  ok    52.4 assets/system.css: ingen utilsigtet nestet @media
+  info  assets/generator.css: { 408 } 408 (motorens eget tal, kommentarer/strenge/url() ekskluderet)
+  ok    52.1 assets/generator.css: klammerne balancerer (sluttdybde 0)
+  ok    52.2 assets/generator.css: dybden gaar aldrig negativ
+  ok    52.3 assets/generator.css: ingen efterladte konfliktmarkoerer
+  ok    52.4 assets/generator.css: ingen utilsigtet nestet @media
+
+53. spor/robotside: eu-blok vaek, produktside mindre, prosa-dublering fjernet (JPK 1. sep 2026)
+  ok    53.0: byg af hele kataloget giver exit 0
+  ok    53.1: der er robotsider at maale paa (77 robotter x antal sprog)
+  ok    53.2: INGEN af de 154 robotsider har en sektion.eu-blok tilbage
+  ok    53.3.da: ALLE 77 robotsider har CE-raekken i skemaet ("CE oplyst")
+  ok    53.4.da: ALLE 77 robotsider bevarer forbeholdssaetningen ("Feltet viser kun, hvad producenten selv …")
+  ok    53.3.en: ALLE 77 robotsider har CE-raekken i skemaet ("CE stated")
+  ok    53.4.en: ALLE 77 robotsider bevarer forbeholdssaetningen ("The field shows only what the manufactur…")
+  ok    53.2.revert: en streng MED sektion.eu-blok matcher reglens negativ (fanges)
+  ok    53.4.revert: en streng UDEN forbeholdssaetningen fanges af regel 53.4
+  ok    53.5: INGEN af de 154 robotsider har en CE-chip i skiltlinjen laengere
+  ok    53.5.revert: en skiltlinje MED maerke--ce fanges af reglen
+  ok    53.6: system.css krymper .typeskilt .produktside's padding-top til var(--r5)
+  ok    53.7: link- og adresselinjens margin er strammet (var(--r2), var(--r1))
+  ok    53.8: INGEN af de 154 produktside-sektioner bruger den tunge t-broed.maal-klasse laengere
+  ok    53.6.revert: den gamle padding-top (var(--r8)) matcher IKKE den nye regel
+  ok    53.9: den fjernede gentagelse "own classification, quoted ver…" staar INGEN steder i de 154 sider
+  ok    53.9: den fjernede gentagelse "cannot be quoted, it reads not…" staar INGEN steder i de 154 sider
+  ok    53.9: den fjernede gentagelse "gengivet ordret. Kan producent…" staar INGEN steder i de 154 sider
+  ok    53.10.da: den bevarede afgraensning ("Kategorien er ikke vores vurdering.") staar stadig i i18n
+  ok    53.10.en: den bevarede afgraensning ("This category is not our assessment.") staar stadig i i18n
+  ok    53.11.da: forhandler-forbeholdet ("Vi er ikke forhandler af nogen…") staar PRAECIS ÉN gang paa alle 77 robotsider (foden baerer den, ingen dublet)
+  ok    53.11.da.revert: proeven FANGER en robotside UDEN forbeholdet (fjernes foden igen, falder testen)
+  ok    53.11.en: forhandler-forbeholdet ("We do not resell any robot on …") staar PRAECIS ÉN gang paa alle 77 robotsider (foden baerer den, ingen dublet)
+  ok    53.11.en.revert: proeven FANGER en robotside UDEN forbeholdet (fjernes foden igen, falder testen)
+  ok    53.11.revert: en streng med forbeholdet TO gange taeller 2, ikke 1
+  ok    53.11.revert: en streng UDEN forbeholdet taeller 0, ikke 1
+
+54. Sprogroden er kataloget, "Oversigt" er vaek, enhedskontakten er i topbaren (spor/oversigt)
+  ok    54.0: build.mjs giver exit 0 (frisk byg af det rigtige datasaet, egen tmp-mappe)
+  ok    54.0b: der er sider at maale paa (216 .html)
+  ok    54.1.da: dist/da/index.html findes
+  ok    54.1.da: dist/da/index.html ER katalogsiden (<title> baerer "Alle robotter", filterformular og resultatgitter #alle findes)
+  ok    54.1.en: dist/en/index.html findes
+  ok    54.1.en: dist/en/index.html ER katalogsiden (<title> baerer "All robots", filterformular og resultatgitter #alle findes)
+  ok    54.1.revert: en side uden katalog-markoererne fejler PRAECIS samme tjek
+  ok    54.2.da: dist/da/robotter/index.html findes IKKE (kataloget flyttede)
+  ok    54.2.en: dist/en/robotter/index.html findes IKKE (kataloget flyttede)
+  ok    54.2b: robotter/<slug>/-undersiderne staar der stadig (77 mapper under da/robotter/)
+  ok    54.3: "Oversigt"/"Overview" findes 0 steder i de 216 byggede sider
+  ok    54.3.revert: samme regex fanger en synlig "Oversigt"-laenke, naar den findes
+  ok    54.4: tools/skabelon/forside.mjs findes IKKE paa disken
+  ok    54.4.revert: fs.existsSync finder rent faktisk en fil, der ER der (katalog.mjs)
+  ok    54.5: build.mjs importerer IKKE laengere forside.mjs
+  ok    54.5.revert: samme regex fanger en genindsat forside.mjs-import
+  ok    54.6-forudsaetning: mindst én robotside har praecis én enhedsskift__boks (forudsaetning for 54.6)
+  ok    54.6: addverb-trakr-20/ har PRAECIS ÉN enhedsskift__boks, ikke to
+  ok    54.7: sammenligningssiden har PRAECIS ÉN enhedsskift__boks, ikke to
+  ok    54.7.revert: samme taelling fanger to kontakter paa én side (revert af "praecis én")
+  ok    54.7b-forudsaetning: addverb-trakr-20/'s RAA HTML baerer stadig 3 label-forekomster (topbar + robot.mjs' to egne, uroerte kald) - beviser at CSS, ikke markup, maa loese det
+  ok    54.7c: system.css skjuler de GAMLE in-page etiketter (.robotside.typeskilt/.sammenligning-app), saa kun topbarens er synlig
+  ok    54.7c.revert: samme regex fejler paa en CSS-kilde uden skjule-reglen
+  ok    54.8: alle sider med topbar (216) baerer topbarens enheds-etiket, uanset om kontakten er synlig
+  ok    54.8.revert: filteret fanger en topbar uden enheds-etiketten
+  ok    54.9: boksen er en AEGTE <input type="checkbox">, ingen robotside bruger role="checkbox"
+  ok    54.10: system.css baerer en :has()-regel, der viser/skjuler .daek__enhed
+  ok    54.11: system.css baerer en :has()-regel, der styrer .daek__enhed ved :checked
+  ok    54.12: system.css baerer en :has()-regel, der styrer .daek__enhed ved :focus-visible
+  ok    54.10-12.revert: samme tre tjek fejler alle paa en CSS-kilde uden :has()-reglerne
+  ok    54.13: den GAMLE `~`-regel, der skifter selve tallene, staar stadig uaendret (.typeskilt .enhedsskift__boks:checked ~ * .enhedsvis--imperial)
+  ok    54.14: samme for sammenligningssidens variant (.sammenligning-app-scopet)
+  ok    54.15.da: katalogsiden har INGEN enhedsskift__boks (P0-forudsaetning: ingen boks -> :has() skal holde kontakten skjult)
+  ok    54.15.en: katalogsiden har INGEN enhedsskift__boks (P0-forudsaetning: ingen boks -> :has() skal holde kontakten skjult)
+
+55. spor/saml2: sammenligningssiden uden vaelger + "Vaelg robotter" tilbage til kataloget
+  ok    55.1 build.mjs giver exit 0 (frisk byg til egen midlertidig mappe)
+  ok    55.2.da sammenligningssiden findes
+  ok    55.3.da den gamle <section class="sektion sammenligning"> er vaek
+  ok    55.4.da .vaelgernet-gitteret er vaek
+  ok    55.5.da ingen .vc__felt-checkbokse tilbage (foer: 77)
+  ok    55.6.da enhedskontakten (#enhedsskift) staar praecis ÉN gang
+  ok    55.6b.da enhedskontakten har id="enhedsskift" (samme noegle som robotsiden/enhed.js)
+  ok    55.7.da siden har det eksisterende "Tilbage til kataloget"-link at sammenligne med
+  ok    55.8.da sidens ENE SSR'ede "Vaelg robotter"-knap er vaek (.afslutning-knap)
+  ok    55.9.da returlinket daekker stadig vejen til kataloget uden JS (P0)
+  ok    55.10.da i18n-noeglen sammenligning_vaelg_titel naar klienten som tekst.vaelg_titel ("Vælg robotter")
+  ok    55.10b.da fjern-knappens to strenge naar klienten, og den lange navngiver robotten
+  ok    55.10c.da katalogUrl naar klienten og peger samme sted som returlinket
+  ok    55.2.en sammenligningssiden findes
+  ok    55.3.en den gamle <section class="sektion sammenligning"> er vaek
+  ok    55.4.en .vaelgernet-gitteret er vaek
+  ok    55.5.en ingen .vc__felt-checkbokse tilbage (foer: 77)
+  ok    55.6.en enhedskontakten (#enhedsskift) staar praecis ÉN gang
+  ok    55.6b.en enhedskontakten har id="enhedsskift" (samme noegle som robotsiden/enhed.js)
+  ok    55.7.en siden har det eksisterende "Tilbage til kataloget"-link at sammenligne med
+  ok    55.8.en sidens ENE SSR'ede "Vaelg robotter"-knap er vaek (.afslutning-knap)
+  ok    55.9.en returlinket daekker stadig vejen til kataloget uden JS (P0)
+  ok    55.10.en i18n-noeglen sammenligning_vaelg_titel naar klienten som tekst.vaelg_titel ("Choose robots")
+  ok    55.10b.en fjern-knappens to strenge naar klienten, og den lange navngiver robotten
+  ok    55.10c.en katalogUrl naar klienten og peger samme sted som returlinket
+  ok    55.11 fjern-knappens beroeringsmaal er mindst 44x44 (fandt 44x44px)
+  ok    55.11c knapprimitiven baerer selv beroeringsmaalet, min-height >= 44px (fandt 44px)
+  ok    55.11d invitationen vaelger en LYS flade-variant (den staar paa sidens lyse bund)
+  ok    55.11d/revert: samme proeve afviser en moerk flade-variant paa invitationen
+  ok    55.12 :focus-visible saetter en synlig outline globalt (knappen faar den, ingen override fjerner den)
+  ok    55.13 klik er delegeret til [data-saml-resultat], ikke bundet ved opstart
+  ok    55.13b lytteren kender baade fjern-knappen og invitationen
+  ok    55.14 klikket bruger document.referrer + history.back() (ikke en ny fetch/URL-mekanisme)
+  ok    55.15 sammenligning.js laeser udvalget ÉT sted og skriver det ÉT sted (fandt 1 laes, 1 skriv)
+  ok    55.15b gemUdvalg() kaldes praecis ét sted, fra fjernSlug() (fandt 1 kald)
+  ok    55.15c skrivningen staar i en try/catch (privat fane maa ikke braekke siden)
+
+56. spor/valgbar: SELECTED-baren viser kun aktive filtre, ikke standardtilstanden
+  ok    56.0: byg giver exit 0
+  ok    56.1.da: klassen "valg--standard" findes 0 gange (fandt 0)
+  ok    56.2.da: ingen <li> for "skjult-udgaaet" i strimlen
+  ok    56.2b.da: ingen :has()-regel for "skjult-udgaaet"
+  ok    56.3.da.i_produktion: <li class="valg" data-valg="f-status-i_produktion"> findes (generisk chip-id, ikke "skjult-i_produktion")
+  ok    56.3b.da.i_produktion: :has()-reglen der taender chippen naar #f-status-i_produktion ER checked, findes (generisk form)
+  ok    56.3.revert.da.i_produktion: den gamle inverterede chip-id "skjult-i_produktion" findes IKKE
+  ok    56.3.da.annonceret: <li class="valg" data-valg="f-status-annonceret"> findes (generisk chip-id, ikke "skjult-annonceret")
+  ok    56.3b.da.annonceret: :has()-reglen der taender chippen naar #f-status-annonceret ER checked, findes (generisk form)
+  ok    56.3.revert.da.annonceret: den gamle inverterede chip-id "skjult-annonceret" findes IKKE
+  ok    56.3.da.udgaaet: <li class="valg" data-valg="f-status-udgaaet"> findes (generisk chip-id, ikke "skjult-udgaaet")
+  ok    56.3b.da.udgaaet: :has()-reglen der taender chippen naar #f-status-udgaaet ER checked, findes (generisk form)
+  ok    56.3.revert.da.udgaaet: den gamle inverterede chip-id "skjult-udgaaet" findes IKKE
+  ok    56.3c.da.i_produktion: #f-status-i_produktion er IKKE checked i hvile (ingen standard laengere)
+  ok    56.3c.da.annonceret: #f-status-annonceret er IKKE checked i hvile (ingen standard laengere)
+  ok    56.3c.da.udgaaet: #f-status-udgaaet er IKKE checked i hvile (ingen standard laengere)
+  ok    56.3c.revert.da: samme moenster fanger en checked checkboks
+  ok    56.4.da: i18n-noeglen filter_status_mrk findes IKKE laengere (fjernet, ikke omformuleret)
+  ok    56.4b.da: <details data-facetgruppe="status"> findes
+  ok    56.4c.da: status-summary'en baerer INGEN "facet__tal" (samme form som enhver anden facet)
+  ok    56.4c.revert.da: samme tjek "bestaar" ogsaa paa land-facetten (proever noget aegte)
+  ok    56.4d.da: status-facetgruppen har IKKE "open" (er sammenfoldet, som resten)
+  ok    56.5.da: en almindelig facets chip-mekanik (vaegt) staar uaendret
+  ok    56.1.en: klassen "valg--standard" findes 0 gange (fandt 0)
+  ok    56.2.en: ingen <li> for "skjult-udgaaet" i strimlen
+  ok    56.2b.en: ingen :has()-regel for "skjult-udgaaet"
+  ok    56.3.en.i_produktion: <li class="valg" data-valg="f-status-i_produktion"> findes (generisk chip-id, ikke "skjult-i_produktion")
+  ok    56.3b.en.i_produktion: :has()-reglen der taender chippen naar #f-status-i_produktion ER checked, findes (generisk form)
+  ok    56.3.revert.en.i_produktion: den gamle inverterede chip-id "skjult-i_produktion" findes IKKE
+  ok    56.3.en.annonceret: <li class="valg" data-valg="f-status-annonceret"> findes (generisk chip-id, ikke "skjult-annonceret")
+  ok    56.3b.en.annonceret: :has()-reglen der taender chippen naar #f-status-annonceret ER checked, findes (generisk form)
+  ok    56.3.revert.en.annonceret: den gamle inverterede chip-id "skjult-annonceret" findes IKKE
+  ok    56.3.en.udgaaet: <li class="valg" data-valg="f-status-udgaaet"> findes (generisk chip-id, ikke "skjult-udgaaet")
+  ok    56.3b.en.udgaaet: :has()-reglen der taender chippen naar #f-status-udgaaet ER checked, findes (generisk form)
+  ok    56.3.revert.en.udgaaet: den gamle inverterede chip-id "skjult-udgaaet" findes IKKE
+  ok    56.3c.en.i_produktion: #f-status-i_produktion er IKKE checked i hvile (ingen standard laengere)
+  ok    56.3c.en.annonceret: #f-status-annonceret er IKKE checked i hvile (ingen standard laengere)
+  ok    56.3c.en.udgaaet: #f-status-udgaaet er IKKE checked i hvile (ingen standard laengere)
+  ok    56.3c.revert.en: samme moenster fanger en checked checkboks
+  ok    56.4.en: i18n-noeglen filter_status_mrk findes IKKE laengere (fjernet, ikke omformuleret)
+  ok    56.4b.en: <details data-facetgruppe="status"> findes
+  ok    56.4c.en: status-summary'en baerer INGEN "facet__tal" (samme form som enhver anden facet)
+  ok    56.4c.revert.en: samme tjek "bestaar" ogsaa paa land-facetten (proever noget aegte)
+  ok    56.4d.en: status-facetgruppen har IKKE "open" (er sammenfoldet, som resten)
+  ok    56.5.en: en almindelig facets chip-mekanik (vaegt) staar uaendret
+  info  56: 0 forekomster af "valg--standard" i da/index.html (skal vaere 0)
+
+57. spor/doedcss: ingen doede CSS-klasser er kommet tilbage
+  ok    57.0: build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    57.1: aegte doede klasser er PRAECIS de 13 kendte, beskyttede undtagelser (fandt 13: billedmaerke, gitter, grund, kort-billed, kort-hoved, kort-invit, kort-krop, kort-navn, maerke--varianter, prik--klip, saml-fotofelt--uoplyst, saml-raekke--tavs, stribe--kompakt)
+
+58. DESIGN.md: frontmatter mod koden, og "## Konflikter" (spor/document)
+  ok    58.1: DESIGN.md har en frontmatter med en "colors:"-blok
+  info  58: 25 af 25 DESIGN.md-farver (opløst) matcher :root (opløst)
+  ok    58.2: hver farve i DESIGN.md loeser op til samme vaerdi som :root (primitiv-hex ELLER semantik-reference, begge opløst)
+  ok    58.3: hver farve i :root (primitiv ELLER semantisk token) er dokumenteret i DESIGN.md
+  ok    58.4: ingen opfundne farvenavne i DESIGN.md (alle findes i :root, som primitiv eller som semantisk reference)
+  ok    58.5: skriftfamilier med fontfiler paa disken er navngivet i frontmatter
+  ok    58.6: "## Konflikter" findes og navngiver mindst 4 af de kendte konflikter
+
+59. Farvetokens: primitiv-lag under de 16 gamle navne (spor/primitiv)
+  ok    59.--bund: loeser op til #E8EBED
+  ok    59.--panel: loeser op til #FAFBFB
+  ok    59.--panel-ro: loeser op til #E8EBED
+  ok    59.--tom: loeser op til #E8EBED
+  ok    59.--blaek: loeser op til #22262A
+  ok    59.--blaek2: loeser op til #545C63
+  ok    59.--blaek3: loeser op til #5F686F
+  ok    59.--accent: loeser op til #F2C400
+  ok    59.--accent-ro: loeser op til #E8EBED
+  ok    59.--linje: loeser op til #C6CCD1
+  ok    59.--hegn: loeser op til #9AA3A9
+  ok    59.--fod: loeser op til #22262A
+  ok    59.--paafod: loeser op til #E8EBED
+  ok    59.--paafod2: loeser op til #9AA3A9
+  ok    59.--stans: loeser op til #FFFFFF
+  ok    59.--stoev-blaek: loeser op til #5F686F
+  ok    59.a: alle 16 gamle tokennavne loeser stadig op til deres oprindelige farve (opsummering)
+  ok    59.17: alle 11 dublet-tokens peger paa et --p-* primitiv (ikke literal hex laengere)
+  ok    59.18: praecis 9 --p-*-primitiver findes, alle som literal hex (kaedens bund)
+
+61. L76/L78/L79/L80: systemreglerne fra 2. sep (spor/extract)
+  ok    61.0: alle 8 oedelagte tilfaelde fanges af deres egen vagt
+  info  61: 8 af 8 oedelagte tilfaelde fanget
+  ok    61.0b: vagterne larmer ikke paa ren CSS
+  ok    61.1: --accent bruges kun som tekst paa de tre kendte moerke flader
+  ok    61.2: ingen hvid tekst paa en accent-flade (ogsaa naar farve og baggrund staar i hver sin regel)
+  ok    61.3: ingen hvid kant paa en accent-flade
+  ok    61.4: linkets grundregel saetter --blaek, ikke accent
+  ok    61.5: accent flytter til hover som UNDERSTREGNINGENS farve, ikke tekstens
+  ok    61.6: intet 16:10-sideforhold er tilbage i stilarkene
+  ok    61.7: intet produktfoto beskaeres (ingen cover-fit)
+  ok    61.8: .billedled baerer sideforholdet 4:3 i grundreglen
+  ok    61.9: .billedled img indpasser billedet (contain) i grundreglen
+  ok    61.10: --plade-forhold findes i CSS og PLADE_MM_HOEJ i side.mjs
+  ok    61.11: maaltro-pladens sideforhold er ENS i CSS og i side.mjs
+  ok    61.12: ingen radius er skrevet i haanden (0 og 99px-pillen undtaget)
+  ok    61.13: --hjoerne er defineret og er 2px
+  ok    61.14: de tre bloede radius-tokens er vaek
+  ok    61.15: intet brugssted peger paa et af de tre gamle tokens
+  ok    61.16: de selvophaevende .typeskilt-radiusregler er ikke kommet igen
+  ok    61.17: intet skrift-token peger paa en familie uden @font-face
+  ok    61.18: --sans er vaek som token og som brugssted
+  ok    61.19: body saetter sin skrift EKSPLICIT til --mono (Saira)
+  ok    61.20: hver @font-face peger paa en fil, der findes i assets/
+  ok    61.21: der er praecis TO selvhostede familier (Saira og Literata)
+
+62. spor/uifix: seks UI-rettelser (BRIEF-uifix.md)
+  ok    62.0: build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    62.1.a: "Imperiale enheder" og "Metriske enheder" staar lige mange gange paa unitree-go2 (3 vs. 3)
+  ok    62.1.a.revert: den gamle etiket-fejl (0 "Metriske enheder") fanges af samme tjek
+  ok    62.2.a: class="omregnet" findes 0 gange paa yufan-lingmao-cyvet
+  ok    62.2.b: class="pris-om__ord" findes 0 gange paa katalogsiden
+  ok    62.2.c: ECB-referencekursens forklaring staar IKKE laengere paa katalogsiden
+  ok    62.2.c.revert: en syntetisk katalogstreng med den gamle note fanges
+  ok    62.2.d: ECB-referencekursens forklaring staar paa robotsiden (yufan-lingmao-cyvet)
+  ok    62.2.d.revert: en syntetisk robotstreng uden noten fanges
+  ok    62.2.revert: en syntetisk streng med class="omregnet" fanges
+  ok    62.3.a: INGEN af de tre status-vaerdier er checked ved indlaesning
+  ok    62.3.b: "standard: udgåede skjult" findes 0 gange
+  ok    62.3.c: resultatoverskriften viser 77 robotter, ikke 74
+  ok    62.3.d: den generiske (ikke-inverterede) chip-regel findes for f-status-udgaaet
+  ok    62.3.revert: den gamle inverterede chip-id "skjult-udgaaet" findes IKKE
+  ok    62.5.a.da: 'CNY' findes 0 gange paa katalogsiden
+  ok    62.5.b.da: 'USD' findes paa katalogsiden
+  ok    62.5.c.da: prisfigurer baerer stadig et kildemaerke (11 af 11)
+  ok    62.5.a.en: 'CNY' findes 0 gange paa katalogsiden
+  ok    62.5.b.en: 'USD' findes paa katalogsiden
+  ok    62.5.c.en: prisfigurer baerer stadig et kildemaerke (11 af 11)
+  ok    62.6.a: alle 6 robotter med CNY-pris viser stadig 'CNY' paa deres egen side
+  ok    62.6.b: alle 4 robotter med USD-pris viser stadig 'USD' paa deres egen side
+  ok    62.6.c: der er robotter af begge slags at maale paa (regressionsvaernet proever noget)
+  ok    62.7.a: 0 af 216 byggede sider baerer <footer class="fod">
+  ok    62.7.b: forsiden har en topbar, men INGEN sprogskifter i den (JPK 2. sep 2026: DA/EN vaek - fodens alibi findes ikke laengere)
+  ok    62.7.b2: <link rel="alternate" hreflang> staar stadig i <head> paa forsiden
+  ok    62.7.b.revert: samme proeve FANGER en topbar, hvor sprogskifteren er vendt tilbage
+  ok    62.7.c: Om os baerer stadig sin egen forhandlerlinje (uden for foden)
+  ok    (a) ordbogen er vendbar for hver post
+  ok    (b) tabeller: skema.sql daekker praecis ordbogens engelske navne
+  ok    (b) tabeller: skema.sql naevner ALLE tabeller, ordbog + foedt-engelsk kender
+  ok    (b) kolonner: ingen skema.sql-kolonne (ud over de foedt-engelske) mangler i ordbogen
+  ok    (b) kolonner: ordbogen har ingen post, skema.sql ikke bruger
+  ok    (b) enum-typer: skema.sql og ordbog er enige
+  ok    (b) enum-labels: hver enum-types vaerdier i skema.sql matcher ordbogen praecist
+  ok    (c) byg-migrering.mjs output er lig db/migrering-engelsk.sql efter CRLF-normalisering
+  ok    (d) fixture (addverb-trakr-20, engelsk) -> eksporteret dansk dokument er dybt lig originalen
+  ok    (d2) caveat_class "validity" -> "gyldighed" paa payload_walking (den faktiske vaerdi i fixturen)
+  ok    (e) migrering-cert.sql er idempotent (hver ALTER-linje har "if not exists")
+  ok    (flyttet fra 07) 0 fejl foerer til flytning (boerFlyttes === true)
+  ok    (flyttet fra 07) 1 fejl blokerer flytningen, selv med 0 advarsler
+  ok    (flyttet fra 07) flere fejl blokerer ligesaa — advarsler alene maa aldrig maskere en fejl
+  ok    (flyttet fra 44) db/skema.sql definerer robots.notes_wording (jsonb)
+  ok    (flyttet fra 44) db/skema.sql definerer field_entries.caveat_wording (text)
+  ok    (flyttet fra 44) db/skema.sql definerer applications.quote_wording (jsonb)
+  ok    (flyttet fra 44) db/skema.sql definerer applications.note_wording (text)
+  ok    (flyttet fra 44) db/skema.sql haandhaever caveat_wording ikke-tom + kraever caveat (R21s to krav, CHECK)
+
+64. spor/i18ntest — advarsel_i18n/note_i18n: genskabt daekning (punkt 1-3 af den slettede 60-i18nfelt.mjs)
+  1. advarsel_i18n er en kendt noegle — en gyldig post giver 0 fejl
+  ok    64.1: advarsel_i18n paa en feltpost giver 0 fejl (R11 kender noeglen)
+  2. R22 — fem bevidst oedelagte former, plus de gyldige (advarsel_i18n + note_i18n x2)
+  ok    64.2: advarsel_i18n er ikke et sprogkort (bar streng)  ->  R22
+  ok    64.2: advarsel_i18n med et sprog uden for SPROG ("fr")  ->  R22
+  ok    64.2: advarsel_i18n med kildesproget "da" som noegle  ->  R22
+  ok    64.2: advarsel_i18n uden advarsel  ->  R22
+  ok    64.2: advarsel_i18n med internt sprog i den oversatte tekst  ->  R22
+  ok    64.2: advarsel_i18n + anvendelse.note_i18n + billede.note_i18n, alle gyldigt formet, giver 0 fejl
+  3. build.mjs vaelger tekst efter sprog ÉT sted — "UDEN batteri" forsvinder fra /en/, forbliver paa /da/
+  ok    64.3: grundlag — alle robotfiler kopieret til scratch-mappen (KOPI, data/robots/ er ikke roert)
+  ok    64.3: grundlag — unitree-aliengo.yaml (kopien) baerer "UDEN batteri" i sin danske advarsel
+  ok    64.3: grundlag — advarsel_i18n blev faktisk indsat i kopien (patch-strengen matchede)
+  ok    64.3: byg af den patchede scratch-mappe giver exit 0
+  ok    64.3: /en/robotter/unitree-aliengo/ viser IKKE "UDEN batteri" (den engelske oversaettelse traadte i stedet)
+  ok    64.3: /en/robotter/unitree-aliengo/ viser den engelske oversaettelse ("WITHOUT the battery") mindst én gang
+  ok    64.3: /da/robotter/unitree-aliengo/ viser stadig "UDEN batteri" UAENDRET (den danske kilde er urort)
+
+65. spor/katalog3: SELECTED-baren lever kun i bunden af skaermen
+  ok    65.0: byg giver exit 0
+  ok    65.1: assets/katalog.js saetter data-aktiv INGEN steder
+  ok    65.2: system.css holder .saml-taeller paa display:none som grundtilstand
+  ok    65.3.da: chippen udsendes med hidden og UDEN data-aktiv
+  ok    65.3.en: chippen udsendes med hidden og UDEN data-aktiv
+  ok    65.4.da: baereren findes i den byggede side (data-saml-taeller)
+  ok    65.5.da: .saml-taeller__gaa baerer bjaelkens href OG dens linktekst
+  ok    65.6.da: data-klaebebar-etiket er en ikke-tom streng (bjaelkens ARIA-navn)
+  ok    65.7.da: [data-saml-ryd] baerer ryd-knappens tekst
+  ok    65.4.en: baereren findes i den byggede side (data-saml-taeller)
+  ok    65.5.en: .saml-taeller__gaa baerer bjaelkens href OG dens linktekst
+  ok    65.6.en: data-klaebebar-etiket er en ikke-tom streng (bjaelkens ARIA-navn)
+  ok    65.7.en: [data-saml-ryd] baerer ryd-knappens tekst
+  ok    65.8: katalog.js laeser href/linktekst fra .saml-taeller__gaa
+  ok    65.9: katalog.js laeser bjaelkens ARIA-navn fra data-klaebebar-etiket
+  ok    65.10: katalog.js laeser ryd-teksten fra [data-saml-ryd]
+  ok    65.11: bjaelkens tekst laeses med textContent, ikke innerText
+  ok    65.12.da: .saml-graense udsendes stadig med role="status"
+  ok    65.12.en: .saml-graense udsendes stadig med role="status"
+  ok    65.13: .saml-graense er tom-skjult via :empty, ikke via en attribut fra JS
+
+66. spor/saml3: proeveboksene vaek, én fjern-knap pr. robotkolonne
+  ok    66.0: build.mjs giver exit 0 (frisk byg til egen midlertidig mappe)
+  ok    66.1.da: proeveboksene (.saml-svar*) tegnes ikke laengere
+  ok    66.2.da: skaermlaeserens taelling staar for alle 33 feltraekker
+  ok    66.3.da: hver af de 3 robotkolonner har sin egen fjern-knap
+  ok    66.4.da: de tre knapper peger paa TRE FORSKELLIGE robotter, i kolonnernes egen orden
+  ok    66.5.da: hver knaps tilgaengelige navn naevner sin robot ("Fjern MOVENEW P1 fra sammenligningen")
+  ok    66.6.da: med 3 af 3 pladser fyldt staar der 0 kataloghenvisninger
+  ok    66.7.da: klikket fjerner NETOP sin egen robot (genisom-gangben-l2), de OEvrige bliver
+  ok    66.8.da: resultatet er GEMT, ogsaa naar udgangspunktet var standardvalget
+  ok    66.9.da: med en plads ledig staar der PRAECIS ÉN kataloghenvisning
+  ok    66.9b.da: henvisningen peger paa kataloget (samme URL som siden selv baerer)
+  ok    66.10.da: ned til én robot -> ingen matrix, men stadig en vej videre
+  ok    66.1.en: proeveboksene (.saml-svar*) tegnes ikke laengere
+  ok    66.2.en: skaermlaeserens taelling staar for alle 33 feltraekker
+  ok    66.3.en: hver af de 3 robotkolonner har sin egen fjern-knap
+  ok    66.4.en: de tre knapper peger paa TRE FORSKELLIGE robotter, i kolonnernes egen orden
+  ok    66.5.en: hver knaps tilgaengelige navn naevner sin robot ("Remove MOVENEW P1 from the comparison")
+  ok    66.6.en: med 3 af 3 pladser fyldt staar der 0 kataloghenvisninger
+  ok    66.7.en: klikket fjerner NETOP sin egen robot (genisom-gangben-l2), de OEvrige bliver
+  ok    66.8.en: resultatet er GEMT, ogsaa naar udgangspunktet var standardvalget
+  ok    66.9.en: med en plads ledig staar der PRAECIS ÉN kataloghenvisning
+  ok    66.9b.en: henvisningen peger paa kataloget (samme URL som siden selv baerer)
+  ok    66.10.en: ned til én robot -> ingen matrix, men stadig en vej videre
+  modbevis — kriterierne skal falde, naar reglen fjernes
+  ok    66.11/modbevis: mutationen fjernede faktisk fjern-knappens handle fra kilden
+  ok    66.12/modbevis: uden knappen falder antallet fra 3 til 0
+  ok    66.13/modbevis: mutationen fjernede faktisk skrivningen fra kilden
+  ok    66.14/modbevis: uden skrivningen falder robotten TILBAGE ind i matricen, og lageret er tomt
+  ok    66.15/modbevis: samme vej med UROERT kilde giver 3 knapper, 0 bokse og en fuld taelling
+
+67. Topbaren: begge enheder staar samtidig, DA/EN er vaek (spor/topbar)
+  ok    67.0: build.mjs giver exit 0 (frisk byg, egen tmp-mappe)
+  ok    67.0b: der er sider at maale paa (216 .html)
+  ok    67.0c: 214 af 216 sider baerer en topbar (resten er rodens vaelger)
+  ok    67.1: hver topbar baerer PRAECIS TO enhedsord (ikke ét, som foer sporet)
+  ok    67.2: begge topbarer baerer BAADE __ord--metrisk OG __ord--imperial
+  ok    67.3: topbarens ord baerer INGEN enhedsvis-klasse (den globale .enhedsvis--imperial{display:none} ville skjule det ene igen)
+  ok    67.3.revert: samme proeve FANGER den gamle markup, hvor ordet bar enhedsvis--imperial
+  ok    67.4: system.css skjuler ikke et af topbarens to ord (display:none paa .daek__enhed …__ord)
+  ok    67.4.revert: samme proeve FANGER en CSS-kilde, der gør det
+  ok    67.5: den aktive enhed er markeret i BEGGE tilstande (metrisk i hvile, imperial ved krydset)
+  ok    67.6: markeringen af det aktive ord er IKKE gul forgrund (L76: --accent giver 1,38:1)
+  ok    67.6.revert: samme proeve FANGER en gul forgrund, naar den er der
+  ok    67.7: tal-skiftets soeskende-regel (`~`) staar UROERT i system.css
+  ok    67.7b: ingen side bruger role="checkbox" i stedet for en aegte <input>
+  ok    67.8: 0 af 214 topbarer baerer et sprogskift (DA/EN fjernet 2. sep 2026)
+  ok    67.8.revert: samme proeve FANGER en topbar, hvor DA/EN er vendt tilbage
+  ok    67.9: system.css baerer ingen regler for det fjernede sprogskift
+  ok    67.10: hver topbar-side baerer stadig 3 <link rel="alternate" hreflang> i <head> (da, en, x-default) - sprogskiftet er maskinlaesbart, ikke tabt
+  ok    67.10.revert: samme proeve FANGER en side, hvor hreflang er revet ud af <head>
+  ok    67.11: alle sidens hreflang-forekomster (3) sidder i <head> som rel="alternate" (3) - ingen sidder paa en synlig laenke laengere
+  ok    dybtLig(orig, orig) er sand (to uafhaengige parsninger)
+  ok    talLig(orig, tekstaendret) er sand — kun en TEKSTNOEGLE differerer
+  ok    dybtLig(orig, tekstaendret) er falsk — tekstforskellen taeller for dybtLig
+  ok    talLig(orig, talaendret) er falsk — en talkolonne differerer
+  ok    talLig(orig, raekkefoelge-byttet) er falsk — listeraekkefoelge er ordnet data
+  ok    udenTekst: input har mindst én TEKSTNOEGLE foer strip
+  ok    udenTekst: 0 TEKSTNOEGLER tilbage paa alle dybder efter strip
+  ok    udenTekst muterer IKKE sit input
+  ok    TEKSTNOEGLER er praecis D2s liste (pinner kontrakten)
+  ok    --liste: exit 0
+  ok    --liste: antal linjer = antal forskellige producenter i data/robots/
+  ok    --liste: foerste linje er producenten med flest robotter
+  ok    --liste: udskriften indeholder IKKE "1/4" (eksporteren blev ikke kaldt)
+  ok    --liste: under 5000 ms (ingen database, ingen .env)
+  ok    (1) robotAftryk er stabil under noegleomrokering (canon() sorterer korrekt)
+  ok    (2a) aftrykket AeNDRER sig, naar value_number aendres
+  ok    (2b) aftrykket AeNDRER sig ogsaa ved et aendret field_entry_variants.value
+  ok    (2c) aftrykket er UAeNDRET, naar KUN tekstkolonner (caveat/note/alt) aendres — selve pointen
+  ok    (3a) erDansk fanger æøå-alene (harAeoeaa alene er nok til at forklare traeffet)
+  ok    (3b) erDansk fanger ordliste-alene (uden æøå)
+  ok    (3b) den ordliste-streng har IKKE æøå — beviser at DET var ordlisten, der fangede den, ikke æøå
+  ok    (4) en ren engelsk saetning (ingen æøå, intet markoerord) er IKKE dansk
+  ok    (4) samme saetning har heller ingen æøå (kontrol — beviser paastanden ikke er triviel)
+  ok    danskAlle: caveat 2 i alt, 2 dansk (begge er dansk — æøå hhv. ordliste)
+  ok    danskAlle: caveat_wording 1 i alt, 0 dansk (allerede engelsk)
+  ok    danskAlle: robots.notes 2 elementer, 1 dansk ("robotten" er et ordliste-ord, ingen æøå)
+  ok    danskAlle: images.alt laeser .en (ikke .da) — 1 i alt, 0 dansk (en-teksten er ren engelsk)
+  ok    ordlydIndeholderTal: "42" findes i "Weight excl. battery: 42 kg"
+  ok    ordlydIndeholderTal: tusind-adskiller "15,999" findes for tallet 15999
+  ok    ordlydIndeholderTal: intet traef, naar tallet slet ikke staar i teksten
+  ok    ordlydIndeholderTal: "18" traeffer IKKE inde i "180" (lookaround-graensen virker)
+  ok    (5) valider() afviser en post, hvis "saet" indeholder en ikke-hvidlistet (tal)kolonne
+  ok    (5) TEKSTKOLONNE_HVIDLISTE indeholder IKKE nogen kendt talkolonne
+  ok    (6) valider() afviser en post uden change_reason
+  ok    (6) valider() afviser ogsaa en BLANK (kun mellemrum) change_reason
+  ok    valider(): en fuldt gyldig post giver 0 fejl (positiv kontrol — validatoren afviser ikke ALTING)
+  ok    valider(): field_entries kraever PRAeCIS {robot_id, field_name} som noegle
+  ok    byggUrl: robots {id: 5} -> ?id=eq.5
+  ok    byggUrl: field_entries {robot_id, field_name} -> to eq.-filtre
+  ok    byggBody: saetter collected_by fra GREnnavnet, ALDRIG fra posten selv
+  ok    TABEL_NOEGLER kender praecis de 5 skrivbare tabeller (briefets punkt 4)
+  ok    canonJSON + sha256: samme input giver samme hash to gange (determinisme)
+  ok    robotAftrykData: field_entries sorteres paa field_name (speed foer weight)
+
+70. spor/knap: ÉN knapprimitiv (L77)
+  ok    70.0: kontrastmotoren rammer alle 5 kendte svar fra DESIGN.md (5/5)
+  ok    70.0/revert: motoren giver 1,66 for hvid paa accent (den forbudte kombination)
+  ok    70.1a: ingen pensioneret knapklasse i bygget HTML (4 proevet)
+  ok    70.1b: ingen pensioneret knapklasse som CSS-selektor
+  ok    70.1c: ingen pensioneret knapklasse skrives af klient-JS
+  FEJL  70.1/revert: samme tre proever finder "knap", som beviseligt ER der
+  FEJL  70.2a: der ER knapper at maale paa (fandt 0 <button> i dist)
+  ok    70.2b: hver eneste <button> i dist baerer primitiven .knap (0 af 0)
+  ok    70.2/revert: samme proeve fanger en <button> uden .knap
+  FEJL  70.3: hver .knap i dist har valgt en variant, ingen staar bar (0 af 0) — bar .knap: 
+  ok    70.4a: `.knap`-reglen findes i system.css
+  ok    70.4b: grundformen saetter color:inherit, ikke en fast farve (fandt "inherit")
+  ok    70.4c: grundformen saetter background:transparent (fandt "transparent")
+  ok    70.4/revert: samme proeve afviser en grundform med en fast forgrund
+  ok    70.5: hver flade-variant er over WCAG AA 4,5:1 — knap--fyldt 14,69 (panel paa blaek) · knap--kant 12,72 (blaek paa bund) · knap--tekst 4,74 (stoev-blaek paa bund) · knap--kant-moerk 12,72 (paafod paa fod) · knap--tekst-moerk 5,94 (paafod2 paa fod) · knap--maerkat 4,74 (stoev-blaek paa bund) · .knap--tekst.knap--frem 12,72 (blaek paa bund) · .knap--tekst-moerk.knap--frem 9,19 (accent paa fod) · hover (kasse-vaegtene) 9,19 (blaek paa accent)
+  ok    70.5/revert: accent paa lys bund fanges som for lav (1,38 < 4,5)
+  ok    70.5/revert2: accent paa den moerke flade bestaar (9,19 >= 4,5)
+  ok    70.6: hver variant skrevet til den moerke flade baerer "-moerk" i sit navn (2 proevet)
+  ok    (1) vaernTilstand: dansk=795 (>0) blokerer
+  ok    (1) koerVaern: en dansk-maaling > 0 blokerer (ingen --alligevel)
+  ok    (2) vaernTilstand: dansk=0 slipper igennem (blokeret:false)
+  ok    (2) koerVaern: en REN database (konstrueret 0-resultat) slipper igennem uden --alligevel
+  ok    (3) vaernBesked indeholder BAaDE dansk- og i alt-tallet, ikke bare "nej"
+  ok    (3) koerVaern() giver samme besked videre ved en blokerende maaling
+  ok    (4) koerVaern: --alligevel (+ --uden-commit) kommer forbi, SELV med et dansk-tal > 0
+  ok    (4) koerVaern: --alligevel springer maalingen HELT over (koster intet — briefets krav 4)
+  ok    (5) koerVaern: en KASTENDE maaling (fx manglende .env) stopper — ikke tavs succes
+  ok    (5) koerVaern: stop-beskeden forklarer HVORFOR (citerer maalefejlen)
+  ok    (ekstra) koerVaern: --alligevel UDEN --uden-commit naegtes (den beslutning briefet overlod til sporet)
+  ok    (ekstra) koerVaern: den naegtelse sker FOER nogen maaling (ren flag-logik, intet netvaerk)
+  ok    (ekstra) koerVaern: naegtelsens besked naevner BEGGE flag, saa det er tydeligt hvad der mangler
+  ok    (positiv kontrol) --alligevel + --uden-commit + en ren database slipper ogsaa igennem
+
+72. spor/zoom: L78 - kortets hover-zoom beskaerer ikke laengere (BRIEF-zoom.md)
+  ok    72.0: build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    72.1: den byggede system.css indeholder IKKE laengere fotografiets scale()-regel (.billedled img)
+  ok    72.1.revert: samme moenster FANGER en syntetisk streng med reglen
+  ok    72.2: den byggede system.css indeholder IKKE laengere pladefotografiets scale()-regel (.billedled--plade img)
+  ok    72.2.revert: samme moenster FANGER en syntetisk streng med reglen
+  ok    72.3: kortet har stadig et border-color hover-/fokussignal (regressionsvaern - ikke fjernet ved en fejl)
+  ok    72.3.revert: samme moenster fanger IKKE en streng uden reglen
+
+73. spor/vagt: sessionsvagt.mjs (UserPromptSubmit-hook)
+  ok    73.0: hook-filen findes paa den forventede sti
+  ok    73.1a: traekUsage summerer de tre felter korrekt (50.000)
+  ok    73.1b: under begge graenser -> beslut() tier (null)
+  ok    73.2a: over kontekstgraensen (320000 tokens) -> beslut() taler, selv med frisk timestamp
+  ok    73.2b: beskeden baerer det maalte kontekst-tal
+  ok    73.2c/graense: praecis KONTEKST_GRAENSE tokens tier stadig (kun strengt over taler)
+  ok    73.3a: traekTimestamp finder det eneste timestamp-felt i halen
+  ok    73.3b: kontekst i mellemzonen + stilhed over 55 min -> beslut() taler
+  ok    73.3c: samme kontekst men frisk timestamp -> beslut() tier (cachen lever endnu)
+  ok    73.3d: under CACHE_MIN_KONTEKST -> tier selv med et gammelt timestamp
+  ok    73.4a: tomt stdin -> exit 0
+  ok    73.4a: tomt stdin -> intet paa stdout
+  ok    73.4b: ugyldig JSON paa stdin -> exit 0
+  ok    73.4b: ugyldig JSON paa stdin -> intet paa stdout
+  ok    73.4c: gyldig JSON UDEN transcript_path -> exit 0
+  ok    73.4c: gyldig JSON UDEN transcript_path -> intet paa stdout
+  ok    73.4d: transcript_path peger paa en fil der ikke findes -> exit 0
+  ok    73.4d: samme -> intet paa stdout
+  ok    73.5/revert: en RIGTIG over-graense session giver additionalContext paa stdout (proces-niveau)
+  ok    73.6a: en fil paa flere MB giver stadig et svar (halen fandt den sidste linje)
+  ok    73.6b: koerslen tager under 5000 ms (81 ms) - et tegn paa at kun halen blev laest
+
+74. spor/ramme: L78 - katalogets billedramme beskaerer ikke laengere (BRIEF-ramme.md)
+  ok    74.0: build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    74.1: .net .billedled har position:relative (bliver .picture-s positioneringskontekst)
+  ok    74.1.revert: samme moenster fanger IKKE en .billedled-regel uden position:relative
+  ok    74.2: .net .billedled picture er display:block;position:absolute;inset:0
+  ok    74.2.revert: samme moenster fanger IKKE den forkastede A-formulering (width/height:100% i stedet)
+  ok    74.3: .billedled img har stadig object-fit:contain (uroert, L78s egen ordlyd)
+  ok    74.3.revert: samme moenster fanger IKKE en img-regel uden object-fit:contain
+
+75. spor/prisnote: ECB-prisnoten flyttet fra katalogsiden til robotsiden (BRIEF-prisnote.md)
+  ok    75.0: build.mjs giver exit 0 (frisk byg til midlertidig mappe)
+  ok    75.1.da: prisnoten ("referencekurs") staar paa robotsiden (yufan-lingmao-cyvet)
+  ok    75.1.en: prisnoten ("reference rate") staar paa robotsiden (yufan-lingmao-cyvet)
+  ok    75.1.revert: en syntetisk streng uden noten fanges
+  ok    75.2.da: prisnoten ("referencekurs") staar IKKE paa katalogsiden
+  ok    75.2.en: prisnoten ("reference rate") staar IKKE paa katalogsiden
+  ok    75.2.revert: en syntetisk streng med noten fanges
+  ok    75.3.a: der er noget at maale paa (77 robotsider fundet)
+  ok    75.3.b: noten staar paa PRAECIS de 11 prisbaerende robotsider
+  ok    75.3.c: noten staar paa 0 prisloese robotsider (laekker ikke)
+  ok    75.3.c.revert: en ikke-tom prisloes-med-note-liste ville fejle 75.3.c
+  ok    75.4.a: filter_nyttelast_note staar stadig i katalog.mjs
+  ok    75.4.b: nyttelastnotens tekst ("bærer 0 kg") staar paa katalogsiden
+  ok    75.4.c: PRAECIS ét skala__note-element paa katalogsiden (fandt 1)
+
+76. Producentsidens CE-opgoerelse: tre tilstande, ikke to
+  ok    76.1: Xiaomis CE-opgoerelse (da) tegner det dokumenterede nej som sin egen tilstand
+  ok    76.2: Xiaomis CE-opgoerelse (en) tegner det dokumenterede nej som sin egen tilstand
+  ok    76.3: Xiaomi viser to adskilte tilstandslinjer (nej og ikke oplyst), ikke ét kollapset tal
+  ok    76.4: ingen producentside tegner en tilstand med 0 forekomster
+  ok    76.5: en producent med udelukkende "ikke oplyst" paastaar IKKE et nej
+  ok    76.6: en producent med udelukkende oplyst CE tegner ja-tilstanden
+  ok    76.7 (revert-bevis): samme tjek AFVISER den gamle, kollapsede udgave
+  ok    76.8: Xiaomis tilstande summer til producentens modelantal
+
+80. spor/f2-valuetext: value_text paa TEKSTKOLONNE_HVIDLISTE, uden at aabne den helt (BRIEF-f2-valuetext.md)
+  ok    80.1: TEKSTKOLONNE_HVIDLISTE indeholder value_text
+  ok    80.2: en post, der KUN saetter value_text, accepteres (0 fejl)
+  ok    80.3: en post, der saetter en ikke-hvidlistet kolonne ("value"), AFVISES stadig
+  ok    80.4: value_text redder ikke en post, der OGSAA saetter en ulovlig kolonne (kun ulovlig_kolonne rapporteres)
+  ok    80.5 (revert-bevis): en hvidliste UDEN value_text (den gamle tilstand) ville have fejlet 80.1
+
+Validator: 71 oedelagte tilfaelde (65 i én fil + 6 paa tvaers af filer), fangede 71.
+I alt: 1642 bestaaet, 16 fejlet.
+Fejlede: 24.3: der ER bygget sider at maale paa · 24.5 da/index.html: filen findes · 24.5 en/index.html: filen findes · 24.5 da/sammenligning/index.html: filen findes · 24.5 en/sammenligning/index.html: filen findes · 24.7.da: katalogsiden findes · 24.7.en: katalogsiden findes · 24.12.da: robotsiden findes · 24.12.en: robotsiden findes · 27.4.da: der ER bygget sider at maale paa · 27.4.en: der ER bygget sider at maale paa · 35 da: katalogsiden er bygget · 35 en: katalogsiden er bygget · 70.1/revert: samme tre proever finder "knap", som beviseligt ER der · 70.2a: der ER knapper at maale paa (fandt 0 <button> i dist) · 70.3: hver .knap i dist har valgt en variant, ingen staar bar (0 af 0)
+EXITKODE: 1

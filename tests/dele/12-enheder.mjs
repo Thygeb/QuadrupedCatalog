@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { rens } from '../rens-css.mjs';
 
 export default async function koer(ctx) {
   const {
@@ -103,9 +104,14 @@ export default async function koer(ctx) {
   // (scrollY 1734) maalte kolonnehovedets getBoundingClientRect().top = 0.
   // Var reglen faldet ud, ville tallet have vaeret ca. -1600.
   const builtCss = fs.readFileSync(path.join(udK9, 'generator.css'), 'utf8');
-  const paaCellerne = /\.specimen-hoved th,\s*\.specimen-hoved td\{[^}]*position:sticky[^}]*top:0/.test(builtCss);
-  const gammelPaaThead = /\.specimen-hoved\{[^}]*position:sticky[^}]*top:0/.test(builtCss)
-    || /@media[^{]*\{\s*\.specimen-hoved\{[^}]*position:sticky/.test(builtCss);
+  // Rens FILEN, ikke moenstret (tests/rens-css.mjs, BRIEF-prodtest.md):
+  // generator.css blev omformateret, og bl.a. et mellemrum foer "{" (og et
+  // linjeskift i den grupperede selektor "th,\ntd {") knaekkede de gamle,
+  // kompakte moenstre. builtCssR er den normaliserede udgave.
+  const builtCssR = rens(builtCss);
+  const paaCellerne = /\.specimen-hovedth,\.specimen-hovedtd\{[^}]*position:sticky[^}]*top:0/.test(builtCssR);
+  const gammelPaaThead = /\.specimen-hoved\{[^}]*position:sticky[^}]*top:0/.test(builtCssR)
+    || /@media[^{]*\{[^}]*\.specimen-hoved\{[^}]*position:sticky/.test(builtCssR);
   ok('K10: kolonnehovedet klaeber - position:sticky;top:0 paa jigraekkens celler i den byggede generator.css',
     paaCellerne || gammelPaaThead,
     `paa cellerne: ${paaCellerne}, paa <thead> (gammel form): ${gammelPaaThead}`);
@@ -116,8 +122,8 @@ export default async function koer(ctx) {
   // ikke ruller lodret - altsaa aldrig. Compen maalte top:-938px paa netop den
   // fejl, MENS skaermbilledet saa helt rigtigt ud. Derfor et krav i CSS'en, og
   // ikke kun en kommentar.
-  const rulleFri = /\.saml-rulle\{[^}]*overflow:visible/.test(builtCss);
-  const rulleKunISmal = /@media[^{]*max-width:820px[^{]*\{[^}]*\.saml-rulle\{[^}]*overflow-x:auto/.test(builtCss);
+  const rulleFri = /\.saml-rulle\{[^}]*overflow:visible/.test(builtCssR);
+  const rulleKunISmal = /@media[^{]*max-width:820px[^{]*\{[^}]*\.saml-rulle\{[^}]*overflow-x:auto/.test(builtCssR);
   ok('K10b: .saml-rulle er overflow:visible som udgangspunkt og ruller kun under 820px',
     rulleFri && rulleKunISmal,
     `visible: ${rulleFri}, ruller kun i media query: ${rulleKunISmal}`);

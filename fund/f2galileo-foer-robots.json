@@ -1,0 +1,409 @@
+[
+ {
+  "id": 2189,
+  "slug": "cvte-maxhub-x7",
+  "name": "MAXHUB X7",
+  "manufacturer": "CVTE",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Guangzhou",
+  "status": "in_production",
+  "first_released": 2025,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "SVAG SPECIFIKATIONSTÆTHED ER MÅLT, IKKE ANTAGET: CVTE's produktside er en marketing-highlights-side med retoriske overskrifter og fodnote-forbehold, IKKE en teknisk specifikationstabel som Astrall Dynamics' eller Unitrees produktsider. Der findes intet fundet CVTE-datablad med mål, vægt, nyttelast, hastighed eller DoF. maxhub.com selv (det globale MAXHUB-displaymærke) har INGEN robotprodukter overhovedet - X7 ligger udelukkende under moderselskabet CVTE 's egen produktnavigation, ikke under maxhub.com.",
+   "Producentens egne fodnoter på siden svækker flere af tallene med vilje: (laboratorietal, reel brug varierer); (kan stabilt krydse 35° stejle skråninger m.fl. terræn.. baseret på laboratorietestresultater med adaptiv gangart-algoritme og eldrevne led); (-20°C til 55°C drift: gælder batteriets og kernekomponenternes normale arbejdsområde i dette temperaturinterval; ydeevnen kan påvirkes delvist ved ekstreme temperaturer). Disse forbehold er gengivet på de enkelte felters advarsel.",
+   "MAXHUB X7's SØSTERPRODUKT (kommerciel rengøringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifølge nyhedsartiklen er solgt til Europa/Sydøstasien/Japan (- er kommet ind på det europæiske, sydøstasiatiske og japanske marked). Det gælder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 på dette grundlag."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "SVAG SPECIFIKATIONSTÆTHED ER MÅLT, IKKE ANTAGET: CVTE's produktside er en marketing-highlights-side (\"产品亮点\") med retoriske overskrifter og fodnote-forbehold, IKKE en teknisk specifikationstabel som Astrall Dynamics' eller Unitrees produktsider. Der findes intet fundet CVTE-datablad med mål, vægt, nyttelast, hastighed eller DoF. maxhub.com selv (det globale MAXHUB-displaymærke) har INGEN robotprodukter overhovedet - X7 ligger udelukkende under moderselskabet CVTE/视源股份's egen produktnavigation, ikke under maxhub.com.",
+   "Producentens egne fodnoter på \"产品亮点\"-siden svækker flere af tallene med vilje: \"*续航时间: 在特定实验室环境(气温25°C、平坦硬质路面等)下持续行走测试所得，实际使用时间因产品配置、环境温度、路面状况、运行速度等因素而异\" (laboratorietal, reel brug varierer); \"*稳定穿越35°陡坡等地形...基于自适应步态算法与电驱动关节的实验室测试结果\" (kan stabilt krydse 35° stejle skråninger m.fl. terræn... baseret på laboratorietestresultater med adaptiv gangart-algoritme og eldrevne led); \"*-20℃至55℃作业：指电池及核心元器件在该温度区间的正常工作范围，极端温度下性能可能部分受影响\" (-20°C til 55°C drift: gælder batteriets og kernekomponenternes normale arbejdsområde i dette temperaturinterval; ydeevnen kan påvirkes delvist ved ekstreme temperaturer). Disse forbehold er gengivet på de enkelte felters advarsel.",
+   "MAXHUB X7's SØSTERPRODUKT \"商用清洁机器人\" (kommerciel rengøringsrobot, en ANDEN maskine, ikke firbenet) er den, der ifølge nyhedsartiklen er solgt til Europa/Sydøstasien/Japan (\"进入欧洲、东南亚及日本市场\" - er kommet ind på det europæiske, sydøstasiatiske og japanske marked). Det gælder IKKE X7 - ingen EU-relevante felter er udfyldt for X7 på dette grundlag."
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2199,
+  "slug": "galileo-c1",
+  "name": "C1",
+  "manufacturer": "Galileo (Tianjin)",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Tianjin",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "REELT PRODUKT, IKKE KUN RENDERING: manualen har fulde tekniske specifikationstabeller med tal og enheder for alle seks modeller, ikke kun marketingtekst - samme standard som resten af kataloget.",
+   "HOT_SWAP FRA DEN DELTE FUNKTIONSSIDE (side 6), IKKE FRA C1's EGEN TABEL: manualens fælles funktionsbeskrivelse (før variant-opdelingen) skriver (dual-mode: autonom opladning + manuel batteriskift; modulært hot-swap-batterirum, batteriskift på få sekunder). Dette er IKKE gentaget i C1's egen tekniske parametertabel (som kun har en række, ingen hot-swap-række) - samme forsigtighedsprincip som anvendelse-feltet: citeret uafhængigt fra familiesiden, ikke fra en model-specifik tabelrække.",
+   "DOCKINGSTATION KOMBINERER TO KILDER: den model-specifikke tabellens (autonom opladningsfunktion: understøttet) OG den delte funktionssides (via lidar-navigation, automatisk docking med ladestation) - de to bekræfter hinanden."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "",
+   "HOT_SWAP FRA DEN DELTE FUNKTIONSSIDE (side 6), IKKE FRA C1's EGEN TABEL: manualens fælles funktionsbeskrivelse (før variant-opdelingen) skriver \"智能仿生四足机器人采用'自主充电+手动换电'双模能源管理系统...同时配备模块化热插拔电池仓，支持数秒完成电池更换\" (dual-mode: autonom opladning + manuel batteriskift; modulært hot-swap-batterirum, batteriskift på få sekunder). Dette er IKKE gentaget i C1's egen tekniske parametertabel (som kun har en \"自主充电功能: 支持\"-række, ingen hot-swap-række) - samme forsigtighedsprincip som anvendelse-feltet: citeret uafhængigt fra familiesiden, ikke fra en model-specifik tabelrække.",
+   "DOCKINGSTATION KOMBINERER TO KILDER: den model-specifikke tabellens \"自主充电功能: 支持\" (autonom opladningsfunktion: understøttet) OG den delte funktionssides \"通过激光雷达导航实现自动对接充电桩\" (via lidar-navigation, automatisk docking med ladestation) - de to bekræfter hinanden."
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2200,
+  "slug": "galileo-c1-w",
+  "name": "C1-W",
+  "manufacturer": "Galileo (Tianjin)",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Tianjin",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "DRIFTSTID UDEN LASTBETINGELSE: (driftstid) har intet kg-tal.",
+   "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1 - fra den delte funktionsside (side 6) hhv. kombinationen af tabelrække + funktionsside."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": [
+   "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2.5h～5h\" (driftstid) har intet kg-tal.",
+   ""
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2201,
+  "slug": "galileo-e1",
+  "name": "E1",
+  "manufacturer": "Galileo (Tianjin)",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Tianjin",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver (30cm høj kontinuerlig trappe) -> trappetrin_kontinuerlig. E1-W's tilsvarende række skriver (fremadrettet højdeforskel 1m platform) -> forhindring_enkelt på E1-W's egen post - samme mønster som C1/C1-W.",
+   "DRIFTSTID UDEN LASTBETINGELSE: (driftstid) har intet kg-tal.",
+   "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "TABEL-TERMINOLOGI FOR KLATREEVNE: E1's tabel skriver \"30cm高连续台阶\" (30cm høj kontinuerlig trappe) -> trappetrin_kontinuerlig. E1-W's tilsvarende række skriver \"正向高度差1m高台\" (fremadrettet højdeforskel 1m platform) -> forhindring_enkelt på E1-W's egen post - samme mønster som C1/C1-W.",
+   "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 2h～4h\" (driftstid) har intet kg-tal.",
+   ""
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2202,
+  "slug": "galileo-e1-w",
+  "name": "E1-W",
+  "manufacturer": "Galileo (Tianjin)",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Tianjin",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "TABEL-TERMINOLOGI FOR KLATREEVNE: -> forhindring_enkelt (100cm), IKKE trappetrin_kontinuerlig - samme mønster som C1-W.",
+   "DRIFTSTID UDEN LASTBETINGELSE: (driftstid) har intet kg-tal.",
+   "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": [
+   "TABEL-TERMINOLOGI FOR KLATREEVNE: \"可攀爬高度: 正向高度差1m高台\" -> forhindring_enkelt (100cm), IKKE trappetrin_kontinuerlig - samme mønster som C1-W.",
+   "DRIFTSTID UDEN LASTBETINGELSE: \"续航时间: 1.5h～3h\" (driftstid) har intet kg-tal.",
+   ""
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2203,
+  "slug": "galileo-s1",
+  "name": "S1",
+  "manufacturer": "Galileo (Tianjin)",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Tianjin",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "S1 ER DEN ENESTE GALILEO-MODEL MED BEGGE KLATREFELTER UDFYLDT: tabellen skriver - BÅDE en kontinuerlig-trappe-værdi OG en platform-højde-værdi i samme række, i modsætning til C1/E1 (kun trappetrin_kontinuerlig) og C1-W/E1-W (kun forhindring_enkelt). Begge felter er derfor udfyldt her: trappetrin_kontinuerlig=25cm, forhindring_enkelt=40cm.",
+   "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "S1 ER DEN ENESTE GALILEO-MODEL MED BEGGE KLATREFELTER UDFYLDT: tabellen skriver \"可攀爬高度: 25cm高连续台阶,正向高度差40cm高台\" - BÅDE en kontinuerlig-trappe-værdi OG en platform-højde-værdi i samme række, i modsætning til C1/E1 (kun trappetrin_kontinuerlig) og C1-W/E1-W (kun forhindring_enkelt). Begge felter er derfor udfyldt her: trappetrin_kontinuerlig=25cm, forhindring_enkelt=40cm.",
+   ""
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2204,
+  "slug": "galileo-s1-w",
+  "name": "S1-W",
+  "manufacturer": "Galileo (Tianjin)",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Tianjin",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "HOT_SWAP OG DOCKINGSTATION: samme kilde og begrundelse som C1."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2223,
+  "slug": "microrobotech-movenew-p1",
+  "name": "MOVENEW P1",
+  "manufacturer": "MicroRoboTech",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Hangzhou",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "Tabellens rækkefølge er forvirrende: \"Max Climbing Ability: 800 mm\" står lige før \"Step Negotiation: 45°\" og \"Slope Capability: >45°\" - dvs. to rækker med samme talværdi (45°) under to forskellige etiketter, og en meget stor 800 mm-værdi under en etikette (\"Climbing Ability\"), man normalt ville forvente var en vinkel. Ikke rettet stiltiende - se advarsler på forhindring_enkelt og hældning."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2224,
+  "slug": "microrobotech-movenew-t1",
+  "name": "MOVENEW T1",
+  "manufacturer": "MicroRoboTech",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Hangzhou",
+  "status": "in_production",
+  "first_released": 2025,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "PRODUCENTEN HAR SKIFTET NAVN/DOMÆNE. Domænet CEO'ens opgave og pressen bruger (microrobotech.com) omdirigerer 301 til micbotics.com. Hele det nuværende site bruger brandnavnet \"Micbot\"/\"MICBOT\" (meta-keywords, sidens titel-tags \"..-MICBOT\", navigationslogo) - IKKE \"MicroRoboTechMicroRoboTech\" (https: pitchhub.36kr.com/project/3401143382263687, hentet 2026-08-24). Producent-feltet her bevarer CEO'ens navngivning \"MicroRoboTech\", men det forbrugervendte brand at lede efter i fremtiden er \"Micbot\".",
+   "Datasheet-tabellen er identisk på engelsk (micbotics.com) og kinesisk (micbotics.cn) site - alle 25+ rækker krydstjekket ordret, 0 afvigelser. Den engelske version er derfor brugt direkte som kilde uden oversættelsesrisiko for selve tallene.",
+   "\"Total Battery Weight: 40~50kg\" / kinesisk er en tvetydig etikette (blander, helmaskinevægt, med, batteri). Placeret som egenvægt ud fra sammenhængen (står under \"Mechanical Parameters\" sammen med målene, ikke under \"Electrical Parameters\"), men ordlyden er ikke entydig - se advarsel på feltet.",
+   "Ingen pris fundet på nogen af de to sprogversioner - kun \"Buy Now\"/\"Get Solutions\"-kontaktknapper, intet trykt tal."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": [
+   "PRODUCENTEN HAR SKIFTET NAVN/DOMÆNE. Domænet CEO'ens opgave og pressen bruger (microrobotech.com) omdirigerer 301 til micbotics.com. Hele det nuværende site bruger brandnavnet \"Micbot\"/\"MICBOT\" (meta-keywords, sidens titel-tags \"...-MICBOT\", navigationslogo) - IKKE \"MicroRoboTech\". Det juridiske firmanavn er fortsat 杭州具微科技有限公司 (Hangzhou Juwei Technology), som 36Kr's projektside oversætter til \"MicroRoboTech\" (https://pitchhub.36kr.com/project/3401143382263687, hentet 2026-08-24). Producent-feltet her bevarer CEO'ens navngivning \"MicroRoboTech\", men det forbrugervendte brand at lede efter i fremtiden er \"Micbot\".",
+   "",
+   "\"Total Battery Weight: 40~50kg\" / kinesisk \"整机电机重量\" er en tvetydig etikette (blander \"整机重量\", helmaskinevægt, med \"电池\", batteri). Placeret som egenvægt ud fra sammenhængen (står under \"Mechanical Parameters\" sammen med målene, ikke under \"Electrical Parameters\"), men ordlyden er ikke entydig - se advarsel på feltet.",
+   ""
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2249,
+  "slug": "xiaomi-cyberdog-1",
+  "name": "CyberDog",
+  "manufacturer": "Xiaomi",
+  "manufacturer_country": "China",
+  "manufacturer_city": null,
+  "status": "in_production",
+  "first_released": 2021,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "SAMME FÆLDE SOM CYBERDOG 2, SAMME LØSNING. Specifikationssiden leverer et tomt indholdselement; hele arket ligger som ren tekst i en JavaScript-bundle, som siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog/specs.5406502c.js (hentet 2026-08-21). Primærkilde: producentens egen server, producentens eget indhold.",
+   "STATUS ER EN KATALOGBESLUTNING PÅ MÅLT LIGHED, IKKE EN ERKLÆRING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 på mi.com: HTTP-status på produktsiden (200 mod 200), købsknappen køb nu (, 2 forekomster mod 2), læg-i-kurv-knappen læg i kurv (, 0 forekomster mod 0), udsolgt-markering udsolgt (, 0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altså INGEN målbar forskel på producentens side mellem den model, vi fører som i produktion, og den her. Det eneste argument for udgået er, at der findes en efterfølger med et højere generationsnummer - og det er vores slutning, ikke Xiaomis ord.",
+   "INGEN LIDAR I SENSORLISTEN. Producenten opremser tolv sensorer, og en LiDAR er ikke blandt dem. Det er IKKE ført som nej, fordi listen ikke er erklæret udtømmende. Til sammenligning navngiver CyberDog 2 en YDLIDAR TG30. Se advarslen på lidar-feltet.",
+   "DYBDEKAMERAET ER ET ANDET END PÅ CYBERDOG 2: her Intel RealSense D450, der D430."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "",
+   "STATUS ER EN KATALOGBESLUTNING PÅ MÅLT LIGHED, IKKE EN ERKLÆRING FRA PRODUCENTEN. Seks signaler blev sammenlignet mellem CyberDog 1 og CyberDog 2 på mi.com: HTTP-status på produktsiden (200 mod 200), købsknappen køb nu (立即购买, 2 forekomster mod 2), læg-i-kurv-knappen læg i kurv (加入购物车, 0 forekomster mod 0), udsolgt-markering udsolgt (已售罄, 0 mod 0), price-feltet i sidens produkt-JSON (0 mod 0) og is_enable (false mod false). Alle seks er ens. Der findes altså INGEN målbar forskel på producentens side mellem den model, vi fører som i produktion, og den her. Det eneste argument for udgået er, at der findes en efterfølger med et højere generationsnummer - og det er vores slutning, ikke Xiaomis ord.",
+   "",
+   ""
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2250,
+  "slug": "xiaomi-cyberdog-2",
+  "name": "CyberDog 2",
+  "manufacturer": "Xiaomi",
+  "manufacturer_country": "China",
+  "manufacturer_city": null,
+  "status": "in_production",
+  "first_released": 2023,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "SPECIFIKATIONERNE ER TEKST, IKKE BILLEDER - men de står ikke i sidens HTML. Parametersidens indholdselement er tomt ved levering (75 bytes, kun en indlæsningssnurre); hele specifikationsarket ligger som ren tekst i den JavaScript-bundle, siden selv beder browseren hente: https://cdn.cnbj1.fds.api.mi-img.com/mi.com-assets/shop/pro/js/product/cyberdog2/specs.74df51bf.js (gemt, 200, 109.869 bytes). Det regnes som primærkilde: producentens egen server, producentens eget indhold, og den tekst en besøgende faktisk får vist."
+  ],
+  "locomotion": "legged",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2251,
+  "slug": "yobotics-e-dog",
+  "name": "e-Dog",
+  "manufacturer": "Shandong Youbaote Intelligent Robot",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Jinan",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser.",
+   "ÅBENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
+  ],
+  "locomotion": "legged",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2252,
+  "slug": "yobotics-y10",
+  "name": "Y10",
+  "manufacturer": "Shandong Youbaote Intelligent Robot",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Jinan",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser.",
+   "ÅBENT PUNKT: producentens overskrift siger Y10, men beskrivelsen lige under handler om Y5. Overskriften er brugt som modelnavn. Posten kan ikke låses, før producenten er spurgt.",
+   "Yobotics er domænenavnet; producentens eget engelske navn er Shandong Youbaote Intelligent Robot Co., Ltd."
+  ],
+  "locomotion": "legged",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2253,
+  "slug": "yobotics-y20",
+  "name": "Y20",
+  "manufacturer": "Shandong Youbaote Intelligent Robot",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Jinan",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser.",
+   "ÅBENT PUNKT, IKKE LØST: overskrifterne og beskrivelserne på producentens egen side er uenige om modelnavnene. Overskriften Y20 står over en beskrivelse, der handler om Y30 (og Y10 over en Y5-beskrivelse, e-Dog over en Y15-beskrivelse). Tre ud af tre stemmer ikke. Overskriften er brugt som modelnavn. Posten kan ikke låses, før nogen har spurgt producenten, hvilket navn der gælder.",
+   "Specifikationerne står i tabeller på den engelske side, men selve tabellerne er på kinesisk. Markup'en bærer x:str-attributter - tabellerne er indsat fra Excel."
+  ],
+  "locomotion": "legged",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2254,
+  "slug": "yuejia-yj30",
+  "name": "YJ30",
+  "manufacturer": "Yuejia Lingdong",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Shenzhen",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "STANDMÅL-TYPO I KILDEN: rækken skriver \"682×354×462m\" - manglende \"m\" i \"mm\", i modsætning til alle øvrige rækker i samme tabel (fx YJ30W's \"682×354×532mm\"), inkl. i den engelsksprogede sideversion (samme typo gentaget der: \"682 × 354 × 462m\"). Vurderet som en kildeside-tastefejl, ikke en enhed på meter - 462 m højde ville være absurd for en firbenet robot på 17,5 kg. Enheden er sat til mm.",
+   "MERGED KOLONNEOVERSKRIFT: tabellens rå HTML har headeren (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal.",
+   "DUAL-BATTERY-DRIFTSTID IKKE BRUGT SOM HOVEDVÆRDI: tabellen viser \"1.5-2h\" i selve driftstid-rækken, og separat i samme celle (linjeskift) \"3h (Dual Battery)\" - en tilbehørsafhængig udvidet konfiguration. Hovedværdien er 1,5-2 timer; dual-battery-tallet 3h står i advarsel, ikke i værdi/maks.",
+   "LIDAR IKKE UDFYLDT: produktfeature-teksten nævner (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve tabellen (den strukturerede specifikationstabel) har INGEN lidar-række overhovedet. Feltet er derfor ikke oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's håndtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "",
+   "MERGED KOLONNEOVERSKRIFT \"爬坡角度/DOF\": tabellens rå HTML har headeren \"爬坡角度/DOF\" (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal.",
+   "",
+   "LIDAR IKKE UDFYLDT: produktfeature-teksten nævner \"多模态感知矩阵：激光视觉协同\" (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve \"基础参数\"-tabellen (den strukturerede specifikationstabel) har INGEN lidar-række overhovedet. Feltet er derfor ikke oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's håndtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2255,
+  "slug": "yuejia-yj30-max",
+  "name": "YJ30Max",
+  "manufacturer": "Yuejia Lingdong",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Shenzhen",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst.",
+   "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i (grundparametre)-tabellen."
+  ],
+  "locomotion": "legged",
+  "notes_wording": [
+   "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst.",
+   "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\" (grundparametre)-tabellen."
+  ],
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2256,
+  "slug": "yuejia-yj30-max-w",
+  "name": "YJ30W MAX",
+  "manufacturer": "Yuejia Lingdong",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Shenzhen",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "MULTISPEKTRAL SENSORPAKKE (kameraer): identisk tekst med YJ30 W - se dens post for den fulde citation."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "id": 2257,
+  "slug": "yuejia-yj30-w",
+  "name": "YJ30 W",
+  "manufacturer": "Yuejia Lingdong",
+  "manufacturer_country": "China",
+  "manufacturer_city": "Shenzhen",
+  "status": "in_production",
+  "first_released": null,
+  "predecessor_robot_id": null,
+  "variants": null,
+  "notes": [
+   "MULTISPEKTRAL SENSORPAKKE (kameraer) ER EKSPLICIT HER, MODSAT YJ30/YJ30Max: produktteksten nævner tre navngivne detektionsteknologier specifikt til denne (og YJ30W MAX's) brandinspektionsvariant - se feltet kameraer."
+  ],
+  "locomotion": "legged_wheeled",
+  "notes_wording": null,
+  "collected_by": null,
+  "change_reason": null
+ }
+]
