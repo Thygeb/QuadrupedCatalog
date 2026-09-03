@@ -597,16 +597,17 @@
 
   var status = app.querySelector('[data-saml-status]');
   var resultat = app.querySelector('[data-saml-resultat]');
-  // Vinderreglens fodnote (matrixFodHTML() i sammenligning.mjs, "Ingen
-  // vinder markeret ...") staar STATISK i markup'en, uafhaengig af om
-  // matricen faktisk er bygget - den forklarer noget ved MATRICEN, og giver
-  // ingen mening naar der ingen matrix er (spor/saml2, Punkt 3: fundet ved
-  // en browsermaaling af "vaelg mindst 2"-tilstanden, hvor fodnoten stod
-  // alene i et stort tomrum, hvor vaelgeren foer fyldte pladsen). `opdater()`
-  // skjuler den derfor sammen med resultatet - ingen ny CSS-regel behoeves,
-  // `[hidden]{display:none}` er UA-standarden, og intet andet sted saetter
-  // `.saml-fod`s `display` (efterproevet: assets/generator.css:730 saetter
-  // kun `margin-top`).
+  // Foden skjules sammen med resultatet. Grunden var oprindelig den
+  // redaktionelle note ved foden (matrixFodHTML() i sammenligning.mjs, hvor
+  // hele historien staar - den fil kopieres ikke til dist/), som stod
+  // statisk i markup'en og derfor blev staaende alene i et stort tomrum i
+  // "vaelg mindst 2"-tilstanden, hvor der ingen matrix er (spor/saml2, p. 3).
+  // DEN TEKST ER FJERNET 3. sep 2026, men skjulningen BLIVER: foden baerer nu
+  // fotokreditten, som fotoophavHTML() skriver ind klientside, og en
+  // fotokredit for et udvalg, der ikke vises, giver lige saa lidt mening.
+  // Ingen ny CSS-regel behoeves - `[hidden]{display:none}` er UA-standarden,
+  // og intet andet sted saetter `.saml-fod`s `display` (efterproevet paa ny
+  // 3. sep: reglen i assets/generator.css saetter kun `margin-top`).
   var fod = app.querySelector('.saml-fod');
   if (!status || !resultat) return;
 

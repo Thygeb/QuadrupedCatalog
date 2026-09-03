@@ -140,9 +140,14 @@ function fotoPost(robot, ctx) {
  *
  * DE TRE REGLER, arvet uroert fordi de haandhaeves af `imperialPost()` selv:
  *   1. `vaerdi_imperial` (30 felter, 7 robotter) vinder over vores omregning.
- *      `egen: 1` foeres med, saa klienten kan lade vaere med at saette
- *      "omregnet"-maerket paa producentens eget tal.
- *   2. Vores omregning maerkes synligt (assets/sammenligning.js' renderTal).
+ *      `egen: 1` foeres stadig med: de to grene skriver hver sin saetning
+ *      til skaermlaeseren, saa den ved, om tallet er producentens eller
+ *      vores.
+ *   2. Vores omregning maerkes IKKE laengere synligt. Rettet 3. sep 2026
+ *      sammen med selve maerket; her stod "maerkes synligt (assets/
+ *      sammenligning.js' renderTal)", og det holdt op med at passe i samme
+ *      commit. Oprindelsen staar nu kun i cellens .kunskaerm-tekst og i
+ *      forklaringslinjen over matricen.
  *   3. Kildemaerket foelger det metriske tal. Matricen har slet ingen
  *      kildemaerker — men `kildeform`-wrapperen ("Producenten skrev: 1100 mm")
  *      er af samme slags og saettes KUN paa den metriske tvilling, praecis som
@@ -436,23 +441,39 @@ ${stempler.map(([n, v]) => `<div class="stempel"><dt>${esc(n)}</dt><dd>${esc(v)}
 }
 
 /**
- * Matricens fod: vinderreglen. Den er en TRUFFET BESLUTNING (haard
- * begraensning 6 - ingen redaktionel score uden offentliggjort metode), ikke
- * en note der kan spares vaek, saa den staar med sit eget navn og sin egen
- * ramme - men NEDE ved matricen, hvor en laeser leder efter den vindercelle,
- * der ikke findes. Foer stod den som femte raekke i tegnforklaringen, hvor
- * den blev laest som endnu et tegn blandt tegnene.
+ * Matricens fod.
  *
- * Fotokreditten staar IKKE her: hvilke fotos der vises, afhaenger af hvilke
- * robotter laeseren har valgt, saa den linje tegnes klientside sammen med
- * tabellen (assets/sammenligning.js' fotoophavHTML()).
+ * HER STOD VINDERREGLEN - overskriften "Ingen vinder markeret" / "No winner
+ * marked" og dens forklaring. TEKSTEN er fjernet 3. sep 2026 paa JPK's ord.
+ *
+ * PRINCIPPET ER IKKE FJERNET, OG DET ER DERFOR DENNE KOMMENTAR STAAR HER.
+ * Matricen markerer fortsat INGEN vindercelle pr. raekke, og det er ikke en
+ * forglemmelse, der kan "forbedres" af den naeste, der kigger paa fladen:
+ *
+ *   Haard begraensning 6 (CLAUDE.md): INGEN redaktionel 1-5-score uden en
+ *   offentliggjort metode med acceptkriterier. En vindermarkering ER en
+ *   score - den siger "denne er bedst" - og den har ingen metode, fordi en
+ *   lavere vaerdi ikke er bedre end en hoejere. Kun anvendelsen afgoer det,
+ *   og siden kender ikke anvendelsen. Se ogsaa afvist-listen i salg-
+ *   projektets STATUS.md: "en konklusion skrevet om til tal".
+ *
+ * Tilfoejer du en vindermarkering, en "bedste vaerdi"-farve, en sortering
+ * efter "bedst" eller et lille bogstav ved den hoejeste vaerdi, saa bryder
+ * du den begraensning. Test 38.16 i tests/dele/38-typeskilt-sammenligning.mjs
+ * vogter tabellen mod ordet; denne kommentar vogter GRUNDEN.
+ *
+ * Den er dermed ogsaa aarsagen til, at teksten kunne fjernes uden tab: den
+ * forklarede noget, laeseren skulle bruge et fravaer for at opdage. JPK's
+ * dom var, at en side ikke skal bruge plads paa at forklare, hvad den ikke
+ * goer. Beslutningen bliver staaende - kun forklaringen til laeseren gik.
+ *
+ * `.saml-fod` BLIVER, selv om den nu er tom ved serverbygget: fotokreditten
+ * skrives ind i den klientside (assets/sammenligning.js' fotoophavHTML()),
+ * fordi hvilke fotos der vises afhaenger af, hvilke robotter laeseren har
+ * valgt.
  */
-function matrixFodHTML(t) {
-  return `<div class="saml-fod">
-<p class="saml-vinderregel">
-<span class="saml-vinderregel__navn">${esc(t('sammenligning_legende_vinder_titel'))}</span>
-${esc(t('sammenligning_legende_vinder_forklaring'))}</p>
-</div>`;
+function matrixFodHTML() {
+  return '<div class="saml-fod"></div>';
 }
 
 /**
@@ -586,7 +607,7 @@ ${legendeHTML(t, T)}
 ${enhedskontakt(ctx)}
 <p class="t-lille sammenligning-status" data-saml-status role="status" aria-live="polite" hidden></p>
 <div class="saml-rulle" data-saml-resultat></div>
-${matrixFodHTML(t)}
+${matrixFodHTML()}
 </div>
 
 <div data-sammenligning-fallback-wrap>

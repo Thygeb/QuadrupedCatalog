@@ -710,15 +710,17 @@
 /* --- 8b-III. MATRICENS FOD OG VAELGEREN ---------------------------------- */
 
 .saml-fod{margin-top:var(--r4)}
-/* Den redaktionelle position, ude af laesenoeglen og nede ved matricen, hvor
-   en laeser leder efter den vindercelle, der ikke findes. Den er en truffet
-   beslutning (haard begraensning 6), ikke en note der kan spares vaek - den
-   flyttes, den fjernes ikke. */
-.saml-vinderregel{font-family:var(--manual);font-size:12.5px;line-height:1.6;
-  color:var(--blaek2);max-width:78ch;margin:0;padding-left:var(--r3);
-  border-left:2px solid var(--linje);text-wrap:pretty}
-.saml-vinderregel__navn{display:block;font-family:var(--mono);font-size:10px;
-  font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--stoev-blaek)}
+/* HER STOD .saml-vinderregel og .saml-vinderregel__navn - den redaktionelle
+   note ved matricens fod. TEKSTEN er fjernet 3. sep 2026 paa JPK's ord, og
+   reglerne fjernes i SAMME commit som markup'en, saa de ikke bliver til doed
+   CSS (Aa102). Notens ordlyd gengives med vilje IKKE her: denne fil kopieres
+   raat til dist/, og et grep efter saetningen i den byggede side skal give 0.
+   PRINCIPPET staar uaendret: matricen udpeger fortsat ikke en vindercelle,
+   fordi haard begraensning 6 forbyder en redaktionel score uden en
+   offentliggjort metode. Begrundelsen i fuld laengde staar der, hvor nogen
+   ville komme til at tilfoeje markeringen igen - tools/skabelon/
+   sammenligning.mjs' matrixFodHTML(). .saml-fod BLIVER: fotokreditten
+   skrives ind i den klientside. */
 .saml-fotoophav{font-family:var(--manual);font-size:11.5px;line-height:1.55;
   color:var(--stoev-blaek);max-width:78ch;margin:var(--r3) 0 0;padding:0 var(--r3) var(--r3);
   text-wrap:pretty}
