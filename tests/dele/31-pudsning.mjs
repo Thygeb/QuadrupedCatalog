@@ -20,6 +20,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { rens } from '../rens-css.mjs';
 
 export default async function koer(ctx) {
   const { rod, ok } = ctx;
@@ -28,6 +29,12 @@ export default async function koer(ctx) {
 
   const sys = fs.readFileSync(path.join(rod, 'assets', 'system.css'), 'utf8');
   const gen = fs.readFileSync(path.join(rod, 'assets', 'generator.css'), 'utf8');
+  // Rens FILEN, ikke moenstret (tests/rens-css.mjs, BRIEF-prodtest.md): 31.8,
+  // 31.15, 31.17 og 31.18 laeser generator.css, som blev omformateret (samme
+  // regler, ny skrivemaade). genR er den normaliserede udgave - moenstrene,
+  // der soeger i den, har derfor ingen mellemrum, hverken i
+  // efterkommer-kombinatorer eller foer "{".
+  const genR = rens(gen);
 
   /* --- 1. Skriftgulvet paa enhed og operator ---------------------------- */
   // Fejlen var IKKE én for lille grad, men en kaskade: `.38em` af en
@@ -98,7 +105,7 @@ export default async function koer(ctx) {
   // ovenfor). Testen laeser derfor `gen`, ikke laengere `sys`, for netop
   // dette punkt.
   ok('31.8: filterfelterne er stadig visuelt skjulte (raekkens etiket er den synlige del)',
-    /\.rk__felt\{position:absolute;opacity:0;width:1px;height:1px\}/.test(gen),
+    /\.rk__felt\{position:absolute;opacity:0;width:1px;height:1px\}/.test(genR),
     'holder den ikke, tegner browseren felterne, og accent-color bliver synlig');
   // Revert-bevis: den GAMLE, doede regel findes ikke laengere i noget
   // stilark - beviser, at 31.8 rent faktisk ville falde ROED igen, hvis
@@ -176,7 +183,7 @@ export default async function koer(ctx) {
   // Chip-grammatikken er de TRE ting sammen: flade + ramme + radius. Faldt
   // én af dem vaek, ville en senere redigering kunne laegge den tilbage
   // uden at nogen opdagede det, saa vagten ser efter alle tre.
-  const variantnavn = (gen.match(/\.variantnavn\{[^}]*\}/) || [''])[0];
+  const variantnavn = (genR.match(/\.variantnavn\{[^}]*\}/) || [''])[0];
   ok('31.15: .variantnavn fandtes stadig som regel', variantnavn !== '',
     'reglen er forsvundet - saa maaler de foelgende vagter ingenting');
   ok('31.16: variantnavnene har hverken flade, ramme eller radius',
@@ -191,9 +198,9 @@ export default async function koer(ctx) {
 
   // Parboksen under striben maatte IKKE bare fjernes: den grupperer navn og
   // vaerdi. Den er skiftet til den mindste form, der stadig grupperer.
-  const parboks = (gen.match(/\.varianter \.variant\{[^}]*\}/) || [''])[0];
+  const parboks = (genR.match(/\.varianter\.variant\{[^}]*\}/) || [''])[0];
   ok('31.18: variantparret grupperes af en 1 px tap, ikke af en chip',
-    /border-left:1px solid/.test(parboks)
+    /border-left:1pxsolid/.test(parboks)
       && /background:none/.test(parboks)
       && /border-radius:0/.test(parboks),
     `staar stadig som chip: ${parboks}`);
