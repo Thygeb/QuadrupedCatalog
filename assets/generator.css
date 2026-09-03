@@ -572,7 +572,17 @@
      thead th{...}                                     -> .specimen ovenfor
    min-width:620px er den farligste af dem: paa en telefon ville den give
    vandret overloeb, hvor der foer ingen var. */
-.saml-matrix{width:100%;min-width:0;font-size:14px;
+/* table-layout:fixed (K1, JPK 3. sep 2026): under `auto` bestemmer INDHOLDET
+   bredden, saa en plade med 24 udfyldte felter blev 743 px og en tavs plade
+   195 px - maalt forhold 3,92x ved tre plader og 4,70x ved to. Kolonner af
+   forskellig bredde laeses som forskellig VAEGT, og fladens opgave er
+   sammenligning. `fixed` laeser foerste raekkes bredder, og foerste raekke er
+   .specimen-hoved, hvis hjoerne allerede baerer de 224 px (linje 434 + 605-606,
+   og 150 px ved <=720). Der skal derfor INGEN ny bredde tilfoejes - en fjerde
+   kopi af 224 ville vaere det haandskrevne tal ved siden af det udledte.
+   SCOPET til .saml-matrix med vilje: `table{table-layout:fixed}` ville ramme
+   robotsidernes 77 tabeller og producentsidens ene umaalt. */
+.saml-matrix{width:100%;min-width:0;font-size:14px;table-layout:fixed;
   border-collapse:separate;border-spacing:0}
 /* Nulstiller §14's th,td{border-top:1px} paa PRAECIS de celler, der ellers
    ville faa en streg, de aldrig har haft. Raekkens og gruppens egne streger
@@ -618,8 +628,14 @@
    foer. Reglerne fjernes i SAMME commit som markup'en, saa klassen ikke
    bliver til doed CSS (Aa102). */
 
+/* overflow-wrap:anywhere hoerer til table-layout:fixed og maa ikke skilles fra
+   den. Under `auto` kunne et langt ord altid tvinge kolonnen bredere; under
+   `fixed` kan det ikke, og ordet ville klippe. Laengste ord i datasaettet i dag
+   er 29 tegn og klipper ingenting (0 celleoverloeb maalt af 142), men det er
+   sandt for DAGENS data - en 60-tegns modelbetegnelse ville ellers blive et
+   layoutbrud, ingen forbinder med denne aendring. */
 .saml-raekke__celle{vertical-align:top;padding:11px var(--r3);
-  border-left:1px solid var(--linje);min-width:0}
+  border-left:1px solid var(--linje);min-width:0;overflow-wrap:anywhere}
 .saml-raekke__celle .v{font-size:16px}
 /* Raekker, hvor ALLE plader tier: hele raekken traeder tilbage. Vaerdierne
    staar der stadig med deres eget stiplede maerke - hullet er ikke skjult,
