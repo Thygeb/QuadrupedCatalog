@@ -1,0 +1,334 @@
+[
+  {
+    "id": 2226,
+    "slug": "pudu-d5",
+    "manufacturer": "Pudu Robotics",
+    "notes": [
+      "Vigtig uoverensstemmelse fundet ved felt-for-felt-efterprøvning: Den generelle markedsføringstekst (samme ordlyd på officiel side og webbutik) skriver \"Easily handles 25 cm steps, 30° climbs, and 45° descents\" - men den variant-specifikke sammenligningstabel på webbutikken skriver noget andet for D5 alene: \"D5: 25° ascent, 45° descent\" og \"Maximum Step Height D5: 30 cm\". Markedsføringstekstens 30°/25cm er faktisk D5-W's tabelværdier (30° ascent, 25 cm step), ikke D5's. Felterne hældning og trappetrin_kontinuerlig herunder bruger tabellen, IKKE markedsføringsteksten - se advarsel på hvert felt.",
+      "Fodnote 5 på den officielle produktside: \"PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request.\" Den fremhævede markedsføringstekst (\"Dual 192-line* spherical LiDARs\") beskriver altså en betalt opgradering, ikke standardkonfigurationen."
+    ],
+    "notes_wording": null,
+    "applications": {
+      "note": "Samme sætning står ordret på både den officielle produktside og webbutikken (store.pudurobotics.com/products/pudu-d5).",
+      "note_wording": null,
+      "quote": "Designed for real-world deployment in industrial, inspection, security, research, and advanced robotics applications.",
+      "quote_wording": null,
+      "value": [
+        "industrial",
+        "inspection",
+        "security_surveillance",
+        "research_development"
+      ]
+    },
+    "images": {
+      "alt": null,
+      "note": null
+    },
+    "field_entries": [
+      {
+        "field_name": "weight",
+        "caveat": "Producentens etiket er \"Weight (with Battery)\" - inkl. batteri.",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 61,
+        "value_text": null,
+        "unit": "kg"
+      },
+      {
+        "field_name": "length",
+        "caveat": "USIKKER TILDELING. Producenten trykker \"Standing Dimensions: 900 x 543 x 572 mm (35.4 x 21.4 x 22.5 in)\" uden at mærke akserne enkeltvis. Første tal er her antaget som længde, som i mønstret fra Deep Robotics X30. Ikke bekræftet ud fra kilden.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 900,
+        "value_text": null,
+        "unit": "mm"
+      },
+      {
+        "field_name": "width",
+        "caveat": "USIKKER TILDELING - se længde. Andet tal i den utakserede trippel antaget som bredde.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 543,
+        "value_text": null,
+        "unit": "mm"
+      },
+      {
+        "field_name": "height",
+        "caveat": "USIKKER TILDELING - se længde. Tredje tal i den utakserede trippel antaget som højde.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 572,
+        "value_text": null,
+        "unit": "mm"
+      },
+      {
+        "field_name": "payload_walking",
+        "caveat": "Producentens etiket er \"Continuous Walking Payload: 20-30 kg (44-66 lbs)\" - interval bevaret. PR Newswires overskrift \"30kg Payload\" bruger kun intervallets øvre grænse.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": null,
+        "value_text": null,
+        "unit": "kg"
+      },
+      {
+        "field_name": "speed",
+        "caveat": "Fra generel markedsføringstekst \"Cruises at up to 5 m/s\", gældende for D5-serien bredt. Sammenligningstabellen har ingen selvstændig hastighedsrække pr. variant.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 5,
+        "value_text": null,
+        "unit": "m/s"
+      },
+      {
+        "field_name": "slope",
+        "caveat": "Fra den variant-specifikke sammenligningstabel: \"D5: 25 ascent, 45 descent\". Kun ascent (stigning) er brugt her; nedstigning er 45 grader for begge varianter, og skemaet har intet separat nedstigningsfelt. Se topnoten om uoverensstemmelsen med den generelle markedsføringstekst (30 grader), som er D5-W's tal.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 25,
+        "value_text": null,
+        "unit": "°"
+      },
+      {
+        "field_name": "obstacle_single",
+        "caveat": "Producentens etiket er \"Climbing Capability: Up to 80 cm\", identisk for D5 og D5-W. Tildelt forhindring_enkelt (regel 7) fordi producenten selv adskiller dette fra det lavere \"Maximum Step Height\"-felt (se trappetrin_kontinuerlig) - men ingen af de to etiketter bruger selv ordene \"enkelt\" eller \"kontinuerlig\", så tildelingen er vores fortolkning.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 80,
+        "value_text": null,
+        "unit": "cm"
+      },
+      {
+        "field_name": "stair_step_continuous",
+        "caveat": "Producentens etiket er \"Maximum Step Height: D5: 30 cm (11.8 in)\", lavere end \"Climbing Capability\" (80 cm, se forhindring_enkelt). Den generelle markedsføringstekst skriver i stedet 25 cm - det er D5-W's tabelværdi, ikke D5's. Se topnoten.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 30,
+        "value_text": null,
+        "unit": "cm"
+      },
+      {
+        "field_name": "temperature_max",
+        "caveat": "Separat producentfelt \"Cold-Start Capability: Below -10°C\" - en skarpere grænse for opstart end drift. Skemaet har intet cold-start-felt; noteret her fordi -10°C ellers kunne forveksles med temp_min (-20°C).",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 55,
+        "value_text": null,
+        "unit": "°C"
+      },
+      {
+        "field_name": "runtime",
+        "caveat": "Pressemeddelelsen skriver \"stable 30-kilogram payloads with over two hours of continuous runtime at full load\" - eneste tal med eksplicit lastbetingelse (regel 8), derfor brugt frem for webbutikkens tabelværdi \"Operating Time: 2 - 2.5 hours\" (uden lastbetingelse, samme kilde som ovenstående felter).",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 2,
+        "value_text": null,
+        "unit": "t"
+      },
+      {
+        "field_name": "docking_station",
+        "caveat": "\"Charging Station\" listet som tilbehør under \"Modular Expansion\". Fodnote 3: \"Accessories such as the inspection kit and charging dock are optional and sold separately.\" - sælges særskilt, ikke inkluderet i grundprisen.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": null,
+        "unit": null
+      },
+      {
+        "field_name": "lidar",
+        "caveat": "Fodnote 5: \"PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request.\" Den fremhævede markedsføringstekst nævner kun 192-linjers-tallet og udelader dette forbehold.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": "96-linjers LiDAR x2 (standardkonfiguration); opgraderbar til 192-linjers LiDAR x2 mod tillæg",
+        "unit": null
+      },
+      {
+        "field_name": "cameras",
+        "caveat": "PR-teksten: \"Four 120° fisheye cameras\". Webbutikkens sammenligningstabel skriver kortere \"Dual 3D LiDAR + Four Fisheye Cameras\" for samme felt uden vinkeltal.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": "4x fiskeøjekameraer (120 graders synsfelt)",
+        "unit": null
+      },
+      {
+        "field_name": "autonomy_level",
+        "caveat": "Kvalitativ, oversat fra: \"the D5 handles complete autonomous workflows including departure, patrol, obstacle handling, and return-to-charge\", i sammenhæng med \"supporting continuous, unsupervised operation even in dynamic environments\". Intet numerisk autonominiveau (fx SAE-lignende skala) oplyst.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": "Understøtter kontinuerlig, uovervåget drift; udfører komplette selvstændige arbejdsgange inkl. afgang, patrulje, forhindringshåndtering og retur-til-opladning.",
+        "unit": null
+      },
+      {
+        "field_name": "price",
+        "caveat": "Fra webbutikkens Shopify-produktdata (variant \"D5\": price 8000000, dvs. 80.000 USD i cent-enheder). D5-W koster 85.000 USD ifølge samme kilde (variant \"D5-W\": price 8500000).",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 80000,
+        "value_text": null,
+        "unit": "USD"
+      }
+    ]
+  },
+  {
+    "id": 2227,
+    "slug": "pudu-d5-w",
+    "manufacturer": "Pudu Robotics",
+    "notes": null,
+    "notes_wording": null,
+    "applications": {
+      "note": "Samme produktside og samme sætning som pudu-d5.yaml - D5 og D5-W er to variantvalg på EN Shopify-produktside (handle \"pudu-d5\"), ikke to adskilte sider. Se noter herunder.",
+      "note_wording": null,
+      "quote": "Designed for real-world deployment in industrial, inspection, security, research, and advanced robotics applications.",
+      "quote_wording": null,
+      "value": [
+        "industrial",
+        "inspection",
+        "security_surveillance",
+        "research_development"
+      ]
+    },
+    "images": {
+      "alt": null,
+      "note": null
+    },
+    "field_entries": [
+      {
+        "field_name": "weight",
+        "caveat": "Producentens etiket er \"Weight (with Battery)\" - inkl. batteri. 1 kg tungere end D5 (61 kg).",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 62,
+        "value_text": null,
+        "unit": "kg"
+      },
+      {
+        "field_name": "length",
+        "caveat": "USIKKER TILDELING, samme forbehold som hos D5. Producenten skriver samme trippel \"900 x 543 x 572 mm\" for D5-W som for D5 - stående mål er identiske på tværs af de to varianter ifølge tabellen.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 900,
+        "value_text": null,
+        "unit": "mm"
+      },
+      {
+        "field_name": "width",
+        "caveat": "USIKKER TILDELING - se længde.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 543,
+        "value_text": null,
+        "unit": "mm"
+      },
+      {
+        "field_name": "height",
+        "caveat": "USIKKER TILDELING - se længde.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 572,
+        "value_text": null,
+        "unit": "mm"
+      },
+      {
+        "field_name": "payload_walking",
+        "caveat": "Producentens etiket \"Continuous Walking Payload: 20-30 kg\" - identisk tal for D5 og D5-W i tabellen.",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": null,
+        "value_text": null,
+        "unit": "kg"
+      },
+      {
+        "field_name": "speed",
+        "caveat": "Fra generel markedsføringstekst \"Cruises at up to 5 m/s\" for D5-serien bredt. Pressemeddelelsen knytter samme tal specifikt til \"wheel-leg hybrid locomotion\" (D5-W). Sammenligningstabellen har ingen selvstændig hastighedsrække pr. variant.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 5,
+        "value_text": null,
+        "unit": "m/s"
+      },
+      {
+        "field_name": "slope",
+        "caveat": "Fra den variant-specifikke sammenligningstabel: \"D5-W: 30 ascent, 45 descent\". Kun ascent brugt her; nedstigning er 45 grader, intet felt for det i skemaet. Dette tal stemmer (modsat D5's) overens med den generelle markedsføringsteksts \"30° climbs\".",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 30,
+        "value_text": null,
+        "unit": "°"
+      },
+      {
+        "field_name": "obstacle_single",
+        "caveat": "Producentens etiket \"Climbing Capability: Up to 80 cm\", identisk for D5 og D5-W. Samme tildelingsforbehold mellem dette felt og den kontinuerlige trappe som hos D5.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": 80,
+        "value_text": null,
+        "unit": "cm"
+      },
+      {
+        "field_name": "stair_step_continuous",
+        "caveat": "Producentens etiket \"Maximum Step Height: D5-W: 25 cm (9.84 in)\" - LAVERE end D5's 30 cm, selvom D5-W har hjul. Dette tal stemmer overens med den generelle markedsføringsteksts \"25 cm steps\".",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 25,
+        "value_text": null,
+        "unit": "cm"
+      },
+      {
+        "field_name": "temperature_max",
+        "caveat": "Separat producentfelt \"Cold-Start Capability: Below -10°C\" - samme forbehold som hos D5.",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 55,
+        "value_text": null,
+        "unit": "°C"
+      },
+      {
+        "field_name": "runtime",
+        "caveat": "Webbutikkens tabel: \"Operating Time D5-W: 2 - 3 hours\", INGEN lastbetingelse (regel 8). Pressemeddelelsens lastbetingede \"over two hours at full load (30 kg)\" er ikke eksplicit knyttet til D5-W alene og er derfor kun brugt hos D5, ikke her.",
+        "caveat_wording": null,
+        "caveat_class": "validity",
+        "value_number": null,
+        "value_text": null,
+        "unit": "t"
+      },
+      {
+        "field_name": "docking_station",
+        "caveat": "\"Charging Station\" listet som tilbehør, samme side som D5. Fodnote 3: sælges særskilt, ikke inkluderet i grundprisen.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": null,
+        "unit": null
+      },
+      {
+        "field_name": "lidar",
+        "caveat": "Fodnote 5, samme som hos D5 - gælder D5-serien, ingen separat angivelse for D5-W.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": "96-linjers LiDAR x2 (standardkonfiguration); opgraderbar til 192-linjers LiDAR x2 mod tillæg",
+        "unit": null
+      },
+      {
+        "field_name": "autonomy_level",
+        "caveat": "Kvalitativ, gælder D5-serien bredt, ikke D5-W-specifik - samme kilde som hos D5.",
+        "caveat_wording": null,
+        "caveat_class": null,
+        "value_number": null,
+        "value_text": "Understøtter kontinuerlig, uovervåget drift; udfører komplette selvstændige arbejdsgange inkl. afgang, patrulje, forhindringshåndtering og retur-til-opladning.",
+        "unit": null
+      },
+      {
+        "field_name": "price",
+        "caveat": "Fra webbutikkens Shopify-produktdata (variant \"D5-W\": price 8500000, dvs. 85.000 USD i cent-enheder). 5.000 USD dyrere end D5.",
+        "caveat_wording": null,
+        "caveat_class": "elaboration",
+        "value_number": 85000,
+        "value_text": null,
+        "unit": "USD"
+      }
+    ]
+  }
+]
