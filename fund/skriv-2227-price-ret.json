@@ -1,0 +1,5 @@
+[
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "price" },
+    "saet": { "caveat_wording": null },
+    "change_reason": "spor/f2pudu: rettelse fra orkestratoren - \"price\":8500000 er et JSON-fragment fra sidens kildekode (maskinlaesbar markup, cent-tal), ikke producentens ordlyd. Ingen renderet '$85,000'-streng findes i nogen af de seks kildefiler i media/_kilder/raa-kand1a-2026-08-24/. Nulstillet til NULL og flyttet til rapportens 'Raekker uden kildeordlyd'." }
+]
