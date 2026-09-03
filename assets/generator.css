@@ -596,7 +596,15 @@
    udseendet. Vaelgerne herunder roerer aldrig .specimen, som beholder sin
    ramme hele vejen rundt (og som §14's thead th{border-top:0} i forvejen
    ikke generer, fordi .specimen's egen `border` vinder over den). */
-.saml-raekke > th,.saml-raekke > td,
+/* `.saml-raekke > th,.saml-raekke > td` STOD HER og er fjernet 3. sep 2026
+   (JPK: synlige raekkelinjer). Den var aarsagen - ikke en manglende regel:
+   med (0,1,1) slog den `.saml-raekke > *` (0,1,0) fire linjer laengere nede,
+   og specificitet afgoeres FOER kilderaekkefoelgen. Hvert barn af en <tr> er
+   enten th eller td, saa raekkestregen vandt paa 0 af 142 celler og maalte
+   `0px none` overalt. Aa146 kaldte den doede regel doed og ville slette den;
+   den var overskrevet, ikke uden aftagere. De to oevrige vaelgere BLIVER:
+   gruppetitlens egen overkant saettes betinget nedenfor, og hjoernecellen
+   skal fortsat ikke have en. */
 .saml-gruppe__titelraekke > th,
 .specimen-hoved__hjoerne{border-top:0}
 /* Gruppetitlen: én <tbody> pr. gruppe, scope="rowgroup". Klaeber til venstre
@@ -607,10 +615,34 @@
   font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.17em;
   text-transform:uppercase;color:var(--stoev-blaek);background:var(--panel)}
 .saml-gruppe:first-of-type .saml-gruppe__titel{padding-top:var(--r4)}
+/* GRUPPESKELLET (K2 punkt 2). 6 grupper giver 5 streger, ikke 33 - stregen
+   er her den ENESTE baerer af skellet "hvor slutter FYSIK, hvor begynder
+   ENERGI", og skal derfor maale mindst 3,0:1. --linje (1,56) og --hegn (2,47)
+   ligger under; --blaek3 maaler 5,48:1 mod --panel og er i forvejen
+   gruppetitlens egen tekstfarve. Samme polet, samme sted, ny laeseretning -
+   ingen ny farve, saa TYPESKILT staar uroert.
+   :not(:first-of-type) fordi den foerste gruppe ikke skilles fra noget.
+   Titlen har allerede padding-top:var(--r5) ovenfor, saa stregen faar luft
+   paa begge sider uden et nyt afstandstrin. */
+.saml-gruppe:not(:first-of-type) .saml-gruppe__titelraekke > th{
+  border-top:1px solid var(--blaek3)}
 
 /* Feltraekken. Raekkehovedet klaeber til VENSTRE kant: paa en smal skaerm
    ruller man hen over spalterne, og feltnavnet skal staa fast - ellers ved
    man ikke, hvad tallet under fingeren er et tal FOR. */
+/* RAEKKEHAARSTREGEN. Den har staaet her siden matricen blev bygget og har
+   aldrig tegnet en eneste streg, fordi nulstilleren ovenfor slog den paa
+   specificitet. Fra 3. sep 2026 er nulstilleren vaek, og reglen er i drift.
+   --linje er den rigtige polet og ikke et kompromis: dens egen beskrivelse i
+   system.css' palet er ordret "rillen mellem stansede felter. Haarstreger."
+   Den maaler 1,56:1 (rille PAA panel) - under 3,0 - og det er lovligt her,
+   fordi raekkeadskillelsen IKKE hviler paa stregen alene: 43,7 px median
+   raekkehoejde, 11 px lodret polstring og hver celles egen venstrekant baerer
+   den ogsaa. Praecis samme polet i praecis samme tykkelse staar allerede paa
+   99 celler som `border-left` fire regler laengere nede, saa den vandrette
+   streg bliver noejagtig lige saa synlig som de lodrette, fladen har haft
+   hele tiden. Gruppeskellet ovenfor er den modsatte sag - der ER stregen
+   eneste baerer, og derfor er den --blaek3 (5,48:1). To vaegte, ikke én. */
 .saml-raekke > *{border-top:1px solid var(--linje)}
 .saml-raekke__navn{position:sticky;left:0;z-index:10;
   width:224px;min-width:224px;
