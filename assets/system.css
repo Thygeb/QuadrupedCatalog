@@ -1359,18 +1359,36 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    JPK bad om at fodnoten under katalogkortene forsvinder helt. Robotsidens
    egen .billedfod (assets/generator.css) staar uaendret. Se side.mjs kort(). */
 
-/* Den ene tilladte bevaegelse. Fotografiet traeder frem; hullerne roerer
-   sig ikke — de er ikke en tilstand, der kan forbedres ved at pege paa den. */
+/* L78 (2. sep 2026): et produktfoto beskaeres ALDRIG. De to scale()-regler,
+   der stod her (1.024 paa fotografier, 1.04 paa .billedled--plade - BEGGE
+   ægte fotografier, ikke maaleplader, se rettelsen af den fejl i
+   fund/FUND-zoom.md), beskar vandret med det samme: 0 % breddeslaek under
+   object-fit:contain.
+   spor/zoom (3. sep 2026) maalte to erstatninger og fravalgte begge:
+   (A) at skalere RAMMEN eller KORTET i stedet for billedet er kun crop-frit,
+   hvis intet ydre element klipper den forstoerrede boks - men i den
+   VIGTIGSTE flade, katalogets eget gitter (.net, assets/generator.css),
+   er kort-mellemrummet kun 1 px. Et kort paa ~267 px, skaleret 1.024,
+   raekker 3-5 px ud over sin egen kant paa hver side - langt mere end de
+   1 px, der er at give af. Signalet ville daekke naboens hjoerne.
+   (B) at flytte billedet LODRET inden for det slaek, object-fit:contain
+   allerede efterlader, er maalt til minimum 1,98 % af rammens hoejde paa
+   tvaers af kataloget (~2 px ved kortbredde 267 px) - for lille en
+   bevaegelse til at vaere et synligt signal.
+   Ingen erstatning er bygget. Kortets border-color (denne regel) og i
+   .net-gitteret baggrundsfarve+fokusring (assets/generator.css) baerer
+   hover-/fokussignalet nu alene. */
 @media (prefers-reduced-motion:no-preference){
   .kort{transition:box-shadow var(--tid) var(--slyng),border-color .2s ease}
-  .billedled img{transition:transform var(--tid) var(--slyng)}
-  .kort:hover .billedled img,.kort:focus-within .billedled img{transform:scale(1.024)}
-  .kort:hover .billedled--plade img,.kort:focus-within .billedled--plade img{transform:scale(1.04)}
 }
 
 /* KORTETS HOVER-/FOKUS-INVITATION (spor/indgang, punkt 3, 26. aug 2026).
-   Fotografiets scale(1.024) ovenfor er 2,4 % — maalt usynligt, ikke et
-   signal. Ét ekstra, klart greb: en tekst+pil toner ind oppe i billedet.
+   Fotografiets daværende scale(1.024) var 2,4 % — maalt usynligt, ikke et
+   signal, og reglen er siden fjernet helt (L78, spor/zoom 3. sep 2026, se
+   afsnittet ovenfor). Ét ekstra, klart greb: en tekst+pil toner ind oppe
+   i billedet. (Denne klasse staar paa dead-CSS-vagtens BESKYTTET-liste,
+   tests/dele/57-doed-css.mjs: markup'et den kraever, findes ikke i noget
+   byg — urørt af dette spor.)
    TOPPEN, ikke bunden: bunden af billedet er allerede optaget af to andre
    overlays paa netop de kort, hvor de findes — `.maalplade .titelfelt`
    (LAENGDE x HOEJDE) og `.billedmaerke` (delt-foto-maerket) sidder begge
