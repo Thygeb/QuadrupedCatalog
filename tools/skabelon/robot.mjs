@@ -119,7 +119,20 @@ function prisVaerdi(post, ctx, kilder) {
   const { i18n } = ctx;
   const kompakt = ctx.__kompakt === true;
 
-  if (!post || typeof post !== 'object' || post.vaerdi === undefined || typeof post.vaerdi !== 'number') {
+  // HAARD BEGRAENSNING 5: "ikke oplyst", "nej" og "0" er TRE tilstande og skal
+  // se forskellige ud. Foerste udgave af denne vagt slog alt ikke-numerisk
+  // sammen til 'ikke_oplyst'. Maalt 3. sep 2026 er alle 66 uoplyste priser i
+  // dag netop "ikke_oplyst" (58 som raa streng, 8 som objekt), saa den fejl var
+  // ikke NAAELIG - men en fremtidig `pris: nej` ville have loejet tavst.
+  // Tilstanden udledes derfor af tilstandAf(), praecis som den generiske
+  // vaerdi() nedenfor goer det for ethvert andet felt.
+  const raaTilstand = typeof post === 'string' ? post
+    : (post && typeof post === 'object' && typeof post.vaerdi === 'string' ? post.vaerdi : null);
+  if (raaTilstand !== null) {
+    const t = tilstandAf(raaTilstand) ?? 'ikke_oplyst';
+    return { html: H.tilstand(t, i18n), hul: t === 'ikke_oplyst', maerke: '' };
+  }
+  if (!post || typeof post !== 'object' || typeof post.vaerdi !== 'number') {
     return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
   }
 
