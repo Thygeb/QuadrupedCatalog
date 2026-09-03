@@ -1,0 +1,1347 @@
+[
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "The manufacturer states only the payload figure, without saying whether it is walking or standing payload - the same situation as the Unitree Go2 (see the top note). Placement under walking payload is a cautious estimate based on the order of magnitude, NOT a reading."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "负载: 10kg"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum speed - a single figure, not a range."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大速度: 3m/s"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the base value. The same cell separately mentions '3h (Dual Battery)' - an extra accessory-dependent configuration with a different battery setup, not used as the main value (see the top note). No load condition (kg) is disclosed for either figure."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航: 1.5-2h"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the merged column (climb angle/DOF) - see the top note. 50 deg is the climb angle, not DOF."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "爬坡角度/DOF"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Climbable step height - '台阶' means step/stair, interpreted here as continuous stair-climbing, not a single obstacle."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "攀爬台阶高度: 20cm"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the '基础参数' (basic parameters) table. No '约' (approx.) marker; no indication of with/without battery."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 17.5kg"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "The source's own unit notation is missing an 'm' (see the top note). The axis order (length first) is explicitly labelled by the manufacturer in the column heading '站立尺寸' (standing dimensions)."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸: 682×354×462m"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "height"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "See the top note on the missing 'm' in the source's '462m'."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Six yes/no rows from the '基础参数' (basic parameters) table, all set to '有' (yes) for the YJ30. A qualitative list, not a level on a scale."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Next to a '立即购买' (buy now) button on the manufacturer's own page."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "￥78000.00"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "note",
+    "vaerdi": "The first quote is the YJ30's own product description (same page). Our own translation: (education/research) -> research and development; (patrol/inspection) -> inspection; (emergency response/rescue) -> defense and emergency response. The other two quotes are from the page's shared section (the same three cards appear identically on all four YJ30-series product pages): (police patrol) -> security and surveillance. A third card (power-line inspection) is excluded from the quote list, since it only repeats inspection."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "教学科研 | 巡逻巡检 | 应急救援 | 行业应用 | 警用巡逻 | 电力巡检"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "YJ30。"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industry and security inspection"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Police patrol"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "工业、安防巡检领域"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "警用巡逻"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "STANDING-DIMENSIONS TYPO IN THE SOURCE: the row reads '682×354×462m' - missing an 'm' in 'mm', unlike all other rows in the same table (e.g. the YJ30W's '682×354×532mm'), including in the English-language version of the page (the same typo is repeated there: '682 × 354 × 462m'). Assessed as a source-page typing error, not a unit of meters - 462 m in height would be absurd for a 17.5 kg quadruped robot. The unit is set to mm."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "MERGED COLUMN HEADING: the table's raw HTML has the heading (climb angle/DOF) as ONE column, but only ONE value (50 deg) in the data row. Since 50 deg carries the degree sign, it is the climb angle; the DOF figure is not filled in at all in the source. degrees_of_freedom is therefore not disclosed, not guessed to be the same figure."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 2,
+    "vaerdi": "DUAL-BATTERY RUNTIME NOT USED AS THE MAIN VALUE: the table shows '1.5-2h' in the runtime row itself, and separately in the same cell (line break) '3h (Dual Battery)' - an accessory-dependent extended configuration. The main value is 1.5-2 hours; the dual-battery figure of 3h is stated in the caveat, not in value/max."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 3,
+    "vaerdi": "LIDAR NOT FILLED IN: the product-feature text mentions (multimodal sensor matrix: laser-vision synergy), which hints at some form of laser/LiDAR - but the table itself (the structured specification table) has NO lidar row at all. The field is therefore not disclosed, not inferred from the marketing text - the same principle as GENISOM L2's handling of a similar mismatch between prose and table."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes_wording",
+    "index": 1,
+    "vaerdi": "爬坡角度/DOF"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes_wording",
+    "index": 3,
+    "vaerdi": "多模态感知矩阵：激光视觉协同"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the '基础参数' (basic parameters) table."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 45kg"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing dimensions."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸: 896x635x530mm"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Dynamic/walking load - an explicitly named field, not an estimate (see the top note)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "动态负载: 30kg"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Static/standing load - an explicitly named field."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "静态负载: 50kg"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Speed - a single figure, not a range."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "速度: 3m/s"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Its own column, without the DOF merge (see the top note)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "爬坡角度: 50°"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Climbable step height."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "攀爬台阶高度: 30cm"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "No load condition (kg) disclosed."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航: 3-4h"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Five yes/no rows from the '基础参数' (basic parameters) table - one row fewer than the YJ30's table (no '跟随' (follow) item here)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "跟随"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Next to a '立即购买' (buy now) button."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "￥288000.00"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "note",
+    "vaerdi": "The first quote is the YJ30Max's own product description (same page). Our own translation: (industry inspection) -> inspection; (fire-emergency response) -> defense and emergency response; (work in complex environments) -> industry. The other two quotes are from the page's shared section (the same three cards appear identically on all four YJ30-series product pages): (police patrol) -> security and surveillance. The card (power-line inspection) is excluded, since it only repeats inspection."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "工业巡检 | 消防应急 | 复杂环境作业 | 行业应用 | 警用巡逻 | 电力巡检"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "。"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industry and security inspection"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Police patrol"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "工业、安防巡检领域"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "警用巡逻"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "SAME MERGED-COLUMN PATTERN AS THE YJ30 FOR SLOPE: here the column is simply named (climb angle) without the '/DOF' addition - DOF is therefore not mentioned anywhere on the YJ30Max's page at all, not just omitted from a merged column. degrees_of_freedom is not disclosed."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "LIDAR NOT FILLED IN: same situation as the YJ30 - no lidar row in the '基础参数' (basic parameters) table."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes_wording",
+    "index": 0,
+    "vaerdi": "爬坡角度"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Dynamic/walking load - an explicitly named field."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "动态负载: 35kg"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "See the top note on the column name shared with the base YJ30Max version (30cm)."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "攀爬台阶高度: 80cm"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Integrated triple detection technology: infrared thermal imaging, high-sensitivity UV light recognition, visible-light smoke/fire recognition - identical text to the YJ30 W's entry. No model designation or resolution disclosed."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the '基础参数' (basic parameters) table."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 55kg"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing dimensions."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸: 896x635×625mm"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Static/standing load - an explicitly named field."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "静态负载: 55kg"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Speed - higher than the YJ30Max's 3m/s, as expected for a wheeled variant."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "速度: 5m/s"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Climb angle - its own column, without the DOF merge."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "爬坡角度: 50°"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "No load condition (kg) disclosed."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航: 3.5-4.5h"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Combines the table's five yes/no rows (same pattern as the YJ30Max, no '跟随' (follow) item) with the product description's extra communication and data-analysis features."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "跟随"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Next to a '立即购买' (buy now) button - the highest Yuejia price in the catalogue."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "￥358000.00"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "note",
+    "vaerdi": "Identical product description to the YJ30 W (same paragraph, same pattern - this is the large version). Our own translation: see the YJ30 W's note for the full rationale. '仓储' (warehousing) is, for the same reason, NOT counted as a separate logistics category."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "仓储"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "AI。。"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industry and security inspection"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Police patrol"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "工业、安防巡检领域"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "警用巡逻"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2256
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "MULTISPECTRAL SENSOR PACKAGE (cameras): identical text to the YJ30 W - see its entry for the full citation."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Integrated triple detection technology: infrared thermal imaging, high-sensitivity UV light recognition, visible-light smoke/fire recognition - three named detection technologies, specific to this fire-inspection variant. No model designation or resolution disclosed for any of the three."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the '基础参数' (basic parameters) table."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 20kg"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing dimensions."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸: 682×354×532mm"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "The manufacturer states only the payload figure, without a walking/standing distinction (see the top note). A cautious estimate, not a reading."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "负载: 12kg"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum speed - higher than the walking YJ30's 3m/s, as expected for a wheeled variant."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大速度: 5m/s"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the same merged column (climb angle/DOF) as the YJ30, same caveat as in the YJ30's own entry."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "爬坡角度/DOF"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "See the top note on the column name shared with the base YJ30 version (20cm)."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "攀爬台阶高度: 60cm"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the base value. The same cell separately mentions '3.5~4h (Dual Battery)' - an extra accessory-dependent configuration, not used as the main value. No load condition (kg) disclosed."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航: 1.5-2h"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Combines the table's six yes/no rows (same pattern as the YJ30) with the product description's extra communication and data-analysis features specific to the fire-inspection variant."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Next to a '立即购买' (buy now) button."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "￥88000.00"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "note",
+    "vaerdi": "The first quote is the YJ30 W's own product description (same page). Our own translation: (multispectral fire detection/warning) -> defense and emergency response; (autonomous mobile inspection/patrol) -> inspection; -> industry; -> research and development. (warehousing/logistics) is NOT included as a logistics category here, since it appears only in a list of possible deployment environments, not as a standalone application category alongside the others - a more cautious reading than the broadest possible one. The last two quotes are from the page's shared section: -> security and surveillance."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "多光谱火情探测/火情预警 | 自主移动巡检/自主巡逻 | 工业 | 科研 | 仓储 | 行业应用 | 警用巡逻"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "AI。。"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industry and security inspection"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Police patrol"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "工业、安防巡检领域"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "警用巡逻"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2257
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "MULTISPECTRAL SENSOR PACKAGE (cameras) IS EXPLICIT HERE, UNLIKE THE YJ30/YJ30Max: the product text mentions three named detection technologies specific to this (and the YJ30 Max W's) fire-inspection variant - see the cameras field."
+  }
+]

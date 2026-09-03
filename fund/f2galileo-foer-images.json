@@ -1,0 +1,273 @@
+[
+ {
+  "robot_id": 2189,
+  "file": "fotos/fabrikant/cvte-maxhub-x7.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.cvte.com/product/quadrupedrobot",
+  "retrieved_at": "2026-08-24",
+  "alt": null,
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2199,
+  "file": "fotos/fabrikant/galileo-c1.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Galileo (Tianjin) firbenet robot, staaende udgave, produktfoto fra virksomhedens PDF-produktmanual",
+   "en": "Galileo (Tianjin) quadruped robot, standing version, product photo from the manufacturer's PDF product manual"
+  },
+  "note": "Delt foto: PDF-manualens produktgalleri viser samme kropsudgave (uden top-sensor-modul) for både C1 og E1 - manualen skelner ikke mellem dem i billedvalget. S1 har et synligt ekstra sensor-modul på ryggen og får derfor sit eget foto (se galileo-s1.yaml).",
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2200,
+  "file": "fotos/fabrikant/galileo-c1-w.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Galileo (Tianjin) firbenet robot, hjulbenet udgave, produktfoto fra virksomhedens PDF-produktmanual",
+   "en": "Galileo (Tianjin) quadruped robot, wheeled-leg version, product photo from the manufacturer's PDF product manual"
+  },
+  "note": "Delt foto: PDF-manualens produktgalleri viser samme hjulbenede kropsudgave (uden top-sensor-modul) for både C1-W og E1-W - manualen skelner ikke mellem dem i billedvalget. S1-W har det samme ekstra sensor-modul som S1 og får sit eget foto (se galileo-s1-w.yaml).",
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2201,
+  "file": "fotos/fabrikant/galileo-e1.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Galileo (Tianjin) firbenet robot, staaende udgave, produktfoto fra virksomhedens PDF-produktmanual",
+   "en": "Galileo (Tianjin) quadruped robot, standing version, product photo from the manufacturer's PDF product manual"
+  },
+  "note": "Delt foto: PDF-manualens produktgalleri viser samme kropsudgave (uden top-sensor-modul) for både C1 og E1 - manualen skelner ikke mellem dem i billedvalget. S1 har et synligt ekstra sensor-modul på ryggen og får derfor sit eget foto (se galileo-s1.yaml).",
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2202,
+  "file": "fotos/fabrikant/galileo-e1-w.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Galileo (Tianjin) firbenet robot, hjulbenet udgave, produktfoto fra virksomhedens PDF-produktmanual",
+   "en": "Galileo (Tianjin) quadruped robot, wheeled-leg version, product photo from the manufacturer's PDF product manual"
+  },
+  "note": "Delt foto: PDF-manualens produktgalleri viser samme hjulbenede kropsudgave (uden top-sensor-modul) for både C1-W og E1-W - manualen skelner ikke mellem dem i billedvalget. S1-W har det samme ekstra sensor-modul som S1 og får sit eget foto (se galileo-s1-w.yaml).",
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2203,
+  "file": "fotos/fabrikant/galileo-s1.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Galileo (Tianjin) S1, staaende udgave med synligt sensor-modul paa ryggen, produktfoto fra virksomhedens PDF-produktmanual",
+   "en": "Galileo (Tianjin) S1, standing version with a visible sensor module on its back, product photo from the manufacturer's PDF product manual"
+  },
+  "note": "S1 er den eneste ben-udgave med et ekstra cylindrisk sensor-modul på ryggen i PDF-manualens produktgalleri - stemmer overens med S1's egne data (eneste model med begge klatrefelter udfyldt og eksplicit lastbetinget driftstid, se felternes noter).",
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2204,
+  "file": "fotos/fabrikant/galileo-s1-w.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.worldrobotconference.com/profile/robot/download/2025/07/08/Galileo-%E6%99%BA%E8%83%BD%E4%BB%BF%E7%94%9F%E5%9B%9B%E8%B6%B3%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BA%A7%E5%93%81%E6%89%8B%E5%86%8C_20250708115131A101.pdf",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Galileo (Tianjin) S1-W, hjulbenet udgave med synligt sensor-modul paa ryggen, produktfoto fra virksomhedens PDF-produktmanual",
+   "en": "Galileo (Tianjin) S1-W, wheeled-leg version with a visible sensor module on its back, product photo from the manufacturer's PDF product manual"
+  },
+  "note": "S1-W er den eneste hjulbenede udgave med det samme ekstra sensor-modul som S1 i PDF-manualens produktgalleri - stemmer overens med S1-W's egne data (begge klatrefelter udfyldt og eksplicit lastbetinget driftstid).",
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2223,
+  "file": "fotos/fabrikant/microrobotech-movenew-p1.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.micbotics.com/list_12/98.html",
+  "retrieved_at": "2026-08-24",
+  "alt": null,
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2224,
+  "file": "fotos/fabrikant/microrobotech-movenew-t1.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.micbotics.com/list_13/96.html",
+  "retrieved_at": "2026-08-24",
+  "alt": null,
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2250,
+  "file": "fotos/fabrikant/xiaomi-cyberdog-2.png",
+  "origin": "manufacturer",
+  "source": "https://www.mi.com/cyberdog2",
+  "retrieved_at": "2026-08-19",
+  "alt": {
+   "da": "Xiaomi CyberDog 2, studiofoto paa graa baggrund",
+   "en": "Xiaomi CyberDog 2, studio photo on a grey background"
+  },
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2251,
+  "file": "fotos/fabrikant/yobotics-e-dog.jpg",
+  "origin": "manufacturer",
+  "source": "https://www.yobotics.cn/en/product/quadruped_robot_series/",
+  "retrieved_at": "2026-08-19",
+  "alt": null,
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2252,
+  "file": "fotos/fabrikant/yobotics-y10.png",
+  "origin": "manufacturer",
+  "source": "https://www.yobotics.cn/en/product/quadruped_robot_series/",
+  "retrieved_at": "2026-08-25",
+  "alt": null,
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2253,
+  "file": "fotos/fabrikant/yobotics-y20.png",
+  "origin": "manufacturer",
+  "source": "https://www.yobotics.cn/en/product/quadruped_robot_series/",
+  "retrieved_at": "2026-08-25",
+  "alt": null,
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2254,
+  "file": "fotos/fabrikant/yuejia-yj30.png",
+  "origin": "manufacturer",
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/56.html",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Yuejia Lingdong YJ30, gaaende firbenet robot uden hjul, studiofoto paa lys baggrund",
+   "en": "Yuejia Lingdong YJ30, walking quadruped robot without wheels, studio photo on a light background"
+  },
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2255,
+  "file": "fotos/fabrikant/yuejia-yj30-max.png",
+  "origin": "manufacturer",
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/57.html",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Yuejia Lingdong YJ30Max, gaaende firbenet robot, feltfoto ved en el-transformerstation",
+   "en": "Yuejia Lingdong YJ30Max, walking quadruped robot, field photo at an electrical transformer station"
+  },
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2256,
+  "file": "fotos/fabrikant/yuejia-yj30-max-w.png",
+  "origin": "manufacturer",
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/58.html",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Yuejia Lingdong YJ30W MAX, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+   "en": "Yuejia Lingdong YJ30W MAX, wheeled-leg quadruped robot, studio photo on a white background"
+  },
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ },
+ {
+  "robot_id": 2257,
+  "file": "fotos/fabrikant/yuejia-yj30-w.png",
+  "origin": "manufacturer",
+  "source": "https://yuejialingdong.com/index.php/yuejiasizuxilie/59.html",
+  "retrieved_at": "2026-08-26",
+  "alt": {
+   "da": "Yuejia Lingdong YJ30 W, hjulbenet firbenet robot, studiofoto paa hvid baggrund",
+   "en": "Yuejia Lingdong YJ30 W, wheeled-leg quadruped robot, studio photo on a white background"
+  },
+  "note": null,
+  "shared_with_robot_id": null,
+  "plate": null,
+  "position": null,
+  "collected_by": null,
+  "change_reason": null
+ }
+]
