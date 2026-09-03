@@ -62,6 +62,17 @@ før/efter-tal), hvad der kun står i agentens rapport, og hvad der bevidst blev
 accepteret uden måling. Næste læser skal kunne se forskel. Bærer beskeden
 backticks, `$` eller anførselstegn: skriv den til en fil, `git commit -F`.
 
+**Hver efterprøvning i beskeden skal bære KOMMANDOEN, ikke kun konklusionen.**
+Tilføjet 3. sep 2026, betalt af Å121: orkestratoren skrev i en fletbesked, at
+kildemærket sad på omregnede katalogpriser. Det gjorde det ikke. Påstanden
+stod uden den kommando, der havde produceret den, så ingen — heller ikke
+skribenten dagen efter — kunne genkøre den, og den blev først trukket tilbage
+i Å130 efter tre uafhængige målinger.
+
+En fletbesked læses som **journal**, ikke som en mening. Derfor arves en fejl i
+den tavst. Formen er den samme som konfidensskalaens *høj*: tallet plus den
+kommando, der giver tallet igen.
+
 ### 4. Tests på det FLETTEDE resultat — ikke kun på grenen
 
 **Reglen, der manglede indtil 27. aug 2026** (fundet ved læsning af
@@ -69,6 +80,13 @@ superpowers' `finishing-a-development-branch`; vores egen praksis, men aldrig
 skrevet): et flet kan knække det, ingen af de to grene knækkede — to grene, der
 hver især består, kan tilsammen fjerne en fil, den anden bruger, eller stable
 to testblokke forkert (det brød `tests/koer.mjs` én gang 26. aug).
+
+**Først: meld til den anden session, hvis der er én.** To sessioner deler ét
+arbejdstræ og ét ref-lager (STATUS Å124, Å131). To samtidige `koer.mjs` crasher
+med et Node-stakspor, ikke en rød test — og *"main er i takt"* er en fælles
+tilstand, ingen kan konstatere alene. Skriv via `SendMessage`: hvad du fletter,
+hvilke filer, din forudsigelse for de tre tal — og vent på *"main er din"*.
+Meld *"færdig"* bagefter. 17 flet på én dag, 0 kollisioner, med den regel.
 
 Efter HVERT flet, på main:
 
@@ -106,6 +124,19 @@ Så er force blot en omvej om en fil-lås, og det er i orden.
 - **Pauses en worktree i stedet for at lukkes:** skriv den i STATUS.md med
   gren, sti og indhold, MÅLT (`status --short` + commits foran main) — ikke
   efter hukommelse. Å16-lærdommen: "der lå lidt" viste sig at være ingenting.
+
+**Tager du et Å-, L- eller testnummer: PUSH rækken, FØR du melder nummeret
+videre.** Tilføjet 3. sep 2026 efter en kollision, der blev fanget i luften.
+To sessioner arbejdede i samme ref-lager; peer skrev *"jeg tager næste ledige
+efter 137"* i samme minut, som denne session pushede Å138. **Begge havde målt
+korrekt** — peer havde endda målt på rækkestart frem for på strengen, netop for
+at undgå fejlen — men målingen var sand, da den blev taget, og falsk, da
+beskeden nåede frem.
+
+Vinduet mellem *at måle et nummer* og *at committe det* er reelt, og ingen
+måling kan lukke det. **Filen er facit, ikke beskeden.** Rækkefølgen er derfor:
+skriv rækken → commit → push → meld. Melder du først, har du reserveret et
+nummer i en samtale, og samtaler har ingen låse.
 
 **Sporets server skal være død, før worktreen fjernes — og det skal måles.**
 Reglen kom til 1. sep 2026, hvor **fem forældreløse `python -m http.server`
