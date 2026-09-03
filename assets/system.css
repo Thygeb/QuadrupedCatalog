@@ -1613,6 +1613,42 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .udtraek .skala__ord,
 .udtraek .etiket{letter-spacing:.09em}
 
+/* --- J3: LUFTEN MELLEM FILTERTEKSTERNE (PLAN-katalog.md J3.1) -------------
+   JPK 3. sep 2026: "...saa det ser mere stramt ud". MAALT FOER, 1440 px:
+   ni sammenfoldede facetter, syv paa 109 px og de to nederste paa 108 px -
+   forskellen er praecis den `border-bottom`, `facet--sidste-raekke` fjerner.
+   Titel til titel er 109 px; TOM LUFT mellem to filtertekster er 65 px.
+
+   NEDBRYDNINGEN AF ÉN LUKKET FACET (maalt, ikke regnet):
+     24  padding-top      .facetter__net .facet
+     44  summary min-height   <- JPK's eget beroeringsgulv
+     16  margin-bottom under titlen
+     24  padding-bottom
+      1  ramme
+    109  i alt (108 nederst)   - tekstens egen hoejde inde i summary: 17 px
+
+   TO AF DE FIRE TAL RETTES, ET ROERES ALDRIG:
+
+   1. DE 16 PX ER DOEDVAEGT, NAAR FACETTEN ER LUKKET. Marginen findes for at
+      skille titlen fra valgraekkerne - og er facetten lukket, ER der ingen
+      raekker. Det er 16 px rent ingenting, ni gange. Derfor kun `:not([open])`:
+      i AABEN tilstand goer marginen praecis det arbejde, den blev skrevet til.
+   2. DE 2 x 24 PX er panelets ydre rytme og kan gaa ét trin ned til --r4.
+      Det er ikke et nyt tal og heller ikke et gaet: generator.css saetter
+      SELV `padding:var(--r4)` paa samme selektor under 720 px, saa 16 px er
+      allerede panelets egen vaerdi paa den anden side af det knaek. Denne
+      regel bringer blot desktop i takt med mobilen.
+   3. DE 44 PX ER LAAST OG ROERES IKKE. Uden en egen min-height er <summary>s
+      klikflade kun tekstlinjens 20 px, fordi .facet__navn ALDRIG arver hoejde
+      fra facettens polstring - den ligger udenom. Begrundelsen staar i fuld
+      laengde ved `summary.facet__navn` i afsnittet om katalogets flader.
+
+   BEGGE REGLER ER SCOPET UNDER .udtraek af samme grund som J2: det giver
+   hoejere specificitet end generator.css' egne selektorer, saa DEN FIL ER
+   UROERT - et samtidigt spor ejer den. */
+.udtraek .facetter__net .facet{padding:var(--r4)}
+.udtraek .facetter__net details.facet:not([open]) > .facet__navn{margin-bottom:0}
+
 /* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
    katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
    faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
