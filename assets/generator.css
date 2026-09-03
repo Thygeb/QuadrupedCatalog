@@ -1221,7 +1221,7 @@
    paa et typeskilt staar etiketter OG tal i samme snit. Prosaen er Literata. */
 .aabning,.plade,.resultat{font-family:var(--mono);letter-spacing:0}
 .aabning__under,.plade__under,.aabning__note,
-.sorter__note,.facet-omfang,.chip-fod{font-family:var(--manual)}
+.facet-omfang,.chip-fod{font-family:var(--manual)}
 
 /* Den stansede plade. `.stans` (system.css) giver 2px radius og den
    indfaeldede 1px kant med hvid lyskant; her kommer kun fladen og
@@ -1494,8 +1494,6 @@
 .sortervalg input:checked + label{background:var(--accent);color:var(--blaek);
   box-shadow:inset 0 0 0 1px var(--blaek)}
 .sortervalg input:focus-visible + label{outline:2px solid var(--blaek);outline-offset:2px}
-.sorter__note{display:none;margin:0 0 var(--r4);font-size:12.5px;line-height:1.5;
-  color:var(--blaek2);max-width:70ch}
 
 /* --- 20j. Kortgitteret ---------------------------------------------------
    1px gab paa en linjefarvet bund giver haarstregerne MELLEM kortene uden en
