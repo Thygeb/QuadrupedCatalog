@@ -1456,7 +1456,29 @@ ${sorteret.map(lagKortHTML).join('\n')}
 </form>
 
 <p class="t-lille kort-legende">${esc(t('kort_legende'))}</p>
-<p class="t-lille sektion-note">${esc(tf('eu_pointe', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ikke_oplyst').length, m: alle }))}</p>
+${/* EU-POINTEN ER FJERNET (JPK 3. sep 2026, ordret: "FJERN DENNE TEKST").
+     Her stod en <p class="t-lille sektion-note"> med i18n-noeglen `eu_pointe`:
+     "74 af 77 producenter oplyser intet om CE. Tavsheden er selve fundet ..."
+
+     BEGGE TAL VAR RIGTIGE OG SAETNINGEN ALLIGEVEL FALSK. `n` og `m` blev
+     fyldt med ROBOTTAL - ceTilstand() over `robotter`, og `alle` = 77 - mens
+     saetningens SUBJEKT var "producenter". Der er 25 producenter, ikke 77
+     (efterproevet tre veje: unikke producenter i robotdata, mapper i
+     dist/da/producenter, og antal producentsider). En saetning om
+     producenter med robotternes naevner er et faktuelt forkert tal paa en
+     publiceret side, uanset at hvert enkelt tal kan forsvares.
+
+     SLETTET OG IKKE RETTET, fordi JPK bad om det: teksten skal vaek. Noeglen
+     `eu_pointe` er fjernet fra begge sprogfiler i samme commit - den havde
+     ingen anden kalder (maalt: kun denne linje plus arkivdokumenter i fund/
+     og en kommentar i tests/dele/09).
+
+     PAS PAA VED EFTERPROEVNING: et loest grep paa "oplyser intet om CE"
+     rammer OGSAA en kildebelagt note i MAB Honey Badger 5's robotdata ("Den
+     eneste EU-producent i indsamlingen oplyser INTET om CE"), som staar paa
+     begge sprogudgaver af den robotside og skal blive staaende. Mål paa
+     "producenter oplyser intet om CE" / "manufacturers say nothing about
+     CE" - med subjektet - hvis du vil maale netop denne saetning. */''}
 ${hjaelp.tegnforklaring()}
 </div>`;
 }

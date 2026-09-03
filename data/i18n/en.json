@@ -259,7 +259,6 @@
   "eu_ce_ja": "CE stated by the manufacturer",
   "eu_ce_nej": "The manufacturer states that there is no CE marking",
   "eu_ce_ikke_oplyst": "CE is not stated anywhere",
-  "eu_pointe": "{n} of {m} manufacturers say nothing about CE. The silence is the finding – it is not a gap in our collection.",
 
   "varianter": "Variants",
   "varianter_kort": "var.",
