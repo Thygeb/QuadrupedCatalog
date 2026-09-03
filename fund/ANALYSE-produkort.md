@@ -345,14 +345,21 @@ En analyse, der kun rummer fejl, kan ikke bruges til at beslutte noget.
 5. **Ingen accent som forgrund.** L76 holdes på fladen; EU-ikonet står i
    `--blaek` (12,72 : 1) med en kommentar i `generator.css:25-26`, der forklarer
    hvorfor det ikke længere er gult.
-6. **Tastatur og fokus er fladens stærkeste håndværk.** Målt ved at trykke Tab
-   otte gange på en isoleret instans: **skip-linket *"Spring til indholdet"*
-   kommer først**, og hvert eneste element bærer en synlig `solid 3px
-   rgb(242,196,0)` fokusring. Navigationens fire punkter tegner den **indad**
-   (`outline-offset: -3px`), præcis som DESIGN.md:391-393 foreskriver, *"fordi
-   `overflow-x:auto` ellers klipper den"*. Tab-ordenen er logisk: skip → ordmærke
-   → nav → retur → indhold. **Accent bruges her som markør, ikke som forgrund —
-   L76 efterlevet i praksis.**
+6. **Tastaturets STRUKTUR er rigtig — men se F6: ringens farve er det ikke.**
+   Målt ved at trykke Tab otte gange på en isoleret instans: **skip-linket
+   *"Spring til indholdet"* kommer først**, hvert element får en fokusring, og
+   navigationens fire punkter tegner den **indad** (`outline-offset: -3px`),
+   præcis som DESIGN.md:391-393 foreskriver, *"fordi `overflow-x:auto` ellers
+   klipper den"*. Tab-ordenen er logisk: skip → ordmærke → nav → retur → indhold.
+
+   > **RETTELSE AF MIT EGET FUND.** Her stod i første udgave, at fokus var
+   > *"fladens stærkeste håndværk"*, og at accent her var *"markør, ikke
+   > forgrund — L76 efterlevet i praksis"*. **Assessment B modbeviste det.**
+   > Jeg målte, at ringen ER der, og glemte at måle den MOD den flade, den
+   > tegnes på. Det er nøjagtig den fælde, DESIGN.md selv underviser i —
+   > *"et kontrasttal uden en læseretning er ikke et tal"* — begået i den
+   > sætning, der roste efterlevelsen af L76. **Strukturen er stadig en styrke;
+   > farven er fund F6.**
 7. **Semantikken er i orden, og det er målt frem for antaget.** På begge flader:
    **1** `h1`, overskriftsrækken `1,2,2,3,3,2` med **nul spring**, `main`=1,
    `nav`=1, `lang="da"`, **3** `hreflang`-led. Producentindekset er en **rigtig
@@ -395,6 +402,217 @@ overdrevet tal, og det er derfor ikke rapporteret som fund.**
 
 ---
 
-*Fortsættes: syntesen af `impeccable critique`s to uafhængige vurderinger
-(Assessment A: design review · Assessment B: detektor + browser-evidens)
-skrives ind, når begge har afleveret.*
+---
+
+# 7. SYNTESE — `impeccable critique`, to uafhængige vurderinger
+
+**Method: dual-agent** (A: design review · B: detektor + browser-evidens), begge
+kørt som isolerede underagenter på `model: opus`, jf. projektets regel om at
+analyser aldrig er Sonnets. **Ingen degradering af selve orkestreringen.**
+
+**To ærlige forbehold om flowet:**
+
+- **Assessment A kaldte ikke selv `impeccable critique`** — hverken som skill
+  eller fra disk — men fulgte briefets ni-punkts-form. A skrev det selv. Det er
+  en delvis degradering af *metoden*, ikke af strukturen, og det skal ikke
+  forveksles med, at skillen kørte i A's kontekst.
+- **`detect.mjs` er kørt af begge og af mig, og er ubrugelig her.** B kørte den
+  på alle fem flader: degraderet, exit 0, tom liste hver gang. **Nul
+  konklusioner i denne analyse hviler på den.**
+
+## 7.1 Hvor de tre målinger er enige (trianguleret)
+
+Tre uafhængige apparater — mit, A's og B's — nåede samme tal:
+
+| Fund | Mig | A | B |
+|---|---|---|---|
+| `.v-nej`/`.v-ikke` renders **17px** i EU-linjen, ikke 10,5/11 | F2 | P-B | #3 |
+| Årsag: `.eu-fund-linje span` (0,1,1) slår `.v-nej` (0,1,0) | ✓ | ✓ | ✓ |
+| DESIGN.md fører EU-fundet som **slettet**, mens det sendes | F1 | H6 | — |
+| Rosteren dominerer siden | 69 % / 58 % | 64,1 % / 65,9 % | — |
+| **0** kildemærker på fladen | F4 | persona-flag | — |
+| 9×9-mærkerne er korrekte | ✓ | S2 | ✓ |
+| `detect.mjs` ubrugelig | ✓ | ✓ | ✓ |
+| Den delte browser er et ødelagt apparat | ✓ | ✓ | ✓ |
+
+**A tilføjede den kontrolgruppe, jeg manglede:** samme robot på **robotsiden**
+tegner `.v-nej` i 10,5px `rgb(34,38,42)` og `.v-ikke` i 11px `rgb(95,104,111)` —
+altså korrekt. Fejlen er fladespecifik, ikke systemisk. Og A fandt fejlmåden
+skarpere end jeg: *"de to tilstande mødtes på præcis samme værdi fra hver sin
+side"* — nej skulle stå 12,72:1 og står 5,68:1; ikke oplyst skulle stå 4,74:1 og
+står 5,68:1. **Hård begrænsning 5's fejlmåde, på den ene flade der findes for at
+vise CE-tilstand.**
+
+## 7.2 F6 — Fokusringen er 1,38:1 og fejler WCAG 1.4.11 på hvert fokuserbart element
+
+**B's vigtigste fund, og det retter mit eget.** `system.css:343`
+`:focus-visible{outline:3px solid var(--accent)}` er global.
+
+| Ring PÅ flade | Målt | Krav (1.4.11) |
+|---|---|---|
+| `--accent` PÅ `--bund` (sidens flade) | **1,38 : 1** | 3:1 |
+| `--accent` PÅ `--panel` (kort) | **1,60 : 1** | 3:1 |
+| `--accent` PÅ `--fod` (mørk flade) | 9,19 : 1 | ✓ |
+
+**DESIGN.md:252** nævner *"fokusring"* i listen over accentens **lovlige** brug
+og måler den aldrig mod fladen. Det er **DESIGN.md's egen læseretningsfælde, én
+rolle længere ude**: L76 flyttede accent væk fra tekst, men lod den blive som
+ring — og en ring er også forgrund. Systemet ved bedre andre steder:
+`.skala__greb`, `.knap--maerkat` og `.rk__felt` bruger `var(--blaek)` (12,72:1).
+
+**Hører i designplanen, ikke i et hastespor:** paletten er låst af TYPESKILT, og
+rettelsen er en systemregel om, hvor `--accent` må bruges som forgrund — præcis
+det mønster, L70's frys blev skrevet for at fange.
+
+## 7.3 Fund, ingen af os havde alene
+
+**A's P-A / B's #2 — producentindekset skjuler to af tre datakolonner ved 390px.**
+`.prod-tabel-wrap`: `clientWidth` **343**, `scrollWidth` **620** → **277px
+skjult**. "LAND" er klippet midt i ordet, "ANTAL" er helt væk. Ingen
+rulleaffordance: **0** regler for fade/skygge/`::after` i begge stilark. Årsag:
+`generator.css:1156-1157` låser kolonnerne til `20ch` og `12ch`.
+**`fund/PLAN-producent.md` §12 siger udtrykkeligt *"der er ingen akut mobilfejl
+at melde"* — det er nu målt falsk.** Gælder også `/en/`.
+
+**A's P-E — og den vender planens anbefaling om.** Planen (§5.3) vil skære
+roster-afsnittet væk, fordi det er *"en dårligere udgave af indekset"*. **På
+mobil er det en BEDRE udgave:** undersidens liste viser navn + land + antal ved
+390px uden beskæring, mens indekset skjuler land og antal. **Sletter man
+afsnittet i dag, mister en mobillæser det eneste sted, de tre oplysninger står
+sammen.** Dette bør nå JPK, før §5.3 besluttes.
+
+**B's #4 — skriftgulvet på 10,5px brydes to steder** (DESIGN.md:369, :656):
+`span.kort__mrk` **9,50px** (*"Udgået"/"Annonceret"*) og `span.daek__stempel`
+**10,00px**. Faste px, uændret ved alle tre bredder — ikke en ombrydningseffekt.
+Stemplet er sidedækkende, ikke producentspecifikt.
+
+**A — `.v-ikke`s dæmpede flade gør ingenting på denne flade.** Chippens
+baggrund er `--tom` `rgb(232,235,237)`; den omgivende flade er `--bund`, samme
+hex. **1,00:1.** Hele tilstanden bæres af en 0,8px stiplet `--hegn`-kant på
+**2,14:1**, under 1.4.11's 3:1. På robotsiden sidder chippen på `--panel`, og
+fyldet virker. **Det er den første målte visuelle konsekvens af DESIGN.md's
+Konflikt 3** (fem tokennavne på samme hex), som hidtil var journaliseret som et
+navneproblem.
+
+**A's P-C og P-D — to følger af leverance A, som jeg ikke selv så:**
+`.eu-fund-tal` er `clamp(26px,2.6vw,34px)` og rammer **nøjagtig H2's 34px ved
+1440** og **overgår H2 ved 390** (26 mod 23). Og Xiaomis to linjer indledes
+begge med **"1 af 2"** i 34px/700 — øjet lander på en gentagelse, mens det
+diskriminerende ligger til højre i halv størrelse. Komponentens egen kommentar
+(`generator.css:22-23`) siger stadig *"Én sætning, ét stort tal — læsbar på to
+sekunder, ikke en infografik"*; **leverance A gjorde det til to af hver uden at
+revidere hensigten.** Over alle 25 sider er **24 af 26 tal "N af N"** — et tal,
+der ikke kan være andet.
+
+**B's øvrige målte fund:** det LCP-nære billede (`top=594`, inde i viewporten)
+er `loading="lazy"`, og **13 af 13 billeder mangler `width`/`height`** (CLS).
+**269.134 B blokerende CSS** mod 23.489 B HTML, **0** `rel=preload` til de fire
+Saira-woff2. `.net` giver RIVR (1 model) **5 spalter** og **1.070px tom** ved
+1440 — `auto-fill`, hvor `auto-fit` ikke ville. Kort-hover er **1,04:1**.
+**`<footer>` findes 0 gange i alle 216 byggede sider** (bekræfter mit H3b og
+udvider det fra producentfladen til hele sitet). Indekset har **ingen
+`<caption>`** og **ingen `<th scope="row">`**, så en skærmlæser ikke kan koble
+"Kina" til "Unitree Robotics".
+
+**B's #11 — alt-teksterne, et fund ingen af os ledte efter.** 0 manglende, 0
+tomme. Men **15 af 17 er ekkoer** af modelnavnet i `<h3>` lige under, og de to
+beskrivende er skrevet med **translittereret dansk**: `alt="… studiofoto paa
+graa baggrund"`. På tværs af `dist/` indeholder **83 af 474** alt-tekster
+`paa`/`graa`/`staar`. **En dansk skærmlæser udtaler dem forkert** — projektets
+ASCII-translitteration er sluppet ud af kildekoden og ind i det, brugeren hører.
+
+## 7.4 Hvor vurderingerne var UENIGE med sig selv — og rettede
+
+Begge agenter trak et fund tilbage efter genmåling. Det er værd at trykke,
+fordi begge tilbagetrækninger reddede en falsk konklusion:
+
+- **A troede først, at `.v-ja` og `.v-nej` tegnes som samme fyldte firkant** —
+  hård begrænsning 5 brudt. Genmålt med `box-shadow` inkluderet: `.v-ja .mrk`
+  bærer stadig `inset 0 0 0 2px` + `inset 0 0 0 3px` — den åbne firkant med
+  fyldt kerne. **`system.css:685-689` forudsagde netop dette** (*"det er
+  STRUKTURELT, ikke typografisk, så det overlever enhver skriftstørrelse"*), og
+  forudsigelsen holdt under en font-size-override, den aldrig var prøvet mod.
+  **Fundet trukket tilbage.** Lære: *en firkants udseende bor i mindst fem
+  egenskaber, og at spørge om fire er ikke en måling.*
+- **B ville have meldt 39 falske berøringsmålsfejl.** `getBoundingClientRect()`
+  på et `<a>` med dækkende `::after` **undertæller med en faktor 30**:
+  modelkortets link måler 13,9×24,8 px på papiret og **266,6×267,6 px** i
+  virkeligheden (hit-testet med `elementFromPoint` i tre punkter). Det mønster
+  er DESIGN.md:487's egen konstruktion. **Det er også grunden til, at jeg ikke
+  rapporterede mit eget råtal "25 links under 44px" som fund.**
+
+## 7.5 Design Health Score (A's heuristikker, Read-kriteriet)
+
+| # | Heuristik | Score |
+|---|---|---|
+| 1 | Synlig systemtilstand | 2 |
+| 2 | Match med virkeligheden | 3 |
+| 3 | Brugerkontrol og frihed | 3 |
+| 4 | **Konsistens og standarder** | **1** ← fladens værste |
+| 5 | Fejlforebyggelse | n/a (0 `<button>`, 0 `<form>`) |
+| 6 | Genkendelse frem for genkaldelse | 2 |
+| 7 | Fleksibilitet | n/a (Read) |
+| 8 | Æstetik og minimalisme | 2 |
+| 9 | Fejlgenkendelse | n/a |
+| 10 | Hjælp og dokumentation | 2 |
+
+**B's fem audit-dimensioner:** Tilgængelighed **2**/4 · Ydelse **3**/4 ·
+Theming/tokens **4**/4 (65 `border-radius`, **0** uden for
+`var(--hjoerne)`/0/99px/50% — tokendisciplinen er fladens bedste tal) ·
+Responsivt **3**/4 · Implementeringsintegritet **2**/4.
+
+**Design-specificity-dom (A):** *"Delt — og delingen er målbar."* To ting kunne
+kun stå her: EU-linjens tre-tilstands-opgørelse og `producentSaetning()`.
+**Et konkurrerende katalog kunne overtage 91,7 % af fladen uændret.** Sidens
+eneste egentlige grund til at eksistere fylder **8,3 %** af den.
+
+## 7.6 Yderligere huller i DESIGN.md, fundet af vurderingerne
+
+Ud over mine H1-H4:
+
+- **H5 — ingen regel for fokusringens kontrast mod sin flade.** DESIGN.md:252
+  licenserer accent som ring uden at måle den (F6). Filen har allerede et
+  konfliktafsnit om `hegn`s 1.4.11-brud; ringen mangler.
+- **H6 — ingen regel for hvilken FLADE en datatilstand må stå på.**
+  DESIGN.md:583-597 fastsætter farve og grad, aldrig baggrunden. Da `--tom` og
+  `--bund` er samme hex, mister `.v-ikke` sit fyld på enhver `--bund`-flade.
+- **H7 — ingen regel, der beskytter en datatilstand mod en containers
+  efterkommer-selektor.** *Lad være*-listen (:647-672) siger intet om scoping.
+  Regelformen, der mangler: *en komponent må aldrig omstyle `.v*` via
+  efterkommer; tilstandsklasserne vinder.*
+- **H8 — ingen regel for hvad der må matche eller overgå en H2** (:355-358
+  afviser udtrykkeligt at fastsætte en figurstørrelse).
+- **H9 — ingen regel for en container, der ruller.** Layout (:372-400) lister
+  11 brudpunkter, men siger intet om `overflow-x:auto`, om en affordance er
+  påkrævet, eller hvilke kolonner der skal overleve den smalleste ombrydning.
+  **Systemet lovgiver om den smalleste ombrydning for STØRRELSE, ikke for
+  INDHOLD.**
+- **H10 — ingen regel for billedleddets indhold.** L78 låser sideforhold og
+  `object-fit`, men intet siger, hvad et produktfoto må *forestille*. Målt af A:
+  på Unitrees 13 kort er **4** fabrikantens egne annoterede spec-ark (ulæselige
+  i kortstørrelse), 1 bærer produktordmærket *"Laikago Pro"*, og RIVR's eneste
+  kort viser en **butiksfacade**, hvor robotten knap er til stede. **På en
+  producentflade er et net af fabrikantens marketingmateriale det tætteste,
+  sitet kommer på hård begrænsning 1's forbudte læsning.**
+- **H11 — ingen regel for, hvornår en datamængde er en `<table>` og hvornår en
+  liste.** Samme 25 producenter er en `<table>` på indekset og en
+  `<ul class="prodliste">` på alle 25 undersider.
+- **H12 — ingen ydelsesregler** (`width`/`height`, `loading`, `preload`).
+- **H13 — `/en/`-URL'erne bruger danske segmenter** (`/en/producenter/`,
+  `/en/robotter/`, `/en/om/`). Uden for DESIGN.md, og en arkitekturbeslutning
+  værd at tage bevidst, mens sitet er tosproget.
+
+## 7.7 Det spørgsmål, analysen bør efterlade hos JPK
+
+A's fjerde provokerende spørgsmål er det, der rækker længst ud over denne flade:
+
+> Hård begrænsning 5 håndhæves **mekanisk** for manglende enhed og kilde —
+> bygget fejler. **Intet håndhæver, at de tre tilstande forbliver visuelt
+> forskellige.** Skal `tests/dele/` asserte computed skriftgrad og farve for
+> `.v-nej`/`.v-ikke`/`.v-ja` på hver flade, der tegner dem — sådan som
+> `70-knap.mjs` allerede gør for knapvarianternes kontrast (DESIGN.md:565-569)?
+
+Dette spors leverance A rettede **datafejlen** (tilstandene kollapsede i tallet).
+F2 viser, at de kollapsede igen i **typografien**, tre linjer længere nede i
+samme komponent, uden at noget fangede det. En test af den type ville have
+fanget begge.
