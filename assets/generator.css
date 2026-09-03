@@ -771,14 +771,16 @@
   align-content: center;
   padding: 2px;
 }
+/* R9 / DP3c: 8 px brød skriftgulvet paa 10,5. Ordet baeres nu som
+   tilgaengelighedstekst - stiplet firkant for oejet, ordet for skaermlaeseren. */
 .saml-fotofelt__ord {
-  font-size: 8px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--paafod2);
-  text-align: center;
-  line-height: 1.2;
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 .specimen__navn {
   display: block;
@@ -1211,9 +1213,6 @@
   .saml-fotofelt {
     width: 52px;
     height: 40px;
-  }
-  .saml-fotofelt__ord {
-    font-size: 7px;
   }
   .specimen__top {
     gap: 10px;
