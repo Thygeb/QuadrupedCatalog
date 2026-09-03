@@ -89,9 +89,19 @@ export default async function koer(ctx) {
   // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   for (const sprog of ['da', 'en']) {
     const html = laes(path.join(sprog, 'index.html'));
+    // 45.8/45.10 laeser ROBOTSIDEN, ikke katalogsiden, siden BRIEF-prisnote.md
+    // punkt 2 (JPK 3. sep 2026): prisnoten - og dermed kildepligten for
+    // kurstallet - er flyttet fra katalogsidens filter/sortering til
+    // robotsidens prisraekke (robot.mjs' feltnote--pris). Kravet selv staar
+    // UAENDRET (haard begraensning 2: et kurstal uden vej til kilden er en
+    // paastand), kun STEDET flytter. yufan-lingmao-cyvet er samme robot som
+    // tests/dele/62-uifix.mjs' 62.2.c/d allerede bruger - en af de 11 med
+    // oplyst pris (og en af de 7 med fremmed kildevaluta, saa den faktisk
+    // omregnes).
+    const robotHtml = laes(path.join(sprog, 'robotter', 'yufan-lingmao-cyvet', 'index.html'));
 
-    ok(`45.8.${sprog}: kursens kilde staar som et link paa siden`,
-      html.includes(kurser.kilde.url),
+    ok(`45.8.${sprog}: kursens kilde staar som et link paa robotsiden`,
+      robotHtml.includes(kurser.kilde.url),
       'et kurstal uden vej tilbage til kilden er en paastand, ikke en oplysning');
 
     /* 45.9 (kurstal med alle cifre) er FJERNET af BRIEF-uifix.md punkt 5,
@@ -112,8 +122,8 @@ export default async function koer(ctx) {
        arbejdet. Derfor et moenster, der taaler begge skilletegn. */
     const [aar, maaned, dag] = kurser.kilde.dato.split('-');
     const datoMoenster = new RegExp(`${dag}[./-]${maaned}[./-]${aar}`);
-    ok(`45.10.${sprog}: kursens dato staar paa siden`,
-      datoMoenster.test(html) || html.includes(kurser.kilde.dato),
+    ok(`45.10.${sprog}: kursens dato staar paa robotsiden`,
+      datoMoenster.test(robotHtml) || robotHtml.includes(kurser.kilde.dato),
       `hverken ${dag}.${maaned}.${aar}, ${dag}/${maaned}/${aar} eller ${kurser.kilde.dato} staar paa siden`);
 
     /* ==================================================================
