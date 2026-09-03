@@ -449,8 +449,9 @@
    findes, og en tom kasse ville se ud som en fejl netop dér. */
 .saml-fotofelt--uoplyst{background:transparent;border:1px dashed var(--hegn);
   align-content:center;padding:2px}
-.saml-fotofelt__ord{font-size:8px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--paafod2);text-align:center;line-height:1.2}
+/* R9 / DP3c: Ordet baeres som tilgaengelighedstekst for skaermlaesere */
+.saml-fotofelt__ord{position:absolute!important;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .specimen__navn{display:block;font-size:19px;font-weight:700;letter-spacing:-.01em;
   line-height:1.1;color:var(--bund)}
 .specimen__meta{display:block;font-size:10.5px;font-weight:600;letter-spacing:.13em;
@@ -745,7 +746,6 @@
   /* Maerkatfotoet krymper med hovedet, saa den klaebende raekke ikke aeder
      skaermen paa 390. */
   .saml-fotofelt{width:52px;height:40px}
-  .saml-fotofelt__ord{font-size:7px}
   .specimen__top{gap:10px}
   .saml-hjoerne__note{display:none}
   .specimen-hoved th,.specimen-hoved td{padding:var(--r3) 10px}
