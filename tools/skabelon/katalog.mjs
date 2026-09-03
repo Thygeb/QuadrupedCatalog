@@ -318,7 +318,11 @@ const SKALAER = [
     navn: 'pris',
     etiketNoegle: 'filter_pris',
     mrkNoegle: 'filter_pris_mrk',
-    noteNoegle: 'filter_pris_note',
+    // noteNoegle FJERNET (BRIEF-prisnote.md punkt 2, JPK 3. sep 2026): ECB-
+    // forklaringen er flyttet til robotsiden (robot.mjs' feltnote--pris).
+    // noteNoegle-maskineriet er GENERISK og deles med nyttelast - skalaFacet()
+    // nedenfor er derfor rettet til at taale et fravaerende felt (tf() ville
+    // ellers vise «undefined» paa siden, jf. side.mjs' t()-fallback).
     enhed: BASISVALUTA,
     retning: 'hoejst',
     // Maalt 1. sep 2026 paa de 11 omregnede priser: 3/6/9 af 11, plus 66
@@ -362,12 +366,19 @@ function skalaFacet(spec, robotter, hjaelp, i18n) {
     // manglende koster en synlig fejl i produktionen.
     // {kurser} ("1 EUR = X USD · 1 EUR = Y CNY") er FJERNET af BRIEF-
     // uifix.md punkt 5 sammen med kursPar() ovenfor - se dens begrundelse.
-    note: tf(spec.noteNoegle, {
+    //
+    // spec.noteNoegle er nu FRAVAERENDE for prisen (BRIEF-prisnote.md punkt
+    // 2): tf(undefined, …) ville ellers kalde t(undefined) i side.mjs, som
+    // ikke fejler haardt (det er den BLOEDE opslagsfunktion) men returnerer
+    // den synlige pladsholder «undefined» og logger en manglende noegle.
+    // Vagtet her, saa et fravaerende noteNoegle giver en TOM note - og
+    // skalaBlok() nedenfor undlader da heleparagraffen (rettet samme aarsag).
+    note: spec.noteNoegle ? tf(spec.noteNoegle, {
       n: tal.length,
       u: robotter.length - tal.length,
       basis: BASISVALUTA,
       dato: hjaelp.dformat(KURSER.kilde.dato),
-    }),
+    }) : '',
     skala: {
       navn: spec.navn,
       enhed: spec.enhed,
@@ -586,7 +597,9 @@ const SORTERINGER = [
     navn: 'pris',
     noegle: 'katalog_sortering_pris',
     savn: 'savn_pris',
-    note: 'sortering_pris_note',
+    // note FJERNET (BRIEF-prisnote.md punkt 2): ECB-forklaringen staar nu
+    // paa robotsiden. SORTERINGER.filter((s) => s.note) og [s.note]-CSS-
+    // reglen nedenfor er begge allerede vagtet paa fravaer af feltet.
     feltnoegle: 'felt_pris',
     post: (r) => r.felter?.pris,
     tal: (r) => prisIBasis(r)?.tal ?? null,
@@ -1044,7 +1057,16 @@ ${f.liste.map((v) => raekke(f, v)).join('\n')}
 ${trinRaekker.map((v) => raekke(f, v)).join('\n')}
 </div>
 ${uoplyst.map((v) => raekke(f, v)).join('\n')}
-<p class="t-mikro skala__note">${noteHtml ?? esc(f.note)}</p>
+${(() => {
+  // Noten er valgfri (BRIEF-prisnote.md punkt 2: prisen har ingen laengere).
+  // En TOM <p class="skala__note"> ville staa i markup'et uden tekst - det
+  // element FINDES overhovedet ikke laengere, ikke bare tomt, jf. briefets
+  // acceptkriterium (grep -c "skala__note" skal falde med praecis 1).
+  // nyttelast er uroert: dens f.note er aldrig tom, saa dens paragraf
+  // renderes uaendret, praecis som foer denne rettelse.
+  const indhold = noteHtml ?? esc(f.note);
+  return indhold ? `<p class="t-mikro skala__note">${indhold}</p>` : '';
+})()}
 </details>`;
   };
 
@@ -1085,18 +1107,11 @@ ${uoplyst.map((v) => raekke(f, v)).join('\n')}
   const nyttelast = F.find((f) => f.navn === 'nyttelast');
   const pris = F.find((f) => f.navn === 'pris');
 
-  /* KURSENS KILDE STAAR SOM ET LINK, ikke som en paastand om en kilde.
-     Acceptkriteriet for L66 er, at kursens kilde og dato kan LAESES paa siden;
-     et link, laeseren kan foelge og selv slaa efter i, er den staerkeste form
-     for det. Det er samme greb som kildemaerket ved ethvert andet tal paa
-     siden (side.mjs:1263), og `rel` er den samme dér. */
-  const prisNoteHtml = `${esc(pris.note)} <a class="url" href="${attr(KURSER.kilde.url)}"`
-    + ` rel="nofollow noopener external">`
-    + `${esc(tf('kurs_kilde', {
-      udgiver: KURSER.kilde.udgiver,
-      navn: KURSER.kilde.navn,
-      dato: hjaelp.dformat(KURSER.kilde.dato),
-    }))}</a>`;
+  /* prisNoteHtml er FJERNET (BRIEF-prisnote.md punkt 2, JPK 3. sep 2026).
+     Den byggede ECB-kildelinket for filterets prisskala; det link staar nu
+     paa robotsiden i stedet (robot.mjs' feltnote--pris, samme KURSER.kilde,
+     samme kurs_kilde-noegle) - "prisnoten skal flyttes fra katalogsiden til
+     robotsiden", Å150 punkt 2. */
 
   /* De to skalaer faar en RAEKKE FOR SIG SELV nederst, seks kolonner hver.
      Ikke af pladshensyn: en skala er en vandret betjening, og klemt ned i tre
@@ -1157,7 +1172,7 @@ ${/* CERTIFICERINGSFACETTEN ER AABNET (JPK 3. sep 2026). Her stod indtil nu en
      hovedStil() nu udsender af sig selv. */''}
 ${facetBlok(ce, 3, ' facet--raekkeslut')}
 ${skalaBlok(nyttelast, 6, ' facet--sidste-raekke')}
-${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
+${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke')}
 </div>`;
 
   /* --- DEN OMREGNEDE PRIS PAA KORTET (L66) --------------------------------
@@ -1379,16 +1394,13 @@ ${seneste.map((r) => kortHTML(r, { variant: ' kort--seneste' })).join('\n')}
   const sortervalg = SORTERINGER.map((s, i) => `<input type="radio" class="f-sort" id="sort-${attr(s.navn)}"`
     + ` name="sort" value="${attr(s.navn)}"${i === 0 ? ' checked' : ''}>`
     + `<label for="sort-${attr(s.navn)}">${esc(t(s.noegle))}</label>`).join('\n');
-  /* Sorteringens noter. Prisnoten er den eneste, der har vaerdier at indsaette
-     - kursens dato og antallet af omregnede priser - og de HENTES i stedet for
-     at staa i teksten: en dato skrevet ind i sprogfilen ville skulle rettes to
-     steder, hver gang kursen fornys, og det andet sted ville blive glemt.
-     Kildens navn og link staar i filterets prisnote, hvor der er plads til
-     dem; her staar kun datoen, saa laeseren kan se, hvor gammelt tallet er. */
-  const prisTal = robotter.filter((r) => prisIBasis(r) !== null).length;
-  const noteVaerdier = {
-    pris: { basis: BASISVALUTA, dato: hjaelp.dformat(KURSER.kilde.dato), n: prisTal },
-  };
+  /* Sorteringens noter. Prisnoten var her indtil BRIEF-prisnote.md punkt 2
+     (JPK 3. sep 2026) den eneste med vaerdier at indsaette - kursens dato og
+     antallet af omregnede priser - hentet i stedet for skrevet ind i teksten,
+     saa en fornyet kurs ikke skulle rettes to steder. Den er flyttet til
+     robotsiden; INGEN sortering har i dag `note`, saa denne blok er tom,
+     men mekanismen staar, generisk, til den naeste der faar brug for den. */
+  const noteVaerdier = {};
   const sorterNoter = SORTERINGER.filter((s) => s.note)
     .map((s) => `<p class="t-mikro sorter__note" data-note="${attr(s.navn)}">`
       + `${esc(noteVaerdier[s.navn] ? tf(s.note, noteVaerdier[s.navn]) : t(s.note))}</p>`).join('\n');

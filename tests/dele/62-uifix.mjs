@@ -51,7 +51,9 @@ export default async function koer(ctx) {
   }
 
   /* ========================================================================
-     PUNKT 2: begge "omregnet"-maerker vaek, ECB-noterne bliver
+     PUNKT 2: begge "omregnet"-maerker vaek. ECB-noterne stod paa katalog-
+     siden indtil spor/prisnote (BRIEF-prisnote.md, 3. sep 2026) flyttede dem
+     til robotsiden - se 62.2.c/d nedenfor for begge halvdele af flytningen.
      ==================================================================== */
   {
     const robotHtml = laes(path.join('da', 'robotter', 'yufan-lingmao-cyvet', 'index.html'));
@@ -60,10 +62,29 @@ export default async function koer(ctx) {
       tael(robotHtml, 'class="omregnet"') === 0, `fandt ${tael(robotHtml, 'class="omregnet"')}`);
     ok('62.2.b: class="pris-om__ord" findes 0 gange paa katalogsiden',
       tael(katalogHtml, 'class="pris-om__ord"') === 0, `fandt ${tael(katalogHtml, 'class="pris-om__ord"')}`);
-    // De to forklarende ECB-noter (sortering_pris_note/filter_pris_note)
-    // skal STADIG staa paa siden - kun MAERKERNE er fjernet, ikke noterne.
-    ok('62.2.c: ECB-referencekursens forklaring staar stadig paa katalogsiden',
-      katalogHtml.includes('Den Europæiske Centralbanks referencekurs'));
+    // VENDT (ikke slettet) af BRIEF-prisnote.md, JPK 3. sep 2026, Å150 punkt 2:
+    // "prisnoten skal flyttes fra katalogsiden til robotsiden". Det OPHAEVER
+    // den 2. sep-regel, denne assertion tidligere bar ("noterne skal STADIG
+    // staa paa siden - kun MAERKERNE er fjernet"). Assertionen staar med
+    // vilje, med ny ordlyd, saa optegnelsen af BEGGE beslutninger - at
+    // reglen fandtes, og at den siden blev afloest - bevares i repoet
+    // (samme laere som L55/Å149: en slettet regel kan genindfoeres uden
+    // modstand af en agent, der ikke saa den).
+    ok('62.2.c: ECB-referencekursens forklaring staar IKKE laengere paa katalogsiden',
+      !katalogHtml.includes('Den Europæiske Centralbanks referencekurs'));
+    // REVERT-BEVIS: en syntetisk katalogstreng MED saetningen (den gamle,
+    // forkastede tilstand) ville fejle "IKKE laengere"-tjekket ovenfor.
+    ok('62.2.c.revert: en syntetisk katalogstreng med den gamle note fanges',
+      !(!'…Den Europæiske Centralbanks referencekurs…'.includes('Den Europæiske Centralbanks referencekurs')));
+    // Noten staar nu PAA robotsiden i stedet, ved prisfeltet (robot.mjs'
+    // feltnote--pris). yufan-lingmao-cyvet er allerede laest ovenfor og er en
+    // af de 11 robotter med oplyst pris (blandt de 7 med fremmed kildevaluta).
+    ok('62.2.d: ECB-referencekursens forklaring staar paa robotsiden (yufan-lingmao-cyvet)',
+      robotHtml.includes('Den Europæiske Centralbanks referencekurs'));
+    // REVERT-BEVIS: en syntetisk robotstreng UDEN saetningen ville fejle
+    // tilstedevaerelses-tjekket ovenfor.
+    ok('62.2.d.revert: en syntetisk robotstreng uden noten fanges',
+      !''.includes('Den Europæiske Centralbanks referencekurs'));
     // REVERT-BEVIS: en syntetisk streng MED maerket fanges af samme tjek.
     ok('62.2.revert: en syntetisk streng med class="omregnet" fanges',
       tael('<span class="omregnet">x</span>', 'class="omregnet"') === 1);
