@@ -1,0 +1,24 @@
+[
+  {
+    "robot_id": 2249,
+    "slug": "xiaomi-cyberdog-1",
+    "manufacturer": "Xiaomi",
+    "applications": {
+      "note": "READ THROUGH, NOTHING FOUND - also in the JS bundle, where the specifications live. The manufacturer's only label is the product type biomimetic quadruped robot and the model number 21051191C. That is what it IS, not who it is for. Same result as on CyberDog 2.",
+      "note_wording": "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen biomimetisk firbenet robot (仿生四足机器人) og modelnummeret 21051191C. Det er hvad den ER, ikke hvem den er til. Samme resultat som på CyberDog 2.",
+      "quote": null,
+      "quote_wording": null
+    }
+  },
+  {
+    "robot_id": 2250,
+    "slug": "xiaomi-cyberdog-2",
+    "manufacturer": "Xiaomi",
+    "applications": {
+      "note": "READ THROUGH, NOTHING FOUND - also in the JS bundle, where the specifications live. The manufacturer's only label is the product type (biomimetic quadruped robot). That is what it IS, not who it is for.",
+      "note_wording": "GENNEMLÆST, INTET FUNDET - også i JS-bundlen, hvor specifikationerne ligger. Producentens eneste etikette er produkttypen \"仿生四足机器人\" (biomimetisk firbenet robot). Det er hvad den ER, ikke hvem den er til.",
+      "quote": null,
+      "quote_wording": null
+    }
+  }
+]

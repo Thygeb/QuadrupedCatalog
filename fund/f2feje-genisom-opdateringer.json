@@ -1,0 +1,190 @@
+[
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2205
+    },
+    "saet": {
+      "note_wording": "电力巡检、应急救援、安防巡逻、科研教育",
+      "quote": "Gangben L1 is GENISOM AI's own first industrial-grade small quadruped robot... widely used in power-grid inspection, emergency rescue, security patrol, research and education.",
+      "quote_wording": "钢镚L1是智身科技自主研发的首款行业级小型四足机器人...广泛应用于电力巡检、应急救援、安防巡逻、科研教育等场景。"
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording/note_wording var dansk (rest fra BRIEF-FAELLES.md's ni-kolonne-fejl, STATUS.md Å143). quote_wording sat til kildens kinesiske ordlyd ordret (meta description, genisomai-L1-2026-09-02.html), quote til den engelske oversaettelse allerede etableret i applications.note, note_wording til kategori-listens kinesiske ordlyd."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2206
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Reconnaissance and search-and-rescue",
+        "Emergency firefighting",
+        "Research and education",
+        "Security patrol"
+      ],
+      "quote_wording": [
+        "侦查搜救",
+        "应急消防",
+        "科研教育",
+        "安防巡逻"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse som 2205 - quote/quote_wording var dansk. Kilde: genisomai-l1w-2026-08-24.html, sektionen \"下一个应用场景，它已提前就位\"."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2207
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Security patrol",
+        "Research and education",
+        "Short-distance delivery"
+      ],
+      "quote_wording": [
+        "安防巡逻",
+        "科研教育",
+        "短途配送"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording var dansk. Kategorivaerdien (3 led, uden 应急消防) ROERES IKKE - kun sproget. Kilde: genisomai-l2-2026-08-24.html."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2208
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Security patrol",
+        "Emergency firefighting",
+        "Research and education",
+        "Short-distance delivery"
+      ],
+      "quote_wording": [
+        "安防巡逻",
+        "应急消防",
+        "科研教育",
+        "短途配送"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2209
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Security patrol",
+        "Emergency firefighting",
+        "Research and education",
+        "Short-distance delivery"
+      ],
+      "quote_wording": [
+        "安防巡逻",
+        "应急消防",
+        "科研教育",
+        "短途配送"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): samme rettelse - quote/quote_wording var dansk. Kilde: genisomai-l2-2026-08-24.html (delt kilde for hele L2-familien)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2210
+    },
+    "saet": {
+      "note_wording": "高危工业环境",
+      "quote": [
+        "GENISOM Qiuqiu SP1 is an explosion-proof quadruped inspection robot for high-risk industrial environments such as petrochemicals and energy stations",
+        "Autonomous inspection, data transmission, zero personnel risk"
+      ],
+      "quote_wording": [
+        "智身铅球 SP1 是面向石油化工、能源场站等高危工业环境的防爆四足巡检机器人",
+        "自主巡检 数据回传 人员零涉险"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-sp1-2026-08-24.html (meta description + markedsfoeringsoverskrift)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2211
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Forest firefighting",
+        "Petrochemical firefighting",
+        "Power-grid inspection",
+        "Site patrol",
+        "Logistics transport"
+      ],
+      "quote_wording": [
+        "森林消防",
+        "石化消防",
+        "电力巡检",
+        "园区巡逻",
+        "物流运输"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-m1-2026-08-24.html."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2212
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Forest firefighting",
+        "Petrochemical firefighting",
+        "Power-grid inspection",
+        "Site patrol",
+        "Logistics transport"
+      ],
+      "quote_wording": [
+        "森林消防",
+        "石化消防",
+        "电力巡检",
+        "园区巡逻",
+        "物流运输"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien)."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2213
+    },
+    "saet": {
+      "note_wording": "下一个应用场景，它已提前就位",
+      "quote": [
+        "Forest firefighting",
+        "Petrochemical firefighting",
+        "Power-grid inspection",
+        "Site patrol",
+        "Logistics transport"
+      ],
+      "quote_wording": [
+        "森林消防",
+        "石化消防",
+        "电力巡检",
+        "园区巡逻",
+        "物流运输"
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-feje): quote/quote_wording var dansk. Kilde: genisomai-m1-2026-08-24.html (delt for hele M1-familien)."
+  }
+]

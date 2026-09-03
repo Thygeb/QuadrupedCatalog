@@ -1,0 +1,13 @@
+[
+  {
+    "robot_id": 2189,
+    "slug": "cvte-maxhub-x7",
+    "manufacturer": "CVTE",
+    "applications": {
+      "note": "\"工业\" (industry) and \"电力\" (power/electricity) are both mapped to industrial, since this sentence does not itself use an inspection word (unlike the news article). \"救援\" (rescue) is mapped to defense and emergency response.",
+      "note_wording": "\"工业\" (industri) og \"电力\" (elkraft) er begge omsat til industri, da sætningen her ikke selv bruger et inspektionsord (modsat nyhedsartiklen, se noter). \"救援\" (redning) er omsat til forsvar og beredskab.",
+      "quote": "Anvendes til industri, elkraft, redning og lignende scenarier",
+      "quote_wording": "Anvendes til industri, elkraft, redning og lignende scenarier (适用于工业、电力、救援等场景)"
+    }
+  }
+]
