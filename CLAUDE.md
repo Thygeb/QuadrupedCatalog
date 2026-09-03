@@ -21,7 +21,9 @@ den byggede side, med sekvensdiagrammer for de to veje ind i data og for billedv
 Status 25. aug 2026: **bygget og i drift.** Her stod tidligere *"planlægning. Der er ikke
 skrevet kode endnu"* — det holdt op med at passe for en uge siden og vildledte enhver ny
 agent, der læste linjen. Der findes i dag en afhængighedsfri Node-generator, 77 robotposter
-med 1.110 kildebelagte tal, 213 byggede sider på to sprog, en Supabase-database som
+med 1.111 kildebelagte tal, 216 byggede sider på to sprog (målt 3. sep 2026 —
+her stod 1.110 og 213, og de tal er præcis den fælde, denne fils egen regel om
+hårdkodede tal advarer imod nedenfor), en Supabase-database som
 redaktionslag (L34/L35) og to private Storage-spande (L36). **Lanceringen er ikke længere
 spærret:** JPK ophævede billedspærringen S1 den 26. aug 2026 (L37). Her stod tidligere, at
 siden ikke måtte publiceres med fabrikantbilleder — den betingelse gælder ikke mere.
