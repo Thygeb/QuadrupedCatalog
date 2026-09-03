@@ -23,7 +23,7 @@ ligger nederst i filen, så `head` rammer systematisk den halvdel, spørgsmålet
 Det er Å55: sessionens dyreste fejl blev begået med grillmig kørende, fordi søgningen
 efter tidligere beslutninger stoppede 100 linjer før svaret.
 
-## Tjeklisten — ni punkter, alle målbare
+## Tjeklisten — elleve punkter, alle målbare
 
 ### 1. Grundmålingen står i briefet, med orkestratorens egne tal
 

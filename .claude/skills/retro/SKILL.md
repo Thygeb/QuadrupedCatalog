@@ -1,6 +1,6 @@
 ---
 name: retro
-description: Evaluér en arbejdsdag i dette projekt — hvad i workflowet der virkede, hvad der skal rettes, hvad der mangler, og om de brugte skills passede. Kaldes ved dagens slutning, efter en stor runde, eller før en komprimering. Producerer fund/RETRO-<dato>.md med målte tal, ikke indtryk.
+description: Evaluér en arbejdsdag i dette projekt — hvad i workflowet der virkede, hvad der skal rettes, hvad der mangler, og om de brugte skills passede. Kald den, når JPK spørger "hvad tænker du om dagens session", "er der noget i workflowet, der skal rettes eller optimeres", "skal der tilføjes noget", eller beder om en vurdering af skills eller arbejdsgangen — også uden ordet retro. Kald den desuden ved dagens slutning, efter en stor runde, eller før en komprimering. Producerer fund/RETRO-<dato>.md med målte tal, ikke indtryk.
 ---
 
 # Retro — dagens workflow, målt
@@ -104,5 +104,12 @@ skill. Det er **ikke** en workflow-retro, og de to overlapper ikke.
 
 hvor `<plugin-dir>` er den nyeste mappe under
 `C:/Users/thyge/.claude/plugins/cache/claude-plugins-official/session-report/`.
-Læs `by_subagent_type` og `top_prompts`. Skriv **ikke** til `/tmp` (node og
+Læs `by_subagent_type`, `by_skill` og `top_prompts`. Skriv **ikke** til `/tmp` (node og
 Git Bash er uenige om, hvor den ligger) — brug scratchpad eller `fund/`.
+
+**Skriv stien som `C:/Users/…`, aldrig `/c/Users/…`.** Fra Git Bash bliver
+MSYS-stien til `C:\c\Users\…`, og node svarer *Cannot find module* — målt
+3. sep 2026 på skillens egen forfatter, dagen efter den blev skrevet. Samme
+fælde som `git -C` i `brief` pkt. 7. `by_skill` tæller over **alle** projekter
+og attribuerer sandsynligvis på omtale, ikke kun på kald — brug tallene som
+retning, ikke som facit.

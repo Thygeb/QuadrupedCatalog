@@ -1,6 +1,6 @@
 ---
 name: robotdata
-description: Indsaml, udfyld eller efterprøv en robotpost i quadruped-oversigten. Brug den hver gang en firbenet robot skal tilføjes, opdateres eller kontrolleres — den bærer 30-feltsskemaet, de ti hårde regler om kilder og operatorer, og det obligatoriske selv-tjek med tælling. Bruges også af agenter, der indsamler data i en worktree.
+description: Indsaml, udfyld eller efterprøv en robotpost i quadruped-oversigten. Brug den hver gang en firbenet robot skal tilføjes, opdateres eller kontrolleres — den bærer 33-feltsskemaet, de ti hårde regler om kilder og operatorer, og det obligatoriske selv-tjek med tælling. Bruges også af agenter, der indsamler data i en worktree.
 user-invokable: true
 argument-hint: "[producent model] eller [efterprøv <fil>]"
 ---
@@ -179,7 +179,7 @@ fx fordi en billedlæsekvote er opbrugt midt i arbejdet), slet hele `billede:`-b
 frem for at gætte. Et forkert eller uefterprøvet billede er værre end intet: robotten
 falder tilbage til målepladen, ikke til en gætning.
 
-## De 30 felter
+## De 33 felter
 
 **Sandheden er `tools/skema.mjs`.** Listen her er en læsbar gengivelse af den, ikke en
 konkurrerende liste. Er de to uenige, har skemaet ret — og så skal listen her rettes,
@@ -198,7 +198,10 @@ autonominiveau
 
 **Kommercielt (1)** vejledende pris
 
-**EU (1)** CE oplyst. (L32, 24. aug 2026: tilgængelig i EU, servicepunkt i EU og
+**Certificering (4)** CE oplyst · FCC oplyst · UL oplyst · 3C oplyst — `ce_oplyst`,
+`fcc_oplyst`, `ul_oplyst`, `ccc_oplyst`. De tre sidste kom til med `spor/cert` (`11f5b98`);
+listen her sagde *"EU (1)"* og *30 felter* i seks spor bagefter, indtil en måling mod
+`FELTNAVNE.length` 3. sep 2026 gav 33. (L32, 24. aug 2026: tilgængelig i EU, servicepunkt i EU og
 leveringstid er fjernet fra skemaet — stod `ikke_oplyst` på samtlige poster.)
 
 **Længde, bredde og højde er tre felter, ikke ét**, og det samme gælder de to
