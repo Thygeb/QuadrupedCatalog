@@ -30,13 +30,16 @@ export const QUOTE_DA_TO_EN = [
   "Intelligent inspection of toxic industrial areas and other priority zones",
 ];
 
+// RETTET efter briefets afsnit 7: quote_wording blander vores indledning
+// (den oversatte tekst) med kildens ord (parentesen) - oversaettes PAA
+// PLADS, strukturen (oversaettelse + kildeparentes) omstruktureres IKKE.
 export const QUOTE_WORDING_ZH = [
-  "机场/车站/社区等公共场所安保巡逻",
-  "地震/废墟/河堤等灾害应急救援侦查搜索",
-  "边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察",
-  "工厂/园区/港口等场景安防巡检",
-  "高风险工业设备智能巡检与数据采集",
-  "工业有毒及重点区域的智能巡检",
+  "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+  "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+  "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+  "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+  "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+  "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)",
 ];
 
 // De 6 robot_id'er - samme quote/quote_wording-par for alle.
@@ -44,6 +47,6 @@ export const GALILEO_ROBOT_IDS = [2199, 2200, 2201, 2202, 2203, 2204];
 
 // KUN galileo-c1 (2199) har en udfyldt applications.note_wording (dansk).
 // De oevrige 5 har allerede null der (forgaengeren efterlod den saadan).
-// Litterale fragmenter, genbrugt UAeNDREDE fra den eksisterende danske
-// note_wording (samme begraensning som ovenfor - ikke PDF-genverificeret):
-export const NOTE_WORDING_C1 = "应用场景 | 智能仿生四足机器人";
+// RETTET efter briefets afsnit 7 (se ovenfor): struktur bevaret, kun den
+// danske del oversat paa plads.
+export const NOTE_WORDING_C1 = "From the manual's page 4 (\"应用场景\"), BEFORE the model-specific technical parameter tables (pages 7-9). The text appears under the heading \"智能仿生四足机器人\" (the generic family name, the same name C1 itself carries) and does not name C1 specifically - it covers the whole C1/E1/S1 series as a product category. Our own translation: 安保巡逻 (security patrol) -> security and surveillance; 应急救援/武装反恐/防爆 (emergency response/anti-terror/explosive clearance) -> defense and emergency response; 安防巡检/智能巡检 (security/intelligent inspection) -> inspection. The same quote is used independently on all six Galileo entries (C1/C1-W/E1/E1-W/S1/S1-W), NOT via inherited_from, because it is the family page that precedes the variant split - same principle as GENISOM Gangben L2-W's note about citing the shared source independently.";

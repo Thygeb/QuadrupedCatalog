@@ -1,0 +1,165 @@
+[
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "saet": {
+      "note_wording": "The first quote is the YJ30's own product description (same page). Our own translation: 教学科研 (education/research) -> research and development; 巡逻巡检 (patrol/inspection) -> inspection; 应急救援 (emergency response/rescue) -> defense and emergency response. The other two quotes are from the page's shared \"行业应用\" section (the same three cards appear identically on all four YJ30-series product pages): \"警用巡逻\" (police patrol) -> security and surveillance. A third card \"电力巡检\" (power-line inspection) is excluded from the quote list, since it only repeats inspection.",
+      "quote_wording": [
+        "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。",
+        "Industry and security inspection (工业、安防巡检领域)",
+        "Police patrol (警用巡逻)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "saet": {
+      "note_wording": "The first quote is the YJ30Max's own product description (same page). Our own translation: 工业巡检 (industry inspection) -> inspection; 消防应急 (fire-emergency response) -> defense and emergency response; 复杂环境作业 (work in complex environments) -> industry. The other two quotes are from the page's shared \"行业应用\" section (the same three cards appear identically on all four YJ30-series product pages): \"警用巡逻\" (police patrol) -> security and surveillance. The card \"电力巡检\" (power-line inspection) is excluded, since it only repeats inspection.",
+      "quote_wording": [
+        "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。",
+        "Industry and security inspection (工业、安防巡检领域)",
+        "Police patrol (警用巡逻)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "saet": {
+      "note_wording": "Identical product description to the YJ30 W (same paragraph, same pattern - this is the large version). Our own translation: see the YJ30 W's note for the full rationale. \"仓储\" (warehousing) is, for the same reason, NOT counted as a separate logistics category.",
+      "quote_wording": [
+        "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。",
+        "Industry and security inspection (工业、安防巡检领域)",
+        "Police patrol (警用巡逻)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "saet": {
+      "note_wording": "The first quote is the YJ30 W's own product description (same page). Our own translation: 多光谱火情探测/火情预警 (multispectral fire detection/warning) -> defense and emergency response; 自主移动巡检/自主巡逻 (autonomous mobile inspection/patrol) -> inspection; 工业 -> industry; 科研 -> research and development. \"仓储\" (warehousing/logistics) is NOT included as a logistics category here, since it appears only in a list of possible deployment environments (\"工业、仓储、科研等复杂场景\"), not as a standalone application category alongside the others - a more cautious reading than the broadest possible one. The last two quotes are from the page's shared \"行业应用\" section: \"警用巡逻\" -> security and surveillance.",
+      "quote_wording": [
+        "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。",
+        "Industry and security inspection (工业、安防巡检领域)",
+        "Police patrol (警用巡逻)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "saet": {
+      "quote_wording": [
+        "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+        "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+        "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+        "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+        "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+        "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)"
+      ],
+      "note_wording": "From the manual's page 4 (\"应用场景\"), BEFORE the model-specific technical parameter tables (pages 7-9). The text appears under the heading \"智能仿生四足机器人\" (the generic family name, the same name C1 itself carries) and does not name C1 specifically - it covers the whole C1/E1/S1 series as a product category. Our own translation: 安保巡逻 (security patrol) -> security and surveillance; 应急救援/武装反恐/防爆 (emergency response/anti-terror/explosive clearance) -> defense and emergency response; 安防巡检/智能巡检 (security/intelligent inspection) -> inspection. The same quote is used independently on all six Galileo entries (C1/C1-W/E1/E1-W/S1/S1-W), NOT via inherited_from, because it is the family page that precedes the variant split - same principle as GENISOM Gangben L2-W's note about citing the shared source independently."
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "saet": {
+      "quote_wording": [
+        "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+        "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+        "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+        "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+        "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+        "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "saet": {
+      "quote_wording": [
+        "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+        "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+        "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+        "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+        "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+        "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "saet": {
+      "quote_wording": [
+        "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+        "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+        "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+        "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+        "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+        "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "saet": {
+      "quote_wording": [
+        "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+        "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+        "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+        "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+        "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+        "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "saet": {
+      "quote_wording": [
+        "Security patrol in public spaces such as airports, train stations, and residential areas (机场/车站/社区等公共场所安保巡逻)",
+        "Reconnaissance and search at disasters such as earthquakes, rubble, and dikes (地震/废墟/河堤等灾害应急救援侦查搜索)",
+        "Patrol at borders or special areas, guard posts, and investigation for armed anti-terrorism, explosive clearance, and other emergency incidents (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)",
+        "Security inspection in factories, industrial parks, and ports (工厂/园区/港口等场景安防巡检)",
+        "Intelligent inspection and data collection of high-risk industrial equipment (高风险工业设备智能巡检与数据采集)",
+        "Intelligent inspection of toxic industrial areas and other priority zones (工业有毒及重点区域的智能巡检)"
+      ]
+    },
+    "change_reason": "fase2/f2-galileo (rettelse jf. briefets afsnit 7): quote_wording/note_wording skal bevare blandet indledning+kildeord-struktur, ikke splittes i rene EN/ZH-felter"
+  }
+]

@@ -116,28 +116,30 @@ export const FIELD_ENTRIES = {
 export const APPLICATIONS = {
   2254: {
     note: "The first quote is the YJ30's own product description (same page). Our own translation: (education/research) -> research and development; (patrol/inspection) -> inspection; (emergency response/rescue) -> defense and emergency response. The other two quotes are from the page's shared section (the same three cards appear identically on all four YJ30-series product pages): (police patrol) -> security and surveillance. A third card (power-line inspection) is excluded from the quote list, since it only repeats inspection.",
-    note_wording: "教学科研 | 巡逻巡检 | 应急救援 | 行业应用 | 警用巡逻 | 电力巡检",
+    // RETTET efter briefets afsnit 7: note_wording/quote_wording blander vores
+    // indledning med kildens ord - oversaettes PAA PLADS, strukturen omstruktureres IKKE.
+    note_wording: "The first quote is the YJ30's own product description (same page). Our own translation: 教学科研 (education/research) -> research and development; 巡逻巡检 (patrol/inspection) -> inspection; 应急救援 (emergency response/rescue) -> defense and emergency response. The other two quotes are from the page's shared \"行业应用\" section (the same three cards appear identically on all four YJ30-series product pages): \"警用巡逻\" (police patrol) -> security and surveillance. A third card \"电力巡检\" (power-line inspection) is excluded from the quote list, since it only repeats inspection.",
     // quote[0]/quote_wording[0] IKKE roert - se FUND-rapportens "Nye fælder" (garbled praeeksisterende fragment, ikke dansk)
     quote: [undefined, "Industry and security inspection", "Police patrol"],
-    quote_wording: [undefined, "工业、安防巡检领域", "警用巡逻"],
+    quote_wording: [undefined, "Industry and security inspection (工业、安防巡检领域)", "Police patrol (警用巡逻)"],
   },
   2255: {
     note: "The first quote is the YJ30Max's own product description (same page). Our own translation: (industry inspection) -> inspection; (fire-emergency response) -> defense and emergency response; (work in complex environments) -> industry. The other two quotes are from the page's shared section (the same three cards appear identically on all four YJ30-series product pages): (police patrol) -> security and surveillance. The card (power-line inspection) is excluded, since it only repeats inspection.",
-    note_wording: "工业巡检 | 消防应急 | 复杂环境作业 | 行业应用 | 警用巡逻 | 电力巡检",
+    note_wording: "The first quote is the YJ30Max's own product description (same page). Our own translation: 工业巡检 (industry inspection) -> inspection; 消防应急 (fire-emergency response) -> defense and emergency response; 复杂环境作业 (work in complex environments) -> industry. The other two quotes are from the page's shared \"行业应用\" section (the same three cards appear identically on all four YJ30-series product pages): \"警用巡逻\" (police patrol) -> security and surveillance. The card \"电力巡检\" (power-line inspection) is excluded, since it only repeats inspection.",
     quote: [undefined, "Industry and security inspection", "Police patrol"],
-    quote_wording: [undefined, "工业、安防巡检领域", "警用巡逻"],
+    quote_wording: [undefined, "Industry and security inspection (工业、安防巡检领域)", "Police patrol (警用巡逻)"],
   },
   2256: {
     note: "Identical product description to the YJ30 W (same paragraph, same pattern - this is the large version). Our own translation: see the YJ30 W's note for the full rationale. '仓储' (warehousing) is, for the same reason, NOT counted as a separate logistics category.",
-    note_wording: "仓储",
+    note_wording: "Identical product description to the YJ30 W (same paragraph, same pattern - this is the large version). Our own translation: see the YJ30 W's note for the full rationale. \"仓储\" (warehousing) is, for the same reason, NOT counted as a separate logistics category.",
     quote: [undefined, "Industry and security inspection", "Police patrol"],
-    quote_wording: [undefined, "工业、安防巡检领域", "警用巡逻"],
+    quote_wording: [undefined, "Industry and security inspection (工业、安防巡检领域)", "Police patrol (警用巡逻)"],
   },
   2257: {
     note: "The first quote is the YJ30 W's own product description (same page). Our own translation: (multispectral fire detection/warning) -> defense and emergency response; (autonomous mobile inspection/patrol) -> inspection; -> industry; -> research and development. (warehousing/logistics) is NOT included as a logistics category here, since it appears only in a list of possible deployment environments, not as a standalone application category alongside the others - a more cautious reading than the broadest possible one. The last two quotes are from the page's shared section: -> security and surveillance.",
-    note_wording: "多光谱火情探测/火情预警 | 自主移动巡检/自主巡逻 | 工业 | 科研 | 仓储 | 行业应用 | 警用巡逻",
+    note_wording: "The first quote is the YJ30 W's own product description (same page). Our own translation: 多光谱火情探测/火情预警 (multispectral fire detection/warning) -> defense and emergency response; 自主移动巡检/自主巡逻 (autonomous mobile inspection/patrol) -> inspection; 工业 -> industry; 科研 -> research and development. \"仓储\" (warehousing/logistics) is NOT included as a logistics category here, since it appears only in a list of possible deployment environments (\"工业、仓储、科研等复杂场景\"), not as a standalone application category alongside the others - a more cautious reading than the broadest possible one. The last two quotes are from the page's shared \"行业应用\" section: \"警用巡逻\" -> security and surveillance.",
     quote: [undefined, "Industry and security inspection", "Police patrol"],
-    quote_wording: [undefined, "工业、安防巡检领域", "警用巡逻"],
+    quote_wording: [undefined, "Industry and security inspection (工业、安防巡检领域)", "Police patrol (警用巡逻)"],
   },
 };
 
