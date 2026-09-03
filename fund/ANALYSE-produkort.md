@@ -256,6 +256,22 @@ Systemet har en test mod død CSS (`tests/dele/57`) og en beslutning om, at en
 variant uden brugssted ikke må stå (DESIGN.md:560-562). Den samme tankegang er
 aldrig skrevet for **sprogfilerne**, og resultatet er 10 døde nøgler (F5).
 
+### H3b — Fladen har ingen sidefod, og DESIGN.md har ingen regel om én
+
+**Målt på dette spors udgangspunkt (`951fd29`):** producentsiden har **0**
+`<footer>`, **0** elementer med en `fod`-klasse, og ordet **"KeyResearch"
+optræder 0 gange**.
+
+**PRODUCT.md's *Brand Commitments* siger:** *"Bindende: KeyResearch nævnes som
+udgiver"*, og *"KeyResearch står som udgiver i footer og på Om-siden."*
+DESIGN.md nævner `--fod`/`--paafod` som **farver** (:288-291) og sidefoden som
+en flade, men har **intet komponentafsnit om sidefoden**.
+
+**VIGTIGT FORBEHOLD, så dette ikke bliver et dobbeltarbejde:** `spor/sidefod`
+kører netop nu og ejer `assets/system.css` og `tools/skabelon/side.mjs`.
+Målingen er taget på **min** gren og siger intet om deres. Punktet står her,
+fordi **DESIGN.md-hullet** består uanset hvad de bygger — ikke som en opgave.
+
 ### H4 — Ingen regel for, hvad der sker, når en komponent gentages
 
 `.eu-fund-linje` var designet som **ét** element. Leverance A gør den til en
@@ -329,6 +345,30 @@ En analyse, der kun rummer fejl, kan ikke bruges til at beslutte noget.
 5. **Ingen accent som forgrund.** L76 holdes på fladen; EU-ikonet står i
    `--blaek` (12,72 : 1) med en kommentar i `generator.css:25-26`, der forklarer
    hvorfor det ikke længere er gult.
+6. **Tastatur og fokus er fladens stærkeste håndværk.** Målt ved at trykke Tab
+   otte gange på en isoleret instans: **skip-linket *"Spring til indholdet"*
+   kommer først**, og hvert eneste element bærer en synlig `solid 3px
+   rgb(242,196,0)` fokusring. Navigationens fire punkter tegner den **indad**
+   (`outline-offset: -3px`), præcis som DESIGN.md:391-393 foreskriver, *"fordi
+   `overflow-x:auto` ellers klipper den"*. Tab-ordenen er logisk: skip → ordmærke
+   → nav → retur → indhold. **Accent bruges her som markør, ikke som forgrund —
+   L76 efterlevet i praksis.**
+7. **Semantikken er i orden, og det er målt frem for antaget.** På begge flader:
+   **1** `h1`, overskriftsrækken `1,2,2,3,3,2` med **nul spring**, `main`=1,
+   `nav`=1, `lang="da"`, **3** `hreflang`-led. Producentindekset er en **rigtig
+   `<table>` med 4 `<th>` og 4 `scope`** — modsat sammenligningsfladen, hvor Å54
+   målte `<table>` 0 · `<th>` 0 · `scope` 0. Det ene billede har `alt`.
+   *(Manglende `<caption>` på indekset er den eneste rest — mindre observation.)*
+8. **Ingen vandret overløb ved nogen målt bredde.** 390, 768 og 1440 px:
+   `scrollWidth > clientWidth` er **falsk** alle tre steder.
+
+**Berøringsmål, præcist frem for alarmerende:** 33 links på fladen. **1** er
+under WCAG 2.5.8's AA-grænse på 24px — ordmærket i topbaren, 22px højt (og
+site-bredt, ikke producentfladens). De 25 links, der er under **44** px, ligger
+over AA-kravet; 44px er 2.5.5 **AAA**, og DESIGN.md sætter kun 44px for
+**filtre** (:498) og **søgefeltet** (:508), som er betjeningsflader — ikke for
+tekstlinks i en liste. **Et råt "27 af 33 links er for små" ville være et
+overdrevet tal, og det er derfor ikke rapporteret som fund.**
 
 ---
 
