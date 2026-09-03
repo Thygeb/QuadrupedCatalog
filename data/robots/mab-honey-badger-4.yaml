@@ -7,8 +7,8 @@ status: "udgaaet"
 fremdrift: "ben"
 foerste_udgivelse: 2024
 noter:
-  - "PRODUCENTEN ERKLÆRER SELV MODELLEN UDGÅET, ordret (inklusive producentens egen stavefejl): With the launch of the new version, sales of the Honey Badger 4.0 have officialy come to an end. Og: Don't worry, we'll support your existing HB4.0 robot during the warranty period."
-  - "Generationsskiftet går den forkerte vej på to felter: 5.0 er tungere (17 mod 12 kg) og har lavere tæthedsklasse (IP66 mod up to IP67), mens nyttelasten stiger (5 mod 4 kg) og driftstemperaturen udvides (0-45 mod 0-40 C)."
+  - "THE MANUFACTURER ITSELF DECLARES THE MODEL DISCONTINUED, verbatim (including the manufacturer's own typo): 'With the launch of the new version, sales of the Honey Badger 4.0 have officialy come to an end.' And: 'Don't worry, we'll support your existing HB4.0 robot during the warranty period.'"
+  - "The generational change goes the wrong way on two fields: the 5.0 is heavier (17 vs 12 kg) and has a lower ingress-protection class (IP66 vs up to IP67), while payload increases (5 vs 4 kg) and operating temperature widens (0-45 vs 0-40°C)."
 anvendelse:
   vaerdi:
     - "inspektion"
@@ -18,7 +18,7 @@ anvendelse:
     - "Academia & Research"
   kilde: "https://www.mabrobotics.pl/honey-badger"
   hentet: "2026-08-19"
-  note: "FIRMANIVEAU, IKKE MODELNIVEAU. Citaterne er to punkter i producentens \"Industries\"-menu, som står på hele sitet: Industrial inspection, Mining, Public safety, Utilities, Civil engineering, Academia & Research. Honey Badger er producentens eneste robot, men producenten har ikke selv sat etiketten på modellen. Mining, Public safety, Utilities og Civil engineering har det tilladte sæt ingen kategorier for."
+  note: "COMPANY-LEVEL, NOT MODEL-LEVEL. The quotes are two items in the manufacturer's 'Industries' menu, which appears sitewide: Industrial inspection, Mining, Public safety, Utilities, Civil engineering, Academia & Research. Honey Badger is the manufacturer's only robot, but the manufacturer has not itself applied the label at the model level. Mining, Public safety, Utilities and Civil engineering have no categories in the allowed set."
 billede:
   fil: "fotos/fabrikant/mab-honey-badger-4.jpg"
   ophav: "fabrikant"
@@ -46,8 +46,9 @@ felter:
     enhed: "cm"
     kilde: "https://www.mabrobotics.pl/honey-badger"
     hentet: "2026-08-19"
-    advarsel: "Højden er et interval, liggende til fuldt strakt. Bevaret som interval."
+    advarsel: "The height is a range, lying to fully extended (see caveat_wording). Kept as a range."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Physical dimensions | 60 x 40 x 15-50 cm"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 4
@@ -55,8 +56,9 @@ felter:
     operator: "<="
     kilde: "https://www.mabrobotics.pl/honey-badger"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver up to 4 kg. Der skelnes ikke mellem gående og stående last."
+    advarsel: "The manufacturer states 'up to 4 kg' (see caveat_wording). No distinction is made between walking and standing payload."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "up to 4 kg"
   nyttelast_staaende: "ikke_oplyst"
   hastighed: "ikke_oplyst"
   haeldning: "ikke_oplyst"
@@ -67,8 +69,9 @@ felter:
     operator: "<="
     kilde: "https://www.mabrobotics.pl/honey-badger"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver up to IP67 i specifikationstabellen. Operatoren er producentens og skal bevares - up to IP67 er ikke det samme som IP67. MEN SIDEN MODSIGER SIG SELV: brødteksten skriver to gange det stærkere IP67-rated construction, uden forbehold. IP67 optræder 6 gange i filen, hvoraf kun 1 er up to IP67. Den forsigtige tabelværdi er brugt."
+    advarsel: "The manufacturer states 'up to IP67' in the specification table (see caveat_wording). The operator is the manufacturer's own and is kept - 'up to IP67' is not the same as IP67. BUT THE PAGE CONTRADICTS ITSELF: the body text states the stronger 'IP67-rated construction' twice, without qualification. 'IP67' appears 6 times in the file, of which only 1 is 'up to IP67'. The cautious table value is used."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "up to IP67 | IP67-rated construction"
   temp_min:
     vaerdi: 0
     enhed: "°C"
@@ -86,8 +89,9 @@ felter:
     operator: "<="
     kilde: "https://www.mabrobotics.pl/honey-badger"
     hentet: "2026-08-19"
-    advarsel: "up to 2 hours. Ingen lastbetingelse."
+    advarsel: "'up to 2 hours' (see caveat_wording). No load condition."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "up to 2 hours"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"
@@ -106,7 +110,7 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.mabrobotics.pl/honey-badger"
     hentet: "2026-08-19"
-    advarsel: "Negativkontrolleret med ordgrænse: 0 træf på CE i 1,55 MB HTML, og 0 på conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA og FCC."
+    advarsel: "Negative-controlled with word boundary: 0 hits for CE in 1.55 MB of HTML, and 0 for conformity, declaration, certif, EN ISO, RoHS, ATEX, UKCA and FCC."
   fcc_oplyst: "ikke_oplyst"
   ul_oplyst: "ikke_oplyst"
   ccc_oplyst: "ikke_oplyst"

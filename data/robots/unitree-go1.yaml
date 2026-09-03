@@ -21,7 +21,7 @@ anvendelse:
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"
-  note: "Producentens egen produktnavigation, gruppen Go1 står i."
+  note: "The manufacturer's own product navigation, the group Go1 belongs to."
 billede:
   fil: "fotos/fabrikant/unitree-go1.jpg"
   ophav: "fabrikant"
@@ -39,22 +39,24 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Stående mål er ikke oplyst. Kun foldemålet 0,588 x 0,22 x 0,29 m er trykt, og skemaet har ingen felter til foldemål."
+    advarsel: "Standing dimensions are not stated. Only the folded measurement 0.588 x 0.22 x 0.29 m is printed, and the schema has no field for folded dimensions."
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver Silver alloy precision joint motor 12 piece, ikke Degrees of Freedom. Samme grænsetilfælde som Go2."
+    advarsel: "The page states Silver alloy precision joint motor 12 piece, not Degrees of Freedom. Same borderline case as Go2."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Silver alloy | precision joint motor | 12 piece"
   nyttelast_gaaende:
     vaerdi: 4
     enhed: "kg"
     operator: "~"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver kun Load uden at skelne gående/stående. Placeringen er en slutning. Værdien er Air/Pro."
+    advarsel: "The manufacturer states only Load, without distinguishing walking or standing. The placement is our inference. The value is Air/Pro."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Load ≈4kg（limit ~ 10kg）"
     varianter:
       Air: "ca. 4 kg (grænse ca. 10 kg)"
       Edu: "ca. 6 kg (grænse ca. 10 kg)"
@@ -66,8 +68,9 @@ felter:
     enhed: "m/s"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Værdien er Air-variantens."
+    advarsel: "The Air variant value."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Motion Speed 0 ~ 2.5m/s"
     varianter:
       Air: "0~2,5 m/s"
       Edu: "0~3,7 m/s (grænse ca. 5 m/s)"
@@ -82,12 +85,12 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver kun Battery: 1 piece - hverken mAh, V eller Wh."
+    advarsel: "The page states only Battery: 1 piece — neither mAh, V, nor Wh."
   driftstid:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Intet tal på siden. Long Endurance står som overskrift uden værdi."
+    advarsel: "No figure on the page. Long Endurance appears as a heading with no value."
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"
   dockingstation: "ikke_oplyst"
@@ -95,21 +98,24 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Radar: 2D eller 3D, tilvalg - type uden model."
+    advarsel: "Radar: 2D or 3D, optional — type without model."
+    advarsel_ordlyd: "Radar ○ | 2D or 3D optional"
   kameraer:
-    vaerdi: "1 par fiskeøje-binokulært dybdekamera"
+    vaerdi: "1 pair fisheye binocular depth camera"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Værdien er Air-variantens."
+    advarsel: "The Air variant value."
+    advarsel_ordlyd: "1 set of fisheye binocular depth sensing angle | Super-sensing System 1 pair"
     varianter:
       Air: "1 par"
       Edu: "5 par"
       Pro: "5 par"
   compute:
-    vaerdi: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
+    vaerdi: "1x (4 x 1.43 GHz, 128 cores, 0.5 T)"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Værdien er Air-variantens."
+    advarsel: "The Air variant value."
+    advarsel_ordlyd: "Sensing Calculation | 1*（4*1.43GHz | 128Core0.5T）"
     varianter:
       Air: "1x (4 x 1,43 GHz, 128 kerner, 0,5 T)"
       Edu: "2 Jetson Nano + (1 Nano eller 1 NX)"
@@ -120,7 +126,8 @@ felter:
       - "Python"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Kun Edu: Python Programming Interface. Værdien gælder Edu."
+    advarsel: "Only Edu: Python Programming Interface. The value applies to Edu."
+    advarsel_ordlyd: "Python Programming | Interface"
     varianter:
       Air: "ikke_oplyst"
       Edu: "Python"
@@ -134,8 +141,9 @@ felter:
     enhed: "USD"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
-    advarsel: "Værdien er Air-variantens. Priser på producentens egen produktside, ikke shopsidens pladsholder."
+    advarsel: "The Air variant value. Prices are on the manufacturer's own product page, not the shop page's placeholder."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Price（Tax and freight excluded） $2700"
     varianter:
       Air: 2700
       Edu: "Contact Sales"

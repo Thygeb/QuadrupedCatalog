@@ -1630,14 +1630,25 @@ export function lavHjaelp({ sprogkode, T, t, tf }) {
     return `<div class="stribe-hylster">${hoved}\n<ul class="${klasse}">\n${celler}\n</ul></div>`;
   }
 
-  /** ja / nej / ikke_oplyst for CE - bruges af filtrene. */
-  function ceTilstand(robot) {
-    const ce = robot.felter?.ce_oplyst;
-    if (ce === undefined) return 'ikke_oplyst';
-    if (typeof ce === 'string') return tilstandAf(ce) ?? 'ikke_oplyst';
-    const t0 = tilstandAf(ce.vaerdi);
+  /**
+   * ja / nej / ikke_oplyst for et certificeringsfelt - bruges af filtrene.
+   * `felt` er feltnavnet i robot.felter, fx 'ce_oplyst', 'fcc_oplyst',
+   * 'ul_oplyst' eller 'ccc_oplyst'. Haandterer begge YAML-former: blokform
+   * (`{ vaerdi, kilde }`) og inline (raa vaerdi paa samme linje) - se
+   * BRIEF-certfacet.md punkt 1 for sumkontrollen, der beviser det.
+   */
+  function certTilstand(robot, felt) {
+    const c = robot.felter?.[felt];
+    if (c === undefined) return 'ikke_oplyst';
+    if (typeof c === 'string') return tilstandAf(c) ?? 'ikke_oplyst';
+    const t0 = tilstandAf(c.vaerdi);
     if (t0) return t0 === 'nej' ? 'nej' : 'ikke_oplyst';
-    return ce.vaerdi === true ? 'ja' : 'nej';
+    return c.vaerdi === true ? 'ja' : 'nej';
+  }
+
+  /** Tynd indpakning: gammel adfaerd, uaendret. */
+  function ceTilstand(robot) {
+    return certTilstand(robot, 'ce_oplyst');
   }
 
   /* --- 8. billedet ------------------------------------------------------- */
@@ -1938,7 +1949,7 @@ ${raekke(`<span class="v v-tal"><b class="num">1100</b><span class="enhed">mm</s
     saetEnhedsskift, imperialPost, imperialTal, OMREGNING,
     // --- bekvemmeligheder ---
     esc, attr, ikon, land, felt, jaNej, tekstvaerdi, kildeliste, stribe,
-    ceTilstand, billede, billedsandhed, billedTekst, kort, samlknap, tegnforklaring, nformat, dformat, operator,
+    ceTilstand, certTilstand, billede, billedsandhed, billedTekst, kort, samlknap, tegnforklaring, nformat, dformat, operator,
     saetInd, manglendeLande, STRIBE_FELTER: STRIBE.map(([n]) => n), VAEGTKLASSER, EAGER_KORT_ANTAL,
     // L50: vaegtklasser() - flertalsversionen, se dens egen kommentar ved
     // definitionen. KUN kataloget (katalog.mjs) laeser den i dag.

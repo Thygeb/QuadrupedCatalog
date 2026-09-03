@@ -7,15 +7,15 @@ status: "i_produktion"
 fremdrift: "ben"
 foerste_udgivelse: 2024
 noter:
-  - "INGEN SPECIFIKATIONSTABEL. Siden er ren markedsføring: ingen vægt, ingen mål, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter."
-  - "Siden har en BUY NOW-knap, men INGEN PRIS."
-  - "Weilan har tre nul-poster (E300, E400L, BabyAlpha) og en post på 35 % (AlphaDog C500/C501). Den eneste model, der oplyser noget, er udviklerversionen af legetøjet."
+  - "NO SPECIFICATION TABLE. The page is pure marketing: no weight, no dimensions, no speed, no runtime, no battery figures. Zero fields filled in."
+  - "The page has a BUY NOW button, but NO PRICE."
+  - "WEILAN has three zero entries (E300, E400L, BabyAlpha) and one entry at 35% (AlphaDog C500/C501). The only model that discloses anything is the developer version of the toy."
 anvendelse:
   vaerdi: "forbruger_uddannelse"
   citat: "AI-powered Family Companion"
   kilde: "https://www.weilan.com/en/en/babyAlpha.html"
   hentet: "2026-08-19"
-  note: "Samme side, synlig tekst: \"a source of family entertainment that doubles as a home security guard\". Producenten placerer den selv i hjemmet."
+  note: "Same page, visible text: \"a source of family entertainment that doubles as a home security guard\". The manufacturer itself positions it in the home."
 billede:
   fil: "fotos/fabrikant/weilan-babyalpha.jpg"
   ophav: "fabrikant"

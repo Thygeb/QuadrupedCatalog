@@ -1,0 +1,143 @@
+=== Unitree Robotics ===
+FASE2-TJEK --tal --producent="Unitree Robotics"
+13 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2231  unitree-a1  12f7be47a9e67c526b8d68b41f9246d76a1c6066565b927d9b6bb0d624d1b1c4
+  2232  unitree-a2  6fdd71e97b1df35636df86712d30c8de93991eab6c202a88ce08634576b5befe
+  2233  unitree-a2-w  d95c1613cff416a587e1f3904b304e706c27167f3221f5c6983ba78499da04b5
+  2234  unitree-aliengo  9e71e98781eb839df533c2179897325594e1a6ccab3e41fc1e52427a15e39584
+  2235  unitree-as2  d5b5d27422888e2e2a92bb051390f8e4d9fcfdc5dd99ad18481fb6db33b27c66
+  2236  unitree-as2-w  7c98d3d4c1fc4d3600434db821c2ede2ae90b183879625eea480254de30502b9
+  2237  unitree-b1  2103f438528ce692a5932419e77cd4f912cbd28ab18599e750d0dc7d3a675fd7
+  2238  unitree-b2  959d10cbd2e585a89d725546da0a68350e27a3b0a98d9a1fa32775e395ba52c6
+  2239  unitree-b2-w  901a18c144b9934cfddb929d95e3c575b22e8b36faf5ead7edcf66f15ccb7265
+  2240  unitree-go1  59b431141727baa1630942eb1adf0f5ccb34e53934c3a9e5da0fbff8b78eae7d
+  2241  unitree-go2  b546271eec1b0e30bfd073a0f93002257ec5990c603fa20831dba559cb4351ba
+  2242  unitree-go2-w  5e389665a4246a0109b878f59234477c3e8b74f6eb019f55f078fad2ab1989f5
+  2243  unitree-laikago  aedda5427279fa4e3325ba3df9d39f95d10b6ec74775389ebefa9b00a7e1b088
+SAMLET AFTRYK: c08c876f411060b6a0e57c486b92ec977117a50d1dac317d9ec177cfaf559d67
+=== MicroRoboTech ===
+FASE2-TJEK --tal --producent="MicroRoboTech"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2223  microrobotech-movenew-p1  499081ed81d544795a3148b151be6ed15391bf6a8ae7c4024358cc8093726cf3
+  2224  microrobotech-movenew-t1  2d9e1b118447d19d64150a4fd378d410b5226a45e5ff49abef4793bc8c1e004c
+SAMLET AFTRYK: 97c764d9a299343086303e73b461a0c72c130b9e643168c1a7b409870fab0440
+=== DEEP Robotics ===
+FASE2-TJEK --tal --producent="DEEP Robotics"
+9 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2190  deep-robotics-lite3  63fe7fd70f7f8e760a78b7cd455fdccb2862767c071b2b40e4212ee510ad47bb
+  2191  deep-robotics-lynx-m20  868ddfb1ae789c53863a459dda63cc6757f4dcc64be0857dd2d45a24d66f8a05
+  2192  deep-robotics-lynx-m20-pro  c4df37280a829f8e1bfa222052a0eb498d9430ab531d9464d97efa9e192e1958
+  2193  deep-robotics-lynx-m20s  a94bad42bd60ac3a013e5342da0567c4bf8fd8d1bbdaf6a729f559fdc50e6cb5
+  2194  deep-robotics-lynx-s10  160a5c6da5726c82106885d967c686685f7bb86176723ffbf7400e89fbb84e2f
+  2195  deep-robotics-mini  87da3a6635ad862860ff8b75457abcc7149fe619732022717dcc4a509020d510
+  2196  deep-robotics-x20  5f9313d8cb4e12364dcf6db9c8165154f8b09b3e5363db395fb76a98be7062ad
+  2197  deep-robotics-x30  384bc9523949c555cc48ea7aacb6bcfde1b7e2c784f03ca10b4cced09d1da3c9
+  2198  deep-robotics-x30-pro  ad18767644b07e713d54c883c145de907776f0a4f441d2f97c2f923d6b6e4d2f
+SAMLET AFTRYK: a171780a9161f141c0cbd9a63830f82501b8073f4885eec76afbacff8c08c501
+=== Addverb ===
+FASE2-TJEK --tal --producent="Addverb"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2182  addverb-trakr-20  84665a02e04a08da9d8c08df6cc06df2d7864a7a057fb2f17de45f6979c1d476
+  2183  addverb-trakr-5  37ba7e189c11d17ed2d746099c82cac5a3ab30abd9b0057c02cf2ff4387c4b55
+SAMLET AFTRYK: 2d2e897ac9975d282be4de285063e72b636a18f8d6dfd6720e23d154ab765fdd
+=== MagicLab ===
+FASE2-TJEK --tal --producent="MagicLab"
+4 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2219  magiclab-magicdog-edu  b7a4c08d3ca9aa1d924e42b1c846f9c7a908ff063a7aa0fb720741ceb0df1526
+  2220  magiclab-magicdog-pro  c0156f15b7fc903cf9e56655e1d7331b4f3b07adbba542d7e1459a9f1927e77c
+  2221  magiclab-magicdog-w  bd9ed40c70b2abe24e982b1ed190ddcd12fecd30f7476b731c5c9542f4845420
+  2222  magiclab-magicdog-y1  4f62ee118e6783e094dfe568fc90465e1034c45c399ebc60c639c3442eb501e3
+SAMLET AFTRYK: 596709137cf961440e755197f49df088a49b8dffcf003aaf4ba61286adc3977d
+=== ANYbotics ===
+FASE2-TJEK --tal --producent="ANYbotics"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2184  anybotics-anymal  9d7931734391aa1afdc6895c7ad05bb496268ddac5081fde2cde1e53c555b366
+  2185  anybotics-anymal-x  8e0d698f3b2f27ceb3e5352395d9d206a430ffe0405400efc06f7eed836e48e1
+SAMLET AFTRYK: a85173420e2b3f63f05432e58a039a2ede2bf42803aea5728f6251d61567abc1
+=== Rainbow Robotics ===
+FASE2-TJEK --tal --producent="Rainbow Robotics"
+1 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2228  rainbow-robotics-rbq-10  52caacf28bc3b25bd4391a1acc1cef75c9f97d4cba292c6210ee5b5e158fba16
+SAMLET AFTRYK: 749a2138164f5147ac39a8aecadf08229423c0ff3fb3ea09457f35e3726d35ae
+=== MAB Robotics ===
+FASE2-TJEK --tal --producent="MAB Robotics"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2217  mab-honey-badger-4  58793a498b1703f3d9006076f0b1e811aa5b8c921c9662508a0ef5e0c9d4bbde
+  2218  mab-honey-badger-5  48ceb6a8bdbf9a94391e547340a3a24e4de7e9c282ffc5a15710e168f11eaece
+SAMLET AFTRYK: b8964800ac63e26b617d39586cfa2d786a647927ea7de2234d888d80418ba294
+=== Shandong Youbaote ===
+Ukendt producent: "Shandong Youbaote".
+Gyldige producenter (25):
+  Addverb
+  ANYbotics
+  Astrall Dynamics
+  Bhairav Robotics
+  Boston Dynamics
+  CVTE
+  DEEP Robotics
+  Galileo (Tianjin)
+  GENISOM AI
+  Ghost Robotics
+  Keybotic
+  MAB Robotics
+  MagicLab
+  MicroRoboTech
+  NEURA Robotics
+  Pudu Robotics
+  Rainbow Robotics
+  Raion Robotics
+  RIVR
+  Shandong Youbaote Intelligent Robot
+  Unitree Robotics
+  WEILAN
+  Xiaomi
+  Yuejia Lingdong
+  Yufan Intelligent
+=== Ghost Robotics ===
+FASE2-TJEK --tal --producent="Ghost Robotics"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2214  ghost-robotics-spirit-40  e82d60e0938864c080b04ef009a6e514cf084aed8c405661ef3cf67552e39408
+  2215  ghost-robotics-vision-60  8949396b3122f525fcd324c961d25d2fb5fb9e90fb330229b1c042aaa4a555a1
+SAMLET AFTRYK: 4f490539989cdc4321f1df23c16c51506e97828a8c3f2c95f23477a73888e48b
+=== NEURA Robotics ===
+FASE2-TJEK --tal --producent="NEURA Robotics"
+1 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2225  neura-quadruped  c87b0115a26f61dd8e12cf9d3dc6869579d5cd59c89a898290c14f3d12bafa47
+SAMLET AFTRYK: bdc90ad88e172f8089ad2da05402a5149be95e16281ac7564df464773bb5e5ae
+=== Keybotic ===
+FASE2-TJEK --tal --producent="Keybotic"
+1 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2216  keybotic-keyper  a6baa98f279c9ed71c411695c0646e603d68a0165f7e3abb0cbf123659264b6c
+SAMLET AFTRYK: 7eb3998eb43f0d1e41d8028d996858dadf8ffd9d9f6f80a49fdcc227ce530edf
+=== Pudu Robotics ===
+FASE2-TJEK --tal --producent="Pudu Robotics"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2226  pudu-d5  4fe40406af41d9b04d8c7323d2e22e3b4847217945c646fdbc6c01b5fd2ed25f
+  2227  pudu-d5-w  b2ba1dd8541a56a8f2ab47deabdc8dc4dd08d696c0cfda8995e8b9ce0746ed10
+SAMLET AFTRYK: bb0e94d61eda255140d751c9c0c661b14a07cb23e7242e5c725fbb34e305f08d
+=== Bhairav Robotics ===
+FASE2-TJEK --tal --producent="Bhairav Robotics"
+1 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2187  bhairav-robotics-shvana  773ed4e71795ad14d66aa92e43dbecac2d192ee8f944ff2987f1b5196b058223
+SAMLET AFTRYK: faca3727b77239c1040f9ce8f4b7f7b5b7d87ff115f48f6a2fda9511c8af70aa
+=== WEILAN ===
+FASE2-TJEK --tal --producent="WEILAN"
+5 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2244  weilan-alphadog-c500  28cdc2804aa2cb5a2d8289828a067c3e7d3c4f1ccbee3a0679aa1bc46f731673
+  2245  weilan-alphadog-c501  f504623c1eae36c69457bd2ec68bb2ab0f59296a84900a56483bc1e54d9b973a
+  2246  weilan-alphadog-e300  8580a28c6029cc7433af42ebd8de50f95f08f528058cb3c2c4a95b86e0fd019c
+  2247  weilan-alphadog-e400l  41216cebdb3c2f21ef91a1eecda6942f0263488e47e05c63755047e89ed73f5f
+  2248  weilan-babyalpha  09c34506d5d909baaade64e743a9a4409056309d4bceff7ae3af286aac863023
+SAMLET AFTRYK: 5fa1a923731e85704686dafe0d2062e6fb989cbe6f2d0c60bb1a3ac6909ca7dc
+=== Raion Robotics ===
+FASE2-TJEK --tal --producent="Raion Robotics"
+1 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2229  raion-robotics-raibo2  aea9fb3ae7e88e1992c6e4c24c662a51ff6b16a63f1dd38b5ad1183e98c55b9f
+SAMLET AFTRYK: bc8f7e817d8653b53c5c99fa89be57e3b45c5f3b32929a1052a8f00e46fad5b7
+=== Shandong Youbaote Intelligent Robot ===
+FASE2-TJEK --tal --producent="Shandong Youbaote Intelligent Robot"
+3 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2251  yobotics-e-dog  e907831a8f0cc0c537c6882a9cc8e2b3242758426845e575e56b8cb8b9da8b70
+  2252  yobotics-y10  fe8bc7055951e04719004ca539aa8d63add6b25300e4a9500cc0ae51790807fe
+  2253  yobotics-y20  c87e39173c085f59a1e7210a08e2adc9a635babe1a3af3b8adb1dd72e81cb995
+SAMLET AFTRYK: 244f07ce0f603838418c54eab1715ba81c00ae48840e04203eb389852b83c4b7

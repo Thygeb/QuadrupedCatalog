@@ -257,9 +257,27 @@ kollisioner efter at reglerne var aftalt. Indtil da fandtes de kun i STATUS.md
    gik tabt — og derfor var der heller intet at opdage. **Et delvist udført
    tjek ligner et udført tjek.** Mål diffen på hver fil, du lægger til, og
    **spørg, før du committer en fil, den anden session har rørt for nylig.**
-2. **To samtidige `tests/koer.mjs` crasher** (delt `tests/.tmp-koersel`, hver sit
-   HEAD). Meld via `SendMessage`, før du kører på main; vent på *"main er din"*;
-   meld *"færdig"*. Se `flet`-skillens punkt 4.
+2. **To samtidige `tests/koer.mjs` i SAMME træ crasher** (delt
+   `tests/.tmp-koersel`, hver sit HEAD). Meld via `SendMessage`, før du kører på
+   main; vent på *"main er din"*; meld *"færdig"*. Se `flet`-skillens punkt 4.
+
+   **RETTET 3. sep 2026: `tests/.tmp-koersel` er IKKE delt mellem worktrees.**
+   Her stod *"delt `tests/.tmp-koersel`"* uden forbehold, og **to sessioner
+   planlagde deres kørselsrækkefølge efter det** — den ene holdt en suite
+   tilbage i en halv time uden grund. Målt samme dag: tre separate mapper à
+   **3,0 GB**, én pr. worktree. ENOTEMPTY-crashet rammer to kørsler i **samme**
+   arbejdstræ.
+
+   **Det, der ER delt, er DISKEN — og den er den hårdeste grænse, vi har.**
+   Én suitekørsel er **~2,8 GB**. Disken ramte **0,0 GB af 236** den 3. sep
+   2026 med 16,5 GB i seks `.tmp-koersel` og stoppede tre sessioner på én gang:
+   en testkørsel døde på en write-syscall, et `sed` på *"No space left on
+   device"*, og et `du` timede ud, før det nåede at måle årsagen.
+   **Antallet af samtidige spor er derfor begrænset af disk, ikke kun af
+   filejerskab.** Tre samtidige suiter er 8,4 GB. Meld dine kørsler til den
+   anden session, og aftal rækkefølgen — det er billigere end at rydde bagefter,
+   fordi `Bash(rm -rf:*)` står i `.claude/settings.json` linje 25's deny-liste
+   og kræver JPK.
 3. **"Main er i takt med origin" er en fælles tilstand.** Den kan skifte mellem
    to af dine egne kommandoer. Mål main umiddelbart før hvert flet.
 4. **Meld filejerskab, når et spor sendes:** hvilke filer, hvilke testnumre.

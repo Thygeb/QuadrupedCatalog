@@ -430,6 +430,9 @@ function facetter(robotter, hjaelp, i18n) {
   const { T, t } = i18n;
   const tilstandsnavn = (v) => (v === 'ikke_oplyst' ? T.tilstand_ikke_oplyst
     : v === 'nej' ? T.tilstand_nej : v);
+  // De fire maerker, certificeringsfacetten er samlet om (BRIEF-certfacet.md
+  // punkt 2). Raekkefoelgen her ER `orden` - fast, ogsaa naar et tal er 0.
+  const CERT_MAERKER = ['ce', 'fcc', 'ul', 'ccc'];
 
   return [
     {
@@ -479,47 +482,45 @@ function facetter(robotter, hjaelp, i18n) {
       tekst: (v) => hjaelp.land(v),
     },
     {
-      /* CERTIFICERINGSFACETTEN ER AABNET (JPK 3. sep 2026: "Vi skal have
-         valgte certificeringer ind i filter-mekanismen"), i hans egen
-         afgraensning: AABN PAA CE, SOM DATA ER NU - ingen indsamling.
-         data/robots/ er uroert af dette spor.
+      /* CERTIFICERINGSFACETTEN ER SAMLET TIL ÉN GRUPPE MED FIRE MAERKER
+         (JPK 3. sep 2026, ordret: "VI ENIGE OM AT Certificeringer SAMLES
+         UNDER ET FILTERGRUPPE"). Det OPHAEVER AA149/L89 samme dag, som gav
+         certificering FIRE SELVSTAENDIGE facetter - en omgoerelse faa timer
+         senere, ikke en overset beslutning. Se BRIEF-certfacet.md.
 
-         DEN VENDER L55 PUNKT 3 ("CE-facetten UDGAAR som selvstaendig ...
-         i dag kan den kun udvaelge 2 robotter"), og det er en bevidst
-         omgoerelse, ikke en overset beslutning. To ting har aendret sig:
-         JPK har udtrykkeligt bedt om den, og L55 PUNKT 1 reserverede plads
-         til "den kommende certificerings-facet" - det er den plads, der her
-         tages i brug. Den aabnes paa CE, fordi CE er det eneste af skemaets
-         FIRE certificeringsfelter med mere end én tilstand i data: maalt
-         3. sep 2026 er fcc_oplyst 75 x ikke oplyst + 2 poster, mens
-         ul_oplyst og ccc_oplyst er 77 x ikke oplyst. En facet paa dem ville
-         have ét valg og kunne intet udvaelge.
+         ÉT FILTERVALG PR. MAERKE, IKKE PR. TILSTAND. En robot hoerer under
+         'ce', 'fcc', 'ul' eller 'ccc', naar certTilstand(r, <felt>) === 'ja'
+         - og kan hoere under flere maerker samtidig eller ingen. "nej" og
+         "ikke oplyst" KOLLAPSER bevidst til "hoerer ikke til dette maerke"
+         INDE i filtret (JPK's vaern 2) - det er prisen ved formen, valgt med
+         vilje. Robot- og producentsiden holder stadig de to tilstande
+         adskilte (punkt 4's test 77.5 beviser det); kun selve filtervalget
+         collapser.
 
-         TRE VAERDIER, IKKE ÉN. Haard begraensning 5: "ikke oplyst", "nej" og
-         "0" er tre forskellige tilstande og skal se forskellige ud. raekke()
-         giver dem hver sit maerke gratis - fyldt flueben (ja), kontur med
-         skraastreg (nej), stiplet tom firkant efter en stiplet skillelinje
-         (ikke oplyst) - og `orden` herunder holder "ikke oplyst" sidst.
-         En facet, der kun kunne filtrere paa "ja", ville skjule, at der
-         findes et DOKUMENTERET nej (Xiaomi CyberDog 2, vaerdi: false).
-
-         TEKSTERNE ER eu_ce_*-NOEGLERNE, GENBRUGT. De findes allerede, de
-         bruges paa robotsidens EU-afsnit for praecis de samme tre tilstande,
-         og de siger forskellen i ord og ikke kun i maerke: "CE oplyst af
-         producenten" / "Producenten oplyser, at der ikke er CE" / "CE staar
-         ikke noget sted". Ingen ny streng opfundet.
-
-         MAALT FORDELING 3. sep 2026, efterproevet tre veje (raa YAML, den
-         byggede pladsholders eget tal, og den fjernede eu_pointes tal):
-         ja 2 · nej 1 · ikke oplyst 74. BEMAERK: L55's grundmaaling fra
-         31. aug siger "ikke oplyst 73, ja 2, nej 2" - det tal er FORAELDET,
-         og facettens egne taellinger paa den byggede side er beviset. */
+         VAERN 1, JPK's udtrykkelige krav: UL og CCC har 0 "ja"-robotter i
+         dag (maalt: certTilstand(r,'ul_oplyst') og '...ccc_oplyst' er 'ja'
+         for INGEN af de 77), og de skal staa der ALLIGEVEL - et filtervalg,
+         der forsvinder ved 0, siger "vi har ikke spurgt", naar sandheden er
+         "vi har spurgt alle 77, og ingen oplyser det". Uden hjaelp ville
+         disse to aldrig havne i `antal` (kortet under bygges KUN af de
+         vaerdier, robotterne rent faktisk bidrager) - `visAltid` herunder
+         seeder dem med 0. Feltet laeses KUN her; skalaernes egen, MODSATTE
+         regel ("en traerskel uden en eneste robot forsvinder fra listen",
+         skalaFacet() ovenfor) er en bevidst, dokumenteret anden beslutning
+         for et andet datarum og maa ikke aendres af dette. */
+      // MRK-UNDERTEKSTEN ER SLETTET (RETTELSE 1, JPK via orkestratoren,
+      // 3. sep 2026): "kun CE"/"CE only" var den ENESTE statiske undertekst
+      // paa nogen facetgruppe, og den fandtes kun, fordi gruppen dengang
+      // kun daekkede CE - praecis den begraensning, denne omgoerelse
+      // fjerner. Uden `mrk` er gruppen ens med de ni andre; facetBlok()s
+      // `${f.mrk ? ... : ''}`-vagt (katalog.mjs) haandterer det fraverende
+      // felt uden aendring.
       navn: 'ce',
       etiket: t('filter_certificering'),
-      mrk: t('filter_certificering_mrk'),
-      vaerdier: (r) => [hjaelp.ceTilstand(r)],
-      tekst: (v) => t('eu_ce_' + v),
-      orden: ['ja', 'nej', 'ikke_oplyst'],
+      vaerdier: (r) => CERT_MAERKER.filter((m) => hjaelp.certTilstand(r, m + '_oplyst') === 'ja'),
+      tekst: (v) => t('filter_' + v),
+      orden: CERT_MAERKER,
+      visAltid: CERT_MAERKER,
     },
     // Skalaerne staar SIDST, fordi raekkefoelgen her ogsaa er lagenes
     // raekkefoelge i HTML - og de to nye lag hoerer inderst, taettest paa
@@ -530,6 +531,12 @@ function facetter(robotter, hjaelp, i18n) {
     for (const r of robotter) {
       for (const v of f.vaerdier(r)) antal.set(v, (antal.get(v) ?? 0) + 1);
     }
+    // VAERN 1 (BRIEF-certfacet.md): et valg, der forsvinder ved 0, lyver.
+    // Kun facetter, der udtrykkeligt beder om det via `visAltid`, faar deres
+    // fulde vaerdisaet seedet ind i `antal` med 0 - i dag kun certificering.
+    // De oevrige fem facetter og de to skalaer laeser aldrig dette felt, saa
+    // deres eksisterende "kun det, robotterne rent faktisk har" er uroert.
+    if (f.visAltid) for (const v of f.visAltid) if (!antal.has(v)) antal.set(v, 0);
     const liste = [...antal.keys()].sort((a, b) => {
       if (f.orden) return f.orden.indexOf(a) - f.orden.indexOf(b);
       // "ikke oplyst" staar sidst; ellers efter antal og saa alfabetisk.
@@ -1156,20 +1163,29 @@ ${chipsHtml}
 ${facetBlok(ip, 3)}
 ${facetBlok(status, 3)}
 ${facetBlok(land, 3)}
-${/* CERTIFICERINGSFACETTEN ER AABNET (JPK 3. sep 2026). Her stod indtil nu en
-     RESERVERET, TOM pladsholder - en <div class="reserveret"> med teksten
-     "Certificeringer - indsamles ... Facetten aabner, naar der er data at
-     filtrere paa - ikke foer". Den tekst er vaek sammen med pladsholderen,
-     fordi der ER data at filtrere paa: 2 ja, 1 nej, 74 ikke oplyst.
+${/* CERTIFICERINGSFACETTEN ER ÉN GRUPPE MED FIRE MAERKER (JPK 3. sep 2026,
+     BRIEF-certfacet.md), efter kort at have vaeret fire selvstaendige
+     facetter (AA149/L89, OPHAEVET samme dag). CE · FCC · UL · CCC, altid i
+     den raekkefoelge, ogsaa naar et tal er 0 (UL og CCC er det i dag).
 
-     DEN ER NU EN FACET SOM ENHVER ANDEN og gaar derfor gennem facetBlok(),
+     DEN ER EN FACET SOM ENHVER ANDEN og gaar derfor gennem facetBlok(),
      ikke gennem egen markup. Det er hele pointen: den faar
      data-facetgruppe, facetAktivMrk(), chips i strimlen, gruppens
      "mindst ét valgt"-maerke, taellinger og hovedStil()s :has()-regler
      GRATIS, fordi alt det maskineri er generisk over F. Den virker derfor
      ogsaa UDEN JavaScript, praecis som fladen skilter med - det er
-     `.styr:has(#f-ce-ja:checked) .lag-ce[data-ce~="ja"]`-reglerne, som
-     hovedStil() nu udsender af sig selv. */''}
+     `.styr:has(#f-ce-fcc:checked) .lag-ce[data-ce~="fcc"]`-reglerne (formen,
+     ikke det bogstavelige id), som hovedStil() nu udsender af sig selv.
+
+     BREDDEN ER STADIG `.facet--s3`, IKKE `.facet--s6` - BEVIDST IMOD
+     BRIEF-certfacet.md's egen ordlyd. Briefet siger "gruppen gaar fra tre
+     valg til fire, saa det er .facet--s6-familien" - men tests/dele/48.15
+     (JPK's PUNKT 4R, "seks facetter er s3, tre er s6": anv/vaegt/ip/
+     status/land/certificering) LAASER certificering til s3 ved navn, og
+     48.11's revert-regex matcher bogstaveligt `facet--s3 facet--raekkeslut
+     data-facetgruppe="ce"`. En s6-bredde gør begge roede (maalt: s3=5/s6=4
+     mod ventede 6/3). Filejerskabet forbyder mig at rette test 48 - se
+     FUND-certfacet.md for konflikten, som skal afgoeres af orkestratoren. */''}
 ${facetBlok(ce, 3, ' facet--raekkeslut')}
 ${skalaBlok(nyttelast, 6, ' facet--sidste-raekke')}
 ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke')}

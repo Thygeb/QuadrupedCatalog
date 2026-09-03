@@ -14,7 +14,7 @@ anvendelse:
     - "Robothund - industriniveau (机器狗 - 行业级)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"
-  note: "Producentens egen produktnavigation, gruppen B1 står i."
+  note: "The manufacturer's own product navigation, the group B1 belongs to."
 billede:
   fil: "fotos/fabrikant/unitree-b1.jpg"
   ophav: "fabrikant"
@@ -27,8 +27,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Inkl. batteri; batteriet oplyses separat til ca. 5 kg."
+    advarsel: "Includes battery; the battery is separately stated at about 5 kg."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Whole Machine (involve battery) About 50kg | Battery About 5kg"
   laengde:
     vaerdi: 1126
     enhed: "mm"
@@ -44,28 +45,31 @@ felter:
     enhed: "mm"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Foldet 1202 x 467 x 297 mm - LÆNGERE end stående. Plausibelt for udstrakte ben, men bemærkelsesværdigt. Skemaet har ingen felter til foldemål."
+    advarsel: "Folded 1202 x 467 x 297 mm — LONGER than standing. Plausible for extended legs, but notable. The schema has no field for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Length*Width*Height(fold) | 1202*467*297mm"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 20
     enhed: "kg"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Uden operator. Siden tilføjer i prosa: anbefales at holde vægten inden for 20 kg."
+    advarsel: "No operator. The page adds in prose: it is recommended to keep the weight within 20 kg."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Continuous walking load 20kg | In the process of carrying the load, it is recommended to control the weight within 20kg."
   nyttelast_staaende:
     vaerdi: 80
     enhed: "kg"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Uden operator."
+    advarsel: "No operator."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Maximum standing load 80kg"
   hastighed:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Eneste Unitree-industrimodel helt uden hastighedstal."
+    advarsel: "The only Unitree industrial model with no speed figure at all."
   haeldning: "ikke_oplyst"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -77,32 +81,37 @@ felter:
     vaerdi: "IP68"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "IP68 står KUN i overskriftsteksten (IP68 Waterproof, Industrial Level Heavy Loader), ikke i parametertabellen, som slet ingen IP-række har. B1 er dermed den eneste Unitree-model med IP68 - på det svageste kildegrundlag."
+    advarsel: "IP68 appears ONLY in the heading text (IP68 Waterproof, Industrial Level Heavy Loader), not in the parameter table, which has no IP row at all. B1 is therefore the only Unitree model with a stated IP68, on the weakest source footing."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "IP68 Waterproof, Industrial Level Heavy Loader"
   temp_min:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Tabellens Working Temperature har underrækken Battery: -5 C - 45 C. Det er BATTERIETS område, ikke robottens; der er ingen række for robotten. Stillet ved siden af B2's -20~55 C ville B1 se dårligere ud i kulde, og det følger ikke af kilden."
+    advarsel: "The table's Working Temperature has the sub-row Battery: -5 C - 45 C. That is the BATTERY's range, not the robot's; there is no row for the robot itself. Placed next to B2's -20~55 C, B1 would look worse in cold — and that does not follow from the source."
+    advarsel_ordlyd: "Working Temperature | Battery | -5℃ - 45℃"
   temp_maks:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Se temp_min - kun batteriets område er oplyst."
+    advarsel: "See temperature_min — only the battery range is stated."
+    advarsel_ordlyd: "Working Temperature | Battery | -5℃ - 45℃"
   batteri_wh:
     vaerdi: 932.4
     enhed: "Wh"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "18000 mAh, 51,8 V, ladegrænse 58,8 V. Producentens regnestykke går præcist op: 18 x 51,8 = 932,4."
+    advarsel: "18000 mAh, 51.8 V, charge-limit voltage 58.8 V. The manufacturer's own arithmetic checks out exactly: 18 x 51.8 = 932.4."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Rated Capacity | 18000mAh | Rated Voltage | 51.8V | Rated Energy | 932.4Wh | Charge Limit Voltage | 58.8V"
   driftstid:
     vaerdi: 2
     enhed: "t"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Producenten oplyser to tilstande: 5 t stående og 2 t gående uden last. Her bruges den gående. Ingen lastbetingelse."
+    advarsel: "The manufacturer states two conditions: 5 h standing and 2 h walking, both with no load. The walking figure is used here. No load condition beyond that."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Stand Endurance | 5h | Continuous walking and endurance without load | 2h"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
   ladetid:
@@ -111,15 +120,17 @@ felter:
     enhed: "t"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Eneste af de tolv Unitree-modeller med en ladetid."
+    advarsel: "The only one of the twelve Unitree models with a stated charging time."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Charge Time 1-2h"
   dockingstation: "ikke_oplyst"
   lidar: "ikke_oplyst"
   kameraer:
     vaerdi: "Intel RealSense D430 x5"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Model oplyst - sjældent i materialet."
+    advarsel: "Model given — rare in this material."
+    advarsel_ordlyd: "Sensing Sensor Intel RealSense D430*5"
   compute:
     vaerdi: "Intel i5-1135G7 + NVIDIA Xavier NX x3"
     kilde: "https://www.unitree.com/b1"
@@ -132,7 +143,8 @@ felter:
     vaerdi: "12 V / 24 V"
     kilde: "https://www.unitree.com/b1"
     hentet: "2026-08-19"
-    advarsel: "Spænding oplyst, watt ikke."
+    advarsel: "Voltage given, wattage not."
+    advarsel_ordlyd: "Standard Output power:12V/24V"
   dataporte:
     vaerdi:
       - "Gigabit x7"

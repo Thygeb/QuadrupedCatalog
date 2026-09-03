@@ -1,0 +1,6 @@
+1	2226	pudu-d5	ip_rating	value_text	"IP67"
+2	2226	pudu-d5	compute	value_text	"NVIDIA Jetson Orin AGX 64GB + RK3588, op til 275 TOPS"
+3	2227	pudu-d5-w	ip_rating	value_text	"IP67"
+4	2227	pudu-d5-w	width	caveat	"UNCERTAIN ASSIGNMENT — see length."
+5	2227	pudu-d5-w	height	caveat	"UNCERTAIN ASSIGNMENT — see length."
+6	2227	pudu-d5-w	compute	value_text	"NVIDIA Jetson Orin AGX 64GB + RK3588, op til 275 TOPS"

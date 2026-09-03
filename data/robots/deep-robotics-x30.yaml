@@ -7,8 +7,8 @@ status: "i_produktion"
 fremdrift: "ben"
 foerste_udgivelse: 2023
 noter:
-  - "Kinesisk og engelsk side er enige om samtlige tal. Eneste forskel: EN tilføjer (battery included) til vægten."
-  - "X30 oplyser INGEN nyttelast - hverken gående eller stående, på noget sprog. Den ældre X20 oplyser 20 kg. Producentens flagskib er blevet mindre oplysende end sin forgænger."
+  - "The Chinese and English pages agree on every figure. The only difference: EN adds (battery included) to the weight."
+  - "The X30 states NO payload – neither walking nor standing, in either language. The older X20 states 20 kg. The producer’s flagship has become less informative than its predecessor."
 anvendelse:
   vaerdi:
     - "industri"
@@ -17,7 +17,7 @@ anvendelse:
   citat: "X30 quadruped robot, a flagship product designed to meet core industry needs in multiple fields including inspection, investigation, security, surveying and mapping."
   kilde: "https://deeprobotics.cn/en/index/product3.html"
   hentet: "2026-08-19"
-  note: "L22: \"security\" er omsat til sikkerhed og overvågning. \"surveying and mapping\" har det tilladte sæt stadig ingen kategori for og er ikke omsat."
+  note: "L22: \"security\" is mapped to security and surveillance. \"surveying and mapping\" still has no category in the allowed set and is not mapped."
 billede:
   fil: "fotos/fabrikant/deep-robotics-x30.jpg"
   ophav: "fabrikant"
@@ -26,14 +26,14 @@ billede:
   alt:
     da: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
     en: "DEEP Robotics Jueying X30 series, studio photo on a white background"
-  note: "Samme billede bruges af producenten på både X30- og X30 Pro-siden."
+  note: "The same image is used by the producer on both the X30 and the X30 Pro page."
 felter:
   egenvaegt:
     vaerdi: 56
     enhed: "kg"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Med batteri (battery included)."
+    advarsel: "Includes battery (battery included)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1000
@@ -45,14 +45,14 @@ felter:
     enhed: "mm"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "USIKKER TILDELING. Producenten trykker 1000*695*470(mm) uden at mærke akserne. Samme producents X20-side trykker 950mm*470mm*700mm, hvor 700 mm efter alt at dømme er højden - altså en anden rækkefølge. Her er den trykte rækkefølge fulgt bogstaveligt (2. tal = bredde, 3. tal = højde). Bredde og højde kan være byttet om. Ikke afgjort ud fra kilden."
+    advarsel: "UNCERTAIN ASSIGNMENT. The producer prints 1000*695*470(mm) without labeling the axes. The same producer’s X20 page prints 950mm*470mm*700mm, where 700 mm is, by all appearances, the height – i.e. a different order. Here the printed order is followed literally (2nd figure = width, 3rd figure = height). Width and height may be swapped. Not settled from the source."
     advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 470
     enhed: "mm"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "USIKKER TILDELING - se bredde. Den trykte rækkefølge er fulgt bogstaveligt."
+    advarsel: "UNCERTAIN ASSIGNMENT – see width. The printed order is followed literally."
     advarsel_klasse: "gyldighed"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende: "ikke_oplyst"
@@ -69,7 +69,7 @@ felter:
     operator: "<="
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Tegn U+2264 - et LOFT. X20 fra samme producent skriver >= 30 grader, altså et GULV. Samme producent, samme felt, modsat ulighedstegn. En normaliserende importør retter det stiltiende; det skal han ikke."
+    advarsel: "Character U+2264 – a CEILING. The X20 from the same producer writes >= 30 degrees, i.e. a FLOOR. Same producer, same field, opposite inequality sign. A normalizing importer would silently correct it; they shouldn’t."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -78,7 +78,7 @@ felter:
     operator: ">="
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Kombineret etiket Step/Obstacle H. Lagt i det strengeste af de to felter; forhindring_enkelt står tom. Den kinesiske etiket skriver eksplicit trin, hvilket berettiger den strenge placering."
+    advarsel: "Combined label Step/Obstacle H. Placed in the stricter of the two fields; obstacle_single is left empty. The Chinese label explicitly says step, which justifies the strict placement."
     advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: "IP67"
@@ -101,7 +101,7 @@ felter:
     enhed: "t"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Rækkevidde >= 10 km. Ingen lastbetingelse."
+    advarsel: "Range >= 10 km. No load condition."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -118,7 +118,7 @@ felter:
     vaerdi: "72 V BAT"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver Output power supply (72V BAT). Spænding oplyst, watt ikke."
+    advarsel: "The producer writes Output power supply (72V BAT). Voltage stated, wattage not."
   dataporte:
     vaerdi:
       - "Ethernet"

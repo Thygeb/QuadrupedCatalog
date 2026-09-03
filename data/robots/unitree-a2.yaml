@@ -9,7 +9,7 @@ varianter:
   - "A2"
   - "A2-PRO"
 noter:
-  - "Produktsiden er en varianttabel med to kolonner. Alle tal er ens for de to varianter undtagen IP-klasse og LiDAR-antal; forskellene står på de pågældende felter."
+  - "The product page is a two-column variant table. All figures are the same between the two variants except IP class and LiDAR count; the differences are recorded on those individual fields."
 anvendelse:
   vaerdi: "industri"
   citat:
@@ -20,7 +20,7 @@ anvendelse:
     - "Robothund - industriniveau (机器狗 - 行业级)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"
-  note: "Producentens egen produktnavigation, gruppen A2 står i."
+  note: "The manufacturer's own product navigation, the group A2 belongs to."
 billede:
   fil: "fotos/fabrikant/unitree-a2.jpg"
   ophav: "fabrikant"
@@ -33,8 +33,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Med batteri. Producenten oplyser også ca. 35 kg uden batteri - batteriet vejer altså ca. 7 kg. A2 er en af få modeller, der oplyser begge."
+    advarsel: "Includes battery. The manufacturer also states about 35 kg without the battery, so the battery weighs roughly 7 kg. A2 is one of the few models that states both figures."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Weight (with battery) About 42kg | Weight (without battery) About 35kg"
   laengde:
     vaerdi: 820
     enhed: "mm"
@@ -50,8 +51,9 @@ felter:
     enhed: "mm"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Foldet 720 x 550 x 220 mm. Skemaet har ingen felter til foldemål."
+    advarsel: "Folded 720 x 550 x 220 mm. The schema has no field for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "720mm x 550mm x 220mm"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
@@ -63,8 +65,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Producenten tilføjer ideelt ca. 35 kg."
+    advarsel: "The manufacturer adds an ideal figure of about 35 kg."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Continuous Walking Load About 25kg (Ideally, it can reach approximately 35 kg.)"
   nyttelast_staaende:
     vaerdi: 100
     enhed: "kg"
@@ -77,8 +80,9 @@ felter:
     enhed: "m/s"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Driftsområde 0-3,7 m/s; producenten angiver desuden op til ca. 5 m/s som spidsbelastning."
+    advarsel: "Operating range 0-3.7 m/s; the manufacturer additionally states up to about 5 m/s as a speed spike."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Speed 0–3.7 m/s (Up to ~5 m/s)"
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -92,15 +96,17 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket er Max Climb Height, opgivet som interval ca. 0,5~1 m."
+    advarsel: "The manufacturer's label is Max Climb Height, given as a range of about 0.5-1 m."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max Climb Height About 0.5～1m"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: "cm"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Etiket: Stair Climbing Capability, Max Step Height."
+    advarsel: "Label: Stair Climbing Capability, Max Step Height."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Stair Climbing Capability Max Step Height: 30cm"
   ip_klasse:
     vaerdi: "IP56"
     kilde: "https://www.unitree.com/A2"
@@ -123,16 +129,18 @@ felter:
     enhed: "Wh"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbeltbatteri 907,2 Wh (18000 mAh). Begge producentens egne regnestykker går præcist op."
+    advarsel: "Both of the manufacturer's own calculations check out exactly (9000 mAh x 50.4 V = 453.6 Wh; 18000 mAh x 50.4 V = 907.2 Wh)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Supply Voltage 50.4V | Single Battery 9000mAh（453.6Wh） | Dual Batteries 18000mAh（907.2Wh）"
   driftstid:
     vaerdi: 3
     enhed: "t"
     operator: ">"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Producenten oplyser også > 5 t uden last (ca. 20 km). Her bruges tallet med lastbetingelse (ca. 12,5 km)."
+    advarsel: "The manufacturer also states >5 h with no load (about 20 km). The figure used here carries the load condition (about 12.5 km)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "No Load： | >5hours continuous walking, approx. 20km | With 25kg Load： | >3 hours continuous walking, approx. 12.5km"
     ved_last:
       vaerdi: 25
       enhed: "kg"
@@ -140,20 +148,22 @@ felter:
     vaerdi: true
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Dual slots, dual batteries - markedsføres som hot-swap."
+    advarsel: "Marketed as hot-swap."
+    advarsel_ordlyd: "Dual slots, dual batteries | 「Hot-Swappable Dual Batteries · Unlimited Runtime」: Seamless Battery Swap, Uninterrupted Mission"
   ladetid: "ikke_oplyst"
   dockingstation: "ikke_oplyst"
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "A2: LiDAR x1. A2-PRO: LiDAR x2. Type uden model - tæller ikke under D4's foreløbige regel."
+    advarsel: "A2: LiDAR x1. A2-PRO: LiDAR x2. Type without model — does not count as filled under D4's provisional rule."
+    advarsel_ordlyd: "LiDAR × 1 + HD Camera × 1 | LiDAR × 2 + HD Camera × 1"
   kameraer:
-    vaerdi: "HD-kamera x1"
+    vaerdi: "HD camera x1"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
   compute:
-    vaerdi: "8-kernet CPU + Intel Core i7; tilvalg udvidelsesdok"
+    vaerdi: "8-core CPU + Intel Core i7; optional expansion dock"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
   ros2: "ikke_oplyst"
@@ -161,14 +171,16 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver Secondary Development: Supported, men nævner ingen sprog."
+    advarsel: "The page states Secondary Development: Supported, but does not name any language."
+    advarsel_ordlyd: "Secondary Development Supported"
   autonominiveau: "ikke_oplyst"
   monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "12 V / 24 V / BAT"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Spænding oplyst, watt ikke."
+    advarsel: "Voltage given, wattage not."
+    advarsel_ordlyd: "Power Output：12V / 24V / BAT"
   dataporte:
     vaerdi:
       - "RS485 x2"
@@ -181,7 +193,8 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/A2"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver Contact Sales. Shopsiden viser pladsholderen 100.000 USD med teksten Contact us for the real price - samme beløb som B2."
+    advarsel: "The manufacturer states Contact Sales. The shop page shows a placeholder of $100,000 USD for A2 — the same amount as B2 — next to a note asking buyers to contact the sales team directly; it is not a real price. (Checked: the exact phrase 'Contact us for the real price' does appear elsewhere on this same shop page, but attached to a different, unrelated product — Unitree H1 — not to A2's own price listing, so it is not carried here.)"
+    advarsel_ordlyd: "$100,000.00 USD | Please contact our sales team (sales_global@unitree.cc) to purchase Unitree A2."
   ce_oplyst: "ikke_oplyst"
   fcc_oplyst: "ikke_oplyst"
   ul_oplyst: "ikke_oplyst"

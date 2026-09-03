@@ -7,15 +7,15 @@ status: "i_produktion"
 fremdrift: "ben"
 foerste_udgivelse: 2021
 noter:
-  - "NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden består udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige på siden overhovedet; de står på producentens katalogside sammen med underteksten Enterprise Version Available."
-  - "SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Målt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altså 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller."
-  - "INTET AF DET ER FØRT IND SOM DATA, OG DET BØR INGEN GØRE. Kontrolleret: siden indeholder ingen innerHTML, ingen COMMENT_NODE og ingen kode, der genindsætter blokken. En browser viser intet af det. At hente tal ud af en tilbagetrukket blok ville være at udgive noget, producenten har taget ned, med producentens navn på."
-  - "Forskellen betyder noget for en indkøber: det er ikke en producent, der aldrig har oplyst noget. Det er en producent, der HAR oplyst det og derefter skjult det."
+  - "ZERO PUBLISHED SPECIFICATIONS. The visible part of the product page consists solely of navigation, header, and footer. The model names E300 and E400L are not visible on the page at all; they appear on the manufacturer's catalogue page alongside the subtitle Enterprise Version Available."
+  - "THE SPECIFICATIONS EXIST IN THE FILE, BUT HAVE BEEN TAKEN DOWN. They sit inside an HTML COMMENT — byte 19,561 to 53,141, 33,580 bytes. Measured: the page body is 73,121 characters with the comment and 37,734 without it, i.e. 48% of the body is commented out. A complete specification sheet for both models is inside the comment."
+  - "NONE OF IT HAS BEEN ENTERED AS DATA, AND NO ONE SHOULD. Checked: the page contains no innerHTML, no COMMENT_NODE, and no code that reinserts the block. A browser shows none of it. Pulling figures out of a withdrawn block would mean publishing, under the manufacturer's name, something the manufacturer has taken down."
+  - "The distinction matters to a buyer: this is not a manufacturer that has never disclosed anything. It is a manufacturer that HAS disclosed it and then hidden it."
 anvendelse:
   vaerdi: "ikke_oplyst"
   kilde: "https://www.weilan.com/en/en/alphadoge.html"
   hentet: "2026-08-19"
-  note: "Se noten på E300: E-seriens positionering ligger inde i en HTML-kommentar og bruges ikke."
+  note: "See the note on E300: the E-series positioning sits inside an HTML comment and is not used."
 billede:
   fil: "fotos/fabrikant/weilan-alphadog-e400l.jpg"
   ophav: "fabrikant"

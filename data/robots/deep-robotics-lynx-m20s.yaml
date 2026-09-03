@@ -7,7 +7,7 @@ status: "i_produktion"
 fremdrift: "ben_hjul"
 foerste_udgivelse: 2026
 noter:
-  - "Tredje faneblad på M20-siden. Samme mål og vægt som M20, men markant højere tal på næsten alt andet - det er en anden robot, ikke en udstyrsvariant."
+  - "Third tab on the M20 page. Same dimensions and weight as the M20, but markedly higher figures on almost everything else – it’s a different robot, not an equipment variant."
 anvendelse:
   vaerdi:
     - "industri"
@@ -18,7 +18,7 @@ anvendelse:
   citat: "The LYNX M20 series represents the world’s first wheeled-legged robot built specifically for challenging terrains and hazardous environments during industrial operation. Featuring lightweight design with extreme-environment endurance, it conquers rugged mountain trails, muddy wetlands and debris-strewn ruins—pioneering embodied intelligence in power inspection, emergency response, logistics, and scientific exploration."
   kilde: "https://deeprobotics.cn/en/index/lynx.html"
   hentet: "2026-08-19"
-  note: "Producenten skriver om \"The LYNX M20 series\", og M20S er en variant i den serie."
+  note: "The producer writes about \"The LYNX M20 series\", and the M20S is a variant within that series."
 billede:
   fil: "fotos/fabrikant/deep-robotics-lynx-m20s.jpg"
   ophav: "fabrikant"
@@ -27,7 +27,7 @@ billede:
   alt:
     da: "DEEP Robotics Lynx-seriens hjulben-robot, studiofoto paa hvid baggrund"
     en: "DEEP Robotics Lynx-series wheeled-leg robot, studio photo on a white background"
-  note: "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
+  note: "The producer’s own image for the whole Lynx series on lynx.html; the page doesn’t distinguish between M20, M20 Pro, and M20S in its choice of image."
 felter:
   egenvaegt:
     vaerdi: 35
@@ -55,42 +55,42 @@ felter:
     enhed: "kg"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket: Effective Payload (standard terrain)."
+    advarsel: "The producer's label: Effective Payload (standard terrain)."
     advarsel_klasse: "uddybning"
   nyttelast_staaende:
     vaerdi: 100
     enhed: "kg"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket: Maximum Payload Capacity. Siden siger ikke eksplicit stående. Placeringen er en tolkning."
+    advarsel: "The producer's label: Maximum Payload Capacity. The page doesn't explicitly say standing. The placement is an interpretation."
     advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 2
     enhed: "m/s"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Producenten oplyser også 9 m/s som laboratoriemålt ekstremhastighed. Her bruges driftshastigheden."
+    advarsel: "The producer also states 9 m/s as a lab-measured extreme speed. Here the operating speed is used."
     advarsel_klasse: "gyldighed"
   haeldning:
     vaerdi: 45
     enhed: "°"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Fodnote [2]: Lab-tested slope angle; actual performance varies by surface material."
+    advarsel: "Footnote [2]: Lab-tested slope angle; actual performance varies by surface material."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt:
     vaerdi: 100
     enhed: "cm"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Producentens egen etiket: Max. Single-Step Height."
+    advarsel: "The producer's own label: Max. Single-Step Height."
     advarsel_klasse: "uddybning"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: "cm"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Producentens egen etiket: Max. Continuous Stair Height. Forholdet mellem de to trinfelter er 3,3 gange. På det sammenlignelige tal ligger M20S på niveau med Boston Dynamics Spots 30 cm; havde vi taget det høje tal, ville den slå alt andet i feltet."
+    advarsel: "The producer's own label: Max. Continuous Stair Height. The ratio between the two step fields is 3.3 times. On the comparable figure, the M20S is on par with Boston Dynamics Spot's 30 cm; had we used the high figure, it would beat everything else in the field."
     advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: "IP67"
@@ -113,14 +113,14 @@ felter:
     enhed: "t"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Producenten oplyser to intervaller - 3,5-5 t / 16-20 km uden last og 2,5-3,5 t / 12-15 km i drift - men angiver IKKE hvilken last de 2,5-3,5 t gælder ved. M20 oplyser sin lastbetingelse (15 kg); M20S gør ikke."
+    advarsel: "The producer states two ranges – 3.5-5 h / 16-20 km with no load and 2.5-3.5 h / 12-15 km in operation – but does NOT state what load the 2.5-3.5 h applies at. The M20 states its load condition (15 kg); the M20S doesn’t."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap:
     vaerdi: true
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Hot-Swappable Dual Battery System - står i tabellen, i modsætning til M20 hvor det kun står i brødteksten."
+    advarsel: "Hot-Swappable Dual Battery System – it's in the table, unlike the M20 where it's only in the body text."
   ladetid:
     vaerdi: 1.5
     enhed: "t"
@@ -130,18 +130,18 @@ felter:
     vaerdi: true
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Autonomous Charging (Optional) - står på engelsk her, i modsætning til M20 hvor rækken kun findes på kinesisk."
+    advarsel: "Autonomous Charging (Optional) – it's in English here, unlike the M20 where the row only exists in Chinese."
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "Type uden model - tæller ikke under D4."
+    advarsel: "Type without model – doesn't count under D4."
   kameraer:
-    vaerdi: "vidvinkelkameraer x2"
+    vaerdi: "wide-angle cameras x2"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
   compute:
-    vaerdi: "3x otte-kernet 64-bit (16 GB + 128 GB)"
+    vaerdi: "3x eight-core 64-bit (16 GB + 128 GB)"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
   ros2: "ikke_oplyst"
@@ -150,7 +150,7 @@ felter:
     vaerdi: "SLAM Mapping & Localization; Autonomous Navigation; Omnidirectional Obstacle Avoidance"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
-    advarsel: "De samme poster bærer på M20 fodnoten Feature enabled via future OTA update. På M20S står de UDEN fodnote og regnes derfor som eksisterende."
+    advarsel: "The same entries carry the footnote Feature enabled via future OTA update on the M20. On the M20S they appear WITHOUT the footnote and are therefore counted as existing."
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte:

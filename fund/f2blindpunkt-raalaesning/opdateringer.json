@@ -1,0 +1,14 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": { "robot_id": 2198, "field_name": "height" },
+    "saet": { "caveat": "UNCERTAIN ASSIGNMENT - see width." },
+    "change_reason": "spor/f2-blindpunkt: dansk caveat fundet ved gennemlaesning ('USIKKER TILDELING - se bredde.') - uden aeoeaa/markoerord, slap gennem fase2-tjek.mjs's to-benede detektor. Oversat til at foelge soesterfeltets (width, samme robot) engelske moenster 'UNCERTAIN ASSIGNMENT ...'. Ingen ny paastand tilfoejet - width baerer den fulde begrundelse allerede."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": { "robot_id": 2253, "field_name": "docking_station" },
+    "saet": { "caveat": "Charging stand, optional." },
+    "change_reason": "spor/f2-blindpunkt: dansk caveat fundet ved gennemlaesning ('Ladestander, tilvalg.') - uden aeoeaa/markoerord, slap gennem fase2-tjek.mjs's to-benede detektor. Ren oversaettelse, ingen ny paastand."
+  }
+]

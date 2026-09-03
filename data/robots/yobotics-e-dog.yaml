@@ -6,8 +6,8 @@ producentby: "Jinan"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser."
-  - "ÅBENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."
+  - "THE HOME CITY IS JINAN, NOT JUST SHANDONG: the manufacturer's own About page states the full address \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" — Shandong is the province, Jinan is the city within it that the manufacturer actually discloses."
+  - "OPEN QUESTION: the manufacturer's own heading says e-Dog, but the description right below it is about Y15. The heading is used as the model name."
 anvendelse:
   vaerdi:
     - "forskning_udvikling"
@@ -15,7 +15,7 @@ anvendelse:
   citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
   kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
   hentet: "2026-08-19"
-  note: "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10."
+  note: "A series introduction, not a model-specific sentence. See the note on Y10."
 billede:
   fil: "fotos/fabrikant/yobotics-e-dog.jpg"
   ophav: "fabrikant"
@@ -36,7 +36,7 @@ felter:
     operator: "±"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver 680x330x380mm (+/-10mm). Tolerancen gælder alle tre mål."
+    advarsel: "The manufacturer states 680×330×380 mm (±10 mm). The tolerance applies to all three dimensions."
     advarsel_klasse: "uddybning"
   bredde:
     vaerdi: 330
@@ -59,21 +59,21 @@ felter:
     enhed: "DoF"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Spidsmoment pr. led oplyses til 48 Nm."
+    advarsel: "Peak torque per joint is stated as 48 Nm."
     advarsel_klasse: "uddybning"
   nyttelast_gaaende:
     vaerdi: 3
     enhed: "kg"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "PRODUCENTEN OPLYSER TRE LASTTAL: maks. statisk 8 kg, maks. dynamisk 5 kg og dynamisk I DRIFT 3 kg. Her er drifts-tallet brugt, fordi det svarer til det, de øvrige poster kalder gående last. De to andre tal har ingen felt i skemaet."
+    advarsel: "THE MANUFACTURER DISCLOSES THREE LOAD FIGURES: max. static 8 kg, max. dynamic 5 kg, and dynamic IN OPERATION 3 kg. The in-operation figure is used here, because it corresponds to what the other entries call walking load. The other two figures have no field in the schema."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende:
     vaerdi: 8
     enhed: "kg"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket er maks. STATISK lastevne. Statisk og stående er ikke det samme ord; placeringen er en tolkning, ikke en aflæsning."
+    advarsel: "The manufacturer's own label is max. STATIC load capacity. Static and standing are not the same word; the placement is an interpretation, not a direct reading."
     advarsel_klasse: "gyldighed"
   hastighed:
     vaerdi: 12
@@ -81,7 +81,7 @@ felter:
     operator: ">="
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver maks. hastighed >= 12 km/h. Bemærk enheden: km/h, ikke m/s som søsterposten Y20."
+    advarsel: "The manufacturer states max. speed ≥ 12 km/h. Note the unit: km/h, not m/s as with the sister entry Y20."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 35
@@ -96,7 +96,7 @@ felter:
     operator: ">="
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket bruger tegnene for TRAPPEKLATRINGSHØJDE, >= 16 cm. Lagt i det kontinuerlige felt på samme grundlag som Y20 og X30."
+    advarsel: "The manufacturer's own label uses the characters for STAIR-CLIMBING HEIGHT, ≥ 16 cm. Placed in the continuous field on the same basis as Y20 and X30."
     advarsel_klasse: "uddybning"
   ip_klasse: "ikke_oplyst"
   temp_min: "ikke_oplyst"
@@ -108,7 +108,7 @@ felter:
     operator: ">="
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver driftstid ikke under 1,5 time. Ingen lastbetingelse."
+    advarsel: "The manufacturer states runtime not less than 1.5 hours. No load condition."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"

@@ -15,7 +15,7 @@ anvendelse:
     - "Robothund - industriniveau (机器狗 - 行业级)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"
-  note: "Producentens egen produktnavigation, gruppen AlienGo står i."
+  note: "The manufacturer's own product navigation, the group AlienGo belongs to."
 billede:
   fil: "fotos/fabrikant/unitree-aliengo.jpg"
   ophav: "fabrikant"
@@ -28,8 +28,9 @@ felter:
     operator: "±"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver Weight (without battery) 21.5kg +/-1kg. Vægten er UDEN batteri - alle andre Unitree-modeller oplyser med. Sat ved siden af Go2's 15 kg og As2's 20 kg sammenligner man en robot uden batteri med to robotter med. Toleranceområdet er +/- 1 kg."
+    advarsel: "The manufacturer states 'Weight (without battery) 21.5kg ±1kg' — the figure is WITHOUT the battery. Checked against all 12 other Unitree models in this catalog: 9 (A2, A2-W, AS2, AS2-W, B1, B2, B2-W, Go2, Go2-W) explicitly label their weight as including the battery; A1 and Laikago do not state a weight at all; only Go1's unlabeled '12 kg' figure does not say either way. So, with that one exception, AlienGo's is the only stated Unitree weight that explicitly excludes the battery. Placed next to Go2's 15 kg and As2's 20 kg — both explicitly with-battery figures — this compares a robot without its battery to two robots with theirs. Tolerance is ±1 kg."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Weight (without battery) | 21.5kg ±1kg"
   laengde:
     vaerdi: 0.65
     enhed: "m"
@@ -45,22 +46,25 @@ felter:
     enhed: "m"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Foldet 0,60 x 0,31 x 0,15 m. Skemaet har ingen felter til foldemål."
+    advarsel: "Folded 0.60 x 0.31 x 0.15 m. The schema has no field for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Length*Width*Height（fold）"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Eksplicit overskrift: Degrees of Freedom (number of motors)."
+    advarsel: "Explicit heading: Degrees of Freedom (number of motors)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Degrees of Freedom (number of motors)"
   nyttelast_gaaende:
     vaerdi: 13
     enhed: "kg"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver kun Load, uden angivelse af gående eller stående. Placeringen er en slutning."
+    advarsel: "The manufacturer states only 'Load', without indicating walking or standing. The placement is our inference."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Load | 13kg"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 1.5
@@ -74,34 +78,39 @@ felter:
     operator: "<="
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver Climbing Angle <=25 (tegn U+2264). Det er en ØVRE GRÆNSE, ikke en præstation. Alle andre skriver hældning som > 45 eller ca. 45 - en præstation. Stilles 25 mod 45 i samme kolonne, ser AlienGo ud som en dårligere robot; det er et andet slags udsagn."
+    advarsel: "The manufacturer states Climbing Angle <=25 (U+2264). That is an UPPER LIMIT, not a capability. Every other Unitree model states its slope as >45° or about 45° — a capability. Placing 25 next to 45 in the same column makes AlienGo look like a worse robot; it is a different kind of statement."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Climbing Angle | ≤25°"
   forhindring_enkelt:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver Up and down steps, slopes, stairs uden tal."
+    advarsel: "The page states Up and down steps, slopes, stairs, without a figure."
+    advarsel_ordlyd: "Up and down steps, slopes, stairs"
   trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver Integrated Advanced Level of Protection uden klasse."
+    advarsel: "The page states Integrated Advanced Level of Protection, without a class."
+    advarsel_ordlyd: "Integrated Advanced Level of Protection"
   temp_min: "ikke_oplyst"
   temp_maks: "ikke_oplyst"
   batteri_wh:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "12600 mAh, hverken spænding eller Wh. Kan ikke omregnes, og skal ikke."
+    advarsel: "Only 12600 mAh — neither voltage nor Wh. Cannot be converted, and is not."
+    advarsel_ordlyd: "Battery Capacity | 12600mAh"
   driftstid:
     min: 2.5
     maks: 4.6
     enhed: "t"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Uden lastbetingelse."
+    advarsel: "Given without a load condition."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "2.5-4.6h"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"
@@ -110,21 +119,24 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "single or multi-line, tilvalg - uden model."
+    advarsel: "Single or multi-line, optional — no model given."
+    advarsel_ordlyd: "Lidar: Single or Multi-line (optional)"
   kameraer:
-    vaerdi: "dybdekamera x2 + visuelt odometerkamera x1; 1280x720, min. dybde 0,11 m, synsfelt 163 grader"
+    vaerdi: "depth camera x2 + visual odometry camera x1; 1280x720, min. depth 0.11 m, field of view 163 degrees"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
   compute:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver onboard PC uden model."
+    advarsel: "The page states onboard PC, no model given."
+    advarsel_ordlyd: "The developer version comes with an onboard PC and opens the corresponding interfaces."
   ros2:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Siden skriver supports C/C++, ROS og Environment Sensing: Ubuntu-ROS. Feltet hedder ROS 2, og versionen står ikke. At tælle det med ville være at opfinde et versionsnummer."
+    advarsel: "The page states 'supports C/C++, ROS' and 'Environment Sensing: Ubuntu-ROS'. The field is named ROS 2, and no version is given. Counting it would be inventing a version number."
+    advarsel_ordlyd: "supports C/C++, ROS, etc. | Environment Sensing：Ubuntu-ROS"
   sdk_sprog:
     vaerdi:
       - "C/C++"
@@ -137,7 +149,8 @@ felter:
     vaerdi: "5 V; 12 V; 19 V; BAT (24~30 V)"
     kilde: "https://www.unitree.com/aliengo"
     hentet: "2026-08-19"
-    advarsel: "Spænding oplyst, watt ikke."
+    advarsel: "Voltage given, wattage not."
+    advarsel_ordlyd: "Output Power | 5V、12V、19V、BAT(24V~30V)"
   dataporte:
     vaerdi:
       - "Ethernet x2"

@@ -20,7 +20,7 @@ anvendelse:
     - "Education and Research"
   kilde: "https://addverb.ai/trakr"
   hentet: "2026-08-25"
-  note: "Fra sektionen \"Industries where we make a difference\" på Trakr's egen produktside (fem punkter i alt, delt mellem begge varianter - siden skelner ikke mellem Trakr 5 og Trakr 20 i denne sektion). Egen fortolkning af hvert punkt: \"Security and Defense\" -> BEGGE sikkerhed/overvågning og forsvar/beredskab (eet producentpunkt dækker eksplicit to af skemaets syv kategoriord); \"Remote Inspection\" -> inspektion; \"Construction\" -> industri (skemaet har ingen egen byggekategori); \"Education and Research\" -> BEGGE forskning/udvikling og forbruger/uddannelse. Femte punkt, \"Events and Entertinment\" [sic - stavefejl står sådan på siden], er BEVIDST UDELADT fra citat-listen: ingen af skemaets syv kategorier dækker begivenheder/underholdning, og en tvungen kobling ville være vores mening, ikke producentens (R16). Blog-siden (addverb.ai/blog/trakr-indias-homegrown-robotic-dog-quadruped, om samme grundmodel, dateret 15. dec. 2025) nævner en overlappende men ikke identisk liste - \"Construction, Oil, Defence, Exploration & Security\" - som bekræfter industri/forsvar-beredskab/sikkerhed-overvågning, men er ikke brugt som selvstændigt citat her for ikke at blande to sider."
+  note: "From the \"Industries where we make a difference\" section on Trakr’s own product page (five items in total, shared between both variants - the page does not distinguish Trakr 5 from Trakr 20 in this section). Our own interpretation of each item: \"Security and Defense\" -> both security/surveillance and defense/emergency response (one manufacturer item explicitly covers two of the schema’s seven category words); \"Remote Inspection\" -> inspection; \"Construction\" -> industrial (the schema has no dedicated construction category); \"Education and Research\" -> both research/development and consumer/education. The fifth item, \"Events and Entertinment\" [sic - the misspelling is as printed on the page], is deliberately OMITTED from the quote list: none of the schema’s seven categories cover events/entertainment, and a forced mapping would be our own opinion, not the manufacturer’s (R16). The blog page (addverb.ai/blog/trakr-indias-homegrown-robotic-dog-quadruped, about the same base model, dated 2025-12-15) mentions an overlapping but not identical list - \"Construction, Oil, Defence, Exploration & Security\" - which confirms industrial/defense-emergency-response/security-surveillance, but is not used as its own quote here to avoid mixing two pages."
 billede:
   fil: "fotos/fabrikant/addverb-trakr-5.png"
   ophav: "fabrikant"
@@ -29,15 +29,16 @@ billede:
   alt:
     da: "Addverb Trakr, firbenet robot i roedt og graat, studiofoto set fra siden paa hvid baggrund"
     en: "Addverb Trakr, red and grey quadruped robot, studio photo from the side on a white background"
-  note: "Delt foto med addverb-trakr-20.yaml: samme produktside/fane-vælger, som ikke har to forskellige produktfotos for Trakr 5 og Trakr 20."
+  note: "Shared photo with the Trakr 20 entry: the same product page/tab selector, which has no separate product photos for Trakr 5 and Trakr 20."
 felter:
   egenvaegt:
     vaerdi: 18
     enhed: "kg"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"WEIGHT (INCL BATTERY): 18 KG\" i den strukturerede specifikationstabel for Trakr 5-fanen."
+    advarsel: "From the structured specification table on the Trakr 5 tab."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "WEIGHT (INCL BATTERY): 18 KG"
   laengde: "ikke_oplyst"
   bredde: "ikke_oplyst"
   hoejde:
@@ -45,53 +46,60 @@ felter:
     enhed: "mm"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"STANDING HEIGHT: 280 MM\". En separat \"HEIGHT OF CROUCHING: 150 MM\" er også oplyst; skemaet har intet felt til den tilstand. Længde og bredde er ikke oplyst noget sted på siden."
+    advarsel: "From the structured specification table on the Trakr 5 tab. A separate crouching-height figure is also given (\"HEIGHT OF CROUCHING: 150 MM\"); the schema has no field for that posture. Length and width are not stated anywhere on the page."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "STANDING HEIGHT: 280 MM"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
     kilde: "https://addverb.ai/blog/trakr-indias-homegrown-robotic-dog-quadruped"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "Blogindlæggets \"12 actuators\", ikke eksplicit \"frihedsgrader\" - samme fortolkning som andre robotter i kataloget, hvor kun ledmotor-/aktuatorantal er oplyst. Tildelt Trakr 5 (ikke Trakr 20), fordi bloggens øvrige tal (90-min drift, 5 kg payload) er identiske med Trakr 5's egen specifikationstabel."
+    advarsel: "From the blog post, not an explicit \"degrees of freedom\" figure - same interpretation used elsewhere in this catalog, where only the actuator/joint-motor count is stated. Assigned to Trakr 5 (not Trakr 20) because the blog’s other figures (90-minute runtime, 5 kg payload) match Trakr 5’s own specification table."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "12 actuators"
   nyttelast_gaaende:
     vaerdi: 5
     enhed: "kg"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"PAYLOAD: 5 KG\" - producenten skelner ikke mellem gående og stående last. Placeringen under gående last er vores tolkning, ikke en aflæsning (samme princip som Boston Dynamics Spot og ANYbotics ANYmal i dette katalog)."
+    advarsel: "The manufacturer does not distinguish between walking and standing payload. Placing this value under walking payload is our interpretation, not a direct reading - same principle applied to Boston Dynamics Spot and ANYbotics ANYmal in this catalog."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "PAYLOAD: 5 KG"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 1.5
     enhed: "m/s"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"SPEED: 1.5 M/S\" i specifikationstabellen."
+    advarsel: "From the specification table."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "SPEED: 1.5 M/S"
   haeldning:
     vaerdi: 30
     enhed: "°"
     operator: "<="
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "Specifikationstabellen skriver \"MAX CLIMB ANGLE: 30 DEGREES\" uden operator; funktionsbeskrivelsen på samme side skriver \"Climbs stairs, slopes (≤ 30°)...\". Operatoren er hentet fra funktionsbeskrivelsen, tallet fra begge steder (identisk)."
+    advarsel: "The specification table states the angle without an operator; the feature description on the same page supplies the operator. The figure agrees in both places (see caveat_wording)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "MAX CLIMB ANGLE: 30 DEGREES | Climbs stairs, slopes (≤ 30°)..."
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 12
     enhed: "cm"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"MAXIMUM STEP: 120 MM\" i specifikationstabellen (=12 cm). MODSIGES af sidens egen brødtekst for netop Trakr 5: \"Trakr 5 is our agile quadruped robot with 5 kg payload capacity and climb steps upto 170 mm\" (=17 cm) - to forskellige tal for samme evne på samme side, regel 9: ikke rettet stiltiende. Tabellens tal er brugt som primær værdi. Producenten skelner ikke selv mellem \"enkelt forhindring\" og \"kontinuerlig trappe\" - klassificeret som trappetrin_kontinuerlig ud fra ordlyden (\"step\"/\"climb steps\") og størrelsesordenen (12-17 cm ligger på niveau med andre robotters kontinuerlige trappetal, ikke deres enkelt-forhindringstal på 40-80 cm). En separat \"MAX CLIMB DROP HEIGHT: 150 MM\" er også oplyst; skemaet har intet felt til nedstigningshøjde."
+    advarsel: "From the specification table (=12 cm). CONTRADICTED by the page’s own body text for Trakr 5 specifically: \"Trakr 5 is our agile quadruped robot with 5 kg payload capacity and climb steps upto 170 mm\" (=17 cm) - two different figures for the same capability on the same page, not silently reconciled (rule 9). The table’s figure is used as the primary value. The manufacturer does not itself distinguish \"single obstacle\" from \"continuous stairs\" - classified as continuous stair-climbing based on the wording (\"step\"/\"climb steps\") and the order of magnitude (12-17 cm is in line with other robots’ continuous-stair figures, not their single-obstacle figures of 40-80 cm). A separate descent figure is also given (\"MAX CLIMB DROP HEIGHT: 150 MM\"); the schema has no field for descent height."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "MAXIMUM STEP: 120 MM"
   ip_klasse:
     vaerdi: "IP67"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"INGRESS PROTECTION (IP RATING): IP67 (OPTIONAL)\" - tilvalg, ikke standard på alle enheder."
+    advarsel: "An optional feature, not standard on every unit."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "INGRESS PROTECTION (IP RATING): IP67 (OPTIONAL)"
   temp_min:
     vaerdi: 5
     enhed: "°C"
@@ -102,16 +110,18 @@ felter:
     enhed: "°C"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"TEMPERATURE: +5 °C TO +45 °C\"."
+    advarsel: "From the specification table."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "TEMPERATURE: +5 °C TO +45 °C"
   batteri_wh: "ikke_oplyst"
   driftstid:
     vaerdi: 1.5
     enhed: "t"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"ENDURANCE: 1.5 HRS\" i specifikationstabellen, bekræftet af blogindlæggets gentagne \"90-minute runtime\" (=1,5 t). Ingen lastbetingelse oplyst, selvom et separat 5 kg-payloadtal findes andetsteds på siden - forbindelsen mellem de to er ikke lavet af producenten, så driftstiden står uden lastkrav. VOLTAGE 24V og BATTERY CAPACITY 10AH er også oplyst; Wh er ikke trykt direkte og udregnes ikke af V x Ah, samme forsigtighed som andre poster i kataloget."
+    advarsel: "From the specification table, confirmed by the blog post’s repeated figure (=1.5 h, see caveat_wording). No load condition is stated, even though a separate 5 kg payload figure appears elsewhere on the page - the manufacturer does not connect the two, so runtime is recorded without a load requirement. A voltage (24 V) and battery capacity (10 Ah) are also given; Wh is not printed directly and is not calculated from V × Ah, the same caution applied to other entries in this catalog."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "ENDURANCE: 1.5 HRS | 90-minute runtime"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
   ladetid:
@@ -119,35 +129,40 @@ felter:
     enhed: "t"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"CHARGING TIME: 90 MINS\" (=1,5 t) - samme talværdi som ENDURANCE, tilsyneladende en tilfældighed, ikke rettet. Charger: 24V, 10A er også oplyst; intet skemafelt til input-effekt."
+    advarsel: "(=1.5 h) - the same numeric value as endurance, apparently a coincidence, not corrected. A charger rating of 24 V, 10 A is also given; the schema has no field for input power."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "CHARGING TIME: 90 MINS"
   dockingstation:
     vaerdi: true
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"CHARGING PILE COMPATIBILITY: YES\" - kompatibel med ladestation/-sokkel. En separat \"AUTONOMOUS CHARGING: OPTIONAL\" findes også; selve dockingkompatibiliteten er ikke mærket som tilvalg, så \"ja\" er brugt uden operator."
+    advarsel: "Compatible with a charging pile/dock. A separate figure is also given (\"AUTONOMOUS CHARGING: OPTIONAL\"); docking compatibility itself is not marked as optional, so \"yes\" is used without an operator."
+    advarsel_ordlyd: "CHARGING PILE COMPATIBILITY: YES"
   lidar:
-    vaerdi: "3D LiDAR (type og model ikke oplyst)"
+    vaerdi: "3D LiDAR (type and model not disclosed)"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"LIDAR: 3D LIDAR\" i Trakr 5-fanens egen sensor-sektion (ikke kun i den delte \"Add-On Features\"-liste, som er tilvalg for hele Trakr-linjen)."
+    advarsel: "From the Trakr 5 tab’s own sensor section (not only in the shared \"Add-On Features\" list, which is optional for the whole Trakr line)."
+    advarsel_ordlyd: "LIDAR: 3D LIDAR"
   kameraer:
-    vaerdi: "HD bredvinkelkamera (antal, opløsning og model ikke oplyst)"
+    vaerdi: "HD wide-angle camera (count, resolution and model not disclosed)"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"HD WIDE ANGLE CAMERA: YES\" i Trakr 5-fanens egen sensor-sektion. Blogindlægget (om samme grundmodel, en anden side) beskriver i stedet \"four stereo cameras\" - en anden kameraopstilling end den nuværende produktsides \"HD wide angle camera\". De to sider er ikke forsonet stiltiende; kun den nuværende produktsides ordlyd er brugt som feltværdi."
+    advarsel: "From the Trakr 5 tab’s own sensor section. The blog post (about the same base model, a different page) instead describes \"four stereo cameras\" - a different camera arrangement than the current product page’s wide-angle camera. The two pages are not silently reconciled; only the current product page’s wording is used as the field value."
+    advarsel_ordlyd: "HD WIDE ANGLE CAMERA: YES"
   compute:
-    vaerdi: "I7-processor (grundlæggende); NVIDIA Jetson Orin (tilvalgt modul til høj beregningskraft)"
+    vaerdi: "I7 processor (basic); NVIDIA Jetson Orin (optional module for high compute power)"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"BASIC COMPUTING POWER: I7 PROCESSOR\" og \"HIGH COMPUTING POWER MODULE: JETSON ORIN\"."
+    advarsel: "The manufacturer offers two compute tiers (see caveat_wording)."
+    advarsel_ordlyd: "BASIC COMPUTING POWER: I7 PROCESSOR | HIGH COMPUTING POWER MODULE: JETSON ORIN"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "Fuldt autonome missioner med minimal overvågning: selvopladning, programmerbare patruljeruter/inspektionspunkter, tillægssensorer til specifikke opgaver (\"Fully Autonomous Missions\"); Model Predictive Control (MPC) og Reinforcement Learning (RL) til stabilitet og gangartstilpasning (\"Dynamic Locomotion\"); intelligent objektdetektion og undvigelse (\"INTELLIGENT DETECTION & AVOIDANCE: YES\"); manuel joystick-styring tilgængelig som tilvalg"
+    vaerdi: "Fully autonomous missions with minimal supervision: self-charging, programmable patrol routes/inspection points, add-on sensors for specific tasks (\"Fully Autonomous Missions\"); Model Predictive Control (MPC) and Reinforcement Learning (RL) for stability and gait adaptation (\"Dynamic Locomotion\"); intelligent object detection and avoidance (\"INTELLIGENT DETECTION & AVOIDANCE: YES\"); manual joystick control available as an option"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "Sammensat af flere afsnit på siden: de fire funktionskort før fane-vælgeren (gælder hele Trakr-linjen, ikke fane-specifikt) samt \"OPTIONAL FEATURES & MODULES\"-rækken i Trakr 5's egen tabel. Ingen navngivet autonominiveau-skala."
+    advarsel: "Composed from several sections of the page: the four feature cards shown before the tab selector (apply to the whole Trakr line, not tab-specific) and the \"OPTIONAL FEATURES & MODULES\" row in Trakr 5’s own table. No named autonomy-level scale is given."
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte: "ikke_oplyst"

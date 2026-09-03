@@ -8,7 +8,7 @@ varianter:
   - "A2-W"
   - "A2-W PRO"
 noter:
-  - "Hjulbenet udgave af A2. Alt der ikke afviger, er ordret identisk med A2's side."
+  - "Wheeled-leg version of A2. Everything that does not differ is word-for-word identical to A2's page."
 anvendelse:
   vaerdi:
     - "inspektion"
@@ -17,7 +17,7 @@ anvendelse:
   citat: "Suited for industrial inspection, park logistics, and emergency rescue and more."
   kilde: "https://www.unitree.com/A2-W"
   hentet: "2026-08-19"
-  note: "A2-W står ikke i producentens produktnavigation, hvor A2 står under \"Robot - Industry\". Kategorien her er derfor produktsidens egen sætning, ikke navigationens gruppe. Samme side kalder robotten \"Industrial-grade mobile platform\" - det er en byggekvalitet, ikke en anvendelse, og tæller ikke med."
+  note: "A2-W does not appear in the manufacturer's English product navigation menu, where A2 is listed under 'Robot - Industry' — though the Chinese-language navigation does list A2-W alongside A2 under the same '行业级' (industry-level) group. The category here is therefore the product page's own sentence, not the navigation's grouping. The same page also calls the robot an 'Industrial-grade mobile platform' — that is a build quality, not a use case, and is not counted."
 billede:
   fil: "fotos/fabrikant/unitree-a2-w.jpg"
   ophav: "fabrikant"
@@ -30,8 +30,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "Med batteri. Uden batteri ca. 45 kg."
+    advarsel: "Includes battery. Without the battery, about 45 kg."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Weight (with battery) About 52kg | Weight (without battery) About 45kg"
   laengde:
     vaerdi: 900
     enhed: "mm"
@@ -47,8 +48,9 @@ felter:
     enhed: "mm"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "Foldet 930 x 685 x 210 mm - længere end stående. Skemaet har ingen felter til foldemål."
+    advarsel: "Folded 930 x 685 x 210 mm — longer than standing. The schema has no field for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "930mm x 685mm x 210mm"
   frihedsgrader:
     vaerdi: 16
     enhed: "DoF"
@@ -72,8 +74,9 @@ felter:
     enhed: "m/s"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "Driftsområde 0-3 m/s; spidsbelastning op til ca. 6 m/s. A2-W er hurtigere på spids end A2 (ca. 6 mod ca. 5), men langsommere i drift (0-3 mod 0-3,7)."
+    advarsel: "Operating range 0-3 m/s; spike up to about 6 m/s. A2-W is faster at its spike than A2 (about 6 vs about 5) but slower in ordinary operation (0-3 vs 0-3.7)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Speed 0–3 m/s (Up to ~ 6 m/s)"
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -87,8 +90,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "Etiket Max Climb Height."
+    advarsel: "Label: Max Climb Height."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max Climb Height About 0.5～1m"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: "cm"
@@ -116,16 +120,18 @@ felter:
     enhed: "Wh"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "Enkeltbatteri 453,6 Wh (9000 mAh, 50,4 V); dobbelt 907,2 Wh. Samme batteri som A2."
+    advarsel: "Single battery 453.6 Wh (9000 mAh, 50.4 V); dual battery 907.2 Wh. Same battery as A2."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Single Battery 9000mAh（453.6Wh） | Dual Batteries 18000mAh（907.2Wh）"
   driftstid:
     vaerdi: 1.5
     enhed: "t"
     operator: ">"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "Også > 3,5 t uden last (ca. 35 km). Ved samme last og samme batteri har A2-W under det halve af A2's driftstid (> 1,5 t mod > 3 t), men større rækkevidde (ca. 15 km mod ca. 12,5 km)."
+    advarsel: "Also >3.5 h with no load (about 35 km). Under the same load and the same battery, A2-W's runtime is under half of A2's (>1.5 h vs >3 h), but its range is longer (about 15 km vs about 12.5 km)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "No Load： | >3.5 hours continuous walking, approx. 35km | With 25kg Load： | >1.5 hours continuous walking, approx. 15km"
     ved_last:
       vaerdi: 25
       enhed: "kg"
@@ -134,19 +140,21 @@ felter:
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
     advarsel: "Dual slots, dual batteries."
+    advarsel_ordlyd: "Dual slots, dual batteries"
   ladetid: "ikke_oplyst"
   dockingstation: "ikke_oplyst"
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
-    advarsel: "LiDAR x1 (x2 på PRO) - type uden model, tæller ikke under D4."
+    advarsel: "LiDAR x1 (x2 on PRO) — type without model, does not count under D4."
+    advarsel_ordlyd: "LiDAR × 1 + HD Camera × 1 | LiDAR × 2 + HD Camera × 1"
   kameraer:
-    vaerdi: "HD-kamera x1"
+    vaerdi: "HD camera x1"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
   compute:
-    vaerdi: "8-kernet CPU + Intel Core i7; tilvalg udvidelsesdok"
+    vaerdi: "8-core CPU + Intel Core i7; optional expansion dock"
     kilde: "https://www.unitree.com/A2-W"
     hentet: "2026-08-19"
   ros2: "ikke_oplyst"

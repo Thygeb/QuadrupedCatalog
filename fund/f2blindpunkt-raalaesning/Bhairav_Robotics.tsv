@@ -1,0 +1,4 @@
+1	2187	bhairav-robotics-shvana	weight	caveat_wording	"Weight: 25 kg (minus payload)"
+2	2187	bhairav-robotics-shvana	payload_walking	caveat_wording	"Payload: 10 kg"
+3	2187	bhairav-robotics-shvana	speed	caveat_wording	"Speed: ~2-5 m/sec"
+4	2187	bhairav-robotics-shvana	runtime	caveat_wording	"Endurance: ~120 mins"

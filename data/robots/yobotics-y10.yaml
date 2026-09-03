@@ -6,9 +6,9 @@ producentby: "Jinan"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser."
-  - "ÅBENT PUNKT: producentens overskrift siger Y10, men beskrivelsen lige under handler om Y5. Overskriften er brugt som modelnavn. Posten kan ikke låses, før producenten er spurgt."
-  - "Yobotics er domænenavnet; producentens eget engelske navn er Shandong Youbaote Intelligent Robot Co., Ltd."
+  - "THE HOME CITY IS JINAN, NOT JUST SHANDONG: the manufacturer's own About page states the full address \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" — Shandong is the province, Jinan is the city within it that the manufacturer actually discloses."
+  - "OPEN QUESTION: the manufacturer's own heading says Y10, but the description right below it is about Y5. The heading is used as the model name. The entry cannot be locked until the manufacturer has been asked."
+  - "Yobotics is the domain name; the manufacturer's own English name is Shandong Youbaote Intelligent Robot Co., Ltd."
 anvendelse:
   vaerdi:
     - "forskning_udvikling"
@@ -16,7 +16,7 @@ anvendelse:
   citat: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
   kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
   hentet: "2026-08-19"
-  note: "Sætningen står som indledning på katalogsiden for hele serien (Y20, Y10, e-Dog) og er ikke skrevet om den enkelte model. Ordet \"commercial\" har det tilladte sæt ingen kategori for."
+  note: "The sentence appears as the introduction on the catalogue page for the entire series (Y20, Y10, e-Dog) and is not written about the individual model. The word \"commercial\" has no category in the permitted set."
 billede:
   fil: "fotos/fabrikant/yobotics-y10.png"
   ophav: "fabrikant"
@@ -29,7 +29,7 @@ felter:
     operator: "±"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver ca. 5,6 kg +/- 0,5 kg, hele maskinen inkl. batteri. Både et cirka OG en tolerance på samme tal."
+    advarsel: "The manufacturer states approx. 5.6 kg ± 0.5 kg, the whole machine incl. battery. Both an approximation AND a tolerance on the same figure."
     advarsel_klasse: "uddybning"
   laengde: "ikke_oplyst"
   bredde: "ikke_oplyst"
@@ -45,7 +45,7 @@ felter:
     operator: ">"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket er eksplicit KONTINUERLIG GÅENDE last, > 3 kg. Placeringen er en aflæsning, ikke en slutning."
+    advarsel: "The manufacturer's own label is explicitly CONTINUOUS WALKING load, > 3 kg. The placement is a direct reading, not an inference."
     advarsel_klasse: "uddybning"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -53,7 +53,7 @@ felter:
     enhed: "m/s"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
-    advarsel: "HASTIGHED MED LASTBETINGELSE: producenten skriver løbehastighed 1,4 m/s UDEN LAST. Skemaet har ingen plads til en lastbetingelse på hastighed - kun på driftstid. Feltet ser derfor sammenligneligt ud med andre posters hastigheder og er det ikke helt."
+    advarsel: "SPEED WITH A LOAD CONDITION: the manufacturer states running speed 1.4 m/s WITHOUT LOAD. The schema has no room for a load condition on speed — only on runtime. The field therefore looks comparable to other entries' speeds and is not entirely so."
     advarsel_klasse: "gyldighed"
   haeldning: "ikke_oplyst"
   forhindring_enkelt: "ikke_oplyst"
