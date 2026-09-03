@@ -1,6 +1,6 @@
 ---
 name: parallelt
-description: Sæt flere agenter i gang parallelt på dette projekt, hver i sin egen git-worktree, med selv-test og selv-review indbygget. Brug den hver gang en opgave kan deles i uafhængige spor — dataindsamling, research, flere sektioner. Bærer også fælden ved Agent-værktøjets isolation:"worktree" og den rigtige flette- og oprydningsvej.
+description: Sæt flere agenter i gang parallelt på dette projekt, hver i sin egen git-worktree, med selv-test og selv-review indbygget. Brug den hver gang en opgave kan deles i uafhængige spor — dataindsamling, research, flere sektioner. Bærer også fælden ved Agent-værktøjets isolation:"worktree" og diskprisen pr. spor. Metoden i sporets egen prompt ligger i `spor`-skillen, og fletningen i `flet` — denne peger på dem.
 user-invokable: true
 argument-hint: "[antal spor] [kort beskrivelse af opgaven]"
 ---
@@ -43,51 +43,26 @@ ikke samtalen. Hver prompt skal derfor selv bære:
 
 1. **Arbejdsmappen**, som absolut sti, og hvilke mapper der **ikke** må røres.
 2. **Hvilke projektfiler agenten skal læse først** (`CLAUDE.md`, `PLAN.md`, `DATAMODEL.md`).
-3. **Regel 0 — skill-vurdering:** skriv hvilken skill der blev valgt, og hvilke der blev
-   gået forbi med begrundelse. *"Ingen skill passer her"* er gyldigt, men skal skrives.
-   Er opgaven robotdata, så peg direkte på `.claude/skills/robotdata`.
-4. **Opgaven**, konkret og afgrænset. Ikke "indsaml data", men "disse otte producenter,
+3. **Opgaven**, konkret og afgrænset. Ikke "indsaml data", men "disse otte producenter,
    efter dette skema".
-5. **De hårde regler**, eller en henvisning til den skill der bærer dem.
-6. **Selv-test med tælling:** *"skriv hvor mange felter du efterprøvede og hvor mange
-   fejl du fandt."* Nul fundne fejl uden en tælling er ikke en efterprøvning.
-7. **Selv-review:** hvad agenten er usikker på, skrevet ned inden levering.
-8. **Output-filnavn og commit-instruks.** Brug `git commit -F <fil>` — dobbelte
-   anførselstegn ødelægger argumentoverførsel til native kommandoer i PowerShell 5.1.
-9. **Ærlig rapportering:** hvad blev ikke nået, hvad blev sprunget over.
-9b. **Rapportens form — højst 60 linjer, med konfidensniveau** (fast regel, JPK 25. aug 2026;
-    se CLAUDE.md's "Den faste arbejdsgang"). Skriv ordret i prompten, at rapporten skal bære
-    fire ting og ikke mere: valgt løsning + fravalgt alternativ i én linje hver ·
-    **konfidensniveau pr. punkt** · usikkerheder mødt undervejs · målingerne som tal.
-    Kræv skalaen eksplicit, ellers bliver niveauet en fornemmelse:
-    **høj** = målt med en kommando, orkestratoren kan genkøre den og få samme tal ·
-    **middel** = efterprøvet indirekte, ikke i den endelige form · **lav** = ikke efterprøvet.
-    Skriv også, at *høj uden genkørbar kommando nedskrives til lav* — uden den sætning
-    ender alt på høj. Målt 25. aug 2026: seks rapporter samme dag lå på 226 linjer i snit
-    (længste 337), og den slags bliver skimmet i stedet for læst. Den fulde udredning hører
-    i commit-beskederne, ved siden af den diff den handler om.
-    **To sektioner ligger uden for loftet og er obligatoriske:** *"Nye fælder og opdagelser"*
-    (loftet må ikke koste det, rapporten er værd — under et hårdt loft dropper en agent det
-    overraskende og beholder tjeklisten) og *"Punkter i briefet, jeg ikke nåede"*.
-    **Høj konfidens kræver desuden en kontrafaktisk linje:** hvad tallet ville have været,
-    hvis arbejdet var forkert. Genkørbarhed beviser reproducerbarhed, ikke relevans — 25. aug
-    2026 gav `validate.mjs` 54 reproducerbare fejl, der målte agentens miljø, ikke dens arbejde.
-9c. **Grundmåling som første kommando.** Skriv i prompten, at sporet starter med at måle
-    udgangspunktet og skrive tallet i rapporten. Uden det kan agenten ikke svare på "var det
-    mig, der ødelagde det?" — og to spor mødte samme dag 54 valideringsfejl, der stammede fra
-    manglende gitignorerede billeder.
-9d. **Mærk forventede tal som forudsigelser.** Et acceptkriterium skal udledes, ikke hårdkodes:
-    *"samme sidetal som før dit spor, plus 2 pr. nyt sprog"*, ikke *"213 sider"* — det sidste
-    bliver forkert, så snart kataloget vokser. Bærer briefet et forventet tal, så skriv, at det
-    er et gæt, og at agenten skal måle og rapportere det faktiske. Målt 25. aug 2026: mit
-    "177 sider" blev 175, mit "stort set alle 77" blev 33 af 77. Begge agenter skrev det målte
-    tal; en mindre samvittighedsfuld ville have rettet mod mit gæt.
-10. **"Ét commit pr. punkt" skal formuleres som en skrive-grænse, ikke en commit-grænse.**
-    Målt 25. aug 2026 på to agenter i træk (`fund/FUND-billedspand.md`,
-    `fund/FUND-arkiv.md`), begge trods eksplicit instruks: agenten skrev HELE scriptet i
-    ét første Write-kald, og så bar punkt 1's commit også punkt 2-3's kode, uefterprøvet.
-    Skriv derfor *"skriv KUN punkt 1's kode, mål den, commit — og først DEREFTER må
-    punkt 2's kode skrives"*. En instruks om commits alene ændrer ikke skrivevanen.
+4. **De hårde regler**, eller en henvisning til den skill der bærer dem.
+5. **Mærk forventede tal som forudsigelser.** Et acceptkriterium skal udledes, ikke
+   hårdkodes: *"samme sidetal som før dit spor, plus 2 pr. nyt sprog"*, ikke *"213 sider"*
+   — det sidste bliver forkert, så snart kataloget vokser. Bærer prompten et forventet
+   tal, så skriv, at det er et gæt, og at agenten skal måle og rapportere det faktiske.
+   Målt 25. aug 2026: mit "177 sider" blev 175, mit "stort set alle 77" blev 33 af 77.
+   Begge agenter skrev det målte tal; en mindre samvittighedsfuld ville have rettet mod
+   mit gæt. Det er orkestratorens ansvar, fordi det er orkestratorens gæt.
+6.–10. **Metoden peger på `spor`-skillen.** Punkterne om skill-vurdering, grundmåling,
+   selv-test med tælling, selv-review, skrive-grænse, ærlig rapportering, rapportform og
+   konfidensskala stod her indtil 3. sep 2026 og blev kopieret ind i hvert brief — 20 af
+   21 briefs i `fund/` bar de samme otte blokke. De ligger nu i `.claude/skills/spor/`,
+   som sporet kalder som sin første handling. Prompten bærer i stedet **én linje**:
+
+   > *Kald `spor`-skillen som din første handling. Lykkes kaldet ikke fra din worktree,
+   > så læs `.claude/skills/spor/SKILL.md` fra disk og skriv i rapporten, at du gjorde det.*
+
+   Se `brief`-skillens punkt 5.–8. for, hvad prompten stadig selv skal bære.
 11. **Gitignorerede forudsætninger følger ikke med i en frisk worktree.** `.env` og
     `assets/fotos/fabrikant/` mangler, og validatorens R18 giver da 54 fejl, der ligner
     agentens egne. To spor snublede samme dag (`fund/FUND-vagt.md`, `fund/FUND-eksval.md`).
@@ -145,46 +120,25 @@ Kør dem i baggrunden, så brugeren kan afbryde undervejs.
   fuldgyldigt svar.
 - Arbejd videre på noget, der ikke rører de samme filer.
 
-## 4. Flet og ryd op
+## 4. Flet og ryd op — se `flet`-skillen
 
-```bash
-cd <projektets rod>
-git merge --no-ff -m "Flet <gren>: <hvad agenten lavede>" <gren>
-git worktree remove ../<projekt>-wt-<navn>
-git worktree prune
-git branch -d <gren>
-```
+**Denne sektion var 41 linjer indtil 3. sep 2026 og dublerede `flet`-skillen**, som blev
+bygget 27. aug og siden har fået tre regler, denne kopi ikke havde: tests på det *flettede*
+resultat, meld til den anden session før `koer.mjs`, og kommandoen skal stå i fletbeskeden
+ved siden af tallet. Tre kopier af samme regel divergerer ved den fjerde — og her var det
+allerede sket.
 
-**Flet først, når arbejdet er efterprøvet.** En agents selv-review er et input til
-beslutningen, ikke beslutningen.
+Hele fletprotokollen står i `.claude/skills/flet/SKILL.md`: efterprøvning efter
+konfidensniveau, de tre udfald (**flet** · **flet efter rettelse** · **afvis**),
+gitignorerede filer kopieret ind FØR flettet, `--force` kræver en måling, og oprydningen
+af gren, `additionalDirectories` og STATUS.
 
-**Efterprøv efter konfidensniveau** (fast regel, JPK 25. aug 2026). Rapporten angiver et
-niveau pr. punkt; det bestemmer, hvor orkestratorens måling lægges:
-
-- **Lav** efterprøves først og hårdest — det er dér, fejlene bor.
-- **Middel** efterprøves i den **endelige form**, altså det brugeren ville møde, ikke i den
-  enhedstest agenten allerede kørte.
-- **Høj** stikprøves ved at genkøre agentens egen kommando. Giver den et andet tal, er hele
-  rapporten mistænkt, ikke kun det ene punkt.
-
-Fletbeskeden skal bære **orkestratorens egne tal**, ikke agentens — og skrive tydeligt, hvad
-der *ikke* blev efterprøvet. Se de tre eksempler fra 25. aug 2026 (`spor/vagt`, `spor/arkiv`,
-`spor/eksval`), hvor efterprøvningen fangede ting, agentens egen rapport ikke havde set:
-i vagt-sporet efterlignede orkestratoren selv en Studio-redigering og talte rækkerne bagefter.
-
-**Efterprøvningen har tre udfald, ikke ét** — en arbejdsgang, der ender på "flet", trækker mod
-at flette: **flet** · **flet efter rettelse** (præcise punkter tilbage til samme agent) ·
-**afvis**, når løsningens *retning* er forkert. Ved afvis committes agentens arbejde på grenen
-som **mellemtilstand** med en besked om, hvad der er rigtigt ved den og hvad der ikke er, og en
-efterfølger får den commit som læsestof. **Worktreen ryddes ikke ved afvis.** Det skete
-25. aug 2026 med `spor/prosa`: analysen var rigtig, løsningen (YAML-kommentarer) ville være
-slettet tavst ved næste regenerering fra databasen.
-
-**Et spor er ikke færdigt, før worktreen er væk** og `additionalDirectories` i
-`.claude/settings.json` er nulstillet. En efterladt worktree bliver til en gren, ingen tør
-slette, fordi ingen længere ved, om der lå noget i den — `spor/retning-atlas` og
-`spor/retning-moerk` har ligget siden designrunden. **Sættes en worktree bevidst på pause,
-skal den skrives ind i STATUS.md** med gren, sti og indhold.
+Det ene, der hører hjemme her, fordi det er parallelitetens egen regel:
+**et spor er ikke færdigt, før worktreen er væk.** En efterladt worktree bliver til en
+gren, ingen tør slette, fordi ingen længere ved, om der lå noget i den —
+`spor/retning-atlas` og `spor/retning-moerk` har ligget siden designrunden.
+**Sættes en worktree bevidst på pause, skal den skrives ind i STATUS.md** med gren, sti
+og indhold, målt og ikke husket.
 
 ## 5. Flytning under kørsel — gør det ikke
 

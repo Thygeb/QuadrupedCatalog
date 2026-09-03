@@ -54,51 +54,36 @@ som konstant ("213 sider"). Kan det ikke udledes, mærkes det **forudsigelse**:
 agenten skal måle og skrive det faktiske tal, ikke ramme dit. Mit "177 sider"
 blev til 175; agenten gjorde det rigtige. Nævner og dato på ethvert citeret tal.
 
-### 5. Skill-instruksen peger, kopierer ikke
+### 5.–8. Metoden peger på `spor`-skillen — skriv den ikke af
 
-Navngiv de skills, sporet skal kalde (og dem, det skal vurdere og evt. gå
-forbi). Skriv aldrig reglerne af i hånden — tre kopier divergerer ved den
-fjerde. Plugin-skills fra en worktree svinger: giv diskstien med som reserve,
-og kræv at rapporten siger, hvis den blev læst fra disk.
+**Punkt 5, 6, 7 og 8 var indtil 3. sep 2026 fire regelblokke, der blev kopieret
+ind i hvert eneste brief.** Målt samme dag: 20 af 21 briefs i `fund/` bar de
+samme otte blokke, og `BRIEF-f2-vaern.md` brugte 47 af sine 205 linjer på dem.
+Det er præcis den håndkopiering, punkt 5 selv advarede imod. De ligger nu i
+`.claude/skills/spor/`, som **sporet kalder som sin første handling**.
 
-### 6. Rapportformen er bestilt eksplicit
+Briefet skal derfor kun bære **én linje** i stedet:
 
-Højst 60 linjer: valgt/fravalgt løsning, konfidens pr. punkt (høj kræver
-genkørbar kommando PLUS kontrafaktisk linje — ellers middel), usikkerheder,
-målinger som tal. UDEN FOR de 60, obligatorisk: "Nye fælder og opdagelser" og
-"Punkter i briefet, jeg ikke nåede". Uden bestillingen kommer der 226 linjer.
+> *Kald `spor`-skillen som din første handling — den bærer grundmålingen,
+> skrive-grænsen, kontrollinjen, filejerskabet, selv-efterprøvningen,
+> rapportformen og miljøfælderne. Lykkes kaldet ikke fra din worktree, så læs
+> `.claude/skills/spor/SKILL.md` fra disk og skriv i rapporten, at du gjorde
+> det.*
 
-### 7. Miljøfælderne er med
+**Det, briefet stadig selv skal bære**, fordi det er opgavespecifikt:
 
-De koster en runde hver, når de udelades: node's fulde sti · commit-beskeder
-med backticks via `git commit -F` · `sed -i` fejler tavst, brug Edit ·
-gitignorerede filer kopieret ind i worktreen (billeder!) · egen serverport +
-verificér mod disken · UTF-8 uden BOM. Kopiér blokken fra et nyligt brief —
-det er en huskeliste, ikke en regel, så kopien er lovlig her.
-
-**To fælder mere, begge målt 1. sep 2026, begge kostede en forkert
-konklusion:**
-
-- **`git -C` med MSYS-sti (`/c/Praktik/…`) fejler på Windows.** Git kan ikke
-  skifte til den og skriver `fatal: cannot change to`. Brug `C:/Praktik/…`.
-- **Send aldrig en kommando til `/dev/null`, hvis dens exitkode eller
-  fejltekst er en del af målingen.** Orkestratoren målte fire worktrees med
-  `git -C /c/… 2>/dev/null` og fik "0 commits, intet ucommitteret" for dem
-  alle. Git havde aldrig kørt. To spors arbejde var ét skridt fra at blive
-  slettet på det tal.
-
-**Sporet skal lukke sin server, før det rapporterer.** Skriv det ind i
-briefet. Målt 1. sep 2026: **fem forældreløse `python -m http.server` fra
-døde spor kørte samtidig**, holdt to worktree-mapper låst, så de ikke kunne
-slettes, og optog de porte, nye spor fik tildelt — to porte endte med to
-processer hver. Ingen af dem hørte til et kørende spor. Linjen i briefet:
-*"luk din server, når du er færdig med at måle, og skriv i rapporten at du
-gjorde det."*
-
-### 8. Commit undervejs er et krav, ikke et råd
-
-To spor døde på tre dage uden en linje efterladt. Ét commit pr. sammenhængende
-ændring, så et dødt spor kan måles i stedet for at gættes.
+- **5.** Navngiv de *øvrige* skills, sporet skal kalde eller vurdere —
+  `robotdata` for en robotpost, `supabase` for skemaarbejde, `fejljagt` når
+  noget opfører sig uventet. Plugin-skills fra en worktree svinger: giv
+  diskstien med som reserve.
+- **6.** Rapportens **filnavn** (`fund/FUND-<spor>.md`) og eventuelle ekstra
+  sektioner ud over skillens to obligatoriske.
+- **7.** De miljøting, der er særlige for netop dette spor: hvilken port det
+  har fået, hvad der er kopieret ind i worktreen, om det må køre
+  `tests/koer.mjs`. Det generelle står i
+  `.claude/skills/spor/references/miljoefaelder.md`.
+- **8.** Hvilke punkter der skal committes hver for sig, i hvilken rækkefølge.
+  Skillen bærer *hvorfor* det er en skrive-grænse og ikke en commit-grænse.
 
 ### 9. Pladsholder-scanning til sidst
 

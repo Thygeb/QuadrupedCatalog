@@ -565,12 +565,14 @@ skal ikke distribueres med repoet.
 
 ## Projektskills — brug dem frem for at gentage reglerne
 
-Ud over de globale skills i tabellen ovenfor har projektet otte egne i `.claude/skills/`:
+Ud over de globale skills i tabellen ovenfor har projektet ti egne i `.claude/skills/`
+(otte indtil 2. sep 2026; `retro` kom til 3. sep, `spor` samme dag):
 
 | Skill | Hvornår |
 |---|---|
 | `robotdata` | Hver gang en robotpost tilføjes, opdateres eller efterprøves. Bærer 33-feltsskemaet (målt mod `FELTNAVNE.length` 3. sep 2026 — her stod 29, skillen sagde 30), de ti hårde regler og selv-tjekket med tælling |
-| `parallelt` | Hver gang arbejde deles på flere agenter. Bærer worktree-opsætningen, prompt-tjeklisten og de to fælder |
+| `spor` | **Sporets egen skill — kaldes af SUBAGENTEN som første handling, ikke af orkestratoren.** Bærer metoden, der før blev kopieret ind i hvert brief: grundmåling, kontrollinje, skrive-grænse, filejerskab, selv-efterprøvning med tælling, rapportform og konfidensskala, plus `references/miljoefaelder.md`. Bygget 3. sep 2026, da SKILLEVAL målte, at 20 af 21 briefs i `fund/` bar de samme otte regelblokke |
+| `parallelt` | Hver gang arbejde deles på flere agenter. Bærer worktree-opsætningen, det opgavespecifikke i prompten og diskprisen pr. spor. Metoden peger på `spor`, flettet på `flet` |
 | `grillmig` | **UDE AF DET OBLIGATORISKE WORKFLOW pr. 28. aug 2026, besluttet af JPK.** Må stadig kaldes bevidst på et **agentbrief**, hvor et målbart facit findes — aldrig automatisk, og **aldrig på en designretning**. Begrundelsen, som er JPK's egen: den holder designprocessen tilbage og skærer for mange idéer. Det er strukturelt, ikke tilfældigt — skillens egen tekst siger *"enighed er fejltilstanden"* og *"slut aldrig med en ros"*, så den er bygget til at finde indvendinger. På et brief er det rigtigt. På en designretning er det skævt, fordi prisen ved en ny idé altid er konkret, mens gevinsten altid er spekulativ; resultatet bliver en nej-liste. **Det afgørende modbevis for dens beskyttelsesværdi er Å55:** sessionens dyreste fejl skete med skillen kørende — den stillede sit spørgsmål B3 om tidligere beslutninger, og jeg svarede forkert på det alligevel. En skill, der stiller det rigtige spørgsmål, forhindrer ikke et forkert svar. **Det, der SKAL overleve uden den:** slå altid efter i STATUS.md's **Lukket**-tabel og i *"Kom ikke igen med disse"*, før noget bygges — og afkort aldrig den søgning med `head`, se Å55 |
 | `brief` | **Bygger briefets krop** (kaldes nu direkte, uden et grillmig-trin før): kørte acceptkriterier, komplet filejerskab, mærkede tal, rapportform, miljøfælder, pladsholder-scanning. Bygget 27. aug 2026 af ARBEJDSGANG.md O3's fire defekter |
 | `fejljagt` | HVER gang noget opfører sig uventet — rød test, måletal der ikke passer, kriterium der giver 0 uanset input. Efterprøv måleapparatet før tallet; mekanismesætning før rettelse; revert-bevis efter. Bygget 27. aug 2026 af ugens tre målefejl |
