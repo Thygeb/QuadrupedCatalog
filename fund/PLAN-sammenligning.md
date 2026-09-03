@@ -130,5 +130,90 @@ En færdig, gratis krog, som ingen har brugt.
 
 `tools/skabelon/sammenligning.mjs:228` sætter `maksAntal: 3`, efterprøvet i den byggede
 HTML (`"maksAntal":3`). Briefet beder om en beskrivelse ved **4 og 5** valgte robotter.
-De tilstande **kan ikke opstå**. De er beskrevet under `## K1` som betingelse, ikke som
+De tilstande **kan ikke opstå**. De er beskrevet under K1 som betingelse, ikke som
 tilfælde.
+
+---
+
+## K1 — lige kolonnebredder
+
+**Forskriften er én erklæring:**
+
+```css
+.saml-matrix{table-layout:fixed}
+```
+
+**Den eksplicitte bredde på rækkehoved-kolonnen, briefet efterlyser, findes allerede** — tre
+steder, og alle tre bliver respekteret af `fixed`:
+
+- `generator.css:434` `.specimen-hoved__hjoerne{…width:224px;min-width:224px}`
+- `generator.css:607–608` `.saml-raekke__navn{…width:224px;min-width:224px}`
+- `generator.css:679` ved ≤720 px: begge til `150px`
+
+`table-layout:fixed` læser **første rækkes** bredder, og første række er `.specimen-hoved`,
+hvis hjørnecelle allerede bærer de 224 px. Målt: hjørnet står på **224,0** før og efter, og på
+**150,0** ved 390 px. Der skal altså ikke tilføjes en bredde. En fjerde kopi af det samme tal
+ville være D7/L30-fælden — et håndskrevet tal ved siden af et, der allerede udledes.
+
+**Virkningen, målt på samme side med kun `table-layout` skiftet:**
+
+| Tilfælde | `auto` (i dag) | `fixed` |
+|---|---|---|
+| 2 plader, 1440 | 224 · 917,7 · 195,1 → **4,70×** | 224 · 556,4 · 556,4 → **1,00×** |
+| 3 plader, 1440 | 224 · 728,7 · 195,1 · 189,0 → **3,86×** | 224 · 370,9 · 370,9 · 371,0 → **1,00×** |
+| 3 plader, 390 | tabel 662 px · 150 · 224,9 · 149,4 · 137,8 | tabel **640** px · 150 · 163,3 · 163,3 · 163,4 |
+
+**Prisen — og det er hele prisen:**
+
+| | 2 plader @1440 | 3 plader @1440 | 3 plader @390 |
+|---|---|---|---|
+| Sidehøjde `auto` | 2.561 | 2.550 | 3.356 |
+| Sidehøjde `fixed` | 2.657 | 2.742 | 3.716 |
+| Forskel | +96 px (+3,7 %) | +192 px (+7,5 %) | +360 px (+10,7 %) |
+
+Det, der **ikke** koster noget, målt i samme kørsler:
+
+- Celler med indholdsoverløb: **0 af 102** ved 1440, **0 af 99** ved 390 — i begge tilstande.
+- Vandret overløb på siden: **0** i alle seks målinger.
+- `.saml-rulle`s rullelængde ved 390: **319 → 297 px**. Fixed ruller **mindre**, ikke mere.
+
+**De to omkostninger, briefet beder om stilling til:**
+
+1. **Den klæbende venstrekolonne er upåvirket.** Målt ved 390 px, `scrollLeft` 0 → 250:
+   `.saml-raekke__navn` står på venstre kant **16 → 16 px** i *både* `auto` og `fixed`.
+   `position:sticky` og `table-layout` rører ikke hinanden. (Gruppetitlens klæbning er
+   allerede i stykker, F3 — men den er lige meget i stykker før og efter, så den er ikke
+   K1's regning at betale.)
+2. **`.saml-matrix{min-width:640px}` ved ≤820 px bliver mere sand, ikke mindre.** Under `auto`
+   presser indholdet tabellen til 662 px; under `fixed` lander den præcis på de 640, reglen
+   siger. Ingen ændring nødvendig.
+
+**Ved 2 og 3 plader** står tallene i tabellen ovenfor. **Ved 4 og 5** kan intet ske: loftet
+er 3 (F7). Hæves `maksAntal` en dag, giver `fixed` `(1.336,8 − 224) / n` = **278,2** px ved 4
+og **222,6** px ved 5 — det sidste smallere end rækkehovedets egne 224 px, og uden at rulleren
+tændes, fordi `min-width:640px` kun gælder ≤820 px. **Det er en betingelse, ikke en opgave:**
+hæves loftet, skal `.saml-matrix` have en `min-width`, der vokser med pladeantallet. Byg det
+ikke nu.
+
+**Én ting mere i samme greb, og den er ikke gratis at udelade.** `overflow-wrap` på
+`.saml-raekke__celle` er i dag `normal`. Under `auto` kan et langt ord altid tvinge kolonnen
+bredere; under `fixed` kan det ikke. Længste ord i datasættet i dag er **29 tegn**, og det
+klipper ingenting — 0 overløb målt. **Måleapparatet er valideret mod et kendt svar:** et
+indsprøjtet 200-tegns ord gav `scrollWidth` 1.531 mod `clientWidth` 244, så apparatet *ser*
+overløb, når der er noget at se; nullet er ægte. Men det er ægte for *dagens* data. Sæt
+`overflow-wrap:anywhere` i samme commit, så en fremtidig 60-tegns modelbetegnelse ikke bliver
+til et layoutbrud, ingen forbinder med denne ændring.
+
+**Fravalgt 1 — `<colgroup>` med procentbredder.** Virker, men flytter en layoutbeslutning ind
+i `sammenligning.js`' markup: et andet sted at ændre, og et sted, CSS'en ikke kan nå ved
+≤720 px, hvor hovedkolonnen skal til 150. `fixed` læser den bredde, CSS'en allerede sætter
+responsivt.
+
+**Fravalgt 2 — `width:33.33%` på `.specimen`.** Under `auto` er procentbredder vejledende.
+De målte 3,86× og 4,70× **er** `auto`s svar på indholdsbestemt bredde; en procent bliver
+overtrumfet af samme mekanisme.
+
+**Aldrig `table{table-layout:fixed}` på det bare element.** `system.css` §14's
+`table{width:100%;min-width:620px;font-size:15px}` når allerede herind og måtte neutraliseres
+én gang (`generator.css:575`, hvis egen kommentar kalder `min-width:620px` *"den farligste af
+dem"*). En global regel ville ramme producentsidens tabel og robotsidernes 77 tabeller umålt.
