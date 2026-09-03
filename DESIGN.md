@@ -338,7 +338,7 @@ observation frem for en fejl.
 producentsiden handler **31 %** af Xiaomis side og **42 %** af Unitrees om den
 producent, siden er opkaldt efter. Blokken *"Alle 25 producenter"* er
 **konstant 1715px** uanset producent — så jo tyndere producenten er, jo mere
-handler hendes side om alle andre. Se `fund/PLAN-design.md`, punkt 1.
+handler hendes side om alle andre. Se `fund/PLAN-designarbejde.md`, punkt 1.
 
 ## Farver
 
@@ -482,14 +482,27 @@ det, er 200+ sider.
 **Systemet har allerede svaret, og det er halvvejs bygget.** Målt over begge
 stilark: **fem** fokusregler tegner allerede ringen i `--blaek` — `.rk__felt`
 (`generator.css:1409`), `.chip__felt` (`:1449`), `.sortervalg input` (`:1496`),
-`.skala__greb` (`system.css:2222`) og `.knap--maerkat` (`:2716`). Fem tegner den
-i `--accent`, hvoraf **fire står på lys flade** og er ulovlige: den globale
+`.skala__greb` (`system.css:2222`) og `.knap--maerkat` (`:2716`). **Otte** tegner
+den i `--accent`, hvoraf **syv står på lys flade** og er ulovlige: den globale
 (`system.css:343`), `summary.facet__navn` (`:2368`), `.stribe-under-fold >
-summary` (`generator.css:964`) og `.skema > summary` (`generator.css:1058`, hvis
-flade er `--panel`, `:1045`). Den femte, `.klaebebar__gaa/__ryd`
-(`system.css:2482`), står på `--fod` og er **lovlig**. Dertil én
+summary` (`generator.css:964`), `.skema > summary` (`generator.css:1058`, hvis
+flade er `--panel`, `:1045`) og **enhedskontaktens tre kopier**
+(`system.css:2022`, `:2566`, `:2811`). Den ottende, `.klaebebar__gaa/__ryd`
+(`system.css:2483`), står på `--fod` og er **lovlig**. Dertil én
 `border-color`-indikator, `.sog input:focus-visible` (`system.css:1524`), som er
 type 3 på lys flade.
+
+> **RETTELSE 3. sep 2026, af samme spor som skrev afsnittet.** Der stod
+> *"Fem tegner den i `--accent`, hvoraf fire står på lys flade"*. Målt med
+> `grep -nE "outline:[^;}]*solid var\(--accent\)" assets/system.css
+> assets/generator.css`: **8**, ikke 5. De tre oversete er tre kopier af den
+> samme regel på enhedskontakten — `.typeskilt .enhedsskift` (2022),
+> `.daek__enhed .enhedsskift` (2566) og `.sammenligning-app .enhedsskift`
+> (2811). `.daek` sætter ingen egen baggrund (`system.css:512-515`) og arver
+> `--bund`, så ringen dér er de samme **1,38 : 1**. Byggesporet skal måle, om
+> 2811 overhovedet kan nås — `.sammenligning-app .enhedsskift` er
+> `display:none` på `system.css:2557` — og skrive svaret, i stedet for at
+> antage det.
 
 **Fravalgt alternativ, skrevet ned så det ikke skal genopfindes: den tofarvede
 ring** — et indre accentbånd og en ydre gunmetalring, hvor accent læses mod
@@ -504,9 +517,14 @@ mekanisme i dette system.
 
 #### Acceptkriterier for DP1 — et byggespor kan sendes på dem
 
-- **AK1a.** `grep -n "solid var(--accent)" assets/system.css assets/generator.css`
-  giver **0** linjer, hvor egenskaben er `outline`. Kontrafaktisk: uden
-  rettelsen giver samme kommando **4**.
+- **AK1a.** `grep -cE "outline:[^;}]*solid var\(--accent\)" assets/system.css
+  assets/generator.css` giver **0** for begge filer. Kontrafaktisk: uden
+  rettelsen giver samme kommando **6** og **2**, i alt **8**.
+  **Her stod tallet 4, og det var forkert** — det talte fem regler, hvoraf
+  enhedskontaktens tre kopier manglede. Se rettelsen i DP1b ovenfor.
+  Brug den snævre form: `grep -n "solid var(--accent)"` giver **10**, fordi
+  to `border-bottom`-erklæringer (`generator.css:1251, 1349`) også matcher.
+  De er ikke fokusringe og må ikke røres.
 - **AK1b.** `grep -c -- "--ring" assets/system.css` er **≥ 2** (definitionen i
   `:root` og den globale ring), og hver mørk flade, der kan indeholde et
   fokuserbart element, sætter `--ring:var(--accent)`. Byggesporet skriver
@@ -654,7 +672,7 @@ uden at ændre en eneste `font-size` — og hvis det ændrer én, skal det stå 
 rapporten som en afvigelse fra denne beslutning.
 
 **Det legitimerer ikke de 56.** At skære skalaen ned er et selvstændigt spor
-over hele sitet (`impeccable typeset`), og det står i `fund/PLAN-design.md`.
+over hele sitet (`impeccable typeset`), og det står i `fund/PLAN-designarbejde.md`.
 DP3b gør præcis én ting: den fjerner den usikkerhed, der blokerede ét spor.
 
 ### DP3c — skriftgulvet får en rækkevidde
@@ -1337,4 +1355,4 @@ altså **et tilfældigt tal, der lige akkurat rammer over skriftgulvet.**
 til faste px vil ændre deres størrelse på **alle** flader, der bruger dem —
 robotside, sammenligningsside, katalog — og de flader er ikke målt. Det er et
 eget spor med en egen grundmåling, ikke en note i en plan. Se
-`fund/PLAN-design.md`.
+`fund/PLAN-designarbejde.md`.
