@@ -145,9 +145,33 @@ export default async function koer(ctx) {
     const grupper = (html.match(/<details[^>]*data-facetgruppe="/g) || []).length;
     const aabne = (html.match(/<details[^>]* open/g) || []).length;
     const fieldsetIFacetnet = udsnit(html, '<div class="facetter__net">', '<section class="resultat"');
-    ok(`48.11.${sprog}: ni filtergrupper er <details> (fandt ${detaljer} <details> i alt,`
-      + ` heraf ${grupper} med data-facetgruppe - certificering har bevidst ingen)`,
-      detaljer === 10 && grupper === 8, `${detaljer}/${grupper}, forventede 10/8`);
+
+    /* 48.11 er VENDT 3. sep 2026 (spor/testvend). FOER beviste den, at
+       certificeringsfacetten var den ENESTE af ni facetgrupper UDEN
+       data-facetgruppe - dengang stod den som en tom "reserveret"-plads
+       uden mekanik (L55 punkt 1), saa grupper=8 var korrekt.
+
+       spor/kat3 aabnede facetten PAA CE 3. sep 2026 (JPK's ord), og den
+       gaar nu gennem facetBlok() ligesom enhver anden facet -
+       facetBlok() saetter data-facetgruppe UBETINGET
+       (tools/skabelon/katalog.mjs:964). assets/katalog.js' egen
+       kommentar (linje 351) siger det direkte: "[data-facetgruppe] staar
+       paa alle ni grupper". Attributten bruges til at taelle "N valgt"
+       pr. gruppe (facetgruppeAntal(), katalog.js:544) - certificering
+       skal kunne det samme som de andre otte, saa den gamle antagelse
+       ("certificering har bevidst ingen") er ikke laengere sand. */
+    ok(`48.11.${sprog}: ti <details> i alt, alle ni facetgrupper (inkl. certificering) baerer data-facetgruppe`,
+      detaljer === 10 && grupper === 9, `${detaljer}/${grupper}, forventede 10/9`);
+    // Revert-bevis: fjernes CE's attribut igen (den gamle tilstand), skal
+    // taellingen falde til 8 og goere assertionen ovenfor roed. Strengen
+    // "ce" staar ogsaa i CSS-selektorer (fx `[data-facetgruppe="ce"]`), saa
+    // kun det AABNENDE <details>-tag rammes - ikke enhver forekomst.
+    const gammelTilstand = html.replace(
+      /<details class="facet facet--s3 facet--raekkeslut" data-facetgruppe="ce"/,
+      '<details class="facet facet--s3 facet--raekkeslut"');
+    const grupperGammel = (gammelTilstand.match(/<details[^>]*data-facetgruppe="/g) || []).length;
+    ok(`48.11.${sprog}.revert: uden CE's data-facetgruppe (den gamle tilstand) falder taellingen til 8`,
+      grupperGammel === 8, `fandt ${grupperGammel}`);
     ok(`48.12.${sprog}: kun DEN ydre panel-toggle staar aaben (fandt ${aabne} med "open")`,
       aabne === 1);
     ok(`48.13.${sprog}: facetter__net baerer ingen <fieldset> laengere`,
