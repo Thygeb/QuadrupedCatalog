@@ -1,0 +1,17 @@
+spor/f2-blindpunkt: gennemlæsning af fase 2's blindpunkt, 392/392 celler, 33 dansk fundet
+
+392 korte celler (<60 tegn, ingen æøå) hos mine 16 producenter læst med øjnene i stedet
+for regex - det instrumentet (db/fase2-tjek.mjs --dansk) ikke kan se. 33 var dansk (8,4 %),
+1 tvivl. 31 sad i value_text (rapporteret i fund/f2blindpunkt-fundne-celler.tsv, ikke
+rettet - value_text ejes af spor/f2-valuetext). 2 sad i caveat (min kolonne) og er rettet
+direkte i DB: 2198/height "USIKKER TILDELING - se bredde." -> "UNCERTAIN ASSIGNMENT - see
+width.", og 2253/docking_station "Ladestander, tilvalg." -> "Charging stand, optional."
+
+Efterprøvet: change_log viser præcis 2 rækker skrevet af spor/f2-blindpunkt, begge inden
+for mine producenter, ingen i value_text. Talaftryk (--tal --producent) identisk før/efter
+for alle 16 producenter - ingen talkolonne rørt.
+
+Se fund/FUND-f2blindpunkt.md for konfidens pr. punkt og forslag til at lukke detektorens
+hul (value_text mangler helt fra DANSK_KOLONNER-listen).
+
+Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>

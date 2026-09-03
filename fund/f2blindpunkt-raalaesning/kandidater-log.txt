@@ -1,0 +1,19 @@
+Robotter i alt: 77 · mine (16 producenter): 51
+Producenter i mit soegerum (16): ANYbotics, Addverb, Bhairav Robotics, DEEP Robotics, Ghost Robotics, Keybotic, MAB Robotics, MagicLab, MicroRoboTech, NEURA Robotics, Pudu Robotics, Rainbow Robotics, Raion Robotics, Shandong Youbaote Intelligent Robot, Unitree Robotics, WEILAN
+KANDIDATCELLER (< 60 tegn, ingen aeoeaa): 392
+  Unitree Robotics: 173
+  MicroRoboTech: 45
+  DEEP Robotics: 41
+  Addverb: 19
+  MagicLab: 18
+  ANYbotics: 16
+  Rainbow Robotics: 14
+  Ghost Robotics: 12
+  MAB Robotics: 12
+  Shandong Youbaote Intelligent Robot: 12
+  NEURA Robotics: 8
+  Keybotic: 7
+  Pudu Robotics: 6
+  Bhairav Robotics: 4
+  WEILAN: 3
+  Raion Robotics: 2

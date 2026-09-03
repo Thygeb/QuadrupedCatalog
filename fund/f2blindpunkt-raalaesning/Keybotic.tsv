@@ -1,0 +1,7 @@
+1	2216	keybotic-keyper	width	caveat_wording	"Width: 95cm"
+2	2216	keybotic-keyper	height	caveat_wording	"Height: 60cm (min 35 max 75)"
+3	2216	keybotic-keyper	weight	caveat_wording	"Weight: 43kgs"
+4	2216	keybotic-keyper	length	caveat_wording	"Length: 60cm"
+5	2216	keybotic-keyper	runtime	caveat_wording	"90/120 min battery run time"
+6	2216	keybotic-keyper	charging_time	caveat_wording	"min for full charge"
+7	2216	keybotic-keyper	compute	caveat	"Under the heading 'Computing' (see caveat_wording)."
