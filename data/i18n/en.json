@@ -98,9 +98,9 @@
   "taeller_i_kataloget": "in the catalogue",
 
   "vaegtklasse_titel": "Weight class",
-  "vaegtklasse_under_20": "Under 20 kg",
-  "vaegtklasse_20_40": "20–40 kg",
-  "vaegtklasse_over_40": "Over 40 kg",
+  "vaegtklasse_under_20": "Under 20\u00A0kg",
+  "vaegtklasse_20_40": "20–40\u00A0kg",
+  "vaegtklasse_over_40": "Over 40\u00A0kg",
   "vaegtklasse_ikke_oplyst": "Weight not stated",
   "vaegtklasse_forklaring": "The class boundaries are set in the build, not in the data. The manufacturer’s own qualifier stays with the figure: a robot stated as at most 20 kg sits in 20–40 kg, because 20 is the number the manufacturer prints.",
   "vaegtklasse_ikke_oplyst_forklaring": "The manufacturer states no weight at all. These sit here, not hidden at the bottom of another class.",
