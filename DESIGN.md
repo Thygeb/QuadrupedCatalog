@@ -218,10 +218,10 @@ den bruger *"samme CSS-klasser … fremfor at opfinde en producent-specifik
 variant"*.
 
 Denne fil førte komponenten som slettet **to steder** indtil 3. sep 2026, mens
-den stod på 50 sider. Fejlen er rettet her og i *Slettede komponenter*, men
-**hullet bagved består: producentfladen har intet komponentafsnit i denne fil
-overhovedet** — se noten sammesteds. Det er dér, en agent skal kigge, og der
-står i dag ingenting.
+den stod på 50 sider. Fejlen er rettet her og i *Slettede komponenter*, og
+**hullet bagved er lukket samme dag: se `## Komponenter` → *Producentfladen*
+(DP2)**, som beskriver fladens otte klasser og afgør EU-fundets to målte
+defekter. Her stod indtil da, at der ingenting stod.
 
 Redaktionel stilhed er stadig princippet: én accentfarve, hårfine kanter,
 firkantede stansede felter frem for runde bløde flader. Personligheden ligger i
@@ -796,19 +796,134 @@ på denne liste uden først at måle den i `dist/`:
 grep -rl "<klassenavn>" dist/da/ dist/en/ | wc -l     # skal give 0
 ```
 
-### Producentfladen mangler et afsnit — kendt hul, ikke en forglemmelse
+### Producentfladen — DP2, designplanen 3. sep 2026
 
-Noteret 3. sep 2026 af `spor/produkort`s analyse (`fund/ANALYSE-produkort.md`,
-hul H1) og efterprøvet her. Fladen er **MODE: Read**, og disse klasser, den
-bygger på, er **ikke** beskrevet nogen steder i denne fil: `.eu-fund-linje`,
-`.eu-fund-tal`, `.producent-fakta`, `.pnavn`, `.pland`, `.pantal`,
-`.prod-navne`, `.kort-legende`. Ordet *"producent"* står 5 gange i filen, alle
-fem tilfældige.
+**Hullet blev noteret 3. sep 2026 af `spor/produkort` (`fund/ANALYSE-produkort.md`,
+hul H1) og lukkes her.** Her stod indtil designplanen kun en note om, at
+afsnittet manglede.
 
-Afsnittet skrives **ikke** her og nu: designfrysen (L70) gælder, og et
-komponentafsnit er en systembeslutning, ikke en dokumentrettelse. Det hører i
-den overordnede designplan. Denne note findes, så næste agent ved, at hullet er
-**målt og kendt** frem for at tro, at fladen er dækket.
+**MODE: Read.** Den besøgende skal **forstå** noget om en producent, ikke løse
+en opgave. Fladens ene berettigelse, ordret fra `producent.mjs`' eget hoved:
+*"at vise CE-oplysningen SAMLET for hele producentens modelrække. Ét 'ikke
+oplyst' er en tom rubrik; tolv under hinanden er en oplysning om producenten."*
+Read-kriteriet er derfor: **kan læseren forstå, hvad vi ved om denne producent —
+og hvad vi ikke ved?** Alt på fladen dømmes efter det, ikke efter Operate's
+"kan opgaven løses hurtigt".
+
+**Ingen betjening.** Målt af `fund/PLAN-producent.md` 6.1: **0** `.knap`,
+**0** `<button>`, **0** `<form>` på begge producentflader. Det er fladens
+reneste overholdelse af hård begrænsning 1, og det er en **egenskab, ikke et
+tilfælde** — en fremtidig knap på denne flade skal begrundes, ikke bare
+tilføjes.
+
+#### De otte klasser
+
+| Klasse | Hvor | Hvad den er |
+|---|---|---|
+| `.eu-fund-linje` | `generator.css:24` | CE-opgørelsens linje. `display:flex`, `flex-wrap`, `align-items:baseline`, `gap:10px 12px`, `max-width:74ch`. **Er siden 3. sep en LISTE af `<p>`, ikke ét element** — se DP2b |
+| `.eu-fund-tal` | `generator.css:28` | Figuren *"n af m"*. `--mono`, tabulære cifre, `clamp(26px,2.6vw,34px)`, 700, `--blaek` |
+| `.producent-fakta` | `generator.css:1087` | Headerens faktarække. `flex-wrap`, `gap:var(--r3) var(--r6)`; `dd` 17px/600/`--blaek`; `.figur` 21px/700 |
+| `.pnavn` | `generator.css:1099` | Producentnavnet i indekslisten. 16px/600, `flex:1 1 14ch`, `min-height:24px`. `--blaek` siden L76 |
+| `.pland` | `generator.css:1104` | Landet. `--mono`, 12px, `--blaek3` |
+| `.pantal` | `generator.css:1105` | Modelantallet. `--mono`, 12,5px, `--blaek2` |
+| `.prod-navne` | `generator.css:1166` | Modelnavne-cellen i producenttabellen. `width:auto`, `padding-left:var(--r4)`, `--blaek3` med `--blaek`-links. Skjules under 899px |
+| `.kort-legende` | **ingen CSS** | Billedlegenden. Målt: `grep -rc "kort-legende" assets/*.css` giver **0** i begge stilark — al form kommer fra `.t-lille`. Klassen bruges to steder (`katalog.mjs:1521`, `producent.mjs:317`) med **hver sin** i18n-nøgle |
+
+**`.kort-legende` er dermed et navn uden en regel.** Systemet har en test mod
+død CSS; det har ingen mod en klasse, der er ren markørtekst i HTML'en.
+Beslutning: **den beholdes** — den er et fæste, en senere regel kan hænge på,
+og at fjerne den ville gøre to flader usporbare med ét grep. Men den skal
+**ikke** bruges som forbillede: en klasse uden regel er ikke systemets måde.
+
+#### DP2a — F2: samme datatilstand i to størrelser på samme side
+
+**Målt af `spor/produkort` på Xiaomis side:** `.v-ikke` står to gange og ser
+forskellig ud — **11px** i headeren (korrekt), **17px** i EU-afsnittet. Samme
+gælder `.v-nej` (skal være 10,5px, fuld `blaek`) og `.v-ja`.
+
+**Årsagen:** `generator.css:30` er `.eu-fund-linje span{font-size:17px;
+line-height:1.5;color:var(--blaek2)}`. Specificiteten **0,1,1** slår `.v-nej`s
+**0,1,0** (`system.css:646`). Reglen blev skrevet, dengang linjen indeholdt
+**præcis én** `<span>` — sætningen. Den er **ældre end** de tilstandsmærker,
+`producent.mjs` lægger ind i dag.
+
+**Det er et konsistensbrud, ikke et tilgængelighedsbrud.** `blaek2` på `bund`
+er 5,68 : 1 mod AA's 4,5 — og de 9×9px firkanter måler korrekt, så hård
+begrænsning 5 er opfyldt. Det er systemets **typografi**, der skrider, ikke
+tilstandsalfabetet.
+
+**Analysens kandidatrettelse er FRAVALGT — diagnosen er rigtig, løsningen er
+det ikke.** Kandidaten var tre nye, mere specifikke regler
+(`.eu-fund-linje span.v-nej{font-size:10.5px;color:var(--blaek)}` osv.). Den
+slår specificitet med mere specificitet og **skriver de fire tilstandes
+værdier af i hånden et sted mere.** Ændres `.v-nej` fra 10,5px, divergerer
+kopien tavst, og ingen test fejler. Det er nøjagtig fælden, denne fil selv
+navngiver: tre håndskrevne kopier divergerer ved den fjerde.
+
+**Valgt løsning: flyt erklæringen fra barnet til forælderen.**
+
+```css
+/* var: .eu-fund-linje span{...}   — rammer ogsaa tilstandsmaerkerne */
+.eu-fund-linje{font-size:17px;line-height:1.5;color:var(--blaek2); /* + de nuvaerende flex-egenskaber */}
+```
+
+**Hvorfor det virker uden en specificitetskamp: en ARVET værdi taber altid til
+en direkte erklæring, uanset specificitet.** Sætningens klasseløse `<span>`
+arver 17px/`blaek2`; `.v-nej`, `.v-ikke`, `.v-ja` og `.v-billede` har deres
+egne direkte erklæringer i `system.css` og vinder dermed af sig selv. Ingen ny
+klasse, ingen kopi, ingen ny regel at holde ved lige. `.eu-fund-tal` og `.ikon`
+har egne erklæringer og er upåvirkede; `.mrk` er px-sat overalt
+(`system.css:648, 653, 695, 703`), så firkanterne rører sig ikke.
+
+**Følgen, som skal skrives frem, fordi den ikke er nul:** `.v-ja` er
+`font-size:.62em` (`system.css:651`) og bliver dermed 0,62 × 17px =
+**10,54px** — lige over skriftgulvet på 10,5px, og på linje med headeren, hvor
+`.producent-fakta dd` også er 17px. **Den underliggende uenighed består:**
+`.v-nej` (646) og `.v-ikke` (692) er fast px, `.v-ja` og `.v-billede` er em. DP2a løser
+symptomet på denne flade; **px/em-splittet i tilstandsfamilien er stadig
+uafgjort** og står i `## Konflikter` som punkt 9.
+
+**Acceptkriterium DP2a:** målt i browseren på en bygget producentside med
+mindst to CE-tilstande — `.eu-fund-linje .v-nej` er **10,5px** og
+`rgb(34, 38, 42)`; `.eu-fund-linje .v-ikke` er **11px** og `rgb(95, 104, 111)`;
+sætningens `<span>` er stadig **17px** og `rgb(84, 92, 99)`. Kontrafaktisk:
+uden rettelsen rapporterer samme script **17px** og `rgb(84, 92, 99)` for alle
+tre. Og: `grep -c "eu-fund-linje span" assets/generator.css` giver **0**.
+
+#### DP2b — H4: hvad der sker, når en komponent bliver en liste
+
+`.eu-fund-linje` blev designet som **ét** element og er siden 3. sep 2026 en
+**liste** af op til tre `<p>` (`producent.mjs:253`). `p{margin:0}`
+(`system.css:300`) gælder, så blokkene støder op mod hinanden.
+
+**Målt af `spor/produkort` ved 390px:** **10px** inde i én tilstandsblok (fra
+tallets bund til den ombrudte sætning), **0px** mellem to blokke. **Nærheden
+grupperer modsat af meningen.** Ved 1440px ombrydes intet, hver blok er 53px,
+og problemet findes ikke — det er altså en ombrydningsfejl, ikke en
+grundfejl. **0px er heller ikke et trin på ottetalsskalaen**, og denne fil
+siger *"Gør rummet fra ottetalsskalaen."*
+
+**Reglen om det gentagne blokelement — den gælder alle komponenter, ikke kun
+denne.** Når en komponent, der var ét element, bliver til en liste, skal
+afstanden **mellem** to forekomster være **mindst ét trin over den største
+afstand inde i** én forekomst, og begge skal komme fra ottetalsskalaen. Ellers
+læses listen som én blok med tilfældige ombrydninger.
+
+**Anvendt her:** største indre afstand er `gap`ens **12px**; nærmeste trin over
+er `--r4` = **16px**.
+
+```css
+.eu-fund-linje + .eu-fund-linje{margin-top:var(--r4)}
+```
+
+**Acceptkriterium DP2b:** målt ved 390px på en producentside med mindst to
+CE-tilstande — afstanden mellem to `.eu-fund-linje` er **16px**, og den er
+større end enhver afstand inde i en enkelt blok. Kontrafaktisk: uden rettelsen
+rapporterer samme måling **0px**. Ved 1440px må målingen af blokkenes højde
+være uændret på nær de 16px.
+
+**DP2 er en beslutning i designplanen, ikke en L-post** — samme forbehold som
+DP1.
 
 ## Gør og lad være
 
@@ -868,7 +983,9 @@ afgjorte punkter er markeret **AFGJORT** med deres L-nummer og beholdt i
 fuld længde — en løst konflikt, der slettes, efterlader ingen forklaring
 på, hvorfor koden ser ud, som den gør.
 
-**Fem af dem er afgjort nu.** Punkt 3, 6 og 8 er uafgjorte og uberørte.
+**Fem af dem er afgjort nu.** Punkt 3, 6 og 8 er uafgjorte og uberørte, og
+designplanen har 3. sep 2026 tilføjet **punkt 9**, som også er uafgjort.
+Punkt 5 er genåbnet og afgjort bredere — se noten dér.
 
 **1. Knappen — to generationer. AFGJORT af L77 (2. sep 2026).**
 Konflikten var: `.videre`/`.videre--stille` (158/142 sider, talt i `dist/`)
@@ -1028,3 +1145,21 @@ peger på systemets token, OG at tokenet er 2px.
 `border:1px solid linje;border-radius:rund;box-shadow:skygge`. `.net .kort`
 (`generator.css`, katalogsiden) nulstiller alle tre til `0`/`none`. Samme
 klasse, to visuelle identiteter, afhængigt af hvilken side der spørger.
+
+**9. Tilstandsfamilien satses på to måder. NY, tilføjet af designplanen
+3. sep 2026.** `.v-nej` er fast **10,5px** og `.v-ikke` fast **11px**
+(`system.css:646, 692`), begge omlagt fra `em` af `spor/samlvaelg`, fordi
+em-satsen svingede med den arvede skrift. `.v-ja` (`.62em`) og `.v-billede`
+er stadig em-baserede. **Halvdelen af én fire-tilstandsfamilie skifter
+størrelse med sin kontekst, halvdelen gør ikke.**
+
+Konflikten var allerede noteret i *De fire datatilstande* som en måling; den
+står nu her, fordi den er en **uafgjort systembeslutning**, og fordi DP2a gør
+den mærkbar: efter DP2a bliver `.v-ja` i EU-afsnittet 0,62 × 17px = 10,54px,
+altså **et tilfældigt tal, der lige akkurat rammer over skriftgulvet.**
+
+**Ikke afgjort af designplanen, og hvorfor:** at låse `.v-ja` og `.v-billede`
+til faste px vil ændre deres størrelse på **alle** flader, der bruger dem —
+robotside, sammenligningsside, katalog — og de flader er ikke målt. Det er et
+eget spor med en egen grundmåling, ikke en note i en plan. Se
+`fund/PLAN-design.md`.
