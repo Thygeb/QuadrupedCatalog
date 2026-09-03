@@ -5,3 +5,4 @@ spor/f2han: GENISOM AI (19 raekker, kumuleret 25/43) skrevet
 spor/f2han: MicroRoboTech (1 raekke, kumuleret 26/43) skrevet
 spor/f2han: Xiaomi (2 raekker, kumuleret 28/43) skrevet
 spor/f2han: Yuejia Lingdong (13 raekker, kumuleret 41/43) skrevet
+spor/f2han: Yufan Intelligent (2 raekker, kumuleret 43/43) skrevet
