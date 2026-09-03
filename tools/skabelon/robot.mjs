@@ -75,6 +75,10 @@
  * fem her — CE er taget ud. Strengen skal skrives om, saa den ikke naevner et antal.
  */
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 // `imperialPost` importeres OGSAA lokalt: `export … from` videresender navnet
 // uden at binde det i denne fils scope, og harOmregnelige() nedenfor kalder det.
 import {
@@ -85,6 +89,79 @@ import {
 import {
   FELTER, FELTNAVNE, GRUPPER, tilstandAf, erGyldighedsforbehold, forbeholdsArt,
 } from '../skema.mjs';
+
+const HER = path.dirname(fileURLToPath(import.meta.url));
+const DATA_ROD = path.resolve(HER, '..', '..');
+const KURSER = JSON.parse(fs.readFileSync(path.join(DATA_ROD, 'data', 'kurser.json'), 'utf8'));
+
+/**
+ * Kursen fra `valuta` til basisvalutaen (USD), eller `null` hvis kilden
+ * ikke dækker den.
+ */
+function kursTilBasis(valuta) {
+  const fra = KURSER.per_euro?.[valuta];
+  const til = KURSER.per_euro?.[KURSER.basis];
+  if (typeof fra !== 'number' || typeof til !== 'number' || !(fra > 0)) return null;
+  return til / fra;
+}
+
+/**
+ * Prisen på robotsiden (L66, JPK 3. sep 2026):
+ * "På robotsiden skal prisen i USD og kildeprisen angives som 'Key figures as stated
+ * by the manufacturer', såfremt det oplyses."
+ *
+ * Begge tal vises: den omregnede USD-pris OG producentens egen kildepris i dens egen
+ * valuta. Kildeprisen bærer kildebogstavet; USD-omregningen har ingen
+ * (regel 2/3: "en omregning har ingen selvstændig kilde").
+ */
+function prisVaerdi(post, ctx, kilder) {
+  const H = ctx.__H;
+  const { i18n } = ctx;
+  const kompakt = ctx.__kompakt === true;
+
+  // HAARD BEGRAENSNING 5: "ikke oplyst", "nej" og "0" er TRE tilstande og skal
+  // se forskellige ud. Foerste udgave af denne vagt slog alt ikke-numerisk
+  // sammen til 'ikke_oplyst'. Maalt 3. sep 2026 er alle 66 uoplyste priser i
+  // dag netop "ikke_oplyst" (58 som raa streng, 8 som objekt), saa den fejl var
+  // ikke NAAELIG - men en fremtidig `pris: nej` ville have loejet tavst.
+  // Tilstanden udledes derfor af tilstandAf(), praecis som den generiske
+  // vaerdi() nedenfor goer det for ethvert andet felt.
+  const raaTilstand = typeof post === 'string' ? post
+    : (post && typeof post === 'object' && typeof post.vaerdi === 'string' ? post.vaerdi : null);
+  if (raaTilstand !== null) {
+    const t = tilstandAf(raaTilstand) ?? 'ikke_oplyst';
+    return { html: H.tilstand(t, i18n), hul: t === 'ikke_oplyst', maerke: '' };
+  }
+  if (!post || typeof post !== 'object' || typeof post.vaerdi !== 'number') {
+    return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
+  }
+
+  const valuta = post.enhed;
+  const kildeMaerke = post.kilde ? (H.kildemaerke(post, kilder) || '') : '';
+  const erBasis = valuta === KURSER.basis;
+
+  if (erBasis) {
+    const html = H.tal(post, { kompakt });
+    return { html, hul: false, maerke: kildeMaerke };
+  }
+
+  const kurs = kursTilBasis(valuta);
+  if (kurs === null) {
+    throw new Error(`robot.mjs: ${ctx.robot?.slug} oplyser prisen i "${valuta}", som `
+      + `data/kurser.json ikke har en kurs for. Tilføj valutaen dér med kilde og `
+      + `dato - prisen må ikke falde tavst ud.`);
+  }
+
+  const usdTal = Math.round(post.vaerdi * kurs);
+  const usdPost = { vaerdi: usdTal, enhed: KURSER.basis, operator: post.operator };
+  const usdHtml = H.tal(usdPost, { kompakt });
+
+  const kildeTalHtml = H.tal(post, { kompakt: true });
+  const kildeHtml = `<span class="stribe-kildepris">${kildeTalHtml}${kildeMaerke}</span>`;
+
+  const html = `<span class="pris-par">${usdHtml}${kildeHtml}</span>`;
+  return { html, hul: false, maerke: '' };
+}
 
 /**
  * D18 · ETIKET — maerket rider paa FELTNAVNET, aldrig paa vaerdien.
@@ -108,7 +185,7 @@ export const esc = (s) => String(s)
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 /** Ikoner, siden bruger. Bygget kan bruge listen til at efterproeve spriten. */
-export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip', 'i-ce', 'i-hul', 'i-pil',
+export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip', 'i-ce', 'i-pris', 'i-hul', 'i-pil',
   // De fire tre-tilstandsmaerker (spor/fundament, L54/L57). Skiltets
   // maerkelinje bruger dem, saa "ja", "nej", "0" og "ikke oplyst" har hver
   // sin FORM og ikke kun hver sin tone - haard begraensning 5.
@@ -118,15 +195,15 @@ export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip'
  *  for=…>), saa det maa ikke skrives af i haanden nogen af stederne. */
 const ENHED_ID = 'enhedsskift';
 
-/** Stribens fem tal. CE er IKKE med: feltet er tomt paa 42 af 46, og en fast
- *  celle, der er et hul 42 gange, laerer ingen noget. CE staar i skiltlinjen
- *  og i skemaet (se skiltLinje() og skemaRaekke()) — ikke i denne strib. */
+/** Stribens seks tal (L66, JPK 3. sep 2026). CE er IKKE med: feltet er tomt
+ *  paa 73 af 77, og en fast celle, der er et hul 73 gange, laerer ingen noget. */
 export const STRIBE_FELTER = [
   ['egenvaegt', 'i-vaegt'],
   ['nyttelast_gaaende', 'i-nyttelast'],
   ['driftstid', 'i-driftstid'],
   ['hastighed', 'i-fart'],
   ['ip_klasse', 'i-ip'],
+  ['pris', 'i-pris'],
 ];
 
 /**
@@ -332,6 +409,10 @@ export function vaerdi(navn, post, ctx, kilder) {
   // laest. Nu baerer pladsen den oplysning, der faktisk bruges.
   const kompakt = ctx.__kompakt === true;
 
+  if (navn === 'pris') {
+    return prisVaerdi(post, ctx, kilder);
+  }
+
   if (post === undefined) {
     return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
   }
@@ -529,7 +610,7 @@ function stribe(ctx, kilder) {
 <svg class="ikon" aria-hidden="true"><use href="#i-hul"/></svg>
 <div class="tekst"><p class="hoved">${esc(flet(T(i18n, 'noegletal_intet'), { b: celler.length }))}</p></div>
 </div>`
-    : `<ul class="stribe stribe--fem">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
+    : `<ul class="stribe stribe--seks">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
 
   // Advarsler og varianter paa stribens felter staar UNDER striben: cellen er
   // for smal til dem, og de maa ikke forsvinde, fordi tallet stod i striben.
@@ -1038,7 +1119,12 @@ export function render(ctx) {
   try {
     const kilder = H.kilder(robot) ?? [];
 
+const SPRITE_EKSTRA = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="i-pris" viewBox="0 0 24 24"><path d="M20.6 13 13 5.4a2 2 0 0 0-1.4-.6H4a2 2 0 0 0-2 2v7.6a2 2 0 0 0 .6 1.4l7.6 7.6a2 2 0 0 0 2.8 0l7.6-7.6a2 2 0 0 0 0-2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+</svg>`;
+
     return `<main class="side" id="hoved">
+${SPRITE_EKSTRA}
 <div class="rum">
 <p class="retur"><a href="${esc(sti(arbejde, 'katalog'))}">${esc(T(i18n, 'til_katalog'))}</a></p>
 

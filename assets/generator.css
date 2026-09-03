@@ -807,18 +807,17 @@
      gjort ombrydningen ENSARTET, men ikke faerre - og paa fx
      anybotics-anymal-x er alle fire ramte celler "ikke oplyst"-huller UDEN
      imperialt chip, saa den mekanisme rammer ikke aarsagen. */
+  .robot-noegletal .stribe--seks,
   .robot-noegletal .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .robot-noegletal .stribe--seks > li,
   .robot-noegletal .stribe--fem > li{border-left:1px solid var(--linje)}
+  .robot-noegletal .stribe--seks > li:nth-child(2n+1),
   .robot-noegletal .stribe--fem > li:nth-child(2n+1){border-left:0}
+  .robot-noegletal .stribe--seks > li:nth-child(n+3),
   .robot-noegletal .stribe--fem > li:nth-child(n+3){border-top:1px solid var(--linje)}
-  /* Fem celler i to spalter efterlader ét TOMT felt i tredje raekke. Paa
-     enhver anden side ville det vaere en skoenhedsfejl; her er det farligt.
-     Sidens signatur er, at et tomt felt BETYDER "ikke oplyst" (haard
-     begraensning 5), saa en tom gitterplads inde i noegletalspanelet kan
-     laeses som et sjette felt, producenten ikke oplyser. Den sidste celle
-     spaender derfor resten af raekken ud, saa panelet lukker.
-     Raekkefoelgen er urgot, og border-logikken ovenfor holder: celle 5 er
-     nth-child(2n+1) og faar ingen venstrekant. */
+  /* Med seks felter i to spalter danner cellerne et perfekt 3x2 gitter uden tomme
+     felter, saa span 2 paa sidste celle bortfalder for .stribe--seks (L66).
+     stribe--fem beholdes ifald andre flader bruger den. */
   .robot-noegletal .stribe--fem > li:last-child{grid-column:span 2}
   .robot-noegletal .stribe > li{padding:14px 13px 13px;gap:10px}
   /* FIGUREN staar paa 23px - og KUN figuren. Den gamle regel her ramte `.v`
@@ -906,20 +905,53 @@
 .stribe-under > .etiket{margin-bottom:2px}
 .stribe-under .advarsel{margin-top:4px}
 
-/* Robotsidens EGEN, fulde stribe (fem felter — ikke kortets kompakte to). */
+/* Robotsidens EGEN, fulde stribe (seks felter — ikke kortets kompakte to). */
+.stribe--seks{grid-template-columns:repeat(6,minmax(0,1fr))}
 .stribe--fem{grid-template-columns:repeat(5,minmax(0,1fr))}
 @media (max-width:1180px){
+  .stribe--seks,
   .stribe--fem{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stribe--seks > li:nth-child(3n+1),
   .stribe--fem > li:nth-child(3n+1){border-left:0}
+  .stribe--seks > li:nth-child(n+4),
   .stribe--fem > li:nth-child(n+4){border-top:1px solid var(--linje)}
 }
 @media (max-width:680px){
+  .stribe--seks,
   .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stribe--seks > li,
   .stribe--fem > li{border-left:1px solid var(--linje);border-top:1px solid var(--linje)}
+  .stribe--seks > li:nth-child(2n+1),
   .stribe--fem > li:nth-child(2n+1){border-left:0}
+  .stribe--seks > li:nth-child(-n+2),
   .stribe--fem > li:nth-child(-n+2){border-top:0}
 }
 .stribe-hoved h2{margin:0}
+
+/* Prisvisning (L66, JPK 3. sep 2026): omregnet USD-pris og producentens egen kildepris. */
+.pris-par{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.stribe-kildepris{
+  display:inline-flex;align-items:baseline;gap:3px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.3;
+  color:var(--blaek3);margin-top:2px;
+}
+.stribe-kildepris .v{
+  font-size:11.5px !important;min-height:auto !important;
+  color:var(--blaek2);gap:.2em;display:inline-flex;
+}
+.stribe-kildepris .num{
+  font-size:11.5px !important;font-weight:600;
+  letter-spacing:normal;
+}
+.stribe-kildepris .enhed{
+  font-size:10px !important;color:var(--blaek3);
+}
+.stribe-kildepris .op{
+  font-size:11px !important;color:var(--blaek3);
+}
+.stribe-kildepris .kildemaerke{
+  font-size:10.5px;
+}
 
 .advarsel-navn{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;color:var(--blaek);margin-bottom:3px}
