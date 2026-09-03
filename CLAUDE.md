@@ -297,6 +297,34 @@ Grene flettes til `main`, når arbejdet er efterprøvet — ikke før.
 
 ---
 
+## To sessioner i samme repo — protokollen
+
+Sat 2. sep 2026 efter en dag med to orkestratorsessioner, 17 flet og 0
+kollisioner efter at reglerne var aftalt. Indtil da fandtes de kun i STATUS.md
+(Å124, Å131) og i beskeder — en komprimeret session kendte dem ikke.
+
+**Grundvilkåret, målt:** worktrees deler ét arbejdstræ og ét ref-lager
+(`git rev-parse --git-common-dir` er ens fra alle). Konsekvenserne:
+
+1. **`git add <fil>` tager den andens ucommitterede linjer med.** Kør
+   `git diff <fil>` før `git add`, og giv en STATUS-række sit nummer og dens
+   commit i samme tur. **Et nummer reserveres ved at pushe rækken, ikke ved at
+   melde det** — to sessioner tog begge det rigtige forbehold og kolliderede
+   alligevel på Å138, fordi vinduet mellem måling og commit er reelt.
+2. **To samtidige `tests/koer.mjs` crasher** (delt `tests/.tmp-koersel`, hver sit
+   HEAD). Meld via `SendMessage`, før du kører på main; vent på *"main er din"*;
+   meld *"færdig"*. Se `flet`-skillens punkt 4.
+3. **"Main er i takt med origin" er en fælles tilstand.** Den kan skifte mellem
+   to af dine egne kommandoer. Mål main umiddelbart før hvert flet.
+4. **Meld filejerskab, når et spor sendes:** hvilke filer, hvilke testnumre.
+   Overlap måles, ikke antages. Meld, hvis et spor begynder at skrive i
+   databasen — den er også delt.
+5. **Tag aldrig den andens tal for gode varer.** Efterprøv med egen måling, og
+   sig til, når den afviger. Det er sådan, 10 forkerte forudsigelser blev fundet
+   på én dag, uden at én nåede en beslutning.
+
+Find den anden session med `ListAgents`; svar på dens adresse fra `from=`.
+
 ## Modelfordeling — hvem tænker, og hvem bygger
 
 Fast regel, sat af JPK 24. aug 2026. Gælder alt arbejde i dette projekt.
@@ -574,6 +602,24 @@ C:/Users/thyge/.claude/plugins/marketplaces/claude-plugins-official/plugins/fron
 
 Kravet om at **skrive i rapporten, at den blev læst fra disk**, gælder uændret.
 
+### En skill kan være installeret og alligevel være helt forkert her
+
+**Passer en skill åbenlyst ikke til projektet, så mål det med én kommando og
+skriv målingen — før den afvises eller følges.** Målt 3. sep 2026: `/android-
+skills:android-retrofit` blev affyret mod denne afhængighedsfri Node-generator.
+Skillen er ægte og installeret (1 af de 15), så kaldet lykkedes, og dens
+indhold — Kotlin, Hilt, OkHttp-interceptorer — så autoritativt ud.
+
+Kontrollen tog ét kald: **0** `.kt`/`.java`/`.gradle`-filer, **0**
+`AndroidManifest.xml`, **0** forekomster af retrofit/okhttp, mod kontroltallet
+**21** filer i `tools/` med ordet "robot". Ufarligt, fordi målingen kom før
+handlingen — men et Android-brief sendt videre til en Sonnet ville have kostet
+et helt spor, og agenten ville have haft en installeret skill som belæg.
+
+Det er den generelle form: **"en skill er tilgængelig" er ikke det samme som
+"en skill hører til her"** — samme skelnen som mellem et plugin på disken og et
+plugin i `enabledPlugins`, bare et lag længere ude.
+
 ## Enhver måling, der bærer en konklusion, skal have en kontrol
 
 **Sat 1. sep 2026 efter en dag med ni fletbeskeder, der hver især måtte
@@ -640,6 +686,15 @@ reproduceret af orkestratoren:
 kald aldrig `process.exit()` bagefter — sæt `process.exitCode` og lad løkken
 tømme sig. `process.exit()` **før** det første `fetch` (argumentfejl, manglende
 `.env`) er ufarligt.
+
+**Men 127 har TO årsager, og kun den ene står ovenfor. Læs fejlteksten, ikke
+kun koden.** Målt 2. sep 2026: en stikprøve gav exit **127** og lignede
+libuv-assertionen præcis — det var bash' eget `node: command not found`, fordi
+node ikke er på PATH i Git Bash (se værktøjsafsnittet). Den dokumenterede
+årsag er her det **oplagte og forkerte** svar, netop fordi den er dokumenteret.
+Libuv-varianten skriver `Assertion failed` og en sti i `src\win\async.c`;
+bash-varianten skriver `command not found`. De ligner ikke hinanden i teksten
+— kun i tallet.
 
 **Mekanismen, så ingen tror `fetch` er magisk:** `process.exit()` river
 event-løkken ned, mens en libuv-handle stadig er ved at lukke. Det er timingen,

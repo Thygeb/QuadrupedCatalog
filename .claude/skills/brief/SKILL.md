@@ -127,6 +127,18 @@ rettelsesbesked er et brief — fil:linje, citat af det nuværende (opslået, ik
 husket), ønsket resultat, kørt acceptkriterium. Sessionens fejl 6 var en
 rettelsesbesked sendt uden om alle værn.
 
+### 11. Prisen står i briefet, og budgettet er målt, før det sendes
+
+Et spor koster tokens af JPK's grænse, og den blev først målt ved **8 %**
+2. sep 2026 — et spor måtte stoppes midt i producent 5 af 6. Målt samme dag fra
+sporenes `<usage>`: **~38k tokens pr. robot** i fase 2's udrulning, **~310k pr.
+robot** i pilotrunden (opskriften kostede 8×, én gang). Et spor, der skriver en
+opskrift, koster altså ikke det samme som et, der følger den.
+
+Skriv sporets forventede pris i briefets hoved, og **spørg JPK om restbudgettet,
+før en fan-out sendes** — ikke efter. Fire spor à 450k er 1,8M; er der 2M
+tilbage, er det ikke fire spor, det er tre.
+
 ## Efter afsendelse
 
 Skriv sporet i STATUS.md's kørende-spor-post (worktree, gren, ejerskab,
