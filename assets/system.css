@@ -1523,6 +1523,31 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .sog input::placeholder{color:var(--blaek3);opacity:1}
 .sog input:focus-visible{border-color:var(--accent);outline-offset:1px}
 
+/* --- J1: SOEGEFELTET FAAR SIT EGET BAAND (PLAN-katalog.md J1.1) -----------
+   JPK 3. sep 2026, ordret: "Padding omkring 'Search by model, manufacturer or
+   requirement'". MAALT FOER, 1440 px, /en/: luft OVER .sog = 0 px, luft UNDER
+   = 0 px. Blokken stoeder direkte op mod <details class="udtraek">'s kant over
+   og mod .facetter__net under, saa soegefeltet laeses som et LAAG svejset paa
+   filtergitteret i stedet for som panelets foerste instrument.
+
+   RETTELSEN ER UDVENDIG, OG DET ER MAALT FREM - ikke valgt. Indersiden er
+   allerede paa sit gulv: 16 px skrift + 9 px lodret polstring = 44 px, sat af
+   JPK selv 1. sep (se blokken lige ovenfor, med begge gulves begrundelse).
+   Beder man om MINDRE polstring indeni, braekker man et gulv, der er to dage
+   gammelt; beder man om polstring UDENOM, er der ingen at reducere - der er
+   ingen. Derfor tilfoejes den her.
+
+   INGEN NY STREG (L40: faerre streger, ikke flere). Facetgitterets foerste
+   raekke har ingen overkant, og luften alene skiller de to instrumenter.
+
+   `padding` OG IKKE `margin`: .udtraek er et <details> uden ramme og uden
+   polstring (generator.css:1287), og .sog er dens foerste element i flow -
+   summary'en over den er display:none. En margin-top ville derfor kunne
+   KOLLAPSE ud gennem foraeldren og lande uden for panelet i stedet for inde i
+   det. Polstring kollapser aldrig. .sog har hverken baggrund eller ramme, saa
+   polstring og margin ser ens ud - kun kollapsrisikoen skiller dem. */
+.udtraek > .sog{padding:var(--r5) 0}
+
 /* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
    katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
    faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
