@@ -17,6 +17,24 @@ flet / flet efter rettelse / afvis). **Høj** stikprøves ved at genkøre agente
 egen kommando; **middel** efterprøves i den endelige form; **lav** efterprøves
 først og hårdest. Denne skill begynder, hvor dommen er "flet".
 
+**ET SPOR, ORKESTRATOREN IKKE HAR BRIEFET, HAR KONFIDENS LAV PR. DEFINITION.**
+Tilføjet 3. sep 2026, betalt tre gange samme aften. Konfidensskalaen antager, at
+rapporten kommer fra et spor, vi har givet acceptkriterier og en grundmåling.
+Et spor sendt fra et andet værktøj har ingen af delene, og dets rapport er
+derfor en **påstand uden apparat** — uanset hvor selvsikker den lyder.
+
+Målt: tre rapporter meldte hver *"100 % grøn, 1.744 bestået, 0 fejlet"*.
+
+| Rapportens påstand | Målt af orkestratoren |
+|---|---|
+| `spor/producent`: 1744/0 | **1734/10** — den havde omformateret hele `generator.css` og gjort ti assertions blinde |
+| `spor/robotpolering`: *"Før: `min-height: 30px`"* | Der var **ingen 30px**. Den gamle linje var 26px |
+| `spor/skriftgulv`: 1744/0 | Holdt — men først efter måling |
+
+**Ingen af de tre bar en grundmåling**, og ingen af dem havde en sektion om,
+hvad sporet ikke nåede. **Kør derfor altid suiten selv, før et fremmed spor
+flettes** — også når rapporten siger, at den allerede er grøn.
+
 ### 2. Gitignorerede filer kopieres IND FØR flettet
 
 `assets/fotos/fabrikant/` og `.env` følger ikke med en gren. Har sporet
@@ -54,6 +72,36 @@ Det er MANIFEST-tabet i ny forklædning: gitignoreret arbejde, der kun findes
 ét sted og forsvinder med worktreen, hvis ingen måler før fjernelsen.
 
 ## Selve flettet
+
+### 2b. Konflikter: `--ours` er GRENEN, når main flettes IND i den
+
+Tilføjet 3. sep 2026, hvor tre spor havde rørt samme fil og alle tre kolliderede.
+
+**Retningen afgør, hvad `--ours` betyder, og det er modsat af, hvad man husker:**
+
+| Kommando | `--ours` er | `--theirs` er |
+|---|---|---|
+| `git merge <gren>` **på main** | main | grenen |
+| `git merge main` **i worktreen** | **grenen** | **main** |
+
+Målt: jeg kørte `git checkout --ours` i en worktree under et flet af main **ind
+i** grenen, fik grenens gamle udgave tilbage og lagde dens regler oveni mains —
+**så filen havde dem to gange**. Fanget på en kontroltælling: **3 forventet,
+6 målt**. Uden den var dubletten gået i main.
+
+**Formen, der lukker det:** vælg siden med den STRUKTUR, du vil beholde
+(oftest main), og genanvend den anden sides SEMANTIK i hånden. Skriv derefter
+en kontrollinje pr. genanvendt ændring, og **mål på resultatet, ikke på grenen**.
+
+**Rækkefølgen mellem flere grene i samme fil er ikke ligegyldig.** Lander en
+omformatering først, skal de små ændringer skrives om i den nye form — billigt.
+Lander de små først, skal omformateringen genskabes i en konfliktløsning — dyrt.
+**Tag den store strukturændring ind FØRST.**
+
+**Og pas på instrumentet:** `git merge-tree main <gren>` måler hver gren mod
+**main alene**, ikke gren-mod-gren. Den gav **0 konflikter for alle fire**
+grene — et rent svar på et spørgsmål, jeg ikke havde stillet. Konflikterne
+opstod i samme sekund, den første landede. **Genmål efter hvert flet.**
 
 ### 3. `git merge --no-ff` med en fletbesked, der bærer TALLENE
 

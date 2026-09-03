@@ -96,6 +96,34 @@ Briefet skal derfor kun bære **én linje** i stedet:
 - **8.** Hvilke punkter der skal committes hver for sig, i hvilken rækkefølge.
   Skillen bærer *hvorfor* det er en skrive-grænse og ikke en commit-grænse.
 
+### 8b. Kommer punktet fra en plan: CITÉR PLANENS EGEN ADVARSEL
+
+Tilføjet 3. sep 2026, og det er dagens dyreste fejl, fordi reglen var skrevet af
+os selv **samme dag**.
+
+`fund/PLAN-designarbejde.md` skrev ved sit punkt R9, ordret:
+
+> *"Send R7 og R9 som ÉT spor. Begge er `generator.css` alene, begge er små, og
+> to spor i samme fil er en flettekonflikt, der først opdages, når begge er
+> færdige."*
+
+R9 blev sendt alene. **Tre CSS-grene kolliderede i `generator.css` samme aften**,
+præcis som forudsagt, og to af dem måtte løses i hånden.
+
+**Advarslen stod i planen, ikke i briefet.** Den, der sendte sporet, læste
+punktets *opgave* og ikke punktets *forbehold* — og en plan er ikke obligatorisk
+læsning for den, der handler på ét af dens punkter.
+
+**Reglen:** stammer et brief fra et punkt i en plan, så **læs hele punktet og
+skriv dets forbehold ind i briefet ordret**. Har punktet en linje om
+rækkefølge, om parring med et andet punkt, eller om en fil, et andet spor ejer,
+så er den linje en del af opgaven. Er der ingen forbehold, så skriv **"planens
+punkt X bærer ingen forbehold"** — så kan næste læser se forskel på et fravalg
+og en forglemmelse.
+
+Samme form som punkt 10: et citat er et tal, og et uciteret forbehold er et
+forbehold, ingen har.
+
 ### 9. Pladsholder-scanning til sidst
 
 Læs briefet igennem for: "TODO", "stram op", "gør det pænere", "fix X" uden
