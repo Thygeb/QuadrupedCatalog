@@ -1,0 +1,2987 @@
+[
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the body-specifications section of the table, manual page 7 (C1 Industrial Small table)."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 15kg"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Effective payload. Mapped to walking payload - '有效' (effective, during active use) is interpreted as corresponding to the walking/dynamic load, parallel to Yuejia's explicit '动态负载' (dynamic load). An interpretation, not the manufacturer's own word 'walking'."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有效负载: 8kg"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Two rows from C1's own 'Other' section - a qualitative list, not a level on a scale."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "其他"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing measurement, length x width x height, in mm."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸（长×宽×高）单位mm: 660*320*470"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum payload. Mapped to standing payload - same interpretation principle as for the walking payload above."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大负载: 15kg"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Movement speed."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "运动速度: 0～3.7m/s"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum climbable slope angle. The plus/minus sign is the manufacturer's own notation."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬斜坡最大坡度: ±40°"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Climb height: 20cm-high continuous stairs - see the top note on the terminology difference between C1 and C1-W."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬高度: 20cm高连续台阶"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "-40C is a paid/custom-order option, not the standard value. The standard value -20C is used here."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "工作环境温度: -20℃~55℃（-40℃可定制）"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Manufacturer states both Ah and Wh directly (720Wh is NOT calculated by us). Nominal voltage (电池额定电压) is given separately as 48V."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "电池容量: 15AH，720Wh"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "No load condition (kg) disclosed. A separate range figure is also given (>10km); the schema has no range field."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航时间: 3.5h～6h | 续航里程: ＞10km"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the manual's shared feature page (page 6), NOT from C1's own table - see the top note. Modular hot-swap battery compartment, battery swap in a few seconds."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "配备模块化热插拔电池仓，支持数秒完成电池更换"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Combines two sources: C1's own table (page 7) and the shared feature page (page 6) - see the top note. Autonomous-charging function: supported; via LiDAR navigation, automatic docking with the charging station."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "自主充电功能: 支持 | 通过激光雷达导航实现自动对接充电桩"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "lidar"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the table's environmental-parameters section, page 7. Type/model not named."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "lidar"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "激光雷达: 探测距离40m | 环境参数"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "compute"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "X86 or domestic Chinese ARM, low power consumption, high performance - two alternative platforms, no TOPS figure disclosed."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "compute"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "CPU: X86或国产ARM低功耗高性能CPU"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External power-supply port. Only voltages disclosed, no wattage per port."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接电源接口: 5V; 12V; 24V；"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External communication interface."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接通讯接口: Ethernet; USB; RS485"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "note",
+    "vaerdi": "From the manual's page 4, BEFORE the model-specific technical parameter tables (pages 7-9). The text appears under the heading (the generic family name, the same name C1 itself carries) and does not name C1 specifically - it covers the whole C1/E1/S1 series as a product category. Our own translation: (security patrol) -> security and surveillance; (emergency response/anti-terror/explosive clearance) -> defense and emergency response; (security/intelligent inspection) -> inspection. The same quote is used independently on all six Galileo entries (C1/C1-W/E1/E1-W/S1/S1-W), NOT via inherited_from, because it is the family page that precedes the variant split - same principle as GENISOM Gangben L2-W's note about citing the shared source independently."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "Fra manualens side 4 (\"应用场景\"), FØR de model-specifikke tekniske parameter-tabeller (side 7-9). Teksten står under overskriften \"智能仿生四足机器人\" (det generiske familienavn, samme navn C1 selv bærer) og nævner ikke C1 ved navn specifikt - den dækker hele C1/E1/S1-serien som produktkategori. Egen oversættelse: 安保巡逻 (sikkerhedspatrulje) -> sikkerhed og overvågning; 应急救援/武装反恐/防爆 (beredskab/antiterror/sprængstofrydning) -> forsvar og beredskab; 安防巡检/智能巡检 (sikkerheds-/intelligent inspektion) -> inspektion. Samme citat er brugt uafhængigt på alle seks Galileo-poster (C1/C1-W/E1/E1-W/S1/S1-W), IKKE via arvet_fra, fordi det er familiesiden, der ligger før variant-opdelingen - samme princip som Genisom Gangben L2-W's note om at citere den delte kilde selvstændigt."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote_wording",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote_wording",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2199
+    },
+    "kolonne": "quote_wording",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2199
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "REAL PRODUCT, NOT JUST A RENDERING: the manual has full technical specification tables with figures and units for all six models, not just marketing text - the same standard as the rest of the catalog."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2199
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "HOT-SWAP FROM THE SHARED FEATURE PAGE (page 6), NOT FROM C1'S OWN TABLE: the manual's shared feature description (before the variant split) states a dual-mode energy-management system - autonomous charging + manual battery swap - with a modular hot-swap battery compartment, battery swap in a few seconds. This is NOT repeated in C1's own technical parameter table, which has only one autonomous-charging row and no hot-swap row - same caution principle as the applications field: cited independently from the family page, not from a model-specific table row."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2199
+    },
+    "kolonne": "notes",
+    "index": 2,
+    "vaerdi": "DOCKING STATION COMBINES TWO SOURCES: the model-specific table's autonomous-charging function (supported) AND the shared feature page's via-LiDAR-navigation, automatic docking with the charging station - the two confirm each other."
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2199
+    },
+    "kolonne": "notes_wording",
+    "index": 1,
+    "vaerdi": "智能仿生四足机器人采用'自主充电+手动换电'双模能源管理系统...同时配备模块化热插拔电池仓，支持数秒完成电池更换 | 自主充电功能: 支持"
+  },
+  {
+    "robot_id": 2199,
+    "slug": "galileo-c1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2199
+    },
+    "kolonne": "notes_wording",
+    "index": 2,
+    "vaerdi": "自主充电功能: 支持 | 通过激光雷达导航实现自动对接充电桩"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Runtime - longer lower bound, shorter upper bound than the walking C1's 3.5-6h. A separate range figure is also given; the schema has no range field."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航时间: 2.5h～5h | 续航里程: ＞15km"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Effective payload - same interpretation as for C1. Identical figure to the walking C1."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有效负载: 8kg"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "In the body-specifications section, manual page 7 (C1-W Industrial Small table)."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 19kg"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing measurement, length x width x height, in mm."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸（长×宽×高）单位mm: 660*320*560"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "height"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Higher than the walking C1 (470mm), as expected once the wheel-legs are added."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum payload - identical figure to the walking C1."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大负载: 15kg"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "LOWER than the walking C1's 3.7m/s. Note: for Yuejia the pattern is reversed (the wheeled variant is faster). The two manufacturers cannot be compared on this point without knowing their respective wheel designs."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "运动速度: 0～2.5m/s"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum climbable slope angle - identical to the walking C1."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬斜坡最大坡度: ±40°"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Climb height: forward height difference, 70cm platform - see the top note on the terminology difference between C1 and C1-W."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬高度: 正向高度差70cm高台"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "-40C is a custom-order option - see C1's corresponding note."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "工作环境温度: -20℃~55℃（-40℃可定制）"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Battery capacity - identical to the walking C1. Nominal battery voltage (电池额定电压) 48V."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "电池容量: 15AH，720Wh"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the shared feature page (page 6), same source as C1."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Autonomous-charging function: supported. Combined with the shared feature page's charging-dock description, same source as C1."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "自主充电功能: 支持"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "note",
+    "vaerdi": "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from, see galileo-c1's note."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote_wording",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote_wording",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2200
+    },
+    "kolonne": "quote_wording",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2200
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "RUNTIME WITHOUT A LOAD CONDITION: the runtime figure has no kg number."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2200
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "HOT-SWAP AND DOCKING STATION: same source and rationale as C1 - from the shared feature page (page 6) and the combination of table row + feature page, respectively."
+  },
+  {
+    "robot_id": 2200,
+    "slug": "galileo-c1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2200
+    },
+    "kolonne": "notes_wording",
+    "index": 0,
+    "vaerdi": "续航时间: 2.5h～5h"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Battery capacity - 48V nominal voltage."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "电池容量: 25Ah（1200Wh）"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "See the top note: the figure occurred only ONCE in the extracted text layer for the E1/E1-W page, assigned to both models based on the C1/C1-W pair's precedent (identical figure on both variants there)."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接电源接口: 5V；12V；48V"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "-40C is a custom-order option."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "-20℃~55℃（-40℃可定制）"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Manual page 8 (E1 table)."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 44kg"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing measurement, length x width x height, in mm."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸（长×宽×高）单位mm: 1000*420*710"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Effective payload - same interpretation as for C1."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有效负载: 20kg"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum payload."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大负载: 85kg"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "The 4.95 m/s limit speed is a separate, higher ceiling value, not used as the primary value (same principle as GENISOM L2's)."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "运动速度: 0～4m/s（极限4.95m/s）"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum climbable slope angle."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬斜坡最大坡度: ±45°"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Climb height: 30cm-high continuous stairs - see the top note on the allocation of the two value blocks."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬高度: 30cm高连续台阶"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "No load condition. A separate range figure is also given."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航时间: 2h～4h | 续航里程: ＞15km"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the shared feature page (page 6), same source as C1."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Autonomous-charging function: supported. Combined with the shared feature page's charging-dock description."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "自主充电功能: 支持"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "TypeC replaces the C1/C1-W pair's RS485. '接口可按需拓展' (interfaces can be expanded as needed) is not a fourth port, just a note on flexibility."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接通讯接口: Ethernet; USB; TypeC（接口可按需拓展）"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "note",
+    "vaerdi": "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote_wording",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote_wording",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2201
+    },
+    "kolonne": "quote_wording",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2201
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "TABLE TERMINOLOGY FOR CLIMBING CAPABILITY: E1's table writes (30cm-high continuous stairs) -> stair_step_continuous. E1-W's corresponding row writes (forward height difference, 1m platform) -> obstacle_single on E1-W's own entry - same pattern as C1/C1-W."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2201
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "RUNTIME WITHOUT A LOAD CONDITION: the runtime figure has no kg number."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2201
+    },
+    "kolonne": "notes",
+    "index": 2,
+    "vaerdi": "HOT-SWAP AND DOCKING STATION: same source and rationale as C1."
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2201
+    },
+    "kolonne": "notes_wording",
+    "index": 0,
+    "vaerdi": "30cm高连续台阶 | 正向高度差1m高台"
+  },
+  {
+    "robot_id": 2201,
+    "slug": "galileo-e1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2201
+    },
+    "kolonne": "notes_wording",
+    "index": 1,
+    "vaerdi": "续航时间: 2h～4h"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum payload - identical to the walking E1."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大负载: 85kg"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Movement speed, 4.95 m/s limit - identical to the walking E1. The limit speed is not used as the primary value."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "运动速度: 0-4m/s（极限4.95m/s）"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Manual page 8 (E1-W table)."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 38kg"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing measurement, length x width x height, in mm."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸（长×宽×高）单位mm: 1000×420×600"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "height"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "LOWER than the walking E1's 710mm - opposite to C1-W, which was HIGHER than C1. The source has been double-checked and reproduced precisely; the difference between the C1/C1-W and E1/E1-W height relationships is not explained in the manual."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Effective payload - identical to the walking E1."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有效负载: 20kg"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum climbable slope angle."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬斜坡最大坡度: ±45 °"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Manufacturer writes '1m'; converted to 100cm for consistency with the other obstacle_single values in the catalog (all in cm). See the top note."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬高度: 正向高度差1m高台"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "-40C is a custom-order option."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "-20℃~55℃（-40℃可定制）"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Battery capacity - identical to the walking E1. 48V nominal voltage."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "电池容量: 25Ah（1200Wh）"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Runtime - shorter than the walking E1's 2-4h. A separate range figure is also given - twice E1's 15km, as expected for a wheel-driven variant."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航时间: 1.5h～3h | 续航里程: ＞30km"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the shared feature page (page 6), same source as C1."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Autonomous-charging function: supported. Combined with the shared feature page's charging-dock description."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "自主充电功能: 支持"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "See the top note: an analogy drawn from the C1/C1-W pair's identical figure, not an independently confirmed E1-W-specific reading."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External communication interface: Ethernet; USB; TypeC; interfaces can be expanded as needed."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2202,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接通讯接口: Ethernet; USB; TypeC（接口可按需拓展）"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "note",
+    "vaerdi": "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote_wording",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote_wording",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2202
+    },
+    "kolonne": "quote_wording",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2202
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "TABLE TERMINOLOGY FOR CLIMBING CAPABILITY: -> obstacle_single (100cm), NOT stair_step_continuous - same pattern as C1-W."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2202
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "RUNTIME WITHOUT A LOAD CONDITION: the runtime figure has no kg number."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2202
+    },
+    "kolonne": "notes",
+    "index": 2,
+    "vaerdi": "HOT-SWAP AND DOCKING STATION: same source and rationale as C1."
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2202
+    },
+    "kolonne": "notes_wording",
+    "index": 0,
+    "vaerdi": "可攀爬高度: 正向高度差1m高台"
+  },
+  {
+    "robot_id": 2202,
+    "slug": "galileo-e1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2202
+    },
+    "kolonne": "notes_wording",
+    "index": 1,
+    "vaerdi": "续航时间: 1.5h～3h"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing measurement, length x width x height, in mm."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸（长×宽×高）单位mm: 1100*450*700"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External power-supply port - identical to the C1/C1-W pair."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接电源接口: 5V; 12V; 24V；"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Manual page 9 (S1 Industrial Large table)."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 60kg"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External communication interface - identical to the C1/C1-W pair."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接通讯接口: Ethernet; USB; RS485"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Effective payload - same interpretation as for C1."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有效负载: 40kg"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum payload."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大负载: 120kg"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "The 6 m/s limit speed is a separate, higher ceiling value, not used as the primary value."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "运动速度: 0-4m/s,（极限6m/s）"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum climbable slope angle."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬斜坡最大坡度: ±45°"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Forward height difference, 40cm platform - part of the same table row as stair_step_continuous, see the top note. S1 is the only Galileo model with both climbing fields filled in."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "正向高度差40cm高台"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "25cm-high continuous stairs - part of the same table row as obstacle_single, see the top note."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "25cm高连续台阶"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "-40C is a custom-order option."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "-20℃~55℃（-40℃可定制）"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Battery capacity - 72V nominal voltage, higher than C1/E1's 48V."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "电池容量: 40Ah（2880Wh）"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "The lowest figure (5h) is explicitly marked at 20kg load (rule 8); the upper figure (7.5h) is presumably without/at lighter load, not separately marked. A separate range figure is also given."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航时间: 5h（20kg负载）～7.5h | 续航里程: ＞20km"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the shared feature page (page 6), same source as C1."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Autonomous-charging function: supported. Combined with the shared feature page's charging-dock description."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2203,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "自主充电功能: 支持"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "note",
+    "vaerdi": "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote_wording",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote_wording",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2203
+    },
+    "kolonne": "quote_wording",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2203
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "S1 IS THE ONLY GALILEO MODEL WITH BOTH CLIMBING FIELDS FILLED IN: the table writes - BOTH a continuous-stairs value AND a platform-height value in the same row, unlike C1/E1 (stair_step_continuous only) and C1-W/E1-W (obstacle_single only). Both fields are therefore filled in here: stair_step_continuous=25cm, obstacle_single=40cm."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2203
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "HOT-SWAP AND DOCKING STATION: same source and rationale as C1."
+  },
+  {
+    "robot_id": 2203,
+    "slug": "galileo-s1",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2203
+    },
+    "kolonne": "notes_wording",
+    "index": 0,
+    "vaerdi": "可攀爬高度: 25cm高连续台阶,正向高度差40cm高台"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Battery capacity - identical to the walking S1. 72V nominal voltage."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "battery_wh"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "电池容量: 40Ah（2880Wh）"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Lowest figure (4h) explicitly marked at 20kg load (rule 8), the upper figure (6h) presumably at lighter load. A separate range figure is also given - three times the walking S1's 20km."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "续航时间: 4h（20kg负载）～6h | 续航里程: ＞60km"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Manual page 9 (S1-W Industrial Large table)."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "重量: 85kg"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Standing measurement, length x width x height, in mm."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "站立尺寸（长×宽×高）单位mm: 1100*450*810"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "height"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Higher than the walking S1's 700mm, as expected once the wheel-legs are added - same pattern as C1/C1-W."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Effective payload - identical to the walking S1."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "有效负载: 40kg"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum payload - identical to the walking S1."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "最大负载: 120kg"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Movement speed, 6 m/s limit - identical to the walking S1. The limit speed is not used as the primary value."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "运动速度: 0-4m/s,（极限6m/s）"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Maximum climbable slope angle."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "可攀爬斜坡最大坡度: ±45°"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Forward height difference, 110cm platform - see the top note. Substantially higher than S1's 40cm, as expected for a wheel-driven variant."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "obstacle_single"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "正向高度差110cm高台"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "25cm-high continuous stairs - identical to the walking S1. See the top note."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "25cm高连续台阶"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "-40C is a custom-order option."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "temperature_min"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "-20℃~55℃（-40℃可定制）"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "hot_swap"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "From the shared feature page (page 6), same source as C1."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Autonomous-charging function: supported. Combined with the shared feature page's charging-dock description."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "docking_station"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "自主充电功能: 支持"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External power-supply port - identical to the walking S1."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "power_output"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接电源接口: 5V; 12V; 24V；"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "External communication interface - identical to the walking S1."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2204,
+      "field_name": "data_ports"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "外接通讯接口: Ethernet; USB; RS485"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "note",
+    "vaerdi": "Identical quote and rationale as galileo-c1 - from the manual's shared page 4, before the variant split. Cited independently here, not via inherited_from."
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "Sikkerhedspatrulje i offentlige rum som lufthavne, togstationer og boligområder (机场/车站/社区等公共场所安保巡逻)"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Rekognoscering og eftersøgning ved katastrofer som jordskælv, ruiner og diger (地震/废墟/河堤等灾害应急救援侦查搜索)"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Patrulje ved grænser eller særlige områder, vagtposter samt undersøgelse ved bevæbnet antiterror, sprængstofrydning og andre akutte hændelser (边境或特殊区域治安巡逻、岗哨及武装反恐、防爆等突发事件勘察)"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote_wording",
+    "index": 3,
+    "vaerdi": "Sikkerhedsinspektion i fabrikker, industriparker og havne (工厂/园区/港口等场景安防巡检)"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote_wording",
+    "index": 4,
+    "vaerdi": "Intelligent inspektion og dataindsamling af højrisiko industrielt udstyr (高风险工业设备智能巡检与数据采集)"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2204
+    },
+    "kolonne": "quote_wording",
+    "index": 5,
+    "vaerdi": "Intelligent inspektion af giftige industriområder og andre prioriterede zoner (工业有毒及重点区域的智能巡检)"
+  },
+  {
+    "robot_id": 2204,
+    "slug": "galileo-s1-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2204
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "HOT-SWAP AND DOCKING STATION: same source and rationale as C1."
+  }
+]

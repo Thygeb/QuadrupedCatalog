@@ -1,0 +1,1369 @@
+[
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Producenten skriver kun uden at sige, om det er gående eller stående last - samme situation som Unitree Go2 (se topnote). Placeringen under gående last er et forsigtigt skøn ud fra størrelsesordenen, IKKE en aflæsning."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Producenten skriver kun \"负载: 10kg\" uden at sige, om det er gående eller stående last - samme situation som Unitree Go2 (se topnote). Placeringen under gående last er et forsigtigt skøn ud fra størrelsesordenen, IKKE en aflæsning."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(maks. hastighed) - ét tal, ikke et interval."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"最大速度: 3m/s\" (maks. hastighed) - ét tal, ikke et interval."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Fra den sammenlagte kolonne (klatrevinkel/frihedsgrader) - se topnoten. 50° er hældningsvinklen, ikke DOF."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Fra den sammenlagte kolonne \"爬坡角度/DOF\" (klatrevinkel/frihedsgrader) - se topnoten. 50° er hældningsvinklen, ikke DOF."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(klatre-trappetrinshøjde) - betyder trin/trappe, tolket som den kontinuerlige trappeklatring, ikke en enkeltstående forhindring."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"攀爬台阶高度: 20cm\" (klatre-trappetrinshøjde) - \"台阶\" betyder trin/trappe, tolket som den kontinuerlige trappeklatring, ikke en enkeltstående forhindring."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "I tabellen. Ingen (cirka)-markering, ingen angivelse af med/uden batteri."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"重量: 17.5kg\" i \"基础参数\"-tabellen. Ingen \"约\"(cirka)-markering, ingen angivelse af med/uden batteri."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Kildens egen enhedsangivelse mangler et \"m\" (se topnote). Akserne (længde først) er eksplicit mærket af producenten i kolonneoverskriften."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"站立尺寸: 682×354×462m\" - kildens egen enhedsangivelse mangler et \"m\" (se topnote). Akserne (længde først) er eksplicit mærket af producenten i kolonneoverskriften \"站立尺寸\"."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "height"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Se topnoten om det manglende \"m\" i kildens \"462m\"."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "I basisværdien. Samme celle nævner separat \"3h (Dual Battery)\" - en ekstra tilbehørsafhængig konfiguration med et andet batterisetup, ikke brugt som hovedværdi (se topnote). Ingen lastbetingelse (kg) er oplyst for nogen af de to tal."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"续航: 1.5-2h\" i basisværdien. Samme celle nævner separat \"3h (Dual Battery)\" - en ekstra tilbehørsafhængig konfiguration med et andet batterisetup, ikke brugt som hovedværdi (se topnote). Ingen lastbetingelse (kg) er oplyst for nogen af de to tal."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Seks ja/nej-rækker fra tabellen, alle sat til (ja) for YJ30. Kvalitativ liste, ikke et niveau på en skala."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Seks ja/nej-rækker fra \"基础参数\"-tabellen, alle sat til \"有\" (ja) for YJ30. Kvalitativ liste, ikke et niveau på en skala."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "\"￥78000.00\" Ved siden af en (køb nu)-knap på producentens egen side."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"￥78000.00\" ved siden af en \"立即购买\" (køb nu)-knap på producentens egen side."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "note",
+    "vaerdi": "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: (undervisning/forskning) -> forskning og udvikling; (patrulje/inspektion) -> inspektion; (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): (politipatrulje) -> sikkerhed og overvågning. Et tredje kort (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "Første citat er YJ30's egen produktbeskrivelse (samme side). Egen oversættelse: 教学科研 (undervisning/forskning) -> forskning og udvikling; 巡逻巡检 (patrulje/inspektion) -> inspektion; 应急救援 (beredskab/redning) -> forsvar og beredskab. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Et tredje kort \"电力巡检\" (el-inspektion) er udeladt af citatlisten, da det kun gentager inspektion."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "YJ30。"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Politipatrulje"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "越甲灵动YJ30系列面向中小型工业场景与科研教育市场，主打\"轻量化、高性能、高性价比\"，聚焦于教学科研、巡逻巡检、应急救援等场景。"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2254
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Politipatrulje (警用巡逻)"
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "STANDMÅL-TYPO I KILDEN: rækken skriver \"682×354×462m\" - manglende \"m\" i \"mm\", i modsætning til alle øvrige rækker i samme tabel (fx YJ30W's \"682×354×532mm\"), inkl. i den engelsksprogede sideversion (samme typo gentaget der: \"682 × 354 × 462m\"). Vurderet som en kildeside-tastefejl, ikke en enhed på meter - 462 m højde ville være absurd for en firbenet robot på 17,5 kg. Enheden er sat til mm."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "MERGED KOLONNEOVERSKRIFT: tabellens rå HTML har headeren (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 2,
+    "vaerdi": "DUAL-BATTERY-DRIFTSTID IKKE BRUGT SOM HOVEDVÆRDI: tabellen viser \"1.5-2h\" i selve driftstid-rækken, og separat i samme celle (linjeskift) \"3h (Dual Battery)\" - en tilbehørsafhængig udvidet konfiguration. Hovedværdien er 1,5-2 timer; dual-battery-tallet 3h står i advarsel, ikke i værdi/maks."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes",
+    "index": 3,
+    "vaerdi": "LIDAR IKKE UDFYLDT: produktfeature-teksten nævner (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve tabellen (den strukturerede specifikationstabel) har INGEN lidar-række overhovedet. Feltet er derfor ikke oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's håndtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes_wording",
+    "index": 1,
+    "vaerdi": "MERGED KOLONNEOVERSKRIFT \"爬坡角度/DOF\": tabellens rå HTML har headeren \"爬坡角度/DOF\" (hældningsvinkel/frihedsgrader) som ÉN kolonne, men kun ÉN værdi (50°) i datarrækken. Da 50° bærer gradtegnet, er det hældningsvinklen; DOF-tallet er slet ikke udfyldt i kilden. frihedsgrader er derfor ikke oplyst, ikke gættet til at være det samme tal."
+  },
+  {
+    "robot_id": 2254,
+    "slug": "yuejia-yj30",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2254
+    },
+    "kolonne": "notes_wording",
+    "index": 3,
+    "vaerdi": "LIDAR IKKE UDFYLDT: produktfeature-teksten nævner \"多模态感知矩阵：激光视觉协同\" (multimodal sensormatrix: laser-vision-samspil), som antyder en form for laser/LiDAR - men selve \"基础参数\"-tabellen (den strukturerede specifikationstabel) har INGEN lidar-række overhovedet. Feltet er derfor ikke oplyst, ikke udledt af marketingteksten - samme princip som Genisom L2's håndtering af en tilsvarende uoverensstemmelse mellem prosa og tabel."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(vægt) i (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"重量: 45kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Stående mål."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"站立尺寸: 896x635x530mm\" (stående mål)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"动态负载: 30kg\" (dynamisk/gående last) - eksplicit navngivet felt, ikke et skøn (se topnote)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(statisk/stående last) - eksplicit navngivet felt."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"静态负载: 50kg\" (statisk/stående last) - eksplicit navngivet felt."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(hastighed) - ét tal, ikke et interval."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"速度: 3m/s\" (hastighed) - ét tal, ikke et interval."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Egen kolonne uden DOF-sammenblanding (se topnote)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"爬坡角度: 50°\" - egen kolonne uden DOF-sammenblanding (se topnote)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Klatretrin-højde."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"攀爬台阶高度: 30cm\" (klatretrin-højde)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Ingen lastbetingelse (kg) oplyst."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"续航: 3-4h\". Ingen lastbetingelse (kg) oplyst."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Fem ja/nej-rækker fra tabellen - én række færre end YJ30's tabel (intet / følge-punkt her)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Fem ja/nej-rækker fra \"基础参数\"-tabellen - én række færre end YJ30's tabel (intet \"跟随\"/følge-punkt her)."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "\"￥288000.00\" Ved siden af en (køb nu)-knap."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"￥288000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "note",
+    "vaerdi": "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: (industriinspektion) -> inspektion; (brandberedskab) -> forsvar og beredskab; (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): (politipatrulje) -> sikkerhed og overvågning. Kortet (el-inspektion) er udeladt, da det kun gentager inspektion."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "Første citat er YJ30Max's egen produktbeskrivelse (samme side). Egen oversættelse: 工业巡检 (industriinspektion) -> inspektion; 消防应急 (brandberedskab) -> forsvar og beredskab; 复杂环境作业 (arbejde i komplekse miljøer) -> industri. De to øvrige citater er fra sidens delte \"行业应用\"-sektion (samme tre kort står identisk på alle fire YJ30-seriens produktsider): \"警用巡逻\" (politipatrulje) -> sikkerhed og overvågning. Kortet \"电力巡检\" (el-inspektion) er udeladt, da det kun gentager inspektion."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "。"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Politipatrulje"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "面向大型工业与特种作业场景，主打\"高负载、强适应、可扩展\"， 聚焦于工业巡检、消防应急、复杂环境作业等高要求任务。"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2255
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Politipatrulje (警用巡逻)"
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes",
+    "index": 1,
+    "vaerdi": "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes_wording",
+    "index": 0,
+    "vaerdi": "SAMME MERGED-KOLONNE-MØNSTER SOM YJ30 FOR HÆLDNING: her hedder kolonnen blot \"爬坡角度\" (klatrevinkel) uden \"/DOF\"-tilføjelsen - DOF er derfor slet ikke nævnt noget sted på siden for YJ30Max, ikke kun udeladt af en fejlslået kolonne. frihedsgrader er ikke oplyst."
+  },
+  {
+    "robot_id": 2255,
+    "slug": "yuejia-yj30-max",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2255
+    },
+    "kolonne": "notes_wording",
+    "index": 1,
+    "vaerdi": "LIDAR IKKE UDFYLDT: samme situation som YJ30 - ingen lidar-række i \"基础参数\" (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(vægt) i (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"重量: 55kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Stående mål."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"站立尺寸: 896x635×625mm\" (stående mål)."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(dynamisk/gående last) - eksplicit navngivet felt."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"动态负载: 35kg\" (dynamisk/gående last) - eksplicit navngivet felt."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(statisk/stående last) - eksplicit navngivet felt."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "payload_standing"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"静态负载: 55kg\" (statisk/stående last) - eksplicit navngivet felt."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(hastighed) - højere end YJ30Max's 3m/s, som forventet for en hjuldrevet variant."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"速度: 5m/s\" (hastighed) - højere end YJ30Max's 3m/s, som forventet for en hjuldrevet variant."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(klatrevinkel) - egen kolonne uden DOF-sammenblanding."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"爬坡角度: 50°\" (klatrevinkel) - egen kolonne uden DOF-sammenblanding."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Se topnoten om det delte kolonnenavn med basisudgaven YJ30Max (30cm)."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"攀爬台阶高度: 80cm\" - se topnoten om det delte kolonnenavn med basisudgaven YJ30Max (30cm)."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Ingen lastbetingelse (kg) oplyst."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"续航: 3.5-4.5h\". Ingen lastbetingelse (kg) oplyst."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(integreret tredobbelt detektionsteknologi: infrarød varmesøgning, højfølsom UV-lysgenkendelse, synligt-lys røg- ildgenkendelse) - identisk tekst med YJ30 W's post. Ingen modelbetegnelse eller opløsning oplyst."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" (integreret tredobbelt detektionsteknologi: infrarød varmesøgning, højfølsom UV-lysgenkendelse, synligt-lys røg-/ildgenkendelse) - identisk tekst med YJ30 W's post. Ingen modelbetegnelse eller opløsning oplyst."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Kombinerer tabellens fem ja/nej-rækker (samme mønster som YJ30Max, intet punkt) med produktbeskrivelsens ekstra kommunikations- og datånalysefunktioner."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Kombinerer \"基础参数\"-tabellens fem ja/nej-rækker (samme mønster som YJ30Max, intet \"跟随\"-punkt) med produktbeskrivelsens ekstra kommunikations- og datånalysefunktioner."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "\"￥358000.00\" Ved siden af en (køb nu)-knap - kataloget højeste Yuejia-pris."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"￥358000.00\" ved siden af en \"立即购买\" (køb nu)-knap - kataloget højeste Yuejia-pris."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "note",
+    "vaerdi": "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversættelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. (lager) er af samme grund som der IKKE talt med som en selvstændig logistik-kategori."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "Identisk produktbeskrivelse som YJ30 W (samme afsnit, samme mønster - denne er stor-udgaven). Egen oversættelse: se yuejia-yj30-w.yaml's note for den fulde begrundelse. \"仓储\" (lager) er af samme grund som der IKKE talt med som en selvstændig logistik-kategori."
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "AI。。"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Politipatrulje"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2256
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Politipatrulje (警用巡逻)"
+  },
+  {
+    "robot_id": 2256,
+    "slug": "yuejia-yj30-max-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2256
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "MULTISPEKTRAL SENSORPAKKE (kameraer): identisk tekst med YJ30 W - se dens post for den fulde citation."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(vægt) i (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "weight"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"重量: 20kg\" (vægt) i \"基础参数\" (grundparametre)-tabellen."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "length"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Stående mål."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "length"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"站立尺寸: 682×354×532mm\" (stående mål)."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Producenten skriver kun uden gående/stående-skel (se topnote). Forsigtigt skøn, ikke en aflæsning."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "payload_walking"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Producenten skriver kun \"负载: 12kg\" uden gående/stående-skel (se topnote). Forsigtigt skøn, ikke en aflæsning."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(maks. hastighed) - højere end den gående YJ30's 3m/s, som forventet for en hjuldrevet variant."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "speed"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"最大速度: 5m/s\" (maks. hastighed) - højere end den gående YJ30's 3m/s, som forventet for en hjuldrevet variant."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Fra samme sammenlagte kolonne (klatrevinkel/frihedsgrader) som YJ30, samme forbehold som i YJ30's egen post."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "slope"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Fra samme sammenlagte kolonne \"爬坡角度/DOF\" (klatrevinkel/frihedsgrader) som YJ30, samme forbehold som i YJ30's egen post."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Se topnoten om det delte kolonnenavn med basisudgaven YJ30 (20cm)."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "stair_step_continuous"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"攀爬台阶高度: 60cm\" - se topnoten om det delte kolonnenavn med basisudgaven YJ30 (20cm)."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "I basisværdien. Samme celle nævner separat \"3.5~4h (Dual Battery)\" - ekstra tilbehørsafhængig konfiguration, ikke brugt som hovedværdi. Ingen lastbetingelse (kg) oplyst."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "runtime"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"续航: 1.5-2h\" i basisværdien. Samme celle nævner separat \"3.5~4h (Dual Battery)\" - ekstra tilbehørsafhængig konfiguration, ikke brugt som hovedværdi. Ingen lastbetingelse (kg) oplyst."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "(integreret tredobbelt detektionsteknologi: infrarød varmesøgning, højfølsom UV-lysgenkendelse, synligt-lys røg- ildgenkendelse) - tre navngivne detektionsteknologier, specifikt til denne brandinspektionsvariant. Ingen modelbetegnelse eller opløsning oplyst for nogen af de tre."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "cameras"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"集成红外热成像、高灵敏度UV光识别、可见光烟火识别三重探测技术\" (integreret tredobbelt detektionsteknologi: infrarød varmesøgning, højfølsom UV-lysgenkendelse, synligt-lys røg-/ildgenkendelse) - tre navngivne detektionsteknologier, specifikt til denne brandinspektionsvariant. Ingen modelbetegnelse eller opløsning oplyst for nogen af de tre."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "Kombinerer tabellens seks ja/nej-rækker (samme mønster som YJ30) med produktbeskrivelsens ekstra kommunikations- og datånalysefunktioner specifikt for brandinspektionsvarianten."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "autonomy_level"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "Kombinerer \"基础参数\"-tabellens seks ja/nej-rækker (samme mønster som YJ30) med produktbeskrivelsens ekstra kommunikations- og datånalysefunktioner specifikt for brandinspektionsvarianten."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "price"
+    },
+    "kolonne": "caveat",
+    "vaerdi": "\"￥88000.00\" Ved siden af en (køb nu)-knap."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "price"
+    },
+    "kolonne": "caveat_wording",
+    "vaerdi": "\"￥88000.00\" ved siden af en \"立即购买\" (køb nu)-knap."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "note",
+    "vaerdi": "Første citat er YJ30 W's egen produktbeskrivelse (samme side). Egen oversættelse:(multispektral brandfaredetektion varsling) -> forsvar og beredskab;(autonom mobil inspektion/patrulje) -> inspektion; -> industri; -> forskning og udvikling. (lager/logistik) er IKKE medtaget som logistik-kategori her, da det kun står i en opremsning af mulige indsatsmiljøer, ikke som en selvstændig anvendelseskategori på linje med de øvrige - en mere forsigtig læsning end den bredeste mulige. De to sidste citater er fra sidens delte sektion: -> sikkerhed og overvågning."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "note_wording",
+    "vaerdi": "Første citat er YJ30 W's egen produktbeskrivelse (samme side). Egen oversættelse: 多光谱火情探测/火情预警 (multispektral brandfaredetektion/-varsling) -> forsvar og beredskab; 自主移动巡检/自主巡逻 (autonom mobil inspektion/patrulje) -> inspektion; 工业 -> industri; 科研 -> forskning og udvikling. \"仓储\" (lager/logistik) er IKKE medtaget som logistik-kategori her, da det kun står i en opremsning af mulige indsatsmiljøer (\"工业、仓储、科研等复杂场景\"), ikke som en selvstændig anvendelseskategori på linje med de øvrige - en mere forsigtig læsning end den bredeste mulige. De to sidste citater er fra sidens delte \"行业应用\"-sektion: \"警用巡逻\" -> sikkerhed og overvågning."
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote",
+    "index": 0,
+    "vaerdi": "AI。。"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote",
+    "index": 2,
+    "vaerdi": "Politipatrulje"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote_wording",
+    "index": 0,
+    "vaerdi": "轮足巡检机器人，采用四轮独立驱动结构，融合AI多光谱防火预警分析仪的高精度探测能力与四足机器人运动控制技术，集成\"多光谱火情探测+自主移动巡检+智能数据分析\"核心功能。可适配工业、仓储、科研等复杂场景，实现自主巡逻、火情预警，温感监测与环境反馈等，以灵活移动性与精准监测力，打造高效安全巡检方案。"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote_wording",
+    "index": 1,
+    "vaerdi": "Industri og sikkerhedsinspektion (工业、安防巡检领域)"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2257
+    },
+    "kolonne": "quote_wording",
+    "index": 2,
+    "vaerdi": "Politipatrulje (警用巡逻)"
+  },
+  {
+    "robot_id": 2257,
+    "slug": "yuejia-yj30-w",
+    "tabel": "robots",
+    "noegle": {
+      "id": 2257
+    },
+    "kolonne": "notes",
+    "index": 0,
+    "vaerdi": "MULTISPEKTRAL SENSORPAKKE (kameraer) ER EKSPLICIT HER, MODSAT YJ30/YJ30Max: produktteksten nævner tre navngivne detektionsteknologier specifikt til denne (og YJ30W MAX's) brandinspektionsvariant - se feltet kameraer."
+  }
+]
