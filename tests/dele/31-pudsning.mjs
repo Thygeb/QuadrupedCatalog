@@ -77,9 +77,36 @@ export default async function koer(ctx) {
   // Vagten paa PRAEMISSEN: bliver et felt en dag SYNLIGT, skal nogen se
   // efter, om chip-grammatikken stadig holder. Skjulningen er selve grunden
   // til, at accent-color er insurance og ikke en synlig rettelse.
-  ok('31.8: filterfelterne er stadig visuelt skjulte (chippen er etiketten)',
-    /\.filtre input\{position:absolute;width:1px;height:1px;opacity:0\}/.test(sys),
+  //
+  // FEJLJAGT 3. sep 2026 (spor/testvend). MEKANISMESAETNING, skrevet FOER
+  // rettelsen (CLAUDE.md's kommandoregel): "31.8 er ROED, IKKE fordi et felt
+  // er blevet visuelt synligt (INGEN regression fra kat3's J1/J2/J3-
+  // stoerrelsesaendringer), MEN fordi kat3 (commit c7a3270, samme dag, Aa146
+  // beslutning G) slettede de 11 doede `.filtre`-regler i system.css - deriblandt
+  // netop `.filtre input{position:absolute;width:1px;height:1px;opacity:0}`,
+  // som denne vagt laeste efter. Klassen `.filtre` havde 0 forekomster i alle
+  // 216 byggede HTML-filer (maalt af kat3 selv, med positiv kontrol), fordi
+  // facetterne er omlagt fra chips (`.filtre`) til raekker (`.rk`) - den
+  // visuelt-skjulte-felt-mekanik FINDES STADIG, nu som
+  // `.rk__felt{position:absolute;opacity:0;width:1px;height:1px}` i
+  // generator.css, med `<label class="rk__mrk">` som den nye 'chip'/etiket
+  // (samme <input>+<label for>-par, samme princip, nyt navn og ny fil)."
+  //
+  // VENDT i denne commit: moensteret peger nu paa `.rk__felt` i
+  // generator.css i stedet for det doede `.filtre input` i system.css -
+  // mekanikken den samme, kun navn og fil er skiftet (se mekanismesaetningen
+  // ovenfor). Testen laeser derfor `gen`, ikke laengere `sys`, for netop
+  // dette punkt.
+  ok('31.8: filterfelterne er stadig visuelt skjulte (raekkens etiket er den synlige del)',
+    /\.rk__felt\{position:absolute;opacity:0;width:1px;height:1px\}/.test(gen),
     'holder den ikke, tegner browseren felterne, og accent-color bliver synlig');
+  // Revert-bevis: den GAMLE, doede regel findes ikke laengere i noget
+  // stilark - beviser, at 31.8 rent faktisk ville falde ROED igen, hvis
+  // nogen rullede kat3's oprydning tilbage uden ogsaa at genskabe .rk__felt.
+  ok('31.8.revert: den udgaaede `.filtre input`-regel er OGSAA vaek af sig selv (ingen dobbeltdaekning)',
+    !/\.filtre input\{position:absolute;width:1px;height:1px;opacity:0\}/.test(sys)
+      && !/\.filtre input\{position:absolute;width:1px;height:1px;opacity:0\}/.test(gen),
+    'findes den et af stederne, dokumenterer koden en mekanik, ingen af de to vagter laeser');
 
   /* --- 3. Navigationen paa ÉN raekke ------------------------------------ */
   // Reglen staar UDEN FOR brudpunktet med vilje: braekket laa fra 320 px op

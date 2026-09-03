@@ -21,7 +21,9 @@ den byggede side, med sekvensdiagrammer for de to veje ind i data og for billedv
 Status 25. aug 2026: **bygget og i drift.** Her stod tidligere *"planlægning. Der er ikke
 skrevet kode endnu"* — det holdt op med at passe for en uge siden og vildledte enhver ny
 agent, der læste linjen. Der findes i dag en afhængighedsfri Node-generator, 77 robotposter
-med 1.110 kildebelagte tal, 213 byggede sider på to sprog, en Supabase-database som
+med 1.111 kildebelagte tal, 216 byggede sider på to sprog (målt 3. sep 2026 —
+her stod 1.110 og 213, og de tal er præcis den fælde, denne fils egen regel om
+hårdkodede tal advarer imod nedenfor), en Supabase-database som
 redaktionslag (L34/L35) og to private Storage-spande (L36). **Lanceringen er ikke længere
 spærret:** JPK ophævede billedspærringen S1 den 26. aug 2026 (L37). Her stod tidligere, at
 siden ikke måtte publiceres med fabrikantbilleder — den betingelse gælder ikke mere.
@@ -534,11 +536,12 @@ skal ikke distribueres med repoet.
 
 ## Projektskills — brug dem frem for at gentage reglerne
 
-Ud over de globale skills i tabellen ovenfor har projektet elleve egne i `.claude/skills/`
-(otte indtil 2. sep 2026; `retro`, `spor` og `overlevering` kom til 3. sep):
+Ud over de globale skills i tabellen ovenfor har projektet tolv egne i `.claude/skills/`
+(otte indtil 2. sep 2026; `retro`, `spor`, `overlevering` og `design` kom til 3. sep):
 
 | Skill | Hvornår |
 |---|---|
+| `design` | **HVER gang noget visuelt skal bygges, bedømmes eller planlægges** — en flade, en CSS-rettelse, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den er et **navigationskort til [DESIGN.md](DESIGN.md)**, ikke et resumé: den siger, hvilket af filens 32 afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 834. Bærer desuden de fire regler, der gælder ved alt designarbejde: designfrysen (L70), palettelåsen, MODE-navngivningen og de fire datatilstande. **Bygget 3. sep 2026 på JPK's ord** *"DESIGN.md beskriver hvordan websiden skal være designet, for at sikre konsistens og standardisering"* — og som svar på hans spørgsmål, om DESIGN.md skulle destilleres for at spare tokens. **Svaret var nej, og målingen står i skillen:** DESIGN.md er 42 KB ≈ 12,5k tokens mod STATUS.md's 416 KB ≈ 126k, så den er ~3 % af et opus-spors budget og ikke der, tokenerne går. Et destillat ville desuden være kopi nummer to af designsystemet — samme fælde som *"tre håndskrevne kopier divergerer ved den fjerde"*, ét lag længere ude |
 | `robotdata` | Hver gang en robotpost tilføjes, opdateres eller efterprøves. Bærer 33-feltsskemaet (målt mod `FELTNAVNE.length` 3. sep 2026 — her stod 29, skillen sagde 30), de ti hårde regler og selv-tjekket med tælling |
 | `spor` | **Sporets egen skill — kaldes af SUBAGENTEN som første handling, ikke af orkestratoren.** Bærer metoden, der før blev kopieret ind i hvert brief: grundmåling, kontrollinje, skrive-grænse, filejerskab, selv-efterprøvning med tælling, rapportform og konfidensskala, plus `references/miljoefaelder.md`. Bygget 3. sep 2026, da SKILLEVAL målte, at 20 af 21 briefs i `fund/` bar de samme otte regelblokke |
 | `overlevering` | Når en session skal lukkes og en frisk startes: sessionsvagten siger til, JPK spørger om han skal starte forfra, eller det bliver tredje komprimering på samme opgave. **Reglen er PEG, kopiér ikke** — en overlevering, der kopierer tilstanden ind, er en komprimering med et andet navn og betales i den nye session på hvert kald. Bygget 3. sep 2026 på målingen: 98,5 % af input er cache-læsninger, 237k kontekst pr. kald, 58 kald pr. besked, og cachen lever én time |

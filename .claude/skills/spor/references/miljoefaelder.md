@@ -133,6 +133,30 @@ måleapparat, og et nyt måleapparat valideres mod et kendt svar.**
 - **Databasen er delt.** Skriver dit spor i den, så bevis bagefter, at 0
   ændringer ligger uden for dine egne rækker.
 
+## Kør ALDRIG en formatter
+
+Tilføjet 3. sep 2026. Et spor efterlod **2.777 omformaterede linjer** i
+`generator.css` og **644** i en skabelon — enkelte anførselstegn lavet om til
+dobbelte, import-lister brudt op i én linje pr. navn — oven i **152 linjers**
+ægte arbejde. Sporet opdagede det ikke selv; orkestratoren så det i diffen.
+
+**Ingen formatter, ingen linter med `--fix`, intet værktøj der omskriver en hel
+fil.** Rør kun de linjer, opgaven kræver. Et flet, hvor 2.700 af 2.850 linjer er
+støj, kan ikke reviewes — og reviewet er det, der fanger fejl i dit arbejde,
+før JPK ser dem.
+
+**Er skaden sket, så bevis hvad der er ægte frem for at gætte:** normalisér
+begge filstrømme (fjern whitespace, ensret anførselstegn, fjern efterstillede
+kommaer) og diff de normaliserede udgaver mod hinanden. Sporet gjorde netop det
+og kunne vise, at hver eneste tilbageværende forskel var parenteser om ternærer,
+manglende nul foran decimaler og hex-versalisering — **nul semantisk ændring**.
+Uden det bevis måtte orkestratoren have kasseret 24 linjer, der lignede ægte
+arbejde.
+
+**Kontrol, der fanger det på ét sekund:** `git diff --shortstat` og
+`git diff -w --shortstat` skal give **samme tal**. Afviger de, har noget
+omformateret.
+
 ## Måleapparater generelt
 
 To fælder, der begge giver plausible tal og derfor aldrig udløser en fejljagt:

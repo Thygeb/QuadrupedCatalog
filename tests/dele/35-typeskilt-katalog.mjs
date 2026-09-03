@@ -25,6 +25,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 /** Indholdet af det inline <style>, bygget skriver i <head>. */
 function genereretStil(html) {
@@ -123,12 +124,71 @@ export default async function koer(ctx) {
       'kan tavsheden ikke vaelges, kan den heller ikke undersoeges');
 
     /* --- 5. L55 OG L56 STAAR PAA SIDEN -------------------------------- */
-    ok(`35.11 ${sprog}: CE-facetten er vaek (L55 punkt 3)`,
-      !/class="rk__felt f-ce"/.test(html),
-      'den kunne kun udvaelge 2 af 77 og opsluges i certificeringsfacetten');
-    ok(`35.12 ${sprog}: certificeringspladsen er reserveret og aerlig (L55 punkt 1)`,
-      /<div class="reserveret">/.test(html),
-      'pladsen bygges, ikke facetten - der er ingen data at filtrere paa endnu');
+    /* 35.11 og 35.12 er VENDT 3. sep 2026 (spor/testvend, STOP-og-fortsaet
+       paa orkestratorens ordre - se STATUS.md AA149/L89).
+
+       DE BEVISTE FOER L55(1) og L55(3): at CE-facetten UDGIK som selvstaendig
+       (kun 2 af 77 kunne udvaelges) og at certificeringspladsen stod som en
+       tom, reserveret pladsholder. L89 (JPK, 3. sep 2026, ordret) OPHAEVER
+       BEGGE: "Vi skal have valgte certificeringer ind i filter-mekanismen"
+       og, praeciseret samme dag: "Filteret skal holde de certificeringer vi
+       har valgt for websiden... IKKE KUN CE." spor/kat3 aabnede facetten paa
+       CE (det eneste af fire certificeringsfelter med mere end én tilstand i
+       data) samme dag som L89 blev skrevet.
+
+       DENNE VENDING RØRER IKKE L68 ("ingen data maa indsamles paa
+       certificeringer foer JPK eksplicit siger til") - se 35.11c, som
+       laaser data/robots/ urort som sit eget, uafhaengige acceptkriterium. */
+    ok(`35.11 ${sprog}: certificeringsfacetten FINDES, aabnet paa CE (L89 ophaever L55 punkt 3)`,
+      /data-facetgruppe="ce"/.test(html) && /class="rk__felt f-ce"/.test(html),
+      'L89: "Vi skal have valgte certificeringer ind i filter-mekanismen"');
+    // Revert-bevis: fjernes facettens to baerende moenstre (den udgaaede
+    // L55(3)-tilstand), skal begge falde til usandt.
+    {
+      const udenFacet = html.replace(/data-facetgruppe="ce"/g, '').replace(/class="rk__felt f-ce"/g, '');
+      ok(`35.11.${sprog}.revert: uden CE-facetten (den gamle, udgaaede tilstand) fejler begge moenstre`,
+        !/data-facetgruppe="ce"/.test(udenFacet) && !/class="rk__felt f-ce"/.test(udenFacet));
+    }
+
+    /* 35.12: L89 kraever udtrykkeligt, at facetten holder de VALGTE
+       certificeringer, ikke kun CE - men den egentlige laas her er haard
+       begraensning 5, som L89 selv citerer som begrundelse: "et filter maa
+       aldrig straffe aerlig tavshed". Maalt paa data/robots/ (L89): CE er
+       2 ja / 1 nej / 74 ikke oplyst. En facet, der kun kunne vise "ja", ville
+       skjule et DOKUMENTERET nej (Xiaomi CyberDog 2) og 74 tavse robotter bag
+       en tavshed, de ikke har fortjent. Vagten beviser derfor ikke kun at de
+       tre VAERDIER findes, men at de har TRE FORSKELLIGE DOM-signaturer -
+       raekke() giver "nej" klassen rk--nej og "ikke oplyst" rk--uoplyst,
+       mens "ja" er den tomme grundform - saa de rent faktisk kan SES som
+       forskellige, ikke kun taelles. */
+    ok(`35.12.${sprog}.ja: CE "ja" er en almindelig raekke (grundform, intet modifier)`,
+      /<div class="rk"><input class="rk__felt f-ce" type="checkbox" id="f-ce-ja"/.test(html));
+    ok(`35.12.${sprog}.nej: CE "nej" baerer rk--nej og sit eget maerke (i-nej)`,
+      /<div class="rk rk--nej"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"/.test(html)
+        && new RegExp(`id="f-ce-nej"[\\s\\S]{0,200}#i-nej`).test(html));
+    ok(`35.12.${sprog}.uoplyst: CE "ikke oplyst" baerer rk--uoplyst og sit eget maerke (i-ioplyst)`,
+      /<div class="rk rk--uoplyst"><input class="rk__felt f-ce" type="checkbox" id="f-ce-ikke_oplyst"/.test(html)
+        && new RegExp(`id="f-ce-ikke_oplyst"[\\s\\S]{0,200}#i-ioplyst`).test(html));
+    // Revert-bevis: kollapses alle tre til den SAMME (den udgaaede tilstand,
+    // hvor ét maerke daekkede over alt), skal "nej"-vagten falde ROED. Maa
+    // ramme PRAECIS CE's egen raekke - ip-facetten har ogsaa en "nej"-vaerdi
+    // (id="f-ip-nej") med samme rk--nej-klasse, og et generelt strengeskift
+    // ville have rettet DEN i stedet, fordi den staar foerst i dokumentet.
+    {
+      const kollapset = html.replace(
+        '<div class="rk rk--nej"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"',
+        '<div class="rk"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"');
+      ok(`35.12.${sprog}.revert: kollapses CE "nej" til grundformen, fejler nej-vagten`,
+        !/<div class="rk rk--nej"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"/.test(kollapset));
+    }
+    // 35.11c: L68 staar ved magt - denne vending maa IKKE aabne en eneste
+    // robotpost. Maalt PR. SPROG er overflodigt (samme filer for begge), men
+    // billigt, og gaar galt hoejlydt hvis nogen en dag flytter checket ind i
+    // sprog-loekken uden at taenke sig om.
+    ok(`35.11c.${sprog}: L68 uroert - data/robots/ har 0 ucommitterede aendringer`,
+      spawnSync('git', ['diff', '--stat', 'data/robots/'], { cwd: rod, encoding: 'utf8' })
+        .stdout.trim() === '',
+      'L89 rører kun filter-mekanikken, aldrig kildedataen (L68)');
     ok(`35.13 ${sprog}: status er en fuld facet med alle tre tilstande (L55 punkt 5)`,
       /id="f-status-i_produktion"/.test(html) && /id="f-status-annonceret"/.test(html)
         && /id="f-status-udgaaet"/.test(html));

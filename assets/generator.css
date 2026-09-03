@@ -88,18 +88,11 @@
    fire doede links - linktjek.mjs ville fange dem, og laeseren ville falde i
    dem foerst. */
 
-/* :target giver de samme to tilstande som :checked, saa et filterlink fra
-   forsiden ogsaa SES som valgt. Hullet ("ikke oplyst", system.css afsnit 13)
-   beholder sit stiplede hegn ogsaa naar det er valgt - ellers ville netop det
-   filter, der peger paa manglende data, tabe sit maerke i valgt tilstand, og
-   haard begraensning 5 gaelder i alle tilstande, ikke kun i hvile. */
-.filtre input:target + label{background:var(--accent);border-color:var(--accent);color:var(--blaek)}
-.filtre input:target + label .antal{color:var(--accent-ro)}
-/* L76: hvid ramme og hvid tekst paa accent var 1,66 : 1. Begge --blaek.
-   Hullets sprog er den STIPLEDE streg, ikke dens farve - spejler
-   system.css' :target-loese modstykke praecist. */
-.filtre input[value="ikke_oplyst"]:target + label{
-  background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
+/* Her stod fire regler for `.filtre`s :target- og :checked-tilstande (accent-
+   bund, hullets stiplede :target-udgave). FJERNET 3. sep 2026 (spor/testvend):
+   `.filtre` er den chip-baserede facetform, kat3 gjorde doed i system.css
+   (0 forekomster i dist/) - facetterne er raekker (`.rk`) nu, og `.rk--uoplyst`
+   (afsnit 20f) baerer samme haarde begraensning 5-sprog i den nye form. */
 
 /* Soegefeltet er skjult, indtil JavaScript taender det: et felt, der intet
    goer, er en betjeningsflade uden funktion. Filtrene er der uanset.
@@ -143,20 +136,12 @@
 [data-sal][hidden],[data-omfang][hidden],[data-omfang-note][hidden],
 [data-tomt-grund][hidden]{display:none}
 .taeller-omfang{font-weight:400;letter-spacing:0;color:var(--blaek3)}
-/* Paa en VALGT chip er bunden accentfarven, og --blaek3 er da moerk paa
-   moerk. Efterstillingen foelger derfor samme lyse tone som selve tallet
-   (`.filtre input:checked + label .antal`, system.css §13). Maalt paa
-   "Tyskland 1 af 77" i den valgte tilstand: uden denne regel stod "af 77"
-   i moerk graa paa accentbunden. */
-.filtre input:checked + label .taeller-omfang,
-.filtre input:target + label .taeller-omfang{color:var(--accent-ro)}
+/* Her stod to `.filtre`-scopede varianter (checked/target-farven paa
+   .taeller-omfang) samt to for den dæmpede, tomme chip (`.facet-tom`).
+   FJERNET 3. sep 2026 (spor/testvend) af samme grund som ovenfor -
+   `.filtre` matcher intet i dist/ (0 forekomster, maalt over alle 216
+   sider), saa ingen af de fire regler kunne nogensinde blive tegnet. */
 .facet-omfang{margin-top:var(--r4);max-width:86ch;color:var(--blaek2)}
-/* En facet, der ikke kan give ét eneste kort mere, dæmpes af katalog.js.
-   Den bliver ikke `disabled`: laeseren skal kunne se, at muligheden findes
-   og hvorfor den er tom, og et felt, der er krydset af, maa aldrig blive
-   ubetjenligt under fingeren paa laeseren. */
-.filtre input:not(:checked) + label.facet-tom{opacity:.5}
-.filtre input:not(:checked) + label.facet-tom .antal{color:var(--blaek3)}
 
 /* Betingelsen "der ER filtreret" GENERERES nu pr. side i katalog.mjs' hovedStil
    (§5e) og stod her indtil 31. aug 2026 som én bred regel.
@@ -887,18 +872,16 @@
      gjort ombrydningen ENSARTET, men ikke faerre - og paa fx
      anybotics-anymal-x er alle fire ramte celler "ikke oplyst"-huller UDEN
      imperialt chip, saa den mekanisme rammer ikke aarsagen. */
-  .robot-noegletal .stribe--seks,
-  .robot-noegletal .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .robot-noegletal .stribe--seks > li,
-  .robot-noegletal .stribe--fem > li{border-left:1px solid var(--linje)}
-  .robot-noegletal .stribe--seks > li:nth-child(2n+1),
-  .robot-noegletal .stribe--fem > li:nth-child(2n+1){border-left:0}
-  .robot-noegletal .stribe--seks > li:nth-child(n+3),
-  .robot-noegletal .stribe--fem > li:nth-child(n+3){border-top:1px solid var(--linje)}
+  .robot-noegletal .stribe--seks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .robot-noegletal .stribe--seks > li{border-left:1px solid var(--linje)}
+  .robot-noegletal .stribe--seks > li:nth-child(2n+1){border-left:0}
+  .robot-noegletal .stribe--seks > li:nth-child(n+3){border-top:1px solid var(--linje)}
   /* Med seks felter i to spalter danner cellerne et perfekt 3x2 gitter uden tomme
      felter, saa span 2 paa sidste celle bortfalder for .stribe--seks (L66).
-     stribe--fem beholdes ifald andre flader bruger den. */
-  .robot-noegletal .stribe--fem > li:last-child{grid-column:span 2}
+     `.stribe--fem` er FJERNET herfra 3. sep 2026 (spor/testvend): den blev
+     doed, da spor/robot3 tilfoejede et sjette noegletal og indfoerte
+     .stribe--seks som robotsidens eneste fulde stribe (0 forekomster af
+     klassetokenet "stribe--fem" i dist/, maalt over alle 216 sider). */
   .robot-noegletal .stribe > li{padding:14px 13px 13px;gap:10px}
   /* FIGUREN staar paa 23px - og KUN figuren. Den gamle regel her ramte `.v`
      bredt (0,0,3,0) og slog dermed system.css' `.stribe .v-ikke,.stribe
@@ -987,24 +970,16 @@
 
 /* Robotsidens EGEN, fulde stribe (seks felter — ikke kortets kompakte to). */
 .stribe--seks{grid-template-columns:repeat(6,minmax(0,1fr))}
-.stribe--fem{grid-template-columns:repeat(5,minmax(0,1fr))}
 @media (max-width:1180px){
-  .stribe--seks,
-  .stribe--fem{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .stribe--seks > li:nth-child(3n+1),
-  .stribe--fem > li:nth-child(3n+1){border-left:0}
-  .stribe--seks > li:nth-child(n+4),
-  .stribe--fem > li:nth-child(n+4){border-top:1px solid var(--linje)}
+  .stribe--seks{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stribe--seks > li:nth-child(3n+1){border-left:0}
+  .stribe--seks > li:nth-child(n+4){border-top:1px solid var(--linje)}
 }
 @media (max-width:680px){
-  .stribe--seks,
-  .stribe--fem{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .stribe--seks > li,
-  .stribe--fem > li{border-left:1px solid var(--linje);border-top:1px solid var(--linje)}
-  .stribe--seks > li:nth-child(2n+1),
-  .stribe--fem > li:nth-child(2n+1){border-left:0}
-  .stribe--seks > li:nth-child(-n+2),
-  .stribe--fem > li:nth-child(-n+2){border-top:0}
+  .stribe--seks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stribe--seks > li{border-left:1px solid var(--linje);border-top:1px solid var(--linje)}
+  .stribe--seks > li:nth-child(2n+1){border-left:0}
+  .stribe--seks > li:nth-child(-n+2){border-top:0}
 }
 .stribe-hoved h2{margin:0}
 
@@ -1245,7 +1220,7 @@
 /* Pladens skrift er Saira (var(--mono) - se system.css' note om navnet):
    paa et typeskilt staar etiketter OG tal i samme snit. Prosaen er Literata. */
 .aabning,.plade,.resultat{font-family:var(--mono);letter-spacing:0}
-.aabning__under,.plade__under,.aabning__note,.reserveret__note,
+.aabning__under,.plade__under,.aabning__note,
 .sorter__note,.facet-omfang,.chip-fod{font-family:var(--manual)}
 
 /* Den stansede plade. `.stans` (system.css) giver 2px radius og den
@@ -1486,12 +1461,14 @@
 .antal--chip{font-size:11px;color:var(--stoev-blaek)}
 .chip-fod{font-size:12.5px;line-height:1.5;color:var(--blaek2);margin:var(--r3) 0 0;max-width:46ch}
 
-/* --- 20h. Den reserverede certificeringsgruppe ---------------------------
-   Pladsen bygges, ikke facetten (L55 punkt 1). En stiplet ramme siger det
-   samme som et stiplet "ikke oplyst"-maerke: her er et svar, vi ikke har. */
-.reserveret{border:1px dashed var(--hegn);border-radius:var(--hjoerne);padding:var(--r4) var(--r3)}
-.reserveret__ord{font-size:13px;font-weight:600;color:var(--stoev-blaek);margin-bottom:5px}
-.reserveret__note{font-size:12.5px;line-height:1.5;color:var(--stoev-blaek)}
+/* --- 20h. Den reserverede certificeringsgruppe --------------------------
+   `.reserveret`, `.reserveret__ord` og `.reserveret__note` er FJERNET
+   3. sep 2026 (spor/testvend). De tegnede den tomme, stiplede pladsholder,
+   L55 punkt 1 bad om ("Pladsen bygges, ikke facetten"). spor/kat3 aabnede
+   samme dag certificeringsfacetten paa CE (JPK's ord), og pladsholderens
+   markup forsvandt fra tools/skabelon/katalog.mjs i samme spor - kat3
+   rapporterede selv klasserne som doede, men ejede ikke denne fil.
+   Maalt: 0 forekomster af "reserveret" i noget af de 216 byggede sider. */
 
 /* --- 20i. Resultatet ------------------------------------------------------ */
 .resultat{padding:var(--r6) 0 var(--r7)}

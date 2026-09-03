@@ -31,6 +31,15 @@ Bruger- og plugin-skills gør ikke, og kaldet fra en worktree svinger: **lykkes
 det ikke, så læs `SKILL.md` fra disk og skriv i rapporten, at du gjorde det.**
 Et stille fallback ligner ellers en skill, der kørte.
 
+**Rører din opgave noget visuelt — en flade, CSS, en farve, en skriftgrad, en
+komponent, en datatilstand — så kald `design`, også når briefet ikke beder om
+det.** Den er kortet til `DESIGN.md`, projektets designsystem, og den siger
+hvilke af filens 32 afsnit din opgave faktisk skal bruge, så du læser 40 linjer
+i stedet for 834. Den bærer også designfrysen, palettelåsen, MODE-navngivningen
+og de fire datatilstande — fire regler, der gælder, uanset hvad briefet siger.
+**Et brief, der har glemt at pege på den, fritager dig ikke;** det er præcis
+derfor reglen står her og ikke kun i `brief`.
+
 **Citerer du en skill eller en regel, så slå den op på disken.** Skills
 registreres ved sessionsstart, så det, du har i konteksten, kan være en ældre
 udgave end filen — og i modsætning til `Unknown skill`, som larmer, læser et

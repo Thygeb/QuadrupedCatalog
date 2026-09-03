@@ -32,6 +32,28 @@ Et tal, der skal bruges til at finde en fejl, skal selv kunne fejle:
 - **Tjek de tomme mellemled.** Skriv linjeantal ud for hver mellemfil, før du
   sammenligner dem. En tom fil i en pipeline er en falsk godkendelse på vej.
 
+**To forskellige tal på samme spørgsmål er NUL målinger, ikke to.** Tilføjet
+3. sep 2026, betalt af orkestratoren fire gange i træk. Jeg målte antallet af
+robotsider med en vist pris og fik **13**, så **0**, så **50**. Alle tre var
+plausible, ingen udløste en undren, og jeg blev ved med at bygge nye regexer i
+stedet for at spørge, hvad apparatet så på. Årsagen var den samme hver gang:
+**værdien står FØR etiketten i markup'en**, så mine mønstre ramte nabocellerne.
+Det rigtige tal var 11.
+
+**Stop ved det andet afvigende tal. Find ud af, hvad apparatet ser på, før du
+måler igen** — åbn den faktiske HTML, den faktiske DOM, de faktiske linjer.
+Et tredje forsøg med et fjerde mønster er ikke en måling; det er et gæt med
+tal på.
+
+**Og et tal, der endelig stemmer, er ikke dermed rigtigt.** Den anden session
+gentog samme jagt med fire andre apparater og landede på 11 — men deres
+mellemregning indeholdt 8 poster med enhed `undefined`, og da de åbnede to af
+dem, havde rekursionen grebet en anden pris-blok (tilbehør). Deres ord, som er
+skarpere end reglen ovenfor: ***"apparatet var stadig defekt, da det gav det
+rigtige svar."*** Stemmer dit tal med den kilde, du holdt det op imod, er det
+cirkularitet — ikke bekræftelse. Find en kilde, der er skrevet **uafhængigt**;
+her var det `skema.mjs:664`s egen optælling, nedskrevet før sporet fandtes.
+
 ### 2. Reproducér minimalt
 
 Find det mindste input, der stadig viser fejlen. Én robot i stedet for 77, én
