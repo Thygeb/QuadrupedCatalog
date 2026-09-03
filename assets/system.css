@@ -1649,44 +1649,36 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .udtraek .facetter__net .facet{padding:var(--r4)}
 .udtraek .facetter__net details.facet:not([open]) > .facet__navn{margin-bottom:0}
 
-/* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
-   katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
-   faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
-   flade mod sidens graa bund, som er forskel nok til at laese den som en
-   trykflade. Formen, maalet (44 px) og den valgte tilstand er uaendrede. */
-.filtre{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.filtre input{position:absolute;width:1px;height:1px;opacity:0}
-.filtre label{
-  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
-  cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
-  background:var(--panel);border:1px solid transparent;border-radius:var(--hjoerne);
-}
-.filtre label:hover{background:var(--accent-ro);color:var(--blaek)}
-/* Taelleren er et TAL og saettes som sidens andre tal: mono med tabulaere
-   cifre, saa 1 og 62 fylder det samme og kolonnen ikke vibrerer. */
-.filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;
-  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
-.filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--blaek)}
-.filtre input:checked + label .antal{color:var(--accent-ro)}
-.filtre input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+/* --- RESERVEKLASSEN `.filtre` ER SLETTET HER (Aa146's beslutning G) --------
+   Her stod 11 regler for en filterchip-komponent: `.filtre`, `.filtre input`,
+   `.filtre label` med sine hover/checked/focus-tilstande, og fire regler for
+   `input[value="ikke_oplyst"]`, der gav hullet sit stiplede sprog.
 
-/* HAARD BEGRAENSNING 5 I FILTERET. "ikke oplyst" er et HUL, ikke et svar, og
-   det skal ses. Foer denne regel saa hullet praecis ud som ethvert andet
-   filter: hvid chip, samme grad, samme farve - paa IP-KLASSE stod "nej" og
-   "ikke oplyst" ved siden af hinanden og var visuelt ét og det samme, og paa
-   CE stod alle tre tilstande ens. Sproget her er sidens EGET hulsprog fra
-   afsnit 8 (.v-ikke): daempet flade, stiplet hegn, ingen fed vaegt. Reglen
-   haenger paa inputtets `value`, som skabelonen allerede skriver, saa hverken
-   markup eller antallet af afkrydsningsfelter aendres. */
-.filtre input[value="ikke_oplyst"] + label{
-  background:var(--tom);border:1px dashed var(--hegn);
-  font-weight:500;color:var(--blaek3)}
-.filtre input[value="ikke_oplyst"] + label:hover{color:var(--blaek2);border-color:var(--blaek3)}
-/* L76: den stiplede ramme OG teksten stod hvide paa accent (1,66 : 1).
-   Begge er nu --blaek. Hullets sprog er stadig den STIPLEDE ramme - det er
-   stregens form, ikke dens farve, der siger "ikke oplyst". */
-.filtre input[value="ikke_oplyst"]:checked + label{
-  background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
+   MAALT 3. sep 2026, med aegte tokengraense og positiv kontrol:
+     class-tokenet "filtre" i dist/       0 forekomster i 0 af 216 HTML-filer
+     positiv kontrol "facet__navn"       18 forekomster i 2 filer
+     positiv kontrol "rk__mrk"           84 forekomster i 2 filer
+     saetter noget JavaScript klassen?    nej - 0 traef i assets/*.js
+   De to positive kontroller staar der, fordi et nul-resultat ellers ikke kan
+   skelnes fra et moenster, der ikke virker. Metoden splitter class-attributten
+   paa mellemrum og sammenligner token for token, saa `.filtre` hverken rammer
+   `filtre-noget` eller ordet "filtre" i en kommentar.
+
+   INGEN AF DE 11 REGLER DELTE SELEKTORLISTE MED EN LEVENDE SELEKTOR - alle 11
+   begyndte paa `.filtre`, saa der er ikke slettet en regel, som ogsaa tjente
+   noget andet. Det er efterproevet regel for regel, ikke antaget.
+
+   HULLETS SPROG ER IKKE TABT. De fire `[value="ikke_oplyst"]`-regler blev
+   afloest, da facetterne gik fra chips til raekker: `.rk--uoplyst`
+   (generator.css) baerer i dag samme haarde begraensning 5 - stiplet kontur,
+   ingen fyld, stoev-blaek, altid sidst efter en stiplet skillelinje. Det er
+   den samme regel i en ny form, ikke en regel, der er faldet vaek.
+
+   TILBAGE STAAR 7 SELEKTORDELE I 6 REGLER I generator.css, som dette spor
+   IKKE ejer (et samtidigt spor har filen). De er lige saa doede som disse -
+   klassen har 0 forekomster i hele dist/ - og boer fjernes af det spor, der
+   ejer filen. Skrevet her, saa den naeste ikke konkluderer af generator.css
+   alene, at `.filtre` stadig lever. */
 
 /* --- 13b. KNAPPEN - ÉN PRIMITIV (L77, 2. sep 2026) -----------------------
    Her stod indtil nu `.videre`/`.videre--stille`, ORBIT-aeraens knap: massiv
