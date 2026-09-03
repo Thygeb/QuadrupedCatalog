@@ -243,7 +243,14 @@ function euSaetning(ctx, modeller) {
     ['ikke_oplyst', t.ukendt, 'eu_ce_ikke_oplyst'],
   ]
     .filter(([, antal]) => antal > 0)
-    .map(([tilstand, antal, noegle]) => `<p class="eu-fund-linje">${ctx.__H.ikon('i-ce', 'ikon ikon--lille')}<b class="eu-fund-tal">${esc(flet(T(i18n, 'forside_eu_tal'), { n: antal, m: t.i_alt }))}</b>${ctx.__H.tilstand(tilstand)}<span>${esc(T(i18n, noegle))}</span></p>`)
+    // Mellemrummene mellem <b>, tilstandsmaerket og <span> er IKKE pynt.
+    // Uden dem er linjens textContent "1 af 2nejProducenten oplyser, at der
+    // ikke er CE" - figur, tilstand og saetning loeber sammen til ét ord for
+    // en skaermlaeser. Adskillelsen var kun `gap:10px 12px` (generator.css:24),
+    // og det er LAYOUT, ikke tekst. .eu-fund-linje er display:flex, saa et
+    // whitespace-tekstnode bliver ikke et flex-element: teksten adskilles,
+    // og geometrien er uaendret (efterproevet - se commit-beskeden).
+    .map(([tilstand, antal, noegle]) => `<p class="eu-fund-linje">${ctx.__H.ikon('i-ce', 'ikon ikon--lille')}<b class="eu-fund-tal">${esc(flet(T(i18n, 'forside_eu_tal'), { n: antal, m: t.i_alt }))}</b> ${ctx.__H.tilstand(tilstand)} <span>${esc(T(i18n, noegle))}</span></p>`)
     .join('\n');
 
   return `<section class="sektion" aria-labelledby="eu-h">
