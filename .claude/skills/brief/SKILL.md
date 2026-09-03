@@ -76,6 +76,17 @@ Briefet skal derfor kun bære **én linje** i stedet:
   `robotdata` for en robotpost, `supabase` for skemaarbejde, `fejljagt` når
   noget opfører sig uventet. Plugin-skills fra en worktree svinger: giv
   diskstien med som reserve.
+
+  **Rører sporet noget visuelt — en flade, CSS, en farve, en skriftgrad, en
+  komponent, en datatilstand — så skal briefet pege på `design`-skillen OG på
+  de 2-4 konkrete afsnit i `DESIGN.md`, sporet faktisk skal bruge, med
+  linjenummer.** Ikke hele filen: den er 834 linjer, og et spor, der læser de
+  40 relevante, sparer 95 %. **Skriv aldrig designreglen af i briefet** — det
+  er kopi nummer to af designsystemet, og punkt 5's egen begrundelse gælder
+  her med fuld kraft. Briefet skal desuden navngive **fladens MODE**
+  (Operate eller Read) og sige udtrykkeligt, om designfrysen gælder for netop
+  denne opgave, eller om den er undtaget — og hvorfor. Et spor, der selv skal
+  gætte det, gætter forkert i den dyre retning.
 - **6.** Rapportens **filnavn** (`fund/FUND-<spor>.md`) og eventuelle ekstra
   sektioner ud over skillens to obligatoriske.
 - **7.** De miljøting, der er særlige for netop dette spor: hvilken port det
