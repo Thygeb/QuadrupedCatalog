@@ -406,10 +406,13 @@ function skalaFacet(spec, robotter, hjaelp, i18n) {
    ========================================================================== */
 
 /**
- * De fem listefacetter. Raekkefoelgen her er ogsaa lagenes raekkefoelge i HTML.
+ * De SEKS listefacetter. Raekkefoelgen her er ogsaa lagenes raekkefoelge i HTML.
  *
- * `ce` UDGIK 31. aug 2026 (L55 punkt 3): den kunne kun udvaelge 2 af 77 og
- * opsluges i den kommende certificerings-facet, som staar reserveret og tom.
+ * `ce` UDGIK 31. aug 2026 (L55 punkt 3) og er GENAABNET 3. sep 2026 paa JPK's
+ * ord ("Vi skal have valgte certificeringer ind i filter-mekanismen"). Den er
+ * ikke laengere en selvstaendig CE-facet ved siden af en kommende
+ * certificerings-facet - den ER certificerings-facetten, aabnet paa det ene
+ * felt, der har data. Se dens egen kommentar nedenfor.
  * `status` kom til som fuld facet (L55 punkt 5).
  */
 function facetter(robotter, hjaelp, i18n) {
@@ -463,6 +466,49 @@ function facetter(robotter, hjaelp, i18n) {
       etiket: t('filter_land'),
       vaerdier: (r) => [r.producentland],
       tekst: (v) => hjaelp.land(v),
+    },
+    {
+      /* CERTIFICERINGSFACETTEN ER AABNET (JPK 3. sep 2026: "Vi skal have
+         valgte certificeringer ind i filter-mekanismen"), i hans egen
+         afgraensning: AABN PAA CE, SOM DATA ER NU - ingen indsamling.
+         data/robots/ er uroert af dette spor.
+
+         DEN VENDER L55 PUNKT 3 ("CE-facetten UDGAAR som selvstaendig ...
+         i dag kan den kun udvaelge 2 robotter"), og det er en bevidst
+         omgoerelse, ikke en overset beslutning. To ting har aendret sig:
+         JPK har udtrykkeligt bedt om den, og L55 PUNKT 1 reserverede plads
+         til "den kommende certificerings-facet" - det er den plads, der her
+         tages i brug. Den aabnes paa CE, fordi CE er det eneste af skemaets
+         FIRE certificeringsfelter med mere end én tilstand i data: maalt
+         3. sep 2026 er fcc_oplyst 75 x ikke oplyst + 2 poster, mens
+         ul_oplyst og ccc_oplyst er 77 x ikke oplyst. En facet paa dem ville
+         have ét valg og kunne intet udvaelge.
+
+         TRE VAERDIER, IKKE ÉN. Haard begraensning 5: "ikke oplyst", "nej" og
+         "0" er tre forskellige tilstande og skal se forskellige ud. raekke()
+         giver dem hver sit maerke gratis - fyldt flueben (ja), kontur med
+         skraastreg (nej), stiplet tom firkant efter en stiplet skillelinje
+         (ikke oplyst) - og `orden` herunder holder "ikke oplyst" sidst.
+         En facet, der kun kunne filtrere paa "ja", ville skjule, at der
+         findes et DOKUMENTERET nej (Xiaomi CyberDog 2, vaerdi: false).
+
+         TEKSTERNE ER eu_ce_*-NOEGLERNE, GENBRUGT. De findes allerede, de
+         bruges paa robotsidens EU-afsnit for praecis de samme tre tilstande,
+         og de siger forskellen i ord og ikke kun i maerke: "CE oplyst af
+         producenten" / "Producenten oplyser, at der ikke er CE" / "CE staar
+         ikke noget sted". Ingen ny streng opfundet.
+
+         MAALT FORDELING 3. sep 2026, efterproevet tre veje (raa YAML, den
+         byggede pladsholders eget tal, og den fjernede eu_pointes tal):
+         ja 2 · nej 1 · ikke oplyst 74. BEMAERK: L55's grundmaaling fra
+         31. aug siger "ikke oplyst 73, ja 2, nej 2" - det tal er FORAELDET,
+         og facettens egne taellinger paa den byggede side er beviset. */
+      navn: 'ce',
+      etiket: t('filter_certificering'),
+      mrk: t('filter_certificering_mrk'),
+      vaerdier: (r) => [hjaelp.ceTilstand(r)],
+      tekst: (v) => t('eu_ce_' + v),
+      orden: ['ja', 'nej', 'ikke_oplyst'],
     },
     // Skalaerne staar SIDST, fordi raekkefoelgen her ogsaa er lagenes
     // raekkefoelge i HTML - og de to nye lag hoerer inderst, taettest paa
@@ -1035,6 +1081,7 @@ ${uoplyst.map((v) => raekke(f, v)).join('\n')}
   const vaegt = F.find((f) => f.navn === 'vaegt');
   const ip = F.find((f) => f.navn === 'ip');
   const land = F.find((f) => f.navn === 'land');
+  const ce = F.find((f) => f.navn === 'ce');
   const nyttelast = F.find((f) => f.navn === 'nyttelast');
   const pris = F.find((f) => f.navn === 'pris');
 
@@ -1094,17 +1141,21 @@ ${chipsHtml}
 ${facetBlok(ip, 3)}
 ${facetBlok(status, 3)}
 ${facetBlok(land, 3)}
-<!-- CERTIFICERING ER RESERVERET OG TOM: ingen afkrydsningsfelt findes endnu,
-     saa den faar hverken data-facetgruppe eller facetAktivMrk() - der er
-     intet at "vaere valgt". Den foldes stadig sammen som standard, for
-     konsistens med de otte oevrige grupper (JPK 1. sep 2026, punkt 4). -->
-<details class="facet facet--s3 facet--raekkeslut">
-<summary class="facet__navn">${esc(t('filter_certificering'))}<span class="facet__tal">${esc(t('filter_certificering_mrk'))}</span></summary>
-<div class="reserveret">
-<p class="reserveret__ord">${esc(t('filter_certificering_ord'))}</p>
-<p class="reserveret__note">${esc(tf('filter_certificering_note', { n: robotter.filter((r) => hjaelp.ceTilstand(r) === 'ja').length, m: alle }))}</p>
-</div>
-</details>
+${/* CERTIFICERINGSFACETTEN ER AABNET (JPK 3. sep 2026). Her stod indtil nu en
+     RESERVERET, TOM pladsholder - en <div class="reserveret"> med teksten
+     "Certificeringer - indsamles ... Facetten aabner, naar der er data at
+     filtrere paa - ikke foer". Den tekst er vaek sammen med pladsholderen,
+     fordi der ER data at filtrere paa: 2 ja, 1 nej, 74 ikke oplyst.
+
+     DEN ER NU EN FACET SOM ENHVER ANDEN og gaar derfor gennem facetBlok(),
+     ikke gennem egen markup. Det er hele pointen: den faar
+     data-facetgruppe, facetAktivMrk(), chips i strimlen, gruppens
+     "mindst ét valgt"-maerke, taellinger og hovedStil()s :has()-regler
+     GRATIS, fordi alt det maskineri er generisk over F. Den virker derfor
+     ogsaa UDEN JavaScript, praecis som fladen skilter med - det er
+     `.styr:has(#f-ce-ja:checked) .lag-ce[data-ce~="ja"]`-reglerne, som
+     hovedStil() nu udsender af sig selv. */''}
+${facetBlok(ce, 3, ' facet--raekkeslut')}
 ${skalaBlok(nyttelast, 6, ' facet--sidste-raekke')}
 ${skalaBlok(pris, 6, ' facet--raekkeslut facet--sidste-raekke', prisNoteHtml)}
 </div>`;
