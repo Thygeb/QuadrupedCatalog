@@ -709,6 +709,22 @@
 .saml-fotoophav{font-family:var(--manual);font-size:11.5px;line-height:1.55;
   color:var(--stoev-blaek);max-width:78ch;margin:var(--r3) 0 0;padding:0 var(--r3) var(--r3);
   text-wrap:pretty}
+/* FOTOKREDITTEN PR. KOLONNE (spor/fotofod, JPK 3. sep 2026: "Fodnoter til
+   foto skal vaere i deres respektive kollonner"). .saml-fotoophav BLIVER -
+   den baerer nu kun den faelles indledning ("Manufacturer's own photo."),
+   ikke laengere hvem/hvornaar. De specifikke krediter (producent + hentedato)
+   staar i stedet i denne <tfoot>, én celle pr. robot, samme spalte som
+   robottens eget kort - se assets/sammenligning.js' fotoFodHTML().
+
+   Cellerne genbruger sidens EGNE to graenselinjer, ikke nye farver:
+   border-top var(--linje) er den samme streg, `.saml-raekke > *` saetter
+   mellem hver datataekke og resten af tabellen, og border-left var(--blaek2)
+   er den samme kolonnedeler, `.specimen` bruger i pladehovedet. To
+   genbrugte tokens, ingen nye. */
+.saml-fotofod__hjoerne,.saml-fotofod__celle{border-top:1px solid var(--linje);
+  vertical-align:top;padding:var(--r2) var(--r3);font-family:var(--manual);
+  font-size:11.5px;line-height:1.4;color:var(--stoev-blaek);text-align:left}
+.saml-fotofod__celle{border-left:1px solid var(--blaek2)}
 
 /* --- 8b-IV. SMALLE SKAERME ----------------------------------------------
    Matricen brydes ALDRIG op i blokke - det ville koste tabelrollen, som Aa54
