@@ -8,24 +8,30 @@
  */
 import { erDansk, harAeoeaa } from '../db/fase2-tjek.mjs';
 import { poster as genisom } from './f2feje-genisom-payload.mjs';
+import { poster as fire } from './f2feje-fire-payload.mjs';
 
 function udfold(v) {
   if (v === null || v === undefined) return [];
   return Array.isArray(v) ? v : [v];
 }
 
-let iAlt = 0, dansk = 0;
-const fejl = [];
-for (const post of genisom) {
-  for (const kolonne of ['note_wording', 'quote', 'quote_wording']) {
-    for (const tekst of udfold(post.saet[kolonne])) {
-      iAlt++;
-      if (erDansk(tekst)) {
-        dansk++;
-        fejl.push(`robot_id=${post.noegle.robot_id} ${kolonne}: DANSK -> ${JSON.stringify(tekst)}`);
+function tjek(navn, poster) {
+  let iAlt = 0, dansk = 0;
+  const fejl = [];
+  for (const post of poster) {
+    for (const kolonne of ['note_wording', 'quote', 'quote_wording']) {
+      for (const tekst of udfold(post.saet[kolonne])) {
+        iAlt++;
+        if (erDansk(tekst)) {
+          dansk++;
+          fejl.push(`robot_id=${post.noegle.robot_id} ${kolonne}: DANSK -> ${JSON.stringify(tekst)}`);
+        }
       }
     }
   }
+  console.log(`${navn} nye vaerdier: ${iAlt} celler, ${dansk} danske (forventer 0)`);
+  for (const f of fejl) console.log(`  ${f}`);
 }
-console.log(`GENISOM nye vaerdier: ${iAlt} celler, ${dansk} danske (forventer 0)`);
-for (const f of fejl) console.log(`  ${f}`);
+
+tjek('GENISOM', genisom);
+tjek('FIRE (Astrall/CVTE/Yufan/Xiaomi)', fire);
