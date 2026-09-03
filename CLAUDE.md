@@ -42,48 +42,27 @@ Faldgruben er ikke uvidenhed. Det er at bruge **den skill man husker** frem for 
 Kør `ls C:/Users/thyge/.claude/skills/` og se den fulde liste i systemets skill-oversigt, før
 du vælger.
 
-Relevante for det her projekt:
-
-| Skill | Hvornår |
-|---|---|
-**Skills kommer fra to steder, og det er den fælde, der kostede en fejlkonklusion
-26. aug 2026.** `ls ~/.claude/skills/` viser **kun de lokale** — `impeccable`,
-`ui-ux-critique` og `critique`. **Plugin-skills ligger et andet sted** og er
-mindst lige så mange. Måling samme dag: **ti plugins er installeret, og ni er
-slået til på brugerniveau** — heriblandt `frontend-design` (siden 13. aug),
-`skill-creator` (21. aug), `code-review`, `feature-dev`, `impeccable`,
-`ui-ux-pro-max` og `taste-skill`.
-
-**Projektets `.claude/settings.json` lægger TIL brugerens, den erstatter den
-ikke.** At projektfilen kun nævner to plugins betyder altså ikke, at kun to er
-aktive. Vil du vide, hvad der faktisk er tilgængeligt, så læs begge:
+**Skills kommer fra to steder.** `ls ~/.claude/skills/` viser **kun de lokale**;
+plugin-skills ligger et andet sted og er flere. **Projektets
+`.claude/settings.json` lægger TIL brugerens, den erstatter den ikke.** Vil du
+vide, hvad der faktisk kan kaldes, så mål det:
 
 ```
 node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('C:/Users/thyge/.claude/plugins/installed_plugins.json','utf8')).plugins))"
 ```
 
-Tabellen her nævnte tidligere også
-`new-project`, `dataviz` og `simplify`; **ingen af dem findes under de navne**
-(`simplify` hedder i virkeligheden `code-simplifier` og ligger på disken —
-se måletallet nedenfor — men er **ikke installeret** og kan derfor ikke kaldes),
-og en agent, der fulgte tabellen, fik `Unknown skill` og gik videre uden skill.
-`critique` er *installeret* men **kan ikke køre**: dens første linje kræver
-`frontend-design` og `teach-impeccable`, som heller ikke findes. Tabellen er
-derfor skrevet om til det, der faktisk kan kaldes:
+**Et plugin i marketplace-mappen er ikke installeret** — kun det, der står i
+`enabledPlugins`, kan kaldes. Tabellen nedenfor er læst fra disken og viser det,
+der faktisk virker; `critique` står som ude af drift, fordi dens afhængigheder
+ikke findes. Historikken bag den oprydning er i Å148.
 
 ### L70: impeccables flows ER metoden for designarbejde
 
 **Besluttet af JPK 1. sep 2026, ordret: *"fremover anvender vi impeccables plugin
 og flows."*** Gælder alt designarbejde fra nu af.
 
-Anledningen var hans egen indvending midt i en strøm af punktrettelser: *"Inden
-vi laver for mange separate analyser, skal vi så ikke lave en konkret
-designplan?"* Han havde ret, og advarslen længere nede i denne fil var allerede
-købt for tre kritikrunder: **en fejlliste kan kun bringe siden tilbage til sit
-eget tilsigtede udseende — den kan aldrig hæve loftet.** Eftermiddagen 1. sep
-gentog mønstret præcist: polstring, tekststørrelse, SELECTED-baren og
-kildemærket, fire punktrettelser i træk, hver enkelt rigtig og tilsammen uden
-retning.
+Begrundelsen, købt for tre kritikrunder: **en fejlliste kan kun bringe siden
+tilbage til sit eget tilsigtede udseende — den kan aldrig hæve loftet.**
 
 **Konsekvensen i praksis:** står du med mere end én rettelse på samme flade, så
 kør `impeccable shape` på fladen i stedet for at sende rettelserne enkeltvis.
@@ -95,17 +74,15 @@ designplan, inden vi retter noget design."*** Fund noteres, de rettes ikke.
 Frysen gælder, indtil den overordnede plan findes.
 
 Fælden, frysen lukker, er at et designfund kan **ligne** en almindelig fejl.
-Samme dags `FUND-uiux.md` er eksemplet: afmærkningsgul som tekstfarve på lys
-bund giver **1,38:1** mod WCAG's krav på 4,5 — efterregnet uafhængigt af to
-parter. Det ser ud som en fejl, der bare skal rettes. Men paletten er låst af
-TYPESKILT, så rettelsen kan ikke være "vælg en anden gul"; den må være en
-systemregel om, **hvor `--accent` overhovedet må bruges som forgrund**. Den
-regel hører i planen, ikke i et hastespor.
+Eksemplet: afmærkningsgul som tekstfarve giver **1,38:1** mod WCAG's 4,5. Det
+ser ud som en fejl, der bare skal rettes — men paletten er låst af TYPESKILT,
+så rettelsen må være en systemregel om, hvor `--accent` må bruges som forgrund.
+Den regel hører i planen, ikke i et hastespor.
 
-Rodårsagen er værd at kende, fordi den kan gentage sig for ethvert token:
-palettens egen kommentar siger `9,19` — og det tal er rigtigt for gunmetal
-**på** gult. Tokenet blev målt som **baggrund** og bruges som **forgrund**.
-Et kontrasttal uden en læseretning er ikke et tal.
+Rodårsagen kan gentage sig for ethvert token: palettens kommentar sagde `9,19`,
+og det tal var rigtigt for gunmetal **på** gult. Tokenet blev målt som
+**baggrund** og bruges som **forgrund**. **Et kontrasttal uden en læseretning
+er ikke et tal.**
 
 **Undtaget frysen:** rene funktionsfejl (en knap, der ikke virker), brudte
 hårde begrænsninger, og fejl hvor rettelsen ikke rører en systembeslutning.
@@ -142,22 +119,8 @@ skill.
 | `taste-skill:*` | **13 underskills mod "generisk AI-frontend".** Installeret 21. aug 2026, aktiv. **Læs grænsen nedenfor, før nogen af dem kaldes** — tre af dens afsnit bryder projektets hårde begrænsninger, hvis de følges bogstaveligt |
 | `critique` | **Ude af drift.** Kræver også `teach-impeccable`, som ikke findes. Brug `impeccable critique` |
 
-**Målt 27. aug 2026 — hvad der faktisk er tilgængeligt, og hvad der bare ligger der:**
-
-| | Antal |
-|---|---|
-| Plugins **installeret** | **15** (10 om morgenen; JPK godkendte fem til samme dag) |
-| Heraf **aktive i dette projekt** | **15 af 15** — ingen er slukket |
-| Plugin-mapper på disken i `claude-plugins-official` | **39** |
-| Heraf installeret | **10** |
-
-**Ingen installeret plugin er slået fra her.** Projektfilen lægger til
-brugerens; unionen er alle 15. De fem, der kom til 27. aug:
-`code-simplifier` (det, tabellen fejlagtigt kaldte `simplify`),
-`claude-md-management`, `pr-review-toolkit`, `session-report` og `hookify` —
-alle på brugerniveau, kaldbare fra sessioner startet efter installationen.
-
-**De resterende 29 på disken kan IKKE kaldes.** Genkør tallene med:
+**Målt 27. aug 2026: 15 plugins installeret, alle 15 aktive her, 39 mapper på
+disken.** De 24, der kun ligger der, kan **ikke** kaldes. Genmål med:
 
 ```
 node -e "const fs=require('fs');
@@ -168,44 +131,16 @@ console.log('paa disk',d.length,'installeret',d.filter(p=>inst.has(p)).length);
 console.log('ikke installeret:',d.filter(p=>!inst.has(p)).join(', '));"
 ```
 
-**Fælde, der kostede fire agentbeskeder 26. aug 2026:** `frontend-design` lå hele
-tiden på disken i `~/.claude/plugins/marketplaces/claude-plugins-official/`, men var
-**ikke slået til** i `enabledPlugins`. Den dukkede derfor ikke op i skill-listen, og
-fire spor blev sendt uden den. **Et plugin, der ligger i marketplace-mappen, er ikke
-installeret** — kun det, der står i `.claude/settings.json`s `enabledPlugins`, kan
-kaldes. Er en skill ikke slået til, kan dens `SKILL.md` stadig læses fra disk; skriv
-da i rapporten at det blev gjort.
+**Er en skill ikke slået til, kan dens `SKILL.md` stadig læses fra disk** — skriv
+da i rapporten, at det blev gjort. Fire spor blev engang sendt uden
+`frontend-design`, fordi den lå på disken men ikke i `enabledPlugins`.
 
-### `taste-skill` — hører næsten ikke hjemme her
+### En skill udefra bærer sit eget projekts antagelser
 
-Installeret 21. aug 2026, aktiv, og kaldet er efterprøvet. **Men skillens egen
-første linje afgrænser den væk fra os:** *"Landing pages, portfolios, and
-redesigns. **Not dashboards, not data tables, not multi-step product UI.**"*
-Katalogsiden, sammenligningssiden og robotsiden ER datatabeller.
-
-**Fire af dens afsnit bryder hårde begrænsninger, hvis de følges bogstaveligt.**
-Den anbefaler at opfinde "organiske" tal frem for runde, at digte
-firmanavne, at bruge `picsum.photos` som billedkilde og at erstatte
-pladsholdernavne med realistiske. Alle fire hviler på samme antagelse: at
-indhold må digtes, så siden ser ægte ud. Vores antagelse er den modsatte —
-hvert tal har en kilde, og hver producent er en rigtig virksomhed.
-
-**Efter L70 er spørgsmålet stort set lukket:** designarbejde køres gennem
-`impeccable`s flows. Det eneste, der stadig er værd at hente herfra, er
-`redesign-skill`s tjekliste over ting, der passer på en datatung side og
-ikke rører nogen beslutning: `font-variant-numeric: tabular-nums` på taldata,
-synlige fokusringe, `min-height: 100dvh`, semantisk HTML, alt-tekst,
-"skip to content"-link, egen 404-side, `text-wrap: balance`, animation via
-`transform`, og aktiv-tilstand på knapper.
-
-**Den bredere lærdom, som ikke kun gælder denne skill:** en skill hentet
-udefra bærer sit eget projekts antagelser. **Læs en ny skills faktiske tekst
-for konflikter med de hårde begrænsninger, før den skrives ind i tabellen** —
-ikke kun dens beskrivelse.
-
-*(Her stod indtil 1. sep 2026 en 93-linjers gennemgang af alle 13 underskills
-med en ja/nej-tabel. Den blev skåret, fordi svaret for tolv af dem er nej, og
-fordi L70 gjorde spørgsmålet mindre relevant. Detaljen står i git-historikken.)*
+**Læs en ny skills faktiske tekst for konflikter med de hårde begrænsninger,
+før den skrives ind i tabellen** — ikke kun dens beskrivelse. `taste-skill` er
+eksemplet: fire af dens afsnit anbefaler at digte tal, firmanavne og billeder,
+og den afgrænser selv datatabeller væk. Den bruges derfor ikke her. Se Å148.
 
 ## Sprog
 
@@ -453,53 +388,17 @@ Fast regel, sat af JPK 25. aug 2026. Gælder **hver eneste opgave** fra nu af, u
 Orkestratorens fire faste skridt om hver opgave: **send sporet ud → læs rapporten → efterprøv
 selv → flet og ryd op.** Ingen af dem kan springes over, og ingen af dem kan uddelegeres.
 
-### 1. Rapporten skal være kort
+### 1.–2. Rapportform og konfidensskala: se `spor`-skillen
 
-Målt 25. aug 2026 på seks rapporter fra samme dag: **226 linjer i gennemsnit**, længste 337.
-Det er en afhandling, ikke en rapport, og den bliver skimmet i stedet for læst — hvilket er
-det modsatte af formålet.
+**Begge stod her i fuld længde indtil 3. sep 2026 og står nu i
+`.claude/skills/spor/SKILL.md`**, som sporet kalder som sin første handling.
+Reglen om ikke at skrive skills af i hånden gælder også denne fil.
 
-**Højst 60 linjer.** Rapporten skal indeholde fire ting og ikke mere:
-
-1. **Hvilken løsning blev valgt** — og hvilken blev fravalgt, i én linje hver.
-2. **Konfidensniveau pr. punkt** (se skalaen nedenfor).
-3. **Usikkerheder mødt undervejs** — det agenten ikke kunne afgøre.
-4. **Målingerne** som tal, ikke som prosa: "validate 77/0", "tests 212/2", ikke "alt kører".
-
-Alt andet — den fulde udredning, alle kørsler, alle overvejelser — hører i commit-beskederne,
-hvor det står ved siden af den diff, det handler om.
-
-**To sektioner ligger UDEN FOR de 60 linjer, og de er obligatoriske:**
-
-- **"Nye fælder og opdagelser."** Loftet må ikke koste det, rapporterne er værd. Målt
-  25. aug 2026: de lange rapporter bar netop opdagelserne — `InvalidKey` på ikke-ASCII
-  objektnøgler, mappeposter med `id: null`, og den bevidste regex-duplikering, der blev til
-  Å12. Under et hårdt loft dropper en agent det overraskende og beholder tjeklisten, for
-  tjeklisten er det, den blev bedt om. Er der intet at skrive, skal der stå, at der intet er.
-- **"Punkter i briefet, jeg ikke nåede."** Én linje pr. punkt, tom hvis ingen. Ærlighed skal
-  være strukturel, ikke noget der gemmer sig i prosaen under selv-reviewet.
-
-### 2. Konfidensniveauet skal have en metode, ikke en fornemmelse
-
-Hård begrænsning 6 forbyder en redaktionel score uden offentliggjort metode. **Den regel
-gælder også agenternes egne tal om sig selv.** Konfidens bindes derfor til bevistype, ikke til
-hvor sikker agenten føler sig:
-
-| Niveau | Betyder præcist |
-|---|---|
-| **Høj** | Målt med en kommando, tallet står i rapporten, og **orkestratoren kan genkøre den og få samme tal** |
-| **Middel** | Efterprøvet indirekte — enhedstest, strukturkontrol, delvis stikprøve — men ikke målt i den endelige form, brugeren møder |
-| **Lav** | Ikke efterprøvet: antaget, udledt, eller blokeret af noget agenten ikke kunne komme udenom |
-
-**Høj uden en genkørbar kommando nedskrives automatisk til lav.** Det er den eneste måde at
-forhindre, at niveauet inflaterer til "høj" på alting.
-
-**Og høj kræver to ting, ikke ét: kommandoen plus én linje om, hvad tallet ville have været,
-hvis arbejdet var forkert.** Genkørbarhed beviser reproducerbarhed, ikke relevans. Målt
-25. aug 2026: et spors worktree manglede de gitignorerede fabrikantbilleder, så
-`validate.mjs` gav **54 fejl** — kommandoen kørte, tallet var reproducerbart, og det målte
-agentens *miljø* frem for dens arbejde. Kan agenten ikke skrive den kontrafaktiske linje, er
-niveauet middel.
+Det, orkestratoren skal kunne uden at slå op: rapporten er **højst 60 linjer**
+plus to obligatoriske sektioner uden for loftet (*"Nye fælder og opdagelser"*
+og *"Punkter i briefet, jeg ikke nåede"*). Konfidens er bundet til **bevistype,
+ikke fornemmelse** — **høj** kræver en genkørbar kommando **plus** en
+kontrafaktisk linje, ellers er den middel. Uden det krav inflaterer alt til høj.
 
 ### 3. Orkestratoren efterprøver *efter* konfidens
 
@@ -584,7 +483,8 @@ data/robots/          én YAML pr. robot — én robot = én commit, git-diffbar
                       `db/eksporter.mjs --fra-db` (JPK's Studio-vej) — men
                       validate/build/tests kører altid paa YAML'en, aldrig
                       direkte paa databasen
-data/manufacturers/   én YAML pr. producent
+data/manufacturers/   TOM (målt 3. sep 2026, 0 filer). Producentdata bor i
+                      databasen; mappen er en rest og kan slettes
 data/i18n/            da.json, en.json — UI-strenge og feltnavne
 assets/silhuetter/    måltro SVG i fælles målestok. Se mappens LÆSMIG.md
 assets/fotos/         fotografier vi selv har taget. Tom indtil videre
@@ -618,7 +518,7 @@ Ud over de globale skills i tabellen ovenfor har projektet elleve egne i `.claud
 | `spor` | **Sporets egen skill — kaldes af SUBAGENTEN som første handling, ikke af orkestratoren.** Bærer metoden, der før blev kopieret ind i hvert brief: grundmåling, kontrollinje, skrive-grænse, filejerskab, selv-efterprøvning med tælling, rapportform og konfidensskala, plus `references/miljoefaelder.md`. Bygget 3. sep 2026, da SKILLEVAL målte, at 20 af 21 briefs i `fund/` bar de samme otte regelblokke |
 | `overlevering` | Når en session skal lukkes og en frisk startes: sessionsvagten siger til, JPK spørger om han skal starte forfra, eller det bliver tredje komprimering på samme opgave. **Reglen er PEG, kopiér ikke** — en overlevering, der kopierer tilstanden ind, er en komprimering med et andet navn og betales i den nye session på hvert kald. Bygget 3. sep 2026 på målingen: 98,5 % af input er cache-læsninger, 237k kontekst pr. kald, 58 kald pr. besked, og cachen lever én time |
 | `parallelt` | Hver gang arbejde deles på flere agenter. Bærer worktree-opsætningen, det opgavespecifikke i prompten og diskprisen pr. spor. Metoden peger på `spor`, flettet på `flet` |
-| `grillmig` | **UDE AF DET OBLIGATORISKE WORKFLOW pr. 28. aug 2026, besluttet af JPK.** Må stadig kaldes bevidst på et **agentbrief**, hvor et målbart facit findes — aldrig automatisk, og **aldrig på en designretning**. Begrundelsen, som er JPK's egen: den holder designprocessen tilbage og skærer for mange idéer. Det er strukturelt, ikke tilfældigt — skillens egen tekst siger *"enighed er fejltilstanden"* og *"slut aldrig med en ros"*, så den er bygget til at finde indvendinger. På et brief er det rigtigt. På en designretning er det skævt, fordi prisen ved en ny idé altid er konkret, mens gevinsten altid er spekulativ; resultatet bliver en nej-liste. **Det afgørende modbevis for dens beskyttelsesværdi er Å55:** sessionens dyreste fejl skete med skillen kørende — den stillede sit spørgsmål B3 om tidligere beslutninger, og jeg svarede forkert på det alligevel. En skill, der stiller det rigtige spørgsmål, forhindrer ikke et forkert svar. **Det, der SKAL overleve uden den:** slå altid efter i STATUS.md's **Lukket**-tabel og i *"Kom ikke igen med disse"*, før noget bygges — og afkort aldrig den søgning med `head`, se Å55 |
+| `grillmig` | **UDE AF DET OBLIGATORISKE WORKFLOW pr. 28. aug 2026, JPK's beslutning.** Må stadig kaldes bevidst på et **agentbrief** med et målbart facit — aldrig automatisk, og **aldrig på en designretning**, hvor den skærer for mange idéer. **Det, der SKAL overleve uden den:** slå altid efter i STATUS.md's **Lukket**-tabel og i *"Kom ikke igen med disse"*, før noget bygges — og afkort aldrig den søgning med `head`. Begrundelsen i Å148, modbeviset i Å55 |
 | `brief` | **Bygger briefets krop** (kaldes nu direkte, uden et grillmig-trin før): kørte acceptkriterier, komplet filejerskab, mærkede tal, rapportform, miljøfælder, pladsholder-scanning. Bygget 27. aug 2026 af ARBEJDSGANG.md O3's fire defekter |
 | `fejljagt` | HVER gang noget opfører sig uventet — rød test, måletal der ikke passer, kriterium der giver 0 uanset input. Efterprøv måleapparatet før tallet; mekanismesætning før rettelse; revert-bevis efter. Bygget 27. aug 2026 af ugens tre målefejl |
 | `flet` | HVER gang et spor flettes, en worktree fjernes eller en gren lukkes. Bærer de to regler, der manglede: tests på det FLETTEDE resultat, og `--force` kræver en måling først. Bygget 27. aug 2026 efter superpowers-analysen (`fund/FUND-superpowers.md`) |
@@ -752,18 +652,9 @@ Libuv-varianten skriver `Assertion failed` og en sti i `src\win\async.c`;
 bash-varianten skriver `command not found`. De ligner ikke hinanden i teksten
 — kun i tallet.
 
-**Mekanismen, så ingen tror `fetch` er magisk:** `process.exit()` river
-event-løkken ned, mens en libuv-handle stadig er ved at lukke. Det er timingen,
-ikke netværkskaldet — symptomet kan komme efter enhver async-kilde med åbne
-handles (fil-watch, `child_process`, en timer med åben socket). Reglen er en
-bevidst over-approksimation; en regel, man kan følge uden at vurdere om handlen
-nåede at lukke, er bedre end en præcis.
-
-**Målefælden, der næsten skjulte det:** orkestratorens første reproduktion brugte
-`example.com`, som ikke kan nås fra denne skal. `fetch` fejlede, **begge**
-varianter gav exit 1, og det lignede en afkræftelse. Kun kontrollen uden `fetch`,
-som gav 0, afslørede at apparatet var i stykker. Et plausibelt tal fra et ødelagt
-apparat — samme fejlform som forkerte greps, og lige så tavs.
+Årsagen er timingen, ikke netværkskaldet: `process.exit()` river event-løkken
+ned, mens en handle stadig lukker. Symptomet kan derfor komme efter **enhver**
+async-kilde med åbne handles. Reglen er en bevidst over-approksimation.
 
 **Browsermåling — `C:\Praktik\websites\maalevaerktoej\`** (sat op 26. aug 2026).
 Playwright ligger **bevidst uden for repoet**, så løftet om en afhængighedsfri
@@ -778,18 +669,11 @@ node C:/Praktik/websites/maalevaerktoej/flade-skud.mjs <url> <bredde> <udfil.png
 er vejen til at *se* en flade, ikke kun måle den — brugt af orkestratoren
 28. aug 2026 til at se katalogsiden med egne øjne midt i en kritik.
 
-**Den styrbare browser VIRKER — via projektets egen MCP-server, rettet og
-efterprøvet 31. aug 2026.** Projektets `.mcp.json` definerer en
-`playwright`-server, der starter `node.exe` direkte på
-`C:\Praktik\websites\maalevaerktoej\node_modules\@playwright\mcp\cli.js`
-(v0.0.79, installeret i måleværktøjets mappe — stadig uden for repoet).
-Efterprøvet med et rigtigt kald: `browser_navigate` svarede med et
-sidesnapshot. Klik, hover, tastaturnavigation og script-injektion er
-tilgængelige som `mcp__playwright__*`-værktøjer, og `impeccable critique`s
-overlay-trin kan køres. Her stod tidligere *"du mister KUN den styrbare
-browser"* — det gælder ikke længere. MCP-servere registreres ved
-sessionsstart: mangler værktøjerne, er sessionen startet før rettelsen —
-genstart, i stedet for at rapportere fallback.
+**Den styrbare browser VIRKER** via projektets egen MCP-server i `.mcp.json`,
+som starter `node.exe` direkte på måleværktøjets `@playwright/mcp/cli.js`.
+Klik, hover, tastatur og script-injektion er `mcp__playwright__*`-værktøjer.
+MCP-servere registreres ved sessionsstart: mangler værktøjerne, er sessionen
+startet før rettelsen — genstart i stedet for at rapportere fallback.
 
 **Pluginnets egen server (`plugin:playwright:playwright`) fejler STADIG med
 `CONNECTION_CLOSED` ved hver sessionsstart — det er forventet støj, jag den
@@ -798,29 +682,19 @@ et bash-script, som Windows' CreateProcess ikke kan udføre. Pluginfilen kan
 ikke rettes varigt (overskrives ved opdatering); projektserveren er
 erstatningen.
 
-**Fire løsninger er prøvet og modbevist — prøv dem ikke igen:** at lægge `npx`
-på PATH, at hente pakken først, at skifte til `npx.cmd` (giver **EINVAL** under
-Node 24 uden `shell:true`), og at starte via `cmd /c npx`. Derfor den valgte
-form: fuld sti til `node.exe` + fuld sti til `cli.js`, nul PATH-afhængigheder.
-*(Den fulde måling af hver hypotese står i git-historikken.)*
+**Fire løsninger er prøvet og modbevist — prøv dem ikke igen:** `npx` på PATH,
+hente pakken først, `npx.cmd` (**EINVAL** under Node 24 uden `shell:true`), og
+`cmd /c npx`. Derfor den valgte form: fulde stier, nul PATH-afhængigheder.
 
-**Impeccables detektor (`detect.mjs`) kører STILLE DEGRADERET på denne maskine —
-målt 28. aug 2026, og den degraderede kørsel er en falsk blank attest.** Fire
-parser-moduler (`htmlparser2`, `css-select`, `css-tree`, `domutils`) findes
-ingen steder på disken, og detektoren fejler da ikke — den *dæmpes*: **exit 0,
-tom liste, én linje på stderr** om DEGRADED. Enhver, der piper stdout eller kun
-ser exit-koden, får "ren side". Målt på en kontrolside med bevidst slop
-(gradient-tekst, glød, eyebrow-chip, 9px tekst): degraderet fandt **2** af 13
-fund, og **nul** CSS-afhængige regler — al kontrastmåling inklusive.
-
-**Løsningen, brugt af Assessment B samme dag:** installér de fire pakker i
-sessionens scratchpad og omdiriger KUN de fire bare specifiers med en
-`module.registerHooks`-resolve-hook (~12 linjer), så skill-mappen aldrig røres.
-Kør derefter detektoren gennem hooken. Valider ALTID motoren mod et kendt
-svar (kontrolsiden), før dens tal bruges — det er samme regel som for ethvert
-nyt måleapparat. To øvrige detektor-forbehold fra samme kørsel: dens tal
-svarer til **én** viewport (mobil-kaskaden, ikke 1440), og den tæller noder,
-ikke årsager — 793 af 852 fund på vores side var to CSS-erklæringer.
+**Impeccables detektor (`detect.mjs`) kører STILLE DEGRADERET her, og den
+degraderede kørsel er en falsk blank attest.** Fire parser-moduler mangler på
+disken, og detektoren fejler da ikke — den *dæmpes*: **exit 0, tom liste, én
+linje på stderr**. Målt mod en kontrolside med bevidst slop fandt den **2 af
+13** fund og **nul** CSS-afhængige regler, kontrastmåling inklusive.
+Løsningen er at installere de fire pakker i scratchpad og omdirigere dem med en
+`module.registerHooks`-resolve-hook, så skill-mappen aldrig røres. **Valider
+altid motoren mod et kendt svar, før dens tal bruges.** To forbehold: tallene
+gælder **én** viewport, og den tæller noder, ikke årsager. Detaljerne i Å148.
 
 Den skriver JSON med kortantal, højdespring inden for en række, spildt lodret
 plads, beskårne billeder, vandret overløb og sidehøjde — tal, der kan citeres
@@ -839,13 +713,9 @@ fuld sti:
 /c/Users/thyge/AppData/Local/Programs/Python/Python314/python.exe -m http.server <port> --directory dist
 ```
 
-**2. Port 8080 er delt mellem alle samtidige spor.** Da fælde 1 slog til,
-svarede `curl http://localhost:8080/` alligevel **200** — fra en anden agents
-server. `spor/instrument2` fandt **tre** forældreløse python-processer på
-8080 samtidig og målte derfor de gamle tal, efter at CSS'en var ændret.
-
-**Konsekvensen er, at et måletal kan se rigtigt ud og komme fra en fremmed
-mappe.** Derfor gælder to ting, hver gang der måles i browseren:
+**2. Port 8080 er delt mellem alle samtidige spor**, og en fremmed servers svar
+ser præcis ud som dit eget. Tre forældreløse processer er målt på 8080 samtidig.
+Derfor to ting, hver gang der måles i browseren:
 
 - **Egen port pr. worktree.** 8123, 8124, 8125 … aldrig 8080 fra et spor.
 - **Verificér serveren mod disken, før ét eneste tal bruges.** Vælg en
@@ -856,15 +726,8 @@ mappe.** Derfor gælder to ting, hver gang der måles i browseren:
   grep -c "<din streng>" assets/system.css
   ```
 
-  Giver de to forskellige tal, måler du en anden agents byg. **Det er samme
-  regel som for måleværktøjet selv: et nyt måleapparat — og en ny server er
-  et måleapparat — skal valideres mod et kendt svar, før dets tal bruges i
-  et fund.**
-
-**Værktøjet faldt selv i fælden første gang det blev brugt:** det målte
-beskæring mod `<img>`-elementets kasse og gav **0**, mens filmålingen gav
-**16** — rammen klipper, ikke billedet. Rettet til at måle mod `.billedled`.
-Det er tredje gang samme lærdom står på denne side, og den er værd at gentage.
+  Giver de to forskellige tal, måler du en anden agents byg. **En server er et
+  måleapparat og skal valideres mod et kendt svar som ethvert andet.**
 
 ### Disken er en begrænsning, ikke en selvfølge — målt 1. sep 2026
 
