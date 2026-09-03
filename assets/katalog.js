@@ -209,7 +209,35 @@
       klaebebar.appendChild(klaebebarValg);
       klaebebar.appendChild(klaebebarGaa);
       klaebebar.appendChild(klaebebarRyd);
-      document.body.appendChild(klaebebar);
+
+      /* GRAENSEBESKEDEN FLYTTER MED IND I BJAELKEN (spor/bundbar punkt 5,
+         planens D6 - det ene, Retning C bidrog med). "Du kan sammenligne
+         hoejst 3 robotter ad gangen" stod foer inde i filterpladen, altsaa
+         op til 3.000 px fra det udvalg, den handler om: graensen blev laert
+         ved at ramme den, og saa stod forklaringen et sted, laeseren ikke
+         kiggede. Nu staar den, hvor udvalget staar.
+
+         ELEMENTET GENBRUGES, DER BYGGES INTET NYT. Det er skabelonens eget
+         <p class="saml-graense" data-saml-graense role="status">
+         (tools/skabelon/katalog.mjs), som tests/dele/65.12 vogter i den
+         byggede HTML - den staar der uaendret; kun dens plads i DOM'en
+         flytter sig ved koersel. Ingen tal, intet maerke, intet "2 af 3" -
+         heller ikke i role="status" (haard begraensning 1). */
+      if (samlGraense) klaebebar.appendChild(samlGraense);
+
+      /* FOER <main>, IKKE SIDST I <body> (planens D5). Bjaelken stod
+         sidst, og dens knapper var derfor fokusstop 241 og 242 af 242 -
+         maalt foer sporet. En tastaturbruger skulle forbi 240 stop for at
+         naa en bjaelke, der permanent staar foran hende. position:fixed
+         betyder, at DOM-pladsen ikke flytter ét pixel visuelt.
+
+         Og det er ikke bare bekvemt: bjaelken findes KUN, naar der ER et
+         udvalg, og et udvalg er opgavens aktuelle tilstand. Den hoerer
+         foer indholdet - samme logik som at en skaermlaeser hoerer "3
+         filtre aktive", foer den hoerer de 77 resultater. */
+      var hoveddel = document.querySelector('main');
+      if (hoveddel && hoveddel.parentNode) hoveddel.parentNode.insertBefore(klaebebar, hoveddel);
+      else document.body.appendChild(klaebebar);
     }
 
     /* Lokalt lager kan KASTE, ikke bare vaere tomt: privat vindue, blokerede

@@ -2606,6 +2606,42 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
    ramme ALLE mellemrum - ogsaa det mellem "Åbn sammenligningen" og "Ryd
    udvalget", som er to handlinger, der hoerer sammen. */
 .klaebebar__gaa{margin-inline-start:var(--r4)}
+/* GRAENSEBESKEDEN INDE I BJAELKEN (punkt 5). Elementet er skabelonens
+   eget .saml-graense; assets/katalog.js flytter det herind ved koersel.
+   Den stod foer paa en LYS flade, og dens farve er derfor var(--blaek) -
+   som PAA --fod er 1,00 : 1, altsaa usynlig. Den maa have den moerke
+   fladers forgrund: --paafod paa --fod = 12,72 : 1.
+
+   Underkanten i --linje er en lys-flade-streg og forsvinder; accentmaerket
+   i venstre kant bliver (accent paa --fod = 9,19 : 1, den maalte,
+   tilladte retning, jf. L76). Polstringen skaeres fra 10px/--r5 til
+   --r1/--r3, fordi den nu staar i en 33 px hoej genstand og ikke i en
+   filterplade. Ingen ny font-size: de 11px er dens egne.
+
+   DEN STAAR position:absolute OVER bjaelken OG IKKE SOM ET FLEXLED I DEN,
+   og det blev afgjort af en maaling. Foerste udgave var et almindeligt led
+   med flex-basis:100%. Resultat, maalt: bjaelken sprang fra 869,8 til
+   1.121,7 px bred (da) / 1.180,3 (en) og fra 33,2 til 70,2 px hoej, fordi
+   `width:max-content` regner beskedens fulde saetning med paa linjen - og
+   --barplads var maalt paa den lave bjaelke, saa den hoeje daekkede
+   indhold igen. Uden for floedet koster beskeden bjaelken NUL px, og
+   geometrien er den samme, uanset om den staar eller ej. Det er ogsaa det
+   roligste: J2 forbyder bevaegelse, og en bjaelke, der vokser, er
+   bevaegelse - bare uden en transition til at undskylde sig med.
+
+   Den arver bjaelkens materiale (samme flade, samme haarstreg, samme
+   hjoerne), saa den laeses som bjaelkens egen stemme og ikke som en
+   fremmed notifikation. */
+.klaebebar .saml-graense{
+  position:absolute;left:0;right:0;bottom:100%;
+  margin-bottom:var(--r1);
+  padding:var(--r1) var(--r3);
+  border-bottom:0;
+  color:var(--paafod);
+  background:var(--fod);
+  border-radius:var(--hjoerne);
+  box-shadow:inset 0 0 0 1px var(--paafod2);
+}
 /* Fokusringen er accent og tegnes UDAD med 2px i stedet for sidens globale
    3px: bjaelken er kun ~44 px hoej, og en 3px ring med 3px offset ville
    skaere ud over dens kant. */
