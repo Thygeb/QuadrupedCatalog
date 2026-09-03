@@ -109,10 +109,14 @@ udgiver i footer og på Om-siden, ikke som afsender i katalogposterne.
   "forespørg pris"-formular i en katalogpost.
 - **Opfind aldrig tal.** Håndhæves mekanisk: bygget fejler, hvis et talfelt mangler
   enhed eller kilde.
-- **Ændret 19. aug 2026 (L13):** fabrikanternes billeder må bruges, **så længe siden er
-  lokal**. Siden må ikke publiceres med dem uden skriftlig tilladelse — se spærring S1 i
-  STATUS.md. Den oprindelige regel lød: fabrikanternes marketingbilleder må ikke genudgives — hverken juridisk eller fordi
-  det er det stærkeste mulige signal om et forhandlerforhold, der ikke findes.
+- **Ændret to gange. Gældende er den anden: fabrikanternes billeder må bruges — også på
+  en publiceret side.** Spærring S1 er **ophævet af JPK 26. aug 2026 (L37)**, og CLAUDE.md
+  siger udtrykkeligt: *"Ingen agent skal fremover føre S1 som en åben spærring eller
+  blokere en lancering på den."* Rejs den ikke igen, og bed ikke om tilladelser.
+  Reglens tre trin: oprindeligt forbudt helt — fabrikanternes marketingbilleder måtte ikke
+  genudgives, hverken juridisk eller fordi det er det stærkeste mulige signal om et
+  forhandlerforhold, der ikke findes; **19. aug 2026 (L13)** tilladt lokalt; **26. aug
+  2026 (L37)** tilladt uden begrænsning.
 
 ## Brand Commitments
 

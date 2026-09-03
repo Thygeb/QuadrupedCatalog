@@ -201,11 +201,27 @@ skrevet i kildens egne kommentarer: **"Ingen slagskygge findes på siden"** —
 materiale, ikke skeuomorft teater. Begge systemets skyggetokens (`--skygge`,
 `--skygge-loeft`) er sat til `none`; se *Dybde* nedenfor.
 
-Kataloget er i dag sprogroden. Forsiden med hero, yderpunkter og EU-fundet, som
-tidligere udgave af denne fil beskrev udførligt, **er slettet** (L72, 1. sep
-2026, `spor/oversigt`) — `dist/da/index.html` er nu selve katalogsiden (86 kort,
+Kataloget er i dag sprogroden. Forsiden med hero og yderpunkter, som tidligere
+udgave af denne fil beskrev udførligt, **er slettet** (L72, 1. sep 2026,
+`spor/oversigt`) — `dist/da/index.html` er nu selve katalogsiden (86 kort,
 0 forekomster af ordet "hero"). De komponentbeskrivelser hører historien til, se
 noten i bunden af *Komponenter*.
+
+**Undtagelsen er EU-fundet, og den skal læses, før nogen tror andet: komponenten
+er IKKE slettet.** `.eu-fund-linje` / `.eu-fund-tal` overlevede forsidens
+sletning ved at blive genbrugt på **producentfladen**, hvor den bærer CE-opgørelsen
+for hele producentens modelrække. Målt 3. sep 2026 på `main`: **50 af 50**
+producentsider trykker klassen (`grep -l "eu-fund-linje" dist/{da,en}/producenter/*/index.html`),
+og den bygges af `tools/skabelon/producent.mjs:212` med fire regler i
+`assets/generator.css`. Genbruget er bevidst — `producent.mjs:195-196` skriver, at
+den bruger *"samme CSS-klasser … fremfor at opfinde en producent-specifik
+variant"*.
+
+Denne fil førte komponenten som slettet **to steder** indtil 3. sep 2026, mens
+den stod på 50 sider. Fejlen er rettet her og i *Slettede komponenter*, men
+**hullet bagved består: producentfladen har intet komponentafsnit i denne fil
+overhovedet** — se noten sammesteds. Det er dér, en agent skal kigge, og der
+står i dag ingenting.
 
 Redaktionel stilhed er stadig princippet: én accentfarve, hårfine kanter,
 firkantede stansede felter frem for runde bløde flader. Personligheden ligger i
@@ -619,13 +635,39 @@ komponenter.
 
 ### Slettede komponenter — historisk
 
-Forsiden (`hero`, `yderpunkterne`, `EU-fundet`, `formålsfilteret`) er
-**slettet** (L72, 1. sep 2026, `spor/oversigt`). Den forrige udgave af
-denne fil brugte omkring 250 linjer på at beskrive dem som levende
-komponenter, inklusive et ændringslog tilbage til 24. aug 2026. Det er nu
-arkiv — se git-historikken for `DESIGN.md` før dette spor, eller
-`fund/FUND-kortramme.md` for en analyse af hvad der skete, da `.yderpunkt`s
-billedrettelse ikke fulgte med til `.net`-kortet.
+Forsiden (`hero`, `yderpunkterne`, `formålsfilteret`) er **slettet** (L72,
+1. sep 2026, `spor/oversigt`). Den forrige udgave af denne fil brugte omkring
+250 linjer på at beskrive dem som levende komponenter, inklusive et ændringslog
+tilbage til 24. aug 2026. Det er nu arkiv — se git-historikken for `DESIGN.md`
+før dette spor, eller `fund/FUND-kortramme.md` for en analyse af hvad der skete,
+da `.yderpunkt`s billedrettelse ikke fulgte med til `.net`-kortet.
+
+**`EU-fundet` stod på denne liste indtil 3. sep 2026 og hørte aldrig til her.**
+Komponenten lever på producentfladen — 50 af 50 byggede producentsider, målt på
+`main` — og listen sagde det modsatte. En agent, der slog EU-fundet op for at
+finde ud af, hvordan det skulle se ud, fik ét svar: *"den er slettet."*
+
+**En slettet-liste er farligere end et manglende afsnit**, fordi den besvarer
+spørgsmålet i stedet for at lade det stå åbent. Skriv derfor aldrig en komponent
+på denne liste uden først at måle den i `dist/`:
+
+```
+grep -rl "<klassenavn>" dist/da/ dist/en/ | wc -l     # skal give 0
+```
+
+### Producentfladen mangler et afsnit — kendt hul, ikke en forglemmelse
+
+Noteret 3. sep 2026 af `spor/produkort`s analyse (`fund/ANALYSE-produkort.md`,
+hul H1) og efterprøvet her. Fladen er **MODE: Read**, og disse klasser, den
+bygger på, er **ikke** beskrevet nogen steder i denne fil: `.eu-fund-linje`,
+`.eu-fund-tal`, `.producent-fakta`, `.pnavn`, `.pland`, `.pantal`,
+`.prod-navne`, `.kort-legende`. Ordet *"producent"* står 5 gange i filen, alle
+fem tilfældige.
+
+Afsnittet skrives **ikke** her og nu: designfrysen (L70) gælder, og et
+komponentafsnit er en systembeslutning, ikke en dokumentrettelse. Det hører i
+den overordnede designplan. Denne note findes, så næste agent ved, at hullet er
+**målt og kendt** frem for at tro, at fladen er dækket.
 
 ## Gør og lad være
 
