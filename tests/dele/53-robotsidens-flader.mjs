@@ -164,15 +164,24 @@ export default async function koer(ctx) {
       typeof T.anvendelse_forklaring === 'string' && T.anvendelse_forklaring.length > 0);
   }
 
-  /* --- 3b. forhandler-forbeholdet staar 0 gange pr. robotside (foden er
-     vaek, spor/uifix punkt 7) ------------------------------------------- */
+  /* --- 3b. forhandler-forbeholdet staar PRAECIS 1 gang pr. robotside
+     (foden er tilbage, spor/fodtest 3. sep 2026 - JPK omgjorde uifix'
+     fjernelse samme dag) --------------------------------------------- */
 
   for (const s of SPROG) {
     const T = JSON.parse(fs.readFileSync(path.join(rod, 'data', 'i18n', `${s}.json`), 'utf8'));
     const sider = alleFiler.filter((f) => f.sprog === s);
-    const afvigende = sider.filter((f) => f.html.split(T.ingen_forhandler).length - 1 !== 0);
-    ok(`53.11.${s}: forhandler-forbeholdet ("${T.ingen_forhandler.slice(0, 30)}…") staar 0 gange paa alle ${sider.length} robotsider (foden er vaek)`,
+    const afvigende = sider.filter((f) => f.html.split(T.ingen_forhandler).length - 1 !== 1);
+    ok(`53.11.${s}: forhandler-forbeholdet ("${T.ingen_forhandler.slice(0, 30)}…") staar PRAECIS ÉN gang paa alle ${sider.length} robotsider (foden baerer den, ingen dublet)`,
       afvigende.length === 0, `afveg paa: ${afvigende.map((f) => f.fil).slice(0, 3).join(', ')}`);
+    // REVERT-BEVIS specifikt for taersklen (var 0, er nu 1): en side UDEN
+    // forbeholdet (foden fjernet igen) skal FANGES af den nye regel.
+    const udenFodRobotside = { fil: 'test-uden-fod', html: '<main id="hoved"><h1>x</h1></main>' };
+    const afvigerUdenFod = [udenFodRobotside].filter(
+      (f) => f.html.split(T.ingen_forhandler).length - 1 !== 1,
+    );
+    ok(`53.11.${s}.revert: proeven FANGER en robotside UDEN forbeholdet (fjernes foden igen, falder testen)`,
+      afvigerUdenFod.length === 1);
   }
 
   // REVERT-BEVIS: en side med forbeholdet to gange skal FANGES (talt til 2,
