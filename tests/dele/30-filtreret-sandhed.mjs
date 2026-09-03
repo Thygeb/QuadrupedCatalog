@@ -29,6 +29,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { rens } from '../rens-css.mjs';
 
 /** Synlig tekst: script/style ud, tags ud. */
 function synligTekst(html) {
@@ -260,8 +261,11 @@ export default async function koer(ctx) {
   ok('30.18: noegletalspanelet saetter IKKE satsen paa alle .v',
     !/\.robot-noegletal \.stribe \.v\{/.test(gen),
     'den brede regel slog system.css\' .v-ikke/.v-nej og gjorde hullet lige saa tungt som tallet');
+  // Rens FILEN, ikke moenstret (tests/rens-css.mjs, BRIEF-prodtest.md):
+  // generator.css blev omformateret, og de nye mellemrum efter komma inde i
+  // :not(...) samt foer "{" knaekkede det gamle, kompakte moenster.
   ok('30.19: figurens sats undtager de fire datatilstande',
-    /\.robot-noegletal \.stribe \.v:not\(\.v-ikke,\.v-billede,\.v-nej,\.v-ja\)\{font-size:23px\}/.test(gen),
+    /\.robot-noegletal\.stribe\.v:not\(\.v-ikke,\.v-billede,\.v-nej,\.v-ja\)\{font-size:23px\}/.test(rens(gen)),
     'haard begraensning 5: ikke oplyst, nej og 0 skal se forskellige ud');
   ok('30.20: tilstandenes egen skala staar stadig i system.css',
     /\.stribe \.v-ikke,\.stribe \.v-billede\{font-size:13px\}/.test(sys)
