@@ -702,3 +702,53 @@ snuble over:
 Alle fire var sande i en 46-robots-tid. **Et tal i en kommentar ældes tavst** — og linje 84's
 tal er ikke bare forældet, det er *begrundelsen* for `hjemstedAf()`s form. Reglen er
 formentlig stadig rigtig; dens bevis er det ikke. De rettes sammen med den kode, de står ved.
+
+---
+
+## Bilag — sådan genkøres planens browsertal
+
+Planens browsermålinger er ikke citater fra et spor, der er væk. **Otte linjer genskaber
+dem alle**, og de bærer selv vagten (`url` + `w` i svaret), så et tal fra en fremmed fane
+eller en fremmed bredde er synligt i samme øjeblik.
+
+```bash
+# 1. server paa EGEN port, fra projektroden (aldrig `cd dist`)
+/c/Users/thyge/AppData/Local/Programs/Python/Python314/python.exe \
+  -m http.server 8144 --directory dist &
+
+# 2. maaleren skrives i maalevaerktoejets mappe (playwright bor der, uden for repoet)
+cat > C:/Praktik/websites/maalevaerktoej/prodmaal.mjs <<'EOF'
+import{chromium as c}from'playwright';const b=await c.launch(),p=await b.newPage({viewport:{width:1440,height:1000}});
+await p.goto(process.argv[2],{waitUntil:'networkidle'});
+console.log(await p.evaluate(()=>{const s=[...document.querySelectorAll('main section,main header')].map(x=>x.className+' '+Math.round(x.getBoundingClientRect().height*10)/10);
+const a=[...document.querySelectorAll('main a,main button,main label,main summary,main input')];
+const g=new Set(a.map(x=>{const y=getComputedStyle(x);return[y.fontSize,y.fontWeight,y.textDecorationLine,y.color,y.backgroundColor,y.borderTopWidth].join('|')}));
+return JSON.stringify({url:location.href,w:innerWidth,sektioner:s,klikbare:a.length,signaturer:g.size,sidehoejde:document.documentElement.scrollHeight})}));
+await b.close();process.exitCode=0;
+EOF
+
+# 3. koer (fra maalevaerktoejets mappe). Git Bash har IKKE node paa PATH.
+"/c/Program Files/nodejs/node.exe" prodmaal.mjs http://localhost:8144/da/producenter/rivr/
+"/c/Program Files/nodejs/node.exe" prodmaal.mjs http://localhost:8144/da/producenter/
+```
+
+**Svaret, målt 3. sep 2026 — det er de tal, planen bruger:**
+
+```
+RIVR    {"url":".../da/producenter/rivr/","w":1440,
+         "sektioner":["producent-top 150","sektion 170.4","sektion 410.8","sektion 1719.6"],
+         "klikbare":26,"signaturer":3,"sidehoejde":2632}
+INDEKS  {"url":".../da/producenter/","w":1440,
+         "sektioner":["sektion 1341.3"],
+         "klikbare":102,"signaturer":1,"sidehoejde":1654}
+```
+
+**Sådan læses det, hvis noget er galt:** afviger `url` eller `w` fra det, du bad om, har en
+anden proces flyttet browseren eller serveren — forkast tallet. Er `signaturer` på indekset
+**større end 1**, er P3 helt eller delvist bygget. Er den fjerde sektion på RIVR ikke
+**1719,6**, er 5.3 afgjort. `process.exit()` bruges ikke: filen har lavet et netværkskald,
+og libuv-fælden giver da exit 127 på denne maskine.
+
+**Og `node tools/build.mjs` skal have kørt først.** Uden `assets/fotos/fabrikant/` (610
+filer, gitignoreret) stopper bygget med 76 R18-fejl, og `dist/` skrives ikke — så måler du
+et fravær og tror, du måler en flade.
