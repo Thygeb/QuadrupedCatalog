@@ -2800,8 +2800,10 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 
 /* --- hvad siden ikke goer -------------------------------------------------
    Den haarde linje er PRODUCT.md's krav (linje 95-96, 119-120) og staar som
-   afsnittets paastand, ikke som en fodnote. Gunmetalflade, samme rolle som
-   sidefodens .haard - dér staar den ogsaa, paa hver eneste side. */
+   afsnittets paastand, ikke som en fodnote. Gunmetalflade (var(--fod)),
+   samme moerke overflade som .klaebebar bruger andre steder i systemet -
+   sidefoden, der oprindelig bar denne farve paa hver side, er fjernet
+   (spor/doedcss2, 3. sep 2026). */
 .om-haard{
   background:var(--fod);color:#FFFFFF;margin:0 0 var(--r5);
   padding:var(--r4) var(--r5);max-width:62ch;
