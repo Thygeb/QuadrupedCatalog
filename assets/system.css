@@ -2441,17 +2441,60 @@ summary.facet__navn > .facet__tal{
    den - strimlen klaeber til TOPPEN under scroll, denne til BUNDEN, saa
    udvalget er synligt uanset hvor i de 77 kort laeseren staar.
 
-   HAARD BEGRAENSNING 1 I FORMEN: NAVNE (`.klaebebar__navne`), ikke et
-   optalt maerke ved siden af - se assets/katalog.js' `navne.join(' · ')`.
+   HAARD BEGRAENSNING 1 I FORMEN: NAVNE (`.klaebebar__valg`), ikke et
+   optalt maerke ved siden af - se assets/katalog.js' byggValgLed().
    Ét link ("Åbn sammenligningen"), ingen knap med "fortsaet" eller "næste
    trin". Ingen symboler af nogen art - kun tekst, som resten af sidens
-   betjening. */
+   betjening. (Den saetning er en KOMMENTAR, og koden paa samme side
+   modsiger den allerede: kortets stempel .knap--maerkat tegner content:"+"
+   i hvile og content:"\00d7" naar robotten er valgt, linje 2692 og 2712
+   foer dette spor. Modstriden er NOTERET som fund til designplanen af
+   spor/bundbar 4. sep 2026 - den er ikke rettet her, for en systemregel om
+   symboler hoerer ikke i en bjaelke. Fjern-knappen baerer ordet "Fjern",
+   saa bjaelken overholder reglen uanset hvordan den ender.)
+
+   RETNING B, "SKINNEN" (spor/bundbar, 4. sep 2026, punkt 3; D1 i
+   fund/PLAN-klaebebar.md, valgt af JPK). Bjaelken var et BAAND: left:0,
+   right:0, bottom:0, altsaa 1.440 px bred uanset hvad den bar, med
+   58-74 % af sin flade tom - maalt 65.790 px2 massiv gunmetal for at baere
+   605 px blaek. Den er nu en GENSTAND: saa bred som sit indhold,
+   centreret over gitteret, loeftet fri af skaermkanten.
+
+   CENTRERINGEN ER `margin-inline:auto` MED left:0;right:0 - IKKE planens
+   `left:auto;right:auto`. Maalt, ikke antaget: paa et position:fixed
+   element betyder left:auto "brug den statiske position", altsaa dér hvor
+   elementet ville have staaet i floedet - venstrekanten. Planens egen
+   formulering ville have givet en venstrestillet bjaelke og dermed brudt
+   JPK's beslutning J1 (centreret over gitteret, 3. sep 2026). Med left og
+   right paa 0 faar elementet et fuldt bredt "indeholdende felt", og
+   margin-inline:auto deler resten lige - den eneste form, der centrerer et
+   fixed element, hvis bredde er indholdets.
+
+   INGEN SLAGSKYGGE (DESIGN.md:745, "Systemet er fladt, punktum" - begge
+   skyggetokens er none). En flydende genstand kunne friste til én; den
+   faar i stedet en HAARSTREG, som er DESIGN.md's egen formulering af
+   dybde: "fladeskift og streger". `inset 0 0 0 1px var(--paafod2)`
+   erstatter samtidig `box-shadow:0 -1px 0 rgba(0,0,0,.2)`, som var hele
+   stilarkets ENESTE raa rgba-skygge.
+
+   HJOERNET ER TOKENET, ikke et nyt tal: --hjoerne = 2px, DESIGN.md:761,
+   "det gaelder overalt". Baandet havde intet hjoerne, fordi et baand ikke
+   har nogen - en genstand har fire, og de faar sidens ene radius.
+
+   INGEN BEVAEGELSE - JPK's beslutning J2, og det er et forbud, ikke en
+   udeladelse. Ingen transition, ingen @keyframes. Sitet har i dag ingen
+   bevaegelsesgrammatik ud over .knap:active{transform:translateY(1px)}, og
+   en sammenfoldning her ville vaere sidens eneste animerede tilstandsskift
+   - en systembeslutning forklaedt som en detalje. */
 .klaebebar{
-  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  position:fixed;left:0;right:0;bottom:var(--r4);z-index:50;
+  margin-inline:auto;
+  width:max-content;max-width:calc(100% - 2*var(--kant));
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3);
-  padding:var(--r3) var(--r5);
+  padding:var(--r1) var(--r3);
   background:var(--fod);color:var(--paafod);
-  box-shadow:0 -1px 0 rgba(0,0,0,.2);
+  border-radius:var(--hjoerne);
+  box-shadow:inset 0 0 0 1px var(--paafod2);
 }
 /* Samme faelde som §2/§4's andre skjulte elementer: en forfatterregel med
    `display:flex` slaar altid UA-arkets `[hidden]{display:none}`. */
@@ -2468,6 +2511,13 @@ summary.facet__navn > .facet__tal{
    manglede, var ikke en anden vaerdi, men hjemmel til den" - og
    acceptkriteriet dér er, at denne omskrivning kan ske UDEN at én
    font-size aendrer sig. Der er ikke aendret én. */
+/* TRE AFSTANDE, TRE BETYDNINGER - de er det, der goer tre knapper med
+   samme navn laeselige. Alle er trin paa skalaen, ingen haandskrevne tal:
+     --r1  (4px)   navn <-> DETS egen Fjern-knap  - de hoerer sammen
+     --r3 (12px)   mellem to valgte robotter      - de er sideordnede
+     --r3 + --r4   listen <-> handlingerne (bjaelkens gap plus marginen paa
+                   __gaa nedenfor)                - to forskellige ting
+   Uden trappen laeser oejet "navn navn navn Fjern Fjern Fjern". */
 .klaebebar__valg{
   list-style:none;margin:0;padding:0;min-width:0;
   display:flex;align-items:center;gap:var(--r3);
@@ -2507,6 +2557,11 @@ summary.facet__navn > .facet__tal{
    voksende navnetekst er vaek, men de to handlinger skal stadig maale sig
    selv og ikke deles om resten.) */
 .klaebebar__gaa,.klaebebar__ryd{flex:none}
+/* Den ekstra luft foran handlingerne (se afstandstrappen ved __valg): den
+   staar HER og ikke som en stoerre `gap` paa bjaelken, fordi gap ville
+   ramme ALLE mellemrum - ogsaa det mellem "Åbn sammenligningen" og "Ryd
+   udvalget", som er to handlinger, der hoerer sammen. */
+.klaebebar__gaa{margin-inline-start:var(--r4)}
 /* Fokusringen er accent og tegnes UDAD med 2px i stedet for sidens globale
    3px: bjaelken er kun ~44 px hoej, og en 3px ring med 3px offset ville
    skaere ud over dens kant. */
