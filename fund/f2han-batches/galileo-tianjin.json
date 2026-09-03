@@ -1,0 +1,48 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat": "Effective payload. Mapped to walking payload - 'effective, during active use' is interpreted as corresponding to the walking/dynamic load, parallel to Yuejia's explicit 'dynamic load'. An interpretation, not the manufacturer's own word 'walking'."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2199,
+      "field_name": "battery_wh"
+    },
+    "saet": {
+      "caveat": "Manufacturer states both Ah and Wh directly (720Wh is NOT calculated by us). Nominal voltage is given separately as 48V.",
+      "caveat_wording": "\"电池容量: 15AH，720Wh\" \"电池额定电压: 48V\""
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2200,
+      "field_name": "battery_wh"
+    },
+    "saet": {
+      "caveat": "Battery capacity - identical to the walking C1. Nominal battery voltage 48V.",
+      "caveat_wording": "\"电池容量: 15AH，720Wh\" \"电池额定电压: 48V\""
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2201,
+      "field_name": "data_ports"
+    },
+    "saet": {
+      "caveat": "TypeC replaces the C1/C1-W pair's RS485. 'Interfaces can be expanded as needed' is not a fourth port, just a note on flexibility."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  }
+]

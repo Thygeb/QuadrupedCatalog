@@ -1,0 +1,211 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2205,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "Explicit (includes battery). CORRECTED ON SELF-CHECK: this row has no 'approx.' mark before the weight, unlike the measurements just above it in the same table, which ARE marked. An earlier draft of this entry incorrectly set operator '~' on the weight, assuming the whole section shared the same approx. marking — corrected after re-reading the raw JSON."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2205,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat": "The axes ARE labelled explicitly by the manufacturer (in order: length, width, height), unlike MicroRoboTech's two entries."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2205,
+      "field_name": "degrees_of_freedom"
+    },
+    "saet": {
+      "caveat": "Number of joint motors, not explicitly 'degrees of freedom'. Same interpretation as the Unitree Go2 in this collection."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2205,
+      "field_name": "speed"
+    },
+    "saet": {
+      "caveat": "A separate limit speed of 5 m/s is also disclosed - not used as the main value, because 'max speed' is the label that corresponds to 'normal maximum speed' elsewhere in this collection."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2205,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat": "Accessories list: charging dock, standard equipment. Confirms a physical charging dock ships as standard, but does NOT confirm autonomous return-to-dock/self-recharging - that term does not appear on L1's page (unlike L2's explicit 'autonomous return-and-recharge function')."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2206,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "Explicit (includes battery). The row has no 'approx.' mark."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2206,
+      "field_name": "data_ports"
+    },
+    "saet": {
+      "caveat": "The manufacturer claims 7 interface types in total, but 'etc.' makes the list non-exhaustive - only these three categories are named explicitly."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2207,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "Explicit (includes battery). The row has NO 'approx.' mark, unlike the measurements just above it in the same table (same pattern as Gangben L1, corrected there on self-check - checked here from the start after that same error)."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2207,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "Means 'from'/'starting at': the base-configuration price; options (e.g. the optional charging station above) are added on top."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2208,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In L2-W's own data block - no 'approx.' mark."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2208,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Qualitative list from L2-W's own feature list. Adds 'Thomas flair' to the special-motions list compared with the base version's list."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2209,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In L2-W Ultra's own data block - same figure as L2-W, no 'approx.' mark."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2209,
+      "field_name": "cameras"
+    },
+    "saet": {
+      "caveat": "The pixel count (2.07 MP × 2) sits only next to 'the forward stereo camera' in the raw string - the fisheye array's own pixel count is NOT separately disclosed, so 2.07 MP should be read as covering the stereo camera, not necessarily the whole array."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2210,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat": "Outer dimensions, length×width×height - no 'approx.' mark, no operator set."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2211,
+      "field_name": "sdk_languages"
+    },
+    "saet": {
+      "caveat": "INVESTIGATED, BUT NOT SET. GENISOM AI's GitHub organisation (zsibot) has a repo 'genisom_robot_sdk' (README: Programming Language: C++, Ubuntu 22.04/CMake/GCC/Boost), but the repo has NO GitHub description tying it to a specific product name (unlike 'genisom_L1_sdk', whose description explicitly names the Genisom AI L1 Series). Neither 'M1' nor 'Tongchui' appears in the extracted README text. Using the repo for M1 would be the same kind of name-coincidence-without-evidence that was caught and rejected on L2's ros2 field in the previous round - hence stated as not disclosed rather than a guess."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2211,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In the structured spec table - no 'approx.' mark. CONTRADICTED by the page's own marketing card: approx. 30kg own weight (the lightest in its class), approx. 30kg sustained working load, achieving a near-1:1 load-to-weight ratio, industry-first for quadrupeds. The two figures (41kg vs. 30kg) are the SAME robot's own weight on the SAME page and are in conflict. Rule 9: not silently corrected. The structured table is used as the field value because it is the more specific source (same principle as the rest of the GENISOM entries), but the inconsistency is not explained away."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2211,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat": "NO 'approx.' mark on this row, unlike L1/L2's corresponding measurements. No operator set, per rule 4 (never invent a caveat the manufacturer did not write)."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2211,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Qualitative list from the manufacturer's feature section, not a rating on a scale. Autonomous navigation is stated explicitly as OPTIONAL ('optional'), not standard."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2212,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In M1 Pro's own spec table (id 497) - identical to the base version, NO 'approx.' mark. CONTRADICTED by the page's site-wide marketing card ('approx. 30kg') - see the top note. Rule 9: not silently corrected."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  }
+]
