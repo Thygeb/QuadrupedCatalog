@@ -147,7 +147,7 @@ tilfælde.
 steder, og alle tre bliver respekteret af `fixed`:
 
 - `generator.css:434` `.specimen-hoved__hjoerne{…width:224px;min-width:224px}`
-- `generator.css:607–608` `.saml-raekke__navn{…width:224px;min-width:224px}`
+- `generator.css:605–606` `.saml-raekke__navn{…width:224px;min-width:224px}`
 - `generator.css:679` ved ≤720 px: begge til `150px`
 
 `table-layout:fixed` læser **første rækkes** bredder, og første række er `.specimen-hoved`,
