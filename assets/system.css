@@ -2145,9 +2145,6 @@ td .v{font-size:15px}
    .valg"). */
 .valg--skala[hidden]{display:none}
 
-.pris-om__tal{
-  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--blaek2);
-}
 .pris-om__ord{
   font-size:10px;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--stoev-blaek);
