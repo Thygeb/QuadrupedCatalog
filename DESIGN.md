@@ -265,15 +265,17 @@ alle stemte.
 
 ### Primær
 
-- **Afmærkningsgul** (`#F2C400`): valgte filtre, fokusring, understregning
-  på hover, markørflader. **L76 (2. sep 2026) gør reglen bindende: accent er
-  en BAGGRUND og en MARKØR, aldrig tekst på en lys flade.** Med mørk tekst
-  ovenpå er den sikker (`blaek` på `accent` = 9,19 : 1); som forgrund på lys
-  er den 1,60 : 1 på `panel` og 1,38 : 1 på `bund`. **Tekst PÅ accent er
-  altid `blaek`, aldrig hvid** (hvid = 1,66 : 1). På den mørke flade
-  (`blaek`/`fod`) MÅ accent være tekst — dér er den 9,19 : 1, og tre regler
-  bruger den sådan. Her stod tidligere, at accent var farven på *links* og
-  *kildemærker*; det er den ikke længere. Se punkt 5 i `## Konflikter`.
+- **Afmærkningsgul** (`#F2C400`): valgte filtre og markørflader — altså accent
+  som **baggrund**, med `blaek` ovenpå (9,19 : 1). Som **forgrund** er den
+  1,60 : 1 på `panel` og 1,38 : 1 på `bund`, og hvad den derfor må og ikke må,
+  afgøres af **Forgrundsreglen** nedenfor — ikke af denne punktopstilling.
+  **Tekst PÅ accent er altid `blaek`, aldrig hvid** (hvid = 1,66 : 1). På den
+  mørke flade (`blaek`/`fod`) MÅ accent være forgrund — dér er den 9,19 : 1.
+  Her stod tidligere, at accent var farven på *links* og *kildemærker*; det er
+  den ikke længere. Og her stod indtil designplanen ordet **"fokusring"** midt
+  på listen over tilladte brug. Det var forkert, og hvordan det kunne stå der
+  uimodsagt i to dage, er hele pointen i Forgrundsreglen. Se punkt 5 i
+  `## Konflikter`.
 - **Afmærkningsgul, rolig** (`--accent-ro`): peger i koden på samme værdi som
   `--bund` (`#E8EBED`) — se *Farvedubletter* i `## Konflikter`.
 
@@ -306,7 +308,138 @@ alle stemte.
 - **Eloxgrå på gunmetal** (`--paafod`): lys tekst på mørk bund. 12,72 : 1.
 - **Støvgrå på gunmetal** (`--paafod2`): dæmpet tekst på mørk bund. 5,94 : 1.
 
+### Forgrundsreglen for `--accent` — DP1, designplanen 3. sep 2026
+
+**Denne regel afløser L76's tekstregel. Den siger det samme og mere: L76 dækkede
+`--accent` som TEKSTfarve, og alt andet forgrundsbrug faldt udenom.**
+
+Det er ikke en teoretisk mangel. `assets/system.css:343` sætter sidens globale
+fokusring til `3px solid var(--accent)`, og på en lys flade er den **1,38 : 1**
+mod WCAG 1.4.11's krav på **3,0 : 1**. Ringen tegnes på hvert fokuserbart
+element på hele sitet, der ikke selv overstyrer den.
+
+**Og reglen fangede det ikke, fordi den selv listede fejlen som et tilladt
+brug.** L76's egen formulering, ordret fra *Lad være* før denne rettelse:
+*"accent er baggrund, kant, understregning eller fokusring — aldrig forgrund på
+lyst."* En kant er en forgrund. En fokusring er en forgrund. Sætningen
+modsiger sig selv i sin egen anden halvdel — den forbød forgrund og gav tre
+eksempler på forgrund som undtagelser.
+
+**Den generelle lære, og den koster ingenting at følge: skriv altid, hvilke brug
+en tokenregel IKKE dækker.** En regel, der kun nævner det, den forbyder, ser
+komplet ud. Havde L76 båret linjen *"denne regel siger intet om kanter,
+fokusringe og ikoner"*, var fokusringen fundet samme dag i stedet for to dage
+senere. Rækkevidden er en del af reglen, ikke en kommentar til den.
+
+#### Reglen: fem brugstyper, ét kravtal pr. type, én læseretning pr. tal
+
+Et kontrasttal uden en læseretning er ikke et tal. Tallene nedenfor er regnet
+med WCAG's relativitetsformel af designplansporet på et apparat, der først blev
+valideret mod **15** af denne fils egne offentliggjorte tal — 15/15 stemte.
+
+| # | Forgrundsbrug af `--accent` | Standard | Kravtal | Lys flade (`bund` 1,38 · `panel` 1,60) | Mørk flade (`fod` 9,19) |
+|---|---|---|---|---|---|
+| 1 | Tekst under 24px (eller under 18,66px fed) | WCAG 1.4.3 AA | **4,5 : 1** | **FORBUDT** | tilladt |
+| 2 | Stor tekst — ≥24px, eller ≥18,66px fed | WCAG 1.4.3 AA | **3,0 : 1** | **FORBUDT** | tilladt |
+| 3 | Fokusindikator: `outline`, `border-color` eller `box-shadow`, der markerer fokus | WCAG 1.4.11 | **3,0 : 1** | **FORBUDT alene** | tilladt |
+| 4 | Betydningsbærende kant, ikon eller markør, hvor formen ALENE bærer oplysningen | WCAG 1.4.11 | **3,0 : 1** | **FORBUDT** | tilladt |
+| 5 | Rent dekorativ forgrund, hvor betydningen bæres af noget andet i samme element — fx en understregning under en `blaek`-tekst, en hover-tone, en fuge | ingen | — | **tilladt** | tilladt |
+
+To ting, reglen IKKE rører, så ingen læser dem ind i den:
+
+- **Accent som BAGGRUND er altid tilladt**, på begge flader. Tekst ovenpå er
+  altid `blaek` (9,19 : 1), aldrig hvid (1,66 : 1).
+- **`--accent-ro` er ikke accent.** Den peger på `#E8EBED` og er en flade.
+
+#### De tre spørgsmål, reglen skal kunne besvare uden fortolkning
+
+1. **Må accent være fokusring på `--bund`?** **Nej.** Type 3, lys flade,
+   1,38 : 1 mod kravet 3,0.
+2. **Må accent være fokusring på dækket?** **Nej — og af en grund, der er værd
+   at læse.** Der findes ikke noget farvetoken ved navn `--daek`; målt:
+   `grep -c -- "--daek:" assets/system.css` giver **0**. `.daek`
+   (`system.css:512`) sætter ingen baggrund og arver `--bund`. **Dækket er en
+   LYS flade**, så spørgsmålet er identisk med spørgsmål 1. Det er i praksis
+   allerede en levende fejl: `.daek__nav a:focus-visible` (`system.css:576`)
+   ændrer kun offset og arver den globale accentring.
+3. **Må accent være brødtekst nogen steder?** **Ja — men kun på den mørke
+   flade** (`--fod`/`--blaek`), hvor den er 9,19 : 1. Aldrig på lyst, uanset
+   skriftgrad: 1,60 : 1 klarer ikke engang type 2's 3,0.
+
+#### DP1b — hvad fokusringen SKAL være
+
+**Én ring, to fladevarianter. Samme grammatik som knappen fik med L77, hvor
+`-moerk` står i navnet, så den forkerte flade ikke kan vælges ved et uheld.**
+
+| Flade | Ringens farve | Kontrast mod fladen | Krav |
+|---|---|---|---|
+| `--bund` (`#E8EBED`) | `--blaek` | **12,72 : 1** | 3,0 |
+| `--panel` (`#FAFBFB`) | `--blaek` | **14,69 : 1** | 3,0 |
+| `--fod` / `--blaek` (`#22262A`) | `--accent` | **9,19 : 1** | 3,0 |
+
+Mekanikken, så et byggespor ikke skal gætte: **ét semantisk alias, `--ring`.**
+Det tilfører ingen farve — paletten er låst, og aliaset peger på primitiver, der
+allerede findes, præcis som de 16 semantiske tokens gør i dag.
+
+```css
+:root{ --ring: var(--blaek) }                 /* den sikre standard */
+:focus-visible{ outline:3px solid var(--ring); outline-offset:3px;
+                border-radius:var(--hjoerne) }
+.sidefod, .billednote, .klaebebar{ --ring: var(--accent) }   /* mørke flader */
+```
+
+**Standarden skal være den lyse**, fordi sitet er lyst: en mørk flade, der
+glemmer sit `--ring`, er få og findes ved gennemgang; en lys flade, der glemmer
+det, er 200+ sider.
+
+**Systemet har allerede svaret, og det er halvvejs bygget.** Målt over begge
+stilark: **fem** fokusregler tegner allerede ringen i `--blaek` — `.rk__felt`
+(`generator.css:1409`), `.chip__felt` (`:1449`), `.sortervalg input` (`:1496`),
+`.skala__greb` (`system.css:2222`) og `.knap--maerkat` (`:2716`). Fem tegner den
+i `--accent`, hvoraf **fire står på lys flade** og er ulovlige: den globale
+(`system.css:343`), `summary.facet__navn` (`:2368`), `.stribe-under-fold >
+summary` (`generator.css:964`) og `.skema > summary` (`generator.css:1058`, hvis
+flade er `--panel`, `:1045`). Den femte, `.klaebebar__gaa/__ryd`
+(`system.css:2482`), står på `--fod` og er **lovlig**. Dertil én
+`border-color`-indikator, `.sog input:focus-visible` (`system.css:1524`), som er
+type 3 på lys flade.
+
+**Fravalgt alternativ, skrevet ned så det ikke skal genopfindes: den tofarvede
+ring** — et indre accentbånd og en ydre gunmetalring, hvor accent læses mod
+gunmetal (9,19) frem for mod siden. Den bevarer accenten i fokus og overholder
+kravet. Den er fravalgt, fordi den kræver en anden tegnemekanisme ved siden af
+`outline` (`box-shadow`), og sitet har allerede tre steder, der slås med
+klipning ved hjælp af **negativ** `outline-offset` (`.daek__nav a` −3px,
+`.skema > summary` −3px, `.klaebebar` tegner udad med 2px netop for at undgå
+det). Et `box-shadow`-bånd følger ikke en negativ offset og ville knække præcis
+dér. Dertil: *"Ingen slagskygge findes på siden"* gør `box-shadow` til en ladt
+mekanisme i dette system.
+
+#### Acceptkriterier for DP1 — et byggespor kan sendes på dem
+
+- **AK1a.** `grep -n "solid var(--accent)" assets/system.css assets/generator.css`
+  giver **0** linjer, hvor egenskaben er `outline`. Kontrafaktisk: uden
+  rettelsen giver samme kommando **4**.
+- **AK1b.** `grep -c -- "--ring" assets/system.css` er **≥ 2** (definitionen i
+  `:root` og den globale ring), og hver mørk flade, der kan indeholde et
+  fokuserbart element, sætter `--ring:var(--accent)`. Byggesporet skriver
+  antallet af mørke flader, det fandt, og lister dem — tallet måles, det
+  forudsiges ikke her.
+- **AK1c.** Målt i browseren på en bygget lys side: `outline-color` på et
+  fokuseret navigationslink i dækket er `rgb(34, 38, 42)`, og kontrasten mod
+  `rgb(232, 235, 237)` er **12,72**. Kontrafaktisk: slår rettelsen ikke igennem,
+  rapporterer samme script `rgb(242, 196, 0)` og **1,38**.
+- **AK1d.** `.sog input:focus-visible` bruger ikke længere `--accent` som
+  `border-color` på lys flade.
+
+**DP1 er en beslutning i designplanen, ikke en L-post.** Accepterer JPK planen,
+hører den hjemme i STATUS.md med sit eget L-nummer; indtil da står den her som
+det, planen har besluttet, og et byggespor kan sendes på den.
+
 ### Navngivne regler
+
+**Reglen om rækkevidden.** Enhver regel om et token skal skrive, hvilke brug den
+IKKE dækker. Se Forgrundsreglen ovenfor for prisen, da den linje manglede.
 
 **Reglen om navnene, ikke værdierne.** `system.css`s egen kommentar siger det
 direkte: "VÆRDIERNE ER NYE, NAVNENE ER DE GAMLE" — TYPESKILT genbruger ORBIT's 16
@@ -586,6 +719,14 @@ kommer igen, at hver `<button>` på sitet bærer `.knap`, at grundformen
 forbliver farveløs, og at hver variant holder 4,5 : 1 — med kontrasten
 **regnet i testen** fra tokenernes hex, ikke afskrevet fra en kommentar.
 
+### Fokusringen
+
+Ringen er en **farveregel**, ikke en komponent med egen form, og den står derfor
+i fuld længde under `## Farver` → **Forgrundsreglen for `--accent`**, punkt
+**DP1b**. Kort: 3px, `outline-offset` 3px, `--hjoerne` som radius, og farven
+kommer fra aliaset `--ring` — `--blaek` på lys flade (12,72 / 14,69),
+`--accent` på mørk (9,19). **Skriv aldrig ringens farve direkte i en regel.**
+
 ### Kildemærket
 
 Et hævet bogstav efter værdien, `--mono`, `blaek2`, `max(8px,.34em)`.
@@ -699,10 +840,13 @@ den overordnede designplan. Denne note findes, så næste agent ved, at hullet e
   ombrydning.
 - **Lad være** med at antage, at et token-navn (`--blaek3`, `--hegn`, …)
   stadig bærer sin ORBIT-værdi. Værdierne er nye; kun navnene er gamle.
-- **Lad være** med at bruge `--accent` som tekstfarve mod en lys flade.
-  Det er ikke længere en advarsel, men en regel (L76): accent er baggrund,
-  kant, understregning eller fokusring — aldrig forgrund på lyst. På den
-  mørke flade må den gerne være tekst.
+- **Lad være** med at bruge `--accent` som **forgrund** mod en lys flade —
+  tekst, kant, fokusring, ikon eller markør. Her stod indtil designplanen
+  *"accent er baggrund, kant, understregning eller fokusring — aldrig forgrund
+  på lyst"*, og de tre eksempler modsagde reglen: en kant og en fokusring ER
+  forgrunde. Se **Forgrundsreglen for `--accent` (DP1)** under *Farver* for
+  kravtallet pr. brugstype. På den mørke flade må accent være forgrund
+  (9,19 : 1).
 - **Lad være** med at sætte hvid tekst på `--accent`. Tekst på accent er
   altid `--blaek`. Hvid giver 1,66 : 1.
 - **Lad være** med at beskære et produktfoto (L78), og lad være med at
@@ -839,6 +983,16 @@ står i `.videre` og baggrunden i `.videre:hover`, altså i hver sin regel.
 Efterprøvet i browseren på en bygget robotside: 29 links, **0** med accent
 som tekstfarve, **0** under 4,5 : 1. Måleapparatet er valideret mod et
 kendt svar — tvinges accent tilbage, rapporterer samme script 29 og 15.
+
+**Punktet blev genåbnet 3. sep 2026 og er nu afgjort igen, bredere. L76 var
+rigtig, men dens RÆKKEVIDDE var for smal:** den dækkede accent som *tekst*, og
+fokusringen — som er en forgrund, ikke en baggrund — slap igennem på 1,38 : 1 mod
+WCAG 1.4.11's 3,0. Værre: L76's egen formulering listede *"fokusring"* blandt de
+tilladte brug. **Tallet var kendt hele tiden** — `fund/PLAN-klaebebar.md` §11
+fører `--accent` på `--bund` som *"1,38 (ulovlig, L76)"* — men ingen anvendte
+reglen på en ikke-tekstlig komponent med et andet kravtal. Se
+**Forgrundsreglen for `--accent` (DP1)** under `## Farver`, som afløser L76 og
+dækker alle fem forgrundstyper.
 
 **6. `--hegn` som betydningsbærende kant fejler WCAG 1.4.11.** 2,47 : 1 mod
 `panel`, 2,14 : 1 mod `bund` — under de 3,0 : 1, standarden kræver til
