@@ -1,0 +1,14 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2189,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat": "Highly autonomous: scheduled start/stop, self-navigation and self-return-to-charge. The news article (same domain) elaborates further (see the docking-station field's second source note). The term 'docking station' does not appear verbatim in either source — 'self-navigation and self-return-to-charge' / 'automatic return-and-charge' is interpreted as referring to an automatic charging facility.",
+      "caveat_wording": "高度自主 定时启停、自主导航与回充 | 自动返航充电"
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  }
+]

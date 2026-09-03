@@ -1,0 +1,13 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2186,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat": "Under the fire/emergency-response use-case tab: fully autonomous — high-precision autonomous navigation, fully autonomous charging. The word 'docking' does not appear verbatim; 'fully autonomous charging' is interpreted here as a charging/docking function. Appears in the product page's use-case section, not in the parameters table itself."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  }
+]

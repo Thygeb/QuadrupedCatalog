@@ -1,0 +1,149 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "stair_step_continuous"
+    },
+    "saet": {
+      "caveat": "Climbable step height - the label means step/stair, interpreted here as continuous stair-climbing, not a single obstacle."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In the 'basic parameters' table. No 'approx.' marker; no indication of with/without battery."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat": "The source's own unit notation is missing an 'm' (see the top note). The axis order (length first) is explicitly labelled by the manufacturer in the column heading 'standing dimensions'."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Six yes/no rows from the 'basic parameters' table, all set to 'yes' for the YJ30. A qualitative list, not a level on a scale."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2254,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "Next to a 'buy now' button on the manufacturer's own page.",
+      "caveat_wording": "￥78000.00 | 立即购买"
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In the 'basic parameters' table."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Five yes/no rows from the 'basic parameters' table - one row fewer than the YJ30's table (no 'follow' item here)."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2255,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "Next to a 'buy now' button.",
+      "caveat_wording": "￥288000.00 | 立即购买"
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In the 'basic parameters' table."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Combines the table's five yes/no rows (same pattern as the YJ30Max, no 'follow' item) with the product description's extra communication and data-analysis features."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2256,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "Next to a 'buy now' button - the highest Yuejia price in the catalogue.",
+      "caveat_wording": "￥358000.00 | 立即购买"
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "In the 'basic parameters' table."
+    },
+    "change_reason": "spor/f2han: kinesisk gloss fjernet fra caveat — ikke kildetekst (bekraeftet mod raakilde/koaevaevet ikke i kilden), engelsk betydning bevaret"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2257,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "Next to a 'buy now' button.",
+      "caveat_wording": "￥88000.00 | 立即购买"
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  }
+]
