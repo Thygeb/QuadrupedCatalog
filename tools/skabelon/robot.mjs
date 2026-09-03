@@ -172,7 +172,7 @@ export const esc = (s) => String(s)
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 /** Ikoner, siden bruger. Bygget kan bruge listen til at efterproeve spriten. */
-export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip', 'i-ce', 'i-hul', 'i-pil',
+export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip', 'i-ce', 'i-pris', 'i-hul', 'i-pil',
   // De fire tre-tilstandsmaerker (spor/fundament, L54/L57). Skiltets
   // maerkelinje bruger dem, saa "ja", "nej", "0" og "ikke oplyst" har hver
   // sin FORM og ikke kun hver sin tone - haard begraensning 5.
@@ -182,15 +182,15 @@ export const IKONER = ['i-vaegt', 'i-nyttelast', 'i-driftstid', 'i-fart', 'i-ip'
  *  for=…>), saa det maa ikke skrives af i haanden nogen af stederne. */
 const ENHED_ID = 'enhedsskift';
 
-/** Stribens fem tal. CE er IKKE med: feltet er tomt paa 42 af 46, og en fast
- *  celle, der er et hul 42 gange, laerer ingen noget. CE staar i skiltlinjen
- *  og i skemaet (se skiltLinje() og skemaRaekke()) — ikke i denne strib. */
+/** Stribens seks tal (L66, JPK 3. sep 2026). CE er IKKE med: feltet er tomt
+ *  paa 73 af 77, og en fast celle, der er et hul 73 gange, laerer ingen noget. */
 export const STRIBE_FELTER = [
   ['egenvaegt', 'i-vaegt'],
   ['nyttelast_gaaende', 'i-nyttelast'],
   ['driftstid', 'i-driftstid'],
   ['hastighed', 'i-fart'],
   ['ip_klasse', 'i-ip'],
+  ['pris', 'i-pris'],
 ];
 
 /**
@@ -597,7 +597,7 @@ function stribe(ctx, kilder) {
 <svg class="ikon" aria-hidden="true"><use href="#i-hul"/></svg>
 <div class="tekst"><p class="hoved">${esc(flet(T(i18n, 'noegletal_intet'), { b: celler.length }))}</p></div>
 </div>`
-    : `<ul class="stribe stribe--fem">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
+    : `<ul class="stribe stribe--seks">\n${celler.map((c) => c.html).join('\n')}\n</ul>`;
 
   // Advarsler og varianter paa stribens felter staar UNDER striben: cellen er
   // for smal til dem, og de maa ikke forsvinde, fordi tallet stod i striben.
@@ -1106,7 +1106,12 @@ export function render(ctx) {
   try {
     const kilder = H.kilder(robot) ?? [];
 
+const SPRITE_EKSTRA = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="i-pris" viewBox="0 0 24 24"><path d="M20.6 13 13 5.4a2 2 0 0 0-1.4-.6H4a2 2 0 0 0-2 2v7.6a2 2 0 0 0 .6 1.4l7.6 7.6a2 2 0 0 0 2.8 0l7.6-7.6a2 2 0 0 0 0-2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+</svg>`;
+
     return `<main class="side" id="hoved">
+${SPRITE_EKSTRA}
 <div class="rum">
 <p class="retur"><a href="${esc(sti(arbejde, 'katalog'))}">${esc(T(i18n, 'til_katalog'))}</a></p>
 
