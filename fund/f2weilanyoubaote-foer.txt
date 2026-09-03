@@ -1,0 +1,199 @@
+Skrev 8 robotter (5 WEILAN + 3 Youbaote) til C:\Praktik\websites\udstilling-wt-weilanyoubaote\fund\f2weilanyoubaote-foer.json
+
+=== weilan-alphadog-c500 (id 2244, WEILAN) ===
+  [weight]
+    caveat: Producenten skriver 24Kg. Det siges ikke, om batteriet er med.
+    caveat_class: validity
+  [length]
+    caveat: Producentens etiket: Size (Standing Pose) 76 cm x 40 cm x 45 cm.
+    caveat_class: elaboration
+  [degrees_of_freedom]
+    caveat: Siden oplyser leddenes bevægelsesområder (Abduction/Adduction +/-30 grader, Thigh Rotation -185 til +115 grader, Calf Rotation 0 til +150 grader), hvoraf man KAN slutte tre led pr. ben og dermed 12. Det er en udregning, ikke en oplysning. Feltet forbliver ikke oplyst.
+  [payload_walking]
+    caveat: Producenten skriver Payload Capacity: Up to 3 kg som ET UDELT TAL og skelner ikke mellem gående og stående last. Placeringen er en slutning, ikke en aflæsning.
+    caveat_class: validity
+  [speed]
+    caveat: TO HASTIGHEDSTAL I SAMME TABEL: Speed: Up to 1.5 m/s og Max. Safe Speed: 3.0m/s. Her bruges driftshastigheden. Operatoren up to betyder <=, ikke =.
+    caveat_class: validity
+  [slope]
+    caveat: Producenten skriver Gradeability Max.20 grader - et LOFT. Laveste hældningstal i hele indsamlingen.
+    caveat_class: validity
+  [temperature_min]
+    caveat: INDSAMLINGENS SMALLESTE DRIFTSTEMPERATUR og den eneste, der ikke går under frysepunktet: Operating Ambient Temperature 0 til 35 grader C. For en dansk køber er den en diskvalifikator udendørs hele vinteren. Producenten oplyser desuden Nonoperating Temperature 0 til 45 grader C - maskinen må altså heller ikke OPBEVARES under frysepunktet. En uopvarmet garage eller et skur i Danmark ligger under 0 grader store dele af året. Skemaet har intet felt til ikke-driftstemperatur.
+  [temperature_max]
+    caveat: Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to temperaturer.
+    caveat_class: elaboration
+  [battery_wh]
+    caveat: 23Ah Lithium Battery - uden spænding. Wh kan ikke udledes og udledes ikke.
+  [runtime]
+    caveat: FIRE UDHOLDENHEDSTAL, ALLE UDEN LASTBETINGELSE: Average Up to 5.7h, Continuous Walking Up to 3.3h, Standing Up to 8h, Standby Mode Up to 18h. Her bruges den kontinuerlige gang - den eneste, der svarer til de øvrige posters driftstid.
+    caveat_class: validity
+  [lidar]
+    caveat: Siden skriver Supports Lidar and Machine Vision i marketingprosa. Ingen type, ingen model, ingen række i specifikationstabellen.
+  [cameras]
+    caveat: Producenten svarer eksplicit Yes/No pr. variant: Fisheye Vision Camera Yes, Depth Vision Camera No. C501 har dybdekameraet. Et udtrykkeligt NEJ er en oplysning, ikke et hul.
+  [compute]
+    caveat: Producenten skriver CPU: ARM 64 bit og Hard Drive: 32 GB. Arkitektur uden model - der står ingen chipbetegnelse.
+  [ros2]
+    caveat: Producenten skriver Operating System: Linux + ROS. Feltet hedder ROS 2, og versionen står ikke. At tælle det med ville være at opfinde et versionsnummer.
+  [autonomy_level]
+    caveat: Producenten skriver Autonomous Navigation: No for C500 (og Yes for C501). Også Deep Visual Positioning and Map Construction og Visually Assisted Walking står som No. Et udtrykkeligt NEJ er en oplysning, ikke et hul - regel 10.
+  [data_ports]
+    caveat: Producentens egen linje: Ports: HDMI, USB, WIFI. WiFi er en forbindelse, ikke en fysisk port, men producenten fører den i portlisten.
+  [price]
+    caveat: Weilans egen ordreside oplyser ingen priser overhovedet - kun at man skal skrive en e-mail.
+  [ce_disclosed]
+    caveat: Producentens eneste bemærkning om markeder er: Due to standards and regulations, some features may not be available in all countries or regions. Ingen CE, ingen anden overensstemmelsesmærkning.
+  robots.notes: ["WEILAN Co., Ltd., ICP-nummer Su-ICP-Bei-19029747-1 (registreret i Jiangsu). Producentens etiket for varianten er C500 Standard developer version.","SPROGSKIFTEREN PÅ WEILANS ENGELSKE SIDER ER BRUDT: menupunktet for kinesisk peger på en URL, der svarer 404. Det gælder alle tre prøvede sider. Der findes ingen kinesisk primærkilde at krydstjekke imod på weilan.com.","Alle tal her er læst direkte i den gemte råfil, ikke afskrevet fra et referat.","PRISERNE 16.900 CNY og 86.900 CNY, som cirkulerer om Weilan-modeller, er IKKE overført til nogen model og må ikke blive det. Weilans egen ordreside oplyser ingen priser overhovedet.","Producentens eget forbehold nederst på siden: Some specifications or performance parameters can only be realized under specific conditions, og Due to standards and regulations, some features may not be available in all countries or regions."]
+  applications.note: "Listen står under overskriften \"Innovative Applications in Discovery\" - producentens egne ord for at det er noget, der undersøges. Derfor er \"express delivery\" IKKE ført som logistik: en anvendelse under udforskning er ikke en anvendelse, robotten sælges til."
+  applications.quote: "Children’s education, family companionship, elderly care, express delivery, STEAM education"
+
+=== weilan-alphadog-c501 (id 2245, WEILAN) ===
+  [autonomy_level]
+    caveat: Producenten skriver Autonomous Navigation: Yes for C501 (og No for C500). Også Deep Visual Positioning and Map Construction og Visually Assisted Walking står som Yes. Det er den eneste forskel på de to varianter ud over dybdekameraet, vægten og betjeningsmåden.
+  [data_ports]
+    caveat: Producentens egen linje: Ports: HDMI, USB, WIFI. WiFi er en forbindelse, ikke en fysisk port, men producenten fører den i portlisten.
+  [price]
+    caveat: Weilans egen ordreside oplyser ingen priser overhovedet - kun at man skal skrive en e-mail.
+  [ce_disclosed]
+    caveat: Producentens eneste bemærkning om markeder er: Due to standards and regulations, some features may not be available in all countries or regions. Ingen CE, ingen anden overensstemmelsesmærkning.
+  [weight]
+    caveat: Producenten skriver 24.3Kg (C500 vejer 24Kg). Det siges ikke, om batteriet er med.
+    caveat_class: validity
+  [length]
+    caveat: Producentens etiket: Size (Standing Pose) 76 cm x 40 cm x 45 cm.
+    caveat_class: elaboration
+  [degrees_of_freedom]
+    caveat: Siden oplyser leddenes bevægelsesområder (Abduction/Adduction +/-30 grader, Thigh Rotation -185 til +115 grader, Calf Rotation 0 til +150 grader), hvoraf man KAN slutte tre led pr. ben og dermed 12. Det er en udregning, ikke en oplysning. Feltet forbliver ikke oplyst.
+  [payload_walking]
+    caveat: Producenten skriver Payload Capacity: Up to 3 kg som ET UDELT TAL og skelner ikke mellem gående og stående last. Placeringen er en slutning, ikke en aflæsning.
+    caveat_class: validity
+  [speed]
+    caveat: TO HASTIGHEDSTAL I SAMME TABEL: Speed: Up to 1.5 m/s og Max. Safe Speed: 3.0m/s. Her bruges driftshastigheden. Operatoren up to betyder <=, ikke =.
+    caveat_class: validity
+  [slope]
+    caveat: Producenten skriver Gradeability Max.20 grader - et LOFT. Laveste hældningstal i hele indsamlingen.
+    caveat_class: validity
+  [temperature_min]
+    caveat: INDSAMLINGENS SMALLESTE DRIFTSTEMPERATUR og den eneste, der ikke går under frysepunktet: Operating Ambient Temperature 0 til 35 grader C. For en dansk køber er den en diskvalifikator udendørs hele vinteren. Producenten oplyser desuden Nonoperating Temperature 0 til 45 grader C - maskinen må altså heller ikke OPBEVARES under frysepunktet. En uopvarmet garage eller et skur i Danmark ligger under 0 grader store dele af året. Skemaet har intet felt til ikke-driftstemperatur.
+  [temperature_max]
+    caveat: Producenten bruger fuldbredde-tilden U+FF5E, ikke ASCII-tilde, mellem de to temperaturer.
+    caveat_class: elaboration
+  [battery_wh]
+    caveat: 23Ah Lithium Battery - uden spænding. Wh kan ikke udledes og udledes ikke.
+  [runtime]
+    caveat: FIRE UDHOLDENHEDSTAL, ALLE UDEN LASTBETINGELSE: Average Up to 5.7h, Continuous Walking Up to 3.3h, Standing Up to 8h, Standby Mode Up to 18h. Her bruges den kontinuerlige gang - den eneste, der svarer til de øvrige posters driftstid.
+    caveat_class: validity
+  [lidar]
+    caveat: Siden skriver Supports Lidar and Machine Vision i marketingprosa. Ingen type, ingen model, ingen række i specifikationstabellen.
+  [cameras]
+    caveat: Producenten svarer eksplicit Yes/No pr. variant: Fisheye Vision Camera Yes, Depth Vision Camera Yes. C500 har IKKE dybdekameraet. Et udtrykkeligt NEJ er en oplysning, ikke et hul.
+  [compute]
+    caveat: Producenten skriver CPU: ARM 64 bit og Hard Drive: 32 GB. Arkitektur uden model - der står ingen chipbetegnelse.
+  [ros2]
+    caveat: Producenten skriver Operating System: Linux + ROS. Feltet hedder ROS 2, og versionen står ikke. At tælle det med ville være at opfinde et versionsnummer.
+  robots.notes: ["WEILAN Co., Ltd., ICP-nummer Su-ICP-Bei-19029747-1 (registreret i Jiangsu). Producentens etiket for varianten er C501 Ultimate developer version.","SPROGSKIFTEREN PÅ WEILANS ENGELSKE SIDER ER BRUDT: menupunktet for kinesisk peger på en URL, der svarer 404. Det gælder alle tre prøvede sider. Der findes ingen kinesisk primærkilde at krydstjekke imod på weilan.com.","Alle tal her er læst direkte i den gemte råfil, ikke afskrevet fra et referat.","PRISERNE 16.900 CNY og 86.900 CNY, som cirkulerer om Weilan-modeller, er IKKE overført til nogen model og må ikke blive det. Weilans egen ordreside oplyser ingen priser overhovedet.","Producentens eget forbehold nederst på siden: Some specifications or performance parameters can only be realized under specific conditions, og Due to standards and regulations, some features may not be available in all countries or regions."]
+  applications.note: "C500 og C501 deler produktside. Se noten på C500 om \"Innovative Applications in Discovery\"."
+  applications.quote: "Children’s education, family companionship, elderly care, express delivery, STEAM education"
+
+=== weilan-alphadog-e300 (id 2246, WEILAN) ===
+  robots.notes: ["NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden består udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige på siden overhovedet; de står på producentens katalogside sammen med underteksten Enterprise Version Available.","SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Målt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altså 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller.","INTET AF DET ER FØRT IND SOM DATA, OG DET BØR INGEN GØRE. Kontrolleret: siden indeholder ingen innerHTML, ingen COMMENT_NODE og ingen kode, der genindsætter blokken. En browser viser intet af det. At hente tal ud af en tilbagetrukket blok ville være at udgive noget, producenten har taget ned, med producentens navn på.","Forskellen betyder noget for en indkøber: det er ikke en producent, der aldrig har oplyst noget. Det er en producent, der HAR oplyst det og derefter skjult det."]
+  applications.note: "DER STÅR EN POSITIONERING I FILEN, OG DEN ER TAGET NED. Sætningen \"it can be assigned to safeguard people and properties, patrol parks and communities, guide a blind person, deliver packages to your front door, inspect factories or dangerous places, do rescue missions\" ligger på byte 23.014-23.500 - inde i HTML-kommentaren, en browser aldrig viser. Målt: alle fire positioneringstekster på E-siden ligger i kommentaren. Samme afgørelse som for tallene: vi udgiver ikke noget, producenten har trukket tilbage."
+
+=== weilan-alphadog-e400l (id 2247, WEILAN) ===
+  robots.notes: ["NUL PUBLICEREDE SPECIFIKATIONER. Den synlige del af produktsiden består udelukkende af navigation, sidehoved og sidefod. Modelnavnene E300 og E400L er ikke synlige på siden overhovedet; de står på producentens katalogside sammen med underteksten Enterprise Version Available.","SPECIFIKATIONERNE FINDES I FILEN, MEN ER TAGET NED. De ligger inde i en HTML-KOMMENTAR - byte 19.561 til 53.141, 33.580 bytes. Målt: sidens krop er 73.121 tegn med kommentarer og 37.734 uden, altså 48 % af kroppen kommenteret ud. Inde i kommentaren ligger et komplet specifikationsark for begge modeller.","INTET AF DET ER FØRT IND SOM DATA, OG DET BØR INGEN GØRE. Kontrolleret: siden indeholder ingen innerHTML, ingen COMMENT_NODE og ingen kode, der genindsætter blokken. En browser viser intet af det. At hente tal ud af en tilbagetrukket blok ville være at udgive noget, producenten har taget ned, med producentens navn på.","Forskellen betyder noget for en indkøber: det er ikke en producent, der aldrig har oplyst noget. Det er en producent, der HAR oplyst det og derefter skjult det."]
+  applications.note: "Se noten på E300: E-seriens positionering ligger inde i en HTML-kommentar og bruges ikke."
+
+=== weilan-babyalpha (id 2248, WEILAN) ===
+  robots.notes: ["INGEN SPECIFIKATIONSTABEL. Siden er ren markedsføring: ingen vægt, ingen mål, ingen hastighed, ingen driftstid, ingen batterital. Nul udfyldte felter.","Siden har en BUY NOW-knap, men INGEN PRIS.","Weilan har tre nul-poster (E300, E400L, BabyAlpha) og en post på 35 % (AlphaDog C500/C501). Den eneste model, der oplyser noget, er udviklerversionen af legetøjet."]
+  applications.note: "Samme side, synlig tekst: \"a source of family entertainment that doubles as a home security guard\". Producenten placerer den selv i hjemmet."
+  applications.quote: "AI-powered Family Companion"
+
+=== yobotics-e-dog (id 2251, Shandong Youbaote Intelligent Robot) ===
+  [payload_standing]
+    caveat: Producentens etiket er maks. STATISK lastevne. Statisk og stående er ikke det samme ord; placeringen er en tolkning, ikke en aflæsning.
+    caveat_class: validity
+  [speed]
+    caveat: Producenten skriver maks. hastighed >= 12 km/h. Bemærk enheden: km/h, ikke m/s som søsterposten Y20.
+    caveat_class: elaboration
+  [weight]
+    caveat: 15 kg +/- 0,5 kg.
+    caveat_class: elaboration
+  [length]
+    caveat: Producenten skriver 680x330x380mm (+/-10mm). Tolerancen gælder alle tre mål.
+    caveat_class: elaboration
+  [width]
+    caveat: Tolerance +/- 10 mm.
+    caveat_class: elaboration
+  [height]
+    caveat: Tolerance +/- 10 mm.
+    caveat_class: elaboration
+  [degrees_of_freedom]
+    caveat: Spidsmoment pr. led oplyses til 48 Nm.
+    caveat_class: elaboration
+  [stair_step_continuous]
+    caveat: Producentens etiket bruger tegnene for TRAPPEKLATRINGSHØJDE, >= 16 cm. Lagt i det kontinuerlige felt på samme grundlag som Y20 og X30.
+    caveat_class: elaboration
+  [runtime]
+    caveat: Producenten skriver driftstid ikke under 1,5 time. Ingen lastbetingelse.
+    caveat_class: validity
+  [payload_walking]
+    caveat: PRODUCENTEN OPLYSER TRE LASTTAL: maks. statisk 8 kg, maks. dynamisk 5 kg og dynamisk I DRIFT 3 kg. Her er drifts-tallet brugt, fordi det svarer til det, de øvrige poster kalder gående last. De to andre tal har ingen felt i skemaet.
+    caveat_class: validity
+  robots.notes: ["HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser.","ÅBENT PUNKT: producentens overskrift siger e-Dog, men beskrivelsen lige under handler om Y15. Overskriften er brugt som modelnavn."]
+  applications.note: "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10."
+  applications.quote: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+
+=== yobotics-y10 (id 2252, Shandong Youbaote Intelligent Robot) ===
+  [weight]
+    caveat: Producenten skriver ca. 5,6 kg +/- 0,5 kg, hele maskinen inkl. batteri. Både et cirka OG en tolerance på samme tal.
+    caveat_class: elaboration
+  [payload_walking]
+    caveat: Producentens etiket er eksplicit KONTINUERLIG GÅENDE last, > 3 kg. Placeringen er en aflæsning, ikke en slutning.
+    caveat_class: elaboration
+  [speed]
+    caveat: HASTIGHED MED LASTBETINGELSE: producenten skriver løbehastighed 1,4 m/s UDEN LAST. Skemaet har ingen plads til en lastbetingelse på hastighed - kun på driftstid. Feltet ser derfor sammenligneligt ud med andre posters hastigheder og er det ikke helt.
+    caveat_class: validity
+  robots.notes: ["HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser.","ÅBENT PUNKT: producentens overskrift siger Y10, men beskrivelsen lige under handler om Y5. Overskriften er brugt som modelnavn. Posten kan ikke låses, før producenten er spurgt.","Yobotics er domænenavnet; producentens eget engelske navn er Shandong Youbaote Intelligent Robot Co., Ltd."]
+  applications.note: "Sætningen står som indledning på katalogsiden for hele serien (Y20, Y10, e-Dog) og er ikke skrevet om den enkelte model. Ordet \"commercial\" har det tilladte sæt ingen kategori for."
+  applications.quote: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+
+=== yobotics-y20 (id 2253, Shandong Youbaote Intelligent Robot) ===
+  [weight]
+    caveat: Med batteri.
+    caveat_wording: Med batteri (含电池).
+    caveat_class: elaboration
+  [height]
+    caveat: Sammenfoldet ca. 930 x 450 x 370 mm. Skemaet har ingen felter til foldemål.
+    caveat_class: elaboration
+  [payload_walking]
+    caveat: Producentens egen etiket er GÅENDE last, maks. 80 kg. Producenten oplyser selv de to laster som to felter - anden uafhængige bekræftelse (efter Unitree) af, at nyttelast SKAL være to felter. Forholdet er her næsten det dobbelte.
+    caveat_class: elaboration
+  [payload_standing]
+    caveat: Producentens egen etiket er STÅENDE last, maks. 150 kg.
+    caveat_class: elaboration
+  [speed]
+    caveat: Producenten skriver maks. 4 m/s.
+    caveat_class: elaboration
+  [slope]
+    caveat: Etiket: klatrehældningsvinkel, maks. 40 grader.
+    caveat_class: elaboration
+  [stair_step_continuous]
+    caveat: Producentens etiket bruger tegnet for TRIN/TRAPPE, maks. 30 cm. Lagt i det kontinuerlige felt på samme grundlag som DEEP Robotics X30. Siden siger ikke eksplicit kontinuerlig - det er en konservativ placering, ikke en aflæsning.
+    caveat_class: validity
+  [temperature_min]
+    caveat: -25 C mod Weilan AlphaDog C500's 0 C: to kinesiske producenter, samme dag, og den ene kan arbejde i dansk vinter, mens den anden ikke må stå i et koldt skur. Det er filteret nedre driftstemperatur, der gør sit arbejde.
+    caveat_class: elaboration
+  [battery_wh]
+    caveat: 25 Ah uden spænding. Wh kan ikke udledes og udledes ikke.
+  [runtime]
+    caveat: PRODUCENTEN LEVERER SELV LASTBETINGELSEN - den eneste post i indsamlingen, hvor det sker. Ordret: > 5 t kontinuerlig gang UDEN last, og > 2,5 t i drift MED nyttelast. Men kg-tallet for den belastede tilstand står ikke; betingelsen er kvalitativ. Her bruges det belastede tal.
+    caveat_class: validity
+  [charging_time]
+    caveat: Ladetiden gælder ladestanderen (tilvalg): fuld opladning <= 3 t.
+    caveat_class: validity
+  [docking_station]
+    caveat: Ladestander, tilvalg.
+  robots.notes: ["HJEMBYEN ER JINAN, IKKE BLOT SHANDONG: producentens egen om os-side skriver den fulde adresse \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" - Shandong er provinsen, Jinan er den by deri, producenten faktisk oplyser.","ÅBENT PUNKT, IKKE LØST: overskrifterne og beskrivelserne på producentens egen side er uenige om modelnavnene. Overskriften Y20 står over en beskrivelse, der handler om Y30 (og Y10 over en Y5-beskrivelse, e-Dog over en Y15-beskrivelse). Tre ud af tre stemmer ikke. Overskriften er brugt som modelnavn. Posten kan ikke låses, før nogen har spurgt producenten, hvilket navn der gælder.","Specifikationerne står i tabeller på den engelske side, men selve tabellerne er på kinesisk. Markup'en bærer x:str-attributter - tabellerne er indsat fra Excel."]
+  applications.note: "Serieindledning, ikke en modelspecifik sætning. Se noten på Y10."
+  applications.quote: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."

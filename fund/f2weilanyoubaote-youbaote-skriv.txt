@@ -1,0 +1,31 @@
+SKRIVER (--skriv) 27 post(er)
+collected_by = "spor/f2-weilanyoubaote"
+  skrevet: field_entries {"robot_id":2251,"field_name":"payload_standing"}
+  skrevet: field_entries {"robot_id":2251,"field_name":"speed"}
+  skrevet: field_entries {"robot_id":2251,"field_name":"length"}
+  skrevet: field_entries {"robot_id":2251,"field_name":"degrees_of_freedom"}
+  skrevet: field_entries {"robot_id":2251,"field_name":"stair_step_continuous"}
+  skrevet: field_entries {"robot_id":2251,"field_name":"runtime"}
+  skrevet: field_entries {"robot_id":2251,"field_name":"payload_walking"}
+  skrevet: robots {"id":2251}
+  skrevet: applications {"robot_id":2251}
+  skrevet: field_entries {"robot_id":2252,"field_name":"weight"}
+  skrevet: field_entries {"robot_id":2252,"field_name":"payload_walking"}
+  skrevet: field_entries {"robot_id":2252,"field_name":"speed"}
+  skrevet: robots {"id":2252}
+  skrevet: applications {"robot_id":2252}
+  skrevet: field_entries {"robot_id":2253,"field_name":"weight"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"height"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"payload_walking"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"payload_standing"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"speed"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"slope"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"stair_step_continuous"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"temperature_min"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"battery_wh"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"runtime"}
+  skrevet: field_entries {"robot_id":2253,"field_name":"charging_time"}
+  skrevet: robots {"id":2253}
+  skrevet: applications {"robot_id":2253}
+
+27 raekker skrevet (field_entries: 21, robots: 3, applications: 3)
