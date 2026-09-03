@@ -1,0 +1,199 @@
+Skrev 8 robotter (5 WEILAN + 3 Youbaote) til C:\Praktik\websites\udstilling-wt-weilanyoubaote\fund\f2weilanyoubaote-efter.json
+
+=== weilan-alphadog-c500 (id 2244, WEILAN) ===
+  [weight]
+    caveat: The manufacturer states 24 kg. Whether the battery is included is not stated.
+    caveat_class: validity
+  [length]
+    caveat: The manufacturer's own label: Size (Standing Pose) 76 cm x 40 cm x 45 cm.
+    caveat_class: elaboration
+  [degrees_of_freedom]
+    caveat: The page states the joints' ranges of motion (Abduction/Adduction ±30°, Thigh Rotation -185° to +115°, Calf Rotation 0° to +150°), from which one CAN infer three joints per leg and thus 12. That is a calculation, not a disclosed figure. The field remains not disclosed.
+  [temperature_min]
+    caveat: THE NARROWEST OPERATING TEMPERATURE RANGE IN THE COLLECTION, and the only one that does not go below freezing: Operating Ambient Temperature 0°C to 35°C. For a Danish buyer this is a disqualifier outdoors for the whole winter. The manufacturer also states Nonoperating Temperature 0°C to 45°C — so the machine may not even be STORED below freezing either. An unheated garage or shed in Denmark is below 0°C for large parts of the year. The schema has no field for non-operating temperature.
+  [cameras]
+    caveat: The manufacturer answers explicitly Yes/No per variant: Fisheye Vision Camera Yes, Depth Vision Camera No. C501 has the depth camera. An explicit NO is a disclosed fact, not a gap.
+  [ros2]
+    caveat: The manufacturer states Operating System: Linux + ROS. The field is called ROS 2, and the version is not stated. Counting it would be inventing a version number.
+  [ce_disclosed]
+    caveat: The manufacturer's only remark about markets is: Due to standards and regulations, some features may not be available in all countries or regions. No CE marking, no other conformity marking.
+  [payload_walking]
+    caveat: The manufacturer states Payload Capacity: Up to 3 kg as ONE UNDIVIDED FIGURE and does not distinguish between walking and standing load. The placement is an inference, not a direct reading.
+    caveat_class: validity
+  [speed]
+    caveat: TWO SPEED FIGURES IN THE SAME TABLE: Speed: Up to 1.5 m/s and Max. Safe Speed: 3.0 m/s. The operating speed is used here. The operator "up to" means ≤, not =.
+    caveat_class: validity
+  [slope]
+    caveat: The manufacturer states Gradeability Max. 20° — a CEILING. The lowest slope figure in the entire collection.
+    caveat_class: validity
+  [temperature_max]
+    caveat: The manufacturer uses the fullwidth tilde U+FF5E, not the ASCII tilde, between the two temperatures.
+    caveat_class: elaboration
+  [battery_wh]
+    caveat: 23Ah Lithium Battery — without voltage. Wh cannot be derived and is not derived.
+  [runtime]
+    caveat: FOUR ENDURANCE FIGURES, ALL WITHOUT A LOAD CONDITION: Average Up to 5.7h, Continuous Walking Up to 3.3h, Standing Up to 8h, Standby Mode Up to 18h. Continuous walking is used here — the only one comparable to the other entries' runtime.
+    caveat_class: validity
+  [lidar]
+    caveat: The page states Supports Lidar and Machine Vision in marketing prose. No type, no model, no row in the specification table.
+  [compute]
+    caveat: The manufacturer states CPU: ARM 64-bit and Hard Drive: 32 GB. Architecture without a model — no chip designation is given.
+  [autonomy_level]
+    caveat: The manufacturer states Autonomous Navigation: No for C500 (and Yes for C501). Deep Visual Positioning and Map Construction and Visually Assisted Walking are also No. An explicit NO is a disclosed fact, not a gap — rule 10.
+  [data_ports]
+    caveat: The manufacturer's own line: Ports: HDMI, USB, WIFI. WiFi is a connection, not a physical port, but the manufacturer lists it among the ports.
+  [price]
+    caveat: WEILAN's own order page discloses no prices at all — only that you should send an email.
+  robots.notes: ["WEILAN Co., Ltd., ICP number Su-ICP-Bei-19029747-1 (registered in Jiangsu). The manufacturer's own label for the variant is C500 Standard developer version.","THE LANGUAGE SWITCHER ON WEILAN'S ENGLISH PAGES IS BROKEN: the menu item for Chinese points to a URL that returns 404. This applies to all three pages tested. There is no Chinese primary source on weilan.com to cross-check against.","All figures here are read directly from the saved raw file, not copied from a summary.","THE PRICES 16,900 CNY and 86,900 CNY that circulate about WEILAN models have NOT been assigned to any model and must not be. WEILAN's own order page discloses no prices at all.","The manufacturer's own disclaimer at the bottom of the page: Some specifications or performance parameters can only be realized under specific conditions, and Due to standards and regulations, some features may not be available in all countries or regions."]
+  applications.note: "The list appears under the heading \"Innovative Applications in Discovery\" — the manufacturer's own words for something still being explored. \"Express delivery\" is therefore NOT recorded as logistics: an application under exploration is not an application the robot is sold for."
+  applications.quote: "Children’s education, family companionship, elderly care, express delivery, STEAM education"
+
+=== weilan-alphadog-c501 (id 2245, WEILAN) ===
+  [data_ports]
+    caveat: The manufacturer's own line: Ports: HDMI, USB, WIFI. WiFi is a connection, not a physical port, but the manufacturer lists it among the ports.
+  [price]
+    caveat: WEILAN's own order page discloses no prices at all — only that you should send an email.
+  [autonomy_level]
+    caveat: The manufacturer states Autonomous Navigation: Yes for C501 (and No for C500). Deep Visual Positioning and Map Construction and Visually Assisted Walking are also Yes. This is the only difference between the two variants besides the depth camera, the weight, and the control method.
+  [ce_disclosed]
+    caveat: The manufacturer's only remark about markets is: Due to standards and regulations, some features may not be available in all countries or regions. No CE marking, no other conformity marking.
+  [degrees_of_freedom]
+    caveat: The page states the joints' ranges of motion (Abduction/Adduction ±30°, Thigh Rotation -185° to +115°, Calf Rotation 0° to +150°), from which one CAN infer three joints per leg and thus 12. That is a calculation, not a disclosed figure. The field remains not disclosed.
+  [speed]
+    caveat: TWO SPEED FIGURES IN THE SAME TABLE: Speed: Up to 1.5 m/s and Max. Safe Speed: 3.0 m/s. The operating speed is used here. The operator "up to" means ≤, not =.
+    caveat_class: validity
+  [temperature_min]
+    caveat: THE NARROWEST OPERATING TEMPERATURE RANGE IN THE COLLECTION, and the only one that does not go below freezing: Operating Ambient Temperature 0°C to 35°C. For a Danish buyer this is a disqualifier outdoors for the whole winter. The manufacturer also states Nonoperating Temperature 0°C to 45°C — so the machine may not even be STORED below freezing either. An unheated garage or shed in Denmark is below 0°C for large parts of the year. The schema has no field for non-operating temperature.
+  [cameras]
+    caveat: The manufacturer answers explicitly Yes/No per variant: Fisheye Vision Camera Yes, Depth Vision Camera Yes. C500 does NOT have the depth camera. An explicit NO is a disclosed fact, not a gap.
+  [weight]
+    caveat: The manufacturer states 24.3 kg (C500 weighs 24 kg). Whether the battery is included is not stated.
+    caveat_class: validity
+  [length]
+    caveat: The manufacturer's own label: Size (Standing Pose) 76 cm x 40 cm x 45 cm.
+    caveat_class: elaboration
+  [payload_walking]
+    caveat: The manufacturer states Payload Capacity: Up to 3 kg as ONE UNDIVIDED FIGURE and does not distinguish between walking and standing load. The placement is an inference, not a direct reading.
+    caveat_class: validity
+  [slope]
+    caveat: The manufacturer states Gradeability Max. 20° — a CEILING. The lowest slope figure in the entire collection.
+    caveat_class: validity
+  [temperature_max]
+    caveat: The manufacturer uses the fullwidth tilde U+FF5E, not the ASCII tilde, between the two temperatures.
+    caveat_class: elaboration
+  [battery_wh]
+    caveat: 23Ah Lithium Battery — without voltage. Wh cannot be derived and is not derived.
+  [runtime]
+    caveat: FOUR ENDURANCE FIGURES, ALL WITHOUT A LOAD CONDITION: Average Up to 5.7h, Continuous Walking Up to 3.3h, Standing Up to 8h, Standby Mode Up to 18h. Continuous walking is used here — the only one comparable to the other entries' runtime.
+    caveat_class: validity
+  [lidar]
+    caveat: The page states Supports Lidar and Machine Vision in marketing prose. No type, no model, no row in the specification table.
+  [compute]
+    caveat: The manufacturer states CPU: ARM 64-bit and Hard Drive: 32 GB. Architecture without a model — no chip designation is given.
+  [ros2]
+    caveat: The manufacturer states Operating System: Linux + ROS. The field is called ROS 2, and the version is not stated. Counting it would be inventing a version number.
+  robots.notes: ["WEILAN Co., Ltd., ICP number Su-ICP-Bei-19029747-1 (registered in Jiangsu). The manufacturer's own label for the variant is C501 Ultimate developer version.","THE LANGUAGE SWITCHER ON WEILAN'S ENGLISH PAGES IS BROKEN: the menu item for Chinese points to a URL that returns 404. This applies to all three pages tested. There is no Chinese primary source on weilan.com to cross-check against.","All figures here are read directly from the saved raw file, not copied from a summary.","THE PRICES 16,900 CNY and 86,900 CNY that circulate about WEILAN models have NOT been assigned to any model and must not be. WEILAN's own order page discloses no prices at all.","The manufacturer's own disclaimer at the bottom of the page: Some specifications or performance parameters can only be realized under specific conditions, and Due to standards and regulations, some features may not be available in all countries or regions."]
+  applications.note: "C500 and C501 share a product page. See the note on C500 about \"Innovative Applications in Discovery\"."
+  applications.quote: "Children’s education, family companionship, elderly care, express delivery, STEAM education"
+
+=== weilan-alphadog-e300 (id 2246, WEILAN) ===
+  robots.notes: ["ZERO PUBLISHED SPECIFICATIONS. The visible part of the product page consists solely of navigation, header, and footer. The model names E300 and E400L are not visible on the page at all; they appear on the manufacturer's catalogue page alongside the subtitle Enterprise Version Available.","THE SPECIFICATIONS EXIST IN THE FILE, BUT HAVE BEEN TAKEN DOWN. They sit inside an HTML COMMENT — byte 19,561 to 53,141, 33,580 bytes. Measured: the page body is 73,121 characters with the comment and 37,734 without it, i.e. 48% of the body is commented out. A complete specification sheet for both models is inside the comment.","NONE OF IT HAS BEEN ENTERED AS DATA, AND NO ONE SHOULD. Checked: the page contains no innerHTML, no COMMENT_NODE, and no code that reinserts the block. A browser shows none of it. Pulling figures out of a withdrawn block would mean publishing, under the manufacturer's name, something the manufacturer has taken down.","The distinction matters to a buyer: this is not a manufacturer that has never disclosed anything. It is a manufacturer that HAS disclosed it and then hidden it."]
+  applications.note: "A POSITIONING STATEMENT EXISTS IN THE FILE, AND IT HAS BEEN TAKEN DOWN. The sentence \"it can be assigned to safeguard people and properties, patrol parks and communities, guide a blind person, deliver packages to your front door, inspect factories or dangerous places, do rescue missions\" sits at byte 23,014–23,500 — inside the HTML comment a browser never shows. Measured: all four positioning texts on the E-series page sit in the comment. Same ruling as for the figures: we do not publish anything the manufacturer has withdrawn."
+
+=== weilan-alphadog-e400l (id 2247, WEILAN) ===
+  robots.notes: ["ZERO PUBLISHED SPECIFICATIONS. The visible part of the product page consists solely of navigation, header, and footer. The model names E300 and E400L are not visible on the page at all; they appear on the manufacturer's catalogue page alongside the subtitle Enterprise Version Available.","THE SPECIFICATIONS EXIST IN THE FILE, BUT HAVE BEEN TAKEN DOWN. They sit inside an HTML COMMENT — byte 19,561 to 53,141, 33,580 bytes. Measured: the page body is 73,121 characters with the comment and 37,734 without it, i.e. 48% of the body is commented out. A complete specification sheet for both models is inside the comment.","NONE OF IT HAS BEEN ENTERED AS DATA, AND NO ONE SHOULD. Checked: the page contains no innerHTML, no COMMENT_NODE, and no code that reinserts the block. A browser shows none of it. Pulling figures out of a withdrawn block would mean publishing, under the manufacturer's name, something the manufacturer has taken down.","The distinction matters to a buyer: this is not a manufacturer that has never disclosed anything. It is a manufacturer that HAS disclosed it and then hidden it."]
+  applications.note: "See the note on E300: the E-series positioning sits inside an HTML comment and is not used."
+
+=== weilan-babyalpha (id 2248, WEILAN) ===
+  robots.notes: ["NO SPECIFICATION TABLE. The page is pure marketing: no weight, no dimensions, no speed, no runtime, no battery figures. Zero fields filled in.","The page has a BUY NOW button, but NO PRICE.","WEILAN has three zero entries (E300, E400L, BabyAlpha) and one entry at 35% (AlphaDog C500/C501). The only model that discloses anything is the developer version of the toy."]
+  applications.note: "Same page, visible text: \"a source of family entertainment that doubles as a home security guard\". The manufacturer itself positions it in the home."
+  applications.quote: "AI-powered Family Companion"
+
+=== yobotics-e-dog (id 2251, Shandong Youbaote Intelligent Robot) ===
+  [length]
+    caveat: The manufacturer states 680×330×380 mm (±10 mm). The tolerance applies to all three dimensions.
+    caveat_class: elaboration
+  [payload_standing]
+    caveat: The manufacturer's own label is max. STATIC load capacity. Static and standing are not the same word; the placement is an interpretation, not a direct reading.
+    caveat_class: validity
+  [speed]
+    caveat: The manufacturer states max. speed ≥ 12 km/h. Note the unit: km/h, not m/s as with the sister entry Y20.
+    caveat_class: elaboration
+  [weight]
+    caveat: 15 kg +/- 0,5 kg.
+    caveat_class: elaboration
+  [width]
+    caveat: Tolerance +/- 10 mm.
+    caveat_class: elaboration
+  [height]
+    caveat: Tolerance +/- 10 mm.
+    caveat_class: elaboration
+  [degrees_of_freedom]
+    caveat: Peak torque per joint is stated as 48 Nm.
+    caveat_class: elaboration
+  [stair_step_continuous]
+    caveat: The manufacturer's own label uses the characters for STAIR-CLIMBING HEIGHT, ≥ 16 cm. Placed in the continuous field on the same basis as Y20 and X30.
+    caveat_class: elaboration
+  [runtime]
+    caveat: The manufacturer states runtime not less than 1.5 hours. No load condition.
+    caveat_class: validity
+  [payload_walking]
+    caveat: THE MANUFACTURER DISCLOSES THREE LOAD FIGURES: max. static 8 kg, max. dynamic 5 kg, and dynamic IN OPERATION 3 kg. The in-operation figure is used here, because it corresponds to what the other entries call walking load. The other two figures have no field in the schema.
+    caveat_class: validity
+  robots.notes: ["THE HOME CITY IS JINAN, NOT JUST SHANDONG: the manufacturer's own About page states the full address \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" — Shandong is the province, Jinan is the city within it that the manufacturer actually discloses.","OPEN QUESTION: the manufacturer's own heading says e-Dog, but the description right below it is about Y15. The heading is used as the model name."]
+  applications.note: "A series introduction, not a model-specific sentence. See the note on Y10."
+  applications.quote: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+
+=== yobotics-y10 (id 2252, Shandong Youbaote Intelligent Robot) ===
+  [weight]
+    caveat: The manufacturer states approx. 5.6 kg ± 0.5 kg, the whole machine incl. battery. Both an approximation AND a tolerance on the same figure.
+    caveat_class: elaboration
+  [payload_walking]
+    caveat: The manufacturer's own label is explicitly CONTINUOUS WALKING load, > 3 kg. The placement is a direct reading, not an inference.
+    caveat_class: elaboration
+  [speed]
+    caveat: SPEED WITH A LOAD CONDITION: the manufacturer states running speed 1.4 m/s WITHOUT LOAD. The schema has no room for a load condition on speed — only on runtime. The field therefore looks comparable to other entries' speeds and is not entirely so.
+    caveat_class: validity
+  robots.notes: ["THE HOME CITY IS JINAN, NOT JUST SHANDONG: the manufacturer's own About page states the full address \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" — Shandong is the province, Jinan is the city within it that the manufacturer actually discloses.","OPEN QUESTION: the manufacturer's own heading says Y10, but the description right below it is about Y5. The heading is used as the model name. The entry cannot be locked until the manufacturer has been asked.","Yobotics is the domain name; the manufacturer's own English name is Shandong Youbaote Intelligent Robot Co., Ltd."]
+  applications.note: "The sentence appears as the introduction on the catalogue page for the entire series (Y20, Y10, e-Dog) and is not written about the individual model. The word \"commercial\" has no category in the permitted set."
+  applications.quote: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."
+
+=== yobotics-y20 (id 2253, Shandong Youbaote Intelligent Robot) ===
+  [weight]
+    caveat: Includes the battery.
+    caveat_wording: 含电池
+    caveat_class: elaboration
+  [payload_walking]
+    caveat: The manufacturer's own label is WALKING load, max. 80 kg. The manufacturer itself discloses the two loads as two separate fields — a second independent confirmation (after Unitree) that payload MUST be two fields. The ratio here is almost double.
+    caveat_class: elaboration
+  [stair_step_continuous]
+    caveat: The manufacturer's own label uses the character for STEP/STAIR, max. 30 cm. Placed in the continuous field on the same basis as DEEP Robotics X30. The page does not explicitly say continuous — this is a conservative placement, not a direct reading.
+    caveat_class: validity
+  [temperature_min]
+    caveat: -25°C against WEILAN AlphaDog C500's 0°C: two Chinese manufacturers, the same day, and one can work through a Danish winter while the other may not even stand in a cold shed. This is the lower operating temperature filter doing its job.
+    caveat_class: elaboration
+  [height]
+    caveat: Folded approx. 930 × 450 × 370 mm. The schema has no fields for folded dimensions.
+    caveat_class: elaboration
+  [payload_standing]
+    caveat: The manufacturer's own label is STANDING load, max. 150 kg.
+    caveat_class: elaboration
+  [speed]
+    caveat: The manufacturer states max. 4 m/s.
+    caveat_class: elaboration
+  [slope]
+    caveat: Label: climbing slope angle, max. 40°.
+    caveat_class: elaboration
+  [battery_wh]
+    caveat: 25 Ah without voltage. Wh cannot be derived and is not derived.
+  [runtime]
+    caveat: THE MANUFACTURER ITSELF SUPPLIES THE LOAD CONDITION — the only entry in the collection where this happens. Verbatim: > 5 h continuous walking WITHOUT load, and > 2.5 h in operation WITH payload. But the kg figure for the loaded state is not given; the condition is qualitative. The loaded figure is used here.
+    caveat_class: validity
+  [charging_time]
+    caveat: The charging time applies to the charging dock (optional): full charge ≤ 3 h.
+    caveat_class: validity
+  [docking_station]
+    caveat: Ladestander, tilvalg.
+  robots.notes: ["THE HOME CITY IS JINAN, NOT JUST SHANDONG: the manufacturer's own About page states the full address \"Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province\" — Shandong is the province, Jinan is the city within it that the manufacturer actually discloses.","OPEN QUESTION, NOT RESOLVED: the headings and the descriptions on the manufacturer's own page disagree about the model names. The heading Y20 sits above a description about Y30 (and Y10 above a Y5 description, e-Dog above a Y15 description). Three out of three do not match. The heading is used as the model name. The entry cannot be locked until someone has asked the manufacturer which name applies.","The specifications are in tables on the English page, but the tables themselves are in Chinese. The markup carries x:str attributes — the tables were inserted from Excel."]
+  applications.note: "A series introduction, not a model-specific sentence. See the note on Y10."
+  applications.quote: "It is a flagship product in the field of commercial, scientific research, and educational quadruped robots."

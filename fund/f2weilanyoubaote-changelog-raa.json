@@ -1,0 +1,716 @@
+[
+  {
+    "id": 839,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "weight"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.034896+00:00"
+  },
+  {
+    "id": 840,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "length"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.125065+00:00"
+  },
+  {
+    "id": 841,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "degrees_of_freedom"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.199619+00:00"
+  },
+  {
+    "id": 842,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "payload_walking"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.275599+00:00"
+  },
+  {
+    "id": 843,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "speed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.356782+00:00"
+  },
+  {
+    "id": 844,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "slope"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.434724+00:00"
+  },
+  {
+    "id": 845,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "temperature_min"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.511467+00:00"
+  },
+  {
+    "id": 846,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "temperature_max"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.589611+00:00"
+  },
+  {
+    "id": 847,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "battery_wh"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.665108+00:00"
+  },
+  {
+    "id": 848,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "runtime"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.742195+00:00"
+  },
+  {
+    "id": 849,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "lidar"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.883069+00:00"
+  },
+  {
+    "id": 850,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "cameras"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:09.959401+00:00"
+  },
+  {
+    "id": 851,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "compute"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.035003+00:00"
+  },
+  {
+    "id": 852,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "ros2"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.111425+00:00"
+  },
+  {
+    "id": 853,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "autonomy_level"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.186407+00:00"
+  },
+  {
+    "id": 854,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "data_ports"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.2608+00:00"
+  },
+  {
+    "id": 855,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "price"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.33739+00:00"
+  },
+  {
+    "id": 856,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2244,
+      "field_name": "ce_disclosed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.410796+00:00"
+  },
+  {
+    "id": 857,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2244
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.489122+00:00"
+  },
+  {
+    "id": 858,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2244
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.564603+00:00"
+  },
+  {
+    "id": 859,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "autonomy_level"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.639497+00:00"
+  },
+  {
+    "id": 860,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "data_ports"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.714785+00:00"
+  },
+  {
+    "id": 861,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "price"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.790273+00:00"
+  },
+  {
+    "id": 862,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "ce_disclosed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.866051+00:00"
+  },
+  {
+    "id": 863,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "weight"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:10.940286+00:00"
+  },
+  {
+    "id": 864,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "length"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.01405+00:00"
+  },
+  {
+    "id": 865,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "degrees_of_freedom"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.090202+00:00"
+  },
+  {
+    "id": 866,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "payload_walking"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.165426+00:00"
+  },
+  {
+    "id": 867,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "speed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.240472+00:00"
+  },
+  {
+    "id": 868,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "slope"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.316151+00:00"
+  },
+  {
+    "id": 869,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "temperature_min"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.391687+00:00"
+  },
+  {
+    "id": 870,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "temperature_max"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.464419+00:00"
+  },
+  {
+    "id": 871,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "battery_wh"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.541566+00:00"
+  },
+  {
+    "id": 872,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "runtime"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.614704+00:00"
+  },
+  {
+    "id": 873,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "lidar"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.690279+00:00"
+  },
+  {
+    "id": 874,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "cameras"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.768091+00:00"
+  },
+  {
+    "id": 875,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "compute"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.843842+00:00"
+  },
+  {
+    "id": 876,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2245,
+      "field_name": "ros2"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.921261+00:00"
+  },
+  {
+    "id": 878,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2245
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:11.996359+00:00"
+  },
+  {
+    "id": 881,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2245
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.137854+00:00"
+  },
+  {
+    "id": 883,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2246
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.21254+00:00"
+  },
+  {
+    "id": 884,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2246
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.288474+00:00"
+  },
+  {
+    "id": 886,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2247
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.363754+00:00"
+  },
+  {
+    "id": 888,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2247
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.43933+00:00"
+  },
+  {
+    "id": 890,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2248
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.51621+00:00"
+  },
+  {
+    "id": 892,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2248
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:33:12.592021+00:00"
+  },
+  {
+    "id": 1019,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "payload_standing"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.451501+00:00"
+  },
+  {
+    "id": 1020,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "speed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.536845+00:00"
+  },
+  {
+    "id": 1021,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "length"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.607049+00:00"
+  },
+  {
+    "id": 1022,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "degrees_of_freedom"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.679693+00:00"
+  },
+  {
+    "id": 1023,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "stair_step_continuous"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.750452+00:00"
+  },
+  {
+    "id": 1024,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "runtime"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.822119+00:00"
+  },
+  {
+    "id": 1025,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2251,
+      "field_name": "payload_walking"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.895927+00:00"
+  },
+  {
+    "id": 1026,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2251
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:32.969466+00:00"
+  },
+  {
+    "id": 1027,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2251
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.039931+00:00"
+  },
+  {
+    "id": 1028,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2252,
+      "field_name": "weight"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.11074+00:00"
+  },
+  {
+    "id": 1029,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2252,
+      "field_name": "payload_walking"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.182215+00:00"
+  },
+  {
+    "id": 1030,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2252,
+      "field_name": "speed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.252178+00:00"
+  },
+  {
+    "id": 1031,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2252
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.322864+00:00"
+  },
+  {
+    "id": 1032,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2252
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.392564+00:00"
+  },
+  {
+    "id": 1033,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "weight"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.463452+00:00"
+  },
+  {
+    "id": 1034,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "height"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.531558+00:00"
+  },
+  {
+    "id": 1035,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "payload_walking"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.598017+00:00"
+  },
+  {
+    "id": 1036,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "payload_standing"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.672227+00:00"
+  },
+  {
+    "id": 1037,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "speed"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.742391+00:00"
+  },
+  {
+    "id": 1038,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "slope"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.809879+00:00"
+  },
+  {
+    "id": 1039,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "stair_step_continuous"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.885185+00:00"
+  },
+  {
+    "id": 1040,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "temperature_min"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:33.958108+00:00"
+  },
+  {
+    "id": 1041,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "battery_wh"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:34.025948+00:00"
+  },
+  {
+    "id": 1042,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "runtime"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:34.093109+00:00"
+  },
+  {
+    "id": 1043,
+    "table_name": "field_entries",
+    "row_key": {
+      "robot_id": 2253,
+      "field_name": "charging_time"
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:34.162388+00:00"
+  },
+  {
+    "id": 1044,
+    "table_name": "robots",
+    "row_key": {
+      "id": 2253
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:34.233358+00:00"
+  },
+  {
+    "id": 1045,
+    "table_name": "applications",
+    "row_key": {
+      "robot_id": 2253
+    },
+    "changed_by": "spor/f2-weilanyoubaote",
+    "changed_at": "2026-09-03T19:36:34.302404+00:00"
+  }
+]
