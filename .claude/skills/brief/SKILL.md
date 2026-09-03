@@ -107,6 +107,22 @@ med linjenummer og slået op = høj konfidens; citeret efter hukommelse = lav,
 og skal mærkes. To løse citater slap igennem på én session (ARBEJDSGANG.md V3),
 og begge lød dokumenterede, netop fordi de bar en henvisning.
 
+**En test kan være det SIDSTE sted, en beslutning findes.** Tilføjet 3. sep
+2026. Otte tests gik røde efter et flet, og jeg kaldte dem *"forventede"* og
+bad et spor vende dem. Den anden session slog efter først og fandt, at to af
+dem hed `35.11: CE-facetten er vaek (L55 punkt 3)` og `35.12:
+certificeringspladsen er reserveret og aerlig (L55 punkt 1)` — beslutningen
+stod i **testens navn**, og intet andet sted i repoet.
+
+CLAUDE.md siger *"ret assertions, slet dem ikke"*. Det her er den skærpede
+form: **her ER assertionen arkivet.** Havde sporet vendt dem, var en gældende
+beslutning forsvundet uden spor — og vendingen ville have set korrekt ud.
+
+**Læs testens NAVN, før du beder om at få den vendt.** Bærer det et L-nummer,
+en dato eller en beslutningshenvisning, så skriv ophævelsen i STATUS **først**,
+og lad den nye assertion citere den. Prisen i dag var Å149/L89; prisen uden
+reglen var en beslutning, ingen kunne finde igen.
+
 **Denne tjekliste gælder også rettelsesbeskeder til et kørende spor.** En
 rettelsesbesked er et brief — fil:linje, citat af det nuværende (opslået, ikke
 husket), ønsket resultat, kørt acceptkriterium. Sessionens fejl 6 var en

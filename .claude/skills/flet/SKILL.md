@@ -81,6 +81,20 @@ skrevet): et flet kan knække det, ingen af de to grene knækkede — to grene, 
 hver især består, kan tilsammen fjerne en fil, den anden bruger, eller stable
 to testblokke forkert (det brød `tests/koer.mjs` én gang 26. aug).
 
+**Punkt 4 gælder også den, der EFTERPRØVER et flet — ikke kun den, der
+fletter.** Tilføjet 3. sep 2026, betalt af to sessioner samtidig. Jeg flettede
+`spor/robot3` med kun `validate` og `build`, begge grønne, og meldte
+udtrykkeligt, at jeg ikke ville køre suiten. Den anden session efterprøvede
+flettet og skrev også *"ingen tests/koer.mjs"*. Ingen af os løj, og begge
+overså det samme.
+
+**Validate og build grønne er ikke en efterprøvning.** De fanger ikke en klasse,
+der lige er blevet død, en assertion, der lige er blevet forældet, eller et
+testtal, der har flyttet sig. `.stribe--fem` døde, fordi sporet gav
+nøgletalsstriben et sjette felt; test 57.1 gik fra 14 til 15 kendte døde klasser
+i samme minut. **Det blev først set to spor senere**, hvor otte tests var røde
+og årsagerne blandet sammen. Prisen var et helt ekstra spor for at rydde op.
+
 **Først: meld til den anden session, hvis der er én.** To sessioner deler ét
 arbejdstræ og ét ref-lager (STATUS Å124, Å131). To samtidige `koer.mjs` crasher
 med et Node-stakspor, ikke en rød test — og *"main er i takt"* er en fælles
