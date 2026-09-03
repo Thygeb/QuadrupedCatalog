@@ -20,7 +20,7 @@ anvendelse:
     - "Education and Research"
   kilde: "https://addverb.ai/trakr"
   hentet: "2026-08-25"
-  note: "Samme kilde-sektion som addverb-trakr-5.yaml (\"Industries where we make a difference\") - IKKE arvet_fra, fordi det er den samme primærkilde begge varianter bor på, ikke en slutning lånt fra en anden robots side (samme princip som GENISOM Gangben L2-W/L2-W Ultra i dette katalog). Se addverb-trakr-5.yaml for den fulde fortolkningsbegrundelse pr. kategori."
+  note: "Same source section as the Trakr 5 entry (\"Industries where we make a difference\") - not inherited-from, because both variants live on the same primary source, not a conclusion borrowed from another robot’s page (same principle as GENISOM Gangben L2-W/L2-W Ultra in this catalog). See the Trakr 5 entry (addverb-trakr-5) for the full per-category interpretation rationale."
 billede:
   fil: "fotos/fabrikant/addverb-trakr-20.png"
   ophav: "fabrikant"
@@ -29,7 +29,7 @@ billede:
   alt:
     da: "Addverb Trakr, firbenet robot i roedt og graat, studiofoto set fra siden paa hvid baggrund"
     en: "Addverb Trakr, red and grey quadruped robot, studio photo from the side on a white background"
-  note: "Delt foto med addverb-trakr-5.yaml: samme produktside/fane-vælger som resten af posten allerede dokumenterer ikke skelner pålideligt mellem de to varianter (se noten om Trakr 20's ubrugelige specifikationstabel) - siden har heller ikke to forskellige produktfotos for Trakr 5 og Trakr 20."
+  note: "Shared photo with the Trakr 5 entry: the same product page/tab selector that the rest of this entry already documents does not reliably distinguish between the two variants (see the note on Trakr 20’s unusable specification table) - the page also has no separate product photos for Trakr 5 and Trakr 20."
 felter:
   egenvaegt: "ikke_oplyst"
   laengde: "ikke_oplyst"
@@ -41,8 +41,9 @@ felter:
     enhed: "kg"
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
-    advarsel: "\"Trakr 20 is the heavy-duty quadruped. 20 kg carry, rock-steady under load.\" - brødtekst for Trakr 20-fanen på den primære produktside. Producenten skelner ikke mellem gående og stående last (samme tolkningsprincip som Trakr 5, Boston Dynamics Spot m.fl.). Uafhængigt bekræftet af addverb.com/press-release/addverb-launches-new-warehouse-robots-trakr-2-0-brisk-and-hoca-at-logimat-india-2025/ (hentet 2026-08-25, kildetype sekundær): \"The Trakr 2.0, a quadruped robot, is capable of carrying up to 20 kg\" - citat af medstifter Bir Singh. Se topnoten for hvorfor DENNE værdi er brugt, mens resten af fanens specifikationstabel ikke er."
+    advarsel: "Body text for the Trakr 20 tab on the primary product page (see caveat_wording). The manufacturer does not distinguish between walking and standing payload - same interpretation as Trakr 5, Boston Dynamics Spot, and others in this catalog. Independently confirmed by a secondary source (Addverb press release, addverb.com, retrieved 2026-08-25) quoting co-founder Bir Singh. See the robot’s top-level note for why this value is used while the rest of the tab’s own specification table is not."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Trakr 20 is the heavy-duty quadruped. 20 kg carry, rock-steady under load. | The Trakr 2.0, a quadruped robot, is capable of carrying up to 20 kg"
   nyttelast_staaende: "ikke_oplyst"
   hastighed: "ikke_oplyst"
   haeldning: "ikke_oplyst"

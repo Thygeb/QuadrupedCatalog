@@ -6,7 +6,9 @@ producentby: "Hangzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
 noter:
-  - "Tabellens rækkefølge er forvirrende: \"Max Climbing Ability: 800 mm\" står lige før \"Step Negotiation: 45°\" og \"Slope Capability: >45°\" - dvs. to rækker med samme talværdi (45°) under to forskellige etiketter, og en meget stor 800 mm-værdi under en etikette (\"Climbing Ability\"), man normalt ville forvente var en vinkel. Ikke rettet stiltiende - se advarsler på forhindring_enkelt og hældning."
+  - "The table's row order is confusing: 'Max Climbing Ability: 800 mm' appears right before 'Step Negotiation: 45°' and 'Slope Capability: >45°' - i.e. two rows with the same numeric value (45°) under two different labels, and a very large 800 mm value under a label ('Climbing Ability') one would normally expect to be an angle. Not silently corrected - see the caveats on obstacle_single and slope."
+noter_ordlyd:
+  - "Max Climbing Ability: 800 mm | Step Negotiation: 45° | Slope Capability: >45°"
 anvendelse:
   vaerdi:
     - "industri"
@@ -16,7 +18,7 @@ anvendelse:
   citat: "All-terrain quadruped robot for industrial inspection, fire response, and public safety missions."
   kilde: "https://www.micbotics.com/list_12/98.html"
   hentet: "2026-08-24"
-  note: "\"industrial inspection\" -> industri + inspektion; \"fire response\" -> forsvar og beredskab; \"public safety missions\" -> sikkerhed og overvågning."
+  note: "'industrial inspection' -> industrial + inspection; 'fire response' -> defense and emergency response; 'public safety missions' -> security and surveillance."
 billede:
   fil: "fotos/fabrikant/microrobotech-movenew-p1.jpg"
   ophav: "fabrikant"
@@ -28,50 +30,55 @@ felter:
     enhed: "kg"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "\"Total Weight: 77kg (Battery included)\" - eksplicit med batteri, i modsætning til T1's tvetydige etikette."
+    advarsel: "Explicit including battery, unlike T1's ambiguous label."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Total Weight: 77kg (Battery included)"
   laengde:
     vaerdi: 900
     enhed: "mm"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "\"Standing Dimensions: 900mm x 600mm x 650mm\" - akserne er ikke mærket. Brækkefølgen længde x bredde x højde er antaget, ikke bekræftet."
+    advarsel: "Axes are not labeled. The order length x width x height is assumed, not confirmed."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Standing Dimensions: 900mm × 600mm × 650mm"
   bredde:
     vaerdi: 600
     enhed: "mm"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "USIKKER TILDELING - se længde."
+    advarsel: "UNCERTAIN ASSIGNMENT - see length."
     advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 650
     enhed: "mm"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "USIKKER TILDELING - se længde. Foldet mål 1150 x 800 x 200 mm; skemaet har intet foldefelt."
+    advarsel: "UNCERTAIN ASSIGNMENT - see length. Folded measurement is 1150 x 800 x 200mm; the schema has no folded-measurement field."
     advarsel_klasse: "gyldighed"
   frihedsgrader:
     vaerdi: 16
     enhed: "DoF"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "\"High-Performance Motors: 16 units\" - motorantal, ikke eksplicit DoF. Samme fortolkning som T1 og Go2."
+    advarsel: "Motor count, not explicitly DoF. Same interpretation as T1 and Go2."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "High-Performance Motors: 16 units"
   nyttelast_gaaende:
     vaerdi: 200
     enhed: "kg"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Max Walking Load\"."
+    advarsel: "Label 'Max Walking Load'."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max Walking Load: 200 kg"
   nyttelast_staaende:
     vaerdi: 400
     enhed: "kg"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Max Standing Load\"."
+    advarsel: "Label 'Max Standing Load'."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max Standing Load: 400 kg"
   hastighed:
     vaerdi: 3
     enhed: "m/s"
@@ -83,28 +90,32 @@ felter:
     operator: ">"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Slope Capability: >45°\". En anden række, \"Step Negotiation\", viser også 45° uden \">\" - muligvis samme oplysning gentaget under to etiketter, muligvis en skabelonfejl hos producenten. Kun \"Slope Capability\"-rækken er brugt her, fordi den har den klareste etikette og operator."
+    advarsel: "A different row, 'Step Negotiation', also shows 45° without '>' - possibly the same information repeated under two labels, possibly a manufacturer template error. Only the 'Slope Capability' row is used here, as it has the clearest label and operator."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Slope Capability: >45°"
   forhindring_enkelt:
     vaerdi: 800
     enhed: "mm"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Max Climbing Ability: 800 mm\". Usædvanligt stort tal for en enkelt forhindring (dobbelt så højt som T1's 400mm-klasse forhindring) - ikke efterprøvet mod et andet felt, og kunne være en skrivefejl hos producenten (fx forvekslet med rampe-/last-relateret mål). Gemt ordret, ikke rettet."
+    advarsel: "Unusually large figure for a single obstacle (twice as high as T1's 400mm-class obstacle) - not cross-checked against another field, and could be a manufacturer typo (e.g. confused with a ramp/load-related measurement). Recorded verbatim, not corrected."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Max Climbing Ability: 800 mm"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: "cm"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Stair Climbing Capability: Max step height 25cm\"."
+    advarsel: "Label 'Stair Climbing Capability'."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Stair Climbing Capability: Max step height 25cm"
   ip_klasse:
     vaerdi: "IP67"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Kilden tilføjer \"(Wheel Protection Rating IP68)\" - hjulene har en anden, højere klasse end helmaskinen. Kun helmaskinens IP67 er brugt i feltet."
+    advarsel: "The source adds a wheel protection rating (IP68) - the wheels have a different, higher class than the whole machine. Only the whole-machine IP67 is used in the field."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Wheel Protection Rating IP68"
   temp_min:
     vaerdi: -40
     enhed: "°C"
@@ -120,59 +131,68 @@ felter:
     enhed: "Wh"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "\"Hot-swappable 3.2kWh NMC battery (Supply voltage: 72V)\"."
+    advarsel: "Battery pack is described as hot-swappable NMC chemistry; nominal supply voltage 72V."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Hot-swappable 3.2kWh NMC battery (Supply voltage: 72V)"
   driftstid:
     min: 8
     maks: 12
     enhed: "t"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "\"No-load continuous operating time: <=12h\" og \"Full-load continuous operating time: <=8h\". To lastbetingelser (ingen last / fuld last) uden et konkret kg-tal for \"fuld last\" - kan derfor ikke skrives som et konkret lastkrav, kun som tilstanden ikke oplyst. \"Max Walking Load: 200kg\" står i tabellen, men producenten forbinder den IKKE eksplicit til \"fuld last\"-rækken, så forbindelsen er ikke lavet her."
+    advarsel: "Two load conditions (no load / full load) with no concrete kg figure for 'full load' - cannot therefore be written as a specific load requirement, only as load condition not disclosed. 'Max Walking Load: 200kg' appears in the table, but the manufacturer does not explicitly connect it to the 'full load' row, so that connection is not made here."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "No-load continuous operating time: ≤12h | Full-load continuous operating time: ≤ 8h"
     ved_last: "ikke_oplyst"
   hot_swap:
     vaerdi: true
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Ordet \"Hot-swappable\" står direkte i batteri-rækken."
+    advarsel: "The word 'Hot-swappable' appears directly in the battery row."
+    advarsel_ordlyd: "Hot-swappable"
   ladetid:
     vaerdi: 1.5
     enhed: "t"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Charging Time: 1.5h\"."
+    advarsel: "Label 'Charging Time'."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Charging Time: 1.5h"
   dockingstation: "ikke_oplyst"
   lidar:
-    vaerdi: "96-line automotive-grade LiDAR (understøtter op til 3 enheder)"
+    vaerdi: "96-line automotive-grade LiDAR (supports up to 3 units)"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Etiket \"Automotive-grade LiDAR: 96-line LiDAR 1 (supports installation of up to 3 units)\". Linjetal oplyst - tæller derfor med under D4 (type MED model/specifikation), i modsætning til T1's."
+    advarsel: "Line count disclosed - therefore counts under rule D4 (type WITH model/specification), unlike T1's."
+    advarsel_ordlyd: "Automotive-grade LiDAR: 96-line LiDAR 1 (supports installation of up to 3 units)"
   kameraer:
     vaerdi: "HD Depth Camera (support for installation), Ultrasonic Radar (support for installation)"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Begge rækker siger \"Support for installation\", IKKE at udstyret er standard monteret. Gemt som producentens egen formulering, ikke omsat til \"ja, kamera monteret\"."
+    advarsel: "Both rows say 'Support for installation', NOT that the equipment is standard-fitted. Recorded as the manufacturer's own wording, not converted to 'yes, camera fitted'."
+    advarsel_ordlyd: "HD Depth Camera: Support for installation | Ultrasonic Radar: Support for installation"
   compute:
-    vaerdi: "Understøtter op til 2000 TOPS"
+    vaerdi: "Supports up to 2000 TOPS"
     kilde: "https://www.micbotics.com/list_12/98.html"
     hentet: "2026-08-24"
-    advarsel: "Rå tekst: \"Supports 2000 tops\". Ordet \"Supports\" antyder maksimal understøttet regnekraft ved tilvalgt modul, ikke nødvendigvis indbygget som standard - modsat T1, hvor \"Jetson Orin NX Super+RK3588\" er navngivet som det faktiske kernemodul."
+    advarsel: "The word 'Supports' suggests maximum supported compute power via an optional module, not necessarily built-in as standard - unlike T1, where 'Jetson Orin NX Super+RK3588' is named as the actual core module."
+    advarsel_ordlyd: "Supports 2000 tops"
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:
-    vaerdi: "Multi-sensor fusion perception system + high-computing power platform, der danner et 360° omnidirektionelt situationsbevidsthedsnetværk, som dækker miljøpercepetion, overvågning og vidensresonnering (\"knowledge reasoning\")."
+    vaerdi: "Multi-sensor fusion perception system + high-computing power platform, forming a 360° omnidirectional situational-awareness network covering environmental perception, monitoring, and knowledge reasoning."
     kilde: "https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "PDF-datablad (\"MOVENEW P1 - Industrial Special-Purpose Wheeled Quadruped Robot\"), side 3 (\"Integrated Sensing & Control\"): \"Equipped with a multi-sensor fusion perception system and a high-computing power platform, it forms a 360° omnidirectional environmental awareness network, fully covering functional modules such as environmental perception, monitoring, and knowledge reasoning.\" Kvalitativ beskrivelse - intet numerisk autonominiveau (SAE/ISO-lignende skala) oplyst."
+    advarsel: "PDF datasheet ('MOVENEW P1 - Industrial Special-Purpose Wheeled Quadruped Robot'), page 3 ('Integrated Sensing & Control'). Qualitative description - no numeric autonomy level (SAE/ISO-like scale) disclosed."
+    advarsel_ordlyd: "Equipped with a multi-sensor fusion perception system and a high-computing power platform, it forms a 360° omnidirectional environmental awareness network, fully covering functional modules such as environmental perception, monitoring, and knowledge reasoning."
   monteringsinterface:
-    vaerdi: "\"Expansion Rails\" markeret som standardfunktion i databladets funktionstabel (side 4, \"Function Configuration\"). Ingen standardiseret monteringsflade-navn, -mål eller hurtigskift-mekanisme oplyst."
+    vaerdi: "'Expansion Rails' marked as a standard feature in the datasheet's function table (page 4, 'Function Configuration'). No standardized mounting-interface name, dimensions, or quick-release mechanism disclosed."
     kilde: "https://www.micbotics.com/public/upload/file/20260416/1776307542577931.pdf"
     hentet: "2026-08-25"
     kildetype: "sekundaer"
-    advarsel: "PDF-datablad, side 4 (\"P1 Technical Specifications\"), afsnit \"Function Configuration\": rækken \"Expansion Rails\" er markeret med en prik (til stede), samme mønster som T1's \"Top Mount Expansion\"/\"Undercarriage Expansion\" - men uden yderligere specifikation af interface-standard eller belastningsevne."
+    advarsel: "PDF datasheet, page 4 ('P1 Technical Specifications'), 'Function Configuration' section: the 'Expansion Rails' row is marked with a dot (present), same pattern as T1's 'Top Mount Expansion'/'Undercarriage Expansion' - but without further specification of interface standard or load capacity."
+    advarsel_ordlyd: "Expansion Rails"
   stroem_ud: "ikke_oplyst"
   dataporte:
     vaerdi:

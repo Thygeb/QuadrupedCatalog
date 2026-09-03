@@ -9,8 +9,8 @@ varianter:
   - "X"
   - "EDU"
 noter:
-  - "Hjulbenet udgave af As2. De to varianter adskiller sig kun på ladestation og udvidelsesdok."
-  - "Siden modsiger sig selv fire steder om rækkevidde og forhindringshøjde. Parametertabellen er brugt som værdi; nøgletalskortets tal er ført som advarsel."
+  - "Wheeled-leg version of As2. The two variants differ only in charging dock and expansion dock."
+  - "The page contradicts itself in four places about range and obstacle height. The parameter table is used as the value; the key-figures card's numbers are carried as a caveat."
 anvendelse:
   vaerdi:
     - "inspektion"
@@ -18,7 +18,7 @@ anvendelse:
   citat: "ideal for security, inspection, and advanced applications."
   kilde: "https://www.unitree.com/As2-W"
   hentet: "2026-08-19"
-  note: "L22: producentens eget ord \"security\" i samme sætning er nu omsat til sikkerhed og overvågning. Citatet er As2-W's egen produktside; As2-W står ikke i produktnavigationen, så der er intet arvet her."
+  note: "L22: the manufacturer's own word 'security', in the same sentence, is mapped here to security and surveillance. The quote is from As2-W's own product page; As2-W does not appear in the English product navigation menu (though the Chinese-language navigation does pair it with As2 under the same group), so nothing is inherited here."
 billede:
   fil: "fotos/fabrikant/unitree-as2-w.jpg"
   ophav: "fabrikant"
@@ -31,8 +31,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Med batteri."
+    advarsel: "Includes battery."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Weight (with Battery) | Approx. 25 kg"
   laengde:
     vaerdi: 721
     enhed: "mm"
@@ -48,8 +49,9 @@ felter:
     enhed: "mm"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Foldet 768 x 602 x 211 mm. Skemaet har ingen felter til foldemål."
+    advarsel: "Folded 768 x 602 x 211 mm. The schema has no field for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "768mm x 602mm x 211mm"
   frihedsgrader:
     vaerdi: 16
     enhed: "DoF"
@@ -67,16 +69,18 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Højeste stående last i hele Unitree-programmet - på den næstletteste robot (ca. 25 kg egenvægt)."
+    advarsel: "Highest standing payload in the whole Unitree lineup — on a comparatively light robot (about 25 kg with battery)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max Standing Load Approx. 150kg"
   hastighed:
     min: 0
     maks: 3.7
     enhed: "m/s"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Spidsbelastning op til ca. 6 m/s."
+    advarsel: "Spike up to about 6 m/s."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Speed 0~3.7m/s (Max Approx. 6m/s)"
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -90,8 +94,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Parametertabellens Max Climb Height er et interval 0,4~0,8 m. Sidens nøgletalskort præsenterer den øvre ende alene som 80 cm steps, og brødteksten skriver obstacles up to 80 cm high. Intervallet er bevaret."
+    advarsel: "The parameter table gives Max Climb Height as a range, 0.4~0.8 m. The page's key-figures card presents the upper end alone as 80 cm steps, and the body text states obstacles up to 80 cm high. The range is kept."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Max Climb Height Approx. 0.4m ~ 0.8m | climbing obstacles up to 80 cm high | Obstacle Capability: 80 cm steps"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: "cm"
@@ -116,16 +121,18 @@ felter:
     enhed: "Wh"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "15000 mAh. Wh står kun i brødteksten, ikke i tabellen."
+    advarsel: "15000 mAh. Wh is stated only in the body text, not in the table."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Battery Capacity Long Range (15000mAh) x1 | a 648 Wh (15,000 mAh) battery"
   driftstid:
     vaerdi: 2
     enhed: "t"
     operator: ">"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Tabellen: > 2 t ved 16 kg, ca. 25 km; ca. 3 t uden last, ca. 30 km. Nøgletalskortet på samme side siger > 16 km belastet mod tabellens ca. 25 km - 56 % forskel, samme side, samme dag. Tabellen er brugt."
+    advarsel: "Table: >2 h at 16 kg, about 25 km; about 3 h with no load, about 30 km. The key-figures card on the same page states >16 km loaded against the table's about 25 km — a 56% difference, same page, same day. The table's figure is used."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Battery Life(Loaded) With 16kg loaded, >2 hours continuous walking, approx. 25km | Loaded > 2h (>16 km)"
     ved_last:
       vaerdi: 16
       enhed: "kg"
@@ -135,7 +142,8 @@ felter:
     vaerdi: false
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Værdien er X-variantens."
+    advarsel: "The X variant value."
+    advarsel_ordlyd: "Charging Dock /"
     varianter:
       EDU: "ja"
       X: "nej"
@@ -143,13 +151,14 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "64~128-linje industri-LiDAR - type uden model, tæller ikke under D4."
+    advarsel: "64~128-line industrial LiDAR — type without model, does not count under D4."
+    advarsel_ordlyd: "Ultra-Wide-Angle LiDAR Industrial-grade 64~128-line LiDAR"
   kameraer:
-    vaerdi: "HD-kamera"
+    vaerdi: "HD camera"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
   compute:
-    vaerdi: "8-kernet CPU"
+    vaerdi: "8-core CPU"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
     varianter:
@@ -162,7 +171,8 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/As2-W"
     hentet: "2026-08-19"
-    advarsel: "Kun BAT, uden spænding."
+    advarsel: "Only BAT, no voltage."
+    advarsel_ordlyd: "Power Output：BAT"
   dataporte:
     vaerdi:
       - "Gigabit Ethernet x1"

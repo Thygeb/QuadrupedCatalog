@@ -6,7 +6,7 @@ producentby: "Hangzhou"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "Står som egen kolonne på X30's produktside. Afviger fra X30 på tre felter: vægt, det midterste mål og portlisten. Alt andet er tegn for tegn ens."
+  - "Appears as its own column on the X30’s product page. Differs from the X30 on three fields: weight, the middle dimension, and the port list. Everything else is character-for-character identical."
 anvendelse:
   vaerdi:
     - "industri"
@@ -16,7 +16,7 @@ anvendelse:
   kilde: "https://deeprobotics.cn/en/index/product3.html"
   hentet: "2026-08-19"
   arvet_fra: "deep-robotics-x30"
-  note: "ARVET (L23). X30 Pro har ingen egen produktside; den står som en variant på X30-siden, og sætningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er dækket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed og overvågning."
+  note: "INHERITED (L23). The X30 Pro has no product page of its own; it appears as a variant on the X30 page, and the sentence is written about \"X30 quadruped robot\" – not about the series. That the Pro is covered is therefore our own linkage, not the producer’s words. L22: \"security\" is mapped to security and surveillance."
 billede:
   fil: "fotos/fabrikant/deep-robotics-x30-pro.jpg"
   ophav: "fabrikant"
@@ -25,14 +25,14 @@ billede:
   alt:
     da: "DEEP Robotics Jueying X30-serien, studiofoto paa hvid baggrund"
     en: "DEEP Robotics Jueying X30 series, studio photo on a white background"
-  note: "Samme billede bruges af producenten på både X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
+  note: "The same image is used by the producer on both the X30 and the X30 Pro page; the Pro has no product page of its own (see inherited_from)."
 felter:
   egenvaegt:
     vaerdi: 59
     enhed: "kg"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Med batteri (battery included)."
+    advarsel: "Includes battery (battery included)."
     advarsel_klasse: "uddybning"
   laengde:
     vaerdi: 1000
@@ -44,14 +44,14 @@ felter:
     enhed: "mm"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at mærke akserne, og X20-siden bruger en anden rækkefølge. Den trykte rækkefølge er fulgt bogstaveligt. Bredde og højde kan være byttet om."
+    advarsel: "UNCERTAIN ASSIGNMENT. The producer prints 1000*715*470(mm) without labeling the axes, and the X20 page uses a different order. The printed order is followed literally. Width and height may be swapped."
     advarsel_klasse: "gyldighed"
   hoejde:
     vaerdi: 470
     enhed: "mm"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "USIKKER TILDELING - se bredde."
+    advarsel: "UNCERTAIN ASSIGNMENT - see width."
     advarsel_klasse: "gyldighed"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende: "ikke_oplyst"
@@ -68,7 +68,7 @@ felter:
     operator: "<="
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Tegn U+2264 - et loft, ikke en præstation."
+    advarsel: "Character U+2264 – a ceiling, not a performance figure."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -77,7 +77,7 @@ felter:
     operator: ">="
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Kombineret etiket Step/Obstacle H, lagt i det strengeste felt."
+    advarsel: "Combined label Step/Obstacle H, placed in the stricter field."
     advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: "IP67"
@@ -100,7 +100,7 @@ felter:
     enhed: "t"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Rækkevidde >= 10 km. Ingen lastbetingelse."
+    advarsel: "Range >= 10 km. No load condition."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -117,7 +117,7 @@ felter:
     vaerdi: "5 V; 12 V; 24 V"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver Output power supply (5V 12V 24V). Watt ikke oplyst. X30 uden Pro oplyser i stedet 72 V BAT - de to varianter har forskellig udgangsspænding."
+    advarsel: "The producer writes Output power supply (5V 12V 24V). Wattage not stated. The X30 without Pro instead states 72 V BAT – the two variants have different output voltages."
   dataporte:
     vaerdi:
       - "USB 2.0"

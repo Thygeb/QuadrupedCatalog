@@ -6,14 +6,14 @@ status: "i_produktion"
 fremdrift: "ben_hjul"
 foerste_udgivelse: 2025
 noter:
-  - "Tidligere Swiss-Mile. RIVR Technologies AG, udspring fra ETH Zuerich. Hjul-ben-hybrid."
-  - "Robotten sælges tilsyneladende ikke som produkt, men som leveringstjeneste - produktsiden er skrevet til logistikkøbere, ikke til ingeniører. Kun 3 af 31 felter er oplyst: ingen vægt, ingen mål, ingen IP-klasse, ingen batteristørrelse, ingen frihedsgrader. Negativsøgt på tre sider for IP-klasse, kg, mm/cm, Wh og DoF - eneste træf er de 30 kg nedenfor."
+  - "Formerly Swiss-Mile. RIVR Technologies AG, a spin-off from ETH Zurich. Wheeled-legged hybrid."
+  - "The robot does not appear to be sold as a product, but as a delivery service - the product page is written for logistics buyers, not engineers. Only 3 of 31 fields are disclosed: no weight, no dimensions, no IP rating, no battery size, no degrees of freedom. Negative-searched across three pages for IP rating, kg, mm/cm, Wh and DoF - the only hit is the 30 kg above."
 anvendelse:
   vaerdi: "logistik"
   citat: "Our delivery robot is designed to seamlessly navigate the last mile and the critical last 100 yards right to the doorstep, ensuring secure deliveries while integrating into your existing infrastructure."
   kilde: "https://www.rivr.ai/product"
   hentet: "2026-08-19"
-  note: "Producentens navigation deler i Parcel Delivery, Grocery Delivery og \"Instant food and convenience store delivery\" - tre former for det samme."
+  note: "The manufacturer's navigation splits into Parcel Delivery, Grocery Delivery and 'Instant food and convenience store delivery' - three forms of the same thing."
 billede:
   fil: "fotos/fabrikant/rivr-one.jpg"
   ophav: "fabrikant"
@@ -31,8 +31,9 @@ felter:
     operator: ">"
     kilde: "https://www.rivr.ai/product"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver over 30 kg of parcels, groceries, and food. Operatoren bevaret. Der skelnes ikke mellem gående og stående last."
+    advarsel: "The manufacturer states 'over 30 kg of parcels, groceries, and food' (see caveat_wording). The operator is kept. No distinction between walking and standing payload."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "over 30 kg of parcels, groceries, and food"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 14
@@ -42,8 +43,9 @@ felter:
     operator: "<="
     kilde: "https://www.rivr.ai/product"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver up to 14 km/h (8.7 mph). Krydstjek: 14 km/h = 8,699 mph, går op. Kilden er produktsiden alene."
+    advarsel: "The manufacturer states 'up to 14 km/h (8.7 mph)' (see caveat_wording). Cross-check: 14 km/h = 8.699 mph, consistent. The source is the product page alone."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "up to 14 km/h (8.7 mph)"
   haeldning: "ikke_oplyst"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig: "ikke_oplyst"
@@ -55,7 +57,7 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.rivr.ai/product"
     hentet: "2026-08-19"
-    advarsel: "Producenten oplyser rækkevidde (over 30 km), ikke tid. Vi regner ikke baglæns - se noten."
+    advarsel: "The manufacturer discloses range (over 30 km), not time. We do not compute a runtime backwards from range and speed."
   hot_swap: "ikke_oplyst"
   ladetid:
     min: 2
@@ -63,8 +65,9 @@ felter:
     enhed: "t"
     kilde: "https://www.rivr.ai/product"
     hentet: "2026-08-19"
-    advarsel: "recharges in just 2-3 hours. Interval bevaret. Tankestregen i kilden er en en dash (U+2013)."
+    advarsel: "'recharges in just 2-3 hours' (see caveat_wording). Range preserved. The dash in the source is an en dash (U+2013)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "recharges in just 2–3 hours"
   dockingstation: "ikke_oplyst"
   lidar: "ikke_oplyst"
   kameraer: "ikke_oplyst"

@@ -6,14 +6,14 @@ producentby: "ikke_oplyst"
 status: "udgaaet"
 fremdrift: "ben"
 noter:
-  - "PRODUCENTEN OMTALER IKKE LÆNGERE MODELLEN. https://www.ghostrobotics.io/spirit-40 svarer HTTP 404, og navigationen på producentens forside indeholder præcis ET produktlink: /vision-60. Målt 2026-08-19."
-  - "INGEN FELTER INDSAMLET. Der findes specifikationer hos forhandlere og i tredjepartsdatabaser; de er bevidst ikke hentet, fordi de ikke kan dateres mod producenten og ville give posten en falsk friskhed."
-  - "Status udgået er en katalogbeslutning truffet på 404-svaret og navigationen, ikke en erklæring fra producenten. Producenten har ikke selv sagt, at modellen er udgået."
+  - "THE MANUFACTURER NO LONGER MENTIONS THE MODEL. https://www.ghostrobotics.io/spirit-40 returns HTTP 404, and the navigation on the manufacturer's homepage contains exactly ONE product link: /vision-60. Measured 2026-08-19, re-confirmed live 2026-09-02."
+  - "NO FIELDS COLLECTED. Specifications exist at resellers and in third-party databases; they were deliberately not retrieved, because they cannot be dated against the manufacturer and would give the entry a false freshness."
+  - "Status discontinued is a catalog decision made on the 404 response and the navigation, not a statement from the manufacturer. The manufacturer has not itself said the model is discontinued."
 anvendelse:
   vaerdi: "ikke_oplyst"
   kilde: "https://www.ghostrobotics.io/spirit-40"
   hentet: "2026-08-19"
-  note: "PRODUCENTEN HAR INGEN SIDE OM MODELLEN. Den gemte fil har <title>Not Found</title> og teksten \"Page Not Found\". Uden en side er der intet at citere, og Ghost Robotics generelle forsvarspositionering hører til Vision 60, ikke til en model producenten ikke længere omtaler."
+  note: "THE MANUFACTURER HAS NO PAGE ABOUT THE MODEL. The saved file has <title>Not Found</title> and the text 'Page Not Found'. Without a page there is nothing to cite, and Ghost Robotics' general defense positioning belongs to Vision 60, not to a model the manufacturer no longer mentions."
 billede:
   fil: "fotos/fabrikant/ghost-robotics-spirit-40.jpg"
   ophav: "fabrikant"

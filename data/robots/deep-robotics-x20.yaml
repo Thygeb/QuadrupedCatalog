@@ -7,9 +7,9 @@ status: "i_produktion"
 fremdrift: "ben"
 foerste_udgivelse: 2021
 noter:
-  - "Producentens fulde navn: Hangzhou Yunshenchu Technology. Serier: Jueying og Lynx."
-  - "STATUS KAN IKKE UDFYLDES FRA KILDEN. Produktsiden lever på begge sprog, men er afkoblet fra navigationen: linket er udkommenteret i både header og footer på EN og CN. Kun det kinesiske forsidegitter linker den stadig. Producenten har ikke erklæret modellen udgået. i_produktion er derfor et valg, ikke en aflæsning."
-  - "Producentens eget forbehold, EN: All parameters are laboratory data, operating in real environment may have differences. CN: officielle testdata. De to formuleringer er ikke lige stærke."
+  - "The producer’s full name: Hangzhou Yunshenchu Technology. Series: Jueying and Lynx."
+  - "STATUS CANNOT BE FILLED IN FROM THE SOURCE. The product page is live in both languages but is decoupled from the navigation: the link is commented out in both the header and footer on EN and CN. Only the Chinese homepage grid still links to it. The producer hasn’t declared the model discontinued. in_production is therefore a choice, not a reading."
+  - "The producer’s own caveat, EN: All parameters are laboratory data, operating in real environment may have differences. CN: official test data. The two wordings are not equally strong."
 anvendelse:
   vaerdi:
     - "industri"
@@ -17,8 +17,8 @@ anvendelse:
   citat: "The X20 quadruped robot solution is for industrial patrol inspection under extreme working conditions."
   kilde: "https://deeprobotics.cn/en/index/product.html"
   hentet: "2026-08-19"
-  note: "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 (brancheanvendelse)."
-  note_ordlyd: "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 \"行业应用\" (brancheanvendelse)."
+  note: "The page’s own title says the same: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". The producer’s Chinese product panel labels X20 (industry application)."
+  note_ordlyd: "X20: The Ultimate Quadruped Bot series for Industrial Use | 行业应用"
 billede:
   fil: "fotos/fabrikant/deep-robotics-x20.jpg"
   ophav: "fabrikant"
@@ -54,7 +54,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.deeprobotics.cn/robot/index/product.html"
     hentet: "2026-08-19"
-    advarsel: "KUN den kinesiske side afgør feltet. CN-etiketten er kontinuerlig arbejdslast; EN-etiketten er Endurance - samme ord som siden bruger om driftstid længere nede. En læser af kun den engelske side kan ikke vide, at X20 bærer 20 kg."
+    advarsel: "ONLY the Chinese page decides the field. The CN label is continuous work load; the EN label is Endurance – the same word the page uses for runtime further down. A reader of only the English page cannot know that the X20 carries 20 kg."
     advarsel_klasse: "gyldighed"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
@@ -63,7 +63,7 @@ felter:
     operator: ">="
     kilde: "https://deeprobotics.cn/en/index/product.html"
     hentet: "2026-08-19"
-    advarsel: "Producenten skriver 4M/S med versaler (tegn U+2265). X30 fra samme producent skriver samme felt med små bogstaver. Versaliseringen er ikke normaliseret."
+    advarsel: "The producer writes 4M/S in capitals (character U+2265). The X30 from the same producer writes the same field in lower case. The capitalization hasn’t been normalized."
     advarsel_klasse: "uddybning"
   haeldning:
     vaerdi: 30
@@ -71,7 +71,7 @@ felter:
     operator: ">="
     kilde: "https://deeprobotics.cn/en/index/product.html"
     hentet: "2026-08-19"
-    advarsel: "Tegn U+2265 - et GULV. X30 fra samme producent skriver <= 45 grader, altså et LOFT. Samme producent, samme felt, modsat ulighedstegn."
+    advarsel: "Character U+2265 – a FLOOR. The X30 from the same producer writes <= 45 degrees, i.e. a CEILING. Same producer, same field, opposite inequality sign."
     advarsel_klasse: "gyldighed"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
@@ -80,7 +80,7 @@ felter:
     operator: ">="
     kilde: "https://deeprobotics.cn/en/index/product.html"
     hentet: "2026-08-19"
-    advarsel: "Producentens etiket Step/Obstacle H slår de to felter sammen, som skemaet netop har adskilt. Værdien er lagt i det strengeste af de to; forhindring_enkelt står tom. Det er et valg, ikke en aflæsning."
+    advarsel: "The producer's label Step/Obstacle H merges the two fields the schema has specifically kept separate. The value has been placed in the stricter of the two; obstacle_single is left empty. It's a choice, not a reading."
     advarsel_klasse: "gyldighed"
   ip_klasse:
     vaerdi: "IP66"
@@ -95,7 +95,7 @@ felter:
     enhed: "t"
     kilde: "https://deeprobotics.cn/en/index/product.html"
     hentet: "2026-08-19"
-    advarsel: "Rækkevidde oplyses til 15 km. Skemaet har intet rækkeviddefelt."
+    advarsel: "Range is stated as 15 km. The schema has no range field."
     advarsel_klasse: "gyldighed"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
@@ -113,7 +113,7 @@ felter:
     vaerdi: "nej"
     kilde: "https://www.deeprobotics.cn/robot/index/product.html"
     hentet: "2026-08-19"
-    advarsel: "CN skriver eksternt interface: INGEN. EN skriver Interface: / - som enhver importør læser som ikke oplyst. Producenten har svaret NEJ. Regel 10 fanget i naturen, og igen afgør den kinesiske side feltet."
+    advarsel: "CN writes external interface: NONE. EN writes Interface: / – which any importer reads as not-stated. The producer has answered NO. Rule 10 caught in the wild, and again it’s the Chinese page that decides the field."
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
   fcc_oplyst: "ikke_oplyst"

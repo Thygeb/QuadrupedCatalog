@@ -11,7 +11,7 @@ varianter:
   - "X"
   - "EDU"
 noter:
-  - "Varianttabel med fire kolonner. Kolonnerne er forskellige maskiner - se varianter-blokkene på de enkelte felter."
+  - "Four-column variant table. The columns are different machines — see the variant notes on the individual fields."
 anvendelse:
   vaerdi:
     - "forbruger_uddannelse"
@@ -24,7 +24,7 @@ anvendelse:
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"
-  note: "Producentens egen produktnavigation, gruppen As2 står i. MODSIGELSE: As2 står under Consumer/Education i navigationen, men As2-produktsidens egen titel er \"Unitree As2 Compact Size Industrial Capability\". Producenten siger begge dele."
+  note: "The manufacturer's own product navigation, the group As2 belongs to. CONTRADICTION: As2 is listed under Consumer/Education in the navigation, but the As2 product page's own title is 'Unitree As2 Compact Size Industrial Capability'. The manufacturer says both."
 billede:
   fil: "fotos/fabrikant/unitree-as2.jpg"
   ophav: "fabrikant"
@@ -52,8 +52,9 @@ felter:
     enhed: "mm"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Foldet 776 x 378 x 233 mm. Skemaet har ingen felter til foldemål."
+    advarsel: "Folded 776 x 378 x 233 mm. The schema has no field for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Size (Lying Prone) 776mm x 378mm x 233mm"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
@@ -65,8 +66,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR-variantens. Spændet over de fire varianter er 10-15 kg."
+    advarsel: "The AIR variant value. The span across the four variants is 10-15 kg."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Continuous Walking Load Approx. 10kg"
     varianter:
       AIR: 10
       EDU: 15
@@ -78,8 +80,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR-variantens. Spændet er 45-65 kg."
+    advarsel: "The AIR variant value. The span is 45-65 kg."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Max Standing Load Approx. 45kg"
     varianter:
       AIR: 45
       EDU: 65
@@ -91,8 +94,9 @@ felter:
     enhed: "m/s"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR-variantens."
+    advarsel: "The AIR variant value."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Speed 0~3.0m/s"
     varianter:
       AIR: "0~3,0 m/s"
       EDU: "0~3,7 m/s (op til ca. 5 m/s)"
@@ -104,8 +108,9 @@ felter:
     operator: "~"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR-variantens."
+    advarsel: "The AIR variant value."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Slope Walking Capability Approx. 30 °"
     varianter:
       AIR: 30
       EDU: 40
@@ -116,15 +121,17 @@ felter:
     enhed: "cm"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Står KUN i brødteksten (with the ability to climb 50cm vertical platforms and 40 slopes), ikke i parametertabellen - i modsætning til A2, A2-W og As2-W, der alle har en Max Climb Height-række. Besluttes det, at kun tabelværdier tæller, falder feltet ud."
+    advarsel: "Stated ONLY in the body text (with the ability to climb 50cm vertical platforms and 40 slopes), not in the parameter table — unlike A2, A2-W and As2-W, which all have a Max Climb Height row. If it is decided that only table values count, this field falls out."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "with the ability to climb 50cm vertical platforms and 40° slopes"
   trappetrin_kontinuerlig:
     vaerdi: 20
     enhed: "cm"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR-variantens."
+    advarsel: "The AIR variant value."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Stair Climbing Capability 20cm"
     varianter:
       AIR: 20
       EDU: 25
@@ -134,7 +141,8 @@ felter:
     vaerdi: "nej"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "AIR-kolonnen har en eksplicit / hvor de andre kolonner har en værdi. Det læses som NEJ, ikke som ikke oplyst (regel 10). Værdien her er AIR-variantens."
+    advarsel: "The AIR column has an explicit / where the other columns have a value. Read as NO, not as not-stated (rule 10). The value here is the AIR variant."
+    advarsel_ordlyd: "Protection Rating /"
     varianter:
       AIR: "nej"
       EDU: "IP54"
@@ -150,8 +158,9 @@ felter:
     enhed: "°C"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR/PRO-varianternes."
+    advarsel: "The AIR/PRO variant value."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Operating Temperature -20℃ ～ 50℃"
     varianter:
       AIR: 50
       EDU: 55
@@ -162,8 +171,9 @@ felter:
     enhed: "Wh"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien gælder PRO/X/EDU. AIR oplyser kun 8000 mAh uden spænding - Wh kan ikke udledes og udledes ikke."
+    advarsel: "The value applies to PRO/X/EDU. AIR states only 8000 mAh with no voltage — Wh cannot be derived and is not."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Powered by a 648Wh (15,000mAh) high-capacity battery."
     varianter:
       AIR: "8000 mAh - Wh ikke oplyst"
       EDU: "648 Wh (15000 mAh)"
@@ -175,8 +185,9 @@ felter:
     operator: ">"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Værdien er AIR-variantens belastede tal."
+    advarsel: "The AIR variant's loaded figure."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Battery Life(Loaded) With 10kg loaded, >1.5 hours continuous walking, approx. 7km"
     ved_last:
       vaerdi: 10
       enhed: "kg"
@@ -190,12 +201,14 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Kun opladeren er oplyst (50,4 V 4 A / 7,4 A), ikke en ladetid."
+    advarsel: "Only the charger is stated (50.4 V 4 A / 7.4 A), not a charging time."
+    advarsel_ordlyd: "Charger Standard (50.4V 4A) | Fast Charging (50.4V 7.4A)"
   dockingstation:
     vaerdi: false
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Kun EDU har ladestation. Værdien her er AIR/PRO/X."
+    advarsel: "Only EDU has a charging dock. The value here is AIR/PRO/X."
+    advarsel_ordlyd: "Charging Dock /"
     varianter:
       AIR: "nej"
       EDU: "ja"
@@ -205,18 +218,19 @@ felter:
     vaerdi: "Unitree L2"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Kun AIR-kolonnen navngiver en model. De tre andre oplyser en klasse, ikke en model, og tæller ikke under D4."
+    advarsel: "Only the AIR column names a model. The other three state a class, not a model, and do not count under D4."
+    advarsel_ordlyd: "Ultra-Wide-Angle LiDAR Unitree L2"
     varianter:
       AIR: "Unitree L2 (model oplyst)"
       EDU: "64~128-linje industri-LiDAR (type uden model)"
       PRO: "64~128-linje industri-LiDAR (type uden model)"
       X: "64~128-linje industri-LiDAR (type uden model)"
   kameraer:
-    vaerdi: "HD-kamera"
+    vaerdi: "HD camera"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
   compute:
-    vaerdi: "8-kernet CPU"
+    vaerdi: "8-core CPU"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
     varianter:
@@ -226,14 +240,16 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Secondary Development: Not Supported for AIR/PRO, Supported for X/EDU - men uden sprogangivelse."
+    advarsel: "Secondary Development: Not Supported for AIR/PRO, Supported for X/EDU — but no language is given."
+    advarsel_ordlyd: "Secondary Development Not Supported"
   autonominiveau: "ikke_oplyst"
   monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Kun BAT er nævnt, uden spænding."
+    advarsel: "Only BAT is mentioned, no voltage."
+    advarsel_ordlyd: "Power Output：BAT"
   dataporte:
     vaerdi:
       - "Gigabit Ethernet x1"
@@ -244,7 +260,8 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/As2"
     hentet: "2026-08-19"
-    advarsel: "Contact Sales på alle fire varianter."
+    advarsel: "Contact Sales on all four variants."
+    advarsel_ordlyd: "Contact Sales"
   ce_oplyst: "ikke_oplyst"
   fcc_oplyst: "ikke_oplyst"
   ul_oplyst: "ikke_oplyst"
