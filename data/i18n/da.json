@@ -362,6 +362,7 @@
   "savn_nyttelast": "Nyttelast ikke oplyst",
   "savn_hastighed": "Hastighed ikke oplyst",
   "sortering_pris_note": "Priserne vises i {basis}, omregnet med Den Europæiske Centralbanks referencekurs for {dato}, så de {n} oplyste priser kan ordnes i én række i stedet for flere valutabunker, der ikke kunne sammenlignes. Kildemærket peger stadig på producentens egen side, hvor beløbet står i dens egen valuta.",
+  "pris_forklaring": "Prisen vises i {basis}, omregnet med Den Europæiske Centralbanks referencekurs for {dato}. Kildemærket peger stadig på producentens egen side, hvor beløbet står i dens egen valuta.",
   "seneste_titel": "Seneste modeller",
   "seneste_aar_ord": "Seneste udgivelsesår",
   "seneste_antal": "{n} modeller udgivet i {aar}",

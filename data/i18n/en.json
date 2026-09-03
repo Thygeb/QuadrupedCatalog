@@ -362,6 +362,7 @@
   "savn_nyttelast": "Payload not stated",
   "savn_hastighed": "Speed not stated",
   "sortering_pris_note": "Prices are shown in {basis}, converted at the European Central Bank reference rate for {dato}, so the {n} stated prices can be ordered in one sequence instead of several currency piles that could not be compared. The source mark still points to the manufacturer's own page, where the amount stands in its own currency.",
+  "pris_forklaring": "The price is shown in {basis}, converted at the European Central Bank reference rate for {dato}. The source mark still points to the manufacturer's own page, where the amount stands in its own currency.",
   "seneste_titel": "Latest models",
   "seneste_aar_ord": "Latest release year",
   "seneste_antal": "{n} models released in {aar}",

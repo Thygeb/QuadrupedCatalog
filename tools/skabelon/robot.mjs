@@ -899,7 +899,23 @@ function skemaRaekke(navn, post, ctx, kilder) {
   const euNote = navn === 'ce_oplyst'
     ? `<p class="feltnote feltnote--eu">${esc(T(i18n, 'eu_forklaring'))}</p>`
     : '';
-  const noter = advarselBlok(post, ctx) + noteBlok(post) + varianter(post, ctx) + euNote;
+  // Prisraekken baerer ECB-forklaringen, flyttet hertil fra katalogsidens
+  // filter/sortering (Å150 punkt 2, JPK 3. sep 2026: "prisnoten skal flyttes
+  // fra katalogsiden til robotsiden ved de oevrige noter"). Samme greb som
+  // euNote ovenfor - en feltnote knyttet til RAEKKEN, ikke loes prosa i
+  // bunden. Vises kun naar prisen faktisk er oplyst (!hul): en note om en
+  // omregning ville forklare noget, der ikke er der, paa de 66 prisloese sider.
+  const prisNote = (navn === 'pris' && !hul)
+    ? `<p class="feltnote feltnote--pris">${esc(flet(T(i18n, 'pris_forklaring'), {
+      basis: KURSER.basis,
+      dato: hjaelp.dformat(KURSER.kilde.dato),
+    }))} <a class="url" href="${esc(KURSER.kilde.url)}" rel="nofollow noopener external">${esc(flet(T(i18n, 'kurs_kilde'), {
+      udgiver: KURSER.kilde.udgiver,
+      navn: KURSER.kilde.navn,
+      dato: hjaelp.dformat(KURSER.kilde.dato),
+    }))}</a></p>`
+    : '';
+  const noter = advarselBlok(post, ctx) + noteBlok(post) + varianter(post, ctx) + euNote + prisNote;
   // De eksplicitte role-attributter er ikke stoej. Ved 720 px og derunder
   // saettes tabellens dele til display:block (comp'ens mobilform), og en
   // browser afleder da IKKE laengere tabelrollerne af elementnavnene - raekker
