@@ -11,9 +11,11 @@
  * eu_tilgaengelig, eu_service, leveringstid), ét pr. model. De tre sidste er
  * fjernet fra skemaet — stod ikke_oplyst paa alle 55 robotter — og med kun
  * ét felt tilbage er en matrix ikke laengere den rigtige form. euSaetning()
- * nedenfor erstatter tabellen med ÉN linje, beregnet paa samme maade som
- * forsidens EU-fund (forside.mjs), bare talt over denne producents modeller
- * i stedet for hele kataloget.
+ * nedenfor erstatter tabellen med linjer, beregnet paa samme maade som
+ * forsidens EU-fund, bare talt over denne producents modeller i stedet for
+ * hele kataloget. (forside.mjs er slettet siden, L72 1. sep 2026 — se noten
+ * ved euSaetning(). Siden 3. sep 2026 er det ÉN linje pr. CE-tilstand, ikke
+ * ét tal: se samme note.)
  *
  * ---------------------------------------------------------------------------
  * KONTRAKTEN (laast — side.mjs skrives af en anden agent)
@@ -191,10 +193,34 @@ ${landVaerdi ? `<div><dt class="etiket">${esc(T(i18n, 'tabel_land'))}</dt><dd>${
  * (ce_oplyst — se EU_FELTER) er en matrix ikke laengere den rigtige form; én
  * raekke i en tabel er en saetning, der har taget en tabels plads.
  *
- * Formen genbruger forsidens EU-fund (forside.mjs' euFund, samme i18n-noegler
- * forside_eu_tal og forside_eu_paastand, samme CSS-klasser eu-fund-linje/
- * eu-fund-tal) fremfor at opfinde en producent-specifik variant — kun tallene
- * bag "{n} af {m}" skifter, fra hele kataloget til denne producents modeller.
+ * Formen genbruger forsidens EU-fund (samme i18n-noegle forside_eu_tal, samme
+ * CSS-klasser eu-fund-linje/eu-fund-tal) fremfor at opfinde en producent-
+ * specifik variant — kun tallene bag "{n} af {m}" skifter, fra hele kataloget
+ * til denne producents modeller. NB: forside.mjs findes ikke laengere (L72,
+ * 1. sep 2026, spor/oversigt slettede forsiden); denne fil er i dag ENESTE
+ * bruger af noeglen, og .eu-fund-linje staar kun paa producentsiderne.
+ *
+ * TRE LINJER, IKKE ÉN (spor/produkort, 3. sep 2026).
+ * Her stod én linje, som trykte t.ja og t.i_alt — "0 af 2" paa Xiaomi, hvis
+ * ene CyberDog 2 baerer et DOKUMENTERET nej (vaerdi:false med kilde), mens den
+ * anden intet siger. t.nej og t.ukendt blev regnet og smidt vaek, saa "vi ved,
+ * der ikke er CE" og "vi ved det ikke" kollapsede til samme ciffer. Det er
+ * praecis den fejl, funktionens EGEN kommentar l. 138-142 advarer imod, og
+ * haard begraensning 5: "'Ikke oplyst', 'nej' og '0' er tre forskellige
+ * tilstande og skal se forskellige ud."
+ *
+ * Reglen, jf. fund/PLAN-producent.md P1: EN TILSTAND VISES, NAAR DEN
+ * FOREKOMMER; FOREKOMMER DEN IKKE, NAEVNES DEN IKKE. En tilstand med 0
+ * forekomster maa ikke tegnes som en tom rubrik — det ville vaere
+ * begraensning 5 med omvendt fortegn. De 23 tavse producenter beholder
+ * derfor praecis én linje, og deres side bliver ikke tungere.
+ *
+ * Intet nyt opfindes: de tre i18n-noegler eu_ce_ja/eu_ce_nej/
+ * eu_ce_ikke_oplyst laa faerdigoversatte i BEGGE sprogfiler (l. 256-258) uden
+ * en eneste bruger i koden, og maerkerne er sidens egne .v-ja/.v-nej/.v-ikke
+ * via den delte H.tilstand() — samme visuelle tilstandsgrammatik, som
+ * robotsiden bruger paa netop dette felt. Ingen ny CSS-klasse, ingen ny
+ * i18n-noegle.
  */
 function euSaetning(ctx, modeller) {
   const { i18n } = ctx;
@@ -207,9 +233,29 @@ function euSaetning(ctx, modeller) {
   }
 
   const t = ceOpgoerelse(modeller);
+
+  // Raekkefoelgen er fast og gaar fra det oplyste mod hullet: ja, nej, intet.
+  // Den er IKKE sorteret efter antal — en producents tal maa ikke kunne bytte
+  // om paa tilstandenes indbyrdes orden fra side til side.
+  const linjer = [
+    ['ja', t.ja, 'eu_ce_ja'],
+    ['nej', t.nej, 'eu_ce_nej'],
+    ['ikke_oplyst', t.ukendt, 'eu_ce_ikke_oplyst'],
+  ]
+    .filter(([, antal]) => antal > 0)
+    // Mellemrummene mellem <b>, tilstandsmaerket og <span> er IKKE pynt.
+    // Uden dem er linjens textContent "1 af 2nejProducenten oplyser, at der
+    // ikke er CE" - figur, tilstand og saetning loeber sammen til ét ord for
+    // en skaermlaeser. Adskillelsen var kun `gap:10px 12px` (generator.css:24),
+    // og det er LAYOUT, ikke tekst. .eu-fund-linje er display:flex, saa et
+    // whitespace-tekstnode bliver ikke et flex-element: teksten adskilles,
+    // og geometrien er uaendret (efterproevet - se commit-beskeden).
+    .map(([tilstand, antal, noegle]) => `<p class="eu-fund-linje">${ctx.__H.ikon('i-ce', 'ikon ikon--lille')}<b class="eu-fund-tal">${esc(flet(T(i18n, 'forside_eu_tal'), { n: antal, m: t.i_alt }))}</b> ${ctx.__H.tilstand(tilstand)} <span>${esc(T(i18n, noegle))}</span></p>`)
+    .join('\n');
+
   return `<section class="sektion" aria-labelledby="eu-h">
 <div class="sektion-hoved"><h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2></div>
-<p class="eu-fund-linje">${ctx.__H.ikon('i-ce', 'ikon ikon--lille')}<b class="eu-fund-tal">${esc(flet(T(i18n, 'forside_eu_tal'), { n: t.ja, m: t.i_alt }))}</b><span>${esc(T(i18n, 'forside_eu_paastand'))}</span></p>
+${linjer}
 </section>`;
 }
 
