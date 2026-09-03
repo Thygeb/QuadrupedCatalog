@@ -1,0 +1,13 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2224,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat": "The row is called 'Charging Station: Fast Charge' (label/value pair, see caveat_wording). Confirms a charging station exists, but does NOT confirm autonomous return-home/self-charging - unlike GENISOM L2's explicit claim (including autonomous recharge function). Interpreted as 'yes, a charging station exists', not as 'yes, with self-driving recharge'."
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (allerede bevaret i caveat_wording)"
+  }
+]

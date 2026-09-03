@@ -28,7 +28,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "Explicit (includes battery). CORRECTED ON SELF-CHECK: this row has no \"约\" (approx.) mark before the weight, unlike the measurements just above it in the same table, which ARE marked. An earlier draft of this entry incorrectly set operator \"~\" on the weight, assuming the whole section shared the same approx. marking — corrected after re-reading the raw JSON."
+    advarsel: "Explicit (includes battery). CORRECTED ON SELF-CHECK: this row has no 'approx.' mark before the weight, unlike the measurements just above it in the same table, which ARE marked. An earlier draft of this entry incorrectly set operator '~' on the weight, assuming the whole section shared the same approx. marking — corrected after re-reading the raw JSON."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"整机重量（含电池）: 15 kg\""
   laengde:
@@ -37,7 +37,7 @@ felter:
     operator: "~"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "The axes ARE labelled explicitly by the manufacturer (长=length, 宽=width, 高=height), unlike MicroRoboTech’s two entries."
+    advarsel: "The axes ARE labelled explicitly by the manufacturer (in order: length, width, height), unlike MicroRoboTech's two entries."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"站立尺寸（长 × 宽 × 高）约 630 × 360 × 415 mm\""
   bredde:
@@ -60,7 +60,7 @@ felter:
     enhed: "DoF"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "Number of joint motors, not explicitly \"degrees of freedom\" (自由度). Same interpretation as the Unitree Go2 in this collection."
+    advarsel: "Number of joint motors, not explicitly 'degrees of freedom'. Same interpretation as the Unitree Go2 in this collection."
     advarsel_klasse: "gyldighed"
     advarsel_ordlyd: "\"关节电机数量: 12 个\""
   nyttelast_gaaende:
@@ -78,7 +78,7 @@ felter:
     enhed: "m/s"
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "A separate limit speed of 5 m/s is also disclosed — not used as the main value, because \"最大速度\" (max speed) is the label that corresponds to \"normal maximum speed\" elsewhere in this collection."
+    advarsel: "A separate limit speed of 5 m/s is also disclosed - not used as the main value, because 'max speed' is the label that corresponds to 'normal maximum speed' elsewhere in this collection."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"最大速度: 3.7 m/s\" \"极限速度: 5 m/s\""
   haeldning:
@@ -141,7 +141,7 @@ felter:
     vaerdi: true
     kilde: "https://www.genisomai.com/product-robot/L1"
     hentet: "2026-08-24"
-    advarsel: "Accessories list: charging dock, standard equipment. Confirms a physical charging dock ships as standard, but does NOT confirm autonomous return-to-dock/self-recharging — that term does not appear on L1’s page (unlike L2’s explicit \"自主回充功能\")."
+    advarsel: "Accessories list: charging dock, standard equipment. Confirms a physical charging dock ships as standard, but does NOT confirm autonomous return-to-dock/self-recharging - that term does not appear on L1's page (unlike L2's explicit 'autonomous return-and-recharge function')."
     advarsel_ordlyd: "\"充电座: 标配\""
   lidar: "ikke_oplyst"
   kameraer:

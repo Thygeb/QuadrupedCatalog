@@ -32,6 +32,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "The manufacturer’s label is \"Weight (with Battery)\" — including battery."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Weight (with Battery)"
   laengde:
     vaerdi: 900
     enhed: "mm"
@@ -41,6 +42,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT. The manufacturer prints \"Standing Dimensions: 900 x 543 x 572 mm (35.4 x 21.4 x 22.5 in)\" without labelling the axes individually. The first figure is assumed here to be length, following the pattern from Deep Robotics X30. Not confirmed from the source."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Standing Dimensions: 900 × 543 × 572 mm"
   bredde:
     vaerdi: 543
     enhed: "mm"
@@ -50,6 +52,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT — see length. Second figure in the unlabelled triple assumed to be width."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Standing Dimensions: 900 × 543 × 572 mm"
   hoejde:
     vaerdi: 572
     enhed: "mm"
@@ -59,6 +62,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT — see length. Third figure in the unlabelled triple assumed to be height."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Standing Dimensions: 900 × 543 × 572 mm"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     min: 20
@@ -68,6 +72,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "The manufacturer’s label is \"Continuous Walking Payload: 20-30 kg (44-66 lbs)\" — range preserved. PR Newswire’s headline \"30kg Payload\" uses only the upper end of the range."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Continuous Walking Payload: 20–30 kg (44–66 lbs)"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 5
@@ -76,6 +81,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "From general marketing copy \"Cruises at up to 5 m/s\", applying to the D5 series broadly. The comparison table has no separate speed row per variant."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Cruises at up to 5 m/s"
   haeldning:
     vaerdi: 25
     enhed: "°"
@@ -83,6 +89,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "From the variant-specific comparison table: \"D5: 25 ascent, 45 descent\". Only ascent is used here; descent is 45 degrees for both variants, and the schema has no separate descent field. See the top note about the discrepancy with the general marketing copy (30 degrees), which is D5-W’s figure."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "D5: 25° ascent, 45° descent"
   forhindring_enkelt:
     vaerdi: 80
     enhed: "cm"
@@ -92,6 +99,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "The manufacturer’s label is \"Climbing Capability: Up to 80 cm\", identical for D5 and D5-W. Assigned to obstacle_single (rule 7) because the manufacturer itself distinguishes this from the lower \"Maximum Step Height\" field (see stair_step_continuous) — but neither label itself uses the words \"single\" or \"continuous\", so the assignment is our interpretation."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Climbing Capability: Up to 80 cm (Up to 31.5 in)"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: "cm"
@@ -101,6 +109,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "The manufacturer’s label is \"Maximum Step Height: D5: 30 cm (11.8 in)\", lower than \"Climbing Capability\" (80 cm, see obstacle_single). The general marketing copy instead states 25 cm — that is D5-W’s table value, not D5’s. See the top note."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Maximum Step Height: D5: 30 cm (11.8 in)"
   ip_klasse:
     vaerdi: "IP67"
     kilde: "https://store.pudurobotics.com/products/pudu-d5"
@@ -117,6 +126,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "Separate manufacturer field \"Cold-Start Capability: Below -10°C\" — a stricter limit for startup than for operation. The schema has no cold-start field; noted here because -10°C could otherwise be confused with temperature_min (-20°C)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Cold-Start Capability: Below –10°C (Below 14°F)"
   batteri_wh:
     vaerdi: 1000
     enhed: "Wh"
@@ -130,6 +140,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "The press release states \"stable 30-kilogram payloads with over two hours of continuous runtime at full load\" — the only figure with an explicit load condition (rule 8), therefore used in preference to the webstore’s table value \"Operating Time: 2 - 2.5 hours\" (no load condition, same source as the fields above)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "stable 30-kilogram payloads with over two hours of continuous runtime at full load"
     ved_last:
       vaerdi: 30
       enhed: "kg"
@@ -140,16 +151,19 @@ felter:
     kilde: "https://www.pudurobotics.com/en/products/d5"
     hentet: "2026-08-24"
     advarsel: "\"Charging Station\" listed as an accessory under \"Modular Expansion\". Footnote 3: \"Accessories such as the inspection kit and charging dock are optional and sold separately.\" — sold separately, not included in the base price."
+    advarsel_ordlyd: "Accessories such as the inspection kit and charging dock are optional and sold separately."
   lidar:
     vaerdi: "96-line LiDAR x2 (standard configuration); upgradable to 192-line LiDAR x2 for an extra charge"
     kilde: "https://www.pudurobotics.com/en/products/d5"
     hentet: "2026-08-24"
     advarsel: "Footnote 5: \"PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request.\" The highlighted marketing copy mentions only the 192-line figure and omits this caveat."
+    advarsel_ordlyd: "PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request."
   kameraer:
     vaerdi: "4x fisheye cameras (120-degree field of view)"
     kilde: "https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html"
     hentet: "2026-08-24"
     advarsel: "The PR text: \"Four 120° fisheye cameras\". The webstore’s comparison table states more briefly \"Dual 3D LiDAR + Four Fisheye Cameras\" for the same field, without an angle figure."
+    advarsel_ordlyd: "Four 120° fisheye cameras"
   compute:
     vaerdi: "NVIDIA Jetson Orin AGX 64GB + RK3588, up to 275 TOPS"
     kilde: "https://store.pudurobotics.com/products/pudu-d5"
@@ -161,6 +175,7 @@ felter:
     kilde: "https://www.prnewswire.com/news-releases/pudu-robotics-unveils-pudu-d5-series-industry-grade-autonomous-quadruped-robots-designed-for-complex-real-world-operations-302630095.html"
     hentet: "2026-08-24"
     advarsel: "Qualitative, translated from: \"the D5 handles complete autonomous workflows including departure, patrol, obstacle handling, and return-to-charge\", in the context of \"supporting continuous, unsupervised operation even in dynamic environments\". No numeric autonomy level (e.g. an SAE-like scale) stated."
+    advarsel_ordlyd: "the D5 handles complete autonomous workflows including departure, patrol, obstacle handling, and return-to-charge"
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte: "ikke_oplyst"
@@ -171,6 +186,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "From the webstore’s Shopify product data (variant \"D5\": price 8000000, i.e. USD 80,000 in cent units). D5-W costs USD 85,000 according to the same source (variant \"D5-W\": price 8500000)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "$80,000.00"
   ce_oplyst: "ikke_oplyst"
   fcc_oplyst: "ikke_oplyst"
   ul_oplyst: "ikke_oplyst"

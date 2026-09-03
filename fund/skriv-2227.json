@@ -1,0 +1,61 @@
+[
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "weight" },
+    "saet": { "caveat_wording": "Weight (with Battery)" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat, verificeret mod pudu-d5-storeside-2026-08-24.txt linje 130/196 (samme etiket, delt side med D5)" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "length" },
+    "saet": { "caveat_wording": "Standing Dimensions: 900 mm × 543 mm × 572 mm" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat, verificeret mod pudu-d5-storeside-2026-08-24.txt linje 191 (D5-W-visningen gentager 'mm' pr. tal, D5-visningen goer ikke - se rapportens fund)" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "width" },
+    "saet": { "caveat_wording": "Standing Dimensions: 900 mm × 543 mm × 572 mm" },
+    "change_reason": "spor/f2pudu: caveat havde intet selvstaendigt citat (uden_citat); kilden navngiver ikke aksernes bredde saerskilt, saa samme utrippel som length genbruges - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "height" },
+    "saet": { "caveat_wording": "Standing Dimensions: 900 mm × 543 mm × 572 mm" },
+    "change_reason": "spor/f2pudu: caveat havde intet selvstaendigt citat (uden_citat); kilden navngiver ikke aksernes hoejde saerskilt, saa samme utrippel som length genbruges - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "payload_walking" },
+    "saet": { "caveat_wording": "Continuous Walking Payload: 20–30 kg (44–66 lbs)" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat, verificeret mod pudu-d5-storeside-2026-08-24.txt linje 154/247 (kilden bruger en-tankestreg, ikke bindestreg)" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "speed" },
+    "saet": { "caveat_wording": "Advanced wheel-leg hybrid locomotion reaches 5 m/s on flat surfaces, while maintaining the ability to climb 30° slopes and continuously step over 25cm stairs." },
+    "change_reason": "spor/f2pudu: fandt en D5-W-specifik saetning i pudu-d5-prnewswire-2026-08-24.txt linje 464, mere praecis end caveatets generelle 'Cruises at up to 5 m/s'-citat - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "slope" },
+    "saet": { "caveat_wording": "D5-W: 30° ascent, 45° descent" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat; raakilden (linje 271) har gradtegn, som manglede i caveatets eget citat - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "obstacle_single" },
+    "saet": { "caveat_wording": "Climbing Capability: Up to 80 cm (Up to 31.5 in)" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat, udvidet med kildens tommer-parentes (linje 158/255) som caveatets eget citat udelod - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "stair_step_continuous" },
+    "saet": { "caveat_wording": "Maximum Step Height: D5-W: 25 cm (9.84 in)" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat, verificeret ordret mod pudu-d5-storeside-2026-08-24.txt linje 162/263" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "temperature_max" },
+    "saet": { "caveat_wording": "Cold-Start Capability: Below –10°C (Below 14°F)" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat; raakilden (linje 287) har en-tankestreg og graders-fahrenheit-parentes, som caveatets eget citat udelod - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "runtime" },
+    "saet": { "caveat_wording": "Operating Time: 2 - 3 hours" },
+    "change_reason": "spor/f2pudu: citat udskilt fra caveat; caveatets eget citat ('Operating Time D5-W: 2 - 3 hours') findes ikke saadan i kilden, som har label og vaerdi i separate celler - se rapportens fund" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "docking_station" },
+    "saet": { "caveat_wording": "Accessories such as the inspection kit and charging dock are optional and sold separately." },
+    "change_reason": "spor/f2pudu: fodnote 3 udskilt fra caveat, delt side med D5, verificeret ordret mod pudu-d5-officielside-2026-08-24.txt linje 53" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "lidar" },
+    "saet": { "caveat_wording": "PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request." },
+    "change_reason": "spor/f2pudu: caveat havde intet selvstaendigt citat (uden_citat, caveat siger selv 'same as for D5'); samme fodnote 5 fra pudu-d5-officielside-2026-08-24.txt linje 55 genbruges" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "autonomy_level" },
+    "saet": { "caveat_wording": "the D5 handles complete autonomous workflows including departure, patrol, obstacle handling, and return-to-charge" },
+    "change_reason": "spor/f2pudu: caveat havde intet selvstaendigt citat (uden_citat, caveat siger selv 'same source as for D5'); samme saetning fra pudu-d5-prnewswire-2026-08-24.txt linje 460 genbruges" },
+
+  { "tabel": "field_entries", "noegle": { "robot_id": 2227, "field_name": "price" },
+    "saet": { "caveat_wording": "\"price\":8500000" },
+    "change_reason": "spor/f2pudu: ingen synlig prisstreng for D5-W i det gemte snapshot (kun D5 er default-valgt variant); det indlejrede Shopify-JSON-felt er ordret men usaedvanlig form - se rapportens fund" }
+]

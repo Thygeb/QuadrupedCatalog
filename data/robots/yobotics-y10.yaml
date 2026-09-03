@@ -31,6 +31,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer states approx. 5.6 kg ± 0.5 kg, the whole machine incl. battery. Both an approximation AND a tolerance on the same figure."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "重量：约5.6kg±0.5kg(整机，含电池）"
   laengde: "ikke_oplyst"
   bredde: "ikke_oplyst"
   hoejde: "ikke_oplyst"
@@ -47,6 +48,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own label is explicitly CONTINUOUS WALKING load, > 3 kg. The placement is a direct reading, not an inference."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "持续行走负载：>3Kg"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 1.4
@@ -55,6 +57,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "SPEED WITH A LOAD CONDITION: the manufacturer states running speed 1.4 m/s WITHOUT LOAD. The schema has no room for a load condition on speed — only on runtime. The field therefore looks comparable to other entries' speeds and is not entirely so."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "奔跑速度：1.4m/s空载下"
   haeldning: "ikke_oplyst"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig: "ikke_oplyst"

@@ -45,9 +45,9 @@ felter:
     enhed: "mm"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "The LYING-position (趴下) measurement is also disclosed: 807 x 406 x 206mm. This is a different state than folded and is not comparable to Unitree's folded measurement. The schema has no folded-measurement fields."
+    advarsel: "The lying-position measurement is also disclosed: 807 x 406 x 206mm. This is a different state than folded and is not comparable to Unitree's folded measurement. The schema has no folded-measurement fields."
     advarsel_klasse: "uddybning"
-    advarsel_ordlyd: "长度：807mm | 宽度：406mm | 高度：206mm"
+    advarsel_ordlyd: "趴下：长度：807mm | 宽度：406mm | 高度：206mm"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
@@ -118,7 +118,7 @@ felter:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.mi.com/cyberdog/specs"
     hentet: "2026-08-21"
-    advarsel: "NO LIDAR MENTIONED. The manufacturer's sensor list has twelve items and none of them is a LiDAR: RealSense D450 depth camera, AI interaction camera, binocular ultra-wide-angle camera, TOF sensor, light sensor, ultrasonic sensor, IMU, GPS module, magnetometer, optical flow sensor (光流计), 6-mic ring array, and touch sensor. The field is not marked as \"no\", because the manufacturer does not declare the list exhaustive - but the absence is itself informative."
+    advarsel: "NO LIDAR MENTIONED. The manufacturer's sensor list has twelve items and none of them is a LiDAR: RealSense D450 depth camera, AI interaction camera, binocular ultra-wide-angle camera, TOF sensor, light sensor, ultrasonic sensor, IMU, GPS module, magnetometer, optical flow sensor, 6-mic ring array, and touch sensor. The field is not marked as 'no', because the manufacturer does not declare the list exhaustive - but the absence is itself informative."
     advarsel_ordlyd: "光流计"
   kameraer:
     vaerdi: "Intel RealSense D450 (depth) x1; AI interaction camera 13 MP x1; binocular ultra-wide-angle camera 2 MP"

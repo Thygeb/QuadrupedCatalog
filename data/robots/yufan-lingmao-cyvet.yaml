@@ -74,9 +74,9 @@ felter:
     operator: "~"
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "The manufacturer does not distinguish walking from standing payload anywhere on the page. Placed under walking because all product references (e.g. runtime '15kg带负载匀速行走' / 15kg loaded, constant-speed walking) concern carrying while moving, not static standing load. Standing payload is therefore not disclosed, not 0."
+    advarsel: "The manufacturer does not distinguish walking from standing payload anywhere on the page. Placed under walking because all product references (e.g. runtime: 15kg loaded, constant-speed walking) concern carrying while moving, not static standing load. Standing payload is therefore not disclosed, not 0."
     advarsel_klasse: "gyldighed"
-    advarsel_ordlyd: "最大载荷 约20kg"
+    advarsel_ordlyd: "最大载荷 约20kg | 15kg带负载匀速行走续航约3.5小时"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     min: 0
@@ -161,8 +161,8 @@ felter:
     vaerdi: "Valgfrit tilkøb: NVIDIA Jetson Orin Nano 8GB (op til 67 TOPS) / Orin NX 8GB (op til 117 TOPS) / Orin NX 16GB (op til 157 TOPS). Standardkonfiguration uden AI-modul ikke specificeret."
     kilde: "https://www.uniubi.com/shop/buy?product=air"
     hentet: "2026-08-24"
-    advarsel: "All three are marked 可选配 (optional) on the front page."
-    advarsel_ordlyd: "\"端侧算力\" \"Orin Nano 8GB 最高 67 TOPS AI 算力\" \"Orin NX 8GB 最高 117 TOPS AI 算力\" \"Orin NX 16GB 最高 157 TOPS AI 算力\""
+    advarsel: "All three are marked 'optional' on the front page."
+    advarsel_ordlyd: "\"端侧算力\" \"Orin Nano 8GB 最高 67 TOPS AI 算力\" \"Orin NX 8GB 最高 117 TOPS AI 算力\" \"Orin NX 16GB 最高 157 TOPS AI 算力\" \"可选配\""
   ros2:
     vaerdi: true
     kilde: "https://github.com/uniubi-ai/uniubi_ros2"

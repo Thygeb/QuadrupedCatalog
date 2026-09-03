@@ -1,0 +1,361 @@
+{
+  "hanCaveat": 43,
+  "hanCaveatWording": 317,
+  "hanValueText": 0,
+  "rows": [
+    {
+      "robot_id": 2186,
+      "slug": "astrall-dynamics-hypertron-t01",
+      "manufacturer": "Astrall Dynamics",
+      "field_name": "docking_station",
+      "caveat": "Under the fire/emergency-response use-case tab: fully autonomous — high-precision autonomous navigation, fully autonomous charging. The word 'docking' / '充电桩' (charging station/pile) does not appear verbatim; '全自主充电' (fully autonomous charging) is interpreted here as a charging/docking function. Appears in the product page's use-case section, not in the parameters table itself.",
+      "caveat_wording": "\"消防应急\" \"全自主 高精度自主导航、全自主充电\""
+    },
+    {
+      "robot_id": 2189,
+      "slug": "cvte-maxhub-x7",
+      "manufacturer": "CVTE",
+      "field_name": "docking_station",
+      "caveat": "Highly autonomous: scheduled start/stop, self-navigation and self-return-to-charge. The news article (same domain) elaborates further (see the docking-station field's second source note). The term 'docking station' / '充电桩' does not appear verbatim in either source — '自主…回充' / '自动返航充电' is interpreted as referring to an automatic charging facility.",
+      "caveat_wording": "高度自主 定时启停、自主导航与回充"
+    },
+    {
+      "robot_id": 2199,
+      "slug": "galileo-c1",
+      "manufacturer": "Galileo (Tianjin)",
+      "field_name": "payload_walking",
+      "caveat": "Effective payload. Mapped to walking payload - '有效' (effective, during active use) is interpreted as corresponding to the walking/dynamic load, parallel to Yuejia's explicit '动态负载' (dynamic load). An interpretation, not the manufacturer's own word 'walking'.",
+      "caveat_wording": "有效负载: 8kg"
+    },
+    {
+      "robot_id": 2199,
+      "slug": "galileo-c1",
+      "manufacturer": "Galileo (Tianjin)",
+      "field_name": "battery_wh",
+      "caveat": "Manufacturer states both Ah and Wh directly (720Wh is NOT calculated by us). Nominal voltage (电池额定电压) is given separately as 48V.",
+      "caveat_wording": "电池容量: 15AH，720Wh"
+    },
+    {
+      "robot_id": 2200,
+      "slug": "galileo-c1-w",
+      "manufacturer": "Galileo (Tianjin)",
+      "field_name": "battery_wh",
+      "caveat": "Battery capacity - identical to the walking C1. Nominal battery voltage (电池额定电压) 48V.",
+      "caveat_wording": "电池容量: 15AH，720Wh"
+    },
+    {
+      "robot_id": 2201,
+      "slug": "galileo-e1",
+      "manufacturer": "Galileo (Tianjin)",
+      "field_name": "data_ports",
+      "caveat": "TypeC replaces the C1/C1-W pair's RS485. '接口可按需拓展' (interfaces can be expanded as needed) is not a fourth port, just a note on flexibility.",
+      "caveat_wording": "外接通讯接口: Ethernet; USB; TypeC（接口可按需拓展）"
+    },
+    {
+      "robot_id": 2205,
+      "slug": "genisom-gangben-l1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "Explicit (includes battery). CORRECTED ON SELF-CHECK: this row has no \"约\" (approx.) mark before the weight, unlike the measurements just above it in the same table, which ARE marked. An earlier draft of this entry incorrectly set operator \"~\" on the weight, assuming the whole section shared the same approx. marking — corrected after re-reading the raw JSON.",
+      "caveat_wording": "\"整机重量（含电池）: 15 kg\""
+    },
+    {
+      "robot_id": 2205,
+      "slug": "genisom-gangben-l1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "length",
+      "caveat": "The axes ARE labelled explicitly by the manufacturer (长=length, 宽=width, 高=height), unlike MicroRoboTech’s two entries.",
+      "caveat_wording": "\"站立尺寸（长 × 宽 × 高）约 630 × 360 × 415 mm\""
+    },
+    {
+      "robot_id": 2205,
+      "slug": "genisom-gangben-l1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "degrees_of_freedom",
+      "caveat": "Number of joint motors, not explicitly \"degrees of freedom\" (自由度). Same interpretation as the Unitree Go2 in this collection.",
+      "caveat_wording": "\"关节电机数量: 12 个\""
+    },
+    {
+      "robot_id": 2205,
+      "slug": "genisom-gangben-l1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "speed",
+      "caveat": "A separate limit speed of 5 m/s is also disclosed — not used as the main value, because \"最大速度\" (max speed) is the label that corresponds to \"normal maximum speed\" elsewhere in this collection.",
+      "caveat_wording": "\"最大速度: 3.7 m/s\" \"极限速度: 5 m/s\""
+    },
+    {
+      "robot_id": 2205,
+      "slug": "genisom-gangben-l1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "docking_station",
+      "caveat": "Accessories list: charging dock, standard equipment. Confirms a physical charging dock ships as standard, but does NOT confirm autonomous return-to-dock/self-recharging — that term does not appear on L1’s page (unlike L2’s explicit \"自主回充功能\").",
+      "caveat_wording": "\"充电座: 标配\""
+    },
+    {
+      "robot_id": 2206,
+      "slug": "genisom-gangben-l1-w",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "Explicit (includes battery). The row has no \"约\" (approx.) mark.",
+      "caveat_wording": "\"整机重量（含电池）: 22 kg\""
+    },
+    {
+      "robot_id": 2206,
+      "slug": "genisom-gangben-l1-w",
+      "manufacturer": "GENISOM AI",
+      "field_name": "data_ports",
+      "caveat": "The manufacturer claims 7 interface types in total, but \"等\" (\"etc.\") makes the list non-exhaustive — only these three categories are named explicitly.",
+      "caveat_wording": "\"开放 Ethernet、USB 3.0/2.0、24V/12V 电源等 7 大标准硬件接口\""
+    },
+    {
+      "robot_id": 2207,
+      "slug": "genisom-gangben-l2",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "Explicit (includes battery). The row has NO \"约\" (approx.) mark, unlike the measurements just above it in the same table (same pattern as Gangben L1, corrected there on self-check — checked here from the start after that same error).",
+      "caveat_wording": "\"整机重量（含电池）: 21 kg\""
+    },
+    {
+      "robot_id": 2207,
+      "slug": "genisom-gangben-l2",
+      "manufacturer": "GENISOM AI",
+      "field_name": "price",
+      "caveat": "\"起\" means \"from\"/\"starting at\": the base-configuration price; options (e.g. the optional charging station above) are added on top.",
+      "caveat_wording": "\"¥39999 起\""
+    },
+    {
+      "robot_id": 2208,
+      "slug": "genisom-gangben-l2-w",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "In L2-W’s own data block — no \"约\" (approx.) mark.",
+      "caveat_wording": "\"整机重量（含电池）: 27 kg\""
+    },
+    {
+      "robot_id": 2208,
+      "slug": "genisom-gangben-l2-w",
+      "manufacturer": "GENISOM AI",
+      "field_name": "autonomy_level",
+      "caveat": "Qualitative list from L2-W’s own feature list. Adds \"Thomas flair\" (托马斯) to the special-motions list compared with the base version’s list.",
+      "caveat_wording": "\"托马斯\""
+    },
+    {
+      "robot_id": 2209,
+      "slug": "genisom-gangben-l2-w-ultra",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "In L2-W Ultra’s own data block — same figure as L2-W, no \"约\" (approx.) mark.",
+      "caveat_wording": "\"整机重量（含电池）: 27 kg\""
+    },
+    {
+      "robot_id": 2209,
+      "slug": "genisom-gangben-l2-w-ultra",
+      "manufacturer": "GENISOM AI",
+      "field_name": "cameras",
+      "caveat": "The pixel count (2.07 MP × 2) sits only next to \"前向双目\" (the forward stereo camera) in the raw string — the fisheye array’s own pixel count is NOT separately disclosed, so 2.07 MP should be read as covering the stereo camera, not necessarily the whole array.",
+      "caveat_wording": "\"相机类型: 前向双目+周视鱼眼阵列\" \"相机像索: 207万*2\""
+    },
+    {
+      "robot_id": 2210,
+      "slug": "genisom-qiuqiu-sp1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "length",
+      "caveat": "Outer dimensions, length×width×height — no \"约\" (approx.) mark, no operator set.",
+      "caveat_wording": "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\""
+    },
+    {
+      "robot_id": 2211,
+      "slug": "genisom-tongchui-m1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "sdk_languages",
+      "caveat": "INVESTIGATED, BUT NOT SET. GENISOM AI’s GitHub organisation (zsibot) has a repo \"genisom_robot_sdk\" (README: Programming Language: C++, Ubuntu 22.04/CMake/GCC/Boost), but the repo has NO GitHub description tying it to a specific product name (unlike \"genisom_L1_sdk\", whose description explicitly names the Genisom AI L1 Series). Neither \"M1\" nor \"铜锤\" (Tongchui) appears in the extracted README text. Using the repo for M1 would be the same kind of name-coincidence-without-evidence that was caught and rejected on L2’s ros2 field in the previous round — hence stated as not disclosed rather than a guess.",
+      "caveat_wording": "\"genisom_robot_sdk\" \"Programming Language: C++\" \"genisom_L1_sdk\" \"Official SDK for the Genisom AI L1 Series, providing long-term support and maintenance for stable development, integration, and deployment.\" \"铜锤\""
+    },
+    {
+      "robot_id": 2211,
+      "slug": "genisom-tongchui-m1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "In the structured spec table — no \"约\" (approx.) mark. CONTRADICTED by the page’s own marketing card: approx. 30kg own weight (the lightest in its class), approx. 30kg sustained working load, achieving a near-1:1 load-to-weight ratio, industry-first for quadrupeds. The two figures (41kg vs. 30kg) are the SAME robot’s own weight on the SAME page and are in conflict. Rule 9: not silently corrected. The structured table is used as the field value because it is the more specific source (same principle as the rest of the GENISOM entries), but the inconsistency is not explained away.",
+      "caveat_wording": "\"整机重量（含电池）: 41 kg\" \"约 30kg 整机重量（同级别最轻量），约 30kg 持续作业负载，在四足机器人行业内首次实现近 1:1 负载自重比\""
+    },
+    {
+      "robot_id": 2211,
+      "slug": "genisom-tongchui-m1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "length",
+      "caveat": "NO \"约\" (approx.) mark on this row, unlike L1/L2’s corresponding measurements. No operator set, per rule 4 (never invent a caveat the manufacturer did not write).",
+      "caveat_wording": "\"站立尺寸（长 × 宽 × 高）: 930 × 480 × 585 mm\""
+    },
+    {
+      "robot_id": 2211,
+      "slug": "genisom-tongchui-m1",
+      "manufacturer": "GENISOM AI",
+      "field_name": "autonomy_level",
+      "caveat": "Qualitative list from the manufacturer’s feature section, not a rating on a scale. Autonomous navigation is stated explicitly as OPTIONAL (\"选配\"), not standard.",
+      "caveat_wording": "\"选配\""
+    },
+    {
+      "robot_id": 2212,
+      "slug": "genisom-tongchui-m1-pro",
+      "manufacturer": "GENISOM AI",
+      "field_name": "weight",
+      "caveat": "In M1 Pro’s own spec table (id 497) — identical to the base version, NO \"约\" (approx.) mark. CONTRADICTED by the page’s site-wide marketing card (\"约 30kg\") — see the top note. Rule 9: not silently corrected.",
+      "caveat_wording": "\"整机重量（含电池）: 41 kg\" \"约 30kg\""
+    },
+    {
+      "robot_id": 2224,
+      "slug": "microrobotech-movenew-t1",
+      "manufacturer": "MicroRoboTech",
+      "field_name": "docking_station",
+      "caveat": "The row is called 'Charging Station: Fast Charge' (Chinese: label 充电桩, value 快充). Confirms a charging station exists, but does NOT confirm autonomous return-home/self-charging - unlike GENISOM L2's explicit claim (including autonomous recharge function). Interpreted as 'yes, a charging station exists', not as 'yes, with self-driving recharge'.",
+      "caveat_wording": "Charging Station: Fast Charge | 充电桩 | 快充"
+    },
+    {
+      "robot_id": 2249,
+      "slug": "xiaomi-cyberdog-1",
+      "manufacturer": "Xiaomi",
+      "field_name": "height",
+      "caveat": "The LYING-position (趴下) measurement is also disclosed: 807 x 406 x 206mm. This is a different state than folded and is not comparable to Unitree's folded measurement. The schema has no folded-measurement fields.",
+      "caveat_wording": "长度：807mm | 宽度：406mm | 高度：206mm"
+    },
+    {
+      "robot_id": 2249,
+      "slug": "xiaomi-cyberdog-1",
+      "manufacturer": "Xiaomi",
+      "field_name": "lidar",
+      "caveat": "NO LIDAR MENTIONED. The manufacturer's sensor list has twelve items and none of them is a LiDAR: RealSense D450 depth camera, AI interaction camera, binocular ultra-wide-angle camera, TOF sensor, light sensor, ultrasonic sensor, IMU, GPS module, magnetometer, optical flow sensor (光流计), 6-mic ring array, and touch sensor. The field is not marked as \"no\", because the manufacturer does not declare the list exhaustive - but the absence is itself informative.",
+      "caveat_wording": "光流计"
+    },
+    {
+      "robot_id": 2254,
+      "slug": "yuejia-yj30",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "stair_step_continuous",
+      "caveat": "Climbable step height - '台阶' means step/stair, interpreted here as continuous stair-climbing, not a single obstacle.",
+      "caveat_wording": "攀爬台阶高度: 20cm"
+    },
+    {
+      "robot_id": 2254,
+      "slug": "yuejia-yj30",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "weight",
+      "caveat": "In the '基础参数' (basic parameters) table. No '约' (approx.) marker; no indication of with/without battery.",
+      "caveat_wording": "重量: 17.5kg"
+    },
+    {
+      "robot_id": 2254,
+      "slug": "yuejia-yj30",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "length",
+      "caveat": "The source's own unit notation is missing an 'm' (see the top note). The axis order (length first) is explicitly labelled by the manufacturer in the column heading '站立尺寸' (standing dimensions).",
+      "caveat_wording": "站立尺寸: 682×354×462m"
+    },
+    {
+      "robot_id": 2254,
+      "slug": "yuejia-yj30",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "autonomy_level",
+      "caveat": "Six yes/no rows from the '基础参数' (basic parameters) table, all set to '有' (yes) for the YJ30. A qualitative list, not a level on a scale.",
+      "caveat_wording": "有"
+    },
+    {
+      "robot_id": 2254,
+      "slug": "yuejia-yj30",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "price",
+      "caveat": "Next to a '立即购买' (buy now) button on the manufacturer's own page.",
+      "caveat_wording": "￥78000.00"
+    },
+    {
+      "robot_id": 2255,
+      "slug": "yuejia-yj30-max",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "weight",
+      "caveat": "In the '基础参数' (basic parameters) table.",
+      "caveat_wording": "重量: 45kg"
+    },
+    {
+      "robot_id": 2255,
+      "slug": "yuejia-yj30-max",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "autonomy_level",
+      "caveat": "Five yes/no rows from the '基础参数' (basic parameters) table - one row fewer than the YJ30's table (no '跟随' (follow) item here).",
+      "caveat_wording": "跟随"
+    },
+    {
+      "robot_id": 2255,
+      "slug": "yuejia-yj30-max",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "price",
+      "caveat": "Next to a '立即购买' (buy now) button.",
+      "caveat_wording": "￥288000.00"
+    },
+    {
+      "robot_id": 2256,
+      "slug": "yuejia-yj30-max-w",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "weight",
+      "caveat": "In the '基础参数' (basic parameters) table.",
+      "caveat_wording": "重量: 55kg"
+    },
+    {
+      "robot_id": 2256,
+      "slug": "yuejia-yj30-max-w",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "autonomy_level",
+      "caveat": "Combines the table's five yes/no rows (same pattern as the YJ30Max, no '跟随' (follow) item) with the product description's extra communication and data-analysis features.",
+      "caveat_wording": "跟随"
+    },
+    {
+      "robot_id": 2256,
+      "slug": "yuejia-yj30-max-w",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "price",
+      "caveat": "Next to a '立即购买' (buy now) button - the highest Yuejia price in the catalogue.",
+      "caveat_wording": "￥358000.00"
+    },
+    {
+      "robot_id": 2257,
+      "slug": "yuejia-yj30-w",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "weight",
+      "caveat": "In the '基础参数' (basic parameters) table.",
+      "caveat_wording": "重量: 20kg"
+    },
+    {
+      "robot_id": 2257,
+      "slug": "yuejia-yj30-w",
+      "manufacturer": "Yuejia Lingdong",
+      "field_name": "price",
+      "caveat": "Next to a '立即购买' (buy now) button.",
+      "caveat_wording": "￥88000.00"
+    },
+    {
+      "robot_id": 2258,
+      "slug": "yufan-lingmao-cyvet",
+      "manufacturer": "Yufan Intelligent",
+      "field_name": "payload_walking",
+      "caveat": "The manufacturer does not distinguish walking from standing payload anywhere on the page. Placed under walking because all product references (e.g. runtime '15kg带负载匀速行走' / 15kg loaded, constant-speed walking) concern carrying while moving, not static standing load. Standing payload is therefore not disclosed, not 0.",
+      "caveat_wording": "最大载荷 约20kg"
+    },
+    {
+      "robot_id": 2258,
+      "slug": "yufan-lingmao-cyvet",
+      "manufacturer": "Yufan Intelligent",
+      "field_name": "compute",
+      "caveat": "All three are marked 可选配 (optional) on the front page.",
+      "caveat_wording": "\"端侧算力\" \"Orin Nano 8GB 最高 67 TOPS AI 算力\" \"Orin NX 8GB 最高 117 TOPS AI 算力\" \"Orin NX 16GB 最高 157 TOPS AI 算力\""
+    }
+  ],
+  "producentTal": {
+    "Astrall Dynamics": 1,
+    "CVTE": 1,
+    "Galileo (Tianjin)": 4,
+    "GENISOM AI": 19,
+    "MicroRoboTech": 1,
+    "Xiaomi": 2,
+    "Yuejia Lingdong": 13,
+    "Yufan Intelligent": 2
+  }
+}

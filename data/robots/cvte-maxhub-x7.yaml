@@ -87,8 +87,8 @@ felter:
     vaerdi: true
     kilde: "https://www.cvte.com/product/quadrupedrobot"
     hentet: "2026-08-24"
-    advarsel: "Highly autonomous: scheduled start/stop, self-navigation and self-return-to-charge. The news article (same domain) elaborates further (see the docking-station field's second source note). The term 'docking station' / '充电桩' does not appear verbatim in either source — '自主…回充' / '自动返航充电' is interpreted as referring to an automatic charging facility."
-    advarsel_ordlyd: "高度自主 定时启停、自主导航与回充"
+    advarsel: "Highly autonomous: scheduled start/stop, self-navigation and self-return-to-charge. The news article (same domain) elaborates further (see the docking-station field's second source note). The term 'docking station' does not appear verbatim in either source — 'self-navigation and self-return-to-charge' / 'automatic return-and-charge' is interpreted as referring to an automatic charging facility."
+    advarsel_ordlyd: "高度自主 定时启停、自主导航与回充 | 自动返航充电"
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.cvte.com/news/detail/161afb60-856a-11f0-bd5d-fb86232a40db"

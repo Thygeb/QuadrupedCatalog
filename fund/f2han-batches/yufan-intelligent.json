@@ -1,0 +1,26 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2258,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat": "The manufacturer does not distinguish walking from standing payload anywhere on the page. Placed under walking because all product references (e.g. runtime: 15kg loaded, constant-speed walking) concern carrying while moving, not static standing load. Standing payload is therefore not disclosed, not 0.",
+      "caveat_wording": "最大载荷 约20kg | 15kg带负载匀速行走续航约3.5小时"
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2258,
+      "field_name": "compute"
+    },
+    "saet": {
+      "caveat": "All three are marked 'optional' on the front page.",
+      "caveat_wording": "\"端侧算力\" \"Orin Nano 8GB 最高 67 TOPS AI 算力\" \"Orin NX 8GB 最高 117 TOPS AI 算力\" \"Orin NX 16GB 最高 157 TOPS AI 算力\" \"可选配\""
+    },
+    "change_reason": "spor/f2han: kinesisk term flyttet fra caveat til caveat_wording (tilfoejet, var ikke der foer)"
+  }
+]

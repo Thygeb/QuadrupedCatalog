@@ -23,7 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { kaldTabelHTML, taelSemantik, maal } from '../../tools/maal-tabelsemantik.mjs';
+import { kaldTabelHTML, taelSemantik } from '../../tools/maal-tabelsemantik.mjs';
 
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
@@ -38,7 +38,17 @@ export default async function koer(ctx) {
   /* --- 1. Selve tabelsemantikken, paa begge sprog ------------------------ */
 
   for (const sprog of ['da', 'en']) {
-    const m = maal({ rod, distMappe: dist, sprog });
+    // spor/fotofod runde 3: samme maaling som maal() giver, men her kaldt i to
+    // trin, saa den raa `data`-blok ogsaa er i hukommelsen - maal() selv
+    // (tools/, uroert) sender den ikke videre. <tr>/<td>-formlerne laengere
+    // nede skal vide, om <tfoot> BOER staa der, og det kan kun afgoeres af
+    // data.standard[].foto.ophav - IKKE af at taelle i tabelHTML selv, for saa
+    // maalte formlen sig selv og kunne aldrig fange en aegte fejl.
+    const sideSti = path.join(dist, sprog, 'sammenligning', 'index.html');
+    const sideHTML = fs.readFileSync(sideSti, 'utf8');
+    const scriptKilde = fs.readFileSync(path.join(rod, 'assets', 'sammenligning.js'), 'utf8');
+    const { tabelHTML, data } = kaldTabelHTML(sideHTML, scriptKilde);
+    const m = { ...taelSemantik(tabelHTML, data), tabelHTML, sideSti };
 
     ok(`29/${sprog}: tabelHTML() udsender praecis én <table>`,
       m.table === 1, `table=${m.table}`);
@@ -92,14 +102,30 @@ export default async function koer(ctx) {
     // Raekketallet skal HAENGE SAMMEN: ét hoved + én titel pr. gruppe + én
     // pr. felt. Rammer det ikke, er hoved og krop ude af trit, og hver
     // vaerdi ville blive laest op under den forkerte robot.
-    const ventetTr = 1 + antalGrupper + m.antalFelter;
-    ok(`29/${sprog}: <tr> = 1 hoved + ${antalGrupper} gruppetitler + ${m.antalFelter} feltraekker = ${ventetTr}`,
+    // spor/fotofod runde 3: <tfoot> laegger sin egen raekke oveni, men KUN
+    // naar mindst én af de viste robotter har et fabrikantfoto - praecis
+    // harFabrikantfoto-vagten i assets/sammenligning.js' fotoFodHTML(). Leddet
+    // er udledt af DATA, ikke haardkodet som et blindt "+ 1".
+    // `data.standard` er SLUGS (strenge), ikke robotobjekter - noejagtig
+    // samme skel som assets/sammenligning.js' egen `robotAf()`/`tabelHTML()`
+    // bruger (linje 40-45, 561-567 dér): slugs slaas op i `data.robotter`,
+    // som ER de fulde objekter og baerer `.foto`.
+    const robotAf = (slug) => data.robotter.find((r) => r.slug === slug);
+    const valgteRobotter = data.standard.map(robotAf).filter(Boolean);
+    const harFabrikantfoto = valgteRobotter.some((r) => r.foto && r.foto.ophav === 'fabrikant');
+    const antalFodraekker = harFabrikantfoto ? 1 : 0;
+    const ventetTr = 1 + antalGrupper + m.antalFelter + antalFodraekker;
+    ok(`29/${sprog}: <tr> = 1 hoved + ${antalGrupper} gruppetitler + ${m.antalFelter} feltraekker + ${antalFodraekker} fotofodraekke = ${ventetTr}`,
       m.tr === ventetTr, `tr=${m.tr}`);
 
     // Hoved og krop skal have samme antal spalter: hjoerne + N kolonne-
-    // overskrifter, og pr. feltraekke ét feltnavn + N vaerdier.
-    const ventetTd = 1 + m.antalRobotter * m.antalFelter;
-    ok(`29/${sprog}: <td> = 1 hjoernecelle + ${m.antalRobotter}x${m.antalFelter} vaerdier = ${ventetTd}`,
+    // overskrifter, og pr. feltraekke ét feltnavn + N vaerdier. Fotofoden
+    // laegger, naar den staar der, sit eget hjoerne plus én celle pr. valgt
+    // robot oveni (fotoFodHTML() giver ALTID en celle pr. robot - tom, hvis
+    // robotten ikke har et fabrikantfoto, jf. test 79.4/79.11).
+    const antalFodceller = harFabrikantfoto ? 1 + m.antalRobotter : 0;
+    const ventetTd = 1 + m.antalRobotter * m.antalFelter + antalFodceller;
+    ok(`29/${sprog}: <td> = 1 hjoernecelle + ${m.antalRobotter}x${m.antalFelter} vaerdier + ${antalFodceller} fotofodceller = ${ventetTd}`,
       m.td === ventetTd, `td=${m.td}`);
   }
 

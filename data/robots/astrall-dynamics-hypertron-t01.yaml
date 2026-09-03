@@ -137,7 +137,7 @@ felter:
     vaerdi: true
     kilde: "https://www.astralldynamics.com/project-Hypertron-T01.html"
     hentet: "2026-08-24"
-    advarsel: "Under the fire/emergency-response use-case tab: fully autonomous — high-precision autonomous navigation, fully autonomous charging. The word 'docking' / '充电桩' (charging station/pile) does not appear verbatim; '全自主充电' (fully autonomous charging) is interpreted here as a charging/docking function. Appears in the product page's use-case section, not in the parameters table itself."
+    advarsel: "Under the fire/emergency-response use-case tab: fully autonomous — high-precision autonomous navigation, fully autonomous charging. The word 'docking' does not appear verbatim; 'fully autonomous charging' is interpreted here as a charging/docking function. Appears in the product page's use-case section, not in the parameters table itself."
     advarsel_ordlyd: "\"消防应急\" \"全自主 高精度自主导航、全自主充电\""
   lidar:
     vaerdi: "2x mekanisk LiDAR, 192 linjer, rækkevidde ca. 30m ± 10%, punktsky op til 1.720.000 pts/s (dobbelt-echo) / 860.000 pts/s (enkelt-echo), synsfelt 360°x90°, 10 Hz opdatering"

@@ -161,8 +161,17 @@ export default async function koer(ctx) {
     // kolonne ville taelle med som en kolonneoverskrift uden kolonne og
     // braekke forholdet mellem vaerdi og robot.
     const hjoerner = (tabelHTML.match(/class="specimen-hoved__hjoerne"/g) || []).length;
+    // spor/fotofod runde 3: KUN td-leddet er brudt af <tfoot> (kredit pr.
+    // kolonne) - hjoerner === 1 gaelder specimen-hovedets hjoerne
+    // (specimen-hoved__hjoerne) og er uroert af fotofodden, som har sit EGET
+    // hjoerne (saml-fotofod__hjoerne). Samme opslag som 38.11 laengere nede
+    // bruger (data.standard -> data.robotter), saa td-leddet kender fotofodden
+    // uden at gaette et blindt "+ 1".
+    const fodRobotter = data.standard.map((s) => data.robotter.find((r) => r.slug === s)).filter(Boolean);
+    const harFabrikantfoto = fodRobotter.some((r) => r.foto && r.foto.ophav === 'fabrikant');
+    const antalFodceller = harFabrikantfoto ? 1 + m.antalRobotter : 0;
     ok(`38.10.${sprog}: jigraekken har praecis ét hjoerne, og det er et <td>`,
-      hjoerner === 1 && m.td === 1 + m.antalRobotter * m.antalFelter,
+      hjoerner === 1 && m.td === 1 + m.antalRobotter * m.antalFelter + antalFodceller,
       `hjoerner=${hjoerner}, td=${m.td}`);
 
     // Fotoet: ét <img> pr. valgt robot, der HAR et foto - og hver af dem skal
