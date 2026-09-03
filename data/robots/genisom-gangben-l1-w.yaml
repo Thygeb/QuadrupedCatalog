@@ -40,7 +40,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "Explicit (includes battery). The row has no \"约\" (approx.) mark."
+    advarsel: "Explicit (includes battery). The row has no 'approx.' mark."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"整机重量（含电池）: 22 kg\""
   laengde:
@@ -190,7 +190,7 @@ felter:
       - "24V/12V stroem"
     kilde: "https://www.genisomai.com/product-robot/L1-W"
     hentet: "2026-08-24"
-    advarsel: "The manufacturer claims 7 interface types in total, but \"等\" (\"etc.\") makes the list non-exhaustive — only these three categories are named explicitly."
+    advarsel: "The manufacturer claims 7 interface types in total, but 'etc.' makes the list non-exhaustive - only these three categories are named explicitly."
     advarsel_ordlyd: "\"开放 Ethernet、USB 3.0/2.0、24V/12V 电源等 7 大标准硬件接口\""
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"

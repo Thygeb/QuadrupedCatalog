@@ -44,7 +44,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "In L2-W’s own data block — no \"约\" (approx.) mark."
+    advarsel: "In L2-W's own data block - no 'approx.' mark."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"整机重量（含电池）: 27 kg\""
   laengde:
@@ -173,7 +173,7 @@ felter:
     vaerdi: "AI reinforcement-learning motion control (standard); UWB (supported); autonomous following (supported); intelligent obstacle avoidance (supported); supports further development; OTA updates; special motions (handstand/two-leg stand/Thomas flair/backflip); basic motions (stand/lie down/crawl forward/jump forward/jump up/lock position)"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Qualitative list from L2-W’s own feature list. Adds \"Thomas flair\" (托马斯) to the special-motions list compared with the base version’s list."
+    advarsel: "Qualitative list from L2-W's own feature list. Adds 'Thomas flair' to the special-motions list compared with the base version's list."
     advarsel_ordlyd: "\"托马斯\""
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"

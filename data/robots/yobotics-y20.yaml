@@ -52,6 +52,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Folded approx. 930 × 450 × 370 mm. The schema has no fields for folded dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "折叠尺寸：约930mm×450mm×370mm"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende:
     vaerdi: 80
@@ -60,6 +61,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own label is WALKING load, max. 80 kg. The manufacturer itself discloses the two loads as two separate fields — a second independent confirmation (after Unitree) that payload MUST be two fields. The ratio here is almost double."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "行走负载：最大80kg"
   nyttelast_staaende:
     vaerdi: 150
     enhed: "kg"
@@ -67,6 +69,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own label is STANDING load, max. 150 kg."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "站立负载：最大150kg"
   hastighed:
     vaerdi: 4
     enhed: "m/s"
@@ -74,6 +77,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer states max. 4 m/s."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "奔跑速度：最大4m/s"
   haeldning:
     vaerdi: 40
     enhed: "°"
@@ -81,6 +85,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Label: climbing slope angle, max. 40°."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "攀爬斜坡角度：最大40°"
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 30
@@ -89,6 +94,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own label uses the character for STEP/STAIR, max. 30 cm. Placed in the continuous field on the same basis as DEEP Robotics X30. The page does not explicitly say continuous — this is a conservative placement, not a direct reading."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "攀爬台阶高度：最大30cm"
   ip_klasse:
     vaerdi: "IP54"
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
@@ -100,6 +106,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "-25°C against WEILAN AlphaDog C500's 0°C: two Chinese manufacturers, the same day, and one can work through a Danish winter while the other may not even stand in a cold shed. This is the lower operating temperature filter doing its job."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "工作环境温度：零下25℃~零上50℃"
   temp_maks:
     vaerdi: 50
     enhed: "°C"
@@ -110,6 +117,7 @@ felter:
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
     advarsel: "25 Ah without voltage. Wh cannot be derived and is not derived."
+    advarsel_ordlyd: "电池容量：25Ah"
   driftstid:
     vaerdi: 2.5
     enhed: "t"
@@ -118,6 +126,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "THE MANUFACTURER ITSELF SUPPLIES THE LOAD CONDITION — the only entry in the collection where this happens. Verbatim: > 5 h continuous walking WITHOUT load, and > 2.5 h in operation WITH payload. But the kg figure for the loaded state is not given; the condition is qualitative. The loaded figure is used here."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "续航：空载持续行走＞5h,有效负载作业＞2.5h，具备低电量报警功能"
     ved_last:
       vaerdi: "ikke_oplyst"
       enhed: "kg"
@@ -130,11 +139,13 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The charging time applies to the charging dock (optional): full charge ≤ 3 h."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "选配：（1）传感器:3D 激光雷达x1+ 深度相机x1等( 可搭载不同传感器，不同配置有所差异) （2）充电桩:可实现自主充电，一键回充功能;充满电时间≤3h"
   dockingstation:
     vaerdi: true
     kilde: "https://www.yobotics.cn/en/product/quadruped_robot_series/"
     hentet: "2026-08-19"
     advarsel: "Charging stand, optional."
+    advarsel_ordlyd: "选配：（1）传感器:3D 激光雷达x1+ 深度相机x1等( 可搭载不同传感器，不同配置有所差异) （2）充电桩:可实现自主充电，一键回充功能;充满电时间≤3h"
   lidar: "ikke_oplyst"
   kameraer: "ikke_oplyst"
   compute:

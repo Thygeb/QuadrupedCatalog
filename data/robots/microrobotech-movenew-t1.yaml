@@ -155,7 +155,7 @@ felter:
     vaerdi: true
     kilde: "https://www.micbotics.com/list_13/96.html"
     hentet: "2026-08-24"
-    advarsel: "The row is called 'Charging Station: Fast Charge' (Chinese: label 充电桩, value 快充). Confirms a charging station exists, but does NOT confirm autonomous return-home/self-charging - unlike GENISOM L2's explicit claim (including autonomous recharge function). Interpreted as 'yes, a charging station exists', not as 'yes, with self-driving recharge'."
+    advarsel: "The row is called 'Charging Station: Fast Charge' (label/value pair, see caveat_wording). Confirms a charging station exists, but does NOT confirm autonomous return-home/self-charging - unlike GENISOM L2's explicit claim (including autonomous recharge function). Interpreted as 'yes, a charging station exists', not as 'yes, with self-driving recharge'."
     advarsel_ordlyd: "Charging Station: Fast Charge | 充电桩 | 快充"
   lidar:
     vaerdi: "Onboard LiDAR (model not disclosed)"

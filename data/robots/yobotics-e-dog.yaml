@@ -30,6 +30,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "15 kg +/- 0,5 kg."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "8、本体重量：15kg±0.5kg，本体材质：铝合金；"
   laengde:
     vaerdi: 680
     enhed: "mm"
@@ -38,6 +39,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer states 680×330×380 mm (±10 mm). The tolerance applies to all three dimensions."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；"
   bredde:
     vaerdi: 330
     enhed: "mm"
@@ -46,6 +48,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Tolerance +/- 10 mm."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；"
   hoejde:
     vaerdi: 380
     enhed: "mm"
@@ -54,6 +57,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Tolerance +/- 10 mm."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；"
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
@@ -61,6 +65,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Peak torque per joint is stated as 48 Nm."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "10、采用双绝对式直流无刷伺服电机，峰值扭矩48Nm，采用一体化设计，可断电位置记忆，支持CAN总线通讯方式，具备全局力控能力；"
   nyttelast_gaaende:
     vaerdi: 3
     enhed: "kg"
@@ -68,6 +73,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "THE MANUFACTURER DISCLOSES THREE LOAD FIGURES: max. static 8 kg, max. dynamic 5 kg, and dynamic IN OPERATION 3 kg. The in-operation figure is used here, because it corresponds to what the other entries call walking load. The other two figures have no field in the schema."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
   nyttelast_staaende:
     vaerdi: 8
     enhed: "kg"
@@ -75,6 +81,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own label is max. STATIC load capacity. Static and standing are not the same word; the placement is an interpretation, not a direct reading."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
   hastighed:
     vaerdi: 12
     enhed: "km/h"
@@ -83,6 +90,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer states max. speed ≥ 12 km/h. Note the unit: km/h, not m/s as with the sister entry Y20."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
   haeldning:
     vaerdi: 35
     enhed: "°"
@@ -98,6 +106,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own label uses the characters for STAIR-CLIMBING HEIGHT, ≥ 16 cm. Placed in the continuous field on the same basis as Y20 and X30."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
   ip_klasse: "ikke_oplyst"
   temp_min: "ikke_oplyst"
   temp_maks: "ikke_oplyst"
@@ -110,6 +119,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer states runtime not less than 1.5 hours. No load condition."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "4、续航：电池采用高放电倍率电芯锂电池，电池容量6.4Ah，续航不低于1.5小时；"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"

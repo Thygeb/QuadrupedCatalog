@@ -42,7 +42,7 @@ felter:
     enhed: "mm"
     kilde: "https://www.genisomai.com/product-robot/sp1"
     hentet: "2026-08-24"
-    advarsel: "Outer dimensions, length×width×height — no \"约\" (approx.) mark, no operator set."
+    advarsel: "Outer dimensions, length×width×height - no 'approx.' mark, no operator set."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"外形尺寸（长 × 宽 × 高）: 1190 × 640 × 925 mm\""
   bredde:

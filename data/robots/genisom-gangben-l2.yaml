@@ -37,7 +37,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "Explicit (includes battery). The row has NO \"约\" (approx.) mark, unlike the measurements just above it in the same table (same pattern as Gangben L1, corrected there on self-check — checked here from the start after that same error)."
+    advarsel: "Explicit (includes battery). The row has NO 'approx.' mark, unlike the measurements just above it in the same table (same pattern as Gangben L1, corrected there on self-check - checked here from the start after that same error)."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"整机重量（含电池）: 21 kg\""
   laengde:
@@ -209,7 +209,7 @@ felter:
     operator: ">="
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "\"起\" means \"from\"/\"starting at\": the base-configuration price; options (e.g. the optional charging station above) are added on top."
+    advarsel: "Means 'from'/'starting at': the base-configuration price; options (e.g. the optional charging station above) are added on top."
     advarsel_klasse: "gyldighed"
     advarsel_ordlyd: "\"¥39999 起\""
   ce_oplyst: "ikke_oplyst"

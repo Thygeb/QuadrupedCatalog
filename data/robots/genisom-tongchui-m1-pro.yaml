@@ -47,7 +47,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/M1"
     hentet: "2026-08-25"
-    advarsel: "In M1 Pro’s own spec table (id 497) — identical to the base version, NO \"约\" (approx.) mark. CONTRADICTED by the page’s site-wide marketing card (\"约 30kg\") — see the top note. Rule 9: not silently corrected."
+    advarsel: "In M1 Pro's own spec table (id 497) - identical to the base version, NO 'approx.' mark. CONTRADICTED by the page's site-wide marketing card ('approx. 30kg') - see the top note. Rule 9: not silently corrected."
     advarsel_klasse: "gyldighed"
     advarsel_ordlyd: "\"整机重量（含电池）: 41 kg\" \"约 30kg\""
   laengde:

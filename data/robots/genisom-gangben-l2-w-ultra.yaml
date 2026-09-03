@@ -48,7 +48,7 @@ felter:
     enhed: "kg"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "In L2-W Ultra’s own data block — same figure as L2-W, no \"约\" (approx.) mark."
+    advarsel: "In L2-W Ultra's own data block - same figure as L2-W, no 'approx.' mark."
     advarsel_klasse: "uddybning"
     advarsel_ordlyd: "\"整机重量（含电池）: 27 kg\""
   laengde:
@@ -169,7 +169,7 @@ felter:
     vaerdi: "Forward stereo camera + surround-view fisheye array, 2× 2.07 MP"
     kilde: "https://www.genisomai.com/product-robot/L2"
     hentet: "2026-08-24"
-    advarsel: "The pixel count (2.07 MP × 2) sits only next to \"前向双目\" (the forward stereo camera) in the raw string — the fisheye array’s own pixel count is NOT separately disclosed, so 2.07 MP should be read as covering the stereo camera, not necessarily the whole array."
+    advarsel: "The pixel count (2.07 MP × 2) sits only next to 'the forward stereo camera' in the raw string - the fisheye array's own pixel count is NOT separately disclosed, so 2.07 MP should be read as covering the stereo camera, not necessarily the whole array."
     advarsel_ordlyd: "\"相机类型: 前向双目+周视鱼眼阵列\" \"相机像索: 207万*2\""
   compute:
     vaerdi: "8-core CPU + 6-core CPU, 80 TOPS"
