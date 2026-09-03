@@ -1,0 +1,10 @@
+[
+  {
+    "tabel": "applications",
+    "noegle": { "robot_id": 2222 },
+    "saet": {
+      "note": "The two manufacturer domains say the same thing: magiclab.top states \"MagicLab Industrial Quadruped Robot\" (CN: \"魔法原子工业四足机器人\")."
+    },
+    "change_reason": "spor/f2-magicpudu rettelse: note havde mistet den kinesiske streng og efterladt en tom parentes \"(CN:).\" — orkestratoren fandt det ved efterprøvning (fund/FUND-f2magicpudu.md). Rettet til at bære samme kinesiske streng som søsterfeltet note_wording."
+  }
+]

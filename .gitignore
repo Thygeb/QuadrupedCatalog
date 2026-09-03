@@ -55,3 +55,10 @@ retninger/*/billeder/**
 
 # Playwright-MCP skriver artefakter i repo-roden (fundet af spor/samlcomp 31. aug 2026)
 .playwright-mcp/
+
+# .agents/skills/ er impeccable eksporteret til det tvaervaerktoejs-format,
+# andre agenter laeser (fire .toml plus openai.yaml oven i skillens 148 filer).
+# Den er en KOPI af .claude/skills/impeccable/, som ER i git, og kan genskabes
+# derfra. JPK's beslutning 3. sep 2026: kilden versioneres eet sted, eksporten
+# ikke. Uden denne linje er den 3,5 MB, et git add -A ville tage med.
+.agents/

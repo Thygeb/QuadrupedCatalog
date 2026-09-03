@@ -1,0 +1,6 @@
+FASE2-TJEK --tal --producent="Shandong Youbaote Intelligent Robot"
+3 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2251  yobotics-e-dog  e907831a8f0cc0c537c6882a9cc8e2b3242758426845e575e56b8cb8b9da8b70
+  2252  yobotics-y10  fe8bc7055951e04719004ca539aa8d63add6b25300e4a9500cc0ae51790807fe
+  2253  yobotics-y20  c87e39173c085f59a1e7210a08e2adc9a635babe1a3af3b8adb1dd72e81cb995
+SAMLET AFTRYK: 244f07ce0f603838418c54eab1715ba81c00ae48840e04203eb389852b83c4b7

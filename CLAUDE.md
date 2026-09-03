@@ -105,11 +105,11 @@ skill.
 
 | Skill | Hvornår |
 |---|---|
-| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med 20+ underkommandoer. Se rækkerne nedenfor |
+| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med **23 kommandoer** (målt på disken 3. sep 2026, v4.1.1 — her stod "20+"). Se rækkerne nedenfor. **Kommandoerne deler sig i to lejre, og skellet er det, der afgør, om et spor må sendes under designfrysen:** `critique` og `audit` **rapporterer**, `shape`, `init`, `document` og `extract` **planlægger** — de seks er lovlige under frysen. De øvrige 16 (`polish` `bolder` `quieter` `distill` `harden` `onboard` `animate` `colorize` `typeset` `layout` `delight` `overdrive` `clarify` `adapt` `optimize` `live`) **retter fladen** og er det ikke. Skillen bærer selv skellet: *"Do not load [craft-floor.md] for planning-only work"* |
 | `impeccable layout` | Afstande, rytme og visuelt hierarki. Det, en "for meget polstring"-klage i virkeligheden beder om |
 | `impeccable typeset` | Typografisk hierarki. Målt 1. sep: **55 forskellige skriftstørrelser** i stilarkene, 18 trin alene i spændet 9–20 px |
 | `impeccable distill` | Skær ind til essensen, fjern kompleksitet |
-| `impeccable new-work` | Når en flade skal have en **retning**, ikke en rettelse. Bygger konkurrerende visuelle verdener, man kan se ved siden af hinanden |
+| ~~`impeccable new-work`~~ | **FINDES IKKE SOM KOMMANDO. Målt på disken 3. sep 2026:** `new-work` er en **reference** (`reference/new-work.md`), som `shape` selv indlæser, når en flade skal have en retning frem for en rettelse. Et spor, der kalder `impeccable new-work`, får ingenting. **Kald `impeccable shape`** — SKILL.md: *"`shape` owns task discovery, then enters new-work only for visual-world and surface-concept decisions."* Rækken stod her som en kommando indtil i dag |
 | `impeccable shape` | Planlæg UX/UI, før der skrives kode |
 | `impeccable critique` | Design-vurdering med heuristisk scoring: **virker designet**, ikke er det fejlfrit |
 | `impeccable audit` | Teknisk kvalitet: tilgængelighed, ydelse, responsivitet |
@@ -536,8 +536,11 @@ skal ikke distribueres med repoet.
 
 ## Projektskills — brug dem frem for at gentage reglerne
 
-Ud over de globale skills i tabellen ovenfor har projektet tolv egne i `.claude/skills/`
-(otte indtil 2. sep 2026; `retro`, `spor`, `overlevering` og `design` kom til 3. sep):
+`ls .claude/skills/` giver **13** mapper (målt 3. sep 2026). Ti er projektets egne
+(otte indtil 2. sep; `retro`, `spor`, `overlevering` og `design` kom til 3. sep, og
+`grillmig` er ude af det obligatoriske workflow). De sidste tre er skills udefra, som
+er kopieret ind for at følge med worktreen: `supabase`, `supabase-postgres-best-practices`
+og — siden `0ee7ae8` — `impeccable`:
 
 | Skill | Hvornår |
 |---|---|
@@ -572,15 +575,31 @@ den fra sin worktree — **fejlede**, og faldt korrekt tilbage til disken.
 var generaliseret fra ét datapunkt og blev modbevist en time senere af det næste spor.
 Det er præcis fejl O5 i `ARBEJDSGANG.md`, begået i selve reglen om at måle.)*
 
-Projektets egne otte skills ligger i `.claude/skills/`, er versionerede og følger derfor
-altid med worktreen. Bruger- og plugin-skills gør ikke.
+Skills i `.claude/skills/` er versionerede og følger derfor altid med worktreen.
+Bruger- og plugin-skills gør ikke.
+
+**Det, der afgør sagen, er ikke MAPPEN — det er om filerne er COMMITTET.** Skærpet
+3. sep 2026, betalt af impeccable: JPK kopierede skillen ind i `.claude/skills/`
+kl. 21.24, og i de tre timer, den lå der **utracket**, var sætningen ovenfor usand
+for netop den. Målt: `ls ../udstilling-wt-certfacet/.claude/skills/impeccable`
+gav *findes ikke*. En agent, der læste tabellen fra sin worktree, ville have haft
+et forkert billede af, hvad den havde til rådighed — samme fejlform som de fire
+spor, der blev sendt uden `frontend-design`, fordi den lå på disken men ikke i
+`enabledPlugins`. Kopien er committet siden `0ee7ae8`.
+
+**`impeccable` er derfor projektlokal nu, fastfrosset på v4.1.1**, og skal ikke
+længere behandles som en plugin-skill, der kan mangle i en worktree. To ting, den
+commit IKKE løste: pluginnet står stadig i `enabledPlugins` som `impeccable@impeccable`,
+så der er to registreringer af samme navn — hvilken der vinder, er **ikke målt**;
+og kopien er byte-identisk med den globale (`diff -rq` tom), så detektorens stille
+degradering fulgte med uændret.
 
 **Konsekvens for ethvert brief til et worktree-spor: giv diskstien med fra starten som
 en udtrykkelig reserve** — *"kald skillen; lykkes det ikke, så læs denne fil"*. Det
 koster ingenting, når kaldet virker, og sparer en omvej, når det ikke gør. Stierne:
 
 ```
-C:/Users/thyge/.claude/skills/impeccable/SKILL.md
+.claude/skills/impeccable/SKILL.md          (projektlokal, følger med worktreen)
 C:/Users/thyge/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md
 ```
 

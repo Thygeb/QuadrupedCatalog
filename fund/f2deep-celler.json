@@ -1,0 +1,662 @@
+[
+  {
+    "robotId": 2190,
+    "felt": "weight",
+    "kolonne": "caveat",
+    "vaerdi": "Med batteri. Værdien er Basic-variantens."
+  },
+  {
+    "robotId": 2190,
+    "felt": "height",
+    "kolonne": "caveat",
+    "vaerdi": "Højden stiger med sensorpakken. Værdien er Basic-variantens."
+  },
+  {
+    "robotId": 2190,
+    "felt": "payload_walking",
+    "kolonne": "caveat",
+    "vaerdi": "Den kinesiske etiket er KONTINUERLIG gående last; den engelske skriver blot Walking Load. Værdien er Basic-variantens."
+  },
+  {
+    "robotId": 2190,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Ens for alle fire varianter."
+  },
+  {
+    "robotId": 2190,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "KUN den kinesiske side afgør, hvilket felt tallet hører i. CN-etiketten er kontinuerlig trappehøjde; EN-etiketten er bare ordet Stair. Læser man kun engelsk, kan tallet lige så godt lande i forhindring_enkelt - og så sammenlignes en kontinuerlig trappehøjde med andre robotters enkelttrin, som er 2-4 gange større."
+  },
+  {
+    "robotId": 2190,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Ingen lastbetingelse. Rækkevidden falder med udstyret; skemaet har intet rækkeviddefelt."
+  },
+  {
+    "robotId": 2190,
+    "felt": "autonomy_level",
+    "kolonne": "caveat",
+    "vaerdi": "Kvalitativt. Værdien er Basic-variantens."
+  },
+  {
+    "robotId": 2190,
+    "felt": "power_output",
+    "kolonne": "caveat",
+    "vaerdi": "Siden oplyser External Power Input (24V/12V/5V). Det er strøm IND, ikke ud. Det gamle udkast talte det som strøm ud - samme fejl som 72V power input på Lynx M20."
+  },
+  {
+    "robotId": 2190,
+    "felt": "data_ports",
+    "kolonne": "caveat",
+    "vaerdi": "Basic-kolonnen har eksplicit INGEN (CN) / (EN). Det er et NEJ, ikke ikke oplyst. Værdien er Basic-variantens."
+  },
+  {
+    "robotId": 2190,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får (uddannelse og videnskabelig forskning), X20 og X30 får (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
+  },
+  {
+    "robotId": 2190,
+    "felt": "applications",
+    "kolonne": "note_wording",
+    "vaerdi": "Producentens kinesiske produktpanel sætter en etikette på hver model. Lite3 får \"教育科研\" (uddannelse og videnskabelig forskning), X20 og X30 får \"行业应用\" (brancheanvendelse). Den ENGELSKE Lite3-side siger intet om anvendelse overhovedet - kategorien findes kun på den kinesiske."
+  },
+  {
+    "robotId": 2190,
+    "felt": "applications",
+    "kolonne": "quote",
+    "vaerdi": "Uddannelse og videnskabelig forskning"
+  },
+  {
+    "robotId": 2190,
+    "felt": "applications",
+    "kolonne": "quote_wording",
+    "vaerdi": "Uddannelse og videnskabelig forskning (教育科研)"
+  },
+  {
+    "robotId": 2190,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Fire varianter i faneblade på samme produktside. Nyttelasten falder, når udstyret stiger: 5 - 4,5 - 4 - 2,5 kg. Producenten trækker sensorvægten fra nyttelasten. På det felt, der filtreres mest på, er de fire varianter fire forskellige robotter med en spredning på faktor 2."
+  },
+  {
+    "robotId": 2190,
+    "felt": "robots",
+    "kolonne": "notes[1]",
+    "vaerdi": "Ingen hastighed, ingen IP-klasse, ingen driftstemperatur, ingen batterikapacitet og ingen frihedsgrader på nogen variant, på noget sprog."
+  },
+  {
+    "robotId": 2191,
+    "felt": "payload_walking",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket er Payload Capacity."
+  },
+  {
+    "robotId": 2191,
+    "felt": "payload_standing",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket er Max. Load Capacity. Siden siger IKKE, at det er stående last. Placeringen her er en tolkning, valgt fordi feltet strukturelt spiller samme rolle som Unitrees stående last."
+  },
+  {
+    "robotId": 2191,
+    "felt": "speed",
+    "kolonne": "caveat",
+    "vaerdi": "TRE tal for samme egenskab på samme side: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, og fodnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Her bruges driftshastigheden - den eneste, brugeren faktisk får."
+  },
+  {
+    "robotId": 2191,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens fodnote [2]: Lab-tested slope angle; actual performance varies by surface material."
+  },
+  {
+    "robotId": 2191,
+    "felt": "obstacle_single",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens egen etiket: Max. Single-Step Height."
+  },
+  {
+    "robotId": 2191,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens egen etiket: Max. Continuous Stair Height. Sammenligninger skal bruge dette tal, ikke de 80 cm."
+  },
+  {
+    "robotId": 2191,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten oplyser også 3 t / 15 km uden last. Her bruges tallet med lastbetingelse (12 km)."
+  },
+  {
+    "robotId": 2191,
+    "felt": "hot_swap",
+    "kolonne": "caveat",
+    "vaerdi": "Står kun i brødteksten, ikke i specifikationstabellen."
+  },
+  {
+    "robotId": 2191,
+    "felt": "docking_station",
+    "kolonne": "caveat",
+    "vaerdi": "Rækken autonom opladning (tilvalg) findes KUN i den kinesiske tabel. Den engelske tabel har den ikke - den nævnes kun i brødteksten ovenfor. Fem poster på engelsk, seks på kinesisk."
+  },
+  {
+    "robotId": 2191,
+    "felt": "lidar",
+    "kolonne": "caveat",
+    "vaerdi": "Type uden model - tæller ikke under D4."
+  },
+  {
+    "robotId": 2191,
+    "felt": "compute",
+    "kolonne": "caveat",
+    "vaerdi": "Eneste specifikationsforskel til M20 Pro, som har tre af samme enhed."
+  },
+  {
+    "robotId": 2191,
+    "felt": "autonomy_level",
+    "kolonne": "caveat",
+    "vaerdi": "Siden lister Omnidirectional obstacle avoidance og Point cloud surround view som de eneste to autonomiposter, men BEGGE bærer fodnote [3][4]: Feature enabled via future OTA update. De findes ikke i dag. En post, der læser funktionslisten uden fodnoten, tilskriver M20 en autonomi, producenten selv siger den ikke har endnu. M20S har de samme poster UDEN fodnote."
+  },
+  {
+    "robotId": 2191,
+    "felt": "power_output",
+    "kolonne": "caveat",
+    "vaerdi": "Sidens 72V power input er strøm IND, ikke ud."
+  },
+  {
+    "robotId": 2191,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "FEM kategorier i én sætning. Det er producentens egen opremsning, og de fem står uden indbyrdes rangering (L27): robotten hører til i alle fem, ikke i den første."
+  },
+  {
+    "robotId": 2191,
+    "felt": "images(?)",
+    "kolonne": "note",
+    "vaerdi": "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
+  },
+  {
+    "robotId": 2191,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlægningen er læst i sidens egen JavaScript, ikke gættet."
+  },
+  {
+    "robotId": 2191,
+    "felt": "robots",
+    "kolonne": "notes[1]",
+    "vaerdi": "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhøjder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekræftelse på, at de to felter skal være adskilt."
+  },
+  {
+    "robotId": 2192,
+    "felt": "payload_walking",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket er Payload Capacity."
+  },
+  {
+    "robotId": 2192,
+    "felt": "payload_standing",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket er Max. Load Capacity. Siden siger IKKE, at det er stående last. Placeringen her er en tolkning, valgt fordi feltet strukturelt spiller samme rolle som Unitrees stående last."
+  },
+  {
+    "robotId": 2192,
+    "felt": "speed",
+    "kolonne": "caveat",
+    "vaerdi": "TRE tal for samme egenskab på samme side: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, og fodnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Her bruges driftshastigheden - den eneste, brugeren faktisk får."
+  },
+  {
+    "robotId": 2192,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens fodnote [2]: Lab-tested slope angle; actual performance varies by surface material."
+  },
+  {
+    "robotId": 2192,
+    "felt": "obstacle_single",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens egen etiket: Max. Single-Step Height."
+  },
+  {
+    "robotId": 2192,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens egen etiket: Max. Continuous Stair Height. Sammenligninger skal bruge dette tal, ikke de 80 cm."
+  },
+  {
+    "robotId": 2192,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten oplyser også 3 t / 15 km uden last. Her bruges tallet med lastbetingelse (12 km)."
+  },
+  {
+    "robotId": 2192,
+    "felt": "hot_swap",
+    "kolonne": "caveat",
+    "vaerdi": "Står kun i brødteksten, ikke i specifikationstabellen."
+  },
+  {
+    "robotId": 2192,
+    "felt": "docking_station",
+    "kolonne": "caveat",
+    "vaerdi": "Rækken autonom opladning (tilvalg) findes KUN i den kinesiske tabel. Den engelske tabel har den ikke - den nævnes kun i brødteksten ovenfor. Fem poster på engelsk, seks på kinesisk."
+  },
+  {
+    "robotId": 2192,
+    "felt": "lidar",
+    "kolonne": "caveat",
+    "vaerdi": "Type uden model - tæller ikke under D4."
+  },
+  {
+    "robotId": 2192,
+    "felt": "compute",
+    "kolonne": "caveat",
+    "vaerdi": "Eneste specifikationsforskel til M20, som har to af samme enhed. Alt andet - mål, vægt, nyttelast, hastighed, trin, IP, temperatur - er tegn for tegn ens."
+  },
+  {
+    "robotId": 2192,
+    "felt": "autonomy_level",
+    "kolonne": "caveat",
+    "vaerdi": "Siden lister Omnidirectional obstacle avoidance og Point cloud surround view som de eneste to autonomiposter, men BEGGE bærer fodnote [3][4]: Feature enabled via future OTA update. De findes ikke i dag. En post, der læser funktionslisten uden fodnoten, tilskriver M20 en autonomi, producenten selv siger den ikke har endnu. M20S har de samme poster UDEN fodnote."
+  },
+  {
+    "robotId": 2192,
+    "felt": "power_output",
+    "kolonne": "caveat",
+    "vaerdi": "Sidens 72V power input er strøm IND, ikke ud."
+  },
+  {
+    "robotId": 2192,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "Producenten skriver om \"The LYNX M20 series\", og Pro er en variant i den serie."
+  },
+  {
+    "robotId": 2192,
+    "felt": "images(?)",
+    "kolonne": "note",
+    "vaerdi": "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
+  },
+  {
+    "robotId": 2192,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "M20-siden har tre faneblade: M20, M20 Pro og M20S. Kortlægningen er læst i sidens egen JavaScript, ikke gættet."
+  },
+  {
+    "robotId": 2192,
+    "felt": "robots",
+    "kolonne": "notes[1]",
+    "vaerdi": "Den eneste post i hele indsamlingen, hvor producenten selv trykker BEGGE trinhøjder med hver sin etiket: 80 cm enkelt trin mod 25 cm kontinuerlig trappe. Forholdet er 3,2 gange. Det er den bedste eksterne bekræftelse på, at de to felter skal være adskilt."
+  },
+  {
+    "robotId": 2193,
+    "felt": "payload_standing",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket: Maximum Payload Capacity. Siden siger ikke eksplicit stående. Placeringen er en tolkning."
+  },
+  {
+    "robotId": 2193,
+    "felt": "speed",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten oplyser også 9 m/s som laboratoriemålt ekstremhastighed. Her bruges driftshastigheden."
+  },
+  {
+    "robotId": 2193,
+    "felt": "obstacle_single",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens egen etiket: Max. Single-Step Height."
+  },
+  {
+    "robotId": 2193,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens egen etiket: Max. Continuous Stair Height. Forholdet mellem de to trinfelter er 3,3 gange. På det sammenlignelige tal ligger M20S på niveau med Boston Dynamics Spots 30 cm; havde vi taget det høje tal, ville den slå alt andet i feltet."
+  },
+  {
+    "robotId": 2193,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten oplyser to intervaller - 3,5-5 t / 16-20 km uden last og 2,5-3,5 t / 12-15 km i drift - men angiver IKKE hvilken last de 2,5-3,5 t gælder ved. M20 oplyser sin lastbetingelse (15 kg); M20S gør ikke."
+  },
+  {
+    "robotId": 2193,
+    "felt": "hot_swap",
+    "kolonne": "caveat",
+    "vaerdi": "Hot-Swappable Dual Battery System - står i tabellen, i modsætning til M20 hvor det kun står i brødteksten."
+  },
+  {
+    "robotId": 2193,
+    "felt": "docking_station",
+    "kolonne": "caveat",
+    "vaerdi": "Autonomous Charging (Optional) - står på engelsk her, i modsætning til M20 hvor rækken kun findes på kinesisk."
+  },
+  {
+    "robotId": 2193,
+    "felt": "lidar",
+    "kolonne": "caveat",
+    "vaerdi": "Type uden model - tæller ikke under D4."
+  },
+  {
+    "robotId": 2193,
+    "felt": "autonomy_level",
+    "kolonne": "caveat",
+    "vaerdi": "De samme poster bærer på M20 fodnoten Feature enabled via future OTA update. På M20S står de UDEN fodnote og regnes derfor som eksisterende."
+  },
+  {
+    "robotId": 2193,
+    "felt": "payload_walking",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket: Effective Payload (standard terrain)."
+  },
+  {
+    "robotId": 2193,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "Producenten skriver om \"The LYNX M20 series\", og M20S er en variant i den serie."
+  },
+  {
+    "robotId": 2193,
+    "felt": "images(?)",
+    "kolonne": "note",
+    "vaerdi": "Producentens eget billede for hele Lynx-serien på lynx.html; siden skelner ikke mellem M20, M20 Pro og M20S i billedvalget."
+  },
+  {
+    "robotId": 2193,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Tredje faneblad på M20-siden. Samme mål og vægt som M20, men markant højere tal på næsten alt andet - det er en anden robot, ikke en udstyrsvariant."
+  },
+  {
+    "robotId": 2194,
+    "felt": "weight",
+    "kolonne": "caveat",
+    "vaerdi": "En operator på EGENVÆGT - første gang i indsamlingen. Det er reelt en lovning, ikke en måling. Bemærk også, at EN bruger tegnet U+2264 og CN tegnet U+2266 for samme robot, samme felt, samme dag - to forskellige tegn for samme betydning."
+  },
+  {
+    "robotId": 2194,
+    "felt": "speed",
+    "kolonne": "caveat",
+    "vaerdi": "CN er skarpere end EN: den kinesiske side skriver grænse-/ekstremhastighed - samme ord som i M20-tabellens laboratorie-ekstremhastighed. EN skriver blot flat-ground top speed. Den kinesiske side markerer altså, at 8 m/s er et grænsetal; den engelske gør ikke."
+  },
+  {
+    "robotId": 2194,
+    "felt": "obstacle_single",
+    "kolonne": "caveat",
+    "vaerdi": "clear obstacles up to 50 cm high - brødtekst, ikke tabel."
+  },
+  {
+    "robotId": 2194,
+    "felt": "autonomy_level",
+    "kolonne": "caveat",
+    "vaerdi": "Kvalitativt, i brødtekst."
+  },
+  {
+    "robotId": 2194,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "L22: \"security patrol\" er omsat til sikkerhed og overvågning. \"emergency firefighting\" er forsvar og beredskab. De fem kategorier er producentens egen opremsning i én sætning og står uden indbyrdes rangering (L27)."
+  },
+  {
+    "robotId": 2194,
+    "felt": "images(?)",
+    "kolonne": "note",
+    "vaerdi": "Billedport 24. aug 2026: erstattet. Det oprindelige billede var et LiDAR-punktskysbillede fra app'en, ikke et foto af robotten. Nyt billede (s10_3.jpg) er fra samme producentside, efterprøvet mod media/robotbilleder/deep-robotics-lynx-s10/MANIFEST.tsv."
+  },
+  {
+    "robotId": 2194,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Lanceringsside, ikke et datablad. Ingen specifikationstabel på noget af sprogene. Alle fem tal står i løbende brødtekst - de er sværere at datere og lettere at ændre uden spor end tal i en tabel."
+  },
+  {
+    "robotId": 2195,
+    "felt": "payload_walking",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket er Max.load uden at skelne gående/stående. Placeringen er en slutning."
+  },
+  {
+    "robotId": 2195,
+    "felt": "speed",
+    "kolonne": "caveat",
+    "vaerdi": "Hastighed og hældning står i EN række, adskilt af et fuldbredde-semikolon (U+FF1B): 3.3m/s; 30 grader. En parser, der læser rækken som ET felt, får noget vrøvl."
+  },
+  {
+    "robotId": 2195,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Står i samme række som hastigheden - se hastighed."
+  },
+  {
+    "robotId": 2195,
+    "felt": "battery_wh",
+    "kolonne": "caveat",
+    "vaerdi": "KUN den kinesiske side er brugbar. Den engelske side trykker Battery capacity 10kg - kilogram i et energifelt, sandsynligvis Max.load 10kg kopieret ind i den forkerte række. Det korrekte tal findes kun ved at læse originalsproget, ikke den engelske oversættelse."
+  },
+  {
+    "robotId": 2195,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "PRODUCENTEN MÆRKER SELV TALLET SOM TVIVLSOMT. Den kinesiske tabel skriver 40min efterfulgt af tegnene for tvivlsomt, afventer verifikation. Det står KUN på kinesisk og er usynligt for enhver, der læser engelsk."
+  },
+  {
+    "robotId": 2195,
+    "felt": "compute",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten staver NIVIDIA. Stavefejlen er producentens egen; vi gengiver navnet rigtigt her og noterer fejlen. Bemærk fordelingen: perception processor er en Intel i7, mens rækken kaldet CPU er en Jetson."
+  },
+  {
+    "robotId": 2195,
+    "felt": "data_ports",
+    "kolonne": "caveat",
+    "vaerdi": "WiFi og Bluetooth er forbindelser, ikke fysiske porte. Feltet er talt som udfyldt, fordi producenten selv fører dem som interfaceliste."
+  },
+  {
+    "robotId": 2195,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "GENNEMLÆST, INTET FUNDET. Mini står heller ikke i producentens kinesiske produktpanel, hvor Lite3, X20 og X30 hver får en anvendelsesetikette. Sidens egen tekst handler om teknologi (\"deep learning\", \"visual perception\"), ikke om hvem robotten er til."
+  },
+  {
+    "robotId": 2195,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Ældre side, stadig online, afkoblet fra både den engelske og den kinesiske navigation. Status kan ikke udfyldes fra kilden - i_produktion er et valg, ikke en aflæsning."
+  },
+  {
+    "robotId": 2195,
+    "felt": "robots",
+    "kolonne": "notes[1]",
+    "vaerdi": "Batterifeltet er indsamlingens tydeligste gevinst ved at læse kilden på originalsproget: den engelske side har en enhedsfejl, den kinesiske har det rigtige tal."
+  },
+  {
+    "robotId": 2196,
+    "felt": "payload_walking",
+    "kolonne": "caveat",
+    "vaerdi": "KUN den kinesiske side afgør feltet. CN-etiketten er kontinuerlig arbejdslast; EN-etiketten er Endurance - samme ord som siden bruger om driftstid længere nede. En læser af kun den engelske side kan ikke vide, at X20 bærer 20 kg."
+  },
+  {
+    "robotId": 2196,
+    "felt": "speed",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten skriver 4M/S med versaler (tegn U+2265). X30 fra samme producent skriver samme felt med små bogstaver. Versaliseringen er ikke normaliseret."
+  },
+  {
+    "robotId": 2196,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Tegn U+2265 - et GULV. X30 fra samme producent skriver <= 45 grader, altså et LOFT. Samme producent, samme felt, modsat ulighedstegn."
+  },
+  {
+    "robotId": 2196,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "Producentens etiket Step/Obstacle H slår de to felter sammen, som skemaet netop har adskilt. Værdien er lagt i det strengeste af de to; forhindring_enkelt står tom. Det er et valg, ikke en aflæsning."
+  },
+  {
+    "robotId": 2196,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Rækkevidde oplyses til 15 km. Skemaet har intet rækkeviddefelt."
+  },
+  {
+    "robotId": 2196,
+    "felt": "data_ports",
+    "kolonne": "caveat",
+    "vaerdi": "CN skriver eksternt interface: INGEN. EN skriver Interface: / - som enhver importør læser som ikke oplyst. Producenten har svaret NEJ. Regel 10 fanget i naturen, og igen afgør den kinesiske side feltet."
+  },
+  {
+    "robotId": 2196,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 (brancheanvendelse)."
+  },
+  {
+    "robotId": 2196,
+    "felt": "applications",
+    "kolonne": "note_wording",
+    "vaerdi": "Sidens titel siger det samme: \"X20: The Ultimate Quadruped Bot series for Industrial Use\". Producentens kinesiske produktpanel etiketterer X20 \"行业应用\" (brancheanvendelse)."
+  },
+  {
+    "robotId": 2196,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Producentens fulde navn: Hangzhou Yunshenchu Technology. Serier: Jueying og Lynx."
+  },
+  {
+    "robotId": 2196,
+    "felt": "robots",
+    "kolonne": "notes[1]",
+    "vaerdi": "STATUS KAN IKKE UDFYLDES FRA KILDEN. Produktsiden lever på begge sprog, men er afkoblet fra navigationen: linket er udkommenteret i både header og footer på EN og CN. Kun det kinesiske forsidegitter linker den stadig. Producenten har ikke erklæret modellen udgået. i_produktion er derfor et valg, ikke en aflæsning."
+  },
+  {
+    "robotId": 2196,
+    "felt": "robots",
+    "kolonne": "notes[2]",
+    "vaerdi": "Producentens eget forbehold, EN: All parameters are laboratory data, operating in real environment may have differences. CN: officielle testdata. De to formuleringer er ikke lige stærke."
+  },
+  {
+    "robotId": 2197,
+    "felt": "weight",
+    "kolonne": "caveat",
+    "vaerdi": "Med batteri (battery included)."
+  },
+  {
+    "robotId": 2197,
+    "felt": "width",
+    "kolonne": "caveat",
+    "vaerdi": "USIKKER TILDELING. Producenten trykker 1000*695*470(mm) uden at mærke akserne. Samme producents X20-side trykker 950mm*470mm*700mm, hvor 700 mm efter alt at dømme er højden - altså en anden rækkefølge. Her er den trykte rækkefølge fulgt bogstaveligt (2. tal = bredde, 3. tal = højde). Bredde og højde kan være byttet om. Ikke afgjort ud fra kilden."
+  },
+  {
+    "robotId": 2197,
+    "felt": "height",
+    "kolonne": "caveat",
+    "vaerdi": "USIKKER TILDELING - se bredde. Den trykte rækkefølge er fulgt bogstaveligt."
+  },
+  {
+    "robotId": 2197,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Tegn U+2264 - et LOFT. X20 fra samme producent skriver >= 30 grader, altså et GULV. Samme producent, samme felt, modsat ulighedstegn. En normaliserende importør retter det stiltiende; det skal han ikke."
+  },
+  {
+    "robotId": 2197,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "Kombineret etiket Step/Obstacle H. Lagt i det strengeste af de to felter; forhindring_enkelt står tom. Den kinesiske etiket skriver eksplicit trin, hvilket berettiger den strenge placering."
+  },
+  {
+    "robotId": 2197,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Rækkevidde >= 10 km. Ingen lastbetingelse."
+  },
+  {
+    "robotId": 2197,
+    "felt": "power_output",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten skriver Output power supply (72V BAT). Spænding oplyst, watt ikke."
+  },
+  {
+    "robotId": 2197,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "L22: \"security\" er omsat til sikkerhed og overvågning. \"surveying and mapping\" har det tilladte sæt stadig ingen kategori for og er ikke omsat."
+  },
+  {
+    "robotId": 2197,
+    "felt": "images(?)",
+    "kolonne": "note",
+    "vaerdi": "Samme billede bruges af producenten på både X30- og X30 Pro-siden."
+  },
+  {
+    "robotId": 2197,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Kinesisk og engelsk side er enige om samtlige tal. Eneste forskel: EN tilføjer (battery included) til vægten."
+  },
+  {
+    "robotId": 2197,
+    "felt": "robots",
+    "kolonne": "notes[1]",
+    "vaerdi": "X30 oplyser INGEN nyttelast - hverken gående eller stående, på noget sprog. Den ældre X20 oplyser 20 kg. Producentens flagskib er blevet mindre oplysende end sin forgænger."
+  },
+  {
+    "robotId": 2198,
+    "felt": "weight",
+    "kolonne": "caveat",
+    "vaerdi": "Med batteri (battery included)."
+  },
+  {
+    "robotId": 2198,
+    "felt": "width",
+    "kolonne": "caveat",
+    "vaerdi": "USIKKER TILDELING. Producenten trykker 1000*715*470(mm) uden at mærke akserne, og X20-siden bruger en anden rækkefølge. Den trykte rækkefølge er fulgt bogstaveligt. Bredde og højde kan være byttet om."
+  },
+  {
+    "robotId": 2198,
+    "felt": "slope",
+    "kolonne": "caveat",
+    "vaerdi": "Tegn U+2264 - et loft, ikke en præstation."
+  },
+  {
+    "robotId": 2198,
+    "felt": "stair_step_continuous",
+    "kolonne": "caveat",
+    "vaerdi": "Kombineret etiket Step/Obstacle H, lagt i det strengeste felt."
+  },
+  {
+    "robotId": 2198,
+    "felt": "runtime",
+    "kolonne": "caveat",
+    "vaerdi": "Rækkevidde >= 10 km. Ingen lastbetingelse."
+  },
+  {
+    "robotId": 2198,
+    "felt": "power_output",
+    "kolonne": "caveat",
+    "vaerdi": "Producenten skriver Output power supply (5V 12V 24V). Watt ikke oplyst. X30 uden Pro oplyser i stedet 72 V BAT - de to varianter har forskellig udgangsspænding."
+  },
+  {
+    "robotId": 2198,
+    "felt": "applications",
+    "kolonne": "note",
+    "vaerdi": "ARVET (L23). X30 Pro har ingen egen produktside; den står som en variant på X30-siden, og sætningen er skrevet om \"X30 quadruped robot\" - ikke om serien. At Pro'en er dækket, er derfor vores kobling, ikke producentens ord. L22: \"security\" er omsat til sikkerhed og overvågning."
+  },
+  {
+    "robotId": 2198,
+    "felt": "images(?)",
+    "kolonne": "note",
+    "vaerdi": "Samme billede bruges af producenten på både X30- og X30 Pro-siden; Pro har ingen egen produktside (se arvet_fra)."
+  },
+  {
+    "robotId": 2198,
+    "felt": "robots",
+    "kolonne": "notes[0]",
+    "vaerdi": "Står som egen kolonne på X30's produktside. Afviger fra X30 på tre felter: vægt, det midterste mål og portlisten. Alt andet er tegn for tegn ens."
+  }
+]

@@ -1,0 +1,12 @@
+FASE2-TJEK --dansk --producent="DEEP Robotics"
+KOLONNE                       I ALT   DANSK  (æøå-alene, kontroltal — dansk SKAL vaere >= denne)
+caveat                           77       0  (0)
+caveat_wording                    0       0  (0)
+applications.note                 9       0  (0)
+applications.note_wording         2       0  (0)
+applications.quote                8       0  (0)
+applications.quote_wording        1       0  (0)
+images.note                       6       0  (0)
+images.alt                        8       0  (0)
+robots.notes                     16       0  (0)
+robots.notes_wording              0       0  (0)

@@ -101,9 +101,9 @@
   "taeller_i_kataloget": "i kataloget",
 
   "vaegtklasse_titel": "Vægtklasse",
-  "vaegtklasse_under_20": "Under 20 kg",
-  "vaegtklasse_20_40": "20–40 kg",
-  "vaegtklasse_over_40": "Over 40 kg",
+  "vaegtklasse_under_20": "Under 20\u00A0kg",
+  "vaegtklasse_20_40": "20–40\u00A0kg",
+  "vaegtklasse_over_40": "Over 40\u00A0kg",
   "vaegtklasse_ikke_oplyst": "Vægt ikke oplyst",
   "vaegtklasse_forklaring": "Grænserne er sat i bygget, ikke i data. Producentens operator står på tallet: en robot oplyst som højst 20 kg står i 20–40 kg, fordi 20 er det tal, producenten skriver.",
   "vaegtklasse_ikke_oplyst_forklaring": "Producenten oplyser ingen egenvægt. De står her, ikke skjult i bunden af en anden klasse.",

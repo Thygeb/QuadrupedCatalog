@@ -1,0 +1,3 @@
+change_log raekker for spor/f2-magicpudu: 95
+Pr. tabel: {"robots":5,"applications":6,"field_entries":84}
+Raekker UDEN FOR MagicLab/Pudu Robotics: 0
