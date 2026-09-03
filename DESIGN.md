@@ -54,12 +54,39 @@ typography:
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.026em"
+  # DP3b (designplanen, 3. sep 2026): h3, lille, raekke og mikro er FOEJET TIL
+  # her, ikke opfundet. Prosaen navngav ni trin, frontmatter kun syv, og et
+  # spor, der laeste frontmatter, konkluderede derfor at 13 px og 14 px ikke
+  # fandtes i skalaen. Reglen er nu: frontmatter navngiver hvert trin,
+  # prosaen navngiver. Se ## Typografi -> Hierarki -> DP3b.
+  h3:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "19px"
+    fontWeight: 700
+    lineHeight: 1.08
   body:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.55
     letterSpacing: "-0.006em"
+  lille:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "15px"
+    fontWeight: 400
+    lineHeight: 1.55
+  # RAEKKE: navnet paa eller indholdet i én raekke i en taet liste eller tabel.
+  # Ni levende brugssteder i dag, fem af dem netop den rolle.
+  raekke:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "14px"
+    fontWeight: 600
+    lineHeight: 1.5
+  mikro:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 400
+    lineHeight: 1.5
   label:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "11.5px"
@@ -250,8 +277,68 @@ punkter 3, 6 og 8 i `## Konflikter`.
 - Fire datatilstande, der ikke deler skriftgrad, bogstavform, flade eller mærke
   (uændret fra ORBIT — TYPESKILT rørte paletten, ikke denne regel)
 - Tal sættes i mono med tabulære cifre; sætninger sættes aldrig som tal
-- 10,5 px er skriftgulvet i hele systemet
+- 10,5 px er skriftgulvet for tekst, der bæres alene — se *Typografi → Hierarki*
 - Ingen købsknap, ingen prisforespørgsel, ingen "featured" — formen findes ikke
+
+## Fladernes MODE — DP3, designplanen 3. sep 2026
+
+**Hver flade har ét af to succeskriterier, og det skal navngives, hver gang
+fladen bygges, bedømmes eller får et brief.** CLAUDE.md har krævet det siden
+1. sep 2026; **denne fil nævnte det ikke med ét ord indtil designplanen**, og
+designsystemet og arbejdsreglen talte derfor ikke sammen. Det er hul H2 i
+`fund/ANALYSE-produkort.md`.
+
+**Konsekvensen af ikke at have det: alle flader blev bedømt ens.** En Read-flade,
+dømt efter Operate-kriteriet, får de forkerte anmærkninger — og omvendt.
+**Et fund uden et MODE er en smagsdom.**
+
+### Operate — den besøgende løser en opgave
+
+Succes: **opgaven er løst, og læseren kan SE, at den blev det.**
+
+- Enhver betjening har en synlig tilstand, og en standardtilstand må aldrig
+  tegnes som et brugervalg.
+- Resultatet af en handling skal kunne ses uden at rulle.
+- **Tæthed slår luft.** En Operate-flade må pakke; det er ikke en fejl, at
+  betjeningen fylder toppen af skærmen — det er fladens emne.
+- Fejl, der skal jages her: en betjening, hvis tilstand ikke kan ses; et
+  resultat, der flytter sig ud af syne; et filter, der ikke kan fortrydes.
+
+**Operate-flader:** katalogsiden (`/<sprog>/`, sprogroden), sammenligningssiden,
+producentindekset (`/producenter/`) og 404-siden. **Den mindst sikre af dem er
+404** — den har ét job (kom videre), men er ikke en arbejdsflade; kald den
+Operate, indtil nogen har en bedre grund.
+
+### Read — den besøgende skal forstå noget
+
+Succes: **læseren forstår, hvad vi ved — OG hvad vi ikke ved.**
+
+- De fire datatilstande skal kunne skelnes på et blik. Det er fladens
+  vigtigste krav, ikke et tilgængelighedskrav ved siden af.
+- Et tal uden proveniens er en fejl på en Read-flade, også når tallet er rigtigt.
+- **Rytme slår tæthed.** Linjelængde, ottetalsskalaen og hierarkiet vejer mere
+  end at få meget med.
+- Fejl, der skal jages her: et hul, der ligner et nul; et tal uden kildemærke;
+  navigation, der fylder mere end emnet.
+
+**Read-flader:** robotsiden, producentsiden og Om os.
+
+### Reglen om fladens eget emne — gælder Read
+
+**På en Read-flade skal de sektioner, der handler om fladens EGET emne,
+tilsammen fylde mere end halvdelen af fladens højde ved 1440px.**
+
+Halvdelen er en **beslutning**, ikke en måling — den er valgt, fordi den kan
+afgøres uden fortolkning, og fordi et flertal er den svageste tærskel, der
+stadig betyder noget. Argumentér gerne imod tallet; men afvis ikke et fund med,
+at der ingen tærskel er. Det var netop fraværet af én, der gjorde F3 til en
+observation frem for en fejl.
+
+**Målt af `spor/produkort` ved 1440px, og reglen er brudt i dag:** på
+producentsiden handler **31 %** af Xiaomis side og **42 %** af Unitrees om den
+producent, siden er opkaldt efter. Blokken *"Alle 25 producenter"* er
+**konstant 1715px** uanset producent — så jo tyndere producenten er, jo mere
+handler hendes side om alle andre. Se `fund/PLAN-design.md`, punkt 1.
 
 ## Farver
 
@@ -482,11 +569,15 @@ ikke en fastbredde-skrift. Se punkt 4 i `## Konflikter`.
 
 ### Hierarki
 
-Skalaen (klemmerne, ikke skrifterne) er uændret fra ORBIT: ved 1440 px
-76 / 46 / 34 / 19 / 17 / 15 / 13 / 11,5 px. **Vægten på Hero er rettet fra 800 til
-700** (`spor/kort`, 31. aug 2026): Saira selvhostes kun i 400/500/600/700, og en
-manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
+Skalaen (klemmerne, ikke skrifterne) er ved 1440 px
+76 / 46 / 34 / 19 / 17 / 15 / **14** / 13 / 11,5 px. **Vægten på Hero er rettet fra
+800 til 700** (`spor/kort`, 31. aug 2026): Saira selvhostes kun i 400/500/600/700,
+og en manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
 ujævn streg i store grader.
+
+**14 px — trinet "Række" — er tilføjet af designplanen 3. sep 2026 (DP3b).
+Det er ikke et nyt trin; det er et trin, der var i brug og manglede et navn.**
+Se afgørelsen nedenfor.
 
 - **Hero** (700, `clamp(33px,6.2vw,76px)`, 0,98, −0,035em, Saira):
   206 sider bruger klassen i dag — ikke kun en forside, der ikke længere findes.
@@ -497,6 +588,9 @@ ujævn streg i store grader.
 - **H3** (700, 19px).
 - **Brød** (400, 17px, 1,6, `blaek2`, Saira via nedarvning fra `body`).
 - **Lille** (400, 15px, 1,55, `blaek2`).
+- **Række** (500–600, 14px, 1,5): **navnet på eller indholdet i én række i en
+  tæt liste eller tabel**, hvor 15px er for løst og 13px for stille. Tilføjet
+  som navngivet trin af DP3b; se afgørelsen nedenfor.
 - **Mikro** (400, 13px, 1,5, `blaek3`).
 - **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`).
 - **Figur** (mono, 700, tabulære cifre `tnum 1`): selve tallet. Størrelsen er
@@ -508,6 +602,86 @@ ujævn streg i store grader.
   bredere pr. tegn ved samme pixelstørrelse (målt: 62ch Literata 18px = 636px,
   mod 68ch Saira 17px = 629px, kildens egen kommentar).
 
+### DP3b — det trin, skalaen manglede, og som allerede fandtes
+
+**Spørgsmålet, der blokerede et spor.** `fund/PLAN-klaebebar.md` §10 kunne ikke
+afgøre klæbebarens navne-skriftgrad: *"14 px findes ikke i DESIGN.md's skala,
+men 11,5 px (`label`) er for lille … Der mangler et trin, og at vælge det er en
+systembeslutning, ikke en bjælkebeslutning."*
+
+**Målt af designplanen, og svaret er ikke det forventede.**
+
+```
+grep -ohE "font-size:[^;}]+" assets/system.css assets/generator.css | sort -u | wc -l
+```
+
+giver **56** unikke `font-size`-værdier — og `font-size:14px` optræder **10**
+gange, hvoraf 9 er levende regler (den tiende står i en L77-kommentar).
+**14 px er altså sitets syvende mest brugte skriftgrad**, ikke en
+enkeltstående afvigelse. De ni er `.spring` (353), en spatieret versaletiket
+(522), `.stribe--intet p` (939), `.udtraek .chip__navn` (1597),
+`.skema-tabel` (2074) og `.klaebebar__navne` (2459) i `system.css`, samt
+`.saml-matrix` (570), `.plade__under` (1279) og `.rk__navn` (1421) i
+`generator.css`.
+
+**Fem af de ni er den samme ting: et navn eller en celle i en tæt række.**
+`.rk__navn`, `.chip__navn`, `.klaebebar__navne`, `.skema-tabel`,
+`.saml-matrix`. Det er en rolle, ikke et tilfælde, og den havde ikke et navn.
+
+**Afgørelsen: trinet hedder "Række" og er 14 px. Der tilføjes INGEN ny
+størrelse — der sættes et navn på en, der bruges ni gange.** At vælge 15 px
+(Lille) i stedet ville have flyttet klæbebaren op på et trin, den ikke deler
+med nogen anden tæt række, og efterladt de ni brug uforklarede. Fravalgt.
+
+**Og planen retter en fejl i sit eget forlæg:** §10 skriver, at *"14 px og
+13 px"* ikke er navngivne trin. **13 px ER et navngivet trin** — det hedder
+*Mikro* og står i listen ovenfor. Fejlen opstod, fordi `typography:`-blokken i
+frontmatter kun navngiver **7** roller (display, headline, title, body, label,
+figur, manual), mens prosaen navngiver **9** trin. **Frontmatter og prosa har
+ikke været enige om, hvor mange trin skalaen har**, og et spor, der læser den
+ene, får et andet svar end et spor, der læser den anden.
+
+**Reglen, der lukker den fælde: frontmatter skal navngive hvert trin, prosaen
+navngiver.** Manglende i dag: H3 (19), Lille (15), Række (14), Mikro (13).
+
+#### Svaret til klæbebar-sporet, så det kan sendes uden at spørge
+
+**Robotnavnene i klæbebaren er 14 px, vægt 600 — trinet "Række".** Under
+460 px falder de til 13 px, trinet *Mikro*. **Begge værdier er dem, koden har i
+dag** (`system.css:2459`); det, der manglede, var ikke en anden værdi, men
+hjemmel til den. **Acceptkriterium DP3b:** klæbebar-sporet kan bygge Retning B
+uden at ændre en eneste `font-size` — og hvis det ændrer én, skal det stå i
+rapporten som en afvigelse fra denne beslutning.
+
+**Det legitimerer ikke de 56.** At skære skalaen ned er et selvstændigt spor
+over hele sitet (`impeccable typeset`), og det står i `fund/PLAN-design.md`.
+DP3b gør præcis én ting: den fjerner den usikkerhed, der blokerede ét spor.
+
+### DP3c — skriftgulvet får en rækkevidde
+
+**Skriftgulvet på 10,5 px er brudt af systemets egne komponenter, og reglen
+gjorde det umuligt at se forskel på et brud og en undtagelse.**
+
+Målt: `font-size:8px` (`generator.css:452`) og `font-size:7px`
+(`generator.css:748`) på `.saml-fotofelt__ord`, plus **10** erklæringer af
+formen `max(8px, …em)` — kildemærket, operatoren, enheden. Uden en rækkevidde
+er alle 12 lige store brud, og så er ingen af dem det.
+
+**Reglen, omskrevet:** 10,5 px er gulvet for **tekst, der bæres alene** — et
+ord, en sætning, en etiket, et navn. **Undtaget er tegn, der læses SAMMEN med
+en figur, de sidder på:** det hævede kildemærke, operatoren foran et tal og
+enheden efter det. De har `max(8px, …em)`-form, netop for at følge figuren og
+aldrig stå alene. Undtagelsen er en **liste, ikke et princip** — en ny
+komponent kan ikke skrive sig ind i den ved at ligne den.
+
+**`.saml-fotofelt__ord` er dermed et ægte brud, ikke en undtagelse:** det er et
+ord ("ikke oplyst"-teksten i sammenligningens fotofelt), det står alene, og
+det er 8 px — 7 px i den smalleste ombrydning. **Acceptkriterium DP3c:**
+`.saml-fotofelt__ord` er mindst 10,5 px ved alle bredder, eller ordet er
+erstattet af tilstandsalfabetets stiplede firkant uden tekst. Kontrafaktisk:
+i dag rapporterer `grep -c "font-size:[78]px" assets/generator.css` **2**;
+bagefter **0**.
+
 ### Navngivne regler
 
 **Reglen om versaletiketten.** Den spatierede versaletiket må kun navngive en
@@ -515,8 +689,9 @@ datagruppe eller en enhed — aldrig en indholdstom optakt over en overskrift.
 
 **Reglen om mono.** Mono og fed hører til tal, aldrig til en sætning.
 
-**Skriftgulvet.** 10,5 px er den mindste skriftgrad i systemet, også i den
-smalleste ombrydning.
+**Skriftgulvet.** 10,5 px er den mindste skriftgrad for tekst, der bæres alene,
+også i den smalleste ombrydning. Rækkevidden og de to undtagelser står i DP3c
+ovenfor.
 
 ## Layout
 
