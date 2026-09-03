@@ -307,7 +307,13 @@ function dataBlok(ctx) {
          selv udfylder — samme deling som resten af blokken her. */
       enhed_skift_etiket: T.enhed_skift_etiket,
       enhed_skift_forklaring: T.enhed_skift_forklaring,
-      enhed_omregnet: T.enhed_omregnet,
+      /* `enhed_omregnet` (ordet "omregnet"/"converted") STOD HER og er
+         fjernet 3. sep 2026 sammen med selve maerket i assets/
+         sammenligning.js' omregnetHTML() - JPK: "forklaringslinjen oeverst
+         goer det alene". Noeglen er samtidig slettet af begge sprogfiler;
+         den havde ingen anden kalder (maalt: to forekomster i alt, denne
+         linje og den funktion). `enhed_omregnet_forklaring` BLIVER - den er
+         nu cellens eneste baerer af oprindelsen og hoeres af skaermlaesere. */
       enhed_omregnet_forklaring: T.enhed_omregnet_forklaring,
       imperial_forklaring: t('imperial_forklaring'),
       vaegtklasse: {

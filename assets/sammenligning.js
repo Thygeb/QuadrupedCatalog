@@ -88,7 +88,26 @@
          INTET synligt maerke, kun en linje til skaermlaeseren. Det sjaeldne
          skal ikke vaere det umaerkede, men et maerke paa 535 af 565 felter
          ville drukne matricen; fravaeret forklares i omskifterens egen note.
-       - vores omregning faar `.omregnet` med figuren, den kom fra.
+       - vores omregning fik indtil 3. sep 2026 `.omregnet` med ordet
+         "omregnet"/"converted" synligt i cellen. DET MAERKE ER VAEK (JPK:
+         "forklaringslinjen oeverst goer det alene"). Maalt foer: 11 synlige
+         maerker i matricen ved tre plader i imperial visning.
+
+     DET ER IKKE EN NY BESLUTNING - det er den samme, JPK traf 2. sep 2026 i
+     spor/uifix punkt 2, som robotsiden allerede har udfoert: se
+     tools/skabelon/side.mjs' omregningsMaerke(), hvor det synlige maerke er
+     erstattet af en .kunskaerm-linje af noejagtig samme form som
+     imp.egen-grenen. Maerkeklassen staar 0 gange paa en bygget robotside og
+     bevogtes af test 62.2.a. Matricen blev bare ikke rettet med.
+     (Klassenavnet skrives med vilje IKKE ordret her: denne fil kopieres
+     raat til dist/, saa et grep efter maerket i den byggede side ville
+     ellers finde min kommentar og melde 1 i stedet for 0.)
+
+     BEGGE grene er nu .kunskaerm, saa en skaermlaeser hoerer praecis som foer,
+     hvilken oprindelse tallet har. Haard begraensning 2 mister ingenting:
+     forskellen mellem producentens tal og vores omregning staar stadig i
+     forklaringslinjen over matricen (enhed_skift_forklaring) og i hver
+     enkelt celles skjulte tekst.
 
      Forklaringen bygges af det METRISKE felt - "33,8 kg" - som er praecis
      det, `imperialPost()` server-side kalder `kildeform`. */
@@ -96,9 +115,7 @@
     if (imp.egen) return '<span class="kunskaerm">' + esc(DATA.tekst.imperial_forklaring || '') + '</span>';
     var kilde = (figurAf(f.vaerdi, f.min, f.maks) + ' ' + (f.enhed || '')).replace(/\s+$/, '');
     var forklaring = String(DATA.tekst.enhed_omregnet_forklaring || '').replace('{figur}', kilde);
-    return '<span class="omregnet" title="' + esc(forklaring) + '">'
-      + '<span aria-hidden="true">' + esc(DATA.tekst.enhed_omregnet || '') + '</span>'
-      + '<span class="kunskaerm">' + esc(forklaring) + '</span></span>';
+    return '<span class="kunskaerm">' + esc(forklaring) + '</span>';
   }
 
   function renderTal(f) {
