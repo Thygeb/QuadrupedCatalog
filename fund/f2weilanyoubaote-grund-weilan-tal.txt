@@ -1,0 +1,8 @@
+FASE2-TJEK --tal --producent="WEILAN"
+5 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2244  weilan-alphadog-c500  28cdc2804aa2cb5a2d8289828a067c3e7d3c4f1ccbee3a0679aa1bc46f731673
+  2245  weilan-alphadog-c501  f504623c1eae36c69457bd2ec68bb2ab0f59296a84900a56483bc1e54d9b973a
+  2246  weilan-alphadog-e300  8580a28c6029cc7433af42ebd8de50f95f08f528058cb3c2c4a95b86e0fd019c
+  2247  weilan-alphadog-e400l  41216cebdb3c2f21ef91a1eecda6942f0263488e47e05c63755047e89ed73f5f
+  2248  weilan-babyalpha  09c34506d5d909baaade64e743a9a4409056309d4bceff7ae3af286aac863023
+SAMLET AFTRYK: 5fa1a923731e85704686dafe0d2062e6fb989cbe6f2d0c60bb1a3ac6909ca7dc
