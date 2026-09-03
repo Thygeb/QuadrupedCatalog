@@ -149,7 +149,7 @@ over 53**.
 
 ## J3 — luften mellem filterteksterne
 
-**Briefets mekanisme holder ikke i den tilstand, JPK ser. Målt strækning: 1 px af 109.**
+**Briefets mekanisme holder ikke i den tilstand, JPK ser. Målt strækning: 0 px.**
 
 **Syv** af de ni facetter er 109 px, **de to nederste 108 px** — forskellen er præcis den
 `border-bottom`, som `facet--sidste-raekke` fjerner på sidste række. Den **naturlige**
