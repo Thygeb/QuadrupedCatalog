@@ -39,6 +39,16 @@ hård begrænsning 5 opfyldt af ord i stedet for af sidens tilstandsalfabet, og
 `fund/PLAN-producent.md` P1 foreskriver udtrykkeligt *"den visuelle
 tilstandsgrammatik, siden allerede har"*.
 
+**Én kodeændring mere end briefet bad om, og hvorfor den ikke er design:** begge
+vurderinger fandt uafhængigt, at linjens `textContent` var
+*"1 af 2nejProducenten oplyser…"* — figur, tilstand og sætning løb sammen til ét
+ord for en skærmlæser, fordi adskillelsen kun var `gap` (layout, ikke tekst).
+Fejlen var **ældre end mit spor** (*"0 af 2robotter i kataloget…"*), men mit
+tredje element gjorde den værre. Jeg tilføjede to mellemrum. `.eu-fund-linje` er
+`display:flex`, så et whitespace-tekstnode ikke bliver et flex-element —
+**efterprøvet frem for antaget: geometrien er bit for bit identisk** (alle fire
+kasser, samme x/y/w/h før og efter).
+
 ## Konfidens pr. punkt
 
 | Punkt | Konfidens | Bevis |
@@ -96,6 +106,22 @@ filer aendret vs merge-base: 4 (producent.mjs, 76-produkort.mjs, ANALYSE, BRIEF)
    skulle skrives nye. Det fjernede en hel kollisionsrisiko.
 5. **DESIGN.md kan føre en levende komponent som slettet** (analysens F1). Det
    er en fejltype, ingen test fanger, fordi filen ikke er kode.
+6. **Jeg begik selv den fælde, DESIGN.md underviser i.** Jeg roste fokusringen
+   som en styrke, fordi jeg målte at den ER der — uden at måle den **mod** sin
+   flade. Assessment B målte **1,38:1**. *Et kontrasttal uden en læseretning er
+   ikke et tal* — begået i den sætning, der roste efterlevelsen af L76.
+   Rettelsen står som et synligt RETTELSE-citat i analysen, ikke som en stille
+   omskrivning.
+7. **`getBoundingClientRect()` undertæller et link med dækkende `::after` med
+   faktor 30** (B's måling: 13,9×24,8 px på papiret, 266,6×267,6 i
+   virkeligheden). Det mønster er DESIGN.md:487's egen konstruktion, så det
+   rammer enhver, der auditerer katalogkortene. Hit-test med `elementFromPoint`
+   er den eneste ærlige måling. **Det er grunden til, at mit råtal "25 links
+   under 44px" aldrig blev et fund.**
+8. **`documentElement.scrollWidth == clientWidth` beviser ikke, at intet er
+   skjult.** En `overflow:auto`-beholder skjuler 277px uden at røre det tal —
+   og det er præcis derfor, planens *"0 vandret overløb"* er sand og alligevel
+   misser fejlen: den blev målt ét lag for højt.
 
 ## Punkter i briefet, jeg ikke nåede
 
@@ -105,6 +131,16 @@ filer aendret vs merge-base: 4 (producent.mjs, 76-produkort.mjs, ANALYSE, BRIEF)
   jeg kan ikke udelukke, at test 76 kolliderer med suitens fælles kørsel.
   **Orkestratoren skal køre suiten før flet.** Det, jeg kunne måle uden den, står
   ovenfor: 76 isoleret 8/0, revert-bevis 7 fejl, og 09's 4c replikeret.
-- **Kun 1440 px og 390 px er målt af mig selv**; 768 px lå hos Assessment B.
+- **Assessment A kaldte ikke selv `impeccable critique`**, hverken som skill
+  eller fra disk, men fulgte briefets ni-punkts-form. Strukturen (to isolerede
+  underagenter) er intakt; *metoden* i A's kontekst er delvist degraderet, og
+  det står i analysens afsnit 7.
+- **Ingen af de fem flader viser `v-tal`, `v-nul` eller `v-billede`** — tre af
+  de seks tilstandsklasser er ikke afprøvet på producentfladen overhovedet (B).
+- **Ingen af os trykkede faktisk Tab og SÅ ringen tegnet.** F6's 1,38:1 er
+  regnet på de faktiske tokens, og tab-ordenen er målt geometrisk. Den delte
+  browser gjorde en interaktiv sekvens upålidelig.
+- **B's sidevægt-tal er lave i konfidens** (dens iframes lå off-screen, så
+  `loading="lazy"` aldrig fyrede; billedtallene er lagt til fra disken).
 - Jeg har ikke efterprøvet, om `.eu-fund-linje`s gentagelse påvirker
   producentindekset — den flade bruger ikke komponenten.
