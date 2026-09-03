@@ -429,5 +429,9 @@
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
   "kurs_kilde": "Rate: {udgiver}, {navn}, {dato}.",
 
-  "prod_antal": "Count"
+  "prod_antal": "Count",
+
+  "_sidefod": "spor/sidefod (3 Sep 2026, JPK: \"Hele siden mangler en sidefod\" · \"sidefoden skal gå igen på alle sider\"). The footer lives in skal() in tools/skabelon/side.mjs and therefore applies to ALL built pages. It carries ONLY sentences already decided elsewhere: ingen_forhandler (hard constraint 1) and om_ikke_spor (About us) are reused VERBATIM and have no copy here. The two keys below are the footer's own. fod_udgiver is RESTORED — it was called udgiver and was deleted with the old footer in a6c8681; PRODUCT.md binds it: \"KeyResearch står som udgiver i footer og på Om-siden\". Never write a figure, an address or a phone number here: the publisher's contact details live in one place, on About us.",
+  "fod_kildeloefte": "Every figure in the catalogue has a source and a retrieval date. If the manufacturer does not state it, the field becomes not stated — it never becomes an estimate.",
+  "fod_udgiver": "Published by KeyResearch"
 }

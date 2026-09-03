@@ -1991,7 +1991,13 @@ export const hjaelp = new Proxy({}, {
  * fortsat ikke bygget og staar fortsat ikke i menuen; den vokser til syv den
  * dag de findes - rullesporet baerer dem allerede.
  *
- * SIDEFODEN ER FJERNET HELT (BRIEF-uifix.md punkt 7, spor/uifix, 2. sep
+ * HISTORIK, IKKE GAELDENDE TILSTAND: afsnittet nedenfor beskriver dagen, foden
+ * blev fjernet. spor/sidefod byggede den igen 3. sep 2026 paa JPK's ord - se
+ * den lange kommentar ved `const fod` nede i skal(). Afsnittet staar uaendret,
+ * fordi det baerer HVAD DER GIK TABT (tre i18n-noegler, taethedsforklaringen),
+ * og fordi to af de tre tab bestaar: kun `udgiver` er genskabt.
+ *
+ * SIDEFODEN BLEV FJERNET HELT (BRIEF-uifix.md punkt 7, spor/uifix, 2. sep
  * 2026) - ikke kun forhandlerlinjen, JPK's ord i interview med tabet
  * forelagt. Her stod indtil samme dag: "Sprogskifteren gaar IKKE tabt:
  * topbaren (.daek__sprog, 'DA / EN') havde den allerede, efterproevet foer
@@ -2112,6 +2118,77 @@ export function skal({
      krydset = imperial, ukrydset = metrisk. To laeste ord i étikettens navn
      ville derimod vaere tvetydigt for en skaermlaeser. */
 
+  /* SIDEFODEN ER BYGGET IGEN (spor/sidefod, 3. sep 2026). JPK pegede paa et
+     skaermbillede af katalogsidens "How to read the figures", hvor siden bare
+     holder op, og sagde ordret: "Faa lavet en afslutning paa skaermbilledet"
+     - uddybet til "Hele siden mangler en sidefod" og "sidefoden skal gaa igen
+     paa alle sider". Det sidste er grunden til, at den staar HER i skallen og
+     ikke i en enkelt sides skabelon: skal() betjener alle 216 byggede sider.
+
+     DEN OMGOER GAARSDAGENS BESLUTNING, og det er JPK's egen omgoerelse, ikke
+     en forglemmelse. Kommentaren ovenfor (BRIEF-uifix.md punkt 7, a6c8681 /
+     8ab82f6, 2. sep 2026) staar uaendret som historik - laes den foerst.
+     MAALT paa main foer dette spor: `grep -rl "<footer" dist` gav 0 af 216.
+
+     TRE AF FIRE SAETNINGER ER GENBRUG, IKKE NY TEKST. Det er ikke sparsomhed;
+     det er haard begraensning 2 anvendt paa en fod. En sidefod er praecis det
+     sted, hvor "(c) 2026", en opdigtet adresse og et socialt ikon plejer at
+     snige sig ind:
+       1. T.ingen_forhandler  - HAARD BEGRAENSNING 1, ordret den samme noegle,
+          Om os bruger paa om-os.mjs:300. Én sandhed, ét sted.
+       2. fod_kildeloefte     - NY noegle, fodens eneste. Den gentager
+          om_metode_2_broed's egen ordlyd ("Staar tallet ikke hos producenten,
+          bliver feltet ikke oplyst. Det bliver aldrig et skoen") uden dens
+          {felter}-pladsholder. Paastanden er maalt, ikke skoennet: bygget
+          udskriver "1111 tal med kilde, 0 uden".
+       3. t('om_ikke_spor')   - JPK's "Ingen tredjepartskald. Ingen cookies."
+          FINDES ALLEREDE som en faerdig saetning paa Om os. Briefet (og AA54)
+          troede, den stod i en gammel fod; den har ALDRIG staaet i en bygget
+          side - den er en CSS-KOMMENTAR i system.css:16, og assets/*.css
+          kopieres raat til dist/, saa den taeller med i ethvert grep.
+       4. fod_udgiver         - GENSKABT noegle. Den hed `udgiver` og blev
+          slettet med den gamle fod; PRODUCT.md binder den: "KeyResearch staar
+          som udgiver i footer og paa Om-siden".
+
+     INGEN SPROGSKIFTER, og det er et bevidst fravalg imod briefets oenske.
+     Briefet bad om "sprogskifte med hreflang-parret" i foden. JPK fjernede
+     den synlige DA/EN-knap 2. sep 2026 ("Desuden skal DA/ENG knappen vaek")
+     med prisen forelagt i en popup, og kommentaren ovenfor siger "REJS DEN
+     IKKE IGEN". L82 goer desuden siden engelsk alene i fase 4. En fod, der
+     satte knappen tilbage, ville omgoere en beslutning tavst. Det MASKIN-
+     laesbare skift er uroert: `alternativer` skriver stadig <link
+     rel="alternate" hreflang> for begge sprog plus x-default i <head>.
+
+     UDGAVESTEMPLET ER IKKE FLYTTET HERIND. "Udgave 2026-08-26" (katalog.mjs:
+     873, sammenligning.mjs:436) er den seneste hentedato paa tvaers af alle
+     robotter og regnes ud af robotdataen - som skal() ikke faar. At flytte
+     det hertil ville kraeve en ny parameter gennem build.mjs paa alle 216
+     sider. Det er en beslutning, ikke en rettelse; den er forelagt JPK i
+     fund/FUND-sidefod.md og IKKE udfoert.
+
+     LANDMAERKET: ét <footer> pr. side, direkte barn af <body>, saa det bliver
+     `contentinfo` uden en eneste ARIA-attribut. Ingen aria-label - der er kun
+     ét, og et navn paa et enestaaende landmaerke er stoej for en skaermlaeser.
+
+     KONTAKTOPLYSNINGER STAAR IKKE HER. Adresse, telefon og e-post findes ét
+     sted (om-os.mjs:93-95). En fod, der gentog dem paa 216 sider, ville skabe
+     praecis den dublet, om-os.mjs' eget filhoved advarer imod: "to kopier i to
+     filer kan uden videre oplyse hvert sit telefonnummer". Foden LINKER i
+     stedet til Om os, med t('om_etiket') som linkets tekst. */
+  const fod = `<footer class="sidefod">
+<div class="rum sidefod__ramme">
+<p class="sidefod__haard">${esc(T.ingen_forhandler)}</p>
+<div class="sidefod__loefter">
+<p class="sidefod__broed">${esc(t('fod_kildeloefte'))}</p>
+<p class="sidefod__broed">${esc(t('om_ikke_spor'))}</p>
+</div>
+<p class="sidefod__mark">
+<span class="sidefod__udgiver">${esc(t('fod_udgiver'))}</span>
+<a class="sidefod__link" href="${attr(`${op}${sprogkode}/om/`)}">${esc(t('om_etiket'))}</a>
+</p>
+</div>
+</footer>`;
+
   // Kontrakten siger "HTML-streng for <main>". De to laesninger - indholdet AF
   // main, og main-elementet selv - findes begge i praksis (robot.mjs og
   // producent.mjs skriver elementet med). To indlejrede <main> med samme
@@ -2151,6 +2228,7 @@ ${nav.map(([href, tekst]) => `<li><a href="${attr(op + sprogkode + '/' + href)}"
 </div>
 </header>
 ${kropp}
+${fod}
 ${script ? `<script src="${op}${attr(script === true ? 'katalog.js' : script)}" defer></script>` : ''}
 </body>
 </html>
