@@ -104,12 +104,17 @@ export default async function koer(ctx) {
     !forsideHTML.includes('billednote'));
   ok('5: teksten om manglende skriftlig tilladelse er vaek fra kataloget',
     !katalogHTML.includes('uden skriftlig tilladelse'));
-  // OMVENDT af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7): sidefoden,
-  // som baar forhandler-fodnoten, er fjernet HELT (JPK, i interview, med
-  // tabet forelagt). Fodnotens EGEN tekst lever videre paa Om os
-  // (om-os.mjs:300, en linje uden for foden, uroert af punkt 7) - men den
-  // staar ikke laengere paa katalogsiden/forsiden, som denne assertion
-  // maalte. Se fund/FUND-uifix.md for konfidens/maaling.
-  ok('5.revert: forhandler-fodnoten er IKKE laengere paa forsiden (foden er fjernet)',
-    !forsideHTML.includes('Vi er ikke forhandler'));
+  // VENDT (spor/fodtest, 3. sep 2026): JPK omgjorde samme dag sin egen
+  // uifix-beslutning og genindsatte sidefoden (spor/sidefod). Forbeholdet er
+  // derfor TILBAGE paa forsiden - baaret af foden, ikke af <main>. Fodnotens
+  // tekst staar desuden fortsat paa Om os (om-os.mjs:300, uroert), saa dette
+  // beviser specifikt at FODEN baerer den paa forsiden, ikke blot at teksten
+  // findes et sted paa sitet.
+  ok('5.vendt: forhandler-fodnoten ER TILBAGE paa forsiden (foden findes)',
+    forsideHTML.includes('Vi er ikke forhandler'));
+  // REVERT-BEVIS: en side uden fodens tekst maa IKKE bestaa proeven - viser
+  // at assertionen rent faktisk kraever teksten, og ikke bare altid er sand.
+  const udenFodForside = '<main id="hoved"><h1>x</h1></main>';
+  ok('5.vendt.revert: proeven FANGER en side uden forbeholdet (fjernes foden igen, falder testen)',
+    !udenFodForside.includes('Vi er ikke forhandler'));
 }
