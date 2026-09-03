@@ -1,0 +1,266 @@
+[
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat_wording": "7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 7, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "width"
+    },
+    "saet": {
+      "caveat_wording": "7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 7, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "height"
+    },
+    "saet": {
+      "caveat_wording": "7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 7, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat_wording": "8、本体重量：15kg±0.5kg，本体材质：铝合金；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 8, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "degrees_of_freedom"
+    },
+    "saet": {
+      "caveat_wording": "10、采用双绝对式直流无刷伺服电机，峰值扭矩48Nm，采用一体化设计，可断电位置记忆，支持CAN总线通讯方式，具备全局力控能力；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 10, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "payload_standing"
+    },
+    "saet": {
+      "caveat_wording": "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 2, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat_wording": "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 2, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "speed"
+    },
+    "saet": {
+      "caveat_wording": "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 2, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "stair_step_continuous"
+    },
+    "saet": {
+      "caveat_wording": "2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 2, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2251,
+      "field_name": "runtime"
+    },
+    "saet": {
+      "caveat_wording": "4、续航：电池采用高放电倍率电芯锂电池，电池容量6.4Ah，续航不低于1.5小时；"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra e-Dog-beskrivelsen, punkt 4, media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2252,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat_wording": "重量：约5.6kg±0.5kg(整机，含电池）"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y10, taeller-raekke 3 (重量), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2252,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat_wording": "持续行走负载：>3Kg"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y10, taeller-raekke 8 (持续行走负载), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2252,
+      "field_name": "speed"
+    },
+    "saet": {
+      "caveat_wording": "奔跑速度：1.4m/s空载下"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y10, taeller-raekke 9 (奔跑速度), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat_wording": "行走负载：最大80kg"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 7 (行走负载), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "stair_step_continuous"
+    },
+    "saet": {
+      "caveat_wording": "攀爬台阶高度：最大30cm"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 12 (攀爬台阶高度), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "temperature_min"
+    },
+    "saet": {
+      "caveat_wording": "工作环境温度：零下25℃~零上50℃"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 14 (工作环境温度), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "height"
+    },
+    "saet": {
+      "caveat_wording": "折叠尺寸：约930mm×450mm×370mm"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 2 (折叠尺寸), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "payload_standing"
+    },
+    "saet": {
+      "caveat_wording": "站立负载：最大150kg"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 6 (站立负载), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "speed"
+    },
+    "saet": {
+      "caveat_wording": "奔跑速度：最大4m/s"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 8 (奔跑速度), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "slope"
+    },
+    "saet": {
+      "caveat_wording": "攀爬斜坡角度：最大40°"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 13 (攀爬斜坡角度), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "battery_wh"
+    },
+    "saet": {
+      "caveat_wording": "电池容量：25Ah"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 4 (电池容量), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "runtime"
+    },
+    "saet": {
+      "caveat_wording": "续航：空载持续行走＞5h,有效负载作业＞2.5h，具备低电量报警功能"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 5 (续航), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "charging_time"
+    },
+    "saet": {
+      "caveat_wording": "选配：（1）传感器:3D 激光雷达x1+ 深度相机x1等( 可搭载不同传感器，不同配置有所差异) （2）充电桩:可实现自主充电，一键回充功能;充满电时间≤3h"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 16 (选配), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2253,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat_wording": "选配：（1）传感器:3D 激光雷达x1+ 深度相机x1等( 可搭载不同传感器，不同配置有所差异) （2）充电桩:可实现自主充电，一键回充功能;充满电时间≤3h"
+    },
+    "change_reason": "spor/f2weilan: kildeordlyd paa kinesisk fra fanen Y20, taeller-raekke 16 (选配), media/_kilder/raa-kina-weilan-xiaomi-2026-08-19/yobotics-katalog-firbenede-2026-08-19.html"
+  }
+]
