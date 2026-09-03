@@ -677,6 +677,36 @@
 .saml-raekke--tavs .saml-raekke__navn{
   border-left:2px dashed var(--hegn);padding-left:calc(var(--r3) - 2px)}
 
+/* RAEKKEMARKERING VED SVAEV OG FOKUS (K2 punkt 1, valgt til af JPK 3. sep
+   2026). Opgaven paa denne flade er ikke at se, HVOR en raekke slutter -
+   det baerer haarstregen og 43,7 px raekkehoejde. Det er at HOLDE FAST i
+   raekke 17, mens blikket flytter 1.336,8 px til hoejre.
+
+   Fladen er --accent-ro, sidens allerede etablerede svaeveflade (samme polet
+   som `.filtre label:hover` i system.css). Ingen ny farve. Den maaler kun
+   1,16:1 mod --panel og maa derfor ikke staa alene: makkeren er feltnavnet,
+   der gaar fra --blaek2 til --blaek. En FARVEaendring, ikke en vaegtaendring -
+   vaegt ville aendre ordets bredde, og den regning har topbaren betalt én
+   gang i forvejen.
+
+   Baggrunden saettes paa CELLERNE og ikke paa <tr>: raekkehovedet er sticky
+   med sin egen background:var(--panel), som ellers ville daekke raekkens.
+
+   @media (hover:hover) paa svaevet, saa en touch-enhed ikke saetter sig fast
+   i en markeret raekke. Fokusgrenen staar UDEN for medieforespoergslen -
+   tastatur er ikke betinget af en mus. Den forudsaetter tabindex="0" paa
+   raekkehovedet, sat i assets/sammenligning.js: uden den findes der nul
+   fokusbare elementer i en datataekke, og :focus-within kan aldrig fyre.
+   Selve fokusRINGEN er sidens globale :focus-visible (3px --accent) - tonen
+   paa 1,16:1 er en markering, ikke en fokusindikator, og maa ikke bruges
+   som en. */
+@media (hover:hover){
+  .saml-raekke:hover > *{background:var(--accent-ro)}
+  .saml-raekke:hover .saml-raekke__ord{color:var(--blaek)}
+}
+.saml-raekke:focus-within > *{background:var(--accent-ro)}
+.saml-raekke:focus-within .saml-raekke__ord{color:var(--blaek)}
+
 /* --- 8b-III. MATRICENS FOD OG VAELGEREN ---------------------------------- */
 
 .saml-fod{margin-top:var(--r4)}

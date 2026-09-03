@@ -532,8 +532,17 @@
         // er ikke skjult, det er blot holdt op med at konkurrere med de
         // raekker, der baerer tal. Det er tavsheden selv, der er fundet.
         var tavsRaekke = svar.svarer === 0 ? ' saml-raekke--tavs' : '';
+        // tabindex="0" paa RAEKKEHOVEDET, tilfoejet 3. sep 2026 sammen med
+        // raekkemarkeringen (JPK: markering ved svaev OG fokus). Uden den kan
+        // .saml-raekke:focus-within aldrig fyre: MAALT paa den byggede side
+        // findes der NUL fokusbare elementer inde i de 33 datataekker - de
+        // eneste tre i hele matricen er FJERN-knapperne oppe i pladehovedet.
+        // En markering, der kun kan naas med mus, loeser ikke Operate-opgaven
+        // "hold fast i raekke 17, mens blikket flytter 1.336,8 px til hoejre".
+        // Prisen er 33 nye tabulatorstop; feltnavnet er det, der laeses op,
+        // og det er ogsaa det, man vil staa paa.
         return '<tr class="saml-raekke' + tavsRaekke + '" role="row">'
-          + '<th scope="row" role="rowheader" class="saml-raekke__navn">'
+          + '<th scope="row" role="rowheader" tabindex="0" class="saml-raekke__navn">'
           + '<span class="saml-raekke__ord">' + esc(DATA.feltNavne[feltNavn]) + '</span>'
           + svar.html + '</th>' + celler + '</tr>';
       }).join('');
