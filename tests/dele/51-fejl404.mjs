@@ -105,17 +105,20 @@ export default async function koer(ctx) {
        rev hreflang ud af <head> sammen med knappen. */
     ok(`51.2.${s}: <link rel="alternate" hreflang> staar stadig i <head> (maskinlaesbart skift)`,
       (sider[s].match(/<link rel="alternate" hreflang="[^"]*"/g) || []).length >= 2);
-    // OMVENDT af spor/uifix, 2. sep 2026 (BRIEF-uifix.md punkt 7): fodens
-    // haarde linje stod her, fordi fodens ingen_forhandler-linje foer stod
-    // paa HVER side. Foden er fjernet HELT (JPK, i interview, med tabet
-    // forelagt) - linjen findes nu KUN paa Om os (om-os.mjs:300, uden for
-    // foden), ikke paa 404-siden. T.andet_sprog ("In English"/"På dansk")
-    // var UDELUKKENDE fodens egen sprogskifte-tekst og er fjernet fra
-    // da.json/en.json. Sprogskiftet blev indtil 2. sep 2026 proevet ovenfor
-    // via topbarens "daek__sprogkode"; efter spor/topbar er det hreflang-
-    // linjen, der baerer proeven.
-    ok(`51.2.${s}: fodens haarde linje ("ingen_forhandler") staar IKKE paa 404-siden (foden er vaek)`,
-      !sider[s].includes(T.ingen_forhandler));
+    // VENDT TILBAGE (spor/fodtest, 3. sep 2026): JPK omgjorde samme dag sin
+    // egen uifix-beslutning (2. sep) og genindsatte sidefoden (spor/sidefod).
+    // De sprogSPECIFIKKE 404-sider (dist/da/404.html, dist/en/404.html) har
+    // foden - kun de to sprogNEUTRALE rodsider (dist/index.html,
+    // dist/404.html) er uden, fordi renderRod() ikke kan bruge skal()
+    // (kraever et sprog). `sider[s]` her er netop de sprogspecifikke, saa
+    // fodens haarde linje skal staa PAA siden igen.
+    ok(`51.2.${s}: fodens haarde linje ("ingen_forhandler") staar PAA 404-siden (foden er tilbage)`,
+      sider[s].includes(T.ingen_forhandler));
+    // REVERT-BEVIS: en side uden linjen (foden fjernet igen) maa IKKE
+    // bestaa den nye proeve.
+    const udenFod404 = '<main id="hoved"><h1>404</h1></main>';
+    ok(`51.2.${s}.revert: proeven FANGER en 404-side uden fodens linje (fjernes foden igen, falder testen)`,
+      !udenFod404.includes(T.ingen_forhandler));
   }
   // REVERT-BEVIS: en side UDEN chrome (kun <main>, ingen <header>/<footer>)
   // skal fejle NOEJAGTIG samme fire regler. Beviser, at 51.2-reglerne rent
