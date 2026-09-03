@@ -151,9 +151,11 @@ over 53**.
 
 **Briefets mekanisme holder ikke i den tilstand, JPK ser. Målt strækning: 1 px af 109.**
 
-Alle ni facetter er **109 px** ved både 1440 og 1700 (identisk — indholdet er bredde-
-låst, så JPK's ~1.700 px-skærmbillede viser samme layout som 1440). Hver facets
-**naturlige** højde er 108 px. Grid-strækningen forklarer altså **1 px**.
+**Syv** af de ni facetter er 109 px, **de to nederste 108 px** — forskellen er præcis den
+`border-bottom`, som `facet--sidste-raekke` fjerner på sidste række. Den **naturlige**
+højde er 108 px i alle ni. Grid-strækningen forklarer altså **0 px**; de 109 er 108 plus
+en ramme. Tallene er identiske ved 1440 og 1700, fordi indholdet er breddelåst — JPK's
+~1.700 px-skærmbillede viser samme layout som 1440.
 
 **Hvorfor hypotesen var rimelig og alligevel forkert:** strækningen er ægte — men kun når
 en facet er **åben**. Målt: åbnes én facet, bliver den 389,5 px, og begge rækkefæller
@@ -169,8 +171,8 @@ strække efter.
 | `summary` min-højde | **44** | `summary.facet__navn{min-height:44px}` `system.css:2219` |
 | `margin-bottom` under titlen | 16 | `.facet__navn{margin:0 0 var(--r4)}` `generator.css:1305` |
 | `padding-bottom` | 24 | samme regel som top |
-| ramme | 1 | `border-bottom` |
-| **i alt** | **109** | tekstens egen højde inde i summary: **17 px** |
+| ramme | 1 | `border-bottom` — **fraværende** på de to nederste (`facet--sidste-raekke`) |
+| **i alt** | **109** (108 nederst) | tekstens egen højde inde i summary: **17 px** |
 
 **Titel-til-titel er 109 px. Tom luft mellem to filtertekster: 65 px.** Det er JPK's
 observation, målt.
