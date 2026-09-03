@@ -2456,10 +2456,36 @@ summary.facet__navn > .facet__tal{
 /* Samme faelde som §2/§4's andre skjulte elementer: en forfatterregel med
    `display:flex` slaar altid UA-arkets `[hidden]{display:none}`. */
 .klaebebar[hidden]{display:none}
-.klaebebar__navne{
-  margin:0;flex:1 1 auto;min-width:0;
-  font-size:14px;font-weight:600;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+/* UDVALGET SOM LISTE (spor/bundbar, 4. sep 2026, punkt 1). Her stod
+   `.klaebebar__navne` - ét afsnit med `navne.join(' · ')`,
+   `text-overflow:ellipsis` og `flex:1 1 auto`, altsaa en tekst der strakte
+   sig ud over hele bjaelkens bredde og efterlod 775-1.008 px doedt hul hen
+   til handlingerne. Nu er hvert navn sit eget led med sin egen Fjern-knap,
+   og listen fylder praecis sit indhold.
+
+   SKRIFTGRADEN ER UAENDRET: 14px/600, og 13px under 460px. DESIGN.md's
+   DP3b (4. sep 2026) gav netop de to vaerdier hjemmel - "det, der
+   manglede, var ikke en anden vaerdi, men hjemmel til den" - og
+   acceptkriteriet dér er, at denne omskrivning kan ske UDEN at én
+   font-size aendrer sig. Der er ikke aendret én. */
+.klaebebar__valg{
+  list-style:none;margin:0;padding:0;min-width:0;
+  display:flex;align-items:center;gap:var(--r3);
+}
+.klaebebar__valg li{
+  display:flex;align-items:center;gap:var(--r1);
+  white-space:nowrap;
+}
+.klaebebar__navn{font-size:14px;font-weight:600}
+/* BEROERINGSMAALET BLIVER STOERRE, MENS BJAELKEN BLIVER MINDRE.
+   `.knap--tekst-moerk` saetter `min-height:0;padding:0` - bjaelkens to
+   handlinger er derfor 13,2 px hoeje i dag og klarer kun WCAG 2.5.8 via
+   afstandsundtagelsen. Fjern-knappen faar sin egen kasse og opfylder
+   24x24 direkte. Reglen staar EFTER primitiven i kaskaden (1783) med
+   samme specificitet, saa den vinder uden !important. */
+.klaebebar__fjern{
+  flex:none;
+  padding:6px 8px;min-height:24px;
 }
 /* BJAELKENS TO HANDLINGER er knapprimitivens TEKST-vaegt paa MOERK flade:
    `knap knap--tekst-moerk knap--frem` paa gaa-linket og `knap
@@ -2475,13 +2501,17 @@ summary.facet__navn > .facet__tal{
    ikke til --blaek "for konsistensens skyld": det ville give 1,00 : 1.
 
    TILBAGE STAAR KUN `flex:none`, som er LAYOUT i en flexbox og ikke noget,
-   en knap baerer i sig - bjaelken er `display:flex`, og uden den ville de to
-   handlinger blive klemt af navnelisten, der har `flex:1 1 auto`. */
+   en knap baerer i sig - bjaelken er `display:flex`, og uden den kunne de
+   to handlinger blive klemt eller strakt af listen ved siden af. (Her stod
+   "af navnelisten, der har flex:1 1 auto" indtil 4. sep 2026; den
+   voksende navnetekst er vaek, men de to handlinger skal stadig maale sig
+   selv og ikke deles om resten.) */
 .klaebebar__gaa,.klaebebar__ryd{flex:none}
 /* Fokusringen er accent og tegnes UDAD med 2px i stedet for sidens globale
    3px: bjaelken er kun ~44 px hoej, og en 3px ring med 3px offset ville
    skaere ud over dens kant. */
-.klaebebar__gaa:focus-visible,.klaebebar__ryd:focus-visible{
+.klaebebar__gaa:focus-visible,.klaebebar__ryd:focus-visible,
+.klaebebar__fjern:focus-visible{
   outline:2px solid var(--ring);outline-offset:2px;
 }
 /* Bjaelken daekker IKKE sidefoden - naar laeseren naar bunden af siden, skal
@@ -2490,7 +2520,7 @@ summary.facet__navn > .facet__tal{
    udvalget er ikke-tomt, og :target-hop paa denne side gaar til facetter,
    ikke til sidefoden. */
 @media (max-width:460px){
-  .klaebebar__navne{font-size:13px}
+  .klaebebar__navn{font-size:13px}
 }
 
 /* --- sammenligningens vaelger (spor/samlvaelg, FJERNET spor/doedcss 1. sep

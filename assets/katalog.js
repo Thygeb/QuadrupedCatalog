@@ -95,6 +95,18 @@
        saette det - flere sprog kan ikke boeje uden om det. */
     var samlSkabelon = samlTaeller ? samlTaeller.getAttribute('data-saml-skabelon') : '';
     var samlMaksTekst = samlTaeller ? samlTaeller.getAttribute('data-saml-maks-tekst') : '';
+    /* FJERN-KNAPPENS TO STRENGE (spor/bundbar, 4. sep 2026, punkt 1) kommer
+       ind ad SAMME doer som de to ovenfor. `__kort` er det synlige ord
+       ("Fjern" / "Remove"), `__navn` er skaermlaeserens fulde saetning med
+       pladsholderen {navn}, som fyldes ved koersel.
+
+       INGEN NY I18N-NOEGLE: saml_fjern_kort og saml_fjern_navn stod i
+       forvejen i begge sprogfiler, men KUN sammenligningssiden laeste dem
+       (maalt foer sporet: grep "saml_fjern" i tools/ ramte alene
+       skabelon/sammenligning.mjs). Skabelonen skriver dem nu ogsaa til
+       .saml-taeller, saa katalogsidens bjaelke kan naa dem herfra. */
+    var samlFjernKort = samlTaeller ? samlTaeller.getAttribute('data-saml-fjern-kort') : '';
+    var samlFjernNavn = samlTaeller ? samlTaeller.getAttribute('data-saml-fjern-navn') : '';
 
     /* ====================================================================
        KLAEBEBAR: en persistent bjaelke i bunden af skaermen (JPK 1. sep
@@ -126,7 +138,7 @@
        allerede skrev til `.saml-taeller__gaa`. */
     var samlNavne = {};
     var klaebebar = null;
-    var klaebebarNavne = null;
+    var klaebebarValg = null;
     var klaebebarGaa = null;
     var klaebebarGaaHref = '';
 
@@ -148,8 +160,22 @@
       klaebebar.setAttribute('role', 'region');
       klaebebar.setAttribute('aria-label', samlTaeller.getAttribute('data-klaebebar-etiket') || '');
 
-      klaebebarNavne = document.createElement('p');
-      klaebebarNavne.className = 'klaebebar__navne';
+      /* EN LISTE, IKKE EN SAETNING (spor/bundbar punkt 1, planens D2).
+         Her stod ét <p class="klaebebar__navne"> med navne.join(' · ').
+         Den kunne kun fjernes HELT: laeseren maatte finde robottens kort
+         igen blandt 77 i et 6.603 px hoejt dokument for at fortryde ét
+         valg. Nu er hvert navn sit eget <li> med sin egen Fjern-knap
+         umiddelbart efter sig - tre knapper, der alle hedder "Fjern",
+         skelnes af det navn, de staar ved siden af.
+
+         `aria-live="polite"` fordi listen aendrer sig UDEN at fokus
+         flytter sig et sted, der siger hvorfor: forsvinder et led, skal
+         skaermlaeseren hoere den nye liste. KUN NAVNENE laeses op - ingen
+         optaelling, intet "2 af 3" (haard begraensning 1 gaelder ogsaa i
+         lyd, ikke kun paa skaermen). */
+      klaebebarValg = document.createElement('ul');
+      klaebebarValg.className = 'klaebebar__valg';
+      klaebebarValg.setAttribute('aria-live', 'polite');
 
       klaebebarGaa = document.createElement('a');
       // L77: knapprimitiven i TEKST-vaegten paa MOERK flade (.klaebebar staar
@@ -180,7 +206,7 @@
         tegnSaml();
       });
 
-      klaebebar.appendChild(klaebebarNavne);
+      klaebebar.appendChild(klaebebarValg);
       klaebebar.appendChild(klaebebarGaa);
       klaebebar.appendChild(klaebebarRyd);
       document.body.appendChild(klaebebar);
@@ -205,6 +231,70 @@
     }
     function skrivUdvalg(a) {
       try { window.localStorage.setItem(SAML_NOEGLE, JSON.stringify(a)); } catch (e) { /* tavs */ }
+    }
+
+    /* ÉT LED I BJAELKENS LISTE: navnet plus dets egen Fjern-knap.
+       (spor/bundbar punkt 1, planens D2 - moensteret er sammenlignings-
+       sidens, godkendt af JPK 2. sep 2026, ikke et nyt paafund:
+       assets/sammenligning.js:356-359 bygger den samme knap med de samme
+       to i18n-noegler.)
+
+       ORDET "Fjern", IKKE ET KRYDS - JPK's beslutning J4, 3. sep 2026.
+       Tre knapper med samme navn skelnes af navnet ved siden af, og et ord
+       kraever ingen tolkning. (Fundet bag spoergsmaalet staar i
+       fund/FUND-bundbar.md: CSS-kommentaren over .klaebebar forbyder
+       "symboler af nogen art", og kortets eget stempel bryder allerede den
+       regel med content:"+" og "\00d7". Det er en modstrid mellem en
+       kommentar og koden - den noteres, den rettes ikke her.)
+
+       TO SPAN, IKKE ÉT: det synlige ord er aria-hidden, og skaermlaeseren
+       faar i stedet den fulde saetning "Fjern <navn> fra sammenligningen".
+       Uden det hoerer hun "Fjern, Fjern, Fjern". */
+    function byggValgLed(slug) {
+      var navn = samlNavne[slug] || slug;
+      var led = document.createElement('li');
+
+      var navnEl2 = document.createElement('span');
+      navnEl2.className = 'klaebebar__navn';
+      navnEl2.textContent = navn;
+
+      var fjern = document.createElement('button');
+      fjern.type = 'button';
+      // classList.add med hver klasse som sin EGEN streng: tests/dele/57's
+      // doede-klasse-detektor kraever et citationstegn umiddelbart foer
+      // klassenavnet, og disse klasser findes KUN her (bjaelken staar
+      // aldrig i dist/). Samme grund som ved __gaa ovenfor.
+      fjern.classList.add('klaebebar__fjern', 'knap', 'knap--tekst-moerk');
+      fjern.setAttribute('data-saml-fjern', slug);
+
+      var synligt = document.createElement('span');
+      synligt.setAttribute('aria-hidden', 'true');
+      synligt.textContent = samlFjernKort;
+
+      var forSkaermlaeser = document.createElement('span');
+      forSkaermlaeser.className = 'kunskaerm';
+      forSkaermlaeser.textContent = (samlFjernNavn || '').replace('{navn}', navn);
+
+      fjern.appendChild(synligt);
+      fjern.appendChild(forSkaermlaeser);
+      fjern.addEventListener('click', function () { fjernValg(slug); });
+
+      led.appendChild(navnEl2);
+      led.appendChild(fjern);
+      return led;
+    }
+
+    /* Fjern ÉT slug fra udvalget. Samme tre linjer som ryd-knappen, men paa
+       ét led i stedet for alle - og graensebeskeden ryddes, fordi den kun
+       gav mening, saa laenge udvalget VAR fuldt. */
+    function fjernValg(slug) {
+      var valgt = laesUdvalg();
+      var p2 = valgt.indexOf(slug);
+      if (p2 < 0) return;
+      valgt.splice(p2, 1);
+      skrivUdvalg(valgt);
+      sigGraense('');
+      tegnSaml();
     }
 
     function sigGraense(tekst) {
@@ -260,12 +350,15 @@
       }
       if (klaebebar) {
         if (valgt.length) {
-          var navne = [];
-          for (var vn = 0; vn < valgt.length; vn++) navne.push(samlNavne[valgt[vn]] || valgt[vn]);
-          // " · " er samme skilletegn, resten af siden bruger til korte
-          // opremsninger (fx kursparrene i katalog.mjs) - ikke et komma,
-          // som robotnavne med egne kommaer kunne blande sammen med.
-          klaebebarNavne.textContent = navne.join(' · ');
+          /* Listen bygges FORFRA hver gang. Alternativet - at pille det ene
+             <li> ud og lade resten staa - ville spare et par DOM-kald og
+             koste den ene ting, der er svaer at faa rigtig: raekkefoelgen i
+             listen SKAL vaere raekkefoelgen i `valgt`, ogsaa efter at et led
+             i midten er vaek. Tre led er ikke en ydelsesgrund til noget. */
+          klaebebarValg.textContent = '';
+          for (var vn = 0; vn < valgt.length; vn++) {
+            klaebebarValg.appendChild(byggValgLed(valgt[vn]));
+          }
           klaebebarGaa.setAttribute('href', klaebebarGaaHref || '#');
           klaebebar.removeAttribute('hidden');
         } else {
