@@ -1612,6 +1612,20 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .udtraek .facet__navn,
 .udtraek .skala__ord,
 .udtraek .etiket{letter-spacing:.09em}
+/* J2's FJERDE VERSALETIKET, fundet ved min egen efterproevning og ikke i
+   planen: `.udtraek__greb` er panelets haandtag og findes KUN under 720 px
+   (generator.css §20l saetter den til display:flex dér). Maalt paa den
+   byggede side: ved 1440 stod panelet paa 3 skriftgrader, ved 390 paa FIRE -
+   haandtaget sad tilbage paa 11,5 px/.15em, mens de tre oevrige etiketter var
+   flyttet til 12/.09em. Samme rolle, samme job, saa den foelger med; ellers
+   var typeskalaen konsistent paa desktop og inkonsistent paa mobil.
+
+   `details.udtraek > summary.udtraek__greb` og ikke `.udtraek > .udtraek__greb`:
+   generator.css bruger PRAECIS den sidste selektor og indlaeses EFTER denne
+   fil, saa de to ville staa lige (0-2-0) og generator vinde. Tagnavnene
+   loefter til 0-2-2 uden at tilfoeje en klasse - og uden at roere den fil.
+   Reglen er ubetinget, fordi elementet alligevel er display:none over 720. */
+details.udtraek > summary.udtraek__greb{font-size:12px;letter-spacing:.09em}
 
 /* --- J3: LUFTEN MELLEM FILTERTEKSTERNE (PLAN-katalog.md J3.1) -------------
    JPK 3. sep 2026: "...saa det ser mere stramt ud". MAALT FOER, 1440 px:
