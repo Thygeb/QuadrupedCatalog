@@ -1,0 +1,2 @@
+applications-raekker undersoegt: 76
+raekker der matcher '(CN:s*)' (forventer 0): 0

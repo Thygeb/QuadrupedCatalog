@@ -1,0 +1,39 @@
+SKRIVER (--skriv) 34 post(er)
+collected_by = "spor/f2-magicpudu"
+  skrevet: robots {"id":2226}
+  skrevet: applications {"robot_id":2226}
+  skrevet: field_entries {"robot_id":2226,"field_name":"weight"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"length"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"width"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"height"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"payload_walking"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"speed"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"slope"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"obstacle_single"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"stair_step_continuous"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"temperature_max"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"runtime"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"docking_station"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"lidar"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"cameras"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"autonomy_level"}
+  skrevet: field_entries {"robot_id":2226,"field_name":"price"}
+  skrevet: applications {"robot_id":2227}
+  skrevet: field_entries {"robot_id":2227,"field_name":"weight"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"length"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"width"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"height"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"payload_walking"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"speed"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"slope"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"obstacle_single"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"stair_step_continuous"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"temperature_max"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"runtime"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"docking_station"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"lidar"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"autonomy_level"}
+  skrevet: field_entries {"robot_id":2227,"field_name":"price"}
+
+34 raekker skrevet (robots: 1, applications: 2, field_entries: 31)
+exit=0

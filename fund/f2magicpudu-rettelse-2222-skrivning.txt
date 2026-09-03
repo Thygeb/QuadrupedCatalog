@@ -1,0 +1,6 @@
+SKRIVER (--skriv) 1 post(er)
+collected_by = "spor/f2-magicpudu"
+  skrevet: applications {"robot_id":2222}
+
+1 raekker skrevet (applications: 1)
+exit=0
