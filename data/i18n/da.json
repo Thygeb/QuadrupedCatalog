@@ -259,7 +259,6 @@
   "eu_ce_ja": "CE oplyst af producenten",
   "eu_ce_nej": "Producenten oplyser, at der ikke er CE",
   "eu_ce_ikke_oplyst": "CE står ikke noget sted",
-  "eu_pointe": "{n} af {m} producenter oplyser intet om CE. Tavsheden er selve fundet – den er ikke et hul i vores indsamling.",
 
   "varianter": "Varianter",
   "varianter_kort": "var.",
@@ -348,9 +347,7 @@
   "filter_egenskaber": "Egenskaber",
   "filter_egenskaber_mrk": "ja · nej · ikke oplyst",
   "filter_certificering": "Certificeringer",
-  "filter_certificering_mrk": "reserveret",
-  "filter_certificering_ord": "Certificeringer — indsamles",
-  "filter_certificering_note": "Pladsen står tom, fordi feltet ikke er indsamlet endnu. CE er oplyst på {n} af {m} robotter. Facetten åbner, når der er data at filtrere på — ikke før.",
+  "filter_certificering_mrk": "kun CE",
   "eg_trapper": "Går på trapper",
   "eg_baerer": "Bærer fra 5 kg gående",
   "eg_frost": "Arbejder ved ÷10 °C",

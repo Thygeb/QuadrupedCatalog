@@ -259,7 +259,6 @@
   "eu_ce_ja": "CE stated by the manufacturer",
   "eu_ce_nej": "The manufacturer states that there is no CE marking",
   "eu_ce_ikke_oplyst": "CE is not stated anywhere",
-  "eu_pointe": "{n} of {m} manufacturers say nothing about CE. The silence is the finding – it is not a gap in our collection.",
 
   "varianter": "Variants",
   "varianter_kort": "var.",
@@ -348,9 +347,7 @@
   "filter_egenskaber": "Capabilities",
   "filter_egenskaber_mrk": "yes · no · not stated",
   "filter_certificering": "Certifications",
-  "filter_certificering_mrk": "reserved",
-  "filter_certificering_ord": "Certifications — being collected",
-  "filter_certificering_note": "The space stands empty because the field has not been collected yet. CE is stated for {n} of {m} robots. The facet opens when there is data to filter on — not before.",
+  "filter_certificering_mrk": "CE only",
   "eg_trapper": "Climbs stairs",
   "eg_baerer": "Carries from 5 kg walking",
   "eg_frost": "Operates at −10 °C",

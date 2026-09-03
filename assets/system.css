@@ -1523,44 +1523,176 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .sog input::placeholder{color:var(--blaek3);opacity:1}
 .sog input:focus-visible{border-color:var(--accent);outline-offset:1px}
 
-/* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
-   katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
-   faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
-   flade mod sidens graa bund, som er forskel nok til at laese den som en
-   trykflade. Formen, maalet (44 px) og den valgte tilstand er uaendrede. */
-.filtre{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.filtre input{position:absolute;width:1px;height:1px;opacity:0}
-.filtre label{
-  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;
-  cursor:pointer;font-size:15px;font-weight:600;color:var(--blaek2);
-  background:var(--panel);border:1px solid transparent;border-radius:var(--hjoerne);
-}
-.filtre label:hover{background:var(--accent-ro);color:var(--blaek)}
-/* Taelleren er et TAL og saettes som sidens andre tal: mono med tabulaere
-   cifre, saa 1 og 62 fylder det samme og kolonnen ikke vibrerer. */
-.filtre label .antal{font-family:var(--mono);font-size:12px;font-weight:500;
-  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;color:var(--blaek3)}
-.filtre input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--blaek)}
-.filtre input:checked + label .antal{color:var(--accent-ro)}
-.filtre input:focus-visible + label{outline:3px solid var(--accent);outline-offset:3px}
+/* --- J1: SOEGEFELTET FAAR SIT EGET BAAND (PLAN-katalog.md J1.1) -----------
+   JPK 3. sep 2026, ordret: "Padding omkring 'Search by model, manufacturer or
+   requirement'". MAALT FOER, 1440 px, /en/: luft OVER .sog = 0 px, luft UNDER
+   = 0 px. Blokken stoeder direkte op mod <details class="udtraek">'s kant over
+   og mod .facetter__net under, saa soegefeltet laeses som et LAAG svejset paa
+   filtergitteret i stedet for som panelets foerste instrument.
 
-/* HAARD BEGRAENSNING 5 I FILTERET. "ikke oplyst" er et HUL, ikke et svar, og
-   det skal ses. Foer denne regel saa hullet praecis ud som ethvert andet
-   filter: hvid chip, samme grad, samme farve - paa IP-KLASSE stod "nej" og
-   "ikke oplyst" ved siden af hinanden og var visuelt ét og det samme, og paa
-   CE stod alle tre tilstande ens. Sproget her er sidens EGET hulsprog fra
-   afsnit 8 (.v-ikke): daempet flade, stiplet hegn, ingen fed vaegt. Reglen
-   haenger paa inputtets `value`, som skabelonen allerede skriver, saa hverken
-   markup eller antallet af afkrydsningsfelter aendres. */
-.filtre input[value="ikke_oplyst"] + label{
-  background:var(--tom);border:1px dashed var(--hegn);
-  font-weight:500;color:var(--blaek3)}
-.filtre input[value="ikke_oplyst"] + label:hover{color:var(--blaek2);border-color:var(--blaek3)}
-/* L76: den stiplede ramme OG teksten stod hvide paa accent (1,66 : 1).
-   Begge er nu --blaek. Hullets sprog er stadig den STIPLEDE ramme - det er
-   stregens form, ikke dens farve, der siger "ikke oplyst". */
-.filtre input[value="ikke_oplyst"]:checked + label{
-  background:var(--accent);border:1px dashed var(--blaek);color:var(--blaek);font-weight:600}
+   RETTELSEN ER UDVENDIG, OG DET ER MAALT FREM - ikke valgt. Indersiden er
+   allerede paa sit gulv: 16 px skrift + 9 px lodret polstring = 44 px, sat af
+   JPK selv 1. sep (se blokken lige ovenfor, med begge gulves begrundelse).
+   Beder man om MINDRE polstring indeni, braekker man et gulv, der er to dage
+   gammelt; beder man om polstring UDENOM, er der ingen at reducere - der er
+   ingen. Derfor tilfoejes den her.
+
+   INGEN NY STREG (L40: faerre streger, ikke flere). Facetgitterets foerste
+   raekke har ingen overkant, og luften alene skiller de to instrumenter.
+
+   `padding` OG IKKE `margin`: .udtraek er et <details> uden ramme og uden
+   polstring (generator.css:1287), og .sog er dens foerste element i flow -
+   summary'en over den er display:none. En margin-top ville derfor kunne
+   KOLLAPSE ud gennem foraeldren og lande uden for panelet i stedet for inde i
+   det. Polstring kollapser aldrig. .sog har hverken baggrund eller ramme, saa
+   polstring og margin ser ens ud - kun kollapsrisikoen skiller dem. */
+.udtraek > .sog{padding:var(--r5) 0}
+
+/* --- J2: FILTERPANELETS SKRIFTSKALA (PLAN-katalog.md J2.1) ----------------
+   JPK 3. sep 2026: "Faa styr paa skriftstoerrelse paa filter-tekst ... saa det
+   ser mere stramt ud". MAALT FOER, 1440 px, /en/, kun elementer med deres EGEN
+   synlige tekstknude inde i .udtraek: TI forskellige skriftgrader.
+
+     17    kunskaerm(2)          - skaermlaesertekst, ses aldrig
+     14    rk__navn(32)          <- SELVE filterteksten
+     13,5  chip__navn(5)
+     13    antal__tal(32) reserveret__ord(1) t-mikro(2) url(1)
+     12,5  chip-fod(1) reserveret__note(1)
+     12    d__tal(15) d__ord(15) skala__traef(2)
+     11,5  etiket(1)             <- soegefeltets etiket
+     11    facet__navn(9) skala__ord(2)   <- GRUPPETITLEN
+     10,5  facet__tal(4)
+     10    skala__ridse-tal(11)
+
+   HIERARKIET VAR VENDT OM, og det er den egentlige fejl - ikke antallet.
+   Gruppetitlen, hun skal laese FOERST for at vide, hvad gruppen er, stod paa
+   11 px versaler med .17em sperring (maalt 1,87 px pr. mellemrum) - MINDRE og
+   dyrere at laese end de valg, den introducerer (14 px). MODE Operate: den
+   besoegende loeser en opgave, og orienteringen maa ikke koste mere end valget.
+
+   PANELET HAR TO JOBS, OG FAAR DERFOR TO GRADER - ikke ti:
+     14 px  VAELGE    - det, hun laeser for at traeffe valget
+     12 px  ORIENTERE OG TAELLE - gruppetitler, optaellinger, undertekster
+
+   De to skilles ikke ad af stoerrelse alene, men af versaler, vaegt og farve,
+   som de allerede gjorde. INGEN NY VAERDI INDFOERES: 14 og 12 findes begge i
+   stilarkene i forvejen, saa de to filers antal forskellige font-size-vaerdier
+   kan ikke stige af denne blok. Det var briefets egen advarsel ("saa er den
+   56"), og den er grunden til, at intet her er et nyt trin.
+
+   PLANENS TABEL RAMTE IKKE HELE SANDHEDEN, og det er maalt: den tilskrev 11 px
+   alene .facet__navn og 13 px alene .antal. Panelet baerer ogsaa .skala__ord
+   paa 11, og .t-mikro/.url paa 13. Retter man kun de fem, planen navngav,
+   staar der SEKS grader tilbage - ikke de "<= 4", dens acceptkriterium beder
+   om. De oevrige er derfor med her.
+
+   ALT ER SCOPET UNDER .udtraek, og det er ikke pynt: .t-mikro har 771
+   forekomster i dist/ og .url 388. En uscopet aendring ville flytte skrift paa
+   hver eneste side i kataloget. Scopet goer ogsaa, at generator.css er
+   UROERT - et samtidigt spor ejer den fil, og .udtraek-leddet giver hoejere
+   specificitet end dens rene klasser, saa den vinder uden at blive redigeret.
+   Det er samme greb, `summary.facet__navn::after` allerede bruger i afsnittet
+   om katalogets flader nedenfor. */
+.udtraek .rk__navn,
+.udtraek .chip__navn{font-size:14px}
+.udtraek .facet__navn,
+.udtraek .facet__tal,
+.udtraek .rk .antal,
+.udtraek .chip-fod,
+.udtraek .t-mikro,
+.udtraek .etiket,
+.udtraek .skala__ord,
+.udtraek .skala__traef,
+.udtraek .skala__ridse-tal{font-size:12px}
+/* ÉN SPERRING TIL PANELETS TRE VERSALETIKETTER. .09em er IKKE et nyt tal -
+   det er den vaerdi, `.typeskilt .maerke` allerede staar paa, saa et
+   eksisterende trin genbruges i stedet for at et ellevte opfindes.
+   Maalt foer: .facet__navn .17em (1,87 px), .skala__ord .13em, .etiket .15em -
+   tre forskellige sperringer paa tre etiketter med samme job. */
+.udtraek .facet__navn,
+.udtraek .skala__ord,
+.udtraek .etiket{letter-spacing:.09em}
+/* J2's FJERDE VERSALETIKET, fundet ved min egen efterproevning og ikke i
+   planen: `.udtraek__greb` er panelets haandtag og findes KUN under 720 px
+   (generator.css §20l saetter den til display:flex dér). Maalt paa den
+   byggede side: ved 1440 stod panelet paa 3 skriftgrader, ved 390 paa FIRE -
+   haandtaget sad tilbage paa 11,5 px/.15em, mens de tre oevrige etiketter var
+   flyttet til 12/.09em. Samme rolle, samme job, saa den foelger med; ellers
+   var typeskalaen konsistent paa desktop og inkonsistent paa mobil.
+
+   `details.udtraek > summary.udtraek__greb` og ikke `.udtraek > .udtraek__greb`:
+   generator.css bruger PRAECIS den sidste selektor og indlaeses EFTER denne
+   fil, saa de to ville staa lige (0-2-0) og generator vinde. Tagnavnene
+   loefter til 0-2-2 uden at tilfoeje en klasse - og uden at roere den fil.
+   Reglen er ubetinget, fordi elementet alligevel er display:none over 720. */
+details.udtraek > summary.udtraek__greb{font-size:12px;letter-spacing:.09em}
+
+/* --- J3: LUFTEN MELLEM FILTERTEKSTERNE (PLAN-katalog.md J3.1) -------------
+   JPK 3. sep 2026: "...saa det ser mere stramt ud". MAALT FOER, 1440 px:
+   ni sammenfoldede facetter, syv paa 109 px og de to nederste paa 108 px -
+   forskellen er praecis den `border-bottom`, `facet--sidste-raekke` fjerner.
+   Titel til titel er 109 px; TOM LUFT mellem to filtertekster er 65 px.
+
+   NEDBRYDNINGEN AF ÉN LUKKET FACET (maalt, ikke regnet):
+     24  padding-top      .facetter__net .facet
+     44  summary min-height   <- JPK's eget beroeringsgulv
+     16  margin-bottom under titlen
+     24  padding-bottom
+      1  ramme
+    109  i alt (108 nederst)   - tekstens egen hoejde inde i summary: 17 px
+
+   TO AF DE FIRE TAL RETTES, ET ROERES ALDRIG:
+
+   1. DE 16 PX ER DOEDVAEGT, NAAR FACETTEN ER LUKKET. Marginen findes for at
+      skille titlen fra valgraekkerne - og er facetten lukket, ER der ingen
+      raekker. Det er 16 px rent ingenting, ni gange. Derfor kun `:not([open])`:
+      i AABEN tilstand goer marginen praecis det arbejde, den blev skrevet til.
+   2. DE 2 x 24 PX er panelets ydre rytme og kan gaa ét trin ned til --r4.
+      Det er ikke et nyt tal og heller ikke et gaet: generator.css saetter
+      SELV `padding:var(--r4)` paa samme selektor under 720 px, saa 16 px er
+      allerede panelets egen vaerdi paa den anden side af det knaek. Denne
+      regel bringer blot desktop i takt med mobilen.
+   3. DE 44 PX ER LAAST OG ROERES IKKE. Uden en egen min-height er <summary>s
+      klikflade kun tekstlinjens 20 px, fordi .facet__navn ALDRIG arver hoejde
+      fra facettens polstring - den ligger udenom. Begrundelsen staar i fuld
+      laengde ved `summary.facet__navn` i afsnittet om katalogets flader.
+
+   BEGGE REGLER ER SCOPET UNDER .udtraek af samme grund som J2: det giver
+   hoejere specificitet end generator.css' egne selektorer, saa DEN FIL ER
+   UROERT - et samtidigt spor ejer den. */
+.udtraek .facetter__net .facet{padding:var(--r4)}
+.udtraek .facetter__net details.facet:not([open]) > .facet__navn{margin-bottom:0}
+
+/* --- RESERVEKLASSEN `.filtre` ER SLETTET HER (Aa146's beslutning G) --------
+   Her stod 11 regler for en filterchip-komponent: `.filtre`, `.filtre input`,
+   `.filtre label` med sine hover/checked/focus-tilstande, og fire regler for
+   `input[value="ikke_oplyst"]`, der gav hullet sit stiplede sprog.
+
+   MAALT 3. sep 2026, med aegte tokengraense og positiv kontrol:
+     class-tokenet "filtre" i dist/       0 forekomster i 0 af 216 HTML-filer
+     positiv kontrol "facet__navn"       18 forekomster i 2 filer
+     positiv kontrol "rk__mrk"           84 forekomster i 2 filer
+     saetter noget JavaScript klassen?    nej - 0 traef i assets/*.js
+   De to positive kontroller staar der, fordi et nul-resultat ellers ikke kan
+   skelnes fra et moenster, der ikke virker. Metoden splitter class-attributten
+   paa mellemrum og sammenligner token for token, saa `.filtre` hverken rammer
+   `filtre-noget` eller ordet "filtre" i en kommentar.
+
+   INGEN AF DE 11 REGLER DELTE SELEKTORLISTE MED EN LEVENDE SELEKTOR - alle 11
+   begyndte paa `.filtre`, saa der er ikke slettet en regel, som ogsaa tjente
+   noget andet. Det er efterproevet regel for regel, ikke antaget.
+
+   HULLETS SPROG ER IKKE TABT. De fire `[value="ikke_oplyst"]`-regler blev
+   afloest, da facetterne gik fra chips til raekker: `.rk--uoplyst`
+   (generator.css) baerer i dag samme haarde begraensning 5 - stiplet kontur,
+   ingen fyld, stoev-blaek, altid sidst efter en stiplet skillelinje. Det er
+   den samme regel i en ny form, ikke en regel, der er faldet vaek.
+
+   TILBAGE STAAR 7 SELEKTORDELE I 6 REGLER I generator.css, som dette spor
+   IKKE ejer (et samtidigt spor har filen). De er lige saa doede som disse -
+   klassen har 0 forekomster i hele dist/ - og boer fjernes af det spor, der
+   ejer filen. Skrevet her, saa den naeste ikke konkluderer af generator.css
+   alene, at `.filtre` stadig lever. */
 
 /* --- 13b. KNAPPEN - ÉN PRIMITIV (L77, 2. sep 2026) -----------------------
    Her stod indtil nu `.videre`/`.videre--stille`, ORBIT-aeraens knap: massiv
