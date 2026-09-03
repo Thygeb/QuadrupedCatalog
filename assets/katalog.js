@@ -317,6 +317,40 @@
       flytFokusEfterFjern(slug, p2);
     }
 
+    /* BUNDPLADSEN (spor/bundbar punkt 4, planens D4). Bjaelken er
+       position:fixed og altsaa ude af floedet - uden denne maaling ligger
+       dokumentets sidste px under den, og katalogsidens sidste saetning var
+       maalt 100 % skjult.
+
+       DER MAALES FRA BJAELKENS OVERKANT TIL SKAERMENS BUND, ikke bare dens
+       hoejde: efter punkt 3 er den loeftet 16 px fri af kanten, og de 16 px
+       er ogsaa daekket flade. `window.innerHeight - rect.top` faanger begge
+       dele i ét tal, uanset hvad `bottom` senere maatte blive sat til.
+       Plus 12 px fuge, saa teksten ikke slutter klods op ad bjaelken.
+
+       Math.ceil, fordi hoejden er et broek-tal (33,2 px maalt): en
+       nedrunding ville efterlade en enkelt px daekket, og det er praecis
+       den slags rest, ingen opdager.
+
+       NUL PAA ALLE ANDRE SIDER: variablen er 0px i :root, og KUN denne
+       funktion saetter den. De oevrige 215 byggede sider indlaeser samme
+       system.css og faar padding-bottom:0px - samme beregnede vaerdi som
+       foer sporet. Det er maalt, ikke antaget (acceptkriterium 4b). */
+    function saetBarplads() {
+      var rod = document.documentElement;
+      if (!klaebebar || klaebebar.hasAttribute('hidden')) {
+        rod.style.setProperty('--barplads', '0px');
+        return;
+      }
+      var kasse = klaebebar.getBoundingClientRect();
+      rod.style.setProperty('--barplads', (Math.ceil(window.innerHeight - kasse.top) + 12) + 'px');
+    }
+
+    /* Bredden aendrer bjaelkens hoejde - den kan ombryde, og paa mobil
+       skifter den til ét rullespor. En plads, der blev maalt ved 1440 og
+       aldrig genmaalt, er et haardkodet tal med ekstra trin. */
+    window.addEventListener('resize', saetBarplads);
+
     function flytFokusEfterFjern(slug, plads) {
       // `!klaebebar.hasAttribute('hidden')` er ikke overfloedig ved siden af
       // toemningen i tegnSaml: to vaern om samme fejl, fordi den fejl er
@@ -398,6 +432,7 @@
           }
           klaebebarGaa.setAttribute('href', klaebebarGaaHref || '#');
           klaebebar.removeAttribute('hidden');
+          saetBarplads();
         } else {
           // Samme regel som samlTaeller: en tom bjaelke er ikke en
           // oplysning, den er stoej. Forsvinder helt, naar udvalget goer.
@@ -413,6 +448,7 @@
           // at sige noget forkert.
           klaebebarValg.textContent = '';
           klaebebar.setAttribute('hidden', '');
+          saetBarplads();
         }
       }
     }

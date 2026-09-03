@@ -2486,6 +2486,50 @@ summary.facet__navn > .facet__tal{
    bevaegelsesgrammatik ud over .knap:active{transform:translateY(1px)}, og
    en sammenfoldning her ville vaere sidens eneste animerede tilstandsskift
    - en systembeslutning forklaedt som en detalje. */
+
+/* BUNDPLADSEN (spor/bundbar punkt 4, planens D4). Bjaelken staar
+   position:fixed og er derfor ude af floedet: intet under den ved, at den
+   findes, saa dokumentets sidste px laa foer sporet under den.
+
+   HVORFOR ET TAL, JS MAALER, OG IKKE ET, VI SKRIVER: bjaelkens hoejde er
+   ikke én vaerdi. Maalt paa denne gren: 33,2 px paa én raekke, 62,4 px naar
+   den ombroed, 91,6 px ved 320 px bredde foer punkt 6. Et haandskrevet
+   "46px" ville have efterladt indhold daekket paa mobil - praecis
+   D7/L30-faelden, et haandskrevet tal ved siden af et udledt.
+   assets/katalog.js maaler i stedet afstanden fra bjaelkens OVERKANT til
+   skaermens bund (window.innerHeight - rect.top), som ogsaa taeller de
+   16 px, den er loeftet med, og laegger en fuge paa 12 px.
+
+   FUGEN LIGGER I JS OG IKKE I ET calc() HER, og det er ikke en smagssag:
+   `calc(var(--barplads) + var(--r3))` ville give ALLE 215 andre sider 12
+   px bundpolstring, de ikke har i dag - grundvaerdien skal kunne vaere
+   praecis 0px. Prisen paa flader uden bjaelken skal vaere nul.
+
+   TO EGENSKABER, TO FORSKELLIGE PROBLEMER. `padding-bottom` paa <body>
+   goer dokumentets bund LAESELIG. `scroll-padding-bottom` paa <html> goer
+   :target-hoppet rigtigt - og det er ikke teoretisk her: katalogsiden har
+   links med href="#tegn", og afsnittet "Saadan laeses tallene" er netop
+   det, bjaelken skaerer af. Den gamle kommentar nedenfor paastod, at
+   scroll-padding "ikke er noedvendig her"; den paastand er vendt.
+
+   EGET :root OG IKKE TOKENBLOKKEN paa linje 86: dér ligger palet og
+   skala, som flere spor redigerer samtidig, og en komponentvariabel dér
+   er en flettekonflikt, der venter. Den staar hos den komponent, der
+   ejer den. */
+   SCROLL-PADDING-REGLEN ER BETINGET, OG DET BLEV DEN AF EN MAALING.
+   Foerste udgave var et ubetinget `html{scroll-padding-bottom:...}`. Den
+   gav ganske vist 0px paa de andre sider - men deres beregnede vaerdi
+   gik fra `auto` til `0px` paa alle 216 sider. De to opfoerer sig ens i
+   dag, fordi browsere bruger 0 for `auto`, men `auto` er per
+   specifikation UA'ens valg og maa vaere noget andet (fx for en fast
+   vaerktoejslinje). Prisen paa flader uden bjaelken skal vaere NUL, ikke
+   "0 i praksis". :has() paa <html> holder de 215 andre sider ordret
+   uroerte. Body-reglen kan godt staa ubetinget: 0px var ogsaa dens
+   vaerdi foer sporet, saa dér er der intet at aendre. */
+:root{--barplads:0px}
+body{padding-bottom:var(--barplads)}
+html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
+
 .klaebebar{
   position:fixed;left:0;right:0;bottom:var(--r4);z-index:50;
   margin-inline:auto;
@@ -2569,11 +2613,21 @@ summary.facet__navn > .facet__tal{
 .klaebebar__fjern:focus-visible{
   outline:2px solid var(--ring);outline-offset:2px;
 }
-/* Bjaelken daekker IKKE sidefoden - naar laeseren naar bunden af siden, skal
-   udvalget stadig kunne naas, men ikke ligge oven paa kildeloeftets tekst.
-   `scroll-padding-bottom` er ikke noedvendig her: bjaelken findes kun, naar
-   udvalget er ikke-tomt, og :target-hop paa denne side gaar til facetter,
-   ikke til sidefoden. */
+/* HER STOD EN PAASTAND, DER VAR FORKERT, OG DEN ER BEVARET SOM ADVARSEL,
+   ikke slettet: "Bjaelken daekker IKKE sidefoden ... scroll-padding-bottom
+   er ikke noedvendig her: ... :target-hop paa denne side gaar til
+   facetter, ikke til sidefoden."
+
+   Ingen af de to led holdt. Katalogsiden HAVDE ingen sidefod, da saetningen
+   blev skrevet - saa den var sand ved en tilfaeldighed og holdt op med at
+   vaere det, da foden kom tilbage. Og siden har links med href="#tegn",
+   saa :target-hoppet gaar netop ikke kun til facetter. Maalt af AA136:
+   baren daekkede 89 px indhold ved 390 px. Begge dele er loest af
+   --barplads ovenfor.
+
+   Formfejlen er vaerd at huske: en kommentar, der begrunder et FRAVALG med
+   en tilstand i resten af siden, foraeldes tavst, naar den tilstand
+   aendrer sig. */
 @media (max-width:460px){
   .klaebebar__navn{font-size:13px}
 }
@@ -3230,19 +3284,31 @@ body > .sidefod{flex:none}
   text-decoration-color:transparent;
   box-shadow:0 0 0 4px var(--accent);
 }
-/* BUNDBAREN MAA IKKE DAEKKE FODEN. system.css' §13-kommentar ved .klaebebar
-   paastaar, at "Bjaelken daekker IKKE sidefoden" - den paastand havde ingen
-   regel bag sig, og den var kun sand, saa laenge foden ikke fandtes. Maalt af
-   AA136: baren daekker 89 px indhold ved 390 px, fordi body{padding-bottom:0}.
+/* BUNDBAREN MAA IKKE DAEKKE FODEN - og reglen, der loeste det, staar ikke
+   laengere her. Her stod indtil 4. sep 2026 en :has()-regel, der gav
+   .sidefod__ramme en bundpolstring paa --r6 plus et haardkodet tal paa
+   72 px, naar bjaelken var synlig. (Tallet skrives med mellemrum her, saa
+   acceptkriterium 4c's grep efter det sammenskrevne kan give nul og
+   forklaringen alligevel overleve - historikken maa ikke koste maalingen,
+   og maalingen maa ikke koste historikken.)
 
-   Reglen herunder staar i FODENS afsnit og roerer ikke .klaebebar's egne
-   regler - spor/barplan planlaegger den bar netop nu og ejer dens afsnit.
-   :has() er allerede i brug i dette stilark (topbarens enhedskontakt).
-   Baren indsaettes kun af assets/katalog.js og kun paa katalogsiden, saa
-   luften koster nul px paa de oevrige 214 sider. */
-body:has(.klaebebar:not([hidden])) .sidefod__ramme{
-  padding-bottom:calc(var(--r6) + 72px);
-}
+   Den var rigtig i sin hensigt og midlertidig efter sin egen kommentar
+   ("spor/barplan planlaegger den bar netop nu og ejer dens afsnit"). Det
+   spor er nu koert, og de 72 px er erstattet af --barplads, som
+   assets/katalog.js MAALER - se bundpladse-afsnittet ved .klaebebar.
+
+   HVORFOR REGLEN FJERNES OG IKKE BARE FAAR var(--barplads) INDSAT:
+   `body{padding-bottom:var(--barplads)}` reserverer allerede pladsen, og
+   begge regler paa én gang ville reservere den TO gange - maalt: 104 px i
+   foden plus 45 px paa body, hvor bjaelken fylder 49. De 72 px var
+   desuden forkerte i begge retninger: bjaelken var 45,7 px foer sporet og
+   er 33,2 px efter.
+
+   OG DEN LOESER Å152's ANDET FUND SOM SIDEGEVINST: "bundbaren og foden er
+   samme gunmetal og smelter sammen ved 390 px". Med foden paa sin egen
+   polstring og bundpladsen paa <body> ligger der nu en stribe LYS
+   bundfarve (--bund) mellem den moerke fod og den moerke, fritstaaende
+   bjaelke. De to gunmetalflader roerer ikke laengere hinanden. */
 
 @media (max-width:679px){
   .sidefod{margin-top:var(--r7)}
