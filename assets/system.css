@@ -1548,6 +1548,71 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    polstring og margin ser ens ud - kun kollapsrisikoen skiller dem. */
 .udtraek > .sog{padding:var(--r5) 0}
 
+/* --- J2: FILTERPANELETS SKRIFTSKALA (PLAN-katalog.md J2.1) ----------------
+   JPK 3. sep 2026: "Faa styr paa skriftstoerrelse paa filter-tekst ... saa det
+   ser mere stramt ud". MAALT FOER, 1440 px, /en/, kun elementer med deres EGEN
+   synlige tekstknude inde i .udtraek: TI forskellige skriftgrader.
+
+     17    kunskaerm(2)          - skaermlaesertekst, ses aldrig
+     14    rk__navn(32)          <- SELVE filterteksten
+     13,5  chip__navn(5)
+     13    antal__tal(32) reserveret__ord(1) t-mikro(2) url(1)
+     12,5  chip-fod(1) reserveret__note(1)
+     12    d__tal(15) d__ord(15) skala__traef(2)
+     11,5  etiket(1)             <- soegefeltets etiket
+     11    facet__navn(9) skala__ord(2)   <- GRUPPETITLEN
+     10,5  facet__tal(4)
+     10    skala__ridse-tal(11)
+
+   HIERARKIET VAR VENDT OM, og det er den egentlige fejl - ikke antallet.
+   Gruppetitlen, hun skal laese FOERST for at vide, hvad gruppen er, stod paa
+   11 px versaler med .17em sperring (maalt 1,87 px pr. mellemrum) - MINDRE og
+   dyrere at laese end de valg, den introducerer (14 px). MODE Operate: den
+   besoegende loeser en opgave, og orienteringen maa ikke koste mere end valget.
+
+   PANELET HAR TO JOBS, OG FAAR DERFOR TO GRADER - ikke ti:
+     14 px  VAELGE    - det, hun laeser for at traeffe valget
+     12 px  ORIENTERE OG TAELLE - gruppetitler, optaellinger, undertekster
+
+   De to skilles ikke ad af stoerrelse alene, men af versaler, vaegt og farve,
+   som de allerede gjorde. INGEN NY VAERDI INDFOERES: 14 og 12 findes begge i
+   stilarkene i forvejen, saa de to filers antal forskellige font-size-vaerdier
+   kan ikke stige af denne blok. Det var briefets egen advarsel ("saa er den
+   56"), og den er grunden til, at intet her er et nyt trin.
+
+   PLANENS TABEL RAMTE IKKE HELE SANDHEDEN, og det er maalt: den tilskrev 11 px
+   alene .facet__navn og 13 px alene .antal. Panelet baerer ogsaa .skala__ord
+   paa 11, og .t-mikro/.url paa 13. Retter man kun de fem, planen navngav,
+   staar der SEKS grader tilbage - ikke de "<= 4", dens acceptkriterium beder
+   om. De oevrige er derfor med her.
+
+   ALT ER SCOPET UNDER .udtraek, og det er ikke pynt: .t-mikro har 771
+   forekomster i dist/ og .url 388. En uscopet aendring ville flytte skrift paa
+   hver eneste side i kataloget. Scopet goer ogsaa, at generator.css er
+   UROERT - et samtidigt spor ejer den fil, og .udtraek-leddet giver hoejere
+   specificitet end dens rene klasser, saa den vinder uden at blive redigeret.
+   Det er samme greb, `summary.facet__navn::after` allerede bruger i afsnittet
+   om katalogets flader nedenfor. */
+.udtraek .rk__navn,
+.udtraek .chip__navn{font-size:14px}
+.udtraek .facet__navn,
+.udtraek .facet__tal,
+.udtraek .rk .antal,
+.udtraek .chip-fod,
+.udtraek .t-mikro,
+.udtraek .etiket,
+.udtraek .skala__ord,
+.udtraek .skala__traef,
+.udtraek .skala__ridse-tal{font-size:12px}
+/* ÉN SPERRING TIL PANELETS TRE VERSALETIKETTER. .09em er IKKE et nyt tal -
+   det er den vaerdi, `.typeskilt .maerke` allerede staar paa, saa et
+   eksisterende trin genbruges i stedet for at et ellevte opfindes.
+   Maalt foer: .facet__navn .17em (1,87 px), .skala__ord .13em, .etiket .15em -
+   tre forskellige sperringer paa tre etiketter med samme job. */
+.udtraek .facet__navn,
+.udtraek .skala__ord,
+.udtraek .etiket{letter-spacing:.09em}
+
 /* FILTERCHIPPEN. Hver chip bar tidligere sin egen 1 px ramme - 30 chips paa
    katalogsiden gav 30 streger i ét panel, og INSTRUMENT-retningen (L40) siger
    faerre streger, ikke flere. Rammen er vaek; chippen staar paa sin hvide
