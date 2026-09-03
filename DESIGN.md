@@ -54,12 +54,39 @@ typography:
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.026em"
+  # DP3b (designplanen, 3. sep 2026): h3, lille, raekke og mikro er FOEJET TIL
+  # her, ikke opfundet. Prosaen navngav ni trin, frontmatter kun syv, og et
+  # spor, der laeste frontmatter, konkluderede derfor at 13 px og 14 px ikke
+  # fandtes i skalaen. Reglen er nu: frontmatter navngiver hvert trin,
+  # prosaen navngiver. Se ## Typografi -> Hierarki -> DP3b.
+  h3:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "19px"
+    fontWeight: 700
+    lineHeight: 1.08
   body:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.55
     letterSpacing: "-0.006em"
+  lille:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "15px"
+    fontWeight: 400
+    lineHeight: 1.55
+  # RAEKKE: navnet paa eller indholdet i én raekke i en taet liste eller tabel.
+  # Ni levende brugssteder i dag, fem af dem netop den rolle.
+  raekke:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "14px"
+    fontWeight: 600
+    lineHeight: 1.5
+  mikro:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 400
+    lineHeight: 1.5
   label:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontSize: "11.5px"
@@ -218,10 +245,10 @@ den bruger *"samme CSS-klasser … fremfor at opfinde en producent-specifik
 variant"*.
 
 Denne fil førte komponenten som slettet **to steder** indtil 3. sep 2026, mens
-den stod på 50 sider. Fejlen er rettet her og i *Slettede komponenter*, men
-**hullet bagved består: producentfladen har intet komponentafsnit i denne fil
-overhovedet** — se noten sammesteds. Det er dér, en agent skal kigge, og der
-står i dag ingenting.
+den stod på 50 sider. Fejlen er rettet her og i *Slettede komponenter*, og
+**hullet bagved er lukket samme dag: se `## Komponenter` → *Producentfladen*
+(DP2)**, som beskriver fladens otte klasser og afgør EU-fundets to målte
+defekter. Her stod indtil da, at der ingenting stod.
 
 Redaktionel stilhed er stadig princippet: én accentfarve, hårfine kanter,
 firkantede stansede felter frem for runde bløde flader. Personligheden ligger i
@@ -250,8 +277,68 @@ punkter 3, 6 og 8 i `## Konflikter`.
 - Fire datatilstande, der ikke deler skriftgrad, bogstavform, flade eller mærke
   (uændret fra ORBIT — TYPESKILT rørte paletten, ikke denne regel)
 - Tal sættes i mono med tabulære cifre; sætninger sættes aldrig som tal
-- 10,5 px er skriftgulvet i hele systemet
+- 10,5 px er skriftgulvet for tekst, der bæres alene — se *Typografi → Hierarki*
 - Ingen købsknap, ingen prisforespørgsel, ingen "featured" — formen findes ikke
+
+## Fladernes MODE — DP3, designplanen 3. sep 2026
+
+**Hver flade har ét af to succeskriterier, og det skal navngives, hver gang
+fladen bygges, bedømmes eller får et brief.** CLAUDE.md har krævet det siden
+1. sep 2026; **denne fil nævnte det ikke med ét ord indtil designplanen**, og
+designsystemet og arbejdsreglen talte derfor ikke sammen. Det er hul H2 i
+`fund/ANALYSE-produkort.md`.
+
+**Konsekvensen af ikke at have det: alle flader blev bedømt ens.** En Read-flade,
+dømt efter Operate-kriteriet, får de forkerte anmærkninger — og omvendt.
+**Et fund uden et MODE er en smagsdom.**
+
+### Operate — den besøgende løser en opgave
+
+Succes: **opgaven er løst, og læseren kan SE, at den blev det.**
+
+- Enhver betjening har en synlig tilstand, og en standardtilstand må aldrig
+  tegnes som et brugervalg.
+- Resultatet af en handling skal kunne ses uden at rulle.
+- **Tæthed slår luft.** En Operate-flade må pakke; det er ikke en fejl, at
+  betjeningen fylder toppen af skærmen — det er fladens emne.
+- Fejl, der skal jages her: en betjening, hvis tilstand ikke kan ses; et
+  resultat, der flytter sig ud af syne; et filter, der ikke kan fortrydes.
+
+**Operate-flader:** katalogsiden (`/<sprog>/`, sprogroden), sammenligningssiden,
+producentindekset (`/producenter/`) og 404-siden. **Den mindst sikre af dem er
+404** — den har ét job (kom videre), men er ikke en arbejdsflade; kald den
+Operate, indtil nogen har en bedre grund.
+
+### Read — den besøgende skal forstå noget
+
+Succes: **læseren forstår, hvad vi ved — OG hvad vi ikke ved.**
+
+- De fire datatilstande skal kunne skelnes på et blik. Det er fladens
+  vigtigste krav, ikke et tilgængelighedskrav ved siden af.
+- Et tal uden proveniens er en fejl på en Read-flade, også når tallet er rigtigt.
+- **Rytme slår tæthed.** Linjelængde, ottetalsskalaen og hierarkiet vejer mere
+  end at få meget med.
+- Fejl, der skal jages her: et hul, der ligner et nul; et tal uden kildemærke;
+  navigation, der fylder mere end emnet.
+
+**Read-flader:** robotsiden, producentsiden og Om os.
+
+### Reglen om fladens eget emne — gælder Read
+
+**På en Read-flade skal de sektioner, der handler om fladens EGET emne,
+tilsammen fylde mere end halvdelen af fladens højde ved 1440px.**
+
+Halvdelen er en **beslutning**, ikke en måling — den er valgt, fordi den kan
+afgøres uden fortolkning, og fordi et flertal er den svageste tærskel, der
+stadig betyder noget. Argumentér gerne imod tallet; men afvis ikke et fund med,
+at der ingen tærskel er. Det var netop fraværet af én, der gjorde F3 til en
+observation frem for en fejl.
+
+**Målt af `spor/produkort` ved 1440px, og reglen er brudt i dag:** på
+producentsiden handler **31 %** af Xiaomis side og **42 %** af Unitrees om den
+producent, siden er opkaldt efter. Blokken *"Alle 25 producenter"* er
+**konstant 1715px** uanset producent — så jo tyndere producenten er, jo mere
+handler hendes side om alle andre. Se `fund/PLAN-designarbejde.md`, punkt 1.
 
 ## Farver
 
@@ -265,15 +352,17 @@ alle stemte.
 
 ### Primær
 
-- **Afmærkningsgul** (`#F2C400`): valgte filtre, fokusring, understregning
-  på hover, markørflader. **L76 (2. sep 2026) gør reglen bindende: accent er
-  en BAGGRUND og en MARKØR, aldrig tekst på en lys flade.** Med mørk tekst
-  ovenpå er den sikker (`blaek` på `accent` = 9,19 : 1); som forgrund på lys
-  er den 1,60 : 1 på `panel` og 1,38 : 1 på `bund`. **Tekst PÅ accent er
-  altid `blaek`, aldrig hvid** (hvid = 1,66 : 1). På den mørke flade
-  (`blaek`/`fod`) MÅ accent være tekst — dér er den 9,19 : 1, og tre regler
-  bruger den sådan. Her stod tidligere, at accent var farven på *links* og
-  *kildemærker*; det er den ikke længere. Se punkt 5 i `## Konflikter`.
+- **Afmærkningsgul** (`#F2C400`): valgte filtre og markørflader — altså accent
+  som **baggrund**, med `blaek` ovenpå (9,19 : 1). Som **forgrund** er den
+  1,60 : 1 på `panel` og 1,38 : 1 på `bund`, og hvad den derfor må og ikke må,
+  afgøres af **Forgrundsreglen** nedenfor — ikke af denne punktopstilling.
+  **Tekst PÅ accent er altid `blaek`, aldrig hvid** (hvid = 1,66 : 1). På den
+  mørke flade (`blaek`/`fod`) MÅ accent være forgrund — dér er den 9,19 : 1.
+  Her stod tidligere, at accent var farven på *links* og *kildemærker*; det er
+  den ikke længere. Og her stod indtil designplanen ordet **"fokusring"** midt
+  på listen over tilladte brug. Det var forkert, og hvordan det kunne stå der
+  uimodsagt i to dage, er hele pointen i Forgrundsreglen. Se punkt 5 i
+  `## Konflikter`.
 - **Afmærkningsgul, rolig** (`--accent-ro`): peger i koden på samme værdi som
   `--bund` (`#E8EBED`) — se *Farvedubletter* i `## Konflikter`.
 
@@ -306,7 +395,156 @@ alle stemte.
 - **Eloxgrå på gunmetal** (`--paafod`): lys tekst på mørk bund. 12,72 : 1.
 - **Støvgrå på gunmetal** (`--paafod2`): dæmpet tekst på mørk bund. 5,94 : 1.
 
+### Forgrundsreglen for `--accent` — DP1, designplanen 3. sep 2026
+
+**Denne regel afløser L76's tekstregel. Den siger det samme og mere: L76 dækkede
+`--accent` som TEKSTfarve, og alt andet forgrundsbrug faldt udenom.**
+
+Det er ikke en teoretisk mangel. `assets/system.css:343` sætter sidens globale
+fokusring til `3px solid var(--accent)`, og på en lys flade er den **1,38 : 1**
+mod WCAG 1.4.11's krav på **3,0 : 1**. Ringen tegnes på hvert fokuserbart
+element på hele sitet, der ikke selv overstyrer den.
+
+**Og reglen fangede det ikke, fordi den selv listede fejlen som et tilladt
+brug.** L76's egen formulering, ordret fra *Lad være* før denne rettelse:
+*"accent er baggrund, kant, understregning eller fokusring — aldrig forgrund på
+lyst."* En kant er en forgrund. En fokusring er en forgrund. Sætningen
+modsiger sig selv i sin egen anden halvdel — den forbød forgrund og gav tre
+eksempler på forgrund som undtagelser.
+
+**Den generelle lære, og den koster ingenting at følge: skriv altid, hvilke brug
+en tokenregel IKKE dækker.** En regel, der kun nævner det, den forbyder, ser
+komplet ud. Havde L76 båret linjen *"denne regel siger intet om kanter,
+fokusringe og ikoner"*, var fokusringen fundet samme dag i stedet for to dage
+senere. Rækkevidden er en del af reglen, ikke en kommentar til den.
+
+#### Reglen: fem brugstyper, ét kravtal pr. type, én læseretning pr. tal
+
+Et kontrasttal uden en læseretning er ikke et tal. Tallene nedenfor er regnet
+med WCAG's relativitetsformel af designplansporet på et apparat, der først blev
+valideret mod **15** af denne fils egne offentliggjorte tal — 15/15 stemte.
+
+| # | Forgrundsbrug af `--accent` | Standard | Kravtal | Lys flade (`bund` 1,38 · `panel` 1,60) | Mørk flade (`fod` 9,19) |
+|---|---|---|---|---|---|
+| 1 | Tekst under 24px (eller under 18,66px fed) | WCAG 1.4.3 AA | **4,5 : 1** | **FORBUDT** | tilladt |
+| 2 | Stor tekst — ≥24px, eller ≥18,66px fed | WCAG 1.4.3 AA | **3,0 : 1** | **FORBUDT** | tilladt |
+| 3 | Fokusindikator: `outline`, `border-color` eller `box-shadow`, der markerer fokus | WCAG 1.4.11 | **3,0 : 1** | **FORBUDT alene** | tilladt |
+| 4 | Betydningsbærende kant, ikon eller markør, hvor formen ALENE bærer oplysningen | WCAG 1.4.11 | **3,0 : 1** | **FORBUDT** | tilladt |
+| 5 | Rent dekorativ forgrund, hvor betydningen bæres af noget andet i samme element — fx en understregning under en `blaek`-tekst, en hover-tone, en fuge | ingen | — | **tilladt** | tilladt |
+
+To ting, reglen IKKE rører, så ingen læser dem ind i den:
+
+- **Accent som BAGGRUND er altid tilladt**, på begge flader. Tekst ovenpå er
+  altid `blaek` (9,19 : 1), aldrig hvid (1,66 : 1).
+- **`--accent-ro` er ikke accent.** Den peger på `#E8EBED` og er en flade.
+
+#### De tre spørgsmål, reglen skal kunne besvare uden fortolkning
+
+1. **Må accent være fokusring på `--bund`?** **Nej.** Type 3, lys flade,
+   1,38 : 1 mod kravet 3,0.
+2. **Må accent være fokusring på dækket?** **Nej — og af en grund, der er værd
+   at læse.** Der findes ikke noget farvetoken ved navn `--daek`; målt:
+   `grep -c -- "--daek:" assets/system.css` giver **0**. `.daek`
+   (`system.css:512`) sætter ingen baggrund og arver `--bund`. **Dækket er en
+   LYS flade**, så spørgsmålet er identisk med spørgsmål 1. Det er i praksis
+   allerede en levende fejl: `.daek__nav a:focus-visible` (`system.css:576`)
+   ændrer kun offset og arver den globale accentring.
+3. **Må accent være brødtekst nogen steder?** **Ja — men kun på den mørke
+   flade** (`--fod`/`--blaek`), hvor den er 9,19 : 1. Aldrig på lyst, uanset
+   skriftgrad: 1,60 : 1 klarer ikke engang type 2's 3,0.
+
+#### DP1b — hvad fokusringen SKAL være
+
+**Én ring, to fladevarianter. Samme grammatik som knappen fik med L77, hvor
+`-moerk` står i navnet, så den forkerte flade ikke kan vælges ved et uheld.**
+
+| Flade | Ringens farve | Kontrast mod fladen | Krav |
+|---|---|---|---|
+| `--bund` (`#E8EBED`) | `--blaek` | **12,72 : 1** | 3,0 |
+| `--panel` (`#FAFBFB`) | `--blaek` | **14,69 : 1** | 3,0 |
+| `--fod` / `--blaek` (`#22262A`) | `--accent` | **9,19 : 1** | 3,0 |
+
+Mekanikken, så et byggespor ikke skal gætte: **ét semantisk alias, `--ring`.**
+Det tilfører ingen farve — paletten er låst, og aliaset peger på primitiver, der
+allerede findes, præcis som de 16 semantiske tokens gør i dag.
+
+```css
+:root{ --ring: var(--blaek) }                 /* den sikre standard */
+:focus-visible{ outline:3px solid var(--ring); outline-offset:3px;
+                border-radius:var(--hjoerne) }
+.sidefod, .billednote, .klaebebar{ --ring: var(--accent) }   /* mørke flader */
+```
+
+**Standarden skal være den lyse**, fordi sitet er lyst: en mørk flade, der
+glemmer sit `--ring`, er få og findes ved gennemgang; en lys flade, der glemmer
+det, er 200+ sider.
+
+**Systemet har allerede svaret, og det er halvvejs bygget.** Målt over begge
+stilark: **fem** fokusregler tegner allerede ringen i `--blaek` — `.rk__felt`
+(`generator.css:1409`), `.chip__felt` (`:1449`), `.sortervalg input` (`:1496`),
+`.skala__greb` (`system.css:2222`) og `.knap--maerkat` (`:2716`). **Otte** tegner
+den i `--accent`, hvoraf **syv står på lys flade** og er ulovlige: den globale
+(`system.css:343`), `summary.facet__navn` (`:2368`), `.stribe-under-fold >
+summary` (`generator.css:964`), `.skema > summary` (`generator.css:1058`, hvis
+flade er `--panel`, `:1045`) og **enhedskontaktens tre kopier**
+(`system.css:2022`, `:2566`, `:2811`). Den ottende, `.klaebebar__gaa/__ryd`
+(`system.css:2483`), står på `--fod` og er **lovlig**. Dertil én
+`border-color`-indikator, `.sog input:focus-visible` (`system.css:1524`), som er
+type 3 på lys flade.
+
+> **RETTELSE 3. sep 2026, af samme spor som skrev afsnittet.** Der stod
+> *"Fem tegner den i `--accent`, hvoraf fire står på lys flade"*. Målt med
+> `grep -nE "outline:[^;}]*solid var\(--accent\)" assets/system.css
+> assets/generator.css`: **8**, ikke 5. De tre oversete er tre kopier af den
+> samme regel på enhedskontakten — `.typeskilt .enhedsskift` (2022),
+> `.daek__enhed .enhedsskift` (2566) og `.sammenligning-app .enhedsskift`
+> (2811). `.daek` sætter ingen egen baggrund (`system.css:512-515`) og arver
+> `--bund`, så ringen dér er de samme **1,38 : 1**. Byggesporet skal måle, om
+> 2811 overhovedet kan nås — `.sammenligning-app .enhedsskift` er
+> `display:none` på `system.css:2557` — og skrive svaret, i stedet for at
+> antage det.
+
+**Fravalgt alternativ, skrevet ned så det ikke skal genopfindes: den tofarvede
+ring** — et indre accentbånd og en ydre gunmetalring, hvor accent læses mod
+gunmetal (9,19) frem for mod siden. Den bevarer accenten i fokus og overholder
+kravet. Den er fravalgt, fordi den kræver en anden tegnemekanisme ved siden af
+`outline` (`box-shadow`), og sitet har allerede tre steder, der slås med
+klipning ved hjælp af **negativ** `outline-offset` (`.daek__nav a` −3px,
+`.skema > summary` −3px, `.klaebebar` tegner udad med 2px netop for at undgå
+det). Et `box-shadow`-bånd følger ikke en negativ offset og ville knække præcis
+dér. Dertil: *"Ingen slagskygge findes på siden"* gør `box-shadow` til en ladt
+mekanisme i dette system.
+
+#### Acceptkriterier for DP1 — et byggespor kan sendes på dem
+
+- **AK1a.** `grep -cE "outline:[^;}]*solid var\(--accent\)" assets/system.css
+  assets/generator.css` giver **0** for begge filer. Kontrafaktisk: uden
+  rettelsen giver samme kommando **6** og **2**, i alt **8**.
+  **Her stod tallet 4, og det var forkert** — det talte fem regler, hvoraf
+  enhedskontaktens tre kopier manglede. Se rettelsen i DP1b ovenfor.
+  Brug den snævre form: `grep -n "solid var(--accent)"` giver **10**, fordi
+  to `border-bottom`-erklæringer (`generator.css:1251, 1349`) også matcher.
+  De er ikke fokusringe og må ikke røres.
+- **AK1b.** `grep -c -- "--ring" assets/system.css` er **≥ 2** (definitionen i
+  `:root` og den globale ring), og hver mørk flade, der kan indeholde et
+  fokuserbart element, sætter `--ring:var(--accent)`. Byggesporet skriver
+  antallet af mørke flader, det fandt, og lister dem — tallet måles, det
+  forudsiges ikke her.
+- **AK1c.** Målt i browseren på en bygget lys side: `outline-color` på et
+  fokuseret navigationslink i dækket er `rgb(34, 38, 42)`, og kontrasten mod
+  `rgb(232, 235, 237)` er **12,72**. Kontrafaktisk: slår rettelsen ikke igennem,
+  rapporterer samme script `rgb(242, 196, 0)` og **1,38**.
+- **AK1d.** `.sog input:focus-visible` bruger ikke længere `--accent` som
+  `border-color` på lys flade.
+
+**DP1 er en beslutning i designplanen, ikke en L-post.** Accepterer JPK planen,
+hører den hjemme i STATUS.md med sit eget L-nummer; indtil da står den her som
+det, planen har besluttet, og et byggespor kan sendes på den.
+
 ### Navngivne regler
+
+**Reglen om rækkevidden.** Enhver regel om et token skal skrive, hvilke brug den
+IKKE dækker. Se Forgrundsreglen ovenfor for prisen, da den linje manglede.
 
 **Reglen om navnene, ikke værdierne.** `system.css`s egen kommentar siger det
 direkte: "VÆRDIERNE ER NYE, NAVNENE ER DE GAMLE" — TYPESKILT genbruger ORBIT's 16
@@ -349,11 +587,15 @@ ikke en fastbredde-skrift. Se punkt 4 i `## Konflikter`.
 
 ### Hierarki
 
-Skalaen (klemmerne, ikke skrifterne) er uændret fra ORBIT: ved 1440 px
-76 / 46 / 34 / 19 / 17 / 15 / 13 / 11,5 px. **Vægten på Hero er rettet fra 800 til
-700** (`spor/kort`, 31. aug 2026): Saira selvhostes kun i 400/500/600/700, og en
-manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
+Skalaen (klemmerne, ikke skrifterne) er ved 1440 px
+76 / 46 / 34 / 19 / 17 / 15 / **14** / 13 / 11,5 px. **Vægten på Hero er rettet fra
+800 til 700** (`spor/kort`, 31. aug 2026): Saira selvhostes kun i 400/500/600/700,
+og en manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
 ujævn streg i store grader.
+
+**14 px — trinet "Række" — er tilføjet af designplanen 3. sep 2026 (DP3b).
+Det er ikke et nyt trin; det er et trin, der var i brug og manglede et navn.**
+Se afgørelsen nedenfor.
 
 - **Hero** (700, `clamp(33px,6.2vw,76px)`, 0,98, −0,035em, Saira):
   206 sider bruger klassen i dag — ikke kun en forside, der ikke længere findes.
@@ -364,6 +606,9 @@ ujævn streg i store grader.
 - **H3** (700, 19px).
 - **Brød** (400, 17px, 1,6, `blaek2`, Saira via nedarvning fra `body`).
 - **Lille** (400, 15px, 1,55, `blaek2`).
+- **Række** (500–600, 14px, 1,5): **navnet på eller indholdet i én række i en
+  tæt liste eller tabel**, hvor 15px er for løst og 13px for stille. Tilføjet
+  som navngivet trin af DP3b; se afgørelsen nedenfor.
 - **Mikro** (400, 13px, 1,5, `blaek3`).
 - **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`).
 - **Figur** (mono, 700, tabulære cifre `tnum 1`): selve tallet. Størrelsen er
@@ -375,6 +620,86 @@ ujævn streg i store grader.
   bredere pr. tegn ved samme pixelstørrelse (målt: 62ch Literata 18px = 636px,
   mod 68ch Saira 17px = 629px, kildens egen kommentar).
 
+### DP3b — det trin, skalaen manglede, og som allerede fandtes
+
+**Spørgsmålet, der blokerede et spor.** `fund/PLAN-klaebebar.md` §10 kunne ikke
+afgøre klæbebarens navne-skriftgrad: *"14 px findes ikke i DESIGN.md's skala,
+men 11,5 px (`label`) er for lille … Der mangler et trin, og at vælge det er en
+systembeslutning, ikke en bjælkebeslutning."*
+
+**Målt af designplanen, og svaret er ikke det forventede.**
+
+```
+grep -ohE "font-size:[^;}]+" assets/system.css assets/generator.css | sort -u | wc -l
+```
+
+giver **56** unikke `font-size`-værdier — og `font-size:14px` optræder **10**
+gange, hvoraf 9 er levende regler (den tiende står i en L77-kommentar).
+**14 px er altså sitets syvende mest brugte skriftgrad**, ikke en
+enkeltstående afvigelse. De ni er `.spring` (353), en spatieret versaletiket
+(522), `.stribe--intet p` (939), `.udtraek .chip__navn` (1597),
+`.skema-tabel` (2074) og `.klaebebar__navne` (2459) i `system.css`, samt
+`.saml-matrix` (570), `.plade__under` (1279) og `.rk__navn` (1421) i
+`generator.css`.
+
+**Fem af de ni er den samme ting: et navn eller en celle i en tæt række.**
+`.rk__navn`, `.chip__navn`, `.klaebebar__navne`, `.skema-tabel`,
+`.saml-matrix`. Det er en rolle, ikke et tilfælde, og den havde ikke et navn.
+
+**Afgørelsen: trinet hedder "Række" og er 14 px. Der tilføjes INGEN ny
+størrelse — der sættes et navn på en, der bruges ni gange.** At vælge 15 px
+(Lille) i stedet ville have flyttet klæbebaren op på et trin, den ikke deler
+med nogen anden tæt række, og efterladt de ni brug uforklarede. Fravalgt.
+
+**Og planen retter en fejl i sit eget forlæg:** §10 skriver, at *"14 px og
+13 px"* ikke er navngivne trin. **13 px ER et navngivet trin** — det hedder
+*Mikro* og står i listen ovenfor. Fejlen opstod, fordi `typography:`-blokken i
+frontmatter kun navngiver **7** roller (display, headline, title, body, label,
+figur, manual), mens prosaen navngiver **9** trin. **Frontmatter og prosa har
+ikke været enige om, hvor mange trin skalaen har**, og et spor, der læser den
+ene, får et andet svar end et spor, der læser den anden.
+
+**Reglen, der lukker den fælde: frontmatter skal navngive hvert trin, prosaen
+navngiver.** Manglende i dag: H3 (19), Lille (15), Række (14), Mikro (13).
+
+#### Svaret til klæbebar-sporet, så det kan sendes uden at spørge
+
+**Robotnavnene i klæbebaren er 14 px, vægt 600 — trinet "Række".** Under
+460 px falder de til 13 px, trinet *Mikro*. **Begge værdier er dem, koden har i
+dag** (`system.css:2459`); det, der manglede, var ikke en anden værdi, men
+hjemmel til den. **Acceptkriterium DP3b:** klæbebar-sporet kan bygge Retning B
+uden at ændre en eneste `font-size` — og hvis det ændrer én, skal det stå i
+rapporten som en afvigelse fra denne beslutning.
+
+**Det legitimerer ikke de 56.** At skære skalaen ned er et selvstændigt spor
+over hele sitet (`impeccable typeset`), og det står i `fund/PLAN-designarbejde.md`.
+DP3b gør præcis én ting: den fjerner den usikkerhed, der blokerede ét spor.
+
+### DP3c — skriftgulvet får en rækkevidde
+
+**Skriftgulvet på 10,5 px er brudt af systemets egne komponenter, og reglen
+gjorde det umuligt at se forskel på et brud og en undtagelse.**
+
+Målt: `font-size:8px` (`generator.css:452`) og `font-size:7px`
+(`generator.css:748`) på `.saml-fotofelt__ord`, plus **10** erklæringer af
+formen `max(8px, …em)` — kildemærket, operatoren, enheden. Uden en rækkevidde
+er alle 12 lige store brud, og så er ingen af dem det.
+
+**Reglen, omskrevet:** 10,5 px er gulvet for **tekst, der bæres alene** — et
+ord, en sætning, en etiket, et navn. **Undtaget er tegn, der læses SAMMEN med
+en figur, de sidder på:** det hævede kildemærke, operatoren foran et tal og
+enheden efter det. De har `max(8px, …em)`-form, netop for at følge figuren og
+aldrig stå alene. Undtagelsen er en **liste, ikke et princip** — en ny
+komponent kan ikke skrive sig ind i den ved at ligne den.
+
+**`.saml-fotofelt__ord` er dermed et ægte brud, ikke en undtagelse:** det er et
+ord ("ikke oplyst"-teksten i sammenligningens fotofelt), det står alene, og
+det er 8 px — 7 px i den smalleste ombrydning. **Acceptkriterium DP3c:**
+`.saml-fotofelt__ord` er mindst 10,5 px ved alle bredder, eller ordet er
+erstattet af tilstandsalfabetets stiplede firkant uden tekst. Kontrafaktisk:
+i dag rapporterer `grep -c "font-size:[78]px" assets/generator.css` **2**;
+bagefter **0**.
+
 ### Navngivne regler
 
 **Reglen om versaletiketten.** Den spatierede versaletiket må kun navngive en
@@ -382,8 +707,9 @@ datagruppe eller en enhed — aldrig en indholdstom optakt over en overskrift.
 
 **Reglen om mono.** Mono og fed hører til tal, aldrig til en sætning.
 
-**Skriftgulvet.** 10,5 px er den mindste skriftgrad i systemet, også i den
-smalleste ombrydning.
+**Skriftgulvet.** 10,5 px er den mindste skriftgrad for tekst, der bæres alene,
+også i den smalleste ombrydning. Rækkevidden og de to undtagelser står i DP3c
+ovenfor.
 
 ## Layout
 
@@ -586,6 +912,14 @@ kommer igen, at hver `<button>` på sitet bærer `.knap`, at grundformen
 forbliver farveløs, og at hver variant holder 4,5 : 1 — med kontrasten
 **regnet i testen** fra tokenernes hex, ikke afskrevet fra en kommentar.
 
+### Fokusringen
+
+Ringen er en **farveregel**, ikke en komponent med egen form, og den står derfor
+i fuld længde under `## Farver` → **Forgrundsreglen for `--accent`**, punkt
+**DP1b**. Kort: 3px, `outline-offset` 3px, `--hjoerne` som radius, og farven
+kommer fra aliaset `--ring` — `--blaek` på lys flade (12,72 / 14,69),
+`--accent` på mørk (9,19). **Skriv aldrig ringens farve direkte i en regel.**
+
 ### Kildemærket
 
 Et hævet bogstav efter værdien, `--mono`, `blaek2`, `max(8px,.34em)`.
@@ -655,19 +989,134 @@ på denne liste uden først at måle den i `dist/`:
 grep -rl "<klassenavn>" dist/da/ dist/en/ | wc -l     # skal give 0
 ```
 
-### Producentfladen mangler et afsnit — kendt hul, ikke en forglemmelse
+### Producentfladen — DP2, designplanen 3. sep 2026
 
-Noteret 3. sep 2026 af `spor/produkort`s analyse (`fund/ANALYSE-produkort.md`,
-hul H1) og efterprøvet her. Fladen er **MODE: Read**, og disse klasser, den
-bygger på, er **ikke** beskrevet nogen steder i denne fil: `.eu-fund-linje`,
-`.eu-fund-tal`, `.producent-fakta`, `.pnavn`, `.pland`, `.pantal`,
-`.prod-navne`, `.kort-legende`. Ordet *"producent"* står 5 gange i filen, alle
-fem tilfældige.
+**Hullet blev noteret 3. sep 2026 af `spor/produkort` (`fund/ANALYSE-produkort.md`,
+hul H1) og lukkes her.** Her stod indtil designplanen kun en note om, at
+afsnittet manglede.
 
-Afsnittet skrives **ikke** her og nu: designfrysen (L70) gælder, og et
-komponentafsnit er en systembeslutning, ikke en dokumentrettelse. Det hører i
-den overordnede designplan. Denne note findes, så næste agent ved, at hullet er
-**målt og kendt** frem for at tro, at fladen er dækket.
+**MODE: Read.** Den besøgende skal **forstå** noget om en producent, ikke løse
+en opgave. Fladens ene berettigelse, ordret fra `producent.mjs`' eget hoved:
+*"at vise CE-oplysningen SAMLET for hele producentens modelrække. Ét 'ikke
+oplyst' er en tom rubrik; tolv under hinanden er en oplysning om producenten."*
+Read-kriteriet er derfor: **kan læseren forstå, hvad vi ved om denne producent —
+og hvad vi ikke ved?** Alt på fladen dømmes efter det, ikke efter Operate's
+"kan opgaven løses hurtigt".
+
+**Ingen betjening.** Målt af `fund/PLAN-producent.md` 6.1: **0** `.knap`,
+**0** `<button>`, **0** `<form>` på begge producentflader. Det er fladens
+reneste overholdelse af hård begrænsning 1, og det er en **egenskab, ikke et
+tilfælde** — en fremtidig knap på denne flade skal begrundes, ikke bare
+tilføjes.
+
+#### De otte klasser
+
+| Klasse | Hvor | Hvad den er |
+|---|---|---|
+| `.eu-fund-linje` | `generator.css:24` | CE-opgørelsens linje. `display:flex`, `flex-wrap`, `align-items:baseline`, `gap:10px 12px`, `max-width:74ch`. **Er siden 3. sep en LISTE af `<p>`, ikke ét element** — se DP2b |
+| `.eu-fund-tal` | `generator.css:28` | Figuren *"n af m"*. `--mono`, tabulære cifre, `clamp(26px,2.6vw,34px)`, 700, `--blaek` |
+| `.producent-fakta` | `generator.css:1087` | Headerens faktarække. `flex-wrap`, `gap:var(--r3) var(--r6)`; `dd` 17px/600/`--blaek`; `.figur` 21px/700 |
+| `.pnavn` | `generator.css:1099` | Producentnavnet i indekslisten. 16px/600, `flex:1 1 14ch`, `min-height:24px`. `--blaek` siden L76 |
+| `.pland` | `generator.css:1104` | Landet. `--mono`, 12px, `--blaek3` |
+| `.pantal` | `generator.css:1105` | Modelantallet. `--mono`, 12,5px, `--blaek2` |
+| `.prod-navne` | `generator.css:1166` | Modelnavne-cellen i producenttabellen. `width:auto`, `padding-left:var(--r4)`, `--blaek3` med `--blaek`-links. Skjules under 899px |
+| `.kort-legende` | **ingen CSS** | Billedlegenden. Målt: `grep -rc "kort-legende" assets/*.css` giver **0** i begge stilark — al form kommer fra `.t-lille`. Klassen bruges to steder (`katalog.mjs:1521`, `producent.mjs:317`) med **hver sin** i18n-nøgle |
+
+**`.kort-legende` er dermed et navn uden en regel.** Systemet har en test mod
+død CSS; det har ingen mod en klasse, der er ren markørtekst i HTML'en.
+Beslutning: **den beholdes** — den er et fæste, en senere regel kan hænge på,
+og at fjerne den ville gøre to flader usporbare med ét grep. Men den skal
+**ikke** bruges som forbillede: en klasse uden regel er ikke systemets måde.
+
+#### DP2a — F2: samme datatilstand i to størrelser på samme side
+
+**Målt af `spor/produkort` på Xiaomis side:** `.v-ikke` står to gange og ser
+forskellig ud — **11px** i headeren (korrekt), **17px** i EU-afsnittet. Samme
+gælder `.v-nej` (skal være 10,5px, fuld `blaek`) og `.v-ja`.
+
+**Årsagen:** `generator.css:30` er `.eu-fund-linje span{font-size:17px;
+line-height:1.5;color:var(--blaek2)}`. Specificiteten **0,1,1** slår `.v-nej`s
+**0,1,0** (`system.css:646`). Reglen blev skrevet, dengang linjen indeholdt
+**præcis én** `<span>` — sætningen. Den er **ældre end** de tilstandsmærker,
+`producent.mjs` lægger ind i dag.
+
+**Det er et konsistensbrud, ikke et tilgængelighedsbrud.** `blaek2` på `bund`
+er 5,68 : 1 mod AA's 4,5 — og de 9×9px firkanter måler korrekt, så hård
+begrænsning 5 er opfyldt. Det er systemets **typografi**, der skrider, ikke
+tilstandsalfabetet.
+
+**Analysens kandidatrettelse er FRAVALGT — diagnosen er rigtig, løsningen er
+det ikke.** Kandidaten var tre nye, mere specifikke regler
+(`.eu-fund-linje span.v-nej{font-size:10.5px;color:var(--blaek)}` osv.). Den
+slår specificitet med mere specificitet og **skriver de fire tilstandes
+værdier af i hånden et sted mere.** Ændres `.v-nej` fra 10,5px, divergerer
+kopien tavst, og ingen test fejler. Det er nøjagtig fælden, denne fil selv
+navngiver: tre håndskrevne kopier divergerer ved den fjerde.
+
+**Valgt løsning: flyt erklæringen fra barnet til forælderen.**
+
+```css
+/* var: .eu-fund-linje span{...}   — rammer ogsaa tilstandsmaerkerne */
+.eu-fund-linje{font-size:17px;line-height:1.5;color:var(--blaek2); /* + de nuvaerende flex-egenskaber */}
+```
+
+**Hvorfor det virker uden en specificitetskamp: en ARVET værdi taber altid til
+en direkte erklæring, uanset specificitet.** Sætningens klasseløse `<span>`
+arver 17px/`blaek2`; `.v-nej`, `.v-ikke`, `.v-ja` og `.v-billede` har deres
+egne direkte erklæringer i `system.css` og vinder dermed af sig selv. Ingen ny
+klasse, ingen kopi, ingen ny regel at holde ved lige. `.eu-fund-tal` og `.ikon`
+har egne erklæringer og er upåvirkede; `.mrk` er px-sat overalt
+(`system.css:648, 653, 695, 703`), så firkanterne rører sig ikke.
+
+**Følgen, som skal skrives frem, fordi den ikke er nul:** `.v-ja` er
+`font-size:.62em` (`system.css:651`) og bliver dermed 0,62 × 17px =
+**10,54px** — lige over skriftgulvet på 10,5px, og på linje med headeren, hvor
+`.producent-fakta dd` også er 17px. **Den underliggende uenighed består:**
+`.v-nej` (646) og `.v-ikke` (692) er fast px, `.v-ja` og `.v-billede` er em. DP2a løser
+symptomet på denne flade; **px/em-splittet i tilstandsfamilien er stadig
+uafgjort** og står i `## Konflikter` som punkt 9.
+
+**Acceptkriterium DP2a:** målt i browseren på en bygget producentside med
+mindst to CE-tilstande — `.eu-fund-linje .v-nej` er **10,5px** og
+`rgb(34, 38, 42)`; `.eu-fund-linje .v-ikke` er **11px** og `rgb(95, 104, 111)`;
+sætningens `<span>` er stadig **17px** og `rgb(84, 92, 99)`. Kontrafaktisk:
+uden rettelsen rapporterer samme script **17px** og `rgb(84, 92, 99)` for alle
+tre. Og: `grep -c "eu-fund-linje span" assets/generator.css` giver **0**.
+
+#### DP2b — H4: hvad der sker, når en komponent bliver en liste
+
+`.eu-fund-linje` blev designet som **ét** element og er siden 3. sep 2026 en
+**liste** af op til tre `<p>` (`producent.mjs:253`). `p{margin:0}`
+(`system.css:300`) gælder, så blokkene støder op mod hinanden.
+
+**Målt af `spor/produkort` ved 390px:** **10px** inde i én tilstandsblok (fra
+tallets bund til den ombrudte sætning), **0px** mellem to blokke. **Nærheden
+grupperer modsat af meningen.** Ved 1440px ombrydes intet, hver blok er 53px,
+og problemet findes ikke — det er altså en ombrydningsfejl, ikke en
+grundfejl. **0px er heller ikke et trin på ottetalsskalaen**, og denne fil
+siger *"Gør rummet fra ottetalsskalaen."*
+
+**Reglen om det gentagne blokelement — den gælder alle komponenter, ikke kun
+denne.** Når en komponent, der var ét element, bliver til en liste, skal
+afstanden **mellem** to forekomster være **mindst ét trin over den største
+afstand inde i** én forekomst, og begge skal komme fra ottetalsskalaen. Ellers
+læses listen som én blok med tilfældige ombrydninger.
+
+**Anvendt her:** største indre afstand er `gap`ens **12px**; nærmeste trin over
+er `--r4` = **16px**.
+
+```css
+.eu-fund-linje + .eu-fund-linje{margin-top:var(--r4)}
+```
+
+**Acceptkriterium DP2b:** målt ved 390px på en producentside med mindst to
+CE-tilstande — afstanden mellem to `.eu-fund-linje` er **16px**, og den er
+større end enhver afstand inde i en enkelt blok. Kontrafaktisk: uden rettelsen
+rapporterer samme måling **0px**. Ved 1440px må målingen af blokkenes højde
+være uændret på nær de 16px.
+
+**DP2 er en beslutning i designplanen, ikke en L-post** — samme forbehold som
+DP1.
 
 ## Gør og lad være
 
@@ -699,10 +1148,13 @@ den overordnede designplan. Denne note findes, så næste agent ved, at hullet e
   ombrydning.
 - **Lad være** med at antage, at et token-navn (`--blaek3`, `--hegn`, …)
   stadig bærer sin ORBIT-værdi. Værdierne er nye; kun navnene er gamle.
-- **Lad være** med at bruge `--accent` som tekstfarve mod en lys flade.
-  Det er ikke længere en advarsel, men en regel (L76): accent er baggrund,
-  kant, understregning eller fokusring — aldrig forgrund på lyst. På den
-  mørke flade må den gerne være tekst.
+- **Lad være** med at bruge `--accent` som **forgrund** mod en lys flade —
+  tekst, kant, fokusring, ikon eller markør. Her stod indtil designplanen
+  *"accent er baggrund, kant, understregning eller fokusring — aldrig forgrund
+  på lyst"*, og de tre eksempler modsagde reglen: en kant og en fokusring ER
+  forgrunde. Se **Forgrundsreglen for `--accent` (DP1)** under *Farver* for
+  kravtallet pr. brugstype. På den mørke flade må accent være forgrund
+  (9,19 : 1).
 - **Lad være** med at sætte hvid tekst på `--accent`. Tekst på accent er
   altid `--blaek`. Hvid giver 1,66 : 1.
 - **Lad være** med at beskære et produktfoto (L78), og lad være med at
@@ -724,7 +1176,9 @@ afgjorte punkter er markeret **AFGJORT** med deres L-nummer og beholdt i
 fuld længde — en løst konflikt, der slettes, efterlader ingen forklaring
 på, hvorfor koden ser ud, som den gør.
 
-**Fem af dem er afgjort nu.** Punkt 3, 6 og 8 er uafgjorte og uberørte.
+**Fem af dem er afgjort nu.** Punkt 3, 6 og 8 er uafgjorte og uberørte, og
+designplanen har 3. sep 2026 tilføjet **punkt 9**, som også er uafgjort.
+Punkt 5 er genåbnet og afgjort bredere — se noten dér.
 
 **1. Knappen — to generationer. AFGJORT af L77 (2. sep 2026).**
 Konflikten var: `.videre`/`.videre--stille` (158/142 sider, talt i `dist/`)
@@ -840,6 +1294,16 @@ Efterprøvet i browseren på en bygget robotside: 29 links, **0** med accent
 som tekstfarve, **0** under 4,5 : 1. Måleapparatet er valideret mod et
 kendt svar — tvinges accent tilbage, rapporterer samme script 29 og 15.
 
+**Punktet blev genåbnet 3. sep 2026 og er nu afgjort igen, bredere. L76 var
+rigtig, men dens RÆKKEVIDDE var for smal:** den dækkede accent som *tekst*, og
+fokusringen — som er en forgrund, ikke en baggrund — slap igennem på 1,38 : 1 mod
+WCAG 1.4.11's 3,0. Værre: L76's egen formulering listede *"fokusring"* blandt de
+tilladte brug. **Tallet var kendt hele tiden** — `fund/PLAN-klaebebar.md` §11
+fører `--accent` på `--bund` som *"1,38 (ulovlig, L76)"* — men ingen anvendte
+reglen på en ikke-tekstlig komponent med et andet kravtal. Se
+**Forgrundsreglen for `--accent` (DP1)** under `## Farver`, som afløser L76 og
+dækker alle fem forgrundstyper.
+
 **6. `--hegn` som betydningsbærende kant fejler WCAG 1.4.11.** 2,47 : 1 mod
 `panel`, 2,14 : 1 mod `bund` — under de 3,0 : 1, standarden kræver til
 meningsbærende ikke-tekst-elementer (inputkant, hul-markør). ORBIT-værdien
@@ -874,3 +1338,21 @@ peger på systemets token, OG at tokenet er 2px.
 `border:1px solid linje;border-radius:rund;box-shadow:skygge`. `.net .kort`
 (`generator.css`, katalogsiden) nulstiller alle tre til `0`/`none`. Samme
 klasse, to visuelle identiteter, afhængigt af hvilken side der spørger.
+
+**9. Tilstandsfamilien satses på to måder. NY, tilføjet af designplanen
+3. sep 2026.** `.v-nej` er fast **10,5px** og `.v-ikke` fast **11px**
+(`system.css:646, 692`), begge omlagt fra `em` af `spor/samlvaelg`, fordi
+em-satsen svingede med den arvede skrift. `.v-ja` (`.62em`) og `.v-billede`
+er stadig em-baserede. **Halvdelen af én fire-tilstandsfamilie skifter
+størrelse med sin kontekst, halvdelen gør ikke.**
+
+Konflikten var allerede noteret i *De fire datatilstande* som en måling; den
+står nu her, fordi den er en **uafgjort systembeslutning**, og fordi DP2a gør
+den mærkbar: efter DP2a bliver `.v-ja` i EU-afsnittet 0,62 × 17px = 10,54px,
+altså **et tilfældigt tal, der lige akkurat rammer over skriftgulvet.**
+
+**Ikke afgjort af designplanen, og hvorfor:** at låse `.v-ja` og `.v-billede`
+til faste px vil ændre deres størrelse på **alle** flader, der bruger dem —
+robotside, sammenligningsside, katalog — og de flader er ikke målt. Det er et
+eget spor med en egen grundmåling, ikke en note i en plan. Se
+`fund/PLAN-designarbejde.md`.
