@@ -316,3 +316,136 @@ genopfinder den næste læser den om tre uger.
 (16 → −234,4 px). Det er en ren funktionsfejl og dermed undtaget designfrysen, men den rører
 gruppens rækkestruktur, som punkt 2 også rører. **Byg de to sammen, ikke hver for sig** — to
 spor i `.saml-gruppe` er en flettekonflikt, der først viser sig til sidst.
+
+### Tre tilstande, målt på den tonede række
+
+Hård begrænsning 5 er den eneste, punkt 1 kunne bryde: en baggrundstone under
+*ikke oplyst*, *nej* og *0* må ikke udviske forskellen. Målt på matricens egne elementer —
+og bemærk, at det er `.v-ikke`/`.v-ja`/`.v-tal`, der bærer tilstandene her, ikke `stans`,
+som briefets komponentliste peger på:
+
+| Tilstand | Antal i udvalget | Mod `--panel` | Mod eloxgraa (svæv) |
+|---|---|---|---|
+| `.v-ikke` — *ikke oplyst*, 0,8 px stiplet ramme | 42 | 5,48:1 | **4,74:1** |
+| `.v-ja` — *ja / nej* | 1 | 14,69:1 | 12,72:1 |
+| `.v-tal` — tal | 28 | 14,69:1 | 12,72:1 |
+| `.v-tekst` — fritekst | 6 | 14,69:1 | 12,72:1 |
+| `.v-nul` — værdien **0** | **0** i dette udvalg | ikke målt | ikke målt |
+
+Ingen falder under 4,5 på den tonede række, og den stiplede ramme, der skiller *ikke oplyst*
+fra de øvrige, er en **form**forskel, ikke en farveforskel — den overlever en baggrundstone
+pr. definition. **Usikkerhed, der skal med i byggebriefet:** `.v-nul` optræder ikke i det
+udvalg, der kunne måles, så dens kontrast på svæv er **antaget**, ikke målt. Byggesporet skal
+finde en robot med en nulværdi og måle den.
+
+---
+
+## K3 — enhedskontakten som fast del af topbaren
+
+**Den står der allerede.** JPK's iagttagelse er ægte, men årsagen er en anden end den, ordene
+peger på — og den anden årsag er værd mere end den rettelse, ordene ville have udløst.
+
+Målt (F4): `side.mjs:2150` skriver etiketten i `.daek__enhed` på **107 af 107** danske sider.
+`system.css:2399` skjuler den, og `system.css:2411–2413` viser den kun via `:has()`, når siden
+har en `.enhedsskift__boks`. Landet i `8bd39b3` som svar på JPK's eget punkt 2 den 1. sep.
+På robotsiden står den synlig, målt til **300 × 36 px ved x = 1080,8**.
+
+**Hullet er kataloget.** Målt i den byggede `dist/da`, tællet på `<span class="enhed">` med en
+enhed, `OMREGNING` i `side.mjs:979` faktisk kan omregne (kg · mm · cm · m · °C · m/s · km/h):
+
+| Side | Omregnelige tal | Kontakt i dag | Dom |
+|---|---|---|---|
+| **Katalog** (`dist/da/index.html`) | **132** | skjult | **Hullet.** Landingssiden bærer flest tal uden for robotsiderne |
+| Om os | 3 | skjult | Lad den være. 3 tal, og Om er Read, ikke Operate |
+| 25 producentsider + oversigt | **0** | skjult | Korrekt. Kontrolmåling: `<span class="enhed">` i alt = **0** |
+| 404 | 0 | skjult | Korrekt |
+| 71 robotsider | mange (14 alene på MOVENEW P1) | **synlig** | Virker |
+| Sammenligning | ja | **synlig** | Virker |
+
+Går man ind på kataloget først — som en ny læser gør — og derefter på sammenligningen, ser det
+ud, præcis som JPK beskrev: kontakten lever kun ét sted.
+
+**Beslutningen, briefet beder om, er truffet én gang før, og begrundelsen står i koden.**
+`system.css:2400–2410` skriver den ud: *"ellers ville katalog-, producent-, om- og
+404-siderne vise en kontakt, intet klik gør noget ved"*. Jeg anbefaler at **holde fast i den**
+og lukke hullet i stedet:
+
+| | Altid synlig (alle 107) | Kun hvor der er noget at skifte (i dag) |
+|---|---|---|
+| **Pris** | En død kontakt på 26 producentsider + 404, hvor der er målt **0** tal | En kontakt, der flytter sig mellem sider |
+| **Byggepris** | Nær nul — slet `:has()`-reglen | Nul — den er bygget |
+| **Operate-dom** | Bryder *"ingen opfundne affordanser til standardopgaver"* | Holder |
+| **Dom** | **Afvist** | **Behold** |
+
+**Det, der skal bygges i stedet — og det er ikke en sammenligningssideopgave:**
+`katalog.mjs` skal kalde `saetEnhedsskift(true)` og udsende `<input id="enhedsskift">`, så
+`:has()`-reglen tænder kontakten dér af sig selv. **Prisen skal genmåles af den, der bygger
+det.** `side.mjs:1104–1116` har allerede prissat den én gang: *"~700 døde figurer pr. sprog
+på katalogsiden alene"*. Min måling siger **132** omregnelige enhedsspan på den danske
+katalogside, så det tal er formentlig en overvurdering — men de to tæller ikke det samme
+(`~700` er alle figurer, `132` er dem med en omregnelig enhed), og **et byggespor skal måle
+sin egen HTML før og efter, ikke arve nogen af de to tal.**
+
+**En målt defekt, der skal med uanset hvad.** Kontakten vises på sammenligningssiden, også
+når kun **én** robot er valgt — altså i tilstanden *"Vælg mindst 2 robotter"*, hvor der ikke
+findes en tabel. Målt: `localStorage` = `["microrobotech-movenew-p1"]` → ingen `<table>` i
+DOM'en, `.sammenligning-app` uden `hidden`, `.daek__enhed` = `display:flex`. Årsagen er, at
+`:has(.sammenligning-app:not([hidden]) .enhedsskift__boks)` er sand, så snart pladen er
+foldet ud — uanset om der står en matrix i den. Det er en ren funktionsfejl (en kontakt, hvis
+klik ikke gør noget) og dermed undtaget designfrysen.
+
+---
+
+## SYSTEMÆNDRING
+
+Sammenligningssidens komponenter deles med de øvrige skærme. Her er, hvad hvert forslag rører
+uden for denne flade — målt, ikke skønnet.
+
+**Grundmålingen, der gør de tre første rækker billige:** `saml-matrix` og `saml-raekke`
+optræder **kun** i `assets/sammenligning.js`. Kontrolmåling: forekomster i
+`tools/skabelon/*.mjs` = **0**, i bygget `dist/da/**/*.html` = **0** (klasserne skrives af
+JavaScript, ikke af generatoren). Alt, der er afgrænset til de to klasser, kan derfor ikke
+nå en anden skærm.
+
+| Forslag | Rører | Andre skærme | Pris dér |
+|---|---|---|---|
+| `table-layout:fixed` på `.saml-matrix` (K1) | kun `.saml-matrix` | **ingen** | **0.** Men kun fordi den er scopet: `table{table-layout:fixed}` ville ramme robotsidernes 77 tabeller og producentsidens ene |
+| `overflow-wrap:anywhere` på `.saml-raekke__celle` (K1) | kun cellen | **ingen** | 0 |
+| Rækkemarkering på `.saml-raekke:hover` (K2.1) | `.saml-raekke`, og **brug** af `--accent-ro` | **ingen** | 0. Tokenet ændres ikke, det genbruges — samme flade som `.filtre label:hover` allerede har |
+| Gruppeskel med `--blaek3` (K2.2) | `.saml-gruppe`, og **brug** af `--blaek3` | **ingen** | 0 nye farver. Men læseretningen skifter fra **tekst** til **streg**, og det er L76's fælde spejlvendt: 5,48:1 er målt for begge retninger mod panel, så den holder — tallet skal genmåles, hvis stregen nogensinde lægges på en anden flade end `--panel` |
+| Fjernelse af den døde regel `generator.css:604` (K2) | kun `.saml-raekke > *` | **ingen** | 0. Reglen tegner allerede intet — målt på 142 celler |
+| **At ændre `--linje` selv** | **70 linjer / 73 forekomster / 71 uden for kommentarer**, begge stilark | **alle seks** | **Afvist.** Det er en systembeslutning med 70+ kaldsteder, ikke en sammenligningssidebeslutning. Rejses den, skal den rejses som sit eget spor med sin egen måling af hver kaldsted-flade |
+| Enhedskontakt på kataloget (K3) | `tools/skabelon/katalog.mjs`, `side.mjs`s `saetEnhedsskift`, `system.css`s `:has()`-regel | **katalog, 2 sprog** | 132 omregnelige enhedsspan pr. sprog får en imperial tvilling i den byggede HTML. **Skal genmåles før og efter**, ikke arves fra hverken min 132 eller kodens ~700 |
+| Kontakten skjult ved 1 valgt robot (K3) | `system.css:2412` | ingen | 0 |
+
+**Komponenter fra briefets liste, som INTET forslag herover rører:** `kort` (katalog · robot ·
+prod · om), `knap` (katalog · robot · 404) og `tabel` (robot × 77 · prod × 1). Det er ikke en
+antagelse: `table-layout` er scopet til `.saml-matrix`, som ingen af dem bruger.
+
+---
+
+## Rækkefølge, og hvad et byggespor ikke må opfinde
+
+Tre commits, i denne rækkefølge, fordi hver måler oven på den forrige:
+
+1. **K1** — `table-layout:fixed` + `overflow-wrap:anywhere` på `.saml-matrix`/cellen.
+   Færdig, når kolonnebredderne ved 3 plader og 1440 px er lige inden for 0,5 px, og
+   sidehøjden er steget med det målte beløb, ikke mere.
+2. **K2.2 + F3 + fjernelse af regel 604** — gruppeskellet, gruppetitlens klæbning og den døde
+   regel i ét greb, fordi alle tre rører `.saml-gruppe`.
+3. **K2.1** — rækkemarkering ved svæv og fokus. Sidst, fordi den skal måles oven på de
+   endelige rækkehøjder.
+
+**K3 hører ikke til her.** Den er systemdeltaets, den rører `katalog.mjs`, og ingen fladeplan
+ejer den fil.
+
+**Et byggespor må ikke opfinde:**
+
+- En ny farve. Hvert token i denne plan findes i `:root` i dag; ingen hex er ny.
+- Et nyt afstandstrin. `var(--r3)`/`var(--r5)` bærer allerede polstringen og gruppens luft.
+- En udfyldning af en tom celle. Hård begrænsning 2 gælder uændret; **tavshed er selve
+  fundet**, ikke en mangel, der skal skjules — 9 af 33 rækker er helt tavse, og det er data.
+- En vægtændring som tilstandssignal. Vægt ændrer bredde, bredde flytter layout.
+- En anden kontrastværdi end de målte. Står der et tal i denne plan, er det målt i browseren
+  på `--panel` eller på eloxgraa; bruges tokenet på en tredje flade, skal tallet måles igen.
+  **Et kontrasttal uden en læseretning er ikke et tal.**
