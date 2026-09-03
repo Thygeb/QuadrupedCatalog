@@ -331,6 +331,41 @@ kollisioner efter at reglerne var aftalt. Indtil da fandtes de kun i STATUS.md
 5. **Tag aldrig den andens tal for gode varer.** Efterprøv med egen måling, og
    sig til, når den afviger. Det er sådan, 10 forkerte forudsigelser blev fundet
    på én dag, uden at én nåede en beslutning.
+6. **Meld KOMMANDOEN, ikke hensigten — og meld både når du tager main og når du
+   slipper den.** To halvdele, begge betalt 3. sep 2026 inden for ti minutter.
+
+   **Den ene:** *"jeg tager main"* har ingen udløbstid, og en **baggrundskørsel
+   er usynlig for den anden session.** Peer flyttede `tests/koer.mjs` til
+   baggrunden, da den timede ud i forgrunden, og gik derefter i tomgang.
+   **Tomgangssignalet er en harness-besked om, at en tur sluttede — det er ikke
+   en frigivelse af main**, og det blev læst som en.
+
+   **Den anden:** jeg meldte *"jeg efterprøver dine tre tal"* uden at skrive
+   hvilke kommandoer. Havde der stået *"jeg kører validate, build og
+   koer.mjs"*, kunne peer have stoppet bygget med det samme. **En hensigt kan
+   ikke modsiges; en kommando kan.**
+
+   Prisen blev betalt to gange i samme minut. Min `koer.mjs` døde på punkt 2's
+   ENOTEMPTY mod den delte `tests/.tmp-koersel` — den billige halvdel, fordi den
+   larmede. **Den dyre var mit `build.mjs`, som skrev i `dist/`, mens peers
+   testkørsel læste derfra;** 13 tests spørger, om en side ER bygget. Kørslen gav
+   grønt med præcis det forventede tal, og peer kasserede den alligevel og kørte
+   om: *"et tal fra et forstyrret apparat er ikke et tal, uanset at det ser
+   rigtigt ud."* Genkørslen gav samme 1658/0, så bygget skjulte intet — **men det
+   er nu målt frem for skønnet, og det var hele pointen.**
+
+   **Læg mærke til, hvilken vej risikoen gik** (peers formulering): et byg midt i
+   en læsning giver typisk RØDE tests, ikke en falsk grøn, så sandsynligheden for
+   skjult skade var lav. Men *lav* var et skøn, ikke en måling — samme skelnen,
+   som punkt 5 stiller til den andens tal.
+
+   Formen, der lukker begge halvdele:
+
+   ```
+   "Jeg tager main. KOMMANDOEN: node tests/koer.mjs, i baggrunden. Intet andet."
+   ... senere ...
+   "Færdig med main. Suiten grøn, 1658/0. Pushet som <hash>. Main er din."
+   ```
 
 Find den anden session med `ListAgents`; svar på dens adresse fra `from=`.
 
