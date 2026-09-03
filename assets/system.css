@@ -2534,7 +2534,7 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
   position:fixed;left:0;right:0;bottom:var(--r4);z-index:50;
   margin-inline:auto;
   width:max-content;max-width:calc(100% - 2*var(--kant));
-  display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3);
+  display:flex;flex-wrap:nowrap;align-items:center;gap:var(--r3);
   padding:var(--r1) var(--r3);
   background:var(--fod);color:var(--paafod);
   border-radius:var(--hjoerne);
@@ -2559,14 +2559,48 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
    samme navn laeselige. Alle er trin paa skalaen, ingen haandskrevne tal:
      --r1  (4px)   navn <-> DETS egen Fjern-knap  - de hoerer sammen
      --r3 (12px)   mellem to valgte robotter      - de er sideordnede
-     --r3 + --r4   listen <-> handlingerne (bjaelkens gap plus marginen paa
-                   __gaa nedenfor)                - to forskellige ting
+     --r5 (24px)   listen <-> "Ryd udvalget"      - udvalgets fortrydelse
+     --r3 + --r5   rullesporet <-> "Åbn sammenligningen" (bjaelkens gap
+                   plus marginen paa __gaa)       - vejen fremad staar alene
    Uden trappen laeser oejet "navn navn navn Fjern Fjern Fjern". */
+/* ÉT VANDRET RULLESPOR (spor/bundbar punkt 6, planens D7, JPK's J3) -
+   OG DET GAELDER VED ALLE BREDDER, ikke under en graense.
+
+   Planen skrev "< 700 px". Maalt paa den byggede gren: bjaelkens indhold
+   er i vaerste tilfaelde 845,8 px (da) / 928,3 px (en), saa den ombryder
+   allerede omkring 900 px viewport - ved 700 px var den 62,4 px hoej,
+   altsaa VAERRE end de 45,7 px, klagen handlede om. En graense sat efter
+   planens tal ville have efterladt hele spandet 700-900 px i den fejl,
+   den skulle loese. Og graensen ville selv have vaeret et haardkodet tal,
+   der aendrer sig med sprogets ordlaengde: engelsk "Remove" er bredere
+   end "Fjern", saa dansk og engelsk ombryder ikke ved samme bredde.
+
+   `flex-wrap:nowrap` paa bjaelken plus et rullespor her loeser begge dele
+   uden et tal: bjaelken kan ikke ombryde ved NOGEN bredde, og listen
+   ruller, naar - og kun naar - der ikke er plads. Ved 1440 er der intet
+   at rulle, og sporet ses ikke.
+
+   MOENSTERET ER DAEKKETS, ikke et nyt (system.css:554-561), og de to
+   tastaturfejl, det koster, er allerede maalt og loest dér:
+     scroll-padding-inline - Blink ruller kun et fokuseret element frem,
+       naar det ligger HELT uden for rulleporten; 17 px synligt regnes som
+       nok, og sporet blev staaende paa scrollLeft 0.
+     outline-offset:-2px  - en overflow-boks klipper fokusringen, OGSAA
+       ved 1440 hvor der intet er at rulle. Ringen tegnes derfor indad.
+   Se .klaebebar__fjern:focus-visible nedenfor. */
+.klaebebar__spor{
+  min-width:0;
+  display:flex;flex-wrap:nowrap;align-items:center;gap:var(--r5);
+  overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;
+  scroll-padding-inline:var(--r6);
+}
+.klaebebar__spor::-webkit-scrollbar{display:none}
 .klaebebar__valg{
-  list-style:none;margin:0;padding:0;min-width:0;
-  display:flex;align-items:center;gap:var(--r3);
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-wrap:nowrap;align-items:center;gap:var(--r3);
 }
 .klaebebar__valg li{
+  flex:0 0 auto;
   display:flex;align-items:center;gap:var(--r1);
   white-space:nowrap;
 }
@@ -2600,12 +2634,18 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
    "af navnelisten, der har flex:1 1 auto" indtil 4. sep 2026; den
    voksende navnetekst er vaek, men de to handlinger skal stadig maale sig
    selv og ikke deles om resten.) */
-.klaebebar__gaa,.klaebebar__ryd{flex:none}
+/* min-height:24px OGSAA HER, ikke kun paa Fjern. `.knap--tekst-moerk`
+   nulstiller primitivens 44 px, saa bjaelkens to handlinger var 13,2 px
+   hoeje og klarede kun WCAG 2.5.8 gennem afstandsundtagelsen. De 24 px
+   koster NUL px i bredden (polstringen er stadig 0) og nul px i hoejde,
+   fordi Fjern-knappen ved siden af allerede er 25 px - bjaelken er lige
+   saa hoej med dem som uden. */
+.klaebebar__gaa,.klaebebar__ryd{flex:none;min-height:24px}
 /* Den ekstra luft foran handlingerne (se afstandstrappen ved __valg): den
    staar HER og ikke som en stoerre `gap` paa bjaelken, fordi gap ville
    ramme ALLE mellemrum - ogsaa det mellem "Åbn sammenligningen" og "Ryd
    udvalget", som er to handlinger, der hoerer sammen. */
-.klaebebar__gaa{margin-inline-start:var(--r4)}
+.klaebebar__gaa{margin-inline-start:var(--r5)}
 /* GRAENSEBESKEDEN INDE I BJAELKEN (punkt 5). Elementet er skabelonens
    eget .saml-graense; assets/katalog.js flytter det herind ved koersel.
    Den stod foer paa en LYS flade, og dens farve er derfor var(--blaek) -
@@ -2645,9 +2685,18 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
 /* Fokusringen er accent og tegnes UDAD med 2px i stedet for sidens globale
    3px: bjaelken er kun ~44 px hoej, og en 3px ring med 3px offset ville
    skaere ud over dens kant. */
-.klaebebar__gaa:focus-visible,.klaebebar__ryd:focus-visible,
-.klaebebar__fjern:focus-visible{
+.klaebebar__gaa:focus-visible{
   outline:2px solid var(--ring);outline-offset:2px;
+}
+/* RINGEN TEGNES INDAD PAA ALT, DER LIGGER I RULLESPORET - de tre
+   Fjern-knapper og "Ryd udvalget". En overflow-boks klipper alt uden for
+   sin kasse, ogsaa en fokusring, og ogsaa ved 1440 px, hvor der intet er
+   at rulle: en overflow-boks klipper uanset om den ruller. Samme
+   rettelse som daekkets navigation (system.css:501, hvor den er maalt paa
+   en tastaturbruger). "Åbn sammenligningen" staar uden for sporet og
+   beholder derfor sin udadtegnede ring. */
+.klaebebar__fjern:focus-visible,.klaebebar__ryd:focus-visible{
+  outline:2px solid var(--ring);outline-offset:-2px;
 }
 /* HER STOD EN PAASTAND, DER VAR FORKERT, OG DEN ER BEVARET SOM ADVARSEL,
    ikke slettet: "Bjaelken daekker IKKE sidefoden ... scroll-padding-bottom

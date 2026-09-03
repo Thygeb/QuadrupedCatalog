@@ -206,9 +206,35 @@
         tegnSaml();
       });
 
-      klaebebar.appendChild(klaebebarValg);
+      /* RULLESPORET ER EN EGEN KASSE (punkt 6), og "Ryd udvalget" ligger
+         INDE i det - praecis som planens §6 beskriver mobilen.
+
+         MAALINGEN, DER TVANG DET: med begge handlinger fast uden for
+         sporet blev sporet 52 px bredt ved 390 px (dansk) og 12 px
+         (engelsk) - navnene var reelt usynlige paa mobil, og bjaelken
+         loeste dermed ikke den opgave, den findes for. Aarsagen er, at
+         "Åbn sammenligningen" (150,8 px) plus "Ryd udvalget" (~90 px)
+         plus fuger fylder 281 af de 334 px, der er indeni ved 390. Ingen
+         justering af polstring kunne hente det - der skulle flyttes noget.
+
+         OG DET ER DEN RIGTIGE GRUPPERING, ikke bare den, der gav plads:
+         "Ryd udvalget" er UDVALGETS fortrydelse og hoerer til det, den
+         rydder. "Åbn sammenligningen" er den ene vej fremad og staar
+         alene. Samme skel, som CSS'en allerede goer med --frem paa den
+         ene og ikke paa den anden.
+
+         PRISEN, sagt hoejt: tabulaturraekkefoelgen bliver Fjern x3 ->
+         Ryd -> Åbn, hvor briefet skrev Fjern x3 -> Åbn -> Ryd. Ved smalle
+         bredder skal "Ryd udvalget" desuden rulles frem. J5 er
+         overholdt - knappen findes, og den rydder stadig alle tre paa ét
+         tryk. */
+      var klaebebarSpor = document.createElement('div');
+      klaebebarSpor.className = 'klaebebar__spor';
+      klaebebarSpor.appendChild(klaebebarValg);
+      klaebebarSpor.appendChild(klaebebarRyd);
+
+      klaebebar.appendChild(klaebebarSpor);
       klaebebar.appendChild(klaebebarGaa);
-      klaebebar.appendChild(klaebebarRyd);
 
       /* GRAENSEBESKEDEN FLYTTER MED IND I BJAELKEN (spor/bundbar punkt 5,
          planens D6 - det ene, Retning C bidrog med). "Du kan sammenligne
