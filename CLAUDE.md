@@ -536,8 +536,11 @@ skal ikke distribueres med repoet.
 
 ## Projektskills — brug dem frem for at gentage reglerne
 
-Ud over de globale skills i tabellen ovenfor har projektet tolv egne i `.claude/skills/`
-(otte indtil 2. sep 2026; `retro`, `spor`, `overlevering` og `design` kom til 3. sep):
+`ls .claude/skills/` giver **13** mapper (målt 3. sep 2026). Ti er projektets egne
+(otte indtil 2. sep; `retro`, `spor`, `overlevering` og `design` kom til 3. sep, og
+`grillmig` er ude af det obligatoriske workflow). De sidste tre er skills udefra, som
+er kopieret ind for at følge med worktreen: `supabase`, `supabase-postgres-best-practices`
+og — siden `0ee7ae8` — `impeccable`:
 
 | Skill | Hvornår |
 |---|---|
@@ -572,15 +575,31 @@ den fra sin worktree — **fejlede**, og faldt korrekt tilbage til disken.
 var generaliseret fra ét datapunkt og blev modbevist en time senere af det næste spor.
 Det er præcis fejl O5 i `ARBEJDSGANG.md`, begået i selve reglen om at måle.)*
 
-Projektets egne otte skills ligger i `.claude/skills/`, er versionerede og følger derfor
-altid med worktreen. Bruger- og plugin-skills gør ikke.
+Skills i `.claude/skills/` er versionerede og følger derfor altid med worktreen.
+Bruger- og plugin-skills gør ikke.
+
+**Det, der afgør sagen, er ikke MAPPEN — det er om filerne er COMMITTET.** Skærpet
+3. sep 2026, betalt af impeccable: JPK kopierede skillen ind i `.claude/skills/`
+kl. 21.24, og i de tre timer, den lå der **utracket**, var sætningen ovenfor usand
+for netop den. Målt: `ls ../udstilling-wt-certfacet/.claude/skills/impeccable`
+gav *findes ikke*. En agent, der læste tabellen fra sin worktree, ville have haft
+et forkert billede af, hvad den havde til rådighed — samme fejlform som de fire
+spor, der blev sendt uden `frontend-design`, fordi den lå på disken men ikke i
+`enabledPlugins`. Kopien er committet siden `0ee7ae8`.
+
+**`impeccable` er derfor projektlokal nu, fastfrosset på v4.1.1**, og skal ikke
+længere behandles som en plugin-skill, der kan mangle i en worktree. To ting, den
+commit IKKE løste: pluginnet står stadig i `enabledPlugins` som `impeccable@impeccable`,
+så der er to registreringer af samme navn — hvilken der vinder, er **ikke målt**;
+og kopien er byte-identisk med den globale (`diff -rq` tom), så detektorens stille
+degradering fulgte med uændret.
 
 **Konsekvens for ethvert brief til et worktree-spor: giv diskstien med fra starten som
 en udtrykkelig reserve** — *"kald skillen; lykkes det ikke, så læs denne fil"*. Det
 koster ingenting, når kaldet virker, og sparer en omvej, når det ikke gør. Stierne:
 
 ```
-C:/Users/thyge/.claude/skills/impeccable/SKILL.md
+.claude/skills/impeccable/SKILL.md          (projektlokal, følger med worktreen)
 C:/Users/thyge/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md
 ```
 
