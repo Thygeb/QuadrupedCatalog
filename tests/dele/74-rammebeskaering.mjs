@@ -32,6 +32,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { rens } from '../rens-css.mjs';
 
 export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
@@ -46,20 +47,26 @@ export default async function koer(ctx) {
   if (b.status !== 0) return;
 
   const css = fs.readFileSync(path.join(ud, 'generator.css'), 'utf8');
+  // Rens FILEN, ikke moenstret (tests/rens-css.mjs) - saa 74.1/74.2 er
+  // uafhaengige af, om generator.css staar kompakt eller formateret
+  // (BRIEF-prodtest.md). Moenstrene herunder er skrevet MOD den rensede
+  // streng og har derfor ingen mellemrum, hverken i efterkommer-kombinatorer
+  // (".net .billedled" -> ".net.billedled") eller foer "{".
+  const cssR = rens(css);
 
   // Den valgte regel (B): picture er absolut positioneret inde i en
   // position:relative .billedled, uden at regne paa en grid-raekkes hoejde.
-  const billedledPosRel = /\.net \.billedled\{[^}]*position:relative/;
+  const billedledPosRel = /\.net\.billedled\{[^}]*position:relative/;
   ok('74.1: .net .billedled har position:relative (bliver .picture-s positioneringskontekst)',
-    billedledPosRel.test(css));
+    billedledPosRel.test(cssR));
   ok('74.1.revert: samme moenster fanger IKKE en .billedled-regel uden position:relative',
-    !billedledPosRel.test('.net .billedled{background:red;display:grid}'));
+    !billedledPosRel.test(rens('.net .billedled{background:red;display:grid}')));
 
-  const pictureAbsolut = /\.net \.billedled picture\{display:block;position:absolute;inset:0\}/;
+  const pictureAbsolut = /\.net\.billedledpicture\{display:block;position:absolute;inset:0\}/;
   ok('74.2: .net .billedled picture er display:block;position:absolute;inset:0',
-    pictureAbsolut.test(css));
+    pictureAbsolut.test(cssR));
   ok('74.2.revert: samme moenster fanger IKKE den forkastede A-formulering (width/height:100% i stedet)',
-    !pictureAbsolut.test('.net .billedled picture{display:block;width:100%;height:100%}'));
+    !pictureAbsolut.test(rens('.net .billedled picture{display:block;width:100%;height:100%}')));
 
   // object-fit:contain er L78's egen ordlyd og maa ikke vaere rort - staar i
   // system.css, som dette spor ikke ejer, men den bygges rate CSS bekraefter

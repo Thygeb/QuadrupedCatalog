@@ -270,7 +270,7 @@
 
   "producent_hjemsted": "Based in",
   "producent_modeller_titel": "Models in the catalogue",
-  "producent_modeller": "{n} models",
+  "producent_modeller": "{n}\u00A0models",
   "producent_alle": "All {n} manufacturers",
   "producent_ingen_modeller": "No models from this manufacturer are in the catalogue yet.",
 
@@ -312,7 +312,7 @@
   "land_Rusland": "Russia",
   "land_Tyrkiet": "Turkey",
   "land_Brasilien": "Brazil",
-  "producent_model_en": "1 model",
+  "producent_model_en": "1\u00A0model",
 
   "forside_udvalg_regel": "{n} robots, spread across manufacturer and weight class and then selected by how many of the {m} fields the manufacturer states.",
   "sammenligning_soeg_etiket": "Search the robots",
