@@ -35,6 +35,7 @@ colors:
   paafod: "var(--p-eloxgraa)"
   paafod2: "var(--p-stoevgraa)"
   stans: "var(--p-stans)"
+  ring: "var(--p-gunmetal)"
 typography:
   display:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"

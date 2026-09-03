@@ -1595,7 +1595,7 @@
   color: var(--blaek);
 }
 .stribe-under-fold > summary:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--ring);
   outline-offset: 2px;
 }
 .stribe-under-krop {
@@ -1815,7 +1815,7 @@
   background: var(--panel-ro);
 }
 .skema > summary:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--ring);
   outline-offset: -3px;
 }
 .skema-taeller {
@@ -2338,6 +2338,7 @@
   padding: var(--r3) var(--r5);
   background: var(--fod);
   color: var(--paafod);
+  --ring: var(--accent);
 }
 .strimmel__mrk {
   font-size: 10.5px;
