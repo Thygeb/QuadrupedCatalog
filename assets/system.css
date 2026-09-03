@@ -2992,3 +2992,179 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
   .om-haard{font-size:17px;padding:var(--r4)}
   .om-trinliste{gap:var(--r5)}
 }
+
+/* --- 17. SIDEFODEN (spor/sidefod, 3. sep 2026) ----------------------------
+   JPK: "Faa lavet en afslutning paa skaermbilledet" -> "Hele siden mangler en
+   sidefod" -> "sidefoden skal gaa igen paa alle sider". Markuppen staar i
+   tools/skabelon/side.mjs' skal(); dens lange kommentar baerer indholdets
+   begrundelser. Her staar kun formen.
+
+   MODE READ. En fod paa et opslagsvaerk skal ikke tiltraekke sig
+   opmaerksomhed - den skal give siden en ende og sige, hvad vaerket er.
+   Succeskriteriet er, at laeseren foeler sig faerdig, ikke at foden bliver
+   set.
+
+   MATERIALET ER SYSTEMETS EGET, ikke en ny flade: var(--fod) er gunmetal, og
+   DESIGN.md's farveafsnit definerer tokenet ordret som "billednoten oeverst,
+   sidefoden". Foden er den flade, tokenet er opkaldt efter. Siden faar dermed
+   samme materiale i begge ender - den moerke plade lukker, hvad billednoten
+   aabner - uden at der opfindes en farve.
+
+   KONTRAST, MAALT MED WCAG'S EGEN FORMEL OG MED LAESERETNING (et kontrasttal
+   uden en laeseretning er ikke et tal - se CLAUDE.md's L70). Alle tre
+   reproducerede DESIGN.md's tal paa anden decimal:
+     --paafod  #E8EBED PAA --fod #22262A = 12,72 : 1   broedtekst, krav 4,5
+     --paafod2 #9AA3A9 PAA --fod #22262A =  5,94 : 1   etiket,    krav 4,5
+     --accent  #F2C400 PAA --fod #22262A =  9,19 : 1   fokusring, krav 3,0
+   KONTROLLEN, som er hele grunden til at laeseretningen skrives: den samme
+   accent som TEKST paa lys bund er 1,38 : 1. Den maa aldrig staa som forgrund
+   her paa nogen lys flade - og paa den moerke er den sikker. Samme farve, to
+   tal, og kun retningen skiller dem.
+
+   HAARSTREGEN ER IKKE var(--linje). Rille paa gunmetal maaler 9,40 : 1 og
+   ville tegne en hvid streg tvaers over foden, ikke en fuge. Delelinjen er
+   derfor en lav-alfa hvid, som .klaebebar allerede har fortilfaelde for
+   (`box-shadow:0 -1px 0 rgba(0,0,0,.2)`). Den baerer ingen betydning alene og
+   er dermed uden for WCAG 1.4.11.
+
+   LYS TEKST PAA MOERK FLADE KOMPENSERES paa alle tre akser, fordi den samme
+   graad optisk fedes op paa moerk bund: en anelse mere linjeafstand (1,6 mod
+   sidens 1,55), en anelse mere spatiering (.004em mod broedtekstens -.006em),
+   og vaegten holdes paa 400 frem for at blive skruet ned. */
+/* FODEN SKAL LIGGE I BUNDEN, OGSAA NAAR SIDEN ER KORTERE END SKAERMEN.
+   Maalt efter min foerste udgave: dist/da/404.html og dist/en/404.html er
+   866 px ved 1440x900, saa foden sluttede 34 px oppe og efterlod en lys
+   stribe under sig. FOER dette spor fandtes defekten ikke - der var ingen fod
+   at flyde - saa den er min, ikke arvet. 2 af 216 sider ved 900 px viewport;
+   paa en hoejere skaerm rammer den flere, og 404-siden er netop den, en
+   fremmed lander paa.
+
+   FLEX-KOLONNE PAA <body> ER SIKKER HER, fordi de eneste IN-FLOW-boern er tre:
+   .daek, <main> og .sidefod. Kontrolleret paa alle tre oevrige:
+     .spring    position:absolute (system.css §3)
+     SPRITE     <svg style="position:absolute" width="0" height="0">
+     <script>   display:none
+     .klaebebar position:fixed, og indsat af JS
+   `flex:1 0 auto` paa <main> lader den fri plads gaa TIL indholdet frem for
+   til en margen. Fri plads regnes MED fodens margin-top, saa en kort side
+   bliver praecis 100dvh - ikke 100dvh + 96 px, som `margin-top:auto` paa
+   foden ville give. Derfor beholder foden ogsaa sin --r9-luft paa de lange
+   sider, hvor der ingen fri plads er at fordele. */
+body{min-height:100dvh;display:flex;flex-direction:column}
+body > .daek{flex:none}
+body > main{flex:1 0 auto}
+body > .sidefod{flex:none}
+
+.sidefod{
+  background:var(--fod);color:var(--paafod);
+  /* margin-top er fodens ENESTE forhold til indholdet ovenfor: den luft, der
+     goer at siden slutter frem for at blive klippet. --r9 (96px) er skalaens
+     stoerste trin og bevidst stoerre end nogen sektionsafstand paa siden -
+     foden er ikke den naeste sektion, den er efter sektionerne. */
+  margin-top:var(--r9);
+}
+/* Rytmen: rundhaandet OVER den haarde linje, tættere mellem de to loefter,
+   rundhaandet igen ned til maerket. Tre trin (r7 / r5 / r6), ikke ét tal
+   gentaget - ellers faar alt i foden samme vaegt. */
+.sidefod__ramme{
+  padding-block:var(--r7) var(--r6);
+  display:grid;gap:var(--r5);
+}
+/* DEN HAARDE LINJE FOERER. Squint-testen skal give den foerst: den er stoerst,
+   tungest og lysest af fodens tre roller. Det er haard begraensning 1 sagt
+   hoejt - "vi er ikke forhandler" - og paa et katalog over andres produkter er
+   det den vigtigste saetning, siden trykker.
+
+   Ingen egen plade under den. Om os saetter den samme noegle paa .om-haard med
+   var(--fod) som baggrund, fordi den dér staar paa en LYS side; her ER hele
+   foden den plade, og en plade paa pladen ville vaere kasse-i-kasse. Samme
+   saetning, samme materiale, ét lag faerre. */
+.sidefod__haard{
+  margin:0;max-width:46ch;
+  font-family:var(--mono);font-size:19px;font-weight:600;line-height:1.34;
+  letter-spacing:-.012em;text-wrap:pretty;color:var(--paafod);
+}
+/* De to loefter staar SIDE OM SIDE og ikke under hinanden: de er to ligestillede
+   udsagn om samme ting (hvad siden goer ved tal, og hvad den ikke goer ved
+   laeseren), og en lodret stak ville goere det ene til en underordnet fodnote
+   af det andet.
+
+   SPALTERNE ER max-content, IKKE 1fr, og det er en rettelse af min egen
+   foerste udgave. Med `repeat(auto-fit,minmax(34ch,1fr))` maalte jeg
+   sporene til 566,7 px, mens afsnittene inde i dem var 471 px (deres 54ch) -
+   95 px doed plads inde i hvert spor, som saa ud som en spaltefuge paa 128 px
+   og ikke som gappets 32. auto-fit lavede desuden et TREDJE spor paa 0 px.
+   To spor, hver saa bred som sin egen laeselaengde, er det, formen paastod. */
+.sidefod__loefter{display:grid;gap:var(--r4)}
+@media (min-width:680px){
+  .sidefod__loefter{grid-template-columns:repeat(2,minmax(0,max-content));gap:var(--r6)}
+}
+/* 54ch er maalt paa DENNE graad: `ch` oploeses mod elementets egen font-size,
+   saa maalet skal staa paa afsnittet og ikke paa gitteret omkring det - der
+   ville de 54 tegn vaere blevet regnet i body's 17px og givet en anden bredde
+   end den, teksten faktisk saettes i. */
+.sidefod__broed{
+  margin:0;max-width:54ch;
+  font-size:15px;font-weight:400;line-height:1.6;letter-spacing:.004em;
+  color:var(--paafod);text-wrap:pretty;
+}
+/* Maerket er fodens sidste linje og systemets Etiket-rolle: versaler,
+   spatieret, mindste vaegt i foden. Delelinjen over den er det eneste sted i
+   foden, hvor der tegnes noget. */
+.sidefod__mark{
+  margin:0;padding-top:var(--r5);
+  border-top:1px solid rgba(232,235,237,.18);
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3) var(--r5);
+}
+.sidefod__udgiver{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--paafod2);
+}
+/* LINKET ER FODENS ENESTE KLIKMAAL og skal kunne ses som ét. Global `a` saetter
+   color:var(--blaek) - gunmetal PAA gunmetal = 1,00 : 1 - saa farven SKAL
+   overskrives her. Det er ikke en teoretisk fare: .nulstil blev genbrugt paa
+   en flade, den ikke var skrevet til, og maalte 1,16 : 1 (DESIGN.md,
+   Knapper). Understregningen bliver staaende, saa linket ikke kun kendes paa
+   sin farve (WCAG 1.4.1). */
+.sidefod__link{
+  color:var(--paafod);
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.15em;
+  text-transform:uppercase;
+  text-decoration-thickness:1px;text-underline-offset:4px;
+  /* Beroeringsmaalet: blaekket er 11,5 px, saa selve linjen er langt under
+     sitets 44 px. Polstringen giver MAALET uden at flytte noget synligt -
+     maalt til 47 px hoejt ved baade 1440 og 390. */
+  display:inline-block;padding-block:calc((44px - 1.3em) / 2);
+}
+/* Sidens ene gestus, uaendret: kassen fyldes med afmaerkningsgul, teksten gaar
+   til blaek. 9,19 : 1 med blaek PAA accent - den maalte, tilladte retning. */
+.sidefod__link:hover{
+  background:var(--accent);color:var(--blaek);
+  text-decoration-color:transparent;
+  box-shadow:0 0 0 4px var(--accent);
+}
+/* BUNDBAREN MAA IKKE DAEKKE FODEN. system.css' §13-kommentar ved .klaebebar
+   paastaar, at "Bjaelken daekker IKKE sidefoden" - den paastand havde ingen
+   regel bag sig, og den var kun sand, saa laenge foden ikke fandtes. Maalt af
+   AA136: baren daekker 89 px indhold ved 390 px, fordi body{padding-bottom:0}.
+
+   Reglen herunder staar i FODENS afsnit og roerer ikke .klaebebar's egne
+   regler - spor/barplan planlaegger den bar netop nu og ejer dens afsnit.
+   :has() er allerede i brug i dette stilark (topbarens enhedskontakt).
+   Baren indsaettes kun af assets/katalog.js og kun paa katalogsiden, saa
+   luften koster nul px paa de oevrige 214 sider. */
+body:has(.klaebebar:not([hidden])) .sidefod__ramme{
+  padding-bottom:calc(var(--r6) + 72px);
+}
+
+@media (max-width:679px){
+  .sidefod{margin-top:var(--r7)}
+  .sidefod__ramme{padding-block:var(--r6) var(--r5);gap:var(--r4)}
+  .sidefod__haard{font-size:17px}
+  /* Spalterne falder sammen af sig selv (auto-fit), men afstanden mellem de to
+     loefter skal vokse, naar de gaar fra at staa ved siden af hinanden til at
+     staa over hinanden - ellers laeses de som ét afsnit. */
+  .sidefod__loefter{gap:var(--r4)}
+  .sidefod__mark{padding-top:var(--r4)}
+}
+

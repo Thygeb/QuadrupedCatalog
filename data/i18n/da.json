@@ -429,5 +429,9 @@
   "pris_kurs_enkel": "1 {valuta} = {tal} {basis}",
   "kurs_kilde": "Kurs: {udgiver}, {navn}, {dato}.",
 
-  "prod_antal": "Antal"
+  "prod_antal": "Antal",
+
+  "_sidefod": "spor/sidefod (3. sep 2026, JPK: \"Hele siden mangler en sidefod\" · \"sidefoden skal gå igen på alle sider\"). Foden står i tools/skabelon/side.mjs' skal() og gælder derfor ALLE byggede sider. Den bærer KUN sætninger, der allerede er besluttet andetsteds: ingen_forhandler (hård begrænsning 1) og om_ikke_spor (Om os) genbruges ORDRET og har ingen kopi her. De to nøgler nedenfor er fodens egne. fod_udgiver er GENSKABT — den hed udgiver og blev slettet med den gamle fod i a6c8681; PRODUCT.md binder den: \"KeyResearch står som udgiver i footer og på Om-siden\". Skriv aldrig et tal, en adresse eller et telefonnummer her: udgiverens kontaktoplysninger står ét sted, på Om os.",
+  "fod_kildeloefte": "Hvert tal i kataloget har en kilde og en hentedato. Står tallet ikke hos producenten, bliver feltet ikke oplyst — det bliver aldrig et skøn.",
+  "fod_udgiver": "Udgivet af KeyResearch"
 }
