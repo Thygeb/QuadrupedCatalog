@@ -94,6 +94,16 @@ uden at bryde ejerskabet. (3) Jeg omskrev `enhed_skift_forklaring`, som robotsid
   overløb. Planens forudsigelse om, at datakolonnerne bliver smallere end rækkehovedets 224 px,
   holder **ikke** ved 1440 (225,6 > 224).
 - Mine før-tal afviger let fra planens: **4,78×** mod 4,70 og **3,92×** mod 3,86. Under 2 %.
+- **`netstat` og `taskkill` er IKKE på PATH i Git Bash**, ligesom `node` og `python`. Mit
+  første forsøg på at lukke serveren kørte
+  `netstat -ano 2>/dev/null | grep :8131 | awk '{print $NF}'` og fik en tom streng, som jeg
+  læste som *"ingen server kører"* — men `2>/dev/null` havde slugt `command not found`.
+  Serveren levede videre og svarede 200 i samme kørsel; **kun fordi jeg også målte med `curl`,
+  opdagede jeg modsigelsen.** Det er præcis dokumentfælden "send aldrig en kommando til
+  /dev/null, hvis dens fejltekst er en del af målingen", og den ramte i selve oprydningen, hvor
+  prisen ville have været en forældreløs server på en port, et andet spor senere får tildelt.
+  Brug fulde stier: `/c/Windows/System32/netstat.exe` og `/c/Windows/System32/taskkill.exe`
+  (sidstnævnte skal desuden have `MSYS_NO_PATHCONV=1` og `/PID`, ikke `//PID`).
 
 ## Punkter i briefet, jeg ikke nåede
 
