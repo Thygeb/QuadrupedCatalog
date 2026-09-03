@@ -1709,14 +1709,6 @@ td .v{font-size:15px}
 .sektion-hoved .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
   font-size:13px;color:var(--blaek3);white-space:nowrap}
 
-/* --- 15. Sidefod ---------------------------------------------------------- */
-.fod{background:var(--fod);color:var(--paafod);margin-top:var(--r9)}
-.fod .rum{padding-block:var(--r6) var(--r7);display:grid;gap:14px;max-width:86ch;margin-inline:auto}
-.fod p{font-size:14.5px;line-height:1.6;color:var(--paafod2)}
-.fod .haard{color:#FFFFFF;font-size:15px;font-weight:700;letter-spacing:-.012em}
-.fod a{color:var(--paafod)}
-.fod :focus-visible{outline-color:var(--paafod)}
-
 /* =============================================================================
    16. TYPESKILTET PAA ROBOTSIDEN (spor/robot, 31. aug 2026 — L57/L60)
 
@@ -2020,7 +2012,7 @@ td .v{font-size:15px}
    derfor FOER spor/korts blok og roerer ingen eksisterende regel.
 
    generator.css indlaeses EFTER system.css. Den kender ingen af klassenavnene
-   herunder (.skala*, .pris-om, .valg--skala) og har ingen .facet--s6, saa der
+   herunder (.skala*, .valg--skala) og har ingen .facet--s6, saa der
    er intet at overskrive og ingen kaskadekamp at tabe.
    -------------------------------------------------------------------------- */
 
@@ -2152,23 +2144,6 @@ td .v{font-size:15px}
    chips ser nu ens ud, hvilket var hensigten hele tiden ("arver alt af
    .valg"). */
 .valg--skala[hidden]{display:none}
-
-/* 8. DEN OMREGNEDE PRIS PAA KORTET (L66)
-   Samme grammatik som L60's imperiale omregningsmaerke: en daempet sidevaerdi,
-   der aldrig kan forveksles med producentens egen figur. Den staar paa EGEN
-   linje under prisen (.kort__vaerdi er allerede flex-wrap:wrap), fordi de to
-   tal ellers ville laeses som ét interval. */
-.pris-om{
-  flex:1 0 100%;display:flex;align-items:baseline;gap:5px;
-  font-variant-numeric:tabular-nums;
-}
-.pris-om__tal{
-  font-family:var(--mono);font-size:13px;font-weight:600;color:var(--blaek2);
-}
-.pris-om__ord{
-  font-size:10px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--stoev-blaek);
-}
 
 /* 9. SMALLE SKAERME
    Under 700 px falder facetgitteret i én kolonne (generator.css), og de to
@@ -2825,8 +2800,10 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 
 /* --- hvad siden ikke goer -------------------------------------------------
    Den haarde linje er PRODUCT.md's krav (linje 95-96, 119-120) og staar som
-   afsnittets paastand, ikke som en fodnote. Gunmetalflade, samme rolle som
-   sidefodens .haard - dér staar den ogsaa, paa hver eneste side. */
+   afsnittets paastand, ikke som en fodnote. Gunmetalflade (var(--fod)),
+   samme moerke overflade som .klaebebar bruger andre steder i systemet -
+   sidefoden, der oprindelig bar denne farve paa hver side, er fjernet
+   (spor/doedcss2, 3. sep 2026). */
 .om-haard{
   background:var(--fod);color:#FFFFFF;margin:0 0 var(--r5);
   padding:var(--r4) var(--r5);max-width:62ch;

@@ -2,12 +2,13 @@
  * tests/dele/57-doed-css.mjs — spor/doedcss, 1. sep 2026.
  * Udvidet af spor/uifix, 2. sep 2026: 15 -> 16 (punkt 4) -> 18 (punkt 5)
  * -> 20 (punkt 7). AFKORTET af spor/saml3 samme dag: 20 -> 19 (punkt 8).
+ * AFKORTET IGEN af spor/doedcss2, 3. sep 2026: 19 -> 14 (punkt 9).
  *
- * Laaser resultatet af 66 -> 19 doede CSS-klasser. Skal FEJLE, hvis en
+ * Laaser resultatet af 66 -> 14 doede CSS-klasser. Skal FEJLE, hvis en
  * fjernet klasse (eller en helt ny, uafhaengig doed klasse) sniger sig ind
  * i assets/system.css eller assets/generator.css igen.
  *
- * DE 15 BESKYTTEDE undtagelser er IKKE et tilfaeldigt tal: hver er en klasse,
+ * DE 14 BESKYTTEDE undtagelser er IKKE et tilfaeldigt tal: hver er en klasse,
  * briefets egen definition ("0 i class="..." OG 0 i assets/*.js") fejlagtigt
  * klassificerede som doed, fordi definitionen ikke saa to ting - begge
  * MAALT under selv-kontrollen, se fund/FUND-doedcss.md for beviserne:
@@ -65,11 +66,20 @@
  *      punkt 4's sidste saetning forudsaa ("Fjernes CSS-reglen i et senere
  *      spor med adgang til stilarkene, fjern klassen herfra i samme spor").
  *
+ *   9. fod, haard, pris-om, pris-om__ord, pris-om__tal er FJERNET fra listen
+ *      (spor/doedcss2, 3. sep 2026, BRIEF-doedcss2.md). Punkt 4-6 forudsaa
+ *      praecis denne oprydning ("Fjernes CSS-reglen i et senere spor med
+ *      adgang til stilarkene, fjern klassen herfra i samme spor") - dette ER
+ *      det spor. assets/system.css var i filejerskabet denne gang, saa alle
+ *      fem CSS-regler er fjernet (fund/FUND-doedcss2.md), og klasserne er
+ *      derfor ikke laengere DOEDE - de FINDES ikke, samme begrundelse som
+ *      punkt 8's saml-svar__m--tavs.
+ *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
- * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 20,
+ * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 14,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 19 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 14 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -77,11 +87,9 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const BESKYTTET = [
-  'billedmaerke', 'filtre', 'fod', 'gitter', 'grund', 'haard', 'kort-billed',
-  'kort-hoved', 'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter',
-  'prik--klip', 'pris-om', 'pris-om__ord', 'pris-om__tal',
-  'saml-fotofelt--uoplyst', 'saml-raekke--tavs',
-  'stribe--kompakt',
+  'billedmaerke', 'filtre', 'gitter', 'grund', 'kort-billed', 'kort-hoved',
+  'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter', 'prik--klip',
+  'saml-fotofelt--uoplyst', 'saml-raekke--tavs', 'stribe--kompakt',
 ].sort();
 
 export default async function koer(ctx) {
