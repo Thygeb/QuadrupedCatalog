@@ -1,0 +1,5 @@
+FASE2-TJEK --tal --producent="Pudu Robotics"
+2 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2226  pudu-d5  4fe40406af41d9b04d8c7323d2e22e3b4847217945c646fdbc6c01b5fd2ed25f
+  2227  pudu-d5-w  b2ba1dd8541a56a8f2ab47deabdc8dc4dd08d696c0cfda8995e8b9ce0746ed10
+SAMLET AFTRYK: bb0e94d61eda255140d751c9c0c661b14a07cb23e7242e5c725fbb34e305f08d

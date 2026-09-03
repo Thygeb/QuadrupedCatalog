@@ -923,7 +923,9 @@
      stadig arve figurens sats. Undtagelsen navngiver derfor de fire
      tilstande, ikke det ene tilfaelde, vi ville beholde. */
   .robot-noegletal .stribe .v:not(.v-ikke,.v-billede,.v-nej,.v-ja){font-size:23px}
-  .robot-noegletal .stribe .krop > .v{min-height:26px}
+  .robot-noegletal .stribe .krop > .v,
+  .robot-noegletal .stribe .krop > .feltvaerdi{min-height:26px}
+  .robot-noegletal .stribe .v-tal{flex-wrap:nowrap}
 }
 
 .robot-foto{margin:0;display:flex;flex-direction:column;gap:10px}
@@ -1015,7 +1017,7 @@
   letter-spacing:normal;
 }
 .stribe-kildepris .enhed{
-  font-size:10px !important;color:var(--blaek3);
+  font-size:10.5px !important;color:var(--blaek3);
 }
 .stribe-kildepris .op{
   font-size:11px !important;color:var(--blaek3);

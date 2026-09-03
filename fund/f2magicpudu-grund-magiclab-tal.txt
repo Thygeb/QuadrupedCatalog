@@ -1,0 +1,7 @@
+FASE2-TJEK --tal --producent="MagicLab"
+4 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2219  magiclab-magicdog-edu  b7a4c08d3ca9aa1d924e42b1c846f9c7a908ff063a7aa0fb720741ceb0df1526
+  2220  magiclab-magicdog-pro  c0156f15b7fc903cf9e56655e1d7331b4f3b07adbba542d7e1459a9f1927e77c
+  2221  magiclab-magicdog-w  bd9ed40c70b2abe24e982b1ed190ddcd12fecd30f7476b731c5c9542f4845420
+  2222  magiclab-magicdog-y1  4f62ee118e6783e094dfe568fc90465e1034c45c399ebc60c639c3442eb501e3
+SAMLET AFTRYK: 596709137cf961440e755197f49df088a49b8dffcf003aaf4ba61286adc3977d

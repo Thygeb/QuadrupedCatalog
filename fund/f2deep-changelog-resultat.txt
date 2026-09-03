@@ -1,0 +1,5 @@
+change_log-raekker med changed_by='spor/f2-deep': 100
+DEEP Robotics robot_id'er: 2190, 2191, 2192, 2193, 2194, 2195, 2196, 2197, 2198
+Indenfor DEEP Robotics: 100
+UDENFOR DEEP Robotics: 0
+Fordelt pr. tabel: {"field_entries":76,"applications":9,"images":6,"robots":9}

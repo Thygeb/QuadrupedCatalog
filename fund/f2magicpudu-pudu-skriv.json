@@ -1,0 +1,376 @@
+[
+  {
+    "tabel": "robots",
+    "noegle": {
+      "id": 2226
+    },
+    "saet": {
+      "notes": [
+        "IMPORTANT DISCREPANCY FOUND BY FIELD-BY-FIELD VERIFICATION: the general marketing copy (identical wording on the official page and the webstore) states \"Easily handles 25 cm steps, 30° climbs, and 45° descents\" — but the variant-specific comparison table on the webstore states something different for D5 alone: \"D5: 25° ascent, 45° descent\" and \"Maximum Step Height D5: 30 cm\". The marketing copy’s 30°/25cm are actually D5-W’s table values (30° ascent, 25 cm step), not D5’s. The slope and stair_step_continuous fields below use the table, NOT the marketing copy — see the caveat on each field.",
+        "Footnote 5 on the official product page: \"PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request.\" The highlighted marketing copy (\"Dual 192-line* spherical LiDARs\") therefore describes a paid upgrade, not the standard configuration."
+      ]
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2226
+    },
+    "saet": {
+      "note": "The same sentence appears verbatim on both the official product page and the webstore (store.pudurobotics.com/products/pudu-d5)."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label is \"Weight (with Battery)\" — including battery."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat": "UNCERTAIN ASSIGNMENT. The manufacturer prints \"Standing Dimensions: 900 x 543 x 572 mm (35.4 x 21.4 x 22.5 in)\" without labelling the axes individually. The first figure is assumed here to be length, following the pattern from Deep Robotics X30. Not confirmed from the source."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "width"
+    },
+    "saet": {
+      "caveat": "UNCERTAIN ASSIGNMENT — see length. Second figure in the unlabelled triple assumed to be width."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "height"
+    },
+    "saet": {
+      "caveat": "UNCERTAIN ASSIGNMENT — see length. Third figure in the unlabelled triple assumed to be height."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label is \"Continuous Walking Payload: 20-30 kg (44-66 lbs)\" — range preserved. PR Newswire’s headline \"30kg Payload\" uses only the upper end of the range."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "speed"
+    },
+    "saet": {
+      "caveat": "From general marketing copy \"Cruises at up to 5 m/s\", applying to the D5 series broadly. The comparison table has no separate speed row per variant."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "slope"
+    },
+    "saet": {
+      "caveat": "From the variant-specific comparison table: \"D5: 25 ascent, 45 descent\". Only ascent is used here; descent is 45 degrees for both variants, and the schema has no separate descent field. See the top note about the discrepancy with the general marketing copy (30 degrees), which is D5-W’s figure."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "obstacle_single"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label is \"Climbing Capability: Up to 80 cm\", identical for D5 and D5-W. Assigned to obstacle_single (rule 7) because the manufacturer itself distinguishes this from the lower \"Maximum Step Height\" field (see stair_step_continuous) — but neither label itself uses the words \"single\" or \"continuous\", so the assignment is our interpretation."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "stair_step_continuous"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label is \"Maximum Step Height: D5: 30 cm (11.8 in)\", lower than \"Climbing Capability\" (80 cm, see obstacle_single). The general marketing copy instead states 25 cm — that is D5-W’s table value, not D5’s. See the top note."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "temperature_max"
+    },
+    "saet": {
+      "caveat": "Separate manufacturer field \"Cold-Start Capability: Below -10°C\" — a stricter limit for startup than for operation. The schema has no cold-start field; noted here because -10°C could otherwise be confused with temperature_min (-20°C)."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "runtime"
+    },
+    "saet": {
+      "caveat": "The press release states \"stable 30-kilogram payloads with over two hours of continuous runtime at full load\" — the only figure with an explicit load condition (rule 8), therefore used in preference to the webstore’s table value \"Operating Time: 2 - 2.5 hours\" (no load condition, same source as the fields above)."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat": "\"Charging Station\" listed as an accessory under \"Modular Expansion\". Footnote 3: \"Accessories such as the inspection kit and charging dock are optional and sold separately.\" — sold separately, not included in the base price."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "lidar"
+    },
+    "saet": {
+      "caveat": "Footnote 5: \"PUDU D5 Series is shipped with dual high-precision 96-line LiDAR as the standard configuration. For specialized applications requiring enhanced perception, a dual 192-line LiDAR upgrade is available upon request.\" The highlighted marketing copy mentions only the 192-line figure and omits this caveat."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "cameras"
+    },
+    "saet": {
+      "caveat": "The PR text: \"Four 120° fisheye cameras\". The webstore’s comparison table states more briefly \"Dual 3D LiDAR + Four Fisheye Cameras\" for the same field, without an angle figure."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Qualitative, translated from: \"the D5 handles complete autonomous workflows including departure, patrol, obstacle handling, and return-to-charge\", in the context of \"supporting continuous, unsupervised operation even in dynamic environments\". No numeric autonomy level (e.g. an SAE-like scale) stated."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2226,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "From the webstore’s Shopify product data (variant \"D5\": price 8000000, i.e. USD 80,000 in cent units). D5-W costs USD 85,000 according to the same source (variant \"D5-W\": price 8500000)."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "applications",
+    "noegle": {
+      "robot_id": 2227
+    },
+    "saet": {
+      "note": "Same product page and same sentence as pudu-d5.yaml — D5 and D5-W are two variant choices on ONE Shopify product page (handle \"pudu-d5\"), not two separate pages. See notes below."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "weight"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label is \"Weight (with Battery)\" — including battery. 1 kg heavier than D5 (61 kg)."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "length"
+    },
+    "saet": {
+      "caveat": "UNCERTAIN ASSIGNMENT, same caveat as D5. The manufacturer prints the same triple \"900 x 543 x 572 mm\" for D5-W as for D5 — standing dimensions are identical across the two variants according to the table."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "width"
+    },
+    "saet": {
+      "caveat": "UNCERTAIN ASSIGNMENT — see length."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "height"
+    },
+    "saet": {
+      "caveat": "UNCERTAIN ASSIGNMENT — see length."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "payload_walking"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label \"Continuous Walking Payload: 20-30 kg\" — identical figure for D5 and D5-W in the table."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "speed"
+    },
+    "saet": {
+      "caveat": "From general marketing copy \"Cruises at up to 5 m/s\" for the D5 series broadly. The press release ties the same figure specifically to \"wheel-leg hybrid locomotion\" (D5-W). The comparison table has no separate speed row per variant."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "slope"
+    },
+    "saet": {
+      "caveat": "From the variant-specific comparison table: \"D5-W: 30 ascent, 45 descent\". Only ascent is used here; descent is 45 degrees, no field for it in the schema. This figure agrees (unlike D5’s) with the general marketing copy’s \"30° climbs\"."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "obstacle_single"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label \"Climbing Capability: Up to 80 cm\", identical for D5 and D5-W. Same assignment caveat between this field and the continuous staircase field as for D5."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "stair_step_continuous"
+    },
+    "saet": {
+      "caveat": "The manufacturer’s label \"Maximum Step Height: D5-W: 25 cm (9.84 in)\" — LOWER than D5’s 30 cm, even though D5-W has wheels. This figure agrees with the general marketing copy’s \"25 cm steps\"."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "temperature_max"
+    },
+    "saet": {
+      "caveat": "Separate manufacturer field \"Cold-Start Capability: Below -10°C\" — same caveat as for D5."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "runtime"
+    },
+    "saet": {
+      "caveat": "The webstore’s table: \"Operating Time D5-W: 2 - 3 hours\", NO load condition (rule 8). The press release’s load-conditioned \"over two hours at full load (30 kg)\" is not explicitly tied to D5-W alone and is therefore used only for D5, not here."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "docking_station"
+    },
+    "saet": {
+      "caveat": "\"Charging Station\" listed as an accessory, same page as D5. Footnote 3: sold separately, not included in the base price."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "lidar"
+    },
+    "saet": {
+      "caveat": "Footnote 5, same as for D5 — applies to the D5 series, no separate statement for D5-W."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "autonomy_level"
+    },
+    "saet": {
+      "caveat": "Qualitative, applies to the D5 series broadly, not D5-W-specific — same source as for D5."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  },
+  {
+    "tabel": "field_entries",
+    "noegle": {
+      "robot_id": 2227,
+      "field_name": "price"
+    },
+    "saet": {
+      "caveat": "From the webstore’s Shopify product data (variant \"D5-W\": price 8500000, i.e. USD 85,000 in cent units). USD 5,000 more expensive than D5."
+    },
+    "change_reason": "fase 2 (spor/f2-magicpudu): dansk prosa oversat til engelsk; påstande efterprøvet mod media/_kilder/raa-kand1a-2026-08-24/."
+  }
+]
