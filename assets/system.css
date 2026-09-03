@@ -2145,11 +2145,6 @@ td .v{font-size:15px}
    .valg"). */
 .valg--skala[hidden]{display:none}
 
-.pris-om__ord{
-  font-size:10px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--stoev-blaek);
-}
-
 /* 9. SMALLE SKAERME
    Under 700 px falder facetgitteret i én kolonne (generator.css), og de to
    skalaer foelger med. Ridsetallene er da det foerste, der bliver trangt:
