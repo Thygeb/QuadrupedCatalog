@@ -206,15 +206,19 @@ export default async function koer(ctx) {
 
   /* --- 9. Kilden: de to nye noegler og daekkets skrift ------------------ */
   {
-    /* `sprog_etiket` ER UBRUGT FRA 2. sep 2026 (spor/topbar): den var
+    /* `sprog_etiket` BLEV UBRUGT FRA 2. sep 2026 (spor/topbar): den var
        skjult skaermlaeser-etiket paa DA/EN-skifteren, som JPK fik fjernet.
-       Noeglen staar bevidst tilbage i data/i18n/ - den fil ejes af et andet
-       spor - og assertionen er BEHOLDT, ikke slettet, fordi den stadig
-       proever noget sandt og nyttigt: at da.json og en.json har samme
-       noeglesaet. Bemaerk dog, at den fra nu af IKKE beviser, at noeglen
-       bruges. Fjernes den ved en senere oprydning, skal denne linje
-       fjernes SAMTIDIG - ellers bliver den roed uden at noget er i stykker. */
-    for (const n of ['nav_etiket', 'sprog_etiket']) {
+       Denne fils egen kommentar forudsagde noejagtig dette: "Fjernes den ved
+       en senere oprydning, skal denne linje fjernes SAMTIDIG - ellers bliver
+       den roed uden at noget er i stykker." Det er nu sket: spor/certfacet
+       (3. sep 2026, BRIEF-certfacet-2.md punkt 3) maalte 61 doede i18n-
+       noegler ved at KRYDSTJEKKE literal brug MOD generatorens faktiske
+       dynamiske kalds-domaener (se tests/dele/78-doed-i18n.mjs) og fandt
+       `sprog_etiket` blandt dem - fjernet fra begge sprogfiler i samme
+       commit som denne rettelse. Linjen her foelger forudsigelsen: kun
+       `sprog_etiket` fjernes fra loekken, `nav_etiket` er stadig i brug og
+       staar uaendret. */
+    for (const n of ['nav_etiket']) {
       ok(`37.10.${n}: noeglen findes i BEGGE sprogfiler`,
         n in da && n in en, `da:${n in da} en:${n in en}`);
     }

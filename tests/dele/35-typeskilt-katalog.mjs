@@ -150,36 +150,89 @@ export default async function koer(ctx) {
         !/data-facetgruppe="ce"/.test(udenFacet) && !/class="rk__felt f-ce"/.test(udenFacet));
     }
 
-    /* 35.12: L89 kraever udtrykkeligt, at facetten holder de VALGTE
-       certificeringer, ikke kun CE - men den egentlige laas her er haard
-       begraensning 5, som L89 selv citerer som begrundelse: "et filter maa
-       aldrig straffe aerlig tavshed". Maalt paa data/robots/ (L89): CE er
-       2 ja / 1 nej / 74 ikke oplyst. En facet, der kun kunne vise "ja", ville
-       skjule et DOKUMENTERET nej (Xiaomi CyberDog 2) og 74 tavse robotter bag
-       en tavshed, de ikke har fortjent. Vagten beviser derfor ikke kun at de
-       tre VAERDIER findes, men at de har TRE FORSKELLIGE DOM-signaturer -
-       raekke() giver "nej" klassen rk--nej og "ikke oplyst" rk--uoplyst,
-       mens "ja" er den tomme grundform - saa de rent faktisk kan SES som
-       forskellige, ikke kun taelles. */
-    ok(`35.12.${sprog}.ja: CE "ja" er en almindelig raekke (grundform, intet modifier)`,
-      /<div class="rk"><input class="rk__felt f-ce" type="checkbox" id="f-ce-ja"/.test(html));
-    ok(`35.12.${sprog}.nej: CE "nej" baerer rk--nej og sit eget maerke (i-nej)`,
-      /<div class="rk rk--nej"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"/.test(html)
-        && new RegExp(`id="f-ce-nej"[\\s\\S]{0,200}#i-nej`).test(html));
-    ok(`35.12.${sprog}.uoplyst: CE "ikke oplyst" baerer rk--uoplyst og sit eget maerke (i-ioplyst)`,
-      /<div class="rk rk--uoplyst"><input class="rk__felt f-ce" type="checkbox" id="f-ce-ikke_oplyst"/.test(html)
-        && new RegExp(`id="f-ce-ikke_oplyst"[\\s\\S]{0,200}#i-ioplyst`).test(html));
-    // Revert-bevis: kollapses alle tre til den SAMME (den udgaaede tilstand,
-    // hvor ét maerke daekkede over alt), skal "nej"-vagten falde ROED. Maa
-    // ramme PRAECIS CE's egen raekke - ip-facetten har ogsaa en "nej"-vaerdi
-    // (id="f-ip-nej") med samme rk--nej-klasse, og et generelt strengeskift
-    // ville have rettet DEN i stedet, fordi den staar foerst i dokumentet.
+    /* 35.12 er VENDT EN ANDEN GANG, 3. sep 2026 (spor/certfacet, se
+       STATUS.md AA154/L90). Foerste vending (ovenfor, L89) beviste at CE-
+       FACETTEN fik tre synligt forskellige raekker - ja/nej/ikke oplyst -
+       i selve filteret, med hjemmel i haard begraensning 5 ("et filter maa
+       aldrig straffe aerlig tavshed").
+
+       L90 (JPK, 3. sep 2026, ordret: "VI ENIGE OM AT Certificeringer
+       SAMLES UNDER ET FILTERGRUPPE") OPHAEVER DEN FORM, IKKE BEGRUNDELSEN.
+       Certificeringerne samles nu i ÉN gruppe med FIRE maerker (CE, FCC,
+       UL, CCC); et valg viser blot, om maerket er OPLYST. JPK bad
+       udtrykkeligt om at faa konsekvensen skrevet ned: *"nej" og "ikke
+       oplyst" KOLLAPSER inde i filtret* - det er prisen ved formen - *og
+       derfor skal de to tilstande stadig ses forskellige ud paa
+       robotsiden og producentsiden* (Å154, test 76 daekker producentsiden).
+       Haard begraensning 5 er dermed IKKE ophaevet - dens plads flyttede
+       fra katalogsidens filter til robotsiden.
+
+       Blokken beviser derfor TRE ting i stedet for de gamle tre
+       CE-raekker i selve facetten:
+         a) gruppen findes med sine fire maerker, i L90's egen form
+         b) haard begraensning 5 holder DÉR, hvor den nu gaelder: de fire
+            certificeringsfelter ("CE/FCC/UL/CCC oplyst") viser stadig
+            tre forskellige tilstande PAA ROBOTSIDEN
+         c) et revert-bevis: fjernes "nej" fra certificeringsfelternes
+            corpus, mister vagten sin tredje tilstand og falder roed */
+
+    // a) Gruppen findes med sine fire maerker, i data-facetgruppe="ce".
+    // NB: 'data-facetgruppe="ce"' som RAA TEKST forekommer ogsaa i det
+    // genererede <style> (CSS-selektorerne foer facetgitteret) - html.indexOf
+    // alene ville ramme DEM foerst. Match derfor selve <details>-taggen.
     {
-      const kollapset = html.replace(
-        '<div class="rk rk--nej"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"',
-        '<div class="rk"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"');
-      ok(`35.12.${sprog}.revert: kollapses CE "nej" til grundformen, fejler nej-vagten`,
-        !/<div class="rk rk--nej"><input class="rk__felt f-ce" type="checkbox" id="f-ce-nej"/.test(kollapset));
+      const mGruppe = html.match(/<details\b[^>]*\bdata-facetgruppe="ce"[^>]*>/);
+      const iGruppe = mGruppe ? mGruppe.index : -1;
+      const gruppeBlok = iGruppe === -1 ? '' : html.slice(iGruppe, html.indexOf('</details>', iGruppe));
+      const maerker = ['ce', 'fcc', 'ul', 'ccc'];
+      ok(`35.12.${sprog}.gruppe: certificeringsgruppen baerer alle fire maerker CE/FCC/UL/CCC (L90)`,
+        iGruppe !== -1 && maerker.every((id) => gruppeBlok.includes(`id="f-ce-${id}"`)),
+        'L90: "VI ENIGE OM AT Certificeringer SAMLES UNDER ET FILTERGRUPPE" - fire maerker, ikke tre CE-tilstande i facetten');
+      // Revert-bevis for a): "fire maerker" er et taelleligt krav, ikke
+      // "mindst tre" - fjernes ét (UL), skal gruppe-vagten falde roed.
+      const udenUl = gruppeBlok.replace('id="f-ce-ul"', 'id="f-ce-fjernet"');
+      ok(`35.12.${sprog}.gruppe.revert: fjernes ét maerke (UL) fra gruppen, falder gruppe-vagten`,
+        !maerker.every((id) => udenUl.includes(`id="f-ce-${id}"`)));
+    }
+
+    // b) + c) Robotsiden: certificeringsfelterne bruger samme v-ja/v-nej/
+    //    v-ikke rendering som resten af skemaet. Maalt DIREKTE i de fire
+    //    raekker ("CE/FCC/UL/CCC oplyst"/"stated"), ikke i en tilfaeldig
+    //    anden raekke paa siden - ellers beviser vagten ikke noget om
+    //    CERTIFICERINGER specifikt.
+    {
+      const robotRod = path.join(dist, sprog, 'robotter');
+      const robotMapper = fs.existsSync(robotRod) ? fs.readdirSync(robotRod) : [];
+      const suffiks = sprog === 'da' ? 'oplyst' : 'stated';
+      const feltRe = new RegExp(
+        `<th scope="row" role="rowheader">(?:CE|FCC|UL|CCC) ${suffiks}<\\/th><td class="skema-v" role="cell"><span class="v (v-\\w+)">`, 'g');
+      const fundne = new Set();
+      const taelling = { 'v-ja': 0, 'v-nej': 0, 'v-ikke': 0 };
+      for (const m of robotMapper) {
+        const rp = path.join(robotRod, m, 'index.html');
+        if (!fs.existsSync(rp)) continue;
+        const rh = fs.readFileSync(rp, 'utf8');
+        for (const mm of rh.matchAll(feltRe)) {
+          fundne.add(mm[1]);
+          taelling[mm[1]] = (taelling[mm[1]] || 0) + 1;
+        }
+      }
+      ok(`35.12.${sprog}.tilstande: certificeringsfelterne (CE/FCC/UL/CCC ${suffiks}) viser stadig tre tilstande paa robotsiden (ja ${taelling['v-ja']}, nej ${taelling['v-nej']}, ikke oplyst ${taelling['v-ikke']})`,
+        fundne.has('v-ja') && fundne.has('v-nej') && fundne.has('v-ikke'),
+        'L90 kollapser tilstandene i FILTERET - haard begraensning 5 flytter til robotsiden');
+
+      // Revert-bevis: fjernes "nej" fra certificeringsfelternes corpus
+      // (kollapset til "ikke oplyst", den svageste tilstand), mister
+      // vagten sin tredje tilstand og maa falde roed.
+      const fundneUdenNej = new Set();
+      for (const m of robotMapper) {
+        const rp = path.join(robotRod, m, 'index.html');
+        if (!fs.existsSync(rp)) continue;
+        const rh = fs.readFileSync(rp, 'utf8').replace(/class="v v-nej"/g, 'class="v v-ikke"');
+        for (const mm of rh.matchAll(feltRe)) fundneUdenNej.add(mm[1]);
+      }
+      ok(`35.12.${sprog}.revert: fjernes "nej"-tilstanden fra certificeringsfelterne, falder tilstandsvagten (kun ${[...fundneUdenNej].sort().join('/')} tilbage)`,
+        !(fundneUdenNej.has('v-ja') && fundneUdenNej.has('v-nej') && fundneUdenNej.has('v-ikke')));
     }
     // 35.11c: L68 staar ved magt - denne vending maa IKKE aabne en eneste
     // robotpost. Maalt PR. SPROG er overflodigt (samme filer for begge), men
