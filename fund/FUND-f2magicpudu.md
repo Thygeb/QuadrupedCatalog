@@ -77,9 +77,17 @@ briefets eksplicitte bestilling. Flagget nedenfor.
 3. Eksisterende afvigelse i DB, ikke rettet: MagicLab weight-caveat
    (2219/2220) skriver "Net Weight, Excluding Battery" (komma); kilden
    skriver "(Excluding Battery)" (parentes) — fandtes før dette spor.
-4. `applications.note` for 2222 er tilsyneladende afkortet i eksisterende
-   DB-data ("… (CN:)." uden indhold) vs. `note_wording`s fulde sætning.
-   Ikke rettet (uden for scope), men flages.
+4. **RETTET af orkestratoren 3. sep 2026, ikke af mig oprindeligt:**
+   `applications.note` for 2222 havde mistet sin kinesiske streng
+   ("… (CN:)." uden indhold). Jeg flaggede den, men rettede den ikke selv
+   (forkert grænsedragning — dette var en enkeltstående datafejl, ikke en
+   politikbeslutning som note_wording-punktet ovenfor). Orkestratoren gav
+   et præcist acceptkriterium (`note ~ '\(CN:\s*\)'` = 0 rækker), jeg skrev
+   rettelsen (`fund/f2magicpudu-rettelse-2222-note.json`, én PATCH,
+   `note` sat til samme streng som `note_wording`) og genmålte: 76
+   `applications`-rækker undersøgt, **0 match** (var 1). MagicLab `--dansk`
+   fortsat 0/0, `--tal` fortsat byte-identisk med grundmålingen
+   (`596709…dc3977d`) — ingen tal rørt af rettelsen.
 5. `value_text` (lidar/cameras/autonomy_level hos Pudu) er STADIG dansk,
    bevidst — uden for `TEKSTKOLONNE_HVIDLISTE`, egen arbejdsbunke jf.
    OPSKRIFT-fase2.md §6.4.
