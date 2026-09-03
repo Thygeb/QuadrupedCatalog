@@ -1483,11 +1483,28 @@ ${omfangStandard}
 
      Tom i HTML'en og fyldt af assets/katalog.js: uden JavaScript findes
      hverken knapperne eller udvalget, saa et tal ville vaere en paastand
-     om noget, laeseren ikke kan naa (P0). -->
+     om noget, laeseren ikke kan naa (P0).
+
+     DE TO FJERN-STRENGE (spor/bundbar, 4. sep 2026, punkt 1): baeret paa
+     SAMME element som de tre ovenfor, og af samme grund. Bjaelkens
+     "Fjern"-knap pr. valgt robot skal have en oversat etiket, og
+     noeglerne saml_fjern_kort/saml_fjern_navn FANDTES allerede
+     (data/i18n/da.json:281-282, en.json:281-282) - men de blev kun brugt
+     af sammenligningssiden, saa assets/katalog.js havde ingen adgang til
+     dem. Maalt foer sporet: grep "saml_fjern" i tools/ ramte KUN
+     skabelon/sammenligning.mjs. Ingen ny i18n-noegle er opfundet; de to
+     eksisterende er foert hen, hvor bjaelken kan naa dem.
+
+     saml_fjern_navn baerer pladsholderen {navn}, som katalog.js udfylder
+     med robottens navn - skaermlaeseren skal kunne skelne tre knapper,
+     der alle hedder "Fjern". Udskiftningen sker i JS og ikke her, fordi
+     navnene foerst kendes ved koersel. -->
 <p class="saml-taeller" data-saml-taeller hidden
  data-saml-skabelon="${attr(t('saml_taeller'))}"
  data-saml-maks-tekst="${attr(t('sammenligning_maks'))}"
- data-klaebebar-etiket="${attr(t('klaebebar_etiket'))}">
+ data-klaebebar-etiket="${attr(t('klaebebar_etiket'))}"
+ data-saml-fjern-kort="${attr(t('saml_fjern_kort'))}"
+ data-saml-fjern-navn="${attr(t('saml_fjern_navn'))}">
 <span class="saml-taeller__tal" data-saml-tal>0</span>
 <span data-saml-ord></span>
 <a class="saml-taeller__gaa knap knap--tekst knap--frem" href="${attr(url.sammenligning)}">${esc(t('saml_gaa'))}</a>

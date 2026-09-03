@@ -95,6 +95,18 @@
        saette det - flere sprog kan ikke boeje uden om det. */
     var samlSkabelon = samlTaeller ? samlTaeller.getAttribute('data-saml-skabelon') : '';
     var samlMaksTekst = samlTaeller ? samlTaeller.getAttribute('data-saml-maks-tekst') : '';
+    /* FJERN-KNAPPENS TO STRENGE (spor/bundbar, 4. sep 2026, punkt 1) kommer
+       ind ad SAMME doer som de to ovenfor. `__kort` er det synlige ord
+       ("Fjern" / "Remove"), `__navn` er skaermlaeserens fulde saetning med
+       pladsholderen {navn}, som fyldes ved koersel.
+
+       INGEN NY I18N-NOEGLE: saml_fjern_kort og saml_fjern_navn stod i
+       forvejen i begge sprogfiler, men KUN sammenligningssiden laeste dem
+       (maalt foer sporet: grep "saml_fjern" i tools/ ramte alene
+       skabelon/sammenligning.mjs). Skabelonen skriver dem nu ogsaa til
+       .saml-taeller, saa katalogsidens bjaelke kan naa dem herfra. */
+    var samlFjernKort = samlTaeller ? samlTaeller.getAttribute('data-saml-fjern-kort') : '';
+    var samlFjernNavn = samlTaeller ? samlTaeller.getAttribute('data-saml-fjern-navn') : '';
 
     /* ====================================================================
        KLAEBEBAR: en persistent bjaelke i bunden af skaermen (JPK 1. sep
@@ -126,7 +138,7 @@
        allerede skrev til `.saml-taeller__gaa`. */
     var samlNavne = {};
     var klaebebar = null;
-    var klaebebarNavne = null;
+    var klaebebarValg = null;
     var klaebebarGaa = null;
     var klaebebarGaaHref = '';
 
@@ -148,8 +160,22 @@
       klaebebar.setAttribute('role', 'region');
       klaebebar.setAttribute('aria-label', samlTaeller.getAttribute('data-klaebebar-etiket') || '');
 
-      klaebebarNavne = document.createElement('p');
-      klaebebarNavne.className = 'klaebebar__navne';
+      /* EN LISTE, IKKE EN SAETNING (spor/bundbar punkt 1, planens D2).
+         Her stod ét <p class="klaebebar__navne"> med navne.join(' · ').
+         Den kunne kun fjernes HELT: laeseren maatte finde robottens kort
+         igen blandt 77 i et 6.603 px hoejt dokument for at fortryde ét
+         valg. Nu er hvert navn sit eget <li> med sin egen Fjern-knap
+         umiddelbart efter sig - tre knapper, der alle hedder "Fjern",
+         skelnes af det navn, de staar ved siden af.
+
+         `aria-live="polite"` fordi listen aendrer sig UDEN at fokus
+         flytter sig et sted, der siger hvorfor: forsvinder et led, skal
+         skaermlaeseren hoere den nye liste. KUN NAVNENE laeses op - ingen
+         optaelling, intet "2 af 3" (haard begraensning 1 gaelder ogsaa i
+         lyd, ikke kun paa skaermen). */
+      klaebebarValg = document.createElement('ul');
+      klaebebarValg.className = 'klaebebar__valg';
+      klaebebarValg.setAttribute('aria-live', 'polite');
 
       klaebebarGaa = document.createElement('a');
       // L77: knapprimitiven i TEKST-vaegten paa MOERK flade (.klaebebar staar
@@ -180,10 +206,64 @@
         tegnSaml();
       });
 
-      klaebebar.appendChild(klaebebarNavne);
+      /* RULLESPORET ER EN EGEN KASSE (punkt 6), og "Ryd udvalget" ligger
+         INDE i det - praecis som planens §6 beskriver mobilen.
+
+         MAALINGEN, DER TVANG DET: med begge handlinger fast uden for
+         sporet blev sporet 52 px bredt ved 390 px (dansk) og 12 px
+         (engelsk) - navnene var reelt usynlige paa mobil, og bjaelken
+         loeste dermed ikke den opgave, den findes for. Aarsagen er, at
+         "Åbn sammenligningen" (150,8 px) plus "Ryd udvalget" (~90 px)
+         plus fuger fylder 281 af de 334 px, der er indeni ved 390. Ingen
+         justering af polstring kunne hente det - der skulle flyttes noget.
+
+         OG DET ER DEN RIGTIGE GRUPPERING, ikke bare den, der gav plads:
+         "Ryd udvalget" er UDVALGETS fortrydelse og hoerer til det, den
+         rydder. "Åbn sammenligningen" er den ene vej fremad og staar
+         alene. Samme skel, som CSS'en allerede goer med --frem paa den
+         ene og ikke paa den anden.
+
+         PRISEN, sagt hoejt: tabulaturraekkefoelgen bliver Fjern x3 ->
+         Ryd -> Åbn, hvor briefet skrev Fjern x3 -> Åbn -> Ryd. Ved smalle
+         bredder skal "Ryd udvalget" desuden rulles frem. J5 er
+         overholdt - knappen findes, og den rydder stadig alle tre paa ét
+         tryk. */
+      var klaebebarSpor = document.createElement('div');
+      klaebebarSpor.className = 'klaebebar__spor';
+      klaebebarSpor.appendChild(klaebebarValg);
+      klaebebarSpor.appendChild(klaebebarRyd);
+
+      klaebebar.appendChild(klaebebarSpor);
       klaebebar.appendChild(klaebebarGaa);
-      klaebebar.appendChild(klaebebarRyd);
-      document.body.appendChild(klaebebar);
+
+      /* GRAENSEBESKEDEN FLYTTER MED IND I BJAELKEN (spor/bundbar punkt 5,
+         planens D6 - det ene, Retning C bidrog med). "Du kan sammenligne
+         hoejst 3 robotter ad gangen" stod foer inde i filterpladen, altsaa
+         op til 3.000 px fra det udvalg, den handler om: graensen blev laert
+         ved at ramme den, og saa stod forklaringen et sted, laeseren ikke
+         kiggede. Nu staar den, hvor udvalget staar.
+
+         ELEMENTET GENBRUGES, DER BYGGES INTET NYT. Det er skabelonens eget
+         <p class="saml-graense" data-saml-graense role="status">
+         (tools/skabelon/katalog.mjs), som tests/dele/65.12 vogter i den
+         byggede HTML - den staar der uaendret; kun dens plads i DOM'en
+         flytter sig ved koersel. Ingen tal, intet maerke, intet "2 af 3" -
+         heller ikke i role="status" (haard begraensning 1). */
+      if (samlGraense) klaebebar.appendChild(samlGraense);
+
+      /* FOER <main>, IKKE SIDST I <body> (planens D5). Bjaelken stod
+         sidst, og dens knapper var derfor fokusstop 241 og 242 af 242 -
+         maalt foer sporet. En tastaturbruger skulle forbi 240 stop for at
+         naa en bjaelke, der permanent staar foran hende. position:fixed
+         betyder, at DOM-pladsen ikke flytter ét pixel visuelt.
+
+         Og det er ikke bare bekvemt: bjaelken findes KUN, naar der ER et
+         udvalg, og et udvalg er opgavens aktuelle tilstand. Den hoerer
+         foer indholdet - samme logik som at en skaermlaeser hoerer "3
+         filtre aktive", foer den hoerer de 77 resultater. */
+      var hoveddel = document.querySelector('main');
+      if (hoveddel && hoveddel.parentNode) hoveddel.parentNode.insertBefore(klaebebar, hoveddel);
+      else document.body.appendChild(klaebebar);
     }
 
     /* Lokalt lager kan KASTE, ikke bare vaere tomt: privat vindue, blokerede
@@ -205,6 +285,141 @@
     }
     function skrivUdvalg(a) {
       try { window.localStorage.setItem(SAML_NOEGLE, JSON.stringify(a)); } catch (e) { /* tavs */ }
+    }
+
+    /* ÉT LED I BJAELKENS LISTE: navnet plus dets egen Fjern-knap.
+       (spor/bundbar punkt 1, planens D2 - moensteret er sammenlignings-
+       sidens, godkendt af JPK 2. sep 2026, ikke et nyt paafund:
+       assets/sammenligning.js:356-359 bygger den samme knap med de samme
+       to i18n-noegler.)
+
+       ORDET "Fjern", IKKE ET KRYDS - JPK's beslutning J4, 3. sep 2026.
+       Tre knapper med samme navn skelnes af navnet ved siden af, og et ord
+       kraever ingen tolkning. (Fundet bag spoergsmaalet staar i
+       fund/FUND-bundbar.md: CSS-kommentaren over .klaebebar forbyder
+       "symboler af nogen art", og kortets eget stempel bryder allerede den
+       regel med content:"+" og "\00d7". Det er en modstrid mellem en
+       kommentar og koden - den noteres, den rettes ikke her.)
+
+       TO SPAN, IKKE ÉT: det synlige ord er aria-hidden, og skaermlaeseren
+       faar i stedet den fulde saetning "Fjern <navn> fra sammenligningen".
+       Uden det hoerer hun "Fjern, Fjern, Fjern". */
+    function byggValgLed(slug) {
+      var navn = samlNavne[slug] || slug;
+      var led = document.createElement('li');
+
+      var navnEl2 = document.createElement('span');
+      navnEl2.className = 'klaebebar__navn';
+      navnEl2.textContent = navn;
+
+      var fjern = document.createElement('button');
+      fjern.type = 'button';
+      // classList.add med hver klasse som sin EGEN streng: tests/dele/57's
+      // doede-klasse-detektor kraever et citationstegn umiddelbart foer
+      // klassenavnet, og disse klasser findes KUN her (bjaelken staar
+      // aldrig i dist/). Samme grund som ved __gaa ovenfor.
+      fjern.classList.add('klaebebar__fjern', 'knap', 'knap--tekst-moerk');
+      fjern.setAttribute('data-saml-fjern', slug);
+
+      var synligt = document.createElement('span');
+      synligt.setAttribute('aria-hidden', 'true');
+      synligt.textContent = samlFjernKort;
+
+      var forSkaermlaeser = document.createElement('span');
+      forSkaermlaeser.className = 'kunskaerm';
+      forSkaermlaeser.textContent = (samlFjernNavn || '').replace('{navn}', navn);
+
+      fjern.appendChild(synligt);
+      fjern.appendChild(forSkaermlaeser);
+      fjern.addEventListener('click', function () { fjernValg(slug); });
+
+      led.appendChild(navnEl2);
+      led.appendChild(fjern);
+      return led;
+    }
+
+    /* Fjern ÉT slug fra udvalget. Samme tre linjer som ryd-knappen, men paa
+       ét led i stedet for alle - og graensebeskeden ryddes, fordi den kun
+       gav mening, saa laenge udvalget VAR fuldt.
+
+       FOKUS EFTER KLIKKET ER DEN ENE TING, PRAECEDENSEN GOER FORKERT
+       (spor/bundbar punkt 2, planens D3). assets/sammenligning.js:705
+       fjernSlug() skriver hele resultatet om med innerHTML; den knap, der
+       lige blev trykket paa, findes derefter ikke, og fokus falder til
+       <body>. En tastaturbruger mister sin plads i et 6.603 px dokument og
+       skal tabulere forfra. Maalt her foer punkt 2: activeElement var BODY
+       efter hvert eneste klik.
+
+       REGLEN, i den raekkefoelge der er proevet:
+         1. naeste tilbagevaerende Fjern i bjaelken (samme plads i listen -
+            var det sidste led, saa det nye sidste)
+         2. var det sidste valg: kortets egen sammenlign-knap for netop den
+            robot, HVIS kortet er synligt (offsetParent !== null - kortet
+            kan vaere filtreret bort, og en usynlig knap er ikke et sted at
+            staa)
+         3. ellers soegefeltet, som er katalogsidens ene faste udgangspunkt.
+       Trin 2 og 3 giver mening netop fordi bjaelken forsvinder helt, naar
+       udvalget bliver tomt - der ER ikke noget tilbage at staa paa. */
+    function fjernValg(slug) {
+      var valgt = laesUdvalg();
+      var p2 = valgt.indexOf(slug);
+      if (p2 < 0) return;
+      valgt.splice(p2, 1);
+      skrivUdvalg(valgt);
+      sigGraense('');
+      tegnSaml();
+      flytFokusEfterFjern(slug, p2);
+    }
+
+    /* BUNDPLADSEN (spor/bundbar punkt 4, planens D4). Bjaelken er
+       position:fixed og altsaa ude af floedet - uden denne maaling ligger
+       dokumentets sidste px under den, og katalogsidens sidste saetning var
+       maalt 100 % skjult.
+
+       DER MAALES FRA BJAELKENS OVERKANT TIL SKAERMENS BUND, ikke bare dens
+       hoejde: efter punkt 3 er den loeftet 16 px fri af kanten, og de 16 px
+       er ogsaa daekket flade. `window.innerHeight - rect.top` faanger begge
+       dele i ét tal, uanset hvad `bottom` senere maatte blive sat til.
+       Plus 12 px fuge, saa teksten ikke slutter klods op ad bjaelken.
+
+       Math.ceil, fordi hoejden er et broek-tal (33,2 px maalt): en
+       nedrunding ville efterlade en enkelt px daekket, og det er praecis
+       den slags rest, ingen opdager.
+
+       NUL PAA ALLE ANDRE SIDER: variablen er 0px i :root, og KUN denne
+       funktion saetter den. De oevrige 215 byggede sider indlaeser samme
+       system.css og faar padding-bottom:0px - samme beregnede vaerdi som
+       foer sporet. Det er maalt, ikke antaget (acceptkriterium 4b). */
+    function saetBarplads() {
+      var rod = document.documentElement;
+      if (!klaebebar || klaebebar.hasAttribute('hidden')) {
+        rod.style.setProperty('--barplads', '0px');
+        return;
+      }
+      var kasse = klaebebar.getBoundingClientRect();
+      rod.style.setProperty('--barplads', (Math.ceil(window.innerHeight - kasse.top) + 12) + 'px');
+    }
+
+    /* Bredden aendrer bjaelkens hoejde - den kan ombryde, og paa mobil
+       skifter den til ét rullespor. En plads, der blev maalt ved 1440 og
+       aldrig genmaalt, er et haardkodet tal med ekstra trin. */
+    window.addEventListener('resize', saetBarplads);
+
+    function flytFokusEfterFjern(slug, plads) {
+      // `!klaebebar.hasAttribute('hidden')` er ikke overfloedig ved siden af
+      // toemningen i tegnSaml: to vaern om samme fejl, fordi den fejl er
+      // TAVS - fokus paa et skjult element giver ingen undtagelse, kun en
+      // activeElement, der er blevet til <body>.
+      var synlig = klaebebar && !klaebebar.hasAttribute('hidden');
+      var tilbage = synlig && klaebebarValg ? klaebebarValg.querySelectorAll('.klaebebar__fjern') : [];
+      if (tilbage.length) {
+        tilbage[Math.min(plads, tilbage.length - 1)].focus();
+        return;
+      }
+      var kortKnap = document.querySelector('[data-saml="' + slug + '"]');
+      if (kortKnap && kortKnap.offsetParent !== null) { kortKnap.focus(); return; }
+      var soegefelt = document.getElementById('sog-katalog');
+      if (soegefelt) soegefelt.focus();
     }
 
     function sigGraense(tekst) {
@@ -260,18 +475,34 @@
       }
       if (klaebebar) {
         if (valgt.length) {
-          var navne = [];
-          for (var vn = 0; vn < valgt.length; vn++) navne.push(samlNavne[valgt[vn]] || valgt[vn]);
-          // " · " er samme skilletegn, resten af siden bruger til korte
-          // opremsninger (fx kursparrene i katalog.mjs) - ikke et komma,
-          // som robotnavne med egne kommaer kunne blande sammen med.
-          klaebebarNavne.textContent = navne.join(' · ');
+          /* Listen bygges FORFRA hver gang. Alternativet - at pille det ene
+             <li> ud og lade resten staa - ville spare et par DOM-kald og
+             koste den ene ting, der er svaer at faa rigtig: raekkefoelgen i
+             listen SKAL vaere raekkefoelgen i `valgt`, ogsaa efter at et led
+             i midten er vaek. Tre led er ikke en ydelsesgrund til noget. */
+          klaebebarValg.textContent = '';
+          for (var vn = 0; vn < valgt.length; vn++) {
+            klaebebarValg.appendChild(byggValgLed(valgt[vn]));
+          }
           klaebebarGaa.setAttribute('href', klaebebarGaaHref || '#');
           klaebebar.removeAttribute('hidden');
+          saetBarplads();
         } else {
           // Samme regel som samlTaeller: en tom bjaelke er ikke en
           // oplysning, den er stoej. Forsvinder helt, naar udvalget goer.
+          //
+          // LISTEN TOEMMES OGSAA, og det er ikke pyntning. Her stod kun
+          // `hidden` indtil punkt 2, og den fejl var maalbar: det sidste
+          // <li> blev staaende i den skjulte bjaelke, saa fokusreglens
+          // querySelectorAll fandt "et tilbagevaerende Fjern", flyttede
+          // fokus til en knap i et skjult element - og fokus faldt til
+          // <body> alligevel. Maalt: tredje klik gav erBody=true, netop
+          // den tilstand punkt 2 skal forhindre. En skjult beholder med
+          // foraeldede navne er desuden en aria-live-region, der kan naa
+          // at sige noget forkert.
+          klaebebarValg.textContent = '';
           klaebebar.setAttribute('hidden', '');
+          saetBarplads();
         }
       }
     }
