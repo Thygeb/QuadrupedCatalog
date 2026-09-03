@@ -1,0 +1,12 @@
+FASE2-TJEK --dansk --producent="WEILAN"
+KOLONNE                       I ALT   DANSK  (æøå-alene, kontroltal — dansk SKAL vaere >= denne)
+caveat                           36       0  (0)
+caveat_wording                    0       0  (0)
+applications.note                 5       0  (0)
+applications.note_wording         0       0  (0)
+applications.quote                3       0  (0)
+applications.quote_wording        0       0  (0)
+images.note                       0       0  (0)
+images.alt                        0       0  (0)
+robots.notes                     21       0  (0)
+robots.notes_wording              0       0  (0)
