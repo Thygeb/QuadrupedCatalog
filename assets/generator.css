@@ -963,7 +963,7 @@
   width:1em;text-align:center}
 .stribe-under-fold[open] > summary::before{content:"–"}
 .stribe-under-fold > summary:hover{color:var(--blaek)}
-.stribe-under-fold > summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stribe-under-fold > summary:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
 .stribe-under-krop{padding-top:var(--r2)}
 .stribe-under{margin-top:var(--r3)}
 .stribe-under:first-child{margin-top:0}
@@ -1057,7 +1057,7 @@
 .skema[open] > summary::after{content:"–"}
 .skema[open] > summary{border-radius:var(--hjoerne) var(--hjoerne) 0 0;border-bottom:1px solid var(--linje)}
 .skema > summary:hover{background:var(--panel-ro)}
-.skema > summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.skema > summary:focus-visible{outline:3px solid var(--ring);outline-offset:-3px}
 .skema-taeller{font-size:12.5px;font-weight:500;color:var(--blaek2)}
 .skema-gruppe + .skema-gruppe{margin-top:var(--r5)}
 .skema-gruppe h3{padding-bottom:8px;border-bottom:1px solid var(--linje);margin-bottom:4px}
@@ -1295,7 +1295,7 @@
   position:sticky;top:0;z-index:40;
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3);
   padding:var(--r3) var(--r5);
-  background:var(--fod);color:var(--paafod);
+  background:var(--fod);color:var(--paafod);--ring:var(--accent);
 }
 .strimmel__mrk{
   font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
