@@ -1,0 +1,262 @@
+Quadruped robot series - 山东优宝特智能机器人有限公司
+×
+Search
+search
+×
+message：
+OK
+HOME
+ABOUT
+PRODUCT
+INDUSTRY
+SERVICE
+NEWS
+首页
+home
+关于我们
+About Us
+COMPANY
+Honor
+Culture
+History
+Contact
+产品中心
+Product Center
+Quadruped robot series
+Hydraulic robotic arm
+行业应用
+Industry Application
+Electric power inspection
+Emergency rescue
+Smart Mines
+Education and research
+服务支持
+Service
+新闻资讯
+News Center
+COMPANY
+Culture
+History
+Honor
+Contact
+Electric power inspection
+Emergency rescue
+Smart Mines
+Education and research
+Quadruped robot series
+Hydraulic robotic arm
+Download
+After-sale
+Company News
+Industry News
+Video information
+Home
+About
+Company
+Honor
+Culture
+History
+Contact
+PRODUCT
+Quadruped robot series
+Hydraulic robotic arm
+INDUSTRY
+Electric power inspection
+Emergency rescue
+Smart Mines
+Education and research
+SERVICE
+NEWS
+Company News
+Industry News
+Video information
+Quadruped robot
+The Ubote quadruped robot is a quadruped robot with high dynamic performance. It has advanced technology in gait planning, leg and foot control, and environmental perception, and provides rich secondary development interfaces (USB, Ethernet, serial port, CAN, etc.). It is a flagship product in the field of commercial, scientific research, and educational quadruped robots.
+Quadruped robot
+Y20
+Quadruped robot
+Y10
+Quadruped robot
+e-Dog
+Swipe down to view product details and contact the company for inquiries when purchasing.
+Strong athletic performance
+Resistance
+Terrain adaptation
+High performance hardware
+High endurance
+Posture perception
+Convenient folding
+Heavy load
+Strong athletic performance
+Servo motor
+Integrated control circuit, brushless motor, planetary reducer
+Extra large torque for more powerful action
+Ultra high bandwidth torque control for more casual control
+Compact structure design
+Joint driver centralized configuration
+Smaller size and more flexible activities
+Super strong structural rigidity
+Low inertia leg and foot design
+High strength belt drive
+Reduce leg weight, ultra-low inertia
+More efficient exercise
+Modular overall design
+Modular design for drive, control, and execution
+A more casual secondary development experience
+Sandboxed free construction
+Application Scenario
+Y10
+Y20
+e-Dog
+ABOUT
+COMPANY
+CULTURE
+HISTORY
+HONOR
+CONTACT
+PRODUCT
+Quadruped robot
+Hydraulic Mechanical Arm
+INDUSTRY
+Electric power inspection
+Emergency rescue
+Smart Mines
+Education and research
+SERVICE
+Download
+AFTER-SALES
+NEWS
+Company News
+Industry News
+Video information
+400 775 7167
+Block B, Block B-5F, Qilu Software Park Building, No. 1768 Xinluo Street, High tech Zone, Jinan City, Shandong Province
+service@yobotics.cn
+Copyright©2023  Shandong Youbaote Intelligent Robot Co., Ltd
+鲁ICP备16000176号-1
+-->
+-->
+-->
+Tel
+Home
+Contact
++
+Contact
+Y10
+描述
+Y5是一款桌面级、高动态性能的四足机器人，具有强劲的驱动力、先进的运动控制算法,是教育、科研四足机器人领域的旗舰产品提供丰富的二次开发接口(USB、Ethernet、串口、CAN等)。
+序号
+类型
+参数
+1
+站立尺寸
+约455mm×227mm×280mm
+2
+折叠尺寸
+约450mm×227mm×173mm
+3
+重量
+约5.6kg±0.5kg(整机，含电池）
+4
+自由度
+整机12个自由度，单腿3个自由度
+5
+操作系统
+Ubuntu16.04
+6
+支持步态
+慢走|快走|小跑
+7
+更多能力
+站立，趴下，
+8
+持续行走负载
+&gt;3Kg
+9
+奔跑速度
+1.4m/s空载下
+10
+动态平衡
+支持
+11
+倒地恢复
+支持
+12
+处理器和存储
+Upboard×1：IntelR AtomTM x5-Z8350 up to 1.92GHz&nbsp; 2*32GB
+13
+电源适配器
+输入100-240V-50/60HZ 2.0A；输出29.4V 3A MAX；
+14
+续航
+110分钟
++
+Contact
+Y20
+描述
+Y30是一款全地形、室外野外的旗舰四足机器人，具有强负载能力、卓越的地形适应能力以及高速运动能力，适用于自主导航巡检特种场景探测、负载作业、危险环境作业等等。
+序号
+类型
+参数
+1
+站立尺寸
+约1100mm×475mm×610mm
+2
+折叠尺寸
+约930mm×450mm×370mm
+3
+本体重量
+约60kg(含电池)
+4
+电池容量
+25Ah
+5
+续航
+空载持续行走＞5h,有效负载作业＞2.5h，具备低电量报警功能
+6
+站立负载
+最大150kg
+7
+行走负载
+最大80kg
+8
+奔跑速度
+最大4m/s
+9
+防护等级
+IP54
+10
+重复定位精度
+≤ ±6cm
+11
+攀爬台阶角度
+最大40°
+12
+攀爬台阶高度
+最大30cm
+13
+攀爬斜坡角度
+最大40°
+14
+工作环境温度
+零下25℃~零上50℃
+15
+控制和感知算力
+Upboard×1：IntelR AtomTM x5-Z8350 up to 1.92GHz&nbsp; 2*32GB
+16
+选配
+（1）传感器:3D 激光雷达x1+ 深度相机x1等( 可搭载不同传感器，不同配置有所差异) （2）充电桩:可实现自主充电，一键回充功能;充满电时间≤3h
++
+Contact
+e-Dog
+“Y15”是一款行业应用的轻量型、大扭矩四足机器人。它具备强劲的驱动力、先进的运动控制算法以及智能的环境交互能力。其外壳采用铝合金材质，很好地兼顾了结构强度与轻量化需求。该机器人运动高效且灵活，不仅拥有行走、跑跳等常规运动能力，还能完成跌倒爬起、直立行走等高难度动作。它可广泛应用于电力巡检、智慧农业、教学科研等多个领域。
+1、运动性能：包含四足多种步态，行走、奔跑、正立行走、倒立行走等，支持全方位移动，可轻松应对如草地、沙地、碎石、废墟、台阶等多种复杂地形，同时具备抗外力扰动平衡控制能力，以及全局力控能力；
+2、性能：最大速度≥12km/h，爬坡角度≥35°，爬楼梯高度≥16cm，最大静态负载能力8kg，最大动态负载能力5kg，工作动态负载能力3kg；
+3、保护模式：具备急停保护、跌落保护、低压报警等自我保护能力，具有抗外力扰动平衡控制，具备侧翻自扶正能力；
+4、续航：电池采用高放电倍率电芯锂电池，电池容量6.4Ah，续航不低于1.5小时；
+5、通讯方式：包括Ethernet、USB、WIFI等；
+6、可实时准确地进行全身状态估计，包括三维姿态角度、位置、速度等
+7、整机尺寸：680×330×380mm(±10mm)（长*宽*高）；
+8、本体重量：15kg±0.5kg，本体材质：铝合金；
+9、自由度：整机12个自由度，单腿3个自由度；
+10、采用双绝对式直流无刷伺服电机，峰值扭矩48Nm，采用一体化设计，可断电位置记忆，支持CAN总线通讯方式，具备全局力控能力；
