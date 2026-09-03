@@ -1,0 +1,12 @@
+FASE2-TJEK --tal --producent="DEEP Robotics"
+9 robot(ter) · 18 feltpost-kolonner pr. felt + variants + first_released + applications.value
+  2190  deep-robotics-lite3  63fe7fd70f7f8e760a78b7cd455fdccb2862767c071b2b40e4212ee510ad47bb
+  2191  deep-robotics-lynx-m20  868ddfb1ae789c53863a459dda63cc6757f4dcc64be0857dd2d45a24d66f8a05
+  2192  deep-robotics-lynx-m20-pro  c4df37280a829f8e1bfa222052a0eb498d9430ab531d9464d97efa9e192e1958
+  2193  deep-robotics-lynx-m20s  a94bad42bd60ac3a013e5342da0567c4bf8fd8d1bbdaf6a729f559fdc50e6cb5
+  2194  deep-robotics-lynx-s10  160a5c6da5726c82106885d967c686685f7bb86176723ffbf7400e89fbb84e2f
+  2195  deep-robotics-mini  87da3a6635ad862860ff8b75457abcc7149fe619732022717dcc4a509020d510
+  2196  deep-robotics-x20  5f9313d8cb4e12364dcf6db9c8165154f8b09b3e5363db395fb76a98be7062ad
+  2197  deep-robotics-x30  384bc9523949c555cc48ea7aacb6bcfde1b7e2c784f03ca10b4cced09d1da3c9
+  2198  deep-robotics-x30-pro  ad18767644b07e713d54c883c145de907776f0a4f441d2f97c2f923d6b6e4d2f
+SAMLET AFTRYK: a171780a9161f141c0cbd9a63830f82501b8073f4885eec76afbacff8c08c501
