@@ -2012,7 +2012,7 @@ td .v{font-size:15px}
    derfor FOER spor/korts blok og roerer ingen eksisterende regel.
 
    generator.css indlaeses EFTER system.css. Den kender ingen af klassenavnene
-   herunder (.skala*, .pris-om, .valg--skala) og har ingen .facet--s6, saa der
+   herunder (.skala*, .valg--skala) og har ingen .facet--s6, saa der
    er intet at overskrive og ingen kaskadekamp at tabe.
    -------------------------------------------------------------------------- */
 
@@ -2145,15 +2145,6 @@ td .v{font-size:15px}
    .valg"). */
 .valg--skala[hidden]{display:none}
 
-/* 8. DEN OMREGNEDE PRIS PAA KORTET (L66)
-   Samme grammatik som L60's imperiale omregningsmaerke: en daempet sidevaerdi,
-   der aldrig kan forveksles med producentens egen figur. Den staar paa EGEN
-   linje under prisen (.kort__vaerdi er allerede flex-wrap:wrap), fordi de to
-   tal ellers ville laeses som ét interval. */
-.pris-om{
-  flex:1 0 100%;display:flex;align-items:baseline;gap:5px;
-  font-variant-numeric:tabular-nums;
-}
 .pris-om__tal{
   font-family:var(--mono);font-size:13px;font-weight:600;color:var(--blaek2);
 }
