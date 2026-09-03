@@ -286,7 +286,26 @@
 
     /* Fjern ÉT slug fra udvalget. Samme tre linjer som ryd-knappen, men paa
        ét led i stedet for alle - og graensebeskeden ryddes, fordi den kun
-       gav mening, saa laenge udvalget VAR fuldt. */
+       gav mening, saa laenge udvalget VAR fuldt.
+
+       FOKUS EFTER KLIKKET ER DEN ENE TING, PRAECEDENSEN GOER FORKERT
+       (spor/bundbar punkt 2, planens D3). assets/sammenligning.js:705
+       fjernSlug() skriver hele resultatet om med innerHTML; den knap, der
+       lige blev trykket paa, findes derefter ikke, og fokus falder til
+       <body>. En tastaturbruger mister sin plads i et 6.603 px dokument og
+       skal tabulere forfra. Maalt her foer punkt 2: activeElement var BODY
+       efter hvert eneste klik.
+
+       REGLEN, i den raekkefoelge der er proevet:
+         1. naeste tilbagevaerende Fjern i bjaelken (samme plads i listen -
+            var det sidste led, saa det nye sidste)
+         2. var det sidste valg: kortets egen sammenlign-knap for netop den
+            robot, HVIS kortet er synligt (offsetParent !== null - kortet
+            kan vaere filtreret bort, og en usynlig knap er ikke et sted at
+            staa)
+         3. ellers soegefeltet, som er katalogsidens ene faste udgangspunkt.
+       Trin 2 og 3 giver mening netop fordi bjaelken forsvinder helt, naar
+       udvalget bliver tomt - der ER ikke noget tilbage at staa paa. */
     function fjernValg(slug) {
       var valgt = laesUdvalg();
       var p2 = valgt.indexOf(slug);
@@ -295,6 +314,24 @@
       skrivUdvalg(valgt);
       sigGraense('');
       tegnSaml();
+      flytFokusEfterFjern(slug, p2);
+    }
+
+    function flytFokusEfterFjern(slug, plads) {
+      // `!klaebebar.hasAttribute('hidden')` er ikke overfloedig ved siden af
+      // toemningen i tegnSaml: to vaern om samme fejl, fordi den fejl er
+      // TAVS - fokus paa et skjult element giver ingen undtagelse, kun en
+      // activeElement, der er blevet til <body>.
+      var synlig = klaebebar && !klaebebar.hasAttribute('hidden');
+      var tilbage = synlig && klaebebarValg ? klaebebarValg.querySelectorAll('.klaebebar__fjern') : [];
+      if (tilbage.length) {
+        tilbage[Math.min(plads, tilbage.length - 1)].focus();
+        return;
+      }
+      var kortKnap = document.querySelector('[data-saml="' + slug + '"]');
+      if (kortKnap && kortKnap.offsetParent !== null) { kortKnap.focus(); return; }
+      var soegefelt = document.getElementById('sog-katalog');
+      if (soegefelt) soegefelt.focus();
     }
 
     function sigGraense(tekst) {
@@ -364,6 +401,17 @@
         } else {
           // Samme regel som samlTaeller: en tom bjaelke er ikke en
           // oplysning, den er stoej. Forsvinder helt, naar udvalget goer.
+          //
+          // LISTEN TOEMMES OGSAA, og det er ikke pyntning. Her stod kun
+          // `hidden` indtil punkt 2, og den fejl var maalbar: det sidste
+          // <li> blev staaende i den skjulte bjaelke, saa fokusreglens
+          // querySelectorAll fandt "et tilbagevaerende Fjern", flyttede
+          // fokus til en knap i et skjult element - og fokus faldt til
+          // <body> alligevel. Maalt: tredje klik gav erBody=true, netop
+          // den tilstand punkt 2 skal forhindre. En skjult beholder med
+          // foraeldede navne er desuden en aria-live-region, der kan naa
+          // at sige noget forkert.
+          klaebebarValg.textContent = '';
           klaebebar.setAttribute('hidden', '');
         }
       }
