@@ -400,6 +400,31 @@ og *"Punkter i briefet, jeg ikke nåede"*). Konfidens er bundet til **bevistype,
 ikke fornemmelse** — **høj** kræver en genkørbar kommando **plus** en
 kontrafaktisk linje, ellers er den middel. Uden det krav inflaterer alt til høj.
 
+### 2b. Det, JPK læser i samtalen, er ÆNDRINGEN — ikke målemetoden
+
+**Fast regel, sat af JPK 3. sep 2026, ordret: *"I selve briefs og rapporter når
+de bliver skrevet ud i samtalen: gør MERE KLART OG TYDELIGT hvilke ændringer
+der foretages. Altså UI, f.eks. justering af FELT, tilføjelse af given
+parametre… lige nu er det svært at følge med."***
+
+Skriver orkestratoren et brief eller en rapport ud i samtalen, skal **det
+første, JPK møder, være en før-og-efter-oversigt i konkrete UI-termer** — hvad
+et felt hedder på skærmen, hvor mange px noget flytter sig, hvor mange valg en
+facet får, hvilket tal der står i et hjørne. Helst som tabel.
+
+Begrundelsen: rapporterne havde metoden i orden — konfidensniveauer,
+kontrollinjer, grep-fælder, kommandoen foran hvert tal — men alt det besvarer
+*"hvor sikre er vi?"*. JPK skal kunne godkende eller afvise **uden at læse en
+måleprotokol**, og det kræver svar på *"hvad ser jeg på skærmen bagefter?"*
+
+**Metoden afskaffes ikke, den flyttes ned.** Kommandoen foran hvert tal er
+stadig ufravigelig i **fletbeskeden** (`flet`-skillens punkt 3) og i
+`fund/`-rapporten; det er rækkefølgen i samtalen, reglen ændrer. Ændringen
+først, kort og konkret — måling, konfidens og forbehold bagefter.
+
+Samme mønster som L-reglen om popups: dommen og prisen før menukortet, ikke
+efter.
+
 ### 3. Orkestratoren efterprøver *efter* konfidens
 
 Reviewet er ikke en gennemlæsning. Det er en måling, og konfidensniveauet bestemmer, hvor den
