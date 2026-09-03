@@ -224,11 +224,20 @@ export default async function koer(ctx) {
      fjernSlug() lader fokus falde til <body>. Alle tre grene skal staa -
      den mellemste (kortets egen knap) er den, der er let at glemme, fordi
      den kun rammes, naar det SIDSTE led fjernes. */
-  ok('81.21: fokus flyttes efter et Fjern-klik, og alle tre grene findes',
-    /flytFokusEfterFjern\(/.test(js)
-    && /tilbage\[Math\.min\(plads, tilbage\.length - 1\)\]\.focus\(\)/.test(js)
-    && /offsetParent !== null/.test(js)
-    && /getElementById\(\s*['"]sog-katalog['"]\s*\)/.test(js),
+  /* MAALT INDE I FUNKTIONEN, IKKE I HELE FILEN - og det er ikke
+     forsigtighed, det er en fejl, der blev fanget. Foerste udgave testede
+     mod hele `js`, og et revert-forsoeg, der oedelagde netop denne gren,
+     lod paastanden staa GROEN: `getElementById('sog-katalog')` staar TO
+     steder i filen (linje 421 i fokusreglen og linje 562 i filterkoden),
+     saa den anden forekomst bar paastanden alene. En assertion, der kan
+     holdes i live af en linje, den ikke handler om, beviser ingenting. */
+  const fokusFunk = udsnit(js, 'function flytFokusEfterFjern(', '\n    }');
+  ok('81.21: fokus flyttes efter et Fjern-klik, og alle tre grene staar i funktionen selv',
+    /flytFokusEfterFjern\(slug, p2\)/.test(js)
+    && !!fokusFunk
+    && /tilbage\[Math\.min\(plads, tilbage\.length - 1\)\]\.focus\(\)/.test(fokusFunk)
+    && /offsetParent !== null/.test(fokusFunk)
+    && /getElementById\(\s*['"]sog-katalog['"]\s*\)/.test(fokusFunk),
     'D3: assets/sammenligning.js:705 lader fokus falde til <body> - bjaelken maa ikke kopiere det');
 
   /* Den tavse halvdel af samme fejl: en tom, skjult bjaelke, der stadig
