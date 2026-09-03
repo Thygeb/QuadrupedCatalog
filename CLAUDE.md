@@ -367,6 +367,15 @@ kollisioner efter at reglerne var aftalt. Indtil da fandtes de kun i STATUS.md
    "Færdig med main. Suiten grøn, 1658/0. Pushet som <hash>. Main er din."
    ```
 
+   **Og *"jeg rører ikke main"* dækker ARBEJDSTRÆET, ikke kun git-kommandoer.**
+   Tilføjet samme dag, foreslået af den session, der næsten betalte for det: jeg
+   meldte ærligt, at jeg ikke kørte git mod main, og det passede — men jeg havde
+   redigeret en fil i det delte træ og ladet den ligge ucommitteret, mens peer
+   flettede. **Kun det, at peer ikke brugte `git add -A`, holdt min halvfærdige
+   omskrivning ude af deres flet.** En ucommitteret redigering er lige så farlig
+   for den, der committer, som en git-kommando er for den, der måler. Rører du
+   en fil i det delte træ, så commit den, før du slipper main.
+
 Find den anden session med `ListAgents`; svar på dens adresse fra `from=`.
 
 ## Modelfordeling — hvem tænker, og hvem bygger
