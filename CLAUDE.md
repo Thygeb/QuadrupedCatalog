@@ -105,11 +105,11 @@ skill.
 
 | Skill | Hvornår |
 |---|---|
-| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med 20+ underkommandoer. Se rækkerne nedenfor |
+| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med **23 kommandoer** (målt på disken 3. sep 2026, v4.1.1 — her stod "20+"). Se rækkerne nedenfor. **Kommandoerne deler sig i to lejre, og skellet er det, der afgør, om et spor må sendes under designfrysen:** `critique` og `audit` **rapporterer**, `shape`, `init`, `document` og `extract` **planlægger** — de seks er lovlige under frysen. De øvrige 16 (`polish` `bolder` `quieter` `distill` `harden` `onboard` `animate` `colorize` `typeset` `layout` `delight` `overdrive` `clarify` `adapt` `optimize` `live`) **retter fladen** og er det ikke. Skillen bærer selv skellet: *"Do not load [craft-floor.md] for planning-only work"* |
 | `impeccable layout` | Afstande, rytme og visuelt hierarki. Det, en "for meget polstring"-klage i virkeligheden beder om |
 | `impeccable typeset` | Typografisk hierarki. Målt 1. sep: **55 forskellige skriftstørrelser** i stilarkene, 18 trin alene i spændet 9–20 px |
 | `impeccable distill` | Skær ind til essensen, fjern kompleksitet |
-| `impeccable new-work` | Når en flade skal have en **retning**, ikke en rettelse. Bygger konkurrerende visuelle verdener, man kan se ved siden af hinanden |
+| ~~`impeccable new-work`~~ | **FINDES IKKE SOM KOMMANDO. Målt på disken 3. sep 2026:** `new-work` er en **reference** (`reference/new-work.md`), som `shape` selv indlæser, når en flade skal have en retning frem for en rettelse. Et spor, der kalder `impeccable new-work`, får ingenting. **Kald `impeccable shape`** — SKILL.md: *"`shape` owns task discovery, then enters new-work only for visual-world and surface-concept decisions."* Rækken stod her som en kommando indtil i dag |
 | `impeccable shape` | Planlæg UX/UI, før der skrives kode |
 | `impeccable critique` | Design-vurdering med heuristisk scoring: **virker designet**, ikke er det fejlfrit |
 | `impeccable audit` | Teknisk kvalitet: tilgængelighed, ydelse, responsivitet |
