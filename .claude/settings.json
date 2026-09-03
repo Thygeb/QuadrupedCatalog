@@ -41,6 +41,15 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" .claude/hooks/sessionsvagt.mjs",
+            "timeout": 10
+          }
+        ]
       }
     ]
   },
