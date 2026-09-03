@@ -3031,6 +3031,30 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    graad optisk fedes op paa moerk bund: en anelse mere linjeafstand (1,6 mod
    sidens 1,55), en anelse mere spatiering (.004em mod broedtekstens -.006em),
    og vaegten holdes paa 400 frem for at blive skruet ned. */
+/* FODEN SKAL LIGGE I BUNDEN, OGSAA NAAR SIDEN ER KORTERE END SKAERMEN.
+   Maalt efter min foerste udgave: dist/da/404.html og dist/en/404.html er
+   866 px ved 1440x900, saa foden sluttede 34 px oppe og efterlod en lys
+   stribe under sig. FOER dette spor fandtes defekten ikke - der var ingen fod
+   at flyde - saa den er min, ikke arvet. 2 af 216 sider ved 900 px viewport;
+   paa en hoejere skaerm rammer den flere, og 404-siden er netop den, en
+   fremmed lander paa.
+
+   FLEX-KOLONNE PAA <body> ER SIKKER HER, fordi de eneste IN-FLOW-boern er tre:
+   .daek, <main> og .sidefod. Kontrolleret paa alle tre oevrige:
+     .spring    position:absolute (system.css §3)
+     SPRITE     <svg style="position:absolute" width="0" height="0">
+     <script>   display:none
+     .klaebebar position:fixed, og indsat af JS
+   `flex:1 0 auto` paa <main> lader den fri plads gaa TIL indholdet frem for
+   til en margen. Fri plads regnes MED fodens margin-top, saa en kort side
+   bliver praecis 100dvh - ikke 100dvh + 96 px, som `margin-top:auto` paa
+   foden ville give. Derfor beholder foden ogsaa sin --r9-luft paa de lange
+   sider, hvor der ingen fri plads er at fordele. */
+body{min-height:100dvh;display:flex;flex-direction:column}
+body > .daek{flex:none}
+body > main{flex:1 0 auto}
+body > .sidefod{flex:none}
+
 .sidefod{
   background:var(--fod);color:var(--paafod);
   /* margin-top er fodens ENESTE forhold til indholdet ovenfor: den luft, der

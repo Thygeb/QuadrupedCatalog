@@ -2184,7 +2184,7 @@ export function skal({
 </div>
 <p class="sidefod__mark">
 <span class="sidefod__udgiver">${esc(t('fod_udgiver'))}</span>
-<a class="sidefod__link" href="${attr(`${op}${sprogkode}/om/`)}">${esc(t('om_etiket'))}</a>
+<a class="sidefod__link" href="${attr(`${op}${sprogkode}/om/`)}"${aktiv === 'om/' ? ' aria-current="page"' : ''}>${esc(t('om_etiket'))}</a>
 </p>
 </div>
 </footer>`;
