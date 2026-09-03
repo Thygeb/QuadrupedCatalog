@@ -419,21 +419,60 @@
     };
   }
 
-  /* Fotokreditten. Staar UDEN FOR <table> (et <p> efter den), fordi den
-     handler om siden, ikke om en raekke eller en spalte - og fordi en
-     tekstblok inde i en tabel ville staa i en celle, den ikke hoerer til.
-     Kun de faktisk viste fotos krediteres, med producentnavn og hentedato,
-     saa linjen er sand for netop den trio, laeseren har valgt. */
-  function fotoophavHTML(robotter) {
-    var dele = [];
-    for (var i = 0; i < robotter.length; i++) {
-      var f = robotter[i].foto;
-      if (!f || f.ophav !== 'fabrikant') continue;
-      dele.push(robotter[i].producent + (f.hentet ? ' (' + DATA.tekst.hentet + ' ' + f.hentet + ')' : ''));
-    }
-    if (!dele.length) return '';
-    return '<p class="saml-fotoophav">' + esc(DATA.tekst.foto_ophav) + ' '
-      + esc(dele.join(' · ')) + '</p>';
+  /* Fotokreditten - PR. KOLONNE, ikke laengere én saetning under hele
+     tabellen. JPK 3. sep 2026, ordret: "Fodnoter til foto skal vaere i deres
+     respektive kollonner." Han OPHAEVER dermed foerste halvdel af den gamle
+     begrundelse, som stod her indtil nu:
+
+       "Fotokreditten. Staar UDEN FOR <table> (et <p> efter den), fordi den
+       handler om siden, ikke om en raekke eller en spalte - og fordi en
+       tekstblok inde i en tabel ville staa i en celle, den ikke hoerer til."
+
+     Det er netop forkert: et foto hoerer til PRAECIS én robot, altsaa
+     PRAECIS én spalte, og <tfoot> er elementet HTML har til indhold pr.
+     kolonne under en tabel - ikke en tekstblok, der laender sig op ad
+     tabellen udefra. Anden halvdel af den gamle begrundelse staar VED MAGT
+     og er uaendret et krav: kun de faktisk viste fotos krediteres, med
+     producentnavn og hentedato, saa foden er sand for netop den trio,
+     laeseren har valgt. En robot uden fabrikantfoto faar en TOM celle, ikke
+     en opfundet kredit - og er ingen af de viste fotos fabrikantens, udebliver
+     hele <tfoot>, praecis som den gamle <p> udeblev ved samme betingelse.
+
+     Den FAELLES indledning ("Manufacturer's own photo.") hoerer stadig kun
+     ét sted: gentaget i hver kolonne ville den vaere stoej, og den peger ikke
+     paa nogen bestemt robot. Den staar derfor fortsat som sit eget <p>, nu
+     LIGE EFTER tabellen (samme klasse, samme plads som foer) - kun den
+     UDEFINERBARE del (hvem, hvornaar) er flyttet ind i tabellen. */
+  function fotoFodHTML(robotter) {
+    var harFabrikantfoto = false;
+    var celler = robotter.map(function (r) {
+      var f = r.foto;
+      if (!f || f.ophav !== 'fabrikant') {
+        return '<td class="saml-fotofod__celle" role="cell"></td>';
+      }
+      harFabrikantfoto = true;
+      var tekst = r.producent + (f.hentet ? ' (' + DATA.tekst.hentet + ' ' + f.hentet + ')' : '');
+      return '<td class="saml-fotofod__celle" role="cell">' + esc(tekst) + '</td>';
+    }).join('');
+    if (!harFabrikantfoto) return '';
+    // Hjoernecellen foelger samme moenster som specimenHoved()s: et TOMT
+    // <td>, ikke et <th> uden kolonne (linje 309-311 ovenfor forklarer
+    // hvorfor). role="cell" er baelte-og-seler til det semantiske <td>.
+    return '<tfoot class="saml-fotofod" role="rowgroup">'
+      + '<tr class="saml-fotofod__raekke" role="row">'
+      + '<td class="saml-fotofod__hjoerne" role="cell"></td>'
+      + celler
+      + '</tr></tfoot>';
+  }
+
+  /* Den faelles indledning, se begrundelsen i fotoFodHTML() ovenfor. Samme
+     betingelse som foden: ingen fabrikantfoto blandt de viste, ingen saetning. */
+  function fotoIndledningHTML(robotter) {
+    var harFabrikantfoto = robotter.some(function (r) {
+      return r.foto && r.foto.ophav === 'fabrikant';
+    });
+    if (!harFabrikantfoto) return '';
+    return '<p class="saml-fotoophav">' + esc(DATA.tekst.foto_ophav) + '</p>';
   }
 
   /* --- VAERNET: en kontakt, hvor intet skifter, er vaerre end ingen kontakt
@@ -582,17 +621,17 @@
     var caption = String(DATA.tekst.tabel_caption || '').replace('{robotter}', navne);
 
     // Strimlen staar FOER tabellen, ikke inde i den: den betjener matricen og
-    // hoerer ikke til en raekke eller en spalte - samme begrundelse, som
-    // holder fotokreditten uden for <table>.
+    // hoerer ikke til en raekke eller en spalte. Fotokreditten staar
+    // modsat SIDEN 3. sep 2026 delvist INDE i tabellen - se fotoFodHTML().
     sidsteOmregnelige = omregneligeAntal(robotter);
 
     return (n < DATA.maksAntal ? invitationHTML() : '')
       + (sidsteOmregnelige ? enhedslinjeHTML() : '')
       + '<table class="saml-matrix" role="table" aria-labelledby="' + CAPTION_ID + '">'
       + '<caption id="' + CAPTION_ID + '" class="kunskaerm">' + esc(caption) + '</caption>'
-      + specimenHoved(robotter, n) + grupperHTML
+      + specimenHoved(robotter, n) + grupperHTML + fotoFodHTML(robotter)
       + '</table>'
-      + fotoophavHTML(robotter);
+      + fotoIndledningHTML(robotter);
   }
 
   var status = app.querySelector('[data-saml-status]');

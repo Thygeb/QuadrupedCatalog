@@ -1140,6 +1140,27 @@
   text-wrap: pretty;
 }
 
+/* FOTOKREDITTEN PR. KOLONNE (spor/fotofod, JPK 3. sep 2026: "Fodnoter til foto
+   skal vaere i deres respektive kollonner"). Cellerne genbruger sidens EGNE to
+   graenselinjer: border-top var(--linje) er den samme streg, .saml-raekke > *
+   saetter mellem hver datataekke, og border-left var(--blaek2) er kolonnedeleren
+   fra pladehovedets .specimen. To genbrugte tokens, ingen nye. */
+.saml-fotofod__hjoerne,
+.saml-fotofod__celle {
+  border-top: 1px solid var(--linje);
+  vertical-align: top;
+  padding: var(--r2) var(--r3);
+  font-family: var(--manual);
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--stoev-blaek);
+  text-align: left;
+}
+.saml-fotofod__celle {
+  border-left: 1px solid var(--blaek2);
+}
+
+
 /* --- 8b-IV. SMALLE SKAERME ----------------------------------------------
    Matricen brydes ALDRIG op i blokke - det ville koste tabelrollen, som Aa54
    netop lappede. Den ruller vandret i stedet, og raekkehovedet klaeber til
