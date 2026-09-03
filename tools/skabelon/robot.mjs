@@ -75,6 +75,10 @@
  * fem her — CE er taget ud. Strengen skal skrives om, saa den ikke naevner et antal.
  */
 
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 // `imperialPost` importeres OGSAA lokalt: `export … from` videresender navnet
 // uden at binde det i denne fils scope, og harOmregnelige() nedenfor kalder det.
 import {
@@ -85,6 +89,66 @@ import {
 import {
   FELTER, FELTNAVNE, GRUPPER, tilstandAf, erGyldighedsforbehold, forbeholdsArt,
 } from '../skema.mjs';
+
+const HER = path.dirname(fileURLToPath(import.meta.url));
+const DATA_ROD = path.resolve(HER, '..', '..');
+const KURSER = JSON.parse(fs.readFileSync(path.join(DATA_ROD, 'data', 'kurser.json'), 'utf8'));
+
+/**
+ * Kursen fra `valuta` til basisvalutaen (USD), eller `null` hvis kilden
+ * ikke dækker den.
+ */
+function kursTilBasis(valuta) {
+  const fra = KURSER.per_euro?.[valuta];
+  const til = KURSER.per_euro?.[KURSER.basis];
+  if (typeof fra !== 'number' || typeof til !== 'number' || !(fra > 0)) return null;
+  return til / fra;
+}
+
+/**
+ * Prisen på robotsiden (L66, JPK 3. sep 2026):
+ * "På robotsiden skal prisen i USD og kildeprisen angives som 'Key figures as stated
+ * by the manufacturer', såfremt det oplyses."
+ *
+ * Begge tal vises: den omregnede USD-pris OG producentens egen kildepris i dens egen
+ * valuta. Kildeprisen bærer kildebogstavet; USD-omregningen har ingen
+ * (regel 2/3: "en omregning har ingen selvstændig kilde").
+ */
+function prisVaerdi(post, ctx, kilder) {
+  const H = ctx.__H;
+  const { i18n } = ctx;
+  const kompakt = ctx.__kompakt === true;
+
+  if (!post || typeof post !== 'object' || post.vaerdi === undefined || typeof post.vaerdi !== 'number') {
+    return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
+  }
+
+  const valuta = post.enhed;
+  const kildeMaerke = post.kilde ? (H.kildemaerke(post, kilder) || '') : '';
+  const erBasis = valuta === KURSER.basis;
+
+  if (erBasis) {
+    const html = H.tal(post, { kompakt });
+    return { html, hul: false, maerke: kildeMaerke };
+  }
+
+  const kurs = kursTilBasis(valuta);
+  if (kurs === null) {
+    throw new Error(`robot.mjs: ${ctx.robot?.slug} oplyser prisen i "${valuta}", som `
+      + `data/kurser.json ikke har en kurs for. Tilføj valutaen dér med kilde og `
+      + `dato - prisen må ikke falde tavst ud.`);
+  }
+
+  const usdTal = Math.round(post.vaerdi * kurs);
+  const usdPost = { vaerdi: usdTal, enhed: KURSER.basis, operator: post.operator };
+  const usdHtml = H.tal(usdPost, { kompakt });
+
+  const kildeTalHtml = H.tal(post, { kompakt: true });
+  const kildeHtml = `<span class="stribe-kildepris">${kildeTalHtml}${kildeMaerke}</span>`;
+
+  const html = `<span class="pris-par">${usdHtml}${kildeHtml}</span>`;
+  return { html, hul: false, maerke: '' };
+}
 
 /**
  * D18 · ETIKET — maerket rider paa FELTNAVNET, aldrig paa vaerdien.
@@ -331,6 +395,10 @@ export function vaerdi(navn, post, ctx, kilder) {
   // igennem destruktureringen som lutter standardvaerdier - den var aldrig
   // laest. Nu baerer pladsen den oplysning, der faktisk bruges.
   const kompakt = ctx.__kompakt === true;
+
+  if (navn === 'pris') {
+    return prisVaerdi(post, ctx, kilder);
+  }
 
   if (post === undefined) {
     return { html: H.tilstand('ikke_oplyst', i18n), hul: true, maerke: '' };
