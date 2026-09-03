@@ -508,9 +508,15 @@ function facetter(robotter, hjaelp, i18n) {
          regel ("en traerskel uden en eneste robot forsvinder fra listen",
          skalaFacet() ovenfor) er en bevidst, dokumenteret anden beslutning
          for et andet datarum og maa ikke aendres af dette. */
+      // MRK-UNDERTEKSTEN ER SLETTET (RETTELSE 1, JPK via orkestratoren,
+      // 3. sep 2026): "kun CE"/"CE only" var den ENESTE statiske undertekst
+      // paa nogen facetgruppe, og den fandtes kun, fordi gruppen dengang
+      // kun daekkede CE - praecis den begraensning, denne omgoerelse
+      // fjerner. Uden `mrk` er gruppen ens med de ni andre; facetBlok()s
+      // `${f.mrk ? ... : ''}`-vagt (katalog.mjs) haandterer det fraverende
+      // felt uden aendring.
       navn: 'ce',
       etiket: t('filter_certificering'),
-      mrk: t('filter_certificering_mrk'),
       vaerdier: (r) => CERT_MAERKER.filter((m) => hjaelp.certTilstand(r, m + '_oplyst') === 'ja'),
       tekst: (v) => t('filter_' + v),
       orden: CERT_MAERKER,
