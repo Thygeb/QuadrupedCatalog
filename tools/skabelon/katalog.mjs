@@ -6,6 +6,11 @@
  * hoved, den klaebende strimmel, facetlaget i et 12-kolonners gitter - og
  * derunder ét fladt gitter af kort.
  *
+ * R2 (4. sep 2026, spor/katalogskaerm): betjeningen paa foerste skaerm.
+ * De ni kort--seneste i aabningen er uroerte jf. briefets udelukkelse af
+ * PLAN-katalog §0.1 (JPK's uafgjorte valg). Fladen strammes i rytme og
+ * struktur, saa betjeningen naar saa taet paa toppen som muligt.
+ *
  * HVAD DER FORSVANDT, OG HVORFOR DET IKKE ER EN TILBAGERULNING:
  * Vaegtklasse-SALENE (romertal I-IV, tommelindeks, tomhedsregler pr. sal) er
  * vaek. De var spor/lysbygs gruppering, og de kan ikke overleve L56 punkt 3:
@@ -1424,10 +1429,8 @@ ${seneste.map((r) => kortHTML(r, { variant: ' kort--seneste' })).join('\n')}
   return `<div class="rum">
 ${aabning}
 <form class="styr" id="styr" action="#alle" method="get">
-
 <section class="plade" aria-labelledby="plade-titel">
 <div class="plade__krop stans">
-
 <div class="plade__hoved">
 <div class="plade__ord">
 <h2 class="plade__titel" id="plade-titel">${esc(t('plade_filtrer'))}</h2>
