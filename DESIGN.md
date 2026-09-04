@@ -8,12 +8,14 @@ colors:
   # vaerdier; de peger nu paa primitivet i stedet - samme farve, eksplicit
   # delt fremfor implicit gentaget. Se assets/system.css :root for kilden.
   p-eloxgraa: "#E8EBED"
+  p-eloxgraa-2: "#E4E7EA"
   p-gunmetal: "#22262A"
   p-kridt: "#FAFBFB"
   p-blaek-2: "#545C63"
   p-afmaerkningsgul: "#F2C400"
   p-rille: "#C6CCD1"
   p-stoevgraa: "#9AA3A9"
+  p-stoevgraa-2: "#737F87"
   p-stoev-blaek: "#5F686F"
   p-stans: "#FFFFFF"
   # Semantik: hvad farven BETYDER. Navnene er de oprindelige 16, uaendrede.
@@ -22,7 +24,7 @@ colors:
   bund: "var(--p-eloxgraa)"
   panel: "var(--p-kridt)"
   panel-ro: "var(--p-eloxgraa)"
-  tom: "var(--p-eloxgraa)"
+  tom: "var(--p-eloxgraa-2)"
   blaek: "var(--p-gunmetal)"
   blaek2: "var(--p-blaek-2)"
   blaek3: "var(--p-stoev-blaek)"
@@ -31,6 +33,7 @@ colors:
   accent-ro: "var(--p-eloxgraa)"
   linje: "var(--p-rille)"
   hegn: "var(--p-stoevgraa)"
+  hegn-baerende: "var(--p-stoevgraa-2)"
   fod: "var(--p-gunmetal)"
   paafod: "var(--p-eloxgraa)"
   paafod2: "var(--p-stoevgraa)"
@@ -376,15 +379,25 @@ alle stemte.
 - **Støv-blæk** (`--blaek3` og `--stoev-blaek`, samme værdi `#5F686F`): mikroskrift,
   "ikke oplyst"-teksten. 5,48 : panel, 4,74 : bund — den lyseste tone, systemet
   tillader til tekst.
-- **Støvgrå** (`--hegn` og `--paafod2`, samme værdi `#9AA3A9`): **betydningsbærende**
-  kant — inputkant, stiplet hul-markør, focus-nabolag. 2,47 : panel, 2,14 : bund.
-  **Under WCAG 1.4.11's 3:1-krav til meningsbærende ikke-tekst** på begge flader
-  — se konfliktafsnittet.
+- **Støvgrå** (`--hegn` og `--paafod2`, samme værdi `#9AA3A9`): kontur, der kun
+  **afgrænser** — inputkant, focus-nabolag. 2,47 : panel, 2,14 : bund.
+  **Under WCAG 1.4.11's 3:1-krav**, og derfor må den ikke længere bære en
+  oplysning alene. Rettet af `spor/tomstat` (R8, 4. sep 2026): den bærende kant
+  har fået sin egen polet, `--hegn-baerende`.
+- **Støvgrå 2** (`--hegn-baerende`, `#737F87`): den kant, der SELV er oplysningen
+  — i dag `.v-ikke`s ramme og dens 9×9 stiplede firkant. 3,96 : panel,
+  **3,43 : bund**, 3,31 mod sit eget fyld `#E4E7EA`. Over 1.4.11's 3,0 mod alle
+  tre naboer, og bevidst lysere end teksten (4,74 : bund), så konturen ikke
+  konkurrerer med ordet.
 - **Rille** (`--linje`, `#C6CCD1`): hårfin skillelinje. Rent dekorativ, 1,56 : panel,
   1,35 : bund — bevidst under kontrastkravet, fordi den aldrig bærer betydning alene.
-- **Eloxgrå** (`--bund`, `--panel-ro`, `--tom`, `--accent-ro`, `--paafod`, alle
-  `#E8EBED`): pladen selv, roligt indfelt, fyldet bag "ikke oplyst", lys tekst
-  på mørk flade. Fem navne, én værdi — se *Farvedubletter*.
+- **Eloxgrå** (`--bund`, `--panel-ro`, `--accent-ro`, `--paafod`, alle
+  `#E8EBED`): pladen selv, roligt indfelt, lys tekst på mørk flade.
+  **Fire navne**, én værdi — se *Farvedubletter*.
+- **Eloxgrå 2** (`--tom`, `#E4E7EA`): fyldet bag "ikke oplyst", ét trin ned ad
+  samme akse. 1,04 : bund. Skilt ud af eloxgrå af `spor/tomstat` (R8): fyld og
+  flade var samme hex, 1,00 : 1, og tilstanden var usynlig. **Fyldet kan ikke
+  gøres mørkere** — teksten på det står på 4,58 : 1 og har kun 0,08 til kravet.
 - **Kridt** (`--panel`, `#FAFBFB`): den løftede flade — kort, striber, tabeller.
 - **Lyskant** (`--stans`, `#FFFFFF`): 1px indfældet lyskant i en stansning
   (`.stans`-primitiven). Ny TYPESKILT-token uden ORBIT-modstykke.
@@ -945,7 +958,11 @@ hverken skriftgrad, bogstavform, flade eller mærke.
 - **Ja** (`.v-ja`): stadig em-baseret, `.62em`, samme vægt som nej, åben
   firkant med fyldt kerne.
 - **Ikke oplyst** (`.v-ikke`): **fast 11px** (samme rettelse), minuskler,
-  `blaek3` på `tom`-flade, stiplet `hegn`-kant, 9×9px stiplet firkant.
+  `blaek3` på `tom`-flade (`#E4E7EA`, 4,58 : 1 for TEKSTEN på FYLDET), stiplet
+  **`hegn-baerende`**-kant (3,43 : 1 for KANTEN på BUNDEN), 9×9px stiplet
+  firkant i samme farve. **Kanten, ikke fladen, er den, der bærer tilstanden**
+  — R8, `spor/tomstat` 4. sep 2026: et fyld mørkt nok til WCAG 1.4.11 gør ordet
+  ulæseligt, og det gælder hele paletten, ikke kun denne tone.
 - **Kun vist på billede** (`.v-billede`): fast 11px, kursiveret ord, halvt
   fyldt firkant, ingen dæmpet flade.
 
@@ -1234,8 +1251,10 @@ sandt forhold 1,928, tegnet 1,606). Pladens forhold står derfor som tokenet
 `--plade-forhold`, og `tests/dele/61-extract.mjs` læser BEGGE sider og
 fejler, hvis CSS'en og `side.mjs` skrider fra hinanden.
 
-**3. Farvedubletter.** Flere tokennavne peger på samme værdi: **5 navne**
-på `#E8EBED` (`--bund`, `--tom`, `--panel-ro`, `--accent-ro`, `--paafod`),
+**3. Farvedubletter. DELVIST LUKKET, 5 → 4.** Flere tokennavne peger på samme
+værdi: **4 navne** på `#E8EBED` (`--bund`, `--panel-ro`, `--accent-ro`,
+`--paafod`) — `--tom` blev skilt ud af `spor/tomstat` 4. sep 2026 og har nu
+`#E4E7EA`,
 **2** på `#9AA3A9` (`--hegn`, `--paafod2`), **2** på `#22262A` (`--blaek`,
 `--fod`), **2** på `#5F686F` (`--blaek3`, `--stoev-blaek`). Alle tal
 genmålt af dette spor direkte i `:root`.
@@ -1310,6 +1329,16 @@ dækker alle fem forgrundstyper.
 meningsbærende ikke-tekst-elementer (inputkant, hul-markør). ORBIT-værdien
 klarede kravet (3,32–3,68 : 1, jf. den forrige filudgave); TYPESKILTs nye
 hex gjorde det ikke.
+
+**DELVIST AFGJORT af `spor/tomstat` (R8, 4. sep 2026).** Det ene sted, hvor
+`--hegn` var den eneste bærer af en oplysning — `.v-ikke`s ramme og dens 9×9
+firkant — bruger nu `--hegn-baerende` (`#737F87`, 3,43 : bund, 3,96 : panel).
+`--hegn` selv står uændret på sine 41 øvrige brugssteder, hvor den kun
+afgrænser. **Konflikten er ikke lukket:** `.stribe--intet` (10 sider) og
+`.typeskilt .maerke--tom` (30 sider) bærer stadig en oplysning på en
+`--hegn`-kant på 2,14 : 1 mod bunden. Reglen, der afgør fremtidige tilfælde:
+forsvinder konturen uden at en oplysning forsvinder med den, er den `--hegn`;
+ellers `--hegn-baerende`.
 
 **7. To formsprog for radius. AFGJORT af L79 (2. sep 2026).** Konflikten
 var: den tokeniserede skala (`--rund` 12px, `--rund-ind` 8px,
