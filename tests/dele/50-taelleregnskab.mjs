@@ -76,7 +76,7 @@ function talAf(streng) {
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok, lasRobotter, skema,
+    rod, tmp, node, ok, hentRobotter, skema,
   } = ctx;
 
   console.log('\n50. Taelleregnskabet: ét tal maa kun betyde én ting (spor/tal)');
@@ -85,7 +85,9 @@ export default async function koer(ctx) {
 
   /* --- 1. Om-os' regnskab balancerer paa det RIGTIGE datasaet ------------ */
   console.log('  1. Om-os\' regnskab balancerer');
-  const g = omOs.regnskab(lasRobotter(path.join(rod, 'data', 'robots')));
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet.
+  const g = omOs.regnskab((await hentRobotter()).map((d) => skema.normaliserRobot(d)));
   ok('50.1.a: oplyst + ikke oplyst = felter x robotter',
     g.oplyst + g.io === g.muligt,
     `${g.oplyst} + ${g.io} = ${g.oplyst + g.io}, men ${g.felter} x ${g.robotter} = ${g.muligt}`);

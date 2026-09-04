@@ -39,7 +39,9 @@ function cjkTal(s) {
 }
 
 export default async function koer(ctx) {
-  const { rod, tmp, node, ok, koerValidator, lasRobotter } = ctx;
+  const {
+    rod, tmp, node, ok, koerValidator, skema, hentRobotter,
+  } = ctx;
 
   console.log('\n42. spor/cjkui — advarsel/note/citat/noter er rene for han-tegn, ordlyden er bevaret i *_ordlyd');
 
@@ -105,7 +107,9 @@ export default async function koer(ctx) {
   //    enten at en ny robotpost fik uoversat kinesisk i et af de fire felter,
   //    eller at en fremtidig aendring gled tilbage til den gamle, blandede form.
   {
-    const robotter = lasRobotter(path.join(rod, 'data', 'robots'));
+    // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+    // er slettet.
+    const robotter = (await hentRobotter()).map((d) => skema.normaliserRobot(d));
     let synligeTegn = 0;
     const fund = [];
     const tjekTekst = (sti, s) => {

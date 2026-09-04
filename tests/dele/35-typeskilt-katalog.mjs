@@ -43,14 +43,17 @@ function synligTekst(html) {
 }
 
 export default async function koer(ctx) {
-  const { rod, ok } = ctx;
+  const { rod, ok, hentRobotter } = ctx;
 
   console.log('\n35. Katalogsiden er typeskiltet (spor/katalog, L54/L57)');
 
   const dist = path.join(rod, 'dist');
-  const robotFiler = fs.readdirSync(path.join(rod, 'data', 'robots'))
-    .filter((f) => /\.ya?ml$/.test(f));
-  const ANTAL = robotFiler.length;
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet. `alleRaa` er RAA (parseYaml(), ikke normaliseret) docs -
+  // praecis det, en fs.readFileSync+parse af den gamle mappe ville have
+  // givet, saa .status og .foerste_udgivelse laeses direkte af dem nedenfor.
+  const alleRaa = await hentRobotter();
+  const ANTAL = alleRaa.length;
 
   // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   for (const sprog of ['da', 'en']) {
@@ -269,9 +272,9 @@ export default async function koer(ctx) {
     const iNet = html.indexOf('<div class="net" id="alle">');
     const netto = iNet === -1 ? '' : html.slice(iNet);
     const stempler = (netto.match(/<span class="kort__mrk">/g) || []).length;
-    const ikkeIProduktion = robotFiler
-      .filter((f) => !/^status:\s*"?i_produktion"?\s*$/m
-        .test(fs.readFileSync(path.join(rod, 'data', 'robots', f), 'utf8'))).length;
+    // AA183/L84: telte foer paa raa YAML-tekst ("status: i_produktion"); nu
+    // paa det parsede felt direkte - samme vaerdi, databasen som kilde.
+    const ikkeIProduktion = alleRaa.filter((d) => d.status !== 'i_produktion').length;
     ok(`35.17 ${sprog}: statusstempel kun paa de ${ikkeIProduktion}, der ikke er i produktion`,
       iNet !== -1 && stempler === ikkeIProduktion, `fandt ${stempler} stempler i resultatgitteret`);
 
@@ -285,8 +288,11 @@ export default async function koer(ctx) {
     ok(`35.18 ${sprog}: aabningen findes og er sat af robotkort`,
       iAabning !== -1 && /<article class="kort kort--seneste">/.test(aabning),
       'et hero-baand af ren tekst ville skubbe det foerste robotkort laengere ned (D20)');
-    const medAar = robotFiler.filter((f) => /^foerste_udgivelse:\s*\d{4}\s*$/m
-      .test(fs.readFileSync(path.join(rod, 'data', 'robots', f), 'utf8'))).length;
+    // AA183/L84: telte foer paa raa YAML-tekst ("foerste_udgivelse: 2023");
+    // nu paa det parsede felt - et bart 4-cifret aarstal er en JS-number her,
+    // en tekstvaerdi som "ikke_oplyst" tæller derfor stadig som "uden".
+    const medAar = alleRaa.filter((d) => typeof d.foerste_udgivelse === 'number'
+      && /^\d{4}$/.test(String(d.foerste_udgivelse))).length;
     const udenAar = ANTAL - medAar;
     const tekst = synligTekst(aabning);
     ok(`35.19 ${sprog}: aabningen siger, hvor mange der oplyser et aarstal (${medAar} af ${ANTAL})`,

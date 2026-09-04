@@ -23,7 +23,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export default async function koer(ctx) {
-  const { rod, ok, skema, yaml } = ctx;
+  const { rod, ok, skema, hentRobotter } = ctx;
 
   console.log('\n3b. Naevneren (D7 / L30)');
 
@@ -78,14 +78,14 @@ export default async function koer(ctx) {
     gamle.length === 0, gamle.join(' · '));
 
   // 6. Taelleren kan ikke overstige naevneren. Med 33/33 er 100 % loftet.
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet. hentRobotter() giver RAA docs (db/hent.mjs's egen kommentar),
+  // saa normaliserRobot() koeres her, praecis som lasRobotter() gjorde det.
   const val = await import(`file://${path.join(rod, 'tools', 'validate.mjs').replace(/\\/g, '/')}`);
-  const dataMappe = path.join(rod, 'data', 'robots');
-  const filer = fs.existsSync(dataMappe)
-    ? fs.readdirSync(dataMappe).filter((f) => /\.ya?ml$/.test(f)) : [];
+  const robotter = (await hentRobotter()).map((d) => skema.normaliserRobot(d));
   let vaerst = 0;
-  for (const f of filer) {
-    const doc = skema.normaliserRobot(yaml.parseYaml(fs.readFileSync(path.join(dataMappe, f), 'utf8'), f));
+  for (const doc of robotter) {
     for (const d4 of [false, true]) vaerst = Math.max(vaerst, val.taethed(doc, skema.NAEVNER, d4).pct);
   }
-  ok(`ingen af de ${filer.length} poster kommer over 100 % (hoejeste: ${vaerst} %)`, vaerst <= 100);
+  ok(`ingen af de ${robotter.length} poster kommer over 100 % (hoejeste: ${vaerst} %)`, vaerst <= 100);
 }

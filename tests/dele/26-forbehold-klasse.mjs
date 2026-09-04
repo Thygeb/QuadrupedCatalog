@@ -28,11 +28,13 @@ felter:
 `;
 
 export default async function koer(ctx) {
-  const { rod, tmp, ok, lasRobotter, koerValidator } = ctx;
+  const { tmp, ok, skema, hentRobotter, koerValidator } = ctx;
 
-  console.log('1. Optaelling: 259 gyldighed / 303 uddybning / 562 i alt over data/robots/*.yaml');
+  console.log('1. Optaelling: 259 gyldighed / 303 uddybning / 562 i alt over databasens 77 robotter');
   {
-    const robotter = lasRobotter(path.join(rod, 'data', 'robots'));
+    // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+    // er slettet.
+    const robotter = (await hentRobotter()).map((d) => skema.normaliserRobot(d));
     let gyldighed = 0, uddybning = 0, andet = 0;
     for (const r of robotter) {
       for (const post of Object.values(r.felter || {})) {
@@ -96,19 +98,21 @@ export default async function koer(ctx) {
     // | gyldighed | MED batteri mens AlienGo er UDEN - eksplicit
     // sammenligningsproblem (familie 3)" — efterproevet mod selve dokumentet,
     // ikke gaettet her.
-    const b2 = fs.readFileSync(path.join(rod, 'data', 'robots', 'unitree-b2.yaml'), 'utf8');
-    const linjer = b2.split(/\r?\n/);
-    // Find "  egenvaegt:" og led fremad til naeste feltnavn eller filens
-    // slutning — uafhaengig af praecis linjeafstand inde i blokken.
-    const startI = linjer.indexOf('  egenvaegt:');
-    let slutI = linjer.length;
-    for (let i = startI + 1; i < linjer.length; i++) {
-      if (/^  [a-z_0-9]+:/.test(linjer[i])) { slutI = i; break; }
-    }
-    const blok = linjer.slice(startI, slutI).join('\n');
-    ok('unitree-b2.yaml har en egenvaegt-blok', startI !== -1);
+    //
+    // AA183/L84: laeser hentRobotter() (databasen, allerede cachet af
+    // tests/koer.mjs's ÉN kald - fund/BRIEF-dbcache.md punkt 1), ikke
+    // data/robots/unitree-b2.yaml (mappen er slettet). En frisk, ukachet
+    // fraDb()-hentning her ville braekke dbcache-loeftet om ÉT REST-kald for
+    // hele suiten, saa assertionen laeser strukturfeltet i stedet for at
+    // regex-scanne raa YAML-tekst - samme vaerdi, en anden aflaesningsform.
+    const alleRaa = await hentRobotter();
+    const b2Raa = alleRaa.find((d) => d.slug === 'unitree-b2');
+    ok('unitree-b2 findes i databasen', Boolean(b2Raa));
+    const b2 = skema.normaliserRobot(b2Raa);
+    ok('unitree-b2 har en egenvaegt-blok', Boolean(b2.felter && b2.felter.egenvaegt));
     ok('unitree-b2 / egenvaegt baerer advarsel_klasse: "gyldighed" (FUND-doc: familie 3, MED/UDEN batteri)',
-      /advarsel_klasse: "gyldighed"/.test(blok), blok);
+      b2.felter?.egenvaegt?.advarsel_klasse === 'gyldighed',
+      JSON.stringify(b2.felter?.egenvaegt));
   }
 
   return {};
