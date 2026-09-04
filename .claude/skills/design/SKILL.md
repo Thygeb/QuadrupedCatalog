@@ -1,6 +1,6 @@
 ---
 name: design
-description: Navigationskortet til DESIGN.md, projektets designsystem. Kald den HVER gang noget visuelt skal bygges, bedømmes, kritiseres eller planlægges — en ny flade, en rettelse i CSS, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den kopierer ingenting fra DESIGN.md; den fortæller, hvilket afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 1.359. Bærer desuden de tre regler, der gælder ved ALT designarbejde: palettelåsen, MODE-navngivningen og de fire datatilstande. (Designfrysen er ophævet, L98.)
+description: Navigationskortet til DESIGN.md, projektets designsystem. Kald den HVER gang noget visuelt skal bygges, bedømmes, kritiseres eller planlægges — en ny flade, en rettelse i CSS, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den kopierer ingenting fra DESIGN.md; den fortæller, hvilket afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 1.628. Bærer desuden de tre regler, der gælder ved ALT designarbejde: palettelåsen, MODE-navngivningen og de fire datatilstande. (Designfrysen er ophævet, L98.)
 ---
 
 # design — find det rigtige afsnit i DESIGN.md, og kopiér det aldrig
@@ -13,7 +13,7 @@ Denne skill er et **kort over den fil**, ikke et resumé af den.
 
 ## Hvorfor der ikke findes et destillat, og hvorfor du ikke skal lave et
 
-Genmålt 4. sep 2026: DESIGN.md er **72 KB ≈ 21k tokens** (her stod *"42 KB ≈ 12,5k"*
+Genmålt 4. sep 2026 kl. 23: DESIGN.md er **86 KB ≈ 26k tokens** (her stod *"42 KB ≈ 12,5k"*
 fra 3. sep — filen voksede 71 % på ét døgn). **STATUS.md 508 KB ≈ 154k** (her stod
 416 KB). Til sammenligning CLAUDE.md 47 KB.
 
@@ -37,7 +37,7 @@ Tre grunde til, at et destillat er en dårlig handel, selv når det ser billigt 
 3. **Filen advarer selv.** DESIGN.md om løste konflikter: *"en løst konflikt, der
    slettes, efterlader ingen forklaring på, hvorfor koden ser ud, som den gør."*
 
-**Peg på afsnit i stedet.** Et spor, der læser 40 linjer i stedet for 1.359, sparer
+**Peg på afsnit i stedet.** Et spor, der læser 40 linjer i stedet for 1.628, sparer
 95 % — og ingen kopi kan divergere.
 
 ---
@@ -73,7 +73,7 @@ eller en ny æra. `impeccable` respekterer selv låsen: *"The brief wins. Honor
 pinned aesthetics, eras, materials, fonts, and palettes."*
 
 Farvetokens står i DESIGN.md's frontmatter (`colors:`, linje 4-37; frontmatteren
-slutter på **217**, ikke 189 som her stod) og i
+slutter på **301**) og i
 `assets/system.css` `:root`. **Primitiverne er kilden**; de semantiske tokens peger
 på dem. **Tæl dem med `node fund/maal-farvetokens.mjs`, ikke efter hukommelsen** —
 her stod "de 16 tokens", og måleren gav 26 i alt den 4. sep 2026.
@@ -112,7 +112,7 @@ linjenummer forkert, så find afsnittet med `grep -nE "^#{2,3} " DESIGN.md` og s
 i din rapport, at kortet var forældet, så det kan rettes.
 
 **HELE TABELLEN VAR FORKERT I ET DØGN, OG DEN SÅ RETTET UD.** Kortet stod med
-3. sep-tal, mens filen var vokset fra **834 til 1.359 linjer**. Alle fem
+3. sep-tal, mens filen var vokset fra **834 til 1.628 linjer**. Alle fem
 hovedafsnit lå forkert — Farver 240 mod **344**, Layout 372 mod **715**,
 Komponenter 458 mod **801**, datatilstandene 583 mod **934**, Konflikter 674 mod
 **1169** — og **syv afsnit manglede helt**, heriblandt tre af de fire DP-beslutninger
@@ -123,58 +123,60 @@ Fælden er værd at kende, fordi den gentager sig: **Å172 rettede afsnits-ANTAL
 forældet, fordi tællingen stemmer, og læseren derfor tror på resten. Retter du
 antallet, så ret numrene i samme commit — eller skriv, at du ikke gjorde.
 
-### Frontmatter, linje 1-217 — maskinlæsbare tokens
+### Frontmatter, linje 1-301 — maskinlæsbare tokens
 
 | Nøgle | Linje | Hvad den svarer på |
 |---|---|---|
-| `colors:` | 4 | Primitiver og farvetokens. **Kilden er `assets/system.css` `:root`** — kør `node fund/maal-farvetokens.mjs` for det aktuelle antal (26 den 4. sep, heraf 9 primitiver). **Her stod "de 16 farvetokens"; det tal er ikke genmålt og skal ikke citeres** |
-| `typography:` | 38 | Skriftfamilier, vægte, den variable akse |
+| `colors:` | 4 | Primitiver og farvetokens. **Kilden er `assets/system.css` `:root`** — kør `node fund/maal-farvetokens.mjs` for det aktuelle antal |
+| `typography:` | 38 | Skriftfamilier, vægte, den variable akse. **Målt 4. sep 2026: frontmatteren var forældet for 5 af 21 skriftgrader** (`--fs-robot` stod 54 px, den er 84). Stol på `system.css`, ikke på frontmatteren |
 | `rounded:` | 78 | Hjørneradier |
-| `spacing:` | 82 | Afstandsskalaen |
+| `spacing:` | 82 | Afstandsskalaen. **13 trin siden `spor/flader`** (var 9), 2 px granularitet fra 2-16 |
 | `components:` | 94 | Komponenternes tokenværdier |
 
-### Prosaen, linje 221-1359
+### Prosaen, linje 305-1628
+
+**Hele tabellen er genmålt 4. sep 2026 kl. 23 med `grep -nE "^#{2,3} " DESIGN.md`,
+efter at `spor/flader` havde udvidet filen til 1.628 linjer.** Kør den kommando
+igen frem for at stole på tallene her — de flytter sig, hver gang filen redigeres.
 
 | Afsnit | Linje | Spørg her, når du vil vide |
 |---|---|---|
-| **Overblik** | 221 | Hvad systemet er, og hvad det vil |
-| **Fladernes MODE — DP3** | **284** | **Slå MODE op her, ikke i denne skill.** Designplanen 3. sep |
-| · Operate | 296 | Den besøgende løser en opgave |
-| · Read | 313 | Den besøgende skal forstå noget |
-| · Reglen om fladens eget emne | **327** | Gælder Read: fladens egne sektioner > halvdelen af højden |
-| **Farver** | **344** | Hvornår en farve må bruges |
-| · Primær | 354 | Accentens rolle |
-| · Neutral | 370 | Blæk- og fladetrinene |
-| · Mørk flade | 392 | Den mørke variant |
-| · **Forgrundsreglen for `--accent` — DP1** | **399** | **Hvor gult ALDRIG må stå som forgrund.** 1,38 mod kravet |
-| · Navngivne regler | 545 | De farveregler, der har et navn |
-| **Typografi** | 562 | Skriftgrader og hvorfor der er så mange |
-| · Hierarki | 589 | Hvilket trin en overskrift skal have |
-| · **DP3b — trinnet, skalaen manglede** | **624** | *Række* (14 px). **Slå op her, før du tilføjer en `font-size`** |
-| · **DP3c — skriftgulvet får rækkevidde** | **679** | 10,5 px gælder tekst, der bæres alene. Hvad der er undtaget |
-| · Navngivne regler | 704 | De typografiregler, der har et navn |
-| **Layout** | **715** | Gitteret, spalterne, rytmen |
-| **Dybde** | 745 | Skygger, lag, hvad der ligger over hvad |
-| **Former** | 761 | Kanter, radier, stansninger |
-| **Komponenter** | **801** | **Start her, når du rører et eksisterende element** |
-| · Dækket (topbaren) | 803 | |
-| · Kort (`.net .kort`) | 815 | Katalogets kort |
-| · Filtre (kataloget) | 837 | Facetter, filterfladen |
-| · Søgefeltet | 849 | |
-| · Knapper (`.knap`, L77) | 857 | **Én primitiv.** Ni klasser blev talt og samlet |
-| · **Fokusringen** | **916** | DP1b's `--ring`. **Bygget 4. sep** — standard `--blaek`, accent kun mørkt |
-| · Kildemærket | 924 | Hvordan et tal viser sin kilde |
-| · **De fire datatilstande** | **934** | **ja / nej / ikke oplyst / kun på billede** |
-| · Nøgletalsstriben | 956 | Robotsidens stribe |
-| · Stansningen (`.stans`) | 964 | |
-| · Slettede komponenter | 971 | **Slå op her, før du genopfinder noget** |
-| · **Producentfladen — DP2** | **993** | Designplanen 3. sep. Rør du producentsiden, starter du her |
-| **Gør og lad være** | 1122 | |
-| · Gør | 1124 | |
-| · Lad være | **1139** | **Læs den, før du foreslår noget** |
-| **Konflikter** | **1169** | Målte, uafgjorte spændinger |
+| **Overblik** | 305 | Hvad systemet er, og hvad det vil |
+| **Fladernes MODE — DP3** | **368** | **Slå MODE op her, ikke i denne skill** |
+| · Operate | 380 | Den besøgende løser en opgave |
+| · Read | 397 | Den besøgende skal forstå noget |
+| · Reglen om fladens eget emne | 411 | Gælder Read: fladens egne sektioner > halvdelen af højden |
+| **Farver** | **428** | Hvornår en farve må bruges |
+| · Primær | 438 | Accentens rolle |
+| · Neutral | 454 | Blæk- og fladetrinene |
+| · Mørk flade | 486 | |
+| · Forgrundsreglen for `--accent` — DP1 | **493** | **L76: accent er baggrund og markør, aldrig tekst på lys flade** |
+| · Navngivne regler | 639 | |
+| **Typografi** | **656** | |
+| · Hierarki | 683 | |
+| · R5 — én samlet skriftskala | **748** | 29 rå px blev til navngivne trin (4. sep) |
+| · DP3b — trinnet skalaen manglede | 791 | |
+| · DP3c — skriftgulvets rækkevidde | 846 | Det autoritative gulv, 10,5 px |
+| · Navngivne regler | 871 | |
+| **Layout** | **882** | Afstande, rytme, gitre |
+| **Dybde** | 912 | |
+| **Former** | 928 | |
+| **Komponenter** | **981** | |
+| · Dækket (topbaren) | 983 | |
+| · Kort (`.net .kort`) | 995 | |
+| · Filtre (kataloget) | 1017 | Facetrækkerne er 44 px siden `spor/flader` |
+| · Søgefeltet | 1050 | |
+| · Knapper — én primitiv `.knap` (L77) | 1058 | |
+| · Fokusringen | 1117 | |
+| · Kildemærket | 1125 | |
+| · **De fire datatilstande** | **1135** | **Hård begrænsning 5. Slå ALTID op her, før en datatilstand tegnes** |
+| · Nøgletalsstriben (robotsiden) | 1161 | |
+| · Stansningen (`.stans`) | 1169 | |
+| · Slettede komponenter — historisk | 1176 | Hvorfor noget IKKE findes |
+| · Producentfladen — DP2 | 1198 | |
+| **Gør og lad være** | 1327 | |
+| **Konflikter** | **1374** | Løste konflikter med deres begrundelse. **Punkt 10 (4. sep): en CSS-kommentar kan både knække en test og holde den falsk grøn** |
 
----
 
 ## Sådan bruges kortet
 

@@ -24,9 +24,7 @@
       "Write(//c/Praktik/websites/salg/**)",
       "Bash(rm -rf:*)"
     ],
-    "additionalDirectories": [
-      "c:\\Praktik\\websites\\udstilling-wt-flader"
-    ]
+    "additionalDirectories": []
   },
   "hooks": {
     "UserPromptSubmit": [
