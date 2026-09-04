@@ -53,7 +53,7 @@ og **fase 5 kan først køre, når intet andet spor er i `tools/` og `assets/`**
 |---|---|---|---|---|---|
 | **0** | Databasen bliver et sandt spejl af `data/robots/` — baselinen for alt efterfølgende | `migrer --til-db`; tre skemahuller lukket på den levende DB (cert-enum, `*_ordlyd`, `alt` → jsonb) | orkestrator | `rundtur --live` 77/77 · validate 0 · build 216=216 · 1111=1111 | **Kørt 2. sep** (Å115) |
 | **1** | Skemaet bliver engelsk; YAML→DB-retningen lukkes; historik og ejerskab kommer på | `db/ordbog.mjs` (dansk↔engelsk, 1:1, vendbar — 7 tabeller, 78 kolonner, 7 enums, 33 feltnavne, opremsede værdier) · `db/byg-migrering.mjs` **genererer** `db/migrering-engelsk.sql` fra ordbogen · `db/migrering-cert.sql` · `db/skema.sql` på engelsk med `images.alt jsonb`, `collected_by`, `change_reason`, historiktabel + trigger, uden `_i18n` · `db/eksporter.mjs` læser engelsk, skriver den danske YAML-form (midlertidigt bevis) · `db/migrer.mjs` **slettes**, `synk_aftryk` droppes, `db/rundtur.mjs` → `db/tjek.mjs` · tests 07/28/33/44/60 fjernes (114 assertions), ny test 63 | `spor/skema`, Sonnet | 13 acceptkriterier i [fund/BRIEF-skema.md](fund/BRIEF-skema.md); derefter orkestratoren: migrering anvendt på den levende DB, `tjek.mjs` → 77/77 · validate 0 · 216=216 · 1111=1111 | **FÆRDIG** (Å117; status rettet 4. sep 2026 — her stod **"Kører"** i to døgn efter at fasen var i hus). Efterprøvet på disken samme dag: `db/ordbog.mjs`, `db/byg-migrering.mjs`, `db/tjek.mjs` og `db/migrering-engelsk.sql` **findes**; `db/migrer.mjs` og `db/rundtur.mjs` er **væk**. Rest: `db/kanonisk.json` ligger stadig på disken, selv om §0 siger den forsvandt med `migrer.mjs` — gitignoreret levn, ikke en åben leverance |
-| **2** | Teksterne bliver engelske; tallene rører sig ikke. **TRE arbejder, ikke to — se korrektionen under tabellen** (her stod "to" indtil 4. sep 2026) | N parallelle spor, **rækkeejerskab pr. producent**, skriver **kun tekstkolonner** via REST: `caveat` (891), `note` (97), `applications.quote` (76 blokke), `country` (8), feltetiketter (~30) · pr. tekst: engelsk formulering + `source_wording` **ordret i kildens sprog** + råkilde-snapshot med MANIFEST (URL, HTTP, UTC, SHA-256) · de 62 kinesiske producenter læses **på kinesisk** | fase 2-spor, Sonnet, på JPK's kommando | talkolonnernes diff før/efter = **0** · `caveat_wording` udfyldt på alle **890** → derefter `NOT NULL` · konsistenskontrol: står tallet i den citerede ordlyd? **Tallet 891 stod her indtil 4. sep 2026 og var forkert med én; 890 er målt med SQL mod `field_entries`. "I dag 309" er ligeledes udskiftet — se statuskolonnen** | **KØRER** (status rettet 4. sep 2026; her stod **"Venter på fase 1"**, mens fasen havde kørt i to døgn). **Målt 4. sep 2026 kl. 07: `caveat_wording` udfyldt på 711 af 890, mangler 179** (var 623/267 ved døgnets begyndelse). **Dansk er ude af de brugervendte tekstkolonner** (`--dansk` giver 0 i alle ti), **men kinesisk er det ikke: 19 rækker står tilbage — `applications.note` 14 · `robots.notes` 5**, og de holder tre assertions i `tests/dele/42` røde. 17 af de 19 har allerede et ordlydsfelt udfyldt, så det er en fjernelse for dem og en flytning for Unitrees 2 |
+| **2** | Teksterne bliver engelske; tallene rører sig ikke. **TRE arbejder, ikke to — se korrektionen under tabellen** (her stod "to" indtil 4. sep 2026) | N parallelle spor, **rækkeejerskab pr. producent**, skriver **kun tekstkolonner** via REST: `caveat` (891), `note` (97), `applications.quote` (76 blokke), `country` (8), feltetiketter (~30) · pr. tekst: engelsk formulering + `source_wording` **ordret i kildens sprog** + råkilde-snapshot med MANIFEST (URL, HTTP, UTC, SHA-256) · de 62 kinesiske producenter læses **på kinesisk** | fase 2-spor, Sonnet, på JPK's kommando | talkolonnernes diff før/efter = **0** · ~~`caveat_wording` udfyldt på alle **890** → derefter `NOT NULL`~~ **ændret 4. sep 2026 af L93: hver af de 890 er afgjort — udfyldt og verificeret mod producentens egen kildefil, ELLER dokumenteret tom med den søgning, der viser 0 træffere. `NOT NULL` sættes aldrig** · konsistenskontrol: står tallet i den citerede ordlyd? **Tallet 891 stod her indtil 4. sep 2026 og var forkert med én; 890 er målt med SQL mod `field_entries`. "I dag 309" er ligeledes udskiftet — se statuskolonnen** | **KØRER** (status rettet 4. sep 2026; her stod **"Venter på fase 1"**, mens fasen havde kørt i to døgn). **Målt 4. sep 2026 kl. 07: `caveat_wording` udfyldt på 711 af 890, mangler 179** (var 623/267 ved døgnets begyndelse). **Dansk er ude af de brugervendte tekstkolonner** (`--dansk` giver 0 i alle ti), **men kinesisk er det ikke: 19 rækker står tilbage — `applications.note` 14 · `robots.notes` 5**, og de holder tre assertions i `tests/dele/42` røde. ~~17 af de 19 har allerede et ordlydsfelt udfyldt, så det er en fjernelse for dem og en flytning for Unitrees 2~~ **RETTET 4. sep 2026, målt: det er 15 fjernelser og 4 flytninger.** Målemetoden er at splitte hver note i sammenhængende CJK-løb og slå hvert løb op i det tilhørende ordlydsfelt — de fire med et løb, ordlyden ikke bærer, er `unitree-a1` (2 løb), `unitree-a2-w` (1), `xiaomi-cyberdog-1` `notes[2]` (2 af 3) og `yuejia-yj30-max` `notes[2]` (1). **De to sidste kendte planen ikke.** Og `xiaomi-cyberdog-1` er slet ikke en flytning: to af dens tre termer (`加入购物车`, `已售罄`) findes i **nul** af Xiaomis egne arkiverede filer — noten siger selv, at begge blev talt til **0 forekomster**, så de er indsamlerens egne **søgetermer**, ikke producentens ord. At flytte dem ville opdigte proveniens. Samme kategori, som `spor/f2han` droppede (Å171). Sendt som `spor/cjkrest` |
 | **3** | Bygget læser databasen direkte — intet mellemlag | `build.mjs` henter 77 robotter via REST (anon-nøgle + RLS-læsepolitik — ingen hemmelighed for at bygge) og mapper gennem ordbogen til den dokumentform, skabelonerne læser · `validate` på det hentede · `tests/dele/_faelles.lasRobotter()` → `hentRobotter()`, ét kald, cachet · `--data=` udgår · `db/eksporter.mjs`, `db/hentbyg.mjs`, `db/tjek.mjs` slettes · `data/robots/` **slettes** · `tools/yaml.mjs` (457 linjer) slettes | ét spor, Sonnet | build fra DB giver byte-identisk `dist/` mod build fra `data/robots/` (målt før sletningen) · tests samme beståtal | Venter på fase 2 |
 | **4** | Omskiftet: engelsk alene, dokumenterne følger med | `SPROG = ['en']` (`tools/skema.mjs:563`), `KILDESPROG` · de 32 `da`-refererende tests rettes · `data/i18n/da.json` slettes · `spor/i18nfelt`s mekanisme fjernes · CLAUDE.md (mappestruktur, sprog, hårde begrænsninger 3 og L35-noter), DATAFLOW.md, `robotdata`-skillen (redigér i DB + råkilderegel) skrives om | ét spor + orkestrator (dokumenter) | 108 sider, ikke 216 · 0 forekomster af `dist/da` · linktjek 0 | Venter på fase 3 |
 | **5** | Koden taler engelsk; ordbogen slettes | Mekanisk omdøbning i `tools/`+`tests/` (1.227 linjer med de 33 feltnavne, 6.671 med kernenøglerne), 402 i18n-nøgler, CSS-klasser · `db/ordbog.mjs` slettes | ét spor, Sonnet | `dist/` byte-identisk før/efter · tests samme beståtal · `grep` efter hvert dansk identifikator = 0 | Venter på fase 4 **og** på at `spor/uifix`/`spor/extract` er flettet |
@@ -69,7 +69,7 @@ producenterne"*. **Det passer på under en tredjedel af dem.** Målt i
 | **Producenten** | `citat` 69 · `citat_ordlyd` 33 · `advarsel_ordlyd` 309 · `note_ordlyd` 22 · `noter_ordlyd` 17 · `producentland` 77 · `producentby` 61 | **588** | **Genindsamles** ordret fra kilden, på kildens sprog |
 | **Os** | `advarsel` 891 · `note` 97 · `noter` 63 · `alt` 35 | **1.086** | **Skrives om til engelsk.** Der er intet at indsamle — teksten findes ikke hos producenten |
 
-| **Blandet** | de `advarsel`-rækker, hvor producentens ord ligger inde i vores prosa uden at være skilt ud i `advarsel_ordlyd` | **267** ved døgnets begyndelse 3. sep, **179** målt 4. sep kl. 07 | **Skilles ad** i engelsk brødtekst + ordret `caveat_wording`. Det er dette arbejde, der gør kravet `NOT NULL` opfyldeligt |
+| **Blandet** | de `advarsel`-rækker, hvor producentens ord ligger inde i vores prosa uden at være skilt ud i `advarsel_ordlyd` | **267** ved døgnets begyndelse 3. sep, **179** målt 4. sep kl. 07 | **Skilles ad** i engelsk brødtekst + ordret `caveat_wording`. ~~Det er dette arbejde, der gør kravet `NOT NULL` opfyldeligt~~ **— og nej: målt 3. sep gælder den beskrivelse kun 29 af de 267. Se korrektion nummer to nedenfor, og L93, der droppede `NOT NULL` helt** |
 
 ### Korrektion nummer to, 4. sep 2026: det tredje arbejde er IKKE det, rækken ovenfor påstår — målt på de 267
 
@@ -95,8 +95,29 @@ as equipment is added; the schema has no range field."*
 producenterne"*, og for en del af dem findes producentens ord slet ikke —
 forbeholdet eksisterer netop, fordi kilden ikke siger noget. **Et tomt
 `caveat_wording` er derfor et gyldigt slutresultat for nogle rækker, og
-kravet `NOT NULL` kan ikke opfyldes for dem uden at digte.** Den beslutning
-er ikke truffet.
+kravet `NOT NULL` kan ikke opfyldes for dem uden at digte.**
+
+**AFGJORT SOM L93 (JPK, 4. sep 2026): et tomt `caveat_wording` ER et gyldigt
+slutresultat, og `NOT NULL`-kravet på feltet DROPPES.** Her stod *"Den
+beslutning er ikke truffet"* indtil i dag. Begrundelsen er den, afsnittet
+selv fremlægger: kravet kan ikke opfyldes for de 238 uden at digte, og hård
+begrænsning 2 forbyder det. Feltet forbliver nullable.
+
+**Konsekvensen for hvert fase 2-brief, og den er den vigtige:**
+acceptkriteriet må ikke belønne et højt tal. Hver række skal i præcis én af
+tre kasser — **A** udfyldt og verificeret som bogstavelig delstreng af
+producentens EGEN kildefil · **B** dokumenteret tom, med den søgning der
+viser 0 træffere · **C** uafgjort, meldt. **A+B+C skal give rækketallet.**
+En B-række uden sin søgning er et hul; en B-række med sin søgning er et
+resultat. Det er forskellen, `f2weilan` ramte rigtigt og `f2pudu` ramte
+forkert samme time.
+
+**Fravalgt sammen med beslutningen:** en eksplicit markør (fx
+`source_wording_status = 'none_published'`), der ville skelne *tomt fordi
+producenten intet siger* fra *tomt fordi ingen har set efter*. Den koster en
+migrering og et pas over alle 890, og B-listerne i sporenes rapporter bærer
+indtil videre samme oplysning i prosa. **Rejses igen, hvis B-listerne viser
+sig at være det, nogen søger i.**
 
 **Prisen for ikke at vide det står målt:** to spor mødte samme situation i
 samme time 3. sep. `spor/f2weilan` meldte to prisrækker uden kildeordlyd som
@@ -157,8 +178,10 @@ er JPK's og træffes på de konkrete felter, når de dukker op, ikke på forhån
 - **Oversat ordlyd mærkes som oversættelse** — `source_wording` ordret, `source_wording_en`
   ved siden af. Hård begrænsning 2.
 - **De fire tilstande forbliver fire ord** i den engelske enum. Hård begrænsning 5.
-- **`source_wording NOT NULL` sættes først, når fase 2 er færdig** — 582 rækker ville
-  falde i dag.
+- ~~**`source_wording NOT NULL` sættes først, når fase 2 er færdig** — 582 rækker ville
+  falde i dag.~~ **BORTFALDET som L93 (JPK, 4. sep 2026): kravet sættes ALDRIG.** Feltet
+  forbliver nullable, fordi et tomt `caveat_wording` er et gyldigt slutresultat for de
+  rækker, hvor producenten intet har sagt. Se korrektion nummer to ovenfor.
 
 ### Hvad ordbogen er, og hvornår den forsvinder
 
