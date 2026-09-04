@@ -2010,6 +2010,47 @@
   overflow-x: auto;
   padding-top: var(--r4);
 }
+/* R7 (spor/prodtabel, 4. sep 2026): min-width:0 er ikke pynt - det er hele
+   rettelsen af R7, og aarsagen laa ikke, hvor designplanen ledte.
+
+   MAALT foer rettelsen ved 390 px, begge sprog: .prod-tabel-wrap havde
+   clientWidth 358 og scrollWidth 620 - 262 px skjult. Kolonnen LAND begyndte
+   ved x=434,3 (da) / 408,5 (en) mod en hoejre kant paa 374, saa LAND var ikke
+   "klippet midt i ordet" som planen skrev: den var HELT usynlig, og det samme
+   var ANTAL. Kun PRODUCENT var paa skaermen.
+
+   AARSAGEN er IKKE de laaste 20ch/12ch-bredder nedenfor. De er allerede sat
+   til `auto` af @media (max-width:899px) i bunden af dette afsnit, og en
+   proeve med `table-layout:fixed;width:100%` flyttede intet. Aarsagen er
+   system.css' bare elementregel
+     table{border-collapse:collapse;width:100%;min-width:620px;font-size:15px}
+   Den er skrevet netop TIL denne tabel dengang den var bred, og de 620 er
+   praecis den scrollWidth, der blev maalt. Paa en telefon binder det gulv
+   tabellen til 620 px inde i en 358 px bred kasse.
+
+   Faelden er allerede navngivet to steder i dette repo - .saml-matrix
+   (afsnittet ovenfor: "min-width:620px er den farligste af dem") og
+   .typeskilt .skema-tabel (system.css) - og begge lukker den med praecis
+   `min-width:0` paa deres egen tabelklasse. Det er derfor ingen ny opfindelse,
+   men den tredje anvendelse af en kendt lokal neutralisering: system.css §14
+   staar uroert for de sider, der bygger paa den, og reglen her ligger inden
+   for sporets ejerskab (.prod-tabel*).
+
+   INGEN NY BREDDE TILFOEJES. Med gulvet vaek fordeler `table-layout:auto`
+   selv: maalt ved 390 px bliver LAND 73,5 px og ANTAL 43,6 px (deres
+   max-content), og PRODUCENT faar resten - 241 px, hvor kun EEN af 25
+   producenter ombryder ("Shandong Youbaote Intelligent Robot", to linjer).
+   Ingen celle faar vandret overloeb (scrollWidth > clientWidth paa 0 af
+   celler ved ti bredder x to sprog). Et haandskrevet tal her ville vaere det
+   udledte tals konkurrent - se D7/L30.
+
+   VED >=900 PX AENDRER DEN INTET: tabellen er `width:100%` af et rum, der er
+   bredere end 620, saa gulvet var allerede uden virkning. Maalt ved 1440 px
+   foer og efter: PRODUCENT 237,1 / LAND 174,3 / ANTAL 104,6 / MODELLER 836,0
+   - identisk. */
+.prod-tabel {
+  min-width: 0;
+}
 .prod-tabel th,
 .prod-tabel td {
   padding: 11px var(--r4) 11px 0;
