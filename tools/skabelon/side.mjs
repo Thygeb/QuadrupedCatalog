@@ -43,7 +43,7 @@ import {
   BILLEDMAPPER, BILLEDE_ENDELSER, BILLEDE_ALTERNATIVER, billedPlade, jaNejAf,
   erGyldighedsforbehold, forbeholdsArt,
 } from '../skema.mjs';
-import { ENHEDER } from '../yaml.mjs';
+import { ENHEDER } from '../enheder.mjs';
 
 const her = path.dirname(fileURLToPath(import.meta.url));
 export const ROD = path.resolve(her, '..', '..');

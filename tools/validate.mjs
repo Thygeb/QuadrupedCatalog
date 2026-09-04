@@ -2,7 +2,8 @@
 /**
  * tools/validate.mjs — mekanisk haandhaevelse af "opfind aldrig tal".
  *
- * Nul afhaengigheder. Ren Node, ES-moduler, egen YAML-laeser (tools/yaml.mjs).
+ * Nul afhaengigheder. Ren Node, ES-moduler, egen YAML-laeser (tools/yaml.mjs) +
+ * enheds-/operatorordforraad (tools/enheder.mjs).
  *
  *   node tools/validate.mjs                    validerer data/robots/*.yaml
  *   node tools/validate.mjs <fil...>           validerer navngivne filer
@@ -26,10 +27,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import { parseYaml, YamlFejl } from './yaml.mjs';
 import {
-  parseYaml, YamlFejl, normaliser, faelderI, findTal, kanoniskEnhed,
+  normaliser, faelderI, findTal, kanoniskEnhed,
   ENHEDER, TYPE_ENHEDER, IMPERIALE, tilBasis, decimaler, ORD_OPERATOR, ORD_MAASKE,
-} from './yaml.mjs';
+} from './enheder.mjs';
 import {
   FELTER, FELTNAVNE, IDENTITET_PAAKRAEVET, IDENTITET_VALGFRI, STATUS_VAERDIER, FREMDRIFT_VAERDIER,
   TILSTANDE, POST_NOEGLER, NAEVNERE_STANDARD, tilstandAf, jaNejAf, normaliserRobot,
