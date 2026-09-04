@@ -1678,8 +1678,10 @@ td.saml-raekke__celle .v-ja{font-size:var(--fs-gulv)}
    summary'en over den er display:none. En margin-top ville derfor kunne
    KOLLAPSE ud gennem foraeldren og lande uden for panelet i stedet for inde i
    det. Polstring kollapser aldrig. .sog har hverken baggrund eller ramme, saa
-   polstring og margin ser ens ud - kun kollapsrisikoen skiller dem. */
-.udtraek > .sog{padding:var(--r5) 0}
+   polstring og margin ser ens ud - kun kollapsrisikoen skiller dem.
+   R2 (4. sep 2026): polstring sat til var(--r4) 0 (16px), som overholder
+   acceptkriterium J1.1 (>= 16px) og sparer 8px i toppen. */
+.udtraek > .sog{padding:var(--r4) 0}
 
 /* --- J2: FILTERPANELETS SKRIFTSKALA (PLAN-katalog.md J2.1) ----------------
    JPK 3. sep 2026: "Faa styr paa skriftstoerrelse paa filter-tekst ... saa det
@@ -1795,6 +1797,24 @@ details.udtraek > summary.udtraek__greb{font-size:var(--fs-etiket);letter-spacin
    UROERT - et samtidigt spor ejer den. */
 .udtraek .facetter__net .facet{padding:var(--r4)}
 .udtraek .facetter__net details.facet:not([open]) > .facet__navn{margin-bottom:0}
+
+/* --- R2: KATALOGETS FOERSTE SKAERM (BRIEF-katalogskaerm-gemini.md) -------
+   MODE: Operate ("taethed slaar luft", DESIGN.md §Operate). Aabningens og
+   pladens lodrette rytme strammes med skalaens tokens (--r*), saa betjeningen
+   naar saa taet paa toppen som muligt, mens de ni kort--seneste i aabningen
+   bliver staaende uroerte jf. briefets udelukkelse af PLAN-katalog §0.1.
+   Specificitet: generator.css indlaeses EFTER system.css, saa reglerne
+   scopes under .rum / .aabning / .plade (0,2,0) for at vinde uden at roere
+   generator.css. */
+.rum > .aabning{padding-top:var(--r3)}
+.aabning .aabning__hoved{padding:var(--r4) var(--r5) var(--r3)}
+.aabning .aabning__under{margin-top:var(--r2)}
+.aabning .aabning__baand{padding:var(--r3) var(--r5)}
+.aabning .aabning__note{margin-top:var(--r1)}
+.rum .plade{padding-top:var(--r4)}
+.plade .plade__hoved{padding:var(--r4) var(--r5) var(--r3)}
+.plade .plade__under{margin-top:var(--r2)}
+.plade .strimmel{padding:var(--r2) var(--r5)}
 
 /* --- RESERVEKLASSEN `.filtre` ER SLETTET HER (Aa146's beslutning G) --------
    Her stod 11 regler for en filterchip-komponent: `.filtre`, `.filtre input`,
