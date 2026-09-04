@@ -24,38 +24,6 @@
   margin-top: var(--r8);
 }
 
-/* --- 1c. EU-FUNDET. Én saetning, ét stort tal — laesbar paa to sekunder,
-   ikke en infografik. Beregnet i forside.mjs, aldrig skrevet i haanden. */
-.eu-fund-linje {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px 12px;
-  max-width: 74ch;
-}
-/* L76: ikonet stod i accent paa --bund = 1,38 : 1 og var reelt usynligt.
-   --blaek (12,72 : 1) binder det samtidig til tallet ved siden af. */
-.eu-fund-linje .ikon {
-  align-self: center;
-  color: var(--blaek);
-}
-.eu-fund-tal {
-  font-family: var(--mono);
-  font-variant-numeric: tabular-nums;
-  font-size: var(--fs-display-tal);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--blaek);
-}
-.eu-fund-linje span {
-  font-size: var(--fs-broed);
-  line-height: 1.5;
-  color: var(--blaek2);
-}
-.eu-fund-linje + .eu-fund-linje {
-  margin-top: var(--r2);
-}
-
 /* --- 2. Filterlagene ------------------------------------------------------
    Ét lag pr. facet. display:contents, saa laget ikke selv bliver en
    gittercelle - et skjult kort maa ikke efterlade et tomt felt i gitteret.
@@ -565,10 +533,9 @@
    to linjer og satte dermed hele baandets hoejde. */
 .saml-noegle__raekke {
   display: grid;
-  grid-template-columns: minmax(0, 0.84fr) minmax(0, 0.78fr) minmax(
-      0,
-      1.42fr
-    ) minmax(0, 0.98fr) minmax(0, 0.98fr);
+  grid-template-columns:
+    minmax(0, 0.84fr) minmax(0, 0.78fr) minmax(0, 1.42fr)
+    minmax(0, 0.98fr) minmax(0, 0.98fr);
   align-items: baseline;
 }
 .saml-noegle__lead {
@@ -1159,7 +1126,6 @@
 .saml-fotofod__celle {
   border-left: 1px solid var(--blaek2);
 }
-
 
 /* --- 8b-IV. SMALLE SKAERME ----------------------------------------------
    Matricen brydes ALDRIG op i blokke - det ville koste tabelrollen, som Aa54
@@ -1954,6 +1920,15 @@
 .producentside .kort-krop {
   padding-bottom: 16px;
 }
+.producentside > .sektion {
+  padding-top: var(--r6);
+}
+.producentside .net--fritstaaende:has(> .kort:only-child) {
+  max-width: 360px;
+}
+.producentside .net--fritstaaende:has(> .kort:nth-child(2):last-child) {
+  max-width: 720px;
+}
 
 /* Producentindekset (F1, /producenter/): tre adskilte kolonner navn/land/
    modeller i stedet for én sammenklistret <dd>-streng ("Kina 13 modeller") -
@@ -2117,6 +2092,7 @@
 .producent-fordeling {
   padding-top: var(--r3);
   max-width: 70ch;
+  font-family: var(--manual);
 }
 
 /* --- 9i. Feltmarkør: værdien varierer mellem modelvarianter (opgave 4c) ----
