@@ -280,6 +280,38 @@
      brugssted; MANIFEST "Skriftrollerne" saetter den ALDRIG som display. */
   --manual:"Literata",Georgia,"Times New Roman",serif;
 
+  /* --- Skriftskala (R5, 4. sep 2026) ---------------------------------------
+     Én samlet, harmoniseret skala for hele sitet (Operate og Read).
+     Erstatter 29 spredte rene px-trin med en navngiven skala forankret i
+     DESIGN.md: Hierarki, DP3b (14px Raekke) og DP3c (10.5px Skriftgulv). */
+
+  /* Display og store overskrifter (flydende clamps) */
+  --fs-hero:clamp(33px,6.2vw,76px);        /* Heltetitel paa katalog og forside */
+  --fs-robot:clamp(40px,7.2vw,84px);       /* Robotsidens store robotnavn */
+  --fs-h1:clamp(27px,3.6vw,46px);          /* Sidetitler og H1-overskrifter */
+  --fs-h2:clamp(23px,2.8vw,34px);          /* Sektionsoverskrifter (H2) */
+  --fs-display-stor:clamp(34px,4vw,52px);  /* Aarstempel og store display-tal */
+  --fs-display-titel:clamp(28px,3.3vw,44px); /* Katalogets aabningstitel */
+  --fs-display-tal:clamp(26px,2.6vw,34px); /* Store EU-fundtal */
+  --fs-display-lille:clamp(20px,2.1vw,27px); /* Kompakt display / pladetitler */
+
+  /* Tabulaere figurtal og mellemoverskrifter */
+  --fs-figur-l:38px;                       /* Store regnskabstal (Om-regnskab) */
+  --fs-figur-m:30px;                       /* Mellemstore regnskabs- og noegletal */
+  --fs-figur-s:22px;                       /* Noegletal / taellertal i stribe og katalog */
+  --fs-h3:19px;                            /* H3 underoverskrifter og fremhaevede led */
+  --fs-manual:18px;                        /* Literata manual-broed (Om os) */
+
+  /* Tekstkrop, taette raekker og mikrotypografi */
+  --fs-broed:17px;                         /* Standard broedtekst (body, .t-broed) */
+  --fs-felt:16px;                          /* Inputfelter (iOS Safari zoom-sikring), modelnavne */
+  --fs-lille:15px;                         /* Sekundaer tekst (.t-lille) */
+  --fs-raekke:14px;                        /* DP3b (laast): Taet liste- og tabelraekke */
+  --fs-mikro:13px;                         /* Kompakte noter, chips, tegnforklaring (.t-mikro) */
+  --fs-etiket:11.5px;                      /* Versaletiketter, kildelister, metadata */
+  --fs-data:11px;                          /* Datatilstande (.v-ikke, .v-billede) */
+  --fs-gulv:10.5px;                        /* DP3c (laast): Skriftgulvet (.v-nej, maerkater) */
+
   /* Rum. Ottetalsskala. */
   --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px;
   --r7:48px; --r8:64px; --r9:96px;
@@ -345,7 +377,7 @@ body{
   margin:0;background:var(--bund);color:var(--blaek);
   /* L80: sat EKSPLICIT og til en skrift, der findes paa disken. Det var
      denne ene erklaering, der sendte hele sitet i Segoe UI. */
-  font-family:var(--mono);font-size:17px;line-height:1.55;
+  font-family:var(--mono);font-size:var(--fs-broed);line-height:1.55;
   font-weight:400;letter-spacing:-.006em;
   -webkit-font-smoothing:antialiased;
   /* 3.4: daekker alle var(--mono)-brugssteder paa én gang, jf. kommentaren
@@ -416,7 +448,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
   clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 
 .spring{position:absolute;left:-9999px;top:0;z-index:99;background:var(--blaek);
-  color:#FFFFFF;padding:14px 20px;font-family:var(--mono);font-size:14px;
+  color:#FFFFFF;padding:14px 20px;font-family:var(--mono);font-size:var(--fs-raekke);
   text-decoration:none;border-radius:0 0 var(--hjoerne) 0}
 .spring:focus{left:0;top:0}
 
@@ -442,19 +474,19 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    (.typeskilt .robot-navn h1) og rodens sprogvaelger var allerede rettet hver
    for sig, med hver sin kopi af begrundelsen; .t-hero stod tilbage og ramte
    206 sider. Rettet paa skalaen i stedet for paa den femte flade. */
-.t-hero{font-size:clamp(33px,6.2vw,76px);line-height:.98;letter-spacing:-.035em;font-weight:700}
-.t-h1{font-size:clamp(27px,3.6vw,46px);letter-spacing:-.03em}
-.t-h2{font-size:clamp(23px,2.8vw,34px);letter-spacing:-.026em}
-.t-h3{font-size:19px;letter-spacing:-.014em}
-.t-broed{font-size:17px;line-height:1.6;color:var(--blaek2)}
-.t-lille{font-size:15px;line-height:1.55;color:var(--blaek2)}
-.t-mikro{font-size:13px;line-height:1.5;color:var(--blaek3)}
+.t-hero{font-size:var(--fs-hero);line-height:.98;letter-spacing:-.035em;font-weight:700}
+.t-h1{font-size:var(--fs-h1);letter-spacing:-.03em}
+.t-h2{font-size:var(--fs-h2);letter-spacing:-.026em}
+.t-h3{font-size:var(--fs-h3);letter-spacing:-.014em}
+.t-broed{font-size:var(--fs-broed);line-height:1.6;color:var(--blaek2)}
+.t-lille{font-size:var(--fs-lille);line-height:1.55;color:var(--blaek2)}
+.t-mikro{font-size:var(--fs-mikro);line-height:1.5;color:var(--blaek3)}
 
 /* Den lille versaletiket. Fra ORBIT — men KUN som funktionel etiket, der
    navngiver en datagruppe eller en enhed. ALDRIG som indholdstom optakt
    over en overskrift ("BUILT FOR THE FUTURE"). Se system.html, afsnit 2. */
 .etiket{
-  display:block;font-family:var(--mono);font-size:11.5px;font-weight:500;
+  display:block;font-family:var(--mono);font-size:var(--fs-etiket);font-weight:500;
   letter-spacing:.15em;text-transform:uppercase;color:var(--blaek3);
   line-height:1.3;
 }
@@ -585,7 +617,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    naar raekken braekker. */
 .daek__mark{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px var(--r2);min-width:0}
 .daek__navn{
-  font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  font-size:var(--fs-raekke);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   text-decoration:none;color:var(--blaek);white-space:nowrap;
 }
 .daek__navn:hover{color:var(--blaek2)}
@@ -611,7 +643,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    4,5 for 10 px tekst. Vil JPK have det hoejere, er den gule flade to
    linjer herfra - det er en beslutning, ikke en mangel. */
 .daek__stempel{
-  font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  font-size:var(--fs-gulv);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
   color:var(--blaek3);padding:2px 7px;white-space:nowrap;
 }
 
@@ -625,7 +657,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
 .daek__nav li{flex:0 0 auto}
 .daek__nav a{
   position:relative;display:inline-flex;align-items:center;min-height:44px;
-  color:var(--blaek2);text-decoration:none;font-size:13.5px;font-weight:500;
+  color:var(--blaek2);text-decoration:none;font-size:var(--fs-raekke);font-weight:500;
   letter-spacing:.05em;white-space:nowrap;
 }
 /* Understregningen sidder under TEKSTEN, ikke under 44 px-kassen: 50 % er
@@ -709,7 +741,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    FAST SATS (spor/samlvaelg): var .62em. Se noten ved .v-ikke nedenfor —
    em'en lod satsen svinge med den arvede skrift, og 10,5 px er den vaerdi,
    afsnit 14b allerede havde bestemt for netop denne tilstand. */
-.v-nej{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.13em;
+.v-nej{font-size:var(--fs-gulv);font-weight:700;text-transform:uppercase;letter-spacing:.13em;
   color:var(--blaek)}
 .v-nej .mrk{width:9px;height:9px;background:var(--blaek);flex:none;align-self:center}
 
@@ -790,7 +822,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    .mrk beholder --hegn-baerende af samme grund som kassen: 9x9-firkanten
    ER tre-tilstands-alfabetets bogstav, ikke en dekoration. En kontur, der
    forsvinder uden at en oplysning forsvinder med den, bruger --hegn. */
-.v-ikke{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--blaek3);
+.v-ikke{font-size:var(--fs-data);font-weight:500;letter-spacing:.01em;color:var(--blaek3);
   background:var(--tom);border:1px dashed var(--hegn-baerende);border-radius:var(--hjoerne);
   padding:1px 5px;align-items:center}
 .v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn-baerende);flex:none}
@@ -799,7 +831,7 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    ord, ingen daempet flade: oplysningen FINDES, den staar bare ikke skrevet. */
 /* FAST SATS (spor/samlvaelg), samme aarsag og samme vaerdi som .v-ikke:
    de to er samme familie og staar i 11 px i .raekke/td i forvejen. */
-.v-billede{font-size:11px;font-weight:500;color:var(--blaek2);align-items:center}
+.v-billede{font-size:var(--fs-data);font-weight:500;color:var(--blaek2);align-items:center}
 .v-billede .ord{font-style:italic}
 .v-billede .mrk{width:9px;height:9px;flex:none;border:1px solid var(--blaek2);
   background:linear-gradient(90deg,var(--blaek2) 0 50%,transparent 50%)}
@@ -808,10 +840,10 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    Den faste sats ovenfor er ikke nok i matricen, og det er en kaskadesag,
    ikke en smagssag. generator.css:719 saetter
 
-       .saml-raekke__celle .v{font-size:16px}
+       .saml-raekke__celle .v{font-size:var(--fs-felt)}
 
    som er TO klasser (0,0,2,0) og dermed slaar baade tilstandenes egne regler
-   (0,0,1,0) OG afsnit 14b's `td .v-ikke{font-size:11px}` (0,0,1,1) - og
+   (0,0,1,0) OG afsnit 14b's `td .v-ikke{font-size:var(--fs-data)}` (0,0,1,1) - og
    generator.css indlaeses EFTER system.css, saa selv et uafgjort ville tabe.
    Alle fire tilstande arvede derfor 16 px: praecis samme sats som tallet.
 
@@ -832,12 +864,12 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    staa i 16 px ville have set ud som en fejl i stedet for en rettelse.
    Kun matrix-satsen roeres - .v-ja's egen regel er uroert. */
 td.saml-raekke__celle .v-ikke,
-td.saml-raekke__celle .v-billede{font-size:11px}
+td.saml-raekke__celle .v-billede{font-size:var(--fs-data)}
 td.saml-raekke__celle .v-nej,
-td.saml-raekke__celle .v-ja{font-size:10.5px}
+td.saml-raekke__celle .v-ja{font-size:var(--fs-gulv)}
 
 /* Lastbetingelse og andre forbehold haenger paa vaerdien, ikke ved siden af. */
-.forbehold{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--blaek3);
+.forbehold{font-family:var(--mono);font-size:var(--fs-data);font-weight:500;color:var(--blaek3);
   border:1px solid var(--linje);border-radius:var(--hjoerne);padding:1px 6px 2px;
   letter-spacing:.02em;cursor:help;text-decoration:none;align-self:center}
 .forbehold:hover{border-color:var(--hegn);color:var(--blaek2)}
@@ -947,7 +979,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .kildeliste{display:flex;flex-direction:column;gap:7px;padding-top:12px;
   border-top:1px solid var(--linje)}
 .kildeliste li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;
-  font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--blaek3)}
+  font-family:var(--mono);font-size:var(--fs-etiket);line-height:1.5;color:var(--blaek3)}
 /* L76: bogstavet er kildelistens noegle og skal kunne LAESES - accent gav
    1,60 : 1 paa panel. --blaek (14,69 : 1 paa panel) goer det til raekkens
    anker, hvilket ogsaa er rigtigt: resten af linjen staar i --blaek3. */
@@ -982,7 +1014,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .stribe-hoved .etiket{flex:1 1 auto}
 /* Taelleren. Den er ikke pynt: den er sidens eneste maal for aabenhed,
    flyttet ned paa den enkelte robot. */
-.stribe-taeller{font-family:var(--mono);font-size:12px;font-weight:500;
+.stribe-taeller{font-family:var(--mono);font-size:var(--fs-etiket);font-weight:500;
   letter-spacing:.04em;color:var(--blaek2);white-space:nowrap}
 .stribe-taeller b{font-weight:700;color:var(--blaek)}
 .stribe-taeller .mangler{color:var(--blaek3)}
@@ -1001,7 +1033,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    etiket foer vaerdi — som er den raekkefoelge, en skaermlaeser skal have dem i. */
 .stribe .krop{display:flex;flex-direction:column-reverse;gap:5px;min-width:0;flex:1}
 .stribe .krop > .v{min-height:30px;display:flex;align-items:center}
-.stribe .v{font-size:29px}
+.stribe .v{font-size:var(--fs-figur-m)}
 
 /* Ikonets to tilstande: oplyst = blaek, hul = hegn.
    Farven er den samme oplysning som figuren, ikke en ekstra.
@@ -1023,7 +1055,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   .stribe > li{border-left:1px solid var(--linje);border-top:1px solid var(--linje)}
   .stribe > li:nth-child(2n+1){border-left:0}
   .stribe > li:nth-child(-n+2){border-top:0}
-  .stribe .v{font-size:25px}
+  .stribe .v{font-size:var(--fs-figur-s)}
 }
 
 /* Nulstilling af striben: naar INGEN af de seks er oplyst, ville seks huller
@@ -1036,8 +1068,8 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 }
 .stribe--intet .ikon{color:var(--hegn);margin-top:2px}
 .stribe--intet .tekst{display:flex;flex-direction:column;gap:5px}
-.stribe--intet .hoved{font-size:15px;font-weight:700;letter-spacing:-.012em;color:var(--blaek)}
-.stribe--intet p{font-size:14px;line-height:1.5;color:var(--blaek2);max-width:76ch}
+.stribe--intet .hoved{font-size:var(--fs-lille);font-weight:700;letter-spacing:-.012em;color:var(--blaek)}
+.stribe--intet p{font-size:var(--fs-raekke);line-height:1.5;color:var(--blaek2);max-width:76ch}
 
 /* Kompakt udgave: samme celler, mindre sats. Til robotkortet og til
    sammenligningsraekker, hvor striben ikke er sidens hovedsag.
@@ -1113,13 +1145,13 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .stribe--kompakt .krop{display:contents}
 .stribe--kompakt > li > .ikon{grid-area:ikon;width:var(--kanal);height:var(--kanal);
   stroke-width:1.7;margin-top:0}
-.stribe--kompakt .etiket{grid-area:etiket;font-size:10.5px;letter-spacing:.09em}
+.stribe--kompakt .etiket{grid-area:etiket;font-size:var(--fs-gulv);letter-spacing:.09em}
 .stribe--kompakt .krop > .v{grid-area:vaerdi;min-height:21px}
 /* 18 -> 17 px. Den gamle grad blev valgt som "den smalleste sats, der stadig
    holder 33,8 kg paa én linje" - maalt dengang mod de 60 px, cellen havde.
    Maalt nu mod de 91: ved 18 px skyder 24 af 261 vaerdier ud over cellen,
    ved 17 px gaar 0 ud. */
-.stribe--kompakt .v{font-size:17px}
+.stribe--kompakt .v{font-size:var(--fs-broed)}
 
 /* Aflaesningen bryder ALDRIG. Kun .v-tal: "ikke oplyst"-chippen (haard
    begraensning 5) skal stadig kunne bryde ved sit mellemrum frem for at
@@ -1199,7 +1231,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   /* Kanalspalten er 1 px smallere her (column-gap 5 -> 4), saa maerket
      rykkes 1 px laengere ind for at holde samme luft til ikonet. */
   .stribe--kompakt .etiket.m-etiket{padding-left:8px;margin-left:2px}
-  .stribe--kompakt .v{font-size:15px}
+  .stribe--kompakt .v{font-size:var(--fs-lille)}
   .stribe--kompakt .krop > .v{min-height:17px}
   .stribe--kompakt .etiket{letter-spacing:.04em}
 
@@ -1302,7 +1334,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   position:absolute;left:9px;bottom:9px;z-index:2;
   display:inline-flex;align-items:center;gap:6px;
   background:var(--panel);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
-  padding:3px 8px 4px;font-family:var(--mono);font-size:10.5px;font-weight:500;
+  padding:3px 8px 4px;font-family:var(--mono);font-size:var(--fs-gulv);font-weight:500;
   letter-spacing:.06em;color:var(--blaek3);
 }
 .billedmaerke .mrk{width:8px;height:8px;flex:none;border:1px solid var(--blaek3);
@@ -1398,9 +1430,9 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
   gap:2px 12px;padding:7px 11px 8px;background:var(--panel-ro);
   border-top:1px solid var(--linje)}
-.maalplade .titelfelt .etiket{font-size:10.5px;letter-spacing:.1em}
+.maalplade .titelfelt .etiket{font-size:var(--fs-gulv);letter-spacing:.1em}
 .maalplade .titelfelt .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
-  font-size:11px;font-weight:700;letter-spacing:-.01em;color:var(--blaek2);
+  font-size:var(--fs-data);font-weight:700;letter-spacing:-.01em;color:var(--blaek2);
   white-space:nowrap}
 
 /* Den tomme plade. Skal laeses som en TOM PLADS i vaerket, ikke som et
@@ -1426,8 +1458,8 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .intetfoto .plade{width:52px;height:52px;flex:none;border:2px dashed var(--hegn);
   border-radius:var(--hjoerne);
   background:repeating-linear-gradient(135deg,transparent 0 7px,var(--hegn) 7px 8px)}
-.intetfoto .hoved{font-size:13.5px;font-weight:700;letter-spacing:.02em;color:var(--blaek)}
-.intetfoto .grund{font-size:13px;line-height:1.45;color:var(--blaek2);max-width:32ch}
+.intetfoto .hoved{font-size:var(--fs-raekke);font-weight:700;letter-spacing:.02em;color:var(--blaek)}
+.intetfoto .grund{font-size:var(--fs-mikro);line-height:1.45;color:var(--blaek2);max-width:32ch}
 
 /* RETNING INSTRUMENT (spor/instrument2, punkt 2+3): kortkroppens luft og
    navnesats strammet mod facit-filens .kort-krop (padding 12/16/16px) og
@@ -1436,25 +1468,25 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    saa hierarkiet (ophav < navn) er uaendret, blot haardere/tættere. */
 .kort-krop{display:flex;flex-direction:column;gap:6px;padding:10px 16px 0}
 .kort-ophav{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
-.kort-ophav .prod{font-size:13.5px;font-weight:600;color:var(--blaek2)}
-.kort-ophav .land{font-family:var(--mono);font-size:11.5px;color:var(--blaek3)}
-.kort-navn{font-size:18px;letter-spacing:-.018em}
+.kort-ophav .prod{font-size:var(--fs-raekke);font-weight:600;color:var(--blaek2)}
+.kort-ophav .land{font-family:var(--mono);font-size:var(--fs-etiket);color:var(--blaek3)}
+.kort-navn{font-size:var(--fs-manual);letter-spacing:-.018em}
 .kort-navn a{color:var(--blaek);text-decoration:none}
 .kort-navn a::after{content:"";position:absolute;inset:0;z-index:1}
 .kort-navn a:hover{text-decoration:underline;text-decoration-thickness:2px}
 .kort-hoved{display:flex;flex-direction:column;gap:2px}
 
 /* Statusmaerket er en oplysning, ikke en udmaerkelse. Ingen "featured". */
-.status{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;
+.status{font-family:var(--mono);font-size:var(--fs-gulv);font-weight:500;letter-spacing:.12em;
   text-transform:uppercase;color:var(--blaek2);border:1px solid var(--linje);
   border-radius:var(--hjoerne);padding:2px 7px 3px;white-space:nowrap}
 
 /* Anvendelsesmaerket. Producentens egen inddeling, gengivet — ikke vores. */
 .maerker{display:flex;flex-wrap:wrap;gap:6px}
-.maerke{font-size:12.5px;font-weight:600;color:var(--blaek2);background:var(--panel-ro);
+.maerke{font-size:var(--fs-mikro);font-weight:600;color:var(--blaek2);background:var(--panel-ro);
   border:1px solid var(--linje);border-radius:var(--hjoerne);padding:4px 10px 5px}
 .maerke--tom{color:var(--blaek3);background:var(--tom);border-style:dashed;
-  border-color:var(--hegn);font-weight:500;font-family:var(--mono);font-size:11.5px}
+  border-color:var(--hegn);font-weight:500;font-family:var(--mono);font-size:var(--fs-etiket)}
 
 /* (fjernet 26.08.2026: kortets fodnote-sektion (.kort-fod, .led, .prik) -
    JPK bad om at fodnoten under katalogkortene forsvinder helt. Robotsidens
@@ -1510,7 +1542,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
   position:absolute;left:0;right:0;top:0;z-index:1;
   display:flex;align-items:center;justify-content:center;gap:8px;
   padding:11px 14px;background:var(--panel);color:var(--blaek);
-  font-size:13px;font-weight:600;letter-spacing:-.008em;
+  font-size:var(--fs-mikro);font-weight:600;letter-spacing:-.008em;
   border-bottom:1px solid var(--linje);
   opacity:0;pointer-events:none;
 }
@@ -1617,7 +1649,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    fokus). 16px og 9px lodret polstring lander lige paa gulvet - maalt med
    C:/Praktik/websites/maalevaerktoej/maal.mjs, ikke regnet i haanden. */
 .sog input{
-  font-family:var(--mono);font-size:16px;min-height:44px;padding:9px 14px;width:100%;
+  font-family:var(--mono);font-size:var(--fs-felt);min-height:44px;padding:9px 14px;width:100%;
   background:var(--panel);color:var(--blaek);
   border:1px solid var(--hegn);border-radius:var(--hjoerne);
 }
@@ -1695,7 +1727,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    Det er samme greb, `summary.facet__navn::after` allerede bruger i afsnittet
    om katalogets flader nedenfor. */
 .udtraek .rk__navn,
-.udtraek .chip__navn{font-size:14px}
+.udtraek .chip__navn{font-size:var(--fs-raekke)}
 .udtraek .facet__navn,
 .udtraek .facet__tal,
 .udtraek .rk .antal,
@@ -1704,7 +1736,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
 .udtraek .etiket,
 .udtraek .skala__ord,
 .udtraek .skala__traef,
-.udtraek .skala__ridse-tal{font-size:12px}
+.udtraek .skala__ridse-tal{font-size:var(--fs-etiket)}
 /* ÉN SPERRING TIL PANELETS TRE VERSALETIKETTER. .09em er IKKE et nyt tal -
    det er den vaerdi, `.typeskilt .maerke` allerede staar paa, saa et
    eksisterende trin genbruges i stedet for at et ellevte opfindes.
@@ -1726,7 +1758,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    fil, saa de to ville staa lige (0-2-0) og generator vinde. Tagnavnene
    loefter til 0-2-2 uden at tilfoeje en klasse - og uden at roere den fil.
    Reglen er ubetinget, fordi elementet alligevel er display:none over 720. */
-details.udtraek > summary.udtraek__greb{font-size:12px;letter-spacing:.09em}
+details.udtraek > summary.udtraek__greb{font-size:var(--fs-etiket);letter-spacing:.09em}
 
 /* --- J3: LUFTEN MELLEM FILTERTEKSTERNE (PLAN-katalog.md J3.1) -------------
    JPK 3. sep 2026: "...saa det ser mere stramt ud". MAALT FOER, 1440 px:
@@ -1851,7 +1883,7 @@ details.udtraek > summary.udtraek__greb{font-size:12px;letter-spacing:.09em}
 .knap{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   min-height:44px;padding:0 16px;
-  font-family:var(--mono);font-size:12px;font-weight:600;line-height:1.1;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:600;line-height:1.1;
   letter-spacing:.11em;text-transform:uppercase;
   color:inherit;background:transparent;
   border:0;border-radius:var(--hjoerne);
@@ -1905,7 +1937,7 @@ details.udtraek > summary.udtraek__greb{font-size:12px;letter-spacing:.09em}
 .raekke{display:grid;grid-template-columns:minmax(11ch,42%) minmax(0,1fr);gap:10px 16px;
   align-items:baseline;padding:11px 0;border-top:1px solid var(--linje)}
 .raekke:first-child{border-top:0}
-.raekke dt{font-size:14.5px;font-weight:600;color:var(--blaek2)}
+.raekke dt{font-size:var(--fs-raekke);font-weight:600;color:var(--blaek2)}
 /* Gyldighedsmaerket i feltlisten (D18). Her bliver maerkerne til en KOLONNE:
    raekkerne staar under hinanden, marken staar i samme x i hver, og oejet
    kan loebe den ned uden at laese. Feltnavnets farve gaar fra --blaek2 til
@@ -1914,15 +1946,15 @@ details.udtraek > summary.udtraek__greb{font-size:12px;letter-spacing:.09em}
 .raekke dt.m-etiket{position:relative;padding-left:12px;color:var(--blaek)}
 .raekke dt.m-etiket::before{content:"";position:absolute;left:0;top:.18em;bottom:.18em;
   width:2px;background:var(--hegn)}
-.raekke .v{font-size:17px}
+.raekke .v{font-size:var(--fs-broed)}
 
-table{border-collapse:collapse;width:100%;min-width:620px;font-size:15px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:var(--fs-lille)}
 th,td{text-align:left;padding:12px 16px;border-top:1px solid var(--linje);vertical-align:baseline}
 thead th{border-top:0;border-bottom:2px solid var(--blaek);white-space:nowrap;
-  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.13em;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:500;letter-spacing:.13em;
   text-transform:uppercase;color:var(--blaek3)}
-tbody th{font-weight:600;font-size:15.5px;color:var(--blaek)}
-td .v{font-size:15px}
+tbody th{font-weight:600;font-size:var(--fs-lille);color:var(--blaek)}
+td .v{font-size:var(--fs-lille)}
 
 /* --- 14b. Tilstandenes sats, i hver kontekst -------------------------------
    Maalt 24.08.2026: hver kontekst ovenfor (.stribe .v, .stribe--kompakt .v,
@@ -1936,12 +1968,12 @@ td .v{font-size:15px}
    medvirkende aarsag til klipningen (11 tegn ved 20px passer ikke i en
    ~95 px celle). Reglerne herunder vinder ved samme kaskadeteknik (to
    klasser) og holder desuden gulvet paa 10,5 px i alle fire kontekster. */
-.stribe .v-ikke,.stribe .v-billede{font-size:13px}
-.stribe .v-nej,.stribe .v-ja{font-size:18px}
-.stribe--kompakt .v-ikke,.stribe--kompakt .v-billede{font-size:11px;padding:2px 6px 3px}
-.stribe--kompakt .v-nej,.stribe--kompakt .v-ja{font-size:12.5px}
-.raekke .v-ikke,.raekke .v-billede,td .v-ikke,td .v-billede{font-size:11px}
-.raekke .v-nej,.raekke .v-ja,td .v-nej,td .v-ja{font-size:10.5px}
+.stribe .v-ikke,.stribe .v-billede{font-size:var(--fs-mikro)}
+.stribe .v-nej,.stribe .v-ja{font-size:var(--fs-manual)}
+.stribe--kompakt .v-ikke,.stribe--kompakt .v-billede{font-size:var(--fs-data);padding:2px 6px 3px}
+.stribe--kompakt .v-nej,.stribe--kompakt .v-ja{font-size:var(--fs-mikro)}
+.raekke .v-ikke,.raekke .v-billede,td .v-ikke,td .v-billede{font-size:var(--fs-data)}
+.raekke .v-nej,.raekke .v-ja,td .v-nej,td .v-ja{font-size:var(--fs-gulv)}
 /* Hullet og "kun vist paa billede" maa ikke fylde mere end deres egen tekst:
    .krop's stretch (afsnit 10) stroek ellers chippen ud til hele cellens
    bredde, saa et hul saa bredere ud end det tal, det staar i stedet for. */
@@ -1958,7 +1990,7 @@ td .v{font-size:15px}
 .sektion-hoved > .etiket{flex:1 0 100%;margin-bottom:2px}
 .sektion-hoved h2{flex:1 1 auto}
 .sektion-hoved .tal{font-family:var(--mono);font-variant-numeric:tabular-nums;
-  font-size:13px;color:var(--blaek3);white-space:nowrap}
+  font-size:var(--fs-mikro);color:var(--blaek3);white-space:nowrap}
 
 /* =============================================================================
    16. TYPESKILTET PAA ROBOTSIDEN (spor/robot, 31. aug 2026 — L57/L60)
@@ -2027,14 +2059,14 @@ td .v{font-size:15px}
    Comp'ens .post__navn staar ogsaa paa 700. */
 .typeskilt .robot-navn h1{
   margin:0;font-weight:700;line-height:.94;letter-spacing:-.032em;
-  font-size:clamp(40px,7.2vw,84px);text-wrap:balance;
+  font-size:var(--fs-robot);text-wrap:balance;
 }
 /* Producent, land og aar som stanset hovedlinje, ikke som broedtekst. */
 .typeskilt .robot-navn .kort-ophav{gap:5px 12px}
 .typeskilt .robot-navn .kort-ophav .prod,
 .typeskilt .robot-navn .kort-ophav .land,
 .typeskilt .robot-navn .kort-ophav .aar{
-  font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.16em;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:600;letter-spacing:.16em;
   text-transform:uppercase;color:var(--blaek3);
 }
 .typeskilt .robot-navn .kort-ophav .land::before,
@@ -2052,7 +2084,7 @@ td .v{font-size:15px}
 .typeskilt .skiltlinje{gap:8px;margin-top:2px}
 .typeskilt .maerke{
   display:inline-flex;align-items:center;gap:7px;
-  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;
+  font-family:var(--mono);font-size:var(--fs-data);font-weight:600;letter-spacing:.09em;
   text-transform:uppercase;color:var(--blaek2);
   background:none;border:1px solid var(--linje);border-radius:var(--hjoerne);padding:5px 10px;
 }
@@ -2062,7 +2094,7 @@ td .v{font-size:15px}
 .typeskilt .maerke--drift{background:var(--blaek);border-color:var(--blaek);color:var(--paafod)}
 .typeskilt .maerke--tom{
   background:none;border:1px dashed var(--hegn-baerende);
-  color:var(--blaek3);font-weight:500;font-size:11px;
+  color:var(--blaek3);font-weight:500;font-size:var(--fs-data);
 }
 /* 16b-2. L79 SLETTEDE TRE REGLER HER, og det er den bedste slags sletning:
    de var blevet sande af sig selv.
@@ -2100,7 +2132,7 @@ td .v{font-size:15px}
    den ses dér, hvor kontrollen ser ud til at vaere. */
 .enhedsskift{
   display:inline-flex;align-items:center;gap:10px;cursor:pointer;
-  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;
+  font-family:var(--mono);font-size:var(--fs-data);font-weight:600;letter-spacing:.12em;
   text-transform:uppercase;color:var(--blaek3);white-space:nowrap;
   padding:6px 12px;min-height:44px;
   border:1px solid var(--linje);border-radius:var(--hjoerne);background:var(--panel);
@@ -2137,7 +2169,7 @@ td .v{font-size:15px}
    9 px er over skriftgulvet paa 8 px (tests/dele/31-pudsning.mjs). */
 .omregnet{
   display:inline-block;margin-left:7px;vertical-align:1px;
-  font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.13em;
+  font-family:var(--mono);font-size:var(--fs-gulv);font-weight:700;letter-spacing:.13em;
   text-transform:uppercase;color:var(--blaek3);
   border:1px dashed var(--hegn);border-radius:var(--hjoerne);padding:1px 5px;
 }
@@ -2161,7 +2193,7 @@ td .v{font-size:15px}
 }
 .typeskilt .skema__hoved h2{flex:0 0 auto}
 .typeskilt .skema-taeller{
-  font-family:var(--mono);font-size:12px;font-weight:500;color:var(--blaek3);margin-right:auto;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:500;color:var(--blaek3);margin-right:auto;
 }
 /* `min-width:0` er IKKE pynt. system.css' bare `table{…min-width:620px…}`
    (afsnit 14) er skrevet til sammenligningsmatricen og rammer ENHVER tabel
@@ -2172,10 +2204,10 @@ td .v{font-size:15px}
    praecis samme begrundelse ("paa en telefon ville den give…"), saa fælden
    er kendt — den var bare ikke skrevet ned et sted, en ny tabel ville
    snuble over den. Nu er den det to steder. */
-.typeskilt .skema-tabel{width:100%;min-width:0;border-collapse:collapse;font-size:14px}
+.typeskilt .skema-tabel{width:100%;min-width:0;border-collapse:collapse;font-size:var(--fs-raekke)}
 .typeskilt .skema-tabel__kap{
   text-align:left;padding:0 0 var(--r4);max-width:86ch;
-  font-size:12.5px;line-height:1.55;color:var(--blaek2);
+  font-size:var(--fs-mikro);line-height:1.55;color:var(--blaek2);
 }
 .typeskilt .skema-tabel th,.typeskilt .skema-tabel td{
   text-align:left;padding:10px 14px;border-top:1px solid var(--linje);vertical-align:baseline;
@@ -2183,18 +2215,18 @@ td .v{font-size:15px}
 .typeskilt .skema-tabel th:first-child,.typeskilt .skema-tabel td:first-child{padding-left:0}
 .typeskilt .skema-tabel td:last-child{padding-right:0}
 .typeskilt .skema-tabel thead th{
-  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.15em;
+  font-family:var(--mono);font-size:var(--fs-gulv);font-weight:700;letter-spacing:.15em;
   text-transform:uppercase;color:var(--blaek3);
   padding-top:0;padding-bottom:8px;border-top:0;
 }
 .typeskilt .skema-gruppenavn th{
   padding-top:30px;border-top:0;
-  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.15em;
+  font-family:var(--mono);font-size:var(--fs-gulv);font-weight:700;letter-spacing:.15em;
   text-transform:uppercase;color:var(--blaek3);
 }
 .typeskilt .skema-tabel tbody th[scope="row"]{width:24%;font-weight:500;color:var(--blaek2)}
 .typeskilt .skema-v{width:26%;font-weight:600;overflow-wrap:anywhere}
-.typeskilt .skema-k{width:50%;font-size:12.5px;line-height:1.55;color:var(--blaek2)}
+.typeskilt .skema-k{width:50%;font-size:var(--fs-mikro);line-height:1.55;color:var(--blaek2)}
 .typeskilt .skema-tabel tr.uoplyst th[scope="row"]{color:var(--blaek3)}
 /* Kildebogstavet i tredje kolonne: comp'ens stansede firkant. Ankeret er
    UROERT — det er stadig side.mjs' kildemaerke() med href="#kilde-<bogstav>",
@@ -2202,7 +2234,7 @@ td .v{font-size:15px}
 .typeskilt .skema-k .kildemaerke{
   display:inline-grid;place-items:center;width:17px;height:17px;
   margin:0 8px 0 0;padding:0;vertical-align:1px;top:0;
-  font-size:10px;font-weight:700;line-height:1;text-decoration:none;
+  font-size:var(--fs-gulv);font-weight:700;line-height:1;text-decoration:none;
   background:var(--blaek);color:var(--paafod);border:0;border-radius:var(--hjoerne);
 }
 .typeskilt .skema-k .kildemaerke--sek{
@@ -2222,10 +2254,10 @@ td .v{font-size:15px}
   .typeskilt .skema-tabel tr{border-top:1px solid var(--linje);padding:var(--r3) 0}
   .typeskilt .skema-tabel th,.typeskilt .skema-tabel td{border-top:0;padding:1px 0}
   .typeskilt .skema-tabel tbody th[scope="row"]{
-    width:auto;font-family:var(--mono);font-size:11px;font-weight:700;
+    width:auto;font-family:var(--mono);font-size:var(--fs-data);font-weight:700;
     letter-spacing:.13em;text-transform:uppercase;color:var(--blaek3);
   }
-  .typeskilt .skema-v{width:auto;font-size:16px;padding-top:3px}
+  .typeskilt .skema-v{width:auto;font-size:var(--fs-felt);padding-top:3px}
   .typeskilt .skema-k{width:auto;padding-top:6px}
   .typeskilt .skema-gruppenavn{padding-top:var(--r5)}
   .typeskilt .skema-gruppenavn th{padding-top:0}
@@ -2291,15 +2323,15 @@ td .v{font-size:15px}
   display:flex;align-items:baseline;gap:6px;margin:0 0 6px;min-height:26px;
 }
 .skala__ord{
-  font-family:var(--mono);font-size:11px;font-weight:700;
+  font-family:var(--mono);font-size:var(--fs-data);font-weight:700;
   letter-spacing:.13em;text-transform:uppercase;color:var(--blaek3);
 }
 .skala__tal{
-  font-family:var(--mono);font-size:22px;font-weight:700;line-height:1;
+  font-family:var(--mono);font-size:var(--fs-figur-s);font-weight:700;line-height:1;
   color:var(--blaek);font-variant-numeric:tabular-nums;
 }
 .skala__enhed{
-  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--blaek2);
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:600;color:var(--blaek2);
 }
 
 /* 4. SELVE BANEN
@@ -2365,7 +2397,7 @@ td .v{font-size:15px}
   content:"";width:1px;height:4px;background:var(--hegn);
 }
 .skala__ridse-tal{
-  font-family:var(--mono);font-size:10px;font-weight:600;
+  font-family:var(--mono);font-size:var(--fs-gulv);font-weight:600;
   color:var(--stoev-blaek);font-variant-numeric:tabular-nums;white-space:nowrap;
 }
 
@@ -2374,7 +2406,7 @@ td .v{font-size:15px}
    oevrige statiske taellere goer. Naevneren er de OPLYSTE, ikke alle 77 - de
    robotter, der tier, kan ikke vaere over eller under en graense. */
 .skala__traef{
-  margin:6px 0 0;font-size:12px;font-weight:600;color:var(--blaek2);
+  margin:6px 0 0;font-size:var(--fs-etiket);font-weight:600;color:var(--blaek2);
   font-variant-numeric:tabular-nums;min-height:1em;
 }
 .skala__note{margin:8px 0 0;color:var(--blaek2)}
@@ -2401,8 +2433,8 @@ td .v{font-size:15px}
    skalaer foelger med. Ridsetallene er da det foerste, der bliver trangt:
    200 og 85.000 staar i hver sin ende af en 320 px bane. */
 @media (max-width:700px){
-  .skala__ridse-tal{font-size:9px}
-  .skala__tal{font-size:20px}
+  .skala__ridse-tal{font-size:var(--fs-gulv)}
+  .skala__tal{font-size:var(--fs-h3)}
 }
 
 /* --- katalogets flader (spor/katalog2) --------------------------------- */
@@ -2462,7 +2494,7 @@ summary.facet__navn::after{flex:none}
    genkendt fra resten af siden i stedet for opfundet paa ny. */
 summary.facet__navn::before{
   content:"+";flex:none;order:-1;
-  font-family:var(--mono);font-size:13px;font-weight:700;color:var(--blaek3);
+  font-family:var(--mono);font-size:var(--fs-mikro);font-weight:700;color:var(--blaek3);
 }
 details[open] > summary.facet__navn::before{content:"–"}
 summary.facet__navn:hover::before{color:var(--blaek)}
@@ -2485,7 +2517,7 @@ summary.facet__navn > .facet__tal{
                          scriptet saetter et tal - en tom taeller ville vaere
                          en paastand uden daekning (P0). */
 .facet__aktiv{
-  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;
+  font-family:var(--mono);font-size:var(--fs-gulv);font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;color:var(--blaek);background:var(--accent-ro);
   padding:2px 7px;border-radius:var(--hjoerne);flex:none;margin-left:auto;
 }
@@ -2493,7 +2525,7 @@ summary.facet__navn > .facet__tal{
   display:inline-flex;align-items:center;justify-content:center;
   min-width:18px;height:18px;padding:0 5px;flex:none;margin-left:auto;
   background:var(--accent);color:var(--blaek);
-  font-family:var(--mono);font-size:10px;font-weight:700;
+  font-family:var(--mono);font-size:var(--fs-gulv);font-weight:700;
   font-variant-numeric:tabular-nums;border-radius:var(--hjoerne);
 }
 /* Samme faelde som .kort__saml (afsnit 2 ovenfor, allerede kommenteret):
@@ -2703,7 +2735,7 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
   display:flex;align-items:center;gap:var(--r1);
   white-space:nowrap;
 }
-.klaebebar__navn{font-size:14px;font-weight:600}
+.klaebebar__navn{font-size:var(--fs-raekke);font-weight:600}
 /* BEROERINGSMAALET BLIVER STOERRE, MENS BJAELKEN BLIVER MINDRE.
    `.knap--tekst-moerk` saetter `min-height:0;padding:0` - bjaelkens to
    handlinger er derfor 13,2 px hoeje i dag og klarer kun WCAG 2.5.8 via
@@ -2813,7 +2845,7 @@ html:has(.klaebebar:not([hidden])){scroll-padding-bottom:var(--barplads)}
    en tilstand i resten af siden, foraeldes tavst, naar den tilstand
    aendrer sig. */
 @media (max-width:460px){
-  .klaebebar__navn{font-size:13px}
+  .klaebebar__navn{font-size:var(--fs-mikro)}
 }
 
 /* --- sammenligningens vaelger (spor/samlvaelg, FJERNET spor/doedcss 1. sep
@@ -2955,12 +2987,12 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 /* Etiketten deler bogstavform med savn-maerket - det er MENINGEN. De to er
    samme raekke; kun det, de baerer, er forskelligt (haard begraensning 5). */
 .kort__vaerdi-mrk{
-  font-size:10.5px;font-weight:600;letter-spacing:.06em;
+  font-size:var(--fs-gulv);font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--stoev-blaek);
 }
 /* Figuren saettes ét trin under robotnavnet (17px): den skal kunne laeses
    som kortets ANDET tal, ikke konkurrere med navnet om at vaere det foerste. */
-.kort__vaerdi .v-tal{font-size:15px}
+.kort__vaerdi .v-tal{font-size:var(--fs-lille)}
 /* Baandet foer denne linje kunne braekke etiket og figur fra hinanden paa
    smalle kort. `flex:1 0 auto` paa figuren holder den samlet paa egen linje,
    naar de to ikke kan staa ved siden af hinanden. */
@@ -3001,7 +3033,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 .knap--maerkat{
   gap:5px;
   padding:4px 8px;min-height:24px;
-  font-size:9.5px;font-weight:700;letter-spacing:.13em;
+  font-size:var(--fs-gulv);font-weight:700;letter-spacing:.13em;
   /* HVILETILSTANDEN ER DAEMPET MED VILJE. Knappen staar paa 83 kort samtidig
      og er dermed sidens mest gentagne element; i fuld blaek med ramme blev
      den den foerste ting, oejet maatte gennem, foer det naaede en robot
@@ -3014,7 +3046,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 }
 /* Krydset er et REN CSS-tegn, ikke et ikon: ét glyf mindre at hente, og det
    skifter betydning med tilstanden (+ afsat, x fjern igen). */
-.knap--maerkat::before{content:"+";font-size:12px;line-height:1;font-weight:700}
+.knap--maerkat::before{content:"+";font-size:var(--fs-etiket);line-height:1;font-weight:700}
 /* Kortet under musen har KUN én knap, saa dér maa den godt traede frem.
    HOVER ER IKKE FAMILIENS GULE HER, og det er med vilje: den gule flade er
    allerede taget - den betyder AFSAT paa dette kort (se reglen nedenfor).
@@ -3055,7 +3087,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
      og forneden: raekken er en stansning i pladen som de oevrige. */
   margin:0;padding:10px var(--r5);
   border-bottom:1px solid var(--linje);
-  font-family:var(--mono);font-size:11px;font-weight:700;
+  font-family:var(--mono);font-size:var(--fs-data);font-weight:700;
   letter-spacing:.13em;text-transform:uppercase;color:var(--blaek);
 }
 .saml-taeller[data-aktiv]{display:flex}
@@ -3082,7 +3114,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 .saml-graense{
   margin:0;padding:10px var(--r5);
   border-bottom:1px solid var(--linje);
-  font-family:var(--mono);font-size:11px;font-weight:600;
+  font-family:var(--mono);font-size:var(--fs-data);font-weight:600;
   letter-spacing:.04em;color:var(--blaek);
   box-shadow:inset 3px 0 0 var(--accent);
 }
@@ -3093,7 +3125,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 @media (max-width:720px){
   /* Knappen er et 24 px maal paa 1440. Paa touch skal den op paa 44 px, som
      resten af sidens betjening (samme graense som .udtraek__greb). */
-  .knap--maerkat{min-height:44px;padding:6px 11px;font-size:10px}
+  .knap--maerkat{min-height:44px;padding:6px 11px;font-size:var(--fs-gulv)}
 }
 
 /* 460 PX ER MAALT, IKKE VALGT EFTER SMAG. Fra 720 px og ned staar kortene
@@ -3195,7 +3227,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    samme - ikke i .t-broed, som er Saira. 20px, fordi en serif paa samme
    px-tal som en grotesk laeser mindre. */
 .om-lede{
-  font-family:var(--manual);font-size:20px;line-height:1.5;
+  font-family:var(--manual);font-size:var(--fs-h3);line-height:1.5;
   color:var(--blaek2);max-width:54ch;margin:var(--r5) 0 0;
   text-wrap:pretty;
 }
@@ -3208,7 +3240,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    linje i px end resten af sitet har. Maalt i Chromium ved 1440:
    62ch Literata 18px = 636 px, 68ch Saira 17px = 629 px. */
 .om-broed{
-  font-family:var(--manual);font-size:18px;line-height:1.62;
+  font-family:var(--manual);font-size:var(--fs-manual);line-height:1.62;
   color:var(--blaek);max-width:62ch;margin:0 0 var(--r4);
   text-wrap:pretty;
 }
@@ -3239,18 +3271,18 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 }
 .om-regnskab__raekke:first-child{border-top:0;padding-top:0}
 .om-regnskab__raekke dt{
-  font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.11em;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:600;letter-spacing:.11em;
   text-transform:uppercase;color:var(--blaek2);
 }
 .om-regnskab__raekke dd{margin:0}
-.om-regnskab__raekke dd .figur{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.om-regnskab__raekke dd .figur{font-size:var(--fs-figur-m);font-weight:700;letter-spacing:-.02em;line-height:1}
 /* Summen er regnestykkets facit og faar den kraftige streg, systemet
    allerede bruger til "her slutter en optaelling" (.streg--kraftig). */
 .om-regnskab__raekke--sum{border-top:2px solid var(--blaek);margin-top:var(--r2);padding-top:var(--r4)}
 .om-regnskab__raekke--sum dt{color:var(--blaek)}
-.om-regnskab__raekke--sum dd .figur{font-size:38px}
+.om-regnskab__raekke--sum dd .figur{font-size:var(--fs-figur-l)}
 .om-regnskab__ligning{
-  margin-top:3px;font-size:10.5px;letter-spacing:.1em;color:var(--blaek3);
+  margin-top:3px;font-size:var(--fs-gulv);letter-spacing:.1em;color:var(--blaek3);
   text-transform:none;font-weight:400;
 }
 
@@ -3267,11 +3299,11 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    aria-hidden i markup'en - <ol> siger allerede raekkefoelgen til en
    skaermlaeser, og "01" ville blive laest to gange. */
 .om-trin__nr{
-  font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--blaek3);
+  font-size:var(--fs-etiket);font-weight:700;letter-spacing:.16em;color:var(--blaek3);
   line-height:1;
 }
 .om-trin__titel{margin:0}
-.om-trin .om-broed{font-size:17px;margin:0;max-width:44ch}
+.om-trin .om-broed{font-size:var(--fs-broed);margin:0;max-width:44ch}
 
 /* --- hvad siden ikke goer -------------------------------------------------
    Den haarde linje er PRODUCT.md's krav (linje 95-96, 119-120) og staar som
@@ -3282,7 +3314,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
 .om-haard{
   background:var(--fod);color:#FFFFFF;margin:0 0 var(--r5);
   padding:var(--r4) var(--r5);max-width:62ch;
-  font-family:var(--mono);font-size:19px;font-weight:600;line-height:1.4;
+  font-family:var(--mono);font-size:var(--fs-h3);font-weight:600;line-height:1.4;
   letter-spacing:-.012em;text-wrap:pretty;
 }
 .om-ikke{list-style:none;margin:0;padding:0;display:grid;gap:var(--r4)}
@@ -3294,7 +3326,7 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    Navn, by og kontakt. INTET om ydelser - L61, haard begraensning 1. */
 .om-kort{background:var(--panel);padding:var(--r5);margin:0;display:grid;gap:var(--r4)}
 .om-kort__raekke{display:grid;gap:3px}
-.om-kort__raekke dd{margin:0;font-size:16px;color:var(--blaek);line-height:1.45}
+.om-kort__raekke dd{margin:0;font-size:var(--fs-felt);color:var(--blaek);line-height:1.45}
 .om-kort__navn{display:block;font-weight:700;letter-spacing:-.01em}
 .om-kort a{color:var(--blaek);text-underline-offset:3px}
 
@@ -3303,18 +3335,18 @@ body:has(.enhedsskift__boks:checked) .daek__enhed .enhedsskift__ord--imperial{co
    saa den luft nulstilles - ellers ville der staa to sektionsafstande
    oven i hinanden. */
 .om-tegn .tegnforklaring{padding-top:var(--r5)}
-.om-tegn .tegnforklaring .sektion-hoved h2{font-size:19px;letter-spacing:-.014em}
+.om-tegn .tegnforklaring .sektion-hoved h2{font-size:var(--fs-h3);letter-spacing:-.014em}
 
 @media (max-width:679px){
   .om-hero{padding-top:var(--r6)}
   .om-hero__ord{max-width:none}
-  .om-lede{font-size:18px;margin-top:var(--r4)}
+  .om-lede{font-size:var(--fs-manual);margin-top:var(--r4)}
   .om-sektion{padding-top:var(--r7)}
-  .om-broed{font-size:17px}
+  .om-broed{font-size:var(--fs-broed)}
   .om-regnskab,.om-kort{padding:var(--r4)}
-  .om-regnskab__raekke dd .figur{font-size:26px}
-  .om-regnskab__raekke--sum dd .figur{font-size:32px}
-  .om-haard{font-size:17px;padding:var(--r4)}
+  .om-regnskab__raekke dd .figur{font-size:var(--fs-figur-s)}
+  .om-regnskab__raekke--sum dd .figur{font-size:var(--fs-figur-m)}
+  .om-haard{font-size:var(--fs-broed);padding:var(--r4)}
   .om-trinliste{gap:var(--r5)}
 }
 
@@ -3406,7 +3438,7 @@ body > .sidefod{flex:none}
    saetning, samme materiale, ét lag faerre. */
 .sidefod__haard{
   margin:0;max-width:46ch;
-  font-family:var(--mono);font-size:19px;font-weight:600;line-height:1.34;
+  font-family:var(--mono);font-size:var(--fs-h3);font-weight:600;line-height:1.34;
   letter-spacing:-.012em;text-wrap:pretty;color:var(--paafod);
 }
 /* De to loefter staar SIDE OM SIDE og ikke under hinanden: de er to ligestillede
@@ -3430,7 +3462,7 @@ body > .sidefod{flex:none}
    end den, teksten faktisk saettes i. */
 .sidefod__broed{
   margin:0;max-width:54ch;
-  font-size:15px;font-weight:400;line-height:1.6;letter-spacing:.004em;
+  font-size:var(--fs-lille);font-weight:400;line-height:1.6;letter-spacing:.004em;
   color:var(--paafod);text-wrap:pretty;
 }
 /* Maerket er fodens sidste linje og systemets Etiket-rolle: versaler,
@@ -3442,7 +3474,7 @@ body > .sidefod{flex:none}
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--r3) var(--r5);
 }
 .sidefod__udgiver{
-  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.15em;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:500;letter-spacing:.15em;
   text-transform:uppercase;color:var(--paafod2);
 }
 /* LINKET ER FODENS ENESTE KLIKMAAL og skal kunne ses som ét. Global `a` saetter
@@ -3453,7 +3485,7 @@ body > .sidefod{flex:none}
    sin farve (WCAG 1.4.1). */
 .sidefod__link{
   color:var(--paafod);
-  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.15em;
+  font-family:var(--mono);font-size:var(--fs-etiket);font-weight:500;letter-spacing:.15em;
   text-transform:uppercase;
   text-decoration-thickness:1px;text-underline-offset:4px;
   /* Beroeringsmaalet: blaekket er 11,5 px, saa selve linjen er langt under
@@ -3497,7 +3529,7 @@ body > .sidefod{flex:none}
 @media (max-width:679px){
   .sidefod{margin-top:var(--r7)}
   .sidefod__ramme{padding-block:var(--r6) var(--r5);gap:var(--r4)}
-  .sidefod__haard{font-size:17px}
+  .sidefod__haard{font-size:var(--fs-broed)}
   /* Spalterne falder sammen af sig selv (auto-fit), men afstanden mellem de to
      loefter skal vokse, naar de gaar fra at staa ved siden af hinanden til at
      staa over hinanden - ellers laeses de som ét afsnit. */

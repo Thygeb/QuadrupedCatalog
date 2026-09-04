@@ -98,8 +98,14 @@ export default async function koer(ctx) {
   ok('36.4: robotnavnet staar paa en vaegt, skriftfilerne faktisk har (700)',
     /font-weight:700/.test(h1Regel) && !/font-weight:800/.test(h1Regel),
     `fandt: ${h1Regel}`);
-  const gulv = (h1Regel.match(/font-size:clamp\((\d+)px/) || [])[1];
-  ok('36.5: navnets mindste grad er stoerre end den stoerste vaerdi i striben (29px)',
+  const tokenMatch = (h1Regel.match(/font-size:var\((--fs-[^)]+)\)/) || [])[1];
+  let gulv;
+  if (tokenMatch) {
+    gulv = (sys.match(new RegExp(`${tokenMatch}:clamp\\((\\d+)px`)) || [])[1];
+  } else {
+    gulv = (h1Regel.match(/font-size:clamp\((\d+)px/) || [])[1];
+  }
+  ok('36.5: navnets mindste grad er stoerre end den stoerste vaerdi i striben (29px, R5 via --fs-robot)',
     Number(gulv) > 29, `gulvet er ${gulv}px`);
 
   /* --- 2. Enhedsomskifteren: reglerne bag skiftet ------------------------ */
@@ -169,10 +175,16 @@ export default async function koer(ctx) {
   ok('36.17: skiftet haenger paa en RIGTIG afkrydsning, ikke paa JavaScript',
     /\.typeskilt \.enhedsskift__boks:checked ~ \* \.enhedsvis--metrisk\{display:none\}/.test(sys)
     && /\.typeskilt \.enhedsskift__boks:checked ~ \* \.enhedsvis--imperial\{display:contents\}/.test(sys));
-  // Skriftgulvet paa 8px gaelder ogsaa det nye maerke (jf. dele/31).
+  // Skriftgulvet paa 8px (og R5's skriftgulv paa 10.5px) gaelder ogsaa det nye maerke (jf. dele/31).
   const omrRegel = (sys.match(/\.omregnet\{[^}]*\}/) || [''])[0];
-  const omrGrad = Number((omrRegel.match(/font-size:([\d.]+)px/) || [])[1]);
-  ok('36.18: "omregnet"-maerket staar paa eller over skriftgulvet 8px',
+  const omrToken = (omrRegel.match(/font-size:var\((--fs-[^)]+)\)/) || [])[1];
+  let omrGrad;
+  if (omrToken) {
+    omrGrad = Number((sys.match(new RegExp(`${omrToken}:([\\d.]+)px`)) || [])[1]);
+  } else {
+    omrGrad = Number((omrRegel.match(/font-size:([\d.]+)px/) || [])[1]);
+  }
+  ok('36.18: "omregnet"-maerket staar paa eller over skriftgulvet 8px (R5: bundet til --fs-gulv = 10.5px)',
     omrGrad >= 8, `fandt ${omrGrad}px i: ${omrRegel}`);
 
   /* --- 3. Kilderne i bunden (L60) - og ankrene, der skal overleve turen -- */

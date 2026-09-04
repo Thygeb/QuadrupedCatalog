@@ -174,11 +174,15 @@ export default async function koer(ctx) {
     'JPK 3. sep 2026: ingen bevaegelse, naar et led fjernes');
 
   /* DP3b (DESIGN.md): acceptkriteriet er, at Retning B kunne bygges UDEN
-     at aendre én font-size. De to vaerdier er "Raekke" (14) og "Mikro" (13). */
+     at aendre én font-size. De to vaerdier er "Raekke" (14) og "Mikro" (13),
+     under R5 udtrykt ved tokens var(--fs-raekke) og var(--fs-mikro). */
   const grader = [...new Set((blok.match(/font-size:([^;}]+)/g) || []).map((s) => s.split(':')[1].trim()))].sort();
-  ok(`81.14: klaebebar-blokken baerer PRAECIS skriftgraderne 13px og 14px (DP3b) - fandt: ${grader.join(', ') || 'ingen'}`,
-    grader.length === 2 && grader.includes('13px') && grader.includes('14px'),
-    'DP3b: sporet kan bygge Retning B uden at aendre en eneste font-size');
+  const godkendteGrader = (grader.length === 2
+    && ((grader.includes('13px') && grader.includes('14px'))
+      || (grader.includes('var(--fs-mikro)') && grader.includes('var(--fs-raekke)'))));
+  ok(`81.14: klaebebar-blokken baerer PRAECIS skriftgraderne --fs-mikro (13px) og --fs-raekke (14px) (DP3b under R5) - fandt: ${grader.join(', ') || 'ingen'}`,
+    godkendteGrader,
+    'DP3b/R5: sporet bruger skalaens tokens --fs-mikro og --fs-raekke');
 
   /* ==================================================================
      C. BUNDPLADSEN (punkt 4)

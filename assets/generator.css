@@ -42,13 +42,13 @@
 .eu-fund-tal {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
-  font-size: clamp(26px, 2.6vw, 34px);
+  font-size: var(--fs-display-tal);
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--blaek);
 }
 .eu-fund-linje span {
-  font-size: 17px;
+  font-size: var(--fs-broed);
   line-height: 1.5;
   color: var(--blaek2);
 }
@@ -148,14 +148,14 @@
   background: var(--tom);
   border: 1px dashed var(--hegn);
   border-radius: var(--hjoerne);
-  font-size: 15px;
+  font-size: var(--fs-lille);
   color: var(--blaek2);
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 6px 14px;
 }
-/* L77: her stod `.tomt__ryd{font-size:14px}`, sat da knappen var `.videre`
+/* L77: her stod `.tomt__ryd{font-size:var(--fs-raekke)}`, sat da knappen var `.videre`
    (15 px) og nul-tilstandens udgave skulle vaere en anelse mindre. Med
    primitiven er 12 px knappens grad overalt, og en enkelt undtagelse ville
    goere nul-tilstandens knap til den eneste i sitet med sin egen stoerrelse.
@@ -294,7 +294,7 @@
   background: var(--panel-ro);
   border-left: 2px solid var(--hegn);
   border-radius: 0 var(--hjoerne) var(--hjoerne) 0;
-  font-size: 13.5px;
+  font-size: var(--fs-raekke);
   line-height: 1.5;
   color: var(--blaek2);
   max-width: 80ch;
@@ -324,7 +324,7 @@
 }
 .feltnote {
   margin-top: 6px;
-  font-size: 13.5px;
+  font-size: var(--fs-raekke);
   line-height: 1.5;
   color: var(--blaek3);
   max-width: 80ch;
@@ -341,7 +341,7 @@
 }
 .varianter dd {
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   color: var(--blaek2);
   margin: 0;
 }
@@ -398,7 +398,7 @@
 .varianter .variant dt {
   width: auto;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -407,7 +407,7 @@
 .varianter .variant dd {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
-  font-size: 13px;
+  font-size: var(--fs-mikro);
   font-weight: 700;
   color: var(--blaek);
   margin: 0;
@@ -460,7 +460,7 @@
    4/10/5 -> 2/7/3, font 12,5px -> 12px. Scopet til .kort saa robotsidens
    egen badge-raekke (stoerre, sidens hovedsag der) IKKE rammes. */
 .kort .maerke {
-  font-size: 12px;
+  font-size: var(--fs-etiket);
   padding: 2px 7px 3px;
 }
 
@@ -579,7 +579,7 @@
 .saml-noegle__navn {
   display: block;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 700;
   letter-spacing: 0.15em;
   line-height: 1.1;
@@ -592,7 +592,7 @@
 .saml-noegle__stam {
   display: block;
   font-family: var(--manual);
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   line-height: 1.25;
   color: var(--stoev-blaek);
 }
@@ -613,7 +613,7 @@
 }
 .saml-tegn__tekst {
   font-family: var(--manual);
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   line-height: 1.35;
   color: var(--blaek2);
   text-wrap: pretty;
@@ -694,7 +694,7 @@
 .saml-hjoerne__ord {
   display: block;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--fs-etiket);
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -704,13 +704,13 @@
 .saml-hjoerne__note {
   display: block;
   font-family: var(--manual);
-  font-size: 11px;
+  font-size: var(--fs-data);
   line-height: 1.4;
   color: var(--paafod2);
   max-width: 22ch;
 }
 /* Specimen-kortet er nu et <th scope="col"> (Aa54). Det arver dermed
-   system.css §14's `thead th{font-family:mono;font-size:11.5px;
+   system.css §14's `thead th{font-family:mono;font-size:var(--fs-etiket);
    font-weight:500;letter-spacing:.13em;text-transform:uppercase;
    color:--blaek3;white-space:nowrap}` og `th,td{padding:12px 16px}` - regler
    skrevet til producentsidens smalle kolonneoverskrifter. Uden
@@ -784,7 +784,7 @@
 }
 .specimen__navn {
   display: block;
-  font-size: 19px;
+  font-size: var(--fs-h3);
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.1;
@@ -792,7 +792,7 @@
 }
 .specimen__meta {
   display: block;
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -810,7 +810,7 @@
   border-top: 1px solid var(--blaek2);
 }
 .specimen__taethed {
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   font-weight: 500;
   color: var(--paafod2);
 }
@@ -844,7 +844,7 @@
   margin-left: auto;
   align-self: center;
   min-height: 0;
-  font-size: 10px;
+  font-size: var(--fs-gulv);
   letter-spacing: 0.1em;
   padding: 5px 9px;
 }
@@ -919,7 +919,7 @@
    Tre globale regler i system.css §14 er skrevet til producentsidens brede
    .prod-tabel og ville ellers naa herind. De neutraliseres praecist HER, saa
    §14 selv staar uroert for de sider, der bygger paa den:
-     table{width:100%;min-width:620px;font-size:15px}  -> .saml-matrix
+     table{width:100%;min-width:620px;font-size:var(--fs-lille)}  -> .saml-matrix
      th,td{border-top:1px}                             -> celle-reglen
      thead th{...}                                     -> .specimen ovenfor
    min-width:620px er den farligste af dem: paa en telefon ville den give
@@ -937,7 +937,7 @@
 .saml-matrix {
   width: 100%;
   min-width: 0;
-  font-size: 14px;
+  font-size: var(--fs-raekke);
   table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
@@ -976,7 +976,7 @@
   text-align: left;
   padding: var(--r5) var(--r3) 8px;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 700;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -1033,7 +1033,7 @@
 }
 .saml-raekke__ord {
   display: block;
-  font-size: 13.5px;
+  font-size: var(--fs-raekke);
   color: var(--blaek2);
   line-height: 1.3;
 }
@@ -1061,7 +1061,7 @@
   overflow-wrap: anywhere;
 }
 .saml-raekke__celle .v {
-  font-size: 16px;
+  font-size: var(--fs-felt);
 }
 /* Raekker, hvor ALLE plader tier: hele raekken traeder tilbage. Vaerdierne
    staar der stadig med deres eget stiplede maerke - hullet er ikke skjult,
@@ -1131,7 +1131,7 @@
    skrives ind i den klientside. */
 .saml-fotoophav {
   font-family: var(--manual);
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   line-height: 1.55;
   color: var(--stoev-blaek);
   max-width: 78ch;
@@ -1151,7 +1151,7 @@
   vertical-align: top;
   padding: var(--r2) var(--r3);
   font-family: var(--manual);
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   line-height: 1.4;
   color: var(--stoev-blaek);
   text-align: left;
@@ -1208,7 +1208,7 @@
     padding: 0;
   }
   .saml-tegn__tekst {
-    font-size: 11px;
+    font-size: var(--fs-data);
   }
   .saml-noegle__lead {
     padding-right: 0;
@@ -1219,10 +1219,10 @@
   }
   .saml-noegle__stam {
     display: inline;
-    font-size: 11px;
+    font-size: var(--fs-data);
   }
   .saml-matrix {
-    font-size: 13px;
+    font-size: var(--fs-mikro);
   }
   .specimen-hoved__hjoerne,
   .saml-raekke__navn {
@@ -1246,7 +1246,7 @@
     padding: var(--r3) 10px;
   }
   .specimen__navn {
-    font-size: 15px;
+    font-size: var(--fs-lille);
   }
   .specimen__fod {
     display: block;
@@ -1288,7 +1288,7 @@
   align-items: center;
   min-height: 44px;
   padding: 0 12px 0 0;
-  font-size: 15px;
+  font-size: var(--fs-lille);
   font-weight: 600;
   text-decoration: none;
   color: var(--blaek2);
@@ -1450,7 +1450,7 @@
   }
   /* FIGUREN staar paa 23px - og KUN figuren. Den gamle regel her ramte `.v`
      bredt (0,0,3,0) og slog dermed system.css' `.stribe .v-ikke,.stribe
-     .v-billede{font-size:13px}` (0,0,2,0), som er de fire datatilstandes egen
+     .v-billede{font-size:var(--fs-mikro)}` (0,0,2,0), som er de fire datatilstandes egen
      skala. Resultatet var, at "ikke oplyst" fik NOEJAGTIG samme sats som et
      oplyst tal - men KUN fra 1180 px op, hvor denne @media begynder. Maalt
      foer rettelsen: forholdet hul:tal var 0,45 ved 390-1179 px og præcis 1,00
@@ -1472,7 +1472,7 @@
      stadig arve figurens sats. Undtagelsen navngiver derfor de fire
      tilstande, ikke det ene tilfaelde, vi ville beholde. */
   .robot-noegletal .stribe .v:not(.v-ikke, .v-billede, .v-nej, .v-ja) {
-    font-size: 23px;
+    font-size: var(--fs-figur-s);
   }
   .robot-noegletal .stribe .krop > .v,
   .robot-noegletal .stribe .krop > .feltvaerdi {
@@ -1496,7 +1496,7 @@
 }
 .billedfod p {
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   line-height: 1.45;
   color: var(--blaek3);
   display: flex;
@@ -1532,7 +1532,7 @@
   margin: 0;
 }
 .robot-navn .aar {
-  font-size: 12px;
+  font-size: var(--fs-etiket);
   color: var(--blaek3);
 }
 .robot-navn .maerker {
@@ -1568,7 +1568,7 @@
 }
 .variantnavn {
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--fs-etiket);
   font-weight: 700;
   color: var(--blaek);
   letter-spacing: 0.02em;
@@ -1592,7 +1592,7 @@
   align-items: center;
   gap: 8px;
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   font-weight: 500;
   color: var(--blaek2);
   padding: 10px 2px;
@@ -1680,39 +1680,39 @@
   align-items: baseline;
   gap: 3px;
   font-family: var(--mono);
-  font-size: 11.5px;
+  font-size: var(--fs-etiket);
   line-height: 1.3;
   color: var(--blaek3);
   margin-top: 2px;
 }
 .stribe-kildepris .v {
-  font-size: 11.5px !important;
+  font-size: var(--fs-etiket) !important;
   min-height: auto !important;
   color: var(--blaek2);
   gap: 0.2em;
   display: inline-flex;
 }
 .stribe-kildepris .num {
-  font-size: 11.5px !important;
+  font-size: var(--fs-etiket) !important;
   font-weight: 600;
   letter-spacing: normal;
 }
 .stribe-kildepris .enhed {
-  font-size: 10.5px !important;
+  font-size: var(--fs-gulv) !important;
   color: var(--blaek3);
 }
 .stribe-kildepris .op {
-  font-size: 11px !important;
+  font-size: var(--fs-data) !important;
   color: var(--blaek3);
 }
 .stribe-kildepris .kildemaerke {
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
 }
 
 .advarsel-navn {
   display: block;
   font-family: var(--mono);
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1728,7 +1728,7 @@
 }
 .v-liste code {
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   color: var(--blaek2);
   background: var(--panel-ro);
   border: 1px solid var(--linje);
@@ -1764,7 +1764,7 @@
   margin-top: 8px;
 }
 .anvendelse-citat p:not(.etiket) {
-  font-size: 16px;
+  font-size: var(--fs-felt);
   line-height: 1.5;
   color: var(--blaek);
 }
@@ -1774,7 +1774,7 @@
    den: robot.mjs' markup skal kunne testes paa netop denne ene BEM-klasse
    alene (class="anvendelse__arv", ikke "t-mikro anvendelse__arv"). */
 .anvendelse__arv {
-  font-size: 13px;
+  font-size: var(--fs-mikro);
   line-height: 1.5;
   font-style: normal;
   color: var(--blaek3);
@@ -1819,7 +1819,7 @@
   content: "+";
   margin-left: auto;
   font-family: var(--mono);
-  font-size: 20px;
+  font-size: var(--fs-h3);
   font-weight: 500;
   color: var(--blaek3);
   line-height: 1;
@@ -1839,7 +1839,7 @@
   outline-offset: -3px;
 }
 .skema-taeller {
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   font-weight: 500;
   color: var(--blaek2);
 }
@@ -1879,7 +1879,7 @@
    migrering nu retter, fordi klassen endelig har en regel at rette i. Samme
    "ombryd hellere end skub ud af sporet"-princip som .stribe .v (system.css). */
 .noter li {
-  font-size: 15px;
+  font-size: var(--fs-lille);
   line-height: 1.55;
   color: var(--blaek2);
   padding-left: 16px;
@@ -1890,7 +1890,7 @@
   padding-top: var(--r4);
 }
 .kilder .kildeliste li {
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
 }
 .kilder .url {
   display: inline-block;
@@ -1919,7 +1919,7 @@
   gap: 4px;
 }
 .producent-fakta dd {
-  font-size: 17px;
+  font-size: var(--fs-broed);
   font-weight: 600;
   color: var(--blaek);
   min-height: 26px;
@@ -1927,7 +1927,7 @@
   align-items: center;
 }
 .producent-fakta .figur {
-  font-size: 21px;
+  font-size: var(--fs-figur-s);
   font-weight: 700;
 }
 .producent-fakta .hjemsted {
@@ -1980,7 +1980,7 @@
    til `auto` af @media (max-width:899px) i bunden af dette afsnit, og en
    proeve med `table-layout:fixed;width:100%` flyttede intet. Aarsagen er
    system.css' bare elementregel
-     table{border-collapse:collapse;width:100%;min-width:620px;font-size:15px}
+     table{border-collapse:collapse;width:100%;min-width:620px;font-size:var(--fs-lille)}
    Den er skrevet netop TIL denne tabel dengang den var bred, og de 620 er
    praecis den scrollWidth, der blev maalt. Paa en telefon binder det gulv
    tabellen til 620 px inde i en 358 px bred kasse.
@@ -2018,7 +2018,7 @@
 .prod-tabel thead th {
   border-top: 0;
   padding-bottom: 8px;
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   font-weight: 600;
   color: var(--blaek3);
   text-transform: uppercase;
@@ -2224,7 +2224,7 @@
 }
 .aabning__titel {
   margin: 0;
-  font-size: clamp(28px, 3.3vw, 44px);
+  font-size: var(--fs-display-titel);
   font-weight: 700;
   line-height: 1.02;
   letter-spacing: -0.02em;
@@ -2234,7 +2234,7 @@
 }
 .aabning__under {
   margin-top: 10px;
-  font-size: 15px;
+  font-size: var(--fs-lille);
   line-height: 1.5;
   color: var(--blaek2);
   max-width: 64ch;
@@ -2248,7 +2248,7 @@
   margin: 0;
 }
 .aarstempel__tal {
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: var(--fs-display-stor);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.03em;
@@ -2258,7 +2258,7 @@
   border-bottom: 3px solid var(--accent);
 }
 .aarstempel__ord {
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2273,7 +2273,7 @@
 }
 .aabning__flok {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--fs-etiket);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -2281,7 +2281,7 @@
 }
 .aabning__note {
   margin-top: 6px;
-  font-size: 13px;
+  font-size: var(--fs-mikro);
   line-height: 1.5;
   color: var(--stoev-blaek);
   max-width: 78ch;
@@ -2301,7 +2301,7 @@
 }
 .plade__titel {
   margin: 0;
-  font-size: clamp(20px, 2.1vw, 27px);
+  font-size: var(--fs-display-lille);
   font-weight: 700;
   line-height: 1.06;
   letter-spacing: -0.014em;
@@ -2310,7 +2310,7 @@
 }
 .plade__under {
   margin-top: 9px;
-  font-size: 14px;
+  font-size: var(--fs-raekke);
   line-height: 1.5;
   color: var(--blaek2);
   max-width: 62ch;
@@ -2327,7 +2327,7 @@
   display: contents;
 }
 .stempler dt {
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -2336,7 +2336,7 @@
 }
 .stempler dd {
   margin: 0;
-  font-size: 13.5px;
+  font-size: var(--fs-raekke);
   font-weight: 600;
   text-align: right;
   letter-spacing: 0.02em;
@@ -2359,7 +2359,7 @@
   --ring: var(--accent);
 }
 .strimmel__mrk {
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2386,7 +2386,7 @@
   color: var(--blaek);
   padding: 4px 5px 4px 10px;
   border-radius: var(--hjoerne);
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   font-weight: 600;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -2445,7 +2445,7 @@
    tallet er accent PAA blaek = 9,19 : 1 - den moerke flade, hvor L76
    udtrykkeligt tillader accent som tekst. */
 .taeller__tal {
-  font-size: 25px;
+  font-size: var(--fs-figur-m);
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1;
@@ -2456,7 +2456,7 @@
   animation: stempl 0.32s var(--slyng) both;
 }
 .taeller__af {
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2532,7 +2532,7 @@
   padding: 0;
   margin: 0 0 var(--r4);
   float: none;
-  font-size: 11px;
+  font-size: var(--fs-data);
   font-weight: 700;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -2549,7 +2549,7 @@
   background: var(--linje);
 }
 .facet__tal {
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--stoev-blaek);
@@ -2615,12 +2615,12 @@
 }
 .rk__navn {
   flex: 1;
-  font-size: 14px;
+  font-size: var(--fs-raekke);
   font-weight: 500;
   min-width: 0;
 }
 .rk .antal {
-  font-size: 13px;
+  font-size: var(--fs-mikro);
   font-weight: 600;
   color: var(--blaek2);
   flex: none;
@@ -2689,7 +2689,7 @@
 }
 .chip__navn {
   display: block;
-  font-size: 13.5px;
+  font-size: var(--fs-raekke);
   font-weight: 600;
   margin-bottom: 7px;
 }
@@ -2698,7 +2698,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 10px;
-  font-size: 12px;
+  font-size: var(--fs-etiket);
 }
 .d {
   display: inline-flex;
@@ -2736,11 +2736,11 @@
   font-weight: 500;
 }
 .antal--chip {
-  font-size: 11px;
+  font-size: var(--fs-data);
   color: var(--stoev-blaek);
 }
 .chip-fod {
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   line-height: 1.5;
   color: var(--blaek2);
   margin: var(--r3) 0 0;
@@ -2771,7 +2771,7 @@
 }
 .resultat__titel {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--fs-mikro);
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -2788,7 +2788,7 @@
 }
 .sorter__etiket {
   padding: 0;
-  font-size: 11px;
+  font-size: var(--fs-data);
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -2811,7 +2811,7 @@
   align-items: center;
   padding: 6px 10px;
   cursor: pointer;
-  font-size: 12.5px;
+  font-size: var(--fs-mikro);
   font-weight: 600;
   color: var(--blaek2);
   background: var(--panel);
@@ -2918,7 +2918,7 @@
 }
 .kort__prod {
   margin: 0;
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -2926,7 +2926,7 @@
 }
 .kort__navn {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--fs-broed);
   font-weight: 600;
   letter-spacing: -0.005em;
   line-height: 1.2;
@@ -2952,7 +2952,7 @@
   top: 0;
   left: 0;
   z-index: 2;
-  font-size: 9.5px;
+  font-size: var(--fs-gulv);
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -2967,7 +2967,7 @@
 .kort__savn {
   display: none;
   margin-top: 5px;
-  font-size: 10.5px;
+  font-size: var(--fs-gulv);
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -3009,7 +3009,7 @@
     padding: var(--r4);
   }
   .aabning__titel {
-    font-size: 27px;
+    font-size: var(--fs-display-lille);
     max-width: none;
   }
   .aarstempel {
@@ -3037,7 +3037,7 @@
     margin-bottom: 2px;
   }
   .taeller__tal {
-    font-size: 22px;
+    font-size: var(--fs-figur-s);
   }
   [data-nulstil] {
     margin-left: auto;
@@ -3051,7 +3051,7 @@
     list-style: none;
     padding: 13px var(--r4);
     min-height: 44px;
-    font-size: 11.5px;
+    font-size: var(--fs-etiket);
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -3095,7 +3095,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .kort__navn {
-    font-size: 15px;
+    font-size: var(--fs-lille);
   }
   .kort__tekst {
     padding: 10px var(--r3) var(--r3);

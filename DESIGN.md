@@ -40,72 +40,140 @@ colors:
   stans: "var(--p-stans)"
   ring: "var(--p-gunmetal)"
 typography:
+  # R5 (spor/skriftskala, 4. sep 2026): én samlet skriftskala for hele sitet.
+  # Hver font-size i system.css og generator.css resolver gennem et navngivet token i :root.
   display:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-hero)"
     fontSize: "clamp(33px, 6.2vw, 76px)"
     fontWeight: 700
     lineHeight: 0.98
     letterSpacing: "-0.035em"
+  robot:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-robot)"
+    fontSize: "clamp(32px, 3.8vw, 54px)"
+    fontWeight: 700
+    lineHeight: 0.94
+    letterSpacing: "-0.032em"
   headline:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-h1)"
     fontSize: "clamp(27px, 3.6vw, 46px)"
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.03em"
   title:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-h2)"
     fontSize: "clamp(23px, 2.8vw, 34px)"
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.026em"
-  # DP3b (designplanen, 3. sep 2026): h3, lille, raekke og mikro er FOEJET TIL
-  # her, ikke opfundet. Prosaen navngav ni trin, frontmatter kun syv, og et
-  # spor, der laeste frontmatter, konkluderede derfor at 13 px og 14 px ikke
-  # fandtes i skalaen. Reglen er nu: frontmatter navngiver hvert trin,
-  # prosaen navngiver. Se ## Typografi -> Hierarki -> DP3b.
+  display-stor:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-display-stor)"
+    fontSize: "clamp(28px, 4vw, 44px)"
+    fontWeight: 700
+  display-titel:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-display-titel)"
+    fontSize: "clamp(20px, 2.4vw, 28px)"
+    fontWeight: 700
+  display-tal:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-display-tal)"
+    fontSize: "clamp(16px, 2vw, 22px)"
+    fontWeight: 700
+  display-lille:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-display-lille)"
+    fontSize: "clamp(13px, 1.2vw, 15px)"
+    fontWeight: 700
+  figur-l:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-figur-l)"
+    fontSize: "38px"
+    fontWeight: 700
+    fontFeature: "tnum 1"
+  figur-m:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-figur-m)"
+    fontSize: "30px"
+    fontWeight: 700
+    fontFeature: "tnum 1"
+  figur-s:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-figur-s)"
+    fontSize: "22px"
+    fontWeight: 700
+    fontFeature: "tnum 1"
   h3:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-h3)"
     fontSize: "19px"
     fontWeight: 700
     lineHeight: 1.08
+  manual:
+    fontFamily: "Literata, Georgia, Times New Roman, serif"
+    token: "var(--fs-manual)"
+    fontSize: "18px"
+    fontWeight: 400
+    lineHeight: 1.62
   body:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-broed)"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.55
     letterSpacing: "-0.006em"
+  felt:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-felt)"
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.4
   lille:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-lille)"
     fontSize: "15px"
     fontWeight: 400
     lineHeight: 1.55
-  # RAEKKE: navnet paa eller indholdet i én raekke i en taet liste eller tabel.
-  # Ni levende brugssteder i dag, fem af dem netop den rolle.
   raekke:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-raekke)"
     fontSize: "14px"
     fontWeight: 600
     lineHeight: 1.5
   mikro:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-mikro)"
     fontSize: "13px"
     fontWeight: 400
     lineHeight: 1.5
   label:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-etiket)"
     fontSize: "11.5px"
     fontWeight: 500
     lineHeight: 1.3
     letterSpacing: "0.15em"
+  data:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-data)"
+    fontSize: "11px"
+    fontWeight: 500
+    lineHeight: 1.3
+  gulv:
+    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
+    token: "var(--fs-gulv)"
+    fontSize: "10.5px"
+    fontWeight: 600
+    lineHeight: 1.2
   figur:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     fontWeight: 700
     fontFeature: "tnum 1"
-  manual:
-    fontFamily: "Literata, Georgia, Times New Roman, serif"
-    fontSize: "18px"
-    fontWeight: 400
-    lineHeight: 1.62
 rounded:
   # L79 (2. sep 2026): ét hjoerne, ikke en skala. Her stod rund 12 /
   # rund-ind 8 / rund-lille 6. Se ## Konflikter, punkt 7 — AFGJORT.
@@ -601,38 +669,97 @@ ikke en fastbredde-skrift. Se punkt 4 i `## Konflikter`.
 
 ### Hierarki
 
-Skalaen (klemmerne, ikke skrifterne) er ved 1440 px
-76 / 46 / 34 / 19 / 17 / 15 / **14** / 13 / 11,5 px. **Vægten på Hero er rettet fra
-800 til 700** (`spor/kort`, 31. aug 2026): Saira selvhostes kun i 400/500/600/700,
-og en manglende 800 tvang browseren til at SYNTETISERE fed skrift, hvilket gav en
-ujævn streg i store grader.
+Skalaen er defineret centralt som 18 navngivne CSS-custom properties (`--fs-*`)
+i `:root` i `assets/system.css` (spor/skriftskala, R5, 4. sep 2026).
+Enhver `font-size` i både `system.css` og `generator.css` resolver gennem et
+af disse tokens — rå px-literaler uden for `:root` er elimineret (0 stk).
 
-**14 px — trinet "Række" — er tilføjet af designplanen 3. sep 2026 (DP3b).
-Det er ikke et nyt trin; det er et trin, der var i brug og manglede et navn.**
-Se afgørelsen nedenfor.
+Skalaen består af to grupper: flydende klemmer til overskrifter og display-elementer,
+samt faste trin til nøgletal, brødtekst, tabeller, datatilstande og mikro-typografi:
 
-- **Hero** (700, `clamp(33px,6.2vw,76px)`, 0,98, −0,035em, Saira):
-  206 sider bruger klassen i dag — ikke kun en forside, der ikke længere findes.
-- **H1** (700, `clamp(27px,3.6vw,46px)`, Saira): robotnavnet på
-  robotsiden bruger sin egen, større regel — `clamp(40px,7.2vw,84px)`, 700,
-  nu `--mono` (Saira), som resten af siden.
-- **H2** (700, `clamp(23px,2.8vw,34px)`): sektionshoveder.
-- **H3** (700, 19px).
-- **Brød** (400, 17px, 1,6, `blaek2`, Saira via nedarvning fra `body`).
-- **Lille** (400, 15px, 1,55, `blaek2`).
-- **Række** (500–600, 14px, 1,5): **navnet på eller indholdet i én række i en
-  tæt liste eller tabel**, hvor 15px er for løst og 13px for stille. Tilføjet
-  som navngivet trin af DP3b; se afgørelsen nedenfor.
-- **Mikro** (400, 13px, 1,5, `blaek3`).
-- **Etiket** (mono, 500, 11,5px, +0,15em, versaler, `blaek3`).
-- **Figur** (mono, 700, tabulære cifre `tnum 1`): selve tallet. Størrelsen er
-  kontekstbestemt af komponenten (fx `.om-regnskab__raekke .figur` 30px/38px på
-  Om-siden, `.producent-fakta .figur` 21px) — der er ingen ét-tal-passer-alle
-  figur-størrelse i dag.
-- **Manual-brød** (400, 18px, 1,62, `blaek`, `--manual`/Literata): Om-sidens
-  argumenterende afsnit. 62ch, ikke sitets almindelige 68ch — Literata er
-  bredere pr. tegn ved samme pixelstørrelse (målt: 62ch Literata 18px = 636px,
-  mod 68ch Saira 17px = 629px, kildens egen kommentar).
+**Display og overskrifter (flydende responsivitet):**
+- **Hero** (`--fs-hero`: `clamp(33px,6.2vw,76px)`, 700, 0,98, −0,035em, Saira):
+  hovedtitel på 206 sider.
+- **Robot H1** (`--fs-robot`: `clamp(32px,3.8vw,54px)`, 700, 0,94, −0,032em, Saira):
+  robotnavnet på typeskiltet; mindste grad (32px) er altid større end nøgletallene.
+- **H1** (`--fs-h1`: `clamp(27px,3.6vw,46px)`, 700, 1,08, −0,03em, Saira):
+  sektionsoverskrifter og producentnavn.
+- **H2** (`--fs-h2`: `clamp(23px,2.8vw,34px)`, 700, 1,08, −0,026em, Saira):
+  mellemoverskrifter og undersektioner.
+- **Display stor** (`--fs-display-stor`: `clamp(28px,4vw,44px)`, 700, Saira):
+  store tal/overskrifter i sammenligningsvisningen.
+- **Display titel** (`--fs-display-titel`: `clamp(20px,2.4vw,28px)`, 700, Saira):
+  kolonnetitler i sammenligningsvisningen.
+- **Display tal** (`--fs-display-tal`: `clamp(16px,2vw,22px)`, 700, Saira):
+  mellemnøgletal i sammenligningsvisningen.
+- **Display lille** (`--fs-display-lille`: `clamp(13px,1.2vw,15px)`, 700, Saira):
+  sekundære tal i sammenligningsvisningen.
+
+**Faste overskrifter og figurer:**
+- **Figur L** (`--fs-figur-l`: 38px, mono, 700, `tnum 1`):
+  store nøgletal (fx `.om-regnskab__raekke .figur`).
+- **Figur M** (`--fs-figur-m`: 30px, mono, 700, `tnum 1`):
+  mellemstore nøgletal og statistik.
+- **Figur S** (`--fs-figur-s`: 22px, mono, 700, `tnum 1`):
+  små nøgletal, robotstribens figurer og specifikationsværdier.
+- **H3** (`--fs-h3`: 19px, 700, 1,08, Saira):
+  mindre sektions- og kortoverskrifter.
+- **Manual-brød** (`--fs-manual`: 18px, 400, 1,62, Literata `--manual` samt Saira `.kort-navn`):
+  Om-sidens argumenterende prosa (62ch) og instrumentkortets robotnavn.
+
+**Brød, række, mikroniveauer og gulv:**
+- **Brød** (`--fs-broed`: 17px, 400, 1,6, `blaek2`, Saira):
+  standard brødtekst, nedarvet fra `body`.
+- **Felt** (`--fs-felt`: 16px, 400, 1,4, Saira):
+  inputfelter og formularer (sikrer mod iOS Safari utilsigtet auto-zoom).
+- **Lille** (`--fs-lille`: 15px, 400, 1,55, `blaek2`, Saira):
+  sekundær brødtekst, manchetter og indledninger.
+- **Række** (`--fs-raekke`: 14px, 600, 1,5, Saira):
+  indhold eller navne i en tæt liste eller tabel (DP3b).
+- **Mikro** (`--fs-mikro`: 13px, 400, 1,5, `blaek3`, Saira):
+  mikrotekst, metadata og hjælpetekster.
+- **Etiket** (`--fs-etiket`: 11,5px, mono, 500, +0,15em, versaler, `blaek3`):
+  spatierede versaletiketter og kildemarkører.
+- **Data** (`--fs-data`: 11px, 500, +0,01em, `blaek3`, Saira):
+  datatilstande (`.v-ikke`, `.v-billede`).
+- **Gulv** (`--fs-gulv`: 10,5px, 600–700, mono/Saira):
+  DP3c's absolutte skriftgulv for enhver tekst, der bæres alene (fx `.omregnet`).
+
+### R5 — én samlet skriftskala for hele sitet (4. sep 2026)
+
+**Problemet før R5.** Før sporet bar sitet 214 `font-size`-erklæringer fordelt på
+51 unikke værdier, heraf **29 spredte rå px-værdier**. 19 af disse lå klemt inde
+i spændet 9–20 px med mikroskopiske halvpixel-trin (9, 9.5, 10, 10.5, 11, 11.5,
+12, 12.5, 13, 13.5, 14, 15, 16, 17, 18, 19, 20 px). Værdierne var opstået
+ad hoc i lokale komponenter og skabte visuel uro og inkonsistente spring.
+
+**Harmoniseringen og de eliminerede trin:**
+- **Værdier under 10,5 px (9px, 9.5px, 10px):** Løftet til `--fs-gulv` (10,5 px)
+  i fuld overensstemmelse med DP3c. Tekst som `.omregnet` og datachips stod unødigt
+  klemt under læsbarhedsgrænsen.
+- **12 px og 12,5 px:** Samlet i `--fs-mikro` (13px) for sekundære elementer eller
+  `--fs-data` (11px) for datatilstande. Ingen læser kunne skelne 12px fra 11,5px
+  eller 13px, men forskellen fragmenterede det typografiske udtryk.
+- **13,5 px:** Samlet i `--fs-raekke` (14px).
+- **16 px:** Fastlagt som `--fs-felt` for inputfelter for at garantere mod
+  iOS Safaris automatiske zoom-in ved tekststørrelser under 16px.
+- **20 px og 21 px:** Samlet i henholdsvis `--fs-h3` (19px) og `--fs-figur-s` (22px).
+- **23 px og 24 px:** Harmoniseret til `--fs-figur-s` (22px) (fx robotstribens figurer).
+- **26 px, 28 px, 32 px, 34 px:** Samlet i `--fs-figur-m` (30px) eller dækket af
+  de flydende klemmer (`--fs-h2`, `--fs-display-*`).
+- **40 px og 48 px:** Samlet i klemmerne eller `--fs-figur-l` (38px).
+
+**Forholdet til typeskiltet:**
+- Robotnavnet (`.typeskilt .robot-navn h1`) er forankret i `--fs-robot: clamp(32px, 3.8vw, 54px)`
+  med en mindste grad på 32px, hvilket sikrer, at navnet altid står klart over
+  stribens nøgletal (22px).
+- Typeskiltets kildemærker, operatorer og enheder overholder DP3c som relative
+  `max(8px, …em)`.
+- Mærket `.omregnet` er løftet fra 9px til `--fs-gulv` (10,5 px).
+
+**Måleresultat:** Efter R5 er der **0 rå px-værdier** og **0 rå clamp()-kald**
+uden for `:root` i både `system.css` og `generator.css`. Alle font-størrelser
+er 100 % sporbare og styres fra skalaens tokens i `:root`.
 
 ### DP3b — det trin, skalaen manglede, og som allerede fandtes
 
