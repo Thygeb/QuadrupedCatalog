@@ -1347,7 +1347,12 @@ export async function main(argv) {
       return 1;
     }
   } else {
-    dataMappe = path.resolve(String(flag['data'] ?? 'data/robots'));
+    // AA183/L84: 'data/robots' fandtes her som fallback, men var dead code -
+    // naar flag['data'] er undefined, er brugDb altid true (se linje 1337),
+    // saa denne gren naas kun med filer.length>0, hvor dataMappe aldrig laeses
+    // (arvMappe bruger filer[0], ikke dataMappe). Mappen er slettet; fallbacken
+    // peger derfor ikke laengere paa noget, der findes.
+    dataMappe = flag['data'] !== undefined ? path.resolve(String(flag['data'])) : null;
     if (!maal.length) {
       maal = findFiler(dataMappe);
       if (!maal.length) { console.error(`Ingen YAML-filer i ${dataMappe}.`); return 1; }
