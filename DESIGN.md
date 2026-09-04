@@ -1330,15 +1330,38 @@ meningsbærende ikke-tekst-elementer (inputkant, hul-markør). ORBIT-værdien
 klarede kravet (3,32–3,68 : 1, jf. den forrige filudgave); TYPESKILTs nye
 hex gjorde det ikke.
 
-**DELVIST AFGJORT af `spor/tomstat` (R8, 4. sep 2026).** Det ene sted, hvor
+**Delvist afgjort af `spor/tomstat` (R8, 4. sep 2026).** Det ene sted, hvor
 `--hegn` var den eneste bærer af en oplysning — `.v-ikke`s ramme og dens 9×9
-firkant — bruger nu `--hegn-baerende` (`#737F87`, 3,43 : bund, 3,96 : panel).
-`--hegn` selv står uændret på sine 41 øvrige brugssteder, hvor den kun
-afgrænser. **Konflikten er ikke lukket:** `.stribe--intet` (10 sider) og
-`.typeskilt .maerke--tom` (30 sider) bærer stadig en oplysning på en
-`--hegn`-kant på 2,14 : 1 mod bunden. Reglen, der afgør fremtidige tilfælde:
-forsvinder konturen uden at en oplysning forsvinder med den, er den `--hegn`;
-ellers `--hegn-baerende`.
+firkant — brugte fra da af `--hegn-baerende` (`#737F87`, 3,43 : bund, 3,96 :
+panel). `--hegn` selv stod uændret på sine 41 øvrige brugssteder, hvor den kun
+afgrænser. To bærere af en oplysning stod dengang stadig tilbage:
+`.stribe--intet` (10 sider) og `.typeskilt .maerke--tom` (30 sider), begge på
+2,14 : 1 mod bunden.
+
+**AFGJORT af `spor/hegn2` (4. sep 2026).** De to resterende bærere skiftede
+samme dag til `--hegn-baerende`: `.stribe--intet` gik fra 2,07 : 1 mod eget
+fyld / 2,14 : 1 mod bund til **3,31 : 1 / 3,43 : 1**, og `.typeskilt
+.maerke--tom` (38 elementer på de 30 sider) gik fra 2,14 : 1 mod bund til
+**3,43 : 1**. `--hegn` selv står nu uændret på sine **40** øvrige
+brugssteder (`grep -ro "var(--hegn)" assets/ --include=*.css | wc -l`, målt
+efter rettelsen — se tokenkommentaren ved `system.css`s `--hegn`-token for den
+selvreference-sikre genmålingskommando). Reglen, der afgør fremtidige
+tilfælde, står uændret siden `spor/tomstat` og er nu anvendt tre steder i
+stedet for ét: forsvinder konturen uden at en oplysning forsvinder med den,
+er den `--hegn`; ellers `--hegn-baerende`.
+
+**Bevidst urørt: `.stribe--intet .ikon`** (`color:var(--hegn)`, 2,07 : 1 mod
+samme fyld som kanten stod på før rettelsen). Blokken har både en overskrift
+og et afsnit, der siger det samme med ord — ikonet er derfor et redundant
+tekst-supplement, ikke bæreren af oplysningen, og WCAG 1.4.11 gælder kun det
+ikke-tekstlige element, der ER bæreren. Målt, ikke antaget — så beslutningen
+ikke ligner en forglemmelse for næste læser.
+
+To nye assertions i `tests/dele/59-farvetokens.mjs` (59.25, 59.26) låser nu
+begge kanter gennem `var()`-kæden — kontrast OG polet, ikke kun hex, samme
+grund som 59.21/59.23 er delt i to — og er efterprøvet kontrafaktisk: sættes
+en af kanterne tilbage til `var(--hegn)`, falder netop den assertion, med
+tallet i fejlteksten (2,07/2,14 hhv. 2,14).
 
 **7. To formsprog for radius. AFGJORT af L79 (2. sep 2026).** Konflikten
 var: den tokeniserede skala (`--rund` 12px, `--rund-ind` 8px,

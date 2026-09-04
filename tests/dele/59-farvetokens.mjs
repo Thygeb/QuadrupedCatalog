@@ -249,5 +249,33 @@ export default async function koer(ctx) {
     const kant = raa.get('--hegn-baerende') ? loes(raa.get('--hegn-baerende')[0]).toUpperCase() : null;
     ok('59.24: --hegn-baerende findes og loeser op til #737F87',
       kant === '#737F87', `fandt ${kant}`);
+
+    // --- spor/hegn2: de to sidste --hegn-kanter, der bar en oplysning -----
+    // Samme grund som 59.21/59.23 er delt i to: en hex-laas alene er blind
+    // for kontrast, og et kontrasttal alene laaser ikke poletten. Skrives
+    // :1022 eller :2052 tilbage til var(--hegn), skal BEGGE typer falde.
+    const stribeRegel = sys.match(/\.stribe--intet\{([^}]*)\}/);
+    const maerkeTomRegel = sys.match(/\.typeskilt \.maerke--tom\{([^}]*)\}/);
+
+    const S_KANT = farveI(stribeRegel && stribeRegel[1], 'border');
+    const S_FYLD = farveI(stribeRegel && stribeRegel[1], 'background');
+    const S_ALLE = S_KANT && S_FYLD && BUND;
+    const skf = S_ALLE ? kontrast(S_KANT, S_FYLD) : null;
+    const skb = S_ALLE ? kontrast(S_KANT, BUND) : null;
+    ok(`59.25: .stribe--intets baerende KANT >= 3,00 mod BAADE eget FYLD og --bund (WCAG 1.4.11). I dag ${skf === null ? '?' : vis(skf)} / ${skb === null ? '?' : vis(skb)}`,
+      S_ALLE && skf >= 3 && skb >= 3,
+      S_ALLE
+        ? `KANTEN ${S_KANT} paa eget FYLD ${S_FYLD}: ${vis(skf)} (krav 3,00) · KANTEN paa BUNDEN ${BUND}: ${vis(skb)} (krav 3,00)`
+        : `farverne kunne ikke laeses ud af reglen: kant=${S_KANT} fyld=${S_FYLD} bund=${BUND}`);
+
+    const M_KANT = farveI(maerkeTomRegel && maerkeTomRegel[1], 'border');
+    const M_ALLE = M_KANT && BUND;
+    const mkb = M_ALLE ? kontrast(M_KANT, BUND) : null;
+    const brugerBaerende = baerer(maerkeTomRegel && maerkeTomRegel[1]);
+    ok(`59.26: .typeskilt .maerke--toms baerende KANT >= 3,00 mod --bund (WCAG 1.4.11) og bruger var(--hegn-baerende). I dag ${mkb === null ? '?' : vis(mkb)}`,
+      M_ALLE && mkb >= 3 && brugerBaerende,
+      M_ALLE
+        ? `KANTEN ${M_KANT} paa BUNDEN ${BUND}: ${vis(mkb)} (krav 3,00) · struktur: ${brugerBaerende ? 'bruger --hegn-baerende' : 'bruger IKKE --hegn-baerende'}`
+        : `farven kunne ikke laeses ud af reglen: kant=${M_KANT} bund=${BUND}`);
   }
 }
