@@ -1687,7 +1687,17 @@ td.saml-raekke__celle .v-ja{font-size:var(--fs-gulv)}
 .sog input{
   font-family:var(--mono);font-size:var(--fs-felt);min-height:44px;padding:9px 14px;width:100%;
   background:var(--panel);color:var(--blaek);
-  border:1px solid var(--hegn);border-radius:var(--hjoerne);
+  /* SYSTEMREGEL (spor/flader pas 3, 4. sep 2026): en kant, der er det ENESTE,
+     der identificerer en betjeningsflade, skal vaere --hegn-baerende eller
+     moerkere. Her stod var(--hegn), og det er #9AA3A9 PAA --panel #FAFBFB =
+     2,47 : 1 mod WCAG 1.4.11's krav paa 3 : 1 for meningsbaerende ikke-tekst.
+     DESIGN.md's "## Konflikter" har baaret netop dette tal som en aaben
+     konflikt; det er nu lukket. --hegn-baerende #737F87 paa --panel = 3,96 : 1.
+     Paletten er UROERT - begge poletter fandtes i forvejen, og
+     --hegn-baerende er den lyseste, der klarer 3 : 1 paa alle tre bundfarver
+     (panel 3,96 · bund 3,43 · tom 3,31). --hegn og --linje er derfor
+     dekorative: skillelinjer, tegninger og fravaerssproget (stiplet). */
+  border:1px solid var(--hegn-baerende);border-radius:var(--hjoerne);
 }
 .sog input::placeholder{color:var(--blaek3);opacity:1}
 .sog input:focus-visible{border-color:var(--ring);outline-offset:1px}
@@ -2196,7 +2206,13 @@ td .v{font-size:var(--fs-lille)}
 .enhedsskift:hover{color:var(--blaek);border-color:var(--hegn)}
 .enhedsskift__spor{
   position:relative;display:block;flex:none;width:30px;height:14px;
-  border:1px solid var(--hegn);border-radius:99px;background:var(--bund);
+  /* Samme systemregel som .sog input ovenfor: kontaktens SPOR er selve
+     affordancen - der er ingen anden grafik, der siger "det her er en
+     kontakt". var(--hegn) #9AA3A9 paa --bund #E8EBED = 2,14 : 1, altsaa endnu
+     laengere under 1.4.11's 3 : 1 end inputrammen var. --hegn-baerende paa
+     --bund = 3,43 : 1. Knoppen selv staar i --blaek3 (4,74 : 1 paa bund) og
+     var aldrig problemet. */
+  border:1px solid var(--hegn-baerende);border-radius:99px;background:var(--bund);
 }
 .enhedsskift__knop{
   position:absolute;top:1px;left:1px;width:10px;height:10px;
