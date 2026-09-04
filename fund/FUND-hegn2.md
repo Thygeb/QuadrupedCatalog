@@ -65,6 +65,14 @@ var(--hegn-baerende): 4`.
    dokumenterer for `{`/`}` i CSS-kommentarer). Løst ved at dokumentere den ESCAPEDE form
    (`grep -roE "var\(--hegn\)"`), som ikke selv-matcher, og skrive fælden ind i kommentaren,
    så næste agent ikke genopdager den samme vej.
+   **Rettet efter orkestratorens gennemsyn (4. sep 2026):** fælden var kun ægte i en
+   *mellemudgave*, og kommentarens advarsel påstod fejlagtigt, at den uescapede kommando
+   giver 41 **i dag** — det gør den ikke. Genmålt på den endelige fil:
+   `grep -ro "var(--hegn)" assets/ --include=*.css | wc -l` → **40** og
+   `grep -roE "var\(--hegn\)" assets/ --include=*.css | wc -l` → **40**, identiske. Kommentaren
+   er omskrevet til at beskrive fælden som noget et *tidligere udkast* ramte, ikke som en
+   påstand om den nuværende fils tal — en advarsel, næste læser kan modbevise med én kommando,
+   er værre end ingen advarsel.
 
 3. **`.maerke--tom` står faktisk på `--bund`, ikke `--panel`.** Målt i browser
    (`getComputedStyle`, `anybotics-anymal-x`): `background-color` er `rgba(0,0,0,0)` op til

@@ -199,15 +199,19 @@
                                  bruge --hegn-baerende. --hegn bliver staaende
                                  uroert paa sine oevrige 40 brugssteder (efter
                                  spor/hegn2 4. sep 2026 rettede de to sidste
-                                 baerende kanter, :1022 og .maerke--tom):
-                                 den er stadig den rigtige polet til en kontur,
-                                 der kun afgraenser. Genmaal med
+                                 baerende kanter, .stribe--intet og .typeskilt
+                                 .maerke--tom): den er stadig den rigtige polet
+                                 til en kontur, der kun afgraenser. Genmaal med
                                  grep -roE "var\(--hegn\)" assets/ --include=*.css | wc -l
-                                 - IKKE med den uescapede form, for saa taeller
-                                 grep denne kommentars egen omtale af moensteret
-                                 med og giver 41, ikke 40 (selv-reference-faelden,
-                                 CLAUDE.md's "raat grep i CSS: ogsaa klammer i
-                                 kommentarer"). Se DESIGN.md konflikt 6. */
+                                 - denne ESCAPEDE form og dens uescapede udgave
+                                 (fjern begge backslash'er foran parenteserne)
+                                 giver begge 40 i dag. SKRIV ALDRIG den
+                                 uescapede udgave bogstaveligt ind i DENNE
+                                 kommentar: et tidligere udkast gjorde det, og
+                                 saa taalte grep udkastets eget citat af
+                                 moensteret med og gav 41 (selv-reference-
+                                 faelden, CLAUDE.md's "raat grep i CSS: ogsaa
+                                 klammer i kommentarer"). Se DESIGN.md konflikt 6. */
   --hegn-baerende:var(--p-stoevgraa-2); /* NY, spor/tomstat 4. sep 2026. Kanten, der
                                  SELV er oplysningen - i dag kun ".v-ikke" og
                                  dens 9x9 stiplede firkant. 3,43 : 1 for KANTEN
