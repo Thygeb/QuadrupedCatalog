@@ -36,6 +36,7 @@ import {
   normaliserVisningsEnheder, sorterAnvendelse,
 } from './skema.mjs';
 import { main as validerMain, taethed, laesFlag, findFiler, naevnereFra } from './validate.mjs';
+import { hentRobotter } from '../db/hent.mjs';
 import {
   lavSprog, lavHjaelp, lavKilder, skal, esc, vaegtklasse, VAEGTKLASSER,
   manglendeNoegler,
@@ -239,22 +240,43 @@ async function main(argv) {
   const naevnere = naevnereFra(flag);
   const d4 = String(flag['type-uden-model'] ?? 'tael-ikke') === 'tael';
 
-  let dataMappe = path.resolve(String(flag['data'] ?? 'data/robots'));
-  let filer = findFiler(dataMappe);
-  if (!filer.length) {
-    const reserve = path.resolve('tests/eksempel-robotter');
-    const r = findFiler(reserve);
-    if (r.length) {
-      console.log(`  ${dataMappe} er tom - bygger fra ${reserve} i stedet.`);
-      dataMappe = reserve;
-      filer = r;
+  // spor/fase3 (BRIEF-fase3.md punkt 2): databasen er STANDARD, naar intet
+  // --data= er givet. --data= BLIVER som flag - 17 kald i tests/dele/ og
+  // fixturerne bruger den stadig, og den vej er fuldstaendig uaendret
+  // nedenfor. Kun fravaeret af flaget er nyt.
+  const brugDb = flag['data'] === undefined;
+  let dataMappe = null;
+  let filer = [];
+  let dbDocs = null;
+
+  if (brugDb) {
+    try {
+      dbDocs = await hentRobotter();
+    } catch (e) {
+      console.error(`Kunne ikke hente robotter fra databasen: ${e && e.message ? e.message : e}`);
+      return 1;
     }
+  } else {
+    dataMappe = path.resolve(String(flag['data']));
+    filer = findFiler(dataMappe);
+    if (!filer.length) {
+      const reserve = path.resolve('tests/eksempel-robotter');
+      const r = findFiler(reserve);
+      if (r.length) {
+        console.log(`  ${dataMappe} er tom - bygger fra ${reserve} i stedet.`);
+        dataMappe = reserve;
+        filer = r;
+      }
+    }
+    if (!filer.length) { console.error(`Ingen YAML-filer i ${dataMappe}.`); return 1; }
   }
-  if (!filer.length) { console.error(`Ingen YAML-filer i ${dataMappe}.`); return 1; }
+
+  const kildeAntal = brugDb ? dbDocs.length : filer.length;
 
   if (!flag['spring-validering-over']) {
-    console.log(`Validerer ${filer.length} fil(er) ...`);
-    if (validerMain([`--data=${dataMappe}`]) !== 0) {
+    console.log(`Validerer ${kildeAntal} fil(er) ...`);
+    const valideringsArgv = brugDb ? [] : [`--data=${dataMappe}`];
+    if ((await validerMain(valideringsArgv)) !== 0) {
       console.error('\nBygget stoppet: validatoren fandt fejl. dist/ er ikke skrevet.');
       return 1;
     }
@@ -269,14 +291,21 @@ async function main(argv) {
   // se producentens raa enhed, mens ALLE skabeloner (kort, robotside,
   // sammenligning), der laeser samme robotter-array, automatisk viser én
   // enhed pr. felt.
-  const robotter = filer.map((f) => {
-    try { return normaliserVisningsEnheder(normaliserRobot(parseYaml(fs.readFileSync(f, 'utf8'), f))); }
-    catch (e) { if (e instanceof YamlFejl) { console.error(String(e.message)); return null; } throw e; }
-  }).filter(Boolean);
+  //
+  // DB-vejen: dbDocs er allerede raa parseYaml()-docs (db/hent.mjs), saa kun
+  // normaliseringstrinnet mangler - selve parse-fejlhaandteringen (YamlFejl)
+  // hoerer hjemme i db/hent.mjs, ikke her, fordi der ikke er nogen fil pr.
+  // robot at pege paa i fejlbeskeden.
+  const robotter = brugDb
+    ? dbDocs.map((doc) => normaliserVisningsEnheder(normaliserRobot(doc)))
+    : filer.map((f) => {
+      try { return normaliserVisningsEnheder(normaliserRobot(parseYaml(fs.readFileSync(f, 'utf8'), f))); }
+      catch (e) { if (e instanceof YamlFejl) { console.error(String(e.message)); return null; } throw e; }
+    }).filter(Boolean);
   robotter.sort((a, b) => String(a.navn).localeCompare(String(b.navn), 'da'));
 
-  paastaa(robotter.length === filer.length,
-    `${filer.length} datafiler, men kun ${robotter.length} kunne laeses.`);
+  paastaa(robotter.length === kildeAntal,
+    `${kildeAntal} datafiler, men kun ${robotter.length} kunne laeses.`);
 
   // Producenterne udledes af robotterne. data/manufacturers/ er tom i dag.
   const producenter = [...new Map(robotter.map((r) => [r.producent, {
@@ -876,9 +905,14 @@ ${RODSPROG.map((s) => `<a class="rod__vej" href="${s.kode}/" hreflang="${s.kode}
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('build.mjs');
 if (erHoved) {
-  main(process.argv.slice(2)).then((k) => process.exit(k)).catch((e) => {
+  // process.exitCode (IKKE process.exit()) — spor/fase3 gjorde main() en
+  // aegte fetch()-vej (DB-standarden, via db/hent.mjs), og et EKSPLICIT
+  // process.exit() efter en aegte fetch() crasher denne maskines node.exe
+  // v24.13.0 med en libuv-assertion, exit-kode 127, ogsaa naar kaldet
+  // lykkedes (se db/eksporter.mjs's bund for samme moenster og begrundelse).
+  main(process.argv.slice(2)).then((k) => { process.exitCode = k; }).catch((e) => {
     console.error(String(e && e.message ? e.message : e));
-    process.exit(1);
+    process.exitCode = 1;
   });
 }
 

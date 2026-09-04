@@ -36,6 +36,7 @@ import {
   ANVENDELSE_VAERDIER, ANVENDELSE_NOEGLER, sorterAnvendelse,
   BILLEDE_OPHAV, BILLEDE_NOEGLER, BILLEDE_KRAEVER_KILDE, BILLEDMAPPER, BILLEDE_ENDELSER, SPROG, KILDESPROG,
 } from './skema.mjs';
+import { hentRobotter } from '../db/hent.mjs';
 
 /* ---------------------------------------------------------------- opsamling */
 
@@ -1318,35 +1319,78 @@ export function naevnereFra(flag) {
   return String(flag['naevner']).split(',').map((n) => Number(n.trim())).filter((n) => n > 0);
 }
 
-export function main(argv) {
+export async function main(argv) {
   const { flag, filer } = laesFlag(argv);
   if (flag['selvtest']) return selvtest();
   if (flag['imperial-tolerance'] !== undefined) cfg.imperialTolerance = Number(flag['imperial-tolerance']);
   if (flag['assets'] !== undefined) cfg.assets = path.resolve(String(flag['assets']));
   cfg.streng = Boolean(flag['streng']);
 
+  // spor/fase3 (BRIEF-fase3.md punkt 4): databasen er STANDARD, men KUN naar
+  // hverken navngivne filer PAA kommandolinjen eller --data= er givet -
+  // samme "--data= BLIVER"-regel som build.mjs. Navngivne filer (`filer`,
+  // fra laesFlag's positionelle argumenter) gaar UAeNDRET til den gamle vej:
+  // 26 kald i tests/dele/ bruger netop den form (koerValidator([enkeltFil])),
+  // og ingen af dem skal ramme databasen.
+  const brugDb = !filer.length && flag['data'] === undefined;
+
   let maal = filer;
-  const dataMappe = path.resolve(String(flag['data'] ?? 'data/robots'));
-  if (!maal.length) {
-    maal = findFiler(dataMappe);
-    if (!maal.length) { console.error(`Ingen YAML-filer i ${dataMappe}.`); return 1; }
+  let dataMappe = null;
+  let dbDocs = null;
+  if (brugDb) {
+    try {
+      dbDocs = await hentRobotter();
+    } catch (e) {
+      console.error(`Kunne ikke hente robotter fra databasen: ${e && e.message ? e.message : e}`);
+      return 1;
+    }
+  } else {
+    dataMappe = path.resolve(String(flag['data'] ?? 'data/robots'));
+    if (!maal.length) {
+      maal = findFiler(dataMappe);
+      if (!maal.length) { console.error(`Ingen YAML-filer i ${dataMappe}.`); return 1; }
+    }
   }
   // R17 skal kunne slaa en moder op, ogsaa naar kun varianten er naevnt paa
   // kommandolinjen. Moderen soeges der, hvor de navngivne filer ligger.
-  const arvMappe = filer.length ? path.dirname(path.resolve(filer[0])) : dataMappe;
+  // DB-vejen har ALTID alle 77 i `robotter` i forvejen (fraDisk() i tjekArv
+  // er kun en reserve for et navngivet delmaengde-kald) - arvMappe er derfor
+  // meningsloest og staar som null, hvilket tjekArv's fraDisk() selv haandterer.
+  const arvMappe = brugDb ? null : (filer.length ? path.dirname(path.resolve(filer[0])) : dataMappe);
 
+  const kildeAntal = brugDb ? dbDocs.length : maal.length;
   const robotter = [];
-  for (const fil of maal) {
-    robotINavn = path.basename(fil);
-    let doc;
-    try {
-      doc = normaliserRobot(parseYaml(fs.readFileSync(fil, 'utf8'), fil));
-    } catch (e) {
-      if (e instanceof YamlFejl) { FEJL('R0', '(syntaks)', e.message); continue; }
-      throw e;
+  if (brugDb) {
+    for (const doc0 of dbDocs) {
+      // Det syntetiske "filnavn" er IKKE en sti - kun det, tjekRobot()
+      // bruger via path.basename() (R14: slug skal matche filnavnet) og
+      // robotINavn-fejlmeldinger. "<slug>.yaml" er PRAECIS den streng, en
+      // rigtig fil ville have haft.
+      const synFil = `${doc0 && doc0.slug}.yaml`;
+      robotINavn = synFil;
+      let doc;
+      try {
+        doc = normaliserRobot(doc0);
+      } catch (e) {
+        if (e instanceof YamlFejl) { FEJL('R0', '(syntaks)', e.message); continue; }
+        throw e;
+      }
+      const r = tjekRobot(doc, synFil);
+      if (r) robotter.push(r);
     }
-    const r = tjekRobot(doc, fil);
-    if (r) robotter.push(r);
+  } else {
+    for (const fil of maal) {
+      robotINavn = path.basename(fil);
+      let doc;
+      try {
+        doc = normaliserRobot(parseYaml(fs.readFileSync(fil, 'utf8'), fil));
+      } catch (e) {
+        if (e instanceof YamlFejl) { FEJL('R0', '(syntaks)', e.message); continue; }
+        throw e;
+      }
+      const r = tjekRobot(doc, fil);
+      if (r) robotter.push(r);
+    }
   }
 
   // R17 — arven kan foerst afgoeres, naar moderen kan slaas op.
@@ -1357,7 +1401,7 @@ export function main(argv) {
   for (const f of fejl) console.error(`FEJL      ${f.robot} · ${f.felt} · ${f.regel}: ${f.besked}`);
   for (const a of advarsler) console.error(`advarsel  ${a.robot} · ${a.felt} · ${a.regel}: ${a.besked}`);
 
-  console.log(`\n${maal.length} fil(er) · ${fejl.length} fejl · ${advarsler.length} advarsler` +
+  console.log(`\n${kildeAntal} fil(er) · ${fejl.length} fejl · ${advarsler.length} advarsler` +
     (cfg.streng ? ' (--streng: advarsler taeller som fejl)' : ''));
 
   if (flag['taethed']) skrivTaethed(robotter, flag);
@@ -1392,4 +1436,14 @@ function skrivTaethed(robotter, flag) {
 }
 
 const erHoved = process.argv[1] && path.resolve(process.argv[1]).endsWith('validate.mjs');
-if (erHoved) process.exit(main(process.argv.slice(2)));
+if (erHoved) {
+  // main() er ASYNC siden spor/fase3 (DB-standarden, via db/hent.mjs's aegte
+  // fetch()). process.exitCode (IKKE process.exit()) af samme grund som
+  // build.mjs's bund og db/eksporter.mjs's: et EKSPLICIT process.exit() efter
+  // en aegte fetch() crasher denne maskines node.exe v24.13.0 med en
+  // libuv-assertion, exit-kode 127 - ogsaa naar kaldet lykkedes.
+  main(process.argv.slice(2)).then((k) => { process.exitCode = k; }).catch((e) => {
+    console.error(String(e && e.stack ? e.stack : e));
+    process.exitCode = 1;
+  });
+}

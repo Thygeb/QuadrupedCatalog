@@ -26,6 +26,7 @@ import path from 'node:path';
 import process from 'node:process';
 import {
   rod, node, skema, yaml, alder, taelFilerRekursivt, lasRobotter, operatorRegex, koerValidator,
+  hentRobotter,
 } from './dele/_faelles.mjs';
 
 const tmp = path.join(rod, 'tests', '.tmp-koersel');
@@ -45,6 +46,7 @@ fs.mkdirSync(tmp, { recursive: true });
  *  tests/LAESMIG.md for hvad en ny del maa forvente heraf. */
 const ctx = {
   rod, tmp, node, ok, skema, yaml, alder, lasRobotter, taelFilerRekursivt, operatorRegex, koerValidator,
+  hentRobotter,
 };
 
 /** Raekkefoelgen er laeseorden, IKKE en afhaengighedskaede - hver del bygger
@@ -78,4 +80,14 @@ console.log(`\nValidator: ${validatorTal.ietFilAntal + validatorTal.paaTVaersAnt
   + `fangede ${validatorTal.fangede}.`);
 console.log(`I alt: ${bestaaet} bestaaet, ${fejlet} fejlet.`);
 if (fejlet) console.log(`Fejlede: ${fejlliste.join(' · ')}`);
-process.exit(fejlet ? 1 : 0);
+// process.exitCode (IKKE process.exit()) - spor/fase3 (BRIEF-fase3.md punkt
+// 5) eksponerer ctx.hentRobotter(), som laver et AeGTE fetch() (db/hent.mjs).
+// Kalder en fremtidig del i tests/dele/ den IN-PROCESS (til forskel fra de
+// eksisterende build.mjs/validate.mjs-kald, som altid gaar via spawnSync og
+// dermed er en ANDEN proces), ville et efterfoelgende process.exit() her
+// crashe denne maskines node.exe v24.13.0 med en libuv-assertion, exit-kode
+// 127 - ogsaa naar kaldet lykkedes (miljoefaelder.md). Ingen eksisterende del
+// kalder den i dag (efterproevet: grep for hent.mjs/fraDb/fetch( i
+// tests/dele/ finder kun subprocess-kald og rene funktionsimporter), men
+// vaernet koster intet og fjerner faelden for den foerste, der goer.
+process.exitCode = fejlet ? 1 : 0;

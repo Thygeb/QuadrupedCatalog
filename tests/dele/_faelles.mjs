@@ -13,6 +13,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+// spor/fase3 (BRIEF-fase3.md punkt 5): hentRobotter() TILFOEJES ved siden af
+// lasRobotter() - lasRobotter() SLETTES IKKE og skiftes IKKE ud (se
+// db/hent.mjs's egen kommentar for hvorfor formen er en raa parseYaml()-doc,
+// ikke normaliseret). db/hent.mjs's egen cache (af fraDb()'s REST-svar, ikke
+// af doc-objekterne) sikrer allerede, at et kald herfra ikke laver 76
+// REST-kald - se den fils kommentar for hvorfor cachen er paa det niveau.
+export { hentRobotter } from '../../db/hent.mjs';
 
 export const rod = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
