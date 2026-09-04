@@ -321,32 +321,6 @@ ${modeller.map((m) => modelkort(ctx, m)).join('\n')}
 </section>`;
 }
 
-/** Alle producenter, hvis bygget giver os listen. Uden den springes afsnittet
- *  over — en liste med ét navn ville se ud, som om der kun var én producent. */
-function alleProducenter(ctx) {
-  const { i18n } = ctx;
-  const alle = Array.isArray(ctx.producenter) ? ctx.producenter : [];
-  if (alle.length < 2) return '';
-  const her = ctx.producent?.slug;
-  const punkter = alle.map((p) => {
-    const n = p.antal ?? (Array.isArray(p.modeller) ? p.modeller.length
-      : Array.isArray(p.robotter) ? p.robotter.length : null);
-    const navn = p.slug === her
-      ? `<span class="pnavn" aria-current="page">${esc(p.navn)}</span>`
-      : `<a class="pnavn" href="${esc(sti(ctx, 'producent', p.slug))}">${esc(p.navn)}</a>`;
-    return `<li>${navn}` +
-      (p.land ? `<span class="pland">${esc(TD(i18n, 'land_' + p.land, p.land))}</span>` : '') +
-      (n === null ? '' : `<span class="pantal figur">${esc(modelTal(i18n, n))}</span>`) +
-      `</li>`;
-  }).join('\n');
-  return `<section class="sektion" aria-labelledby="alle-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="alle-h">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</h2></div>
-<ul class="prodliste">
-${punkter}
-</ul>
-</section>`;
-}
-
 /* ------------------------------------------------------------------ render */
 
 export function render(ctx) {
@@ -372,7 +346,6 @@ export function render(ctx) {
 ${top(arbejde, modeller)}
 ${euSaetning(arbejde, modeller)}
 ${modelafsnit(arbejde, modeller)}
-${alleProducenter(arbejde)}
 </article>
 </div>
 </main>
