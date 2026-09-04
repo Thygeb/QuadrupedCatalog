@@ -5,3 +5,4 @@ tilhoerer det tidligere (bindestregede) spor/f2-deep.
 robot_id/slug                    A-raekker  bekraeftet
 2190 deep-robotics-lite3         6/6        OK
 2191 deep-robotics-lynx-m20      11/11      OK
+2192 deep-robotics-lynx-m20-pro  11/11      OK
