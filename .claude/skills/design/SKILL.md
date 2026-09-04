@@ -1,6 +1,6 @@
 ---
 name: design
-description: Navigationskortet til DESIGN.md, projektets designsystem. Kald den HVER gang noget visuelt skal bygges, bedømmes, kritiseres eller planlægges — en ny flade, en rettelse i CSS, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den kopierer ingenting fra DESIGN.md; den fortæller, hvilket afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 834. Bærer desuden de fire regler, der gælder ved ALT designarbejde: designfrysen, palettelåsen, MODE-navngivningen og de fire datatilstande.
+description: Navigationskortet til DESIGN.md, projektets designsystem. Kald den HVER gang noget visuelt skal bygges, bedømmes, kritiseres eller planlægges — en ny flade, en rettelse i CSS, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den kopierer ingenting fra DESIGN.md; den fortæller, hvilket afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 1.359. Bærer desuden de fire regler, der gælder ved ALT designarbejde: designfrysen, palettelåsen, MODE-navngivningen og de fire datatilstande.
 ---
 
 # design — find det rigtige afsnit i DESIGN.md, og kopiér det aldrig
@@ -13,10 +13,15 @@ Denne skill er et **kort over den fil**, ikke et resumé af den.
 
 ## Hvorfor der ikke findes et destillat, og hvorfor du ikke skal lave et
 
-Målt 3. sep 2026: DESIGN.md er **42 KB ≈ 12,5k tokens**. Til sammenligning
-CLAUDE.md 47 KB, `fund/PLAN-producent.md` 45 KB, **STATUS.md 416 KB ≈ 126k**.
-DESIGN.md er altså ~3 % af et opus-spors budget — **den er ikke, hvor tokenerne
-går.**
+Genmålt 4. sep 2026: DESIGN.md er **72 KB ≈ 21k tokens** (her stod *"42 KB ≈ 12,5k"*
+fra 3. sep — filen voksede 71 % på ét døgn). **STATUS.md 508 KB ≈ 154k** (her stod
+416 KB). Til sammenligning CLAUDE.md 47 KB.
+
+**Argumentet holder alligevel, og det er derfor tallet er rettet frem for fjernet:**
+DESIGN.md er stadig **~14 %** af STATUS.md og ~4 % af et opus-spors budget. Den er
+ikke, hvor tokenerne går. Men bemærk retningen — vokser filen i samme tempo en uge
+mere, skal regnestykket tages op igen. **Genmål det, i stedet for at citere denne
+linje.**
 
 Tre grunde til, at et destillat er en dårlig handel, selv når det ser billigt ud:
 
@@ -32,7 +37,7 @@ Tre grunde til, at et destillat er en dårlig handel, selv når det ser billigt 
 3. **Filen advarer selv.** DESIGN.md om løste konflikter: *"en løst konflikt, der
    slettes, efterlader ingen forklaring på, hvorfor koden ser ud, som den gør."*
 
-**Peg på afsnit i stedet.** Et spor, der læser 40 linjer i stedet for 834, sparer
+**Peg på afsnit i stedet.** Et spor, der læser 40 linjer i stedet for 1.359, sparer
 95 % — og ingen kopi kan divergere.
 
 ---
@@ -66,9 +71,11 @@ planen, ikke i et hastespor.
 eller en ny æra. `impeccable` respekterer selv låsen: *"The brief wins. Honor
 pinned aesthetics, eras, materials, fonts, and palettes."*
 
-Farvetokens står i DESIGN.md's frontmatter (`colors:`, linje 4-37) og i
-`assets/system.css` `:root`. **Primitiverne er kilden**; de 16 tokens peger på
-dem.
+Farvetokens står i DESIGN.md's frontmatter (`colors:`, linje 4-37; frontmatteren
+slutter på **217**, ikke 189 som her stod) og i
+`assets/system.css` `:root`. **Primitiverne er kilden**; de semantiske tokens peger
+på dem. **Tæl dem med `node fund/maal-farvetokens.mjs`, ikke efter hukommelsen** —
+her stod "de 16 tokens", og måleren gav 26 i alt den 4. sep 2026.
 
 ### 3. NAVNGIV FLADENS MODE, HVER GANG
 
@@ -98,52 +105,73 @@ hvor mange tilstande din flade kan komme i, og hvordan hver af dem ser ud.
 
 ## Kortet — hvilket afsnit svarer på hvad
 
-**Målt 3. sep 2026. Linjenumrene flytter sig, når DESIGN.md redigeres — så brug
-overskriften som nøgle og tallet som genvej.** Rammer et linjenummer forkert, så
-find afsnittet med `grep -n "^#" DESIGN.md` og skriv i din rapport, at kortet var
-forældet, så det kan rettes.
+**Målt 4. sep 2026 af `udstilling-e0`. Linjenumrene flytter sig, når DESIGN.md
+redigeres — så brug overskriften som nøgle og tallet som genvej.** Rammer et
+linjenummer forkert, så find afsnittet med `grep -nE "^#{2,3} " DESIGN.md` og skriv
+i din rapport, at kortet var forældet, så det kan rettes.
 
-### Frontmatter, linje 1-189 — maskinlæsbare tokens
+**HELE TABELLEN VAR FORKERT I ET DØGN, OG DEN SÅ RETTET UD.** Kortet stod med
+3. sep-tal, mens filen var vokset fra **834 til 1.359 linjer**. Alle fem
+hovedafsnit lå forkert — Farver 240 mod **344**, Layout 372 mod **715**,
+Komponenter 458 mod **801**, datatilstandene 583 mod **934**, Konflikter 674 mod
+**1169** — og **syv afsnit manglede helt**, heriblandt tre af de fire DP-beslutninger
+fra designplanen.
+
+Fælden er værd at kende, fordi den gentager sig: **Å172 rettede afsnits-ANTALLET
+(32 → 45) og lod numrene stå.** Et halvt rettet kort er farligere end et helt
+forældet, fordi tællingen stemmer, og læseren derfor tror på resten. Retter du
+antallet, så ret numrene i samme commit — eller skriv, at du ikke gjorde.
+
+### Frontmatter, linje 1-217 — maskinlæsbare tokens
 
 | Nøgle | Linje | Hvad den svarer på |
 |---|---|---|
-| `colors:` | 4 | Primitiver og de 16 farvetokens. **Kilden er `assets/system.css` `:root`** |
+| `colors:` | 4 | Primitiver og farvetokens. **Kilden er `assets/system.css` `:root`** — kør `node fund/maal-farvetokens.mjs` for det aktuelle antal (26 den 4. sep, heraf 9 primitiver). **Her stod "de 16 farvetokens"; det tal er ikke genmålt og skal ikke citeres** |
 | `typography:` | 38 | Skriftfamilier, vægte, den variable akse |
 | `rounded:` | 78 | Hjørneradier |
 | `spacing:` | 82 | Afstandsskalaen |
 | `components:` | 94 | Komponenternes tokenværdier |
 
-### Prosaen, linje 191-834
+### Prosaen, linje 221-1359
 
 | Afsnit | Linje | Spørg her, når du vil vide |
 |---|---|---|
-| **Overblik** | 193 | Hvad systemet er, og hvad det vil |
-| **Farver** | 240 | Hvornår en farve må bruges |
-| · Primær | 250 | Accentens rolle |
-| · Neutral | 264 | Blæk- og fladetrinene |
-| · Mørk flade | 286 | Den mørke variant |
-| · Navngivne regler | 293 | De farveregler, der har et navn |
-| **Typografi** | 307 | Skriftgrader og hvorfor der er så mange |
-| · Hierarki | 334 | Hvilket trin en overskrift skal have |
-| · Navngivne regler | 362 | De typografiregler, der har et navn |
-| **Layout** | 372 | Gitteret, spalterne, rytmen |
-| **Dybde** | 402 | Skygger, lag, hvad der ligger over hvad |
-| **Former** | 418 | Kanter, radier, stansninger |
-| **Komponenter** | 458 | **Start her, når du rører et eksisterende element** |
-| · Dækket (topbaren) | 460 | |
-| · Kort (`.net .kort`) | 472 | Katalogets kort |
-| · Filtre (kataloget) | 494 | Facetter, filterfladen |
-| · Søgefeltet | 506 | |
-| · Knapper (`.knap`, L77) | 514 | **Én primitiv.** Ni klasser blev talt og samlet |
-| · Kildemærket | 573 | Hvordan et tal viser sin kilde |
-| · **De fire datatilstande** | **583** | **ja / nej / ikke oplyst / kun på billede** |
-| · Nøgletalsstriben | 605 | Robotsidens stribe |
-| · Stansningen (`.stans`) | 613 | |
-| · Slettede komponenter | 620 | **Slå op her, før du genopfinder noget** |
-| **Gør og lad være** | 630 | |
-| · Gør | 632 | |
-| · Lad være | 647 | **Læs den, før du foreslår noget** |
-| **Konflikter** | 674 | Målte, uafgjorte spændinger. Fem afgjort, tre åbne |
+| **Overblik** | 221 | Hvad systemet er, og hvad det vil |
+| **Fladernes MODE — DP3** | **284** | **Slå MODE op her, ikke i denne skill.** Designplanen 3. sep |
+| · Operate | 296 | Den besøgende løser en opgave |
+| · Read | 313 | Den besøgende skal forstå noget |
+| · Reglen om fladens eget emne | **327** | Gælder Read: fladens egne sektioner > halvdelen af højden |
+| **Farver** | **344** | Hvornår en farve må bruges |
+| · Primær | 354 | Accentens rolle |
+| · Neutral | 370 | Blæk- og fladetrinene |
+| · Mørk flade | 392 | Den mørke variant |
+| · **Forgrundsreglen for `--accent` — DP1** | **399** | **Hvor gult ALDRIG må stå som forgrund.** 1,38 mod kravet |
+| · Navngivne regler | 545 | De farveregler, der har et navn |
+| **Typografi** | 562 | Skriftgrader og hvorfor der er så mange |
+| · Hierarki | 589 | Hvilket trin en overskrift skal have |
+| · **DP3b — trinnet, skalaen manglede** | **624** | *Række* (14 px). **Slå op her, før du tilføjer en `font-size`** |
+| · **DP3c — skriftgulvet får rækkevidde** | **679** | 10,5 px gælder tekst, der bæres alene. Hvad der er undtaget |
+| · Navngivne regler | 704 | De typografiregler, der har et navn |
+| **Layout** | **715** | Gitteret, spalterne, rytmen |
+| **Dybde** | 745 | Skygger, lag, hvad der ligger over hvad |
+| **Former** | 761 | Kanter, radier, stansninger |
+| **Komponenter** | **801** | **Start her, når du rører et eksisterende element** |
+| · Dækket (topbaren) | 803 | |
+| · Kort (`.net .kort`) | 815 | Katalogets kort |
+| · Filtre (kataloget) | 837 | Facetter, filterfladen |
+| · Søgefeltet | 849 | |
+| · Knapper (`.knap`, L77) | 857 | **Én primitiv.** Ni klasser blev talt og samlet |
+| · **Fokusringen** | **916** | DP1b's `--ring`. **Bygget 4. sep** — standard `--blaek`, accent kun mørkt |
+| · Kildemærket | 924 | Hvordan et tal viser sin kilde |
+| · **De fire datatilstande** | **934** | **ja / nej / ikke oplyst / kun på billede** |
+| · Nøgletalsstriben | 956 | Robotsidens stribe |
+| · Stansningen (`.stans`) | 964 | |
+| · Slettede komponenter | 971 | **Slå op her, før du genopfinder noget** |
+| · **Producentfladen — DP2** | **993** | Designplanen 3. sep. Rør du producentsiden, starter du her |
+| **Gør og lad være** | 1122 | |
+| · Gør | 1124 | |
+| · Lad være | **1139** | **Læs den, før du foreslår noget** |
+| **Konflikter** | **1169** | Målte, uafgjorte spændinger |
 
 ---
 
@@ -182,7 +210,13 @@ tilbage til sit eget tilsigtede udseende — den kan aldrig hæve loftet.**
 | Situation | Flow | Frysen? |
 |---|---|---|
 | Fladen skal **bedømmes** | `impeccable critique` + `audit` | Foreneligt — den producerer fund |
-| Fladen skal have en **retning** | `impeccable new-work` | Kræver, at frysen er løftet |
+| Fladen skal have en **retning** | `impeccable shape` | Kræver, at frysen er løftet |
+
+**Rækken ovenfor sagde `impeccable new-work` indtil 4. sep 2026, og den kommando
+findes ikke.** CLAUDE.md målte det på disken 3. sep: `new-work` er en **reference**
+(`reference/new-work.md`), som `shape` selv indlæser, når en flade skal have en
+retning frem for en rettelse. **Et spor, der kaldte den herfra, fik ingenting** —
+og skillen, der skulle forhindre gætteri, var selv kilden til det. Kald `shape`.
 | **Planlæg** før kode | `impeccable shape` | Kræver, at frysen er løftet |
 | Mere end **én rettelse** på samme flade | `impeccable shape` på fladen | Kræver, at frysen er løftet |
 | **Én** isoleret fejl | Ret den direkte | Kun hvis den er undtaget |
