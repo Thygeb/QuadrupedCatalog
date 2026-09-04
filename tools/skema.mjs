@@ -7,7 +7,7 @@
  * oversaettelse skal fejle synligt, ikke lande som dansk paa /en/.
  */
 
-import { kanoniskEnhed, ENHEDER, tilBasis } from './yaml.mjs';
+import { kanoniskEnhed, ENHEDER, tilBasis } from './enheder.mjs';
 
 /**
  * art:  tal | jaNej | tekst | liste | ip
@@ -714,7 +714,7 @@ export function normaliserRobot(doc) {
      har de fleste for "12 km/h". Enhedsstrengen skrives 'km/h', ikke 'km/t'
      — den samme streng vises raat paa begge sprog (ingen enhedsoversaettelse
      findes i data/i18n/), og 'km/t' ville vaere forkert paa den engelske
-     side. `ENHEDER['km/h']` i tools/yaml.mjs (faktor 1/3,6) og alias-tabellen
+     side. `ENHEDER['km/h']` i tools/enheder.mjs (faktor 1/3,6) og alias-tabellen
      (`'km/t' -> 'km/h'`) fandtes allerede — ingen ny enhed er tilfoejet.
    - driftstid, ladetid -> min. MODSAT den dominerende enhed (t staar paa
      59/66 af driftstidsposterne) - maalt fordi minutter viser sig at vaere
