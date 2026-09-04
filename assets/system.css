@@ -280,6 +280,38 @@
      brugssted; MANIFEST "Skriftrollerne" saetter den ALDRIG som display. */
   --manual:"Literata",Georgia,"Times New Roman",serif;
 
+  /* --- Skriftskala (R5, 4. sep 2026) ---------------------------------------
+     Én samlet, harmoniseret skala for hele sitet (Operate og Read).
+     Erstatter 29 spredte rene px-trin med en navngiven skala forankret i
+     DESIGN.md: Hierarki, DP3b (14px Raekke) og DP3c (10.5px Skriftgulv). */
+
+  /* Display og store overskrifter (flydende clamps) */
+  --fs-hero:clamp(33px,6.2vw,76px);        /* Heltetitel paa katalog og forside */
+  --fs-robot:clamp(40px,7.2vw,84px);       /* Robotsidens store robotnavn */
+  --fs-h1:clamp(27px,3.6vw,46px);          /* Sidetitler og H1-overskrifter */
+  --fs-h2:clamp(23px,2.8vw,34px);          /* Sektionsoverskrifter (H2) */
+  --fs-display-stor:clamp(34px,4vw,52px);  /* Aarstempel og store display-tal */
+  --fs-display-titel:clamp(28px,3.3vw,44px); /* Katalogets aabningstitel */
+  --fs-display-tal:clamp(26px,2.6vw,34px); /* Store EU-fundtal */
+  --fs-display-lille:clamp(20px,2.1vw,27px); /* Kompakt display / pladetitler */
+
+  /* Tabulaere figurtal og mellemoverskrifter */
+  --fs-figur-l:38px;                       /* Store regnskabstal (Om-regnskab) */
+  --fs-figur-m:30px;                       /* Mellemstore regnskabs- og noegletal */
+  --fs-figur-s:22px;                       /* Noegletal / taellertal i stribe og katalog */
+  --fs-h3:19px;                            /* H3 underoverskrifter og fremhaevede led */
+  --fs-manual:18px;                        /* Literata manual-broed (Om os) */
+
+  /* Tekstkrop, taette raekker og mikrotypografi */
+  --fs-broed:17px;                         /* Standard broedtekst (body, .t-broed) */
+  --fs-felt:16px;                          /* Inputfelter (iOS Safari zoom-sikring), modelnavne */
+  --fs-lille:15px;                         /* Sekundaer tekst (.t-lille) */
+  --fs-raekke:14px;                        /* DP3b (laast): Taet liste- og tabelraekke */
+  --fs-mikro:13px;                         /* Kompakte noter, chips, tegnforklaring (.t-mikro) */
+  --fs-etiket:11.5px;                      /* Versaletiketter, kildelister, metadata */
+  --fs-data:11px;                          /* Datatilstande (.v-ikke, .v-billede) */
+  --fs-gulv:10.5px;                        /* DP3c (laast): Skriftgulvet (.v-nej, maerkater) */
+
   /* Rum. Ottetalsskala. */
   --r1:4px; --r2:8px; --r3:12px; --r4:16px; --r5:24px; --r6:32px;
   --r7:48px; --r8:64px; --r9:96px;
