@@ -1,0 +1,33 @@
+--- Kildeverifikation (kildens tegn, bogstaveligt i raa-HTML) ---
+Kildeverifikation: 111 fragmenter tjekket, 0 fejl, 51 raekker.
+
+--- SKRIVER ---
+
+field_entries 2219/weight
+  OK, 1 række opdateret.
+field_entries 2219/height
+  OK, 1 række opdateret.
+field_entries 2219/degrees_of_freedom
+  OK, 1 række opdateret.
+field_entries 2219/payload_walking
+  OK, 1 række opdateret.
+field_entries 2219/speed
+  OK, 1 række opdateret.
+field_entries 2219/obstacle_single
+  OK, 1 række opdateret.
+field_entries 2219/battery_wh
+  OK, 1 række opdateret.
+field_entries 2219/runtime
+  OK, 1 række opdateret.
+field_entries 2219/docking_station
+  OK, 1 række opdateret.
+field_entries 2219/lidar
+  OK, 1 række opdateret.
+field_entries 2219/ros2
+  OK, 1 række opdateret.
+field_entries 2219/sdk_languages
+  OK, 1 række opdateret.
+field_entries 2219/autonomy_level
+  OK, 1 række opdateret.
+
+Skrevet: 13 opdateringer (13 bekræftet).
