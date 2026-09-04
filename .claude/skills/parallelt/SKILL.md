@@ -83,6 +83,24 @@ ikke samtalen. Hver prompt skal derfor selv bære:
     **Kopiér `media/_kilder/` ind sammen med `.env` og fotos** (målt: 164 MB), når sporet
     skal efterprøve et citat mod sin kilde.
 
+    **BEMÆRK PUNKTUMMET — det er ikke en detalje:**
+
+    ```
+    cp -r media/_kilder/. <worktree>/media/_kilder/     # RIGTIGT
+    cp -r media/_kilder   <worktree>/media/_kilder      # FORKERT
+    ```
+
+    `media/_kilder/` findes **allerede** i en frisk worktree, fordi dens
+    `LÆSMIG.md` er sporet (mappen er gitignoreret bortset fra netop den fil).
+    Uden punktummet lander alle 540 filer derfor i en nøstet
+    `media/_kilder/_kilder/`, og sporets kilder er usynlige for det selv.
+
+    Målt 4. sep 2026: kontrollen `find <wt>/media/_kilder -maxdepth 1 -type d`
+    gav **1**, hvor den skulle give 23. **Uden den kontrol var sporet startet
+    på en tom kildemappe og havde meldt et miljøproblem som sit eget fund.**
+    Samme regel gælder enhver mappe, der har en sporet fil i en ellers
+    gitignoreret mappe.
+
 12. **Diskforbruget er en egenskab ved BRIEFET, ikke ved sportypen.** Det er den vigtigste
     halvdel, og den blev opdaget ved at to sessioner lånte hinandens tal 2. sep 2026:
     ét spor blev kaldt "billigt som de andre" uden at nogen havde målt det.

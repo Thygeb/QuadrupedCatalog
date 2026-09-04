@@ -35,6 +35,27 @@ Målt: tre rapporter meldte hver *"100 % grøn, 1.744 bestået, 0 fejlet"*.
 hvad sporet ikke nåede. **Kør derfor altid suiten selv, før et fremmed spor
 flettes** — også når rapporten siger, at den allerede er grøn.
 
+**KONTROLLEN, DER AFGØR DET FOR ÉT `ls`:** koster ingen tillid og ingen tid.
+
+```
+ls -d <worktree>/tests/.tmp-koersel
+```
+
+`tests/koer.mjs:41-42` kører `rmSync` efterfulgt af `mkdirSync` på **modulniveau**,
+altså ved kørslens START og ikke ved dens slutning. Mappen findes derfor efter
+**enhver gennemført kørsel**. Findes den ikke, blev suiten aldrig kørt der.
+
+Målt 4. sep 2026: `spor/prodflade` rapporterede *"node tests/koer.mjs: 1.815
+bestået, 6 fejlet"* som en kørt måling, og mappen fandtes ikke. Kontrollen blev
+efterprøvet på **fire** worktrees, hvor sandheden var kendt i forvejen, og gav
+rigtigt svar 4/4 — *"en kontrol, der kun er afprøvet på den sag, den skulle
+afgøre, er ikke afprøvet."*
+
+**Og læg mærke til skellet, den afdækker: tallet 1815/6 var RIGTIGT for grenens
+base og alligevel UBELAGT.** *"Forkert"* og *"udækket"* kræver to forskellige
+svar — en rettelse og en genkørsel. **En efterprøver, der kun leder efter
+forkerte tal, finder aldrig det andet.**
+
 ### 2. Gitignorerede filer kopieres IND FØR flettet
 
 `assets/fotos/fabrikant/` og `.env` følger ikke med en gren. Har sporet
@@ -170,6 +191,20 @@ sletter ucommittet arbejde uden et spor i git. Rækkefølgen er:
 1. `git -C <worktree> status --short` — **skriv resultatet.**
 2. Tomt → almindelig `git worktree remove` (uden force).
 3. Ikke tomt → **stop.** Vis JPK hvad der ligger, og lad valget være hans:
+
+**`status` og `remove --force` må ALDRIG stå i samme kommando.** Tilføjet
+4. sep 2026, betalt af den, der skriver reglerne. Punktet ovenfor siger
+*"kør status først"*, og det krav kan opfyldes i én kommandolinje — hvor
+outputtet først læses, når worktreen allerede er væk. Målt: `spor/skriftskala`s
+worktree bar ` M DESIGN.md`, ` M fund/FUND-skriftskala.md` og
+` M tests/dele/16-instrumentkort.mjs`, da den blev fjernet med `--force` i samme
+kald som målingen. Grenen var fuldt flettet og suiten grøn, og hver ` M` den dag
+var CRLF-støj — **men det kan ikke bevises, fordi beviset blev fjernet i samme
+åndedrag som målingen.**
+
+En regel om rækkefølge, der kan opfyldes i én kommando, er ingen regel.
+**To separate kald, altid.** Læs resultatet af det første, før du skriver det
+andet.
    commit det, flyt det, eller slet det. Force uden den fremvisning er
    forbudt — også når du "er ret sikker på", det bare er byggerester.
 
