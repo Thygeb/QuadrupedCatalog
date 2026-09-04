@@ -39,6 +39,18 @@ Det skal give det "forkerte" svar nu — ellers måler det ingenting (O2).
 kriteriets script er selv et gæt: `Object.values(j)[0]` var ikke robotarrayet.
 **Kør kommandoen, sæt dens nuværende output ind i briefet som "giver i dag X".**
 
+**Og et kriterium, der TÆLLER, skal køres mod et kendt svar — ikke kun mod main.**
+Tilføjet 4. sep 2026. Mit `grep -rhoE "(padding|margin)…: *[0-9.]+px" | sort -u |
+wc -l` gav **78** og blev sendt som sporets vigtigste acceptkriterium. Det var tre
+fejl i én: whitespace-følsomt (19 dubletter), det tog kun shorthandens **første**
+værdi, og det **talte kommentarer med**. Reelt: 19 forskellige tal, 13 i kode.
+
+Punkt 2 fanger det ikke, fordi et forkert greb giver et **fuldstændig plausibelt**
+tal mod main — der er intet at undre sig over. **Kør tællingen mod en fil, hvor du
+selv kender facit** (fx en med to kendte forekomster og én i en kommentar), før
+tallet bliver et krav. Sporet fangede den her; det er sporets fortjeneste, ikke
+briefets værn.
+
 ### 3. Filejerskabet er komplet og modsigelsesfrit
 
 - Alle filer, opgaven skal røre, ER på ejerlisten. Tjek: bor funktionen, der

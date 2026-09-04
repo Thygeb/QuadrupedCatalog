@@ -213,6 +213,16 @@ Så er force blot en omvej om en fil-lås, og det er i orden.
 
 ### 6. Gren, settings og STATUS
 
+- **`git worktree list` som SIDSTE handling i ethvert flet — og læs den.**
+  Tilføjet 4. sep 2026, fordi punkt 6 blev brudt af den, der skrev det.
+  `spor/prodpolish` blev flettet, og worktreen blev stående. Prisen var ikke
+  teoretisk: dens `tests/.tmp-koersel` bandt **3,1 GB**, mens den anden session
+  stod på **5,5 GB fri disk** og var ved at afvige bevidst fra denne skills egen
+  rækkefølge for at skaffe plads. Da den blev fundet, bar worktreen desuden **74
+  ucommitterede linjer**, lagt der EFTER flettet.
+  **Rodårsagen er ikke glemsomhed — det er, at fletbeskeden føles som slutningen.**
+  Den er det ikke: punkt 6 er. Kør kommandoen, og se, at din worktree er væk,
+  før du går videre til næste opgave.
 - `git branch -d` (aldrig `-D`, medmindre grenen er bevist forfader til main —
   mål det med `git merge-base --is-ancestor`).
 - `additionalDirectories` i `.claude/settings.json` renses for worktreen.

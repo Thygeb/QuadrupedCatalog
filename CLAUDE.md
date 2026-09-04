@@ -298,6 +298,23 @@ kollisioner efter at reglerne var aftalt. Indtil da fandtes de kun i STATUS.md
 5. **Tag aldrig den andens tal for gode varer.** Efterprøv med egen måling, og
    sig til, når den afviger. Det er sådan, 10 forkerte forudsigelser blev fundet
    på én dag, uden at én nåede en beslutning.
+
+   **MEN ET AFVIGENDE RESULTAT ER IKKE AUTOMATISK EN RETTELSE AF DET ANDET.**
+   Tilføjet 4. sep 2026, betalt samme dag. Peer målte `spor/seneste-stribe` til
+   **4** commits foran main kl. 19.58; jeg målte **1** og skrev til dem, at deres
+   tal var forkert. **Begge var rigtige:** grenen var forgrenet fra
+   `spor/katalogskaerm`, og mit flet af den havde flyttet tre commits ind i main
+   mellem de to målinger.
+
+   **To målinger af en delt tilstand kan begge være sande på hvert sit tidspunkt,
+   og den, der melder sit som en korrektion, påstår mere end målingen bærer.**
+   Punkt 5 kræver, at du måler selv; det her siger, hvad du gør bagefter: meld
+   **tallet og tidspunktet**, ikke dommen. *"Jeg måler 1 nu"* er efterprøvelig.
+   *"Dit 4 er forkert"* er en påstand om den andens apparat, du ikke har set.
+
+   Det er punkt 3's fælles tilstand anvendt på en MÅLING frem for på et ref — og
+   prisen var to beskeder frem og tilbage plus en STATUS-række, der var på vej til
+   at føre uenigheden som *"uafgjort"*.
 6. **Meld KOMMANDOEN, ikke hensigten — og meld både når du tager main og når du
    slipper den.** To halvdele, begge betalt 3. sep 2026 inden for ti minutter.
 
