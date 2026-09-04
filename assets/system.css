@@ -290,10 +290,19 @@
      ingen af de to passer (maalt i browseren 4. sep 2026, spor/flader pas 2):
      kataloget saetter sin aabningstitel i --fs-display-titel, og en "forside"
      med .t-hero findes ikke. .t-hero staar OGSAA paa robotsiden
-     (tools/skabelon/robot.mjs:1098), men taber DER altid til
-     `.typeskilt .robot-navn h1{font-size:var(--fs-robot)}` — 84 px vinder over
-     76 px paa specificitet. Klassen er derfor uden virkning paa robotsiden;
-     den er ikke fjernet, fordi test 40 laaser `.t-hero{...font-weight:700}`. */
+     (tools/skabelon/robot.mjs:1098), men taber DER altid til robotnavnets egen
+     regel i afsnit 16b, som saetter --fs-robot: 84 px vinder over 76 px paa
+     specificitet. Klassen er derfor uden virkning paa robotsiden; den er ikke
+     fjernet, fordi test 40 laaser .t-hero's vaegt paa 700.
+
+     BEMAERK, at selektoren med sin klammeblok ER SKREVET UD AF denne kommentar
+     med vilje, og det er et fund i sig selv: test 36.4 finder robotnavnets
+     regel med `sys.match(/\.typeskilt \.robot-navn h1\{[^}]*\}/)` paa den RAA
+     fil og tager FOERSTE traef. En kommentar, der citerer selektoren med
+     klamme, staar tidligere i filen end reglen selv - og saa laeser testen
+     kommentaren i stedet for koden og melder rødt paa en rigtig regel.
+     Det skete i dette spor. Enhver fremtidig kommentar her skal derfor undgaa
+     moensteret `selektor{...}`, indtil testene stripper kommentarer foerst. */
   --fs-hero:clamp(33px,6.2vw,76px);        /* Om os' titel — og kun den */
   --fs-robot:clamp(40px,7.2vw,84px);       /* Robotsidens store robotnavn */
   --fs-h1:clamp(27px,3.6vw,46px);          /* Sidetitler og H1-overskrifter */
