@@ -2545,10 +2545,24 @@
   width: 1px;
   height: 1px;
 }
+/* HARDEN (spor/flader pas 6). Facetraekken er en <label> for en checkbox og
+   dermed selve filterets trykflade - der er 34 af dem paa kataloget. Maalt ved
+   390 px FOER: 34 px hoej, min-height:0, ingen ::after at udvide maalet med og
+   ingen touch-regel ved nogen bredde. Sitets eget gulv er 44 px.
+
+   Bemaerk forskellen til .specimen__fjern og .knap--maerkat, som ogsaa maaler
+   under 44 px i kilden: DE har loest det. .specimen__fjern baerer en ::after
+   paa 44x44 (maalt: efterH 44px, min-width 44px), og .knap--maerkat faar 44 px
+   under 720 px. Facetraekken havde ingen af delene - den var ikke en afvejning,
+   den var en udeladelse.
+
+   Raekkerne ligger inde i <details>-faceter, der er lukkede som udgangspunkt,
+   saa de 10 px pr. raekke koster kun hoejde i en AABNET facet. */
 .rk__mrk {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
   padding:var(--r1h) var(--r2);
   margin:0 calc(-1 * var(--r2));
   border-radius: var(--hjoerne);
