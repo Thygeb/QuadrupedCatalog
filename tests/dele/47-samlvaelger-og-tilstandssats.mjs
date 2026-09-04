@@ -122,16 +122,16 @@ export default async function koer(ctx) {
     ok(`47.15 .${kl} har en basisregel i system.css`, m !== null);
     if (!m) continue;
     const fs2 = (m[1].match(/font-size:\s*([^;]+)/) || [])[1];
-    ok(`47.16 .${kl} saetter sin sats i px, ikke em (fandt: ${fs2})`,
-      fs2 !== undefined && /px\s*$/.test(fs2.trim()));
+    ok(`47.16 .${kl} saetter sin sats i skala-tokens/px, ikke em (R5, fandt: ${fs2})`,
+      fs2 !== undefined && (/px\s*$/.test(fs2.trim()) || /^var\(--fs-[a-z0-9-]+\)$/.test(fs2.trim())));
   }
 
   /* Kaskadevaernet. generator.css:719 `.saml-raekke__celle .v{font-size:16px}`
      er (0,0,2,0) og indlaeses EFTER system.css. Uden en regel med hoejere
      specificitet arver ALLE fire tilstande 16 px - samme sats som tallet
      selv, hvilket er haard begraensning 5's fejltilstand. */
-  const generisk = /\.saml-raekke__celle\s+\.v\s*\{[^}]*font-size:\s*16px/.test(genCss);
-  ok('47.17 generator.css saetter stadig den generiske .v til 16px (forudsaetningen for 47.18)',
+  const generisk = /\.saml-raekke__celle\s+\.v\s*\{[^}]*font-size:\s*(?:16px|var\(--fs-felt\))/.test(genCss);
+  ok('47.17 generator.css saetter stadig den generiske .v til 16px via --fs-felt (R5, forudsaetningen for 47.18)',
     generisk);
 
   for (const kl of ['v-ikke', 'v-nej', 'v-billede', 'v-ja']) {

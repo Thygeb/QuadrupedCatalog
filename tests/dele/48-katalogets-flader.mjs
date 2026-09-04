@@ -130,9 +130,15 @@ export default async function koer(ctx) {
   ok('48.8: .sog input-reglen findes', !!sogBlok);
   if (sogBlok) {
     const minH = (/min-height:\s*(\d+(?:\.\d+)?)px/.exec(sogBlok) || [])[1];
-    const fs2 = (/font-size:\s*(\d+(?:\.\d+)?)px/.exec(sogBlok) || [])[1];
+    let fs2 = (/font-size:\s*(\d+(?:\.\d+)?)px/.exec(sogBlok) || [])[1];
+    if (!fs2) {
+      const token = (/font-size:\s*var\((--fs-[^)]+)\)/.exec(sogBlok) || [])[1];
+      if (token) {
+        fs2 = (css.match(new RegExp(`${token}:\\s*([\\d.]+)px`)) || [])[1];
+      }
+    }
     ok(`48.9: min-height >= 44px (fandt ${minH})`, !!minH && Number(minH) >= 44);
-    ok(`48.10: font-size >= 16px, ellers zoomer iOS Safari (fandt ${fs2})`,
+    ok(`48.10: font-size >= 16px, ellers zoomer iOS Safari (R5: via --fs-felt, fandt ${fs2})`,
       !!fs2 && Number(fs2) >= 16);
   }
 

@@ -135,8 +135,8 @@ export default async function koer(ctx) {
     /\.stribe--kompakt\s*>\s*li\{[^}]*border:0/.test(systemCss)
       && !/\.stribe--kompakt\s*>\s*li:nth-child\(n\+3\)\{border-top/.test(systemCss));
 
-  ok('kortets navnesats er strammet under det oprindelige 22px (haardere typografi, punkt 3)',
-    /\.kort-navn\{font-size:1[4-9]px/.test(systemCss) && !/\.kort-navn\{font-size:22px/.test(systemCss));
+  ok('kortets navnesats er strammet under det oprindelige 22px (R5: bundet til --fs-manual = 18px)',
+    /\.kort-navn\{font-size:var\(--fs-manual\)/.test(systemCss) && !/\.kort-navn\{font-size:22px/.test(systemCss));
 
   /* ------------------------------------------------------ punkt 4: headers
      Beslutningen var at IKKE tilfoeje kolonneoverskrifter over gitteret uden

@@ -265,11 +265,12 @@ export default async function koer(ctx) {
   // generator.css blev omformateret, og de nye mellemrum efter komma inde i
   // :not(...) samt foer "{" knaekkede det gamle, kompakte moenster.
   ok('30.19: figurens sats undtager de fire datatilstande',
-    /\.robot-noegletal\.stribe\.v:not\(\.v-ikke,\.v-billede,\.v-nej,\.v-ja\)\{font-size:23px\}/.test(rens(gen)),
-    'haard begraensning 5: ikke oplyst, nej og 0 skal se forskellige ud');
+    /\.robot-noegletal\.stribe\.v:not\(\.v-ikke,\.v-billede,\.v-nej,\.v-ja\)\{font-size:var\(--fs-figur-s\)\}/.test(rens(gen)),
+    'haard begraensning 5: ikke oplyst, nej og 0 skal se forskellige ud (R5: via --fs-figur-s)');
   ok('30.20: tilstandenes egen skala staar stadig i system.css',
-    /\.stribe \.v-ikke,\.stribe \.v-billede\{font-size:13px\}/.test(sys)
-      && /\.stribe \.v-nej,\.stribe \.v-ja\{font-size:18px\}/.test(sys));
+    /\.stribe \.v-ikke,\.stribe \.v-billede\{font-size:var\(--fs-mikro\)\}/.test(sys)
+      && /\.stribe \.v-nej,\.stribe \.v-ja\{font-size:var\(--fs-manual\)\}/.test(sys),
+    'R5: tilstandenes satser bundet til skala-tokens (--fs-mikro og --fs-manual)');
 
   /* --- 8. K3: kildemaerkets gulv ---------------------------------------- */
   ok('30.21: kildemaerket har et gulv i px, ikke kun en em-andel',
