@@ -29,6 +29,12 @@ export const node = process.execPath;
 
 export const skema = await import(`file://${path.join(rod, 'tools', 'skema.mjs').replace(/\\/g, '/')}`);
 export const yaml = await import(`file://${path.join(rod, 'tools', 'yaml.mjs').replace(/\\/g, '/')}`);
+// spor/opdel (BRIEF-opdel.md punkt 4): tools/yaml.mjs's ordforraad flyttede til
+// tools/enheder.mjs. Maalt foer valget: 0 testdele roerte et ordforraadsnavn
+// (ENHEDER, kanoniskEnhed, tilBasis, ...) via ctx.yaml - alle brugte kun
+// yaml.parseYaml(). Derfor er dette den rene deling: ctx.yaml forbliver
+// parseren, ctx.enheder er det nye modul. Ingen testdel skulle rettes.
+export const enheder = await import(`file://${path.join(rod, 'tools', 'enheder.mjs').replace(/\\/g, '/')}`);
 export const alder = await import(`file://${path.join(rod, 'tools', 'alder.mjs').replace(/\\/g, '/')}`);
 
 /** Taeller filer rekursivt under `dir`. Delt af de steder, der har brug for et
