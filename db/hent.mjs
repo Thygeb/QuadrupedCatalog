@@ -30,12 +30,31 @@
  * mod PostgREST. Ingen skriv, ingen DDL (L94, STATUS.md).
  */
 
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fraDb, byggRobotDoc, skrivRobotYaml } from './eksporter.mjs';
 
 const ROD = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { parseYaml } = await import(`file://${path.join(ROD, 'tools/yaml.mjs')}`);
+
+/**
+ * Proces-krydsende cache af fraDb()'s RAA svar - men KUN naar
+ * QUAD_DBCACHE_FIL er sat, og den variabel maa KUN saettes af
+ * tests/koer.mjs (fund/BRIEF-dbcache.md punkt 1).
+ *
+ * HVORFOR bag en variabel, ikke som standard: fase 3's foerste halvdel
+ * (Å178) blev flettet paa en negativ kontrol - `SUPABASE_URL=<ugyldig>`
+ * skal give exit 1, 0 sider, "fetch failed" for et almindeligt
+ * `node tools/build.mjs`-kald. En cache, der er varm som standard, ville
+ * lade den kontrol bygge 216 sider paa en ugyldig URL, og fase 3's eneste
+ * bevis for at databasen faktisk laeses, ville vaere vaek. Derfor: er
+ * QUAD_DBCACHE_FIL IKKE sat, opfoerer denne fil sig praecis som foer denne
+ * aendring - hentRobotter() laver et AEGTE fetch() hver gang raaCache er
+ * tom i DENNE proces, og en fejl (ugyldig URL, manglende .env) kastes
+ * uaendret. Variablen aendrer ingenting ved selve produktionsvejen.
+ */
+const CACHE_FIL = process.env.QUAD_DBCACHE_FIL || null;
 
 /**
  * Cache af fraDb()'s RAA svar (de danske kanoniske robot-objekter, foer
@@ -58,12 +77,24 @@ let raaCache = null;
 
 export async function hentRobotter() {
   if (!raaCache) {
-    const raa = await fraDb();
-    if (!raa) {
-      throw new Error('hentRobotter: fraDb() gav intet — mangler SUPABASE_URL/' +
-        'SUPABASE_SERVICE_ROLE_KEY i .env? Se db/LAESMIG.md.');
+    // Proces-krydsende laesning: kun naar CACHE_FIL er sat (tests/koer.mjs)
+    // OG filen allerede findes fra et tidligere kald i SAMME suitekoersel.
+    // Uden CACHE_FIL foelger denne gren aldrig - se kommentaren ved
+    // CACHE_FIL's deklaration.
+    if (CACHE_FIL && fs.existsSync(CACHE_FIL)) {
+      raaCache = JSON.parse(fs.readFileSync(CACHE_FIL, 'utf8'));
+    } else {
+      const raa = await fraDb();
+      if (!raa) {
+        throw new Error('hentRobotter: fraDb() gav intet — mangler SUPABASE_URL/' +
+          'SUPABASE_SERVICE_ROLE_KEY i .env? Se db/LAESMIG.md.');
+      }
+      raaCache = raa;
+      if (CACHE_FIL) {
+        fs.mkdirSync(path.dirname(CACHE_FIL), { recursive: true });
+        fs.writeFileSync(CACHE_FIL, JSON.stringify(raaCache));
+      }
     }
-    raaCache = raa;
   }
   return raaCache.map((r) => {
     const tekst = skrivRobotYaml(byggRobotDoc(r));

@@ -31,6 +31,15 @@ import {
 
 const tmp = path.join(rod, 'tests', '.tmp-koersel');
 
+// db/hent.mjs's proces-krydsende cache (fund/BRIEF-dbcache.md punkt 1): kun
+// TESTS/KOER.MJS maa saette denne variabel. Et almindeligt `node
+// tools/build.mjs`-kald skal blive ved med at lave et aegte fetch() hver
+// gang - se db/hent.mjs's kommentar ved CACHE_FIL. Filen ligger UNDER tmp,
+// saa rmSync nedenfor sletter enhver gammel cache, FOER foerste
+// hentRobotter()-kald i denne koersel (punkt 5: en overlevende cache maa
+// aldrig servere gaarsdagens data til en frisk suitekoersel).
+process.env.QUAD_DBCACHE_FIL = path.join(tmp, 'db-raa-cache.json');
+
 let bestaaet = 0, fejlet = 0;
 const fejlliste = [];
 
