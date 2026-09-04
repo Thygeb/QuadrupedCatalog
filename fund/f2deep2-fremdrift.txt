@@ -10,3 +10,4 @@ robot_id/slug                    A-raekker  bekraeftet
 2194 deep-robotics-lynx-s10      4/4        OK
 2195 deep-robotics-mini          7/7        OK
 2196 deep-robotics-x20           5/6        OK
+2197 deep-robotics-x30           6/7        OK
