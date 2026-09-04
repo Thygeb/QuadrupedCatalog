@@ -11,3 +11,6 @@ robot_id/slug                    A-raekker  bekraeftet
 2195 deep-robotics-mini          7/7        OK
 2196 deep-robotics-x20           5/6        OK
 2197 deep-robotics-x30           6/7        OK
+2198 deep-robotics-x30-pro       6/7        OK
+
+Alle 9 robotter skrevet. A i alt: 66/66 bekræftet. Sum A+B+C = 66+11+0 = 77.
