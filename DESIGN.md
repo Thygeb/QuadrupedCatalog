@@ -52,7 +52,7 @@ typography:
   robot:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     token: "var(--fs-robot)"
-    fontSize: "clamp(32px, 3.8vw, 54px)"
+    fontSize: "clamp(40px, 7.2vw, 84px)"  # her stod clamp(32px, 3.8vw, 54px)
     fontWeight: 700
     lineHeight: 0.94
     letterSpacing: "-0.032em"
@@ -70,25 +70,29 @@ typography:
     fontWeight: 700
     lineHeight: 1.08
     letterSpacing: "-0.026em"
+  # FIRE VAERDIER HERUNDER ER RETTET AF spor/flader 4. sep 2026. De var
+  # foraeldede FOER sporet — maalt mod main's egen system.css, ikke mod min
+  # aendrede: 16 af 21 tokens stemte, 5 gjorde ikke. Frontmatteren er
+  # maskinlaesbar og bliver troet, saa en forkert vaerdi her er dyrere end
+  # ingen vaerdi. Genmaal med et diff mellem :root og denne blok.
   display-stor:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     token: "var(--fs-display-stor)"
-    fontSize: "clamp(28px, 4vw, 44px)"
+    fontSize: "clamp(34px, 4vw, 52px)"   # her stod clamp(28px, 4vw, 44px)
     fontWeight: 700
   display-titel:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     token: "var(--fs-display-titel)"
-    fontSize: "clamp(20px, 2.4vw, 28px)"
+    fontSize: "clamp(28px, 3.3vw, 44px)"  # her stod clamp(20px, 2.4vw, 28px)
     fontWeight: 700
-  display-tal:
-    fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
-    token: "var(--fs-display-tal)"
-    fontSize: "clamp(16px, 2vw, 22px)"
-    fontWeight: 700
+  # display-tal ER SLETTET (spor/flader pas 2). Tokenet havde NUL forbrugere i
+  # CSS'en, og dets kommentar sagde "Store EU-fundtal" — EU-sektionen forsvandt
+  # med spor/prodpolish samme dag. Ved 1440 px resolverede den desuden til
+  # praecis 34 px, samme som --fs-h2, saa to trin gjorde samme arbejde.
   display-lille:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
     token: "var(--fs-display-lille)"
-    fontSize: "clamp(13px, 1.2vw, 15px)"
+    fontSize: "clamp(20px, 2.1vw, 27px)"  # her stod clamp(13px, 1.2vw, 15px)
     fontWeight: 700
   figur-l:
     fontFamily: "SairaSemiCondensed, ui-sans-serif, system-ui, -apple-system, Segoe UI Variable Text, Segoe UI, Helvetica Neue, Arial, sans-serif"
@@ -179,9 +183,18 @@ rounded:
   # rund-ind 8 / rund-lille 6. Se ## Konflikter, punkt 7 — AFGJORT.
   hjoerne: "2px"
 spacing:
+  # spor/flader pas 1 (4. sep 2026): skalaen har faaet SIN EGEN FOD. De ni
+  # oprindelige trin er UAENDREDE; r0/r1h/r2h/r3h er halvtrin, som giver
+  # 2 px-granularitet i spaendet 2-16 px, hvor sitet er taettest (chips,
+  # celler, maerker, datatilstande). Foer foden fandt hver komponent sin egen
+  # vaerdi udenom skalaen: 132 raa px-afstande paa 19 forskellige tal.
+  r0: "2px"
   r1: "4px"
+  r1h: "6px"
   r2: "8px"
+  r2h: "10px"
   r3: "12px"
+  r3h: "14px"
   r4: "16px"
   r5: "24px"
   r6: "32px"
@@ -686,14 +699,21 @@ samt faste trin til nøgletal, brødtekst, tabeller, datatilstande og mikro-typo
   sektionsoverskrifter og producentnavn.
 - **H2** (`--fs-h2`: `clamp(23px,2.8vw,34px)`, 700, 1,08, −0,026em, Saira):
   mellemoverskrifter og undersektioner.
-- **Display stor** (`--fs-display-stor`: `clamp(28px,4vw,44px)`, 700, Saira):
-  store tal/overskrifter i sammenligningsvisningen.
-- **Display titel** (`--fs-display-titel`: `clamp(20px,2.4vw,28px)`, 700, Saira):
-  kolonnetitler i sammenligningsvisningen.
-- **Display tal** (`--fs-display-tal`: `clamp(16px,2vw,22px)`, 700, Saira):
-  mellemnøgletal i sammenligningsvisningen.
-- **Display lille** (`--fs-display-lille`: `clamp(13px,1.2vw,15px)`, 700, Saira):
-  sekundære tal i sammenligningsvisningen.
+- **Display stor** (`--fs-display-stor`: `clamp(34px,4vw,52px)`, 700, Saira):
+  katalogets årstempel (`.aarstempel__tal`) — dens eneste forbruger.
+- **Display titel** (`--fs-display-titel`: `clamp(28px,3.3vw,44px)`, 700, Saira):
+  katalogets åbningstitel.
+- **Display lille** (`--fs-display-lille`: `clamp(20px,2.1vw,27px)`, 700, Saira):
+  kompakt display og pladetitler.
+
+  *De tre værdier ovenfor er rettet 4. sep 2026 af `spor/flader`; de var
+  forældede før sporet, målt mod main's egen `system.css`. Beskrivelserne
+  sagde desuden alle tre "i sammenligningsvisningen" — målt i browseren
+  bruges de på **kataloget**, ikke på sammenligningssiden.*
+
+  ***Display tal* (`--fs-display-tal`) er SLETTET** samme dag: nul forbrugere
+  i CSS'en, og ved 1440 px resolverede den til præcis 34 px — samme som
+  `--fs-h2`, så to trin gjorde samme arbejde. Skalaen er 21 → 20 trin.
 
 **Faste overskrifter og figurer:**
 - **Figur L** (`--fs-figur-l`: 38px, mono, 700, `tnum 1`):
@@ -750,9 +770,16 @@ ad hoc i lokale komponenter og skabte visuel uro og inkonsistente spring.
 - **40 px og 48 px:** Samlet i klemmerne eller `--fs-figur-l` (38px).
 
 **Forholdet til typeskiltet:**
-- Robotnavnet (`.typeskilt .robot-navn h1`) er forankret i `--fs-robot: clamp(32px, 3.8vw, 54px)`
-  med en mindste grad på 32px, hvilket sikrer, at navnet altid står klart over
-  stribens nøgletal (22px).
+- Robotnavnet er forankret i `--fs-robot: clamp(40px, 7.2vw, 84px)`
+  med en mindste grad på 40px, hvilket sikrer, at navnet altid står klart over
+  stribens nøgletal (22px). *Værdien er rettet 4. sep 2026 — her stod
+  `clamp(32px, 3.8vw, 54px)` og "mindste grad på 32px", og begge var forældede
+  før `spor/flader`.*
+- **Selektoren for robotnavnet er med vilje IKKE skrevet ud med sin klammeblok
+  nogen steder i en CSS-kommentar.** `tests/dele/36-typeskilt-robot.mjs:97`
+  finder reglen med et regex på den **rå** fil og tager første træf, så en
+  kommentar, der citerer `selektor{…}`, læses i stedet for koden. Det kostede
+  en rød test 4. sep 2026. Se `## Konflikter`.
 - Typeskiltets kildemærker, operatorer og enheder overholder DP3c som relative
   `max(8px, …em)`.
 - Mærket `.omregnet` er løftet fra 9px til `--fs-gulv` (10,5 px).
@@ -924,13 +951,26 @@ To ting er ikke hjørner og beholder deres egen værdi:
 
 Kanten bærer stadig betydning, som i ORBIT:
 
-- **Fuldt optrukket, `linje`**: dekorativ skillelinje.
-- **Fuldt optrukket, `hegn`**: en kant, læseren skal kunne se — inputfeltets
-  ramme. **Målt af dette spor: `hegn` er i dag under WCAG 1.4.11's 3:1-krav
-  til meningsbærende ikke-tekst** (2,47 : panel, 2,14 : bund) — se
-  `## Konflikter`.
-- **Stiplet, `hegn`**: fravær — hullet, "ikke oplyst"-chippen, den
-  sekundære kilde.
+- **Fuldt optrukket, `linje`**: dekorativ skillelinje. **Aldrig en
+  betjeningsflades kant** — 1,56 : panel, 1,35 : bund.
+- **Fuldt optrukket, `hegn`**: dekorativ afgrænsning. **2,47 : panel,
+  2,14 : bund — under WCAG 1.4.11's 3 : 1, og derfor aldrig en
+  betjeningsflades kant.** Her stod, at `hegn` var *"en kant, læseren skal
+  kunne se — inputfeltets ramme"*; det var netop den brug, der brød kravet.
+- **Fuldt optrukket, `hegn-baerende`**: **en kant, læseren SKAL kunne se.**
+  3,96 : panel, 3,43 : bund, 3,31 : tom — den lyseste polet, der klarer 3 : 1
+  mod alle tre bundfarver.
+
+  **SYSTEMREGEL (`spor/flader` pas 3, 4. sep 2026): er kanten det ENESTE, der
+  identificerer en betjeningsflade, skal den være `hegn-baerende` eller
+  mørkere.** Migreret samme dag: søgefeltets ramme (2,47 → 3,96),
+  enhedskontaktens spor (2,14 → 3,43) og sorteringsknapperne (1,56 → 3,96).
+  De øvrige 38 `var(--hegn)`-brug er dekorative eller stiplede og er urørte;
+  `.maalplade .kasse` er undtaget, fordi filens egen kommentar fastslår, at
+  kassen er **en tegning, ikke en komponent**.
+- **Stiplet, `hegn`**: fravær — hullet, den sekundære kilde. *(Bemærk:
+  `.v-ikke`-chippen bruger `hegn-baerende`, ikke `hegn` — den er en
+  meningsbærende tilstand og lå allerede rigtigt.)*
 - **`.stans`-kanten**: 1px indfældet `linje`-kontur med en 1px `--stans`
   (hvid) lyskant foroven — den stansede-metal-effekt, TYPESKILTs signatur.
 
@@ -985,6 +1025,27 @@ byggede site (bekræftet: én af de 9 kendte, beskyttede døde CSS-klasser fra
 - **"Ikke oplyst"-chippen** (hård begrænsning 5): dæmpet `tom`-flade,
   stiplet `hegn`-kant, ingen fed vægt — samme hulsprog som `.v-ikke`.
 - **Tælleren** er et tal og sættes i mono med tabulære cifre.
+- **Facetrækken (`.rk__mrk`) er 44px høj** — `spor/flader` pas 6, 4. sep 2026.
+  Den var 34px med `min-height:0`, ingen `::after` at udvide målet med og
+  ingen touch-regel ved nogen bredde. Målt ved 390px efter: 36 synlige rækker,
+  alle 44px, ingen under.
+- **Sorteringsknapperne (`.sortervalg label`) er 44px høje** og bærer en
+  `hegn-baerende`-kant (3,96 : 1) — pas 4. De var 32px med en `linje`-kant
+  på 1,56 : 1, altså under WCAG 1.4.11.
+
+**BERØRINGSMÅLET MÅ LØSES PÅ TO MÅDER, og forskellen skal skrives, ellers
+læses en løsning som en fejl.** Målt 4. sep 2026 på alle seks flader:
+
+| Element | Egen højde | Hvordan målet nås |
+|---|---|---|
+| `.knap`, `.facet__navn`, `.sog input` | 44px | `min-height` |
+| `.specimen__fjern` (FJERN) | 24px | `::after` på 44×44 |
+| katalogkortets navn | 26px | `::after` dækker **hele** kortet |
+| `.knap--maerkat` (+ SAMMENLIGN) | 24px | 44px under 720px; dæmpet med vilje på 83 kort |
+| `.kildemaerke` | 8–17px | inline i en sætning — WCAG 2.5.8 undtager inline-mål |
+
+Et element, der måler under 44px i kilden, er derfor **ikke** automatisk en
+fejl. `.rk__mrk` var det, fordi den havde ingen af de fire udveje.
 
 ### Søgefeltet
 
@@ -1324,6 +1385,35 @@ på, hvorfor koden ser ud, som den gør.
 **Fem af dem er afgjort nu.** Punkt 3, 6 og 8 er uafgjorte og uberørte, og
 designplanen har 3. sep 2026 tilføjet **punkt 9**, som også er uafgjort.
 Punkt 5 er genåbnet og afgjort bredere — se noten dér.
+
+**`spor/flader` har 4. sep 2026 lukket `hegn`-konflikten for
+betjeningsflader** (se *Former*: søgefelt, enhedskontakt og sortering står nu
+på `hegn-baerende`) og tilføjet **punkt 10** herunder, som er nyt og uafgjort.
+
+**10. Flere tests læser CSS med regex på den RÅ fil — en kommentar kan både
+knække dem og holde dem falsk grønne. UAFGJORT.**
+
+Målt 4. sep 2026, og begge retninger blev betalt samme dag:
+
+- `tests/dele/36-typeskilt-robot.mjs:97` finder robotnavnets regel med
+  `sys.match(/\.typeskilt \.robot-navn h1\{[^}]*\}/)` og tager **første**
+  træf. En kommentar tidligere i filen, der citerede netop den selektor med
+  klammeblok, blev læst i stedet for koden, og testen meldte **rødt på en
+  regel, der var korrekt**.
+- Værre den anden vej: en kommentar med strengen `.t-hero{…font-weight:700}`
+  **matcher** `tests/dele/40-typeskilt-kort.mjs:88`s eget mønster. Testen
+  ville have bestået, selv om den rigtige regel var ændret. **En falsk grøn
+  larmer ikke.**
+
+Den strukturelle løsning er at strippe kommentarer, før CSS parses med regex —
+sådan gør `tests/dele/82-fladernes-system.mjs`. De bestående tests er **ikke**
+rettet, fordi 36 og 40 tilhørte et andet spor samtidig.
+
+Samme fejlform ramte tre målinger i selve sporet: metrikken *"78 rå
+px-afstande"* indeholdt 3 forekomster, der stod i **prosa**, og et
+token-tjek læste sin egen forklaring. **Rå `grep` over CSS tæller
+kommentarer med** — det står allerede i CLAUDE.md om klammer, og det gælder
+enhver CSS-lignende streng.
 
 **1. Knappen — to generationer. AFGJORT af L77 (2. sep 2026).**
 Konflikten var: `.videre`/`.videre--stille` (158/142 sider, talt i `dist/`)
