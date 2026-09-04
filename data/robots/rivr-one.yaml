@@ -58,6 +58,7 @@ felter:
     kilde: "https://www.rivr.ai/product"
     hentet: "2026-08-19"
     advarsel: "The manufacturer discloses range (over 30 km), not time. We do not compute a runtime backwards from range and speed."
+    advarsel_ordlyd: "over 30 km of range"
   hot_swap: "ikke_oplyst"
   ladetid:
     min: 2

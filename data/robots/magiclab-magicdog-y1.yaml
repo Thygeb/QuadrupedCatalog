@@ -20,7 +20,7 @@ anvendelse:
     - "MagicLab Industrial Quadruped Robot"
   kilde: "https://www.magiclabglobal.com/products/magicdog-y1/"
   hentet: "2026-08-19"
-  note: "The two manufacturer domains say the same thing: magiclab.top states \"MagicLab Industrial Quadruped Robot\" (CN: \"魔法原子工业四足机器人\")."
+  note: "The two manufacturer domains say the same thing: magiclab.top states \"MagicLab Industrial Quadruped Robot\"; the Chinese-language page states the equivalent designation in Chinese."
   note_ordlyd: "The two manufacturer domains say the same thing: magiclab.top states \"MagicLab Industrial Quadruped Robot\" (CN: \"魔法原子工业四足机器人\")."
 billede:
   fil: "fotos/fabrikant/magiclab-magicdog-y1.jpg"
@@ -38,6 +38,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Including battery."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"Total Weight (with Battery)\" \"70Kg (with Battery)\""
   laengde:
     vaerdi: 1050
     enhed: "mm"
@@ -61,6 +62,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer’s label: Dynamic Payload (CN: movement load)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"Dynamic Payload\" \"45kg\""
   nyttelast_staaende:
     vaerdi: 150
     enhed: "kg"
@@ -68,6 +70,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer’s label: Maximum Payload (CN: max. load). The page does not explicitly say standing; the placement follows the same interpretation as Unitree’s two load fields."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Maximum Payload\" \"150kg\""
   hastighed:
     vaerdi: 6
     enhed: "m/s"
@@ -75,6 +78,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Without an operator. Unitree B2 states > 6 m/s for the same figure — Y1 is therefore NOT above B2 on this field."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"Maximum Speed\" \"6m/s\""
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -89,6 +93,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer’s label is Maximum Climbing Height (CN: max. climbing height). NEITHER EN NOR CN says whether it is a single step or a continuous staircase — here the Chinese page does not help, unlike Lite3. The placement in obstacle_single is an interpretation, chosen so the figure CANNOT contaminate the comparison that needs the continuous field."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Maximum Climbing Height\" \"≥60cm\""
   trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
     vaerdi: "IP67"
@@ -101,6 +106,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Stated in body text, not in the table."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"stable operation from -20℃ to 55℃\""
   temp_maks:
     vaerdi: 55
     enhed: "°C"
@@ -108,6 +114,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Stated in body text, not in the table."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"stable operation from -20℃ to 55℃\""
   batteri_wh:
     vaerdi: 2400
     enhed: "Wh"
@@ -115,6 +122,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer prints 45Ah (2400Wh), Voltage 54V. 45 x 54 = 2430 Wh, not 2400 — a discrepancy of 30 Wh (1.2%). We reproduce the printed figure and note the discrepancy. Note: neither Y1’s nor Unitree B2’s Wh figure matches their own Ah x V."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Battery Capacity\" \"45Ah (2400Wh), Voltage 54V\""
   driftstid:
     vaerdi: 4
     enhed: "t"
@@ -123,6 +131,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The manufacturer states 4-6h ( >4 h continuous walking with 20 kg load ). The figure is used here with the load condition. Worded identically to Unitree B2’s phrasing, down to the operator."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"Operating Time\" \"4–6h ( &gt;4 h continuous walking with 20 kg load )\""
     ved_last:
       vaerdi: 20
       enhed: "kg"
@@ -134,11 +143,13 @@ felter:
     kilde: "https://www.magiclab.top/en/dog-y"
     hentet: "2026-08-19"
     advarsel: "3D LiDAR x1 — type without model, does not count under D4."
+    advarsel_ordlyd: "\"Perception Sensors\" \"3D LiDAR ×1\""
   kameraer:
     vaerdi: "depth cameras x2 + optical cameras x2"
     kilde: "https://www.magiclab.top/en/dog-y"
     hentet: "2026-08-19"
     advarsel: "The manufacturer adds configurations may vary. The whole string (3D LiDAR x1 + Depth Cameras x2 + Optical Cameras x2 + caveat) is the same construction as Unitree B2’s."
+    advarsel_ordlyd: "\"Perception Sensors\" \"Depth Cameras ×2 + Optical Cameras ×2 (configurations may vary)\""
   compute:
     vaerdi: "8-core CPU + high-performance compute module (157 TOPS)"
     kilde: "https://www.magiclab.top/en/dog-y"
@@ -153,6 +164,7 @@ felter:
     kilde: "https://support.magiclab.top/docs/y1/about"
     hentet: "2026-08-19"
     advarsel: "The developer documentation states C++ and Python. Not filled in, because D1 is open. The documentation is Chinese-only."
+    advarsel_ordlyd: "\"C++ API\" \"Python API\""
   autonominiveau: "ikke_oplyst"
   monteringsinterface:
     vaerdi: "expansion plates, sliding rails, screw mounts, payload platform"
@@ -163,6 +175,7 @@ felter:
     kilde: "https://www.magiclab.top/en/dog-y"
     hentet: "2026-08-19"
     advarsel: "Voltage stated, wattage not."
+    advarsel_ordlyd: "\"User Expansion Interfaces\" \"(24V+485 output)*4 power supply + power bus, USB3.0*4, (12V output+EthNet)*3 power supply + network; EthCat x 1\""
   dataporte:
     vaerdi:
       - "USB 3.0 x4"

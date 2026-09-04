@@ -6,7 +6,7 @@ producentby: "Beijing / Suzhou"
 status: "i_produktion"
 fremdrift: "ben_hjul"
 noter:
-  - "NO STANDALONE URL: same caveat as L2-W — exists solely as a tab switch on L2’s own page (https://www.genisomai.com/product-robot/L2, techParamsData.datas[2], classname \"钢镚 L2-W Ultra\", id 1250)."
+  - "NO STANDALONE URL: same caveat as L2-W — exists solely as a tab switch on L2’s own page (https://www.genisomai.com/product-robot/L2, techParamsData.datas[2]; the internal classname carries the manufacturer’s own Chinese-language label for \"L2-W Ultra\", id 1250)."
   - "THE MARKETING CARD’S FIGURES (70cm obstacle height, 756Wh battery) ARE DELIBERATELY NOT USED HERE: same caveat as L2-W — the hero marketing card’s figures appear once for the whole page and are not repeated in L2-W Ultra’s own data block, hence not attributed to this variant specifically."
   - "L2-W ULTRA HAS ITS OWN LIDAR SPECIFICATION, WHICH L2/L2-W DO NOT HAVE: the sensor section for this variant specifically names an industrial-grade 96-line LiDAR, 2 units — the only GENISOM entry in this track with a concrete LiDAR line count."
 noter_ordlyd:
@@ -31,7 +31,7 @@ anvendelse:
     - "短途配送"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-24"
-  note: "Same section and same reasoning as genisom-gangben-l2-w.yaml: the text \"下一个应用场景，它已提前就位\" (next application scenario, already in place) appears ONCE on the L2 page for the whole Gangben L2 family, before the variant tabs. Quoted independently from the same URL, not via inherited_from. Own translation: 安防巡逻 -> security and surveillance; 应急消防 -> defense and emergency response; 科研教育 -> research and development; 短途配送 -> logistics."
+  note: "Same section and same reasoning as genisom-gangben-l2-w.yaml: the text headed \"next application scenario, already in place\" appears ONCE on the L2 page for the whole Gangben L2 family, before the variant tabs. Quoted independently from the same URL, not via inherited_from. Own translation: security patrol -> security and surveillance; emergency firefighting -> defense and emergency response; research and education -> research and development; short-distance delivery -> logistics."
   note_ordlyd: "Same section and same reasoning as genisom-gangben-l2-w.yaml: the text \"下一个应用场景，它已提前就位\" (next application scenario, already in place) appears ONCE on the L2 page for the whole Gangben L2 family, before the variant tabs. Quoted independently from the same URL, not via inherited_from. Own translation: 安防巡逻 -> security and surveillance; 应急消防 -> defense and emergency response; 科研教育 -> research and development; 短途配送 -> logistics."
 billede:
   fil: "fotos/fabrikant/genisom-gangben-l2-w-ultra.webp"

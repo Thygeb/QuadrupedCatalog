@@ -48,6 +48,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's label is Max.load, without distinguishing walking/standing. The placement is an inference."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Max.load"
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 3.3
@@ -56,6 +57,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Speed and slope are in ONE row, separated by a full-width semicolon (U+FF1B): 3.3m/s; 30 degrees. A parser that reads the row as ONE field gets nonsense."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Max.speed & slope\" \"3.3m/s；30°\""
   haeldning:
     vaerdi: 30
     enhed: "°"
@@ -63,6 +65,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "It's in the same row as the speed – see speed."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Max.speed & slope\" \"3.3m/s；30°\""
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse: "ikke_oplyst"
@@ -75,6 +78,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "ONLY the Chinese page is usable. The English page prints Battery capacity 10kg – kilograms in an energy field, probably Max.load 10kg copied into the wrong row. The correct figure can only be found by reading the original language, not the English translation."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"电池容量\" \"620Wh\" \"Battery capacity\" \"10kg\""
   driftstid:
     vaerdi: 40
     enhed: "min"
@@ -82,6 +86,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "THE PRODUCER ITSELF FLAGS THE FIGURE AS DOUBTFUL. The Chinese table writes 40min followed by the characters for doubtful, pending verification. It appears ONLY in Chinese and is invisible to anyone reading English."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "40min（存疑待核实）"
     ved_last: "ikke_oplyst"
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"
@@ -93,6 +98,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/product2.html"
     hentet: "2026-08-19"
     advarsel: "The producer spells it NIVIDIA. The misspelling is the producer’s own; we render the name correctly here and note the error. Note the split: the perception processor is an Intel i7, while the row labeled CPU is a Jetson."
+    advarsel_ordlyd: "\"Perception processor\" \"Intel Core i7\" \"CPU\" \"NIVIDIA Jetson Xavier NX\""
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau: "ikke_oplyst"
@@ -106,6 +112,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/product2.html"
     hentet: "2026-08-19"
     advarsel: "WiFi and Bluetooth are connections, not physical ports. The field is counted as filled because the producer itself lists them as an interface list."
+    advarsel_ordlyd: "\"Comm interface\" \"WIFI / USB / BLUETOOTH\""
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
   fcc_oplyst: "ikke_oplyst"

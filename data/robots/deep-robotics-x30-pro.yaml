@@ -34,6 +34,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Includes battery (battery included)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "(battery included)"
   laengde:
     vaerdi: 1000
     enhed: "mm"
@@ -46,6 +47,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "UNCERTAIN ASSIGNMENT. The producer prints 1000*715*470(mm) without labeling the axes, and the X20 page uses a different order. The printed order is followed literally. Width and height may be swapped."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "1000*715*470(mm)"
   hoejde:
     vaerdi: 470
     enhed: "mm"
@@ -53,6 +55,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "UNCERTAIN ASSIGNMENT - see width."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "1000*715*470(mm)"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende: "ikke_oplyst"
   nyttelast_staaende: "ikke_oplyst"
@@ -70,6 +73,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Character U+2264 – a ceiling, not a performance figure."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Slope\" \"≤45°\""
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -79,6 +83,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Combined label Step/Obstacle H, placed in the stricter field."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Step/Obstacle’s H"
   ip_klasse:
     vaerdi: "IP67"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
@@ -118,6 +123,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
     advarsel: "The producer writes Output power supply (5V 12V 24V). Wattage not stated. The X30 without Pro instead states 72 V BAT – the two variants have different output voltages."
+    advarsel_ordlyd: "Output power supply (5V 12V 24V)"
   dataporte:
     vaerdi:
       - "USB 2.0"

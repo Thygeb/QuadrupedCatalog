@@ -56,6 +56,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "ONLY the Chinese page decides the field. The CN label is continuous work load; the EN label is Endurance – the same word the page uses for runtime further down. A reader of only the English page cannot know that the X20 carries 20 kg."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"持续作业负载\" \"Endurance\""
   nyttelast_staaende: "ikke_oplyst"
   hastighed:
     vaerdi: 4
@@ -65,6 +66,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer writes 4M/S in capitals (character U+2265). The X30 from the same producer writes the same field in lower case. The capitalization hasn’t been normalized."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"Max.Speed\" \"≥4M/S\""
   haeldning:
     vaerdi: 30
     enhed: "°"
@@ -73,6 +75,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Character U+2265 – a FLOOR. The X30 from the same producer writes <= 45 degrees, i.e. a CEILING. Same producer, same field, opposite inequality sign."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Slope\" \"≥30°\""
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -82,6 +85,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's label Step/Obstacle H merges the two fields the schema has specifically kept separate. The value has been placed in the stricter of the two; obstacle_single is left empty. It's a choice, not a reading."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Step/Obstacle’s H"
   ip_klasse:
     vaerdi: "IP66"
     kilde: "https://deeprobotics.cn/en/index/product.html"
@@ -114,6 +118,7 @@ felter:
     kilde: "https://www.deeprobotics.cn/robot/index/product.html"
     hentet: "2026-08-19"
     advarsel: "CN writes external interface: NONE. EN writes Interface: / – which any importer reads as not-stated. The producer has answered NO. Rule 10 caught in the wild, and again it’s the Chinese page that decides the field."
+    advarsel_ordlyd: "\"外置接口\" \"无\" \"Interface\" \"/\""
   pris: "ikke_oplyst"
   ce_oplyst: "ikke_oplyst"
   fcc_oplyst: "ikke_oplyst"

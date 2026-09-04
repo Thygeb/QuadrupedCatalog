@@ -163,6 +163,7 @@ felter:
     kilde: "https://addverb.ai/trakr"
     hentet: "2026-08-25"
     advarsel: "Composed from several sections of the page: the four feature cards shown before the tab selector (apply to the whole Trakr line, not tab-specific) and the \"OPTIONAL FEATURES & MODULES\" row in Trakr 5’s own table. No named autonomy-level scale is given."
+    advarsel_ordlyd: "\"Fully Autonomous Missions\" \"Dynamic Locomotion\" \"INTELLIGENT DETECTION & AVOIDANCE\" \"OPTIONAL FEATURES & MODULES\""
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte: "ikke_oplyst"

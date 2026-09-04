@@ -126,6 +126,7 @@ felter:
     kilde: "https://neura-robotics.com/product/quadruped-reservation/"
     hentet: "2026-08-25"
     advarsel: "From the same Interfaces row as the ros2 field. 'NEURA Sync' is a proprietary platform, not a programming language, and is therefore not included in the sdk_languages list."
+    advarsel_ordlyd: "\"Interfaces\" \"Wi-Fi 6, Gigabit Ethernet, ROS 2, C++, Python SDK, NEURA Sync\""
   autonominiveau:
     vaerdi: "Fully Autonomous (\"Fully Autonomous\"); intelligent algorithm for mapping, localization and navigation (\"Intelligent Algorithm for Mapping, Localization, and Navigation\"); path planning and obstacle avoidance (\"Path Planning and Obstacle Avoidance\"); multimodal cognitive interaction (\"Multimodal Cognitive Interaction\"); digital twin access, teleoperation, ready for training in NEURA Gym"
     kilde: "https://neurarobotics.px.media/plk/NP/QuadrupedDatasheet.pdf"

@@ -17,7 +17,8 @@ anvendelse:
     - "Robothund - forbrugerniveau / videnskabelig forskning (机器狗 - 消费级 / 科研)"
   kilde: "https://www.unitree.com/"
   hentet: "2026-08-19"
-  note: "The manufacturer's own product navigation, the group A1 belongs to. The English and Chinese navigation name the group differently: EN 'Consumer/Education', CN '消费级 / 科研' (consumer-grade / scientific research). Both are the manufacturer's own wording."
+  note: "The manufacturer’s own product navigation, the group A1 belongs to. The English and Chinese navigation name the group differently: EN ‘Consumer/Education’, CN \"consumer-grade / scientific research\" (the manufacturer’s own Chinese-language wording). Both are the manufacturer’s own wording."
+  note_ordlyd: "消费级 / 科研"
 billede:
   fil: "fotos/fabrikant/unitree-a1.png"
   ophav: "fabrikant"

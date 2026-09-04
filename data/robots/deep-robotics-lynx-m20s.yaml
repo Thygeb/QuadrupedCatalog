@@ -57,6 +57,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's label: Effective Payload (standard terrain)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Effective Payload (standard terrain)"
   nyttelast_staaende:
     vaerdi: 100
     enhed: "kg"
@@ -64,6 +65,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's label: Maximum Payload Capacity. The page doesn't explicitly say standing. The placement is an interpretation."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Maximum Payload Capacity"
   hastighed:
     vaerdi: 2
     enhed: "m/s"
@@ -71,6 +73,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer also states 9 m/s as a lab-measured extreme speed. Here the operating speed is used."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Max. Tested Speed\" \"9m/s\" \"Max. Operating Speed\""
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -78,6 +81,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Footnote [2]: Lab-tested slope angle; actual performance varies by surface material."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "[2] Lab-tested slope angle; actual performance varies by surface material."
   forhindring_enkelt:
     vaerdi: 100
     enhed: "cm"
@@ -85,6 +89,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's own label: Max. Single-Step Height."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max. Single-Step Obstacle Height"
   trappetrin_kontinuerlig:
     vaerdi: 30
     enhed: "cm"
@@ -92,6 +97,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's own label: Max. Continuous Stair Height. The ratio between the two step fields is 3.3 times. On the comparable figure, the M20S is on par with Boston Dynamics Spot's 30 cm; had we used the high figure, it would beat everything else in the field."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Max. Continuous Stair Height"
   ip_klasse:
     vaerdi: "IP67"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
@@ -115,12 +121,14 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer states two ranges – 3.5-5 h / 16-20 km with no load and 2.5-3.5 h / 12-15 km in operation – but does NOT state what load the 2.5-3.5 h applies at. The M20 states its load condition (15 kg); the M20S doesn’t."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Operating Time (no payload)\" \"3.5–5 hours\" \"Range (no payload)\" \"16–20 km\" \"Operating Time (with payload)\" \"2.5–3.5 hours\" \"Range (with payload)\" \"12–15 km\""
     ved_last: "ikke_oplyst"
   hot_swap:
     vaerdi: true
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "Hot-Swappable Dual Battery System – it's in the table, unlike the M20 where it's only in the body text."
+    advarsel_ordlyd: "Hot-Swappable Dual Battery System"
   ladetid:
     vaerdi: 1.5
     enhed: "t"
@@ -131,6 +139,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "Autonomous Charging (Optional) – it's in English here, unlike the M20 where the row only exists in Chinese."
+    advarsel_ordlyd: "\"Autonomous Charging\" \"(Optional)\""
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
@@ -151,6 +160,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "The same entries carry the footnote Feature enabled via future OTA update on the M20. On the M20S they appear WITHOUT the footnote and are therefore counted as existing."
+    advarsel_ordlyd: "\"SLAM Mapping & Localization\" \"Autonomous Navigation\" \"Omnidirectional Obstacle Avoidance\""
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte:

@@ -24,7 +24,7 @@ anvendelse:
     - "短途配送"
   kilde: "https://www.genisomai.com/product-robot/L2"
   hentet: "2026-08-24"
-  note: "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place). 安防巡逻 -> security and surveillance; 科研教育 -> research and development; 短途配送 (short-distance delivery) -> logistics."
+  note: "From the section headed \"next application scenario, already in place\". The manufacturer’s own scenario labels map as follows: security patrol -> security and surveillance; research and education -> research and development; short-distance delivery -> logistics."
   note_ordlyd: "From the section \"下一个应用场景，它已提前就位\" (next application scenario, already in place). 安防巡逻 -> security and surveillance; 科研教育 -> research and development; 短途配送 (short-distance delivery) -> logistics."
 billede:
   fil: "fotos/fabrikant/genisom-gangben-l2.webp"

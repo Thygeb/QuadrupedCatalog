@@ -35,6 +35,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Includes battery (battery included)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "(battery included)"
   laengde:
     vaerdi: 1000
     enhed: "mm"
@@ -47,6 +48,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "UNCERTAIN ASSIGNMENT. The producer prints 1000*695*470(mm) without labeling the axes. The same producer’s X20 page prints 950mm*470mm*700mm, where 700 mm is, by all appearances, the height – i.e. a different order. Here the printed order is followed literally (2nd figure = width, 3rd figure = height). Width and height may be swapped. Not settled from the source."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "1000*695*470(mm)"
   hoejde:
     vaerdi: 470
     enhed: "mm"
@@ -54,6 +56,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "UNCERTAIN ASSIGNMENT – see width. The printed order is followed literally."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "1000*695*470(mm)"
   frihedsgrader: "ikke_oplyst"
   nyttelast_gaaende: "ikke_oplyst"
   nyttelast_staaende: "ikke_oplyst"
@@ -71,6 +74,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Character U+2264 – a CEILING. The X20 from the same producer writes >= 30 degrees, i.e. a FLOOR. Same producer, same field, opposite inequality sign. A normalizing importer would silently correct it; they shouldn’t."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Slope\" \"≤45°\""
   forhindring_enkelt: "ikke_oplyst"
   trappetrin_kontinuerlig:
     vaerdi: 20
@@ -80,6 +84,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Combined label Step/Obstacle H. Placed in the stricter of the two fields; obstacle_single is left empty. The Chinese label explicitly says step, which justifies the strict placement."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Step/Obstacle’s H\" \"台阶/障碍物高度\""
   ip_klasse:
     vaerdi: "IP67"
     kilde: "https://deeprobotics.cn/en/index/product3.html"
@@ -119,6 +124,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/product3.html"
     hentet: "2026-08-19"
     advarsel: "The producer writes Output power supply (72V BAT). Voltage stated, wattage not."
+    advarsel_ordlyd: "Output power supply (72V BAT)"
   dataporte:
     vaerdi:
       - "Ethernet"

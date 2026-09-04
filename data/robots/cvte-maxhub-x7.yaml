@@ -22,7 +22,7 @@ anvendelse:
   citat_ordlyd: "适用于工业、电力、救援等场景"
   kilde: "https://www.cvte.com/product/quadrupedrobot"
   hentet: "2026-08-24"
-  note: "\"工业\" (industry) and \"电力\" (power/electricity) are both mapped to industrial, since this sentence does not itself use an inspection word (unlike the news article). \"救援\" (rescue) is mapped to defense and emergency response."
+  note: "Industry and power/electricity are both mapped to industrial, since this sentence does not itself use an inspection word (unlike the news article). Rescue is mapped to defense and emergency response."
   note_ordlyd: "\"工业\" (industry) and \"电力\" (power/electricity) are both mapped to industrial, since the sentence here does not itself use an inspection word (unlike the news article, see notes). \"救援\" (rescue) is mapped to defense and emergency response."
 billede:
   fil: "fotos/fabrikant/cvte-maxhub-x7.jpg"

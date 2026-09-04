@@ -37,6 +37,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "An operator on OWN WEIGHT – the first time in the collection. It’s effectively a promise, not a measurement. Note also that EN uses the character U+2264 and CN the character U+2266 for the same robot, the same field, the same day – two different characters for the same meaning."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"weighs ≤20 kg (including battery)\" \"整机含电池自重≦20kg\""
   laengde: "ikke_oplyst"
   bredde: "ikke_oplyst"
   hoejde: "ikke_oplyst"
@@ -50,6 +51,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "CN is sharper than EN: the Chinese page writes limit/extreme speed – the same word as the M20 table's lab extreme speed. EN just writes flat-ground top speed. So the Chinese page marks that 8 m/s is a limit figure; the English one doesn't."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"flat-ground top speed\" \"平地极限速度\""
   haeldning: "ikke_oplyst"
   forhindring_enkelt:
     vaerdi: 50
@@ -58,6 +60,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "clear obstacles up to 50 cm high – body text, not a table."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "clear obstacles up to 50 cm high"
   trappetrin_kontinuerlig: "ikke_oplyst"
   ip_klasse:
     vaerdi: "IP66"
@@ -88,6 +91,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/lynxs10.html"
     hentet: "2026-08-19"
     advarsel: "Qualitative, in body text."
+    advarsel_ordlyd: "autonomous path planning and intelligent obstacle avoidance"
   monteringsinterface: "ikke_oplyst"
   stroem_ud: "ikke_oplyst"
   dataporte: "ikke_oplyst"

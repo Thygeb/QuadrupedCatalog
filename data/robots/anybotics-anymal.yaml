@@ -100,6 +100,7 @@ felter:
     kilde: "https://www.anybotics.com/robotics/anymal/"
     hentet: "2026-08-19"
     advarsel: "The manufacturer's own two phrasings for the same unit."
+    advarsel_ordlyd: "\"2× Intel i7 Core\" \"8th gen. Intel 6-core processors\""
   ros2: "ikke_oplyst"
   sdk_sprog: "ikke_oplyst"
   autonominiveau:

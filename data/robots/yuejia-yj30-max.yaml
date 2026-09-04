@@ -6,11 +6,11 @@ producentby: "Shenzhen"
 status: "i_produktion"
 fremdrift: "ben"
 noter:
-  - "SAME MERGED-COLUMN PATTERN AS THE YJ30 FOR SLOPE: here the column is simply named (climb angle) without the '/DOF' addition - DOF is therefore not mentioned anywhere on the YJ30Max's page at all, not just omitted from a merged column. degrees_of_freedom is not disclosed."
-  - "LIDAR NOT FILLED IN: same situation as the YJ30 - no lidar row in the '基础参数' (basic parameters) table."
+  - "SAME MERGED-COLUMN PATTERN AS THE YJ30 FOR SLOPE: here the column’s Chinese-language label translates to \"climb angle\", without the '/DOF' addition - DOF is therefore not mentioned anywhere on the YJ30Max’s page at all, not just omitted from a merged column. degrees_of_freedom is not disclosed."
+  - "LIDAR NOT FILLED IN: same situation as the YJ30 - no lidar row in the table headed \"basic parameters\" (the manufacturer’s own Chinese-language heading)."
 noter_ordlyd:
   - "爬坡角度"
-  - ""
+  - "基础参数"
 anvendelse:
   vaerdi:
     - "inspektion"

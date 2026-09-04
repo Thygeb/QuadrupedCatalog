@@ -75,6 +75,7 @@ felter:
     kilde: "https://www.mabrobotics.pl/honey-badger-5"
     hentet: "2026-08-19"
     advarsel: "0°C is a DISCLOSED LOWER BOUND, not a missing figure. Together with the Weilan AlphaDog C500 (0-35°C), it is the narrowest operating temperature range in this collection; for outdoor Danish winter operation it is a disqualifier."
+    advarsel_ordlyd: "\"Operating temperature\" \"0-45°C\""
   temp_maks:
     vaerdi: 45
     enhed: "°C"

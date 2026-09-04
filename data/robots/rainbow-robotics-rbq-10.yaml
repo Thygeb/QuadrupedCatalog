@@ -182,6 +182,7 @@ felter:
     kilde: "https://rainbow-robotics.com/en/products/rbq-10/"
     hentet: "2026-08-19"
     advarsel: "Voltage disclosed, wattage not - the same half-empty field as Ghost Vision 60."
+    advarsel_ordlyd: "\"External Interfaces\" \"54 V, 12 V, CAN (1 ch), Gigabit LAN ×3\""
   dataporte:
     vaerdi:
       - "CAN (1 kanal)"

@@ -58,6 +58,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's label is Payload Capacity."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Payload Capacity"
   nyttelast_staaende:
     vaerdi: 50
     enhed: "kg"
@@ -65,6 +66,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's label is Max. Load Capacity. The page does NOT say it is standing load. The placement here is an interpretation, chosen because the field structurally plays the same role as Unitree's standing load."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Max. Load Capacity"
   hastighed:
     vaerdi: 2
     enhed: "m/s"
@@ -72,6 +74,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "THREE figures for the same property on the same page: Lab-Tested Max. Speed 5 m/s, Operating Max. Speed 2 m/s, and footnote [1] Lab-tested extreme speed; safety-limited to 3m/s in user mode. Here the operating speed is used – the only one the user actually gets."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Lab-Tested Max. Speed\" \"Operating Max. Speed\" \"[1] Lab-tested extreme speed; safety-limited to 3m/s in user mode.\""
   haeldning:
     vaerdi: 45
     enhed: "°"
@@ -79,6 +82,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's footnote [2]: Lab-tested slope angle; actual performance varies by surface material."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "[2] Lab-tested slope angle; actual performance varies by surface material."
   forhindring_enkelt:
     vaerdi: 80
     enhed: "cm"
@@ -86,6 +90,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's own label: Max. Single-Step Height."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max. Single-Step Height"
   trappetrin_kontinuerlig:
     vaerdi: 25
     enhed: "cm"
@@ -93,6 +98,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer's own label: Max. Continuous Stair Height. Comparisons should use this figure, not the 80 cm one."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "Max. Continuous Stair Height"
   ip_klasse:
     vaerdi: "IP66"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
@@ -115,6 +121,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The producer also states 3 h / 15 km with no load. Here the figure with a load condition is used (12 km)."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"Unloaded Endurance/Range\" \"3h/15km\" \"Loaded Endurance/Range (15kg)\" \"2.5h/12km\""
     ved_last:
       vaerdi: 15
       enhed: "kg"
@@ -123,6 +130,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "Only in the body text, not in the specification table."
+    advarsel_ordlyd: "hot-swappable batteries"
   ladetid:
     vaerdi: 1.5
     enhed: "t"
@@ -133,6 +141,7 @@ felter:
     kilde: "https://www.deeprobotics.cn/robot/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "The row autonomous charging (optional) exists ONLY in the Chinese table. The English table doesn't have it – it's only mentioned in the body text above. Five rows in English, six in Chinese."
+    advarsel_ordlyd: "自主充电(选配)"
   lidar:
     vaerdi: "ikke_oplyst"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
@@ -154,12 +163,14 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "The page lists Omnidirectional obstacle avoidance and Point cloud surround view as the only two autonomy entries, but BOTH carry footnote [3][4]: Feature enabled via future OTA update. They don't exist today. An entry that reads the feature list without the footnote attributes the M20 an autonomy the producer itself says it doesn't have yet. The M20S has the same entries WITHOUT the footnote."
+    advarsel_ordlyd: "\"Omnidirectional obstacle avoidance\" \"Point cloud surround view\" \"[3][4] Feature enabled via future OTA update.\""
   monteringsinterface: "ikke_oplyst"
   stroem_ud:
     vaerdi: "ikke_oplyst"
     kilde: "https://deeprobotics.cn/en/index/lynx.html"
     hentet: "2026-08-19"
     advarsel: "The page's 72V power input is power IN, not out."
+    advarsel_ordlyd: "72V power input"
   dataporte:
     vaerdi:
       - "Gigabit Ethernet"

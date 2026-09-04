@@ -48,6 +48,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT - see length."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Standing Dimensions\" \"900mm × 600mm × 650mm\""
   hoejde:
     vaerdi: 650
     enhed: "mm"
@@ -55,6 +56,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT - see length. Folded measurement is 1150 x 800 x 200mm; the schema has no folded-measurement field."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Standing Dimensions\" \"900mm × 600mm × 650mm\""
   frihedsgrader:
     vaerdi: 16
     enhed: "DoF"

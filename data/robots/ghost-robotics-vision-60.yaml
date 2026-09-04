@@ -202,6 +202,7 @@ felter:
     kilde: "https://www.ghostrobotics.io/vision-60"
     hentet: "2026-08-19"
     advarsel: "Three named levels - the most useful autonomy description in the entire collection."
+    advarsel_ordlyd: "\"Autonomy Modes\" \"Perception Aided Mobility\" \"Record-Playback\" \"Mission Control\""
   monteringsinterface:
     vaerdi: "T-slots, M5 tapped holes or 1913 MIL-STD rails, w/ optional body panels"
     kilde: "https://www.ghostrobotics.io/vision-60"

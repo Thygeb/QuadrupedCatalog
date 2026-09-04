@@ -34,7 +34,7 @@ anvendelse:
     - "物流运输"
   kilde: "https://www.genisomai.com/product-robot/M1"
   hentet: "2026-08-25"
-  note: "Same source section as genisom-tongchui-m1-pro.yaml and the base version (\"下一个应用场景，它已提前就位\") — the same primary source for all three variants, NOT inherited_from. See genisom-tongchui-m1-pro.yaml for the full reasoning for why inherited_from is not used here."
+  note: "Same source section as genisom-tongchui-m1-pro.yaml and the base version (the \"next application scenario, already in place\" section) — the same primary source for all three variants, NOT inherited_from. See genisom-tongchui-m1-pro.yaml for the full reasoning for why inherited_from is not used here."
   note_ordlyd: "Same source section as genisom-tongchui-m1-pro.yaml and the base version (\"下一个应用场景，它已提前就位\") — the same primary source for all three variants, NOT inherited_from. See genisom-tongchui-m1-pro.yaml for the full reasoning for why inherited_from is not used here."
 billede:
   fil: "fotos/fabrikant/genisom-tongchui-m1-ultra.webp"
@@ -140,6 +140,7 @@ felter:
     hentet: "2026-08-25"
     advarsel: "Same caveat as temperature_min."
     advarsel_klasse: "uddybning"
+    advarsel_ordlyd: "\"-20℃ ~ 55℃ 工作温度，可选配 -40℃ ~ 80℃ 宽温电池版本\""
   batteri_wh:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.genisomai.com/product-robot/M1"

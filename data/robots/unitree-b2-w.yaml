@@ -122,6 +122,7 @@ felter:
     kilde: "https://www.unitree.com/b2-w"
     hentet: "2026-08-19"
     advarsel: "No hours figure on the page. Only distance: 25 km at 40 kg load, and about 30 km with no load. Negative check: hours/h does not occur anywhere in a numeric context. The word endurance here carries a distance, not a time."
+    advarsel_ordlyd: "\"25km with 40kg load [2]\" \"Maximum endurance without load and the mileage\" \"≈30km\""
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"
   dockingstation: "ikke_oplyst"

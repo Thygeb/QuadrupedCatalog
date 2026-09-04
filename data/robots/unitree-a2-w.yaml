@@ -17,7 +17,8 @@ anvendelse:
   citat: "Suited for industrial inspection, park logistics, and emergency rescue and more."
   kilde: "https://www.unitree.com/A2-W"
   hentet: "2026-08-19"
-  note: "A2-W does not appear in the manufacturer's English product navigation menu, where A2 is listed under 'Robot - Industry' — though the Chinese-language navigation does list A2-W alongside A2 under the same '行业级' (industry-level) group. The category here is therefore the product page's own sentence, not the navigation's grouping. The same page also calls the robot an 'Industrial-grade mobile platform' — that is a build quality, not a use case, and is not counted."
+  note: "A2-W does not appear in the manufacturer’s English product navigation menu, where A2 is listed under ‘Robot - Industry’ — though the Chinese-language navigation does list A2-W alongside A2 under the same \"industry-level\" group (the manufacturer’s own Chinese-language label). The category here is therefore the product page’s own sentence, not the navigation’s grouping. The same page also calls the robot an ‘Industrial-grade mobile platform’ — that is a build quality, not a use case, and is not counted."
+  note_ordlyd: "行业级"
 billede:
   fil: "fotos/fabrikant/unitree-a2-w.jpg"
   ophav: "fabrikant"

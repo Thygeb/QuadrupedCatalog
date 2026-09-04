@@ -7,7 +7,7 @@ status: "i_produktion"
 fremdrift: "ben_hjul"
 foerste_udgivelse: 2025
 noter:
-  - "THE MANUFACTURER HAS CHANGED ITS NAME/DOMAIN. The domain used by the CEO's own materials and the press (microrobotech.com) redirects 301 to micbotics.com. The entire current site uses the brand name 'Micbot'/'MICBOT' (meta keywords, the page's title tags '...-MICBOT', navigation logo) - NOT 'MicroRoboTech'. The legal company name remains 杭州具微科技有限公司 (Hangzhou Juwei Technology), which 36Kr's project page translates as 'MicroRoboTech' (https://pitchhub.36kr.com/project/3401143382263687, retrieved 2026-08-24). The manufacturer field here retains the CEO's own naming 'MicroRoboTech', but the consumer-facing brand to look for going forward is 'Micbot'."
+  - "THE MANUFACTURER HAS CHANGED ITS NAME/DOMAIN. The domain used by the CEO's own materials and the press (microrobotech.com) redirects 301 to micbotics.com. The entire current site uses the brand name 'Micbot'/'MICBOT' (meta keywords, the page's title tags '...-MICBOT', navigation logo) - NOT 'MicroRoboTech'. The legal company name remains Hangzhou Juwei Technology (its Chinese-language registered name), which 36Kr's project page translates as 'MicroRoboTech' (https://pitchhub.36kr.com/project/3401143382263687, retrieved 2026-08-24). The manufacturer field here retains the CEO's own naming 'MicroRoboTech', but the consumer-facing brand to look for going forward is 'Micbot'."
   - "The datasheet table is identical on the English (micbotics.com) and Chinese (micbotics.cn) sites - all 25+ rows cross-checked verbatim, 0 discrepancies. The English version is therefore used directly as the source without translation risk for the figures themselves."
   - "'Total Battery Weight: 40~50kg' / Chinese is an ambiguous label (conflates whole-machine weight with battery). Placed as own weight based on context (appears under 'Mechanical Parameters' together with the dimensions, not under 'Electrical Parameters'), but the wording is not unambiguous - see the caveat on the field."
   - "No price found on either language version - only 'Buy Now'/'Get Solutions' contact buttons, no printed figure."
@@ -46,6 +46,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT - see length. Axes are not labeled in the source."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Standing Dimensions\" \"800mm × 600mm × 540mm\""
   hoejde:
     vaerdi: 540
     enhed: "mm"
@@ -53,6 +54,7 @@ felter:
     hentet: "2026-08-24"
     advarsel: "UNCERTAIN ASSIGNMENT - see length. Folded measurement is 1025 x 750 x 150mm; the schema has no folded-measurement field."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"Standing Dimensions\" \"800mm × 600mm × 540mm\""
   frihedsgrader:
     vaerdi: 16
     enhed: "DoF"

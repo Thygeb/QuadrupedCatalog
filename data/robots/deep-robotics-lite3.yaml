@@ -40,6 +40,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Includes battery. The value is the Basic variant's."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "Weight (Incl. Battery)"
     varianter:
       Basic: 12
       LIDAR: 13.5
@@ -75,6 +76,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "The Chinese label is CONTINUOUS walking load; the English one just says Walking Load. The value is the Basic variant's."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"持续行走负载\" \"Walking Load\""
     varianter:
       Basic: 5
       LIDAR: 2.5
@@ -97,6 +99,7 @@ felter:
     hentet: "2026-08-19"
     advarsel: "Only the Chinese page decides which field the figure belongs in. The CN label is continuous stair height; the EN label is just the word Stair. Reading only English, the figure could just as easily land in obstacle_single – and then a continuous stair height would be compared with other robots’ single steps, which are 2-4 times larger."
     advarsel_klasse: "gyldighed"
+    advarsel_ordlyd: "\"连续楼梯高度\" \"Stair\""
   ip_klasse: "ikke_oplyst"
   temp_min: "ikke_oplyst"
   temp_maks: "ikke_oplyst"
@@ -128,6 +131,7 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/product1.html"
     hentet: "2026-08-19"
     advarsel: "Qualitative. The value is the Basic variant's."
+    advarsel_ordlyd: "\"Perception Functions\" \"Front/Rear Obstacle Stop，Visual Following\""
     varianter:
       Basic: "stopper for forhindring; følger"
       LIDAR: "+ Auto Navigation"
@@ -139,11 +143,13 @@ felter:
     kilde: "https://deeprobotics.cn/en/index/product1.html"
     hentet: "2026-08-19"
     advarsel: "The page states External Power Input (24V/12V/5V). That is power IN, not out. The old draft counted it as power out – the same mistake as the 72V power input on the Lynx M20."
+    advarsel_ordlyd: "External Power Input (24V/12V/5V)"
   dataporte:
     vaerdi: "nej"
     kilde: "https://www.deeprobotics.cn/robot/index/product1.html"
     hentet: "2026-08-19"
     advarsel: "The Basic column explicitly states NONE (CN) / (EN). That is a NO, not not-stated. The value is the Basic variant's."
+    advarsel_ordlyd: "\"无\" \"/\""
     varianter:
       Basic: "nej"
       LIDAR: "USB 3.0; HDMI; Ethernet"

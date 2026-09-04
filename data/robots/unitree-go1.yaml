@@ -40,6 +40,7 @@ felter:
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
     advarsel: "Standing dimensions are not stated. Only the folded measurement 0.588 x 0.22 x 0.29 m is printed, and the schema has no field for folded dimensions."
+    advarsel_ordlyd: "\"0.588 x 0.22 x 0.29\" \"m\""
   frihedsgrader:
     vaerdi: 12
     enhed: "DoF"
@@ -86,11 +87,13 @@ felter:
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
     advarsel: "The page states only Battery: 1 piece — neither mAh, V, nor Wh."
+    advarsel_ordlyd: "\"Battery\" \"1 piece\""
   driftstid:
     vaerdi: "ikke_oplyst"
     kilde: "https://www.unitree.com/go1"
     hentet: "2026-08-19"
     advarsel: "No figure on the page. Long Endurance appears as a heading with no value."
+    advarsel_ordlyd: "\"Long\" \"Endurance\""
   hot_swap: "ikke_oplyst"
   ladetid: "ikke_oplyst"
   dockingstation: "ikke_oplyst"
