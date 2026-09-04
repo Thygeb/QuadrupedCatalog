@@ -205,9 +205,6 @@
 
   "eu_titel": "EU",
   "eu_forklaring": "The field shows only what the manufacturer states about CE marking. It is a record of fact, not import advice.",
-  "eu_ce_ja": "CE stated by the manufacturer",
-  "eu_ce_nej": "The manufacturer states that there is no CE marking",
-  "eu_ce_ikke_oplyst": "CE is not stated anywhere",
 
   "varianter": "Variants",
   "varianter_forklaring": "The manufacturer sells this model in several variants. The figures on this page apply to the variant the source names.",

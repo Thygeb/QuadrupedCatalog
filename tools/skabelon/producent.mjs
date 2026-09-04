@@ -59,17 +59,9 @@
  * eu_titel · forside_eu_tal · forside_eu_paastand. Se euSaetning() nedenfor.
  */
 
-import { skal, hjaelp } from './side.mjs';
-import { tilstandAf } from '../skema.mjs';
-import {
-  esc, T, TD, flet, sti, kraevHjaelp,
-} from './robot.mjs';
-
-/** EU-feltet/felterne, skemaet baerer. L32 (24. aug 2026) fjernede tre af de
- *  fire — eu_tilgaengelig, eu_service, leveringstid — og efterlod ét. Ikke
- *  slettet: robot.mjs' egen EU_FELTER holder samme form, og euSaetning()
- *  nedenfor slaar op i den frem for at haardkode 'ce_oplyst' to steder. */
-const EU_FELTER = ['ce_oplyst'];
+import { skal, hjaelp } from "./side.mjs";
+import { tilstandAf } from "../skema.mjs";
+import { esc, T, TD, flet, sti, kraevHjaelp } from "./robot.mjs";
 
 /* KORT_FELTER er vaek (spor/kort, 31. aug 2026). Listen var producentkortets
    fire tal, og dens egen kommentar bar advarslen: "katalog.mjs har den samme
@@ -93,7 +85,7 @@ function hjemstedAf(modeller) {
   const byer = new Set();
   for (const m of modeller) {
     const b = m?.producentby;
-    if (b === undefined || b === null || b === '') continue;
+    if (b === undefined || b === null || b === "") continue;
     if (tilstandAf(b)) continue;
     byer.add(String(b));
   }
@@ -102,13 +94,21 @@ function hjemstedAf(modeller) {
 
 /** "{n} modeller", men aldrig "1 modeller": ental har sin egen noegle. */
 function modelTal(i18n, n) {
-  return n === 1 ? T(i18n, 'producent_model_en') : flet(T(i18n, 'producent_modeller'), { n });
+  return n === 1
+    ? T(i18n, "producent_model_en")
+    : flet(T(i18n, "producent_modeller"), { n });
 }
 
 /** Modellerne, uanset hvad noeglen hedder. */
 function modellerAf(ctx) {
   const p = ctx?.producent ?? {};
-  const m = p.modeller ?? p.robotter ?? p.robots ?? ctx?.robotter ?? ctx?.modeller ?? [];
+  const m =
+    p.modeller ??
+    p.robotter ??
+    p.robots ??
+    ctx?.robotter ??
+    ctx?.modeller ??
+    [];
   return Array.isArray(m) ? m.filter(Boolean) : [];
 }
 
@@ -116,10 +116,10 @@ function modellerAf(ctx) {
  *  at vise. Et interval sorteres paa sin nedre graense; intervallet bevares
  *  uroert i visningen (regel 5: "20~25 cm" er ikke 22,5). */
 function sorteringstal(post) {
-  if (!post || typeof post !== 'object') return null;
+  if (!post || typeof post !== "object") return null;
   if (tilstandAf(post.vaerdi)) return null;
-  if (typeof post.vaerdi === 'number') return post.vaerdi;
-  if (typeof post.min === 'number') return post.min;
+  if (typeof post.vaerdi === "number") return post.vaerdi;
+  if (typeof post.min === "number") return post.min;
   return null;
 }
 
@@ -129,32 +129,13 @@ function sorterModeller(modeller) {
   return [...modeller].sort((a, b) => {
     const va = sorteringstal(a?.felter?.egenvaegt);
     const vb = sorteringstal(b?.felter?.egenvaegt);
-    if (va === null && vb === null) return String(a?.navn ?? '').localeCompare(String(b?.navn ?? ''), 'da');
+    if (va === null && vb === null)
+      return String(a?.navn ?? "").localeCompare(String(b?.navn ?? ""), "da");
     if (va === null) return 1;
     if (vb === null) return -1;
     if (va !== vb) return va - vb;
-    return String(a?.navn ?? '').localeCompare(String(b?.navn ?? ''), 'da');
+    return String(a?.navn ?? "").localeCompare(String(b?.navn ?? ""), "da");
   });
-}
-
-/**
- * CE-opgoerelsen. TRE tal, ikke to: oplyst ja, oplyst nej, og intet oplyst.
- * De tre maa ikke kollapse — det er praecis CLAUDE.md begraensning 5 paa
- * producentniveau. Maalt over kataloget: 2 modeller siger ja, 2 siger nej,
- * 42 siger intet.
- */
-function ceOpgoerelse(modeller) {
-  let ja = 0; let nej = 0; let ukendt = 0;
-  for (const m of modeller) {
-    const p = m?.felter?.[EU_FELTER[0]];
-    if (p === undefined || typeof p === 'string') { ukendt++; continue; }
-    if (tilstandAf(p.vaerdi) === 'nej') { nej++; continue; }
-    if (tilstandAf(p.vaerdi)) { ukendt++; continue; }
-    if (p.vaerdi === true) ja++;
-    else if (p.vaerdi === false) nej++;
-    else ukendt++;
-  }
-  return { ja, nej, ukendt, i_alt: modeller.length };
 }
 
 /* ------------------------------------------------------------------ toppen */
@@ -163,100 +144,27 @@ function top(ctx, modeller) {
   const { i18n } = ctx;
   const p = ctx.producent ?? {};
   const foerste = modeller[0] ?? {};
-  const navn = p.navn ?? foerste.producent ?? '';
+  const navn = p.navn ?? foerste.producent ?? "";
   const landVaerdi = p.land ?? p.producentland ?? foerste.producentland ?? null;
   const byVaerdi = p.by ?? p.producentby ?? hjemstedAf(modeller);
 
   // Hjemstedet er et felt som ethvert andet. Er det ikke oplyst, siger vi det
   // med samme visuelle sprog som alle andre huller — ikke ved at lade linjen
   // vaere tom, og aldrig ved at gaette en by.
-  const byTilstand = byVaerdi === undefined ? 'ikke_oplyst' : tilstandAf(byVaerdi);
+  const byTilstand =
+    byVaerdi === undefined ? "ikke_oplyst" : tilstandAf(byVaerdi);
   const byDel = byTilstand
     ? ctx.__H.tilstand(byTilstand, i18n)
     : `<span class="hjemsted">${esc(byVaerdi)}</span>`;
 
   return `<header class="producent-top">
-<h1 class="t-hero">${esc(navn)}</h1>
+<h1 class="t-h1">${esc(navn)}</h1>
 <dl class="producent-fakta">
-${landVaerdi ? `<div><dt class="etiket">${esc(T(i18n, 'tabel_land'))}</dt><dd>${esc(TD(i18n, 'land_' + landVaerdi, landVaerdi))}</dd></div>` : ''}
-<div><dt class="etiket">${esc(T(i18n, 'producent_hjemsted'))}</dt><dd>${byDel}</dd></div>
-<div><dt class="etiket">${esc(T(i18n, 'producent_modeller_titel'))}</dt><dd class="figur">${esc(String(modeller.length))}</dd></div>
+${landVaerdi ? `<div><dt class="etiket">${esc(T(i18n, "tabel_land"))}</dt><dd>${esc(TD(i18n, "land_" + landVaerdi, landVaerdi))}</dd></div>` : ""}
+<div><dt class="etiket">${esc(T(i18n, "producent_hjemsted"))}</dt><dd>${byDel}</dd></div>
+<div><dt class="etiket">${esc(T(i18n, "producent_modeller_titel"))}</dt><dd class="figur">${esc(String(modeller.length))}</dd></div>
 </dl>
 </header>`;
-}
-
-/* ------------------------------------------------------------- EU-saetningen */
-
-/**
- * EU-saetningen. FOER L32 (24. aug 2026) var det her en tabel: fire EU-felter
- * gange N modeller, en matrix der laeses paa tvaers. Med kun ét felt tilbage
- * (ce_oplyst — se EU_FELTER) er en matrix ikke laengere den rigtige form; én
- * raekke i en tabel er en saetning, der har taget en tabels plads.
- *
- * Formen genbruger forsidens EU-fund (samme i18n-noegle forside_eu_tal, samme
- * CSS-klasser eu-fund-linje/eu-fund-tal) fremfor at opfinde en producent-
- * specifik variant — kun tallene bag "{n} af {m}" skifter, fra hele kataloget
- * til denne producents modeller. NB: forside.mjs findes ikke laengere (L72,
- * 1. sep 2026, spor/oversigt slettede forsiden); denne fil er i dag ENESTE
- * bruger af noeglen, og .eu-fund-linje staar kun paa producentsiderne.
- *
- * TRE LINJER, IKKE ÉN (spor/produkort, 3. sep 2026).
- * Her stod én linje, som trykte t.ja og t.i_alt — "0 af 2" paa Xiaomi, hvis
- * ene CyberDog 2 baerer et DOKUMENTERET nej (vaerdi:false med kilde), mens den
- * anden intet siger. t.nej og t.ukendt blev regnet og smidt vaek, saa "vi ved,
- * der ikke er CE" og "vi ved det ikke" kollapsede til samme ciffer. Det er
- * praecis den fejl, funktionens EGEN kommentar l. 138-142 advarer imod, og
- * haard begraensning 5: "'Ikke oplyst', 'nej' og '0' er tre forskellige
- * tilstande og skal se forskellige ud."
- *
- * Reglen, jf. fund/PLAN-producent.md P1: EN TILSTAND VISES, NAAR DEN
- * FOREKOMMER; FOREKOMMER DEN IKKE, NAEVNES DEN IKKE. En tilstand med 0
- * forekomster maa ikke tegnes som en tom rubrik — det ville vaere
- * begraensning 5 med omvendt fortegn. De 23 tavse producenter beholder
- * derfor praecis én linje, og deres side bliver ikke tungere.
- *
- * Intet nyt opfindes: de tre i18n-noegler eu_ce_ja/eu_ce_nej/
- * eu_ce_ikke_oplyst laa faerdigoversatte i BEGGE sprogfiler (l. 256-258) uden
- * en eneste bruger i koden, og maerkerne er sidens egne .v-ja/.v-nej/.v-ikke
- * via den delte H.tilstand() — samme visuelle tilstandsgrammatik, som
- * robotsiden bruger paa netop dette felt. Ingen ny CSS-klasse, ingen ny
- * i18n-noegle.
- */
-function euSaetning(ctx, modeller) {
-  const { i18n } = ctx;
-
-  if (!modeller.length) {
-    return `<section class="sektion" aria-labelledby="eu-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2></div>
-<p class="t-lille">${esc(T(i18n, 'producent_ingen_modeller'))}</p>
-</section>`;
-  }
-
-  const t = ceOpgoerelse(modeller);
-
-  // Raekkefoelgen er fast og gaar fra det oplyste mod hullet: ja, nej, intet.
-  // Den er IKKE sorteret efter antal — en producents tal maa ikke kunne bytte
-  // om paa tilstandenes indbyrdes orden fra side til side.
-  const linjer = [
-    ['ja', t.ja, 'eu_ce_ja'],
-    ['nej', t.nej, 'eu_ce_nej'],
-    ['ikke_oplyst', t.ukendt, 'eu_ce_ikke_oplyst'],
-  ]
-    .filter(([, antal]) => antal > 0)
-    // Mellemrummene mellem <b>, tilstandsmaerket og <span> er IKKE pynt.
-    // Uden dem er linjens textContent "1 af 2nejProducenten oplyser, at der
-    // ikke er CE" - figur, tilstand og saetning loeber sammen til ét ord for
-    // en skaermlaeser. Adskillelsen var kun `gap:10px 12px` (generator.css:24),
-    // og det er LAYOUT, ikke tekst. .eu-fund-linje er display:flex, saa et
-    // whitespace-tekstnode bliver ikke et flex-element: teksten adskilles,
-    // og geometrien er uaendret (efterproevet - se commit-beskeden).
-    .map(([tilstand, antal, noegle]) => `<p class="eu-fund-linje">${ctx.__H.ikon('i-ce', 'ikon ikon--lille')}<b class="eu-fund-tal">${esc(flet(T(i18n, 'forside_eu_tal'), { n: antal, m: t.i_alt }))}</b> ${ctx.__H.tilstand(tilstand)} <span>${esc(T(i18n, noegle))}</span></p>`)
-    .join('\n');
-
-  return `<section class="sektion" aria-labelledby="eu-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="eu-h">${esc(T(i18n, 'eu_titel'))}</h2></div>
-${linjer}
-</section>`;
 }
 
 /* ---------------------------------------------------------------- kortene */
@@ -295,8 +203,8 @@ ${linjer}
  *  fordi forsiden henter katalog.js. */
 function modelkort(ctx, m) {
   return ctx.__H.kort(m, {
-    op: ctx?.url?.op || '../../../',
-    href: sti(ctx, 'robot', m.slug),
+    op: ctx?.url?.op || "../../../",
+    href: sti(ctx, "robot", m.slug),
     billedeKilde: ctx.billeder?.[m.slug] ?? m.billede ?? null,
     samling: false,
   });
@@ -306,17 +214,17 @@ function modelafsnit(ctx, modeller) {
   const { i18n } = ctx;
   if (!modeller.length) {
     return `<section class="sektion" aria-labelledby="modeller-h">
-<div class="sektion-hoved"><h2 class="t-h2" id="modeller-h">${esc(T(i18n, 'katalog_titel'))}</h2></div>
-<p class="t-lille">${esc(T(i18n, 'producent_ingen_modeller'))}</p>
+<div class="sektion-hoved"><h2 class="t-h2" id="modeller-h">${esc(T(i18n, "katalog_titel"))}</h2></div>
+<p class="t-lille">${esc(T(i18n, "producent_ingen_modeller"))}</p>
 </section>`;
   }
   return `<section class="sektion" aria-labelledby="modeller-h">
 <div class="sektion-hoved">
 <h2 class="t-h2" id="modeller-h">${esc(modelTal(i18n, modeller.length))}</h2>
 </div>
-<p class="t-lille kort-legende">${esc(T(i18n, 'kort_legende_foto'))}</p>
+<p class="t-lille kort-legende">${esc(T(i18n, "kort_legende_foto"))}</p>
 <div class="net net--fritstaaende">
-${modeller.map((m) => modelkort(ctx, m)).join('\n')}
+${modeller.map((m) => modelkort(ctx, m)).join("\n")}
 </div>
 </section>`;
 }
@@ -332,19 +240,22 @@ export function render(ctx) {
   // ville hjaelp.kilder() blive kaldt 4 x N gange alene til EU-tabellen.
   const kilder = new Map();
   for (const m of modeller) {
-    try { kilder.set(m.slug, H.kilder(m) ?? []); } catch { kilder.set(m.slug, []); }
+    try {
+      kilder.set(m.slug, H.kilder(m) ?? []);
+    } catch {
+      kilder.set(m.slug, []);
+    }
   }
 
-  const arbejde = { ...ctx, __H: H, __fra: 'producent', __kilder: kilder };
+  const arbejde = { ...ctx, __H: H, __fra: "producent", __kilder: kilder };
   const { i18n } = arbejde;
 
   return `<main class="side" id="hoved">
 <div class="rum">
-<p class="retur"><a href="${esc(sti(arbejde, 'katalog'))}">${esc(T(i18n, 'til_katalog'))}</a></p>
+<p class="retur"><a href="${esc(sti(arbejde, "katalog"))}">${esc(T(i18n, "til_katalog"))}</a></p>
 
 <article class="producentside">
 ${top(arbejde, modeller)}
-${euSaetning(arbejde, modeller)}
 ${modelafsnit(arbejde, modeller)}
 </article>
 </div>
@@ -369,7 +280,7 @@ function landefordeling(alle) {
     const noegle = String(p.land);
     const t = perLand.get(noegle) ?? { producenter: 0, modeller: 0 };
     t.producenter += 1;
-    t.modeller += (typeof p.antal === 'number' ? p.antal : 0);
+    t.modeller += typeof p.antal === "number" ? p.antal : 0;
     perLand.set(noegle, t);
   }
   return perLand;
@@ -395,20 +306,25 @@ function landefordeling(alle) {
 function producentSaetning(ctx, alle) {
   const { i18n } = ctx;
   const perLand = landefordeling(alle);
-  if (perLand.size === 0) return '';
+  if (perLand.size === 0) return "";
 
   let bedst = null;
   for (const [land, tal] of perLand) {
-    const bedreEnd = !bedst
-      || tal.producenter > bedst.tal.producenter
-      || (tal.producenter === bedst.tal.producenter && land.localeCompare(bedst.land, 'da') < 0);
+    const bedreEnd =
+      !bedst ||
+      tal.producenter > bedst.tal.producenter ||
+      (tal.producenter === bedst.tal.producenter &&
+        land.localeCompare(bedst.land, "da") < 0);
     if (bedreEnd) bedst = { land, tal };
   }
 
   const totalProducenter = alle.length;
-  const totalModeller = alle.reduce((s, p) => s + (typeof p.antal === 'number' ? p.antal : 0), 0);
-  const landNavn = esc(TD(i18n, 'land_' + bedst.land, bedst.land));
-  const saetning = flet(T(i18n, 'producent_fordeling_saetning'), {
+  const totalModeller = alle.reduce(
+    (s, p) => s + (typeof p.antal === "number" ? p.antal : 0),
+    0,
+  );
+  const landNavn = esc(TD(i18n, "land_" + bedst.land, bedst.land));
+  const saetning = flet(T(i18n, "producent_fordeling_saetning"), {
     n: bedst.tal.producenter,
     m: totalProducenter,
     land: landNavn,
@@ -503,57 +419,78 @@ export function renderIndeks(ctx) {
       // build.mjs saetter aldrig p.antal, saa feltet er altid `undefined`
       // der, aldrig `null` — men reglen skal holde den dag data/
       // manufacturers/ ikke laengere er tom.
-      antal: p.antal !== undefined ? p.antal : (Array.isArray(p.modeller) ? p.modeller.length
-        : Array.isArray(p.robotter) ? p.robotter.length : null),
+      antal:
+        p.antal !== undefined
+          ? p.antal
+          : Array.isArray(p.modeller)
+            ? p.modeller.length
+            : Array.isArray(p.robotter)
+              ? p.robotter.length
+              : null,
     }))
-    .sort((a, b) => String(a.navn ?? '').localeCompare(String(b.navn ?? ''), ctx?.sprog ?? 'da'));
-
-  const raekker = alle.map((p) => {
-    // Landet er et felt som ethvert andet: mangler det, staar hullet med
-    // tilstandens eget sprog — aldrig som en tom plads (begraensning 5).
-    const landDel = p.land
-      ? esc(TD(i18n, 'land_' + p.land, p.land))
-      : (typeof H?.tilstand === 'function' ? H.tilstand('ikke_oplyst', i18n) : '');
-    // Antalkolonnen viser TALLET alene. Det kommer fra p.antal og aldrig fra
-    // modelnavnenes laengde — se hovedkommentaren: de to maa ikke kunne
-    // udledes af hinanden.
-    const antalDel = p.antal === null ? '' : esc(String(p.antal));
-    // Modelnavnene. Er listen der ikke (producenten kom uden robotter), staar
-    // cellen tom frem for at paastaa noget — tallet ved siden af baerer stadig
-    // sandheden om, hvor mange modeller producenten har.
-    const modeller = sorterModeller(
-      Array.isArray(p.modeller) ? p.modeller
-        : Array.isArray(p.robotter) ? p.robotter : [],
+    .sort((a, b) =>
+      String(a.navn ?? "").localeCompare(
+        String(b.navn ?? ""),
+        ctx?.sprog ?? "da",
+      ),
     );
-    const navneDel = modeller
-      .filter((m) => m && m.slug)
-      .map((m) => `<a href="${esc(sti({ ...ctx, __fra: 'producent' }, 'robot', m.slug))}">${esc(m.navn ?? m.slug)}</a>`)
-      .join(', ');
-    return `<tr>
+
+  const raekker = alle
+    .map((p) => {
+      // Landet er et felt som ethvert andet: mangler det, staar hullet med
+      // tilstandens eget sprog — aldrig som en tom plads (begraensning 5).
+      const landDel = p.land
+        ? esc(TD(i18n, "land_" + p.land, p.land))
+        : typeof H?.tilstand === "function"
+          ? H.tilstand("ikke_oplyst", i18n)
+          : "";
+      // Antalkolonnen viser TALLET alene. Det kommer fra p.antal og aldrig fra
+      // modelnavnenes laengde — se hovedkommentaren: de to maa ikke kunne
+      // udledes af hinanden.
+      const antalDel = p.antal === null ? "" : esc(String(p.antal));
+      // Modelnavnene. Er listen der ikke (producenten kom uden robotter), staar
+      // cellen tom frem for at paastaa noget — tallet ved siden af baerer stadig
+      // sandheden om, hvor mange modeller producenten har.
+      const modeller = sorterModeller(
+        Array.isArray(p.modeller)
+          ? p.modeller
+          : Array.isArray(p.robotter)
+            ? p.robotter
+            : [],
+      );
+      const navneDel = modeller
+        .filter((m) => m && m.slug)
+        .map(
+          (m) =>
+            `<a href="${esc(sti({ ...ctx, __fra: "producent" }, "robot", m.slug))}">${esc(m.navn ?? m.slug)}</a>`,
+        )
+        .join(", ");
+      return `<tr>
 <td><a href="${esc(String(p.slug))}/">${esc(p.navn ?? p.slug)}</a></td>
 <td>${landDel}</td>
 <td class="figur">${antalDel}</td>
 <td class="prod-navne">${navneDel}</td>
 </tr>`;
-  }).join('\n');
+    })
+    .join("\n");
 
   return `<main class="side" id="hoved">
 <div class="rum">
 <div class="katalog-hoved">
-<h1 class="t-h1">${esc(T(i18n, 'nav_producenter'))}</h1>
+<h1 class="t-h1">${esc(T(i18n, "nav_producenter"))}</h1>
 ${producentSaetning(ctx, alle)}
-<p class="t-broed maal">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</p>
+<p class="t-broed maal">${esc(flet(T(i18n, "producent_alle"), { n: alle.length }))}</p>
 </div>
 <section class="sektion" aria-labelledby="prodliste-h">
-<h2 class="t-h2 kunskaerm" id="prodliste-h">${esc(flet(T(i18n, 'producent_alle'), { n: alle.length }))}</h2>
+<h2 class="t-h2 kunskaerm" id="prodliste-h">${esc(flet(T(i18n, "producent_alle"), { n: alle.length }))}</h2>
 <div class="prod-tabel-wrap">
 <table class="prod-tabel">
 <thead>
 <tr>
-<th scope="col">${esc(T(i18n, 'tabel_producent'))}</th>
-<th scope="col">${esc(T(i18n, 'tabel_land'))}</th>
-<th scope="col" class="figur">${esc(T(i18n, 'prod_antal'))}</th>
-<th scope="col" class="prod-navne">${esc(T(i18n, 'tabel_modeller'))}</th>
+<th scope="col">${esc(T(i18n, "tabel_producent"))}</th>
+<th scope="col">${esc(T(i18n, "tabel_land"))}</th>
+<th scope="col" class="figur">${esc(T(i18n, "prod_antal"))}</th>
+<th scope="col" class="prod-navne">${esc(T(i18n, "tabel_modeller"))}</th>
 </tr>
 </thead>
 <tbody>

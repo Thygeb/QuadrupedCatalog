@@ -205,9 +205,6 @@
 
   "eu_titel": "EU",
   "eu_forklaring": "Feltet viser kun, hvad producenten selv skriver om CE-mærkning. Det er et faktafelt, ikke et råd om import.",
-  "eu_ce_ja": "CE oplyst af producenten",
-  "eu_ce_nej": "Producenten oplyser, at der ikke er CE",
-  "eu_ce_ikke_oplyst": "CE står ikke noget sted",
 
   "varianter": "Varianter",
   "varianter_forklaring": "Producenten sælger modellen i flere varianter. Tallene på siden gælder den variant, kilden nævner.",

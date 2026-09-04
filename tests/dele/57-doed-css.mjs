@@ -88,13 +88,17 @@
  *      forekomster i alle 216 byggede HTML-filer, maalt uafhaengigt af
  *      punkt 3's udredning af `filtre` (grund 3 ovenfor er derfor OGSAA
  *      rettet: test 31.8 laaser ikke laengere `.filtre` - se dens egen
- *      commit for mekanismen). 18 -> 13.
+ *   11. ikon--lille (spor/prodpolish, 4. sep 2026): EU-sektionen paa
+ *       producentsiderne er fjernet jf. brugerens beslutning. tools/skabelon/
+ *       producent.mjs fjernede euSaetning(), som var eneste forbruger af
+ *       .ikon--lille. assets/system.css holdes uroert mod formateringsdrift.
+ *       13 -> 14.
  *
  * Vagten er derfor IKKE "AEGTE DOEDE === 0" (briefets oprindelige, men
- * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 13,
+ * fejlagtige forudsaetning) - det er "AEGTE DOEDE er PRAECIS disse 14,
  * hverken flere eller faerre". Aendrer det sig, er det enten en regression
  * (en fjernet klasse er kommet tilbage - ROED, ret CSS'en) eller en bevidst
- * fremtidig oprydning af én af de 13 (ROED, ret DENNE liste MED sin kilde-
+ * fremtidig oprydning af én af de 14 (ROED, ret DENNE liste MED sin kilde-
  * test i samme spor - se kommentaren ovenfor for hvilken).
  */
 import fs from 'node:fs';
@@ -102,7 +106,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const BESKYTTET = [
-  'billedmaerke', 'gitter', 'grund', 'kort-billed', 'kort-hoved',
+  'billedmaerke', 'gitter', 'grund', 'ikon--lille', 'kort-billed', 'kort-hoved',
   'kort-invit', 'kort-krop', 'kort-navn', 'maerke--varianter', 'prik--klip',
   'saml-fotofelt--uoplyst', 'saml-raekke--tavs', 'stribe--kompakt',
 ].sort();

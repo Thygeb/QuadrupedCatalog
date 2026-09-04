@@ -23,29 +23,29 @@
  * Bygger sin egen dist i tmp, jf. tests/LAESMIG.md: ingen del maa antage, at
  * en anden del har bygget noget foerst.
  */
-import fs from 'node:fs';
-import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import fs from "node:fs";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
 
 /** EU-sektionens raa HTML paa en bygget producentside. */
 function euSektion(dist, sprog, slug) {
-  const fil = path.join(dist, sprog, 'producenter', slug, 'index.html');
+  const fil = path.join(dist, sprog, "producenter", slug, "index.html");
   if (!fs.existsSync(fil)) return null;
-  const h = fs.readFileSync(fil, 'utf8');
+  const h = fs.readFileSync(fil, "utf8");
   const i = h.indexOf('id="eu-h"');
   if (i < 0) return null;
-  const j = h.indexOf('</section>', i);
+  const j = h.indexOf("</section>", i);
   return h.slice(i, j < 0 ? undefined : j);
 }
 
 /** Tegner sektionen tilstanden `klasse` (v-ja / v-nej / v-ikke)? */
 function viserTilstand(sektion, klasse) {
-  return typeof sektion === 'string' && sektion.includes(`v ${klasse}`);
+  return typeof sektion === "string" && sektion.includes(`v ${klasse}`);
 }
 
 /** Antal "{n} af {m}"-tal-led, dvs. antal tilstandslinjer. */
 function antalLinjer(sektion) {
-  return typeof sektion === 'string'
+  return typeof sektion === "string"
     ? (sektion.match(/<b class="eu-fund-tal">/g) || []).length
     : 0;
 }
@@ -54,107 +54,121 @@ export default async function koer(ctx) {
   const { rod, tmp, node, ok } = ctx;
 
   // --- fixturen: fire robotter, tre producenter, tre CE-tilstande ----------
-  const fixture = path.join(tmp, 'fixture-produkort');
+  const fixture = path.join(tmp, "fixture-produkort");
   fs.rmSync(fixture, { recursive: true, force: true });
   fs.mkdirSync(fixture, { recursive: true });
 
-  const fraData = ['xiaomi-cyberdog-1.yaml', 'xiaomi-cyberdog-2.yaml'];
+  const fraData = ["xiaomi-cyberdog-1.yaml", "xiaomi-cyberdog-2.yaml"];
   for (const f of fraData) {
-    fs.copyFileSync(path.join(rod, 'data', 'robots', f), path.join(fixture, f));
+    fs.copyFileSync(path.join(rod, "data", "robots", f), path.join(fixture, f));
   }
-  for (const f of ['boston-dynamics-spot.yaml', 'anybotics-anymal.yaml']) {
-    fs.copyFileSync(path.join(rod, 'tests', 'eksempel-robotter', f), path.join(fixture, f));
+  for (const f of ["boston-dynamics-spot.yaml", "anybotics-anymal.yaml"]) {
+    fs.copyFileSync(
+      path.join(rod, "tests", "eksempel-robotter", f),
+      path.join(fixture, f),
+    );
   }
 
-  const dist = path.join(tmp, 'dist-produkort');
-  const b = spawnSync(node, [path.join(rod, 'tools', 'build.mjs'),
-    `--data=${fixture}`, `--ud=${dist}`], { cwd: rod, encoding: 'utf8' });
+  const dist = path.join(tmp, "dist-produkort");
+  const b = spawnSync(
+    node,
+    [path.join(rod, "tools", "build.mjs"), `--data=${fixture}`, `--ud=${dist}`],
+    { cwd: rod, encoding: "utf8" },
+  );
   // Haard fejl, ikke en taellet paastand — samme valg som dele/09: et fejlet
   // byg er ikke et testresultat, det er et miljoenedbrud.
   if (b.status !== 0) {
-    throw new Error(`produkort-fixture: byg fejlede (exit ${b.status}) - ${(b.stderr || '').trim()}`);
+    throw new Error(
+      `produkort-fixture: byg fejlede (exit ${b.status}) - ${(b.stderr || "").trim()}`,
+    );
   }
 
-  console.log('\n76. Producentsidens CE-opgoerelse: tre tilstande, ikke to');
+  console.log(
+    "\n76. Producentsidens EU-sektion er fjernet jf. JPKs beslutning",
+  );
 
-  // --- 76.1-76.2: det dokumenterede nej er synligt, paa BEGGE sprog -------
-  // Kernen. Xiaomi har praecis én model med vaerdi:false og én, der intet
-  // siger; foer rettelsen stod der "0 af 2" og INTET v-nej paa nogen af dem.
-  for (const sprog of ['da', 'en']) {
-    const s = euSektion(dist, sprog, 'xiaomi');
-    ok(`76.${sprog === 'da' ? 1 : 2}: Xiaomis CE-opgoerelse (${sprog}) tegner det dokumenterede nej som sin egen tilstand`,
-      viserTilstand(s, 'v-nej'),
-      s === null ? 'ingen EU-sektion bygget' : `v-nej=${viserTilstand(s, 'v-nej')} · linjer=${antalLinjer(s)}`);
+  // --- 76.1-76.2: EU-sektionen er vaek paa BEGGE sprog ----------------------
+  for (const sprog of ["da", "en"]) {
+    const s = euSektion(dist, sprog, "xiaomi");
+    ok(
+      `76.${sprog === "da" ? 1 : 2}: Xiaomis producentside (${sprog}) har ingen EU-sektion`,
+      s === null,
+      s === null ? "EU-sektion er fjernet" : "fandt uventet EU-sektion",
+    );
   }
 
-  // --- 76.3: og de to tilstande staar som TO linjer, ikke ét sammenlagt tal
+  // --- 76.3: ingen eu-fund-linje eller eu-fund-tal --------------------------
   {
-    const s = euSektion(dist, 'da', 'xiaomi');
-    ok('76.3: Xiaomi viser to adskilte tilstandslinjer (nej og ikke oplyst), ikke ét kollapset tal',
-      antalLinjer(s) === 2 && viserTilstand(s, 'v-nej') && viserTilstand(s, 'v-ikke'),
-      `linjer=${antalLinjer(s)} · v-nej=${viserTilstand(s, 'v-nej')} · v-ikke=${viserTilstand(s, 'v-ikke')}`);
+    const html = fs.readFileSync(
+      path.join(dist, "da", "producenter", "xiaomi", "index.html"),
+      "utf8",
+    );
+    ok(
+      "76.3: Xiaomi viser ingen eu-fund-linje eller eu-fund-tal",
+      !html.includes("eu-fund-linje") && !html.includes("eu-fund-tal"),
+    );
   }
 
-  // --- 76.4: "0 af N" maa ikke kunne staa der ------------------------------
-  // Reglen fra fund/PLAN-producent.md P1: en tilstand vises, NAAR den
-  // forekommer. Et nul er derfor aldrig en linje - hverken som hul eller som
-  // tom rubrik (begraensning 5 med omvendt fortegn).
+  // --- 76.4: ingen producentside baerer id="eu-h" ---------------------------
   {
-    let nuller = 0;
-    for (const sprog of ['da', 'en']) {
-      const rodMappe = path.join(dist, sprog, 'producenter');
-      for (const d of fs.readdirSync(rodMappe, { withFileTypes: true }).filter((f) => f.isDirectory())) {
-        const s = euSektion(dist, sprog, d.name) || '';
-        nuller += (s.match(/<b class="eu-fund-tal">0 (af|of) /g) || []).length;
+    let harEu = 0;
+    for (const sprog of ["da", "en"]) {
+      const rodMappe = path.join(dist, sprog, "producenter");
+      for (const d of fs
+        .readdirSync(rodMappe, { withFileTypes: true })
+        .filter((f) => f.isDirectory())) {
+        if (euSektion(dist, sprog, d.name) !== null) harEu++;
       }
     }
-    ok('76.4: ingen producentside tegner en tilstand med 0 forekomster',
-      nuller === 0, `fandt ${nuller} "0 af/of N"-led`);
+    ok(
+      "76.4: ingen producentside bærer en EU-sektion",
+      harEu === 0,
+      `fandt ${harEu} producentsider med EU-sektion`,
+    );
   }
 
-  // --- 76.5: KONTRAFAKTISK i data-retningen -------------------------------
-  // En producent, hvor ALT er "ikke oplyst", maa ALDRIG paastaa et nej.
-  // Uden denne ville en rettelse, der bare altid tegnede et nej, staa gron.
+  // --- 76.5: Boston Dynamics har ingen EU-sektion -------------------------
   {
-    const s = euSektion(dist, 'da', 'boston-dynamics');
-    ok('76.5: en producent med udelukkende "ikke oplyst" paastaar IKKE et nej',
-      s !== null && viserTilstand(s, 'v-ikke') && !viserTilstand(s, 'v-nej'),
-      s === null ? 'ingen EU-sektion' : `v-ikke=${viserTilstand(s, 'v-ikke')} · v-nej=${viserTilstand(s, 'v-nej')} · linjer=${antalLinjer(s)}`);
+    const s = euSektion(dist, "da", "boston-dynamics");
+    ok(
+      "76.5: Boston Dynamics har ingen EU-sektion",
+      s === null,
+      s === null ? "ingen EU-sektion" : "fandt EU-sektion",
+    );
   }
 
-  // --- 76.6: og "ja" er stadig "ja" ---------------------------------------
+  // --- 76.6: ANYbotics har ingen EU-sektion -------------------------------
   {
-    const s = euSektion(dist, 'da', 'anybotics');
-    ok('76.6: en producent med udelukkende oplyst CE tegner ja-tilstanden',
-      s !== null && viserTilstand(s, 'v-ja') && !viserTilstand(s, 'v-nej'),
-      s === null ? 'ingen EU-sektion' : `v-ja=${viserTilstand(s, 'v-ja')} · linjer=${antalLinjer(s)}`);
+    const s = euSektion(dist, "da", "anybotics");
+    ok(
+      "76.6: ANYbotics har ingen EU-sektion",
+      s === null,
+      s === null ? "ingen EU-sektion" : "fandt EU-sektion",
+    );
   }
 
   // --- 76.7: REVERT-BEVIS --------------------------------------------------
-  // Beviser, at 76.1's tjek kan FEJLE. Uden den kunne viserTilstand() vaere
-  // knaekket og returnere sandt for hvad som helst - og hele filen ville staa
-  // gron, uanset hvad producent.mjs gjorde. Strengen er den GAMLE udgaves
-  // faktiske output, ordret fra dist foer rettelsen.
   {
-    const gammel = '<p class="eu-fund-linje"><b class="eu-fund-tal">0 af 2</b>'
-      + '<span>robotter i kataloget oplyser CE-mærkning fra producenten.</span></p>';
-    ok('76.7 (revert-bevis): samme tjek AFVISER den gamle, kollapsede udgave',
-      !viserTilstand(gammel, 'v-nej') && !viserTilstand(gammel, 'v-ikke')
-      && (gammel.match(/<b class="eu-fund-tal">0 af /g) || []).length === 1,
-      'den gamle "0 af 2"-linje fanges af 76.1 og 76.4');
+    const syntetiskMedEu =
+      '<section class="sektion" aria-labelledby="eu-h"><h2 id="eu-h">EU</h2></section>';
+    ok(
+      '76.7 (revert-bevis): syntetisk streng med id="eu-h" fanges af tjekket',
+      syntetiskMedEu.includes('id="eu-h"'),
+    );
   }
 
-  // --- 76.8: opgoerelsen summer til modelantallet -------------------------
-  // Vaernet mod en rettelse, der viser tre tilstande, men taeller forkert:
-  // ja + nej + ikke oplyst skal vaere praecis producentens antal modeller.
+  // --- 76.8: Producentsiden baerer kun typeskilt og modelafsnit ------------
   {
-    const s = euSektion(dist, 'da', 'xiaomi') || '';
-    let sum = 0; let iAlt = null;
-    for (const m of s.matchAll(/<b class="eu-fund-tal">(\d+) af (\d+)<\/b>/g)) {
-      sum += Number(m[1]); iAlt = Number(m[2]);
-    }
-    ok('76.8: Xiaomis tilstande summer til producentens modelantal',
-      iAlt !== null && sum === iAlt, `sum=${sum} · i_alt=${iAlt}`);
+    const daHtml = fs.readFileSync(
+      path.join(dist, "da", "producenter", "xiaomi", "index.html"),
+      "utf8",
+    );
+    ok(
+      "76.8: producentsiden bærer producent-top og modelafsnit uden mellemliggende EU-sektion",
+      daHtml.includes('class="producent-top"') &&
+        daHtml.includes('id="modeller-h"') &&
+        !daHtml.includes('id="eu-h"'),
+    );
   }
 
   fs.rmSync(fixture, { recursive: true, force: true });
