@@ -197,9 +197,17 @@
                                  bunden er under WCAG 1.4.11's 3,0, saa en kant,
                                  der er den eneste baerer af en tilstand, skal
                                  bruge --hegn-baerende. --hegn bliver staaende
-                                 uroert paa sine oevrige 41 brugssteder: den er
-                                 stadig den rigtige polet til en kontur, der kun
-                                 afgraenser. Se DESIGN.md konflikt 6. */
+                                 uroert paa sine oevrige 40 brugssteder (efter
+                                 spor/hegn2 4. sep 2026 rettede de to sidste
+                                 baerende kanter, :1022 og .maerke--tom):
+                                 den er stadig den rigtige polet til en kontur,
+                                 der kun afgraenser. Genmaal med
+                                 grep -roE "var\(--hegn\)" assets/ --include=*.css | wc -l
+                                 - IKKE med den uescapede form, for saa taeller
+                                 grep denne kommentars egen omtale af moensteret
+                                 med og giver 41, ikke 40 (selv-reference-faelden,
+                                 CLAUDE.md's "raat grep i CSS: ogsaa klammer i
+                                 kommentarer"). Se DESIGN.md konflikt 6. */
   --hegn-baerende:var(--p-stoevgraa-2); /* NY, spor/tomstat 4. sep 2026. Kanten, der
                                  SELV er oplysningen - i dag kun ".v-ikke" og
                                  dens 9x9 stiplede firkant. 3,43 : 1 for KANTEN
@@ -1019,7 +1027,7 @@ td.saml-raekke__celle .v-ja{font-size:10.5px}
    Da faar den ét udsagn i stedet — og udsagnet siger hvorfor. */
 .stribe--intet{
   display:flex;gap:14px;align-items:flex-start;
-  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
+  background:var(--tom);border:1px dashed var(--hegn-baerende);border-radius:var(--hjoerne);
   box-shadow:none;padding:18px 20px 20px;
 }
 .stribe--intet .ikon{color:var(--hegn);margin-top:2px}
@@ -2049,7 +2057,7 @@ td .v{font-size:15px}
    en udgaaet model er ikke en advarsel, den er en oplysning. */
 .typeskilt .maerke--drift{background:var(--blaek);border-color:var(--blaek);color:var(--paafod)}
 .typeskilt .maerke--tom{
-  background:none;border:1px dashed var(--hegn);
+  background:none;border:1px dashed var(--hegn-baerende);
   color:var(--blaek3);font-weight:500;font-size:11px;
 }
 /* 16b-2. L79 SLETTEDE TRE REGLER HER, og det er den bedste slags sletning:
