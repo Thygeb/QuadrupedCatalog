@@ -74,7 +74,7 @@ const YUEJIA_YJ30W = 'raa-kand4-2026-08-25/yuejialingdong-yj-59-2026-08-25.html'
 const ANYBOTICS_ANYMAL = 'raa-vest-2026-08-19/1101b7e2.html'; // MANIFEST
 const GHOST_V60 = 'raa-vest-2026-08-19/v60.txt'; // MANIFEST
 const RIVR_PRODUCT = 'raa-vest-2026-08-19/rivrp.txt'; // MANIFEST
-const NEURA_RESERVATION = 'raa-kand6-2026-08-25/neura-quadruped-reservation-2026-08-25-text.txt'; // INGEN MANIFEST
+const NEURA_RESERVATION = 'raa-f2-vest-2026-09-02/neura-quadruped-produktside-2026-09-02.txt'; // MANIFEST - rettet efter orkestratorens fund (den gamle INGEN-MANIFEST-fil er ikke laengere brugt til denne raekke)
 const ADDVERB_TRAKR = 'raa-f2-pilot-2026-09-02/addverb-ai-trakr-2026-09-02-text.txt'; // MANIFEST
 
 const kildeCache = new Map();
@@ -190,7 +190,12 @@ const FIELD_ENTRIES = [
 
   // ---------------------------------------------------------- NEURA Robotics (1/1)
   { robot_id: 2225, field_name: 'sdk_languages', kilde: NEURA_RESERVATION,
-    caveat_wording: 'Interfaces | Wi-Fi 6, Gigabit Ethernet, ROS 2, C++, Python SDK, NEURA Sync' },
+    // RETTET efter orkestratorens fund: '|' var MIT rørtegn, ikke NEURAs.
+    // Kilden bærer 'Interfaces' og vaerdien som to SEPARATE linjer (169/170
+    // i tekstudtraekket) - ikke en sammenhaengende streng. To citat-
+    // fragmenter i stedet for én sammensat 'raa'-streng, samme form som de
+    // 18 andre A-raekker.
+    caveat_wording: '"Interfaces" "Wi-Fi 6, Gigabit Ethernet, ROS 2, C++, Python SDK, NEURA Sync"' },
 
   // ---------------------------------------------------------- Addverb (1/1)
   { robot_id: 2183, field_name: 'autonomy_level', kilde: ADDVERB_TRAKR,
