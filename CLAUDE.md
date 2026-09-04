@@ -71,11 +71,22 @@ kør `impeccable shape` på fladen i stedet for at sende rettelserne enkeltvis.
 En enkeltstående, isoleret fejl må stadig rettes direkte — SELECTED-baren, der
 viste en standardtilstand som et brugervalg, var en sådan.
 
-**DESIGNFRYS, skærpet af JPK 1. sep 2026: *"vi skal have en overordnet
-designplan, inden vi retter noget design."*** Fund noteres, de rettes ikke.
-Frysen gælder, indtil den overordnede plan findes.
+**DESIGNFRYSEN ER OPHÆVET — L98, JPK 4. sep 2026, ordret: *"OPHÆV REGLEN."***
+Den gjaldt fra 1. sep (*"vi skal have en overordnet designplan, inden vi retter
+noget design"*) og faldt, da planen fandtes og blev bygget. **Designfund må
+rettes igen, og alle 23 impeccable-kommandoer er lovlige.** Rejs ikke frysen
+igen, og bed ikke om lov til at rette et designfund — det er besluttet, ikke
+glemt.
 
-Fælden, frysen lukker, er at et designfund kan **ligne** en almindelig fejl.
+**Her stod frysen som gældende i to dage, efter at JPK havde løftet den
+4. sep** (*"laver du alle fixes beskrevet i desginarbjde. ?? start gerne
+spor"*, Å174) — og både `spor/skriftskala` og `spor/katalogskaerm` blev sendt
+og flettet i den periode. **Et spor, der læste denne fil i god tro, ville tro,
+at det ikke måtte rette noget.** Samme fejlform som S1-spærringen, der stod
+ugennemstreget i ni dage efter L37.
+
+**DET, DER OVERLEVER FRYSEN, fordi det aldrig handlede om den:** et designfund
+kan **ligne** en almindelig fejl.
 Eksemplet: afmærkningsgul som tekstfarve giver **1,38:1** mod WCAG's 4,5. Det
 ser ud som en fejl, der bare skal rettes — men paletten er låst af TYPESKILT,
 så rettelsen må være en systemregel om, hvor `--accent` må bruges som forgrund.
@@ -86,9 +97,10 @@ og det tal var rigtigt for gunmetal **på** gult. Tokenet blev målt som
 **baggrund** og bruges som **forgrund**. **Et kontrasttal uden en læseretning
 er ikke et tal.**
 
-**Undtaget frysen:** rene funktionsfejl (en knap, der ikke virker), brudte
-hårde begrænsninger, og fejl hvor rettelsen ikke rører en systembeslutning.
-Er du i tvivl, om noget er en designrettelse: det er det.
+**Kravet, der IKKE faldt med frysen:** en rettelse, der rører en
+systembeslutning — en palettefarve, en skriftgrad, en radius, et token — er
+stadig en **systemregel**, ikke et hastespor. Frysen tvang den skelnen frem;
+nu skal den holdes uden tvang. Rører rettelsen kun én flade, så ret den.
 
 **Navngiv fladens MODE, hver gang.** Det er skillens egen ramme, og projektet
 brugte den ikke før nu: katalogsiden er **Operate** (den besøgende løser en
@@ -105,7 +117,7 @@ skill.
 
 | Skill | Hvornår |
 |---|---|
-| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med **23 kommandoer** (målt på disken 3. sep 2026, v4.1.1 — her stod "20+"). Se rækkerne nedenfor. **Kommandoerne deler sig i to lejre, og skellet er det, der afgør, om et spor må sendes under designfrysen:** `critique` og `audit` **rapporterer**, `shape`, `init`, `document` og `extract` **planlægger** — de seks er lovlige under frysen. De øvrige 16 (`polish` `bolder` `quieter` `distill` `harden` `onboard` `animate` `colorize` `typeset` `layout` `delight` `overdrive` `clarify` `adapt` `optimize` `live`) **retter fladen** og er det ikke. Skillen bærer selv skellet: *"Do not load [craft-floor.md] for planning-only work"* |
+| `impeccable` | **Den vigtigste, og den mest oversete.** Én skill med **23 kommandoer** (målt på disken 3. sep 2026, v4.1.1 — her stod "20+"). Se rækkerne nedenfor. **Alle 23 er lovlige siden L98 ophævede frysen, men skellet mellem dem er stadig værd at kende:** `critique` og `audit` **rapporterer**, `shape`, `init`, `document` og `extract` **planlægger**. De øvrige 16 (`polish` `bolder` `quieter` `distill` `harden` `onboard` `animate` `colorize` `typeset` `layout` `delight` `overdrive` `clarify` `adapt` `optimize` `live`) **retter fladen**. Skillen bærer selv skellet: *"Do not load [craft-floor.md] for planning-only work"* |
 | `impeccable layout` | Afstande, rytme og visuelt hierarki. Det, en "for meget polstring"-klage i virkeligheden beder om |
 | `impeccable typeset` | Typografisk hierarki. Målt 1. sep: **55 forskellige skriftstørrelser** i stilarkene, 18 trin alene i spændet 9–20 px |
 | `impeccable distill` | Skær ind til essensen, fjern kompleksitet |
@@ -562,7 +574,7 @@ og — siden `0ee7ae8` — `impeccable`:
 
 | Skill | Hvornår |
 |---|---|
-| `design` | **HVER gang noget visuelt skal bygges, bedømmes eller planlægges** — en flade, en CSS-rettelse, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den er et **navigationskort til [DESIGN.md](DESIGN.md)**, ikke et resumé: den siger, hvilket af filens 32 afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 834. Bærer desuden de fire regler, der gælder ved alt designarbejde: designfrysen (L70), palettelåsen, MODE-navngivningen og de fire datatilstande. **Bygget 3. sep 2026 på JPK's ord** *"DESIGN.md beskriver hvordan websiden skal være designet, for at sikre konsistens og standardisering"* — og som svar på hans spørgsmål, om DESIGN.md skulle destilleres for at spare tokens. **Svaret var nej, og målingen står i skillen:** DESIGN.md er 42 KB ≈ 12,5k tokens mod STATUS.md's 416 KB ≈ 126k, så den er ~3 % af et opus-spors budget og ikke der, tokenerne går. Et destillat ville desuden være kopi nummer to af designsystemet — samme fælde som *"tre håndskrevne kopier divergerer ved den fjerde"*, ét lag længere ude |
+| `design` | **HVER gang noget visuelt skal bygges, bedømmes eller planlægges** — en flade, en CSS-rettelse, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den er et **navigationskort til [DESIGN.md](DESIGN.md)**, ikke et resumé: den siger, hvilket af filens 32 afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 834. Bærer desuden de tre regler, der gælder ved alt designarbejde: palettelåsen, MODE-navngivningen og de fire datatilstande (designfrysen er ophævet, L98). **Bygget 3. sep 2026 på JPK's ord** *"DESIGN.md beskriver hvordan websiden skal være designet, for at sikre konsistens og standardisering"* — og som svar på hans spørgsmål, om DESIGN.md skulle destilleres for at spare tokens. **Svaret var nej, og målingen står i skillen:** DESIGN.md er 42 KB ≈ 12,5k tokens mod STATUS.md's 416 KB ≈ 126k, så den er ~3 % af et opus-spors budget og ikke der, tokenerne går. Et destillat ville desuden være kopi nummer to af designsystemet — samme fælde som *"tre håndskrevne kopier divergerer ved den fjerde"*, ét lag længere ude |
 | `robotdata` | Hver gang en robotpost tilføjes, opdateres eller efterprøves. Bærer 33-feltsskemaet (målt mod `FELTNAVNE.length` 3. sep 2026 — her stod 29, skillen sagde 30), de ti hårde regler og selv-tjekket med tælling |
 | `spor` | **Sporets egen skill — kaldes af SUBAGENTEN som første handling, ikke af orkestratoren.** Bærer metoden, der før blev kopieret ind i hvert brief: grundmåling, kontrollinje, skrive-grænse, filejerskab, selv-efterprøvning med tælling, rapportform og konfidensskala, plus `references/miljoefaelder.md`. Bygget 3. sep 2026, da SKILLEVAL målte, at 20 af 21 briefs i `fund/` bar de samme otte regelblokke |
 | `overlevering` | Når en session skal lukkes og en frisk startes: sessionsvagten siger til, JPK spørger om han skal starte forfra, eller det bliver tredje komprimering på samme opgave. **Reglen er PEG, kopiér ikke** — en overlevering, der kopierer tilstanden ind, er en komprimering med et andet navn og betales i den nye session på hvert kald. Bygget 3. sep 2026 på målingen: 98,5 % af input er cache-læsninger, 237k kontekst pr. kald, 58 kald pr. besked, og cachen lever én time |

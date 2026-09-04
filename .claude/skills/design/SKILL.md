@@ -1,6 +1,6 @@
 ---
 name: design
-description: Navigationskortet til DESIGN.md, projektets designsystem. Kald den HVER gang noget visuelt skal bygges, bedømmes, kritiseres eller planlægges — en ny flade, en rettelse i CSS, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den kopierer ingenting fra DESIGN.md; den fortæller, hvilket afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 1.359. Bærer desuden de fire regler, der gælder ved ALT designarbejde: designfrysen, palettelåsen, MODE-navngivningen og de fire datatilstande.
+description: Navigationskortet til DESIGN.md, projektets designsystem. Kald den HVER gang noget visuelt skal bygges, bedømmes, kritiseres eller planlægges — en ny flade, en rettelse i CSS, en farve, en skriftgrad, en komponent, en datatilstand — og hver gang et brief til et designspor skrives. Den kopierer ingenting fra DESIGN.md; den fortæller, hvilket afsnit der svarer på hvilket spørgsmål, så et spor læser 40 linjer i stedet for 1.359. Bærer desuden de tre regler, der gælder ved ALT designarbejde: palettelåsen, MODE-navngivningen og de fire datatilstande. (Designfrysen er ophævet, L98.)
 ---
 
 # design — find det rigtige afsnit i DESIGN.md, og kopiér det aldrig
@@ -42,24 +42,25 @@ Tre grunde til, at et destillat er en dårlig handel, selv når det ser billigt 
 
 ---
 
-## De fire regler, der gælder ved ALT designarbejde
+## De tre regler, der gælder ved ALT designarbejde — og den fjerde, der er ophævet
 
-Disse fire står her, fordi de gælder hver gang og ikke kan slås op ét sted i
+Disse står her, fordi de gælder hver gang og ikke kan slås op ét sted i
 DESIGN.md. Alt andet i denne skill er henvisninger.
 
-### 1. DESIGNFRYSEN (L70, JPK 1. sep 2026)
+### 1. DESIGNFRYSEN ER OPHÆVET (L98, JPK 4. sep 2026)
 
-***"Vi skal have en overordnet designplan, inden vi retter noget design."***
-**Fund noteres, de rettes ikke.** Frysen gælder, indtil den overordnede plan
-findes.
+**JPK, ordret: *"OPHÆV REGLEN."*** L70's frys gjaldt fra 1. sep og faldt, da
+den overordnede designplan fandtes og blev bygget. **Designfund må rettes, og
+alle 23 impeccable-kommandoer er lovlige** — også de 16, der retter fladen.
+Rejs ikke frysen igen, og bed ikke om lov til at rette et designfund.
 
-**Undtaget:** rene funktionsfejl (en knap, der ikke virker), brudte hårde
-begrænsninger, og fejl hvor rettelsen ikke rører en systembeslutning.
+**Kravet, der IKKE faldt med den:** rører rettelsen en systembeslutning — en
+palettefarve, en skriftgrad, en radius, et token — så er den en **systemregel**
+og skal skrives som en. Rører den kun én flade, så ret den. Frysen tvang den
+skelnen frem; nu skal den holdes uden tvang.
 
-**Er du i tvivl, om noget er en designrettelse: det er det.** Skriv det som et
-fund.
-
-Fælden, frysen lukker, er at **et designfund kan LIGNE en almindelig fejl**.
+Fælden, frysen lukkede, gælder stadig: **et designfund kan LIGNE en almindelig
+fejl.**
 Eksemplet: afmærkningsgul som tekstfarve giver **1,38:1** mod WCAG's 4,5. Det
 ser ud som en fejl, der bare skal rettes — men paletten er låst, så rettelsen må
 være en systemregel om, hvor `--accent` må bruges som forgrund. Den regel hører i
@@ -185,14 +186,14 @@ i stedet for at skrive reglen af. Formen:
 > *Genbrug DESIGN.md's tilstandsklasser — se **DESIGN.md:583** *"De fire
 > datatilstande"*. Opfind ingen ny klasse.*
 
-**Skriv altid fladens MODE i briefet.** Og skriv, om designfrysen gælder for netop
-denne opgave, eller om den er undtaget — og hvorfor. Et spor, der selv skal gætte
-det, gætter forkert i den dyre retning.
+**Skriv altid fladens MODE i briefet.** Og skriv, om rettelsen rører en
+systembeslutning (palette, skriftgrad, radius, token) eller kun én flade — og
+hvorfor. Et spor, der selv skal gætte det, gætter forkert i den dyre retning.
 
 ### Er du et SPOR, der skal bygge eller bedømme noget visuelt
 
 1. Kald denne skill.
-2. Læs **de fire regler** ovenfor.
+2. Læs **de tre regler** ovenfor.
 3. Slå de 2-4 afsnit op i DESIGN.md, som din opgave faktisk rører. **Ikke hele
    filen**, medmindre briefet udtrykkeligt beder om det.
 4. **Hvert fund og hvert valg skal pege på et sted i DESIGN.md med linjenummer.**
@@ -207,19 +208,19 @@ L70, JPK 1. sep 2026: ***"fremover anvender vi impeccables plugin og flows."***
 Begrundelsen, købt for tre kritikrunder: **en fejlliste kan kun bringe siden
 tilbage til sit eget tilsigtede udseende — den kan aldrig hæve loftet.**
 
-| Situation | Flow | Frysen? |
+| Situation | Flow | Rører den en systembeslutning? |
 |---|---|---|
 | Fladen skal **bedømmes** | `impeccable critique` + `audit` | Foreneligt — den producerer fund |
-| Fladen skal have en **retning** | `impeccable shape` | Kræver, at frysen er løftet |
+| Fladen skal have en **retning** | `impeccable shape` | Ja — skriv retningen som en systemregel |
 
 **Rækken ovenfor sagde `impeccable new-work` indtil 4. sep 2026, og den kommando
 findes ikke.** CLAUDE.md målte det på disken 3. sep: `new-work` er en **reference**
 (`reference/new-work.md`), som `shape` selv indlæser, når en flade skal have en
 retning frem for en rettelse. **Et spor, der kaldte den herfra, fik ingenting** —
 og skillen, der skulle forhindre gætteri, var selv kilden til det. Kald `shape`.
-| **Planlæg** før kode | `impeccable shape` | Kræver, at frysen er løftet |
-| Mere end **én rettelse** på samme flade | `impeccable shape` på fladen | Kræver, at frysen er løftet |
-| **Én** isoleret fejl | Ret den direkte | Kun hvis den er undtaget |
+| **Planlæg** før kode | `impeccable shape` | Afhænger af fundet — skriv hvilket |
+| Mere end **én rettelse** på samme flade | `impeccable shape` på fladen | Ofte ja — derfor shape frem for enkeltrettelser |
+| **Én** isoleret fejl | Ret den direkte | Nej — ellers er den ikke isoleret |
 
 **Diskstien som reserve**, fordi kaldet fra en worktree svinger:
 
