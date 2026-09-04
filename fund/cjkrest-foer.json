@@ -1,0 +1,21 @@
+[
+  {"slug":"unitree-a1","felt":"applications.note","idx":0,"cjk_loeb":2,"loeb_ikke_i_wording":2},
+  {"slug":"xiaomi-cyberdog-1","felt":"robots.notes","idx":2,"cjk_loeb":3,"loeb_ikke_i_wording":2},
+  {"slug":"unitree-a2-w","felt":"applications.note","idx":0,"cjk_loeb":1,"loeb_ikke_i_wording":1},
+  {"slug":"yuejia-yj30-max","felt":"robots.notes","idx":2,"cjk_loeb":1,"loeb_ikke_i_wording":1},
+  {"slug":"cvte-maxhub-x7","felt":"applications.note","idx":0,"cjk_loeb":3,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-gangben-l1","felt":"applications.note","idx":0,"cjk_loeb":5,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-gangben-l1-w","felt":"applications.note","idx":0,"cjk_loeb":7,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-gangben-l2","felt":"applications.note","idx":0,"cjk_loeb":5,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-gangben-l2-w","felt":"applications.note","idx":0,"cjk_loeb":8,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-gangben-l2-w-ultra","felt":"robots.notes","idx":1,"cjk_loeb":1,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-gangben-l2-w-ultra","felt":"applications.note","idx":0,"cjk_loeb":6,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-qiuqiu-sp1","felt":"applications.note","idx":0,"cjk_loeb":12,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-tongchui-m1","felt":"applications.note","idx":0,"cjk_loeb":7,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-tongchui-m1-pro","felt":"applications.note","idx":0,"cjk_loeb":7,"loeb_ikke_i_wording":0},
+  {"slug":"genisom-tongchui-m1-ultra","felt":"applications.note","idx":0,"cjk_loeb":2,"loeb_ikke_i_wording":0},
+  {"slug":"magiclab-magicdog-y1","felt":"applications.note","idx":0,"cjk_loeb":1,"loeb_ikke_i_wording":0},
+  {"slug":"microrobotech-movenew-t1","felt":"robots.notes","idx":1,"cjk_loeb":1,"loeb_ikke_i_wording":0},
+  {"slug":"yuejia-yj30-max-w","felt":"applications.note","idx":0,"cjk_loeb":1,"loeb_ikke_i_wording":0},
+  {"slug":"yufan-lingmao-cyvet","felt":"robots.notes","idx":2,"cjk_loeb":2,"loeb_ikke_i_wording":0}
+]
