@@ -89,17 +89,36 @@
      "ni navngivne roller" - se kommentaren nedenfor). Deling af én hex mellem
      flere semantiske tokens var indtil nu IMPLICIT (samme tal skrevet flere
      gange); denne blok goer den EKSPLICIT uden at fjerne den - de semantiske
-     tokens nedenfor peger paa disse ni, og INGEN andet sted i CSS'en bruger
-     en --p-* variabel direkte. To af de ni (kridt, stans) har i dag kun ét
-     semantisk navn hver, men staar med her for at daekke HELE paletten, ikke
-     kun de fire navne med dubletter. */
+     tokens nedenfor peger paa disse elleve, og INGEN andet sted i CSS'en
+     bruger en --p-* variabel direkte. To af dem (kridt, stans) har i dag kun
+     ét semantisk navn hver, men staar med her for at daekke HELE paletten,
+     ikke kun de navne med dubletter.
+
+     ELLEVE, ikke ni: spor/tomstat (R8, 4. sep 2026) tilfoejede de to
+     -2-trin nedenfor. De er IKKE nye kulører - de er punkter paa en akse,
+     der allerede fandtes. Maalt: #E8EBED og #9AA3A9 har SAMME tone (hue 204
+     grader) og samme kanalforhold, G-R : B-R = 3 : 5. Hele den rette linje
+     mellem dem i RGB opfylder det forhold, og begge nye trin ligger paa
+     netop den linje - eloxgraa-2 ved t=0,050, stoevgraa-2 ved t=1,50
+     (t>1 = forlaengelsen ud over stoevgraa). Palettelaasen (TYPESKILT) er
+     dermed ikke brudt: aksen er forlaenget, ingen farve opfundet.
+     Regnemaskinen er fund/maal-vikke-kontrast.mjs. */
   --p-eloxgraa:#E8EBED;
+  --p-eloxgraa-2:#E4E7EA;   /* ét trin ned ad elox-aksen. Fyldet bag "ikke oplyst".
+                               1,04 : 1 for FLADEN #E4E7EA paa #E8EBED - bevidst
+                               naesten usynlig, se dommen ved --tom nedenfor. */
   --p-gunmetal:#22262A;
   --p-kridt:#FAFBFB;
   --p-blaek-2:#545C63;
   --p-afmaerkningsgul:#F2C400;
   --p-rille:#C6CCD1;
   --p-stoevgraa:#9AA3A9;
+  --p-stoevgraa-2:#737F87;  /* stoevgraa foert videre ad samme akse, til den naar
+                               WCAG 1.4.11. 3,43 : 1 for KANTEN #737F87 paa
+                               bunden #E8EBED, og 3,31 : 1 for KANTEN paa sit
+                               eget fyld #E4E7EA. Begge naboer over 3,0.
+                               Stadig lysere end teksten (--blaek3, 4,74 : bund),
+                               saa konturen ikke konkurrerer med ordet. */
   --p-stoev-blaek:#5F686F;
   --p-stans:#FFFFFF;
 
@@ -131,10 +150,27 @@
                                  dybere end kridt, bruger eloxgraa (fx
                                  .kort__billedled). Mindst risikable valg,
                                  ikke en ny farve opfundet til lejligheden. */
-  --tom:var(--p-eloxgraa);             /* fyldet bag "ikke oplyst" - TYPESKILT har INGEN
-                                 fyld her (.rk--uoplyst .rk__boks{background:
-                                 transparent}), saa eloxgraa (= --bund) er den
-                                 naermeste "usynlige" flade uden at opfinde en */
+  --tom:var(--p-eloxgraa-2);           /* fyldet bag "ikke oplyst". VAR eloxgraa, altsaa
+                                 nøjagtig samme hex som --bund: 1,00 : 1 for
+                                 FYLDET paa BUNDEN. JPK 4. sep 2026: "giv --tom
+                                 sin egen primitiv" (R8). Nu #E4E7EA -> 1,04 : 1.
+
+                                 HVORFOR KUN 1,04, naar WCAG 1.4.11 kraever 3,0:
+                                 fordi fyldet IKKE KAN naa 3,0 og samtidig baere
+                                 sit eget ord. Maalt loft (fund/maal-vikke-
+                                 kontrast.mjs, afsnit LOFTET): skal teksten holde
+                                 4,50 : 1 PAA fyldet, er det moerkeste lovlige
+                                 fyld begraenset af tekstfarven -
+                                   --blaek3 #5F686F: fyldet naar hoejst 1,05 : bund
+                                   --blaek2 #545C63: hoejst 1,26 : bund
+                                   --blaek  #22262A: hoejst 2,83 : bund
+                                 Selv med palettens MOERKESTE blaek naar fyldet
+                                 aldrig 3,0. Et fyld, der bestaar 1.4.11, gør
+                                 altsaa ordet i chippen ulaeseligt - tilstanden
+                                 ville blive synlig som firkant og forsvinde som
+                                 ord. Derfor baerer KANTEN tilstanden
+                                 (--hegn-baerende nedenfor), og fyldet er kun
+                                 chippens flade. */
 
   /* Blaek. Rollerne er MAALT i MANIFEST.md §Paletten, ikke skoennet her. */
   --blaek:var(--p-gunmetal);           /* gunmetal - 12,72 : eloxgraa (maalt i manifestet) */
@@ -155,7 +191,23 @@
   --linje:var(--p-rille);           /* rille - "rillen mellem stansede felter. Haarstreger." */
   --hegn:var(--p-stoevgraa);            /* stoevgraa - KUN kontur. 2,14 : eloxgraa, maa
                                  ALDRIG baere tekst (se --paafod2 og --blaek3,
-                                 som IKKE er stoevgraa, praecis derfor). */
+                                 som IKKE er stoevgraa, praecis derfor).
+                                 SKAERPET af spor/tomstat: den maa heller ikke
+                                 baere en OPLYSNING. 2,14 : 1 for KANTEN paa
+                                 bunden er under WCAG 1.4.11's 3,0, saa en kant,
+                                 der er den eneste baerer af en tilstand, skal
+                                 bruge --hegn-baerende. --hegn bliver staaende
+                                 uroert paa sine oevrige 41 brugssteder: den er
+                                 stadig den rigtige polet til en kontur, der kun
+                                 afgraenser. Se DESIGN.md konflikt 6. */
+  --hegn-baerende:var(--p-stoevgraa-2); /* NY, spor/tomstat 4. sep 2026. Kanten, der
+                                 SELV er oplysningen - i dag kun ".v-ikke" og
+                                 dens 9x9 stiplede firkant. 3,43 : 1 for KANTEN
+                                 #737F87 paa BUNDEN #E8EBED og 3,31 : 1 for
+                                 KANTEN paa sit eget FYLD #E4E7EA; begge naboer
+                                 over 1.4.11's 3,0. Regel: en kontur, der
+                                 forsvinder uden at en oplysning forsvinder med
+                                 den, bruger --hegn; ellers --hegn-baerende. */
 
   --fod:var(--p-gunmetal);             /* gunmetal ogsaa som moerk flade - "strimlens bund"
                                  i typeskilt.css er samme farve som blaekket */
@@ -690,11 +742,46 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    "ikke oplyst" og "omregnet". Og .omregnet kan aldrig faa et: det er en
    fodnote paa et tal, ikke et svar.
    Sekundaert bevaret: minuskler (mod .omregnets versaler) og den daempede
-   flade (mod .omregnets gennemsigtige). */
+   flade (mod .omregnets gennemsigtige).
+
+   R8, spor/tomstat 4. sep 2026: KANTEN ER NU DEN, DER BAERER TILSTANDEN,
+   og den har faaet sin egen polet, --hegn-baerende.
+
+   Hvad der var galt: chippens fyld var --tom, sidens flade var --bund, og
+   BEGGE pegede paa den samme primitiv - 1,00 : 1 for FYLDET paa BUNDEN.
+   Paa --panel-flader kunne man se chippen, fordi panelet er lysere end
+   fyldet; paa alle --bund-flader (producentsiden, katalogets flader) kunne
+   man ikke. Hele tilstanden hvilede saa paa en stiplet --hegn-kant paa
+   2,14 : 1 for KANTEN paa BUNDEN, under WCAG 1.4.11's 3,0. Det er haard
+   begraensning 5, der brister: "ikke oplyst" saa ud som ingenting.
+
+   Hvorfor rettelsen ligger i KANTEN og ikke i fyldet: fordi fyldet ikke KAN
+   rettes. Maalt (fund/maal-vikke-kontrast.mjs): skal ordet holde 4,50 : 1
+   PAA sit eget fyld, kan fyldet hoejst naa 1,05 : 1 mod bunden med --blaek3,
+   1,26 med --blaek2 og 2,83 selv med palettens moerkeste --blaek. Et fyld,
+   der bestaar 1.4.11, goer ordet ulaeseligt. Tilstanden ville blive synlig
+   som firkant og forsvinde som ord.
+
+   Efter rettelsen, med laeseretningen skrevet ud hver gang:
+     KANTEN #737F87 paa BUNDEN #E8EBED         3,43 : 1   (var 2,14)
+     KANTEN #737F87 paa sit eget FYLD #E4E7EA  3,31 : 1
+     9x9-firkantens KANT paa FYLDET            3,31 : 1
+     ORDET #5F686F paa FYLDET #E4E7EA          4,58 : 1   (var 4,74)
+     FYLDET #E4E7EA paa BUNDEN #E8EBED         1,04 : 1   (var 1,00)
+
+   Ordet taber 0,16 og bliver over kravet; kanten vinder 1,29 og kommer over
+   det. Chippen er stadig den STILLESTE af de tre tilstande: .v-nej har et
+   FYLDT kvadrat i --blaek (12,72 : 1), .v-ja et aabent med fyldt kerne, og
+   .v-ikke's stiplede kant paa 3,43 er bevidst holdt lysere end selve ordet
+   (4,74 : bund), saa konturen ikke konkurrerer med teksten.
+
+   .mrk beholder --hegn-baerende af samme grund som kassen: 9x9-firkanten
+   ER tre-tilstands-alfabetets bogstav, ikke en dekoration. En kontur, der
+   forsvinder uden at en oplysning forsvinder med den, bruger --hegn. */
 .v-ikke{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--blaek3);
-  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
+  background:var(--tom);border:1px dashed var(--hegn-baerende);border-radius:var(--hjoerne);
   padding:1px 5px;align-items:center}
-.v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn);flex:none}
+.v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn-baerende);flex:none}
 
 /* KUN VIST PAA BILLEDE — fjerde tilstand. Halvt fyldt firkant, kursiveret
    ord, ingen daempet flade: oplysningen FINDES, den staar bare ikke skrevet. */
