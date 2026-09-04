@@ -742,11 +742,46 @@ a:hover{text-decoration-thickness:2.5px;text-decoration-color:var(--accent)}
    "ikke oplyst" og "omregnet". Og .omregnet kan aldrig faa et: det er en
    fodnote paa et tal, ikke et svar.
    Sekundaert bevaret: minuskler (mod .omregnets versaler) og den daempede
-   flade (mod .omregnets gennemsigtige). */
+   flade (mod .omregnets gennemsigtige).
+
+   R8, spor/tomstat 4. sep 2026: KANTEN ER NU DEN, DER BAERER TILSTANDEN,
+   og den har faaet sin egen polet, --hegn-baerende.
+
+   Hvad der var galt: chippens fyld var --tom, sidens flade var --bund, og
+   BEGGE pegede paa den samme primitiv - 1,00 : 1 for FYLDET paa BUNDEN.
+   Paa --panel-flader kunne man se chippen, fordi panelet er lysere end
+   fyldet; paa alle --bund-flader (producentsiden, katalogets flader) kunne
+   man ikke. Hele tilstanden hvilede saa paa en stiplet --hegn-kant paa
+   2,14 : 1 for KANTEN paa BUNDEN, under WCAG 1.4.11's 3,0. Det er haard
+   begraensning 5, der brister: "ikke oplyst" saa ud som ingenting.
+
+   Hvorfor rettelsen ligger i KANTEN og ikke i fyldet: fordi fyldet ikke KAN
+   rettes. Maalt (fund/maal-vikke-kontrast.mjs): skal ordet holde 4,50 : 1
+   PAA sit eget fyld, kan fyldet hoejst naa 1,05 : 1 mod bunden med --blaek3,
+   1,26 med --blaek2 og 2,83 selv med palettens moerkeste --blaek. Et fyld,
+   der bestaar 1.4.11, goer ordet ulaeseligt. Tilstanden ville blive synlig
+   som firkant og forsvinde som ord.
+
+   Efter rettelsen, med laeseretningen skrevet ud hver gang:
+     KANTEN #737F87 paa BUNDEN #E8EBED         3,43 : 1   (var 2,14)
+     KANTEN #737F87 paa sit eget FYLD #E4E7EA  3,31 : 1
+     9x9-firkantens KANT paa FYLDET            3,31 : 1
+     ORDET #5F686F paa FYLDET #E4E7EA          4,58 : 1   (var 4,74)
+     FYLDET #E4E7EA paa BUNDEN #E8EBED         1,04 : 1   (var 1,00)
+
+   Ordet taber 0,16 og bliver over kravet; kanten vinder 1,29 og kommer over
+   det. Chippen er stadig den STILLESTE af de tre tilstande: .v-nej har et
+   FYLDT kvadrat i --blaek (12,72 : 1), .v-ja et aabent med fyldt kerne, og
+   .v-ikke's stiplede kant paa 3,43 er bevidst holdt lysere end selve ordet
+   (4,74 : bund), saa konturen ikke konkurrerer med teksten.
+
+   .mrk beholder --hegn-baerende af samme grund som kassen: 9x9-firkanten
+   ER tre-tilstands-alfabetets bogstav, ikke en dekoration. En kontur, der
+   forsvinder uden at en oplysning forsvinder med den, bruger --hegn. */
 .v-ikke{font-size:11px;font-weight:500;letter-spacing:.01em;color:var(--blaek3);
-  background:var(--tom);border:1px dashed var(--hegn);border-radius:var(--hjoerne);
+  background:var(--tom);border:1px dashed var(--hegn-baerende);border-radius:var(--hjoerne);
   padding:1px 5px;align-items:center}
-.v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn);flex:none}
+.v-ikke .mrk{width:9px;height:9px;border:1px dashed var(--hegn-baerende);flex:none}
 
 /* KUN VIST PAA BILLEDE — fjerde tilstand. Halvt fyldt firkant, kursiveret
    ord, ingen daempet flade: oplysningen FINDES, den staar bare ikke skrevet. */
