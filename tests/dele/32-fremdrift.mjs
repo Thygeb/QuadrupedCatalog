@@ -23,7 +23,7 @@ status: i_produktion
 `;
 
 export default async function koer(ctx) {
-  const { rod, tmp, ok, skema, lasRobotter, koerValidator } = ctx;
+  const { tmp, ok, skema, hentRobotter, koerValidator } = ctx;
 
   console.log('\n32. "fremdrift" — nyt paakraevet identitetsfelt (spor/datafelter)');
 
@@ -84,9 +84,11 @@ export default async function koer(ctx) {
     }
   }
 
-  console.log('  3. Stikproeve mod det RIGTIGE datasaet (data/robots/*.yaml) - MAALT, ikke gaettet');
+  console.log('  3. Stikproeve mod det RIGTIGE datasaet (databasens 77 robotter) - MAALT, ikke gaettet');
   {
-    const robotter = lasRobotter(path.join(rod, 'data', 'robots'));
+    // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+    // er slettet.
+    const robotter = (await hentRobotter()).map((d) => skema.normaliserRobot(d));
     ok('77 robotfiler laest', robotter.length === 77, `fik ${robotter.length}`);
 
     const udenFremdrift = robotter.filter((r) => typeof r.fremdrift !== 'string' || r.fremdrift.trim() === '');

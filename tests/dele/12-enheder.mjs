@@ -17,7 +17,7 @@ import { rens } from '../rens-css.mjs';
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok, skema, yaml,
+    rod, tmp, node, ok, skema, hentRobotter,
   } = ctx;
 
   console.log('\n13. spor/enheder: kanonisk visningsenhed (K9) og klaebende tabelhoved (K10)');
@@ -51,11 +51,16 @@ export default async function koer(ctx) {
     skema.visningsPost('haeldning', haeldningPct) === haeldningPct
     && !('haeldning' in skema.KANONISK_VISNINGSENHED));
 
-  // --- K9c: datafilerne paa disk er urørte - laest FRISK, ikke via bygget. ---
-  const spotRaa = skema.normaliserRobot(yaml.parseYaml(
-    fs.readFileSync(path.join(rod, 'data', 'robots', 'boston-dynamics-spot.yaml'), 'utf8'),
-    'boston-dynamics-spot.yaml'));
-  ok('K9c: data/robots/boston-dynamics-spot.yaml har STADIG laengde: 1100 mm paa disk',
+  // --- K9c: robotten er urørt paa sin kilde - laest FRISK, ikke via bygget.
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet. Uafhaengigheden af BYGGET (build.mjs) bevares stadig: denne
+  // laesning gaar ALDRIG gennem build.mjs's egen normaliserings-kald. Men
+  // uafhaengigheden af DATABASEN goer det ikke laengere - der findes ingen
+  // anden kilde tilbage at proeve friskheden imod. ---
+  const spotDoc = (await hentRobotter()).find((d) => d.slug === 'boston-dynamics-spot');
+  ok('K9c: boston-dynamics-spot findes i databasen', Boolean(spotDoc));
+  const spotRaa = skema.normaliserRobot(spotDoc);
+  ok('K9c: boston-dynamics-spot har STADIG laengde: 1100 mm i databasen',
     spotRaa.felter.laengde.vaerdi === 1100 && spotRaa.felter.laengde.enhed === 'mm',
     JSON.stringify(spotRaa.felter.laengde));
 

@@ -14,11 +14,22 @@
  * Fejlen stod paa 25 producentsider og var fladens eneste opgoerelse af CE —
  * der er intet "ét klik vaek" (fund/PLAN-producent.md, afsnit 4.3).
  *
- * FIXTUREN ER RIGTIGE DATA, ikke opdigtede: de to xiaomi-filer kopieres fra
- * data/robots/, saa testen faktisk daekker den producent, fejlen blev fundet
+ * FIXTUREN ER RIGTIGE DATA, ikke opdigtede: de to xiaomi-filer hentes fra
+ * databasen, saa testen faktisk daekker den producent, fejlen blev fundet
  * paa. Havde fixturen vaeret syntetisk, kunne den vise et nej, uden at Xiaomis
  * egen side gjorde det. Boston Dynamics (kun "ikke oplyst") og ANYbotics
- * (kun "ja") er kontrolgrupperne — én i hver retning.
+ * (kun "ja") er kontrolgrupperne — én i hver retning (disse to er stadig
+ * lokale fixtures, tests/eksempel-robotter/, uaendret).
+ *
+ * AA183/L84 (4. sep 2026): data/robots/ er slettet, saa de to xiaomi-filer
+ * kan ikke laengere KOPIERES derfra. De hentes nu via en fuld
+ * db/eksporter.mjs --fra-db-eksport til en midlertidig mappe (samme
+ * mekanisme db/tjek.mjs's eget trin 1 bruger), hvorfra kun de to oenskede
+ * filer kopieres ind i selve fixturen. Set-effekt: ÉN ekstra, ukachet
+ * REST-hentning pr. suitekoersel (fund/BRIEF-dbcache.md punkt 1's proces-
+ * krydsende cache sidder i db/hent.mjs's hentRobotter(), ikke i
+ * db/eksporter.mjs's egen fraDb(), og naas ikke af et subprocess-kald) -
+ * en regression mod dbcache-maalet, ikke rettet her, se rapporten.
  *
  * Bygger sin egen dist i tmp, jf. tests/LAESMIG.md: ingen del maa antage, at
  * en anden del har bygget noget foerst.
@@ -58,9 +69,21 @@ export default async function koer(ctx) {
   fs.rmSync(fixture, { recursive: true, force: true });
   fs.mkdirSync(fixture, { recursive: true });
 
+  // AA183/L84: data/robots/ er slettet - se filhovedets note. De to
+  // xiaomi-filer hentes via en midlertidig fuld eksport af databasen.
+  // Konfliktloesning ved flettet: spor/prodpolish omformaterede denne fil til
+  // dobbelte anfoerselstegn. Mains STRUKTUR er beholdt, spor/sletnings
+  // SEMANTIK genanvendt i haanden (flet-skillens punkt 2b).
+  const dbEksport = path.join(tmp, "db-eksport-76");
+  fs.rmSync(dbEksport, { recursive: true, force: true });
+  const eksport = spawnSync(node, [path.join(rod, "db", "eksporter.mjs"), "--fra-db", `--ud=${dbEksport}`],
+    { cwd: rod, encoding: "utf8" });
+  if (eksport.status !== 0) {
+    throw new Error(`produkort-fixture: db-eksport fejlede (exit ${eksport.status}) - ${(eksport.stderr || "").trim()}`);
+  }
   const fraData = ["xiaomi-cyberdog-1.yaml", "xiaomi-cyberdog-2.yaml"];
   for (const f of fraData) {
-    fs.copyFileSync(path.join(rod, "data", "robots", f), path.join(fixture, f));
+    fs.copyFileSync(path.join(dbEksport, f), path.join(fixture, f));
   }
   for (const f of ["boston-dynamics-spot.yaml", "anybotics-anymal.yaml"]) {
     fs.copyFileSync(

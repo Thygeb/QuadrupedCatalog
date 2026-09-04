@@ -25,7 +25,6 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
 
 /** Indholdet af det inline <style>, bygget skriver i <head>. */
 function genereretStil(html) {
@@ -43,14 +42,17 @@ function synligTekst(html) {
 }
 
 export default async function koer(ctx) {
-  const { rod, ok } = ctx;
+  const { rod, ok, hentRobotter } = ctx;
 
   console.log('\n35. Katalogsiden er typeskiltet (spor/katalog, L54/L57)');
 
   const dist = path.join(rod, 'dist');
-  const robotFiler = fs.readdirSync(path.join(rod, 'data', 'robots'))
-    .filter((f) => /\.ya?ml$/.test(f));
-  const ANTAL = robotFiler.length;
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet. `alleRaa` er RAA (parseYaml(), ikke normaliseret) docs -
+  // praecis det, en fs.readFileSync+parse af den gamle mappe ville have
+  // givet, saa .status og .foerste_udgivelse laeses direkte af dem nedenfor.
+  const alleRaa = await hentRobotter();
+  const ANTAL = alleRaa.length;
 
   // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
   for (const sprog of ['da', 'en']) {
@@ -234,14 +236,24 @@ export default async function koer(ctx) {
       ok(`35.12.${sprog}.revert: fjernes "nej"-tilstanden fra certificeringsfelterne, falder tilstandsvagten (kun ${[...fundneUdenNej].sort().join('/')} tilbage)`,
         !(fundneUdenNej.has('v-ja') && fundneUdenNej.has('v-nej') && fundneUdenNej.has('v-ikke')));
     }
-    // 35.11c: L68 staar ved magt - denne vending maa IKKE aabne en eneste
-    // robotpost. Maalt PR. SPROG er overflodigt (samme filer for begge), men
-    // billigt, og gaar galt hoejlydt hvis nogen en dag flytter checket ind i
+    // 35.11c: L68 -> L96 (STATUS.md Å183, 4. sep 2026). L68 haevdede "data/
+    // robots/ har 0 ucommitterede aendringer" - en genstand, der forsvandt
+    // sammen med mappen (AA183/L84). Beslutningen selv staar UAeNDRET: L89
+    // roerer kun filter-mekanikken, aldrig kildedataen. Å183 gav den sin nye
+    // genstand: "datavejen ind i bygget er KUN-LAeS. db/hent.mjs's fraDb()
+    // maa aldrig udfoere andet end GET, og ingen test eller byggevaerktoej
+    // maa skrive i databasen." db/hent.mjs paastaar det allerede om sig selv
+    // (linje 29: "LAeS-KUN: fraDb() er et GET"), men foer denne linje haevdede
+    // ingen test det. Ordvalg for "POST"-tjekket: \b-graenser, ikke et raat
+    // substring-match - db/eksporter.mjs (den faktiske fetch()-kilde) er
+    // fuld af "POSTGREST" (PostgREST, vaerktoejets navn), og et graedsloest
+    // /POST/ ville false-positive paa netop den fil. Maalt PR. SPROG er
+    // overflodigt (koden aendrer sig ikke med sproget), men billigt, og
+    // gaar galt hoejlydt hvis nogen en dag flytter checket ind i
     // sprog-loekken uden at taenke sig om.
-    ok(`35.11c.${sprog}: L68 uroert - data/robots/ har 0 ucommitterede aendringer`,
-      spawnSync('git', ['diff', '--stat', 'data/robots/'], { cwd: rod, encoding: 'utf8' })
-        .stdout.trim() === '',
-      'L89 rører kun filter-mekanikken, aldrig kildedataen (L68)');
+    ok(`35.11c.${sprog}: L96 - db/hent.mjs baerer ingen HTTP-skriveverber (POST/PATCH/DELETE)`,
+      !/\bPOST\b|\bPATCH\b|\bDELETE\b/.test(fs.readFileSync(path.join(rod, 'db', 'hent.mjs'), 'utf8')),
+      'datavejen ind i bygget skal vaere KUN-LAeS (L96, tidl. L68)');
     ok(`35.13 ${sprog}: status er en fuld facet med alle tre tilstande (L55 punkt 5)`,
       /id="f-status-i_produktion"/.test(html) && /id="f-status-annonceret"/.test(html)
         && /id="f-status-udgaaet"/.test(html));
@@ -269,9 +281,9 @@ export default async function koer(ctx) {
     const iNet = html.indexOf('<div class="net" id="alle">');
     const netto = iNet === -1 ? '' : html.slice(iNet);
     const stempler = (netto.match(/<span class="kort__mrk">/g) || []).length;
-    const ikkeIProduktion = robotFiler
-      .filter((f) => !/^status:\s*"?i_produktion"?\s*$/m
-        .test(fs.readFileSync(path.join(rod, 'data', 'robots', f), 'utf8'))).length;
+    // AA183/L84: telte foer paa raa YAML-tekst ("status: i_produktion"); nu
+    // paa det parsede felt direkte - samme vaerdi, databasen som kilde.
+    const ikkeIProduktion = alleRaa.filter((d) => d.status !== 'i_produktion').length;
     ok(`35.17 ${sprog}: statusstempel kun paa de ${ikkeIProduktion}, der ikke er i produktion`,
       iNet !== -1 && stempler === ikkeIProduktion, `fandt ${stempler} stempler i resultatgitteret`);
 
@@ -285,8 +297,11 @@ export default async function koer(ctx) {
     ok(`35.18 ${sprog}: aabningen findes og er sat af robotkort`,
       iAabning !== -1 && /<article class="kort kort--seneste">/.test(aabning),
       'et hero-baand af ren tekst ville skubbe det foerste robotkort laengere ned (D20)');
-    const medAar = robotFiler.filter((f) => /^foerste_udgivelse:\s*\d{4}\s*$/m
-      .test(fs.readFileSync(path.join(rod, 'data', 'robots', f), 'utf8'))).length;
+    // AA183/L84: telte foer paa raa YAML-tekst ("foerste_udgivelse: 2023");
+    // nu paa det parsede felt - et bart 4-cifret aarstal er en JS-number her,
+    // en tekstvaerdi som "ikke_oplyst" tæller derfor stadig som "uden".
+    const medAar = alleRaa.filter((d) => typeof d.foerste_udgivelse === 'number'
+      && /^\d{4}$/.test(String(d.foerste_udgivelse))).length;
     const udenAar = ANTAL - medAar;
     const tekst = synligTekst(aabning);
     ok(`35.19 ${sprog}: aabningen siger, hvor mange der oplyser et aarstal (${medAar} af ${ANTAL})`,

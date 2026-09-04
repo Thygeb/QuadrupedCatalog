@@ -14,8 +14,8 @@
  *   2. R22: fem bevidst OEDELAGTE tilfaelde (ét pr. krav) giver praecis den
  *      fejl, og de gyldige former (advarsel_i18n samt note_i18n paa
  *      anvendelse OG billede) passerer.
- *   3. build.mjs vaelger tekst efter sprog ÉT sted: i en KOPI af
- *      data/robots/ (scratch-mappe i ctx.tmp, ALDRIG originalen) patches
+ *   3. build.mjs vaelger tekst efter sprog ÉT sted: i en EKSPORT af
+ *      databasen (scratch-mappe i ctx.tmp, ALDRIG databasen selv) patches
  *      unitree-aliengo.yaml med en advarsel_i18n; bygget af kopien viser
  *      "WITHOUT the battery" paa /en/robotter/unitree-aliengo/ og IKKE
  *      "UDEN batteri", mens /da/ stadig viser "UDEN batteri".
@@ -27,10 +27,22 @@
  * db/migrering-i18n.sql er slettet — punkt 4's skema-/migreringspaastande om
  * de tre i18n-kolonner er derfor ikke laengere sande og genskabes IKKE.
  *
- * Dette spor oversaetter INGENTING (roerer ikke data/robots/) — testene her
- * bruger derfor udelukkende syntetiske fixtures i ctx.tmp, ALDRIG rigtige
- * robotfiler, bortset fra punkt 3's build, som KOPIERER (aldrig redigerer)
- * data/robots/ til en scratch-mappe foer den patches der.
+ * Dette spor oversaetter INGENTING — testene her bruger derfor udelukkende
+ * syntetiske fixtures i ctx.tmp, ALDRIG de rigtige robotdata, bortset fra
+ * punkt 3's build, som EKSPORTERER (aldrig redigerer databasen) til en
+ * scratch-mappe foer den patches der.
+ *
+ * AA183/L84 (4. sep 2026): data/robots/ er slettet. Punkt 3 kopierede foer
+ * filer derfra til scratch-mappen; det kan den ikke laengere. Den bruger nu
+ * db/eksporter.mjs --fra-db --ud=<scratch> (samme mekanisme db/tjek.mjs's
+ * eget trin 1 bruger) i stedet for ctx.hentRobotter() - den proces-krydsende
+ * cache (fund/BRIEF-dbcache.md punkt 1) sidder i db/hent.mjs's
+ * hentRobotter()-ombygning af fraDb(), ikke i db/eksporter.mjs's egen
+ * fraDb(), og naas derfor ikke af et subprocess-kald uanset hvilken vej der
+ * vaelges. Desuden findes der ingen objekt->YAML-serialiserer uden for
+ * db/eksporter.mjs's skrivRobotYaml(), som kraever byggRobotDoc()'s RAA
+ * Supabase-raekkeform - ikke hentRobotter()s allerede-genparsede dokumenter
+ * - saa at genbruge exportvejen direkte er den enklere, afproevede vej.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -106,13 +118,16 @@ export default async function koer(ctx) {
   {
     const dataMappe = path.join(tmp, 'proeve-data-64');
     fs.rmSync(dataMappe, { recursive: true, force: true });
-    fs.mkdirSync(dataMappe, { recursive: true });
-    const kildeMappe = path.join(rod, 'data', 'robots');
-    const kildeFiler = fs.readdirSync(kildeMappe).filter((f) => /\.ya?ml$/.test(f));
-    for (const f of kildeFiler) fs.copyFileSync(path.join(kildeMappe, f), path.join(dataMappe, f));
-    ok('64.3: grundlag — alle robotfiler kopieret til scratch-mappen (KOPI, data/robots/ er ikke roert)',
-      kildeFiler.length > 0 && fs.readdirSync(dataMappe).length === kildeFiler.length,
-      `fik ${fs.readdirSync(dataMappe).length} af ${kildeFiler.length}`);
+    // AA183/L84: data/robots/ er slettet - se filhovedets note. Scratch-
+    // mappen fyldes nu ved at eksportere databasen, ikke ved at kopiere filer.
+    const eksport = spawnSync(node, [path.join(rod, 'db', 'eksporter.mjs'), '--fra-db', `--ud=${dataMappe}`],
+      { cwd: rod, encoding: 'utf8' });
+    ok('64.3: grundlag — db/eksporter.mjs --fra-db skrev scratch-mappen (exit 0)',
+      eksport.status === 0, (eksport.stdout || '') + (eksport.stderr || ''));
+    const kildeFiler = fs.existsSync(dataMappe)
+      ? fs.readdirSync(dataMappe).filter((f) => /\.ya?ml$/.test(f)) : [];
+    ok('64.3: grundlag — 77 robotfiler eksporteret til scratch-mappen (KOPI, databasen er ikke roert)',
+      kildeFiler.length === 77, `fik ${kildeFiler.length}`);
 
     const aliengoFil = path.join(dataMappe, 'unitree-aliengo.yaml');
     const original = fs.readFileSync(aliengoFil, 'utf8');

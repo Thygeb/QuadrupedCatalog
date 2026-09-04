@@ -43,9 +43,15 @@
  *      den ene flade, hvor hård begrænsning 5's tilstands-visning ikke
  *      gælder, fordi prosa ikke er en datapost.
  *
- * Ingen netværk, ingen .env. Egen dist under ctx.tmp, som del 04 og 37 gør
- * det: prøven må ikke afhænge af, at nogen har kørt build.mjs i forvejen, og
- * må ikke røre den rigtige dist/.
+ * AA183/L84 (4. sep 2026): "aegte"-regnskabet (linje ~75) laeser nu
+ * hentRobotter() (databasen, cachet af tests/koer.mjs - fund/BRIEF-dbcache.md
+ * punkt 1), da data/robots/ er slettet. "Ingen netvaerk, ingen .env" gaelder
+ * derfor IKKE laengere for hele filen - kun for byggekaldet mod fixturen
+ * (linje ~70), som stadig er lokal og uaendret.
+ *
+ * Egen dist under ctx.tmp, som del 04 og 37 gør det: prøven må ikke afhænge
+ * af, at nogen har kørt build.mjs i forvejen, og må ikke røre den rigtige
+ * dist/.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -53,7 +59,7 @@ import { spawnSync } from 'node:child_process';
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok, skema, lasRobotter,
+    rod, tmp, node, ok, skema, lasRobotter, hentRobotter,
   } = ctx;
 
   console.log('\n42. Om-siden (spor/omos, L61)');
@@ -72,7 +78,9 @@ export default async function koer(ctx) {
   ok('42.0: build.mjs giver exit 0', r.status === 0, (r.stderr || '').trim());
 
   const fixtur = omOs.regnskab(lasRobotter(path.join(rod, 'tests', 'eksempel-robotter')));
-  const aegte = omOs.regnskab(lasRobotter(path.join(rod, 'data', 'robots')));
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet.
+  const aegte = omOs.regnskab((await hentRobotter()).map((d) => skema.normaliserRobot(d)));
 
   /* --- 1. siden findes paa hvert sprog, paa samme segment ----------------- */
   const sider = {};

@@ -46,7 +46,24 @@ function sektion(html, klasse) {
 }
 
 export default async function koer(ctx) {
-  const { rod, tmp, node, ok } = ctx;
+  const { rod, tmp, node, ok, hentRobotter } = ctx;
+
+  /** Taeller "advarsel"-noegler med defineret vaerdi paa ALLE dybder af `obj`
+   *  (samme rekursionsform som db/tjek.mjs's udenTekst/tests/dele/68's
+   *  taelTekstnoegler). Erstatter et raat regex-tael paa YAML-tekst ("^\s+
+   *  advarsel:") med et strukturtael paa det parsede dokument. */
+  function taelAdvarsler(obj) {
+    if (Array.isArray(obj)) return obj.reduce((n, v) => n + taelAdvarsler(v), 0);
+    if (obj !== null && typeof obj === 'object') {
+      let n = 0;
+      for (const [k, v] of Object.entries(obj)) {
+        if (k === 'advarsel' && v !== undefined && v !== null) n++;
+        n += taelAdvarsler(v);
+      }
+      return n;
+    }
+    return 0;
+  }
 
   console.log('\n36. spor/robot: robotsiden i TYPESKILT-formen (L57/L60)');
 
@@ -217,11 +234,10 @@ export default async function koer(ctx) {
 
   /* --- 4. Forbeholdene staar AABENT, og tallet taelles frem -------------- */
 
-  const dataMappe = path.join(rod, 'data', 'robots');
-  const forbeholdIData = fs.readdirSync(dataMappe)
-    .filter((f) => f.endsWith('.yaml'))
-    .reduce((n, f) => n + (fs.readFileSync(path.join(dataMappe, f), 'utf8')
-      .match(/^\s+advarsel:/gm) || []).length, 0);
+  // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+  // er slettet.
+  const alleRaaForbehold = await hentRobotter();
+  const forbeholdIData = alleRaaForbehold.reduce((n, d) => n + taelAdvarsler(d), 0);
   ok('36.21: der ER forbehold i datasaettet at holde skemaet op imod',
     forbeholdIData > 0, `fandt ${forbeholdIData}`);
 

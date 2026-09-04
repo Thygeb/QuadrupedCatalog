@@ -20,7 +20,7 @@ import { spawnSync } from 'node:child_process';
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok, skema, yaml,
+    rod, tmp, node, ok, skema, hentRobotter,
   } = ctx;
 
   console.log('\n15. spor/hastighed: kanonisk visningsenhed km/h (L41)');
@@ -71,9 +71,15 @@ export default async function koer(ctx) {
       'neura-quadruped.yaml': 12,
       'rivr-one.yaml': 14,
     };
+    // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+    // er slettet. Slug'et er filnavnet uden ".yaml", som hentRobotter()s
+    // syntetiske "<slug>.yaml"-navn (db/hent.mjs) matcher praecist.
+    const alleRaa = await hentRobotter();
     for (const [fil, tal] of Object.entries(forventet)) {
-      const sti = path.join(rod, 'data', 'robots', fil);
-      const doc = skema.normaliserRobot(yaml.parseYaml(fs.readFileSync(sti, 'utf8'), sti));
+      const slug = fil.replace(/\.ya?ml$/, '');
+      const raa = alleRaa.find((d) => d.slug === slug);
+      ok(`${fil}: findes i databasen (slug ${slug})`, Boolean(raa));
+      const doc = skema.normaliserRobot(raa);
       const post = doc.felter.hastighed;
       ok(`${fil}: raa-enhed er allerede km/h efter normaliserRobot (km/t-alias)`,
         post.enhed === 'km/h', `fik ${post.enhed}`);

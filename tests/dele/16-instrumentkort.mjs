@@ -31,7 +31,7 @@ function taelStribeLi(html) {
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok,
+    rod, tmp, node, ok, hentRobotter,
   } = ctx;
 
   console.log('\n16. spor/instrument2: INSTRUMENT ind i kortet og gitteret (L40)');
@@ -147,14 +147,23 @@ export default async function koer(ctx) {
     !/kanalhoved/.test(systemCss) && !/kanalhoved/.test(generatorCss));
 
   /* ------------------------------------------------------ efterproevning
-     Kortantallet er uaendret af taethedsaendringen - 77 er en AEGTE optaelling
-     fra datamappen, ikke et haandtal (se CLAUDE.md's advarsel mod haardkodede
-     forventede tal). */
+     Kortantallet er uaendret af taethedsaendringen - antallet er en AEGTE
+     optaelling, ikke et haandtal (se CLAUDE.md's advarsel mod haardkodede
+     forventede tal).
+
+     AA183/L84 (4. sep 2026): data/robots/ er slettet. Foer denne aendring
+     holdt praeven kataloget (bygget FRA databasen) op mod en UAFHAENGIG
+     kontrolgruppe - filantallet paa disk. Den uafhaengighed er ikke
+     laengere mulig: der findes ingen anden kilde end databasen selv, saa
+     praeven er nu DB mod DB (den samme hentRobotter(), bygget.mjs allerede
+     laeser). JPK har accepteret tabet af den uafhaengige kontrolgruppe
+     (Å183, STATUS.md) - uden denne kommentar ville naeste laeser tro,
+     kontrollen stadig var uafhaengig. */
   {
     // spor/oversigt (1. sep 2026): kataloget flyttede til sprogroden.
     const html = laesFil('da/index.html');
-    const antalKilder = fs.readdirSync(path.join(rod, 'data', 'robots')).filter((f) => /\.ya?ml$/.test(f)).length;
-    ok(`antal katalogkort matcher antal robotfiler i data/robots/ (${antalKilder})`,
+    const antalKilder = (await hentRobotter()).length;
+    ok(`antal katalogkort matcher antal robotter i databasen (${antalKilder})`,
       html !== null && (html.match(/<article class="kort"/g) || []).length === antalKilder);
   }
 

@@ -110,15 +110,17 @@ export default async function koer(ctx) {
   // `skema`/`yaml` kommer fra ctx (importeret ÉN gang i _faelles.mjs).
   // side.mjs er ikke blandt dem og importeres her - med `file://` og skraa
   // streger, ellers giver Windows' `C:\...` ERR_UNSUPPORTED_ESM_URL_SCHEME.
-  const { parseYaml } = ctx.yaml;
   const { normaliserRobot, normaliserVisningsEnheder, FELTNAVNE } = ctx.skema;
   const { imperialPost } = await import(
     `file://${path.join(rod, 'tools', 'skabelon', 'side.mjs').replace(/\\/g, '/')}`);
 
-  const rDir = path.join(rod, 'data', 'robots');
+  // AA183/L84: laeser ctx.hentRobotter() (databasen), ikke data/robots/ -
+  // mappen er slettet. parseYaml (foer hentet fra ctx.yaml) er fjernet fra
+  // destructureringen ovenfor - hentRobotter() giver allerede parsede, RAA
+  // docs (db/hent.mjs's egen kommentar), saa parseYaml var dens eneste bruger.
   const raa = new Map();
-  for (const f of fs.readdirSync(rDir).filter((n) => /\.ya?ml$/.test(n))) {
-    const r = normaliserVisningsEnheder(normaliserRobot(parseYaml(fs.readFileSync(path.join(rDir, f), 'utf8'), f)));
+  for (const d of await ctx.hentRobotter()) {
+    const r = normaliserVisningsEnheder(normaliserRobot(d));
     raa.set(r.slug, r);
   }
 

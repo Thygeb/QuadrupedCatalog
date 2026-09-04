@@ -5,11 +5,19 @@
  * redigere, eget data/dist ville laegges under ctx.tmp hvis der var brug
  * for det (her er der ikke: alt bygger paa fixtures + laesRobotter).
  *
- * INGEN DATABASE, INGEN .env, INGEN fetch — de to funktioner, der roerer
- * databasen (db/eksporter.mjs --fra-db i tjek.mjs's trin 1, og selve
- * hoved()-koerslen), kaldes aldrig herfra. Det eneste, der spawnes, er
- * "node db/tjek.mjs --liste", som per D1's kontrakt selv exit'er FOeR
- * eksporten kaldes.
+ * Denne fils EGNE kald er database-frie: dybtLig/talLig/udenTekst testes
+ * isoleret paa fixtures, ingen fetch. Det eneste, der spawnes, er
+ * "node db/tjek.mjs --liste".
+ *
+ * AA183/L84 (4. sep 2026): data/robots/ er slettet, og db/tjek.mjs's --liste
+ * kan derfor IKKE laengere vaere database-fri (db/tjek.mjs's egen
+ * docstring/AA183-note forklarer hvorfor) - trin 1's eksport koeres nu
+ * ALTID foerst, ogsaa for --liste, saa "1/4 ..." STAAR i outputtet, hvor det
+ * foer var forbudt. --liste's egen exit-status og facit (linjer, foerste
+ * producent) er UAeNDREDE; kun eksport-headeren og --liste's timing-antagelse
+ * ("ingen database") er det, der er rettet nedenfor. Facittet udledes
+ * stadig, ikke hardkodet (samme regel som foer) - kun kilden er hentRobotter()
+ * (databasen), ikke data/robots/.
  *
  * Fixtures (tests/dele/fixtures/68-*.json): unitree-aliengo.yaml parset +
  * normaliseret (samme kaede som build.mjs/validate.mjs bruger), gemt som
@@ -52,7 +60,9 @@ const FORVENTET_TEKSTNOEGLER = [
 ];
 
 export default async function koer(ctx) {
-  const { ok, rod, node, lasRobotter } = ctx;
+  const {
+    ok, rod, node, skema, hentRobotter,
+  } = ctx;
 
   const tjekMjsSti = path.join(rod, 'db/tjek.mjs');
   const { dybtLig, talLig, udenTekst, TEKSTNOEGLER } =
@@ -94,10 +104,11 @@ export default async function koer(ctx) {
     JSON.stringify(TEKSTNOEGLER) === JSON.stringify(FORVENTET_TEKSTNOEGLER),
     JSON.stringify(TEKSTNOEGLER));
 
-  // --liste: ren lokal laesning, INGEN database, INGEN .env. Facittet
-  // udledes fra data/robots/ selv (IKKE hardkodet 25 — se tests/LAESMIG.md's
-  // regel om at et haandskrevet facittal glider fra virkeligheden).
-  const alleRobotter = lasRobotter(path.join(rod, 'data/robots'));
+  // --liste: facittet udledes fra databasen (IKKE hardkodet 25 — se
+  // tests/LAESMIG.md's regel om at et haandskrevet facittal glider fra
+  // virkeligheden). AA183/L84: foer data/robots/, nu hentRobotter() - mappen
+  // er slettet.
+  const alleRobotter = (await hentRobotter()).map((d) => skema.normaliserRobot(d));
   const taelling = new Map();
   for (const r of alleRobotter) taelling.set(r.producent, (taelling.get(r.producent) ?? 0) + 1);
   const forventetLinjer = [...taelling.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'da'));
@@ -106,14 +117,25 @@ export default async function koer(ctx) {
   const start = Date.now();
   const res = spawnSync(node, [tjekMjsSti, '--liste'], { cwd: rod, encoding: 'utf8' });
   const varighedMs = Date.now() - start;
-  const linjer = res.stdout.split('\n').map((l) => l.trimEnd()).filter(Boolean);
+  // AA183/L84: --liste's output baerer nu ALTID trin 1's "1/4 ..."-header
+  // FOeR producentlinjerne (db/tjek.mjs's egen AA183-note) - filtreret vaek
+  // med et moenster, kun de rigtige "<antal>  <navn>"-linjer matcher (et
+  // taltegn, TO mellemrum, saa ikke-tomt), saa "1/4  node db/eksporter..."
+  // og enhver advarsel-linje IKKE taeller med.
+  const linjer = res.stdout.split('\n').map((l) => l.trimEnd()).filter((l) => /^\d+ {2}\S/.test(l));
 
   ok('--liste: exit 0', res.status === 0, `status=${res.status}`);
-  ok('--liste: antal linjer = antal forskellige producenter i data/robots/',
+  ok('--liste: antal producentlinjer = antal forskellige producenter i databasen',
     linjer.length === forventetLinjer.length, `${linjer.length} vs ${forventetLinjer.length}`);
-  ok('--liste: foerste linje er producenten med flest robotter',
+  ok('--liste: foerste producentlinje er producenten med flest robotter',
     linjer[0] === `${forventetFoersteAntal}  ${forventetFoersteProducent}`, linjer[0]);
-  ok('--liste: udskriften indeholder IKKE "1/4" (eksporteren blev ikke kaldt)',
-    !res.stdout.includes('1/4'));
-  ok('--liste: under 5000 ms (ingen database, ingen .env)', varighedMs < 5000, `${varighedMs} ms`);
+  // VENDT (ikke slettet, CLAUDE.md): AA183/L84 goer eksporten obligatorisk
+  // for --liste (db/tjek.mjs's docstring), saa "1/4" SKAL nu staa i
+  // outputtet - det modsatte af kontrakten foer dette spor.
+  ok('--liste: udskriften indeholder "1/4" (trin 1s eksport koeres nu altid foerst, AA183/L84)',
+    res.stdout.includes('1/4'), res.stdout.slice(0, 120));
+  // VENDT: "ingen database" gaelder ikke laengere (se ovenfor) - graensen
+  // 5000 ms staar ved magt som et loft for ÉN db-eksport plus producenttael,
+  // ikke som et bevis for database-frihed.
+  ok('--liste: under 5000 ms (ÉN db-eksport, ikke database-fri laengere)', varighedMs < 5000, `${varighedMs} ms`);
 }

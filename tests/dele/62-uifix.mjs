@@ -16,7 +16,7 @@ import { spawnSync } from 'node:child_process';
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok, lasRobotter,
+    rod, tmp, node, ok, skema, hentRobotter,
   } = ctx;
 
   console.log('\n62. spor/uifix: seks UI-rettelser (BRIEF-uifix.md)');
@@ -138,7 +138,9 @@ export default async function koer(ctx) {
      (regressionsvaern, data-drevet: udledt af data/robots/, ikke gaettet)
      ==================================================================== */
   {
-    const robotter = lasRobotter(path.join(rod, 'data', 'robots'));
+    // AA183/L84: laeser hentRobotter() (databasen), ikke data/robots/ - mappen
+    // er slettet.
+    const robotter = (await hentRobotter()).map((d) => skema.normaliserRobot(d));
     const medCny = robotter.filter((r) => r.felter?.pris?.enhed === 'CNY').map((r) => r.slug);
     const medBasis = robotter.filter((r) => r.felter?.pris?.enhed === basis).map((r) => r.slug);
     const findesMed = (slug, streng) => {

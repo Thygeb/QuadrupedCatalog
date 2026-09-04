@@ -12,7 +12,7 @@ import { spawnSync } from 'node:child_process';
 
 export default async function koer(ctx) {
   const {
-    rod, tmp, node, ok, operatorRegex,
+    rod, tmp, node, ok, operatorRegex, hentRobotter,
   } = ctx;
 
   console.log('\n6. Vaegtklasser og flervaerdi-anvendelse');
@@ -294,9 +294,22 @@ export default async function koer(ctx) {
   ok('enkelttal-robotter faar fortsat PRAECIS én klasse i kataloget (fx a-under, 19,9 kg)',
     vaegtAf('a-under') === 'under_20', vaegtAf('a-under'));
 
-  // Klassen er afledt. Staar den i en YAML-fil, er beslutningen brudt.
-  const iData = fs.readdirSync(path.join(rod, 'data', 'robots'))
-    .filter((f) => /vaegtklasse/.test(fs.readFileSync(path.join(rod, 'data', 'robots', f), 'utf8')));
-  ok('ingen datafil indeholder ordet "vaegtklasse" - klassen er afledt, ikke skrevet',
-    iData.length === 0, iData.join(', '));
+  // Klassen er afledt. Staar den gemt et sted, er beslutningen brudt.
+  // AA183/L84: STAERKERE end foer, ikke bare et kildeskift - den gamle
+  // udgave laeste raa YAML-TEKST fra data/robots/ (nu slettet) og fandt kun
+  // ordet "vaegtklasse" som substring. Denne udgave slaar op i det parsede
+  // dokument, paa ALLE dybder (samme rekursionsform som db/tjek.mjs's
+  // udenTekst/68's taelTekstnoegler), og daekker DATABASEN - den gamle
+  // daekkede kun filerne.
+  function harVaegtklasseNoegle(obj) {
+    if (Array.isArray(obj)) return obj.some(harVaegtklasseNoegle);
+    if (obj !== null && typeof obj === 'object') {
+      return Object.entries(obj).some(([k, v]) => k === 'vaegtklasse' || harVaegtklasseNoegle(v));
+    }
+    return false;
+  }
+  const alleRaa = await hentRobotter();
+  const medVaegtklasse = alleRaa.filter((d) => harVaegtklasseNoegle(d)).map((d) => d.slug);
+  ok('ingen af databasens robotter har en "vaegtklasse"-noegle paa nogen dybde - klassen er afledt, ikke gemt',
+    medVaegtklasse.length === 0, medVaegtklasse.join(', '));
 }
