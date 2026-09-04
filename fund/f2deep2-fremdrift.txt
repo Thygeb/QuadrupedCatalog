@@ -1,0 +1,16 @@
+spor/f2deep — fremdrift, --skriv mod field_entries.caveat_wording (kasse A)
+Navngivet f2deep2- for at undgaa at genbruge f2deep-skriv-log.txt, som
+tilhoerer det tidligere (bindestregede) spor/f2-deep.
+
+robot_id/slug                    A-raekker  bekraeftet
+2190 deep-robotics-lite3         6/6        OK
+2191 deep-robotics-lynx-m20      11/11      OK
+2192 deep-robotics-lynx-m20-pro  11/11      OK
+2193 deep-robotics-lynx-m20s     10/10      OK
+2194 deep-robotics-lynx-s10      4/4        OK
+2195 deep-robotics-mini          7/7        OK
+2196 deep-robotics-x20           5/6        OK
+2197 deep-robotics-x30           6/7        OK
+2198 deep-robotics-x30-pro       6/7        OK
+
+Alle 9 robotter skrevet. A i alt: 66/66 bekræftet. Sum A+B+C = 66+11+0 = 77.
