@@ -286,13 +286,27 @@
      DESIGN.md: Hierarki, DP3b (14px Raekke) og DP3c (10.5px Skriftgulv). */
 
   /* Display og store overskrifter (flydende clamps) */
-  --fs-hero:clamp(33px,6.2vw,76px);        /* Heltetitel paa katalog og forside */
+  /* --fs-hero: KUN Om os. Her stod "Heltetitel paa katalog og forside", og
+     ingen af de to passer (maalt i browseren 4. sep 2026, spor/flader pas 2):
+     kataloget saetter sin aabningstitel i --fs-display-titel, og en "forside"
+     med .t-hero findes ikke. .t-hero staar OGSAA paa robotsiden
+     (tools/skabelon/robot.mjs:1098), men taber DER altid til
+     `.typeskilt .robot-navn h1{font-size:var(--fs-robot)}` — 84 px vinder over
+     76 px paa specificitet. Klassen er derfor uden virkning paa robotsiden;
+     den er ikke fjernet, fordi test 40 laaser `.t-hero{...font-weight:700}`. */
+  --fs-hero:clamp(33px,6.2vw,76px);        /* Om os' titel — og kun den */
   --fs-robot:clamp(40px,7.2vw,84px);       /* Robotsidens store robotnavn */
   --fs-h1:clamp(27px,3.6vw,46px);          /* Sidetitler og H1-overskrifter */
   --fs-h2:clamp(23px,2.8vw,34px);          /* Sektionsoverskrifter (H2) */
-  --fs-display-stor:clamp(34px,4vw,52px);  /* Aarstempel og store display-tal */
+  --fs-display-stor:clamp(34px,4vw,52px);  /* Aarstempel (.aarstempel__tal) */
   --fs-display-titel:clamp(28px,3.3vw,44px); /* Katalogets aabningstitel */
-  --fs-display-tal:clamp(26px,2.6vw,34px); /* Store EU-fundtal */
+  /* --fs-display-tal ER SLETTET HER (spor/flader pas 2, 4. sep 2026).
+     Den var clamp(26px,2.6vw,34px) med kommentaren "Store EU-fundtal", og
+     EU-sektionen forsvandt med spor/prodpolish tidligere i dag. Maalt foer
+     sletningen: `grep -rho "var(--fs-display-tal)" assets/*.css | wc -l` = 0,
+     og tokenet blev brugt paa NUL af de seks flader ved 390 px. Ved 1440 px
+     kolliderede den desuden med --fs-h2 paa praecis 34 px, saa to trin gjorde
+     samme arbejde — den kollision er vaek nu. 21 trin bliver til 20. */
   --fs-display-lille:clamp(20px,2.1vw,27px); /* Kompakt display / pladetitler */
 
   /* Tabulaere figurtal og mellemoverskrifter */
