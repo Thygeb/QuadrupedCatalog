@@ -25,7 +25,6 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
 
 /** Indholdet af det inline <style>, bygget skriver i <head>. */
 function genereretStil(html) {
@@ -237,14 +236,24 @@ export default async function koer(ctx) {
       ok(`35.12.${sprog}.revert: fjernes "nej"-tilstanden fra certificeringsfelterne, falder tilstandsvagten (kun ${[...fundneUdenNej].sort().join('/')} tilbage)`,
         !(fundneUdenNej.has('v-ja') && fundneUdenNej.has('v-nej') && fundneUdenNej.has('v-ikke')));
     }
-    // 35.11c: L68 staar ved magt - denne vending maa IKKE aabne en eneste
-    // robotpost. Maalt PR. SPROG er overflodigt (samme filer for begge), men
-    // billigt, og gaar galt hoejlydt hvis nogen en dag flytter checket ind i
+    // 35.11c: L68 -> L96 (STATUS.md Å183, 4. sep 2026). L68 haevdede "data/
+    // robots/ har 0 ucommitterede aendringer" - en genstand, der forsvandt
+    // sammen med mappen (AA183/L84). Beslutningen selv staar UAeNDRET: L89
+    // roerer kun filter-mekanikken, aldrig kildedataen. Å183 gav den sin nye
+    // genstand: "datavejen ind i bygget er KUN-LAeS. db/hent.mjs's fraDb()
+    // maa aldrig udfoere andet end GET, og ingen test eller byggevaerktoej
+    // maa skrive i databasen." db/hent.mjs paastaar det allerede om sig selv
+    // (linje 29: "LAeS-KUN: fraDb() er et GET"), men foer denne linje haevdede
+    // ingen test det. Ordvalg for "POST"-tjekket: \b-graenser, ikke et raat
+    // substring-match - db/eksporter.mjs (den faktiske fetch()-kilde) er
+    // fuld af "POSTGREST" (PostgREST, vaerktoejets navn), og et graedsloest
+    // /POST/ ville false-positive paa netop den fil. Maalt PR. SPROG er
+    // overflodigt (koden aendrer sig ikke med sproget), men billigt, og
+    // gaar galt hoejlydt hvis nogen en dag flytter checket ind i
     // sprog-loekken uden at taenke sig om.
-    ok(`35.11c.${sprog}: L68 uroert - data/robots/ har 0 ucommitterede aendringer`,
-      spawnSync('git', ['diff', '--stat', 'data/robots/'], { cwd: rod, encoding: 'utf8' })
-        .stdout.trim() === '',
-      'L89 rører kun filter-mekanikken, aldrig kildedataen (L68)');
+    ok(`35.11c.${sprog}: L96 - db/hent.mjs baerer ingen HTTP-skriveverber (POST/PATCH/DELETE)`,
+      !/\bPOST\b|\bPATCH\b|\bDELETE\b/.test(fs.readFileSync(path.join(rod, 'db', 'hent.mjs'), 'utf8')),
+      'datavejen ind i bygget skal vaere KUN-LAeS (L96, tidl. L68)');
     ok(`35.13 ${sprog}: status er en fuld facet med alle tre tilstande (L55 punkt 5)`,
       /id="f-status-i_produktion"/.test(html) && /id="f-status-annonceret"/.test(html)
         && /id="f-status-udgaaet"/.test(html));
