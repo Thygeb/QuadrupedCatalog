@@ -169,22 +169,85 @@ export default async function koer(ctx) {
     primitiver.length === 11 && ikkeLiterale.length === 0,
     `fandt ${primitiver.length}: ${primitiver.join(', ')}${ikkeLiterale.length ? ' — ikke-literale: ' + ikkeLiterale.join(', ') : ''}`);
 
-  // --- R8: kanten, der BAERER tilstanden, er ikke --hegn laengere --------
-  // Uden denne assertion kan en fremtidig oprydning skrive .v-ikke's kant
-  // tilbage til var(--hegn) (2,14 : 1 for KANTEN paa BUNDEN), og alt andet
-  // i denne fil ville stadig vaere groent - farverne er jo uaendrede.
+  // --- R8: KONTRASTEN, ikke bare hex-vaerdierne ---------------------------
+  // Hvorfor de to naeste assertions ikke er overfloedige ved siden af
+  // 59.--tom: den laaser en HEX. Justerer nogen --blaek3 (tekstfarven) et
+  // halvt trin, er --tom uroert, 59.--tom er groen, og ordet paa fyldet
+  // falder under 4,50 uden at noget faelder. Marginen er 0,08 - den
+  // overlever ikke en token-justering, som ingen maaler.
+  //
+  // Farverne LAESES ud af .v-ikke-reglen gennem token-kaeden, ikke skrevet
+  // ind her: skrives kanten tilbage til var(--hegn), falder 59.21 med det
+  // samme, fordi TALLET falder - ikke fordi en streng ikke matcher.
   {
     const sys = fs.readFileSync(path.join(rod, 'assets', 'system.css'), 'utf8')
       .replace(/\/\*[\s\S]*?\*\//g, '');
     const regel = sys.match(/\.v-ikke\{([^}]*)\}/);
     const maerke = sys.match(/\.v-ikke \.mrk\{([^}]*)\}/);
+
+    // WCAG 2.x relativ luminans og kontrast. Egen kopi, jf. filejerskabet:
+    // denne del maa ikke importere fra fund/.
+    const kanal = (c) => { const v = c / 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    const lum = (h) => {
+      const [r, g, b] = [1, 3, 5].map((i) => kanal(parseInt(h.slice(i, i + 2), 16)));
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    };
+    const kontrast = (a, b) => {
+      const [x, y] = [lum(a), lum(b)];
+      return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+    };
+    const vis = (n) => n.toFixed(2).replace('.', ',');
+    /** Foelg en egenskab i en CSS-blok til sin hex gennem var()-kaeden. */
+    const farveI = (blok, egenskab) => {
+      if (!blok) return null;
+      const m = blok.match(new RegExp(`${egenskab}:[^;]*?var\\((--[a-z0-9-]+)\\)`));
+      if (!m || !raa.has(m[1])) return null;
+      const h = loes(raa.get(m[1])[0]).toUpperCase();
+      return /^#[0-9A-F]{6}$/.test(h) ? h : null;
+    };
+
+    const KANT = farveI(regel && regel[1], 'border');
+    const FYLD = farveI(regel && regel[1], 'background');
+    const TEKST = farveI(regel && regel[1], 'color');
+    const MKANT = farveI(maerke && maerke[1], 'border');
+    const BUND = raa.get('--bund') ? loes(raa.get('--bund')[0]).toUpperCase() : null;
+
+    // Kontrol mod et gaaet-i-stykker apparat: et kendt tal, der ikke aendrer
+    // sig med nogen af de poletter, R8 roerte. Falder den, er det regnestykket
+    // og ikke designet, der er galt - og de to naeste tal maa ikke bruges.
+    ok('59.20b (kontrol): apparatet regner --blaek3 #5F686F PAA --bund #E8EBED til 4,74',
+      vis(kontrast('#5F686F', '#E8EBED')) === '4,74',
+      `fandt ${vis(kontrast('#5F686F', '#E8EBED'))} - kontrasteregningen selv er i stykker`);
+
+    const alleFundet = KANT && FYLD && TEKST && MKANT && BUND;
+    if (!alleFundet) {
+      ok('59.21+59.22: farverne kunne laeses ud af .v-ikke-reglen', false,
+        `kant=${KANT} fyld=${FYLD} tekst=${TEKST} mrk-kant=${MKANT} bund=${BUND}`);
+    } else {
+      const kb = kontrast(KANT, BUND), kf = kontrast(KANT, FYLD), km = kontrast(MKANT, FYLD);
+      ok(`59.21: .v-ikke's baerende KANT >= 3,00 mod begge naboer (WCAG 1.4.11). I dag ${vis(kb)} / ${vis(kf)}`,
+        kb >= 3 && kf >= 3 && km >= 3,
+        `KANTEN ${KANT} paa BUNDEN ${BUND}: ${vis(kb)} (krav 3,00) · KANTEN paa FYLDET ${FYLD}: ${vis(kf)} `
+        + `· 9x9-firkantens KANT ${MKANT} paa FYLDET: ${vis(km)}`);
+
+      const tf = kontrast(TEKST, FYLD);
+      ok(`59.22: .v-ikke's TEKST >= 4,50 mod sit EGET FYLD (WCAG 1.4.3). I dag ${vis(tf)}`,
+        tf >= 4.5,
+        `TEKSTEN ${TEKST} paa FYLDET ${FYLD}: ${vis(tf)} (krav 4,50). Marginen er lille med vilje - `
+        + 'et fyld, moerkt nok til at baere tilstanden selv, goer ordet ulaeseligt. Se fund/FUND-tomstat.md.');
+    }
+
+    // De to strukturelle laase beholdes ved siden af kontrasttallene: en
+    // kontrast kan holde, mens polethierarkiet skrider (fx en literal hex
+    // skrevet direkte i reglen), og saa er systemet gaaet i stykker, selv om
+    // tallet er groent.
     const baerer = (blok) => !!blok && /border:[^;]*var\(--hegn-baerende\)/.test(blok);
-    ok('59.21: .v-ikke og .v-ikke .mrk bruger var(--hegn-baerende), ikke var(--hegn)',
+    ok('59.23: .v-ikke og .v-ikke .mrk bruger var(--hegn-baerende), ikke var(--hegn)',
       baerer(regel && regel[1]) && baerer(maerke && maerke[1]),
       `.v-ikke: ${regel ? regel[1].slice(0, 90) : 'reglen findes ikke'} | .mrk: ${maerke ? maerke[1] : 'findes ikke'}`);
 
     const kant = raa.get('--hegn-baerende') ? loes(raa.get('--hegn-baerende')[0]).toUpperCase() : null;
-    ok('59.22: --hegn-baerende findes og loeser op til #737F87 (3,43 : 1 for KANTEN paa BUNDEN #E8EBED)',
+    ok('59.24: --hegn-baerende findes og loeser op til #737F87',
       kant === '#737F87', `fandt ${kant}`);
   }
 }
